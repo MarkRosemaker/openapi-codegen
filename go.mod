@@ -6,7 +6,7 @@ require (
 	github.com/MarkRosemaker/fsutil v0.0.0-20260811161722-f2d2b761db17
 	github.com/MarkRosemaker/jsonutil v0.0.0-20260822121424-820b30d4cb47
 	github.com/MarkRosemaker/openapi v0.0.0-20260824220141-39020beab076
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20260825131008-f78d5171a7ca
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20260825222001-c4cd92f5cea6
 	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260825160830-c495352ed663
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260825130739-b5b6ef5e16d7
 	github.com/MarkRosemaker/ordmap v0.0.0-20260824220120-9c8900dd7193
@@ -28,7 +28,7 @@ require (
 	github.com/MarkRosemaker/yaml2json v0.0.0-20260820194543-4c959435803e // indirect
 	github.com/go-api-libs/types v0.0.0-20260821232109-0cf45378823e // indirect
 	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
-	golang.org/x/mod v0.40.0 // indirect
+	golang.org/x/mod v0.39.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/text v0.41.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

@@ -20,7 +20,7 @@ github.com/MarkRosemaker/openapi
 # github.com/MarkRosemaker/openapi-compare v0.0.0-20260824220227-96aa2a51f115
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compare/schema
-# github.com/MarkRosemaker/openapi-compress v0.0.0-20260825131008-f78d5171a7ca
+# github.com/MarkRosemaker/openapi-compress v0.0.0-20260825222001-c4cd92f5cea6
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compress
 # github.com/MarkRosemaker/openapi-edit v0.0.0-20260824220228-fbdc202814fd
@@ -62,7 +62,7 @@ github.com/spf13/afero/mem
 # golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa
 ## explicit; go 1.26.0
 golang.org/x/exp/maps
-# golang.org/x/mod v0.40.0
+# golang.org/x/mod v0.39.0
 ## explicit; go 1.25.0
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/module
