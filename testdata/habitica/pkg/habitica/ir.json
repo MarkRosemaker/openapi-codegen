@@ -1,0 +1,6978 @@
+{
+	"title": "Habitica API",
+	"production": true,
+	"packageName": "habitica",
+	"baseURL": {
+		"scheme": "https",
+		"host": "habitica.com",
+		"path": "/api/v3"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "ListApiv3TasksUser",
+			"method": "GET",
+			"pathTemplate": "/tasks/user",
+			"joinPathArgs": [
+				"\"tasks\"",
+				"\"user\""
+			],
+			"headerParams": [
+				{
+					"varName": "params.XAPIUser",
+					"goName": "xAPIUser",
+					"fieldName": "XAPIUser",
+					"jsonName": "X-Api-User",
+					"type": "uuid.UUID",
+					"required": true,
+					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListApiv3TasksUserParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListApiv3TasksUserOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListApiv3TasksUserOkJSONResponse"
+			}
+		},
+		{
+			"name": "GetApiv3TaskByTaskID",
+			"method": "GET",
+			"pathTemplate": "/tasks/{taskId}",
+			"joinPathArgs": [
+				"\"tasks\"",
+				"taskID"
+			],
+			"pathParams": [
+				{
+					"varName": "taskID",
+					"goName": "taskID",
+					"fieldName": "TaskID",
+					"jsonName": "taskId",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"headerParams": [
+				{
+					"varName": "params.XAPIUser",
+					"goName": "xAPIUser",
+					"fieldName": "XAPIUser",
+					"jsonName": "X-Api-User",
+					"type": "uuid.UUID",
+					"required": true,
+					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetApiv3TaskByTaskIDParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "GetApiv3TaskByTaskIDOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "GetApiv3TaskByTaskIDOkJSONResponse"
+			}
+		},
+		{
+			"name": "ListApiv3User",
+			"method": "GET",
+			"pathTemplate": "/user",
+			"joinPathArgs": [
+				"\"user\""
+			],
+			"headerParams": [
+				{
+					"varName": "params.XAPIUser",
+					"goName": "xAPIUser",
+					"fieldName": "XAPIUser",
+					"jsonName": "X-Api-User",
+					"type": "uuid.UUID",
+					"required": true,
+					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListApiv3UserParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListApiv3UserOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListApiv3UserOkJSONResponse"
+			}
+		},
+		{
+			"name": "PostApiv3TaskScoreUp",
+			"method": "POST",
+			"pathTemplate": "/tasks/{taskId}/score/up",
+			"joinPathArgs": [
+				"\"tasks\"",
+				"taskID",
+				"\"score\"",
+				"\"up\""
+			],
+			"pathParams": [
+				{
+					"varName": "taskID",
+					"goName": "taskID",
+					"fieldName": "TaskID",
+					"jsonName": "taskId",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"headerParams": [
+				{
+					"varName": "params.XAPIUser",
+					"goName": "xAPIUser",
+					"fieldName": "XAPIUser",
+					"jsonName": "X-Api-User",
+					"type": "uuid.UUID",
+					"required": true,
+					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "PostApiv3TaskScoreUpParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PostApiv3TaskScoreUpOkJSONResponse"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "Not Found",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PostApiv3TaskScoreUpNotFoundJSONResponse"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "PostApiv3TaskScoreUpOkJSONResponse"
+			}
+		}
+	],
+	"globalParams": [
+		{
+			"globalType": "APIKey",
+			"varName": "apiKey",
+			"envName": "API_KEY",
+			"goName": "xAPIKey",
+			"fieldName": "XAPIKey",
+			"jsonName": "X-Api-Key",
+			"type": "uuid.UUID",
+			"required": true,
+			"parseExpr": "uuid.Parse(s)"
+		},
+		{
+			"globalType": "Client",
+			"varName": "client",
+			"goName": "xClient",
+			"fieldName": "XClient",
+			"jsonName": "X-Client",
+			"type": "string",
+			"required": true,
+			"parseExpr": "s",
+			"parseErrFree": true
+		}
+	],
+	"schemas": [
+		{
+			"name": "ApivTaskByTaskIDDataGroup",
+			"description": "ApivTaskByTaskIDDataGroup defines a model",
+			"fields": [
+				{
+					"name": "AssignedUsers",
+					"jsonName": "assignedUsers",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"assignedUsers,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Approval",
+					"jsonName": "approval",
+					"type": "ApivTaskByTaskIDDataGroupApproval",
+					"jsonTag": "json:\"approval\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ApivTaskByTaskIDDataGroupApproval",
+			"description": "ApivTaskByTaskIDDataGroupApproval defines a model",
+			"fields": [
+				{
+					"name": "Required",
+					"jsonName": "required",
+					"type": "bool",
+					"jsonTag": "json:\"required,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Approved",
+					"jsonName": "approved",
+					"type": "bool",
+					"jsonTag": "json:\"approved,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Requested",
+					"jsonName": "requested",
+					"type": "bool",
+					"jsonTag": "json:\"requested,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetApiv3TaskByTaskIDOkJSONResponse",
+			"description": "GetApiv3TaskByTaskIDOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Data",
+					"jsonName": "data",
+					"type": "GetApiv3TaskByTaskIDOkJSONResponseData",
+					"jsonTag": "json:\"data\"",
+					"required": true
+				},
+				{
+					"name": "Notifications",
+					"jsonName": "notifications",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"notifications,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetApiv3TaskByTaskIDOkJSONResponseData",
+			"description": "GetApiv3TaskByTaskIDOkJSONResponseData defines a model",
+			"fields": [
+				{
+					"name": "UnderscoreID",
+					"jsonName": "_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UserID",
+					"jsonName": "userId",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"userId,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "string",
+					"jsonTag": "json:\"text,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Alias",
+					"jsonName": "alias",
+					"type": "string",
+					"jsonTag": "json:\"alias,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Notes",
+					"jsonName": "notes",
+					"type": "string",
+					"jsonTag": "json:\"notes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Tags",
+					"jsonName": "tags",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"tags,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
+					"required": true
+				},
+				{
+					"name": "Priority",
+					"jsonName": "priority",
+					"type": "float64",
+					"jsonTag": "json:\"priority\"",
+					"required": true
+				},
+				{
+					"name": "Attribute",
+					"jsonName": "attribute",
+					"type": "string",
+					"jsonTag": "json:\"attribute,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Challenge",
+					"jsonName": "challenge",
+					"type": "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge",
+					"jsonTag": "json:\"challenge\"",
+					"required": true
+				},
+				{
+					"name": "Group",
+					"jsonName": "group",
+					"type": "ApivTaskByTaskIDDataGroup",
+					"jsonTag": "json:\"group\"",
+					"required": true
+				},
+				{
+					"name": "Reminders",
+					"jsonName": "reminders",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"reminders,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "createdAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"createdAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UpdatedAt",
+					"jsonName": "updatedAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "History",
+					"jsonName": "history",
+					"type": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory",
+					"jsonTag": "json:\"history,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Down",
+					"jsonName": "down",
+					"type": "bool",
+					"jsonTag": "json:\"down,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Up",
+					"jsonName": "up",
+					"type": "bool",
+					"jsonTag": "json:\"up,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge",
+			"description": "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge defines a model",
+			"fields": [
+				{
+					"name": "TaskID",
+					"jsonName": "taskId",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"taskId,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory",
+			"description": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory defines a model",
+			"kind": 2,
+			"type": "[]GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem"
+		},
+		{
+			"name": "GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem",
+			"description": "GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem defines a model",
+			"fields": [
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
+					"required": true
+				},
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "int",
+					"jsonTag": "json:\"date,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3TasksUserOkJSONResponse",
+			"description": "ListApiv3TasksUserOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Data",
+					"jsonName": "data",
+					"type": "ListApiv3TasksUserOkJSONResponseData",
+					"jsonTag": "json:\"data,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Notifications",
+					"jsonName": "notifications",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"notifications,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3TasksUserOkJSONResponseData",
+			"description": "ListApiv3TasksUserOkJSONResponseData defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3TasksUserOkJSONResponseDataItem"
+		},
+		{
+			"name": "ListApiv3TasksUserOkJSONResponseDataItem",
+			"description": "ListApiv3TasksUserOkJSONResponseDataItem defines a model",
+			"fields": [
+				{
+					"name": "UnderscoreID",
+					"jsonName": "_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UserID",
+					"jsonName": "userId",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"userId,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "string",
+					"jsonTag": "json:\"text,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Notes",
+					"jsonName": "notes",
+					"type": "string",
+					"jsonTag": "json:\"notes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Tags",
+					"jsonName": "tags",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"tags,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "int",
+					"jsonTag": "json:\"value,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Priority",
+					"jsonName": "priority",
+					"type": "int",
+					"jsonTag": "json:\"priority,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Attribute",
+					"jsonName": "attribute",
+					"type": "string",
+					"jsonTag": "json:\"attribute,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Challenge",
+					"jsonName": "challenge",
+					"type": "struct{}",
+					"jsonTag": "json:\"challenge\"",
+					"required": true
+				},
+				{
+					"name": "Group",
+					"jsonName": "group",
+					"type": "ApivTaskByTaskIDDataGroup",
+					"jsonTag": "json:\"group\"",
+					"required": true
+				},
+				{
+					"name": "Reminders",
+					"jsonName": "reminders",
+					"type": "ListApiv3TasksUserOkJSONResponseDataItemReminders",
+					"jsonTag": "json:\"reminders,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "createdAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"createdAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UpdatedAt",
+					"jsonName": "updatedAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Alias",
+					"jsonName": "alias",
+					"type": "string",
+					"jsonTag": "json:\"alias,omitzero\""
+				},
+				{
+					"name": "Checklist",
+					"jsonName": "checklist",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"checklist,omitempty\""
+				},
+				{
+					"name": "CollapseChecklist",
+					"jsonName": "collapseChecklist",
+					"type": "bool",
+					"jsonTag": "json:\"collapseChecklist,omitempty\""
+				},
+				{
+					"name": "Completed",
+					"jsonName": "completed",
+					"type": "bool",
+					"jsonTag": "json:\"completed,omitempty\""
+				},
+				{
+					"name": "History",
+					"jsonName": "history",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"history,omitempty\""
+				},
+				{
+					"name": "Streak",
+					"jsonName": "streak",
+					"type": "*int",
+					"jsonTag": "json:\"streak,omitempty\""
+				},
+				{
+					"name": "Repeat",
+					"jsonName": "repeat",
+					"type": "*ListApiv3TasksUserOkJSONResponseDataItemRepeat",
+					"jsonTag": "json:\"repeat,omitempty\""
+				},
+				{
+					"name": "StartDate",
+					"jsonName": "startDate",
+					"type": "time.Time",
+					"jsonTag": "json:\"startDate,omitempty\""
+				},
+				{
+					"name": "EveryX",
+					"jsonName": "everyX",
+					"type": "*int",
+					"jsonTag": "json:\"everyX,omitempty\""
+				},
+				{
+					"name": "Frequency",
+					"jsonName": "frequency",
+					"type": "string",
+					"jsonTag": "json:\"frequency,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "ListApiv3TasksUserOkJSONResponseDataItemReminders",
+			"description": "ListApiv3TasksUserOkJSONResponseDataItemReminders defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3TasksUserOkJSONResponseDataItemRemindersItem"
+		},
+		{
+			"name": "ListApiv3TasksUserOkJSONResponseDataItemRemindersItem",
+			"description": "ListApiv3TasksUserOkJSONResponseDataItemRemindersItem defines a model",
+			"fields": [
+				{
+					"name": "Time",
+					"jsonName": "time",
+					"type": "time.Time",
+					"jsonTag": "json:\"time,omitempty\""
+				},
+				{
+					"name": "StartDate",
+					"jsonName": "startDate",
+					"type": "time.Time",
+					"jsonTag": "json:\"startDate,omitempty\""
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "*uuid.UUID",
+					"jsonTag": "json:\"id,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "ListApiv3TasksUserOkJSONResponseDataItemRepeat",
+			"description": "ListApiv3TasksUserOkJSONResponseDataItemRepeat defines a model",
+			"fields": [
+				{
+					"name": "Su",
+					"jsonName": "su",
+					"type": "bool",
+					"jsonTag": "json:\"su,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "S",
+					"jsonName": "s",
+					"type": "bool",
+					"jsonTag": "json:\"s,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "F",
+					"jsonName": "f",
+					"type": "bool",
+					"jsonTag": "json:\"f,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Th",
+					"jsonName": "th",
+					"type": "bool",
+					"jsonTag": "json:\"th,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "W",
+					"jsonName": "w",
+					"type": "bool",
+					"jsonTag": "json:\"w,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "T",
+					"jsonName": "t",
+					"type": "bool",
+					"jsonTag": "json:\"t,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "M",
+					"jsonName": "m",
+					"type": "bool",
+					"jsonTag": "json:\"m,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponse",
+			"description": "ListApiv3UserOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Data",
+					"jsonName": "data",
+					"type": "ListApiv3UserOkJSONResponseData",
+					"jsonTag": "json:\"data\"",
+					"required": true
+				},
+				{
+					"name": "Notifications",
+					"jsonName": "notifications",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"notifications,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "UserV",
+					"jsonName": "userV",
+					"type": "int",
+					"jsonTag": "json:\"userV,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AppVersion",
+					"jsonName": "appVersion",
+					"type": "string",
+					"jsonTag": "json:\"appVersion,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseData",
+			"description": "ListApiv3UserOkJSONResponseData defines a model",
+			"fields": [
+				{
+					"name": "Auth",
+					"jsonName": "auth",
+					"type": "ListApiv3UserOkJSONResponseDataAuth",
+					"jsonTag": "json:\"auth\"",
+					"required": true
+				},
+				{
+					"name": "Achievements",
+					"jsonName": "achievements",
+					"type": "ListApiv3UserOkJSONResponseDataAchievements",
+					"jsonTag": "json:\"achievements\"",
+					"required": true
+				},
+				{
+					"name": "Backer",
+					"jsonName": "backer",
+					"type": "struct{}",
+					"jsonTag": "json:\"backer\"",
+					"required": true
+				},
+				{
+					"name": "Contributor",
+					"jsonName": "contributor",
+					"type": "struct{}",
+					"jsonTag": "json:\"contributor\"",
+					"required": true
+				},
+				{
+					"name": "Permissions",
+					"jsonName": "permissions",
+					"type": "struct{}",
+					"jsonTag": "json:\"permissions\"",
+					"required": true
+				},
+				{
+					"name": "Purchased",
+					"jsonName": "purchased",
+					"type": "ListApiv3UserOkJSONResponseDataPurchased",
+					"jsonTag": "json:\"purchased\"",
+					"required": true
+				},
+				{
+					"name": "Flags",
+					"jsonName": "flags",
+					"type": "ListApiv3UserOkJSONResponseDataFlags",
+					"jsonTag": "json:\"flags\"",
+					"required": true
+				},
+				{
+					"name": "History",
+					"jsonName": "history",
+					"type": "ListApiv3UserOkJSONResponseDataHistory",
+					"jsonTag": "json:\"history\"",
+					"required": true
+				},
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "ListApiv3UserOkJSONResponseDataItems",
+					"jsonTag": "json:\"items\"",
+					"required": true
+				},
+				{
+					"name": "Invitations",
+					"jsonName": "invitations",
+					"type": "ListApiv3UserOkJSONResponseDataInvitations",
+					"jsonTag": "json:\"invitations\"",
+					"required": true
+				},
+				{
+					"name": "Party",
+					"jsonName": "party",
+					"type": "ListApiv3UserOkJSONResponseDataParty",
+					"jsonTag": "json:\"party\"",
+					"required": true
+				},
+				{
+					"name": "Preferences",
+					"jsonName": "preferences",
+					"type": "ListApiv3UserOkJSONResponseDataPreferences",
+					"jsonTag": "json:\"preferences\"",
+					"required": true
+				},
+				{
+					"name": "Profile",
+					"jsonName": "profile",
+					"type": "ListApiv3UserOkJSONResponseDataProfile",
+					"jsonTag": "json:\"profile\"",
+					"required": true
+				},
+				{
+					"name": "Stats",
+					"jsonName": "stats",
+					"type": "ListApiv3UserOkJSONResponseDataStats",
+					"jsonTag": "json:\"stats\"",
+					"required": true
+				},
+				{
+					"name": "Inbox",
+					"jsonName": "inbox",
+					"type": "ListApiv3UserOkJSONResponseDataInbox",
+					"jsonTag": "json:\"inbox\"",
+					"required": true
+				},
+				{
+					"name": "TasksOrder",
+					"jsonName": "tasksOrder",
+					"type": "ListApiv3UserOkJSONResponseDataTasksOrder",
+					"jsonTag": "json:\"tasksOrder\"",
+					"required": true
+				},
+				{
+					"name": "UnderscoreID",
+					"jsonName": "_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UnderscoreABtest",
+					"jsonName": "_ABtest",
+					"type": "string",
+					"jsonTag": "json:\"_ABtest,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LoginIncentives",
+					"jsonName": "loginIncentives",
+					"type": "int",
+					"jsonTag": "json:\"loginIncentives,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Webhooks",
+					"jsonName": "webhooks",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"webhooks,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "PushDevices",
+					"jsonName": "pushDevices",
+					"type": "ListApiv3UserOkJSONResponseDataPushDevices",
+					"jsonTag": "json:\"pushDevices,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Extra",
+					"jsonName": "extra",
+					"type": "struct{}",
+					"jsonTag": "json:\"extra\"",
+					"required": true
+				},
+				{
+					"name": "Tags",
+					"jsonName": "tags",
+					"type": "ListApiv3UserOkJSONResponseDataTags",
+					"jsonTag": "json:\"tags,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Notifications",
+					"jsonName": "notifications",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"notifications,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Guilds",
+					"jsonName": "guilds",
+					"type": "[]uuid.UUID",
+					"jsonTag": "json:\"guilds,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Challenges",
+					"jsonName": "challenges",
+					"type": "[]uuid.UUID",
+					"jsonTag": "json:\"challenges,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "NewMessages",
+					"jsonName": "newMessages",
+					"type": "struct{}",
+					"jsonTag": "json:\"newMessages\"",
+					"required": true
+				},
+				{
+					"name": "LastCron",
+					"jsonName": "lastCron",
+					"type": "time.Time",
+					"jsonTag": "json:\"lastCron,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Balance",
+					"jsonName": "balance",
+					"type": "int",
+					"jsonTag": "json:\"balance,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UnderscoreV",
+					"jsonName": "_v",
+					"type": "int",
+					"jsonTag": "json:\"_v,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Migration",
+					"jsonName": "migration",
+					"type": "string",
+					"jsonTag": "json:\"migration,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PinnedItems",
+					"jsonName": "pinnedItems",
+					"type": "ListApiv3UserOkJSONResponseDataPinnedItems",
+					"jsonTag": "json:\"pinnedItems,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "UnpinnedItems",
+					"jsonName": "unpinnedItems",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"unpinnedItems,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "InvitesSent",
+					"jsonName": "invitesSent",
+					"type": "int",
+					"jsonTag": "json:\"invitesSent,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PinnedItemsOrder",
+					"jsonName": "pinnedItemsOrder",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"pinnedItemsOrder,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "UnderscoreSubSignature",
+					"jsonName": "_subSignature",
+					"type": "string",
+					"jsonTag": "json:\"_subSignature,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "NeedsCron",
+					"jsonName": "needsCron",
+					"type": "bool",
+					"jsonTag": "json:\"needsCron,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAchievements",
+			"description": "ListApiv3UserOkJSONResponseDataAchievements defines a model",
+			"fields": [
+				{
+					"name": "UltimateGearSets",
+					"jsonName": "ultimateGearSets",
+					"type": "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets",
+					"jsonTag": "json:\"ultimateGearSets\"",
+					"required": true
+				},
+				{
+					"name": "Perfect",
+					"jsonName": "perfect",
+					"type": "int",
+					"jsonTag": "json:\"perfect,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Quests",
+					"jsonName": "quests",
+					"type": "ListApiv3UserOkJSONResponseDataAchievementsQuests",
+					"jsonTag": "json:\"quests\"",
+					"required": true
+				},
+				{
+					"name": "Challenges",
+					"jsonName": "challenges",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"challenges,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "PartyUp",
+					"jsonName": "partyUp",
+					"type": "bool",
+					"jsonTag": "json:\"partyUp,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PartyOn",
+					"jsonName": "partyOn",
+					"type": "bool",
+					"jsonTag": "json:\"partyOn,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HabitBirthdays",
+					"jsonName": "habitBirthdays",
+					"type": "int",
+					"jsonTag": "json:\"habitBirthdays,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Streak",
+					"jsonName": "streak",
+					"type": "int",
+					"jsonTag": "json:\"streak,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JoinedGuild",
+					"jsonName": "joinedGuild",
+					"type": "bool",
+					"jsonTag": "json:\"joinedGuild,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JoinedChallenge",
+					"jsonName": "joinedChallenge",
+					"type": "bool",
+					"jsonTag": "json:\"joinedChallenge,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HabiticaDays",
+					"jsonName": "habiticaDays",
+					"type": "int",
+					"jsonTag": "json:\"habiticaDays,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedFriend",
+					"jsonName": "invitedFriend",
+					"type": "bool",
+					"jsonTag": "json:\"invitedFriend,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BackToBasics",
+					"jsonName": "backToBasics",
+					"type": "bool",
+					"jsonTag": "json:\"backToBasics,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DustDevil",
+					"jsonName": "dustDevil",
+					"type": "bool",
+					"jsonTag": "json:\"dustDevil,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MonsterMagus",
+					"jsonName": "monsterMagus",
+					"type": "bool",
+					"jsonTag": "json:\"monsterMagus,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CompletedTask",
+					"jsonName": "completedTask",
+					"type": "bool",
+					"jsonTag": "json:\"completedTask,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedTask",
+					"jsonName": "createdTask",
+					"type": "bool",
+					"jsonTag": "json:\"createdTask,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FedPet",
+					"jsonName": "fedPet",
+					"type": "bool",
+					"jsonTag": "json:\"fedPet,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HatchedPet",
+					"jsonName": "hatchedPet",
+					"type": "bool",
+					"jsonTag": "json:\"hatchedPet,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PurchasedEquipment",
+					"jsonName": "purchasedEquipment",
+					"type": "bool",
+					"jsonTag": "json:\"purchasedEquipment,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SeeingRed",
+					"jsonName": "seeingRed",
+					"type": "bool",
+					"jsonTag": "json:\"seeingRed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShadyCustomer",
+					"jsonName": "shadyCustomer",
+					"type": "bool",
+					"jsonTag": "json:\"shadyCustomer,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RoyallyLoyal",
+					"jsonName": "royallyLoyal",
+					"type": "bool",
+					"jsonTag": "json:\"royallyLoyal,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AllYourBase",
+					"jsonName": "allYourBase",
+					"type": "bool",
+					"jsonTag": "json:\"allYourBase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PearlyPro",
+					"jsonName": "pearlyPro",
+					"type": "bool",
+					"jsonTag": "json:\"pearlyPro,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAchievementsQuests",
+			"description": "ListApiv3UserOkJSONResponseDataAchievementsQuests defines a model",
+			"fields": [
+				{
+					"name": "Dustbunnies",
+					"jsonName": "dustbunnies",
+					"type": "int",
+					"jsonTag": "json:\"dustbunnies,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Basilist",
+					"jsonName": "basilist",
+					"type": "int",
+					"jsonTag": "json:\"basilist,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moon1",
+					"jsonName": "moon1",
+					"type": "int",
+					"jsonTag": "json:\"moon1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moon2",
+					"jsonName": "moon2",
+					"type": "int",
+					"jsonTag": "json:\"moon2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Dysheartener",
+					"jsonName": "dysheartener",
+					"type": "int",
+					"jsonTag": "json:\"dysheartener,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moon3",
+					"jsonName": "moon3",
+					"type": "int",
+					"jsonTag": "json:\"moon3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice1",
+					"jsonName": "vice1",
+					"type": "int",
+					"jsonTag": "json:\"vice1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice2",
+					"jsonName": "vice2",
+					"type": "int",
+					"jsonTag": "json:\"vice2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice3",
+					"jsonName": "vice3",
+					"type": "int",
+					"jsonTag": "json:\"vice3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Atom1",
+					"jsonName": "atom1",
+					"type": "int",
+					"jsonTag": "json:\"atom1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Atom2",
+					"jsonName": "atom2",
+					"type": "int",
+					"jsonTag": "json:\"atom2,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets",
+			"description": "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets defines a model",
+			"fields": [
+				{
+					"name": "Warrior",
+					"jsonName": "warrior",
+					"type": "bool",
+					"jsonTag": "json:\"warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Rogue",
+					"jsonName": "rogue",
+					"type": "bool",
+					"jsonTag": "json:\"rogue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Wizard",
+					"jsonName": "wizard",
+					"type": "bool",
+					"jsonTag": "json:\"wizard,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Healer",
+					"jsonName": "healer",
+					"type": "bool",
+					"jsonTag": "json:\"healer,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAuth",
+			"description": "ListApiv3UserOkJSONResponseDataAuth defines a model",
+			"fields": [
+				{
+					"name": "Local",
+					"jsonName": "local",
+					"type": "ListApiv3UserOkJSONResponseDataAuthLocal",
+					"jsonTag": "json:\"local\"",
+					"required": true
+				},
+				{
+					"name": "Timestamps",
+					"jsonName": "timestamps",
+					"type": "ListApiv3UserOkJSONResponseDataAuthTimestamps",
+					"jsonTag": "json:\"timestamps\"",
+					"required": true
+				},
+				{
+					"name": "Google",
+					"jsonName": "google",
+					"type": "ListApiv3UserOkJSONResponseDataAuthGoogle",
+					"jsonTag": "json:\"google\"",
+					"required": true
+				},
+				{
+					"name": "Apple",
+					"jsonName": "apple",
+					"type": "struct{}",
+					"jsonTag": "json:\"apple\"",
+					"required": true
+				},
+				{
+					"name": "Facebook",
+					"jsonName": "facebook",
+					"type": "struct{}",
+					"jsonTag": "json:\"facebook\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAuthGoogle",
+			"description": "ListApiv3UserOkJSONResponseDataAuthGoogle defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Emails",
+					"jsonName": "emails",
+					"type": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails",
+					"jsonTag": "json:\"emails,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails",
+			"description": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem"
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem",
+			"description": "ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem defines a model",
+			"fields": [
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "types.Email",
+					"jsonTag": "json:\"value,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Verified",
+					"jsonName": "verified",
+					"type": "bool",
+					"jsonTag": "json:\"verified,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAuthLocal",
+			"description": "ListApiv3UserOkJSONResponseDataAuthLocal defines a model",
+			"fields": [
+				{
+					"name": "Username",
+					"jsonName": "username",
+					"type": "string",
+					"jsonTag": "json:\"username,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LowerCaseUsername",
+					"jsonName": "lowerCaseUsername",
+					"type": "string",
+					"jsonTag": "json:\"lowerCaseUsername,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Email",
+					"jsonName": "email",
+					"type": "types.Email",
+					"jsonTag": "json:\"email,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HasPassword",
+					"jsonName": "has_password",
+					"type": "bool",
+					"jsonTag": "json:\"has_password,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataAuthTimestamps",
+			"description": "ListApiv3UserOkJSONResponseDataAuthTimestamps defines a model",
+			"fields": [
+				{
+					"name": "Loggedin",
+					"jsonName": "loggedin",
+					"type": "time.Time",
+					"jsonTag": "json:\"loggedin,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Created",
+					"jsonName": "created",
+					"type": "time.Time",
+					"jsonTag": "json:\"created,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Updated",
+					"jsonName": "updated",
+					"type": "time.Time",
+					"jsonTag": "json:\"updated,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataFlags",
+			"description": "ListApiv3UserOkJSONResponseDataFlags defines a model",
+			"fields": [
+				{
+					"name": "Tour",
+					"jsonName": "tour",
+					"type": "ListApiv3UserOkJSONResponseDataFlagsTour",
+					"jsonTag": "json:\"tour\"",
+					"required": true
+				},
+				{
+					"name": "Tutorial",
+					"jsonName": "tutorial",
+					"type": "ListApiv3UserOkJSONResponseDataFlagsTutorial",
+					"jsonTag": "json:\"tutorial\"",
+					"required": true
+				},
+				{
+					"name": "CustomizationsNotification",
+					"jsonName": "customizationsNotification",
+					"type": "bool",
+					"jsonTag": "json:\"customizationsNotification,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShowTour",
+					"jsonName": "showTour",
+					"type": "bool",
+					"jsonTag": "json:\"showTour,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DropsEnabled",
+					"jsonName": "dropsEnabled",
+					"type": "bool",
+					"jsonTag": "json:\"dropsEnabled,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ItemsEnabled",
+					"jsonName": "itemsEnabled",
+					"type": "bool",
+					"jsonTag": "json:\"itemsEnabled,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LastNewStuffRead",
+					"jsonName": "lastNewStuffRead",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"lastNewStuffRead,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Rewrite",
+					"jsonName": "rewrite",
+					"type": "bool",
+					"jsonTag": "json:\"rewrite,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ClassSelected",
+					"jsonName": "classSelected",
+					"type": "bool",
+					"jsonTag": "json:\"classSelected,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RebirthEnabled",
+					"jsonName": "rebirthEnabled",
+					"type": "bool",
+					"jsonTag": "json:\"rebirthEnabled,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RecaptureEmailsPhase",
+					"jsonName": "recaptureEmailsPhase",
+					"type": "int",
+					"jsonTag": "json:\"recaptureEmailsPhase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeeklyRecapEmailsPhase",
+					"jsonName": "weeklyRecapEmailsPhase",
+					"type": "int",
+					"jsonTag": "json:\"weeklyRecapEmailsPhase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CommunityGuidelinesAccepted",
+					"jsonName": "communityGuidelinesAccepted",
+					"type": "bool",
+					"jsonTag": "json:\"communityGuidelinesAccepted,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CronCount",
+					"jsonName": "cronCount",
+					"type": "int",
+					"jsonTag": "json:\"cronCount,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Welcomed",
+					"jsonName": "welcomed",
+					"type": "bool",
+					"jsonTag": "json:\"welcomed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmoireEnabled",
+					"jsonName": "armoireEnabled",
+					"type": "bool",
+					"jsonTag": "json:\"armoireEnabled,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmoireOpened",
+					"jsonName": "armoireOpened",
+					"type": "bool",
+					"jsonTag": "json:\"armoireOpened,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmoireEmpty",
+					"jsonName": "armoireEmpty",
+					"type": "bool",
+					"jsonTag": "json:\"armoireEmpty,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CardReceived",
+					"jsonName": "cardReceived",
+					"type": "bool",
+					"jsonTag": "json:\"cardReceived,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WarnedLowHealth",
+					"jsonName": "warnedLowHealth",
+					"type": "bool",
+					"jsonTag": "json:\"warnedLowHealth,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "VerifiedUsername",
+					"jsonName": "verifiedUsername",
+					"type": "bool",
+					"jsonTag": "json:\"verifiedUsername,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LevelDrops",
+					"jsonName": "levelDrops",
+					"type": "ListApiv3UserOkJSONResponseDataFlagsLevelDrops",
+					"jsonTag": "json:\"levelDrops\"",
+					"required": true
+				},
+				{
+					"name": "LastWeeklyRecap",
+					"jsonName": "lastWeeklyRecap",
+					"type": "time.Time",
+					"jsonTag": "json:\"lastWeeklyRecap,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InitializedUserHistory",
+					"jsonName": "initializedUserHistory",
+					"type": "bool",
+					"jsonTag": "json:\"initializedUserHistory,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ThirdPartyTools",
+					"jsonName": "thirdPartyTools",
+					"type": "time.Time",
+					"jsonTag": "json:\"thirdPartyTools,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "NewStuff",
+					"jsonName": "newStuff",
+					"type": "bool",
+					"jsonTag": "json:\"newStuff,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataFlagsLevelDrops",
+			"description": "ListApiv3UserOkJSONResponseDataFlagsLevelDrops defines a model",
+			"fields": [
+				{
+					"name": "Atom1",
+					"jsonName": "atom1",
+					"type": "bool",
+					"jsonTag": "json:\"atom1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice1",
+					"jsonName": "vice1",
+					"type": "bool",
+					"jsonTag": "json:\"vice1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Goldenknight1",
+					"jsonName": "goldenknight1",
+					"type": "bool",
+					"jsonTag": "json:\"goldenknight1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moonstone1",
+					"jsonName": "moonstone1",
+					"type": "bool",
+					"jsonTag": "json:\"moonstone1,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataFlagsTour",
+			"description": "ListApiv3UserOkJSONResponseDataFlagsTour defines a model",
+			"fields": [
+				{
+					"name": "Intro",
+					"jsonName": "intro",
+					"type": "int",
+					"jsonTag": "json:\"intro,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Classes",
+					"jsonName": "classes",
+					"type": "int",
+					"jsonTag": "json:\"classes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Stats",
+					"jsonName": "stats",
+					"type": "int",
+					"jsonTag": "json:\"stats,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Tavern",
+					"jsonName": "tavern",
+					"type": "int",
+					"jsonTag": "json:\"tavern,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Party",
+					"jsonName": "party",
+					"type": "int",
+					"jsonTag": "json:\"party,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Guilds",
+					"jsonName": "guilds",
+					"type": "int",
+					"jsonTag": "json:\"guilds,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Challenges",
+					"jsonName": "challenges",
+					"type": "int",
+					"jsonTag": "json:\"challenges,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Market",
+					"jsonName": "market",
+					"type": "int",
+					"jsonTag": "json:\"market,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Pets",
+					"jsonName": "pets",
+					"type": "int",
+					"jsonTag": "json:\"pets,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Mounts",
+					"jsonName": "mounts",
+					"type": "int",
+					"jsonTag": "json:\"mounts,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Hall",
+					"jsonName": "hall",
+					"type": "int",
+					"jsonTag": "json:\"hall,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Equipment",
+					"jsonName": "equipment",
+					"type": "int",
+					"jsonTag": "json:\"equipment,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GroupPlans",
+					"jsonName": "groupPlans",
+					"type": "int",
+					"jsonTag": "json:\"groupPlans,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataFlagsTutorial",
+			"description": "ListApiv3UserOkJSONResponseDataFlagsTutorial defines a model",
+			"fields": [
+				{
+					"name": "Common",
+					"jsonName": "common",
+					"type": "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon",
+					"jsonTag": "json:\"common\"",
+					"required": true
+				},
+				{
+					"name": "Ios",
+					"jsonName": "ios",
+					"type": "ListApiv3UserOkJSONResponseDataFlagsTutorialIos",
+					"jsonTag": "json:\"ios\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon",
+			"description": "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon defines a model",
+			"fields": [
+				{
+					"name": "Habits",
+					"jsonName": "habits",
+					"type": "bool",
+					"jsonTag": "json:\"habits,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Dailies",
+					"jsonName": "dailies",
+					"type": "bool",
+					"jsonTag": "json:\"dailies,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Todos",
+					"jsonName": "todos",
+					"type": "bool",
+					"jsonTag": "json:\"todos,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Rewards",
+					"jsonName": "rewards",
+					"type": "bool",
+					"jsonTag": "json:\"rewards,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Party",
+					"jsonName": "party",
+					"type": "bool",
+					"jsonTag": "json:\"party,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Pets",
+					"jsonName": "pets",
+					"type": "bool",
+					"jsonTag": "json:\"pets,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Gems",
+					"jsonName": "gems",
+					"type": "bool",
+					"jsonTag": "json:\"gems,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Skills",
+					"jsonName": "skills",
+					"type": "bool",
+					"jsonTag": "json:\"skills,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Classes",
+					"jsonName": "classes",
+					"type": "bool",
+					"jsonTag": "json:\"classes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Tavern",
+					"jsonName": "tavern",
+					"type": "bool",
+					"jsonTag": "json:\"tavern,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Equipment",
+					"jsonName": "equipment",
+					"type": "bool",
+					"jsonTag": "json:\"equipment,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "bool",
+					"jsonTag": "json:\"items,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Mounts",
+					"jsonName": "mounts",
+					"type": "bool",
+					"jsonTag": "json:\"mounts,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Inbox",
+					"jsonName": "inbox",
+					"type": "bool",
+					"jsonTag": "json:\"inbox,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Stats",
+					"jsonName": "stats",
+					"type": "bool",
+					"jsonTag": "json:\"stats,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataFlagsTutorialIos",
+			"description": "ListApiv3UserOkJSONResponseDataFlagsTutorialIos defines a model",
+			"fields": [
+				{
+					"name": "AddTask",
+					"jsonName": "addTask",
+					"type": "bool",
+					"jsonTag": "json:\"addTask,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EditTask",
+					"jsonName": "editTask",
+					"type": "bool",
+					"jsonTag": "json:\"editTask,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DeleteTask",
+					"jsonName": "deleteTask",
+					"type": "bool",
+					"jsonTag": "json:\"deleteTask,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FilterTask",
+					"jsonName": "filterTask",
+					"type": "bool",
+					"jsonTag": "json:\"filterTask,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GroupPets",
+					"jsonName": "groupPets",
+					"type": "bool",
+					"jsonTag": "json:\"groupPets,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InviteParty",
+					"jsonName": "inviteParty",
+					"type": "bool",
+					"jsonTag": "json:\"inviteParty,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ReorderTask",
+					"jsonName": "reorderTask",
+					"type": "bool",
+					"jsonTag": "json:\"reorderTask,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataHistory",
+			"description": "ListApiv3UserOkJSONResponseDataHistory defines a model",
+			"fields": [
+				{
+					"name": "Todos",
+					"jsonName": "todos",
+					"type": "ListApivUserDataHistoryExp",
+					"jsonTag": "json:\"todos,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Exp",
+					"jsonName": "exp",
+					"type": "ListApivUserDataHistoryExp",
+					"jsonTag": "json:\"exp,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataInbox",
+			"description": "ListApiv3UserOkJSONResponseDataInbox defines a model",
+			"fields": [
+				{
+					"name": "OptOut",
+					"jsonName": "optOut",
+					"type": "bool",
+					"jsonTag": "json:\"optOut,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Messages",
+					"jsonName": "messages",
+					"type": "ListApiv3UserOkJSONResponseDataInboxMessages",
+					"jsonTag": "json:\"messages\"",
+					"required": true
+				},
+				{
+					"name": "Blocks",
+					"jsonName": "blocks",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"blocks,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "NewMessages",
+					"jsonName": "newMessages",
+					"type": "int",
+					"jsonTag": "json:\"newMessages,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataInboxMessages",
+			"description": "ListApiv3UserOkJSONResponseDataInboxMessages defines a model",
+			"fields": [
+				{
+					"name": "EightSixThreeSixThreeB9cF1c4400787f9607d399af305",
+					"jsonName": "86363b9c-f1c4-4007-87f9-607d399af305",
+					"type": "ListApivUserDataInboxMessagesfeffAcddbf",
+					"jsonTag": "json:\"86363b9c-f1c4-4007-87f9-607d399af305\"",
+					"required": true
+				},
+				{
+					"name": "EightThreeBe6b884fd2494c8f9b0bb22d2ff6cf",
+					"jsonName": "83be6b88-4fd2-494c-8f9b-0bb22d2ff6cf",
+					"type": "ListApivUserDataInboxMessagesfeffAcddbf",
+					"jsonTag": "json:\"83be6b88-4fd2-494c-8f9b-0bb22d2ff6cf\"",
+					"required": true
+				},
+				{
+					"name": "Da886215C4f446498be8Da7535a5e3dc",
+					"jsonName": "da886215-c4f4-4649-8be8-da7535a5e3dc",
+					"type": "ListApivUserDataInboxMessagesfeffAcddbf",
+					"jsonTag": "json:\"da886215-c4f4-4649-8be8-da7535a5e3dc\"",
+					"required": true
+				},
+				{
+					"name": "A891481d84e64bb597283948867ad46e",
+					"jsonName": "a891481d-84e6-4bb5-9728-3948867ad46e",
+					"type": "ListApivUserDataInboxMessagesfeffAcddbf",
+					"jsonTag": "json:\"a891481d-84e6-4bb5-9728-3948867ad46e\"",
+					"required": true
+				},
+				{
+					"name": "ZeroSixEightFe676885443ffA0cd673d7b766f01",
+					"jsonName": "068fe676-8854-43ff-a0cd-673d7b766f01",
+					"type": "ListApivUserDataInboxMessagesfeffAcddbf",
+					"jsonTag": "json:\"068fe676-8854-43ff-a0cd-673d7b766f01\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataInvitations",
+			"description": "ListApiv3UserOkJSONResponseDataInvitations defines a model",
+			"fields": [
+				{
+					"name": "Party",
+					"jsonName": "party",
+					"type": "struct{}",
+					"jsonTag": "json:\"party\"",
+					"required": true
+				},
+				{
+					"name": "Guilds",
+					"jsonName": "guilds",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"guilds,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Parties",
+					"jsonName": "parties",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"parties,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItems",
+			"description": "ListApiv3UserOkJSONResponseDataItems defines a model",
+			"fields": [
+				{
+					"name": "Gear",
+					"jsonName": "gear",
+					"type": "ListApiv3UserOkJSONResponseDataItemsGear",
+					"jsonTag": "json:\"gear\"",
+					"required": true
+				},
+				{
+					"name": "Special",
+					"jsonName": "special",
+					"type": "ListApiv3UserOkJSONResponseDataItemsSpecial",
+					"jsonTag": "json:\"special\"",
+					"required": true
+				},
+				{
+					"name": "LastDrop",
+					"jsonName": "lastDrop",
+					"type": "ListApiv3UserOkJSONResponseDataItemsLastDrop",
+					"jsonTag": "json:\"lastDrop\"",
+					"required": true
+				},
+				{
+					"name": "Quests",
+					"jsonName": "quests",
+					"type": "ListApiv3UserOkJSONResponseDataItemsQuests",
+					"jsonTag": "json:\"quests\"",
+					"required": true
+				},
+				{
+					"name": "Mounts",
+					"jsonName": "mounts",
+					"type": "ListApiv3UserOkJSONResponseDataItemsMounts",
+					"jsonTag": "json:\"mounts\"",
+					"required": true
+				},
+				{
+					"name": "Food",
+					"jsonName": "food",
+					"type": "ListApiv3UserOkJSONResponseDataItemsFood",
+					"jsonTag": "json:\"food\"",
+					"required": true
+				},
+				{
+					"name": "HatchingPotions",
+					"jsonName": "hatchingPotions",
+					"type": "ListApiv3UserOkJSONResponseDataItemsHatchingPotions",
+					"jsonTag": "json:\"hatchingPotions\"",
+					"required": true
+				},
+				{
+					"name": "Eggs",
+					"jsonName": "eggs",
+					"type": "ListApiv3UserOkJSONResponseDataItemsEggs",
+					"jsonTag": "json:\"eggs\"",
+					"required": true
+				},
+				{
+					"name": "Pets",
+					"jsonName": "pets",
+					"type": "ListApiv3UserOkJSONResponseDataItemsPets",
+					"jsonTag": "json:\"pets\"",
+					"required": true
+				},
+				{
+					"name": "CurrentPet",
+					"jsonName": "currentPet",
+					"type": "string",
+					"jsonTag": "json:\"currentPet,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CurrentMount",
+					"jsonName": "currentMount",
+					"type": "string",
+					"jsonTag": "json:\"currentMount,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsEggs",
+			"description": "ListApiv3UserOkJSONResponseDataItemsEggs defines a model",
+			"fields": [
+				{
+					"name": "Wolf",
+					"jsonName": "Wolf",
+					"type": "int",
+					"jsonTag": "json:\"Wolf,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Cactus",
+					"jsonName": "Cactus",
+					"type": "int",
+					"jsonTag": "json:\"Cactus,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCub",
+					"jsonName": "PandaCub",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Fox",
+					"jsonName": "Fox",
+					"type": "int",
+					"jsonTag": "json:\"Fox,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCub",
+					"jsonName": "BearCub",
+					"type": "int",
+					"jsonTag": "json:\"BearCub,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Dragon",
+					"jsonName": "Dragon",
+					"type": "int",
+					"jsonTag": "json:\"Dragon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCub",
+					"jsonName": "LionCub",
+					"type": "int",
+					"jsonTag": "json:\"LionCub,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPig",
+					"jsonName": "FlyingPig",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCub",
+					"jsonName": "TigerCub",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsFood",
+			"description": "ListApiv3UserOkJSONResponseDataItemsFood defines a model",
+			"fields": [
+				{
+					"name": "Potatoe",
+					"jsonName": "Potatoe",
+					"type": "int",
+					"jsonTag": "json:\"Potatoe,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Chocolate",
+					"jsonName": "Chocolate",
+					"type": "int",
+					"jsonTag": "json:\"Chocolate,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CottonCandyPink",
+					"jsonName": "CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Meat",
+					"jsonName": "Meat",
+					"type": "int",
+					"jsonTag": "json:\"Meat,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CottonCandyBlue",
+					"jsonName": "CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RottenMeat",
+					"jsonName": "RottenMeat",
+					"type": "int",
+					"jsonTag": "json:\"RottenMeat,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeSkeleton",
+					"jsonName": "Cake_Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeBase",
+					"jsonName": "Cake_Base",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeCottonCandyBlue",
+					"jsonName": "Cake_CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Cake_CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeCottonCandyPink",
+					"jsonName": "Cake_CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Cake_CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeShade",
+					"jsonName": "Cake_Shade",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeWhite",
+					"jsonName": "Cake_White",
+					"type": "int",
+					"jsonTag": "json:\"Cake_White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeGolden",
+					"jsonName": "Cake_Golden",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeZombie",
+					"jsonName": "Cake_Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeDesert",
+					"jsonName": "Cake_Desert",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CakeRed",
+					"jsonName": "Cake_Red",
+					"type": "int",
+					"jsonTag": "json:\"Cake_Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Honey",
+					"jsonName": "Honey",
+					"type": "int",
+					"jsonTag": "json:\"Honey,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Strawberry",
+					"jsonName": "Strawberry",
+					"type": "int",
+					"jsonTag": "json:\"Strawberry,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Milk",
+					"jsonName": "Milk",
+					"type": "int",
+					"jsonTag": "json:\"Milk,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Fish",
+					"jsonName": "Fish",
+					"type": "int",
+					"jsonTag": "json:\"Fish,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Saddle",
+					"jsonName": "Saddle",
+					"type": "int",
+					"jsonTag": "json:\"Saddle,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandySkeleton",
+					"jsonName": "Candy_Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyBase",
+					"jsonName": "Candy_Base",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyCottonCandyBlue",
+					"jsonName": "Candy_CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Candy_CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyCottonCandyPink",
+					"jsonName": "Candy_CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Candy_CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyShade",
+					"jsonName": "Candy_Shade",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyWhite",
+					"jsonName": "Candy_White",
+					"type": "int",
+					"jsonTag": "json:\"Candy_White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyGolden",
+					"jsonName": "Candy_Golden",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyZombie",
+					"jsonName": "Candy_Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyDesert",
+					"jsonName": "Candy_Desert",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CandyRed",
+					"jsonName": "Candy_Red",
+					"type": "int",
+					"jsonTag": "json:\"Candy_Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieSkeleton",
+					"jsonName": "Pie_Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieBase",
+					"jsonName": "Pie_Base",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieCottonCandyBlue",
+					"jsonName": "Pie_CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Pie_CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieCottonCandyPink",
+					"jsonName": "Pie_CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Pie_CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieShade",
+					"jsonName": "Pie_Shade",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieWhite",
+					"jsonName": "Pie_White",
+					"type": "int",
+					"jsonTag": "json:\"Pie_White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieGolden",
+					"jsonName": "Pie_Golden",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieZombie",
+					"jsonName": "Pie_Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieDesert",
+					"jsonName": "Pie_Desert",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PieRed",
+					"jsonName": "Pie_Red",
+					"type": "int",
+					"jsonTag": "json:\"Pie_Red,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsGear",
+			"description": "ListApiv3UserOkJSONResponseDataItemsGear defines a model",
+			"fields": [
+				{
+					"name": "Equipped",
+					"jsonName": "equipped",
+					"type": "ListApiv3UserOkJSONResponseDataItemsGearEquipped",
+					"jsonTag": "json:\"equipped\"",
+					"required": true
+				},
+				{
+					"name": "Costume",
+					"jsonName": "costume",
+					"type": "ListApiv3UserOkJSONResponseDataItemsGearCostume",
+					"jsonTag": "json:\"costume\"",
+					"required": true
+				},
+				{
+					"name": "Owned",
+					"jsonName": "owned",
+					"type": "ListApiv3UserOkJSONResponseDataItemsGearOwned",
+					"jsonTag": "json:\"owned\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsGearCostume",
+			"description": "ListApiv3UserOkJSONResponseDataItemsGearCostume defines a model",
+			"fields": [
+				{
+					"name": "Shield",
+					"jsonName": "shield",
+					"type": "string",
+					"jsonTag": "json:\"shield,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Head",
+					"jsonName": "head",
+					"type": "string",
+					"jsonTag": "json:\"head,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Armor",
+					"jsonName": "armor",
+					"type": "string",
+					"jsonTag": "json:\"armor,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsGearEquipped",
+			"description": "ListApiv3UserOkJSONResponseDataItemsGearEquipped defines a model",
+			"fields": [
+				{
+					"name": "Weapon",
+					"jsonName": "weapon",
+					"type": "string",
+					"jsonTag": "json:\"weapon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Armor",
+					"jsonName": "armor",
+					"type": "string",
+					"jsonTag": "json:\"armor,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Head",
+					"jsonName": "head",
+					"type": "string",
+					"jsonTag": "json:\"head,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Shield",
+					"jsonName": "shield",
+					"type": "string",
+					"jsonTag": "json:\"shield,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Back",
+					"jsonName": "back",
+					"type": "string",
+					"jsonTag": "json:\"back,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Eyewear",
+					"jsonName": "eyewear",
+					"type": "string",
+					"jsonTag": "json:\"eyewear,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Body",
+					"jsonName": "body",
+					"type": "string",
+					"jsonTag": "json:\"body,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsGearOwned",
+			"description": "ListApiv3UserOkJSONResponseDataItemsGearOwned defines a model",
+			"fields": [
+				{
+					"name": "EyewearSpecialYellowTopFrame",
+					"jsonName": "eyewear_special_yellowTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_yellowTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialWhiteTopFrame",
+					"jsonName": "eyewear_special_whiteTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_whiteTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialRedTopFrame",
+					"jsonName": "eyewear_special_redTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_redTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialPinkTopFrame",
+					"jsonName": "eyewear_special_pinkTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_pinkTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialGreenTopFrame",
+					"jsonName": "eyewear_special_greenTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_greenTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialBlueTopFrame",
+					"jsonName": "eyewear_special_blueTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_blueTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialBlackTopFrame",
+					"jsonName": "eyewear_special_blackTopFrame",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_blackTopFrame,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBardRobes",
+					"jsonName": "armor_special_bardRobes",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_bardRobes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialBardHat",
+					"jsonName": "head_special_bardHat",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_bardHat,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadWarrior1",
+					"jsonName": "head_warrior_1",
+					"type": "bool",
+					"jsonTag": "json:\"head_warrior_1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior0",
+					"jsonName": "weapon_warrior_0",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_0,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldWarrior1",
+					"jsonName": "shield_warrior_1",
+					"type": "bool",
+					"jsonTag": "json:\"shield_warrior_1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior1",
+					"jsonName": "weapon_warrior_1",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday",
+					"jsonName": "armor_special_birthday",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior2",
+					"jsonName": "weapon_warrior_2",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadWarrior2",
+					"jsonName": "head_warrior_2",
+					"type": "bool",
+					"jsonTag": "json:\"head_warrior_2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialBardInstrument",
+					"jsonName": "weapon_special_bardInstrument",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_bardInstrument,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorWarrior1",
+					"jsonName": "armor_warrior_1",
+					"type": "bool",
+					"jsonTag": "json:\"armor_warrior_1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldWarrior2",
+					"jsonName": "shield_warrior_2",
+					"type": "bool",
+					"jsonTag": "json:\"shield_warrior_2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorWarrior2",
+					"jsonName": "armor_warrior_2",
+					"type": "bool",
+					"jsonTag": "json:\"armor_warrior_2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadWarrior3",
+					"jsonName": "head_warrior_3",
+					"type": "bool",
+					"jsonTag": "json:\"head_warrior_3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialLunarWarriorHelm",
+					"jsonName": "head_special_lunarWarriorHelm",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_lunarWarriorHelm,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialSpring2017Warrior",
+					"jsonName": "shield_special_spring2017Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_spring2017Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior3",
+					"jsonName": "weapon_warrior_3",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialPageArmor",
+					"jsonName": "armor_special_pageArmor",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_pageArmor,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialPageHelm",
+					"jsonName": "head_special_pageHelm",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_pageHelm,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorWarrior3",
+					"jsonName": "armor_warrior_3",
+					"type": "bool",
+					"jsonTag": "json:\"armor_warrior_3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialPageBanner",
+					"jsonName": "weapon_special_pageBanner",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_pageBanner,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialDiamondStave",
+					"jsonName": "shield_special_diamondStave",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_diamondStave,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialLunarWarriorArmor",
+					"jsonName": "armor_special_lunarWarriorArmor",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_lunarWarriorArmor,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponArmoireBasicLongbow",
+					"jsonName": "weapon_armoire_basicLongbow",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_armoire_basicLongbow,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorWarrior4",
+					"jsonName": "armor_warrior_4",
+					"type": "bool",
+					"jsonTag": "json:\"armor_warrior_4,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldWarrior3",
+					"jsonName": "shield_warrior_3",
+					"type": "bool",
+					"jsonTag": "json:\"shield_warrior_3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialLootBag",
+					"jsonName": "shield_special_lootBag",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_lootBag,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialSkeletonKey",
+					"jsonName": "weapon_special_skeletonKey",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_skeletonKey,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye",
+					"jsonName": "head_special_nye",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialSneakthiefRobes",
+					"jsonName": "armor_special_sneakthiefRobes",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_sneakthiefRobes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialClandestineCowl",
+					"jsonName": "head_special_clandestineCowl",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_clandestineCowl,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialWinter2018Warrior",
+					"jsonName": "shield_special_winter2018Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_winter2018Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialSnowSovereignRobes",
+					"jsonName": "armor_special_snowSovereignRobes",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_snowSovereignRobes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialSnowSovereignCrown",
+					"jsonName": "head_special_snowSovereignCrown",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_snowSovereignCrown,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2015",
+					"jsonName": "armor_special_birthday2015",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2015,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BackSpecialSnowdriftVeil",
+					"jsonName": "back_special_snowdriftVeil",
+					"type": "bool",
+					"jsonTag": "json:\"back_special_snowdriftVeil,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialWintryMirror",
+					"jsonName": "shield_special_wintryMirror",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_wintryMirror,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialBlackHeadband",
+					"jsonName": "headAccessory_special_blackHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_blackHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialBlueHeadband",
+					"jsonName": "headAccessory_special_blueHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_blueHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialGreenHeadband",
+					"jsonName": "headAccessory_special_greenHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_greenHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialPinkHeadband",
+					"jsonName": "headAccessory_special_pinkHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_pinkHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialRedHeadband",
+					"jsonName": "headAccessory_special_redHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_redHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialWhiteHeadband",
+					"jsonName": "headAccessory_special_whiteHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_whiteHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadAccessorySpecialYellowHeadband",
+					"jsonName": "headAccessory_special_yellowHeadband",
+					"type": "bool",
+					"jsonTag": "json:\"headAccessory_special_yellowHeadband,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior4",
+					"jsonName": "weapon_warrior_4",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_4,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior5",
+					"jsonName": "weapon_warrior_5",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_5,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadWarrior4",
+					"jsonName": "head_warrior_4",
+					"type": "bool",
+					"jsonTag": "json:\"head_warrior_4,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorWarrior5",
+					"jsonName": "armor_warrior_5",
+					"type": "bool",
+					"jsonTag": "json:\"armor_warrior_5,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldWarrior4",
+					"jsonName": "shield_warrior_4",
+					"type": "bool",
+					"jsonTag": "json:\"shield_warrior_4,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialLunarScythe",
+					"jsonName": "weapon_special_lunarScythe",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_lunarScythe,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2014",
+					"jsonName": "head_special_nye2014",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2014,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialNomadsCuirass",
+					"jsonName": "armor_special_nomadsCuirass",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_nomadsCuirass,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialNomadsScimitar",
+					"jsonName": "weapon_special_nomadsScimitar",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_nomadsScimitar,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadArmoireBigWig",
+					"jsonName": "head_armoire_bigWig",
+					"type": "bool",
+					"jsonTag": "json:\"head_armoire_bigWig,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2016",
+					"jsonName": "armor_special_birthday2016",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2016,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialSpikedHelm",
+					"jsonName": "head_special_spikedHelm",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_spikedHelm,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialPiDay",
+					"jsonName": "head_special_piDay",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_piDay,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialPiDay",
+					"jsonName": "shield_special_piDay",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_piDay,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialBlackHalfMoon",
+					"jsonName": "eyewear_special_blackHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_blackHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialBlueHalfMoon",
+					"jsonName": "eyewear_special_blueHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_blueHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialGreenHalfMoon",
+					"jsonName": "eyewear_special_greenHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_greenHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialPinkHalfMoon",
+					"jsonName": "eyewear_special_pinkHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_pinkHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialRedHalfMoon",
+					"jsonName": "eyewear_special_redHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_redHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialWhiteHalfMoon",
+					"jsonName": "eyewear_special_whiteHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_whiteHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "EyewearSpecialYellowHalfMoon",
+					"jsonName": "eyewear_special_yellowHalfMoon",
+					"type": "bool",
+					"jsonTag": "json:\"eyewear_special_yellowHalfMoon,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNamingDay2017",
+					"jsonName": "head_special_namingDay2017",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_namingDay2017,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2015",
+					"jsonName": "head_special_nye2015",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2015,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2017",
+					"jsonName": "armor_special_birthday2017",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2017,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BodySpecialNamingDay2018",
+					"jsonName": "body_special_namingDay2018",
+					"type": "bool",
+					"jsonTag": "json:\"body_special_namingDay2018,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2016",
+					"jsonName": "head_special_nye2016",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2016,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2018",
+					"jsonName": "armor_special_birthday2018",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2018,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BackSpecialNamingDay2020",
+					"jsonName": "back_special_namingDay2020",
+					"type": "bool",
+					"jsonTag": "json:\"back_special_namingDay2020,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialDandyHat",
+					"jsonName": "head_special_dandyHat",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_dandyHat,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialFencingFoil",
+					"jsonName": "weapon_special_fencingFoil",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_fencingFoil,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialDandySuit",
+					"jsonName": "armor_special_dandySuit",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_dandySuit,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldWarrior5",
+					"jsonName": "shield_warrior_5",
+					"type": "bool",
+					"jsonTag": "json:\"shield_warrior_5,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadWarrior5",
+					"jsonName": "head_warrior_5",
+					"type": "bool",
+					"jsonTag": "json:\"head_warrior_5,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponWarrior6",
+					"jsonName": "weapon_warrior_6",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_warrior_6,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialFall2021Warrior",
+					"jsonName": "weapon_special_fall2021Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_fall2021Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialTurkeyArmorBase",
+					"jsonName": "armor_special_turkeyArmorBase",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_turkeyArmorBase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BackSpecialTurkeyTailBase",
+					"jsonName": "back_special_turkeyTailBase",
+					"type": "bool",
+					"jsonTag": "json:\"back_special_turkeyTailBase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialTurkeyHelmBase",
+					"jsonName": "head_special_turkeyHelmBase",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_turkeyHelmBase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2017",
+					"jsonName": "head_special_nye2017",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2017,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponArmoireJesterBaton",
+					"jsonName": "weapon_armoire_jesterBaton",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_armoire_jesterBaton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialTachi",
+					"jsonName": "weapon_special_tachi",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_tachi,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialSamuraiArmor",
+					"jsonName": "armor_special_samuraiArmor",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_samuraiArmor,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialWinter2022Warrior",
+					"jsonName": "weapon_special_winter2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_winter2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialWinter2022Warrior",
+					"jsonName": "head_special_winter2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_winter2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialWinter2022Warrior",
+					"jsonName": "shield_special_winter2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_winter2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2019",
+					"jsonName": "armor_special_birthday2019",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2019,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialKabuto",
+					"jsonName": "head_special_kabuto",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_kabuto,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialWakizashi",
+					"jsonName": "shield_special_wakizashi",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_wakizashi,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecial2",
+					"jsonName": "weapon_special_2",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponArmoirePotionBase",
+					"jsonName": "weapon_armoire_potionBase",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_armoire_potionBase,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponArmoirePotionSkeleton",
+					"jsonName": "weapon_armoire_potionSkeleton",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_armoire_potionSkeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialSpring2022Warrior",
+					"jsonName": "weapon_special_spring2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_spring2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialSpring2022Warrior",
+					"jsonName": "head_special_spring2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_spring2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialFall2022Warrior",
+					"jsonName": "head_special_fall2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_fall2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialFall2022Warrior",
+					"jsonName": "weapon_special_fall2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_fall2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialFall2022Warrior",
+					"jsonName": "armor_special_fall2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_fall2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialFall2022Warrior",
+					"jsonName": "shield_special_fall2022Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_fall2022Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialTurkeyArmorGilded",
+					"jsonName": "armor_special_turkeyArmorGilded",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_turkeyArmorGilded,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BackSpecialTurkeyTailGilded",
+					"jsonName": "back_special_turkeyTailGilded",
+					"type": "bool",
+					"jsonTag": "json:\"back_special_turkeyTailGilded,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialTurkeyHelmGilded",
+					"jsonName": "head_special_turkeyHelmGilded",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_turkeyHelmGilded,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2018",
+					"jsonName": "head_special_nye2018",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2018,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialSummer2023Warrior",
+					"jsonName": "armor_special_summer2023Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_summer2023Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialSummer2023Warrior",
+					"jsonName": "head_special_summer2023Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_summer2023Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialSummer2023Warrior",
+					"jsonName": "weapon_special_summer2023Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_summer2023Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialSummer2023Warrior",
+					"jsonName": "shield_special_summer2023Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_summer2023Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2019",
+					"jsonName": "head_special_nye2019",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2019,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2020",
+					"jsonName": "armor_special_birthday2020",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2020,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2020",
+					"jsonName": "head_special_nye2020",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2020,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2021",
+					"jsonName": "armor_special_birthday2021",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2021,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialSpring2025Warrior",
+					"jsonName": "armor_special_spring2025Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_spring2025Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeaponSpecialSpring2025Warrior",
+					"jsonName": "weapon_special_spring2025Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"weapon_special_spring2025Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialSpring2025Warrior",
+					"jsonName": "head_special_spring2025Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_spring2025Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldSpecialSpring2025Warrior",
+					"jsonName": "shield_special_spring2025Warrior",
+					"type": "bool",
+					"jsonTag": "json:\"shield_special_spring2025Warrior,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShieldArmoireBaseballGlove",
+					"jsonName": "shield_armoire_baseballGlove",
+					"type": "bool",
+					"jsonTag": "json:\"shield_armoire_baseballGlove,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HeadSpecialNye2021",
+					"jsonName": "head_special_nye2021",
+					"type": "bool",
+					"jsonTag": "json:\"head_special_nye2021,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ArmorSpecialBirthday2022",
+					"jsonName": "armor_special_birthday2022",
+					"type": "bool",
+					"jsonTag": "json:\"armor_special_birthday2022,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsHatchingPotions",
+			"description": "ListApiv3UserOkJSONResponseDataItemsHatchingPotions defines a model",
+			"fields": [
+				{
+					"name": "RoyalPurple",
+					"jsonName": "RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Desert",
+					"jsonName": "Desert",
+					"type": "int",
+					"jsonTag": "json:\"Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CottonCandyPink",
+					"jsonName": "CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CottonCandyBlue",
+					"jsonName": "CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Red",
+					"jsonName": "Red",
+					"type": "int",
+					"jsonTag": "json:\"Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Zombie",
+					"jsonName": "Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Base",
+					"jsonName": "Base",
+					"type": "int",
+					"jsonTag": "json:\"Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "White",
+					"jsonName": "White",
+					"type": "int",
+					"jsonTag": "json:\"White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Shade",
+					"jsonName": "Shade",
+					"type": "int",
+					"jsonTag": "json:\"Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Skeleton",
+					"jsonName": "Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Golden",
+					"jsonName": "Golden",
+					"type": "int",
+					"jsonTag": "json:\"Golden,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsLastDrop",
+			"description": "ListApiv3UserOkJSONResponseDataItemsLastDrop defines a model",
+			"fields": [
+				{
+					"name": "Count",
+					"jsonName": "count",
+					"type": "int",
+					"jsonTag": "json:\"count,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "time.Time",
+					"jsonTag": "json:\"date,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsMounts",
+			"description": "ListApiv3UserOkJSONResponseDataItemsMounts defines a model",
+			"fields": [
+				{
+					"name": "WolfRoyalPurple",
+					"jsonName": "Wolf-RoyalPurple",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubDesert",
+					"jsonName": "PandaCub-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OrcaBase",
+					"jsonName": "Orca-Base",
+					"type": "bool",
+					"jsonTag": "json:\"Orca-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GryphonRoyalPurple",
+					"jsonName": "Gryphon-RoyalPurple",
+					"type": "bool",
+					"jsonTag": "json:\"Gryphon-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HippogriffHopeful",
+					"jsonName": "Hippogriff-Hopeful",
+					"type": "bool",
+					"jsonTag": "json:\"Hippogriff-Hopeful,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternBase",
+					"jsonName": "JackOLantern-Base",
+					"type": "bool",
+					"jsonTag": "json:\"JackOLantern-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TurkeyBase",
+					"jsonName": "Turkey-Base",
+					"type": "bool",
+					"jsonTag": "json:\"Turkey-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonRed",
+					"jsonName": "Dragon-Red",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfRed",
+					"jsonName": "Wolf-Red",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubBase",
+					"jsonName": "PandaCub-Base",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubWhite",
+					"jsonName": "PandaCub-White",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigDesert",
+					"jsonName": "FlyingPig-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"FlyingPig-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubShade",
+					"jsonName": "TigerCub-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfSkeleton",
+					"jsonName": "Wolf-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubZombie",
+					"jsonName": "TigerCub-Zombie",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubZombie",
+					"jsonName": "PandaCub-Zombie",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubSkeleton",
+					"jsonName": "TigerCub-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfCottonCandyPink",
+					"jsonName": "Wolf-CottonCandyPink",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonCottonCandyPink",
+					"jsonName": "Dragon-CottonCandyPink",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfCottonCandyBlue",
+					"jsonName": "Wolf-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusCottonCandyBlue",
+					"jsonName": "Cactus-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonGolden",
+					"jsonName": "Dragon-Golden",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfGolden",
+					"jsonName": "Wolf-Golden",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxCottonCandyBlue",
+					"jsonName": "Fox-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"Fox-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubShade",
+					"jsonName": "PandaCub-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfWhite",
+					"jsonName": "Wolf-White",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubGolden",
+					"jsonName": "BearCub-Golden",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusDesert",
+					"jsonName": "Cactus-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubRed",
+					"jsonName": "TigerCub-Red",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfBase",
+					"jsonName": "Wolf-Base",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternGhost",
+					"jsonName": "JackOLantern-Ghost",
+					"type": "bool",
+					"jsonTag": "json:\"JackOLantern-Ghost,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TurkeyGilded",
+					"jsonName": "Turkey-Gilded",
+					"type": "bool",
+					"jsonTag": "json:\"Turkey-Gilded,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternGlow",
+					"jsonName": "JackOLantern-Glow",
+					"type": "bool",
+					"jsonTag": "json:\"JackOLantern-Glow,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternRoyalPurple",
+					"jsonName": "JackOLantern-RoyalPurple",
+					"type": "bool",
+					"jsonTag": "json:\"JackOLantern-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfDesert",
+					"jsonName": "Wolf-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfShade",
+					"jsonName": "Wolf-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfZombie",
+					"jsonName": "Wolf-Zombie",
+					"type": "bool",
+					"jsonTag": "json:\"Wolf-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubBase",
+					"jsonName": "TigerCub-Base",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubWhite",
+					"jsonName": "TigerCub-White",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubDesert",
+					"jsonName": "TigerCub-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubCottonCandyPink",
+					"jsonName": "TigerCub-CottonCandyPink",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubCottonCandyBlue",
+					"jsonName": "TigerCub-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubGolden",
+					"jsonName": "TigerCub-Golden",
+					"type": "bool",
+					"jsonTag": "json:\"TigerCub-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubRed",
+					"jsonName": "PandaCub-Red",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubSkeleton",
+					"jsonName": "PandaCub-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubCottonCandyPink",
+					"jsonName": "PandaCub-CottonCandyPink",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubCottonCandyBlue",
+					"jsonName": "PandaCub-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubGolden",
+					"jsonName": "PandaCub-Golden",
+					"type": "bool",
+					"jsonTag": "json:\"PandaCub-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubBase",
+					"jsonName": "LionCub-Base",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubWhite",
+					"jsonName": "LionCub-White",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubShade",
+					"jsonName": "LionCub-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubSkeleton",
+					"jsonName": "LionCub-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubZombie",
+					"jsonName": "LionCub-Zombie",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubCottonCandyPink",
+					"jsonName": "LionCub-CottonCandyPink",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubCottonCandyBlue",
+					"jsonName": "LionCub-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"LionCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxBase",
+					"jsonName": "Fox-Base",
+					"type": "bool",
+					"jsonTag": "json:\"Fox-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubBase",
+					"jsonName": "BearCub-Base",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusBase",
+					"jsonName": "Cactus-Base",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonBase",
+					"jsonName": "Dragon-Base",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigBase",
+					"jsonName": "FlyingPig-Base",
+					"type": "bool",
+					"jsonTag": "json:\"FlyingPig-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigWhite",
+					"jsonName": "FlyingPig-White",
+					"type": "bool",
+					"jsonTag": "json:\"FlyingPig-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxWhite",
+					"jsonName": "Fox-White",
+					"type": "bool",
+					"jsonTag": "json:\"Fox-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonWhite",
+					"jsonName": "Dragon-White",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonDesert",
+					"jsonName": "Dragon-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonShade",
+					"jsonName": "Dragon-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonSkeleton",
+					"jsonName": "Dragon-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonZombie",
+					"jsonName": "Dragon-Zombie",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonCottonCandyBlue",
+					"jsonName": "Dragon-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"Dragon-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubWhite",
+					"jsonName": "BearCub-White",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubDesert",
+					"jsonName": "BearCub-Desert",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubRed",
+					"jsonName": "BearCub-Red",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubShade",
+					"jsonName": "BearCub-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubSkeleton",
+					"jsonName": "BearCub-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubZombie",
+					"jsonName": "BearCub-Zombie",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubCottonCandyPink",
+					"jsonName": "BearCub-CottonCandyPink",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubCottonCandyBlue",
+					"jsonName": "BearCub-CottonCandyBlue",
+					"type": "bool",
+					"jsonTag": "json:\"BearCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusWhite",
+					"jsonName": "Cactus-White",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusRed",
+					"jsonName": "Cactus-Red",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusShade",
+					"jsonName": "Cactus-Shade",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusSkeleton",
+					"jsonName": "Cactus-Skeleton",
+					"type": "bool",
+					"jsonTag": "json:\"Cactus-Skeleton,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsPets",
+			"description": "ListApiv3UserOkJSONResponseDataItemsPets defines a model",
+			"fields": [
+				{
+					"name": "WolfRoyalPurple",
+					"jsonName": "Wolf-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubDesert",
+					"jsonName": "PandaCub-Desert",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusDesert",
+					"jsonName": "Cactus-Desert",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxRoyalPurple",
+					"jsonName": "Fox-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"Fox-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfCottonCandyBlue",
+					"jsonName": "Wolf-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonCottonCandyPink",
+					"jsonName": "Dragon-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonRed",
+					"jsonName": "Dragon-Red",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigCottonCandyPink",
+					"jsonName": "FlyingPig-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonZombie",
+					"jsonName": "Dragon-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubDesert",
+					"jsonName": "LionCub-Desert",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubDesert",
+					"jsonName": "BearCub-Desert",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxRed",
+					"jsonName": "Fox-Red",
+					"type": "int",
+					"jsonTag": "json:\"Fox-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigRed",
+					"jsonName": "FlyingPig-Red",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubBase",
+					"jsonName": "PandaCub-Base",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubRoyalPurple",
+					"jsonName": "LionCub-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonGolden",
+					"jsonName": "Dragon-Golden",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubBase",
+					"jsonName": "BearCub-Base",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusCottonCandyBlue",
+					"jsonName": "Cactus-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusCottonCandyPink",
+					"jsonName": "Cactus-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonRoyalPurple",
+					"jsonName": "Dragon-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigDesert",
+					"jsonName": "FlyingPig-Desert",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigRoyalPurple",
+					"jsonName": "FlyingPig-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxCottonCandyBlue",
+					"jsonName": "Fox-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Fox-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubCottonCandyBlue",
+					"jsonName": "LionCub-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubRed",
+					"jsonName": "LionCub-Red",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubRed",
+					"jsonName": "PandaCub-Red",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfRed",
+					"jsonName": "Wolf-Red",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfSkeleton",
+					"jsonName": "Wolf-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfWhite",
+					"jsonName": "Wolf-White",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubWhite",
+					"jsonName": "TigerCub-White",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubWhite",
+					"jsonName": "PandaCub-White",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubZombie",
+					"jsonName": "TigerCub-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubZombie",
+					"jsonName": "PandaCub-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubShade",
+					"jsonName": "TigerCub-Shade",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubShade",
+					"jsonName": "PandaCub-Shade",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubRoyalPurple",
+					"jsonName": "TigerCub-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubSkeleton",
+					"jsonName": "TigerCub-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubRed",
+					"jsonName": "TigerCub-Red",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfVeteran",
+					"jsonName": "Wolf-Veteran",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Veteran,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternBase",
+					"jsonName": "JackOLantern-Base",
+					"type": "int",
+					"jsonTag": "json:\"JackOLantern-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TurkeyBase",
+					"jsonName": "Turkey-Base",
+					"type": "int",
+					"jsonTag": "json:\"Turkey-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HippogriffHopeful",
+					"jsonName": "Hippogriff-Hopeful",
+					"type": "int",
+					"jsonTag": "json:\"Hippogriff-Hopeful,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OrcaBase",
+					"jsonName": "Orca-Base",
+					"type": "int",
+					"jsonTag": "json:\"Orca-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GryphonRoyalPurple",
+					"jsonName": "Gryphon-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"Gryphon-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerVeteran",
+					"jsonName": "Tiger-Veteran",
+					"type": "int",
+					"jsonTag": "json:\"Tiger-Veteran,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubRoyalPurple",
+					"jsonName": "PandaCub-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusRoyalPurple",
+					"jsonName": "Cactus-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubRoyalPurple",
+					"jsonName": "BearCub-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfBase",
+					"jsonName": "Wolf-Base",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfDesert",
+					"jsonName": "Wolf-Desert",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfShade",
+					"jsonName": "Wolf-Shade",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfZombie",
+					"jsonName": "Wolf-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfCottonCandyPink",
+					"jsonName": "Wolf-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WolfGolden",
+					"jsonName": "Wolf-Golden",
+					"type": "int",
+					"jsonTag": "json:\"Wolf-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubBase",
+					"jsonName": "TigerCub-Base",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubWhite",
+					"jsonName": "BearCub-White",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubGolden",
+					"jsonName": "BearCub-Golden",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubSkeleton",
+					"jsonName": "PandaCub-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubDesert",
+					"jsonName": "TigerCub-Desert",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubCottonCandyPink",
+					"jsonName": "TigerCub-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubCottonCandyBlue",
+					"jsonName": "TigerCub-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TigerCubGolden",
+					"jsonName": "TigerCub-Golden",
+					"type": "int",
+					"jsonTag": "json:\"TigerCub-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubBase",
+					"jsonName": "LionCub-Base",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxDesert",
+					"jsonName": "Fox-Desert",
+					"type": "int",
+					"jsonTag": "json:\"Fox-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigSkeleton",
+					"jsonName": "FlyingPig-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonSkeleton",
+					"jsonName": "Dragon-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigWhite",
+					"jsonName": "FlyingPig-White",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonDesert",
+					"jsonName": "Dragon-Desert",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Desert,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxShade",
+					"jsonName": "Fox-Shade",
+					"type": "int",
+					"jsonTag": "json:\"Fox-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubZombie",
+					"jsonName": "LionCub-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigZombie",
+					"jsonName": "FlyingPig-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusWhite",
+					"jsonName": "Cactus-White",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxBase",
+					"jsonName": "Fox-Base",
+					"type": "int",
+					"jsonTag": "json:\"Fox-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxZombie",
+					"jsonName": "Fox-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Fox-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonCottonCandyBlue",
+					"jsonName": "Dragon-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxCottonCandyPink",
+					"jsonName": "Fox-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"Fox-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigCottonCandyBlue",
+					"jsonName": "FlyingPig-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubCottonCandyPink",
+					"jsonName": "LionCub-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxSkeleton",
+					"jsonName": "Fox-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Fox-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubSkeleton",
+					"jsonName": "LionCub-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubShade",
+					"jsonName": "LionCub-Shade",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FoxWhite",
+					"jsonName": "Fox-White",
+					"type": "int",
+					"jsonTag": "json:\"Fox-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionCubWhite",
+					"jsonName": "LionCub-White",
+					"type": "int",
+					"jsonTag": "json:\"LionCub-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubCottonCandyPink",
+					"jsonName": "PandaCub-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigShade",
+					"jsonName": "FlyingPig-Shade",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlyingPigBase",
+					"jsonName": "FlyingPig-Base",
+					"type": "int",
+					"jsonTag": "json:\"FlyingPig-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonBase",
+					"jsonName": "Dragon-Base",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonWhite",
+					"jsonName": "Dragon-White",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-White,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DragonShade",
+					"jsonName": "Dragon-Shade",
+					"type": "int",
+					"jsonTag": "json:\"Dragon-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubCottonCandyBlue",
+					"jsonName": "PandaCub-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusBase",
+					"jsonName": "Cactus-Base",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubZombie",
+					"jsonName": "BearCub-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusShade",
+					"jsonName": "Cactus-Shade",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusSkeleton",
+					"jsonName": "Cactus-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusZombie",
+					"jsonName": "Cactus-Zombie",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Zombie,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubCottonCandyPink",
+					"jsonName": "BearCub-CottonCandyPink",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-CottonCandyPink,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusRed",
+					"jsonName": "Cactus-Red",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubSkeleton",
+					"jsonName": "BearCub-Skeleton",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Skeleton,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubShade",
+					"jsonName": "BearCub-Shade",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Shade,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubRed",
+					"jsonName": "BearCub-Red",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-Red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearCubCottonCandyBlue",
+					"jsonName": "BearCub-CottonCandyBlue",
+					"type": "int",
+					"jsonTag": "json:\"BearCub-CottonCandyBlue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PandaCubGolden",
+					"jsonName": "PandaCub-Golden",
+					"type": "int",
+					"jsonTag": "json:\"PandaCub-Golden,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternGhost",
+					"jsonName": "JackOLantern-Ghost",
+					"type": "int",
+					"jsonTag": "json:\"JackOLantern-Ghost,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TurkeyGilded",
+					"jsonName": "Turkey-Gilded",
+					"type": "int",
+					"jsonTag": "json:\"Turkey-Gilded,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternGlow",
+					"jsonName": "JackOLantern-Glow",
+					"type": "int",
+					"jsonTag": "json:\"JackOLantern-Glow,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "JackOLanternRoyalPurple",
+					"jsonName": "JackOLantern-RoyalPurple",
+					"type": "int",
+					"jsonTag": "json:\"JackOLantern-RoyalPurple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LionVeteran",
+					"jsonName": "Lion-Veteran",
+					"type": "int",
+					"jsonTag": "json:\"Lion-Veteran,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BearVeteran",
+					"jsonName": "Bear-Veteran",
+					"type": "int",
+					"jsonTag": "json:\"Bear-Veteran,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CactusGolden",
+					"jsonName": "Cactus-Golden",
+					"type": "int",
+					"jsonTag": "json:\"Cactus-Golden,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsQuests",
+			"description": "ListApiv3UserOkJSONResponseDataItemsQuests defines a model",
+			"fields": [
+				{
+					"name": "Dustbunnies",
+					"jsonName": "dustbunnies",
+					"type": "int",
+					"jsonTag": "json:\"dustbunnies,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moon1",
+					"jsonName": "moon1",
+					"type": "int",
+					"jsonTag": "json:\"moon1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Basilist",
+					"jsonName": "basilist",
+					"type": "int",
+					"jsonTag": "json:\"basilist,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moon2",
+					"jsonName": "moon2",
+					"type": "int",
+					"jsonTag": "json:\"moon2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moon3",
+					"jsonName": "moon3",
+					"type": "int",
+					"jsonTag": "json:\"moon3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Atom1",
+					"jsonName": "atom1",
+					"type": "int",
+					"jsonTag": "json:\"atom1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DilatoryDistress1",
+					"jsonName": "dilatoryDistress1",
+					"type": "int",
+					"jsonTag": "json:\"dilatoryDistress1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice1",
+					"jsonName": "vice1",
+					"type": "int",
+					"jsonTag": "json:\"vice1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice2",
+					"jsonName": "vice2",
+					"type": "int",
+					"jsonTag": "json:\"vice2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Goldenknight1",
+					"jsonName": "goldenknight1",
+					"type": "int",
+					"jsonTag": "json:\"goldenknight1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Vice3",
+					"jsonName": "vice3",
+					"type": "int",
+					"jsonTag": "json:\"vice3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Atom2",
+					"jsonName": "atom2",
+					"type": "int",
+					"jsonTag": "json:\"atom2,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Atom3",
+					"jsonName": "atom3",
+					"type": "int",
+					"jsonTag": "json:\"atom3,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Moonstone1",
+					"jsonName": "moonstone1",
+					"type": "int",
+					"jsonTag": "json:\"moonstone1,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataItemsSpecial",
+			"description": "ListApiv3UserOkJSONResponseDataItemsSpecial defines a model",
+			"fields": [
+				{
+					"name": "BirthdayReceived",
+					"jsonName": "birthdayReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"birthdayReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Birthday",
+					"jsonName": "birthday",
+					"type": "int",
+					"jsonTag": "json:\"birthday,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ThankyouReceived",
+					"jsonName": "thankyouReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"thankyouReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Thankyou",
+					"jsonName": "thankyou",
+					"type": "int",
+					"jsonTag": "json:\"thankyou,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GreetingReceived",
+					"jsonName": "greetingReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"greetingReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Greeting",
+					"jsonName": "greeting",
+					"type": "int",
+					"jsonTag": "json:\"greeting,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "NyeReceived",
+					"jsonName": "nyeReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"nyeReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Nye",
+					"jsonName": "nye",
+					"type": "int",
+					"jsonTag": "json:\"nye,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ValentineReceived",
+					"jsonName": "valentineReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"valentineReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Valentine",
+					"jsonName": "valentine",
+					"type": "int",
+					"jsonTag": "json:\"valentine,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Seafoam",
+					"jsonName": "seafoam",
+					"type": "int",
+					"jsonTag": "json:\"seafoam,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShinySeed",
+					"jsonName": "shinySeed",
+					"type": "int",
+					"jsonTag": "json:\"shinySeed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SpookySparkles",
+					"jsonName": "spookySparkles",
+					"type": "int",
+					"jsonTag": "json:\"spookySparkles,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Snowball",
+					"jsonName": "snowball",
+					"type": "int",
+					"jsonTag": "json:\"snowball,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CongratsReceived",
+					"jsonName": "congratsReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"congratsReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "GetwellReceived",
+					"jsonName": "getwellReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"getwellReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "GoodluckReceived",
+					"jsonName": "goodluckReceived",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"goodluckReceived,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Congrats",
+					"jsonName": "congrats",
+					"type": "int",
+					"jsonTag": "json:\"congrats,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Getwell",
+					"jsonName": "getwell",
+					"type": "int",
+					"jsonTag": "json:\"getwell,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Goodluck",
+					"jsonName": "goodluck",
+					"type": "int",
+					"jsonTag": "json:\"goodluck,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataParty",
+			"description": "ListApiv3UserOkJSONResponseDataParty defines a model",
+			"fields": [
+				{
+					"name": "Quest",
+					"jsonName": "quest",
+					"type": "ListApiv3UserOkJSONResponseDataPartyQuest",
+					"jsonTag": "json:\"quest\"",
+					"required": true
+				},
+				{
+					"name": "UnderscoreID",
+					"jsonName": "_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Order",
+					"jsonName": "order",
+					"type": "string",
+					"jsonTag": "json:\"order,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OrderAscending",
+					"jsonName": "orderAscending",
+					"type": "string",
+					"jsonTag": "json:\"orderAscending,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPartyQuest",
+			"description": "ListApiv3UserOkJSONResponseDataPartyQuest defines a model",
+			"fields": [
+				{
+					"name": "Progress",
+					"jsonName": "progress",
+					"type": "ListApiv3UserOkJSONResponseDataPartyQuestProgress",
+					"jsonTag": "json:\"progress\"",
+					"required": true
+				},
+				{
+					"name": "RsvpNeeded",
+					"jsonName": "RSVPNeeded",
+					"type": "bool",
+					"jsonTag": "json:\"RSVPNeeded,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPartyQuestProgress",
+			"description": "ListApiv3UserOkJSONResponseDataPartyQuestProgress defines a model",
+			"fields": [
+				{
+					"name": "Up",
+					"jsonName": "up",
+					"type": "float64",
+					"jsonTag": "json:\"up\"",
+					"required": true
+				},
+				{
+					"name": "Down",
+					"jsonName": "down",
+					"type": "int",
+					"jsonTag": "json:\"down,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CollectedItems",
+					"jsonName": "collectedItems",
+					"type": "int",
+					"jsonTag": "json:\"collectedItems,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Collect",
+					"jsonName": "collect",
+					"type": "struct{}",
+					"jsonTag": "json:\"collect\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPinnedItems",
+			"description": "ListApiv3UserOkJSONResponseDataPinnedItems defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3UserOkJSONResponseDataPinnedItemsItem"
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPinnedItemsItem",
+			"description": "ListApiv3UserOkJSONResponseDataPinnedItemsItem defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"jsonTag": "json:\"path,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferences",
+			"description": "ListApiv3UserOkJSONResponseDataPreferences defines a model",
+			"fields": [
+				{
+					"name": "Hair",
+					"jsonName": "hair",
+					"type": "ListApiv3UserOkJSONResponseDataPreferencesHair",
+					"jsonTag": "json:\"hair\"",
+					"required": true
+				},
+				{
+					"name": "EmailNotifications",
+					"jsonName": "emailNotifications",
+					"type": "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications",
+					"jsonTag": "json:\"emailNotifications\"",
+					"required": true
+				},
+				{
+					"name": "PushNotifications",
+					"jsonName": "pushNotifications",
+					"type": "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications",
+					"jsonTag": "json:\"pushNotifications\"",
+					"required": true
+				},
+				{
+					"name": "SuppressModals",
+					"jsonName": "suppressModals",
+					"type": "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals",
+					"jsonTag": "json:\"suppressModals\"",
+					"required": true
+				},
+				{
+					"name": "Tasks",
+					"jsonName": "tasks",
+					"type": "ListApiv3UserOkJSONResponseDataPreferencesTasks",
+					"jsonTag": "json:\"tasks\"",
+					"required": true
+				},
+				{
+					"name": "DayStart",
+					"jsonName": "dayStart",
+					"type": "int",
+					"jsonTag": "json:\"dayStart,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Size",
+					"jsonName": "size",
+					"type": "string",
+					"jsonTag": "json:\"size,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HideHeader",
+					"jsonName": "hideHeader",
+					"type": "bool",
+					"jsonTag": "json:\"hideHeader,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Skin",
+					"jsonName": "skin",
+					"type": "string",
+					"jsonTag": "json:\"skin,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Shirt",
+					"jsonName": "shirt",
+					"type": "string",
+					"jsonTag": "json:\"shirt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TimezoneOffset",
+					"jsonName": "timezoneOffset",
+					"type": "int",
+					"jsonTag": "json:\"timezoneOffset,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Sound",
+					"jsonName": "sound",
+					"type": "string",
+					"jsonTag": "json:\"sound,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Chair",
+					"jsonName": "chair",
+					"type": "string",
+					"jsonTag": "json:\"chair,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AllocationMode",
+					"jsonName": "allocationMode",
+					"type": "string",
+					"jsonTag": "json:\"allocationMode,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AutoEquip",
+					"jsonName": "autoEquip",
+					"type": "bool",
+					"jsonTag": "json:\"autoEquip,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Costume",
+					"jsonName": "costume",
+					"type": "bool",
+					"jsonTag": "json:\"costume,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DateFormat",
+					"jsonName": "dateFormat",
+					"type": "string",
+					"jsonTag": "json:\"dateFormat,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Sleep",
+					"jsonName": "sleep",
+					"type": "bool",
+					"jsonTag": "json:\"sleep,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "StickyHeader",
+					"jsonName": "stickyHeader",
+					"type": "bool",
+					"jsonTag": "json:\"stickyHeader,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DisableClasses",
+					"jsonName": "disableClasses",
+					"type": "bool",
+					"jsonTag": "json:\"disableClasses,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "NewTaskEdit",
+					"jsonName": "newTaskEdit",
+					"type": "bool",
+					"jsonTag": "json:\"newTaskEdit,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DailyDueDefaultView",
+					"jsonName": "dailyDueDefaultView",
+					"type": "bool",
+					"jsonTag": "json:\"dailyDueDefaultView,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AdvancedCollapsed",
+					"jsonName": "advancedCollapsed",
+					"type": "bool",
+					"jsonTag": "json:\"advancedCollapsed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ToolbarCollapsed",
+					"jsonName": "toolbarCollapsed",
+					"type": "bool",
+					"jsonTag": "json:\"toolbarCollapsed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ReverseChatOrder",
+					"jsonName": "reverseChatOrder",
+					"type": "bool",
+					"jsonTag": "json:\"reverseChatOrder,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DeveloperMode",
+					"jsonName": "developerMode",
+					"type": "bool",
+					"jsonTag": "json:\"developerMode,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DisplayInviteToPartyWhenPartyIs1",
+					"jsonName": "displayInviteToPartyWhenPartyIs1",
+					"type": "bool",
+					"jsonTag": "json:\"displayInviteToPartyWhenPartyIs1,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ImprovementCategories",
+					"jsonName": "improvementCategories",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"improvementCategories,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "AutomaticAllocation",
+					"jsonName": "automaticAllocation",
+					"type": "bool",
+					"jsonTag": "json:\"automaticAllocation,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TimezoneOffsetAtLastCron",
+					"jsonName": "timezoneOffsetAtLastCron",
+					"type": "int",
+					"jsonTag": "json:\"timezoneOffsetAtLastCron,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Language",
+					"jsonName": "language",
+					"type": "string",
+					"jsonTag": "json:\"language,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Webhooks",
+					"jsonName": "webhooks",
+					"type": "struct{}",
+					"jsonTag": "json:\"webhooks\"",
+					"required": true
+				},
+				{
+					"name": "AnalyticsConsent",
+					"jsonName": "analyticsConsent",
+					"type": "bool",
+					"jsonTag": "json:\"analyticsConsent,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Background",
+					"jsonName": "background",
+					"type": "string",
+					"jsonTag": "json:\"background,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications",
+			"description": "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications defines a model",
+			"fields": [
+				{
+					"name": "UnsubscribeFromAll",
+					"jsonName": "unsubscribeFromAll",
+					"type": "bool",
+					"jsonTag": "json:\"unsubscribeFromAll,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "NewPm",
+					"jsonName": "newPM",
+					"type": "bool",
+					"jsonTag": "json:\"newPM,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "KickedGroup",
+					"jsonName": "kickedGroup",
+					"type": "bool",
+					"jsonTag": "json:\"kickedGroup,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WonChallenge",
+					"jsonName": "wonChallenge",
+					"type": "bool",
+					"jsonTag": "json:\"wonChallenge,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GiftedGems",
+					"jsonName": "giftedGems",
+					"type": "bool",
+					"jsonTag": "json:\"giftedGems,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GiftedSubscription",
+					"jsonName": "giftedSubscription",
+					"type": "bool",
+					"jsonTag": "json:\"giftedSubscription,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedParty",
+					"jsonName": "invitedParty",
+					"type": "bool",
+					"jsonTag": "json:\"invitedParty,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedGuild",
+					"jsonName": "invitedGuild",
+					"type": "bool",
+					"jsonTag": "json:\"invitedGuild,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "QuestStarted",
+					"jsonName": "questStarted",
+					"type": "bool",
+					"jsonTag": "json:\"questStarted,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedQuest",
+					"jsonName": "invitedQuest",
+					"type": "bool",
+					"jsonTag": "json:\"invitedQuest,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ImportantAnnouncements",
+					"jsonName": "importantAnnouncements",
+					"type": "bool",
+					"jsonTag": "json:\"importantAnnouncements,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WeeklyRecaps",
+					"jsonName": "weeklyRecaps",
+					"type": "bool",
+					"jsonTag": "json:\"weeklyRecaps,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Onboarding",
+					"jsonName": "onboarding",
+					"type": "bool",
+					"jsonTag": "json:\"onboarding,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MajorUpdates",
+					"jsonName": "majorUpdates",
+					"type": "bool",
+					"jsonTag": "json:\"majorUpdates,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SubscriptionReminders",
+					"jsonName": "subscriptionReminders",
+					"type": "bool",
+					"jsonTag": "json:\"subscriptionReminders,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ContentRelease",
+					"jsonName": "contentRelease",
+					"type": "bool",
+					"jsonTag": "json:\"contentRelease,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferencesHair",
+			"description": "ListApiv3UserOkJSONResponseDataPreferencesHair defines a model",
+			"fields": [
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "string",
+					"jsonTag": "json:\"color,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Base",
+					"jsonName": "base",
+					"type": "int",
+					"jsonTag": "json:\"base,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Bangs",
+					"jsonName": "bangs",
+					"type": "int",
+					"jsonTag": "json:\"bangs,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Beard",
+					"jsonName": "beard",
+					"type": "int",
+					"jsonTag": "json:\"beard,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Mustache",
+					"jsonName": "mustache",
+					"type": "int",
+					"jsonTag": "json:\"mustache,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Flower",
+					"jsonName": "flower",
+					"type": "int",
+					"jsonTag": "json:\"flower,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications",
+			"description": "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications defines a model",
+			"fields": [
+				{
+					"name": "UnsubscribeFromAll",
+					"jsonName": "unsubscribeFromAll",
+					"type": "bool",
+					"jsonTag": "json:\"unsubscribeFromAll,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "NewPm",
+					"jsonName": "newPM",
+					"type": "bool",
+					"jsonTag": "json:\"newPM,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WonChallenge",
+					"jsonName": "wonChallenge",
+					"type": "bool",
+					"jsonTag": "json:\"wonChallenge,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GiftedGems",
+					"jsonName": "giftedGems",
+					"type": "bool",
+					"jsonTag": "json:\"giftedGems,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GiftedSubscription",
+					"jsonName": "giftedSubscription",
+					"type": "bool",
+					"jsonTag": "json:\"giftedSubscription,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedParty",
+					"jsonName": "invitedParty",
+					"type": "bool",
+					"jsonTag": "json:\"invitedParty,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedGuild",
+					"jsonName": "invitedGuild",
+					"type": "bool",
+					"jsonTag": "json:\"invitedGuild,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "QuestStarted",
+					"jsonName": "questStarted",
+					"type": "bool",
+					"jsonTag": "json:\"questStarted,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InvitedQuest",
+					"jsonName": "invitedQuest",
+					"type": "bool",
+					"jsonTag": "json:\"invitedQuest,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MajorUpdates",
+					"jsonName": "majorUpdates",
+					"type": "bool",
+					"jsonTag": "json:\"majorUpdates,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MentionParty",
+					"jsonName": "mentionParty",
+					"type": "bool",
+					"jsonTag": "json:\"mentionParty,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MentionJoinedGuild",
+					"jsonName": "mentionJoinedGuild",
+					"type": "bool",
+					"jsonTag": "json:\"mentionJoinedGuild,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MentionUnjoinedGuild",
+					"jsonName": "mentionUnjoinedGuild",
+					"type": "bool",
+					"jsonTag": "json:\"mentionUnjoinedGuild,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PartyActivity",
+					"jsonName": "partyActivity",
+					"type": "bool",
+					"jsonTag": "json:\"partyActivity,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ContentRelease",
+					"jsonName": "contentRelease",
+					"type": "bool",
+					"jsonTag": "json:\"contentRelease,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals",
+			"description": "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals defines a model",
+			"fields": [
+				{
+					"name": "LevelUp",
+					"jsonName": "levelUp",
+					"type": "bool",
+					"jsonTag": "json:\"levelUp,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HatchPet",
+					"jsonName": "hatchPet",
+					"type": "bool",
+					"jsonTag": "json:\"hatchPet,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RaisePet",
+					"jsonName": "raisePet",
+					"type": "bool",
+					"jsonTag": "json:\"raisePet,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Streak",
+					"jsonName": "streak",
+					"type": "bool",
+					"jsonTag": "json:\"streak,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferencesTasks",
+			"description": "ListApiv3UserOkJSONResponseDataPreferencesTasks defines a model",
+			"fields": [
+				{
+					"name": "ActiveFilter",
+					"jsonName": "activeFilter",
+					"type": "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter",
+					"jsonTag": "json:\"activeFilter\"",
+					"required": true
+				},
+				{
+					"name": "GroupByChallenge",
+					"jsonName": "groupByChallenge",
+					"type": "bool",
+					"jsonTag": "json:\"groupByChallenge,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ConfirmScoreNotes",
+					"jsonName": "confirmScoreNotes",
+					"type": "bool",
+					"jsonTag": "json:\"confirmScoreNotes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MirrorGroupTasks",
+					"jsonName": "mirrorGroupTasks",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"mirrorGroupTasks,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter",
+			"description": "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter defines a model",
+			"fields": [
+				{
+					"name": "Habit",
+					"jsonName": "habit",
+					"type": "string",
+					"jsonTag": "json:\"habit,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Daily",
+					"jsonName": "daily",
+					"type": "string",
+					"jsonTag": "json:\"daily,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Todo",
+					"jsonName": "todo",
+					"type": "string",
+					"jsonTag": "json:\"todo,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Reward",
+					"jsonName": "reward",
+					"type": "string",
+					"jsonTag": "json:\"reward,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataProfile",
+			"description": "ListApiv3UserOkJSONResponseDataProfile defines a model",
+			"fields": [
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPurchased",
+			"description": "ListApiv3UserOkJSONResponseDataPurchased defines a model",
+			"fields": [
+				{
+					"name": "Plan",
+					"jsonName": "plan",
+					"type": "ListApiv3UserOkJSONResponseDataPurchasedPlan",
+					"jsonTag": "json:\"plan\"",
+					"required": true
+				},
+				{
+					"name": "TxnCount",
+					"jsonName": "txnCount",
+					"type": "int",
+					"jsonTag": "json:\"txnCount,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Background",
+					"jsonName": "background",
+					"type": "ListApiv3UserOkJSONResponseDataPurchasedBackground",
+					"jsonTag": "json:\"background\"",
+					"required": true
+				},
+				{
+					"name": "Shirt",
+					"jsonName": "shirt",
+					"type": "struct{}",
+					"jsonTag": "json:\"shirt\"",
+					"required": true
+				},
+				{
+					"name": "Hair",
+					"jsonName": "hair",
+					"type": "struct{}",
+					"jsonTag": "json:\"hair\"",
+					"required": true
+				},
+				{
+					"name": "Skin",
+					"jsonName": "skin",
+					"type": "struct{}",
+					"jsonTag": "json:\"skin\"",
+					"required": true
+				},
+				{
+					"name": "Ads",
+					"jsonName": "ads",
+					"type": "bool",
+					"jsonTag": "json:\"ads,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPurchasedBackground",
+			"description": "ListApiv3UserOkJSONResponseDataPurchasedBackground defines a model",
+			"fields": [
+				{
+					"name": "Yellow",
+					"jsonName": "yellow",
+					"type": "bool",
+					"jsonTag": "json:\"yellow,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Red",
+					"jsonName": "red",
+					"type": "bool",
+					"jsonTag": "json:\"red,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Purple",
+					"jsonName": "purple",
+					"type": "bool",
+					"jsonTag": "json:\"purple,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Green",
+					"jsonName": "green",
+					"type": "bool",
+					"jsonTag": "json:\"green,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Blue",
+					"jsonName": "blue",
+					"type": "bool",
+					"jsonTag": "json:\"blue,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Violet",
+					"jsonName": "violet",
+					"type": "bool",
+					"jsonTag": "json:\"violet,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnAStrangePlanet",
+					"jsonName": "on_a_strange_planet",
+					"type": "bool",
+					"jsonTag": "json:\"on_a_strange_planet,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPurchasedPlan",
+			"description": "ListApiv3UserOkJSONResponseDataPurchasedPlan defines a model",
+			"fields": [
+				{
+					"name": "Consecutive",
+					"jsonName": "consecutive",
+					"type": "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive",
+					"jsonTag": "json:\"consecutive\"",
+					"required": true
+				},
+				{
+					"name": "MysteryItems",
+					"jsonName": "mysteryItems",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"mysteryItems,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "GemsBought",
+					"jsonName": "gemsBought",
+					"type": "int",
+					"jsonTag": "json:\"gemsBought,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ExtraMonths",
+					"jsonName": "extraMonths",
+					"type": "int",
+					"jsonTag": "json:\"extraMonths,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Quantity",
+					"jsonName": "quantity",
+					"type": "int",
+					"jsonTag": "json:\"quantity,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DateUpdated",
+					"jsonName": "dateUpdated",
+					"type": "time.Time",
+					"jsonTag": "json:\"dateUpdated,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PerkMonthCount",
+					"jsonName": "perkMonthCount",
+					"type": "int",
+					"jsonTag": "json:\"perkMonthCount,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CumulativeCount",
+					"jsonName": "cumulativeCount",
+					"type": "int",
+					"jsonTag": "json:\"cumulativeCount,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive",
+			"description": "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive defines a model",
+			"fields": [
+				{
+					"name": "Trinkets",
+					"jsonName": "trinkets",
+					"type": "int",
+					"jsonTag": "json:\"trinkets,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GemCapExtra",
+					"jsonName": "gemCapExtra",
+					"type": "int",
+					"jsonTag": "json:\"gemCapExtra,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Offset",
+					"jsonName": "offset",
+					"type": "int",
+					"jsonTag": "json:\"offset,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Count",
+					"jsonName": "count",
+					"type": "int",
+					"jsonTag": "json:\"count,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPushDevices",
+			"description": "ListApiv3UserOkJSONResponseDataPushDevices defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3UserOkJSONResponseDataPushDevicesItem"
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataPushDevicesItem",
+			"description": "ListApiv3UserOkJSONResponseDataPushDevicesItem defines a model",
+			"fields": [
+				{
+					"name": "RegID",
+					"jsonName": "regId",
+					"type": "string",
+					"jsonTag": "json:\"regId,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UpdatedAt",
+					"jsonName": "updatedAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "createdAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"createdAt,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataStats",
+			"description": "ListApiv3UserOkJSONResponseDataStats defines a model",
+			"fields": [
+				{
+					"name": "Buffs",
+					"jsonName": "buffs",
+					"type": "ListApivUserDataStatsBuffs",
+					"jsonTag": "json:\"buffs\"",
+					"required": true
+				},
+				{
+					"name": "Training",
+					"jsonName": "training",
+					"type": "ListApivUserDataStatsTraining",
+					"jsonTag": "json:\"training\"",
+					"required": true
+				},
+				{
+					"name": "Per",
+					"jsonName": "per",
+					"type": "int",
+					"jsonTag": "json:\"per,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Int",
+					"jsonName": "int",
+					"type": "int",
+					"jsonTag": "json:\"int,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Con",
+					"jsonName": "con",
+					"type": "int",
+					"jsonTag": "json:\"con,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Str",
+					"jsonName": "str",
+					"type": "int",
+					"jsonTag": "json:\"str,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Points",
+					"jsonName": "points",
+					"type": "int",
+					"jsonTag": "json:\"points,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Class",
+					"jsonName": "class",
+					"type": "string",
+					"jsonTag": "json:\"class,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Lvl",
+					"jsonName": "lvl",
+					"type": "int",
+					"jsonTag": "json:\"lvl,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Gp",
+					"jsonName": "gp",
+					"type": "float64",
+					"jsonTag": "json:\"gp\"",
+					"required": true
+				},
+				{
+					"name": "Exp",
+					"jsonName": "exp",
+					"type": "int",
+					"jsonTag": "json:\"exp,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Mp",
+					"jsonName": "mp",
+					"type": "float64",
+					"jsonTag": "json:\"mp\"",
+					"required": true
+				},
+				{
+					"name": "Hp",
+					"jsonName": "hp",
+					"type": "float64",
+					"jsonTag": "json:\"hp\"",
+					"required": true
+				},
+				{
+					"name": "ToNextLevel",
+					"jsonName": "toNextLevel",
+					"type": "int",
+					"jsonTag": "json:\"toNextLevel,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MaxHealth",
+					"jsonName": "maxHealth",
+					"type": "int",
+					"jsonTag": "json:\"maxHealth,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MaxMp",
+					"jsonName": "maxMP",
+					"type": "int",
+					"jsonTag": "json:\"maxMP,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataTags",
+			"description": "ListApiv3UserOkJSONResponseDataTags defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3UserOkJSONResponseDataTagsItem"
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataTagsItem",
+			"description": "ListApiv3UserOkJSONResponseDataTagsItem defines a model",
+			"fields": [
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Challenge",
+					"jsonName": "challenge",
+					"type": "bool",
+					"jsonTag": "json:\"challenge,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkJSONResponseDataTasksOrder",
+			"description": "ListApiv3UserOkJSONResponseDataTasksOrder defines a model",
+			"fields": [
+				{
+					"name": "Rewards",
+					"jsonName": "rewards",
+					"type": "[]uuid.UUID",
+					"jsonTag": "json:\"rewards,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Todos",
+					"jsonName": "todos",
+					"type": "[]uuid.UUID",
+					"jsonTag": "json:\"todos,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Dailys",
+					"jsonName": "dailys",
+					"type": "[]uuid.UUID",
+					"jsonTag": "json:\"dailys,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Habits",
+					"jsonName": "habits",
+					"type": "[]uuid.UUID",
+					"jsonTag": "json:\"habits,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApivUserDataHistoryExp",
+			"description": "ListApivUserDataHistoryExp defines a model",
+			"kind": 2,
+			"type": "[]ListApivUserDataHistoryExpItem"
+		},
+		{
+			"name": "ListApivUserDataHistoryExpItem",
+			"description": "ListApivUserDataHistoryExpItem defines a model",
+			"fields": [
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "time.Time",
+					"jsonTag": "json:\"date\"",
+					"required": true,
+					"isDateTimeOrInt": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApivUserDataInboxMessagesfeffAcddbf",
+			"description": "ListApivUserDataInboxMessagesfeffAcddbf defines a model",
+			"fields": [
+				{
+					"name": "UnderscoreID",
+					"jsonName": "_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Sent",
+					"jsonName": "sent",
+					"type": "bool",
+					"jsonTag": "json:\"sent,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FlagCount",
+					"jsonName": "flagCount",
+					"type": "int",
+					"jsonTag": "json:\"flagCount,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "User",
+					"jsonName": "user",
+					"type": "string",
+					"jsonTag": "json:\"user,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Backer",
+					"jsonName": "backer",
+					"type": "struct{}",
+					"jsonTag": "json:\"backer\"",
+					"required": true
+				},
+				{
+					"name": "Contributor",
+					"jsonName": "contributor",
+					"type": "struct{}",
+					"jsonTag": "json:\"contributor\"",
+					"required": true
+				},
+				{
+					"name": "UUID",
+					"jsonName": "uuid",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"uuid,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Flags",
+					"jsonName": "flags",
+					"type": "struct{}",
+					"jsonTag": "json:\"flags\"",
+					"required": true
+				},
+				{
+					"name": "Likes",
+					"jsonName": "likes",
+					"type": "struct{}",
+					"jsonTag": "json:\"likes\"",
+					"required": true
+				},
+				{
+					"name": "Timestamp",
+					"jsonName": "timestamp",
+					"type": "time.Time",
+					"jsonTag": "json:\"timestamp,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "string",
+					"jsonTag": "json:\"text,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OwnerID",
+					"jsonName": "ownerId",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"ownerId,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApivUserDataStatsBuffs",
+			"description": "ListApivUserDataStatsBuffs defines a model",
+			"fields": [
+				{
+					"name": "Str",
+					"jsonName": "str",
+					"type": "int",
+					"jsonTag": "json:\"str,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Int",
+					"jsonName": "int",
+					"type": "int",
+					"jsonTag": "json:\"int,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Per",
+					"jsonName": "per",
+					"type": "int",
+					"jsonTag": "json:\"per,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Con",
+					"jsonName": "con",
+					"type": "int",
+					"jsonTag": "json:\"con,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Stealth",
+					"jsonName": "stealth",
+					"type": "int",
+					"jsonTag": "json:\"stealth,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Streaks",
+					"jsonName": "streaks",
+					"type": "bool",
+					"jsonTag": "json:\"streaks,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Seafoam",
+					"jsonName": "seafoam",
+					"type": "bool",
+					"jsonTag": "json:\"seafoam,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ShinySeed",
+					"jsonName": "shinySeed",
+					"type": "bool",
+					"jsonTag": "json:\"shinySeed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Snowball",
+					"jsonName": "snowball",
+					"type": "bool",
+					"jsonTag": "json:\"snowball,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SpookySparkles",
+					"jsonName": "spookySparkles",
+					"type": "bool",
+					"jsonTag": "json:\"spookySparkles,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApivUserDataStatsTraining",
+			"description": "ListApivUserDataStatsTraining defines a model",
+			"fields": [
+				{
+					"name": "Con",
+					"jsonName": "con",
+					"type": "int",
+					"jsonTag": "json:\"con,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Str",
+					"jsonName": "str",
+					"type": "float64",
+					"jsonTag": "json:\"str\"",
+					"required": true
+				},
+				{
+					"name": "Per",
+					"jsonName": "per",
+					"type": "int",
+					"jsonTag": "json:\"per,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Int",
+					"jsonName": "int",
+					"type": "int",
+					"jsonTag": "json:\"int,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PostApiv3TaskScoreUpNotFoundJSONResponse",
+			"description": "PostApiv3TaskScoreUpNotFoundJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Err",
+					"jsonName": "error",
+					"type": "string",
+					"jsonTag": "json:\"error,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PostApiv3TaskScoreUpOkJSONResponse",
+			"description": "PostApiv3TaskScoreUpOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Data",
+					"jsonName": "data",
+					"type": "PostApiv3TaskScoreUpOkJSONResponseData",
+					"jsonTag": "json:\"data\"",
+					"required": true
+				},
+				{
+					"name": "Notifications",
+					"jsonName": "notifications",
+					"type": "[]struct{}",
+					"jsonTag": "json:\"notifications,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "UserV",
+					"jsonName": "userV",
+					"type": "*int",
+					"jsonTag": "json:\"userV,omitempty\""
+				},
+				{
+					"name": "AppVersion",
+					"jsonName": "appVersion",
+					"type": "string",
+					"jsonTag": "json:\"appVersion,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "PostApiv3TaskScoreUpOkJSONResponseData",
+			"description": "PostApiv3TaskScoreUpOkJSONResponseData defines a model",
+			"fields": [
+				{
+					"name": "Delta",
+					"jsonName": "delta",
+					"type": "float64",
+					"jsonTag": "json:\"delta\"",
+					"required": true
+				},
+				{
+					"name": "UnderscoreTmp",
+					"jsonName": "_tmp",
+					"type": "PostApiv3TaskScoreUpOkJSONResponseDataTmp",
+					"jsonTag": "json:\"_tmp\"",
+					"required": true
+				},
+				{
+					"name": "Hp",
+					"jsonName": "hp",
+					"type": "float64",
+					"jsonTag": "json:\"hp\"",
+					"required": true
+				},
+				{
+					"name": "Mp",
+					"jsonName": "mp",
+					"type": "float64",
+					"jsonTag": "json:\"mp\"",
+					"required": true
+				},
+				{
+					"name": "Exp",
+					"jsonName": "exp",
+					"type": "float64",
+					"jsonTag": "json:\"exp\"",
+					"required": true
+				},
+				{
+					"name": "Gp",
+					"jsonName": "gp",
+					"type": "float64",
+					"jsonTag": "json:\"gp\"",
+					"required": true
+				},
+				{
+					"name": "Lvl",
+					"jsonName": "lvl",
+					"type": "int",
+					"jsonTag": "json:\"lvl,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Class",
+					"jsonName": "class",
+					"type": "string",
+					"jsonTag": "json:\"class,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Points",
+					"jsonName": "points",
+					"type": "int",
+					"jsonTag": "json:\"points,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Str",
+					"jsonName": "str",
+					"type": "int",
+					"jsonTag": "json:\"str,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Con",
+					"jsonName": "con",
+					"type": "int",
+					"jsonTag": "json:\"con,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Int",
+					"jsonName": "int",
+					"type": "int",
+					"jsonTag": "json:\"int,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Per",
+					"jsonName": "per",
+					"type": "int",
+					"jsonTag": "json:\"per,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Buffs",
+					"jsonName": "buffs",
+					"type": "ListApivUserDataStatsBuffs",
+					"jsonTag": "json:\"buffs\"",
+					"required": true
+				},
+				{
+					"name": "Training",
+					"jsonName": "training",
+					"type": "ListApivUserDataStatsTraining",
+					"jsonTag": "json:\"training\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PostApiv3TaskScoreUpOkJSONResponseDataTmp",
+			"description": "PostApiv3TaskScoreUpOkJSONResponseDataTmp defines a model",
+			"fields": [
+				{
+					"name": "Quest",
+					"jsonName": "quest",
+					"type": "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest",
+					"jsonTag": "json:\"quest\"",
+					"required": true
+				},
+				{
+					"name": "Drop",
+					"jsonName": "drop",
+					"type": "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop",
+					"jsonTag": "json:\"drop\"",
+					"required": true
+				},
+				{
+					"name": "StreakBonus",
+					"jsonName": "streakBonus",
+					"type": "*float64",
+					"jsonTag": "json:\"streakBonus,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop",
+			"description": "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop defines a model",
+			"fields": [
+				{
+					"name": "Target",
+					"jsonName": "target",
+					"type": "string",
+					"jsonTag": "json:\"target,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CanDrop",
+					"jsonName": "canDrop",
+					"type": "bool",
+					"jsonTag": "json:\"canDrop,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "int",
+					"jsonTag": "json:\"value,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Key",
+					"jsonName": "key",
+					"type": "string",
+					"jsonTag": "json:\"key,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Dialog",
+					"jsonName": "dialog",
+					"type": "string",
+					"jsonTag": "json:\"dialog,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest",
+			"description": "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest defines a model",
+			"fields": [
+				{
+					"name": "ProgressDelta",
+					"jsonName": "progressDelta",
+					"type": "float64",
+					"jsonTag": "json:\"progressDelta\"",
+					"required": true
+				},
+				{
+					"name": "Collection",
+					"jsonName": "collection",
+					"type": "int",
+					"jsonTag": "json:\"collection,omitzero\"",
+					"required": true
+				}
+			]
+		}
+	],
+	"hasDateTimeOrIntFields": true
+}

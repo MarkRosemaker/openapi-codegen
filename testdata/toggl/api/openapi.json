@@ -1,0 +1,3136 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Toggl API",
+    "description": "The Toggl API allows developers to interact with Toggl's time tracking service programmatically. It provides endpoints for managing time entries, projects, clients, tags, and user information. With this API, you can automate time tracking, generate detailed reports, and integrate Toggl with other tools and services.",
+    "termsOfService": "https://toggl.com/terms/",
+    "contact": {
+      "email": "support@toggl.com"
+    },
+    "license": {
+      "name": "Toggl Proprietary License"
+    },
+    "version": "9"
+  },
+  "servers": [
+    {
+      "url": "https://api.track.toggl.com/api/v9"
+    }
+  ],
+  "paths": {
+    "/me": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/with_related_data"
+        }
+      ],
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Return Current User",
+        "description": "Returns details for the current user.",
+        "operationId": "GetMe",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/UserResponse"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResponse"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspace_id}/time_entries": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/workspace_id"
+        }
+      ],
+      "post": {
+        "tags": [
+          "time_entries"
+        ],
+        "summary": "Create a time entry",
+        "description": "Creates a new workspace TimeEntry.",
+        "operationId": "CreateTimeEntry",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/TimeEntry"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TimeEntryResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestResponse"
+          }
+        }
+      }
+    },
+    "/me/time_entries/current": {
+      "get": {
+        "tags": [
+          "time_entries"
+        ],
+        "summary": "Get current time entry",
+        "description": "Load running time entry for the current user.",
+        "operationId": "GetCurrentTimeEntry",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TimeEntryResponse"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspace_id}/time_entries/{time_entry_id}/stop": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/workspace_id"
+        },
+        {
+          "$ref": "#/components/parameters/time_entry_id"
+        }
+      ],
+      "patch": {
+        "tags": [
+          "time_entries"
+        ],
+        "summary": "Stop an existing time entry",
+        "description": "Stops a workspace time entry.",
+        "operationId": "StopTimeEntry",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TimeEntryResponse",
+            "description": "The stopped workspace TimeEntry."
+          }
+        }
+      }
+    },
+    "/me/time_entries": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/since"
+        },
+        {
+          "$ref": "#/components/parameters/before"
+        },
+        {
+          "$ref": "#/components/parameters/start_date"
+        },
+        {
+          "$ref": "#/components/parameters/end_date"
+        },
+        {
+          "$ref": "#/components/parameters/meta"
+        },
+        {
+          "$ref": "#/components/parameters/include_sharing"
+        }
+      ],
+      "get": {
+        "tags": [
+          "time_entries"
+        ],
+        "summary": "List time entries",
+        "description": "Lists latest time entries.",
+        "operationId": "ListTimeEntries",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TimeEntriesResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestResponse"
+          }
+        }
+      }
+    },
+    "/organizations": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Create a new organization",
+        "description": "Creates a new organization with a single workspace and assigns current user as the organization owner",
+        "operationId": "CreateOrganization",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Organization"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SimpleOrganizationResponse"
+          }
+        }
+      }
+    },
+    "/me/organizations": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "summary": "List my organizations",
+        "description": "Get all organizations a given user is part of.",
+        "operationId": "ListOrganizations",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationsResponse"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/organization_id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get organization data",
+        "description": "Returns organization name and current pricing plan",
+        "operationId": "GetOrganization",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationResponse"
+          }
+        }
+      }
+    },
+    "/organizations/9011051/workspaces": {
+      "post": {
+        "operationId": "PostOrganizations9011051Workspaces",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PostOrganizations9011051WorkspacesRequestBody"
+        },
+        "responses": {
+          "403": {
+            "$ref": "#/components/responses/PostOrganizations9011051WorkspacesForbiddenResponse"
+          },
+          "200": {
+            "$ref": "#/components/responses/PostOrganizations9011051WorkspacesOkResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "APIErrorString": {
+        "type": "string",
+        "example": "Start time year must be between 2006 and 2030"
+      },
+      "Clients": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/WorkClient"
+        },
+        "example": [
+          {
+            "id": 64890399,
+            "wid": 2230580,
+            "archived": false,
+            "name": "AGL",
+            "at": "2024-03-17T10:55:38+00:00",
+            "creator_id": 2166261
+          },
+          {
+            "id": 64890400,
+            "wid": 2230580,
+            "archived": false,
+            "name": "Mark",
+            "at": "2024-03-17T10:56:13+00:00",
+            "creator_id": 2166261
+          },
+          {
+            "id": 64890401,
+            "wid": 2230580,
+            "archived": false,
+            "name": "Fae Tools",
+            "at": "2024-03-17T10:56:27+00:00",
+            "creator_id": 2166261
+          },
+          {
+            "id": 64890402,
+            "wid": 2230580,
+            "archived": false,
+            "name": "Socratic Realms",
+            "at": "2024-03-17T10:56:34+00:00",
+            "creator_id": 2166261
+          }
+        ]
+      },
+      "EventMetadata": {
+        "type": "object"
+      },
+      "NewOrganization": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name of the organization",
+            "type": "string",
+            "example": "Your Organization"
+          },
+          "workspace_name": {
+            "description": "Name of the workspace",
+            "type": "string",
+            "example": "Your Workspace"
+          }
+        },
+        "required": [
+          "name",
+          "workspace_name"
+        ],
+        "example": {
+          "name": "Your Organization",
+          "workspace_name": "Your Workspace"
+        }
+      },
+      "NewTimeEntry": {
+        "type": "object",
+        "properties": {
+          "billable": {
+            "description": "Whether the time entry is marked as billable, optional, default false",
+            "type": "boolean",
+            "example": false
+          },
+          "created_with": {
+            "description": "Must be provided when creating a time entry and should identify the service/application used to create it",
+            "type": "string",
+            "example": "API example code"
+          },
+          "description": {
+            "description": "Time entry description, optional",
+            "type": "string",
+            "example": "Hello Toggl"
+          },
+          "duration": {
+            "description": "Time entry duration. For running entries should be negative, preferable -1",
+            "type": "integer",
+            "format": "duration",
+            "example": -1
+          },
+          "duronly": {
+            "description": "Deprecated: Used to create a time entry with a duration but without a stop time. This parameter can be ignored.",
+            "type": "boolean"
+          },
+          "event_metadata": {
+            "$ref": "#/components/schemas/EventMetadata"
+          },
+          "pid": {
+            "description": "Project ID, legacy field",
+            "type": "integer"
+          },
+          "project_id": {
+            "description": "Project ID, optional",
+            "type": "integer"
+          },
+          "shared_with_user_ids": {
+            "description": "List of user IDs to share this time entry with",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "start": {
+            "description": "Start time, required for creation.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-15T21:17:59.593648+01:00"
+          },
+          "start_date": {
+            "description": "If provided during creation, the date part will take precedence over the date part of \"start\". Format: 2006-11-07",
+            "type": "string"
+          },
+          "stop": {
+            "description": "Stop time in UTC, can be omitted if it's still running or created with \"duration\".\nIf \"stop\" and \"duration\" are provided, values must be consistent (start + duration == stop)",
+            "type": "string"
+          },
+          "tag_action": {
+            "$ref": "#/components/schemas/TagAction"
+          },
+          "tag_ids": {
+            "description": "IDs of tags to add/remove",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tags": {
+            "description": "Names of tags to add/remove. If name does not exist as tag, one will be created automatically",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "task_id": {
+            "description": "Task ID, optional",
+            "type": "integer"
+          },
+          "tid": {
+            "description": "Task ID, legacy field",
+            "type": "integer"
+          },
+          "uid": {
+            "description": "Time Entry creator ID, legacy field",
+            "type": "integer"
+          },
+          "user_id": {
+            "description": "Time Entry creator ID, if omitted will use the requester user ID",
+            "type": "integer"
+          },
+          "wid": {
+            "description": "Workspace ID, legacy field",
+            "type": "integer"
+          },
+          "workspace_id": {
+            "description": "Workspace ID",
+            "type": "integer",
+            "example": 2230580
+          }
+        },
+        "required": [
+          "created_with",
+          "description",
+          "duration",
+          "tags",
+          "billable",
+          "workspace_id",
+          "start"
+        ],
+        "example": {
+          "created_with": "github.com/go-api-libs/toggl",
+          "start": "2024-12-15T21:17:59.593648+01:00",
+          "workspace_id": 2230580
+        }
+      },
+      "Options": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Organization ID",
+            "type": "integer",
+            "example": 2108099
+          },
+          "name": {
+            "description": "Organization Name",
+            "type": "string",
+            "example": "Your Organization"
+          },
+          "pricing_plan_id": {
+            "description": "Organization plan ID",
+            "type": "integer",
+            "example": 0
+          },
+          "created_at": {
+            "description": "Organization's creation date",
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-07-01T07:42:35.365613Z"
+          },
+          "at": {
+            "description": "Organization's last modification date",
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-07-01T07:42:35.365613Z"
+          },
+          "server_deleted_at": {
+            "type": "object"
+          },
+          "is_multi_workspace_enabled": {
+            "description": "Is true when the organization option is_multi_workspace_enabled is set",
+            "type": "boolean",
+            "example": false
+          },
+          "suspended_at": {
+            "description": "Whether the organization is currently suspended",
+            "type": "object"
+          },
+          "user_count": {
+            "description": "Number of organization users",
+            "type": "integer",
+            "example": 1
+          },
+          "trial_info": {
+            "$ref": "#/components/schemas/TrialInfo"
+          },
+          "is_unified": {
+            "type": "boolean",
+            "example": false
+          },
+          "max_workspaces": {
+            "description": "Maximum number of workspaces allowed for the organization",
+            "type": "integer",
+            "example": 20
+          },
+          "permissions": {
+            "type": "string"
+          },
+          "admin": {
+            "description": "Whether the requester is an admin of the organization",
+            "type": "boolean",
+            "example": true
+          },
+          "owner": {
+            "description": "Whether the requester is a the owner of the organization",
+            "type": "boolean",
+            "example": true
+          },
+          "pricing_plan_name": {
+            "description": "The subscription plan name the org is currently on. Free or any plan name coming from payment provider",
+            "type": "string",
+            "example": "Free"
+          },
+          "pricing_plan_enterprise": {
+            "description": "The subscription plan is an enterprise plan",
+            "type": "boolean",
+            "example": false
+          },
+          "max_data_retention_days": {
+            "description": "How far back free workspaces in this org can access data.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "pricing_plan_id",
+          "created_at",
+          "at",
+          "server_deleted_at",
+          "is_multi_workspace_enabled",
+          "suspended_at",
+          "user_count",
+          "trial_info",
+          "is_unified",
+          "max_workspaces",
+          "permissions",
+          "admin",
+          "owner",
+          "pricing_plan_name",
+          "pricing_plan_enterprise"
+        ],
+        "example": {
+          "id": 2108099,
+          "name": "Atlantean Renaissance",
+          "pricing_plan_id": 0,
+          "created_at": "2020-07-01T07:42:35.365613Z",
+          "at": "2020-07-01T07:42:35.365613Z",
+          "server_deleted_at": null,
+          "is_multi_workspace_enabled": false,
+          "suspended_at": null,
+          "user_count": 1,
+          "trial_info": {
+            "trial": false,
+            "trial_available": true,
+            "trial_end_date": null,
+            "next_payment_date": null,
+            "last_pricing_plan_id": null,
+            "can_have_trial": true,
+            "trial_plan_id": null
+          },
+          "is_unified": false,
+          "max_workspaces": 20,
+          "permissions": null,
+          "admin": true,
+          "owner": true,
+          "pricing_plan_name": "Free",
+          "pricing_plan_enterprise": false
+        }
+      },
+      "Organizations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Organization"
+        },
+        "example": [
+          {
+            "id": 2108099,
+            "name": "Atlantean Renaissance",
+            "pricing_plan_id": 0,
+            "created_at": "2020-07-01T07:42:35.365613Z",
+            "at": "2020-07-01T07:42:35.365613Z",
+            "server_deleted_at": null,
+            "is_multi_workspace_enabled": false,
+            "suspended_at": null,
+            "user_count": 1,
+            "trial_info": {
+              "trial": false,
+              "trial_available": true,
+              "trial_end_date": null,
+              "next_payment_date": null,
+              "last_pricing_plan_id": null,
+              "can_have_trial": true,
+              "trial_plan_id": null
+            },
+            "is_unified": false,
+            "max_workspaces": 20,
+            "permissions": null,
+            "admin": true,
+            "owner": true,
+            "pricing_plan_name": "Free",
+            "pricing_plan_enterprise": false
+          },
+          {
+            "id": 9011051,
+            "name": "Your Organization",
+            "pricing_plan_id": 0,
+            "created_at": "2024-12-16T19:09:07.041832Z",
+            "at": "2024-12-16T19:09:07.041832Z",
+            "server_deleted_at": null,
+            "is_multi_workspace_enabled": false,
+            "suspended_at": null,
+            "user_count": 1,
+            "trial_info": {
+              "trial": false,
+              "trial_available": true,
+              "trial_end_date": null,
+              "next_payment_date": null,
+              "last_pricing_plan_id": null,
+              "can_have_trial": true,
+              "trial_plan_id": null
+            },
+            "is_unified": false,
+            "max_workspaces": 20,
+            "permissions": null,
+            "admin": true,
+            "owner": true,
+            "pricing_plan_name": "Free",
+            "pricing_plan_enterprise": false
+          }
+        ]
+      },
+      "PostOrganizations9011051WorkspacesJSONRequestBody": {
+        "type": "object",
+        "properties": {
+          "admins": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "example": 0
+            },
+            "example": [
+              0
+            ]
+          },
+          "default_currency": {
+            "type": "string",
+            "example": "string"
+          },
+          "default_hourly_rate": {
+            "type": "integer",
+            "example": 0
+          },
+          "initial_pricing_plan": {
+            "type": "integer",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "only_admins_may_create_projects": {
+            "type": "boolean",
+            "example": true
+          },
+          "only_admins_see_billable_rates": {
+            "type": "boolean",
+            "example": true
+          },
+          "only_admins_see_team_dashboard": {
+            "type": "boolean",
+            "example": true
+          },
+          "organizationID": {
+            "type": "integer",
+            "example": 0
+          },
+          "projects_billable_by_default": {
+            "type": "boolean",
+            "example": true
+          },
+          "rounding": {
+            "type": "integer",
+            "example": 0
+          },
+          "rounding_minutes": {
+            "type": "integer",
+            "example": 0
+          }
+        },
+        "required": [
+          "admins",
+          "default_currency",
+          "default_hourly_rate",
+          "initial_pricing_plan",
+          "name",
+          "only_admins_may_create_projects",
+          "only_admins_see_billable_rates",
+          "only_admins_see_team_dashboard",
+          "organizationID",
+          "projects_billable_by_default",
+          "rounding",
+          "rounding_minutes"
+        ],
+        "example": {
+          "admins": [
+            0
+          ],
+          "default_currency": "string",
+          "default_hourly_rate": 0,
+          "initial_pricing_plan": 0,
+          "name": "string",
+          "only_admins_may_create_projects": true,
+          "only_admins_see_billable_rates": true,
+          "only_admins_see_team_dashboard": true,
+          "organizationID": 0,
+          "projects_billable_by_default": true,
+          "rounding": 0,
+          "rounding_minutes": 0
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Project ID",
+            "type": "integer",
+            "example": 63334144
+          },
+          "workspace_id": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "client_id": {
+            "description": "Client ID",
+            "type": "integer",
+            "example": 64890399,
+            "x-nullable": true
+          },
+          "name": {
+            "type": "string",
+            "example": "AGL Academy (Course Creation & Improvement)"
+          },
+          "is_private": {
+            "type": "boolean",
+            "example": false
+          },
+          "active": {
+            "description": "Whether the project is active or archived",
+            "type": "boolean",
+            "example": true
+          },
+          "at": {
+            "description": "Last updated date",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-03-17T10:58:40+00:00"
+          },
+          "created_at": {
+            "description": "Creation date",
+            "type": "string",
+            "format": "date-time",
+            "example": "2017-08-28T10:47:38+00:00"
+          },
+          "server_deleted_at": {
+            "type": "object"
+          },
+          "color": {
+            "description": "Color",
+            "type": "string",
+            "example": "#0b83d9"
+          },
+          "billable": {
+            "description": "Whether the project is billable, premium feature",
+            "type": "boolean",
+            "example": false,
+            "x-nullable": true
+          },
+          "template": {
+            "type": "object"
+          },
+          "auto_estimates": {
+            "description": "Whether estimates are based on task hours, premium feature",
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "current_period": {
+            "$ref": "#/components/schemas/EventMetadata"
+          },
+          "end_date": {
+            "description": "End date",
+            "type": "string"
+          },
+          "estimated_hours": {
+            "description": "Estimated hours",
+            "type": "integer",
+            "x-nullable": true
+          },
+          "estimated_seconds": {
+            "description": "Estimated seconds",
+            "type": "integer",
+            "x-nullable": true
+          },
+          "rate": {
+            "type": "object"
+          },
+          "rate_last_updated": {
+            "type": "object"
+          },
+          "currency": {
+            "description": "Currency, premium feature",
+            "type": "string",
+            "x-nullable": true
+          },
+          "recurring": {
+            "type": "boolean",
+            "example": false
+          },
+          "template_id": {
+            "type": "object"
+          },
+          "recurring_parameters": {
+            "type": "object"
+          },
+          "fixed_fee": {
+            "description": "Fixed fee, premium feature",
+            "type": "number"
+          },
+          "actual_hours": {
+            "description": "Actual hours",
+            "type": "integer",
+            "example": 1103,
+            "x-nullable": true
+          },
+          "actual_seconds": {
+            "description": "Actual seconds",
+            "type": "integer",
+            "example": 3973324,
+            "x-nullable": true
+          },
+          "tasks_count": {
+            "type": "object"
+          },
+          "can_track_time": {
+            "type": "boolean",
+            "example": false
+          },
+          "start_date": {
+            "type": "string",
+            "example": "2017-08-28"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          },
+          "wid": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "cid": {
+            "description": "Client ID legacy field",
+            "type": "integer",
+            "example": 64890399
+          },
+          "is_shared": {
+            "type": "boolean",
+            "example": false
+          },
+          "pinned": {
+            "type": "boolean",
+            "example": false
+          },
+          "integration_ext_id": {
+            "description": "The external ID of the linked entity in the external system (e.g. JIRA/SalesForce)",
+            "type": "string"
+          },
+          "integration_ext_type": {
+            "description": "The external type of the linked entity in the external system (e.g. JIRA/SalesForce)",
+            "type": "string"
+          },
+          "integration_provider": {
+            "description": "The provider (e.g. JIRA/SalesForce) that has an entity linked to this Toggl Track entity",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "workspace_id",
+          "client_id",
+          "name",
+          "is_private",
+          "active",
+          "at",
+          "created_at",
+          "server_deleted_at",
+          "color",
+          "billable",
+          "template",
+          "auto_estimates",
+          "estimated_hours",
+          "estimated_seconds",
+          "rate",
+          "rate_last_updated",
+          "currency",
+          "recurring",
+          "template_id",
+          "recurring_parameters",
+          "fixed_fee",
+          "actual_hours",
+          "actual_seconds",
+          "tasks_count",
+          "can_track_time",
+          "start_date",
+          "status",
+          "wid",
+          "cid",
+          "is_shared",
+          "pinned"
+        ],
+        "example": {
+          "id": 63334144,
+          "workspace_id": 2230580,
+          "client_id": 64890399,
+          "name": "AGL Academy (Course Creation & Improvement)",
+          "is_private": false,
+          "active": true,
+          "at": "2024-03-17T10:58:40+00:00",
+          "created_at": "2017-08-28T10:47:38+00:00",
+          "server_deleted_at": null,
+          "color": "#0b83d9",
+          "billable": false,
+          "template": null,
+          "auto_estimates": null,
+          "estimated_hours": null,
+          "estimated_seconds": null,
+          "rate": null,
+          "rate_last_updated": null,
+          "currency": null,
+          "recurring": false,
+          "template_id": null,
+          "recurring_parameters": null,
+          "fixed_fee": null,
+          "actual_hours": 1103,
+          "actual_seconds": 3973324,
+          "tasks_count": null,
+          "can_track_time": false,
+          "start_date": "2017-08-28",
+          "status": "active",
+          "wid": 2230580,
+          "cid": 64890399,
+          "is_shared": false,
+          "pinned": false
+        }
+      },
+      "Projects": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Project"
+        },
+        "example": [
+          {
+            "id": 63334144,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Academy (Course Creation & Improvement)",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:40+00:00",
+            "created_at": "2017-08-28T10:47:38+00:00",
+            "server_deleted_at": null,
+            "color": "#0b83d9",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 1103,
+            "actual_seconds": 3973324,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 63334341,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Podcast Creation and Related Tasks",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2017-08-28T10:48:31+00:00",
+            "server_deleted_at": null,
+            "color": "#465bb3",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 284,
+            "actual_seconds": 1022823,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 63334409,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Social Media",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2017-08-28T10:50:06+00:00",
+            "server_deleted_at": null,
+            "color": "#d92b2b",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 2084,
+            "actual_seconds": 7503998,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 63334598,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Power Workshops (Creation and Live Call)",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2017-08-28T10:50:55+00:00",
+            "server_deleted_at": null,
+            "color": "#2da608",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 104,
+            "actual_seconds": 376984,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 63334778,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL E-Mails and Funnel",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2017-08-28T10:51:41+00:00",
+            "server_deleted_at": null,
+            "color": "#9e5bd9",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 249,
+            "actual_seconds": 897223,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 63334886,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Website Management and Improvement",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:53+00:00",
+            "created_at": "2017-08-28T10:52:07+00:00",
+            "server_deleted_at": null,
+            "color": "#bf7000",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 770,
+            "actual_seconds": 2773111,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 63335653,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Video Creation and Upload",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:53+00:00",
+            "created_at": "2017-08-28T10:58:24+00:00",
+            "server_deleted_at": null,
+            "color": "#0b83d9",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 376,
+            "actual_seconds": 1356667,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-28",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 64082580,
+            "workspace_id": 2230580,
+            "client_id": null,
+            "name": "Bug Fixing",
+            "is_private": false,
+            "active": true,
+            "at": "2024-01-04T08:19:09+00:00",
+            "created_at": "2017-08-31T14:53:43+00:00",
+            "server_deleted_at": null,
+            "color": "#c7af14",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 2,
+            "actual_seconds": 7200,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-08-31",
+            "status": "active",
+            "wid": 2230580,
+            "cid": null,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 64280362,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Housekeeping",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2017-09-01T11:39:40+00:00",
+            "server_deleted_at": null,
+            "color": "#0b83d9",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 4,
+            "actual_seconds": 14547,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-09-01",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 65728232,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Coaching",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:40+00:00",
+            "created_at": "2017-09-07T14:55:46+00:00",
+            "server_deleted_at": null,
+            "color": "#c9806b",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 779,
+            "actual_seconds": 2805470,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-09-07",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 73915499,
+            "workspace_id": 2230580,
+            "client_id": null,
+            "name": "Planning Tasks, OKRs",
+            "is_private": false,
+            "active": true,
+            "at": "2024-01-04T10:06:27+00:00",
+            "created_at": "2017-10-10T07:27:51+00:00",
+            "server_deleted_at": null,
+            "color": "#c9806b",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 45,
+            "actual_seconds": 165170,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-10-10",
+            "status": "active",
+            "wid": 2230580,
+            "cid": null,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 88962407,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Custom Service",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2017-12-20T09:23:31+00:00",
+            "server_deleted_at": null,
+            "color": "#525266",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 53,
+            "actual_seconds": 193204,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2017-12-20",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 106257141,
+            "workspace_id": 2230580,
+            "client_id": 64890400,
+            "name": "Business Education",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T10:59:09+00:00",
+            "created_at": "2018-03-18T14:21:27+00:00",
+            "server_deleted_at": null,
+            "color": "#e36a00",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 27,
+            "actual_seconds": 99244,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2018-03-18",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890400,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 148460132,
+            "workspace_id": 2230580,
+            "client_id": null,
+            "name": "Tutoring",
+            "is_private": false,
+            "active": false,
+            "at": "2024-03-17T11:02:52+00:00",
+            "created_at": "2018-12-28T08:20:55+00:00",
+            "server_deleted_at": null,
+            "color": "#06a893",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 2,
+            "actual_seconds": 8227,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2018-12-28",
+            "status": "archived",
+            "wid": 2230580,
+            "cid": null,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 150523487,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "AGL Coding",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:58:41+00:00",
+            "created_at": "2019-03-26T05:06:52+00:00",
+            "server_deleted_at": null,
+            "color": "#465bb3",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 430,
+            "actual_seconds": 1551439,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2019-03-26",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 151377968,
+            "workspace_id": 2230580,
+            "client_id": 64890400,
+            "name": "MR Website",
+            "is_private": false,
+            "active": true,
+            "at": "2024-03-17T10:59:09+00:00",
+            "created_at": "2019-05-03T10:05:18+00:00",
+            "server_deleted_at": null,
+            "color": "#d94182",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 132,
+            "actual_seconds": 477088,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2019-05-03",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890400,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 155392684,
+            "workspace_id": 2230580,
+            "client_id": 64890401,
+            "name": "Programming",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T11:02:18+00:00",
+            "created_at": "2019-11-16T12:32:47+00:00",
+            "server_deleted_at": null,
+            "color": "#d94182",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 2422,
+            "actual_seconds": 8720133,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2019-11-16",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890401,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 164435350,
+            "workspace_id": 2230580,
+            "client_id": null,
+            "name": "Flyt",
+            "is_private": true,
+            "active": true,
+            "at": "2024-01-05T01:55:08+00:00",
+            "created_at": "2020-10-19T12:08:48+00:00",
+            "server_deleted_at": null,
+            "color": "#525266",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 3199,
+            "actual_seconds": 11519217,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2020-10-19",
+            "status": "active",
+            "wid": 2230580,
+            "cid": null,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 169487914,
+            "workspace_id": 2230580,
+            "client_id": 64890401,
+            "name": "Fae Social Media",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T10:59:25+00:00",
+            "created_at": "2021-04-30T18:51:21+00:00",
+            "server_deleted_at": null,
+            "color": "#566614",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 10,
+            "actual_seconds": 38693,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2021-04-30",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890401,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 187344901,
+            "workspace_id": 2230580,
+            "client_id": 64890401,
+            "name": "Fae Writing",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T10:59:25+00:00",
+            "created_at": "2022-11-18T22:10:13+00:00",
+            "server_deleted_at": null,
+            "color": "#525266",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 3,
+            "actual_seconds": 11956,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2022-11-18",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890401,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 190704516,
+            "workspace_id": 2230580,
+            "client_id": 64890400,
+            "name": "Mastermind",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T10:59:38+00:00",
+            "created_at": "2023-03-20T15:13:59+00:00",
+            "server_deleted_at": null,
+            "color": "#2da608",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 101,
+            "actual_seconds": 363652,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2023-03-20",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890400,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 193467840,
+            "workspace_id": 2230580,
+            "client_id": 64890400,
+            "name": "Personal Development",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T10:59:38+00:00",
+            "created_at": "2023-07-05T13:28:16+00:00",
+            "server_deleted_at": null,
+            "color": "#2da608",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 248,
+            "actual_seconds": 895000,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2023-07-05",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890400,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 200008763,
+            "workspace_id": 2230580,
+            "client_id": null,
+            "name": "Socratic Realms",
+            "is_private": true,
+            "active": true,
+            "at": "2024-02-18T11:12:02+00:00",
+            "created_at": "2024-02-18T11:12:02+00:00",
+            "server_deleted_at": null,
+            "color": "#2da608",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 4,
+            "actual_seconds": 15563,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2024-02-18",
+            "status": "active",
+            "wid": 2230580,
+            "cid": null,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 200880671,
+            "workspace_id": 2230580,
+            "client_id": 64890400,
+            "name": "Miracle Morning 🌅",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-17T10:56:13+00:00",
+            "created_at": "2024-03-15T06:33:41+00:00",
+            "server_deleted_at": null,
+            "color": "#c7af14",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 133,
+            "actual_seconds": 482226,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2024-03-15",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890400,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 200880994,
+            "workspace_id": 2230580,
+            "client_id": null,
+            "name": "Housekeeping & Errands",
+            "is_private": true,
+            "active": true,
+            "at": "2024-03-15T06:50:06+00:00",
+            "created_at": "2024-03-15T06:50:06+00:00",
+            "server_deleted_at": null,
+            "color": "#0b83d9",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 17,
+            "actual_seconds": 63806,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2024-03-15",
+            "status": "active",
+            "wid": 2230580,
+            "cid": null,
+            "is_shared": false,
+            "pinned": false
+          },
+          {
+            "id": 201802517,
+            "workspace_id": 2230580,
+            "client_id": 64890399,
+            "name": "Video Production",
+            "is_private": true,
+            "active": true,
+            "at": "2024-04-05T07:36:14+00:00",
+            "created_at": "2024-04-05T07:36:14+00:00",
+            "server_deleted_at": null,
+            "color": "#e36a00",
+            "billable": false,
+            "template": null,
+            "auto_estimates": null,
+            "estimated_hours": null,
+            "estimated_seconds": null,
+            "rate": null,
+            "rate_last_updated": null,
+            "currency": null,
+            "recurring": false,
+            "template_id": null,
+            "recurring_parameters": null,
+            "fixed_fee": null,
+            "actual_hours": 34,
+            "actual_seconds": 124539,
+            "tasks_count": null,
+            "can_track_time": false,
+            "start_date": "2024-04-05",
+            "status": "active",
+            "wid": 2230580,
+            "cid": 64890399,
+            "is_shared": false,
+            "pinned": false
+          }
+        ]
+      },
+      "SimpleOrganization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 9011051
+          },
+          "name": {
+            "type": "string",
+            "example": "Your Organization"
+          },
+          "permissions": {
+            "type": "string"
+          },
+          "workspace_id": {
+            "type": "integer",
+            "example": 9009928
+          },
+          "workspace_name": {
+            "type": "string",
+            "example": "Your Workspace"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "workspace_id",
+          "workspace_name"
+        ],
+        "example": {
+          "id": 9011051,
+          "name": "Your Organization",
+          "workspace_id": 9009928,
+          "workspace_name": "Your Workspace"
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 16939168
+          },
+          "workspace_id": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "name": {
+            "type": "string",
+            "example": "AGL"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-11-08T19:11:14.332795Z"
+          },
+          "creator_id": {
+            "type": "integer",
+            "example": 2166261
+          }
+        },
+        "required": [
+          "id",
+          "workspace_id",
+          "name",
+          "at",
+          "creator_id"
+        ],
+        "example": {
+          "id": 16939168,
+          "workspace_id": 2230580,
+          "name": "AGL",
+          "at": "2024-11-08T19:11:14.332795Z",
+          "creator_id": 2166261
+        }
+      },
+      "TagAction": {
+        "description": "Used when updating an existing time entry",
+        "type": "string",
+        "enum": [
+          "add",
+          "delete"
+        ]
+      },
+      "Tags": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tag"
+        },
+        "example": [
+          {
+            "id": 16939168,
+            "workspace_id": 2230580,
+            "name": "AGL",
+            "at": "2024-11-08T19:11:14.332795Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13205684,
+            "workspace_id": 2230580,
+            "name": "Compare Alternatives",
+            "at": "2022-11-04T23:23:28.20983Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13169096,
+            "workspace_id": 2230580,
+            "name": "Create Content for Faetools.com",
+            "at": "2022-10-28T11:23:35.956299Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13155424,
+            "workspace_id": 2230580,
+            "name": "Create CSS bundler",
+            "at": "2022-10-25T19:19:52.925472Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 16939169,
+            "workspace_id": 2230580,
+            "name": "Fae Tools",
+            "at": "2024-11-08T19:11:14.341404Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13164614,
+            "workspace_id": 2230580,
+            "name": "Fix Pagespeed Issues",
+            "at": "2022-10-27T13:02:54.83923Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 3570301,
+            "workspace_id": 2230580,
+            "name": "mobile",
+            "at": "2022-08-26T20:26:18.510465Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13154422,
+            "workspace_id": 2230580,
+            "name": "Pilot: Proactively serve customers",
+            "at": "2022-10-25T15:19:35.640635Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13207357,
+            "workspace_id": 2230580,
+            "name": "Set Up Stripe",
+            "at": "2022-11-05T20:21:38.490242Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 12489208,
+            "workspace_id": 2230580,
+            "name": "Story",
+            "at": "2022-08-26T20:45:38.185398Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 13155425,
+            "workspace_id": 2230580,
+            "name": "Sub-task",
+            "at": "2022-10-25T19:19:52.925472Z",
+            "creator_id": 2166261
+          },
+          {
+            "id": 12489209,
+            "workspace_id": 2230580,
+            "name": "Website Creator",
+            "at": "2022-08-26T20:45:38.185398Z",
+            "creator_id": 2166261
+          }
+        ]
+      },
+      "TimeEntries": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TimeEntry"
+        },
+        "example": [
+          {
+            "id": 3730256173,
+            "workspace_id": 2230580,
+            "project_id": 63334409,
+            "task_id": null,
+            "billable": false,
+            "start": "2024-12-16T00:41:29+00:00",
+            "stop": "2024-12-16T01:11:29+00:00",
+            "duration": 1800,
+            "description": "Inbox Zero",
+            "tags": [],
+            "tag_ids": [],
+            "duronly": true,
+            "at": "2024-12-16T01:16:26.41113Z",
+            "server_deleted_at": null,
+            "user_id": 2166261,
+            "uid": 2166261,
+            "wid": 2230580,
+            "pid": 63334409
+          }
+        ]
+      },
+      "TimeEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 3727977106
+          },
+          "workspace_id": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "project_id": {
+            "type": "integer",
+            "example": 155392684
+          },
+          "task_id": {
+            "type": "object"
+          },
+          "billable": {
+            "type": "boolean",
+            "example": false
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-13T00:18:26+00:00"
+          },
+          "stop": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-12T20:38:05+00:00"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "duration",
+            "example": -1734035934
+          },
+          "description": {
+            "type": "string",
+            "example": "Open Sourcing"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "duronly": {
+            "type": "boolean",
+            "example": true
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-12T20:40:28.056447Z"
+          },
+          "server_deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-16T01:38:02+00:00"
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2166261
+          },
+          "uid": {
+            "type": "integer",
+            "example": 2166261
+          },
+          "wid": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "pid": {
+            "type": "integer",
+            "example": 155392684
+          },
+          "client_name": {
+            "type": "string",
+            "example": "AGL"
+          },
+          "project_name": {
+            "type": "string",
+            "example": "AGL Social Media"
+          },
+          "project_color": {
+            "type": "string",
+            "example": "#d92b2b"
+          },
+          "project_active": {
+            "type": "boolean",
+            "example": true
+          },
+          "project_billable": {
+            "type": "boolean",
+            "example": false
+          },
+          "user_name": {
+            "type": "string",
+            "example": "John"
+          },
+          "user_avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://secure.gravatar.com/avatar/af0a4ad100669ddbc678eb40ba90459d?d=404&s=200"
+          }
+        },
+        "required": [
+          "id",
+          "workspace_id",
+          "project_id",
+          "task_id",
+          "billable",
+          "start",
+          "stop",
+          "duration",
+          "description",
+          "tags",
+          "tag_ids",
+          "duronly",
+          "at",
+          "server_deleted_at",
+          "user_id",
+          "uid",
+          "wid",
+          "pid"
+        ],
+        "example": {
+          "id": 3727977106,
+          "workspace_id": 2230580,
+          "project_id": 155392684,
+          "task_id": null,
+          "billable": false,
+          "start": "2024-12-13T00:18:26+00:00",
+          "stop": null,
+          "duration": -1734049107,
+          "description": "Open Sourcing",
+          "tags": [],
+          "tag_ids": [],
+          "duronly": true,
+          "at": "2024-12-13T00:18:26.835197Z",
+          "server_deleted_at": null,
+          "user_id": 2166261,
+          "uid": 2166261,
+          "wid": 2230580,
+          "pid": 155392684
+        }
+      },
+      "TrialInfo": {
+        "type": "object",
+        "properties": {
+          "trial": {
+            "description": "Whether the organization's subscription is currently on trial",
+            "type": "boolean",
+            "example": false
+          },
+          "trial_available": {
+            "description": "When a trial is available for this organization",
+            "type": "boolean",
+            "example": true
+          },
+          "trial_end_date": {
+            "description": "When the trial ends",
+            "type": "string",
+            "x-nullable": true
+          },
+          "next_payment_date": {
+            "description": "When the trial payment is due",
+            "type": "string",
+            "x-nullable": true
+          },
+          "last_pricing_plan_id": {
+            "description": "What was the previous plan before the trial",
+            "type": "integer",
+            "x-nullable": true
+          },
+          "can_have_trial": {
+            "description": "True, if neither the organization nor the owner has never had a trial before",
+            "type": "boolean",
+            "example": true
+          },
+          "trial_plan_id": {
+            "type": "object",
+            "x-nullable": true
+          }
+        },
+        "required": [
+          "trial",
+          "trial_available",
+          "trial_end_date",
+          "next_payment_date",
+          "last_pricing_plan_id",
+          "can_have_trial",
+          "trial_plan_id"
+        ],
+        "example": {
+          "trial": false,
+          "trial_available": true,
+          "trial_end_date": null,
+          "next_payment_date": null,
+          "last_pricing_plan_id": null,
+          "can_have_trial": true,
+          "trial_plan_id": null
+        }
+      },
+      "UserWithRelated": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 2166261
+          },
+          "api_token": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "fullname": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "Europe/Berlin"
+          },
+          "toggl_accounts_id": {
+            "type": "string",
+            "example": "WSBrE7LiQPJ7PKA7WnCAnk"
+          },
+          "default_workspace_id": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "beginning_of_week": {
+            "type": "integer",
+            "example": 1
+          },
+          "image_url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://secure.gravatar.com/avatar/af0a4ad100669ddbc678eb40ba90459d?d=404&s=200"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-03-20T20:40:08.017845Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-11-26T17:13:54.850204Z"
+          },
+          "openid_email": {
+            "type": "object"
+          },
+          "openid_enabled": {
+            "type": "boolean",
+            "example": true
+          },
+          "country_id": {
+            "type": "integer"
+          },
+          "has_password": {
+            "type": "boolean",
+            "example": true
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-11T17:43:57.206072Z"
+          },
+          "intercom_hash": {
+            "type": "string",
+            "example": "ea08fc8166eed37e79f7179c3c8334cd99ae5afbbd0339ab1ecb333fb1615d52"
+          },
+          "oauth_providers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "google"
+            },
+            "example": [
+              "google"
+            ]
+          },
+          "authorization_updated_at": {
+            "description": "A timestamp when the authorization user session object was last updated.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-02T14:55:08.008327Z"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/Tags"
+          },
+          "clients": {
+            "$ref": "#/components/schemas/Clients",
+            "description": "Clients, null if with_related_data was not set to true or if the user does not have any clients"
+          },
+          "time_entries": {
+            "$ref": "#/components/schemas/TimeEntries"
+          },
+          "options": {
+            "$ref": "#/components/schemas/Options"
+          },
+          "projects": {
+            "$ref": "#/components/schemas/Projects",
+            "description": "Projects, null if with_related_data was not set to true or if the user does not have any projects"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/Workspaces"
+          }
+        },
+        "required": [
+          "id",
+          "api_token",
+          "email",
+          "fullname",
+          "timezone",
+          "toggl_accounts_id",
+          "default_workspace_id",
+          "beginning_of_week",
+          "image_url",
+          "created_at",
+          "updated_at",
+          "openid_email",
+          "openid_enabled",
+          "country_id",
+          "has_password",
+          "at",
+          "intercom_hash",
+          "oauth_providers",
+          "authorization_updated_at"
+        ],
+        "example": {
+          "id": 2166261,
+          "api_token": "********************************",
+          "email": "john.doe@example.com",
+          "fullname": "John Doe",
+          "timezone": "Europe/Berlin",
+          "toggl_accounts_id": "WSBrE7LiQPJ7PKA7WnCAnk",
+          "default_workspace_id": 2230580,
+          "beginning_of_week": 1,
+          "image_url": "https://secure.gravatar.com/avatar/af0a4ad100669ddbc678eb40ba90459d?d=404&s=200",
+          "created_at": "2016-03-20T20:40:08.017845Z",
+          "updated_at": "2024-11-26T17:13:54.850204Z",
+          "openid_email": null,
+          "openid_enabled": true,
+          "country_id": null,
+          "has_password": true,
+          "at": "2024-12-11T17:43:57.206072Z",
+          "intercom_hash": "ea08fc8166eed37e79f7179c3c8334cd99ae5afbbd0339ab1ecb333fb1615d52",
+          "oauth_providers": [
+            "google"
+          ],
+          "authorization_updated_at": "2024-07-02T14:55:08.008327Z"
+        }
+      },
+      "WorkClient": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Client ID",
+            "type": "integer",
+            "example": 64890399
+          },
+          "wid": {
+            "description": "Workspace ID",
+            "type": "integer",
+            "example": 2230580
+          },
+          "archived": {
+            "description": "true, if the client is archived",
+            "type": "boolean",
+            "example": false
+          },
+          "name": {
+            "description": "Name of the client",
+            "type": "string",
+            "example": "AGL"
+          },
+          "at": {
+            "description": "When was the last update",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-03-17T10:55:38+00:00"
+          },
+          "creator_id": {
+            "description": "The ID of the user who created the client",
+            "type": "integer",
+            "example": 2166261
+          },
+          "integration_ext_id": {
+            "description": "The external ID of the linked entity in the external system (e.g. JIRA/SalesForce)",
+            "type": "string"
+          },
+          "integration_ext_type": {
+            "description": "The external type of the linked entity in the external system (e.g. JIRA/SalesForce)",
+            "type": "string"
+          },
+          "integration_provider": {
+            "description": "The provider (e.g. JIRA/SalesForce) that has an entity linked to this Toggl Track entity",
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "permissions": {
+            "description": "List of authorization permissions for this client.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "wid",
+          "archived",
+          "name",
+          "at",
+          "creator_id"
+        ],
+        "example": {
+          "id": 64890399,
+          "wid": 2230580,
+          "archived": false,
+          "name": "AGL",
+          "at": "2024-03-17T10:55:38+00:00",
+          "creator_id": 2166261
+        }
+      },
+      "Workspace": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 2230580
+          },
+          "organization_id": {
+            "type": "integer",
+            "example": 2108099
+          },
+          "name": {
+            "type": "string",
+            "example": "Atlantean Renaissance"
+          },
+          "premium": {
+            "type": "boolean",
+            "example": false
+          },
+          "business_ws": {
+            "type": "boolean",
+            "example": false
+          },
+          "admin": {
+            "type": "boolean",
+            "example": true
+          },
+          "role": {
+            "type": "string",
+            "example": "admin"
+          },
+          "suspended_at": {
+            "type": "string"
+          },
+          "server_deleted_at": {
+            "type": "object"
+          },
+          "default_hourly_rate": {
+            "type": "object"
+          },
+          "rate_last_updated": {
+            "type": "object"
+          },
+          "default_currency": {
+            "type": "string",
+            "example": "USD"
+          },
+          "only_admins_may_create_projects": {
+            "type": "boolean",
+            "example": false
+          },
+          "only_admins_may_create_tags": {
+            "type": "boolean",
+            "example": false
+          },
+          "only_admins_see_billable_rates": {
+            "type": "boolean",
+            "example": false
+          },
+          "only_admins_see_team_dashboard": {
+            "type": "boolean",
+            "example": false
+          },
+          "projects_billable_by_default": {
+            "type": "boolean",
+            "example": true
+          },
+          "projects_private_by_default": {
+            "type": "boolean",
+            "example": true
+          },
+          "projects_enforce_billable": {
+            "type": "boolean",
+            "example": false
+          },
+          "limit_public_project_data": {
+            "type": "boolean",
+            "example": false
+          },
+          "last_modified": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-12T00:00:00Z"
+          },
+          "reports_collapse": {
+            "type": "boolean",
+            "example": true
+          },
+          "rounding": {
+            "type": "integer",
+            "example": 0
+          },
+          "rounding_minutes": {
+            "type": "integer",
+            "example": 0
+          },
+          "api_token": {
+            "type": "string",
+            "format": "uuid",
+            "example": "831d9ff9f4bdebc4b33aeec85526a300"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-12T11:00:55+00:00"
+          },
+          "logo_url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://assets.track.toggl.com/images/workspace.jpg"
+          },
+          "ical_url": {
+            "type": "string",
+            "example": "/ical/workspace_user/4cbf3bdb29573494d335bee61b2c12a7"
+          },
+          "ical_enabled": {
+            "type": "boolean",
+            "example": true
+          },
+          "csv_upload": {
+            "type": "object"
+          },
+          "subscription": {
+            "type": "object"
+          },
+          "hide_start_end_times": {
+            "type": "boolean",
+            "example": false
+          },
+          "working_hours_in_minutes": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "organization_id",
+          "name",
+          "premium",
+          "business_ws",
+          "admin",
+          "role",
+          "suspended_at",
+          "server_deleted_at",
+          "default_hourly_rate",
+          "rate_last_updated",
+          "default_currency",
+          "only_admins_may_create_projects",
+          "only_admins_may_create_tags",
+          "only_admins_see_billable_rates",
+          "only_admins_see_team_dashboard",
+          "projects_billable_by_default",
+          "projects_private_by_default",
+          "projects_enforce_billable",
+          "limit_public_project_data",
+          "last_modified",
+          "reports_collapse",
+          "rounding",
+          "rounding_minutes",
+          "api_token",
+          "at",
+          "logo_url",
+          "ical_url",
+          "ical_enabled",
+          "csv_upload",
+          "subscription",
+          "hide_start_end_times",
+          "working_hours_in_minutes"
+        ],
+        "example": {
+          "id": 2230580,
+          "organization_id": 2108099,
+          "name": "Atlantean Renaissance",
+          "premium": false,
+          "business_ws": false,
+          "admin": true,
+          "role": "admin",
+          "suspended_at": null,
+          "server_deleted_at": null,
+          "default_hourly_rate": null,
+          "rate_last_updated": null,
+          "default_currency": "USD",
+          "only_admins_may_create_projects": false,
+          "only_admins_may_create_tags": false,
+          "only_admins_see_billable_rates": false,
+          "only_admins_see_team_dashboard": false,
+          "projects_billable_by_default": true,
+          "projects_private_by_default": true,
+          "projects_enforce_billable": false,
+          "limit_public_project_data": false,
+          "last_modified": "2024-12-12T00:00:00Z",
+          "reports_collapse": true,
+          "rounding": 0,
+          "rounding_minutes": 0,
+          "api_token": "831d9ff9f4bdebc4b33aeec85526a300",
+          "at": "2024-12-12T11:00:55+00:00",
+          "logo_url": "https://assets.track.toggl.com/images/workspace.jpg",
+          "ical_url": "/ical/workspace_user/4cbf3bdb29573494d335bee61b2c12a7",
+          "ical_enabled": true,
+          "csv_upload": null,
+          "subscription": null,
+          "hide_start_end_times": false,
+          "working_hours_in_minutes": null
+        }
+      },
+      "Workspaces": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Workspace"
+        },
+        "example": [
+          {
+            "id": 2230580,
+            "organization_id": 2108099,
+            "name": "Atlantean Renaissance",
+            "premium": false,
+            "business_ws": false,
+            "admin": true,
+            "role": "admin",
+            "suspended_at": null,
+            "server_deleted_at": null,
+            "default_hourly_rate": null,
+            "rate_last_updated": null,
+            "default_currency": "USD",
+            "only_admins_may_create_projects": false,
+            "only_admins_may_create_tags": false,
+            "only_admins_see_billable_rates": false,
+            "only_admins_see_team_dashboard": false,
+            "projects_billable_by_default": true,
+            "projects_private_by_default": true,
+            "projects_enforce_billable": false,
+            "limit_public_project_data": false,
+            "last_modified": "2024-12-12T00:00:00Z",
+            "reports_collapse": true,
+            "rounding": 0,
+            "rounding_minutes": 0,
+            "api_token": "831d9ff9f4bdebc4b33aeec85526a300",
+            "at": "2024-12-12T11:00:55+00:00",
+            "logo_url": "https://assets.track.toggl.com/images/workspace.jpg",
+            "ical_url": "/ical/workspace_user/4cbf3bdb29573494d335bee61b2c12a7",
+            "ical_enabled": true,
+            "csv_upload": null,
+            "subscription": null,
+            "hide_start_end_times": false,
+            "working_hours_in_minutes": null
+          }
+        ]
+      }
+    },
+    "responses": {
+      "BadRequestResponse": {
+        "description": "Returned when the user made a bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/APIErrorString"
+            },
+            "example": "Start time year must be between 2006 and 2030"
+          }
+        }
+      },
+      "OrganizationResponse": {
+        "description": "TODO",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Organization"
+            },
+            "example": {
+              "id": 9011051,
+              "name": "Your Organization",
+              "pricing_plan_id": 0,
+              "created_at": "2024-12-16T19:09:07.041832Z",
+              "at": "2024-12-16T19:09:07.041832Z",
+              "server_deleted_at": null,
+              "is_multi_workspace_enabled": false,
+              "suspended_at": null,
+              "user_count": 1,
+              "trial_info": {
+                "trial": false,
+                "trial_available": true,
+                "trial_end_date": null,
+                "next_payment_date": null,
+                "last_pricing_plan_id": null,
+                "can_have_trial": true,
+                "trial_plan_id": null
+              },
+              "is_unified": false,
+              "max_workspaces": 20,
+              "permissions": null,
+              "admin": true,
+              "owner": true,
+              "pricing_plan_name": "",
+              "pricing_plan_enterprise": false
+            }
+          }
+        }
+      },
+      "OrganizationsResponse": {
+        "description": "Returns an array of organisations",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Organizations"
+            },
+            "example": [
+              {
+                "id": 2108099,
+                "name": "Atlantean Renaissance",
+                "pricing_plan_id": 0,
+                "created_at": "2020-07-01T07:42:35.365613Z",
+                "at": "2020-07-01T07:42:35.365613Z",
+                "server_deleted_at": null,
+                "is_multi_workspace_enabled": false,
+                "suspended_at": null,
+                "user_count": 1,
+                "trial_info": {
+                  "trial": false,
+                  "trial_available": true,
+                  "trial_end_date": null,
+                  "next_payment_date": null,
+                  "last_pricing_plan_id": null,
+                  "can_have_trial": true,
+                  "trial_plan_id": null
+                },
+                "is_unified": false,
+                "max_workspaces": 20,
+                "permissions": null,
+                "admin": true,
+                "owner": true,
+                "pricing_plan_name": "Free",
+                "pricing_plan_enterprise": false
+              },
+              {
+                "id": 9011051,
+                "name": "Your Organization",
+                "pricing_plan_id": 0,
+                "created_at": "2024-12-16T19:09:07.041832Z",
+                "at": "2024-12-16T19:09:07.041832Z",
+                "server_deleted_at": null,
+                "is_multi_workspace_enabled": false,
+                "suspended_at": null,
+                "user_count": 1,
+                "trial_info": {
+                  "trial": false,
+                  "trial_available": true,
+                  "trial_end_date": null,
+                  "next_payment_date": null,
+                  "last_pricing_plan_id": null,
+                  "can_have_trial": true,
+                  "trial_plan_id": null
+                },
+                "is_unified": false,
+                "max_workspaces": 20,
+                "permissions": null,
+                "admin": true,
+                "owner": true,
+                "pricing_plan_name": "Free",
+                "pricing_plan_enterprise": false
+              }
+            ]
+          }
+        }
+      },
+      "PostOrganizations9011051WorkspacesForbiddenResponse": {
+        "description": "TODO",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/APIErrorString"
+            },
+            "example": "User does not have access to this resource"
+          }
+        }
+      },
+      "PostOrganizations9011051WorkspacesOkResponse": {
+        "description": "TODO"
+      },
+      "SimpleOrganizationResponse": {
+        "description": "Organization and workspace IDs",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SimpleOrganization"
+            },
+            "example": {
+              "id": 9011051,
+              "name": "Your Organization",
+              "workspace_id": 9009928,
+              "workspace_name": "Your Workspace"
+            }
+          }
+        }
+      },
+      "TimeEntriesResponse": {
+        "description": "Returns a list of time entries",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/TimeEntries"
+            },
+            "example": [
+              {
+                "id": 3730256173,
+                "workspace_id": 2230580,
+                "project_id": 63334409,
+                "task_id": null,
+                "billable": false,
+                "start": "2024-12-16T00:41:29+00:00",
+                "stop": "2024-12-16T01:11:29+00:00",
+                "duration": 1800,
+                "description": "Inbox Zero",
+                "tags": [],
+                "tag_ids": [],
+                "duronly": true,
+                "at": "2024-12-16T01:16:26.41113Z",
+                "server_deleted_at": null,
+                "user_id": 2166261,
+                "uid": 2166261,
+                "wid": 2230580,
+                "pid": 63334409
+              }
+            ]
+          }
+        }
+      },
+      "TimeEntryResponse": {
+        "description": "Returns a time entry",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/TimeEntry"
+            },
+            "example": {
+              "id": 3727977106,
+              "workspace_id": 2230580,
+              "project_id": 155392684,
+              "task_id": null,
+              "billable": false,
+              "start": "2024-12-13T00:18:26+00:00",
+              "stop": null,
+              "duration": -1734049107,
+              "description": "Open Sourcing",
+              "tags": [],
+              "tag_ids": [],
+              "duronly": true,
+              "at": "2024-12-13T00:18:26.835197Z",
+              "server_deleted_at": null,
+              "user_id": 2166261,
+              "uid": 2166261,
+              "wid": 2230580,
+              "pid": 155392684
+            }
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "description": "User is unauthorized to use the API"
+      },
+      "UserResponse": {
+        "description": "Returns the user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserWithRelated"
+            },
+            "example": {
+              "id": 2166261,
+              "api_token": "********************************",
+              "email": "john.doe@example.com",
+              "fullname": "John Doe",
+              "timezone": "Europe/Berlin",
+              "toggl_accounts_id": "WSBrE7LiQPJ7PKA7WnCAnk",
+              "default_workspace_id": 2230580,
+              "beginning_of_week": 1,
+              "image_url": "https://secure.gravatar.com/avatar/af0a4ad100669ddbc678eb40ba90459d?d=404&s=200",
+              "created_at": "2016-03-20T20:40:08.017845Z",
+              "updated_at": "2024-11-26T17:13:54.850204Z",
+              "openid_email": null,
+              "openid_enabled": true,
+              "country_id": null,
+              "has_password": true,
+              "at": "2024-12-11T17:43:57.206072Z",
+              "intercom_hash": "ea08fc8166eed37e79f7179c3c8334cd99ae5afbbd0339ab1ecb333fb1615d52",
+              "oauth_providers": [
+                "google"
+              ],
+              "authorization_updated_at": "2024-07-02T14:55:08.008327Z"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "before": {
+        "name": "before",
+        "in": "query",
+        "description": "Get entries with start time before the given date.",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-12-16T03:25:20+01:00"
+        },
+        "example": "2024-12-16T03:25:20+01:00"
+      },
+      "end_date": {
+        "name": "end_date",
+        "in": "query",
+        "description": "Get entries with start time until the given time. To be used with start_date.",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-12-16T03:25:20+01:00"
+        },
+        "example": "2024-12-16T03:25:20+01:00"
+      },
+      "include_sharing": {
+        "name": "include_sharing",
+        "in": "query",
+        "description": "Include sharing details in the response",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "meta": {
+        "name": "meta",
+        "in": "query",
+        "description": "Should the response contain meta data such as `client_name`, `project_name`, `project_color`, `project_active`, `project_billable`, `user_name`, and `user_avatar_url`.",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "organization_id": {
+        "name": "organization_id",
+        "in": "path",
+        "description": "Numeric ID of the organization",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "example": 9011051
+        },
+        "example": 9011051
+      },
+      "since": {
+        "name": "since",
+        "in": "query",
+        "description": "Get entries modified since this date using UNIX timestamp, including deleted ones.",
+        "schema": {
+          "type": "integer",
+          "example": 1734304527
+        },
+        "example": 1734304527
+      },
+      "start_date": {
+        "name": "start_date",
+        "in": "query",
+        "description": "Get entries with start time from the given time. To be used with end_date.",
+        "schema": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-12-16T03:25:20+01:00"
+        },
+        "example": "2024-12-16T03:25:20+01:00"
+      },
+      "time_entry_id": {
+        "name": "time_entry_id",
+        "in": "path",
+        "description": "TimeEntry ID.",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "example": 3730303299
+        }
+      },
+      "with_related_data": {
+        "name": "with_related_data",
+        "in": "query",
+        "description": "Retrieve user related data (clients, projects, tasks, tags, workspaces, time entries, etc.)",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "workspace_id": {
+        "name": "workspace_id",
+        "in": "path",
+        "description": "Numeric ID of the workspace",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "example": 2230580
+        }
+      }
+    },
+    "requestBodies": {
+      "Organization": {
+        "description": "Input data for organization.",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NewOrganization"
+            },
+            "example": {
+              "name": "Your Organization",
+              "workspace_name": "Your Workspace"
+            }
+          }
+        }
+      },
+      "PostOrganizations9011051WorkspacesRequestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PostOrganizations9011051WorkspacesJSONRequestBody"
+            },
+            "example": {
+              "admins": [
+                0
+              ],
+              "default_currency": "string",
+              "default_hourly_rate": 0,
+              "initial_pricing_plan": 0,
+              "name": "string",
+              "only_admins_may_create_projects": true,
+              "only_admins_see_billable_rates": true,
+              "only_admins_see_team_dashboard": true,
+              "organizationID": 0,
+              "projects_billable_by_default": true,
+              "rounding": 0,
+              "rounding_minutes": 0
+            }
+          }
+        }
+      },
+      "TimeEntry": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NewTimeEntry"
+            },
+            "example": {
+              "created_with": "github.com/go-api-libs/toggl",
+              "start": "2024-12-15T21:17:59.593648+01:00",
+              "workspace_id": 2230580
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "description": "The Authorization header is constructed either using the email and password or the API token and the string literal 'api_token'.",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ],
+  "externalDocs": {
+    "description": "API documentation",
+    "url": "https://engineering.toggl.com/docs/"
+  }
+}

@@ -1,0 +1,2545 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Notion API",
+    "description": "[Create an integration](https://www.notion.so/my-integrations) to retrieve an API token, add your database and page ID's as variables in the collection, and start making your requests!\n\nFor our full documentation, including sample integrations and guides, visit [developers.notion.com](developers.notion.com)\n\nNeed more help? Join our [developer community on Slack](https://join.slack.com/t/notiondevs/shared_invite/zt-lkrnk74h-YmPRroySRFGiqgjI193AqA/)",
+    "version": "2022-06-28"
+  },
+  "servers": [
+    {
+      "url": "https://api.notion.com/v1"
+    }
+  ],
+  "paths": {
+    "/pages/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/NotionVersionHeader"
+        },
+        {
+          "$ref": "#/components/parameters/id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Pages"
+        ],
+        "summary": "Retrieve a Page",
+        "description": "Retrieves a Page object using the ID in the request path. This endpoint exposes page properties, not page content.",
+        "operationId": "GetPage",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/PageResponse"
+          }
+        }
+      }
+    },
+    "/blocks/{id}/children": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/NotionVersionHeader"
+        },
+        {
+          "$ref": "#/components/parameters/id"
+        },
+        {
+          "$ref": "#/components/parameters/start_cursor"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Blocks"
+        ],
+        "summary": "Retrieve block children",
+        "description": "Returns a paginated array of child [block objects](https://developers.notion.com/reference/block) contained in the block using the ID specified. In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.",
+        "operationId": "GetBlocks",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page_size"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BlocksResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Annotations": {
+        "description": "Style information which applies to the whole rich text object.",
+        "type": "object",
+        "properties": {
+          "bold": {
+            "description": "Whether the text is **bolded**.",
+            "type": "boolean",
+            "example": false
+          },
+          "italic": {
+            "description": "Whether the text is *italicized*.",
+            "type": "boolean",
+            "example": false
+          },
+          "strikethrough": {
+            "description": "Whether the text is struck through.",
+            "type": "boolean",
+            "example": false
+          },
+          "underline": {
+            "description": "Whether the text is underlined.",
+            "type": "boolean",
+            "example": false
+          },
+          "code": {
+            "description": "Whether the text is code `style`.",
+            "type": "boolean",
+            "example": false
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        },
+        "required": [
+          "bold",
+          "italic",
+          "strikethrough",
+          "underline",
+          "code",
+          "color"
+        ],
+        "example": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false,
+          "color": "default"
+        }
+      },
+      "Block": {
+        "description": "A block object represents content within Notion. Blocks can be text, lists, media, and more. A page is a type of block, too!\n\nThe optional fields are filled depending on the value of `type`.",
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always \"block\".",
+            "type": "string",
+            "pattern": "^block$",
+            "example": "block"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "dad588e3-83ec-430a-bcd3-3cc5dc37d7e9"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/Parent"
+          },
+          "created_time": {
+            "description": "Date and time when this block was created. Formatted as an ISO 8601 date time string.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-14T05:31:00.000Z"
+          },
+          "last_edited_time": {
+            "description": "Date and time when this block was last updated. Formatted as an ISO 8601 date time string.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-14T05:33:00.000Z"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/UserReference"
+          },
+          "last_edited_by": {
+            "$ref": "#/components/schemas/UserReference"
+          },
+          "has_children": {
+            "description": "Whether or not the block has children blocks nested within it.",
+            "type": "boolean",
+            "example": false
+          },
+          "archived": {
+            "description": "The archived status of the block.",
+            "type": "boolean",
+            "example": false
+          },
+          "in_trash": {
+            "type": "boolean",
+            "example": false
+          },
+          "type": {
+            "$ref": "#/components/schemas/BlockType"
+          },
+          "paragraph": {
+            "$ref": "#/components/schemas/Paragraph"
+          },
+          "heading_1": {
+            "$ref": "#/components/schemas/Heading"
+          },
+          "heading_2": {
+            "$ref": "#/components/schemas/Heading"
+          },
+          "heading_3": {
+            "$ref": "#/components/schemas/Heading"
+          },
+          "bulleted_list_item": {
+            "$ref": "#/components/schemas/Paragraph"
+          },
+          "numbered_list_item": {
+            "$ref": "#/components/schemas/Paragraph"
+          },
+          "to_do": {
+            "$ref": "#/components/schemas/ToDo"
+          },
+          "toggle": {
+            "$ref": "#/components/schemas/Paragraph"
+          },
+          "code": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "child_page": {
+            "$ref": "#/components/schemas/Child"
+          },
+          "child_database": {
+            "$ref": "#/components/schemas/Child"
+          },
+          "embed": {
+            "$ref": "#/components/schemas/Embed"
+          },
+          "video": {
+            "$ref": "#/components/schemas/FileWithCaption"
+          },
+          "audio": {
+            "$ref": "#/components/schemas/FileWithCaption"
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileWithCaption"
+          },
+          "pdf": {
+            "$ref": "#/components/schemas/FileWithCaption"
+          },
+          "bookmark": {
+            "$ref": "#/components/schemas/Embed"
+          },
+          "callout": {
+            "$ref": "#/components/schemas/Callout"
+          },
+          "quote": {
+            "$ref": "#/components/schemas/Paragraph"
+          },
+          "equation": {
+            "$ref": "#/components/schemas/Equation"
+          },
+          "divider": {
+            "description": "Divider block objects do not contain any information within the divider property",
+            "type": "object",
+            "example": {}
+          },
+          "table_of_contents": {
+            "$ref": "#/components/schemas/TableOfContents"
+          },
+          "column_list": {
+            "description": "Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column.",
+            "type": "object",
+            "example": {}
+          },
+          "link_preview": {
+            "$ref": "#/components/schemas/LinkPreview"
+          },
+          "synced_block": {
+            "$ref": "#/components/schemas/SyncedBlock"
+          },
+          "link_to_page": {
+            "$ref": "#/components/schemas/LinkToPage"
+          },
+          "table": {
+            "$ref": "#/components/schemas/Table"
+          },
+          "breadcrumb": {
+            "description": "Breadcrumb block objects do not contain any information within the breadcrumb property",
+            "type": "object",
+            "example": {}
+          },
+          "unsupported": {
+            "description": "Some block types aren't available yet",
+            "type": "object",
+            "example": {}
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "parent",
+          "created_time",
+          "last_edited_time",
+          "created_by",
+          "last_edited_by",
+          "has_children",
+          "archived",
+          "in_trash",
+          "type"
+        ],
+        "example": {
+          "object": "block",
+          "id": "dad588e3-83ec-430a-bcd3-3cc5dc37d7e9",
+          "parent": {
+            "type": "page_id",
+            "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+          },
+          "created_time": "2022-07-14T05:31:00.000Z",
+          "last_edited_time": "2022-07-14T05:33:00.000Z",
+          "created_by": {
+            "object": "user",
+            "id": "00000000-0000-0000-0000-000000000000"
+          },
+          "last_edited_by": {
+            "object": "user",
+            "id": "00000000-0000-0000-0000-000000000000"
+          },
+          "has_children": false,
+          "archived": false,
+          "in_trash": false,
+          "type": "paragraph",
+          "paragraph": {
+            "rich_text": [],
+            "color": "default"
+          }
+        }
+      },
+      "BlockType": {
+        "description": "Type of block.",
+        "type": "string",
+        "enum": [
+          "paragraph",
+          "heading_1",
+          "heading_2",
+          "heading_3",
+          "bulleted_list_item",
+          "numbered_list_item",
+          "to_do",
+          "toggle",
+          "child_page",
+          "child_database",
+          "embed",
+          "image",
+          "video",
+          "file",
+          "pdf",
+          "bookmark",
+          "callout",
+          "quote",
+          "equation",
+          "divider",
+          "table_of_contents",
+          "column",
+          "column_list",
+          "link_preview",
+          "synced_block",
+          "template",
+          "link_to_page",
+          "table",
+          "table_row",
+          "code",
+          "breadcrumb",
+          "audio",
+          "unsupported"
+        ],
+        "example": "paragraph"
+      },
+      "Blocks": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Block"
+        },
+        "example": [
+          {
+            "object": "block",
+            "id": "dad588e3-83ec-430a-bcd3-3cc5dc37d7e9",
+            "parent": {
+              "type": "page_id",
+              "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+            },
+            "created_time": "2022-07-14T05:31:00.000Z",
+            "last_edited_time": "2022-07-14T05:33:00.000Z",
+            "created_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "last_edited_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+              "rich_text": [],
+              "color": "default"
+            }
+          },
+          {
+            "object": "block",
+            "id": "8fe3dd1a-c8d8-47ff-b2fb-70b0269c4e9f",
+            "parent": {
+              "type": "page_id",
+              "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+            },
+            "created_time": "2022-07-14T05:32:00.000Z",
+            "last_edited_time": "2022-07-14T05:33:00.000Z",
+            "created_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "last_edited_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+              "rich_text": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "This is a simple paragraph.",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "This is a simple paragraph.",
+                  "href": null
+                }
+              ],
+              "color": "default"
+            }
+          },
+          {
+            "object": "block",
+            "id": "bb9ff6f9-c230-4688-b15c-15a6648e1c8a",
+            "parent": {
+              "type": "page_id",
+              "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+            },
+            "created_time": "2022-07-14T05:33:00.000Z",
+            "last_edited_time": "2022-07-14T05:34:00.000Z",
+            "created_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "last_edited_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+              "rich_text": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "This is a red paragraph.",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "red"
+                  },
+                  "plain_text": "This is a red paragraph.",
+                  "href": null
+                }
+              ],
+              "color": "default"
+            }
+          },
+          {
+            "object": "block",
+            "id": "edea19f8-ad2f-4c18-b774-35d64ebcdac3",
+            "parent": {
+              "type": "page_id",
+              "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+            },
+            "created_time": "2022-07-14T17:45:00.000Z",
+            "last_edited_time": "2022-07-14T17:46:00.000Z",
+            "created_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "last_edited_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+              "rich_text": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Red on yellow.",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "red"
+                  },
+                  "plain_text": "Red on yellow.",
+                  "href": null
+                }
+              ],
+              "color": "yellow_background"
+            }
+          },
+          {
+            "object": "block",
+            "id": "d384b38c-604e-42a2-a65c-0b6cfc6a7932",
+            "parent": {
+              "type": "page_id",
+              "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+            },
+            "created_time": "2022-07-14T05:34:00.000Z",
+            "last_edited_time": "2022-07-14T05:35:00.000Z",
+            "created_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "last_edited_by": {
+              "object": "user",
+              "id": "00000000-0000-0000-0000-000000000000"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+              "rich_text": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "This",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": true,
+                    "strikethrough": false,
+                    "underline": true,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "This",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": " ",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": true,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": " ",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "paragraph",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": true,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "paragraph",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": " ",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": " ",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "has",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": true,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "has",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": " ",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": " ",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "some",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": true,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "some",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": " ",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": true,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": " ",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "formatting",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": true,
+                    "underline": false,
+                    "code": true,
+                    "color": "default"
+                  },
+                  "plain_text": "formatting",
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "text": {
+                    "content": ".",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": ".",
+                  "href": null
+                }
+              ],
+              "color": "default"
+            }
+          }
+        ]
+      },
+      "BlocksList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "results": {
+                "$ref": "#/components/schemas/Blocks",
+                "description": "The result, an array of block objects."
+              },
+              "type": {
+                "description": "Type of the objects in results. Always `block`.",
+                "type": "string",
+                "pattern": "^block$",
+                "example": "block"
+              },
+              "block": {
+                "type": "object",
+                "example": {}
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "4fb32baa-18fe-4627-b7db-96292000775f"
+              }
+            },
+            "required": [
+              "results",
+              "type",
+              "block",
+              "request_id"
+            ]
+          }
+        ],
+        "example": {
+          "object": "list",
+          "results": [
+            {
+              "object": "block",
+              "id": "dad588e3-83ec-430a-bcd3-3cc5dc37d7e9",
+              "parent": {
+                "type": "page_id",
+                "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+              },
+              "created_time": "2022-07-14T05:31:00.000Z",
+              "last_edited_time": "2022-07-14T05:33:00.000Z",
+              "created_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "last_edited_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "has_children": false,
+              "archived": false,
+              "in_trash": false,
+              "type": "paragraph",
+              "paragraph": {
+                "rich_text": [],
+                "color": "default"
+              }
+            },
+            {
+              "object": "block",
+              "id": "8fe3dd1a-c8d8-47ff-b2fb-70b0269c4e9f",
+              "parent": {
+                "type": "page_id",
+                "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+              },
+              "created_time": "2022-07-14T05:32:00.000Z",
+              "last_edited_time": "2022-07-14T05:33:00.000Z",
+              "created_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "last_edited_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "has_children": false,
+              "archived": false,
+              "in_trash": false,
+              "type": "paragraph",
+              "paragraph": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "This is a simple paragraph.",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "This is a simple paragraph.",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              }
+            },
+            {
+              "object": "block",
+              "id": "bb9ff6f9-c230-4688-b15c-15a6648e1c8a",
+              "parent": {
+                "type": "page_id",
+                "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+              },
+              "created_time": "2022-07-14T05:33:00.000Z",
+              "last_edited_time": "2022-07-14T05:34:00.000Z",
+              "created_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "last_edited_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "has_children": false,
+              "archived": false,
+              "in_trash": false,
+              "type": "paragraph",
+              "paragraph": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "This is a red paragraph.",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "red"
+                    },
+                    "plain_text": "This is a red paragraph.",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              }
+            }
+          ],
+          "next_cursor": null,
+          "has_more": false,
+          "type": "block",
+          "block": {},
+          "request_id": "4fb32baa-18fe-4627-b7db-96292000775f"
+        }
+      },
+      "Callout": {
+        "description": "Callout block objects contain the following information within the callout field.",
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "icon": {
+            "$ref": "#/components/schemas/Icon"
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        },
+        "required": [
+          "rich_text",
+          "icon",
+          "color"
+        ],
+        "example": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Callout with a fire emoji.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Callout with a fire emoji.",
+              "href": null
+            }
+          ],
+          "icon": {
+            "type": "emoji",
+            "emoji": "🔥"
+          },
+          "color": "gray_background"
+        }
+      },
+      "Child": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "My child page"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "example": {
+          "title": "My child page"
+        }
+      },
+      "Code": {
+        "description": "Code block objects contain this information within the `code` property.",
+        "type": "object",
+        "properties": {
+          "caption": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "rich_text": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "language": {
+            "$ref": "#/components/schemas/CodeLanguage"
+          }
+        },
+        "required": [
+          "rich_text",
+          "language"
+        ],
+        "example": {
+          "caption": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It even has a caption!",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It even has a caption!",
+              "href": null
+            }
+          ],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "func main() {\n\t",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "func main() {\n\t",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "startNotion",
+                "link": {
+                  "url": "https://developers.notion.com/reference/block"
+                }
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "startNotion",
+              "href": "https://developers.notion.com/reference/block"
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "()\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "()\n}",
+              "href": null
+            }
+          ],
+          "language": "go"
+        }
+      },
+      "CodeLanguage": {
+        "description": "Coding language in code block",
+        "type": "string",
+        "enum": [
+          "abap",
+          "arduino",
+          "bash",
+          "basic",
+          "c",
+          "clojure",
+          "coffeescript",
+          "c++",
+          "c#",
+          "css",
+          "dart",
+          "diff",
+          "docker",
+          "elixir",
+          "elm",
+          "erlang",
+          "flow",
+          "fortran",
+          "f#",
+          "gherkin",
+          "glsl",
+          "go",
+          "graphql",
+          "groovy",
+          "haskell",
+          "html",
+          "java",
+          "javascript",
+          "json",
+          "julia",
+          "kotlin",
+          "latex",
+          "less",
+          "lisp",
+          "livescript",
+          "lua",
+          "makefile",
+          "markdown",
+          "markup",
+          "matlab",
+          "mermaid",
+          "nix",
+          "objective-c",
+          "ocaml",
+          "pascal",
+          "perl",
+          "php",
+          "plain text",
+          "powershell",
+          "prolog",
+          "protobuf",
+          "python",
+          "r",
+          "reason",
+          "ruby",
+          "rust",
+          "sass",
+          "scala",
+          "scheme",
+          "scss",
+          "shell",
+          "sql",
+          "swift",
+          "typescript",
+          "vb.net",
+          "verilog",
+          "vhdl",
+          "visual basic",
+          "webassembly",
+          "xml",
+          "yaml",
+          "java/c/c++/c#"
+        ],
+        "example": "go"
+      },
+      "Color": {
+        "description": "The color of the block.",
+        "type": "string",
+        "enum": [
+          "default",
+          "gray",
+          "brown",
+          "orange",
+          "yellow",
+          "green",
+          "blue",
+          "purple",
+          "pink",
+          "red",
+          "gray_background",
+          "brown_background",
+          "orange_background",
+          "yellow_background",
+          "green_background",
+          "blue_background",
+          "purple_background",
+          "pink_background",
+          "red_background"
+        ],
+        "example": "default"
+      },
+      "Date": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "description": "An ISO 8601 format date, with optional time.",
+            "type": "string",
+            "example": "2022-07-14"
+          },
+          "end": {
+            "description": "An ISO 8601 formatted date, with optional time. Represents the end of a date range.\n\nIf `null`, this property's date value is not a range.",
+            "type": "object",
+            "example": null
+          },
+          "time_zone": {
+            "description": "Time zone information for start and end. Possible values are extracted from the IANA database and they are based on the time zones from Moment.js.\n\nWhen time zone is provided, start and end should not have any UTC offset. In addition, when time zone is provided, start and end cannot be dates without time information.\n\nIf null, time zone information will be contained in UTC offsets in start and end.",
+            "type": "object",
+            "example": null
+          }
+        },
+        "required": [
+          "start"
+        ],
+        "example": {
+          "start": "2022-07-14",
+          "end": null,
+          "time_zone": null
+        }
+      },
+      "Embed": {
+        "description": "Embed blocks include block types that allow displaying another website within Notion.",
+        "type": "object",
+        "properties": {
+          "caption": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "url": {
+            "description": "Embedded link.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://www.youtube.com/watch?v=4aMoKXQ6pXI"
+          }
+        },
+        "required": [
+          "caption",
+          "url"
+        ],
+        "example": {
+          "caption": [],
+          "url": "https://www.youtube.com/watch?v=4aMoKXQ6pXI"
+        }
+      },
+      "Equation": {
+        "description": "Equation block objects contain this information within the `equation` property",
+        "type": "object",
+        "properties": {
+          "expression": {
+            "description": "A KaTeX compatible string",
+            "type": "string",
+            "example": "e^{\\pi i}+1 = 0"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "example": {
+          "expression": "e^{\\pi i}+1 = 0"
+        }
+      },
+      "ExternalFile": {
+        "description": "An external file is any URL that isn't hosted by Notion.",
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "Link to the externally hosted content.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia_and_sunrise.jpg"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "example": {
+          "url": "https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia_and_sunrise.jpg"
+        }
+      },
+      "File": {
+        "description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/FileType"
+          },
+          "file": {
+            "$ref": "#/components/schemas/NotionFile"
+          },
+          "external": {
+            "$ref": "#/components/schemas/ExternalFile"
+          },
+          "name": {
+            "description": "A string value corresponding to a filename of the original file upload",
+            "type": "string",
+            "example": "hd-wallpaper-g6e0a7c1ce_1920.jpeg"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "example": {
+          "type": "external",
+          "external": {
+            "url": "https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia_and_sunrise.jpg"
+          }
+        }
+      },
+      "FileType": {
+        "description": "Type of this file object.",
+        "type": "string",
+        "enum": [
+          "file",
+          "external"
+        ],
+        "example": "external"
+      },
+      "FileWithCaption": {
+        "description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.",
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "caption": {
+                "$ref": "#/components/schemas/RichTexts"
+              }
+            },
+            "required": [
+              "caption"
+            ]
+          },
+          {
+            "$ref": "#/components/schemas/File"
+          }
+        ],
+        "example": {
+          "caption": [],
+          "type": "file",
+          "file": {
+            "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/0bbd5b1f-358c-4cdc-9cb6-ed497d79f10a/1162837c-64dd-401a-aa1d-91f795079052/small.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466XIAECK6E%2F20250131%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250131T112521Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQD4UujnejYRkyMDGRuKJbIgo5p1h2yzfv8bb%2BFetXwqqwIgXdwatek%2F8VGbJo48DI2wRajJa6VapXYOw1%2BAXGx%2Fq4gqiAQIvP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOcsW2%2BPFn5bTbwpjyrcAxOkcesJhzQt06sOaWRNNrpwpNU5VK9v4YJF1P%2B1yQYTGw0L7WurWmW9Z76FTMmoAtrx4D7aMXBpwhTc%2BSw8iEetOwHs9NS%2F%2BPfnPay8JwYr%2F6Ck86H%2FWWVHEdHOqd0b%2Bi5%2FA8olnEDSgWKvM%2B9R618YTMT9UfSmfufVfN9DXXExMIwaI96W8tL2TFJEfbcXAkTlbPWoK4CFyC7fCi7wum7ixTdWKja%2BNpeuETsKXMMlzFgt0oHhDZpJG7Md869uQIZq%2Fv88G5VMqvlQJMZrFH9RMCqrspRRozS%2Fpd9EMa8JyhTaVV1f2viZ8o1v%2FICgPRbXW0L6B7Ty3BPcDq1Cx%2FrKltMy%2B4XDVrKum663pCaxcwhVE37QO6BFIoub4GuFStUQvATrzaNw0oMcFfVLw9JSpAS8h4B3NrwN%2BqPcUKrAKt8cb3TL8%2BHdSzhpyt3o4G2PXEvk%2FVzcVZTi4BzFnBlC%2BFRTEFnw4zT5N%2BrVmJj3s52bv%2FLFOvRnMyyIHDIqXMdWx9UuG6JNR22sYvN3FfvvLx4eIL33lf2eX1xlRi0ft9mjVMQqsNK%2BkkxiwmJKx04QtQRiC0HB%2F3M8kUrnY9ZpExf%2B9ke%2FFRio7xSwkwKCQI%2B4%2B0iAqMtfxIQiMNrW8rwGOqUBbMh4hPgk22nna%2Bi0YlyK54yZTYRc4k%2FLIAsRBXy%2F5PyOO8TzG3JOxFTsG11OjA6JLidms71TrIU22tv0GO5Qe38qP2DEPhZYUPJb7iwW4HMaOwwOxaeDmXgDoRfCskg93uQB52QNEWnweYkAIYXs5n97H5dM3p35Je3KBiv1PY6H6YjeY6Y%2FvPi%2Fsj6uB8lPCYnDIhptx7BVnxgyiAYknXNiSgUx&X-Amz-Signature=fedff21b145ef075388d4715f53fc703181c85c2328ed42ea712c3523d3f136a&X-Amz-SignedHeaders=host&x-id=GetObject",
+            "expiry_time": "2025-01-31T12:25:21.209Z"
+          }
+        }
+      },
+      "Heading": {
+        "description": "Heading block objects contain this information within their respective property.",
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "is_toggleable": {
+            "type": "boolean",
+            "example": false
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        },
+        "required": [
+          "rich_text",
+          "is_toggleable",
+          "color"
+        ],
+        "example": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "is",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "purple"
+              },
+              "plain_text": "is",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " a big ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "purple"
+              },
+              "plain_text": " a big ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "heading",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "purple"
+              },
+              "plain_text": "heading",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " 1",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " 1",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      "Icon": {
+        "description": "Page or database icon. It is either an emoji or a file.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/IconType"
+          },
+          "emoji": {
+            "description": "Emoji character.",
+            "type": "string",
+            "pattern": "^[^\\w\\s]+$",
+            "example": "🌄"
+          },
+          "file": {
+            "$ref": "#/components/schemas/NotionFile"
+          },
+          "external": {
+            "$ref": "#/components/schemas/ExternalFile"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "example": {
+          "type": "emoji",
+          "emoji": "🌄"
+        }
+      },
+      "IconType": {
+        "description": "Type of icon.",
+        "type": "string",
+        "enum": [
+          "emoji",
+          "file",
+          "external"
+        ],
+        "example": "emoji"
+      },
+      "Link": {
+        "description": "An inline link in a text.",
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://developers.notion.com/reference/block"
+          }
+        },
+        "example": {
+          "url": "https://www.google.com/"
+        }
+      },
+      "LinkMention": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/"
+          },
+          "title": {
+            "type": "string",
+            "example": "Example Domain"
+          },
+          "description": {
+            "type": "string",
+            "example": "This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission."
+          }
+        },
+        "required": [
+          "href",
+          "title",
+          "description"
+        ],
+        "example": {
+          "href": "https://example.com/",
+          "title": "Example Domain",
+          "description": "This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission."
+        }
+      },
+      "LinkPreview": {
+        "description": "Link Preview block objects return the originally pasted url.\n\nNOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API.",
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "The originally pasted url used to create the mention",
+            "type": "string",
+            "format": "uri",
+            "example": "https://github.com/go-api-libs/notion"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "example": {
+          "url": "https://github.com/go-api-libs/notion"
+        }
+      },
+      "LinkToPage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/LinkToPageType"
+          },
+          "page_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "example": {
+          "type": "page_id",
+          "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+        }
+      },
+      "LinkToPageType": {
+        "description": "Type of this link to page object.",
+        "type": "string",
+        "enum": [
+          "page_id"
+        ],
+        "example": "page_id"
+      },
+      "List": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `list`.",
+            "type": "string",
+            "pattern": "^list$",
+            "example": "list"
+          },
+          "next_cursor": {
+            "description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
+            "type": "string",
+            "format": "uuid",
+            "example": "d05aa478-397e-4954-b694-b7c1c6c78956"
+          },
+          "has_more": {
+            "description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "object",
+          "next_cursor",
+          "has_more"
+        ]
+      },
+      "Mention": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/MentionType"
+          },
+          "link_mention": {
+            "$ref": "#/components/schemas/LinkMention"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "page": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "database": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "date": {
+            "$ref": "#/components/schemas/Date"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "example": {
+          "type": "link_mention",
+          "link_mention": {
+            "href": "https://example.com/",
+            "title": "Example Domain",
+            "description": "This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission."
+          }
+        }
+      },
+      "MentionType": {
+        "description": "Type of the inline mention.",
+        "type": "string",
+        "enum": [
+          "link_mention"
+        ],
+        "example": "link_mention"
+      },
+      "NotionFile": {
+        "description": "File objects contain this information within the `file` property.",
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "Authenticated S3 URL to the file. The file URL will be valid for 1 hour but updated links can be requested if required.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://prod-files-secure.s3.us-west-2.amazonaws.com/0bbd5b1f-358c-4cdc-9cb6-ed497d79f10a/1162837c-64dd-401a-aa1d-91f795079052/small.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466XIAECK6E%2F20250131%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250131T112521Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQD4UujnejYRkyMDGRuKJbIgo5p1h2yzfv8bb%2BFetXwqqwIgXdwatek%2F8VGbJo48DI2wRajJa6VapXYOw1%2BAXGx%2Fq4gqiAQIvP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOcsW2%2BPFn5bTbwpjyrcAxOkcesJhzQt06sOaWRNNrpwpNU5VK9v4YJF1P%2B1yQYTGw0L7WurWmW9Z76FTMmoAtrx4D7aMXBpwhTc%2BSw8iEetOwHs9NS%2F%2BPfnPay8JwYr%2F6Ck86H%2FWWVHEdHOqd0b%2Bi5%2FA8olnEDSgWKvM%2B9R618YTMT9UfSmfufVfN9DXXExMIwaI96W8tL2TFJEfbcXAkTlbPWoK4CFyC7fCi7wum7ixTdWKja%2BNpeuETsKXMMlzFgt0oHhDZpJG7Md869uQIZq%2Fv88G5VMqvlQJMZrFH9RMCqrspRRozS%2Fpd9EMa8JyhTaVV1f2viZ8o1v%2FICgPRbXW0L6B7Ty3BPcDq1Cx%2FrKltMy%2B4XDVrKum663pCaxcwhVE37QO6BFIoub4GuFStUQvATrzaNw0oMcFfVLw9JSpAS8h4B3NrwN%2BqPcUKrAKt8cb3TL8%2BHdSzhpyt3o4G2PXEvk%2FVzcVZTi4BzFnBlC%2BFRTEFnw4zT5N%2BrVmJj3s52bv%2FLFOvRnMyyIHDIqXMdWx9UuG6JNR22sYvN3FfvvLx4eIL33lf2eX1xlRi0ft9mjVMQqsNK%2BkkxiwmJKx04QtQRiC0HB%2F3M8kUrnY9ZpExf%2B9ke%2FFRio7xSwkwKCQI%2B4%2B0iAqMtfxIQiMNrW8rwGOqUBbMh4hPgk22nna%2Bi0YlyK54yZTYRc4k%2FLIAsRBXy%2F5PyOO8TzG3JOxFTsG11OjA6JLidms71TrIU22tv0GO5Qe38qP2DEPhZYUPJb7iwW4HMaOwwOxaeDmXgDoRfCskg93uQB52QNEWnweYkAIYXs5n97H5dM3p35Je3KBiv1PY6H6YjeY6Y%2FvPi%2Fsj6uB8lPCYnDIhptx7BVnxgyiAYknXNiSgUx&X-Amz-Signature=fedff21b145ef075388d4715f53fc703181c85c2328ed42ea712c3523d3f136a&X-Amz-SignedHeaders=host&x-id=GetObject"
+          },
+          "expiry_time": {
+            "description": "Date and time when the URL will expire.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-01-31T12:25:21.209Z"
+          }
+        },
+        "required": [
+          "url",
+          "expiry_time"
+        ],
+        "example": {
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/0bbd5b1f-358c-4cdc-9cb6-ed497d79f10a/1162837c-64dd-401a-aa1d-91f795079052/small.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466XIAECK6E%2F20250131%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250131T112521Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQD4UujnejYRkyMDGRuKJbIgo5p1h2yzfv8bb%2BFetXwqqwIgXdwatek%2F8VGbJo48DI2wRajJa6VapXYOw1%2BAXGx%2Fq4gqiAQIvP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOcsW2%2BPFn5bTbwpjyrcAxOkcesJhzQt06sOaWRNNrpwpNU5VK9v4YJF1P%2B1yQYTGw0L7WurWmW9Z76FTMmoAtrx4D7aMXBpwhTc%2BSw8iEetOwHs9NS%2F%2BPfnPay8JwYr%2F6Ck86H%2FWWVHEdHOqd0b%2Bi5%2FA8olnEDSgWKvM%2B9R618YTMT9UfSmfufVfN9DXXExMIwaI96W8tL2TFJEfbcXAkTlbPWoK4CFyC7fCi7wum7ixTdWKja%2BNpeuETsKXMMlzFgt0oHhDZpJG7Md869uQIZq%2Fv88G5VMqvlQJMZrFH9RMCqrspRRozS%2Fpd9EMa8JyhTaVV1f2viZ8o1v%2FICgPRbXW0L6B7Ty3BPcDq1Cx%2FrKltMy%2B4XDVrKum663pCaxcwhVE37QO6BFIoub4GuFStUQvATrzaNw0oMcFfVLw9JSpAS8h4B3NrwN%2BqPcUKrAKt8cb3TL8%2BHdSzhpyt3o4G2PXEvk%2FVzcVZTi4BzFnBlC%2BFRTEFnw4zT5N%2BrVmJj3s52bv%2FLFOvRnMyyIHDIqXMdWx9UuG6JNR22sYvN3FfvvLx4eIL33lf2eX1xlRi0ft9mjVMQqsNK%2BkkxiwmJKx04QtQRiC0HB%2F3M8kUrnY9ZpExf%2B9ke%2FFRio7xSwkwKCQI%2B4%2B0iAqMtfxIQiMNrW8rwGOqUBbMh4hPgk22nna%2Bi0YlyK54yZTYRc4k%2FLIAsRBXy%2F5PyOO8TzG3JOxFTsG11OjA6JLidms71TrIU22tv0GO5Qe38qP2DEPhZYUPJb7iwW4HMaOwwOxaeDmXgDoRfCskg93uQB52QNEWnweYkAIYXs5n97H5dM3p35Je3KBiv1PY6H6YjeY6Y%2FvPi%2Fsj6uB8lPCYnDIhptx7BVnxgyiAYknXNiSgUx&X-Amz-Signature=fedff21b145ef075388d4715f53fc703181c85c2328ed42ea712c3523d3f136a&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2025-01-31T12:25:21.209Z"
+        }
+      },
+      "Page": {
+        "description": "The Page object contains the [property values](https://developers.notion.com/reference/property-value-object) of a single Notion page.\n\nAll pages have a parent. If the parent is a [database](https://developers.notion.com/reference/database), the property values conform to the schema laid out database's [properties](https://developers.notion.com/reference/property-object). Otherwise, the only property value is the `title`.\n\nPage content is available as [blocks](https://developers.notion.com/reference/block). The content can be read using [retrieve block children](https://developers.notion.com/reference/get-block-children) and appended using [append block children](https://developers.notion.com/reference/patch-block-children).",
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always \"page\".",
+            "type": "string",
+            "pattern": "^page$",
+            "example": "page"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+          },
+          "created_time": {
+            "description": "Date and time when this page was created. Formatted as an ISO 8601 date time string.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-14T05:31:00.000Z"
+          },
+          "last_edited_time": {
+            "description": "Date and time when this page was updated. Formatted as an ISO 8601 date time string.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-10-14T11:26:00.000Z"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/UserReference"
+          },
+          "last_edited_by": {
+            "$ref": "#/components/schemas/UserReference"
+          },
+          "cover": {
+            "$ref": "#/components/schemas/File"
+          },
+          "icon": {
+            "$ref": "#/components/schemas/Icon"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/Parent"
+          },
+          "archived": {
+            "description": "The archived status of the page.",
+            "type": "boolean",
+            "example": false
+          },
+          "in_trash": {
+            "type": "boolean",
+            "example": false
+          },
+          "properties": {
+            "$ref": "#/components/schemas/PropertyValues"
+          },
+          "url": {
+            "description": "The URL of the Notion page.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://www.notion.so/Example-Page-96245c8f178444a482ad1941127c3ec3"
+          },
+          "public_url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://fae-tools.notion.site/Example-Page-96245c8f178444a482ad1941127c3ec3"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "3620d8d3-11e4-473b-87c9-fddfa7801d6d"
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "created_time",
+          "last_edited_time",
+          "created_by",
+          "last_edited_by",
+          "cover",
+          "icon",
+          "parent",
+          "archived",
+          "in_trash",
+          "properties",
+          "url",
+          "public_url",
+          "request_id"
+        ],
+        "example": {
+          "object": "page",
+          "id": "96245c8f-1784-44a4-82ad-1941127c3ec3",
+          "created_time": "2022-07-14T05:31:00.000Z",
+          "last_edited_time": "2024-10-14T11:26:00.000Z",
+          "created_by": {
+            "object": "user",
+            "id": "00000000-0000-0000-0000-000000000000"
+          },
+          "last_edited_by": {
+            "object": "user",
+            "id": "00000000-0000-0000-0000-000000000000"
+          },
+          "cover": {
+            "type": "external",
+            "external": {
+              "url": "https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia_and_sunrise.jpg"
+            }
+          },
+          "icon": {
+            "type": "emoji",
+            "emoji": "🌄"
+          },
+          "parent": {
+            "type": "page_id",
+            "page_id": "11f88fcd-daf4-802e-b645-eb2d041a759b"
+          },
+          "archived": false,
+          "in_trash": false,
+          "properties": {
+            "title": {
+              "id": "title",
+              "type": "title",
+              "title": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Example Page",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Example Page",
+                  "href": null
+                }
+              ]
+            }
+          },
+          "url": "https://www.notion.so/Example-Page-96245c8f178444a482ad1941127c3ec3",
+          "public_url": "https://fae-tools.notion.site/Example-Page-96245c8f178444a482ad1941127c3ec3",
+          "request_id": "3620d8d3-11e4-473b-87c9-fddfa7801d6d"
+        }
+      },
+      "Paragraph": {
+        "description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property.",
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        },
+        "required": [
+          "rich_text",
+          "color"
+        ],
+        "example": {
+          "rich_text": [],
+          "color": "default"
+        }
+      },
+      "Parent": {
+        "description": "The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ParentType"
+          },
+          "page_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "11f88fcd-daf4-802e-b645-eb2d041a759b"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "example": {
+          "type": "page_id",
+          "page_id": "11f88fcd-daf4-802e-b645-eb2d041a759b"
+        }
+      },
+      "ParentType": {
+        "description": "The type of the parent.",
+        "type": "string",
+        "enum": [
+          "page_id",
+          "workspace",
+          "block_id",
+          "database_id"
+        ],
+        "example": "page_id"
+      },
+      "Person": {
+        "description": "User objects that represent people have the `type` property set to `person`. These objects also have these properties.",
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "Email address of the person. This is only present if an integration has user capabilities that allow access to email addresses.",
+            "type": "string",
+            "format": "email",
+            "example": "john.doe@example.com"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "example": {
+          "email": "john.doe@example.com"
+        }
+      },
+      "PropertyType": {
+        "description": "Type of the property.",
+        "type": "string",
+        "enum": [
+          "rich_text",
+          "number",
+          "select",
+          "status",
+          "multi_select",
+          "date",
+          "formula",
+          "relation",
+          "rollup",
+          "title",
+          "people",
+          "files",
+          "checkbox",
+          "url",
+          "email",
+          "phone_number",
+          "created_time",
+          "created_by",
+          "last_edited_time",
+          "last_edited_by",
+          "button"
+        ],
+        "example": "title"
+      },
+      "PropertyValue": {
+        "description": "A property value defines the identifier, type, and value of a page property in a page object. It's used when retrieving and updating pages ex: Create and Update pages.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Underlying identifier for the property. This identifier is guaranteed to remain constant when the property name changes. It may be a UUID, but is often a short random string.\n\nThe id may be used in place of name when creating or updating pages.",
+            "type": "string",
+            "example": "title"
+          },
+          "type": {
+            "$ref": "#/components/schemas/PropertyType"
+          },
+          "title": {
+            "$ref": "#/components/schemas/RichTexts"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "example": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Example Page",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Example Page",
+              "href": null
+            }
+          ]
+        }
+      },
+      "PropertyValues": {
+        "description": "Properties of a page or database.",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/PropertyValue"
+        },
+        "example": {
+          "title": {
+            "id": "title",
+            "type": "title",
+            "title": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Example Page",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "Example Page",
+                "href": null
+              }
+            ]
+          }
+        }
+      },
+      "Reference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2633808e-7e36-4f4e-972a-ccd2d3c49004"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "example": {
+          "id": "2633808e-7e36-4f4e-972a-ccd2d3c49004"
+        }
+      },
+      "RichText": {
+        "description": "Rich text objects contain data for displaying formatted text, mentions, and equations. A rich text object also contains annotations for style information. Arrays of rich text objects are used [within property objects](https://developers.notion.com/reference/database-property) and [property value objects](https://developers.notion.com/reference/page-property-value) to create what a user sees as a single text value in Notion.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/RichTextType"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          },
+          "mention": {
+            "$ref": "#/components/schemas/Mention"
+          },
+          "equation": {
+            "$ref": "#/components/schemas/Equation"
+          },
+          "annotations": {
+            "$ref": "#/components/schemas/Annotations"
+          },
+          "plain_text": {
+            "description": "The plain text without annotations.",
+            "type": "string",
+            "example": "Example Page"
+          },
+          "href": {
+            "description": "The URL of any link or internal Notion mention in this text, if any.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://www.google.com/"
+          }
+        },
+        "required": [
+          "type",
+          "text",
+          "annotations",
+          "plain_text"
+        ],
+        "example": {
+          "type": "text",
+          "text": {
+            "content": "Example Page",
+            "link": null
+          },
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "plain_text": "Example Page",
+          "href": null
+        }
+      },
+      "RichTextType": {
+        "description": "Type of this rich text object.",
+        "type": "string",
+        "enum": [
+          "text",
+          "mention",
+          "equation"
+        ],
+        "example": "text"
+      },
+      "RichTexts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RichText"
+        },
+        "example": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Example Page",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Example Page",
+            "href": null
+          }
+        ]
+      },
+      "SyncedBlock": {
+        "type": "object",
+        "properties": {
+          "synced_from": {
+            "$ref": "#/components/schemas/SyncedFrom"
+          }
+        },
+        "required": [
+          "synced_from"
+        ],
+        "example": {
+          "synced_from": {
+            "type": "block_id",
+            "block_id": "0960b64c-81c9-4f19-a873-e8072b083a40"
+          }
+        }
+      },
+      "SyncedFrom": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SyncedFromType"
+          },
+          "block_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0960b64c-81c9-4f19-a873-e8072b083a40"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "example": {
+          "type": "block_id",
+          "block_id": "0960b64c-81c9-4f19-a873-e8072b083a40"
+        }
+      },
+      "SyncedFromType": {
+        "type": "string",
+        "enum": [
+          "block_id"
+        ],
+        "example": "block_id"
+      },
+      "Table": {
+        "type": "object",
+        "properties": {
+          "table_width": {
+            "description": "Number of columns in the table. Note that this cannot be changed via the public API once a table is created.",
+            "type": "integer",
+            "example": 2
+          },
+          "has_column_header": {
+            "description": "Whether or not the table has a column header. If true, the first row in the table will appear visually distinct from the other rows.",
+            "type": "boolean",
+            "example": true
+          },
+          "has_row_header": {
+            "description": "Whether or not the table has a header row. If true, the first column in the table will appear visually distinct from the other columns.",
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "table_width",
+          "has_column_header",
+          "has_row_header"
+        ],
+        "example": {
+          "table_width": 2,
+          "has_column_header": true,
+          "has_row_header": true
+        }
+      },
+      "TableOfContents": {
+        "description": "Table of contents block objects contain the following information within the `table_of_contents` property.",
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        },
+        "required": [
+          "color"
+        ],
+        "example": {
+          "color": "gray"
+        }
+      },
+      "Text": {
+        "description": "Text objects contain this information within the `text` property of a RichText object.",
+        "type": "object",
+        "properties": {
+          "content": {
+            "description": "Text content. This field contains the actual content of your text and is probably the field you'll use most often.",
+            "type": "string",
+            "example": "Example Page"
+          },
+          "link": {
+            "$ref": "#/components/schemas/Link"
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "example": {
+          "content": "Example Page",
+          "link": null
+        }
+      },
+      "ToDo": {
+        "description": "To do block objects contain this information within the `to_do` property.",
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "$ref": "#/components/schemas/RichTexts"
+          },
+          "checked": {
+            "description": "Whether the to_do is checked or not.",
+            "type": "boolean",
+            "example": false
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        },
+        "required": [
+          "rich_text",
+          "checked",
+          "color"
+        ],
+        "example": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "finish this document",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "finish this document",
+              "href": null
+            }
+          ],
+          "checked": false,
+          "color": "default"
+        }
+      },
+      "User": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/UserReference"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "User's name, as displayed in Notion.",
+                "type": "string",
+                "example": "Fae Tools"
+              },
+              "avatar_url": {
+                "description": "Chosen avatar image.",
+                "type": "string",
+                "format": "uri",
+                "example": "https://example.com/avatar.png"
+              },
+              "type": {
+                "$ref": "#/components/schemas/UserType"
+              },
+              "person": {
+                "$ref": "#/components/schemas/Person"
+              }
+            },
+            "required": [
+              "name",
+              "avatar_url",
+              "type",
+              "person"
+            ]
+          }
+        ],
+        "example": {
+          "object": "user",
+          "id": "00000000-0000-0000-0000-000000000000",
+          "name": "Fae Tools",
+          "avatar_url": "https://example.com/avatar.png",
+          "type": "person",
+          "person": {
+            "email": "john.doe@example.com"
+          }
+        }
+      },
+      "UserReference": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always \"user\"",
+            "type": "string",
+            "pattern": "^user$",
+            "example": "user"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "required": [
+          "object",
+          "id"
+        ],
+        "example": {
+          "object": "user",
+          "id": "00000000-0000-0000-0000-000000000000"
+        }
+      },
+      "UserType": {
+        "description": "Type of the user.",
+        "type": "string",
+        "enum": [
+          "person",
+          "bot"
+        ],
+        "example": "person"
+      }
+    },
+    "responses": {
+      "BlocksResponse": {
+        "description": "Returns a list of blocks for the specified page.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BlocksList"
+            },
+            "example": {
+              "object": "list",
+              "results": [
+                {
+                  "object": "block",
+                  "id": "dad588e3-83ec-430a-bcd3-3cc5dc37d7e9",
+                  "parent": {
+                    "type": "page_id",
+                    "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+                  },
+                  "created_time": "2022-07-14T05:31:00.000Z",
+                  "last_edited_time": "2022-07-14T05:33:00.000Z",
+                  "created_by": {
+                    "object": "user",
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "last_edited_by": {
+                    "object": "user",
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "has_children": false,
+                  "archived": false,
+                  "in_trash": false,
+                  "type": "paragraph",
+                  "paragraph": {
+                    "rich_text": [],
+                    "color": "default"
+                  }
+                },
+                {
+                  "object": "block",
+                  "id": "8fe3dd1a-c8d8-47ff-b2fb-70b0269c4e9f",
+                  "parent": {
+                    "type": "page_id",
+                    "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+                  },
+                  "created_time": "2022-07-14T05:32:00.000Z",
+                  "last_edited_time": "2022-07-14T05:33:00.000Z",
+                  "created_by": {
+                    "object": "user",
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "last_edited_by": {
+                    "object": "user",
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "has_children": false,
+                  "archived": false,
+                  "in_trash": false,
+                  "type": "paragraph",
+                  "paragraph": {
+                    "rich_text": [
+                      {
+                        "type": "text",
+                        "text": {
+                          "content": "This is a simple paragraph.",
+                          "link": null
+                        },
+                        "annotations": {
+                          "bold": false,
+                          "italic": false,
+                          "strikethrough": false,
+                          "underline": false,
+                          "code": false,
+                          "color": "default"
+                        },
+                        "plain_text": "This is a simple paragraph.",
+                        "href": null
+                      }
+                    ],
+                    "color": "default"
+                  }
+                },
+                {
+                  "object": "block",
+                  "id": "bb9ff6f9-c230-4688-b15c-15a6648e1c8a",
+                  "parent": {
+                    "type": "page_id",
+                    "page_id": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+                  },
+                  "created_time": "2022-07-14T05:33:00.000Z",
+                  "last_edited_time": "2022-07-14T05:34:00.000Z",
+                  "created_by": {
+                    "object": "user",
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "last_edited_by": {
+                    "object": "user",
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "has_children": false,
+                  "archived": false,
+                  "in_trash": false,
+                  "type": "paragraph",
+                  "paragraph": {
+                    "rich_text": [
+                      {
+                        "type": "text",
+                        "text": {
+                          "content": "This is a red paragraph.",
+                          "link": null
+                        },
+                        "annotations": {
+                          "bold": false,
+                          "italic": false,
+                          "strikethrough": false,
+                          "underline": false,
+                          "code": false,
+                          "color": "red"
+                        },
+                        "plain_text": "This is a red paragraph.",
+                        "href": null
+                      }
+                    ],
+                    "color": "default"
+                  }
+                }
+              ],
+              "next_cursor": null,
+              "has_more": false,
+              "type": "block",
+              "block": {},
+              "request_id": "4fb32baa-18fe-4627-b7db-96292000775f"
+            }
+          }
+        }
+      },
+      "PageResponse": {
+        "description": "Returns the page that was requested or created.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Page"
+            },
+            "example": {
+              "object": "page",
+              "id": "96245c8f-1784-44a4-82ad-1941127c3ec3",
+              "created_time": "2022-07-14T05:31:00.000Z",
+              "last_edited_time": "2024-10-14T11:26:00.000Z",
+              "created_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "last_edited_by": {
+                "object": "user",
+                "id": "00000000-0000-0000-0000-000000000000"
+              },
+              "cover": {
+                "type": "external",
+                "external": {
+                  "url": "https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia_and_sunrise.jpg"
+                }
+              },
+              "icon": {
+                "type": "emoji",
+                "emoji": "🌄"
+              },
+              "parent": {
+                "type": "page_id",
+                "page_id": "11f88fcd-daf4-802e-b645-eb2d041a759b"
+              },
+              "archived": false,
+              "in_trash": false,
+              "properties": {
+                "title": {
+                  "id": "title",
+                  "type": "title",
+                  "title": [
+                    {
+                      "type": "text",
+                      "text": {
+                        "content": "Example Page",
+                        "link": null
+                      },
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "plain_text": "Example Page",
+                      "href": null
+                    }
+                  ]
+                }
+              },
+              "url": "https://www.notion.so/Example-Page-96245c8f178444a482ad1941127c3ec3",
+              "public_url": "https://fae-tools.notion.site/Example-Page-96245c8f178444a482ad1941127c3ec3",
+              "request_id": "3620d8d3-11e4-473b-87c9-fddfa7801d6d"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "NotionVersionHeader": {
+        "name": "Notion-Version",
+        "in": "header",
+        "description": "Specifies the Notion API version",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "2022-06-28"
+        },
+        "example": "2022-06-28"
+      },
+      "id": {
+        "name": "id",
+        "in": "path",
+        "description": "Identifier for a block, page, or user.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+        },
+        "example": "96245c8f-1784-44a4-82ad-1941127c3ec3"
+      },
+      "page_size": {
+        "name": "page_size",
+        "in": "query",
+        "description": "The number of items from the full list desired in the response.",
+        "schema": {
+          "type": "integer",
+          "example": 100
+        },
+        "example": 100
+      },
+      "start_cursor": {
+        "name": "start_cursor",
+        "in": "query",
+        "description": "If supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "d05aa478-397e-4954-b694-b7c1c6c78956"
+        },
+        "example": "d05aa478-397e-4954-b694-b7c1c6c78956"
+      }
+    },
+    "securitySchemes": {
+      "BearerToken": {
+        "type": "http",
+        "name": "NOTION_API_KEY",
+        "scheme": "bearer",
+        "bearerFormat": "Bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerToken": []
+    }
+  ]
+}

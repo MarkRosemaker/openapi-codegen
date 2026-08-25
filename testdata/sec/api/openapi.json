@@ -1,0 +1,3470 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://data.sec.gov"
+    }
+  ],
+  "paths": {
+    "/api/xbrl/companyfacts/CIK{cik}.json": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/cik"
+        }
+      ],
+      "get": {
+        "operationId": "ListAPIXbrlCompanyfactsCikCikJSON",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListAPIXbrlCompanyfactsCikCikJSONOkResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/ListAPIXbrlCompanyfactsCikCikJSONForbiddenResponse"
+          }
+        }
+      }
+    },
+    "/files/company_tickers.json": {
+      "servers": [
+        {
+          "url": "https://www.sec.gov"
+        }
+      ],
+      "get": {
+        "operationId": "ListFilesCompanyTickersJSON",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListFilesCompanyTickersJSONOkResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse": {
+        "type": "object",
+        "properties": {
+          "cik": {
+            "type": "integer",
+            "example": 320193
+          },
+          "entityName": {
+            "type": "string",
+            "example": "Apple Inc."
+          },
+          "facts": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts"
+          }
+        },
+        "required": [
+          "cik",
+          "entityName",
+          "facts"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts": {
+        "type": "object",
+        "properties": {
+          "dei": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei"
+          },
+          "us-gaap": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap"
+          },
+          "ecd": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd"
+          }
+        },
+        "required": [
+          "dei",
+          "us-gaap"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei": {
+        "type": "object",
+        "properties": {
+          "EntityCommonStockSharesOutstanding": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "EntityPublicFloat": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          }
+        },
+        "required": [
+          "EntityCommonStockSharesOutstanding",
+          "EntityPublicFloat"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd": {
+        "type": "object",
+        "properties": {
+          "CoSelectedMeasureAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt"
+          },
+          "NonPeoNeoAvgCompActuallyPaidAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
+          },
+          "NonPeoNeoAvgTotalCompAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
+          },
+          "PeerGroupTotalShareholderRtnAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
+          },
+          "PeoActuallyPaidCompAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
+          },
+          "PeoTotalCompAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
+          },
+          "TotalShareholderRtnAmt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
+          }
+        },
+        "required": [
+          "CoSelectedMeasureAmt",
+          "NonPeoNeoAvgCompActuallyPaidAmt",
+          "NonPeoNeoAvgTotalCompAmt",
+          "PeerGroupTotalShareholderRtnAmt",
+          "PeoActuallyPaidCompAmt",
+          "PeoTotalCompAmt",
+          "TotalShareholderRtnAmt"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": ""
+          },
+          "description": {
+            "type": "string",
+            "example": ""
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits": {
+        "type": "object",
+        "properties": {
+          "pure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure"
+          }
+        },
+        "required": [
+          "pure"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap": {
+        "type": "object",
+        "properties": {
+          "AccountsPayable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccountsPayableCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccountsReceivableNetCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccruedIncomeTaxesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccruedIncomeTaxesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccruedLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccruedLiabilitiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccruedMarketingCostsCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccumulatedOtherComprehensiveIncomeLossAvailableForSaleSecuritiesAdjustmentNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccumulatedOtherComprehensiveIncomeLossCumulativeChangesInNetGainLossFromCashFlowHedgesEffectNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AccumulatedOtherComprehensiveIncomeLossNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AdjustmentsToAdditionalPaidInCapitalSharebasedCompensationRequisiteServicePeriodRecognitionValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AdjustmentsToAdditionalPaidInCapitalTaxEffectFromShareBasedCompensation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AdvertisingExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AllocatedShareBasedCompensationExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AllowanceForDoubtfulAccountsReceivableCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AmortizationOfIntangibleAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AntidilutiveSecuritiesExcludedFromComputationOfEarningsPerShareAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "Assets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AssetsCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AssetsNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleDebtSecuritiesAccumulatedGrossUnrealizedGainBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleDebtSecuritiesAccumulatedGrossUnrealizedLossBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleDebtSecuritiesAmortizedCostBasis": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedGainBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedLossBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesAmortizedCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPosition12MonthsOrLongerAccumulatedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionAccumulatedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionLessThan12MonthsAccumulatedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionLessThanTwelveMonthsFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionTwelveMonthsOrLongerFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesRollingAfterYearTenFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesRollingYearSixThroughTenFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesRollingYearTwoThroughFiveFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesSingleMaturityDate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtSecuritiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtSecuritiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesFairValueDisclosure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesGrossUnrealizedLosses1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableforsaleSecuritiesGrossUnrealizedGain": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessAcquisitionCostOfAcquiredEntityPurchasePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessAcquisitionPurchasePriceAllocationAmortizableIntangibleAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessAcquisitionPurchasePriceAllocationGoodwillAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedIntangibleAssetsOtherThanGoodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CapitalExpendituresIncurredButNotYetPaid": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CapitalizedComputerSoftwareAdditions": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CapitalizedComputerSoftwareAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "Cash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashAndCashEquivalentsAtCarryingValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashAndCashEquivalentsPeriodIncreaseDecrease": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashEquivalentsAtCarryingValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ChangeInUnrealizedGainLossOnFairValueHedgingInstruments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CollateralAlreadyPostedAggregateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CommercialPaper": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CommitmentsAndContingencies": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CommonStockDividendsPerShareCashPaid": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "CommonStockDividendsPerShareDeclared": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "CommonStockNoParValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "CommonStockParOrStatedValuePerShare": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "CommonStockSharesAuthorized": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "CommonStockSharesIssued": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "CommonStockSharesOutstanding": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "CommonStocksIncludingAdditionalPaidInCapital": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CommonStockValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ComprehensiveIncomeNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ContractWithCustomerLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ContractWithCustomerLiabilityCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ContractWithCustomerLiabilityRevenueRecognized": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostOfGoodsAndServicesSold": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostOfGoodsAndServicesSoldDepreciation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostOfReimbursableExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CumulativeEffectOfInitialAdoptionOfFIN48": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CumulativeEffectOfInitialAdoptionOfNewAccountingPrinciple": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CurrentFederalTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CurrentForeignTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CurrentStateAndLocalTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtInstrumentCarryingAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtInstrumentUnamortizedDiscount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtInstrumentUnamortizedDiscountPremiumAndDebtIssuanceCostsNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtInstrumentUnamortizedDiscountPremiumNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPosition12MonthsOrLonger": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPosition12MonthsOrLongerAccumulatedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPositionLessThan12Months": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPositionLessThan12MonthsAccumulatedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleUnrealizedLossPosition": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleUnrealizedLossPositionAccumulatedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DecreaseInUnrecognizedTaxBenefitsIsReasonablyPossible": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredFederalIncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredForeignIncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredIncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredIncomeTaxLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredIncomeTaxLiabilitiesNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredRevenueCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredRevenueNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredStateAndLocalIncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsDeferredIncome": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsGoodwillAndIntangibleAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsLiabilitiesNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsLiabilitiesNetCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsNetCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsPropertyPlantAndEquipment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxCreditCarryforwards": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxCreditCarryforwardsForeign": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxCreditCarryforwardsResearch": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxDeferredExpenseCompensationAndBenefitsShareBasedCompensationCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxDeferredExpenseReservesAndAccruals": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsUnrealizedLossesOnAvailableforSaleSecuritiesGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsValuationAllowance": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesLeasingArrangements": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesOtherComprehensiveIncome": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesUndistributedForeignEarnings": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilityNotRecognizedAmountOfUnrecognizedDeferredTaxLiabilityUndistributedEarningsOfForeignSubsidiaries": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DefinedContributionPlanCostRecognized": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DefinedContributionPlanMaximumAnnualContributionPerEmployeeAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DefinedContributionPlanMaximumAnnualContributionsPerEmployeeAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "Depreciation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DepreciationAmortizationAndAccretionNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DepreciationAndAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DepreciationDepletionAndAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeCollateralObligationToReturnCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeFairValueOfDerivativeNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeInstrumentsGainLossReclassifiedFromAccumulatedOCIIntoIncomeEffectivePortionNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeInstrumentsGainLossRecognizedInIncomeIneffectivePortionAndAmountExcludedFromEffectivenessTestingNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeInstrumentsGainLossRecognizedInOtherComprehensiveIncomeEffectivePortionNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsGainLossNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "Dividends": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EarningsPerShareBasic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "EarningsPerShareDiluted": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "EffectiveIncomeTaxRateContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationShareBasedCompensationExcessTaxBenefitAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCutsAndJobsActOf2017Amount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EmployeeRelatedLiabilitiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EmployeeServiceShareBasedCompensationCashFlowEffectCashUsedToSettleAwards": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognized": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognition": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognition"
+          },
+          "EmployeeServiceShareBasedCompensationTaxBenefitFromCompensationExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EmployeeServiceShareBasedCompensationUnrecognizedCompensationCostsOnNonvestedAwards": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EmployeeServiceShareBasedCompensationUnrecognizedCompensationCostsOnNonvestedAwardsWeightedAveragePeriodOfRecognition": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EquitySecuritiesWithoutReadilyDeterminableFairValueAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ExcessTaxBenefitFromShareBasedCompensationFinancingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FairValueAssetsMeasuredOnRecurringBasisCashAndCashEquivalents": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FairValueAssetsMeasuredOnRecurringBasisDerivativeFinancialInstrumentsAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FairValueHedgesAtFairValueNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FairValueLiabilitiesMeasuredOnRecurringBasisDerivativeFinancialInstrumentsLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FederalIncomeTaxExpenseBenefitContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDueAfterYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDueNextTwelveMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDueYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDueYearFour": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDueYearThree": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsDueYearTwo": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityPaymentsRemainderOfFiscalYear": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseLiabilityUndiscountedExcessAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseRightOfUseAsset": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAccumulatedAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseNextTwelveMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearFour": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearThree": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearTwo": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsUsefulLifeMaximum": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximum"
+          },
+          "FiniteLivedIntangibleAssetsUsefulLifeMinimum": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximum"
+          },
+          "ForeignCurrencyDerivativeAssetsAtFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignCurrencyDerivativeLiabilitiesAtFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignIncomeTaxExpenseBenefitContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FurnitureAndFixturesGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FutureAmortizationExpenseYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FutureAmortizationExpenseYearFour": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FutureAmortizationExpenseYearOne": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FutureAmortizationExpenseYearThree": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FutureAmortizationExpenseYearTwo": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GainLossFromComponentsExcludedFromAssessmentOfFairValueHedgeEffectivenessNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GainLossOnSaleOfPropertyPlantEquipment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "Goodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GoodwillAcquiredDuringPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GoodwillImpairmentLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GrossProfit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "HeldToMaturitySecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ImpairmentOfIntangibleAssetsExcludingGoodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesForeign": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxExaminationInterestExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxesPaidNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationDeductionsQualifiedProductionActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationForeignIncomeTaxRateDifferential": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationIncomeTaxExpenseBenefitAtFederalStatutoryIncomeTaxRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationNondeductibleExpenseShareBasedCompensationCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationOtherAdjustments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationOtherReconcilingItems": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationStateAndLocalIncomeTaxes": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationTaxContingenciesDomestic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationTaxCreditsResearch": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationTaxSettlementsDomestic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInAccountsPayable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInAccountsReceivable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInContractWithCustomerLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInDeferredRevenue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInInventories": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInOtherOperatingAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInOtherOperatingLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInOtherReceivables": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IndefiniteLivedIntangibleAssetsExcludingGoodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IntangibleAssetsGrossExcludingGoodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IntangibleAssetsNetExcludingGoodwill": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestCostsIncurred": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestExpenseDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestPaid": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestPaidNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InventoryFinishedGoodsNetOfReserves": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InventoryNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InventoryPartsAndComponentsNetOfReserves": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InvestmentIncomeInterestAndDividend": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LeaseAndRentalExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LeaseholdImprovementsGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDueAfterYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDueNextTwelveMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearFour": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearThree": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearTwo": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityPaymentsRemainderOfFiscalYear": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LesseeOperatingLeaseLiabilityUndiscountedExcessAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "Liabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LiabilitiesAndStockholdersEquity": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LiabilitiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LiabilitiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalAfterYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInNextTwelveMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearFive": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearFour": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearThree": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearTwo": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalRemainderOfFiscalYear": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermPurchaseCommitmentAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "MarketableSecuritiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "MarketableSecuritiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "MarketableSecuritiesRealizedGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "MarketingExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetCashProvidedByUsedInFinancingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetCashProvidedByUsedInFinancingActivitiesContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetCashProvidedByUsedInInvestingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetCashProvidedByUsedInInvestingActivitiesContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetCashProvidedByUsedInOperatingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetIncomeLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NoncurrentAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NonoperatingIncomeExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NontradeReceivablesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NotionalAmountOfForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstruments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NumberOfStores": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores"
+          },
+          "OciBeforeReclassificationsBeforeTaxAttributableToParent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingExpenses": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingIncomeLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeaseCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeaseLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeaseLiabilityCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeaseLiabilityNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasePayments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeaseRightOfUseAsset": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDueCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDueInFiveYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDueInFourYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDueInThreeYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDueInTwoYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsDueThereafter": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesRentExpenseNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherAccruedLiabilitiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherAccruedLiabilitiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherAssetsCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherAssetsNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeAvailableForSaleSecuritiesAdjustmentNetOfTaxPeriodIncreaseDecrease": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeDerivativesQualifyingAsHedgesNetOfTaxPeriodIncreaseDecrease": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeForeignCurrencyTransactionAndTranslationAdjustmentNetOfTaxPeriodIncreaseDecrease": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossAvailableForSaleSecuritiesAdjustmentNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossBeforeReclassificationsBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossBeforeReclassificationsNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAndTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossReclassificationAfterTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossReclassificationBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAndTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossDerivativesQualifyingAsHedgesNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossForeignCurrencyTransactionAndTranslationAdjustmentNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentForSaleOfSecuritiesIncludedInNetIncomeNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIForSaleOfSecuritiesBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIForSaleOfSecuritiesNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIForSaleOfSecuritiesTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentOnDerivativesIncludedInNetIncomeNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentOnDerivativesIncludedInNetIncomeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossTaxPortionAttributableToParent1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeReclassificationAdjustmentOnDerivativesIncludedInNetIncomeNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeReclassificationAdjustmentOnDerivativesIncludedInNetIncomeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherDeferredCreditsCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherLiabilitiesCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherLiabilitiesNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherNoncashIncomeExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherNonoperatingIncomeExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherPrepaidExpenseCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherShortTermBorrowings": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsForProceedsFromOtherInvestingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsForRepurchaseOfCommonStock": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsOfDividends": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsOfDividendsCommonStock": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsRelatedToTaxWithholdingForShareBasedCompensation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireAvailableForSaleSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireAvailableForSaleSecuritiesDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireBusinessesNetOfCashAcquired": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireIntangibleAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireOtherInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireProductiveAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquirePropertyPlantAndEquipment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PreferredStockSharesAuthorized": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "PrepaidExpenseOtherNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromIssuanceOfCommonStock": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromIssuanceOfLongTermDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromMaturitiesPrepaymentsAndCallsOfAvailableForSaleSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromOtherShortTermDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromPaymentsForOtherFinancingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromRepaymentsOfCommercialPaper": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromRepaymentsOfShortTermDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromRepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromSaleAndMaturityOfOtherInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromSaleOfAvailableForSaleSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromSaleOfAvailableForSaleSecuritiesDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromShortTermDebtMaturingInMoreThanThreeMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProductWarrantyAccrualClassifiedCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProductWarrantyAccrualPayments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProductWarrantyAccrualWarrantiesIssued": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProductWarrantyExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PropertyPlantAndEquipmentGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PropertyPlantAndEquipmentNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ReclassificationFromAociCurrentPeriodBeforeTaxAttributableToParent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RepaymentsOfLongTermDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RepaymentsOfOtherShortTermDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ResearchAndDevelopmentExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RestrictedCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RestrictedCashAndCashEquivalentsAtCarryingValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RestrictedCashAndCashEquivalentsNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RestrictedInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RetainedEarningsAccumulatedDeficit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RevenueFromContractWithCustomerExcludingAssessedTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "Revenues": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SalesRevenueNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SalesRevenueServicesGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesSoldUnderAgreementsToRepurchaseFairValueOfCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SegmentReportingInformationOperatingIncomeLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SegmentReportingReconcilingItemsAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SegmentReportingSegmentAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SellingGeneralAndAdministrativeExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeitedInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeitedInPeriodWeightedAverageGrantDateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeituresWeightedAverageGrantDateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsGrantsInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsGrantsInPeriodWeightedAverageGrantDateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedIntrinsicValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedNumber": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedWeightedAverageGrantDateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriodTotalFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriodWeightedAverageGrantDateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsExpectedDividendRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsExpectedTerm": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsRiskFreeInterestRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsWeightedAverageVolatilityRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardNumberOfSharesAvailableForGrant": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableIntrinsicValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableNumber": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableWeightedAverageRemainingContractualTerm": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximum"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisesInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisesInPeriodTotalIntrinsicValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisesInPeriodWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsForfeituresInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsForfeituresInPeriodWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriodWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriodWeightedAverageGrantDateFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOtherIncreasesDecreasesInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingIntrinsicValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsVestedAndExpectedToVestOutstandingNumber": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementsByShareBasedPaymentAwardOptionsExercisesInPeriodWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementsByShareBasedPaymentAwardOptionsForfeituresInPeriodWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "ShareBasedCompensationArrangementsByShareBasedPaymentAwardOptionsGrantsInPeriodWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardEquityInstrumentsOtherThanOptionsAggregateIntrinsicValueNonvested": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsExercisableIntrinsicValue1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognition"
+          },
+          "SharesPaidForTaxWithholdingForShareBasedCompensation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShortTermDebtWeightedAverageInterestRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleEstimatedRangeOfChangeLowerBound": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleEstimatedRangeOfChangeUpperBound": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StandardProductWarrantyAccrual": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StandardProductWarrantyAccrualPayments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StandardProductWarrantyAccrualWarrantiesIssued": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StateAndLocalIncomeTaxExpenseBenefitContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockholdersEquity": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockholdersEquityNoteStockSplitConversionRatio1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "StockIssuedDuringPeriodSharesStockOptionsExercised": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "StockIssuedDuringPeriodValueAcquisitions": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockIssuedDuringPeriodValueShareBasedCompensation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockRepurchasedAndRetiredDuringPeriodShares": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "StockRepurchasedAndRetiredDuringPeriodValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockRepurchaseProgramAuthorizedAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockRepurchaseProgramAuthorizedAmount1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TaxAdjustmentsSettlementsAndUnusualProvisions": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TaxesPayableCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TranslationAdjustmentForNetInvestmentHedgeNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TreasuryStockValueAcquiredCostMethod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UndistributedEarningsOfForeignSubsidiaries": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefits": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsDecreasesResultingFromPriorPeriodTaxPositions": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsDecreasesResultingFromSettlementsWithTaxingAuthorities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestAccrued": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsIncreasesResultingFromCurrentPeriodTaxPositions": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsIncreasesResultingFromPriorPeriodTaxPositions": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsPeriodIncreaseDecrease": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsReductionsResultingFromLapseOfApplicableStatuteOfLimitations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecognizedTaxBenefitsThatWouldImpactEffectiveTaxRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnFifthAnniversary": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnFourthAnniversary": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnSecondAnniversary": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnThirdAnniversary": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "VariableLeaseCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "WeightedAverageNumberDilutedSharesOutstandingAdjustment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "WeightedAverageNumberOfDilutedSharesOutstanding": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "WeightedAverageNumberOfSharesOutstandingBasic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "DeferredTaxAssetsOtherComprehensiveLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EffectiveIncomeTaxRateReconciliationFdiiAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "DebtSecuritiesAvailableForSaleRestricted": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InventoryWorkInProcessAndRawMaterialsNetOfReserves": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UnrecordedUnconditionalPurchaseObligationDueInRemainderOfFiscalYear": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InventoryRawMaterialsAndPurchasedPartsNetOfReserves": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "HedgedAssetFairValueHedge": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "HedgedLiabilityFairValueHedge": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredIncomeTaxAssetsNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesPropertyPlantAndEquipment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncrementalCommonSharesAttributableToShareBasedPaymentArrangements": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "OtherAssetsMiscellaneousNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossAfterReclassificationAndTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAfterTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GeneralAndAdministrativeExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationChangeInDeferredTaxAssetsValuationAllowance": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SellingAndMarketingExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AdjustmentsRelatedToTaxWithholdingForShareBasedCompensation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AllowanceForDoubtfulAccountsReceivable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesAfterFiveThroughTenYearsFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesAfterOneThroughFiveYearsFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesAfterTenYearsFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesDebtMaturitiesWithinOneYearFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesGrossRealizedGainLossNet": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesGrossRealizedGains": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AvailableForSaleSecuritiesGrossRealizedLosses": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessCombinationStepAcquisitionEquityInterestInAcquireeRemeasurementGain": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CapitalLeasedAssetsGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CapitalLeaseObligationsCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CapitalLeaseObligationsNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashAndCashEquivalentsAtCarryingValueIncludingDiscontinuedOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashAndCashEquivalentsFairValueDisclosure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CashCashEquivalentsAndShortTermInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CommonStockCapitalSharesReservedForFutureIssuance": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ContractWithCustomerLiabilityNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ConvertiblePreferredStockNonredeemableOrRedeemableIssuerOptionValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostMethodInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostMethodInvestmentsFairValueDisclosure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostOfRevenue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CostsAndExpenses": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CumulativeEffectOfNewAccountingPrincipleInPeriodOfAdoption": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CurrentFederalStateAndLocalTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CurrentIncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CustomerAdvancesAndDeposits": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtAndEquitySecuritiesGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtInstrumentFaceAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleAllowanceForCreditLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleAllowanceForCreditLossNotPreviouslyRecorded": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleAllowanceForCreditLossRecovery": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleRealizedGain": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleRealizedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesRealizedGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredFederalStateAndLocalTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredIncomeTaxesAndTaxCredits": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredRevenueRevenueRecognized1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsCapitalLossCarryforwards": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsLiabilitiesNetNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsOperatingLossCarryforwards": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsStateTaxes": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxCreditCarryforwardsOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxDeferredExpenseCompensationAndBenefitsEmployeeBenefits": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxDeferredExpenseReservesAndAccrualsLegalSettlements": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsTaxDeferredExpenseReservesAndAccrualsOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesGoodwillAndIntangibleAssetsIntangibleAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxLiabilitiesInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DepositsReceivedForSecuritiesLoanedAtCarryingValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAmountOfHedgedItem": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetFairValueGrossLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetFairValueOffsetAgainstCollateralNetOfNotSubjectToMasterNettingArrangementPolicyElection": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetNotOffsetPolicyElectionDeduction": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowed": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedAmountOffsetAgainstCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedCollateralObligationToReturnCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedCollateralObligationToReturnSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedNotOffsetPolicyElectionDeduction": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetSecuritiesPurchasedUnderAgreementsToResellSecuritiesBorrowedOffsetAgainstCollateralNetOfNotSubjectToMasterNettingArrangementPolicyElection": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssets": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeCollateralObligationToReturnSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeCollateralRightToReclaimCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeCollateralRightToReclaimSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeFairValueOfDerivativeAsset": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeFairValueOfDerivativeAssetAmountOffsetAgainstCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeFairValueOfDerivativeLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeFairValueOfDerivativeLiabilityAmountOffsetAgainstCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilityFairValueGrossAsset": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilityFairValueOffsetAgainstCollateralNetOfNotSubjectToMasterNettingArrangementPolicyElection": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilityNotOffsetPolicyElectionDeduction": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoaned": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedAmountOffsetAgainstCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedAsset": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedCollateralRightToReclaimCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedCollateralRightToReclaimSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedNotOffsetPolicyElectionDeduction": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeLiabilitySecuritiesSoldUnderAgreementsToResellSecuritiesLoanedOffsetAgainstCollateralNetOfNotSubjectToMasterNettingArrangementPolicyElection": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DisposalGroupIncludingDiscontinuedOperationCashAndCashEquivalents": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EffectiveIncomeTaxRateReconciliationChangeInDeferredTaxAssetsValuationAllowance": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationChangeInEnactedTaxRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationNondeductibleExpenseShareBasedCompensationCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationOtherAdjustments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationOtherReconcilingItemsPercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationStateAndLocalIncomeTaxes": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCredits": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCreditsResearch": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCutsAndJobsActOf2017Percent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCutsAndJobsActOf2017TransitionTaxOnAccumulatedForeignEarningsPercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectOfExchangeRateOnCashAndCashEquivalents": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquityMethodInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNi": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNiAndWithoutReadilyDeterminableFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNiCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNiGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNiRealizedGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNiUnrealizedGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesFvNiUnrealizedLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesWithoutReadilyDeterminableFairValueDownwardPriceAdjustmentAnnualAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesWithoutReadilyDeterminableFairValueDownwardPriceAdjustmentCumulativeAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesWithoutReadilyDeterminableFairValueUpwardPriceAdjustmentAnnualAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EquitySecuritiesWithoutReadilyDeterminableFairValueUpwardPriceAdjustmentCumulativeAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ExcessTaxBenefitFromShareBasedCompensationOperatingActivities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FiniteLivedIntangibleAssetsAmortizationExpenseRemainderOfFiscalYear": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignCurrencyCashFlowHedgeGainLossToBeReclassifiedDuringNext12Months": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignCurrencyTransactionGainLossBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ForeignCurrencyTransactionLossBeforeTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GainLossOnOilAndGasHedgingActivity": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GainLossOnSaleOfBusiness": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GainsLossesOnRestructuringOfDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GoodwillOtherChanges": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GoodwillTransfers": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GoodwillTranslationAndPurchaseAccountingAdjustments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "GoodwillWrittenOffRelatedToSaleOfBusinessUnit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ImpairmentOfInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromContinuingOperations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromContinuingOperationsPerBasicShare": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "IncomeLossFromContinuingOperationsPerDilutedShare": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "IncomeLossFromDiscontinuedOperationsNetOfTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeLossFromEquityMethodInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxesPaid": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxesReceivable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInAccruedLiabilities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInCollateralHeldUnderSecuritiesLending": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncreaseDecreaseInIncomeTaxes": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestCostsCapitalized": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestIncomeOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LeaseCost": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LettersOfCreditOutstandingAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LiabilityForUncertainTaxPositionsNoncurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LineOfCreditFacilityMaximumBorrowingCapacity": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtAndCapitalLeaseObligations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtAndCapitalLeaseObligationsCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LongTermDebtFairValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LossContingencyAccrualCarryingValueCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LossContingencyLossInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "MarketableSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "MarketingAndAdvertisingExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NetIncomeLossAvailableToCommonStockholdersBasic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NoncontrollingInterestIncreaseFromSaleOfParentEquityInterest": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "NoncontrollingInterestInVariableInterestEntity": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OciBeforeReclassificationsNetOfTaxAttributableToParent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivableCurrent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivableInFiveYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivableInFourYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivableInThreeYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivableInTwoYears": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeasesFutureMinimumPaymentsReceivableThereafter": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OperatingLeaseWeightedAverageDiscountRatePercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "OtherComprehensiveIncomeLossAvailableForSaleSecuritiesTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossAfterReclassificationTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossDerivativesQualifyingAsHedgesTax": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherLongTermInvestments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherThanTemporaryImpairmentLossesInvestmentsAvailableforsaleSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireBuildings": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireInterestInSubsidiariesAndAffiliates": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PaymentsToAcquireMarketableSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PreferredStockDividendsAndOtherAdjustments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PreferredStockParOrStatedValuePerShare": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "PreferredStockSharesIssued": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "PreferredStockSharesOutstanding": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ProceedsFromCollectionOfNotesReceivable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromDebtNetOfIssuanceCosts": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromDivestitureOfBusinesses": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromMinorityShareholders": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromPaymentsForSecuritiesPurchasedUnderAgreementsToResell": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromSaleAndMaturityOfMarketableSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromSaleOfPropertyPlantAndEquipment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ProceedsFromStockOptionsExercised": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAccumulatedDepreciationAndAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetBeforeAccumulatedDepreciationAndAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "PurchaseObligation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ReclassificationFromAociCurrentPeriodNetOfTaxAttributableToParent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RepaymentsOfDebt": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RepaymentsOfDebtAndCapitalLeaseObligations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RevenueRemainingPerformanceObligation": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuredBorrowingsGrossDifferenceAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoaned": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedAmountOffsetAgainstCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedAsset": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedCollateralRightToReclaimCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedCollateralRightToReclaimSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedIncludingNotSubjectToMasterNettingArrangementAndAssetsOtherThanSecuritiesTransferred": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedNotOffsetPolicyElectionDeduction": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesLoanedOffsetAgainstCollateralNetOfNotSubjectToMasterNettingArrangementPolicyElection": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesOwnedNotReadilyMarketable": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResell": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellAmountOffsetAgainstCollateral": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellCollateralObligationToReturnCash": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellCollateralObligationToReturnSecurities": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellNotOffsetPolicyElectionDeduction": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "SecuritiesPurchasedUnderAgreementsToResellOffsetAgainstCollateralNetOfNotSubjectToMasterNettingArrangementPolicyElection": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsShareBasedLiabilitiesPaid": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsForfeituresAndExpirationsInPeriod": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsVestedAndExpectedToVestExercisableAggregateIntrinsicValue": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsVestedAndExpectedToVestExercisableNumber": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsVestedAndExpectedToVestExercisableWeightedAverageExercisePrice": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+          },
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsVestedInPeriodFairValue1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockIssued1": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockIssuedDuringPeriodValueNewIssues": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TaxCreditCarryforwardAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TaxCutsAndJobsActOf2017IncompleteAccountingChangeInTaxRateDeferredTaxAssetProvisionalIncomeTaxExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "TaxCutsAndJobsActOf2017IncompleteAccountingProvisionalIncomeTaxExpenseBenefit": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "VariableInterestEntityConsolidatedAssetsPledged": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "VariableInterestEntityConsolidatedLiabilitiesNoRecourse": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "VariableInterestEntityEntityMaximumLossExposureAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedIntangibles": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleAllowanceForCreditLossPeriodIncreaseDecrease": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DebtSecuritiesAvailableForSaleGainLoss": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DeferredTaxAssetsInProcessResearchAndDevelopment": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "RestructuringCharges": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "StockIssuedDuringPeriodSharesNewIssues": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
+          },
+          "EffectiveIncomeTaxRateReconciliationFdiiPercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationCrossBorderOtherPercent"
+          },
+          "DistributedEarnings": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "InterestExpenseNonoperating": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "NetIncomeLossAvailableToCommonStockholdersDiluted": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "UndistributedEarningsLossAvailableToCommonShareholdersBasic": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "AdjustmentsToAdditionalPaidInCapitalDividendsInExcessOfRetainedEarnings": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "LossContingencyAccrualPayments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "ConstructionInProgressGross": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseInterestExpense": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseInterestPaymentOnLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeasePrincipalPayments": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseRightOfUseAssetAccumulatedAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseRightOfUseAssetAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseRightOfUseAssetBeforeAccumulatedAmortization": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "FinanceLeaseWeightedAverageDiscountRatePercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "CommissionsPayableToBrokerDealersAndClearingOrganizations": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "DerivativeAssetAfterOffsetSubjectToMasterNettingArrangement": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "DerivativeAssetFairValueAfterOffsetAndDeductionSubjectToMasterNettingArrangement": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "DerivativeLiabilityAfterOffsetSubjectToMasterNettingArrangement": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "DerivativeLiabilityFairValueAfterOffsetAndDeductionSubjectToMasterNettingArrangement": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "RevenueNotFromContractWithCustomer": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "EffectiveIncomeTaxRateReconciliationCrossBorderOtherAmount": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "EffectiveIncomeTaxRateReconciliationCrossBorderOtherPercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationCrossBorderOtherPercent"
+          },
+          "EffectiveIncomeTaxRateReconciliationNondeductibleExpenseOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationShareBasedCompensationExcessTaxBenefitPercent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxContingencies": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCreditsForeign": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "EffectiveIncomeTaxRateReconciliationTaxCreditsOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+          },
+          "GuaranteeObligationsMaximumExposure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxPaidFederalAfterRefundReceived": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "IncomeTaxPaidForeignAfterRefundReceived": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "IncomeTaxPaidStateAndLocalAfterRefundReceived": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement"
+          },
+          "IncomeTaxReconciliationChangeInEnactedTaxRate": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationNondeductibleExpenseOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationTaxContingencies": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationTaxCreditsForeign": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "IncomeTaxReconciliationTaxCreditsOther": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          },
+          "OtherComprehensiveIncomeLossBeforeTaxPortionAttributableToParent": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+          }
+        },
+        "required": [
+          "AccountsPayable",
+          "AccountsPayableCurrent",
+          "AccountsReceivableNetCurrent",
+          "AccruedIncomeTaxesCurrent",
+          "AccruedIncomeTaxesNoncurrent",
+          "AccruedLiabilities",
+          "AccruedLiabilitiesCurrent",
+          "AccruedMarketingCostsCurrent",
+          "AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment",
+          "AccumulatedOtherComprehensiveIncomeLossAvailableForSaleSecuritiesAdjustmentNetOfTax",
+          "AccumulatedOtherComprehensiveIncomeLossCumulativeChangesInNetGainLossFromCashFlowHedgesEffectNetOfTax",
+          "AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax",
+          "AccumulatedOtherComprehensiveIncomeLossNetOfTax",
+          "AdjustmentsToAdditionalPaidInCapitalSharebasedCompensationRequisiteServicePeriodRecognitionValue",
+          "AdjustmentsToAdditionalPaidInCapitalTaxEffectFromShareBasedCompensation",
+          "AdvertisingExpense",
+          "AllocatedShareBasedCompensationExpense",
+          "AllowanceForDoubtfulAccountsReceivableCurrent",
+          "AmortizationOfIntangibleAssets",
+          "AntidilutiveSecuritiesExcludedFromComputationOfEarningsPerShareAmount",
+          "Assets",
+          "AssetsCurrent",
+          "AssetsNoncurrent",
+          "AvailableForSaleDebtSecuritiesAccumulatedGrossUnrealizedGainBeforeTax",
+          "AvailableForSaleDebtSecuritiesAccumulatedGrossUnrealizedLossBeforeTax",
+          "AvailableForSaleDebtSecuritiesAmortizedCostBasis",
+          "AvailableForSaleSecurities",
+          "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedGainBeforeTax",
+          "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedLossBeforeTax",
+          "AvailableForSaleSecuritiesAmortizedCost",
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPosition12MonthsOrLongerAccumulatedLoss",
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionAccumulatedLoss",
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionFairValue",
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionLessThan12MonthsAccumulatedLoss",
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionLessThanTwelveMonthsFairValue",
+          "AvailableForSaleSecuritiesContinuousUnrealizedLossPositionTwelveMonthsOrLongerFairValue",
+          "AvailableForSaleSecuritiesCurrent",
+          "AvailableForSaleSecuritiesDebtMaturitiesRollingAfterYearTenFairValue",
+          "AvailableForSaleSecuritiesDebtMaturitiesRollingYearSixThroughTenFairValue",
+          "AvailableForSaleSecuritiesDebtMaturitiesRollingYearTwoThroughFiveFairValue",
+          "AvailableForSaleSecuritiesDebtMaturitiesSingleMaturityDate",
+          "AvailableForSaleSecuritiesDebtSecurities",
+          "AvailableForSaleSecuritiesDebtSecuritiesCurrent",
+          "AvailableForSaleSecuritiesDebtSecuritiesNoncurrent",
+          "AvailableForSaleSecuritiesFairValueDisclosure",
+          "AvailableForSaleSecuritiesGrossUnrealizedLosses1",
+          "AvailableForSaleSecuritiesNoncurrent",
+          "AvailableforsaleSecuritiesGrossUnrealizedGain",
+          "BusinessAcquisitionCostOfAcquiredEntityPurchasePrice",
+          "BusinessAcquisitionPurchasePriceAllocationAmortizableIntangibleAssets",
+          "BusinessAcquisitionPurchasePriceAllocationGoodwillAmount",
+          "BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed",
+          "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedIntangibleAssetsOtherThanGoodwill",
+          "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedLiabilities",
+          "CapitalExpendituresIncurredButNotYetPaid",
+          "CapitalizedComputerSoftwareAdditions",
+          "CapitalizedComputerSoftwareAmortization",
+          "Cash",
+          "CashAndCashEquivalentsAtCarryingValue",
+          "CashAndCashEquivalentsPeriodIncreaseDecrease",
+          "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+          "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect",
+          "CashEquivalentsAtCarryingValue",
+          "ChangeInUnrealizedGainLossOnFairValueHedgingInstruments",
+          "CollateralAlreadyPostedAggregateFairValue",
+          "CommercialPaper",
+          "CommitmentsAndContingencies",
+          "CommonStockDividendsPerShareCashPaid",
+          "CommonStockDividendsPerShareDeclared",
+          "CommonStockNoParValue",
+          "CommonStockParOrStatedValuePerShare",
+          "CommonStockSharesAuthorized",
+          "CommonStockSharesIssued",
+          "CommonStockSharesOutstanding",
+          "CommonStocksIncludingAdditionalPaidInCapital",
+          "CommonStockValue",
+          "ComprehensiveIncomeNetOfTax",
+          "ContractWithCustomerLiability",
+          "ContractWithCustomerLiabilityCurrent",
+          "ContractWithCustomerLiabilityRevenueRecognized",
+          "CostOfGoodsAndServicesSold",
+          "CostOfGoodsAndServicesSoldDepreciation",
+          "CostOfReimbursableExpense",
+          "CumulativeEffectOfInitialAdoptionOfFIN48",
+          "CumulativeEffectOfInitialAdoptionOfNewAccountingPrinciple",
+          "CurrentFederalTaxExpenseBenefit",
+          "CurrentForeignTaxExpenseBenefit",
+          "CurrentStateAndLocalTaxExpenseBenefit",
+          "DebtInstrumentCarryingAmount",
+          "DebtInstrumentUnamortizedDiscount",
+          "DebtInstrumentUnamortizedDiscountPremiumAndDebtIssuanceCostsNet",
+          "DebtInstrumentUnamortizedDiscountPremiumNet",
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPosition12MonthsOrLonger",
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPosition12MonthsOrLongerAccumulatedLoss",
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPositionLessThan12Months",
+          "DebtSecuritiesAvailableForSaleContinuousUnrealizedLossPositionLessThan12MonthsAccumulatedLoss",
+          "DebtSecuritiesAvailableForSaleUnrealizedLossPosition",
+          "DebtSecuritiesAvailableForSaleUnrealizedLossPositionAccumulatedLoss",
+          "DecreaseInUnrecognizedTaxBenefitsIsReasonablyPossible",
+          "DeferredFederalIncomeTaxExpenseBenefit",
+          "DeferredForeignIncomeTaxExpenseBenefit",
+          "DeferredIncomeTaxExpenseBenefit",
+          "DeferredIncomeTaxLiabilities",
+          "DeferredIncomeTaxLiabilitiesNet",
+          "DeferredRevenueCurrent",
+          "DeferredRevenueNoncurrent",
+          "DeferredStateAndLocalIncomeTaxExpenseBenefit",
+          "DeferredTaxAssetsDeferredIncome",
+          "DeferredTaxAssetsGoodwillAndIntangibleAssets",
+          "DeferredTaxAssetsGross",
+          "DeferredTaxAssetsLiabilitiesNet",
+          "DeferredTaxAssetsLiabilitiesNetCurrent",
+          "DeferredTaxAssetsNet",
+          "DeferredTaxAssetsNetCurrent",
+          "DeferredTaxAssetsOther",
+          "DeferredTaxAssetsPropertyPlantAndEquipment",
+          "DeferredTaxAssetsTaxCreditCarryforwards",
+          "DeferredTaxAssetsTaxCreditCarryforwardsForeign",
+          "DeferredTaxAssetsTaxCreditCarryforwardsResearch",
+          "DeferredTaxAssetsTaxDeferredExpenseCompensationAndBenefitsShareBasedCompensationCost",
+          "DeferredTaxAssetsTaxDeferredExpenseReservesAndAccruals",
+          "DeferredTaxAssetsUnrealizedLossesOnAvailableforSaleSecuritiesGross",
+          "DeferredTaxAssetsValuationAllowance",
+          "DeferredTaxLiabilities",
+          "DeferredTaxLiabilitiesLeasingArrangements",
+          "DeferredTaxLiabilitiesNoncurrent",
+          "DeferredTaxLiabilitiesOther",
+          "DeferredTaxLiabilitiesOtherComprehensiveIncome",
+          "DeferredTaxLiabilitiesUndistributedForeignEarnings",
+          "DeferredTaxLiabilityNotRecognizedAmountOfUnrecognizedDeferredTaxLiabilityUndistributedEarningsOfForeignSubsidiaries",
+          "DefinedContributionPlanCostRecognized",
+          "DefinedContributionPlanMaximumAnnualContributionPerEmployeeAmount",
+          "DefinedContributionPlanMaximumAnnualContributionsPerEmployeeAmount",
+          "Depreciation",
+          "DepreciationAmortizationAndAccretionNet",
+          "DepreciationAndAmortization",
+          "DepreciationDepletionAndAmortization",
+          "DerivativeCollateralObligationToReturnCash",
+          "DerivativeFairValueOfDerivativeNet",
+          "DerivativeInstrumentsGainLossReclassifiedFromAccumulatedOCIIntoIncomeEffectivePortionNet",
+          "DerivativeInstrumentsGainLossRecognizedInIncomeIneffectivePortionAndAmountExcludedFromEffectivenessTestingNet",
+          "DerivativeInstrumentsGainLossRecognizedInOtherComprehensiveIncomeEffectivePortionNet",
+          "DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsGainLossNet",
+          "Dividends",
+          "EarningsPerShareBasic",
+          "EarningsPerShareDiluted",
+          "EffectiveIncomeTaxRateContinuingOperations",
+          "EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate",
+          "EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
+          "EffectiveIncomeTaxRateReconciliationShareBasedCompensationExcessTaxBenefitAmount",
+          "EffectiveIncomeTaxRateReconciliationTaxCutsAndJobsActOf2017Amount",
+          "EmployeeRelatedLiabilitiesCurrent",
+          "EmployeeServiceShareBasedCompensationCashFlowEffectCashUsedToSettleAwards",
+          "EmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognized",
+          "EmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognition",
+          "EmployeeServiceShareBasedCompensationTaxBenefitFromCompensationExpense",
+          "EmployeeServiceShareBasedCompensationUnrecognizedCompensationCostsOnNonvestedAwards",
+          "EmployeeServiceShareBasedCompensationUnrecognizedCompensationCostsOnNonvestedAwardsWeightedAveragePeriodOfRecognition",
+          "EquitySecuritiesWithoutReadilyDeterminableFairValueAmount",
+          "ExcessTaxBenefitFromShareBasedCompensationFinancingActivities",
+          "FairValueAssetsMeasuredOnRecurringBasisCashAndCashEquivalents",
+          "FairValueAssetsMeasuredOnRecurringBasisDerivativeFinancialInstrumentsAssets",
+          "FairValueHedgesAtFairValueNet",
+          "FairValueLiabilitiesMeasuredOnRecurringBasisDerivativeFinancialInstrumentsLiabilities",
+          "FederalIncomeTaxExpenseBenefitContinuingOperations",
+          "FinanceLeaseLiability",
+          "FinanceLeaseLiabilityCurrent",
+          "FinanceLeaseLiabilityNoncurrent",
+          "FinanceLeaseLiabilityPaymentsDue",
+          "FinanceLeaseLiabilityPaymentsDueAfterYearFive",
+          "FinanceLeaseLiabilityPaymentsDueNextTwelveMonths",
+          "FinanceLeaseLiabilityPaymentsDueYearFive",
+          "FinanceLeaseLiabilityPaymentsDueYearFour",
+          "FinanceLeaseLiabilityPaymentsDueYearThree",
+          "FinanceLeaseLiabilityPaymentsDueYearTwo",
+          "FinanceLeaseLiabilityPaymentsRemainderOfFiscalYear",
+          "FinanceLeaseLiabilityUndiscountedExcessAmount",
+          "FinanceLeaseRightOfUseAsset",
+          "FiniteLivedIntangibleAssetsAccumulatedAmortization",
+          "FiniteLivedIntangibleAssetsAmortizationExpense",
+          "FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive",
+          "FiniteLivedIntangibleAssetsAmortizationExpenseNextTwelveMonths",
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearFive",
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearFour",
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearThree",
+          "FiniteLivedIntangibleAssetsAmortizationExpenseYearTwo",
+          "FiniteLivedIntangibleAssetsGross",
+          "FiniteLivedIntangibleAssetsNet",
+          "FiniteLivedIntangibleAssetsUsefulLifeMaximum",
+          "FiniteLivedIntangibleAssetsUsefulLifeMinimum",
+          "ForeignCurrencyDerivativeAssetsAtFairValue",
+          "ForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue",
+          "ForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue",
+          "ForeignCurrencyDerivativeLiabilitiesAtFairValue",
+          "ForeignIncomeTaxExpenseBenefitContinuingOperations",
+          "FurnitureAndFixturesGross",
+          "FutureAmortizationExpenseYearFive",
+          "FutureAmortizationExpenseYearFour",
+          "FutureAmortizationExpenseYearOne",
+          "FutureAmortizationExpenseYearThree",
+          "FutureAmortizationExpenseYearTwo",
+          "GainLossFromComponentsExcludedFromAssessmentOfFairValueHedgeEffectivenessNet",
+          "GainLossOnSaleOfPropertyPlantEquipment",
+          "Goodwill",
+          "GoodwillAcquiredDuringPeriod",
+          "GoodwillImpairmentLoss",
+          "GrossProfit",
+          "HeldToMaturitySecurities",
+          "ImpairmentOfIntangibleAssetsExcludingGoodwill",
+          "ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill",
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesForeign",
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
+          "IncomeTaxExaminationInterestExpense",
+          "IncomeTaxExpenseBenefit",
+          "IncomeTaxesPaidNet",
+          "IncomeTaxReconciliationDeductionsQualifiedProductionActivities",
+          "IncomeTaxReconciliationForeignIncomeTaxRateDifferential",
+          "IncomeTaxReconciliationIncomeTaxExpenseBenefitAtFederalStatutoryIncomeTaxRate",
+          "IncomeTaxReconciliationNondeductibleExpenseShareBasedCompensationCost",
+          "IncomeTaxReconciliationOtherAdjustments",
+          "IncomeTaxReconciliationOtherReconcilingItems",
+          "IncomeTaxReconciliationStateAndLocalIncomeTaxes",
+          "IncomeTaxReconciliationTaxContingenciesDomestic",
+          "IncomeTaxReconciliationTaxCreditsResearch",
+          "IncomeTaxReconciliationTaxSettlementsDomestic",
+          "IncreaseDecreaseInAccountsPayable",
+          "IncreaseDecreaseInAccountsReceivable",
+          "IncreaseDecreaseInContractWithCustomerLiability",
+          "IncreaseDecreaseInDeferredRevenue",
+          "IncreaseDecreaseInInventories",
+          "IncreaseDecreaseInOtherOperatingAssets",
+          "IncreaseDecreaseInOtherOperatingLiabilities",
+          "IncreaseDecreaseInOtherReceivables",
+          "IndefiniteLivedIntangibleAssetsExcludingGoodwill",
+          "IntangibleAssetsGrossExcludingGoodwill",
+          "IntangibleAssetsNetExcludingGoodwill",
+          "InterestCostsIncurred",
+          "InterestExpense",
+          "InterestExpenseDebt",
+          "InterestPaid",
+          "InterestPaidNet",
+          "InventoryFinishedGoodsNetOfReserves",
+          "InventoryNet",
+          "InventoryPartsAndComponentsNetOfReserves",
+          "InvestmentIncomeInterestAndDividend",
+          "LeaseAndRentalExpense",
+          "LeaseholdImprovementsGross",
+          "LesseeOperatingLeaseLiabilityPaymentsDue",
+          "LesseeOperatingLeaseLiabilityPaymentsDueAfterYearFive",
+          "LesseeOperatingLeaseLiabilityPaymentsDueNextTwelveMonths",
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearFive",
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearFour",
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearThree",
+          "LesseeOperatingLeaseLiabilityPaymentsDueYearTwo",
+          "LesseeOperatingLeaseLiabilityPaymentsRemainderOfFiscalYear",
+          "LesseeOperatingLeaseLiabilityUndiscountedExcessAmount",
+          "Liabilities",
+          "LiabilitiesAndStockholdersEquity",
+          "LiabilitiesCurrent",
+          "LiabilitiesNoncurrent",
+          "LongTermDebt",
+          "LongTermDebtCurrent",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalAfterYearFive",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInNextTwelveMonths",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearFive",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearFour",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearThree",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearTwo",
+          "LongTermDebtMaturitiesRepaymentsOfPrincipalRemainderOfFiscalYear",
+          "LongTermDebtNoncurrent",
+          "LongTermPurchaseCommitmentAmount",
+          "MarketableSecuritiesCurrent",
+          "MarketableSecuritiesNoncurrent",
+          "MarketableSecuritiesRealizedGainLoss",
+          "MarketingExpense",
+          "NetCashProvidedByUsedInFinancingActivities",
+          "NetCashProvidedByUsedInFinancingActivitiesContinuingOperations",
+          "NetCashProvidedByUsedInInvestingActivities",
+          "NetCashProvidedByUsedInInvestingActivitiesContinuingOperations",
+          "NetCashProvidedByUsedInOperatingActivities",
+          "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
+          "NetIncomeLoss",
+          "NoncurrentAssets",
+          "NonoperatingIncomeExpense",
+          "NontradeReceivablesCurrent",
+          "NotionalAmountOfForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstruments",
+          "NumberOfStores",
+          "OciBeforeReclassificationsBeforeTaxAttributableToParent",
+          "OperatingExpenses",
+          "OperatingIncomeLoss",
+          "OperatingLeaseCost",
+          "OperatingLeaseLiability",
+          "OperatingLeaseLiabilityCurrent",
+          "OperatingLeaseLiabilityNoncurrent",
+          "OperatingLeasePayments",
+          "OperatingLeaseRightOfUseAsset",
+          "OperatingLeasesFutureMinimumPaymentsDue",
+          "OperatingLeasesFutureMinimumPaymentsDueCurrent",
+          "OperatingLeasesFutureMinimumPaymentsDueInFiveYears",
+          "OperatingLeasesFutureMinimumPaymentsDueInFourYears",
+          "OperatingLeasesFutureMinimumPaymentsDueInThreeYears",
+          "OperatingLeasesFutureMinimumPaymentsDueInTwoYears",
+          "OperatingLeasesFutureMinimumPaymentsDueThereafter",
+          "OperatingLeasesRentExpenseNet",
+          "OtherAccruedLiabilitiesCurrent",
+          "OtherAccruedLiabilitiesNoncurrent",
+          "OtherAssetsCurrent",
+          "OtherAssetsNoncurrent",
+          "OtherComprehensiveIncomeAvailableForSaleSecuritiesAdjustmentNetOfTaxPeriodIncreaseDecrease",
+          "OtherComprehensiveIncomeDerivativesQualifyingAsHedgesNetOfTaxPeriodIncreaseDecrease",
+          "OtherComprehensiveIncomeForeignCurrencyTransactionAndTranslationAdjustmentNetOfTaxPeriodIncreaseDecrease",
+          "OtherComprehensiveIncomeLossAvailableForSaleSecuritiesAdjustmentNetOfTax",
+          "OtherComprehensiveIncomeLossBeforeReclassificationsBeforeTax",
+          "OtherComprehensiveIncomeLossBeforeReclassificationsNetOfTax",
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAndTax",
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossReclassificationAfterTax",
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossReclassificationBeforeTax",
+          "OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAndTax",
+          "OtherComprehensiveIncomeLossDerivativesQualifyingAsHedgesNetOfTax",
+          "OtherComprehensiveIncomeLossForeignCurrencyTransactionAndTranslationAdjustmentNetOfTax",
+          "OtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentTax",
+          "OtherComprehensiveIncomeLossNetOfTax",
+          "OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentForSaleOfSecuritiesIncludedInNetIncomeNetOfTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIForSaleOfSecuritiesBeforeTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIForSaleOfSecuritiesNetOfTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIForSaleOfSecuritiesTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesBeforeTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesNetOfTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentOnDerivativesIncludedInNetIncomeNetOfTax",
+          "OtherComprehensiveIncomeLossReclassificationAdjustmentOnDerivativesIncludedInNetIncomeTax",
+          "OtherComprehensiveIncomeLossTax",
+          "OtherComprehensiveIncomeLossTaxPortionAttributableToParent1",
+          "OtherComprehensiveIncomeReclassificationAdjustmentOnDerivativesIncludedInNetIncomeNetOfTax",
+          "OtherComprehensiveIncomeReclassificationAdjustmentOnDerivativesIncludedInNetIncomeTax",
+          "OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax",
+          "OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodTax",
+          "OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodNetOfTax",
+          "OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodTax",
+          "OtherDeferredCreditsCurrent",
+          "OtherLiabilitiesCurrent",
+          "OtherLiabilitiesNoncurrent",
+          "OtherNoncashIncomeExpense",
+          "OtherNonoperatingIncomeExpense",
+          "OtherPrepaidExpenseCurrent",
+          "OtherShortTermBorrowings",
+          "PaymentsForProceedsFromOtherInvestingActivities",
+          "PaymentsForRepurchaseOfCommonStock",
+          "PaymentsOfDividends",
+          "PaymentsOfDividendsCommonStock",
+          "PaymentsRelatedToTaxWithholdingForShareBasedCompensation",
+          "PaymentsToAcquireAvailableForSaleSecurities",
+          "PaymentsToAcquireAvailableForSaleSecuritiesDebt",
+          "PaymentsToAcquireBusinessesNetOfCashAcquired",
+          "PaymentsToAcquireIntangibleAssets",
+          "PaymentsToAcquireOtherInvestments",
+          "PaymentsToAcquireProductiveAssets",
+          "PaymentsToAcquirePropertyPlantAndEquipment",
+          "PreferredStockSharesAuthorized",
+          "PrepaidExpenseOtherNoncurrent",
+          "ProceedsFromIssuanceOfCommonStock",
+          "ProceedsFromIssuanceOfLongTermDebt",
+          "ProceedsFromMaturitiesPrepaymentsAndCallsOfAvailableForSaleSecurities",
+          "ProceedsFromOtherShortTermDebt",
+          "ProceedsFromPaymentsForOtherFinancingActivities",
+          "ProceedsFromRepaymentsOfCommercialPaper",
+          "ProceedsFromRepaymentsOfShortTermDebt",
+          "ProceedsFromRepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths",
+          "ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess",
+          "ProceedsFromSaleAndMaturityOfOtherInvestments",
+          "ProceedsFromSaleOfAvailableForSaleSecurities",
+          "ProceedsFromSaleOfAvailableForSaleSecuritiesDebt",
+          "ProceedsFromShortTermDebtMaturingInMoreThanThreeMonths",
+          "ProductWarrantyAccrualClassifiedCurrent",
+          "ProductWarrantyAccrualPayments",
+          "ProductWarrantyAccrualWarrantiesIssued",
+          "ProductWarrantyExpense",
+          "PropertyPlantAndEquipmentGross",
+          "PropertyPlantAndEquipmentNet",
+          "ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodBeforeTax",
+          "ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax",
+          "ReclassificationFromAociCurrentPeriodBeforeTaxAttributableToParent",
+          "RepaymentsOfLongTermDebt",
+          "RepaymentsOfOtherShortTermDebt",
+          "RepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths",
+          "ResearchAndDevelopmentExpense",
+          "RestrictedCash",
+          "RestrictedCashAndCashEquivalentsAtCarryingValue",
+          "RestrictedCashAndCashEquivalentsNoncurrent",
+          "RestrictedInvestments",
+          "RetainedEarningsAccumulatedDeficit",
+          "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "Revenues",
+          "SalesRevenueNet",
+          "SalesRevenueServicesGross",
+          "SecuritiesSoldUnderAgreementsToRepurchaseFairValueOfCollateral",
+          "SegmentReportingInformationOperatingIncomeLoss",
+          "SegmentReportingReconcilingItemsAssets",
+          "SegmentReportingSegmentAssets",
+          "SellingGeneralAndAdministrativeExpense",
+          "ShareBasedCompensation",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeitedInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeitedInPeriodWeightedAverageGrantDateFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeituresWeightedAverageGrantDateFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsGrantsInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsGrantsInPeriodWeightedAverageGrantDateFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedIntrinsicValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedNumber",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedWeightedAverageGrantDateFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriodTotalFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriodWeightedAverageGrantDateFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsExpectedDividendRate",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsExpectedTerm",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsRiskFreeInterestRate",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsWeightedAverageVolatilityRate",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardNumberOfSharesAvailableForGrant",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableIntrinsicValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableNumber",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisableWeightedAverageRemainingContractualTerm",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisesInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisesInPeriodTotalIntrinsicValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsExercisesInPeriodWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsForfeituresInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsForfeituresInPeriodWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriodWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriodWeightedAverageGrantDateFairValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOtherIncreasesDecreasesInPeriod",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingIntrinsicValue",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm",
+          "ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsVestedAndExpectedToVestOutstandingNumber",
+          "ShareBasedCompensationArrangementsByShareBasedPaymentAwardOptionsExercisesInPeriodWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementsByShareBasedPaymentAwardOptionsForfeituresInPeriodWeightedAverageExercisePrice",
+          "ShareBasedCompensationArrangementsByShareBasedPaymentAwardOptionsGrantsInPeriodWeightedAverageExercisePrice",
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardEquityInstrumentsOtherThanOptionsAggregateIntrinsicValueNonvested",
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsExercisableIntrinsicValue1",
+          "SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm1",
+          "SharesPaidForTaxWithholdingForShareBasedCompensation",
+          "ShortTermDebtWeightedAverageInterestRate",
+          "SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleEstimatedRangeOfChangeLowerBound",
+          "SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleEstimatedRangeOfChangeUpperBound",
+          "StandardProductWarrantyAccrual",
+          "StandardProductWarrantyAccrualPayments",
+          "StandardProductWarrantyAccrualWarrantiesIssued",
+          "StateAndLocalIncomeTaxExpenseBenefitContinuingOperations",
+          "StockholdersEquity",
+          "StockholdersEquityNoteStockSplitConversionRatio1",
+          "StockIssuedDuringPeriodSharesStockOptionsExercised",
+          "StockIssuedDuringPeriodValueAcquisitions",
+          "StockIssuedDuringPeriodValueShareBasedCompensation",
+          "StockRepurchasedAndRetiredDuringPeriodShares",
+          "StockRepurchasedAndRetiredDuringPeriodValue",
+          "StockRepurchaseProgramAuthorizedAmount",
+          "StockRepurchaseProgramAuthorizedAmount1",
+          "TaxAdjustmentsSettlementsAndUnusualProvisions",
+          "TaxesPayableCurrent",
+          "TranslationAdjustmentForNetInvestmentHedgeNetOfTax",
+          "TreasuryStockValueAcquiredCostMethod",
+          "UndistributedEarningsOfForeignSubsidiaries",
+          "UnrecognizedTaxBenefits",
+          "UnrecognizedTaxBenefitsDecreasesResultingFromPriorPeriodTaxPositions",
+          "UnrecognizedTaxBenefitsDecreasesResultingFromSettlementsWithTaxingAuthorities",
+          "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestAccrued",
+          "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestExpense",
+          "UnrecognizedTaxBenefitsIncreasesResultingFromCurrentPeriodTaxPositions",
+          "UnrecognizedTaxBenefitsIncreasesResultingFromPriorPeriodTaxPositions",
+          "UnrecognizedTaxBenefitsPeriodIncreaseDecrease",
+          "UnrecognizedTaxBenefitsReductionsResultingFromLapseOfApplicableStatuteOfLimitations",
+          "UnrecognizedTaxBenefitsThatWouldImpactEffectiveTaxRate",
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnFifthAnniversary",
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary",
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnFourthAnniversary",
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnSecondAnniversary",
+          "UnrecordedUnconditionalPurchaseObligationBalanceOnThirdAnniversary",
+          "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount",
+          "UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears",
+          "VariableLeaseCost",
+          "WeightedAverageNumberDilutedSharesOutstandingAdjustment",
+          "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "WeightedAverageNumberOfSharesOutstandingBasic",
+          "DeferredTaxAssetsOtherComprehensiveLoss",
+          "EffectiveIncomeTaxRateReconciliationFdiiAmount",
+          "DebtSecuritiesAvailableForSaleRestricted",
+          "InventoryWorkInProcessAndRawMaterialsNetOfReserves",
+          "UnrecordedUnconditionalPurchaseObligationDueInRemainderOfFiscalYear",
+          "InventoryRawMaterialsAndPurchasedPartsNetOfReserves",
+          "HedgedAssetFairValueHedge",
+          "HedgedLiabilityFairValueHedge",
+          "DeferredIncomeTaxAssetsNet",
+          "DeferredTaxLiabilitiesPropertyPlantAndEquipment",
+          "IncrementalCommonSharesAttributableToShareBasedPaymentArrangements",
+          "OtherAssetsMiscellaneousNoncurrent",
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossAfterReclassificationAndTax",
+          "OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAfterTax",
+          "GeneralAndAdministrativeExpense",
+          "IncomeTaxReconciliationChangeInDeferredTaxAssetsValuationAllowance",
+          "SellingAndMarketingExpense"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Number of Stores"
+          },
+          "description": {
+            "type": "string",
+            "example": "Represents the number of stores."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits": {
+        "type": "object",
+        "properties": {
+          "Store": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "Store"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Entity Common Stock, Shares Outstanding"
+          },
+          "description": {
+            "type": "string",
+            "example": "Indicate number of shares or other units outstanding of each of registrant's classes of capital or common stock or other ownership interests, if and as stated on cover of related periodic report. Where multiple classes or units exist define each class/interest by adding class of stock items such as Common Class A [Member], Common Class B [Member] or Partnership Interest [Member] onto the Instrument [Domain] of the Entity Listings, Instrument."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnits": {
+        "type": "object",
+        "properties": {
+          "shares": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "shares"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsSharesItem"
+        }
+      },
+      "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsSharesItem": {
+        "type": "object",
+        "properties": {
+          "end": {
+            "type": "string",
+            "example": "2009-06-27"
+          },
+          "val": {
+            "type": "number",
+            "format": "double",
+            "example": 895816758
+          },
+          "accn": {
+            "type": "string",
+            "example": "0001193125-09-153165"
+          },
+          "fy": {
+            "type": "integer",
+            "example": 2009
+          },
+          "fp": {
+            "type": "string",
+            "example": "Q3"
+          },
+          "form": {
+            "type": "string",
+            "example": "10-Q"
+          },
+          "filed": {
+            "type": "string",
+            "example": "2009-07-22"
+          },
+          "frame": {
+            "type": "string",
+            "example": "CY2009Q2I"
+          },
+          "start": {
+            "type": "string",
+            "example": "2020-01-01"
+          }
+        },
+        "required": [
+          "end",
+          "val",
+          "accn",
+          "fy",
+          "fp",
+          "form",
+          "filed"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Entity Public Float"
+          },
+          "description": {
+            "type": "string",
+            "example": "The aggregate market value of the voting and non-voting common equity held by non-affiliates computed by reference to the price at which the common equity was last sold, or the average bid and asked price of such common equity, as of the last business day of the registrant's most recently completed second fiscal quarter."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloatUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloatUnits": {
+        "type": "object",
+        "properties": {
+          "USD": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "USD"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPureItem"
+        }
+      },
+      "ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPureItem": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "example": "2021-01-01"
+          },
+          "end": {
+            "type": "string",
+            "example": "2021-12-31"
+          },
+          "val": {
+            "type": "number",
+            "format": "double",
+            "example": 0.94
+          },
+          "accn": {
+            "type": "string",
+            "example": "0001308179-26-000342"
+          },
+          "fy": {
+            "type": "object",
+            "example": null
+          },
+          "fp": {
+            "type": "object",
+            "example": null
+          },
+          "form": {
+            "type": "string",
+            "example": "DEF 14A"
+          },
+          "filed": {
+            "type": "string",
+            "example": "2026-04-24"
+          },
+          "frame": {
+            "type": "string",
+            "example": "CY2021"
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "val",
+          "accn",
+          "fy",
+          "fp",
+          "form",
+          "filed",
+          "frame"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": ""
+          },
+          "description": {
+            "type": "string",
+            "example": ""
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmtUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmtUnits": {
+        "type": "object",
+        "properties": {
+          "USD": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure"
+          }
+        },
+        "required": [
+          "USD"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Common Stock, Dividends, Per Share, Cash Paid"
+          },
+          "description": {
+            "type": "string",
+            "example": "Aggregate dividends paid during the period for each share of common stock outstanding."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaidUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaidUnits": {
+        "type": "object",
+        "properties": {
+          "USD/shares": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "USD/shares"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "object",
+            "example": null
+          },
+          "description": {
+            "type": "object",
+            "example": null
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloatUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Effective Income Tax Rate Reconciliation, Percent"
+          },
+          "description": {
+            "type": "string",
+            "example": "Percentage of current income tax expense (benefit) and deferred income tax expense (benefit) pertaining to continuing operations."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits": {
+        "type": "object",
+        "properties": {
+          "pure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "pure"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationCrossBorderOtherPercent": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "object",
+            "example": null
+          },
+          "description": {
+            "type": "object",
+            "example": null
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognition": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Employee Service Share-based Compensation, Nonvested Awards, Total Compensation Cost Not yet Recognized, Period for Recognition (Deprecated 2012-01-31)"
+          },
+          "description": {
+            "type": "string",
+            "example": "The weighted average period over which unrecognized compensation is expected to be recognized for equity-based compensation plans, using a decimal to express in number of years."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognitionUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognitionUnits": {
+        "type": "object",
+        "properties": {
+          "Year": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "Year"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximum": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Finite-Lived Intangible Assets, Useful Life, Maximum (Deprecated 2012-01-31)"
+          },
+          "description": {
+            "type": "string",
+            "example": "The maximum useful life of a major finite-lived intangible asset class. A major class is composed of intangible assets that can be grouped together because they are similar either by their nature or by their use in the operations of a company."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximumUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximumUnits": {
+        "type": "object",
+        "properties": {
+          "pure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          },
+          "Year": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares"
+          }
+        },
+        "required": [
+          "pure",
+          "Year"
+        ]
+      },
+      "ListFilesCompanyTickersJSONOkJSONResponse": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkJSONResponseValue"
+        }
+      },
+      "ListFilesCompanyTickersJSONOkJSONResponseValue": {
+        "type": "object",
+        "properties": {
+          "cik_str": {
+            "type": "integer",
+            "example": 1045810
+          },
+          "ticker": {
+            "type": "string",
+            "example": "NVDA"
+          },
+          "title": {
+            "type": "string",
+            "example": "NVIDIA CORP"
+          }
+        },
+        "required": [
+          "cik_str",
+          "ticker",
+          "title"
+        ]
+      }
+    },
+    "responses": {
+      "ListAPIXbrlCompanyfactsCikCikJSONForbiddenResponse": {
+        "description": "Forbidden",
+        "content": {
+          "text/html": {}
+        }
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkResponse": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse"
+            }
+          }
+        }
+      },
+      "ListFilesCompanyTickersJSONOkResponse": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkJSONResponse"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "cik": {
+        "name": "cik",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

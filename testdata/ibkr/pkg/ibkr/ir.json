@@ -1,0 +1,195 @@
+{
+	"title": "Ibkr API",
+	"production": true,
+	"packageName": "ibkr",
+	"baseURL": {
+		"scheme": "https",
+		"host": "localhost:5000"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "ListV1APITickle",
+			"method": "GET",
+			"pathTemplate": "/v1/api/tickle",
+			"joinPathArgs": [
+				"\"v1\"",
+				"\"api\"",
+				"\"tickle\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListV1APITickleOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListV1APITickleOkJSONResponse"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "ListV1APITickleOkJSONResponse",
+			"description": "ListV1APITickleOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Session",
+					"jsonName": "session",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"session,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SsoExpires",
+					"jsonName": "ssoExpires",
+					"type": "int",
+					"jsonTag": "json:\"ssoExpires,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Collission",
+					"jsonName": "collission",
+					"type": "bool",
+					"jsonTag": "json:\"collission,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UserID",
+					"jsonName": "userId",
+					"type": "int",
+					"jsonTag": "json:\"userId,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Hmds",
+					"jsonName": "hmds",
+					"type": "ListV1APITickleOkJSONResponseHmds",
+					"jsonTag": "json:\"hmds\"",
+					"required": true
+				},
+				{
+					"name": "Iserver",
+					"jsonName": "iserver",
+					"type": "ListV1APITickleOkJSONResponseIserver",
+					"jsonTag": "json:\"iserver\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1APITickleOkJSONResponseHmds",
+			"description": "ListV1APITickleOkJSONResponseHmds defines a model",
+			"fields": [
+				{
+					"name": "Err",
+					"jsonName": "error",
+					"type": "string",
+					"jsonTag": "json:\"error,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1APITickleOkJSONResponseIserver",
+			"description": "ListV1APITickleOkJSONResponseIserver defines a model",
+			"fields": [
+				{
+					"name": "AuthStatus",
+					"jsonName": "authStatus",
+					"type": "ListV1APITickleOkJSONResponseIserverAuthStatus",
+					"jsonTag": "json:\"authStatus\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1APITickleOkJSONResponseIserverAuthStatus",
+			"description": "ListV1APITickleOkJSONResponseIserverAuthStatus defines a model",
+			"fields": [
+				{
+					"name": "Authenticated",
+					"jsonName": "authenticated",
+					"type": "bool",
+					"jsonTag": "json:\"authenticated,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Established",
+					"jsonName": "established",
+					"type": "bool",
+					"jsonTag": "json:\"established,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Competing",
+					"jsonName": "competing",
+					"type": "bool",
+					"jsonTag": "json:\"competing,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Connected",
+					"jsonName": "connected",
+					"type": "bool",
+					"jsonTag": "json:\"connected,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Mac",
+					"jsonName": "MAC",
+					"type": "string",
+					"jsonTag": "json:\"MAC,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ServerInfo",
+					"jsonName": "serverInfo",
+					"type": "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo",
+					"jsonTag": "json:\"serverInfo\"",
+					"required": true
+				},
+				{
+					"name": "HardwareInfo",
+					"jsonName": "hardware_info",
+					"type": "string",
+					"jsonTag": "json:\"hardware_info,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo",
+			"description": "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo defines a model",
+			"fields": [
+				{
+					"name": "ServerName",
+					"jsonName": "serverName",
+					"type": "string",
+					"jsonTag": "json:\"serverName,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ServerVersion",
+					"jsonName": "serverVersion",
+					"type": "string",
+					"jsonTag": "json:\"serverVersion,omitzero\"",
+					"required": true
+				}
+			]
+		}
+	]
+}

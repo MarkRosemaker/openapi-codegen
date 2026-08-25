@@ -1,0 +1,111 @@
+{
+	"title": "simple",
+	"production": true,
+	"packageName": "simple",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com",
+		"path": "/v1/items"
+	},
+	"userAgent": "simple",
+	"operations": [
+		{
+			"name": "ListItems",
+			"summary": "List all items",
+			"method": "GET",
+			"pathTemplate": "/",
+			"queryParams": [
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListItemsParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ItemList"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ItemList"
+			}
+		},
+		{
+			"name": "GetItem",
+			"summary": "Get an item by ID",
+			"method": "GET",
+			"pathTemplate": "/{id}",
+			"joinPathArgs": [
+				"strconv.Itoa(id)"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Item"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Item"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "Item",
+			"description": "Item defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "This is a multiline\ndescription.\n\nFoo.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ItemList",
+			"description": "ItemList defines a model",
+			"kind": 2,
+			"type": "[]Item"
+		}
+	]
+}

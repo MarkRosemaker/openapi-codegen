@@ -1,0 +1,1200 @@
+{
+	"title": "LSO Trader API",
+	"production": true,
+	"packageName": "lso",
+	"baseURL": {
+		"scheme": "http",
+		"host": "localhost:8081",
+		"path": "/api"
+	},
+	"userAgent": "LSO Trader API",
+	"operations": [
+		{
+			"name": "ListAccounts",
+			"summary": "List all brokerage accounts",
+			"method": "GET",
+			"pathTemplate": "/accounts",
+			"joinPathArgs": [
+				"\"accounts\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "List of accounts sorted by creation date",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListAccountsResult"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "502",
+					"goConstant": "http.StatusBadGateway",
+					"description": "IBKR gateway is not running or not authenticated",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "ListAccountsResult"
+			}
+		},
+		{
+			"name": "GetPositions",
+			"summary": "Get all holdings for an account",
+			"method": "GET",
+			"pathTemplate": "/accounts/{account_id}/positions",
+			"joinPathArgs": [
+				"\"accounts\"",
+				"accountID",
+				"\"positions\""
+			],
+			"pathParams": [
+				{
+					"varName": "accountID",
+					"goName": "accountID",
+					"fieldName": "AccountID",
+					"jsonName": "account_id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "IBKR account identifier (e.g. U1234567)"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Stock and option positions",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Positions"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "502",
+					"goConstant": "http.StatusBadGateway",
+					"description": "IBKR gateway is not running or not authenticated",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "Positions"
+			}
+		},
+		{
+			"name": "GetCash",
+			"summary": "Get cash balances for an account",
+			"method": "GET",
+			"pathTemplate": "/accounts/{account_id}/cash",
+			"joinPathArgs": [
+				"\"accounts\"",
+				"accountID",
+				"\"cash\""
+			],
+			"pathParams": [
+				{
+					"varName": "accountID",
+					"goName": "accountID",
+					"fieldName": "AccountID",
+					"jsonName": "account_id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "IBKR account identifier (e.g. U1234567)"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Cash balances by currency",
+					"contentType": "application/json",
+					"goType": {
+						"name": "GetCashResult"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "502",
+					"goConstant": "http.StatusBadGateway",
+					"description": "IBKR gateway is not running or not authenticated",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "GetCashResult"
+			}
+		},
+		{
+			"name": "GetAccountSummary",
+			"description": "Convenience endpoint that returns positions + cash in a single call, matching the Dashboard tab.",
+			"summary": "Get a combined view of positions and cash for an account",
+			"method": "GET",
+			"pathTemplate": "/accounts/{account_id}/summary",
+			"joinPathArgs": [
+				"\"accounts\"",
+				"accountID",
+				"\"summary\""
+			],
+			"pathParams": [
+				{
+					"varName": "accountID",
+					"goName": "accountID",
+					"fieldName": "AccountID",
+					"jsonName": "account_id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "IBKR account identifier (e.g. U1234567)"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Combined account summary",
+					"contentType": "application/json",
+					"goType": {
+						"name": "AccountSummary"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "502",
+					"goConstant": "http.StatusBadGateway",
+					"description": "IBKR gateway is not running or not authenticated",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "AccountSummary"
+			}
+		},
+		{
+			"name": "GetFundamentals",
+			"description": "Returns company info, income statement highlights, balance sheet highlights, and time-series data for charting.",
+			"summary": "Get fundamentals analysis for a company",
+			"method": "GET",
+			"pathTemplate": "/fundamentals/{cik}",
+			"joinPathArgs": [
+				"\"fundamentals\"",
+				"strconv.Itoa(cik)"
+			],
+			"pathParams": [
+				{
+					"varName": "cik",
+					"goName": "cik",
+					"fieldName": "Cik",
+					"jsonName": "cik",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "SEC Central Index Key"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Full fundamentals analysis",
+					"contentType": "application/json",
+					"goType": {
+						"name": "FundamentalsAnalysis"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "Symbol not found in SEC EDGAR or stockdata service",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "FundamentalsAnalysis"
+			}
+		},
+		{
+			"name": "GetCompanyBySymbol",
+			"summary": "Get company info for a ticker",
+			"method": "GET",
+			"pathTemplate": "/fundamentals/{symbol}/company",
+			"joinPathArgs": [
+				"\"fundamentals\"",
+				"symbol",
+				"\"company\""
+			],
+			"pathParams": [
+				{
+					"varName": "symbol",
+					"goName": "symbol",
+					"fieldName": "Symbol",
+					"jsonName": "symbol",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Stock ticker symbol (e.g. GOOG, MSTR)"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Security and company details",
+					"contentType": "application/json",
+					"goType": {
+						"name": "CompanyAndSecurity"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "Symbol not found",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "CompanyAndSecurity"
+			}
+		},
+		{
+			"name": "GetIncomeStatement",
+			"summary": "Get income statement data and chart series",
+			"method": "GET",
+			"pathTemplate": "/fundamentals/{cik}/income-statement",
+			"joinPathArgs": [
+				"\"fundamentals\"",
+				"strconv.Itoa(cik)",
+				"\"income-statement\""
+			],
+			"pathParams": [
+				{
+					"varName": "cik",
+					"goName": "cik",
+					"fieldName": "Cik",
+					"jsonName": "cik",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "SEC Central Index Key"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Income statement highlights and time series",
+					"contentType": "application/json",
+					"goType": {
+						"name": "IncomeStatementAnalysis"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "Symbol not found",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "IncomeStatementAnalysis"
+			}
+		},
+		{
+			"name": "GetBalanceSheet",
+			"summary": "Get balance sheet data and chart series",
+			"method": "GET",
+			"pathTemplate": "/fundamentals/{cik}/balance-sheet",
+			"joinPathArgs": [
+				"\"fundamentals\"",
+				"strconv.Itoa(cik)",
+				"\"balance-sheet\""
+			],
+			"pathParams": [
+				{
+					"varName": "cik",
+					"goName": "cik",
+					"fieldName": "Cik",
+					"jsonName": "cik",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "SEC Central Index Key"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Balance sheet highlights and time series",
+					"contentType": "application/json",
+					"goType": {
+						"name": "BalanceSheetAnalysis"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "Symbol not found",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Error"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "BalanceSheetAnalysis"
+			}
+		},
+		{
+			"name": "GetWatchlist",
+			"summary": "Get the default watchlist symbols",
+			"method": "GET",
+			"pathTemplate": "/watchlist",
+			"joinPathArgs": [
+				"\"watchlist\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Watchlist symbols",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Watchlist"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Watchlist"
+			}
+		},
+		{
+			"name": "GetMarketStatus",
+			"summary": "Get current market status and key dates",
+			"method": "GET",
+			"pathTemplate": "/market/status",
+			"joinPathArgs": [
+				"\"market\"",
+				"\"status\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Market date info",
+					"contentType": "application/json",
+					"goType": {
+						"name": "MarketStatus"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "MarketStatus"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "Account",
+			"description": "Account defines a model",
+			"fields": [
+				{
+					"name": "AccountID",
+					"jsonName": "account_id",
+					"type": "string",
+					"jsonTag": "json:\"account_id,omitzero\"",
+					"description": "IBKR account identifier",
+					"required": true
+				},
+				{
+					"name": "DisplayName",
+					"jsonName": "display_name",
+					"type": "string",
+					"jsonTag": "json:\"display_name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AccountType",
+					"jsonName": "account_type",
+					"type": "AccountAccountType",
+					"jsonTag": "json:\"account_type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "created_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_at,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AccountAccountType",
+			"description": "AccountAccountType defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AccountAccountTypeIndividual",
+					"value": "INDIVIDUAL",
+					"literal": "\"INDIVIDUAL\""
+				},
+				{
+					"goName": "AccountAccountTypeCompany",
+					"value": "COMPANY",
+					"literal": "\"COMPANY\""
+				}
+			]
+		},
+		{
+			"name": "AccountSummary",
+			"description": "AccountSummary defines a model",
+			"fields": [
+				{
+					"name": "Account",
+					"jsonName": "account",
+					"type": "Account",
+					"jsonTag": "json:\"account\"",
+					"required": true
+				},
+				{
+					"name": "Stocks",
+					"jsonName": "stocks",
+					"type": "Stocks",
+					"jsonTag": "json:\"stocks,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Options",
+					"jsonName": "options",
+					"type": "Options",
+					"jsonTag": "json:\"options,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Balances",
+					"jsonName": "balances",
+					"type": "Balances",
+					"jsonTag": "json:\"balances,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"description": "Accounts defines a model",
+			"kind": 2,
+			"type": "[]Account"
+		},
+		{
+			"name": "BalanceSheetAnalysis",
+			"description": "BalanceSheetAnalysis defines a model",
+			"fields": [
+				{
+					"name": "Leverage",
+					"jsonName": "leverage",
+					"type": "BandResult",
+					"jsonTag": "json:\"leverage\"",
+					"required": true
+				},
+				{
+					"name": "Series",
+					"jsonName": "series",
+					"type": "BalanceSheetAnalysisSeries",
+					"jsonTag": "json:\"series\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "BalanceSheetAnalysisSeries",
+			"description": "BalanceSheetAnalysisSeries defines a model",
+			"fields": [
+				{
+					"name": "CurrentAssets",
+					"jsonName": "current_assets",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"current_assets\"",
+					"required": true
+				},
+				{
+					"name": "CurrentLiabilities",
+					"jsonName": "current_liabilities",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"current_liabilities\"",
+					"required": true
+				},
+				{
+					"name": "Leverage",
+					"jsonName": "leverage",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"leverage\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Balances",
+			"description": "Balances defines a model",
+			"kind": 2,
+			"type": "[]CashBalance"
+		},
+		{
+			"name": "BandResult",
+			"description": "BandResult defines a model",
+			"fields": [
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
+					"required": true
+				},
+				{
+					"name": "Formatted",
+					"jsonName": "formatted",
+					"type": "string",
+					"jsonTag": "json:\"formatted,omitzero\"",
+					"description": "Human-readable value (e.g. '23.5%', '1.82')",
+					"required": true
+				},
+				{
+					"name": "Label",
+					"jsonName": "label",
+					"type": "string",
+					"jsonTag": "json:\"label,omitzero\"",
+					"description": "Band label (e.g. 'OK', 'red flag', 'solid', 'very strong')",
+					"required": true
+				},
+				{
+					"name": "Passing",
+					"jsonName": "passing",
+					"type": "bool",
+					"jsonTag": "json:\"passing,omitzero\"",
+					"description": "Whether the value is within acceptable range",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "CashBalance",
+			"description": "CashBalance defines a model",
+			"fields": [
+				{
+					"name": "Currency",
+					"jsonName": "currency",
+					"type": "Currency",
+					"jsonTag": "json:\"currency,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Cash",
+					"jsonName": "cash",
+					"type": "float64",
+					"jsonTag": "json:\"cash\"",
+					"description": "Settled cash balance",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ChartSeries",
+			"description": "ChartSeries defines a model",
+			"fields": [
+				{
+					"name": "Label",
+					"jsonName": "label",
+					"type": "string",
+					"jsonTag": "json:\"label,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Points",
+					"jsonName": "points",
+					"type": "ChartSeriesPoints",
+					"jsonTag": "json:\"points,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ChartSeriesPoints",
+			"description": "ChartSeriesPoints defines a model",
+			"kind": 2,
+			"type": "[]DataPoint"
+		},
+		{
+			"name": "Company",
+			"description": "Company defines a model",
+			"fields": [
+				{
+					"name": "Cik",
+					"jsonName": "cik",
+					"type": "int",
+					"jsonTag": "json:\"cik,omitzero\"",
+					"description": "SEC Central Index Key",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "The name of the company",
+					"required": true
+				},
+				{
+					"name": "Summary",
+					"jsonName": "summary",
+					"type": "string",
+					"jsonTag": "json:\"summary,omitzero\"",
+					"description": "A long summary of the company",
+					"required": true
+				},
+				{
+					"name": "Sector",
+					"jsonName": "sector",
+					"type": "string",
+					"jsonTag": "json:\"sector,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Industry",
+					"jsonName": "industry",
+					"type": "string",
+					"jsonTag": "json:\"industry,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Website",
+					"jsonName": "website",
+					"type": "url.URL",
+					"jsonTag": "json:\"website,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "FullTimeEmployees",
+					"jsonName": "full_time_employees",
+					"type": "int",
+					"jsonTag": "json:\"full_time_employees,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "CompanyAndSecurity",
+			"description": "CompanyAndSecurity defines a model",
+			"fields": [
+				{
+					"name": "Company",
+					"jsonName": "company",
+					"type": "Company",
+					"jsonTag": "json:\"company\"",
+					"required": true
+				},
+				{
+					"name": "Security",
+					"jsonName": "security",
+					"type": "Security",
+					"jsonTag": "json:\"security\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Currency",
+			"description": "Currency defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "CurrencyUSD",
+					"value": "USD",
+					"literal": "\"USD\""
+				},
+				{
+					"goName": "CurrencyEUR",
+					"value": "EUR",
+					"literal": "\"EUR\""
+				}
+			]
+		},
+		{
+			"name": "DataPoint",
+			"description": "DataPoint defines a model",
+			"fields": [
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "civil.Date",
+					"jsonTag": "json:\"date,omitzero\"",
+					"description": "X-axis value (date)",
+					"required": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
+					"description": "Y-axis value",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Error",
+			"description": "Error defines a model",
+			"fields": [
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "int",
+					"jsonTag": "json:\"code,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "FundamentalsAnalysis",
+			"description": "FundamentalsAnalysis defines a model",
+			"fields": [
+				{
+					"name": "Company",
+					"jsonName": "company",
+					"type": "Company",
+					"jsonTag": "json:\"company\"",
+					"required": true
+				},
+				{
+					"name": "IncomeStatement",
+					"jsonName": "income_statement",
+					"type": "IncomeStatementAnalysis",
+					"jsonTag": "json:\"income_statement\"",
+					"required": true
+				},
+				{
+					"name": "BalanceSheet",
+					"jsonName": "balance_sheet",
+					"type": "BalanceSheetAnalysis",
+					"jsonTag": "json:\"balance_sheet\"",
+					"required": true
+				},
+				{
+					"name": "Warnings",
+					"jsonName": "warnings",
+					"type": "[]string",
+					"jsonTag": "json:\"warnings,omitempty\"",
+					"description": "Red-flag warnings (e.g. low profit margin, high leverage)"
+				}
+			]
+		},
+		{
+			"name": "GetCashResult",
+			"description": "GetCashResult defines a model",
+			"fields": [
+				{
+					"name": "Balances",
+					"jsonName": "balances",
+					"type": "Balances",
+					"jsonTag": "json:\"balances,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "AsOf",
+					"jsonName": "as_of",
+					"type": "time.Time",
+					"jsonTag": "json:\"as_of,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "IncomeStatement",
+			"description": "Twelve months summary of the income statement",
+			"fields": [
+				{
+					"name": "TotalRevenue",
+					"jsonName": "total_revenue",
+					"type": "float64",
+					"jsonTag": "json:\"total_revenue\"",
+					"required": true
+				},
+				{
+					"name": "OperatingIncome",
+					"jsonName": "operating_income",
+					"type": "float64",
+					"jsonTag": "json:\"operating_income\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "IncomeStatementAnalysis",
+			"description": "IncomeStatementAnalysis defines a model",
+			"fields": [
+				{
+					"name": "Ttm",
+					"jsonName": "ttm",
+					"type": "IncomeStatement",
+					"jsonTag": "json:\"ttm\"",
+					"description": "Twelve months summary of the income statement",
+					"required": true
+				},
+				{
+					"name": "ProfitMargin",
+					"jsonName": "profit_margin",
+					"type": "BandResult",
+					"jsonTag": "json:\"profit_margin\"",
+					"required": true
+				},
+				{
+					"name": "Series",
+					"jsonName": "series",
+					"type": "IncomeStatementAnalysisSeries",
+					"jsonTag": "json:\"series\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "IncomeStatementAnalysisSeries",
+			"description": "IncomeStatementAnalysisSeries defines a model",
+			"fields": [
+				{
+					"name": "Revenue",
+					"jsonName": "revenue",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"revenue\"",
+					"required": true
+				},
+				{
+					"name": "GrossProfit",
+					"jsonName": "gross_profit",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"gross_profit\"",
+					"required": true
+				},
+				{
+					"name": "ProfitMargin",
+					"jsonName": "profit_margin",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"profit_margin\"",
+					"required": true
+				},
+				{
+					"name": "Eps",
+					"jsonName": "eps",
+					"type": "ChartSeries",
+					"jsonTag": "json:\"eps\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAccountsResult",
+			"description": "ListAccountsResult defines a model",
+			"fields": [
+				{
+					"name": "Accounts",
+					"jsonName": "accounts",
+					"type": "Accounts",
+					"jsonTag": "json:\"accounts,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "AsOf",
+					"jsonName": "as_of",
+					"type": "time.Time",
+					"jsonTag": "json:\"as_of,omitzero\"",
+					"description": "When the cached data was last refreshed from the broker",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "MarketStatus",
+			"description": "MarketStatus defines a model",
+			"fields": [
+				{
+					"name": "Today",
+					"jsonName": "today",
+					"type": "civil.Date",
+					"jsonTag": "json:\"today,omitzero\"",
+					"description": "Current NYSE-local date",
+					"required": true
+				},
+				{
+					"name": "IsTradingDay",
+					"jsonName": "is_trading_day",
+					"type": "bool",
+					"jsonTag": "json:\"is_trading_day,omitzero\"",
+					"description": "Whether today is a trading day (weekday + not NYSE holiday)",
+					"required": true
+				},
+				{
+					"name": "NextFriday",
+					"jsonName": "next_friday",
+					"type": "civil.Date",
+					"jsonTag": "json:\"next_friday,omitzero\"",
+					"description": "Next Friday for weekly options expiry",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Option",
+			"description": "Option defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "OptionType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Put or Call",
+					"required": true
+				},
+				{
+					"name": "Underlying",
+					"jsonName": "underlying",
+					"type": "string",
+					"jsonTag": "json:\"underlying,omitzero\"",
+					"description": "Underlying stock ticker",
+					"required": true
+				},
+				{
+					"name": "Expiry",
+					"jsonName": "expiry",
+					"type": "civil.Date",
+					"jsonTag": "json:\"expiry,omitzero\"",
+					"description": "Option expiration date",
+					"required": true
+				},
+				{
+					"name": "DaysToExpiry",
+					"jsonName": "days_to_expiry",
+					"type": "int",
+					"jsonTag": "json:\"days_to_expiry,omitzero\"",
+					"description": "Calendar days until expiration",
+					"required": true
+				},
+				{
+					"name": "Strike",
+					"jsonName": "strike",
+					"type": "float64",
+					"jsonTag": "json:\"strike\"",
+					"description": "Strike price",
+					"required": true
+				},
+				{
+					"name": "Qty",
+					"jsonName": "qty",
+					"type": "int",
+					"jsonTag": "json:\"qty,omitzero\"",
+					"description": "Number of contracts (negative = short)",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "OptionType",
+			"description": "Put or Call",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "OptionTypeP",
+					"value": "P",
+					"literal": "\"P\""
+				},
+				{
+					"goName": "OptionTypeC",
+					"value": "C",
+					"literal": "\"C\""
+				}
+			]
+		},
+		{
+			"name": "Options",
+			"description": "Options defines a model",
+			"kind": 2,
+			"type": "[]Option"
+		},
+		{
+			"name": "Positions",
+			"description": "Positions defines a model",
+			"fields": [
+				{
+					"name": "Stocks",
+					"jsonName": "stocks",
+					"type": "Stocks",
+					"jsonTag": "json:\"stocks,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Options",
+					"jsonName": "options",
+					"type": "Options",
+					"jsonTag": "json:\"options,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "AsOf",
+					"jsonName": "as_of",
+					"type": "time.Time",
+					"jsonTag": "json:\"as_of,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Security",
+			"description": "Security defines a model",
+			"fields": [
+				{
+					"name": "Symbol",
+					"jsonName": "symbol",
+					"type": "string",
+					"jsonTag": "json:\"symbol,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "SecurityType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "The type of security (e.g. EQUITY, ETF)",
+					"required": true
+				},
+				{
+					"name": "FirstTradeDate",
+					"jsonName": "first_trade_date",
+					"type": "civil.Date",
+					"jsonTag": "json:\"first_trade_date,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "SecurityType",
+			"description": "The type of security (e.g. EQUITY, ETF)",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "SecurityTypeEquity",
+					"value": "EQUITY",
+					"literal": "\"EQUITY\""
+				},
+				{
+					"goName": "SecurityTypeETF",
+					"value": "ETF",
+					"literal": "\"ETF\""
+				}
+			]
+		},
+		{
+			"name": "Stock",
+			"description": "Stock defines a model",
+			"fields": [
+				{
+					"name": "Symbol",
+					"jsonName": "symbol",
+					"type": "string",
+					"jsonTag": "json:\"symbol,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Qty",
+					"jsonName": "qty",
+					"type": "int",
+					"jsonTag": "json:\"qty,omitzero\"",
+					"description": "Number of shares held",
+					"required": true
+				},
+				{
+					"name": "CostBasis",
+					"jsonName": "cost_basis",
+					"type": "*float64",
+					"jsonTag": "json:\"cost_basis,omitempty\"",
+					"description": "Average cost per share"
+				},
+				{
+					"name": "MarketPrice",
+					"jsonName": "market_price",
+					"type": "*float64",
+					"jsonTag": "json:\"market_price,omitempty\"",
+					"description": "Current market price per share (if available from broker)"
+				}
+			]
+		},
+		{
+			"name": "Stocks",
+			"description": "Stocks defines a model",
+			"kind": 2,
+			"type": "[]Stock"
+		},
+		{
+			"name": "Watchlist",
+			"description": "Watchlist defines a model",
+			"fields": [
+				{
+					"name": "Symbols",
+					"jsonName": "symbols",
+					"type": "[]string",
+					"jsonTag": "json:\"symbols,omitempty\"",
+					"required": true
+				}
+			]
+		}
+	],
+	"hasURLFields": true,
+	"hasDateFields": true
+}

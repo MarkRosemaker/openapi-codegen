@@ -1,0 +1,114 @@
+{
+	"title": "Freepublicapis API",
+	"production": true,
+	"packageName": "freepublicapis",
+	"baseURL": {
+		"scheme": "https",
+		"host": "www.freepublicapis.com"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "GetApiapiByApiid",
+			"method": "GET",
+			"pathTemplate": "/api/apis/{apiId}",
+			"joinPathArgs": [
+				"\"api\"",
+				"\"apis\"",
+				"strconv.Itoa(apiID)"
+			],
+			"pathParams": [
+				{
+					"varName": "apiID",
+					"goName": "apiID",
+					"fieldName": "APIID",
+					"jsonName": "apiId",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "GetApiapiByApiidOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "GetApiapiByApiidOkJSONResponse"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "GetApiapiByApiidOkJSONResponse",
+			"description": "GetApiapiByApiidOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Emoji",
+					"jsonName": "emoji",
+					"type": "string",
+					"jsonTag": "json:\"emoji,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "string",
+					"jsonTag": "json:\"title,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Documentation",
+					"jsonName": "documentation",
+					"type": "url.URL",
+					"jsonTag": "json:\"documentation,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Methods",
+					"jsonName": "methods",
+					"type": "int",
+					"jsonTag": "json:\"methods,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Health",
+					"jsonName": "health",
+					"type": "int",
+					"jsonTag": "json:\"health,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Source",
+					"jsonName": "source",
+					"type": "url.URL",
+					"jsonTag": "json:\"source,omitzero\"",
+					"required": true
+				}
+			]
+		}
+	],
+	"hasURLFields": true
+}

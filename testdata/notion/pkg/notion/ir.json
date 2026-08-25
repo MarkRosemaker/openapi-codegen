@@ -1,0 +1,659 @@
+{
+	"title": "Notion API",
+	"production": true,
+	"packageName": "notion",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.notion.com",
+		"path": "/v1"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "GetV1PageByPageID",
+			"method": "GET",
+			"pathTemplate": "/pages/{pageId}",
+			"joinPathArgs": [
+				"\"pages\"",
+				"pageID"
+			],
+			"pathParams": [
+				{
+					"varName": "pageID",
+					"goName": "pageID",
+					"fieldName": "PageID",
+					"jsonName": "pageId",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "GetV1PageByPageIDOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "GetV1PageByPageIDOkJSONResponse"
+			}
+		},
+		{
+			"name": "ListV1BlockChildren",
+			"method": "GET",
+			"pathTemplate": "/blocks/{blockId}/children",
+			"joinPathArgs": [
+				"\"blocks\"",
+				"blockID",
+				"\"children\""
+			],
+			"pathParams": [
+				{
+					"varName": "blockID",
+					"goName": "blockID",
+					"fieldName": "BlockID",
+					"jsonName": "blockId",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.PageSize",
+					"goName": "pageSize",
+					"fieldName": "PageSize",
+					"jsonName": "page_size",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListV1BlockChildrenParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListV1BlockChildrenOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListV1BlockChildrenOkJSONResponse"
+			}
+		}
+	],
+	"globalParams": [
+		{
+			"globalType": "Version",
+			"varName": "params.NotionVersion",
+			"goName": "notionVersion",
+			"fieldName": "NotionVersion",
+			"jsonName": "Notion-Version",
+			"type": "string",
+			"required": true,
+			"parseExpr": "s",
+			"parseErrFree": true,
+			"value": "\"2026-03-11\"",
+			"example": "\"2026-03-11\""
+		}
+	],
+	"schemas": [
+		{
+			"name": "GetV1PageByPageIDOkJSONResponse",
+			"description": "GetV1PageByPageIDOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedTime",
+					"jsonName": "created_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_time,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LastEditedTime",
+					"jsonName": "last_edited_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedBy",
+					"jsonName": "created_by",
+					"type": "PageByPageIDCreatedBy",
+					"jsonTag": "json:\"created_by\"",
+					"required": true
+				},
+				{
+					"name": "LastEditedBy",
+					"jsonName": "last_edited_by",
+					"type": "PageByPageIDCreatedBy",
+					"jsonTag": "json:\"last_edited_by\"",
+					"required": true
+				},
+				{
+					"name": "Cover",
+					"jsonName": "cover",
+					"type": "GetV1PageByPageIDOkJSONResponseCover",
+					"jsonTag": "json:\"cover\"",
+					"required": true
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "GetV1PageByPageIDOkJSONResponseIcon",
+					"jsonTag": "json:\"icon\"",
+					"required": true
+				},
+				{
+					"name": "Parent",
+					"jsonName": "parent",
+					"type": "PageByPageIDParent",
+					"jsonTag": "json:\"parent\"",
+					"required": true
+				},
+				{
+					"name": "InTrash",
+					"jsonName": "in_trash",
+					"type": "bool",
+					"jsonTag": "json:\"in_trash,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IsArchived",
+					"jsonName": "is_archived",
+					"type": "bool",
+					"jsonTag": "json:\"is_archived,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IsLocked",
+					"jsonName": "is_locked",
+					"type": "bool",
+					"jsonTag": "json:\"is_locked,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Properties",
+					"jsonName": "properties",
+					"type": "GetV1PageByPageIDOkJSONResponseProperties",
+					"jsonTag": "json:\"properties\"",
+					"required": true
+				},
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "url.URL",
+					"jsonTag": "json:\"url,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PublicURL",
+					"jsonName": "public_url",
+					"type": "url.URL",
+					"jsonTag": "json:\"public_url,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RequestID",
+					"jsonName": "request_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"request_id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetV1PageByPageIDOkJSONResponseCover",
+			"description": "GetV1PageByPageIDOkJSONResponseCover defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "External",
+					"jsonName": "external",
+					"type": "GetV1PageByPageIDOkJSONResponseCoverExternal",
+					"jsonTag": "json:\"external\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetV1PageByPageIDOkJSONResponseCoverExternal",
+			"description": "GetV1PageByPageIDOkJSONResponseCoverExternal defines a model",
+			"fields": [
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "url.URL",
+					"jsonTag": "json:\"url,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetV1PageByPageIDOkJSONResponseIcon",
+			"description": "GetV1PageByPageIDOkJSONResponseIcon defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Emoji",
+					"jsonName": "emoji",
+					"type": "string",
+					"jsonTag": "json:\"emoji,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetV1PageByPageIDOkJSONResponseProperties",
+			"description": "GetV1PageByPageIDOkJSONResponseProperties defines a model",
+			"fields": [
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "GetV1PageByPageIDOkJSONResponsePropertiesTitle",
+					"jsonTag": "json:\"title\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GetV1PageByPageIDOkJSONResponsePropertiesTitle",
+			"description": "GetV1PageByPageIDOkJSONResponsePropertiesTitle defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "PageByPageIDPropertiesTitle",
+					"jsonTag": "json:\"title,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1BlockChildrenOkJSONResponse",
+			"description": "ListV1BlockChildrenOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Results",
+					"jsonName": "results",
+					"type": "ListV1BlockChildrenOkJSONResponseResults",
+					"jsonTag": "json:\"results,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "NextCursor",
+					"jsonName": "next_cursor",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "bool",
+					"jsonTag": "json:\"has_more,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Block",
+					"jsonName": "block",
+					"type": "struct{}",
+					"jsonTag": "json:\"block\"",
+					"required": true
+				},
+				{
+					"name": "RequestID",
+					"jsonName": "request_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"request_id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1BlockChildrenOkJSONResponseResults",
+			"description": "ListV1BlockChildrenOkJSONResponseResults defines a model",
+			"kind": 2,
+			"type": "[]ListV1BlockChildrenOkJSONResponseResultsItem"
+		},
+		{
+			"name": "ListV1BlockChildrenOkJSONResponseResultsItem",
+			"description": "ListV1BlockChildrenOkJSONResponseResultsItem defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Parent",
+					"jsonName": "parent",
+					"type": "PageByPageIDParent",
+					"jsonTag": "json:\"parent\"",
+					"required": true
+				},
+				{
+					"name": "CreatedTime",
+					"jsonName": "created_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_time,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LastEditedTime",
+					"jsonName": "last_edited_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedBy",
+					"jsonName": "created_by",
+					"type": "PageByPageIDCreatedBy",
+					"jsonTag": "json:\"created_by\"",
+					"required": true
+				},
+				{
+					"name": "LastEditedBy",
+					"jsonName": "last_edited_by",
+					"type": "PageByPageIDCreatedBy",
+					"jsonTag": "json:\"last_edited_by\"",
+					"required": true
+				},
+				{
+					"name": "HasChildren",
+					"jsonName": "has_children",
+					"type": "bool",
+					"jsonTag": "json:\"has_children,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InTrash",
+					"jsonName": "in_trash",
+					"type": "bool",
+					"jsonTag": "json:\"in_trash,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Paragraph",
+					"jsonName": "paragraph",
+					"type": "ListV1BlockChildrenOkJSONResponseResultsItemParagraph",
+					"jsonTag": "json:\"paragraph\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1BlockChildrenOkJSONResponseResultsItemParagraph",
+			"description": "ListV1BlockChildrenOkJSONResponseResultsItemParagraph defines a model",
+			"fields": [
+				{
+					"name": "RichText",
+					"jsonName": "rich_text",
+					"type": "PageByPageIDPropertiesTitle",
+					"jsonTag": "json:\"rich_text,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "struct{}",
+					"jsonTag": "json:\"icon\"",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "string",
+					"jsonTag": "json:\"color,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageByPageIDCreatedBy",
+			"description": "PageByPageIDCreatedBy defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageByPageIDParent",
+			"description": "PageByPageIDParent defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "PageID",
+					"jsonName": "page_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"page_id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageByPageIDPropertiesTitle",
+			"description": "PageByPageIDPropertiesTitle defines a model",
+			"kind": 2,
+			"type": "[]PageByPageIDPropertiesTitleItem"
+		},
+		{
+			"name": "PageByPageIDPropertiesTitleItem",
+			"description": "PageByPageIDPropertiesTitleItem defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "PageByPageIDPropertiesTitleItemText",
+					"jsonTag": "json:\"text\"",
+					"required": true
+				},
+				{
+					"name": "Annotations",
+					"jsonName": "annotations",
+					"type": "PageByPageIDPropertiesTitleItemAnnotations",
+					"jsonTag": "json:\"annotations\"",
+					"required": true
+				},
+				{
+					"name": "PlainText",
+					"jsonName": "plain_text",
+					"type": "string",
+					"jsonTag": "json:\"plain_text,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Href",
+					"jsonName": "href",
+					"type": "struct{}",
+					"jsonTag": "json:\"href\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageByPageIDPropertiesTitleItemAnnotations",
+			"description": "PageByPageIDPropertiesTitleItemAnnotations defines a model",
+			"fields": [
+				{
+					"name": "Bold",
+					"jsonName": "bold",
+					"type": "bool",
+					"jsonTag": "json:\"bold,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Italic",
+					"jsonName": "italic",
+					"type": "bool",
+					"jsonTag": "json:\"italic,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Strikethrough",
+					"jsonName": "strikethrough",
+					"type": "bool",
+					"jsonTag": "json:\"strikethrough,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Underline",
+					"jsonName": "underline",
+					"type": "bool",
+					"jsonTag": "json:\"underline,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "bool",
+					"jsonTag": "json:\"code,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "string",
+					"jsonTag": "json:\"color,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageByPageIDPropertiesTitleItemText",
+			"description": "PageByPageIDPropertiesTitleItemText defines a model",
+			"fields": [
+				{
+					"name": "Content",
+					"jsonName": "content",
+					"type": "string",
+					"jsonTag": "json:\"content,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Link",
+					"jsonName": "link",
+					"type": "struct{}",
+					"jsonTag": "json:\"link\"",
+					"required": true
+				}
+			]
+		}
+	],
+	"security": {
+		"bearer": {
+			"name": "API_TOKEN"
+		}
+	},
+	"hasURLFields": true
+}

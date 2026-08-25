@@ -1,0 +1,1998 @@
+{
+	"title": "Toggl API",
+	"production": true,
+	"packageName": "toggl",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.track.toggl.com",
+		"path": "/api/v9"
+	},
+	"userAgent": "Toggl API",
+	"operations": [
+		{
+			"name": "GetMe",
+			"description": "Returns details for the current user.",
+			"summary": "Return Current User",
+			"method": "GET",
+			"pathTemplate": "/me",
+			"joinPathArgs": [
+				"\"me\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.WithRelatedData",
+					"goName": "withRelatedData",
+					"fieldName": "WithRelatedData",
+					"jsonName": "with_related_data",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Retrieve user related data (clients, projects, tasks, tags, workspaces, time entries, etc.)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetMeParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns the user.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "UserWithRelated"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "401",
+					"goConstant": "http.StatusUnauthorized",
+					"description": "User is unauthorized to use the API"
+				}
+			],
+			"successReturn": {
+				"name": "UserWithRelated"
+			}
+		},
+		{
+			"name": "CreateTimeEntry",
+			"description": "Creates a new workspace TimeEntry.",
+			"summary": "Create a time entry",
+			"method": "POST",
+			"pathTemplate": "/workspaces/{workspace_id}/time_entries",
+			"joinPathArgs": [
+				"\"workspaces\"",
+				"strconv.Itoa(workspaceID)",
+				"\"time_entries\""
+			],
+			"pathParams": [
+				{
+					"varName": "workspaceID",
+					"goName": "workspaceID",
+					"fieldName": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Numeric ID of the workspace"
+				}
+			],
+			"hasParams": true,
+			"requestBody": {
+				"typeName": "NewTimeEntry",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns a time entry",
+					"contentType": "application/json",
+					"goType": {
+						"name": "TimeEntry"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "400",
+					"goConstant": "http.StatusBadRequest",
+					"description": "Returned when the user made a bad request",
+					"contentType": "application/json",
+					"goType": {
+						"name": "APIErrorString"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "TimeEntry"
+			}
+		},
+		{
+			"name": "GetCurrentTimeEntry",
+			"description": "Load running time entry for the current user.",
+			"summary": "Get current time entry",
+			"method": "GET",
+			"pathTemplate": "/me/time_entries/current",
+			"joinPathArgs": [
+				"\"me\"",
+				"\"time_entries\"",
+				"\"current\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns a time entry",
+					"contentType": "application/json",
+					"goType": {
+						"name": "TimeEntry"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "TimeEntry"
+			}
+		},
+		{
+			"name": "StopTimeEntry",
+			"description": "Stops a workspace time entry.",
+			"summary": "Stop an existing time entry",
+			"method": "PATCH",
+			"pathTemplate": "/workspaces/{workspace_id}/time_entries/{time_entry_id}/stop",
+			"joinPathArgs": [
+				"\"workspaces\"",
+				"strconv.Itoa(workspaceID)",
+				"\"time_entries\"",
+				"strconv.Itoa(timeEntryID)",
+				"\"stop\""
+			],
+			"pathParams": [
+				{
+					"varName": "workspaceID",
+					"goName": "workspaceID",
+					"fieldName": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Numeric ID of the workspace"
+				},
+				{
+					"varName": "timeEntryID",
+					"goName": "timeEntryID",
+					"fieldName": "TimeEntryID",
+					"jsonName": "time_entry_id",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "TimeEntry ID."
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns a time entry",
+					"contentType": "application/json",
+					"goType": {
+						"name": "TimeEntry"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "TimeEntry"
+			}
+		},
+		{
+			"name": "ListTimeEntries",
+			"description": "Lists latest time entries.",
+			"summary": "List time entries",
+			"method": "GET",
+			"pathTemplate": "/me/time_entries",
+			"joinPathArgs": [
+				"\"me\"",
+				"\"time_entries\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.Since",
+					"goName": "since",
+					"fieldName": "Since",
+					"jsonName": "since",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Get entries modified since this date using UNIX timestamp, including deleted ones."
+				},
+				{
+					"varName": "params.Before",
+					"goName": "before",
+					"fieldName": "Before",
+					"jsonName": "before",
+					"type": "time.Time",
+					"parseExpr": "time.Parse(time.RFC3339, s)",
+					"description": "Get entries with start time before the given date."
+				},
+				{
+					"varName": "params.StartDate",
+					"goName": "startDate",
+					"fieldName": "StartDate",
+					"jsonName": "start_date",
+					"type": "time.Time",
+					"parseExpr": "time.Parse(time.RFC3339, s)",
+					"description": "Get entries with start time from the given time. To be used with end_date."
+				},
+				{
+					"varName": "params.EndDate",
+					"goName": "endDate",
+					"fieldName": "EndDate",
+					"jsonName": "end_date",
+					"type": "time.Time",
+					"parseExpr": "time.Parse(time.RFC3339, s)",
+					"description": "Get entries with start time until the given time. To be used with start_date."
+				},
+				{
+					"varName": "params.Meta",
+					"goName": "meta",
+					"fieldName": "Meta",
+					"jsonName": "meta",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Should the response contain meta data such as `client_name`, `project_name`, `project_color`, `project_active`, `project_billable`, `user_name`, and `user_avatar_url`."
+				},
+				{
+					"varName": "params.IncludeSharing",
+					"goName": "includeSharing",
+					"fieldName": "IncludeSharing",
+					"jsonName": "include_sharing",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Include sharing details in the response"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListTimeEntriesParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns a list of time entries",
+					"contentType": "application/json",
+					"goType": {
+						"name": "TimeEntries"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "400",
+					"goConstant": "http.StatusBadRequest",
+					"description": "Returned when the user made a bad request",
+					"contentType": "application/json",
+					"goType": {
+						"name": "APIErrorString"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "TimeEntries"
+			}
+		},
+		{
+			"name": "CreateOrganization",
+			"description": "Creates a new organization with a single workspace and assigns current user as the organization owner",
+			"summary": "Create a new organization",
+			"method": "POST",
+			"pathTemplate": "/organizations",
+			"joinPathArgs": [
+				"\"organizations\""
+			],
+			"requestBody": {
+				"typeName": "NewOrganization",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Organization and workspace IDs",
+					"contentType": "application/json",
+					"goType": {
+						"name": "SimpleOrganization"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "SimpleOrganization"
+			}
+		},
+		{
+			"name": "ListOrganizations",
+			"description": "Get all organizations a given user is part of.",
+			"summary": "List my organizations",
+			"method": "GET",
+			"pathTemplate": "/me/organizations",
+			"joinPathArgs": [
+				"\"me\"",
+				"\"organizations\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns an array of organisations",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Organizations"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Organizations"
+			}
+		},
+		{
+			"name": "GetOrganization",
+			"description": "Returns organization name and current pricing plan",
+			"summary": "Get organization data",
+			"method": "GET",
+			"pathTemplate": "/organizations/{organization_id}",
+			"joinPathArgs": [
+				"\"organizations\"",
+				"strconv.Itoa(organizationID)"
+			],
+			"pathParams": [
+				{
+					"varName": "organizationID",
+					"goName": "organizationID",
+					"fieldName": "OrganizationID",
+					"jsonName": "organization_id",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Numeric ID of the organization"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "TODO",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Organization"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Organization"
+			}
+		},
+		{
+			"name": "PostOrganizations9011051Workspaces",
+			"method": "POST",
+			"pathTemplate": "/organizations/9011051/workspaces",
+			"joinPathArgs": [
+				"\"organizations\"",
+				"\"9011051\"",
+				"\"workspaces\""
+			],
+			"requestBody": {
+				"typeName": "PostOrganizations9011051WorkspacesJSONRequestBody",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "TODO",
+					"isSuccess": true
+				},
+				{
+					"statusCode": "403",
+					"goConstant": "http.StatusForbidden",
+					"description": "TODO",
+					"contentType": "application/json",
+					"goType": {
+						"name": "APIErrorString"
+					}
+				}
+			]
+		}
+	],
+	"schemas": [
+		{
+			"name": "APIErrorString",
+			"description": "APIErrorString defines a model",
+			"kind": 2,
+			"type": "string"
+		},
+		{
+			"name": "Clients",
+			"description": "Clients defines a model",
+			"kind": 2,
+			"type": "[]WorkClient"
+		},
+		{
+			"name": "EventMetadata",
+			"description": "EventMetadata defines a model"
+		},
+		{
+			"name": "NewOrganization",
+			"description": "NewOrganization defines a model",
+			"fields": [
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "Name of the organization",
+					"required": true
+				},
+				{
+					"name": "WorkspaceName",
+					"jsonName": "workspace_name",
+					"type": "string",
+					"jsonTag": "json:\"workspace_name,omitzero\"",
+					"description": "Name of the workspace",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "NewTimeEntry",
+			"description": "NewTimeEntry defines a model",
+			"fields": [
+				{
+					"name": "Billable",
+					"jsonName": "billable",
+					"type": "bool",
+					"jsonTag": "json:\"billable,omitzero\"",
+					"description": "Whether the time entry is marked as billable, optional, default false",
+					"required": true
+				},
+				{
+					"name": "CreatedWith",
+					"jsonName": "created_with",
+					"type": "string",
+					"jsonTag": "json:\"created_with,omitzero\"",
+					"description": "Must be provided when creating a time entry and should identify the service/application used to create it",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"description": "Time entry description, optional",
+					"required": true
+				},
+				{
+					"name": "Duration",
+					"jsonName": "duration",
+					"type": "time.Duration",
+					"jsonTag": "json:\"duration,omitzero\"",
+					"description": "Time entry duration. For running entries should be negative, preferable -1",
+					"required": true
+				},
+				{
+					"name": "Duronly",
+					"jsonName": "duronly",
+					"type": "bool",
+					"jsonTag": "json:\"duronly,omitempty\"",
+					"description": "Deprecated: Used to create a time entry with a duration but without a stop time. This parameter can be ignored."
+				},
+				{
+					"name": "EventMetadata",
+					"jsonName": "event_metadata",
+					"type": "*EventMetadata",
+					"jsonTag": "json:\"event_metadata,omitempty\""
+				},
+				{
+					"name": "Pid",
+					"jsonName": "pid",
+					"type": "*int",
+					"jsonTag": "json:\"pid,omitempty\"",
+					"description": "Project ID, legacy field"
+				},
+				{
+					"name": "ProjectID",
+					"jsonName": "project_id",
+					"type": "*int",
+					"jsonTag": "json:\"project_id,omitempty\"",
+					"description": "Project ID, optional"
+				},
+				{
+					"name": "SharedWithUserIds",
+					"jsonName": "shared_with_user_ids",
+					"type": "[]int",
+					"jsonTag": "json:\"shared_with_user_ids,omitempty\"",
+					"description": "List of user IDs to share this time entry with"
+				},
+				{
+					"name": "Start",
+					"jsonName": "start",
+					"type": "time.Time",
+					"jsonTag": "json:\"start,omitzero\"",
+					"description": "Start time, required for creation.",
+					"required": true
+				},
+				{
+					"name": "StartDate",
+					"jsonName": "start_date",
+					"type": "string",
+					"jsonTag": "json:\"start_date,omitzero\"",
+					"description": "If provided during creation, the date part will take precedence over the date part of \"start\". Format: 2006-11-07"
+				},
+				{
+					"name": "Stop",
+					"jsonName": "stop",
+					"type": "string",
+					"jsonTag": "json:\"stop,omitzero\"",
+					"description": "Stop time in UTC, can be omitted if it's still running or created with \"duration\".\nIf \"stop\" and \"duration\" are provided, values must be consistent (start + duration == stop)"
+				},
+				{
+					"name": "TagAction",
+					"jsonName": "tag_action",
+					"type": "TagAction",
+					"jsonTag": "json:\"tag_action,omitzero\"",
+					"description": "Used when updating an existing time entry"
+				},
+				{
+					"name": "TagIds",
+					"jsonName": "tag_ids",
+					"type": "[]int",
+					"jsonTag": "json:\"tag_ids,omitempty\"",
+					"description": "IDs of tags to add/remove"
+				},
+				{
+					"name": "Tags",
+					"jsonName": "tags",
+					"type": "[]string",
+					"jsonTag": "json:\"tags,omitempty\"",
+					"description": "Names of tags to add/remove. If name does not exist as tag, one will be created automatically",
+					"required": true
+				},
+				{
+					"name": "TaskID",
+					"jsonName": "task_id",
+					"type": "*int",
+					"jsonTag": "json:\"task_id,omitempty\"",
+					"description": "Task ID, optional"
+				},
+				{
+					"name": "Tid",
+					"jsonName": "tid",
+					"type": "*int",
+					"jsonTag": "json:\"tid,omitempty\"",
+					"description": "Task ID, legacy field"
+				},
+				{
+					"name": "UID",
+					"jsonName": "uid",
+					"type": "*int",
+					"jsonTag": "json:\"uid,omitempty\"",
+					"description": "Time Entry creator ID, legacy field"
+				},
+				{
+					"name": "UserID",
+					"jsonName": "user_id",
+					"type": "*int",
+					"jsonTag": "json:\"user_id,omitempty\"",
+					"description": "Time Entry creator ID, if omitted will use the requester user ID"
+				},
+				{
+					"name": "Wid",
+					"jsonName": "wid",
+					"type": "*int",
+					"jsonTag": "json:\"wid,omitempty\"",
+					"description": "Workspace ID, legacy field"
+				},
+				{
+					"name": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"description": "Workspace ID",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Options",
+			"description": "Options defines a model",
+			"kind": 4,
+			"mapKey": "string",
+			"mapValue": "string"
+		},
+		{
+			"name": "Organization",
+			"description": "Organization defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"description": "Organization ID",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "Organization Name",
+					"required": true
+				},
+				{
+					"name": "PricingPlanID",
+					"jsonName": "pricing_plan_id",
+					"type": "int",
+					"jsonTag": "json:\"pricing_plan_id,omitzero\"",
+					"description": "Organization plan ID",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "created_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_at,omitzero\"",
+					"description": "Organization's creation date",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"description": "Organization's last modification date",
+					"required": true
+				},
+				{
+					"name": "ServerDeletedAt",
+					"jsonName": "server_deleted_at",
+					"type": "struct{}",
+					"jsonTag": "json:\"server_deleted_at\"",
+					"required": true
+				},
+				{
+					"name": "IsMultiWorkspaceEnabled",
+					"jsonName": "is_multi_workspace_enabled",
+					"type": "bool",
+					"jsonTag": "json:\"is_multi_workspace_enabled,omitzero\"",
+					"description": "Is true when the organization option is_multi_workspace_enabled is set",
+					"required": true
+				},
+				{
+					"name": "SuspendedAt",
+					"jsonName": "suspended_at",
+					"type": "struct{}",
+					"jsonTag": "json:\"suspended_at\"",
+					"description": "Whether the organization is currently suspended",
+					"required": true
+				},
+				{
+					"name": "UserCount",
+					"jsonName": "user_count",
+					"type": "int",
+					"jsonTag": "json:\"user_count,omitzero\"",
+					"description": "Number of organization users",
+					"required": true
+				},
+				{
+					"name": "TrialInfo",
+					"jsonName": "trial_info",
+					"type": "TrialInfo",
+					"jsonTag": "json:\"trial_info\"",
+					"required": true
+				},
+				{
+					"name": "IsUnified",
+					"jsonName": "is_unified",
+					"type": "bool",
+					"jsonTag": "json:\"is_unified,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MaxWorkspaces",
+					"jsonName": "max_workspaces",
+					"type": "int",
+					"jsonTag": "json:\"max_workspaces,omitzero\"",
+					"description": "Maximum number of workspaces allowed for the organization",
+					"required": true
+				},
+				{
+					"name": "Permissions",
+					"jsonName": "permissions",
+					"type": "string",
+					"jsonTag": "json:\"permissions,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Admin",
+					"jsonName": "admin",
+					"type": "bool",
+					"jsonTag": "json:\"admin,omitzero\"",
+					"description": "Whether the requester is an admin of the organization",
+					"required": true
+				},
+				{
+					"name": "Owner",
+					"jsonName": "owner",
+					"type": "bool",
+					"jsonTag": "json:\"owner,omitzero\"",
+					"description": "Whether the requester is a the owner of the organization",
+					"required": true
+				},
+				{
+					"name": "PricingPlanName",
+					"jsonName": "pricing_plan_name",
+					"type": "string",
+					"jsonTag": "json:\"pricing_plan_name,omitzero\"",
+					"description": "The subscription plan name the org is currently on. Free or any plan name coming from payment provider",
+					"required": true
+				},
+				{
+					"name": "PricingPlanEnterprise",
+					"jsonName": "pricing_plan_enterprise",
+					"type": "bool",
+					"jsonTag": "json:\"pricing_plan_enterprise,omitzero\"",
+					"description": "The subscription plan is an enterprise plan",
+					"required": true
+				},
+				{
+					"name": "MaxDataRetentionDays",
+					"jsonName": "max_data_retention_days",
+					"type": "*int",
+					"jsonTag": "json:\"max_data_retention_days,omitempty\"",
+					"description": "How far back free workspaces in this org can access data."
+				}
+			]
+		},
+		{
+			"name": "Organizations",
+			"description": "Organizations defines a model",
+			"kind": 2,
+			"type": "[]Organization"
+		},
+		{
+			"name": "PostOrganizations9011051WorkspacesJSONRequestBody",
+			"description": "PostOrganizations9011051WorkspacesJSONRequestBody defines a model",
+			"fields": [
+				{
+					"name": "Admins",
+					"jsonName": "admins",
+					"type": "[]int",
+					"jsonTag": "json:\"admins,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "DefaultCurrency",
+					"jsonName": "default_currency",
+					"type": "string",
+					"jsonTag": "json:\"default_currency,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DefaultHourlyRate",
+					"jsonName": "default_hourly_rate",
+					"type": "int",
+					"jsonTag": "json:\"default_hourly_rate,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "InitialPricingPlan",
+					"jsonName": "initial_pricing_plan",
+					"type": "int",
+					"jsonTag": "json:\"initial_pricing_plan,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsMayCreateProjects",
+					"jsonName": "only_admins_may_create_projects",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_may_create_projects,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsSeeBillableRates",
+					"jsonName": "only_admins_see_billable_rates",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_see_billable_rates,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsSeeTeamDashboard",
+					"jsonName": "only_admins_see_team_dashboard",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_see_team_dashboard,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OrganizationID",
+					"jsonName": "organizationID",
+					"type": "int",
+					"jsonTag": "json:\"organizationID,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ProjectsBillableByDefault",
+					"jsonName": "projects_billable_by_default",
+					"type": "bool",
+					"jsonTag": "json:\"projects_billable_by_default,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Rounding",
+					"jsonName": "rounding",
+					"type": "int",
+					"jsonTag": "json:\"rounding,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RoundingMinutes",
+					"jsonName": "rounding_minutes",
+					"type": "int",
+					"jsonTag": "json:\"rounding_minutes,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"description": "Project defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"description": "Project ID",
+					"required": true
+				},
+				{
+					"name": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ClientID",
+					"jsonName": "client_id",
+					"type": "int",
+					"jsonTag": "json:\"client_id,omitzero\"",
+					"description": "Client ID",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IsPrivate",
+					"jsonName": "is_private",
+					"type": "bool",
+					"jsonTag": "json:\"is_private,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Active",
+					"jsonName": "active",
+					"type": "bool",
+					"jsonTag": "json:\"active,omitzero\"",
+					"description": "Whether the project is active or archived",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"description": "Last updated date",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "created_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_at,omitzero\"",
+					"description": "Creation date",
+					"required": true
+				},
+				{
+					"name": "ServerDeletedAt",
+					"jsonName": "server_deleted_at",
+					"type": "struct{}",
+					"jsonTag": "json:\"server_deleted_at\"",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "string",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "Color",
+					"required": true
+				},
+				{
+					"name": "Billable",
+					"jsonName": "billable",
+					"type": "bool",
+					"jsonTag": "json:\"billable,omitzero\"",
+					"description": "Whether the project is billable, premium feature",
+					"required": true
+				},
+				{
+					"name": "Template",
+					"jsonName": "template",
+					"type": "struct{}",
+					"jsonTag": "json:\"template\"",
+					"required": true
+				},
+				{
+					"name": "AutoEstimates",
+					"jsonName": "auto_estimates",
+					"type": "bool",
+					"jsonTag": "json:\"auto_estimates,omitzero\"",
+					"description": "Whether estimates are based on task hours, premium feature",
+					"required": true
+				},
+				{
+					"name": "CurrentPeriod",
+					"jsonName": "current_period",
+					"type": "*EventMetadata",
+					"jsonTag": "json:\"current_period,omitempty\""
+				},
+				{
+					"name": "EndDate",
+					"jsonName": "end_date",
+					"type": "string",
+					"jsonTag": "json:\"end_date,omitzero\"",
+					"description": "End date"
+				},
+				{
+					"name": "EstimatedHours",
+					"jsonName": "estimated_hours",
+					"type": "int",
+					"jsonTag": "json:\"estimated_hours,omitzero\"",
+					"description": "Estimated hours",
+					"required": true
+				},
+				{
+					"name": "EstimatedSeconds",
+					"jsonName": "estimated_seconds",
+					"type": "int",
+					"jsonTag": "json:\"estimated_seconds,omitzero\"",
+					"description": "Estimated seconds",
+					"required": true
+				},
+				{
+					"name": "Rate",
+					"jsonName": "rate",
+					"type": "struct{}",
+					"jsonTag": "json:\"rate\"",
+					"required": true
+				},
+				{
+					"name": "RateLastUpdated",
+					"jsonName": "rate_last_updated",
+					"type": "struct{}",
+					"jsonTag": "json:\"rate_last_updated\"",
+					"required": true
+				},
+				{
+					"name": "Currency",
+					"jsonName": "currency",
+					"type": "string",
+					"jsonTag": "json:\"currency,omitzero\"",
+					"description": "Currency, premium feature",
+					"required": true
+				},
+				{
+					"name": "Recurring",
+					"jsonName": "recurring",
+					"type": "bool",
+					"jsonTag": "json:\"recurring,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TemplateID",
+					"jsonName": "template_id",
+					"type": "struct{}",
+					"jsonTag": "json:\"template_id\"",
+					"required": true
+				},
+				{
+					"name": "RecurringParameters",
+					"jsonName": "recurring_parameters",
+					"type": "struct{}",
+					"jsonTag": "json:\"recurring_parameters\"",
+					"required": true
+				},
+				{
+					"name": "FixedFee",
+					"jsonName": "fixed_fee",
+					"type": "float64",
+					"jsonTag": "json:\"fixed_fee\"",
+					"description": "Fixed fee, premium feature",
+					"required": true
+				},
+				{
+					"name": "ActualHours",
+					"jsonName": "actual_hours",
+					"type": "int",
+					"jsonTag": "json:\"actual_hours,omitzero\"",
+					"description": "Actual hours",
+					"required": true
+				},
+				{
+					"name": "ActualSeconds",
+					"jsonName": "actual_seconds",
+					"type": "int",
+					"jsonTag": "json:\"actual_seconds,omitzero\"",
+					"description": "Actual seconds",
+					"required": true
+				},
+				{
+					"name": "TasksCount",
+					"jsonName": "tasks_count",
+					"type": "struct{}",
+					"jsonTag": "json:\"tasks_count\"",
+					"required": true
+				},
+				{
+					"name": "CanTrackTime",
+					"jsonName": "can_track_time",
+					"type": "bool",
+					"jsonTag": "json:\"can_track_time,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "StartDate",
+					"jsonName": "start_date",
+					"type": "string",
+					"jsonTag": "json:\"start_date,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Wid",
+					"jsonName": "wid",
+					"type": "int",
+					"jsonTag": "json:\"wid,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Cid",
+					"jsonName": "cid",
+					"type": "int",
+					"jsonTag": "json:\"cid,omitzero\"",
+					"description": "Client ID legacy field",
+					"required": true
+				},
+				{
+					"name": "IsShared",
+					"jsonName": "is_shared",
+					"type": "bool",
+					"jsonTag": "json:\"is_shared,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Pinned",
+					"jsonName": "pinned",
+					"type": "bool",
+					"jsonTag": "json:\"pinned,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IntegrationExtID",
+					"jsonName": "integration_ext_id",
+					"type": "string",
+					"jsonTag": "json:\"integration_ext_id,omitzero\"",
+					"description": "The external ID of the linked entity in the external system (e.g. JIRA/SalesForce)"
+				},
+				{
+					"name": "IntegrationExtType",
+					"jsonName": "integration_ext_type",
+					"type": "string",
+					"jsonTag": "json:\"integration_ext_type,omitzero\"",
+					"description": "The external type of the linked entity in the external system (e.g. JIRA/SalesForce)"
+				},
+				{
+					"name": "IntegrationProvider",
+					"jsonName": "integration_provider",
+					"type": "string",
+					"jsonTag": "json:\"integration_provider,omitzero\"",
+					"description": "The provider (e.g. JIRA/SalesForce) that has an entity linked to this Toggl Track entity"
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"description": "Projects defines a model",
+			"kind": 2,
+			"type": "[]Project"
+		},
+		{
+			"name": "SimpleOrganization",
+			"description": "SimpleOrganization defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Permissions",
+					"jsonName": "permissions",
+					"type": "string",
+					"jsonTag": "json:\"permissions,omitzero\""
+				},
+				{
+					"name": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WorkspaceName",
+					"jsonName": "workspace_name",
+					"type": "string",
+					"jsonTag": "json:\"workspace_name,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Tag",
+			"description": "Tag defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatorID",
+					"jsonName": "creator_id",
+					"type": "int",
+					"jsonTag": "json:\"creator_id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "TagAction",
+			"description": "Used when updating an existing time entry",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "TagActionAdd",
+					"value": "add",
+					"literal": "\"add\""
+				},
+				{
+					"goName": "TagActionDelete",
+					"value": "delete",
+					"literal": "\"delete\""
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"description": "Tags defines a model",
+			"kind": 2,
+			"type": "[]Tag"
+		},
+		{
+			"name": "TimeEntries",
+			"description": "TimeEntries defines a model",
+			"kind": 2,
+			"type": "[]TimeEntry"
+		},
+		{
+			"name": "TimeEntry",
+			"description": "TimeEntry defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WorkspaceID",
+					"jsonName": "workspace_id",
+					"type": "int",
+					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ProjectID",
+					"jsonName": "project_id",
+					"type": "int",
+					"jsonTag": "json:\"project_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TaskID",
+					"jsonName": "task_id",
+					"type": "struct{}",
+					"jsonTag": "json:\"task_id\"",
+					"required": true
+				},
+				{
+					"name": "Billable",
+					"jsonName": "billable",
+					"type": "bool",
+					"jsonTag": "json:\"billable,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Start",
+					"jsonName": "start",
+					"type": "time.Time",
+					"jsonTag": "json:\"start,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Stop",
+					"jsonName": "stop",
+					"type": "time.Time",
+					"jsonTag": "json:\"stop,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Duration",
+					"jsonName": "duration",
+					"type": "time.Duration",
+					"jsonTag": "json:\"duration,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Tags",
+					"jsonName": "tags",
+					"type": "[]string",
+					"jsonTag": "json:\"tags,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "TagIds",
+					"jsonName": "tag_ids",
+					"type": "[]string",
+					"jsonTag": "json:\"tag_ids,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Duronly",
+					"jsonName": "duronly",
+					"type": "bool",
+					"jsonTag": "json:\"duronly,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ServerDeletedAt",
+					"jsonName": "server_deleted_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"server_deleted_at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UserID",
+					"jsonName": "user_id",
+					"type": "int",
+					"jsonTag": "json:\"user_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UID",
+					"jsonName": "uid",
+					"type": "int",
+					"jsonTag": "json:\"uid,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Wid",
+					"jsonName": "wid",
+					"type": "int",
+					"jsonTag": "json:\"wid,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Pid",
+					"jsonName": "pid",
+					"type": "int",
+					"jsonTag": "json:\"pid,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ClientName",
+					"jsonName": "client_name",
+					"type": "string",
+					"jsonTag": "json:\"client_name,omitzero\""
+				},
+				{
+					"name": "ProjectName",
+					"jsonName": "project_name",
+					"type": "string",
+					"jsonTag": "json:\"project_name,omitzero\""
+				},
+				{
+					"name": "ProjectColor",
+					"jsonName": "project_color",
+					"type": "string",
+					"jsonTag": "json:\"project_color,omitzero\""
+				},
+				{
+					"name": "ProjectActive",
+					"jsonName": "project_active",
+					"type": "bool",
+					"jsonTag": "json:\"project_active,omitempty\""
+				},
+				{
+					"name": "ProjectBillable",
+					"jsonName": "project_billable",
+					"type": "bool",
+					"jsonTag": "json:\"project_billable,omitempty\""
+				},
+				{
+					"name": "UserName",
+					"jsonName": "user_name",
+					"type": "string",
+					"jsonTag": "json:\"user_name,omitzero\""
+				},
+				{
+					"name": "UserAvatarURL",
+					"jsonName": "user_avatar_url",
+					"type": "*url.URL",
+					"jsonTag": "json:\"user_avatar_url,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "TrialInfo",
+			"description": "TrialInfo defines a model",
+			"fields": [
+				{
+					"name": "Trial",
+					"jsonName": "trial",
+					"type": "bool",
+					"jsonTag": "json:\"trial,omitzero\"",
+					"description": "Whether the organization's subscription is currently on trial",
+					"required": true
+				},
+				{
+					"name": "TrialAvailable",
+					"jsonName": "trial_available",
+					"type": "bool",
+					"jsonTag": "json:\"trial_available,omitzero\"",
+					"description": "When a trial is available for this organization",
+					"required": true
+				},
+				{
+					"name": "TrialEndDate",
+					"jsonName": "trial_end_date",
+					"type": "string",
+					"jsonTag": "json:\"trial_end_date,omitzero\"",
+					"description": "When the trial ends",
+					"required": true
+				},
+				{
+					"name": "NextPaymentDate",
+					"jsonName": "next_payment_date",
+					"type": "string",
+					"jsonTag": "json:\"next_payment_date,omitzero\"",
+					"description": "When the trial payment is due",
+					"required": true
+				},
+				{
+					"name": "LastPricingPlanID",
+					"jsonName": "last_pricing_plan_id",
+					"type": "int",
+					"jsonTag": "json:\"last_pricing_plan_id,omitzero\"",
+					"description": "What was the previous plan before the trial",
+					"required": true
+				},
+				{
+					"name": "CanHaveTrial",
+					"jsonName": "can_have_trial",
+					"type": "bool",
+					"jsonTag": "json:\"can_have_trial,omitzero\"",
+					"description": "True, if neither the organization nor the owner has never had a trial before",
+					"required": true
+				},
+				{
+					"name": "TrialPlanID",
+					"jsonName": "trial_plan_id",
+					"type": "struct{}",
+					"jsonTag": "json:\"trial_plan_id\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "UserWithRelated",
+			"description": "UserWithRelated defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "APIToken",
+					"jsonName": "api_token",
+					"type": "string",
+					"jsonTag": "json:\"api_token,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Email",
+					"jsonName": "email",
+					"type": "types.Email",
+					"jsonTag": "json:\"email,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Fullname",
+					"jsonName": "fullname",
+					"type": "string",
+					"jsonTag": "json:\"fullname,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Timezone",
+					"jsonName": "timezone",
+					"type": "string",
+					"jsonTag": "json:\"timezone,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TogglAccountsID",
+					"jsonName": "toggl_accounts_id",
+					"type": "string",
+					"jsonTag": "json:\"toggl_accounts_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "DefaultWorkspaceID",
+					"jsonName": "default_workspace_id",
+					"type": "int",
+					"jsonTag": "json:\"default_workspace_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BeginningOfWeek",
+					"jsonName": "beginning_of_week",
+					"type": "int",
+					"jsonTag": "json:\"beginning_of_week,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ImageURL",
+					"jsonName": "image_url",
+					"type": "url.URL",
+					"jsonTag": "json:\"image_url,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "created_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UpdatedAt",
+					"jsonName": "updated_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"updated_at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OpenidEmail",
+					"jsonName": "openid_email",
+					"type": "struct{}",
+					"jsonTag": "json:\"openid_email\"",
+					"required": true
+				},
+				{
+					"name": "OpenidEnabled",
+					"jsonName": "openid_enabled",
+					"type": "bool",
+					"jsonTag": "json:\"openid_enabled,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CountryID",
+					"jsonName": "country_id",
+					"type": "int",
+					"jsonTag": "json:\"country_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HasPassword",
+					"jsonName": "has_password",
+					"type": "bool",
+					"jsonTag": "json:\"has_password,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IntercomHash",
+					"jsonName": "intercom_hash",
+					"type": "string",
+					"jsonTag": "json:\"intercom_hash,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OauthProviders",
+					"jsonName": "oauth_providers",
+					"type": "[]string",
+					"jsonTag": "json:\"oauth_providers,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "AuthorizationUpdatedAt",
+					"jsonName": "authorization_updated_at",
+					"type": "time.Time",
+					"jsonTag": "json:\"authorization_updated_at,omitzero\"",
+					"description": "A timestamp when the authorization user session object was last updated.",
+					"required": true
+				},
+				{
+					"name": "Tags",
+					"jsonName": "tags",
+					"type": "Tags",
+					"jsonTag": "json:\"tags,omitempty\""
+				},
+				{
+					"name": "Clients",
+					"jsonName": "clients",
+					"type": "Clients",
+					"jsonTag": "json:\"clients,omitempty\"",
+					"description": "Clients, null if with_related_data was not set to true or if the user does not have any clients"
+				},
+				{
+					"name": "TimeEntries",
+					"jsonName": "time_entries",
+					"type": "TimeEntries",
+					"jsonTag": "json:\"time_entries,omitempty\""
+				},
+				{
+					"name": "Options",
+					"jsonName": "options",
+					"type": "*Options",
+					"jsonTag": "json:\"options,omitempty\""
+				},
+				{
+					"name": "Projects",
+					"jsonName": "projects",
+					"type": "Projects",
+					"jsonTag": "json:\"projects,omitempty\"",
+					"description": "Projects, null if with_related_data was not set to true or if the user does not have any projects"
+				},
+				{
+					"name": "Workspaces",
+					"jsonName": "workspaces",
+					"type": "Workspaces",
+					"jsonTag": "json:\"workspaces,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "WorkClient",
+			"description": "WorkClient defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"description": "Client ID",
+					"required": true
+				},
+				{
+					"name": "Wid",
+					"jsonName": "wid",
+					"type": "int",
+					"jsonTag": "json:\"wid,omitzero\"",
+					"description": "Workspace ID",
+					"required": true
+				},
+				{
+					"name": "Archived",
+					"jsonName": "archived",
+					"type": "bool",
+					"jsonTag": "json:\"archived,omitzero\"",
+					"description": "true, if the client is archived",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "Name of the client",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"description": "When was the last update",
+					"required": true
+				},
+				{
+					"name": "CreatorID",
+					"jsonName": "creator_id",
+					"type": "int",
+					"jsonTag": "json:\"creator_id,omitzero\"",
+					"description": "The ID of the user who created the client",
+					"required": true
+				},
+				{
+					"name": "IntegrationExtID",
+					"jsonName": "integration_ext_id",
+					"type": "string",
+					"jsonTag": "json:\"integration_ext_id,omitzero\"",
+					"description": "The external ID of the linked entity in the external system (e.g. JIRA/SalesForce)"
+				},
+				{
+					"name": "IntegrationExtType",
+					"jsonName": "integration_ext_type",
+					"type": "string",
+					"jsonTag": "json:\"integration_ext_type,omitzero\"",
+					"description": "The external type of the linked entity in the external system (e.g. JIRA/SalesForce)"
+				},
+				{
+					"name": "IntegrationProvider",
+					"jsonName": "integration_provider",
+					"type": "string",
+					"jsonTag": "json:\"integration_provider,omitzero\"",
+					"description": "The provider (e.g. JIRA/SalesForce) that has an entity linked to this Toggl Track entity"
+				},
+				{
+					"name": "Notes",
+					"jsonName": "notes",
+					"type": "string",
+					"jsonTag": "json:\"notes,omitzero\""
+				},
+				{
+					"name": "Permissions",
+					"jsonName": "permissions",
+					"type": "string",
+					"jsonTag": "json:\"permissions,omitzero\"",
+					"description": "List of authorization permissions for this client."
+				}
+			]
+		},
+		{
+			"name": "Workspace",
+			"description": "Workspace defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OrganizationID",
+					"jsonName": "organization_id",
+					"type": "int",
+					"jsonTag": "json:\"organization_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Premium",
+					"jsonName": "premium",
+					"type": "bool",
+					"jsonTag": "json:\"premium,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BusinessWs",
+					"jsonName": "business_ws",
+					"type": "bool",
+					"jsonTag": "json:\"business_ws,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Admin",
+					"jsonName": "admin",
+					"type": "bool",
+					"jsonTag": "json:\"admin,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Role",
+					"jsonName": "role",
+					"type": "string",
+					"jsonTag": "json:\"role,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SuspendedAt",
+					"jsonName": "suspended_at",
+					"type": "string",
+					"jsonTag": "json:\"suspended_at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ServerDeletedAt",
+					"jsonName": "server_deleted_at",
+					"type": "struct{}",
+					"jsonTag": "json:\"server_deleted_at\"",
+					"required": true
+				},
+				{
+					"name": "DefaultHourlyRate",
+					"jsonName": "default_hourly_rate",
+					"type": "struct{}",
+					"jsonTag": "json:\"default_hourly_rate\"",
+					"required": true
+				},
+				{
+					"name": "RateLastUpdated",
+					"jsonName": "rate_last_updated",
+					"type": "struct{}",
+					"jsonTag": "json:\"rate_last_updated\"",
+					"required": true
+				},
+				{
+					"name": "DefaultCurrency",
+					"jsonName": "default_currency",
+					"type": "string",
+					"jsonTag": "json:\"default_currency,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsMayCreateProjects",
+					"jsonName": "only_admins_may_create_projects",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_may_create_projects,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsMayCreateTags",
+					"jsonName": "only_admins_may_create_tags",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_may_create_tags,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsSeeBillableRates",
+					"jsonName": "only_admins_see_billable_rates",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_see_billable_rates,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "OnlyAdminsSeeTeamDashboard",
+					"jsonName": "only_admins_see_team_dashboard",
+					"type": "bool",
+					"jsonTag": "json:\"only_admins_see_team_dashboard,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ProjectsBillableByDefault",
+					"jsonName": "projects_billable_by_default",
+					"type": "bool",
+					"jsonTag": "json:\"projects_billable_by_default,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ProjectsPrivateByDefault",
+					"jsonName": "projects_private_by_default",
+					"type": "bool",
+					"jsonTag": "json:\"projects_private_by_default,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ProjectsEnforceBillable",
+					"jsonName": "projects_enforce_billable",
+					"type": "bool",
+					"jsonTag": "json:\"projects_enforce_billable,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LimitPublicProjectData",
+					"jsonName": "limit_public_project_data",
+					"type": "bool",
+					"jsonTag": "json:\"limit_public_project_data,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LastModified",
+					"jsonName": "last_modified",
+					"type": "time.Time",
+					"jsonTag": "json:\"last_modified,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ReportsCollapse",
+					"jsonName": "reports_collapse",
+					"type": "bool",
+					"jsonTag": "json:\"reports_collapse,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Rounding",
+					"jsonName": "rounding",
+					"type": "int",
+					"jsonTag": "json:\"rounding,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RoundingMinutes",
+					"jsonName": "rounding_minutes",
+					"type": "int",
+					"jsonTag": "json:\"rounding_minutes,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "APIToken",
+					"jsonName": "api_token",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"api_token,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "LogoURL",
+					"jsonName": "logo_url",
+					"type": "url.URL",
+					"jsonTag": "json:\"logo_url,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IcalURL",
+					"jsonName": "ical_url",
+					"type": "string",
+					"jsonTag": "json:\"ical_url,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "IcalEnabled",
+					"jsonName": "ical_enabled",
+					"type": "bool",
+					"jsonTag": "json:\"ical_enabled,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CsvUpload",
+					"jsonName": "csv_upload",
+					"type": "struct{}",
+					"jsonTag": "json:\"csv_upload\"",
+					"required": true
+				},
+				{
+					"name": "Subscription",
+					"jsonName": "subscription",
+					"type": "struct{}",
+					"jsonTag": "json:\"subscription\"",
+					"required": true
+				},
+				{
+					"name": "HideStartEndTimes",
+					"jsonName": "hide_start_end_times",
+					"type": "bool",
+					"jsonTag": "json:\"hide_start_end_times,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "WorkingHoursInMinutes",
+					"jsonName": "working_hours_in_minutes",
+					"type": "struct{}",
+					"jsonTag": "json:\"working_hours_in_minutes\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Workspaces",
+			"description": "Workspaces defines a model",
+			"kind": 2,
+			"type": "[]Workspace"
+		}
+	],
+	"hasURLFields": true,
+	"hasDurationFields": true
+}

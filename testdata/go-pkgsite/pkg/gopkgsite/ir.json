@@ -1,0 +1,1303 @@
+{
+	"title": "Go Pkgsite API",
+	"production": true,
+	"packageName": "go-pkgsite",
+	"baseURL": {
+		"scheme": "https",
+		"host": "pkg.go.dev",
+		"path": "/v1beta"
+	},
+	"userAgent": "Go Pkgsite API",
+	"operations": [
+		{
+			"name": "GetImportedBy",
+			"summary": "Paths of packages importing the package at {path},\nnot including packages in the same module.\nFiltering is applied to the list of paths in the response.\nOnly paths that match the filter query parameter are returned.\nWithin a filter, the variable `path` is set to the import path.",
+			"method": "GET",
+			"pathTemplate": "/imported-by/{path}",
+			"joinPathArgs": [
+				"\"imported-by\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Module",
+					"goName": "module",
+					"fieldName": "Module",
+					"jsonName": "module",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module path."
+				},
+				{
+					"varName": "params.Version",
+					"goName": "version",
+					"fieldName": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module version: semantic version, 'latest', or default branches 'master' or 'main'.\n(Latest if empty)."
+				},
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Max number of items to return."
+				},
+				{
+					"varName": "params.Token",
+					"goName": "token",
+					"fieldName": "Token",
+					"jsonName": "token",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Where to resume listing."
+				},
+				{
+					"varName": "params.Filter",
+					"goName": "filter",
+					"fieldName": "Filter",
+					"jsonName": "filter",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Include only items matching the regular expression filter."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetImportedByParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PackageImportedBy"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PackageImportedBy"
+			}
+		},
+		{
+			"name": "GetModule",
+			"summary": "Information about the module at {path}.",
+			"method": "GET",
+			"pathTemplate": "/module/{path}",
+			"joinPathArgs": [
+				"\"module\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Version",
+					"goName": "version",
+					"fieldName": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module version: semantic version, 'latest', or default branches 'master' or 'main'.\n(Latest if empty)."
+				},
+				{
+					"varName": "params.Licenses",
+					"goName": "licenses",
+					"fieldName": "Licenses",
+					"jsonName": "licenses",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Whether to include licenses in the result."
+				},
+				{
+					"varName": "params.Readme",
+					"goName": "readme",
+					"fieldName": "Readme",
+					"jsonName": "readme",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Whether to include the README in the result."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetModuleParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Module"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Module"
+			}
+		},
+		{
+			"name": "GetPackage",
+			"summary": "Information about the package at {path}.",
+			"method": "GET",
+			"pathTemplate": "/package/{path}",
+			"joinPathArgs": [
+				"\"package\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Module",
+					"goName": "module",
+					"fieldName": "Module",
+					"jsonName": "module",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module path."
+				},
+				{
+					"varName": "params.Version",
+					"goName": "version",
+					"fieldName": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module version: semantic version, 'latest', or default branches 'master' or 'main'.\n(Latest if empty)."
+				},
+				{
+					"varName": "params.Goos",
+					"goName": "goos",
+					"fieldName": "Goos",
+					"jsonName": "goos",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "GOOS of documentation build context."
+				},
+				{
+					"varName": "params.Goarch",
+					"goName": "goarch",
+					"fieldName": "Goarch",
+					"jsonName": "goarch",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "GOARCH of documentation build context."
+				},
+				{
+					"varName": "params.Doc",
+					"goName": "doc",
+					"fieldName": "Doc",
+					"jsonName": "doc",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Documentation format: text, html, md or markdown.\nIf omitted, documentation is not returned."
+				},
+				{
+					"varName": "params.Examples",
+					"goName": "examples",
+					"fieldName": "Examples",
+					"jsonName": "examples",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Whether to include examples with the returned documentation."
+				},
+				{
+					"varName": "params.Imports",
+					"goName": "imports",
+					"fieldName": "Imports",
+					"jsonName": "imports",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Whether to include the packages that this one imports."
+				},
+				{
+					"varName": "params.Licenses",
+					"goName": "licenses",
+					"fieldName": "Licenses",
+					"jsonName": "licenses",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(s)",
+					"description": "Whether to include licenses in the result."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetPackageParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Package"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Package"
+			}
+		},
+		{
+			"name": "GetPackages",
+			"summary": "Information about packages of the module at {path}.\nFiltering is applied to the list of packages in the response.\nOnly packages that match the filter query parameter are returned.",
+			"method": "GET",
+			"pathTemplate": "/packages/{path}",
+			"joinPathArgs": [
+				"\"packages\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Version",
+					"goName": "version",
+					"fieldName": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module version: semantic version, 'latest', or default branches 'master' or 'main'.\n(Latest if empty)."
+				},
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Max number of items to return."
+				},
+				{
+					"varName": "params.Token",
+					"goName": "token",
+					"fieldName": "Token",
+					"jsonName": "token",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Where to resume listing."
+				},
+				{
+					"varName": "params.Filter",
+					"goName": "filter",
+					"fieldName": "Filter",
+					"jsonName": "filter",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Include only items matching the regular expression filter."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetPackagesParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PackagesResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PackagesResponse"
+			}
+		},
+		{
+			"name": "GetSearch",
+			"summary": "Search results. Only results that match the filter query parameter are returned.",
+			"method": "GET",
+			"pathTemplate": "/search",
+			"joinPathArgs": [
+				"\"search\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.Q",
+					"goName": "q",
+					"fieldName": "Q",
+					"jsonName": "q",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Find packages matching this query."
+				},
+				{
+					"varName": "params.Symbol",
+					"goName": "symbol",
+					"fieldName": "Symbol",
+					"jsonName": "symbol",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "If non-empty, find symbols matching this string.\nThe query further restricts the search to matching packages."
+				},
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Max number of items to return."
+				},
+				{
+					"varName": "params.Token",
+					"goName": "token",
+					"fieldName": "Token",
+					"jsonName": "token",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Where to resume listing."
+				},
+				{
+					"varName": "params.Filter",
+					"goName": "filter",
+					"fieldName": "Filter",
+					"jsonName": "filter",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Include only items matching the regular expression filter."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetSearchParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PaginatedResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PaginatedResponse"
+			}
+		},
+		{
+			"name": "GetSymbols",
+			"summary": "List of symbols for the package at {path}.\nFiltering is applied to the list of symbols in the response.\nOnly symbols that match the filter query parameter are returned.",
+			"method": "GET",
+			"pathTemplate": "/symbols/{path}",
+			"joinPathArgs": [
+				"\"symbols\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Module",
+					"goName": "module",
+					"fieldName": "Module",
+					"jsonName": "module",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module path."
+				},
+				{
+					"varName": "params.Version",
+					"goName": "version",
+					"fieldName": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module version: semantic version, 'latest', or default branches 'master' or 'main'.\n(Latest if empty)."
+				},
+				{
+					"varName": "params.Goos",
+					"goName": "goos",
+					"fieldName": "Goos",
+					"jsonName": "goos",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "GOOS of documentation build context."
+				},
+				{
+					"varName": "params.Goarch",
+					"goName": "goarch",
+					"fieldName": "Goarch",
+					"jsonName": "goarch",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "GOARCH of documentation build context."
+				},
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Max number of items to return."
+				},
+				{
+					"varName": "params.Token",
+					"goName": "token",
+					"fieldName": "Token",
+					"jsonName": "token",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Where to resume listing."
+				},
+				{
+					"varName": "params.Filter",
+					"goName": "filter",
+					"fieldName": "Filter",
+					"jsonName": "filter",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Include only items matching the regular expression filter."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetSymbolsParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PackageSymbols"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PackageSymbols"
+			}
+		},
+		{
+			"name": "GetVersions",
+			"summary": "Versions of the module at {path}.\nIf there are tagged versions, they are returned.\nOtherwise, the 10 most recent pseudo-versions are returned.\nThe versions are in descending order.\nOnly results that match the filter query parameter are returned.",
+			"method": "GET",
+			"pathTemplate": "/versions/{path}",
+			"joinPathArgs": [
+				"\"versions\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Max number of items to return."
+				},
+				{
+					"varName": "params.Token",
+					"goName": "token",
+					"fieldName": "Token",
+					"jsonName": "token",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Where to resume listing."
+				},
+				{
+					"varName": "params.Filter",
+					"goName": "filter",
+					"fieldName": "Filter",
+					"jsonName": "filter",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Include only items matching the regular expression filter."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetVersionsParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PaginatedResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PaginatedResponse"
+			}
+		},
+		{
+			"name": "GetVulns",
+			"summary": "Vulnerabilities of the module or package at {path}, from\nthe Go vulnerability database (https://vuln.go.dev).\nOnly results that match the filter query parameter are returned.",
+			"method": "GET",
+			"pathTemplate": "/vulns/{path}",
+			"joinPathArgs": [
+				"\"vulns\"",
+				"path"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Module",
+					"goName": "module",
+					"fieldName": "Module",
+					"jsonName": "module",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module path."
+				},
+				{
+					"varName": "params.Version",
+					"goName": "version",
+					"fieldName": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Module version: semantic version, 'latest', or default branches 'master' or 'main'.\n(Latest if empty)."
+				},
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "Max number of items to return."
+				},
+				{
+					"varName": "params.Token",
+					"goName": "token",
+					"fieldName": "Token",
+					"jsonName": "token",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Where to resume listing."
+				},
+				{
+					"varName": "params.Filter",
+					"goName": "filter",
+					"fieldName": "Filter",
+					"jsonName": "filter",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Include only items matching the regular expression filter."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetVulnsParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Successful response",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PaginatedResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PaginatedResponse"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "Candidate",
+			"description": "Candidate defines a model",
+			"fields": [
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "PackagePath",
+					"jsonName": "packagePath",
+					"type": "string",
+					"jsonTag": "json:\"packagePath,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "Error",
+			"description": "Error defines a model",
+			"fields": [
+				{
+					"name": "Candidates",
+					"jsonName": "candidates",
+					"type": "ErrorCandidates",
+					"jsonTag": "json:\"candidates,omitempty\""
+				},
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "*int",
+					"jsonTag": "json:\"code,omitempty\"",
+					"description": "HTTP status code"
+				},
+				{
+					"name": "Err",
+					"jsonName": "err",
+					"type": "*Error",
+					"jsonTag": "json:\"err,omitempty\"",
+					"description": "Unexported field for internal tracking"
+				},
+				{
+					"name": "Fixes",
+					"jsonName": "fixes",
+					"type": "[]string",
+					"jsonTag": "json:\"fixes,omitempty\"",
+					"description": "suggestions for how to fix"
+				},
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "ErrorCandidates",
+			"description": "ErrorCandidates defines a model",
+			"kind": 2,
+			"type": "[]Candidate"
+		},
+		{
+			"name": "License",
+			"description": "License defines a model",
+			"fields": [
+				{
+					"name": "Contents",
+					"jsonName": "contents",
+					"type": "string",
+					"jsonTag": "json:\"contents,omitzero\""
+				},
+				{
+					"name": "FilePath",
+					"jsonName": "filePath",
+					"type": "string",
+					"jsonTag": "json:\"filePath,omitzero\""
+				},
+				{
+					"name": "Types",
+					"jsonName": "types",
+					"type": "[]string",
+					"jsonTag": "json:\"types,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "Module",
+			"description": "Module defines a model",
+			"fields": [
+				{
+					"name": "CommitTime",
+					"jsonName": "commitTime",
+					"type": "time.Time",
+					"jsonTag": "json:\"commitTime,omitempty\"",
+					"description": "CommitTime is the timestamp returned by the module proxy's .info endpoint,\nrepresenting the time the version was created."
+				},
+				{
+					"name": "GoModContents",
+					"jsonName": "goModContents",
+					"type": "string",
+					"jsonTag": "json:\"goModContents,omitzero\""
+				},
+				{
+					"name": "HasGoMod",
+					"jsonName": "hasGoMod",
+					"type": "bool",
+					"jsonTag": "json:\"hasGoMod,omitempty\""
+				},
+				{
+					"name": "IsLatest",
+					"jsonName": "isLatest",
+					"type": "bool",
+					"jsonTag": "json:\"isLatest,omitempty\""
+				},
+				{
+					"name": "IsRedistributable",
+					"jsonName": "isRedistributable",
+					"type": "bool",
+					"jsonTag": "json:\"isRedistributable,omitempty\""
+				},
+				{
+					"name": "IsStandardLibrary",
+					"jsonName": "isStandardLibrary",
+					"type": "bool",
+					"jsonTag": "json:\"isStandardLibrary,omitempty\""
+				},
+				{
+					"name": "Licenses",
+					"jsonName": "licenses",
+					"type": "ModuleLicenses",
+					"jsonTag": "json:\"licenses,omitempty\""
+				},
+				{
+					"name": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"jsonTag": "json:\"path,omitzero\""
+				},
+				{
+					"name": "Readme",
+					"jsonName": "readme",
+					"type": "*Readme",
+					"jsonTag": "json:\"readme,omitempty\""
+				},
+				{
+					"name": "RepoURL",
+					"jsonName": "repoUrl",
+					"type": "string",
+					"jsonTag": "json:\"repoUrl,omitzero\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "ModuleLicenses",
+			"description": "ModuleLicenses defines a model",
+			"kind": 2,
+			"type": "[]License"
+		},
+		{
+			"name": "ModuleVersion",
+			"description": "ModuleVersion defines a model",
+			"fields": [
+				{
+					"name": "CommitTime",
+					"jsonName": "commitTime",
+					"type": "time.Time",
+					"jsonTag": "json:\"commitTime,omitempty\""
+				},
+				{
+					"name": "Deprecated",
+					"jsonName": "deprecated",
+					"type": "bool",
+					"jsonTag": "json:\"deprecated,omitempty\""
+				},
+				{
+					"name": "DeprecationReason",
+					"jsonName": "deprecationReason",
+					"type": "string",
+					"jsonTag": "json:\"deprecationReason,omitzero\""
+				},
+				{
+					"name": "HasGoMod",
+					"jsonName": "hasGoMod",
+					"type": "bool",
+					"jsonTag": "json:\"hasGoMod,omitempty\"",
+					"description": "Whether the module has a go.mod file."
+				},
+				{
+					"name": "IsRedistributable",
+					"jsonName": "isRedistributable",
+					"type": "bool",
+					"jsonTag": "json:\"isRedistributable,omitempty\"",
+					"description": "Whether the license allows distribution."
+				},
+				{
+					"name": "LatestVersion",
+					"jsonName": "latestVersion",
+					"type": "string",
+					"jsonTag": "json:\"latestVersion,omitzero\"",
+					"description": "latest unretracted version"
+				},
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "Retracted",
+					"jsonName": "retracted",
+					"type": "bool",
+					"jsonTag": "json:\"retracted,omitempty\""
+				},
+				{
+					"name": "RetractionReason",
+					"jsonName": "retractionReason",
+					"type": "string",
+					"jsonTag": "json:\"retractionReason,omitzero\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "Package",
+			"description": "Package defines a model",
+			"fields": [
+				{
+					"name": "Docs",
+					"jsonName": "docs",
+					"type": "string",
+					"jsonTag": "json:\"docs,omitzero\""
+				},
+				{
+					"name": "Goarch",
+					"jsonName": "goarch",
+					"type": "string",
+					"jsonTag": "json:\"goarch,omitzero\""
+				},
+				{
+					"name": "Goos",
+					"jsonName": "goos",
+					"type": "string",
+					"jsonTag": "json:\"goos,omitzero\""
+				},
+				{
+					"name": "Imports",
+					"jsonName": "imports",
+					"type": "[]string",
+					"jsonTag": "json:\"imports,omitempty\""
+				},
+				{
+					"name": "IsLatest",
+					"jsonName": "isLatest",
+					"type": "bool",
+					"jsonTag": "json:\"isLatest,omitempty\""
+				},
+				{
+					"name": "IsStandardLibrary",
+					"jsonName": "isStandardLibrary",
+					"type": "bool",
+					"jsonTag": "json:\"isStandardLibrary,omitempty\""
+				},
+				{
+					"name": "Licenses",
+					"jsonName": "licenses",
+					"type": "ModuleLicenses",
+					"jsonTag": "json:\"licenses,omitempty\""
+				},
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				},
+				{
+					"name": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"jsonTag": "json:\"path,omitzero\""
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				},
+				{
+					"name": "Synopsis",
+					"jsonName": "synopsis",
+					"type": "string",
+					"jsonTag": "json:\"synopsis,omitzero\""
+				},
+				{
+					"name": "IsRedistributable",
+					"jsonName": "isRedistributable",
+					"type": "bool",
+					"jsonTag": "json:\"isRedistributable,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PackageImportedBy",
+			"description": "PackageImportedBy defines a model",
+			"fields": [
+				{
+					"name": "ImportedBy",
+					"jsonName": "importedBy",
+					"type": "*PaginatedResponse",
+					"jsonTag": "json:\"importedBy,omitempty\""
+				},
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "PackageInfo",
+			"description": "PackageInfo defines a model",
+			"fields": [
+				{
+					"name": "IsRedistributable",
+					"jsonName": "isRedistributable",
+					"type": "bool",
+					"jsonTag": "json:\"isRedistributable,omitempty\"",
+					"description": "Whether the license allows distribution."
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				},
+				{
+					"name": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"jsonTag": "json:\"path,omitzero\""
+				},
+				{
+					"name": "Synopsis",
+					"jsonName": "synopsis",
+					"type": "string",
+					"jsonTag": "json:\"synopsis,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "PackageSymbols",
+			"description": "PackageSymbols defines a model",
+			"fields": [
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "Symbols",
+					"jsonName": "symbols",
+					"type": "*PaginatedResponse",
+					"jsonTag": "json:\"symbols,omitempty\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "PackagesResponse",
+			"description": "PackagesResponse defines a model",
+			"fields": [
+				{
+					"name": "IsStandardLibrary",
+					"jsonName": "isStandardLibrary",
+					"type": "bool",
+					"jsonTag": "json:\"isStandardLibrary,omitempty\""
+				},
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "Packages",
+					"jsonName": "packages",
+					"type": "*PaginatedResponse",
+					"jsonTag": "json:\"packages,omitempty\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				},
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "*int",
+					"jsonTag": "json:\"code,omitempty\""
+				},
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message,omitzero\""
+				},
+				{
+					"name": "Fixes",
+					"jsonName": "fixes",
+					"type": "[]string",
+					"jsonTag": "json:\"fixes,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PaginatedResponse",
+			"description": "PaginatedResponse defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "PaginatedResponseItems",
+					"jsonTag": "json:\"items,omitempty\""
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "nextPageToken",
+					"type": "string",
+					"jsonTag": "json:\"nextPageToken,omitzero\""
+				},
+				{
+					"name": "Total",
+					"jsonName": "total",
+					"type": "*int",
+					"jsonTag": "json:\"total,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PaginatedResponseItems",
+			"description": "PaginatedResponseItems defines a model",
+			"kind": 2,
+			"type": "[]ModuleVersion"
+		},
+		{
+			"name": "Readme",
+			"description": "Readme defines a model",
+			"fields": [
+				{
+					"name": "Contents",
+					"jsonName": "contents",
+					"type": "string",
+					"jsonTag": "json:\"contents,omitzero\""
+				},
+				{
+					"name": "Filepath",
+					"jsonName": "filepath",
+					"type": "string",
+					"jsonTag": "json:\"filepath,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "SearchResult",
+			"description": "SearchResult defines a model",
+			"fields": [
+				{
+					"name": "ModulePath",
+					"jsonName": "modulePath",
+					"type": "string",
+					"jsonTag": "json:\"modulePath,omitzero\""
+				},
+				{
+					"name": "PackagePath",
+					"jsonName": "packagePath",
+					"type": "string",
+					"jsonTag": "json:\"packagePath,omitzero\""
+				},
+				{
+					"name": "Synopsis",
+					"jsonName": "synopsis",
+					"type": "string",
+					"jsonTag": "json:\"synopsis,omitzero\""
+				},
+				{
+					"name": "Version",
+					"jsonName": "version",
+					"type": "string",
+					"jsonTag": "json:\"version,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "Symbol",
+			"description": "Symbol defines a model",
+			"fields": [
+				{
+					"name": "Kind",
+					"jsonName": "kind",
+					"type": "string",
+					"jsonTag": "json:\"kind,omitzero\""
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				},
+				{
+					"name": "Parent",
+					"jsonName": "parent",
+					"type": "string",
+					"jsonTag": "json:\"parent,omitzero\""
+				},
+				{
+					"name": "Synopsis",
+					"jsonName": "synopsis",
+					"type": "string",
+					"jsonTag": "json:\"synopsis,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "Vulnerability",
+			"description": "Vulnerability defines a model",
+			"fields": [
+				{
+					"name": "Details",
+					"jsonName": "details",
+					"type": "string",
+					"jsonTag": "json:\"details,omitzero\""
+				},
+				{
+					"name": "FixedVersion",
+					"jsonName": "fixedVersion",
+					"type": "string",
+					"jsonTag": "json:\"fixedVersion,omitzero\""
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\""
+				},
+				{
+					"name": "Summary",
+					"jsonName": "summary",
+					"type": "string",
+					"jsonTag": "json:\"summary,omitzero\""
+				}
+			]
+		}
+	]
+}

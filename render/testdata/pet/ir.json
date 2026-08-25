@@ -1,0 +1,99 @@
+{
+	"title": "Pet Store API",
+	"packageName": "petapi",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com",
+		"path": "/v1"
+	},
+	"userAgent": "petapi/1.0",
+	"operations": [
+		{
+			"name": "ListPets",
+			"method": "GET",
+			"pathTemplate": "/pets",
+			"joinPathArgs": [
+				"\"pets\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListPetsParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Pet",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Pet",
+				"isSlice": true
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "Pet",
+			"description": "A pet in the store",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "int",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"required": true
+				},
+				{
+					"name": "Tag",
+					"jsonName": "tag",
+					"type": "string",
+					"jsonTag": "json:\"tag\""
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "StatusActive",
+					"value": "active",
+					"literal": "\"active\""
+				},
+				{
+					"goName": "StatusInactive",
+					"value": "inactive",
+					"literal": "\"inactive\""
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"kind": 2,
+			"type": "[]string"
+		}
+	]
+}

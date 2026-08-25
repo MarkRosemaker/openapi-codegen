@@ -1,0 +1,957 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "LSO Trader API",
+    "description": "Backend API for the Low Stress Options trading tool. Surfaces broker accounts, positions, cash balances, and stock fundamentals analysis.",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "Local development"
+    }
+  ],
+  "paths": {
+    "/api/accounts": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "List all brokerage accounts",
+        "operationId": "ListAccounts",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListAccounts"
+          },
+          "502": {
+            "$ref": "#/components/responses/BrokerUnavailable"
+          }
+        }
+      }
+    },
+    "/api/accounts/{account_id}/positions": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/AccountID"
+        }
+      ],
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Get all holdings for an account",
+        "operationId": "GetPositions",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetPositions"
+          },
+          "502": {
+            "$ref": "#/components/responses/BrokerUnavailable"
+          }
+        }
+      }
+    },
+    "/api/accounts/{account_id}/cash": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/AccountID"
+        }
+      ],
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Get cash balances for an account",
+        "operationId": "GetCash",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetCash"
+          },
+          "502": {
+            "$ref": "#/components/responses/BrokerUnavailable"
+          }
+        }
+      }
+    },
+    "/api/accounts/{account_id}/summary": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/AccountID"
+        }
+      ],
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Get a combined view of positions and cash for an account",
+        "description": "Convenience endpoint that returns positions + cash in a single call, matching the Dashboard tab.",
+        "operationId": "GetAccountSummary",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetAccountSummaryOkResponse"
+          },
+          "502": {
+            "$ref": "#/components/responses/BrokerUnavailable"
+          }
+        }
+      }
+    },
+    "/api/fundamentals/{cik}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/CIK"
+        }
+      ],
+      "get": {
+        "tags": [
+          "fundamentals"
+        ],
+        "summary": "Get fundamentals analysis for a company",
+        "description": "Returns company info, income statement highlights, balance sheet highlights, and time-series data for charting.",
+        "operationId": "GetFundamentals",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetFundamentalsResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/GetFundamentalsNotFoundResponse"
+          }
+        }
+      }
+    },
+    "/api/fundamentals/{symbol}/company": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Symbol"
+        }
+      ],
+      "get": {
+        "tags": [
+          "fundamentals"
+        ],
+        "summary": "Get company info for a ticker",
+        "operationId": "GetCompanyBySymbol",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetCompanyBySymbolResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/GetCompanyBySymbolNotFoundResponse"
+          }
+        }
+      }
+    },
+    "/api/fundamentals/{cik}/income-statement": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/CIK"
+        }
+      ],
+      "get": {
+        "tags": [
+          "fundamentals"
+        ],
+        "summary": "Get income statement data and chart series",
+        "operationId": "GetIncomeStatement",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetIncomeStatement"
+          },
+          "404": {
+            "$ref": "#/components/responses/GetIncomeStatementNotFoundResponse"
+          }
+        }
+      }
+    },
+    "/api/fundamentals/{cik}/balance-sheet": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/CIK"
+        }
+      ],
+      "get": {
+        "tags": [
+          "fundamentals"
+        ],
+        "summary": "Get balance sheet data and chart series",
+        "operationId": "getBalanceSheet",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetBalanceSheetOkResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/GetBalanceSheetNotFoundResponse"
+          }
+        }
+      }
+    },
+    "/api/watchlist": {
+      "get": {
+        "tags": [
+          "watchlist"
+        ],
+        "summary": "Get the default watchlist symbols",
+        "operationId": "getWatchlist",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/WatchlistResponse"
+          }
+        }
+      }
+    },
+    "/api/market/status": {
+      "get": {
+        "tags": [
+          "market"
+        ],
+        "summary": "Get current market status and key dates",
+        "operationId": "getMarketStatus",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/MarketStatusResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Account": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "description": "IBKR account identifier",
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "account_type": {
+            "$ref": "#/components/schemas/AccountAccountType"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "account_id",
+          "display_name",
+          "account_type",
+          "created_at"
+        ]
+      },
+      "AccountAccountType": {
+        "type": "string",
+        "enum": [
+          "INDIVIDUAL",
+          "COMPANY"
+        ]
+      },
+      "AccountSummary": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "stocks": {
+            "$ref": "#/components/schemas/Stocks"
+          },
+          "options": {
+            "$ref": "#/components/schemas/Options"
+          },
+          "balances": {
+            "$ref": "#/components/schemas/Balances"
+          }
+        },
+        "required": [
+          "account",
+          "stocks",
+          "options",
+          "balances"
+        ]
+      },
+      "Accounts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Account"
+        }
+      },
+      "BalanceSheetAnalysis": {
+        "type": "object",
+        "properties": {
+          "leverage": {
+            "$ref": "#/components/schemas/BandResult"
+          },
+          "series": {
+            "$ref": "#/components/schemas/BalanceSheetAnalysisSeries"
+          }
+        },
+        "required": [
+          "leverage",
+          "series"
+        ]
+      },
+      "BalanceSheetAnalysisSeries": {
+        "type": "object",
+        "properties": {
+          "current_assets": {
+            "$ref": "#/components/schemas/ChartSeries"
+          },
+          "current_liabilities": {
+            "$ref": "#/components/schemas/ChartSeries"
+          },
+          "leverage": {
+            "$ref": "#/components/schemas/ChartSeries"
+          }
+        },
+        "required": [
+          "current_assets",
+          "current_liabilities",
+          "leverage"
+        ]
+      },
+      "Balances": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CashBalance"
+        }
+      },
+      "BandResult": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "format": "double"
+          },
+          "formatted": {
+            "description": "Human-readable value (e.g. '23.5%', '1.82')",
+            "type": "string"
+          },
+          "label": {
+            "description": "Band label (e.g. 'OK', 'red flag', 'solid', 'very strong')",
+            "type": "string"
+          },
+          "passing": {
+            "description": "Whether the value is within acceptable range",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "value",
+          "formatted",
+          "label",
+          "passing"
+        ]
+      },
+      "CashBalance": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "cash": {
+            "description": "Settled cash balance",
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "currency",
+          "cash"
+        ]
+      },
+      "ChartSeries": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "points": {
+            "$ref": "#/components/schemas/ChartSeriesPoints"
+          }
+        },
+        "required": [
+          "label",
+          "points"
+        ]
+      },
+      "ChartSeriesPoints": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/DataPoint"
+        }
+      },
+      "Company": {
+        "type": "object",
+        "properties": {
+          "cik": {
+            "description": "SEC Central Index Key",
+            "type": "integer"
+          },
+          "name": {
+            "description": "The name of the company",
+            "type": "string"
+          },
+          "summary": {
+            "description": "A long summary of the company",
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "industry": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "full_time_employees": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "summary",
+          "cik",
+          "name",
+          "website",
+          "industry",
+          "sector",
+          "full_time_employees"
+        ]
+      },
+      "CompanyAndSecurity": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          },
+          "security": {
+            "$ref": "#/components/schemas/Security"
+          }
+        },
+        "required": [
+          "company",
+          "security"
+        ]
+      },
+      "Currency": {
+        "type": "string",
+        "enum": [
+          "USD",
+          "EUR"
+        ]
+      },
+      "DataPoint": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "description": "X-axis value (date)",
+            "type": "string",
+            "format": "date"
+          },
+          "value": {
+            "description": "Y-axis value",
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "date",
+          "value"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "FundamentalsAnalysis": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          },
+          "income_statement": {
+            "$ref": "#/components/schemas/IncomeStatementAnalysis"
+          },
+          "balance_sheet": {
+            "$ref": "#/components/schemas/BalanceSheetAnalysis"
+          },
+          "warnings": {
+            "description": "Red-flag warnings (e.g. low profit margin, high leverage)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "company",
+          "income_statement",
+          "balance_sheet"
+        ]
+      },
+      "GetCashResult": {
+        "type": "object",
+        "properties": {
+          "balances": {
+            "$ref": "#/components/schemas/Balances"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "balances",
+          "as_of"
+        ]
+      },
+      "IncomeStatement": {
+        "description": "Twelve months summary of the income statement",
+        "type": "object",
+        "properties": {
+          "total_revenue": {
+            "type": "number",
+            "format": "double"
+          },
+          "operating_income": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "total_revenue",
+          "operating_income"
+        ]
+      },
+      "IncomeStatementAnalysis": {
+        "type": "object",
+        "properties": {
+          "ttm": {
+            "$ref": "#/components/schemas/IncomeStatement"
+          },
+          "profit_margin": {
+            "$ref": "#/components/schemas/BandResult"
+          },
+          "series": {
+            "$ref": "#/components/schemas/IncomeStatementAnalysisSeries"
+          }
+        },
+        "required": [
+          "ttm",
+          "profit_margin",
+          "series"
+        ]
+      },
+      "IncomeStatementAnalysisSeries": {
+        "type": "object",
+        "properties": {
+          "revenue": {
+            "$ref": "#/components/schemas/ChartSeries"
+          },
+          "gross_profit": {
+            "$ref": "#/components/schemas/ChartSeries"
+          },
+          "profit_margin": {
+            "$ref": "#/components/schemas/ChartSeries"
+          },
+          "eps": {
+            "$ref": "#/components/schemas/ChartSeries"
+          }
+        },
+        "required": [
+          "revenue",
+          "gross_profit",
+          "profit_margin",
+          "eps"
+        ]
+      },
+      "ListAccountsResult": {
+        "type": "object",
+        "properties": {
+          "accounts": {
+            "$ref": "#/components/schemas/Accounts"
+          },
+          "as_of": {
+            "description": "When the cached data was last refreshed from the broker",
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "accounts",
+          "as_of"
+        ]
+      },
+      "MarketStatus": {
+        "type": "object",
+        "properties": {
+          "today": {
+            "description": "Current NYSE-local date",
+            "type": "string",
+            "format": "date"
+          },
+          "is_trading_day": {
+            "description": "Whether today is a trading day (weekday + not NYSE holiday)",
+            "type": "boolean"
+          },
+          "next_friday": {
+            "description": "Next Friday for weekly options expiry",
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "today",
+          "is_trading_day",
+          "next_friday"
+        ]
+      },
+      "Option": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/OptionType"
+          },
+          "underlying": {
+            "description": "Underlying stock ticker",
+            "type": "string"
+          },
+          "expiry": {
+            "description": "Option expiration date",
+            "type": "string",
+            "format": "date"
+          },
+          "days_to_expiry": {
+            "description": "Calendar days until expiration",
+            "type": "integer"
+          },
+          "strike": {
+            "description": "Strike price",
+            "type": "number",
+            "format": "double"
+          },
+          "qty": {
+            "description": "Number of contracts (negative = short)",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "underlying",
+          "expiry",
+          "days_to_expiry",
+          "strike",
+          "type",
+          "qty"
+        ]
+      },
+      "OptionType": {
+        "description": "Put or Call",
+        "type": "string",
+        "enum": [
+          "P",
+          "C"
+        ]
+      },
+      "Options": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Option"
+        }
+      },
+      "Positions": {
+        "type": "object",
+        "properties": {
+          "stocks": {
+            "$ref": "#/components/schemas/Stocks"
+          },
+          "options": {
+            "$ref": "#/components/schemas/Options"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "stocks",
+          "options",
+          "as_of"
+        ]
+      },
+      "Security": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SecurityType"
+          },
+          "first_trade_date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "symbol",
+          "type",
+          "first_trade_date"
+        ]
+      },
+      "SecurityType": {
+        "description": "The type of security (e.g. EQUITY, ETF)",
+        "type": "string",
+        "enum": [
+          "EQUITY",
+          "ETF"
+        ]
+      },
+      "Stock": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string"
+          },
+          "qty": {
+            "description": "Number of shares held",
+            "type": "integer"
+          },
+          "cost_basis": {
+            "description": "Average cost per share",
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "market_price": {
+            "description": "Current market price per share (if available from broker)",
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "required": [
+          "symbol",
+          "qty"
+        ]
+      },
+      "Stocks": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Stock"
+        }
+      },
+      "Watchlist": {
+        "type": "object",
+        "properties": {
+          "symbols": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "symbols"
+        ]
+      }
+    },
+    "responses": {
+      "BrokerUnavailable": {
+        "description": "IBKR gateway is not running or not authenticated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "GetAccountSummaryOkResponse": {
+        "description": "Combined account summary",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AccountSummary"
+            }
+          }
+        }
+      },
+      "GetBalanceSheetNotFoundResponse": {
+        "description": "Symbol not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "GetBalanceSheetOkResponse": {
+        "description": "Balance sheet highlights and time series",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BalanceSheetAnalysis"
+            }
+          }
+        }
+      },
+      "GetCash": {
+        "description": "Cash balances by currency",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GetCashResult"
+            }
+          }
+        }
+      },
+      "GetCompanyBySymbolNotFoundResponse": {
+        "description": "Symbol not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "GetCompanyBySymbolResponse": {
+        "description": "Security and company details",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CompanyAndSecurity"
+            }
+          }
+        }
+      },
+      "GetFundamentalsNotFoundResponse": {
+        "description": "Symbol not found in SEC EDGAR or stockdata service",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "GetFundamentalsResponse": {
+        "description": "Full fundamentals analysis",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FundamentalsAnalysis"
+            }
+          }
+        }
+      },
+      "GetIncomeStatement": {
+        "description": "Income statement highlights and time series",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/IncomeStatementAnalysis"
+            }
+          }
+        }
+      },
+      "GetIncomeStatementNotFoundResponse": {
+        "description": "Symbol not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "GetPositions": {
+        "description": "Stock and option positions",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Positions"
+            }
+          }
+        }
+      },
+      "ListAccounts": {
+        "description": "List of accounts sorted by creation date",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ListAccountsResult"
+            }
+          }
+        }
+      },
+      "MarketStatusResponse": {
+        "description": "Market date info",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MarketStatus"
+            }
+          }
+        }
+      },
+      "WatchlistResponse": {
+        "description": "Watchlist symbols",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Watchlist"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "AccountID": {
+        "name": "account_id",
+        "in": "path",
+        "description": "IBKR account identifier (e.g. U1234567)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^[A-Z]{1,2}[0-9]{5,12}$"
+        }
+      },
+      "CIK": {
+        "name": "cik",
+        "in": "path",
+        "description": "SEC Central Index Key",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "Symbol": {
+        "name": "symbol",
+        "in": "path",
+        "description": "Stock ticker symbol (e.g. GOOG, MSTR)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        }
+      }
+    }
+  }
+}

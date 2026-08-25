@@ -1,0 +1,13 @@
+// This file is written by hand, not by the generator.
+//
+// An error response type is passed to api.NewErrCustom, which takes an error,
+// so the package author gives it an Error method. What a good message looks
+// like depends on the API, which is why the generator does not guess.
+
+package lso
+
+import "fmt"
+
+func (e *Error) Error() string {
+	return fmt.Sprintf("%d: %s", e.Code, e.Message)
+}

@@ -1,0 +1,203 @@
+{
+	"title": "Retrodiffusion API",
+	"production": true,
+	"packageName": "retrodiffusion",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.retrodiffusion.ai"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "ListV1StylesSelector",
+			"method": "GET",
+			"pathTemplate": "/v1/styles/selector",
+			"joinPathArgs": [
+				"\"v1\"",
+				"\"styles\"",
+				"\"selector\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.Model",
+					"goName": "model",
+					"fieldName": "Model",
+					"jsonName": "model",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListV1StylesSelectorParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListV1StylesSelectorOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListV1StylesSelectorOkJSONResponse"
+			}
+		}
+	],
+	"globalParams": [
+		{
+			"globalType": "APIKey",
+			"varName": "apiKey",
+			"envName": "API_KEY",
+			"goName": "xRdToken",
+			"fieldName": "XRdToken",
+			"jsonName": "X-Rd-Token",
+			"type": "string",
+			"required": true,
+			"parseExpr": "s",
+			"parseErrFree": true
+		}
+	],
+	"schemas": [
+		{
+			"name": "ListV1StylesSelectorOkJSONResponse",
+			"description": "ListV1StylesSelectorOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Styles",
+					"jsonName": "styles",
+					"type": "ListV1StylesSelectorOkJSONResponseStyles",
+					"jsonTag": "json:\"styles,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Models",
+					"jsonName": "models",
+					"type": "[]string",
+					"jsonTag": "json:\"models,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Tabs",
+					"jsonName": "tabs",
+					"type": "[]string",
+					"jsonTag": "json:\"tabs,omitempty\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1StylesSelectorOkJSONResponseStyles",
+			"description": "ListV1StylesSelectorOkJSONResponseStyles defines a model",
+			"kind": 2,
+			"type": "[]ListV1StylesSelectorOkJSONResponseStylesItem"
+		},
+		{
+			"name": "ListV1StylesSelectorOkJSONResponseStylesItem",
+			"description": "ListV1StylesSelectorOkJSONResponseStylesItem defines a model",
+			"fields": [
+				{
+					"name": "PromptStyle",
+					"jsonName": "prompt_style",
+					"type": "string",
+					"jsonTag": "json:\"prompt_style,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GroupID",
+					"jsonName": "group_id",
+					"type": "string",
+					"jsonTag": "json:\"group_id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RequiredModel",
+					"jsonName": "required_model",
+					"type": "string",
+					"jsonTag": "json:\"required_model,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RequiredTab",
+					"jsonName": "required_tab",
+					"type": "string",
+					"jsonTag": "json:\"required_tab,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MinWidth",
+					"jsonName": "min_width",
+					"type": "int",
+					"jsonTag": "json:\"min_width,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MaxWidth",
+					"jsonName": "max_width",
+					"type": "int",
+					"jsonTag": "json:\"max_width,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MinHeight",
+					"jsonName": "min_height",
+					"type": "int",
+					"jsonTag": "json:\"min_height,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MaxHeight",
+					"jsonName": "max_height",
+					"type": "int",
+					"jsonTag": "json:\"max_height,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MaxNumberOfImages",
+					"jsonName": "max_number_of_images",
+					"type": "int",
+					"jsonTag": "json:\"max_number_of_images,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RequireInputImage",
+					"jsonName": "require_input_image",
+					"type": "bool",
+					"jsonTag": "json:\"require_input_image,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SupportsReferenceImages",
+					"jsonName": "supports_reference_images",
+					"type": "bool",
+					"jsonTag": "json:\"supports_reference_images,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "ExamplePrompt",
+					"jsonName": "example_prompt",
+					"type": "string",
+					"jsonTag": "json:\"example_prompt,omitzero\"",
+					"required": true
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,2326 @@
+{
+	"title": "Notion API",
+	"production": true,
+	"packageName": "notionlegacy",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.notion.com",
+		"path": "/v1"
+	},
+	"userAgent": "Notion API",
+	"operations": [
+		{
+			"name": "GetPage",
+			"description": "Retrieves a Page object using the ID in the request path. This endpoint exposes page properties, not page content.",
+			"summary": "Retrieve a Page",
+			"method": "GET",
+			"pathTemplate": "/pages/{id}",
+			"joinPathArgs": [
+				"\"pages\"",
+				"id.String()"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"required": true,
+					"parseExpr": "uuid.Parse(s)",
+					"description": "Identifier for a block, page, or user."
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns the page that was requested or created.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Page"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Page"
+			}
+		},
+		{
+			"name": "GetBlocks",
+			"description": "Returns a paginated array of child [block objects](https://developers.notion.com/reference/block) contained in the block using the ID specified. In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.",
+			"summary": "Retrieve block children",
+			"method": "GET",
+			"pathTemplate": "/blocks/{id}/children",
+			"joinPathArgs": [
+				"\"blocks\"",
+				"id.String()",
+				"\"children\""
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"required": true,
+					"parseExpr": "uuid.Parse(s)",
+					"description": "Identifier for a block, page, or user."
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.StartCursor",
+					"goName": "startCursor",
+					"fieldName": "StartCursor",
+					"jsonName": "start_cursor",
+					"type": "uuid.UUID",
+					"parseExpr": "uuid.Parse(s)",
+					"description": "If supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results."
+				},
+				{
+					"varName": "params.PageSize",
+					"goName": "pageSize",
+					"fieldName": "PageSize",
+					"jsonName": "page_size",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(s)",
+					"description": "The number of items from the full list desired in the response."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetBlocksParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "Returns a list of blocks for the specified page.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "BlocksList"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "BlocksList"
+			}
+		}
+	],
+	"globalParams": [
+		{
+			"globalType": "Version",
+			"varName": "params.NotionVersion",
+			"goName": "notionVersion",
+			"fieldName": "NotionVersion",
+			"jsonName": "Notion-Version",
+			"type": "string",
+			"required": true,
+			"parseExpr": "s",
+			"parseErrFree": true,
+			"description": "Specifies the Notion API version",
+			"value": "\"2022-06-28\"",
+			"example": "\"2022-06-28\""
+		}
+	],
+	"schemas": [
+		{
+			"name": "Annotations",
+			"description": "Style information which applies to the whole rich text object.",
+			"fields": [
+				{
+					"name": "Bold",
+					"jsonName": "bold",
+					"type": "bool",
+					"jsonTag": "json:\"bold,omitzero\"",
+					"description": "Whether the text is **bolded**.",
+					"required": true
+				},
+				{
+					"name": "Italic",
+					"jsonName": "italic",
+					"type": "bool",
+					"jsonTag": "json:\"italic,omitzero\"",
+					"description": "Whether the text is *italicized*.",
+					"required": true
+				},
+				{
+					"name": "Strikethrough",
+					"jsonName": "strikethrough",
+					"type": "bool",
+					"jsonTag": "json:\"strikethrough,omitzero\"",
+					"description": "Whether the text is struck through.",
+					"required": true
+				},
+				{
+					"name": "Underline",
+					"jsonName": "underline",
+					"type": "bool",
+					"jsonTag": "json:\"underline,omitzero\"",
+					"description": "Whether the text is underlined.",
+					"required": true
+				},
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "bool",
+					"jsonTag": "json:\"code,omitzero\"",
+					"description": "Whether the text is code `style`.",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color of the block.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Block",
+			"description": "A block object represents content within Notion. Blocks can be text, lists, media, and more. A page is a type of block, too!\n\nThe optional fields are filled depending on the value of `type`.",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"description": "Always \"block\".",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Parent",
+					"jsonName": "parent",
+					"type": "Parent",
+					"jsonTag": "json:\"parent\"",
+					"description": "The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.",
+					"required": true
+				},
+				{
+					"name": "CreatedTime",
+					"jsonName": "created_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_time,omitzero\"",
+					"description": "Date and time when this block was created. Formatted as an ISO 8601 date time string.",
+					"required": true
+				},
+				{
+					"name": "LastEditedTime",
+					"jsonName": "last_edited_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"description": "Date and time when this block was last updated. Formatted as an ISO 8601 date time string.",
+					"required": true
+				},
+				{
+					"name": "CreatedBy",
+					"jsonName": "created_by",
+					"type": "UserReference",
+					"jsonTag": "json:\"created_by\"",
+					"required": true
+				},
+				{
+					"name": "LastEditedBy",
+					"jsonName": "last_edited_by",
+					"type": "UserReference",
+					"jsonTag": "json:\"last_edited_by\"",
+					"required": true
+				},
+				{
+					"name": "HasChildren",
+					"jsonName": "has_children",
+					"type": "bool",
+					"jsonTag": "json:\"has_children,omitzero\"",
+					"description": "Whether or not the block has children blocks nested within it.",
+					"required": true
+				},
+				{
+					"name": "Archived",
+					"jsonName": "archived",
+					"type": "bool",
+					"jsonTag": "json:\"archived,omitzero\"",
+					"description": "The archived status of the block.",
+					"required": true
+				},
+				{
+					"name": "InTrash",
+					"jsonName": "in_trash",
+					"type": "bool",
+					"jsonTag": "json:\"in_trash,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "BlockType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of block.",
+					"required": true
+				},
+				{
+					"name": "Paragraph",
+					"jsonName": "paragraph",
+					"type": "*Paragraph",
+					"jsonTag": "json:\"paragraph,omitempty\"",
+					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
+				},
+				{
+					"name": "Heading1",
+					"jsonName": "heading_1",
+					"type": "*Heading",
+					"jsonTag": "json:\"heading_1,omitempty\"",
+					"description": "Heading block objects contain this information within their respective property."
+				},
+				{
+					"name": "Heading2",
+					"jsonName": "heading_2",
+					"type": "*Heading",
+					"jsonTag": "json:\"heading_2,omitempty\"",
+					"description": "Heading block objects contain this information within their respective property."
+				},
+				{
+					"name": "Heading3",
+					"jsonName": "heading_3",
+					"type": "*Heading",
+					"jsonTag": "json:\"heading_3,omitempty\"",
+					"description": "Heading block objects contain this information within their respective property."
+				},
+				{
+					"name": "BulletedListItem",
+					"jsonName": "bulleted_list_item",
+					"type": "*Paragraph",
+					"jsonTag": "json:\"bulleted_list_item,omitempty\"",
+					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
+				},
+				{
+					"name": "NumberedListItem",
+					"jsonName": "numbered_list_item",
+					"type": "*Paragraph",
+					"jsonTag": "json:\"numbered_list_item,omitempty\"",
+					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
+				},
+				{
+					"name": "ToDo",
+					"jsonName": "to_do",
+					"type": "*ToDo",
+					"jsonTag": "json:\"to_do,omitempty\"",
+					"description": "To do block objects contain this information within the `to_do` property."
+				},
+				{
+					"name": "Toggle",
+					"jsonName": "toggle",
+					"type": "*Paragraph",
+					"jsonTag": "json:\"toggle,omitempty\"",
+					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
+				},
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "*Code",
+					"jsonTag": "json:\"code,omitempty\"",
+					"description": "Code block objects contain this information within the `code` property."
+				},
+				{
+					"name": "ChildPage",
+					"jsonName": "child_page",
+					"type": "*Child",
+					"jsonTag": "json:\"child_page,omitempty\""
+				},
+				{
+					"name": "ChildDatabase",
+					"jsonName": "child_database",
+					"type": "*Child",
+					"jsonTag": "json:\"child_database,omitempty\""
+				},
+				{
+					"name": "Embed",
+					"jsonName": "embed",
+					"type": "*Embed",
+					"jsonTag": "json:\"embed,omitempty\"",
+					"description": "Embed blocks include block types that allow displaying another website within Notion."
+				},
+				{
+					"name": "Video",
+					"jsonName": "video",
+					"type": "*FileWithCaption",
+					"jsonTag": "json:\"video,omitempty\"",
+					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
+				},
+				{
+					"name": "Audio",
+					"jsonName": "audio",
+					"type": "*FileWithCaption",
+					"jsonTag": "json:\"audio,omitempty\"",
+					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "*FileWithCaption",
+					"jsonTag": "json:\"file,omitempty\"",
+					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
+				},
+				{
+					"name": "PDF",
+					"jsonName": "pdf",
+					"type": "*FileWithCaption",
+					"jsonTag": "json:\"pdf,omitempty\"",
+					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
+				},
+				{
+					"name": "Bookmark",
+					"jsonName": "bookmark",
+					"type": "*Embed",
+					"jsonTag": "json:\"bookmark,omitempty\"",
+					"description": "Embed blocks include block types that allow displaying another website within Notion."
+				},
+				{
+					"name": "Callout",
+					"jsonName": "callout",
+					"type": "*Callout",
+					"jsonTag": "json:\"callout,omitempty\"",
+					"description": "Callout block objects contain the following information within the callout field."
+				},
+				{
+					"name": "Quote",
+					"jsonName": "quote",
+					"type": "*Paragraph",
+					"jsonTag": "json:\"quote,omitempty\"",
+					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
+				},
+				{
+					"name": "Equation",
+					"jsonName": "equation",
+					"type": "*Equation",
+					"jsonTag": "json:\"equation,omitempty\"",
+					"description": "Equation block objects contain this information within the `equation` property"
+				},
+				{
+					"name": "Divider",
+					"jsonName": "divider",
+					"type": "*struct{}",
+					"jsonTag": "json:\"divider,omitempty\"",
+					"description": "Divider block objects do not contain any information within the divider property"
+				},
+				{
+					"name": "TableOfContents",
+					"jsonName": "table_of_contents",
+					"type": "*TableOfContents",
+					"jsonTag": "json:\"table_of_contents,omitempty\"",
+					"description": "Table of contents block objects contain the following information within the `table_of_contents` property."
+				},
+				{
+					"name": "ColumnList",
+					"jsonName": "column_list",
+					"type": "*struct{}",
+					"jsonTag": "json:\"column_list,omitempty\"",
+					"description": "Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column."
+				},
+				{
+					"name": "LinkPreview",
+					"jsonName": "link_preview",
+					"type": "*ExternalFile",
+					"jsonTag": "json:\"link_preview,omitempty\"",
+					"description": "Link Preview block objects return the originally pasted url.\n\nNOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API."
+				},
+				{
+					"name": "SyncedBlock",
+					"jsonName": "synced_block",
+					"type": "*SyncedBlock",
+					"jsonTag": "json:\"synced_block,omitempty\""
+				},
+				{
+					"name": "LinkToPage",
+					"jsonName": "link_to_page",
+					"type": "*LinkToPage",
+					"jsonTag": "json:\"link_to_page,omitempty\""
+				},
+				{
+					"name": "Table",
+					"jsonName": "table",
+					"type": "*Table",
+					"jsonTag": "json:\"table,omitempty\""
+				},
+				{
+					"name": "Breadcrumb",
+					"jsonName": "breadcrumb",
+					"type": "*struct{}",
+					"jsonTag": "json:\"breadcrumb,omitempty\"",
+					"description": "Breadcrumb block objects do not contain any information within the breadcrumb property"
+				},
+				{
+					"name": "Unsupported",
+					"jsonName": "unsupported",
+					"type": "*struct{}",
+					"jsonTag": "json:\"unsupported,omitempty\"",
+					"description": "Some block types aren't available yet"
+				}
+			]
+		},
+		{
+			"name": "BlockType",
+			"description": "Type of block.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "BlockTypeParagraph",
+					"value": "paragraph",
+					"literal": "\"paragraph\""
+				},
+				{
+					"goName": "BlockTypeHeading1",
+					"value": "heading_1",
+					"literal": "\"heading_1\""
+				},
+				{
+					"goName": "BlockTypeHeading2",
+					"value": "heading_2",
+					"literal": "\"heading_2\""
+				},
+				{
+					"goName": "BlockTypeHeading3",
+					"value": "heading_3",
+					"literal": "\"heading_3\""
+				},
+				{
+					"goName": "BlockTypeBulletedListItem",
+					"value": "bulleted_list_item",
+					"literal": "\"bulleted_list_item\""
+				},
+				{
+					"goName": "BlockTypeNumberedListItem",
+					"value": "numbered_list_item",
+					"literal": "\"numbered_list_item\""
+				},
+				{
+					"goName": "BlockTypeToDo",
+					"value": "to_do",
+					"literal": "\"to_do\""
+				},
+				{
+					"goName": "BlockTypeToggle",
+					"value": "toggle",
+					"literal": "\"toggle\""
+				},
+				{
+					"goName": "BlockTypeChildPage",
+					"value": "child_page",
+					"literal": "\"child_page\""
+				},
+				{
+					"goName": "BlockTypeChildDatabase",
+					"value": "child_database",
+					"literal": "\"child_database\""
+				},
+				{
+					"goName": "BlockTypeEmbed",
+					"value": "embed",
+					"literal": "\"embed\""
+				},
+				{
+					"goName": "BlockTypeImage",
+					"value": "image",
+					"literal": "\"image\""
+				},
+				{
+					"goName": "BlockTypeVideo",
+					"value": "video",
+					"literal": "\"video\""
+				},
+				{
+					"goName": "BlockTypeFile",
+					"value": "file",
+					"literal": "\"file\""
+				},
+				{
+					"goName": "BlockTypePdf",
+					"value": "pdf",
+					"literal": "\"pdf\""
+				},
+				{
+					"goName": "BlockTypeBookmark",
+					"value": "bookmark",
+					"literal": "\"bookmark\""
+				},
+				{
+					"goName": "BlockTypeCallout",
+					"value": "callout",
+					"literal": "\"callout\""
+				},
+				{
+					"goName": "BlockTypeQuote",
+					"value": "quote",
+					"literal": "\"quote\""
+				},
+				{
+					"goName": "BlockTypeEquation",
+					"value": "equation",
+					"literal": "\"equation\""
+				},
+				{
+					"goName": "BlockTypeDivider",
+					"value": "divider",
+					"literal": "\"divider\""
+				},
+				{
+					"goName": "BlockTypeTableOfContents",
+					"value": "table_of_contents",
+					"literal": "\"table_of_contents\""
+				},
+				{
+					"goName": "BlockTypeColumn",
+					"value": "column",
+					"literal": "\"column\""
+				},
+				{
+					"goName": "BlockTypeColumnList",
+					"value": "column_list",
+					"literal": "\"column_list\""
+				},
+				{
+					"goName": "BlockTypeLinkPreview",
+					"value": "link_preview",
+					"literal": "\"link_preview\""
+				},
+				{
+					"goName": "BlockTypeSyncedBlock",
+					"value": "synced_block",
+					"literal": "\"synced_block\""
+				},
+				{
+					"goName": "BlockTypeTemplate",
+					"value": "template",
+					"literal": "\"template\""
+				},
+				{
+					"goName": "BlockTypeLinkToPage",
+					"value": "link_to_page",
+					"literal": "\"link_to_page\""
+				},
+				{
+					"goName": "BlockTypeTable",
+					"value": "table",
+					"literal": "\"table\""
+				},
+				{
+					"goName": "BlockTypeTableRow",
+					"value": "table_row",
+					"literal": "\"table_row\""
+				},
+				{
+					"goName": "BlockTypeCode",
+					"value": "code",
+					"literal": "\"code\""
+				},
+				{
+					"goName": "BlockTypeBreadcrumb",
+					"value": "breadcrumb",
+					"literal": "\"breadcrumb\""
+				},
+				{
+					"goName": "BlockTypeAudio",
+					"value": "audio",
+					"literal": "\"audio\""
+				},
+				{
+					"goName": "BlockTypeUnsupported",
+					"value": "unsupported",
+					"literal": "\"unsupported\""
+				}
+			]
+		},
+		{
+			"name": "Blocks",
+			"description": "Blocks defines a model",
+			"kind": 2,
+			"type": "[]Block"
+		},
+		{
+			"name": "BlocksList",
+			"description": "BlocksList defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "List",
+					"embedded": true
+				},
+				{
+					"name": "Results",
+					"jsonName": "results",
+					"type": "Blocks",
+					"jsonTag": "json:\"results,omitempty\"",
+					"description": "The result, an array of block objects.",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of the objects in results. Always `block`.",
+					"required": true
+				},
+				{
+					"name": "Block",
+					"jsonName": "block",
+					"type": "struct{}",
+					"jsonTag": "json:\"block\"",
+					"required": true
+				},
+				{
+					"name": "RequestID",
+					"jsonName": "request_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"request_id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Callout",
+			"description": "Callout block objects contain the following information within the callout field.",
+			"fields": [
+				{
+					"name": "RichText",
+					"jsonName": "rich_text",
+					"type": "RichTexts",
+					"jsonTag": "json:\"rich_text,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "Icon",
+					"jsonTag": "json:\"icon\"",
+					"description": "Page or database icon. It is either an emoji or a file.",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color of the block.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Child",
+			"description": "Child defines a model",
+			"fields": [
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "string",
+					"jsonTag": "json:\"title,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Code",
+			"description": "Code block objects contain this information within the `code` property.",
+			"fields": [
+				{
+					"name": "Caption",
+					"jsonName": "caption",
+					"type": "RichTexts",
+					"jsonTag": "json:\"caption,omitempty\""
+				},
+				{
+					"name": "RichText",
+					"jsonName": "rich_text",
+					"type": "RichTexts",
+					"jsonTag": "json:\"rich_text,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Language",
+					"jsonName": "language",
+					"type": "CodeLanguage",
+					"jsonTag": "json:\"language,omitzero\"",
+					"description": "Coding language in code block",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "CodeLanguage",
+			"description": "Coding language in code block",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "CodeLanguageAbap",
+					"value": "abap",
+					"literal": "\"abap\""
+				},
+				{
+					"goName": "CodeLanguageArduino",
+					"value": "arduino",
+					"literal": "\"arduino\""
+				},
+				{
+					"goName": "CodeLanguageBash",
+					"value": "bash",
+					"literal": "\"bash\""
+				},
+				{
+					"goName": "CodeLanguageBasic",
+					"value": "basic",
+					"literal": "\"basic\""
+				},
+				{
+					"goName": "CodeLanguageC",
+					"value": "c",
+					"literal": "\"c\""
+				},
+				{
+					"goName": "CodeLanguageClojure",
+					"value": "clojure",
+					"literal": "\"clojure\""
+				},
+				{
+					"goName": "CodeLanguageCoffeescript",
+					"value": "coffeescript",
+					"literal": "\"coffeescript\""
+				},
+				{
+					"goName": "CodeLanguageCPlusPlus",
+					"value": "c++",
+					"literal": "\"c++\""
+				},
+				{
+					"goName": "CodeLanguageCSharp",
+					"value": "c#",
+					"literal": "\"c#\""
+				},
+				{
+					"goName": "CodeLanguageCSS",
+					"value": "css",
+					"literal": "\"css\""
+				},
+				{
+					"goName": "CodeLanguageDart",
+					"value": "dart",
+					"literal": "\"dart\""
+				},
+				{
+					"goName": "CodeLanguageDiff",
+					"value": "diff",
+					"literal": "\"diff\""
+				},
+				{
+					"goName": "CodeLanguageDocker",
+					"value": "docker",
+					"literal": "\"docker\""
+				},
+				{
+					"goName": "CodeLanguageElixir",
+					"value": "elixir",
+					"literal": "\"elixir\""
+				},
+				{
+					"goName": "CodeLanguageElm",
+					"value": "elm",
+					"literal": "\"elm\""
+				},
+				{
+					"goName": "CodeLanguageErlang",
+					"value": "erlang",
+					"literal": "\"erlang\""
+				},
+				{
+					"goName": "CodeLanguageFlow",
+					"value": "flow",
+					"literal": "\"flow\""
+				},
+				{
+					"goName": "CodeLanguageFortran",
+					"value": "fortran",
+					"literal": "\"fortran\""
+				},
+				{
+					"goName": "CodeLanguageFSharp",
+					"value": "f#",
+					"literal": "\"f#\""
+				},
+				{
+					"goName": "CodeLanguageGherkin",
+					"value": "gherkin",
+					"literal": "\"gherkin\""
+				},
+				{
+					"goName": "CodeLanguageGlsl",
+					"value": "glsl",
+					"literal": "\"glsl\""
+				},
+				{
+					"goName": "CodeLanguageGo",
+					"value": "go",
+					"literal": "\"go\""
+				},
+				{
+					"goName": "CodeLanguageGraphql",
+					"value": "graphql",
+					"literal": "\"graphql\""
+				},
+				{
+					"goName": "CodeLanguageGroovy",
+					"value": "groovy",
+					"literal": "\"groovy\""
+				},
+				{
+					"goName": "CodeLanguageHaskell",
+					"value": "haskell",
+					"literal": "\"haskell\""
+				},
+				{
+					"goName": "CodeLanguageHTML",
+					"value": "html",
+					"literal": "\"html\""
+				},
+				{
+					"goName": "CodeLanguageJava",
+					"value": "java",
+					"literal": "\"java\""
+				},
+				{
+					"goName": "CodeLanguageJavascript",
+					"value": "javascript",
+					"literal": "\"javascript\""
+				},
+				{
+					"goName": "CodeLanguageJSON",
+					"value": "json",
+					"literal": "\"json\""
+				},
+				{
+					"goName": "CodeLanguageJulia",
+					"value": "julia",
+					"literal": "\"julia\""
+				},
+				{
+					"goName": "CodeLanguageKotlin",
+					"value": "kotlin",
+					"literal": "\"kotlin\""
+				},
+				{
+					"goName": "CodeLanguageLatex",
+					"value": "latex",
+					"literal": "\"latex\""
+				},
+				{
+					"goName": "CodeLanguageLess",
+					"value": "less",
+					"literal": "\"less\""
+				},
+				{
+					"goName": "CodeLanguageLisp",
+					"value": "lisp",
+					"literal": "\"lisp\""
+				},
+				{
+					"goName": "CodeLanguageLivescript",
+					"value": "livescript",
+					"literal": "\"livescript\""
+				},
+				{
+					"goName": "CodeLanguageLua",
+					"value": "lua",
+					"literal": "\"lua\""
+				},
+				{
+					"goName": "CodeLanguageMakefile",
+					"value": "makefile",
+					"literal": "\"makefile\""
+				},
+				{
+					"goName": "CodeLanguageMarkdown",
+					"value": "markdown",
+					"literal": "\"markdown\""
+				},
+				{
+					"goName": "CodeLanguageMarkup",
+					"value": "markup",
+					"literal": "\"markup\""
+				},
+				{
+					"goName": "CodeLanguageMatlab",
+					"value": "matlab",
+					"literal": "\"matlab\""
+				},
+				{
+					"goName": "CodeLanguageMermaid",
+					"value": "mermaid",
+					"literal": "\"mermaid\""
+				},
+				{
+					"goName": "CodeLanguageNix",
+					"value": "nix",
+					"literal": "\"nix\""
+				},
+				{
+					"goName": "CodeLanguageObjectiveC",
+					"value": "objective-c",
+					"literal": "\"objective-c\""
+				},
+				{
+					"goName": "CodeLanguageOcaml",
+					"value": "ocaml",
+					"literal": "\"ocaml\""
+				},
+				{
+					"goName": "CodeLanguagePascal",
+					"value": "pascal",
+					"literal": "\"pascal\""
+				},
+				{
+					"goName": "CodeLanguagePerl",
+					"value": "perl",
+					"literal": "\"perl\""
+				},
+				{
+					"goName": "CodeLanguagePhp",
+					"value": "php",
+					"literal": "\"php\""
+				},
+				{
+					"goName": "CodeLanguagePlainText",
+					"value": "plain text",
+					"literal": "\"plain text\""
+				},
+				{
+					"goName": "CodeLanguagePowershell",
+					"value": "powershell",
+					"literal": "\"powershell\""
+				},
+				{
+					"goName": "CodeLanguageProlog",
+					"value": "prolog",
+					"literal": "\"prolog\""
+				},
+				{
+					"goName": "CodeLanguageProtobuf",
+					"value": "protobuf",
+					"literal": "\"protobuf\""
+				},
+				{
+					"goName": "CodeLanguagePython",
+					"value": "python",
+					"literal": "\"python\""
+				},
+				{
+					"goName": "CodeLanguageR",
+					"value": "r",
+					"literal": "\"r\""
+				},
+				{
+					"goName": "CodeLanguageReason",
+					"value": "reason",
+					"literal": "\"reason\""
+				},
+				{
+					"goName": "CodeLanguageRuby",
+					"value": "ruby",
+					"literal": "\"ruby\""
+				},
+				{
+					"goName": "CodeLanguageRust",
+					"value": "rust",
+					"literal": "\"rust\""
+				},
+				{
+					"goName": "CodeLanguageSass",
+					"value": "sass",
+					"literal": "\"sass\""
+				},
+				{
+					"goName": "CodeLanguageScala",
+					"value": "scala",
+					"literal": "\"scala\""
+				},
+				{
+					"goName": "CodeLanguageScheme",
+					"value": "scheme",
+					"literal": "\"scheme\""
+				},
+				{
+					"goName": "CodeLanguageScss",
+					"value": "scss",
+					"literal": "\"scss\""
+				},
+				{
+					"goName": "CodeLanguageShell",
+					"value": "shell",
+					"literal": "\"shell\""
+				},
+				{
+					"goName": "CodeLanguageSQL",
+					"value": "sql",
+					"literal": "\"sql\""
+				},
+				{
+					"goName": "CodeLanguageSwift",
+					"value": "swift",
+					"literal": "\"swift\""
+				},
+				{
+					"goName": "CodeLanguageTypescript",
+					"value": "typescript",
+					"literal": "\"typescript\""
+				},
+				{
+					"goName": "CodeLanguageVbDotNet",
+					"value": "vb.net",
+					"literal": "\"vb.net\""
+				},
+				{
+					"goName": "CodeLanguageVerilog",
+					"value": "verilog",
+					"literal": "\"verilog\""
+				},
+				{
+					"goName": "CodeLanguageVhdl",
+					"value": "vhdl",
+					"literal": "\"vhdl\""
+				},
+				{
+					"goName": "CodeLanguageVisualBasic",
+					"value": "visual basic",
+					"literal": "\"visual basic\""
+				},
+				{
+					"goName": "CodeLanguageWebassembly",
+					"value": "webassembly",
+					"literal": "\"webassembly\""
+				},
+				{
+					"goName": "CodeLanguageXML",
+					"value": "xml",
+					"literal": "\"xml\""
+				},
+				{
+					"goName": "CodeLanguageYaml",
+					"value": "yaml",
+					"literal": "\"yaml\""
+				},
+				{
+					"goName": "CodeLanguageJavaCCPlusPlusCSharp",
+					"value": "java/c/c++/c#",
+					"literal": "\"java/c/c++/c#\""
+				}
+			]
+		},
+		{
+			"name": "Color",
+			"description": "The color of the block.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "ColorDefault",
+					"value": "default",
+					"literal": "\"default\""
+				},
+				{
+					"goName": "ColorGray",
+					"value": "gray",
+					"literal": "\"gray\""
+				},
+				{
+					"goName": "ColorBrown",
+					"value": "brown",
+					"literal": "\"brown\""
+				},
+				{
+					"goName": "ColorOrange",
+					"value": "orange",
+					"literal": "\"orange\""
+				},
+				{
+					"goName": "ColorYellow",
+					"value": "yellow",
+					"literal": "\"yellow\""
+				},
+				{
+					"goName": "ColorGreen",
+					"value": "green",
+					"literal": "\"green\""
+				},
+				{
+					"goName": "ColorBlue",
+					"value": "blue",
+					"literal": "\"blue\""
+				},
+				{
+					"goName": "ColorPurple",
+					"value": "purple",
+					"literal": "\"purple\""
+				},
+				{
+					"goName": "ColorPink",
+					"value": "pink",
+					"literal": "\"pink\""
+				},
+				{
+					"goName": "ColorRed",
+					"value": "red",
+					"literal": "\"red\""
+				},
+				{
+					"goName": "ColorGrayBackground",
+					"value": "gray_background",
+					"literal": "\"gray_background\""
+				},
+				{
+					"goName": "ColorBrownBackground",
+					"value": "brown_background",
+					"literal": "\"brown_background\""
+				},
+				{
+					"goName": "ColorOrangeBackground",
+					"value": "orange_background",
+					"literal": "\"orange_background\""
+				},
+				{
+					"goName": "ColorYellowBackground",
+					"value": "yellow_background",
+					"literal": "\"yellow_background\""
+				},
+				{
+					"goName": "ColorGreenBackground",
+					"value": "green_background",
+					"literal": "\"green_background\""
+				},
+				{
+					"goName": "ColorBlueBackground",
+					"value": "blue_background",
+					"literal": "\"blue_background\""
+				},
+				{
+					"goName": "ColorPurpleBackground",
+					"value": "purple_background",
+					"literal": "\"purple_background\""
+				},
+				{
+					"goName": "ColorPinkBackground",
+					"value": "pink_background",
+					"literal": "\"pink_background\""
+				},
+				{
+					"goName": "ColorRedBackground",
+					"value": "red_background",
+					"literal": "\"red_background\""
+				}
+			]
+		},
+		{
+			"name": "Date",
+			"description": "Date defines a model",
+			"fields": [
+				{
+					"name": "Start",
+					"jsonName": "start",
+					"type": "string",
+					"jsonTag": "json:\"start,omitzero\"",
+					"description": "An ISO 8601 format date, with optional time.",
+					"required": true
+				},
+				{
+					"name": "End",
+					"jsonName": "end",
+					"type": "*struct{}",
+					"jsonTag": "json:\"end,omitempty\"",
+					"description": "An ISO 8601 formatted date, with optional time. Represents the end of a date range.\n\nIf `null`, this property's date value is not a range."
+				},
+				{
+					"name": "TimeZone",
+					"jsonName": "time_zone",
+					"type": "*struct{}",
+					"jsonTag": "json:\"time_zone,omitempty\"",
+					"description": "Time zone information for start and end. Possible values are extracted from the IANA database and they are based on the time zones from Moment.js.\n\nWhen time zone is provided, start and end should not have any UTC offset. In addition, when time zone is provided, start and end cannot be dates without time information.\n\nIf null, time zone information will be contained in UTC offsets in start and end."
+				}
+			]
+		},
+		{
+			"name": "Embed",
+			"description": "Embed blocks include block types that allow displaying another website within Notion.",
+			"fields": [
+				{
+					"name": "Caption",
+					"jsonName": "caption",
+					"type": "RichTexts",
+					"jsonTag": "json:\"caption,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "url.URL",
+					"jsonTag": "json:\"url,omitzero\"",
+					"description": "Embedded link.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Equation",
+			"description": "Equation block objects contain this information within the `equation` property",
+			"fields": [
+				{
+					"name": "Expression",
+					"jsonName": "expression",
+					"type": "string",
+					"jsonTag": "json:\"expression,omitzero\"",
+					"description": "A KaTeX compatible string",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ExternalFile",
+			"description": "An external file is any URL that isn't hosted by Notion.",
+			"fields": [
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "url.URL",
+					"jsonTag": "json:\"url,omitzero\"",
+					"description": "Link to the externally hosted content.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "File",
+			"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion.",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "FileType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of this file object.",
+					"required": true
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "*NotionFile",
+					"jsonTag": "json:\"file,omitempty\"",
+					"description": "File objects contain this information within the `file` property."
+				},
+				{
+					"name": "External",
+					"jsonName": "external",
+					"type": "*ExternalFile",
+					"jsonTag": "json:\"external,omitempty\"",
+					"description": "An external file is any URL that isn't hosted by Notion."
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "A string value corresponding to a filename of the original file upload"
+				}
+			]
+		},
+		{
+			"name": "FileType",
+			"description": "Type of this file object.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "FileTypeFile",
+					"value": "file",
+					"literal": "\"file\""
+				},
+				{
+					"goName": "FileTypeExternal",
+					"value": "external",
+					"literal": "\"external\""
+				}
+			]
+		},
+		{
+			"name": "FileWithCaption",
+			"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.",
+			"kind": 3,
+			"fields": [
+				{
+					"name": "Caption",
+					"jsonName": "caption",
+					"type": "RichTexts",
+					"jsonTag": "json:\"caption,omitempty\"",
+					"required": true
+				},
+				{
+					"type": "File",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "Heading",
+			"description": "Heading block objects contain this information within their respective property.",
+			"fields": [
+				{
+					"name": "RichText",
+					"jsonName": "rich_text",
+					"type": "RichTexts",
+					"jsonTag": "json:\"rich_text,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "IsToggleable",
+					"jsonName": "is_toggleable",
+					"type": "bool",
+					"jsonTag": "json:\"is_toggleable,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color of the block.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Icon",
+			"description": "Page or database icon. It is either an emoji or a file.",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "IconType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of icon.",
+					"required": true
+				},
+				{
+					"name": "Emoji",
+					"jsonName": "emoji",
+					"type": "string",
+					"jsonTag": "json:\"emoji,omitzero\"",
+					"description": "Emoji character."
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "*NotionFile",
+					"jsonTag": "json:\"file,omitempty\"",
+					"description": "File objects contain this information within the `file` property."
+				},
+				{
+					"name": "External",
+					"jsonName": "external",
+					"type": "*ExternalFile",
+					"jsonTag": "json:\"external,omitempty\"",
+					"description": "An external file is any URL that isn't hosted by Notion."
+				}
+			]
+		},
+		{
+			"name": "IconType",
+			"description": "Type of icon.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "IconTypeEmoji",
+					"value": "emoji",
+					"literal": "\"emoji\""
+				},
+				{
+					"goName": "IconTypeFile",
+					"value": "file",
+					"literal": "\"file\""
+				},
+				{
+					"goName": "IconTypeExternal",
+					"value": "external",
+					"literal": "\"external\""
+				}
+			]
+		},
+		{
+			"name": "Link",
+			"description": "An inline link in a text.",
+			"fields": [
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "*url.URL",
+					"jsonTag": "json:\"url,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "LinkMention",
+			"description": "LinkMention defines a model",
+			"fields": [
+				{
+					"name": "Href",
+					"jsonName": "href",
+					"type": "url.URL",
+					"jsonTag": "json:\"href,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "string",
+					"jsonTag": "json:\"title,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "LinkToPage",
+			"description": "LinkToPage defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "LinkToPageType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of this link to page object.",
+					"required": true
+				},
+				{
+					"name": "PageID",
+					"jsonName": "page_id",
+					"type": "*uuid.UUID",
+					"jsonTag": "json:\"page_id,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "LinkToPageType",
+			"description": "Type of this link to page object.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "LinkToPageTypePageID",
+					"value": "page_id",
+					"literal": "\"page_id\""
+				}
+			]
+		},
+		{
+			"name": "List",
+			"description": "List defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"description": "Always `list`.",
+					"required": true
+				},
+				{
+					"name": "NextCursor",
+					"jsonName": "next_cursor",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
+					"required": true
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "bool",
+					"jsonTag": "json:\"has_more,omitzero\"",
+					"description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Mention",
+			"description": "Mention defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "MentionType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of the inline mention.",
+					"required": true
+				},
+				{
+					"name": "LinkMention",
+					"jsonName": "link_mention",
+					"type": "*LinkMention",
+					"jsonTag": "json:\"link_mention,omitempty\""
+				},
+				{
+					"name": "User",
+					"jsonName": "user",
+					"type": "*User",
+					"jsonTag": "json:\"user,omitempty\""
+				},
+				{
+					"name": "Page",
+					"jsonName": "page",
+					"type": "*Reference",
+					"jsonTag": "json:\"page,omitempty\""
+				},
+				{
+					"name": "Database",
+					"jsonName": "database",
+					"type": "*Reference",
+					"jsonTag": "json:\"database,omitempty\""
+				},
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "*Date",
+					"jsonTag": "json:\"date,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "MentionType",
+			"description": "Type of the inline mention.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "MentionTypeLinkMention",
+					"value": "link_mention",
+					"literal": "\"link_mention\""
+				}
+			]
+		},
+		{
+			"name": "NotionFile",
+			"description": "File objects contain this information within the `file` property.",
+			"fields": [
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "url.URL",
+					"jsonTag": "json:\"url,omitzero\"",
+					"description": "Authenticated S3 URL to the file. The file URL will be valid for 1 hour but updated links can be requested if required.",
+					"required": true
+				},
+				{
+					"name": "ExpiryTime",
+					"jsonName": "expiry_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"expiry_time,omitzero\"",
+					"description": "Date and time when the URL will expire.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Page",
+			"description": "The Page object contains the [property values](https://developers.notion.com/reference/property-value-object) of a single Notion page.\n\nAll pages have a parent. If the parent is a [database](https://developers.notion.com/reference/database), the property values conform to the schema laid out database's [properties](https://developers.notion.com/reference/property-object). Otherwise, the only property value is the `title`.\n\nPage content is available as [blocks](https://developers.notion.com/reference/block). The content can be read using [retrieve block children](https://developers.notion.com/reference/get-block-children) and appended using [append block children](https://developers.notion.com/reference/patch-block-children).",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"description": "Always \"page\".",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedTime",
+					"jsonName": "created_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"created_time,omitzero\"",
+					"description": "Date and time when this page was created. Formatted as an ISO 8601 date time string.",
+					"required": true
+				},
+				{
+					"name": "LastEditedTime",
+					"jsonName": "last_edited_time",
+					"type": "time.Time",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"description": "Date and time when this page was updated. Formatted as an ISO 8601 date time string.",
+					"required": true
+				},
+				{
+					"name": "CreatedBy",
+					"jsonName": "created_by",
+					"type": "UserReference",
+					"jsonTag": "json:\"created_by\"",
+					"required": true
+				},
+				{
+					"name": "LastEditedBy",
+					"jsonName": "last_edited_by",
+					"type": "UserReference",
+					"jsonTag": "json:\"last_edited_by\"",
+					"required": true
+				},
+				{
+					"name": "Cover",
+					"jsonName": "cover",
+					"type": "File",
+					"jsonTag": "json:\"cover\"",
+					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion.",
+					"required": true
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "Icon",
+					"jsonTag": "json:\"icon\"",
+					"description": "Page or database icon. It is either an emoji or a file.",
+					"required": true
+				},
+				{
+					"name": "Parent",
+					"jsonName": "parent",
+					"type": "Parent",
+					"jsonTag": "json:\"parent\"",
+					"description": "The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.",
+					"required": true
+				},
+				{
+					"name": "Archived",
+					"jsonName": "archived",
+					"type": "bool",
+					"jsonTag": "json:\"archived,omitzero\"",
+					"description": "The archived status of the page.",
+					"required": true
+				},
+				{
+					"name": "InTrash",
+					"jsonName": "in_trash",
+					"type": "bool",
+					"jsonTag": "json:\"in_trash,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Properties",
+					"jsonName": "properties",
+					"type": "PropertyValues",
+					"jsonTag": "json:\"properties\"",
+					"description": "Properties of a page or database.",
+					"required": true
+				},
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "url.URL",
+					"jsonTag": "json:\"url,omitzero\"",
+					"description": "The URL of the Notion page.",
+					"required": true
+				},
+				{
+					"name": "PublicURL",
+					"jsonName": "public_url",
+					"type": "url.URL",
+					"jsonTag": "json:\"public_url,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "RequestID",
+					"jsonName": "request_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"request_id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Paragraph",
+			"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property.",
+			"fields": [
+				{
+					"name": "RichText",
+					"jsonName": "rich_text",
+					"type": "RichTexts",
+					"jsonTag": "json:\"rich_text,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color of the block.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Parent",
+			"description": "The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "ParentType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "The type of the parent.",
+					"required": true
+				},
+				{
+					"name": "PageID",
+					"jsonName": "page_id",
+					"type": "*uuid.UUID",
+					"jsonTag": "json:\"page_id,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "ParentType",
+			"description": "The type of the parent.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "ParentTypePageID",
+					"value": "page_id",
+					"literal": "\"page_id\""
+				},
+				{
+					"goName": "ParentTypeWorkspace",
+					"value": "workspace",
+					"literal": "\"workspace\""
+				},
+				{
+					"goName": "ParentTypeBlockID",
+					"value": "block_id",
+					"literal": "\"block_id\""
+				},
+				{
+					"goName": "ParentTypeDatabaseID",
+					"value": "database_id",
+					"literal": "\"database_id\""
+				}
+			]
+		},
+		{
+			"name": "Person",
+			"description": "User objects that represent people have the `type` property set to `person`. These objects also have these properties.",
+			"fields": [
+				{
+					"name": "Email",
+					"jsonName": "email",
+					"type": "types.Email",
+					"jsonTag": "json:\"email,omitzero\"",
+					"description": "Email address of the person. This is only present if an integration has user capabilities that allow access to email addresses.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PropertyType",
+			"description": "Type of the property.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "PropertyTypeRichText",
+					"value": "rich_text",
+					"literal": "\"rich_text\""
+				},
+				{
+					"goName": "PropertyTypeNumber",
+					"value": "number",
+					"literal": "\"number\""
+				},
+				{
+					"goName": "PropertyTypeSelect",
+					"value": "select",
+					"literal": "\"select\""
+				},
+				{
+					"goName": "PropertyTypeStatus",
+					"value": "status",
+					"literal": "\"status\""
+				},
+				{
+					"goName": "PropertyTypeMultiSelect",
+					"value": "multi_select",
+					"literal": "\"multi_select\""
+				},
+				{
+					"goName": "PropertyTypeDate",
+					"value": "date",
+					"literal": "\"date\""
+				},
+				{
+					"goName": "PropertyTypeFormula",
+					"value": "formula",
+					"literal": "\"formula\""
+				},
+				{
+					"goName": "PropertyTypeRelation",
+					"value": "relation",
+					"literal": "\"relation\""
+				},
+				{
+					"goName": "PropertyTypeRollup",
+					"value": "rollup",
+					"literal": "\"rollup\""
+				},
+				{
+					"goName": "PropertyTypeTitle",
+					"value": "title",
+					"literal": "\"title\""
+				},
+				{
+					"goName": "PropertyTypePeople",
+					"value": "people",
+					"literal": "\"people\""
+				},
+				{
+					"goName": "PropertyTypeFiles",
+					"value": "files",
+					"literal": "\"files\""
+				},
+				{
+					"goName": "PropertyTypeCheckbox",
+					"value": "checkbox",
+					"literal": "\"checkbox\""
+				},
+				{
+					"goName": "PropertyTypeURL",
+					"value": "url",
+					"literal": "\"url\""
+				},
+				{
+					"goName": "PropertyTypeEmail",
+					"value": "email",
+					"literal": "\"email\""
+				},
+				{
+					"goName": "PropertyTypePhoneNumber",
+					"value": "phone_number",
+					"literal": "\"phone_number\""
+				},
+				{
+					"goName": "PropertyTypeCreatedTime",
+					"value": "created_time",
+					"literal": "\"created_time\""
+				},
+				{
+					"goName": "PropertyTypeCreatedBy",
+					"value": "created_by",
+					"literal": "\"created_by\""
+				},
+				{
+					"goName": "PropertyTypeLastEditedTime",
+					"value": "last_edited_time",
+					"literal": "\"last_edited_time\""
+				},
+				{
+					"goName": "PropertyTypeLastEditedBy",
+					"value": "last_edited_by",
+					"literal": "\"last_edited_by\""
+				},
+				{
+					"goName": "PropertyTypeButton",
+					"value": "button",
+					"literal": "\"button\""
+				}
+			]
+		},
+		{
+			"name": "PropertyValue",
+			"description": "A property value defines the identifier, type, and value of a page property in a page object. It's used when retrieving and updating pages ex: Create and Update pages.",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\"",
+					"description": "Underlying identifier for the property. This identifier is guaranteed to remain constant when the property name changes. It may be a UUID, but is often a short random string.\n\nThe id may be used in place of name when creating or updating pages.",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "PropertyType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of the property.",
+					"required": true
+				},
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "RichTexts",
+					"jsonTag": "json:\"title,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PropertyValues",
+			"description": "Properties of a page or database.",
+			"kind": 4,
+			"mapKey": "string",
+			"mapValue": "PropertyValue"
+		},
+		{
+			"name": "Reference",
+			"description": "Reference defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "RichText",
+			"description": "Rich text objects contain data for displaying formatted text, mentions, and equations. A rich text object also contains annotations for style information. Arrays of rich text objects are used [within property objects](https://developers.notion.com/reference/database-property) and [property value objects](https://developers.notion.com/reference/page-property-value) to create what a user sees as a single text value in Notion.",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "RichTextType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of this rich text object.",
+					"required": true
+				},
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "Text",
+					"jsonTag": "json:\"text\"",
+					"description": "Text objects contain this information within the `text` property of a RichText object.",
+					"required": true
+				},
+				{
+					"name": "Mention",
+					"jsonName": "mention",
+					"type": "*Mention",
+					"jsonTag": "json:\"mention,omitempty\""
+				},
+				{
+					"name": "Equation",
+					"jsonName": "equation",
+					"type": "*Equation",
+					"jsonTag": "json:\"equation,omitempty\"",
+					"description": "Equation block objects contain this information within the `equation` property"
+				},
+				{
+					"name": "Annotations",
+					"jsonName": "annotations",
+					"type": "Annotations",
+					"jsonTag": "json:\"annotations\"",
+					"description": "Style information which applies to the whole rich text object.",
+					"required": true
+				},
+				{
+					"name": "PlainText",
+					"jsonName": "plain_text",
+					"type": "string",
+					"jsonTag": "json:\"plain_text,omitzero\"",
+					"description": "The plain text without annotations.",
+					"required": true
+				},
+				{
+					"name": "Href",
+					"jsonName": "href",
+					"type": "*url.URL",
+					"jsonTag": "json:\"href,omitempty\"",
+					"description": "The URL of any link or internal Notion mention in this text, if any."
+				}
+			]
+		},
+		{
+			"name": "RichTextType",
+			"description": "Type of this rich text object.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "RichTextTypeText",
+					"value": "text",
+					"literal": "\"text\""
+				},
+				{
+					"goName": "RichTextTypeMention",
+					"value": "mention",
+					"literal": "\"mention\""
+				},
+				{
+					"goName": "RichTextTypeEquation",
+					"value": "equation",
+					"literal": "\"equation\""
+				}
+			]
+		},
+		{
+			"name": "RichTexts",
+			"description": "RichTexts defines a model",
+			"kind": 2,
+			"type": "[]RichText"
+		},
+		{
+			"name": "SyncedBlock",
+			"description": "SyncedBlock defines a model",
+			"fields": [
+				{
+					"name": "SyncedFrom",
+					"jsonName": "synced_from",
+					"type": "SyncedFrom",
+					"jsonTag": "json:\"synced_from\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "SyncedFrom",
+			"description": "SyncedFrom defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "SyncedFromType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "BlockID",
+					"jsonName": "block_id",
+					"type": "*uuid.UUID",
+					"jsonTag": "json:\"block_id,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "SyncedFromType",
+			"description": "SyncedFromType defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "SyncedFromTypeBlockID",
+					"value": "block_id",
+					"literal": "\"block_id\""
+				}
+			]
+		},
+		{
+			"name": "Table",
+			"description": "Table defines a model",
+			"fields": [
+				{
+					"name": "TableWidth",
+					"jsonName": "table_width",
+					"type": "int",
+					"jsonTag": "json:\"table_width,omitzero\"",
+					"description": "Number of columns in the table. Note that this cannot be changed via the public API once a table is created.",
+					"required": true
+				},
+				{
+					"name": "HasColumnHeader",
+					"jsonName": "has_column_header",
+					"type": "bool",
+					"jsonTag": "json:\"has_column_header,omitzero\"",
+					"description": "Whether or not the table has a column header. If true, the first row in the table will appear visually distinct from the other rows.",
+					"required": true
+				},
+				{
+					"name": "HasRowHeader",
+					"jsonName": "has_row_header",
+					"type": "bool",
+					"jsonTag": "json:\"has_row_header,omitzero\"",
+					"description": "Whether or not the table has a header row. If true, the first column in the table will appear visually distinct from the other columns.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "TableOfContents",
+			"description": "Table of contents block objects contain the following information within the `table_of_contents` property.",
+			"fields": [
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color of the block.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Text",
+			"description": "Text objects contain this information within the `text` property of a RichText object.",
+			"fields": [
+				{
+					"name": "Content",
+					"jsonName": "content",
+					"type": "string",
+					"jsonTag": "json:\"content,omitzero\"",
+					"description": "Text content. This field contains the actual content of your text and is probably the field you'll use most often.",
+					"required": true
+				},
+				{
+					"name": "Link",
+					"jsonName": "link",
+					"type": "*Link",
+					"jsonTag": "json:\"link,omitempty\"",
+					"description": "An inline link in a text."
+				}
+			]
+		},
+		{
+			"name": "ToDo",
+			"description": "To do block objects contain this information within the `to_do` property.",
+			"fields": [
+				{
+					"name": "RichText",
+					"jsonName": "rich_text",
+					"type": "RichTexts",
+					"jsonTag": "json:\"rich_text,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Checked",
+					"jsonName": "checked",
+					"type": "bool",
+					"jsonTag": "json:\"checked,omitzero\"",
+					"description": "Whether the to_do is checked or not.",
+					"required": true
+				},
+				{
+					"name": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color of the block.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "User defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "UserReference",
+					"embedded": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "User's name, as displayed in Notion.",
+					"required": true
+				},
+				{
+					"name": "AvatarURL",
+					"jsonName": "avatar_url",
+					"type": "url.URL",
+					"jsonTag": "json:\"avatar_url,omitzero\"",
+					"description": "Chosen avatar image.",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "UserType",
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of the user.",
+					"required": true
+				},
+				{
+					"name": "Person",
+					"jsonName": "person",
+					"type": "Person",
+					"jsonTag": "json:\"person\"",
+					"description": "User objects that represent people have the `type` property set to `person`. These objects also have these properties.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "UserReference",
+			"description": "UserReference defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"description": "Always \"user\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "UserType",
+			"description": "Type of the user.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "UserTypePerson",
+					"value": "person",
+					"literal": "\"person\""
+				},
+				{
+					"goName": "UserTypeBot",
+					"value": "bot",
+					"literal": "\"bot\""
+				}
+			]
+		}
+	],
+	"security": {
+		"bearer": {
+			"name": "NOTION_API_KEY"
+		}
+	},
+	"hasURLFields": true
+}

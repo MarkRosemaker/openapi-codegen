@@ -1,0 +1,269 @@
+{
+	"title": "Petstore API",
+	"production": true,
+	"packageName": "petstore",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.petstoreapi.com",
+		"path": "/v1/pets"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "ListV1Pets",
+			"method": "GET",
+			"pathTemplate": "/",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListV1PetsOkJSONResponse"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListV1PetsOkJSONResponse"
+			}
+		},
+		{
+			"name": "GetV1PetByPetID",
+			"method": "GET",
+			"pathTemplate": "/{petId}",
+			"joinPathArgs": [
+				"petID"
+			],
+			"pathParams": [
+				{
+					"varName": "petID",
+					"goName": "petID",
+					"fieldName": "PetID",
+					"jsonName": "petId",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PetByPetID"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PetByPetID"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "ListV1PetsOkJSONResponse",
+			"description": "ListV1PetsOkJSONResponse defines a model",
+			"fields": [
+				{
+					"name": "Data",
+					"jsonName": "data",
+					"type": "ListV1PetsOkJSONResponseData",
+					"jsonTag": "json:\"data,omitempty\"",
+					"required": true
+				},
+				{
+					"name": "Pagination",
+					"jsonName": "pagination",
+					"type": "ListV1PetsOkJSONResponsePagination",
+					"jsonTag": "json:\"pagination\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListV1PetsOkJSONResponseData",
+			"description": "ListV1PetsOkJSONResponseData defines a model",
+			"kind": 2,
+			"type": "[]PetByPetID"
+		},
+		{
+			"name": "ListV1PetsOkJSONResponsePagination",
+			"description": "ListV1PetsOkJSONResponsePagination defines a model",
+			"fields": [
+				{
+					"name": "Page",
+					"jsonName": "page",
+					"type": "int",
+					"jsonTag": "json:\"page,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Limit",
+					"jsonName": "limit",
+					"type": "int",
+					"jsonTag": "json:\"limit,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TotalItems",
+					"jsonName": "totalItems",
+					"type": "int",
+					"jsonTag": "json:\"totalItems,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "TotalPages",
+					"jsonName": "totalPages",
+					"type": "int",
+					"jsonTag": "json:\"totalPages,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PetByPetID",
+			"description": "PetByPetID defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Species",
+					"jsonName": "species",
+					"type": "string",
+					"jsonTag": "json:\"species,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Breed",
+					"jsonName": "breed",
+					"type": "string",
+					"jsonTag": "json:\"breed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "AgeMonths",
+					"jsonName": "ageMonths",
+					"type": "int",
+					"jsonTag": "json:\"ageMonths,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Size",
+					"jsonName": "size",
+					"type": "string",
+					"jsonTag": "json:\"size,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Price",
+					"jsonName": "price",
+					"type": "string",
+					"jsonTag": "json:\"price,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Currency",
+					"jsonName": "currency",
+					"type": "string",
+					"jsonTag": "json:\"currency,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "GoodWithKids",
+					"jsonName": "goodWithKids",
+					"type": "bool",
+					"jsonTag": "json:\"goodWithKids,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "CreatedAt",
+					"jsonName": "createdAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"createdAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "UpdatedAt",
+					"jsonName": "updatedAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "MedicalInfo",
+					"jsonName": "medicalInfo",
+					"type": "PetByPetIDMedicalInfo",
+					"jsonTag": "json:\"medicalInfo\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PetByPetIDMedicalInfo",
+			"description": "PetByPetIDMedicalInfo defines a model",
+			"fields": [
+				{
+					"name": "Vaccinated",
+					"jsonName": "vaccinated",
+					"type": "bool",
+					"jsonTag": "json:\"vaccinated,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SpayedNeutered",
+					"jsonName": "spayedNeutered",
+					"type": "bool",
+					"jsonTag": "json:\"spayedNeutered,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Microchipped",
+					"jsonName": "microchipped",
+					"type": "bool",
+					"jsonTag": "json:\"microchipped,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "SpecialNeeds",
+					"jsonName": "specialNeeds",
+					"type": "bool",
+					"jsonTag": "json:\"specialNeeds,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "HealthNotes",
+					"jsonName": "healthNotes",
+					"type": "string",
+					"jsonTag": "json:\"healthNotes,omitzero\"",
+					"required": true
+				}
+			]
+		}
+	]
+}
