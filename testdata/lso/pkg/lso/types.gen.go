@@ -53,9 +53,9 @@ func (e AccountAccountType) Valid() bool {
 // AccountSummary defines a model
 type AccountSummary struct {
 	Account  Account  `json:"account"`
-	Stocks   Stocks   `json:"stocks,omitempty"`
-	Options  Options  `json:"options,omitempty"`
-	Balances Balances `json:"balances,omitempty"`
+	Stocks   Stocks   `json:"stocks,omitzero"`
+	Options  Options  `json:"options,omitzero"`
+	Balances Balances `json:"balances,omitzero"`
 }
 
 // Accounts defines a model
@@ -98,7 +98,7 @@ type CashBalance struct {
 // ChartSeries defines a model
 type ChartSeries struct {
 	Label  string            `json:"label,omitzero"`
-	Points ChartSeriesPoints `json:"points,omitempty"`
+	Points ChartSeriesPoints `json:"points,omitzero"`
 }
 
 // ChartSeriesPoints defines a model
@@ -167,7 +167,7 @@ type FundamentalsAnalysis struct {
 
 // GetCashResult defines a model
 type GetCashResult struct {
-	Balances Balances  `json:"balances,omitempty"`
+	Balances Balances  `json:"balances,omitzero"`
 	AsOf     time.Time `json:"as_of,omitzero"`
 }
 
@@ -195,7 +195,7 @@ type IncomeStatementAnalysisSeries struct {
 
 // ListAccountsResult defines a model
 type ListAccountsResult struct {
-	Accounts Accounts `json:"accounts,omitempty"`
+	Accounts Accounts `json:"accounts,omitzero"`
 	// When the cached data was last refreshed from the broker
 	AsOf time.Time `json:"as_of,omitzero"`
 }
@@ -249,8 +249,8 @@ type Options []Option
 
 // Positions defines a model
 type Positions struct {
-	Stocks  Stocks    `json:"stocks,omitempty"`
-	Options Options   `json:"options,omitempty"`
+	Stocks  Stocks    `json:"stocks,omitzero"`
+	Options Options   `json:"options,omitzero"`
 	AsOf    time.Time `json:"as_of,omitzero"`
 }
 
@@ -296,5 +296,5 @@ type Stocks []Stock
 
 // Watchlist defines a model
 type Watchlist struct {
-	Symbols []string `json:"symbols,omitempty"`
+	Symbols []string `json:"symbols,omitzero"`
 }

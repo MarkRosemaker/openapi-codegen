@@ -5299,7 +5299,7 @@
 					"name": "Submissions",
 					"jsonName": "submissions",
 					"type": "AnimateObjectResponseSubmissions",
-					"jsonTag": "json:\"submissions,omitempty\"",
+					"jsonTag": "json:\"submissions,omitzero\"",
 					"required": true
 				},
 				{
@@ -5338,7 +5338,7 @@
 					"name": "Images",
 					"jsonName": "images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"images,omitempty\"",
+					"jsonTag": "json:\"images,omitzero\"",
 					"required": true
 				}
 			]
@@ -5889,7 +5889,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "[]string",
-					"jsonTag": "json:\"frames,omitempty\"",
+					"jsonTag": "json:\"frames,omitzero\"",
 					"description": "Public URLs for each frame in order",
 					"required": true
 				}
@@ -5925,7 +5925,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "AnimationGroupDirections",
-					"jsonTag": "json:\"directions,omitempty\"",
+					"jsonTag": "json:\"directions,omitzero\"",
 					"required": true
 				}
 			]
@@ -6582,7 +6582,7 @@
 					"name": "Characters",
 					"jsonName": "characters",
 					"type": "CharactersListResponseCharacters",
-					"jsonTag": "json:\"characters,omitempty\"",
+					"jsonTag": "json:\"characters,omitzero\"",
 					"description": "List of user's characters",
 					"required": true
 				},
@@ -6956,7 +6956,7 @@
 					"name": "BackgroundJobIds",
 					"jsonName": "background_job_ids",
 					"type": "[]string",
-					"jsonTag": "json:\"background_job_ids,omitempty\"",
+					"jsonTag": "json:\"background_job_ids,omitzero\"",
 					"description": "List of background job IDs (one per direction)",
 					"required": true
 				},
@@ -6964,7 +6964,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "[]string",
-					"jsonTag": "json:\"directions,omitempty\"",
+					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "List of directions being animated",
 					"required": true
 				},
@@ -9610,7 +9610,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "EditAnimationFrames",
-					"jsonTag": "json:\"frames,omitempty\"",
+					"jsonTag": "json:\"frames,omitzero\"",
 					"description": "Animation frames to edit (2-16 frames)",
 					"required": true
 				},
@@ -9757,7 +9757,7 @@
 					"name": "EditImages",
 					"jsonName": "edit_images",
 					"type": "EditImagesV2RequestEditImages",
-					"jsonTag": "json:\"edit_images,omitempty\"",
+					"jsonTag": "json:\"edit_images,omitzero\"",
 					"description": "Images to edit (1-16 images depending on size)",
 					"required": true
 				},
@@ -9999,7 +9999,7 @@
 					"name": "Keypoints",
 					"jsonName": "keypoints",
 					"type": "EstimateSkeletonResponseKeypoints",
-					"jsonTag": "json:\"keypoints,omitempty\"",
+					"jsonTag": "json:\"keypoints,omitzero\"",
 					"required": true
 				}
 			]
@@ -10339,7 +10339,7 @@
 					"name": "StyleImages",
 					"jsonName": "style_images",
 					"type": "GenerateWithStyleV2RequestStyleImages",
-					"jsonTag": "json:\"style_images,omitempty\"",
+					"jsonTag": "json:\"style_images,omitzero\"",
 					"description": "Style reference images (1-4 images)",
 					"required": true
 				},
@@ -11128,7 +11128,7 @@
 					"name": "Tiles",
 					"jsonName": "tiles",
 					"type": "IsometricTilesListResponseTiles",
-					"jsonTag": "json:\"tiles,omitempty\"",
+					"jsonTag": "json:\"tiles,omitzero\"",
 					"description": "List of user's isometric tiles",
 					"required": true
 				},
@@ -11330,7 +11330,7 @@
 					"name": "VisemeOrder",
 					"jsonName": "viseme_order",
 					"type": "[]string",
-					"jsonTag": "json:\"viseme_order,omitempty\"",
+					"jsonTag": "json:\"viseme_order,omitzero\"",
 					"description": "Spritesheet column order.",
 					"required": true
 				},
@@ -11338,7 +11338,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "LipSyncResponseFrames",
-					"jsonTag": "json:\"frames,omitempty\"",
+					"jsonTag": "json:\"frames,omitzero\"",
 					"required": true
 				},
 				{
@@ -11464,7 +11464,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "ObjectAnimationGroupDirections",
-					"jsonTag": "json:\"directions,omitempty\"",
+					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "One entry per distinct direction (deduped by MAX(created_at))",
 					"required": true
 				}
@@ -11784,7 +11784,7 @@
 					"name": "Objects",
 					"jsonName": "objects",
 					"type": "ObjectsListResponseObjects",
-					"jsonTag": "json:\"objects,omitempty\"",
+					"jsonTag": "json:\"objects,omitzero\"",
 					"description": "List of user's objects",
 					"required": true
 				},
@@ -12300,7 +12300,7 @@
 					"name": "Indices",
 					"jsonName": "indices",
 					"type": "[]int",
-					"jsonTag": "json:\"indices,omitempty\"",
+					"jsonTag": "json:\"indices,omitzero\"",
 					"description": "Frame indices (0-based) to keep as completed individual objects.",
 					"required": true
 				},
@@ -12327,7 +12327,7 @@
 					"name": "CreatedObjectIds",
 					"jsonName": "created_object_ids",
 					"type": "[]string",
-					"jsonTag": "json:\"created_object_ids,omitempty\"",
+					"jsonTag": "json:\"created_object_ids,omitzero\"",
 					"required": true
 				}
 			]
@@ -12504,7 +12504,7 @@
 					"name": "Tilesets",
 					"jsonName": "tilesets",
 					"type": "SidescrollerTilesetsListResponseTilesets",
-					"jsonTag": "json:\"tilesets,omitempty\"",
+					"jsonTag": "json:\"tilesets,omitzero\"",
 					"required": true
 				},
 				{
@@ -12894,7 +12894,7 @@
 					"name": "North",
 					"jsonName": "north",
 					"type": "[]string",
-					"jsonTag": "json:\"north,omitempty\"",
+					"jsonTag": "json:\"north,omitzero\"",
 					"description": "IDs of tiles that can be placed above this tile",
 					"required": true
 				},
@@ -12902,7 +12902,7 @@
 					"name": "South",
 					"jsonName": "south",
 					"type": "[]string",
-					"jsonTag": "json:\"south,omitempty\"",
+					"jsonTag": "json:\"south,omitzero\"",
 					"description": "IDs of tiles that can be placed below this tile",
 					"required": true
 				},
@@ -12910,7 +12910,7 @@
 					"name": "East",
 					"jsonName": "east",
 					"type": "[]string",
-					"jsonTag": "json:\"east,omitempty\"",
+					"jsonTag": "json:\"east,omitzero\"",
 					"description": "IDs of tiles that can be placed to the right of this tile",
 					"required": true
 				},
@@ -12918,7 +12918,7 @@
 					"name": "West",
 					"jsonName": "west",
 					"type": "[]string",
-					"jsonTag": "json:\"west,omitempty\"",
+					"jsonTag": "json:\"west,omitzero\"",
 					"description": "IDs of tiles that can be placed to the left of this tile",
 					"required": true
 				}
@@ -12993,7 +12993,7 @@
 					"name": "Row0",
 					"jsonName": "row_0",
 					"type": "[]int",
-					"jsonTag": "json:\"row_0,omitempty\"",
+					"jsonTag": "json:\"row_0,omitzero\"",
 					"description": "Top row with wildcards",
 					"required": true
 				},
@@ -13001,7 +13001,7 @@
 					"name": "Row1",
 					"jsonName": "row_1",
 					"type": "[]int",
-					"jsonTag": "json:\"row_1,omitempty\"",
+					"jsonTag": "json:\"row_1,omitzero\"",
 					"description": "Second row with NW, NE corners",
 					"required": true
 				},
@@ -13009,7 +13009,7 @@
 					"name": "Row2",
 					"jsonName": "row_2",
 					"type": "[]int",
-					"jsonTag": "json:\"row_2,omitempty\"",
+					"jsonTag": "json:\"row_2,omitzero\"",
 					"description": "Third row with SW, SE corners",
 					"required": true
 				},
@@ -13017,7 +13017,7 @@
 					"name": "Row3",
 					"jsonName": "row_3",
 					"type": "[]int",
-					"jsonTag": "json:\"row_3,omitempty\"",
+					"jsonTag": "json:\"row_3,omitzero\"",
 					"description": "Bottom row with wildcards",
 					"required": true
 				}
@@ -13057,7 +13057,7 @@
 					"name": "Tiles",
 					"jsonName": "tiles",
 					"type": "TilesProListResponseTiles",
-					"jsonTag": "json:\"tiles,omitempty\"",
+					"jsonTag": "json:\"tiles,omitzero\"",
 					"required": true
 				},
 				{
@@ -13217,7 +13217,7 @@
 					"name": "TerrainTypes",
 					"jsonName": "terrain_types",
 					"type": "[]string",
-					"jsonTag": "json:\"terrain_types,omitempty\"",
+					"jsonTag": "json:\"terrain_types,omitzero\"",
 					"description": "Available terrain types",
 					"required": true
 				},
@@ -13225,7 +13225,7 @@
 					"name": "Tiles",
 					"jsonName": "tiles",
 					"type": "TilesetDataTiles",
-					"jsonTag": "json:\"tiles,omitempty\"",
+					"jsonTag": "json:\"tiles,omitzero\"",
 					"description": "List of individual tiles with metadata",
 					"required": true
 				}
@@ -13245,7 +13245,7 @@
 					"name": "EdgeTypes",
 					"jsonName": "edge_types",
 					"type": "[]string",
-					"jsonTag": "json:\"edge_types,omitempty\"",
+					"jsonTag": "json:\"edge_types,omitzero\"",
 					"description": "Available edge/terrain types",
 					"required": true
 				},
@@ -13379,7 +13379,7 @@
 					"name": "Tilesets",
 					"jsonName": "tilesets",
 					"type": "TilesetsListResponseTilesets",
-					"jsonTag": "json:\"tilesets,omitempty\"",
+					"jsonTag": "json:\"tilesets,omitzero\"",
 					"description": "List of user's tilesets",
 					"required": true
 				},
@@ -13415,7 +13415,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "EditAnimationFrames",
-					"jsonTag": "json:\"frames,omitempty\"",
+					"jsonTag": "json:\"frames,omitzero\"",
 					"description": "Animation frames to apply the outfit to (2-16 frames)",
 					"required": true
 				},
@@ -13596,7 +13596,7 @@
 					"name": "UIAssets",
 					"jsonName": "ui_assets",
 					"type": "UIAssetsListResponseUIAssets",
-					"jsonTag": "json:\"ui_assets,omitempty\"",
+					"jsonTag": "json:\"ui_assets,omitzero\"",
 					"description": "The user's UI assets (templates), newest first",
 					"required": true
 				},
@@ -13791,7 +13791,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "List of tags to assign to the object",
 					"required": true
 				}
@@ -13811,7 +13811,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "Updated list of tags",
 					"required": true
 				}
@@ -13868,7 +13868,7 @@
 					"name": "Loc",
 					"jsonName": "loc",
 					"type": "[]CreateUIAssetPiecesItem",
-					"jsonTag": "json:\"loc,omitempty\"",
+					"jsonTag": "json:\"loc,omitzero\"",
 					"required": true
 				},
 				{

@@ -75,7 +75,7 @@
 					"name": "Data",
 					"jsonName": "data",
 					"type": "ListV1PetsOkJSONResponseData",
-					"jsonTag": "json:\"data,omitempty\"",
+					"jsonTag": "json:\"data,omitzero\"",
 					"required": true
 				},
 				{

@@ -661,7 +661,7 @@
 					"name": "Results",
 					"jsonName": "results",
 					"type": "Blocks",
-					"jsonTag": "json:\"results,omitempty\"",
+					"jsonTag": "json:\"results,omitzero\"",
 					"description": "The result, an array of block objects.",
 					"required": true
 				},
@@ -697,7 +697,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "RichTexts",
-					"jsonTag": "json:\"rich_text,omitempty\"",
+					"jsonTag": "json:\"rich_text,omitzero\"",
 					"required": true
 				},
 				{
@@ -745,7 +745,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "RichTexts",
-					"jsonTag": "json:\"rich_text,omitempty\"",
+					"jsonTag": "json:\"rich_text,omitzero\"",
 					"required": true
 				},
 				{
@@ -1265,7 +1265,7 @@
 					"name": "Caption",
 					"jsonName": "caption",
 					"type": "RichTexts",
-					"jsonTag": "json:\"caption,omitempty\"",
+					"jsonTag": "json:\"caption,omitzero\"",
 					"required": true
 				},
 				{
@@ -1368,7 +1368,7 @@
 					"name": "Caption",
 					"jsonName": "caption",
 					"type": "RichTexts",
-					"jsonTag": "json:\"caption,omitempty\"",
+					"jsonTag": "json:\"caption,omitzero\"",
 					"required": true
 				},
 				{
@@ -1385,7 +1385,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "RichTexts",
-					"jsonTag": "json:\"rich_text,omitempty\"",
+					"jsonTag": "json:\"rich_text,omitzero\"",
 					"required": true
 				},
 				{
@@ -1772,7 +1772,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "RichTexts",
-					"jsonTag": "json:\"rich_text,omitempty\"",
+					"jsonTag": "json:\"rich_text,omitzero\"",
 					"required": true
 				},
 				{
@@ -2213,7 +2213,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "RichTexts",
-					"jsonTag": "json:\"rich_text,omitempty\"",
+					"jsonTag": "json:\"rich_text,omitzero\"",
 					"required": true
 				},
 				{

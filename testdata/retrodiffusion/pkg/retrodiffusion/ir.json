@@ -70,21 +70,21 @@
 					"name": "Styles",
 					"jsonName": "styles",
 					"type": "ListV1StylesSelectorOkJSONResponseStyles",
-					"jsonTag": "json:\"styles,omitempty\"",
+					"jsonTag": "json:\"styles,omitzero\"",
 					"required": true
 				},
 				{
 					"name": "Models",
 					"jsonName": "models",
 					"type": "[]string",
-					"jsonTag": "json:\"models,omitempty\"",
+					"jsonTag": "json:\"models,omitzero\"",
 					"required": true
 				},
 				{
 					"name": "Tabs",
 					"jsonName": "tabs",
 					"type": "[]string",
-					"jsonTag": "json:\"tabs,omitempty\"",
+					"jsonTag": "json:\"tabs,omitzero\"",
 					"required": true
 				}
 			]

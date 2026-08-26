@@ -19,9 +19,9 @@ type ListV1StylesSelectorParams struct {
 
 // ListV1StylesSelectorOkJSONResponse defines a model
 type ListV1StylesSelectorOkJSONResponse struct {
-	Styles ListV1StylesSelectorOkJSONResponseStyles `json:"styles,omitempty"`
-	Models []string                                 `json:"models,omitempty"`
-	Tabs   []string                                 `json:"tabs,omitempty"`
+	Styles ListV1StylesSelectorOkJSONResponseStyles `json:"styles,omitzero"`
+	Models []string                                 `json:"models,omitzero"`
+	Tabs   []string                                 `json:"tabs,omitzero"`
 }
 
 // ListV1StylesSelectorOkJSONResponseStyles defines a model

@@ -251,7 +251,7 @@
 					"name": "Pure",
 					"jsonName": "pure",
 					"type": "ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure",
-					"jsonTag": "json:\"pure,omitempty\"",
+					"jsonTag": "json:\"pure,omitzero\"",
 					"required": true
 				}
 			]
@@ -5408,7 +5408,7 @@
 					"name": "Store",
 					"jsonName": "Store",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"Store,omitempty\"",
+					"jsonTag": "json:\"Store,omitzero\"",
 					"required": true
 				}
 			]
@@ -5448,7 +5448,7 @@
 					"name": "Shares",
 					"jsonName": "shares",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"shares,omitempty\"",
+					"jsonTag": "json:\"shares,omitzero\"",
 					"required": true
 				}
 			]
@@ -5561,7 +5561,7 @@
 					"name": "Usd",
 					"jsonName": "USD",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"USD,omitempty\"",
+					"jsonTag": "json:\"USD,omitzero\"",
 					"required": true
 				}
 			]
@@ -5676,7 +5676,7 @@
 					"name": "Usd",
 					"jsonName": "USD",
 					"type": "ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure",
-					"jsonTag": "json:\"USD,omitempty\"",
+					"jsonTag": "json:\"USD,omitzero\"",
 					"required": true
 				}
 			]
@@ -5716,7 +5716,7 @@
 					"name": "UsdShares",
 					"jsonName": "USD/shares",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"USD/shares,omitempty\"",
+					"jsonTag": "json:\"USD/shares,omitzero\"",
 					"required": true
 				}
 			]
@@ -5783,7 +5783,7 @@
 					"name": "Pure",
 					"jsonName": "pure",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"pure,omitempty\"",
+					"jsonTag": "json:\"pure,omitzero\"",
 					"required": true
 				}
 			]
@@ -5850,7 +5850,7 @@
 					"name": "Year",
 					"jsonName": "Year",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"Year,omitempty\"",
+					"jsonTag": "json:\"Year,omitzero\"",
 					"required": true
 				}
 			]
@@ -5890,14 +5890,14 @@
 					"name": "Pure",
 					"jsonName": "pure",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"pure,omitempty\"",
+					"jsonTag": "json:\"pure,omitzero\"",
 					"required": true
 				},
 				{
 					"name": "Year",
 					"jsonName": "Year",
 					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares",
-					"jsonTag": "json:\"Year,omitempty\"",
+					"jsonTag": "json:\"Year,omitzero\"",
 					"required": true
 				}
 			]

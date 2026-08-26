@@ -42,7 +42,7 @@ type PostApiv3TaskScoreUpParams struct {
 
 // ApivTaskByTaskIDDataGroup defines a model
 type ApivTaskByTaskIDDataGroup struct {
-	AssignedUsers []struct{}                        `json:"assignedUsers,omitempty"`
+	AssignedUsers []struct{}                        `json:"assignedUsers,omitzero"`
 	Approval      ApivTaskByTaskIDDataGroupApproval `json:"approval"`
 }
 
@@ -57,7 +57,7 @@ type ApivTaskByTaskIDDataGroupApproval struct {
 type GetApiv3TaskByTaskIDOkJSONResponse struct {
 	Success       bool                                   `json:"success,omitzero"`
 	Data          GetApiv3TaskByTaskIDOkJSONResponseData `json:"data"`
-	Notifications []struct{}                             `json:"notifications,omitempty"`
+	Notifications []struct{}                             `json:"notifications,omitzero"`
 }
 
 // GetApiv3TaskByTaskIDOkJSONResponseData defines a model
@@ -68,16 +68,16 @@ type GetApiv3TaskByTaskIDOkJSONResponseData struct {
 	Alias        string                                          `json:"alias,omitzero"`
 	Type         string                                          `json:"type,omitzero"`
 	Notes        string                                          `json:"notes,omitzero"`
-	Tags         []struct{}                                      `json:"tags,omitempty"`
+	Tags         []struct{}                                      `json:"tags,omitzero"`
 	Value        float64                                         `json:"value"`
 	Priority     float64                                         `json:"priority"`
 	Attribute    string                                          `json:"attribute,omitzero"`
 	Challenge    GetApiv3TaskByTaskIDOkJSONResponseDataChallenge `json:"challenge"`
 	Group        ApivTaskByTaskIDDataGroup                       `json:"group"`
-	Reminders    []struct{}                                      `json:"reminders,omitempty"`
+	Reminders    []struct{}                                      `json:"reminders,omitzero"`
 	CreatedAt    time.Time                                       `json:"createdAt,omitzero"`
 	UpdatedAt    time.Time                                       `json:"updatedAt,omitzero"`
-	History      GetApiv3TaskByTaskIDOkJSONResponseDataHistory   `json:"history,omitempty"`
+	History      GetApiv3TaskByTaskIDOkJSONResponseDataHistory   `json:"history,omitzero"`
 	Down         bool                                            `json:"down,omitzero"`
 	Up           bool                                            `json:"up,omitzero"`
 	ID           uuid.UUID                                       `json:"id,omitzero"`
@@ -101,8 +101,8 @@ type GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem struct {
 // ListApiv3TasksUserOkJSONResponse defines a model
 type ListApiv3TasksUserOkJSONResponse struct {
 	Success       bool                                 `json:"success,omitzero"`
-	Data          ListApiv3TasksUserOkJSONResponseData `json:"data,omitempty"`
-	Notifications []struct{}                           `json:"notifications,omitempty"`
+	Data          ListApiv3TasksUserOkJSONResponseData `json:"data,omitzero"`
+	Notifications []struct{}                           `json:"notifications,omitzero"`
 }
 
 // ListApiv3TasksUserOkJSONResponseData defines a model
@@ -115,13 +115,13 @@ type ListApiv3TasksUserOkJSONResponseDataItem struct {
 	Text              string                                            `json:"text,omitzero"`
 	Type              string                                            `json:"type,omitzero"`
 	Notes             string                                            `json:"notes,omitzero"`
-	Tags              []struct{}                                        `json:"tags,omitempty"`
+	Tags              []struct{}                                        `json:"tags,omitzero"`
 	Value             int                                               `json:"value,omitzero"`
 	Priority          int                                               `json:"priority,omitzero"`
 	Attribute         string                                            `json:"attribute,omitzero"`
 	Challenge         struct{}                                          `json:"challenge"`
 	Group             ApivTaskByTaskIDDataGroup                         `json:"group"`
-	Reminders         ListApiv3TasksUserOkJSONResponseDataItemReminders `json:"reminders,omitempty"`
+	Reminders         ListApiv3TasksUserOkJSONResponseDataItemReminders `json:"reminders,omitzero"`
 	CreatedAt         time.Time                                         `json:"createdAt,omitzero"`
 	UpdatedAt         time.Time                                         `json:"updatedAt,omitzero"`
 	ID                uuid.UUID                                         `json:"id,omitzero"`
@@ -162,7 +162,7 @@ type ListApiv3TasksUserOkJSONResponseDataItemRepeat struct {
 type ListApiv3UserOkJSONResponse struct {
 	Success       bool                            `json:"success,omitzero"`
 	Data          ListApiv3UserOkJSONResponseData `json:"data"`
-	Notifications []struct{}                      `json:"notifications,omitempty"`
+	Notifications []struct{}                      `json:"notifications,omitzero"`
 	UserV         int                             `json:"userV,omitzero"`
 	AppVersion    string                          `json:"appVersion,omitzero"`
 }
@@ -188,22 +188,22 @@ type ListApiv3UserOkJSONResponseData struct {
 	UnderscoreID           uuid.UUID                                   `json:"_id,omitzero"`
 	UnderscoreABtest       string                                      `json:"_ABtest,omitzero"`
 	LoginIncentives        int                                         `json:"loginIncentives,omitzero"`
-	Webhooks               []struct{}                                  `json:"webhooks,omitempty"`
-	PushDevices            ListApiv3UserOkJSONResponseDataPushDevices  `json:"pushDevices,omitempty"`
+	Webhooks               []struct{}                                  `json:"webhooks,omitzero"`
+	PushDevices            ListApiv3UserOkJSONResponseDataPushDevices  `json:"pushDevices,omitzero"`
 	Extra                  struct{}                                    `json:"extra"`
-	Tags                   ListApiv3UserOkJSONResponseDataTags         `json:"tags,omitempty"`
-	Notifications          []struct{}                                  `json:"notifications,omitempty"`
-	Guilds                 []uuid.UUID                                 `json:"guilds,omitempty"`
-	Challenges             []uuid.UUID                                 `json:"challenges,omitempty"`
+	Tags                   ListApiv3UserOkJSONResponseDataTags         `json:"tags,omitzero"`
+	Notifications          []struct{}                                  `json:"notifications,omitzero"`
+	Guilds                 []uuid.UUID                                 `json:"guilds,omitzero"`
+	Challenges             []uuid.UUID                                 `json:"challenges,omitzero"`
 	NewMessages            struct{}                                    `json:"newMessages"`
 	LastCron               time.Time                                   `json:"lastCron,omitzero"`
 	Balance                int                                         `json:"balance,omitzero"`
 	UnderscoreV            int                                         `json:"_v,omitzero"`
 	Migration              string                                      `json:"migration,omitzero"`
-	PinnedItems            ListApiv3UserOkJSONResponseDataPinnedItems  `json:"pinnedItems,omitempty"`
-	UnpinnedItems          []struct{}                                  `json:"unpinnedItems,omitempty"`
+	PinnedItems            ListApiv3UserOkJSONResponseDataPinnedItems  `json:"pinnedItems,omitzero"`
+	UnpinnedItems          []struct{}                                  `json:"unpinnedItems,omitzero"`
 	InvitesSent            int                                         `json:"invitesSent,omitzero"`
-	PinnedItemsOrder       []struct{}                                  `json:"pinnedItemsOrder,omitempty"`
+	PinnedItemsOrder       []struct{}                                  `json:"pinnedItemsOrder,omitzero"`
 	UnderscoreSubSignature string                                      `json:"_subSignature,omitzero"`
 	ID                     uuid.UUID                                   `json:"id,omitzero"`
 	NeedsCron              bool                                        `json:"needsCron,omitzero"`
@@ -214,7 +214,7 @@ type ListApiv3UserOkJSONResponseDataAchievements struct {
 	UltimateGearSets   ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets `json:"ultimateGearSets"`
 	Perfect            int                                                         `json:"perfect,omitzero"`
 	Quests             ListApiv3UserOkJSONResponseDataAchievementsQuests           `json:"quests"`
-	Challenges         []struct{}                                                  `json:"challenges,omitempty"`
+	Challenges         []struct{}                                                  `json:"challenges,omitzero"`
 	PartyUp            bool                                                        `json:"partyUp,omitzero"`
 	PartyOn            bool                                                        `json:"partyOn,omitzero"`
 	HabitBirthdays     int                                                         `json:"habitBirthdays,omitzero"`
@@ -273,7 +273,7 @@ type ListApiv3UserOkJSONResponseDataAuth struct {
 // ListApiv3UserOkJSONResponseDataAuthGoogle defines a model
 type ListApiv3UserOkJSONResponseDataAuthGoogle struct {
 	ID     string                                          `json:"id,omitzero"`
-	Emails ListApiv3UserOkJSONResponseDataAuthGoogleEmails `json:"emails,omitempty"`
+	Emails ListApiv3UserOkJSONResponseDataAuthGoogleEmails `json:"emails,omitzero"`
 }
 
 // ListApiv3UserOkJSONResponseDataAuthGoogleEmails defines a model
@@ -393,15 +393,15 @@ type ListApiv3UserOkJSONResponseDataFlagsTutorialIos struct {
 
 // ListApiv3UserOkJSONResponseDataHistory defines a model
 type ListApiv3UserOkJSONResponseDataHistory struct {
-	Todos ListApivUserDataHistoryExp `json:"todos,omitempty"`
-	Exp   ListApivUserDataHistoryExp `json:"exp,omitempty"`
+	Todos ListApivUserDataHistoryExp `json:"todos,omitzero"`
+	Exp   ListApivUserDataHistoryExp `json:"exp,omitzero"`
 }
 
 // ListApiv3UserOkJSONResponseDataInbox defines a model
 type ListApiv3UserOkJSONResponseDataInbox struct {
 	OptOut      bool                                         `json:"optOut,omitzero"`
 	Messages    ListApiv3UserOkJSONResponseDataInboxMessages `json:"messages"`
-	Blocks      []struct{}                                   `json:"blocks,omitempty"`
+	Blocks      []struct{}                                   `json:"blocks,omitzero"`
 	NewMessages int                                          `json:"newMessages,omitzero"`
 }
 
@@ -417,8 +417,8 @@ type ListApiv3UserOkJSONResponseDataInboxMessages struct {
 // ListApiv3UserOkJSONResponseDataInvitations defines a model
 type ListApiv3UserOkJSONResponseDataInvitations struct {
 	Party   struct{}   `json:"party"`
-	Guilds  []struct{} `json:"guilds,omitempty"`
-	Parties []struct{} `json:"parties,omitempty"`
+	Guilds  []struct{} `json:"guilds,omitzero"`
+	Parties []struct{} `json:"parties,omitzero"`
 }
 
 // ListApiv3UserOkJSONResponseDataItems defines a model
@@ -888,23 +888,23 @@ type ListApiv3UserOkJSONResponseDataItemsQuests struct {
 
 // ListApiv3UserOkJSONResponseDataItemsSpecial defines a model
 type ListApiv3UserOkJSONResponseDataItemsSpecial struct {
-	BirthdayReceived  []struct{} `json:"birthdayReceived,omitempty"`
+	BirthdayReceived  []struct{} `json:"birthdayReceived,omitzero"`
 	Birthday          int        `json:"birthday,omitzero"`
-	ThankyouReceived  []struct{} `json:"thankyouReceived,omitempty"`
+	ThankyouReceived  []struct{} `json:"thankyouReceived,omitzero"`
 	Thankyou          int        `json:"thankyou,omitzero"`
-	GreetingReceived  []struct{} `json:"greetingReceived,omitempty"`
+	GreetingReceived  []struct{} `json:"greetingReceived,omitzero"`
 	Greeting          int        `json:"greeting,omitzero"`
-	NyeReceived       []struct{} `json:"nyeReceived,omitempty"`
+	NyeReceived       []struct{} `json:"nyeReceived,omitzero"`
 	Nye               int        `json:"nye,omitzero"`
-	ValentineReceived []struct{} `json:"valentineReceived,omitempty"`
+	ValentineReceived []struct{} `json:"valentineReceived,omitzero"`
 	Valentine         int        `json:"valentine,omitzero"`
 	Seafoam           int        `json:"seafoam,omitzero"`
 	ShinySeed         int        `json:"shinySeed,omitzero"`
 	SpookySparkles    int        `json:"spookySparkles,omitzero"`
 	Snowball          int        `json:"snowball,omitzero"`
-	CongratsReceived  []struct{} `json:"congratsReceived,omitempty"`
-	GetwellReceived   []struct{} `json:"getwellReceived,omitempty"`
-	GoodluckReceived  []struct{} `json:"goodluckReceived,omitempty"`
+	CongratsReceived  []struct{} `json:"congratsReceived,omitzero"`
+	GetwellReceived   []struct{} `json:"getwellReceived,omitzero"`
+	GoodluckReceived  []struct{} `json:"goodluckReceived,omitzero"`
 	Congrats          int        `json:"congrats,omitzero"`
 	Getwell           int        `json:"getwell,omitzero"`
 	Goodluck          int        `json:"goodluck,omitzero"`
@@ -970,7 +970,7 @@ type ListApiv3UserOkJSONResponseDataPreferences struct {
 	ReverseChatOrder                 bool                                                         `json:"reverseChatOrder,omitzero"`
 	DeveloperMode                    bool                                                         `json:"developerMode,omitzero"`
 	DisplayInviteToPartyWhenPartyIs1 bool                                                         `json:"displayInviteToPartyWhenPartyIs1,omitzero"`
-	ImprovementCategories            []struct{}                                                   `json:"improvementCategories,omitempty"`
+	ImprovementCategories            []struct{}                                                   `json:"improvementCategories,omitzero"`
 	AutomaticAllocation              bool                                                         `json:"automaticAllocation,omitzero"`
 	TimezoneOffsetAtLastCron         int                                                          `json:"timezoneOffsetAtLastCron,omitzero"`
 	Language                         string                                                       `json:"language,omitzero"`
@@ -1041,7 +1041,7 @@ type ListApiv3UserOkJSONResponseDataPreferencesTasks struct {
 	ActiveFilter      ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter `json:"activeFilter"`
 	GroupByChallenge  bool                                                        `json:"groupByChallenge,omitzero"`
 	ConfirmScoreNotes bool                                                        `json:"confirmScoreNotes,omitzero"`
-	MirrorGroupTasks  []struct{}                                                  `json:"mirrorGroupTasks,omitempty"`
+	MirrorGroupTasks  []struct{}                                                  `json:"mirrorGroupTasks,omitzero"`
 }
 
 // ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter defines a model
@@ -1082,7 +1082,7 @@ type ListApiv3UserOkJSONResponseDataPurchasedBackground struct {
 // ListApiv3UserOkJSONResponseDataPurchasedPlan defines a model
 type ListApiv3UserOkJSONResponseDataPurchasedPlan struct {
 	Consecutive     ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive `json:"consecutive"`
-	MysteryItems    []struct{}                                              `json:"mysteryItems,omitempty"`
+	MysteryItems    []struct{}                                              `json:"mysteryItems,omitzero"`
 	GemsBought      int                                                     `json:"gemsBought,omitzero"`
 	ExtraMonths     int                                                     `json:"extraMonths,omitzero"`
 	Quantity        int                                                     `json:"quantity,omitzero"`
@@ -1142,10 +1142,10 @@ type ListApiv3UserOkJSONResponseDataTagsItem struct {
 
 // ListApiv3UserOkJSONResponseDataTasksOrder defines a model
 type ListApiv3UserOkJSONResponseDataTasksOrder struct {
-	Rewards []uuid.UUID `json:"rewards,omitempty"`
-	Todos   []uuid.UUID `json:"todos,omitempty"`
-	Dailys  []uuid.UUID `json:"dailys,omitempty"`
-	Habits  []uuid.UUID `json:"habits,omitempty"`
+	Rewards []uuid.UUID `json:"rewards,omitzero"`
+	Todos   []uuid.UUID `json:"todos,omitzero"`
+	Dailys  []uuid.UUID `json:"dailys,omitzero"`
+	Habits  []uuid.UUID `json:"habits,omitzero"`
 }
 
 // ListApivUserDataHistoryExp defines a model
@@ -1207,7 +1207,7 @@ type PostApiv3TaskScoreUpNotFoundJSONResponse struct {
 type PostApiv3TaskScoreUpOkJSONResponse struct {
 	Success       bool                                   `json:"success,omitzero"`
 	Data          PostApiv3TaskScoreUpOkJSONResponseData `json:"data"`
-	Notifications []struct{}                             `json:"notifications,omitempty"`
+	Notifications []struct{}                             `json:"notifications,omitzero"`
 	UserV         *int                                   `json:"userV,omitempty"`
 	AppVersion    string                                 `json:"appVersion,omitzero"`
 }

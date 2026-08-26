@@ -94,7 +94,7 @@ type NewTimeEntry struct {
 	// IDs of tags to add/remove
 	TagIds []int `json:"tag_ids,omitempty"`
 	// Names of tags to add/remove. If name does not exist as tag, one will be created automatically
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags,omitzero"`
 	// Task ID, optional
 	TaskID *int `json:"task_id,omitempty"`
 	// Task ID, legacy field
@@ -153,7 +153,7 @@ type Organizations []Organization
 
 // PostOrganizations9011051WorkspacesJSONRequestBody defines a model
 type PostOrganizations9011051WorkspacesJSONRequestBody struct {
-	Admins                      []int  `json:"admins,omitempty"`
+	Admins                      []int  `json:"admins,omitzero"`
 	DefaultCurrency             string `json:"default_currency,omitzero"`
 	DefaultHourlyRate           int    `json:"default_hourly_rate,omitzero"`
 	InitialPricingPlan          int    `json:"initial_pricing_plan,omitzero"`
@@ -283,8 +283,8 @@ type TimeEntry struct {
 	Stop            time.Time     `json:"stop,omitzero"`
 	Duration        time.Duration `json:"duration,omitzero"`
 	Description     string        `json:"description,omitzero"`
-	Tags            []string      `json:"tags,omitempty"`
-	TagIds          []string      `json:"tag_ids,omitempty"`
+	Tags            []string      `json:"tags,omitzero"`
+	TagIds          []string      `json:"tag_ids,omitzero"`
 	Duronly         bool          `json:"duronly,omitzero"`
 	At              time.Time     `json:"at,omitzero"`
 	ServerDeletedAt time.Time     `json:"server_deleted_at,omitzero"`
@@ -337,7 +337,7 @@ type UserWithRelated struct {
 	HasPassword        bool        `json:"has_password,omitzero"`
 	At                 time.Time   `json:"at,omitzero"`
 	IntercomHash       string      `json:"intercom_hash,omitzero"`
-	OauthProviders     []string    `json:"oauth_providers,omitempty"`
+	OauthProviders     []string    `json:"oauth_providers,omitzero"`
 	// A timestamp when the authorization user session object was last updated.
 	AuthorizationUpdatedAt time.Time `json:"authorization_updated_at,omitzero"`
 	Tags                   Tags      `json:"tags,omitempty"`

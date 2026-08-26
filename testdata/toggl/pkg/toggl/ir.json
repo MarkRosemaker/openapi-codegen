@@ -555,7 +555,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "Names of tags to add/remove. If name does not exist as tag, one will be created automatically",
 					"required": true
 				},
@@ -770,7 +770,7 @@
 					"name": "Admins",
 					"jsonName": "admins",
 					"type": "[]int",
-					"jsonTag": "json:\"admins,omitempty\"",
+					"jsonTag": "json:\"admins,omitzero\"",
 					"required": true
 				},
 				{
@@ -1319,14 +1319,14 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"required": true
 				},
 				{
 					"name": "TagIds",
 					"jsonName": "tag_ids",
 					"type": "[]string",
-					"jsonTag": "json:\"tag_ids,omitempty\"",
+					"jsonTag": "json:\"tag_ids,omitzero\"",
 					"required": true
 				},
 				{
@@ -1610,7 +1610,7 @@
 					"name": "OauthProviders",
 					"jsonName": "oauth_providers",
 					"type": "[]string",
-					"jsonTag": "json:\"oauth_providers,omitempty\"",
+					"jsonTag": "json:\"oauth_providers,omitzero\"",
 					"required": true
 				},
 				{
