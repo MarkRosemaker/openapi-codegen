@@ -4,7 +4,7 @@ cloud.google.com/go/civil
 # github.com/MarkRosemaker/errpath v0.0.0-20260425165607-bbd4959d04d9
 ## explicit; go 1.23.2
 github.com/MarkRosemaker/errpath
-# github.com/MarkRosemaker/fsutil v0.0.0-20260811161722-f2d2b761db17
+# github.com/MarkRosemaker/fsutil v0.0.0-20260826210529-b58866d38f3e
 ## explicit; go 1.26.3
 github.com/MarkRosemaker/fsutil
 github.com/MarkRosemaker/fsutil/osutil
@@ -20,16 +20,16 @@ github.com/MarkRosemaker/openapi
 # github.com/MarkRosemaker/openapi-compare v0.0.0-20260824220227-96aa2a51f115
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compare/schema
-# github.com/MarkRosemaker/openapi-compress v0.0.0-20260825222001-c4cd92f5cea6
+# github.com/MarkRosemaker/openapi-compress v0.0.0-20260826222126-6e35630c3dc6
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compress
 # github.com/MarkRosemaker/openapi-edit v0.0.0-20260824220228-fbdc202814fd
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-edit
-# github.com/MarkRosemaker/openapi-enrich v0.0.0-20260825160830-c495352ed663
+# github.com/MarkRosemaker/openapi-enrich v0.0.0-20260826221326-05a982eb58c7
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-enrich/cassette
-# github.com/MarkRosemaker/openapi-flatten v0.0.0-20260825130739-b5b6ef5e16d7
+# github.com/MarkRosemaker/openapi-flatten v0.0.0-20260826220431-24e222f094c2
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-flatten
 # github.com/MarkRosemaker/ordmap v0.0.0-20260824220120-9c8900dd7193
