@@ -318,7 +318,7 @@
 					"name": "Title",
 					"jsonName": "title",
 					"type": "PageByPageIDPropertiesTitle",
-					"jsonTag": "json:\"title,omitzero\"",
+					"jsonTag": "json:\"title\"",
 					"required": true
 				}
 			]
@@ -338,7 +338,7 @@
 					"name": "Results",
 					"jsonName": "results",
 					"type": "ListV1BlockChildrenOkJSONResponseResults",
-					"jsonTag": "json:\"results,omitzero\"",
+					"jsonTag": "json:\"results\"",
 					"required": true
 				},
 				{
@@ -475,7 +475,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "PageByPageIDPropertiesTitle",
-					"jsonTag": "json:\"rich_text,omitzero\"",
+					"jsonTag": "json:\"rich_text\"",
 					"required": true
 				},
 				{

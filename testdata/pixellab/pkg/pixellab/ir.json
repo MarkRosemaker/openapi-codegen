@@ -5129,7 +5129,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "AnimateObjectRequestDirections",
-					"jsonTag": "json:\"directions,omitempty\"",
+					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "Which directions to animate.\n\n- **Do not pass `directions` for 1-direction objects.** They always animate the single internal direction; passing this returns 400.\n- For 8-direction objects:\n  - **New animation**: omit `directions` to animate all 8 cardinals.\n  - **Extending an existing animation** (via `animation_group_id`): omit `directions` to fill in only the cardinals not yet generated. You usually don't need to compute the missing set yourself — pass `animation_group_id` alone and the server figures it out.\n  - If you do pass it explicitly, values must be a subset of the 8 cardinals."
 				},
 				{
@@ -5299,7 +5299,7 @@
 					"name": "Submissions",
 					"jsonName": "submissions",
 					"type": "AnimateObjectResponseSubmissions",
-					"jsonTag": "json:\"submissions,omitzero\"",
+					"jsonTag": "json:\"submissions\"",
 					"required": true
 				},
 				{
@@ -5338,7 +5338,7 @@
 					"name": "Images",
 					"jsonName": "images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"images,omitzero\"",
+					"jsonTag": "json:\"images\"",
 					"required": true
 				}
 			]
@@ -5405,7 +5405,7 @@
 					"name": "InitImages",
 					"jsonName": "init_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"init_images,omitempty\"",
+					"jsonTag": "json:\"init_images,omitzero\"",
 					"description": "Initial images to start the generation from"
 				},
 				{
@@ -5419,7 +5419,7 @@
 					"name": "SkeletonKeypoints",
 					"jsonName": "skeleton_keypoints",
 					"type": "[]AnimateWithSkeletonKeypointsItem",
-					"jsonTag": "json:\"skeleton_keypoints,omitempty\"",
+					"jsonTag": "json:\"skeleton_keypoints,omitzero\"",
 					"description": "Skeleton pose keypoints. Requires EXACTLY 3 frames — the model is a 3-frame window; other counts are rejected with a 422."
 				},
 				{
@@ -5434,14 +5434,14 @@
 					"name": "InpaintingImages",
 					"jsonName": "inpainting_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"inpainting_images,omitempty\"",
+					"jsonTag": "json:\"inpainting_images,omitzero\"",
 					"description": "Images used for showing the model with connected skeleton"
 				},
 				{
 					"name": "MaskImages",
 					"jsonName": "mask_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"mask_images,omitempty\"",
+					"jsonTag": "json:\"mask_images,omitzero\"",
 					"description": "Inpainting / mask image (black and white image, where the white is where the model should inpaint)"
 				},
 				{
@@ -5567,7 +5567,7 @@
 					"name": "InitImages",
 					"jsonName": "init_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"init_images,omitempty\"",
+					"jsonTag": "json:\"init_images,omitzero\"",
 					"description": "Initial images to start the generation from"
 				},
 				{
@@ -5589,14 +5589,14 @@
 					"name": "InpaintingImages",
 					"jsonName": "inpainting_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"inpainting_images,omitempty\"",
+					"jsonTag": "json:\"inpainting_images,omitzero\"",
 					"description": "Existing animation frames to guide the generation"
 				},
 				{
 					"name": "MaskImages",
 					"jsonName": "mask_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"mask_images,omitempty\"",
+					"jsonTag": "json:\"mask_images,omitzero\"",
 					"description": "Inpainting / mask image (black and white image, where the white is where the model should inpaint)"
 				},
 				{
@@ -5889,7 +5889,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "[]string",
-					"jsonTag": "json:\"frames,omitzero\"",
+					"jsonTag": "json:\"frames\"",
 					"description": "Public URLs for each frame in order",
 					"required": true
 				}
@@ -5925,7 +5925,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "AnimationGroupDirections",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"required": true
 				}
 			]
@@ -6218,7 +6218,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "User-defined tags for filtering"
 				},
 				{
@@ -6239,7 +6239,7 @@
 					"name": "Animations",
 					"jsonName": "animations",
 					"type": "CharacterDetailAnimations",
-					"jsonTag": "json:\"animations,omitempty\"",
+					"jsonTag": "json:\"animations,omitzero\"",
 					"description": "All animations grouped by type and direction"
 				}
 			]
@@ -6556,7 +6556,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "User-defined tags for filtering"
 				},
 				{
@@ -6582,7 +6582,7 @@
 					"name": "Characters",
 					"jsonName": "characters",
 					"type": "CharactersListResponseCharacters",
-					"jsonTag": "json:\"characters,omitzero\"",
+					"jsonTag": "json:\"characters\"",
 					"description": "List of user's characters",
 					"required": true
 				},
@@ -6653,14 +6653,14 @@
 					"name": "StyleImages",
 					"jsonName": "style_images",
 					"type": "AnimateWithSkeletonImages",
-					"jsonTag": "json:\"style_images,omitempty\"",
+					"jsonTag": "json:\"style_images,omitzero\"",
 					"description": "Style reference images, PNG/JPEG base64 (max 256x256 px each). The output size is derived from the largest of these images and determines the max count: ≤85 → 8, ≤170 → 4, else → 1. When empty, a default style is used based on `view`."
 				},
 				{
 					"name": "ItemDescriptions",
 					"jsonName": "item_descriptions",
 					"type": "[]string",
-					"jsonTag": "json:\"item_descriptions,omitempty\"",
+					"jsonTag": "json:\"item_descriptions,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size."
 				}
 			]
@@ -6885,7 +6885,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "[]string",
-					"jsonTag": "json:\"directions,omitempty\"",
+					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "List of directions to animate (south, north, east, west, etc.). Template mode: defaults to all character directions. Custom mode: defaults to south only."
 				},
 				{
@@ -6956,7 +6956,7 @@
 					"name": "BackgroundJobIds",
 					"jsonName": "background_job_ids",
 					"type": "[]string",
-					"jsonTag": "json:\"background_job_ids,omitzero\"",
+					"jsonTag": "json:\"background_job_ids\"",
 					"description": "List of background job IDs (one per direction)",
 					"required": true
 				},
@@ -6964,7 +6964,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "[]string",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"description": "List of directions being animated",
 					"required": true
 				},
@@ -7824,7 +7824,7 @@
 					"name": "SkeletonKeypoints",
 					"jsonName": "skeleton_keypoints",
 					"type": "AnimateWithSkeletonKeypointsItem",
-					"jsonTag": "json:\"skeleton_keypoints,omitempty\"",
+					"jsonTag": "json:\"skeleton_keypoints,omitzero\"",
 					"description": "Skeleton points. Warning! Sizes that are not 16x16, 32x32 and 64x64 can cause the generations to be lower quality"
 				},
 				{
@@ -8641,7 +8641,7 @@
 					"name": "StyleImages",
 					"jsonName": "style_images",
 					"type": "CreateTilesProRequestStyleImages",
-					"jsonTag": "json:\"style_images,omitempty\"",
+					"jsonTag": "json:\"style_images,omitzero\"",
 					"description": "Style reference tiles. When provided, generated tiles will match these tiles' style and dimensions. The tile_type, tile_size, tile_view, tile_view_angle, and tile_depth_ratio are ignored — the style tiles define the shape."
 				},
 				{
@@ -9216,14 +9216,14 @@
 					"name": "Pieces",
 					"jsonName": "pieces",
 					"type": "[]CreateUIAssetPiecesItem",
-					"jsonTag": "json:\"pieces,omitempty\"",
+					"jsonTag": "json:\"pieces,omitzero\"",
 					"description": "Optional shape template (validated). Each piece needs a unique `id`, a `kind`, and an optional `label`. Allowed kinds: rounded_rect {x,y,w,h,radius}, circle {x,y,r}, polygon {x,y,r,sides,phase}. Coords are on a virtual editor canvas: the longer side spans 0–512 and the shorter side scales to the output aspect ratio (a 16:9 panel uses a 512×288 coordinate grid — this is the coordinate space, not the output size). When omitted, a single full-canvas rounded-rect panel is used."
 				},
 				{
 					"name": "Elements",
 					"jsonName": "elements",
 					"type": "[]string",
-					"jsonTag": "json:\"elements,omitempty\"",
+					"jsonTag": "json:\"elements,omitzero\"",
 					"description": "Optional named UI element types to scaffold the panel from (auto-positioned, no coords needed). Available: button, icon_button, toolbar, tab, panel, window, health_bar, avatar, triangle, pentagon, hexagon, octagon. Combine with `pieces` for custom shapes; omit both for a default full-canvas panel."
 				},
 				{
@@ -9610,7 +9610,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "EditAnimationFrames",
-					"jsonTag": "json:\"frames,omitzero\"",
+					"jsonTag": "json:\"frames\"",
 					"description": "Animation frames to edit (2-16 frames)",
 					"required": true
 				},
@@ -9757,7 +9757,7 @@
 					"name": "EditImages",
 					"jsonName": "edit_images",
 					"type": "EditImagesV2RequestEditImages",
-					"jsonTag": "json:\"edit_images,omitzero\"",
+					"jsonTag": "json:\"edit_images\"",
 					"description": "Images to edit (1-16 images depending on size)",
 					"required": true
 				},
@@ -9999,7 +9999,7 @@
 					"name": "Keypoints",
 					"jsonName": "keypoints",
 					"type": "EstimateSkeletonResponseKeypoints",
-					"jsonTag": "json:\"keypoints,omitzero\"",
+					"jsonTag": "json:\"keypoints\"",
 					"required": true
 				}
 			]
@@ -10257,7 +10257,7 @@
 					"name": "ReferenceImages",
 					"jsonName": "reference_images",
 					"type": "GenerateImageV2RequestReferenceImages",
-					"jsonTag": "json:\"reference_images,omitempty\"",
+					"jsonTag": "json:\"reference_images,omitzero\"",
 					"description": "Optional reference images for subject guidance (up to 4)"
 				},
 				{
@@ -10339,7 +10339,7 @@
 					"name": "StyleImages",
 					"jsonName": "style_images",
 					"type": "GenerateWithStyleV2RequestStyleImages",
-					"jsonTag": "json:\"style_images,omitzero\"",
+					"jsonTag": "json:\"style_images\"",
 					"description": "Style reference images (1-4 images)",
 					"required": true
 				},
@@ -10639,7 +10639,7 @@
 					"name": "CompletedVisemes",
 					"jsonName": "completed_visemes",
 					"type": "[]string",
-					"jsonTag": "json:\"completed_visemes,omitempty\"",
+					"jsonTag": "json:\"completed_visemes,omitzero\"",
 					"description": "Mouth positions produced so far."
 				},
 				{
@@ -10653,7 +10653,7 @@
 					"name": "MoodsOnCharacter",
 					"jsonName": "moods_on_character",
 					"type": "[]string",
-					"jsonTag": "json:\"moods_on_character,omitempty\"",
+					"jsonTag": "json:\"moods_on_character,omitzero\"",
 					"description": "Every expression now stored on the character."
 				},
 				{
@@ -10667,7 +10667,7 @@
 					"name": "VisemeOrder",
 					"jsonName": "viseme_order",
 					"type": "[]string",
-					"jsonTag": "json:\"viseme_order,omitempty\"",
+					"jsonTag": "json:\"viseme_order,omitzero\"",
 					"description": "Column order of the spritesheet at `grid_url`."
 				}
 			]
@@ -10680,7 +10680,7 @@
 					"name": "Detail",
 					"jsonName": "detail",
 					"type": "HTTPValidationErrorDetail",
-					"jsonTag": "json:\"detail,omitempty\""
+					"jsonTag": "json:\"detail,omitzero\""
 				}
 			]
 		},
@@ -11128,7 +11128,7 @@
 					"name": "Tiles",
 					"jsonName": "tiles",
 					"type": "IsometricTilesListResponseTiles",
-					"jsonTag": "json:\"tiles,omitzero\"",
+					"jsonTag": "json:\"tiles\"",
 					"description": "List of user's isometric tiles",
 					"required": true
 				},
@@ -11330,7 +11330,7 @@
 					"name": "VisemeOrder",
 					"jsonName": "viseme_order",
 					"type": "[]string",
-					"jsonTag": "json:\"viseme_order,omitzero\"",
+					"jsonTag": "json:\"viseme_order\"",
 					"description": "Spritesheet column order.",
 					"required": true
 				},
@@ -11338,7 +11338,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "LipSyncResponseFrames",
-					"jsonTag": "json:\"frames,omitzero\"",
+					"jsonTag": "json:\"frames\"",
 					"required": true
 				},
 				{
@@ -11464,7 +11464,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "ObjectAnimationGroupDirections",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"description": "One entry per distinct direction (deduped by MAX(created_at))",
 					"required": true
 				}
@@ -11560,7 +11560,7 @@
 					"name": "FrameUrls",
 					"jsonName": "frame_urls",
 					"type": "[]string",
-					"jsonTag": "json:\"frame_urls,omitempty\"",
+					"jsonTag": "json:\"frame_urls,omitzero\"",
 					"description": "Candidate frame URLs when status='review' — pass indices to POST /v2/objects/{id}/select-frames"
 				},
 				{
@@ -11574,7 +11574,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "User-defined tags for filtering"
 				},
 				{
@@ -11609,7 +11609,7 @@
 					"name": "Animations",
 					"jsonName": "animations",
 					"type": "ObjectDetailAnimations",
-					"jsonTag": "json:\"animations,omitempty\"",
+					"jsonTag": "json:\"animations,omitzero\"",
 					"description": "Animations on this object, grouped by animation_group_id"
 				}
 			]
@@ -11758,7 +11758,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitempty\"",
+					"jsonTag": "json:\"tags,omitzero\"",
 					"description": "User-defined tags for filtering"
 				},
 				{
@@ -11784,7 +11784,7 @@
 					"name": "Objects",
 					"jsonName": "objects",
 					"type": "ObjectsListResponseObjects",
-					"jsonTag": "json:\"objects,omitzero\"",
+					"jsonTag": "json:\"objects\"",
 					"description": "List of user's objects",
 					"required": true
 				},
@@ -12300,7 +12300,7 @@
 					"name": "Indices",
 					"jsonName": "indices",
 					"type": "[]int",
-					"jsonTag": "json:\"indices,omitzero\"",
+					"jsonTag": "json:\"indices\"",
 					"description": "Frame indices (0-based) to keep as completed individual objects.",
 					"required": true
 				},
@@ -12327,7 +12327,7 @@
 					"name": "CreatedObjectIds",
 					"jsonName": "created_object_ids",
 					"type": "[]string",
-					"jsonTag": "json:\"created_object_ids,omitzero\"",
+					"jsonTag": "json:\"created_object_ids\"",
 					"required": true
 				}
 			]
@@ -12504,7 +12504,7 @@
 					"name": "Tilesets",
 					"jsonName": "tilesets",
 					"type": "SidescrollerTilesetsListResponseTilesets",
-					"jsonTag": "json:\"tilesets,omitzero\"",
+					"jsonTag": "json:\"tilesets\"",
 					"required": true
 				},
 				{
@@ -12894,7 +12894,7 @@
 					"name": "North",
 					"jsonName": "north",
 					"type": "[]string",
-					"jsonTag": "json:\"north,omitzero\"",
+					"jsonTag": "json:\"north\"",
 					"description": "IDs of tiles that can be placed above this tile",
 					"required": true
 				},
@@ -12902,7 +12902,7 @@
 					"name": "South",
 					"jsonName": "south",
 					"type": "[]string",
-					"jsonTag": "json:\"south,omitzero\"",
+					"jsonTag": "json:\"south\"",
 					"description": "IDs of tiles that can be placed below this tile",
 					"required": true
 				},
@@ -12910,7 +12910,7 @@
 					"name": "East",
 					"jsonName": "east",
 					"type": "[]string",
-					"jsonTag": "json:\"east,omitzero\"",
+					"jsonTag": "json:\"east\"",
 					"description": "IDs of tiles that can be placed to the right of this tile",
 					"required": true
 				},
@@ -12918,7 +12918,7 @@
 					"name": "West",
 					"jsonName": "west",
 					"type": "[]string",
-					"jsonTag": "json:\"west,omitzero\"",
+					"jsonTag": "json:\"west\"",
 					"description": "IDs of tiles that can be placed to the left of this tile",
 					"required": true
 				}
@@ -12993,7 +12993,7 @@
 					"name": "Row0",
 					"jsonName": "row_0",
 					"type": "[]int",
-					"jsonTag": "json:\"row_0,omitzero\"",
+					"jsonTag": "json:\"row_0\"",
 					"description": "Top row with wildcards",
 					"required": true
 				},
@@ -13001,7 +13001,7 @@
 					"name": "Row1",
 					"jsonName": "row_1",
 					"type": "[]int",
-					"jsonTag": "json:\"row_1,omitzero\"",
+					"jsonTag": "json:\"row_1\"",
 					"description": "Second row with NW, NE corners",
 					"required": true
 				},
@@ -13009,7 +13009,7 @@
 					"name": "Row2",
 					"jsonName": "row_2",
 					"type": "[]int",
-					"jsonTag": "json:\"row_2,omitzero\"",
+					"jsonTag": "json:\"row_2\"",
 					"description": "Third row with SW, SE corners",
 					"required": true
 				},
@@ -13017,7 +13017,7 @@
 					"name": "Row3",
 					"jsonName": "row_3",
 					"type": "[]int",
-					"jsonTag": "json:\"row_3,omitzero\"",
+					"jsonTag": "json:\"row_3\"",
 					"description": "Bottom row with wildcards",
 					"required": true
 				}
@@ -13057,7 +13057,7 @@
 					"name": "Tiles",
 					"jsonName": "tiles",
 					"type": "TilesProListResponseTiles",
-					"jsonTag": "json:\"tiles,omitzero\"",
+					"jsonTag": "json:\"tiles\"",
 					"required": true
 				},
 				{
@@ -13217,7 +13217,7 @@
 					"name": "TerrainTypes",
 					"jsonName": "terrain_types",
 					"type": "[]string",
-					"jsonTag": "json:\"terrain_types,omitzero\"",
+					"jsonTag": "json:\"terrain_types\"",
 					"description": "Available terrain types",
 					"required": true
 				},
@@ -13225,7 +13225,7 @@
 					"name": "Tiles",
 					"jsonName": "tiles",
 					"type": "TilesetDataTiles",
-					"jsonTag": "json:\"tiles,omitzero\"",
+					"jsonTag": "json:\"tiles\"",
 					"description": "List of individual tiles with metadata",
 					"required": true
 				}
@@ -13245,7 +13245,7 @@
 					"name": "EdgeTypes",
 					"jsonName": "edge_types",
 					"type": "[]string",
-					"jsonTag": "json:\"edge_types,omitzero\"",
+					"jsonTag": "json:\"edge_types\"",
 					"description": "Available edge/terrain types",
 					"required": true
 				},
@@ -13379,7 +13379,7 @@
 					"name": "Tilesets",
 					"jsonName": "tilesets",
 					"type": "TilesetsListResponseTilesets",
-					"jsonTag": "json:\"tilesets,omitzero\"",
+					"jsonTag": "json:\"tilesets\"",
 					"description": "List of user's tilesets",
 					"required": true
 				},
@@ -13415,7 +13415,7 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "EditAnimationFrames",
-					"jsonTag": "json:\"frames,omitzero\"",
+					"jsonTag": "json:\"frames\"",
 					"description": "Animation frames to apply the outfit to (2-16 frames)",
 					"required": true
 				},
@@ -13596,7 +13596,7 @@
 					"name": "UIAssets",
 					"jsonName": "ui_assets",
 					"type": "UIAssetsListResponseUIAssets",
-					"jsonTag": "json:\"ui_assets,omitzero\"",
+					"jsonTag": "json:\"ui_assets\"",
 					"description": "The user's UI assets (templates), newest first",
 					"required": true
 				},
@@ -13791,7 +13791,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitzero\"",
+					"jsonTag": "json:\"tags\"",
 					"description": "List of tags to assign to the object",
 					"required": true
 				}
@@ -13811,7 +13811,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]string",
-					"jsonTag": "json:\"tags,omitzero\"",
+					"jsonTag": "json:\"tags\"",
 					"description": "Updated list of tags",
 					"required": true
 				}
@@ -13868,7 +13868,7 @@
 					"name": "Loc",
 					"jsonName": "loc",
 					"type": "[]CreateUIAssetPiecesItem",
-					"jsonTag": "json:\"loc,omitzero\"",
+					"jsonTag": "json:\"loc\"",
 					"required": true
 				},
 				{

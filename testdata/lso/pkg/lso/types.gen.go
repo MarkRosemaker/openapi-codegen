@@ -53,9 +53,9 @@ func (e AccountAccountType) Valid() bool {
 // AccountSummary defines a model
 type AccountSummary struct {
 	Account  Account  `json:"account"`
-	Stocks   Stocks   `json:"stocks,omitzero"`
-	Options  Options  `json:"options,omitzero"`
-	Balances Balances `json:"balances,omitzero"`
+	Stocks   Stocks   `json:"stocks"`
+	Options  Options  `json:"options"`
+	Balances Balances `json:"balances"`
 }
 
 // Accounts defines a model
@@ -98,7 +98,7 @@ type CashBalance struct {
 // ChartSeries defines a model
 type ChartSeries struct {
 	Label  string            `json:"label,omitzero"`
-	Points ChartSeriesPoints `json:"points,omitzero"`
+	Points ChartSeriesPoints `json:"points"`
 }
 
 // ChartSeriesPoints defines a model
@@ -162,12 +162,12 @@ type FundamentalsAnalysis struct {
 	IncomeStatement IncomeStatementAnalysis `json:"income_statement"`
 	BalanceSheet    BalanceSheetAnalysis    `json:"balance_sheet"`
 	// Red-flag warnings (e.g. low profit margin, high leverage)
-	Warnings []string `json:"warnings,omitempty"`
+	Warnings []string `json:"warnings,omitzero"`
 }
 
 // GetCashResult defines a model
 type GetCashResult struct {
-	Balances Balances  `json:"balances,omitzero"`
+	Balances Balances  `json:"balances"`
 	AsOf     time.Time `json:"as_of,omitzero"`
 }
 
@@ -195,7 +195,7 @@ type IncomeStatementAnalysisSeries struct {
 
 // ListAccountsResult defines a model
 type ListAccountsResult struct {
-	Accounts Accounts `json:"accounts,omitzero"`
+	Accounts Accounts `json:"accounts"`
 	// When the cached data was last refreshed from the broker
 	AsOf time.Time `json:"as_of,omitzero"`
 }
@@ -249,8 +249,8 @@ type Options []Option
 
 // Positions defines a model
 type Positions struct {
-	Stocks  Stocks    `json:"stocks,omitzero"`
-	Options Options   `json:"options,omitzero"`
+	Stocks  Stocks    `json:"stocks"`
+	Options Options   `json:"options"`
 	AsOf    time.Time `json:"as_of,omitzero"`
 }
 
@@ -296,5 +296,5 @@ type Stocks []Stock
 
 // Watchlist defines a model
 type Watchlist struct {
-	Symbols []string `json:"symbols,omitzero"`
+	Symbols []string `json:"symbols"`
 }

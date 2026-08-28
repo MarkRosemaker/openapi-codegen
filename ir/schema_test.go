@@ -611,8 +611,8 @@ func TestFromComponentSchemas_StructWithArrayField(t *testing.T) {
 	if f.Type != "[]string" {
 		t.Errorf("Type = %q, want []string", f.Type)
 	}
-	if f.JSONTag != `json:"tags,omitempty"` {
-		t.Errorf("JSONTag = %q, want json:\"tags,omitempty\"", f.JSONTag)
+	if want := `json:"tags,omitzero"`; f.JSONTag != want {
+		t.Errorf("JSONTag = %q, want %q", f.JSONTag, want)
 	}
 }
 

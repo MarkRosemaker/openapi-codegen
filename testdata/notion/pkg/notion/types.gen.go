@@ -74,13 +74,13 @@ type GetV1PageByPageIDOkJSONResponseProperties struct {
 type GetV1PageByPageIDOkJSONResponsePropertiesTitle struct {
 	ID    string                      `json:"id,omitzero"`
 	Type  string                      `json:"type,omitzero"`
-	Title PageByPageIDPropertiesTitle `json:"title,omitzero"`
+	Title PageByPageIDPropertiesTitle `json:"title"`
 }
 
 // ListV1BlockChildrenOkJSONResponse defines a model
 type ListV1BlockChildrenOkJSONResponse struct {
 	Object     string                                   `json:"object,omitzero"`
-	Results    ListV1BlockChildrenOkJSONResponseResults `json:"results,omitzero"`
+	Results    ListV1BlockChildrenOkJSONResponseResults `json:"results"`
 	NextCursor uuid.UUID                                `json:"next_cursor,omitzero"`
 	HasMore    bool                                     `json:"has_more,omitzero"`
 	Type       string                                   `json:"type,omitzero"`
@@ -108,7 +108,7 @@ type ListV1BlockChildrenOkJSONResponseResultsItem struct {
 
 // ListV1BlockChildrenOkJSONResponseResultsItemParagraph defines a model
 type ListV1BlockChildrenOkJSONResponseResultsItemParagraph struct {
-	RichText PageByPageIDPropertiesTitle `json:"rich_text,omitzero"`
+	RichText PageByPageIDPropertiesTitle `json:"rich_text"`
 	Icon     struct{}                    `json:"icon"`
 	Color    string                      `json:"color,omitzero"`
 }

@@ -141,13 +141,13 @@ type Candidate struct {
 
 // Error defines a model
 type Error struct {
-	Candidates ErrorCandidates `json:"candidates,omitempty"`
+	Candidates ErrorCandidates `json:"candidates,omitzero"`
 	// HTTP status code
 	Code *int `json:"code,omitempty"`
 	// Unexported field for internal tracking
 	Err *Error `json:"err,omitempty"`
 	// suggestions for how to fix
-	Fixes   []string `json:"fixes,omitempty"`
+	Fixes   []string `json:"fixes,omitzero"`
 	Message string   `json:"message,omitzero"`
 }
 
@@ -158,7 +158,7 @@ type ErrorCandidates []Candidate
 type License struct {
 	Contents string   `json:"contents,omitzero"`
 	FilePath string   `json:"filePath,omitzero"`
-	Types    []string `json:"types,omitempty"`
+	Types    []string `json:"types,omitzero"`
 }
 
 // Module defines a model
@@ -171,7 +171,7 @@ type Module struct {
 	IsLatest          bool           `json:"isLatest,omitempty"`
 	IsRedistributable bool           `json:"isRedistributable,omitempty"`
 	IsStandardLibrary bool           `json:"isStandardLibrary,omitempty"`
-	Licenses          ModuleLicenses `json:"licenses,omitempty"`
+	Licenses          ModuleLicenses `json:"licenses,omitzero"`
 	Path              string         `json:"path,omitzero"`
 	Readme            *Readme        `json:"readme,omitempty"`
 	RepoURL           string         `json:"repoUrl,omitzero"`
@@ -203,10 +203,10 @@ type Package struct {
 	Docs              string         `json:"docs,omitzero"`
 	Goarch            string         `json:"goarch,omitzero"`
 	Goos              string         `json:"goos,omitzero"`
-	Imports           []string       `json:"imports,omitempty"`
+	Imports           []string       `json:"imports,omitzero"`
 	IsLatest          bool           `json:"isLatest,omitempty"`
 	IsStandardLibrary bool           `json:"isStandardLibrary,omitempty"`
-	Licenses          ModuleLicenses `json:"licenses,omitempty"`
+	Licenses          ModuleLicenses `json:"licenses,omitzero"`
 	ModulePath        string         `json:"modulePath,omitzero"`
 	Version           string         `json:"version,omitzero"`
 	Path              string         `json:"path,omitzero"`
@@ -246,12 +246,12 @@ type PackagesResponse struct {
 	Version           string             `json:"version,omitzero"`
 	Code              *int               `json:"code,omitempty"`
 	Message           string             `json:"message,omitzero"`
-	Fixes             []string           `json:"fixes,omitempty"`
+	Fixes             []string           `json:"fixes,omitzero"`
 }
 
 // PaginatedResponse defines a model
 type PaginatedResponse struct {
-	Items         PaginatedResponseItems `json:"items,omitempty"`
+	Items         PaginatedResponseItems `json:"items,omitzero"`
 	NextPageToken string                 `json:"nextPageToken,omitzero"`
 	Total         *int                   `json:"total,omitempty"`
 }

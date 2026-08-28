@@ -225,7 +225,7 @@
 					"name": "AssignedUsers",
 					"jsonName": "assignedUsers",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"assignedUsers,omitzero\"",
+					"jsonTag": "json:\"assignedUsers\"",
 					"required": true
 				},
 				{
@@ -286,7 +286,7 @@
 					"name": "Notifications",
 					"jsonName": "notifications",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"notifications,omitzero\"",
+					"jsonTag": "json:\"notifications\"",
 					"required": true
 				}
 			]
@@ -341,7 +341,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"tags,omitzero\"",
+					"jsonTag": "json:\"tags\"",
 					"required": true
 				},
 				{
@@ -383,7 +383,7 @@
 					"name": "Reminders",
 					"jsonName": "reminders",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"reminders,omitzero\"",
+					"jsonTag": "json:\"reminders\"",
 					"required": true
 				},
 				{
@@ -404,7 +404,7 @@
 					"name": "History",
 					"jsonName": "history",
 					"type": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory",
-					"jsonTag": "json:\"history,omitzero\"",
+					"jsonTag": "json:\"history\"",
 					"required": true
 				},
 				{
@@ -491,14 +491,14 @@
 					"name": "Data",
 					"jsonName": "data",
 					"type": "ListApiv3TasksUserOkJSONResponseData",
-					"jsonTag": "json:\"data,omitzero\"",
+					"jsonTag": "json:\"data\"",
 					"required": true
 				},
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"notifications,omitzero\"",
+					"jsonTag": "json:\"notifications\"",
 					"required": true
 				}
 			]
@@ -552,7 +552,7 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"tags,omitzero\"",
+					"jsonTag": "json:\"tags\"",
 					"required": true
 				},
 				{
@@ -594,7 +594,7 @@
 					"name": "Reminders",
 					"jsonName": "reminders",
 					"type": "ListApiv3TasksUserOkJSONResponseDataItemReminders",
-					"jsonTag": "json:\"reminders,omitzero\"",
+					"jsonTag": "json:\"reminders\"",
 					"required": true
 				},
 				{
@@ -628,7 +628,7 @@
 					"name": "Checklist",
 					"jsonName": "checklist",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"checklist,omitempty\""
+					"jsonTag": "json:\"checklist,omitzero\""
 				},
 				{
 					"name": "CollapseChecklist",
@@ -646,7 +646,7 @@
 					"name": "History",
 					"jsonName": "history",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"history,omitempty\""
+					"jsonTag": "json:\"history,omitzero\""
 				},
 				{
 					"name": "Streak",
@@ -787,7 +787,7 @@
 					"name": "Notifications",
 					"jsonName": "notifications",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"notifications,omitzero\"",
+					"jsonTag": "json:\"notifications\"",
 					"required": true
 				},
 				{
@@ -947,14 +947,14 @@
 					"name": "Webhooks",
 					"jsonName": "webhooks",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"webhooks,omitzero\"",
+					"jsonTag": "json:\"webhooks\"",
 					"required": true
 				},
 				{
 					"name": "PushDevices",
 					"jsonName": "pushDevices",
 					"type": "ListApiv3UserOkJSONResponseDataPushDevices",
-					"jsonTag": "json:\"pushDevices,omitzero\"",
+					"jsonTag": "json:\"pushDevices\"",
 					"required": true
 				},
 				{
@@ -968,28 +968,28 @@
 					"name": "Tags",
 					"jsonName": "tags",
 					"type": "ListApiv3UserOkJSONResponseDataTags",
-					"jsonTag": "json:\"tags,omitzero\"",
+					"jsonTag": "json:\"tags\"",
 					"required": true
 				},
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"notifications,omitzero\"",
+					"jsonTag": "json:\"notifications\"",
 					"required": true
 				},
 				{
 					"name": "Guilds",
 					"jsonName": "guilds",
 					"type": "[]uuid.UUID",
-					"jsonTag": "json:\"guilds,omitzero\"",
+					"jsonTag": "json:\"guilds\"",
 					"required": true
 				},
 				{
 					"name": "Challenges",
 					"jsonName": "challenges",
 					"type": "[]uuid.UUID",
-					"jsonTag": "json:\"challenges,omitzero\"",
+					"jsonTag": "json:\"challenges\"",
 					"required": true
 				},
 				{
@@ -1031,14 +1031,14 @@
 					"name": "PinnedItems",
 					"jsonName": "pinnedItems",
 					"type": "ListApiv3UserOkJSONResponseDataPinnedItems",
-					"jsonTag": "json:\"pinnedItems,omitzero\"",
+					"jsonTag": "json:\"pinnedItems\"",
 					"required": true
 				},
 				{
 					"name": "UnpinnedItems",
 					"jsonName": "unpinnedItems",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"unpinnedItems,omitzero\"",
+					"jsonTag": "json:\"unpinnedItems\"",
 					"required": true
 				},
 				{
@@ -1052,7 +1052,7 @@
 					"name": "PinnedItemsOrder",
 					"jsonName": "pinnedItemsOrder",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"pinnedItemsOrder,omitzero\"",
+					"jsonTag": "json:\"pinnedItemsOrder\"",
 					"required": true
 				},
 				{
@@ -1107,7 +1107,7 @@
 					"name": "Challenges",
 					"jsonName": "challenges",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"challenges,omitzero\"",
+					"jsonTag": "json:\"challenges\"",
 					"required": true
 				},
 				{
@@ -1432,7 +1432,7 @@
 					"name": "Emails",
 					"jsonName": "emails",
 					"type": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails",
-					"jsonTag": "json:\"emails,omitzero\"",
+					"jsonTag": "json:\"emails\"",
 					"required": true
 				}
 			]
@@ -2037,14 +2037,14 @@
 					"name": "Todos",
 					"jsonName": "todos",
 					"type": "ListApivUserDataHistoryExp",
-					"jsonTag": "json:\"todos,omitzero\"",
+					"jsonTag": "json:\"todos\"",
 					"required": true
 				},
 				{
 					"name": "Exp",
 					"jsonName": "exp",
 					"type": "ListApivUserDataHistoryExp",
-					"jsonTag": "json:\"exp,omitzero\"",
+					"jsonTag": "json:\"exp\"",
 					"required": true
 				}
 			]
@@ -2071,7 +2071,7 @@
 					"name": "Blocks",
 					"jsonName": "blocks",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"blocks,omitzero\"",
+					"jsonTag": "json:\"blocks\"",
 					"required": true
 				},
 				{
@@ -2139,14 +2139,14 @@
 					"name": "Guilds",
 					"jsonName": "guilds",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"guilds,omitzero\"",
+					"jsonTag": "json:\"guilds\"",
 					"required": true
 				},
 				{
 					"name": "Parties",
 					"jsonName": "parties",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"parties,omitzero\"",
+					"jsonTag": "json:\"parties\"",
 					"required": true
 				}
 			]
@@ -5150,7 +5150,7 @@
 					"name": "BirthdayReceived",
 					"jsonName": "birthdayReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"birthdayReceived,omitzero\"",
+					"jsonTag": "json:\"birthdayReceived\"",
 					"required": true
 				},
 				{
@@ -5164,7 +5164,7 @@
 					"name": "ThankyouReceived",
 					"jsonName": "thankyouReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"thankyouReceived,omitzero\"",
+					"jsonTag": "json:\"thankyouReceived\"",
 					"required": true
 				},
 				{
@@ -5178,7 +5178,7 @@
 					"name": "GreetingReceived",
 					"jsonName": "greetingReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"greetingReceived,omitzero\"",
+					"jsonTag": "json:\"greetingReceived\"",
 					"required": true
 				},
 				{
@@ -5192,7 +5192,7 @@
 					"name": "NyeReceived",
 					"jsonName": "nyeReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"nyeReceived,omitzero\"",
+					"jsonTag": "json:\"nyeReceived\"",
 					"required": true
 				},
 				{
@@ -5206,7 +5206,7 @@
 					"name": "ValentineReceived",
 					"jsonName": "valentineReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"valentineReceived,omitzero\"",
+					"jsonTag": "json:\"valentineReceived\"",
 					"required": true
 				},
 				{
@@ -5248,21 +5248,21 @@
 					"name": "CongratsReceived",
 					"jsonName": "congratsReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"congratsReceived,omitzero\"",
+					"jsonTag": "json:\"congratsReceived\"",
 					"required": true
 				},
 				{
 					"name": "GetwellReceived",
 					"jsonName": "getwellReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"getwellReceived,omitzero\"",
+					"jsonTag": "json:\"getwellReceived\"",
 					"required": true
 				},
 				{
 					"name": "GoodluckReceived",
 					"jsonName": "goodluckReceived",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"goodluckReceived,omitzero\"",
+					"jsonTag": "json:\"goodluckReceived\"",
 					"required": true
 				},
 				{
@@ -5599,7 +5599,7 @@
 					"name": "ImprovementCategories",
 					"jsonName": "improvementCategories",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"improvementCategories,omitzero\"",
+					"jsonTag": "json:\"improvementCategories\"",
 					"required": true
 				},
 				{
@@ -5986,7 +5986,7 @@
 					"name": "MirrorGroupTasks",
 					"jsonName": "mirrorGroupTasks",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"mirrorGroupTasks,omitzero\"",
+					"jsonTag": "json:\"mirrorGroupTasks\"",
 					"required": true
 				}
 			]
@@ -6163,7 +6163,7 @@
 					"name": "MysteryItems",
 					"jsonName": "mysteryItems",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"mysteryItems,omitzero\"",
+					"jsonTag": "json:\"mysteryItems\"",
 					"required": true
 				},
 				{
@@ -6442,28 +6442,28 @@
 					"name": "Rewards",
 					"jsonName": "rewards",
 					"type": "[]uuid.UUID",
-					"jsonTag": "json:\"rewards,omitzero\"",
+					"jsonTag": "json:\"rewards\"",
 					"required": true
 				},
 				{
 					"name": "Todos",
 					"jsonName": "todos",
 					"type": "[]uuid.UUID",
-					"jsonTag": "json:\"todos,omitzero\"",
+					"jsonTag": "json:\"todos\"",
 					"required": true
 				},
 				{
 					"name": "Dailys",
 					"jsonName": "dailys",
 					"type": "[]uuid.UUID",
-					"jsonTag": "json:\"dailys,omitzero\"",
+					"jsonTag": "json:\"dailys\"",
 					"required": true
 				},
 				{
 					"name": "Habits",
 					"jsonName": "habits",
 					"type": "[]uuid.UUID",
-					"jsonTag": "json:\"habits,omitzero\"",
+					"jsonTag": "json:\"habits\"",
 					"required": true
 				}
 			]
@@ -6751,7 +6751,7 @@
 					"name": "Notifications",
 					"jsonName": "notifications",
 					"type": "[]struct{}",
-					"jsonTag": "json:\"notifications,omitzero\"",
+					"jsonTag": "json:\"notifications\"",
 					"required": true
 				},
 				{

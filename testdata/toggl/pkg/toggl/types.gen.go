@@ -81,7 +81,7 @@ type NewTimeEntry struct {
 	// Project ID, optional
 	ProjectID *int `json:"project_id,omitempty"`
 	// List of user IDs to share this time entry with
-	SharedWithUserIds []int `json:"shared_with_user_ids,omitempty"`
+	SharedWithUserIds []int `json:"shared_with_user_ids,omitzero"`
 	// Start time, required for creation.
 	Start time.Time `json:"start,omitzero"`
 	// If provided during creation, the date part will take precedence over the date part of "start". Format: 2006-11-07
@@ -92,9 +92,9 @@ type NewTimeEntry struct {
 	// Used when updating an existing time entry
 	TagAction TagAction `json:"tag_action,omitzero"`
 	// IDs of tags to add/remove
-	TagIds []int `json:"tag_ids,omitempty"`
+	TagIds []int `json:"tag_ids,omitzero"`
 	// Names of tags to add/remove. If name does not exist as tag, one will be created automatically
-	Tags []string `json:"tags,omitzero"`
+	Tags []string `json:"tags"`
 	// Task ID, optional
 	TaskID *int `json:"task_id,omitempty"`
 	// Task ID, legacy field
@@ -153,7 +153,7 @@ type Organizations []Organization
 
 // PostOrganizations9011051WorkspacesJSONRequestBody defines a model
 type PostOrganizations9011051WorkspacesJSONRequestBody struct {
-	Admins                      []int  `json:"admins,omitzero"`
+	Admins                      []int  `json:"admins"`
 	DefaultCurrency             string `json:"default_currency,omitzero"`
 	DefaultHourlyRate           int    `json:"default_hourly_rate,omitzero"`
 	InitialPricingPlan          int    `json:"initial_pricing_plan,omitzero"`
@@ -283,8 +283,8 @@ type TimeEntry struct {
 	Stop            time.Time     `json:"stop,omitzero"`
 	Duration        time.Duration `json:"duration,omitzero"`
 	Description     string        `json:"description,omitzero"`
-	Tags            []string      `json:"tags,omitzero"`
-	TagIds          []string      `json:"tag_ids,omitzero"`
+	Tags            []string      `json:"tags"`
+	TagIds          []string      `json:"tag_ids"`
 	Duronly         bool          `json:"duronly,omitzero"`
 	At              time.Time     `json:"at,omitzero"`
 	ServerDeletedAt time.Time     `json:"server_deleted_at,omitzero"`
@@ -337,17 +337,17 @@ type UserWithRelated struct {
 	HasPassword        bool        `json:"has_password,omitzero"`
 	At                 time.Time   `json:"at,omitzero"`
 	IntercomHash       string      `json:"intercom_hash,omitzero"`
-	OauthProviders     []string    `json:"oauth_providers,omitzero"`
+	OauthProviders     []string    `json:"oauth_providers"`
 	// A timestamp when the authorization user session object was last updated.
 	AuthorizationUpdatedAt time.Time `json:"authorization_updated_at,omitzero"`
-	Tags                   Tags      `json:"tags,omitempty"`
+	Tags                   Tags      `json:"tags,omitzero"`
 	// Clients, null if with_related_data was not set to true or if the user does not have any clients
-	Clients     Clients     `json:"clients,omitempty"`
-	TimeEntries TimeEntries `json:"time_entries,omitempty"`
+	Clients     Clients     `json:"clients,omitzero"`
+	TimeEntries TimeEntries `json:"time_entries,omitzero"`
 	Options     *Options    `json:"options,omitempty"`
 	// Projects, null if with_related_data was not set to true or if the user does not have any projects
-	Projects   Projects   `json:"projects,omitempty"`
-	Workspaces Workspaces `json:"workspaces,omitempty"`
+	Projects   Projects   `json:"projects,omitzero"`
+	Workspaces Workspaces `json:"workspaces,omitzero"`
 }
 
 // WorkClient defines a model

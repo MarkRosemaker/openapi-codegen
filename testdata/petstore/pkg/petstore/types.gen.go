@@ -17,7 +17,7 @@ var jsonOpts = json.JoinOptions(
 
 // ListV1PetsOkJSONResponse defines a model
 type ListV1PetsOkJSONResponse struct {
-	Data       ListV1PetsOkJSONResponseData       `json:"data,omitzero"`
+	Data       ListV1PetsOkJSONResponseData       `json:"data"`
 	Pagination ListV1PetsOkJSONResponsePagination `json:"pagination"`
 }
 

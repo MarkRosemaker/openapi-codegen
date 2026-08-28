@@ -741,7 +741,7 @@
 					"name": "Candidates",
 					"jsonName": "candidates",
 					"type": "ErrorCandidates",
-					"jsonTag": "json:\"candidates,omitempty\""
+					"jsonTag": "json:\"candidates,omitzero\""
 				},
 				{
 					"name": "Code",
@@ -761,7 +761,7 @@
 					"name": "Fixes",
 					"jsonName": "fixes",
 					"type": "[]string",
-					"jsonTag": "json:\"fixes,omitempty\"",
+					"jsonTag": "json:\"fixes,omitzero\"",
 					"description": "suggestions for how to fix"
 				},
 				{
@@ -798,7 +798,7 @@
 					"name": "Types",
 					"jsonName": "types",
 					"type": "[]string",
-					"jsonTag": "json:\"types,omitempty\""
+					"jsonTag": "json:\"types,omitzero\""
 				}
 			]
 		},
@@ -847,7 +847,7 @@
 					"name": "Licenses",
 					"jsonName": "licenses",
 					"type": "ModuleLicenses",
-					"jsonTag": "json:\"licenses,omitempty\""
+					"jsonTag": "json:\"licenses,omitzero\""
 				},
 				{
 					"name": "Path",
@@ -976,7 +976,7 @@
 					"name": "Imports",
 					"jsonName": "imports",
 					"type": "[]string",
-					"jsonTag": "json:\"imports,omitempty\""
+					"jsonTag": "json:\"imports,omitzero\""
 				},
 				{
 					"name": "IsLatest",
@@ -994,7 +994,7 @@
 					"name": "Licenses",
 					"jsonName": "licenses",
 					"type": "ModuleLicenses",
-					"jsonTag": "json:\"licenses,omitempty\""
+					"jsonTag": "json:\"licenses,omitzero\""
 				},
 				{
 					"name": "ModulePath",
@@ -1157,7 +1157,7 @@
 					"name": "Fixes",
 					"jsonName": "fixes",
 					"type": "[]string",
-					"jsonTag": "json:\"fixes,omitempty\""
+					"jsonTag": "json:\"fixes,omitzero\""
 				}
 			]
 		},
@@ -1169,7 +1169,7 @@
 					"name": "Items",
 					"jsonName": "items",
 					"type": "PaginatedResponseItems",
-					"jsonTag": "json:\"items,omitempty\""
+					"jsonTag": "json:\"items,omitzero\""
 				},
 				{
 					"name": "NextPageToken",

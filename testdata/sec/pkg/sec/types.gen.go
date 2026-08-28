@@ -52,7 +52,7 @@ type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt
 
 // ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits defines a model
 type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits struct {
-	Pure ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure `json:"pure,omitzero"`
+	Pure ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure `json:"pure"`
 }
 
 // ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap defines a model
@@ -836,7 +836,7 @@ type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores st
 
 // ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits defines a model
 type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits struct {
-	Store ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Store,omitzero"`
+	Store ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Store"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding defines a model
@@ -848,7 +848,7 @@ type ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding struct
 
 // ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnits struct {
-	Shares ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"shares,omitzero"`
+	Shares ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"shares"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares defines a model
@@ -876,7 +876,7 @@ type ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat struct {
 
 // ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloatUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloatUnits struct {
-	Usd ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"USD,omitzero"`
+	Usd ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"USD"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure defines a model
@@ -904,7 +904,7 @@ type ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt struct {
 
 // ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmtUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmtUnits struct {
-	Usd ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure `json:"USD,omitzero"`
+	Usd ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure `json:"USD"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid defines a model
@@ -916,7 +916,7 @@ type ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid s
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaidUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaidUnits struct {
-	UsdShares ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"USD/shares,omitzero"`
+	UsdShares ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"USD/shares"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapDerivativeAssetAfterOffsetSubjectToMasterNettingArrangement defines a model
@@ -935,7 +935,7 @@ type ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperat
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits struct {
-	Pure ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"pure,omitzero"`
+	Pure ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"pure"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationCrossBorderOtherPercent defines a model
@@ -954,7 +954,7 @@ type ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationN
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognitionUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognitionUnits struct {
-	Year ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Year,omitzero"`
+	Year ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Year"`
 }
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximum defines a model
@@ -966,8 +966,8 @@ type ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeM
 
 // ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximumUnits defines a model
 type ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeMaximumUnits struct {
-	Pure ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"pure,omitzero"`
-	Year ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Year,omitzero"`
+	Pure ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"pure"`
+	Year ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Year"`
 }
 
 // ListFilesCompanyTickersJSONOkJSONResponse defines a model

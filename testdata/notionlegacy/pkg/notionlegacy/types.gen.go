@@ -183,7 +183,7 @@ type Blocks []Block
 type BlocksList struct {
 	List
 	// The result, an array of block objects.
-	Results Blocks `json:"results,omitzero"`
+	Results Blocks `json:"results"`
 	// Type of the objects in results. Always `block`.
 	Type      string    `json:"type,omitzero"`
 	Block     struct{}  `json:"block"`
@@ -192,7 +192,7 @@ type BlocksList struct {
 
 // Callout block objects contain the following information within the callout field.
 type Callout struct {
-	RichText RichTexts `json:"rich_text,omitzero"`
+	RichText RichTexts `json:"rich_text"`
 	// Page or database icon. It is either an emoji or a file.
 	Icon Icon `json:"icon"`
 	// The color of the block.
@@ -206,8 +206,8 @@ type Child struct {
 
 // Code block objects contain this information within the `code` property.
 type Code struct {
-	Caption  RichTexts `json:"caption,omitempty"`
-	RichText RichTexts `json:"rich_text,omitzero"`
+	Caption  RichTexts `json:"caption,omitzero"`
+	RichText RichTexts `json:"rich_text"`
 	// Coding language in code block
 	Language CodeLanguage `json:"language,omitzero"`
 }
@@ -353,7 +353,7 @@ type Date struct {
 
 // Embed blocks include block types that allow displaying another website within Notion.
 type Embed struct {
-	Caption RichTexts `json:"caption,omitzero"`
+	Caption RichTexts `json:"caption"`
 	// Embedded link.
 	URL url.URL `json:"url,omitzero"`
 }
@@ -402,13 +402,13 @@ func (e FileType) Valid() bool {
 
 // File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
 type FileWithCaption struct {
-	Caption RichTexts `json:"caption,omitzero"`
+	Caption RichTexts `json:"caption"`
 	File
 }
 
 // Heading block objects contain this information within their respective property.
 type Heading struct {
-	RichText     RichTexts `json:"rich_text,omitzero"`
+	RichText     RichTexts `json:"rich_text"`
 	IsToggleable bool      `json:"is_toggleable,omitzero"`
 	// The color of the block.
 	Color Color `json:"color,omitzero"`
@@ -563,7 +563,7 @@ type Page struct {
 
 // Paragraph, quote, toggle and list item block objects contain this information within their respective property.
 type Paragraph struct {
-	RichText RichTexts `json:"rich_text,omitzero"`
+	RichText RichTexts `json:"rich_text"`
 	// The color of the block.
 	Color Color `json:"color,omitzero"`
 }
@@ -646,7 +646,7 @@ type PropertyValue struct {
 	ID string `json:"id,omitzero"`
 	// Type of the property.
 	Type  PropertyType `json:"type,omitzero"`
-	Title RichTexts    `json:"title,omitempty"`
+	Title RichTexts    `json:"title,omitzero"`
 }
 
 // Properties of a page or database.
@@ -750,7 +750,7 @@ type Text struct {
 
 // To do block objects contain this information within the `to_do` property.
 type ToDo struct {
-	RichText RichTexts `json:"rich_text,omitzero"`
+	RichText RichTexts `json:"rich_text"`
 	// Whether the to_do is checked or not.
 	Checked bool `json:"checked,omitzero"`
 	// The color of the block.
