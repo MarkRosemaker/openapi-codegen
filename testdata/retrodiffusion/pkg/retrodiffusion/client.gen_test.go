@@ -204,4 +204,8 @@ func TestClient_Interactions(t *testing.T) {
 	}); err != nil {
 		t.Fatalf("ListV1StylesSelector: %v", err)
 	}
+
+	if _, err := c.ListV1StylesSelector(ctx, &ListV1StylesSelectorParams{}); err != nil {
+		t.Fatalf("ListV1StylesSelector: %v", err)
+	}
 }
