@@ -21,7 +21,7 @@ func makeParam(name string, in openapi.ParameterLocation, required bool, schema 
 		Name:     name,
 		In:       in,
 		Required: required,
-		Schema:   schema,
+		Schema:   &openapi.SchemaRef{Value: schema},
 	}
 	return p
 }
