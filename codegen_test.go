@@ -20,6 +20,9 @@ import (
 	"github.com/spf13/afero"
 )
 
+// Whether to test in debug mode.
+const debugMode = false
+
 //go:embed testdata
 var testdata embed.FS
 
@@ -57,6 +60,8 @@ func TestCodegen_TestData(t *testing.T) {
 				t.Fatalf("build IR: %v", err)
 			}
 
+			irDoc.Debug = debugMode
+
 			iasPath := filepath.Join("testdata", name, "api", "interactions.json")
 			ias, err := cassette.InteractionsReadFile(iasPath)
 			if err != nil && !errors.Is(err, fs.ErrNotExist) {
@@ -70,6 +75,7 @@ func TestCodegen_TestData(t *testing.T) {
 					writeJSON(t, memFs, "ir.json", irDoc)
 
 					if err := codegen.Generate(codegen.Config{
+						Debug:        debugMode,
 						Spec:         doc,
 						PackageName:  strings.ReplaceAll(name, "-", ""),
 						OutputFs:     memFs,

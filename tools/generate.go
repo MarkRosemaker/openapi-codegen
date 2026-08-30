@@ -21,7 +21,8 @@ import (
 	"github.com/MarkRosemaker/openapi-codegen/render"
 )
 
-const DebugMode = false
+// Whether to generate in debug mode.
+const debugMode = false
 
 var genAll = config.Generate{
 	Types:      true,
@@ -57,7 +58,7 @@ func run(ctx context.Context) error {
 			return err
 		}
 
-		petDoc.Debug = DebugMode
+		petDoc.Debug = debugMode
 
 		files, err := render.Files(petDoc, genAll)
 		if err != nil {
@@ -111,7 +112,7 @@ func run(ctx context.Context) error {
 		if err != nil {
 			return fmt.Errorf("build IR: %w", err)
 		}
-		irDoc.Debug = DebugMode
+		irDoc.Debug = debugMode
 
 		// Mirrors the layout the CLI produces -- api/ beside pkg/<package> --
 		// so the generated code is what a real project gets, the hardcoded
@@ -135,7 +136,7 @@ func run(ctx context.Context) error {
 		}
 
 		if err := codegen.Generate(codegen.Config{
-			Debug:            DebugMode,
+			Debug:            debugMode,
 			Spec:             doc,
 			PackageName:      strings.ReplaceAll(entry.Name(), "-", ""),
 			OutputDir:        outDir,
