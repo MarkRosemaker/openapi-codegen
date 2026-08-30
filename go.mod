@@ -7,11 +7,11 @@ require (
 	github.com/MarkRosemaker/jsonutil v0.0.0-20260827160132-fe5e496a04a0
 	github.com/MarkRosemaker/openapi v0.0.0-20260828173639-2eb9293069d5
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20260829131102-dd1725ee634c
-	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260829125659-139dc8b9f3b8
+	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260830124724-202ad26a692b
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260829103304-14073604f302
 	github.com/MarkRosemaker/ordmap v0.0.0-20260827160235-3615cea69fee
 	github.com/ettle/strcase v0.2.0
-	github.com/go-api-libs/api v0.0.0-20260822224219-ad37a7b68775
+	github.com/go-api-libs/api v0.0.0-20260827160132-fe8c2393f615
 	github.com/google/uuid v1.6.0
 	github.com/spf13/afero v1.15.0
 	golang.org/x/tools v0.49.0

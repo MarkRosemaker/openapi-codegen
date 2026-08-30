@@ -10,6 +10,7 @@ import (
 	// The golden packages are built and run by TestCodegen_Golden rather than
 	// by this module, so nothing else here imports what the generated code
 	// needs. These keep those modules in go.mod and in vendor.
+	_ "github.com/MarkRosemaker/openapi-enrich/cassette"
 	_ "github.com/go-api-libs/api"
 	_ "github.com/go-api-libs/api/server"
 	_ "github.com/google/uuid"
