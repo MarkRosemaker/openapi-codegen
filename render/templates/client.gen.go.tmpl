@@ -275,7 +275,7 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 	)
 	ia.Request, err = cassette.NewRequest(req)
 	if err != nil {
-		return nil, fmt.Errorf("recording request: %w", err)
+		return {{if $op.SuccessReturn}}nil, {{end}}fmt.Errorf("recording request: %w", err)
 	}
 	{{ end -}}
 
@@ -288,7 +288,7 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 	{{ if $.Debug -}}
 	ia.Response, err = cassette.NewResponse(rsp)
 	if err != nil {
-		return nil, fmt.Errorf("recording response: %w", err)
+		return {{if $op.SuccessReturn}}nil, {{end}}fmt.Errorf("recording response: %w", err)
 	}
 	{{ end }}
 
