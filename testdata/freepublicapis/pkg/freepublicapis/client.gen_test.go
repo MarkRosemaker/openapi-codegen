@@ -195,9 +195,9 @@ func replay(t *testing.T) http.RoundTripper {
 	})
 }
 
-// mustDecodeBody decodes data, the recorded request body of an interaction,
-// into T so a replayed call carries the same body it was recorded with
-// instead of a zero value.
+// mustDecodeBody decodes data, the recorded JSON for one request body value
+// (or field of one) an interaction's own literal couldn't be built for, into
+// T so a replayed call still carries the value it was recorded with.
 func mustDecodeBody[T any](t *testing.T, data string) T {
 	t.Helper()
 
@@ -209,14 +209,9 @@ func mustDecodeBody[T any](t *testing.T, data string) T {
 	return v
 }
 
-// mustDecodeBodyPtr is mustDecodeBody for an optional request body: an empty
-// recording (the body was never sent) decodes to nil rather than a value.
-func mustDecodeBodyPtr[T any](t *testing.T, data string) *T {
-	if data == "" {
-		return nil
-	}
-
-	v := mustDecodeBody[T](t, data)
+// ptr returns a pointer to a copy of v, for building an optional field's
+// literal inline.
+func ptr[T any](v T) *T {
 	return &v
 }
 

@@ -291,9 +291,9 @@ func replay(t *testing.T) http.RoundTripper {
 	})
 }
 
-// mustDecodeBody decodes data, the recorded request body of an interaction,
-// into T so a replayed call carries the same body it was recorded with
-// instead of a zero value.
+// mustDecodeBody decodes data, the recorded JSON for one request body value
+// (or field of one) an interaction's own literal couldn't be built for, into
+// T so a replayed call still carries the value it was recorded with.
 func mustDecodeBody[T any](t *testing.T, data string) T {
 	t.Helper()
 
@@ -305,14 +305,9 @@ func mustDecodeBody[T any](t *testing.T, data string) T {
 	return v
 }
 
-// mustDecodeBodyPtr is mustDecodeBody for an optional request body: an empty
-// recording (the body was never sent) decodes to nil rather than a value.
-func mustDecodeBodyPtr[T any](t *testing.T, data string) *T {
-	if data == "" {
-		return nil
-	}
-
-	v := mustDecodeBody[T](t, data)
+// ptr returns a pointer to a copy of v, for building an optional field's
+// literal inline.
+func ptr[T any](v T) *T {
 	return &v
 }
 
@@ -335,7 +330,22 @@ func TestClient_Interactions(t *testing.T) {
 		t.Fatalf("ListV1StylesSelector: %v", err)
 	}
 
-	if _, err := c.PostV1Inferences(ctx, mustDecodeBody[PostV1InferencesJSONRequestBody](t, "{\"prompt\":\"security officer (a soldier). A 34-year-old male human. Lean and wiry, with a posture that suggests he's always expecting something to break. He wears the standard grey-blue security fatigues, kept meticulously clean despite the dust of the colony. A thin, jagged scar running through his left eyebrow. He has a habit of clicking his tongue when he's impatient.\",\"prompt_style\":\"rd_pro__topdown\",\"width\":128,\"height\":128,\"num_images\":1,\"remove_bg\":true,\"tile_x\":false,\"tile_y\":false,\"return_spritesheet\":false,\"bypass_prompt_expansion\":false,\"include_downloadable_data\":false,\"check_cost\":true,\"async\":false,\"upload_outputs\":false}")); err != nil {
+	if _, err := c.PostV1Inferences(ctx, PostV1InferencesJSONRequestBody{
+		Prompt:                  "security officer (a soldier). A 34-year-old male human. Lean and wiry, with a posture that suggests he's always expecting something to break. He wears the standard grey-blue security fatigues, kept meticulously clean despite the dust of the colony. A thin, jagged scar running through his left eyebrow. He has a habit of clicking his tongue when he's impatient.",
+		PromptStyle:             "rd_pro__topdown",
+		Width:                   128,
+		Height:                  128,
+		NumImages:               1,
+		RemoveBg:                true,
+		TileX:                   false,
+		TileY:                   false,
+		ReturnSpritesheet:       false,
+		BypassPromptExpansion:   false,
+		IncludeDownloadableData: false,
+		CheckCost:               true,
+		Async:                   false,
+		UploadOutputs:           false,
+	}); err != nil {
 		t.Fatalf("PostV1Inferences: %v", err)
 	}
 }
