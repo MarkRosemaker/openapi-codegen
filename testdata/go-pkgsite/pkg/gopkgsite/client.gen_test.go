@@ -853,12 +853,6 @@ func mustDecodeBody[T any](t *testing.T, data string) T {
 	return v
 }
 
-// ptr returns a pointer to a copy of v, for building an optional field's
-// literal inline.
-func ptr[T any](v T) *T {
-	return &v
-}
-
 func TestClient_Interactions(t *testing.T) {
 	ctx := t.Context()
 

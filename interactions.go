@@ -282,7 +282,7 @@ func bodyLiteral(doc *ir.Document, goType string, v any) string {
 		// zero-value composite literal below rather than emit invalid Go.
 
 	case strings.HasPrefix(goType, "*"):
-		return fmt.Sprintf("ptr(%s)", bodyLiteral(doc, goType[1:], v))
+		return fmt.Sprintf("new(%s)", bodyLiteral(doc, goType[1:], v))
 
 	case strings.HasPrefix(goType, "[]"):
 		arr, ok := v.([]any)
