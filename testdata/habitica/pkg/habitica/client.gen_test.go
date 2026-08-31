@@ -7,7 +7,6 @@ package habitica
 import (
 	"bytes"
 	"encoding/json/jsontext"
-	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"io"
@@ -478,20 +477,6 @@ func replay(t *testing.T) http.RoundTripper {
 			Body:       io.NopCloser(bytes.NewReader(ia.Response.Body)),
 		}, nil
 	})
-}
-
-// mustDecodeBody decodes data, the recorded JSON for one request body value
-// (or field of one) an interaction's own literal couldn't be built for, into
-// T so a replayed call still carries the value it was recorded with.
-func mustDecodeBody[T any](t *testing.T, data string) T {
-	t.Helper()
-
-	var v T
-	if err := json.Unmarshal([]byte(data), &v, jsonOpts); err != nil {
-		t.Fatalf("decoding request body fixture: %v", err)
-	}
-
-	return v
 }
 
 func TestClient_Interactions(t *testing.T) {

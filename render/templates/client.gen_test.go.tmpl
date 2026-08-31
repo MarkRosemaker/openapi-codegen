@@ -225,6 +225,8 @@ func replay(t *testing.T) http.RoundTripper {
 	})
 }
 
+{{ if .NeedMustDecodeBody -}}
+
 // mustDecodeBody decodes data, the recorded JSON for one request body value
 // (or field of one) an interaction's own literal couldn't be built for, into
 // T so a replayed call still carries the value it was recorded with.
@@ -238,6 +240,8 @@ func mustDecodeBody[T any](t *testing.T, data string) T {
 
 	return v
 }
+
+{{ end -}}
 
 func TestClient_Interactions(t *testing.T) {
 	ctx := t.Context()
