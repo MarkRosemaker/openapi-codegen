@@ -6,9 +6,9 @@ require (
 	github.com/MarkRosemaker/fsutil v0.0.0-20260827160125-376fc6f4032c
 	github.com/MarkRosemaker/jsonutil v0.0.0-20260827160132-fe5e496a04a0
 	github.com/MarkRosemaker/openapi v0.0.0-20260828173639-2eb9293069d5
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20260830161200-a6d9aa2dd876
-	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260830124724-202ad26a692b
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260829103304-14073604f302
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20260831110350-a6bc32af4bfc
+	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260831110212-9eff5623d945
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260831110257-d7d7ce10c696
 	github.com/MarkRosemaker/ordmap v0.0.0-20260827160235-3615cea69fee
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20260827160132-fe8c2393f615
