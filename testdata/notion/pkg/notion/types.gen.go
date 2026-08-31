@@ -39,9 +39,9 @@ type GetV1PageByPageIDOkJSONResponse struct {
 	Cover          GetV1PageByPageIDOkJSONResponseCover      `json:"cover"`
 	Icon           GetV1PageByPageIDOkJSONResponseIcon       `json:"icon"`
 	Parent         PageByPageIDParent                        `json:"parent"`
-	InTrash        bool                                      `json:"in_trash,omitzero"`
-	IsArchived     bool                                      `json:"is_archived,omitzero"`
-	IsLocked       bool                                      `json:"is_locked,omitzero"`
+	InTrash        bool                                      `json:"in_trash"`
+	IsArchived     bool                                      `json:"is_archived"`
+	IsLocked       bool                                      `json:"is_locked"`
 	Properties     GetV1PageByPageIDOkJSONResponseProperties `json:"properties"`
 	URL            url.URL                                   `json:"url,omitzero"`
 	PublicURL      url.URL                                   `json:"public_url,omitzero"`
@@ -82,7 +82,7 @@ type ListV1BlockChildrenOkJSONResponse struct {
 	Object     string                                   `json:"object,omitzero"`
 	Results    ListV1BlockChildrenOkJSONResponseResults `json:"results"`
 	NextCursor uuid.UUID                                `json:"next_cursor,omitzero"`
-	HasMore    bool                                     `json:"has_more,omitzero"`
+	HasMore    bool                                     `json:"has_more"`
 	Type       string                                   `json:"type,omitzero"`
 	Block      struct{}                                 `json:"block"`
 	RequestID  uuid.UUID                                `json:"request_id,omitzero"`
@@ -100,8 +100,8 @@ type ListV1BlockChildrenOkJSONResponseResultsItem struct {
 	LastEditedTime time.Time                                             `json:"last_edited_time,omitzero"`
 	CreatedBy      PageByPageIDCreatedBy                                 `json:"created_by"`
 	LastEditedBy   PageByPageIDCreatedBy                                 `json:"last_edited_by"`
-	HasChildren    bool                                                  `json:"has_children,omitzero"`
-	InTrash        bool                                                  `json:"in_trash,omitzero"`
+	HasChildren    bool                                                  `json:"has_children"`
+	InTrash        bool                                                  `json:"in_trash"`
 	Type           string                                                `json:"type,omitzero"`
 	Paragraph      ListV1BlockChildrenOkJSONResponseResultsItemParagraph `json:"paragraph"`
 }
@@ -139,11 +139,11 @@ type PageByPageIDPropertiesTitleItem struct {
 
 // PageByPageIDPropertiesTitleItemAnnotations defines a model
 type PageByPageIDPropertiesTitleItemAnnotations struct {
-	Bold          bool   `json:"bold,omitzero"`
-	Italic        bool   `json:"italic,omitzero"`
-	Strikethrough bool   `json:"strikethrough,omitzero"`
-	Underline     bool   `json:"underline,omitzero"`
-	Code          bool   `json:"code,omitzero"`
+	Bold          bool   `json:"bold"`
+	Italic        bool   `json:"italic"`
+	Strikethrough bool   `json:"strikethrough"`
+	Underline     bool   `json:"underline"`
+	Code          bool   `json:"code"`
 	Color         string `json:"color,omitzero"`
 }
 

@@ -50,21 +50,21 @@
 					"name": "SsoExpires",
 					"jsonName": "ssoExpires",
 					"type": "int",
-					"jsonTag": "json:\"ssoExpires,omitzero\"",
+					"jsonTag": "json:\"ssoExpires\"",
 					"required": true
 				},
 				{
 					"name": "Collission",
 					"jsonName": "collission",
 					"type": "bool",
-					"jsonTag": "json:\"collission,omitzero\"",
+					"jsonTag": "json:\"collission\"",
 					"required": true
 				},
 				{
 					"name": "UserID",
 					"jsonName": "userId",
 					"type": "int",
-					"jsonTag": "json:\"userId,omitzero\"",
+					"jsonTag": "json:\"userId\"",
 					"required": true
 				},
 				{
@@ -117,28 +117,28 @@
 					"name": "Authenticated",
 					"jsonName": "authenticated",
 					"type": "bool",
-					"jsonTag": "json:\"authenticated,omitzero\"",
+					"jsonTag": "json:\"authenticated\"",
 					"required": true
 				},
 				{
 					"name": "Established",
 					"jsonName": "established",
 					"type": "bool",
-					"jsonTag": "json:\"established,omitzero\"",
+					"jsonTag": "json:\"established\"",
 					"required": true
 				},
 				{
 					"name": "Competing",
 					"jsonName": "competing",
 					"type": "bool",
-					"jsonTag": "json:\"competing,omitzero\"",
+					"jsonTag": "json:\"competing\"",
 					"required": true
 				},
 				{
 					"name": "Connected",
 					"jsonName": "connected",
 					"type": "bool",
-					"jsonTag": "json:\"connected,omitzero\"",
+					"jsonTag": "json:\"connected\"",
 					"required": true
 				},
 				{

@@ -19,7 +19,7 @@ type ListItemsParams struct {
 
 // Item defines a model
 type Item struct {
-	ID int `json:"id,omitzero"`
+	ID int `json:"id"`
 	// This is a multiline
 	// description.
 	//

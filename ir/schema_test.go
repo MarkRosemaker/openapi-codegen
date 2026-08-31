@@ -191,8 +191,8 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	if !id.Required {
 		t.Error("Fields[0].Required = false, want true")
 	}
-	if id.JSONTag != `json:"id,omitzero"` {
-		t.Errorf("Fields[0].JSONTag = %q, want json:\"id,omitzero\"", id.JSONTag)
+	if id.JSONTag != `json:"id"` {
+		t.Errorf("Fields[0].JSONTag = %q, want json:\"id\"", id.JSONTag)
 	}
 
 	// name field (optional string)
@@ -637,8 +637,8 @@ func TestFromComponentSchemas_StructRequiredNonString(t *testing.T) {
 		t.Fatal("no fields")
 	}
 	f := got[0].Fields[0]
-	if f.JSONTag != `json:"count,omitzero"` {
-		t.Errorf("JSONTag = %q, want json:\"count,omitzero\"", f.JSONTag)
+	if f.JSONTag != `json:"count"` {
+		t.Errorf("JSONTag = %q, want json:\"count\"", f.JSONTag)
 	}
 }
 

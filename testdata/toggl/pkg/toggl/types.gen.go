@@ -18,9 +18,11 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 	json.WithMarshalers(json.JoinMarshalers(
 		json.MarshalToFunc(jsonutil.URLMarshal),
+		json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 	)),
 	json.WithUnmarshalers(json.JoinUnmarshalers(
 		json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
+		json.UnmarshalFromFunc(jsonutil.DurationUnmarshalIntSeconds),
 	)),
 )
 
@@ -66,13 +68,13 @@ type NewOrganization struct {
 // NewTimeEntry defines a model
 type NewTimeEntry struct {
 	// Whether the time entry is marked as billable, optional, default false
-	Billable bool `json:"billable,omitzero"`
+	Billable bool `json:"billable"`
 	// Must be provided when creating a time entry and should identify the service/application used to create it
 	CreatedWith string `json:"created_with,omitzero"`
 	// Time entry description, optional
 	Description string `json:"description,omitzero"`
 	// Time entry duration. For running entries should be negative, preferable -1
-	Duration time.Duration `json:"duration,omitzero"`
+	Duration time.Duration `json:"duration"`
 	// Deprecated: Used to create a time entry with a duration but without a stop time. This parameter can be ignored.
 	Duronly       bool           `json:"duronly,omitempty"`
 	EventMetadata *EventMetadata `json:"event_metadata,omitempty"`
@@ -106,7 +108,7 @@ type NewTimeEntry struct {
 	// Workspace ID, legacy field
 	Wid *int `json:"wid,omitempty"`
 	// Workspace ID
-	WorkspaceID int `json:"workspace_id,omitzero"`
+	WorkspaceID int `json:"workspace_id"`
 }
 
 // Options defines a model
@@ -115,35 +117,35 @@ type Options map[string]string
 // Organization defines a model
 type Organization struct {
 	// Organization ID
-	ID int `json:"id,omitzero"`
+	ID int `json:"id"`
 	// Organization Name
 	Name string `json:"name,omitzero"`
 	// Organization plan ID
-	PricingPlanID int `json:"pricing_plan_id,omitzero"`
+	PricingPlanID int `json:"pricing_plan_id"`
 	// Organization's creation date
 	CreatedAt time.Time `json:"created_at,omitzero"`
 	// Organization's last modification date
 	At              time.Time `json:"at,omitzero"`
 	ServerDeletedAt struct{}  `json:"server_deleted_at"`
 	// Is true when the organization option is_multi_workspace_enabled is set
-	IsMultiWorkspaceEnabled bool `json:"is_multi_workspace_enabled,omitzero"`
+	IsMultiWorkspaceEnabled bool `json:"is_multi_workspace_enabled"`
 	// Whether the organization is currently suspended
 	SuspendedAt struct{} `json:"suspended_at"`
 	// Number of organization users
-	UserCount int       `json:"user_count,omitzero"`
+	UserCount int       `json:"user_count"`
 	TrialInfo TrialInfo `json:"trial_info"`
-	IsUnified bool      `json:"is_unified,omitzero"`
+	IsUnified bool      `json:"is_unified"`
 	// Maximum number of workspaces allowed for the organization
-	MaxWorkspaces int    `json:"max_workspaces,omitzero"`
+	MaxWorkspaces int    `json:"max_workspaces"`
 	Permissions   string `json:"permissions,omitzero"`
 	// Whether the requester is an admin of the organization
-	Admin bool `json:"admin,omitzero"`
+	Admin bool `json:"admin"`
 	// Whether the requester is a the owner of the organization
-	Owner bool `json:"owner,omitzero"`
+	Owner bool `json:"owner"`
 	// The subscription plan name the org is currently on. Free or any plan name coming from payment provider
 	PricingPlanName string `json:"pricing_plan_name,omitzero"`
 	// The subscription plan is an enterprise plan
-	PricingPlanEnterprise bool `json:"pricing_plan_enterprise,omitzero"`
+	PricingPlanEnterprise bool `json:"pricing_plan_enterprise"`
 	// How far back free workspaces in this org can access data.
 	MaxDataRetentionDays *int `json:"max_data_retention_days,omitempty"`
 }
@@ -155,29 +157,29 @@ type Organizations []Organization
 type PostOrganizations9011051WorkspacesJSONRequestBody struct {
 	Admins                      []int  `json:"admins"`
 	DefaultCurrency             string `json:"default_currency,omitzero"`
-	DefaultHourlyRate           int    `json:"default_hourly_rate,omitzero"`
-	InitialPricingPlan          int    `json:"initial_pricing_plan,omitzero"`
+	DefaultHourlyRate           int    `json:"default_hourly_rate"`
+	InitialPricingPlan          int    `json:"initial_pricing_plan"`
 	Name                        string `json:"name,omitzero"`
-	OnlyAdminsMayCreateProjects bool   `json:"only_admins_may_create_projects,omitzero"`
-	OnlyAdminsSeeBillableRates  bool   `json:"only_admins_see_billable_rates,omitzero"`
-	OnlyAdminsSeeTeamDashboard  bool   `json:"only_admins_see_team_dashboard,omitzero"`
-	OrganizationID              int    `json:"organizationID,omitzero"`
-	ProjectsBillableByDefault   bool   `json:"projects_billable_by_default,omitzero"`
-	Rounding                    int    `json:"rounding,omitzero"`
-	RoundingMinutes             int    `json:"rounding_minutes,omitzero"`
+	OnlyAdminsMayCreateProjects bool   `json:"only_admins_may_create_projects"`
+	OnlyAdminsSeeBillableRates  bool   `json:"only_admins_see_billable_rates"`
+	OnlyAdminsSeeTeamDashboard  bool   `json:"only_admins_see_team_dashboard"`
+	OrganizationID              int    `json:"organizationID"`
+	ProjectsBillableByDefault   bool   `json:"projects_billable_by_default"`
+	Rounding                    int    `json:"rounding"`
+	RoundingMinutes             int    `json:"rounding_minutes"`
 }
 
 // Project defines a model
 type Project struct {
 	// Project ID
-	ID          int `json:"id,omitzero"`
-	WorkspaceID int `json:"workspace_id,omitzero"`
+	ID          int `json:"id"`
+	WorkspaceID int `json:"workspace_id"`
 	// Client ID
-	ClientID  int    `json:"client_id,omitzero"`
+	ClientID  int    `json:"client_id"`
 	Name      string `json:"name,omitzero"`
-	IsPrivate bool   `json:"is_private,omitzero"`
+	IsPrivate bool   `json:"is_private"`
 	// Whether the project is active or archived
-	Active bool `json:"active,omitzero"`
+	Active bool `json:"active"`
 	// Last updated date
 	At time.Time `json:"at,omitzero"`
 	// Creation date
@@ -186,39 +188,39 @@ type Project struct {
 	// Color
 	Color string `json:"color,omitzero"`
 	// Whether the project is billable, premium feature
-	Billable bool     `json:"billable,omitzero"`
+	Billable bool     `json:"billable"`
 	Template struct{} `json:"template"`
 	// Whether estimates are based on task hours, premium feature
-	AutoEstimates bool           `json:"auto_estimates,omitzero"`
+	AutoEstimates bool           `json:"auto_estimates"`
 	CurrentPeriod *EventMetadata `json:"current_period,omitempty"`
 	// End date
 	EndDate string `json:"end_date,omitzero"`
 	// Estimated hours
-	EstimatedHours int `json:"estimated_hours,omitzero"`
+	EstimatedHours int `json:"estimated_hours"`
 	// Estimated seconds
-	EstimatedSeconds int      `json:"estimated_seconds,omitzero"`
+	EstimatedSeconds int      `json:"estimated_seconds"`
 	Rate             struct{} `json:"rate"`
 	RateLastUpdated  struct{} `json:"rate_last_updated"`
 	// Currency, premium feature
 	Currency            string   `json:"currency,omitzero"`
-	Recurring           bool     `json:"recurring,omitzero"`
+	Recurring           bool     `json:"recurring"`
 	TemplateID          struct{} `json:"template_id"`
 	RecurringParameters struct{} `json:"recurring_parameters"`
 	// Fixed fee, premium feature
 	FixedFee float64 `json:"fixed_fee"`
 	// Actual hours
-	ActualHours int `json:"actual_hours,omitzero"`
+	ActualHours int `json:"actual_hours"`
 	// Actual seconds
-	ActualSeconds int      `json:"actual_seconds,omitzero"`
+	ActualSeconds int      `json:"actual_seconds"`
 	TasksCount    struct{} `json:"tasks_count"`
-	CanTrackTime  bool     `json:"can_track_time,omitzero"`
+	CanTrackTime  bool     `json:"can_track_time"`
 	StartDate     string   `json:"start_date,omitzero"`
 	Status        string   `json:"status,omitzero"`
-	Wid           int      `json:"wid,omitzero"`
+	Wid           int      `json:"wid"`
 	// Client ID legacy field
-	Cid      int  `json:"cid,omitzero"`
-	IsShared bool `json:"is_shared,omitzero"`
-	Pinned   bool `json:"pinned,omitzero"`
+	Cid      int  `json:"cid"`
+	IsShared bool `json:"is_shared"`
+	Pinned   bool `json:"pinned"`
 	// The external ID of the linked entity in the external system (e.g. JIRA/SalesForce)
 	IntegrationExtID string `json:"integration_ext_id,omitzero"`
 	// The external type of the linked entity in the external system (e.g. JIRA/SalesForce)
@@ -232,20 +234,20 @@ type Projects []Project
 
 // SimpleOrganization defines a model
 type SimpleOrganization struct {
-	ID            int    `json:"id,omitzero"`
+	ID            int    `json:"id"`
 	Name          string `json:"name,omitzero"`
 	Permissions   string `json:"permissions,omitzero"`
-	WorkspaceID   int    `json:"workspace_id,omitzero"`
+	WorkspaceID   int    `json:"workspace_id"`
 	WorkspaceName string `json:"workspace_name,omitzero"`
 }
 
 // Tag defines a model
 type Tag struct {
-	ID          int       `json:"id,omitzero"`
-	WorkspaceID int       `json:"workspace_id,omitzero"`
+	ID          int       `json:"id"`
+	WorkspaceID int       `json:"workspace_id"`
 	Name        string    `json:"name,omitzero"`
 	At          time.Time `json:"at,omitzero"`
-	CreatorID   int       `json:"creator_id,omitzero"`
+	CreatorID   int       `json:"creator_id"`
 }
 
 // Used when updating an existing time entry
@@ -274,24 +276,24 @@ type TimeEntries []TimeEntry
 
 // TimeEntry defines a model
 type TimeEntry struct {
-	ID              int           `json:"id,omitzero"`
-	WorkspaceID     int           `json:"workspace_id,omitzero"`
-	ProjectID       int           `json:"project_id,omitzero"`
+	ID              int           `json:"id"`
+	WorkspaceID     int           `json:"workspace_id"`
+	ProjectID       int           `json:"project_id"`
 	TaskID          struct{}      `json:"task_id"`
-	Billable        bool          `json:"billable,omitzero"`
+	Billable        bool          `json:"billable"`
 	Start           time.Time     `json:"start,omitzero"`
 	Stop            time.Time     `json:"stop,omitzero"`
-	Duration        time.Duration `json:"duration,omitzero"`
+	Duration        time.Duration `json:"duration"`
 	Description     string        `json:"description,omitzero"`
 	Tags            []string      `json:"tags"`
 	TagIds          []string      `json:"tag_ids"`
-	Duronly         bool          `json:"duronly,omitzero"`
+	Duronly         bool          `json:"duronly"`
 	At              time.Time     `json:"at,omitzero"`
 	ServerDeletedAt time.Time     `json:"server_deleted_at,omitzero"`
-	UserID          int           `json:"user_id,omitzero"`
-	UID             int           `json:"uid,omitzero"`
-	Wid             int           `json:"wid,omitzero"`
-	Pid             int           `json:"pid,omitzero"`
+	UserID          int           `json:"user_id"`
+	UID             int           `json:"uid"`
+	Wid             int           `json:"wid"`
+	Pid             int           `json:"pid"`
 	ClientName      string        `json:"client_name,omitzero"`
 	ProjectName     string        `json:"project_name,omitzero"`
 	ProjectColor    string        `json:"project_color,omitzero"`
@@ -304,37 +306,37 @@ type TimeEntry struct {
 // TrialInfo defines a model
 type TrialInfo struct {
 	// Whether the organization's subscription is currently on trial
-	Trial bool `json:"trial,omitzero"`
+	Trial bool `json:"trial"`
 	// When a trial is available for this organization
-	TrialAvailable bool `json:"trial_available,omitzero"`
+	TrialAvailable bool `json:"trial_available"`
 	// When the trial ends
 	TrialEndDate string `json:"trial_end_date,omitzero"`
 	// When the trial payment is due
 	NextPaymentDate string `json:"next_payment_date,omitzero"`
 	// What was the previous plan before the trial
-	LastPricingPlanID int `json:"last_pricing_plan_id,omitzero"`
+	LastPricingPlanID int `json:"last_pricing_plan_id"`
 	// True, if neither the organization nor the owner has never had a trial before
-	CanHaveTrial bool     `json:"can_have_trial,omitzero"`
+	CanHaveTrial bool     `json:"can_have_trial"`
 	TrialPlanID  struct{} `json:"trial_plan_id"`
 }
 
 // UserWithRelated defines a model
 type UserWithRelated struct {
-	ID                 int         `json:"id,omitzero"`
+	ID                 int         `json:"id"`
 	APIToken           string      `json:"api_token,omitzero"`
 	Email              types.Email `json:"email,omitzero"`
 	Fullname           string      `json:"fullname,omitzero"`
 	Timezone           string      `json:"timezone,omitzero"`
 	TogglAccountsID    string      `json:"toggl_accounts_id,omitzero"`
-	DefaultWorkspaceID int         `json:"default_workspace_id,omitzero"`
-	BeginningOfWeek    int         `json:"beginning_of_week,omitzero"`
+	DefaultWorkspaceID int         `json:"default_workspace_id"`
+	BeginningOfWeek    int         `json:"beginning_of_week"`
 	ImageURL           url.URL     `json:"image_url,omitzero"`
 	CreatedAt          time.Time   `json:"created_at,omitzero"`
 	UpdatedAt          time.Time   `json:"updated_at,omitzero"`
 	OpenidEmail        struct{}    `json:"openid_email"`
-	OpenidEnabled      bool        `json:"openid_enabled,omitzero"`
-	CountryID          int         `json:"country_id,omitzero"`
-	HasPassword        bool        `json:"has_password,omitzero"`
+	OpenidEnabled      bool        `json:"openid_enabled"`
+	CountryID          int         `json:"country_id"`
+	HasPassword        bool        `json:"has_password"`
 	At                 time.Time   `json:"at,omitzero"`
 	IntercomHash       string      `json:"intercom_hash,omitzero"`
 	OauthProviders     []string    `json:"oauth_providers"`
@@ -353,17 +355,17 @@ type UserWithRelated struct {
 // WorkClient defines a model
 type WorkClient struct {
 	// Client ID
-	ID int `json:"id,omitzero"`
+	ID int `json:"id"`
 	// Workspace ID
-	Wid int `json:"wid,omitzero"`
+	Wid int `json:"wid"`
 	// true, if the client is archived
-	Archived bool `json:"archived,omitzero"`
+	Archived bool `json:"archived"`
 	// Name of the client
 	Name string `json:"name,omitzero"`
 	// When was the last update
 	At time.Time `json:"at,omitzero"`
 	// The ID of the user who created the client
-	CreatorID int `json:"creator_id,omitzero"`
+	CreatorID int `json:"creator_id"`
 	// The external ID of the linked entity in the external system (e.g. JIRA/SalesForce)
 	IntegrationExtID string `json:"integration_ext_id,omitzero"`
 	// The external type of the linked entity in the external system (e.g. JIRA/SalesForce)
@@ -377,38 +379,38 @@ type WorkClient struct {
 
 // Workspace defines a model
 type Workspace struct {
-	ID                          int       `json:"id,omitzero"`
-	OrganizationID              int       `json:"organization_id,omitzero"`
+	ID                          int       `json:"id"`
+	OrganizationID              int       `json:"organization_id"`
 	Name                        string    `json:"name,omitzero"`
-	Premium                     bool      `json:"premium,omitzero"`
-	BusinessWs                  bool      `json:"business_ws,omitzero"`
-	Admin                       bool      `json:"admin,omitzero"`
+	Premium                     bool      `json:"premium"`
+	BusinessWs                  bool      `json:"business_ws"`
+	Admin                       bool      `json:"admin"`
 	Role                        string    `json:"role,omitzero"`
 	SuspendedAt                 string    `json:"suspended_at,omitzero"`
 	ServerDeletedAt             struct{}  `json:"server_deleted_at"`
 	DefaultHourlyRate           struct{}  `json:"default_hourly_rate"`
 	RateLastUpdated             struct{}  `json:"rate_last_updated"`
 	DefaultCurrency             string    `json:"default_currency,omitzero"`
-	OnlyAdminsMayCreateProjects bool      `json:"only_admins_may_create_projects,omitzero"`
-	OnlyAdminsMayCreateTags     bool      `json:"only_admins_may_create_tags,omitzero"`
-	OnlyAdminsSeeBillableRates  bool      `json:"only_admins_see_billable_rates,omitzero"`
-	OnlyAdminsSeeTeamDashboard  bool      `json:"only_admins_see_team_dashboard,omitzero"`
-	ProjectsBillableByDefault   bool      `json:"projects_billable_by_default,omitzero"`
-	ProjectsPrivateByDefault    bool      `json:"projects_private_by_default,omitzero"`
-	ProjectsEnforceBillable     bool      `json:"projects_enforce_billable,omitzero"`
-	LimitPublicProjectData      bool      `json:"limit_public_project_data,omitzero"`
+	OnlyAdminsMayCreateProjects bool      `json:"only_admins_may_create_projects"`
+	OnlyAdminsMayCreateTags     bool      `json:"only_admins_may_create_tags"`
+	OnlyAdminsSeeBillableRates  bool      `json:"only_admins_see_billable_rates"`
+	OnlyAdminsSeeTeamDashboard  bool      `json:"only_admins_see_team_dashboard"`
+	ProjectsBillableByDefault   bool      `json:"projects_billable_by_default"`
+	ProjectsPrivateByDefault    bool      `json:"projects_private_by_default"`
+	ProjectsEnforceBillable     bool      `json:"projects_enforce_billable"`
+	LimitPublicProjectData      bool      `json:"limit_public_project_data"`
 	LastModified                time.Time `json:"last_modified,omitzero"`
-	ReportsCollapse             bool      `json:"reports_collapse,omitzero"`
-	Rounding                    int       `json:"rounding,omitzero"`
-	RoundingMinutes             int       `json:"rounding_minutes,omitzero"`
+	ReportsCollapse             bool      `json:"reports_collapse"`
+	Rounding                    int       `json:"rounding"`
+	RoundingMinutes             int       `json:"rounding_minutes"`
 	APIToken                    uuid.UUID `json:"api_token,omitzero"`
 	At                          time.Time `json:"at,omitzero"`
 	LogoURL                     url.URL   `json:"logo_url,omitzero"`
 	IcalURL                     string    `json:"ical_url,omitzero"`
-	IcalEnabled                 bool      `json:"ical_enabled,omitzero"`
+	IcalEnabled                 bool      `json:"ical_enabled"`
 	CsvUpload                   struct{}  `json:"csv_upload"`
 	Subscription                struct{}  `json:"subscription"`
-	HideStartEndTimes           bool      `json:"hide_start_end_times,omitzero"`
+	HideStartEndTimes           bool      `json:"hide_start_end_times"`
 	WorkingHoursInMinutes       struct{}  `json:"working_hours_in_minutes"`
 }
 

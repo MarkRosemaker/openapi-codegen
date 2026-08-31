@@ -35,15 +35,15 @@ type GetBlocksParams struct {
 // Style information which applies to the whole rich text object.
 type Annotations struct {
 	// Whether the text is **bolded**.
-	Bold bool `json:"bold,omitzero"`
+	Bold bool `json:"bold"`
 	// Whether the text is *italicized*.
-	Italic bool `json:"italic,omitzero"`
+	Italic bool `json:"italic"`
 	// Whether the text is struck through.
-	Strikethrough bool `json:"strikethrough,omitzero"`
+	Strikethrough bool `json:"strikethrough"`
 	// Whether the text is underlined.
-	Underline bool `json:"underline,omitzero"`
+	Underline bool `json:"underline"`
 	// Whether the text is code `style`.
-	Code bool `json:"code,omitzero"`
+	Code bool `json:"code"`
 	// The color of the block.
 	Color Color `json:"color,omitzero"`
 }
@@ -64,10 +64,10 @@ type Block struct {
 	CreatedBy      UserReference `json:"created_by"`
 	LastEditedBy   UserReference `json:"last_edited_by"`
 	// Whether or not the block has children blocks nested within it.
-	HasChildren bool `json:"has_children,omitzero"`
+	HasChildren bool `json:"has_children"`
 	// The archived status of the block.
-	Archived bool `json:"archived,omitzero"`
-	InTrash  bool `json:"in_trash,omitzero"`
+	Archived bool `json:"archived"`
+	InTrash  bool `json:"in_trash"`
 	// Type of block.
 	Type BlockType `json:"type,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
@@ -409,7 +409,7 @@ type FileWithCaption struct {
 // Heading block objects contain this information within their respective property.
 type Heading struct {
 	RichText     RichTexts `json:"rich_text"`
-	IsToggleable bool      `json:"is_toggleable,omitzero"`
+	IsToggleable bool      `json:"is_toggleable"`
 	// The color of the block.
 	Color Color `json:"color,omitzero"`
 }
@@ -490,7 +490,7 @@ type List struct {
 	// Used to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.
 	NextCursor uuid.UUID `json:"next_cursor,omitzero"`
 	// When the response includes the end of the list, `false`. Otherwise, `true`.
-	HasMore bool `json:"has_more,omitzero"`
+	HasMore bool `json:"has_more"`
 }
 
 // Mention defines a model
@@ -551,8 +551,8 @@ type Page struct {
 	// The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.
 	Parent Parent `json:"parent"`
 	// The archived status of the page.
-	Archived bool `json:"archived,omitzero"`
-	InTrash  bool `json:"in_trash,omitzero"`
+	Archived bool `json:"archived"`
+	InTrash  bool `json:"in_trash"`
 	// Properties of a page or database.
 	Properties PropertyValues `json:"properties"`
 	// The URL of the Notion page.
@@ -727,11 +727,11 @@ func (e SyncedFromType) Valid() bool {
 // Table defines a model
 type Table struct {
 	// Number of columns in the table. Note that this cannot be changed via the public API once a table is created.
-	TableWidth int `json:"table_width,omitzero"`
+	TableWidth int `json:"table_width"`
 	// Whether or not the table has a column header. If true, the first row in the table will appear visually distinct from the other rows.
-	HasColumnHeader bool `json:"has_column_header,omitzero"`
+	HasColumnHeader bool `json:"has_column_header"`
 	// Whether or not the table has a header row. If true, the first column in the table will appear visually distinct from the other columns.
-	HasRowHeader bool `json:"has_row_header,omitzero"`
+	HasRowHeader bool `json:"has_row_header"`
 }
 
 // Table of contents block objects contain the following information within the `table_of_contents` property.
@@ -752,7 +752,7 @@ type Text struct {
 type ToDo struct {
 	RichText RichTexts `json:"rich_text"`
 	// Whether the to_do is checked or not.
-	Checked bool `json:"checked,omitzero"`
+	Checked bool `json:"checked"`
 	// The color of the block.
 	Color Color `json:"color,omitzero"`
 }

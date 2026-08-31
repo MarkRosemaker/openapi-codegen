@@ -5272,7 +5272,7 @@
 					"name": "FrameCount",
 					"jsonName": "frame_count",
 					"type": "int",
-					"jsonTag": "json:\"frame_count,omitzero\"",
+					"jsonTag": "json:\"frame_count\"",
 					"required": true
 				},
 				{
@@ -5882,7 +5882,7 @@
 					"name": "FrameCount",
 					"jsonName": "frame_count",
 					"type": "int",
-					"jsonTag": "json:\"frame_count,omitzero\"",
+					"jsonTag": "json:\"frame_count\"",
 					"required": true
 				},
 				{
@@ -6037,7 +6037,7 @@
 					"name": "X",
 					"jsonName": "x",
 					"type": "int",
-					"jsonTag": "json:\"x,omitzero\"",
+					"jsonTag": "json:\"x\"",
 					"description": "X coordinate of the bounding box",
 					"required": true
 				},
@@ -6045,7 +6045,7 @@
 					"name": "Y",
 					"jsonName": "y",
 					"type": "int",
-					"jsonTag": "json:\"y,omitzero\"",
+					"jsonTag": "json:\"y\"",
 					"description": "Y coordinate of the bounding box",
 					"required": true
 				},
@@ -6053,7 +6053,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Width of the bounding box",
 					"required": true
 				},
@@ -6061,7 +6061,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Height of the bounding box",
 					"required": true
 				}
@@ -6137,7 +6137,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "int",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"description": "Number of directional rotations (4 or 8)",
 					"required": true
 				},
@@ -6160,7 +6160,7 @@
 					"name": "AnimationCount",
 					"jsonName": "animation_count",
 					"type": "int",
-					"jsonTag": "json:\"animation_count,omitzero\"",
+					"jsonTag": "json:\"animation_count\"",
 					"description": "Number of animations for this character",
 					"required": true
 				},
@@ -6435,7 +6435,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -6443,7 +6443,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -6496,7 +6496,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "int",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"description": "Number of directional rotations (4 or 8)",
 					"required": true
 				},
@@ -6519,7 +6519,7 @@
 					"name": "AnimationCount",
 					"jsonName": "animation_count",
 					"type": "int",
-					"jsonTag": "json:\"animation_count,omitzero\"",
+					"jsonTag": "json:\"animation_count\"",
 					"description": "Number of animations for this character",
 					"required": true
 				},
@@ -6590,7 +6590,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total number of characters (for pagination)",
 					"required": true
 				}
@@ -6717,7 +6717,7 @@
 					"name": "NFrames",
 					"jsonName": "n_frames",
 					"type": "int",
-					"jsonTag": "json:\"n_frames,omitzero\"",
+					"jsonTag": "json:\"n_frames\"",
 					"description": "Number of candidate frames produced (derived from `size`).",
 					"required": true
 				}
@@ -9339,7 +9339,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"description": "Whether the deletion succeeded",
 					"required": true
 				},
@@ -9386,7 +9386,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"description": "Whether the deletion was successful",
 					"required": true
 				},
@@ -9434,7 +9434,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"description": "Whether the deletion was successful",
 					"required": true
 				},
@@ -9468,7 +9468,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"description": "Whether the asset was deleted",
 					"required": true
 				}
@@ -9654,7 +9654,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -9662,7 +9662,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -9700,7 +9700,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Target canvas width in pixels (16-400)",
 					"required": true
 				},
@@ -9708,7 +9708,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Target canvas height in pixels (16-400)",
 					"required": true
 				},
@@ -10018,14 +10018,14 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"required": true
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"required": true
 				}
 			]
@@ -10626,7 +10626,7 @@
 					"name": "VisemeCount",
 					"jsonName": "viseme_count",
 					"type": "int",
-					"jsonTag": "json:\"viseme_count,omitzero\"",
+					"jsonTag": "json:\"viseme_count\"",
 					"required": true
 				},
 				{
@@ -11035,7 +11035,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"description": "Whether the deletion succeeded",
 					"required": true
 				},
@@ -11136,7 +11136,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total number of isometric tiles (for pagination)",
 					"required": true
 				}
@@ -11198,7 +11198,7 @@
 					"name": "Column",
 					"jsonName": "column",
 					"type": "int",
-					"jsonTag": "json:\"column,omitzero\"",
+					"jsonTag": "json:\"column\"",
 					"description": "Column of this mouth position in the spritesheet.",
 					"required": true
 				},
@@ -11206,7 +11206,7 @@
 					"name": "DurationMs",
 					"jsonName": "duration_ms",
 					"type": "int",
-					"jsonTag": "json:\"duration_ms,omitzero\"",
+					"jsonTag": "json:\"duration_ms\"",
 					"description": "How long to hold this frame.",
 					"required": true
 				},
@@ -11214,7 +11214,7 @@
 					"name": "TextOffset",
 					"jsonName": "text_offset",
 					"type": "int",
-					"jsonTag": "json:\"text_offset,omitzero\"",
+					"jsonTag": "json:\"text_offset\"",
 					"description": "Characters of `text` spoken by the end of this frame — drive a karaoke-style highlight from it.",
 					"required": true
 				}
@@ -11323,7 +11323,7 @@
 					"name": "TotalMs",
 					"jsonName": "total_ms",
 					"type": "int",
-					"jsonTag": "json:\"total_ms,omitzero\"",
+					"jsonTag": "json:\"total_ms\"",
 					"required": true
 				},
 				{
@@ -11456,7 +11456,7 @@
 					"name": "FrameCount",
 					"jsonName": "frame_count",
 					"type": "int",
-					"jsonTag": "json:\"frame_count,omitzero\"",
+					"jsonTag": "json:\"frame_count\"",
 					"description": "Frame count from the latest row in the group",
 					"required": true
 				},
@@ -11522,7 +11522,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "int",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"description": "Number of directional rotations (1, 4, or 8). Review-status objects are always 1-direction outputs awaiting selection.",
 					"required": true
 				},
@@ -11728,7 +11728,7 @@
 					"name": "Directions",
 					"jsonName": "directions",
 					"type": "int",
-					"jsonTag": "json:\"directions,omitzero\"",
+					"jsonTag": "json:\"directions\"",
 					"description": "Number of directional rotations (1, 4, or 8)",
 					"required": true
 				},
@@ -11792,7 +11792,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total number of objects (for pagination)",
 					"required": true
 				}
@@ -11812,7 +11812,7 @@
 					"name": "Row",
 					"jsonName": "row",
 					"type": "int",
-					"jsonTag": "json:\"row,omitzero\"",
+					"jsonTag": "json:\"row\"",
 					"description": "Row index in source grid",
 					"required": true
 				},
@@ -11820,7 +11820,7 @@
 					"name": "Col",
 					"jsonName": "col",
 					"type": "int",
-					"jsonTag": "json:\"col,omitzero\"",
+					"jsonTag": "json:\"col\"",
 					"description": "Column index in source grid",
 					"required": true
 				}
@@ -11862,7 +11862,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Width in pixels",
 					"required": true
 				},
@@ -11870,7 +11870,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Height in pixels",
 					"required": true
 				}
@@ -11996,7 +11996,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Output frame width in pixels (32-168).",
 					"required": true
 				},
@@ -12004,7 +12004,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Output frame height in pixels (32-168).",
 					"required": true
 				}
@@ -12367,7 +12367,7 @@
 					"name": "Size",
 					"jsonName": "size",
 					"type": "int",
-					"jsonTag": "json:\"size,omitzero\"",
+					"jsonTag": "json:\"size\"",
 					"description": "Portrait edge length in pixels (always square).",
 					"required": true
 				},
@@ -12415,7 +12415,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"description": "Whether the deletion succeeded",
 					"required": true
 				},
@@ -12511,7 +12511,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total number of sidescroller tilesets the user owns (unpaginated)",
 					"required": true
 				}
@@ -12769,14 +12769,14 @@
 					"name": "Frames",
 					"jsonName": "frames",
 					"type": "int",
-					"jsonTag": "json:\"frames,omitzero\"",
+					"jsonTag": "json:\"frames\"",
 					"required": true
 				},
 				{
 					"name": "DurationMs",
 					"jsonName": "duration_ms",
 					"type": "int",
-					"jsonTag": "json:\"duration_ms,omitzero\"",
+					"jsonTag": "json:\"duration_ms\"",
 					"description": "True playback length of the returned GIF.",
 					"required": true
 				},
@@ -12784,7 +12784,7 @@
 					"name": "FrameMs",
 					"jsonName": "frame_ms",
 					"type": "int",
-					"jsonTag": "json:\"frame_ms,omitzero\"",
+					"jsonTag": "json:\"frame_ms\"",
 					"description": "Milliseconds per frame actually encoded. May differ from the requested value: GIF stores delays in 10ms steps.",
 					"required": true
 				},
@@ -12792,7 +12792,7 @@
 					"name": "HoldMs",
 					"jsonName": "hold_ms",
 					"type": "int",
-					"jsonTag": "json:\"hold_ms,omitzero\"",
+					"jsonTag": "json:\"hold_ms\"",
 					"description": "End pause actually encoded, in milliseconds.",
 					"required": true
 				},
@@ -12800,14 +12800,14 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"required": true
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"required": true
 				},
 				{
@@ -13064,7 +13064,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total number of tiles the user owns (unpaginated)",
 					"required": true
 				}
@@ -13092,7 +13092,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -13100,7 +13100,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -13142,14 +13142,14 @@
 					"name": "TileSize",
 					"jsonName": "tile_size",
 					"type": "int",
-					"jsonTag": "json:\"tile_size,omitzero\"",
+					"jsonTag": "json:\"tile_size\"",
 					"required": true
 				},
 				{
 					"name": "NTiles",
 					"jsonName": "n_tiles",
 					"type": "int",
-					"jsonTag": "json:\"n_tiles,omitzero\"",
+					"jsonTag": "json:\"n_tiles\"",
 					"required": true
 				},
 				{
@@ -13201,7 +13201,7 @@
 					"name": "TotalTiles",
 					"jsonName": "total_tiles",
 					"type": "int",
-					"jsonTag": "json:\"total_tiles,omitzero\"",
+					"jsonTag": "json:\"total_tiles\"",
 					"description": "Total number of tiles in the tileset (16 for standard, 25 for transition_size=1.0)",
 					"required": true
 				},
@@ -13387,7 +13387,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total number of tilesets (for pagination)",
 					"required": true
 				}
@@ -13604,7 +13604,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "int",
-					"jsonTag": "json:\"total,omitzero\"",
+					"jsonTag": "json:\"total\"",
 					"description": "Total template assets (for pagination)",
 					"required": true
 				}
@@ -13712,7 +13712,7 @@
 					"name": "Sides",
 					"jsonName": "sides",
 					"type": "int",
-					"jsonTag": "json:\"sides,omitzero\"",
+					"jsonTag": "json:\"sides\"",
 					"required": true
 				},
 				{
@@ -13982,7 +13982,7 @@
 					"name": "VisemeCount",
 					"jsonName": "viseme_count",
 					"type": "int",
-					"jsonTag": "json:\"viseme_count,omitzero\"",
+					"jsonTag": "json:\"viseme_count\"",
 					"required": true
 				}
 			]
@@ -13995,7 +13995,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14003,7 +14003,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14017,7 +14017,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels (min 16, max area 512x512, must be divisible by 4; must equal height when either side is below 32)",
 					"required": true
 				},
@@ -14025,7 +14025,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels (min 16, max area 512x512, must be divisible by 4; must equal width when either side is below 32)",
 					"required": true
 				}
@@ -14039,7 +14039,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels. Sizes above 24px often give better results.",
 					"required": true
 				},
@@ -14047,7 +14047,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels. Sizes above 24px often give better results.",
 					"required": true
 				}
@@ -14061,7 +14061,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Width in pixels (32-400)",
 					"required": true
 				},
@@ -14069,7 +14069,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Height in pixels (32-400)",
 					"required": true
 				}
@@ -14103,7 +14103,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14111,7 +14111,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14133,7 +14133,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width (reference max 168, concept max 1024)",
 					"required": true
 				},
@@ -14141,7 +14141,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height (reference max 168, concept max 1024)",
 					"required": true
 				}
@@ -14155,7 +14155,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels (16 to aspect-ratio max)",
 					"required": true
 				},
@@ -14163,7 +14163,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels (16 to aspect-ratio max)",
 					"required": true
 				}
@@ -14226,7 +14226,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Width in pixels",
 					"required": true
 				},
@@ -14234,7 +14234,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Height in pixels",
 					"required": true
 				}
@@ -14248,7 +14248,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14256,7 +14256,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14270,7 +14270,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14278,7 +14278,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14292,7 +14292,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14300,7 +14300,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14336,7 +14336,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Frame image width",
 					"required": true
 				},
@@ -14344,7 +14344,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Frame image height",
 					"required": true
 				}
@@ -14358,7 +14358,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14366,7 +14366,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14380,7 +14380,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Image width in pixels",
 					"required": true
 				},
@@ -14388,7 +14388,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
 				}
@@ -14402,7 +14402,7 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"description": "Width in pixels",
 					"required": true
 				},
@@ -14410,7 +14410,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"description": "Height in pixels",
 					"required": true
 				}

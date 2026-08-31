@@ -26,10 +26,10 @@ type ListV1PetsOkJSONResponseData []PetByPetID
 
 // ListV1PetsOkJSONResponsePagination defines a model
 type ListV1PetsOkJSONResponsePagination struct {
-	Page       int `json:"page,omitzero"`
-	Limit      int `json:"limit,omitzero"`
-	TotalItems int `json:"totalItems,omitzero"`
-	TotalPages int `json:"totalPages,omitzero"`
+	Page       int `json:"page"`
+	Limit      int `json:"limit"`
+	TotalItems int `json:"totalItems"`
+	TotalPages int `json:"totalPages"`
 }
 
 // PetByPetID defines a model
@@ -38,12 +38,12 @@ type PetByPetID struct {
 	Name         string                `json:"name,omitzero"`
 	Species      string                `json:"species,omitzero"`
 	Breed        string                `json:"breed,omitzero"`
-	AgeMonths    int                   `json:"ageMonths,omitzero"`
+	AgeMonths    int                   `json:"ageMonths"`
 	Size         string                `json:"size,omitzero"`
 	Status       string                `json:"status,omitzero"`
 	Price        string                `json:"price,omitzero"`
 	Currency     string                `json:"currency,omitzero"`
-	GoodWithKids bool                  `json:"goodWithKids,omitzero"`
+	GoodWithKids bool                  `json:"goodWithKids"`
 	CreatedAt    time.Time             `json:"createdAt,omitzero"`
 	UpdatedAt    time.Time             `json:"updatedAt,omitzero"`
 	MedicalInfo  PetByPetIDMedicalInfo `json:"medicalInfo"`
@@ -51,9 +51,9 @@ type PetByPetID struct {
 
 // PetByPetIDMedicalInfo defines a model
 type PetByPetIDMedicalInfo struct {
-	Vaccinated     bool   `json:"vaccinated,omitzero"`
-	SpayedNeutered bool   `json:"spayedNeutered,omitzero"`
-	Microchipped   bool   `json:"microchipped,omitzero"`
-	SpecialNeeds   bool   `json:"specialNeeds,omitzero"`
+	Vaccinated     bool   `json:"vaccinated"`
+	SpayedNeutered bool   `json:"spayedNeutered"`
+	Microchipped   bool   `json:"microchipped"`
+	SpecialNeeds   bool   `json:"specialNeeds"`
 	HealthNotes    string `json:"healthNotes,omitzero"`
 }

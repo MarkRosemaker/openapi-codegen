@@ -46,6 +46,12 @@ type InteractionCall struct {
 	// StatusCode, empty when the operation has no schema for that status (the
 	// client falls back to a generic status-string error in that case).
 	ErrorType string
+	// BodyJSON is the recorded request body as a compact JSON string, set
+	// whenever Op.RequestBody is non-nil and the interaction carried a body.
+	// The generated test decodes it into Op.RequestBody's type at run time,
+	// so the replayed request carries the same body the interaction was
+	// recorded with instead of a zero value.
+	BodyJSON string
 }
 
 // InteractionParam is one query param with its Go literal value.

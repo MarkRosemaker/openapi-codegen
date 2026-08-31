@@ -181,10 +181,17 @@ func replay(t *testing.T) http.RoundTripper {
 			return nil, fmt.Errorf("interaction #%d: got method %s, want %s", idx, r.Method, ia.Request.Method)
 		}
 
-		body := jsontext.Value(ia.Request.Body)
-		body.Canonicalize()
-		if !bytes.Equal(r.Body, body) {
-			return nil, fmt.Errorf("interaction #%d: got body %s, want %s", idx, string(r.Body), string(body))
+		{{/* Canonicalize both sides: struct field order (what the client sends)
+			has no reason to match a recording's own key order, and only the
+			JSON value equality between them is what actually matters. */}}
+		gotBody := jsontext.Value(r.Body)
+		gotBody.Canonicalize()
+
+		wantBody := jsontext.Value(ia.Request.Body)
+		wantBody.Canonicalize()
+
+		if !bytes.Equal(gotBody, wantBody) {
+			return nil, fmt.Errorf("interaction #%d: got body %s, want %s", idx, string(gotBody), string(wantBody))
 		}
 
 		if ia.Request.Headers == nil {
@@ -218,6 +225,31 @@ func replay(t *testing.T) http.RoundTripper {
 	})
 }
 
+// mustDecodeBody decodes data, the recorded request body of an interaction,
+// into T so a replayed call carries the same body it was recorded with
+// instead of a zero value.
+func mustDecodeBody[T any](t *testing.T, data string) T {
+	t.Helper()
+
+	var v T
+	if err := json.Unmarshal([]byte(data), &v, jsonOpts); err != nil {
+		t.Fatalf("decoding request body fixture: %v", err)
+	}
+
+	return v
+}
+
+// mustDecodeBodyPtr is mustDecodeBody for an optional request body: an empty
+// recording (the body was never sent) decodes to nil rather than a value.
+func mustDecodeBodyPtr[T any](t *testing.T, data string) *T {
+	if data == "" {
+		return nil
+	}
+
+	v := mustDecodeBody[T](t, data)
+	return &v
+}
+
 func TestClient_Interactions(t *testing.T) {
 	ctx := t.Context()
 	{{- with $.Auth.Bearer.Name}}
@@ -237,7 +269,7 @@ func TestClient_Interactions(t *testing.T) {
 		{{range .QueryArgs}}{{.FieldName}}: {{.Literal}},
 		{{ end -}}
 		{{range .HeaderArgs}}{{.FieldName}}: {{.Literal}},
-		{{end}}}{{else if .Op.QueryParams}}, nil{{end}}{{if .Op.RequestBody}}, {{if .Op.RequestBody.Required}}{{.Op.RequestBody.TypeName}}{}{{else}}nil{{end}}{{end}});
+		{{end}}}{{else if .Op.QueryParams}}, nil{{end}}{{if .Op.RequestBody}}, {{if .Op.RequestBody.Required}}mustDecodeBody[{{.Op.RequestBody.TypeName}}](t, {{printf "%q" .BodyJSON}}){{else}}mustDecodeBodyPtr[{{.Op.RequestBody.TypeName}}](t, {{printf "%q" .BodyJSON}}){{end}}{{end}});
 	{{- if .IsSuccess}} err != nil {
 		t.Fatalf("{{.Op.Name}}: %v", err)
 	}
@@ -251,7 +283,7 @@ func TestClient_Interactions(t *testing.T) {
 	{{else}}
 	if err := c.{{.Op.Name}}(ctx{{range .PathArgs}}, {{.}}{{end}}{{if .QueryArgs}}, &{{.Op.ParamStructName}}{
 		{{range .QueryArgs}}{{.FieldName}}: {{.Literal}},
-		{{end}}}{{else if .Op.QueryParams}}, nil{{end}}{{if .Op.RequestBody}}, {{if .Op.RequestBody.Required}}{{.Op.RequestBody.TypeName}}{}{{else}}nil{{end}}{{end}});
+		{{end}}}{{else if .Op.QueryParams}}, nil{{end}}{{if .Op.RequestBody}}, {{if .Op.RequestBody.Required}}mustDecodeBody[{{.Op.RequestBody.TypeName}}](t, {{printf "%q" .BodyJSON}}){{else}}mustDecodeBodyPtr[{{.Op.RequestBody.TypeName}}](t, {{printf "%q" .BodyJSON}}){{end}}{{end}});
 	{{- if .IsSuccess}} err != nil {
 		t.Fatalf("{{.Op.Name}}: %v", err)
 	}

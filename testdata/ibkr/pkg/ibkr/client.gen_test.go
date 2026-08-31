@@ -7,6 +7,7 @@ package ibkr
 import (
 	"bytes"
 	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"io"
@@ -160,10 +161,14 @@ func replay(t *testing.T) http.RoundTripper {
 			return nil, fmt.Errorf("interaction #%d: got method %s, want %s", idx, r.Method, ia.Request.Method)
 		}
 
-		body := jsontext.Value(ia.Request.Body)
-		body.Canonicalize()
-		if !bytes.Equal(r.Body, body) {
-			return nil, fmt.Errorf("interaction #%d: got body %s, want %s", idx, string(r.Body), string(body))
+		gotBody := jsontext.Value(r.Body)
+		gotBody.Canonicalize()
+
+		wantBody := jsontext.Value(ia.Request.Body)
+		wantBody.Canonicalize()
+
+		if !bytes.Equal(gotBody, wantBody) {
+			return nil, fmt.Errorf("interaction #%d: got body %s, want %s", idx, string(gotBody), string(wantBody))
 		}
 
 		if ia.Request.Headers == nil {
@@ -188,6 +193,31 @@ func replay(t *testing.T) http.RoundTripper {
 			Body:       io.NopCloser(bytes.NewReader(ia.Response.Body)),
 		}, nil
 	})
+}
+
+// mustDecodeBody decodes data, the recorded request body of an interaction,
+// into T so a replayed call carries the same body it was recorded with
+// instead of a zero value.
+func mustDecodeBody[T any](t *testing.T, data string) T {
+	t.Helper()
+
+	var v T
+	if err := json.Unmarshal([]byte(data), &v, jsonOpts); err != nil {
+		t.Fatalf("decoding request body fixture: %v", err)
+	}
+
+	return v
+}
+
+// mustDecodeBodyPtr is mustDecodeBody for an optional request body: an empty
+// recording (the body was never sent) decodes to nil rather than a value.
+func mustDecodeBodyPtr[T any](t *testing.T, data string) *T {
+	if data == "" {
+		return nil
+	}
+
+	v := mustDecodeBody[T](t, data)
+	return &v
 }
 
 func TestClient_Interactions(t *testing.T) {

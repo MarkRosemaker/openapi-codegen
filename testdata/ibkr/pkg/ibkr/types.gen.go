@@ -17,9 +17,9 @@ var jsonOpts = json.JoinOptions(
 // ListV1APITickleOkJSONResponse defines a model
 type ListV1APITickleOkJSONResponse struct {
 	Session    uuid.UUID                            `json:"session,omitzero"`
-	SsoExpires int                                  `json:"ssoExpires,omitzero"`
-	Collission bool                                 `json:"collission,omitzero"`
-	UserID     int                                  `json:"userId,omitzero"`
+	SsoExpires int                                  `json:"ssoExpires"`
+	Collission bool                                 `json:"collission"`
+	UserID     int                                  `json:"userId"`
 	Hmds       ListV1APITickleOkJSONResponseHmds    `json:"hmds"`
 	Iserver    ListV1APITickleOkJSONResponseIserver `json:"iserver"`
 }
@@ -36,10 +36,10 @@ type ListV1APITickleOkJSONResponseIserver struct {
 
 // ListV1APITickleOkJSONResponseIserverAuthStatus defines a model
 type ListV1APITickleOkJSONResponseIserverAuthStatus struct {
-	Authenticated bool                                                     `json:"authenticated,omitzero"`
-	Established   bool                                                     `json:"established,omitzero"`
-	Competing     bool                                                     `json:"competing,omitzero"`
-	Connected     bool                                                     `json:"connected,omitzero"`
+	Authenticated bool                                                     `json:"authenticated"`
+	Established   bool                                                     `json:"established"`
+	Competing     bool                                                     `json:"competing"`
+	Connected     bool                                                     `json:"connected"`
 	Message       string                                                   `json:"message,omitzero"`
 	Mac           string                                                   `json:"MAC,omitzero"`
 	ServerInfo    ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo `json:"serverInfo"`

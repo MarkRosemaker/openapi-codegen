@@ -48,14 +48,14 @@ type ApivTaskByTaskIDDataGroup struct {
 
 // ApivTaskByTaskIDDataGroupApproval defines a model
 type ApivTaskByTaskIDDataGroupApproval struct {
-	Required  bool `json:"required,omitzero"`
-	Approved  bool `json:"approved,omitzero"`
-	Requested bool `json:"requested,omitzero"`
+	Required  bool `json:"required"`
+	Approved  bool `json:"approved"`
+	Requested bool `json:"requested"`
 }
 
 // GetApiv3TaskByTaskIDOkJSONResponse defines a model
 type GetApiv3TaskByTaskIDOkJSONResponse struct {
-	Success       bool                                   `json:"success,omitzero"`
+	Success       bool                                   `json:"success"`
 	Data          GetApiv3TaskByTaskIDOkJSONResponseData `json:"data"`
 	Notifications []struct{}                             `json:"notifications"`
 }
@@ -78,8 +78,8 @@ type GetApiv3TaskByTaskIDOkJSONResponseData struct {
 	CreatedAt    time.Time                                       `json:"createdAt,omitzero"`
 	UpdatedAt    time.Time                                       `json:"updatedAt,omitzero"`
 	History      GetApiv3TaskByTaskIDOkJSONResponseDataHistory   `json:"history"`
-	Down         bool                                            `json:"down,omitzero"`
-	Up           bool                                            `json:"up,omitzero"`
+	Down         bool                                            `json:"down"`
+	Up           bool                                            `json:"up"`
 	ID           uuid.UUID                                       `json:"id,omitzero"`
 }
 
@@ -95,12 +95,12 @@ type GetApiv3TaskByTaskIDOkJSONResponseDataHistory []GetApiv3TaskByTaskIDOkJSONR
 // GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem defines a model
 type GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem struct {
 	Value float64 `json:"value"`
-	Date  int     `json:"date,omitzero"`
+	Date  int     `json:"date"`
 }
 
 // ListApiv3TasksUserOkJSONResponse defines a model
 type ListApiv3TasksUserOkJSONResponse struct {
-	Success       bool                                 `json:"success,omitzero"`
+	Success       bool                                 `json:"success"`
 	Data          ListApiv3TasksUserOkJSONResponseData `json:"data"`
 	Notifications []struct{}                           `json:"notifications"`
 }
@@ -116,8 +116,8 @@ type ListApiv3TasksUserOkJSONResponseDataItem struct {
 	Type              string                                            `json:"type,omitzero"`
 	Notes             string                                            `json:"notes,omitzero"`
 	Tags              []struct{}                                        `json:"tags"`
-	Value             int                                               `json:"value,omitzero"`
-	Priority          int                                               `json:"priority,omitzero"`
+	Value             int                                               `json:"value"`
+	Priority          int                                               `json:"priority"`
 	Attribute         string                                            `json:"attribute,omitzero"`
 	Challenge         struct{}                                          `json:"challenge"`
 	Group             ApivTaskByTaskIDDataGroup                         `json:"group"`
@@ -149,21 +149,21 @@ type ListApiv3TasksUserOkJSONResponseDataItemRemindersItem struct {
 
 // ListApiv3TasksUserOkJSONResponseDataItemRepeat defines a model
 type ListApiv3TasksUserOkJSONResponseDataItemRepeat struct {
-	Su bool `json:"su,omitzero"`
-	S  bool `json:"s,omitzero"`
-	F  bool `json:"f,omitzero"`
-	Th bool `json:"th,omitzero"`
-	W  bool `json:"w,omitzero"`
-	T  bool `json:"t,omitzero"`
-	M  bool `json:"m,omitzero"`
+	Su bool `json:"su"`
+	S  bool `json:"s"`
+	F  bool `json:"f"`
+	Th bool `json:"th"`
+	W  bool `json:"w"`
+	T  bool `json:"t"`
+	M  bool `json:"m"`
 }
 
 // ListApiv3UserOkJSONResponse defines a model
 type ListApiv3UserOkJSONResponse struct {
-	Success       bool                            `json:"success,omitzero"`
+	Success       bool                            `json:"success"`
 	Data          ListApiv3UserOkJSONResponseData `json:"data"`
 	Notifications []struct{}                      `json:"notifications"`
-	UserV         int                             `json:"userV,omitzero"`
+	UserV         int                             `json:"userV"`
 	AppVersion    string                          `json:"appVersion,omitzero"`
 }
 
@@ -187,7 +187,7 @@ type ListApiv3UserOkJSONResponseData struct {
 	TasksOrder             ListApiv3UserOkJSONResponseDataTasksOrder   `json:"tasksOrder"`
 	UnderscoreID           uuid.UUID                                   `json:"_id,omitzero"`
 	UnderscoreABtest       string                                      `json:"_ABtest,omitzero"`
-	LoginIncentives        int                                         `json:"loginIncentives,omitzero"`
+	LoginIncentives        int                                         `json:"loginIncentives"`
 	Webhooks               []struct{}                                  `json:"webhooks"`
 	PushDevices            ListApiv3UserOkJSONResponseDataPushDevices  `json:"pushDevices"`
 	Extra                  struct{}                                    `json:"extra"`
@@ -197,68 +197,68 @@ type ListApiv3UserOkJSONResponseData struct {
 	Challenges             []uuid.UUID                                 `json:"challenges"`
 	NewMessages            struct{}                                    `json:"newMessages"`
 	LastCron               time.Time                                   `json:"lastCron,omitzero"`
-	Balance                int                                         `json:"balance,omitzero"`
-	UnderscoreV            int                                         `json:"_v,omitzero"`
+	Balance                int                                         `json:"balance"`
+	UnderscoreV            int                                         `json:"_v"`
 	Migration              string                                      `json:"migration,omitzero"`
 	PinnedItems            ListApiv3UserOkJSONResponseDataPinnedItems  `json:"pinnedItems"`
 	UnpinnedItems          []struct{}                                  `json:"unpinnedItems"`
-	InvitesSent            int                                         `json:"invitesSent,omitzero"`
+	InvitesSent            int                                         `json:"invitesSent"`
 	PinnedItemsOrder       []struct{}                                  `json:"pinnedItemsOrder"`
 	UnderscoreSubSignature string                                      `json:"_subSignature,omitzero"`
 	ID                     uuid.UUID                                   `json:"id,omitzero"`
-	NeedsCron              bool                                        `json:"needsCron,omitzero"`
+	NeedsCron              bool                                        `json:"needsCron"`
 }
 
 // ListApiv3UserOkJSONResponseDataAchievements defines a model
 type ListApiv3UserOkJSONResponseDataAchievements struct {
 	UltimateGearSets   ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets `json:"ultimateGearSets"`
-	Perfect            int                                                         `json:"perfect,omitzero"`
+	Perfect            int                                                         `json:"perfect"`
 	Quests             ListApiv3UserOkJSONResponseDataAchievementsQuests           `json:"quests"`
 	Challenges         []struct{}                                                  `json:"challenges"`
-	PartyUp            bool                                                        `json:"partyUp,omitzero"`
-	PartyOn            bool                                                        `json:"partyOn,omitzero"`
-	HabitBirthdays     int                                                         `json:"habitBirthdays,omitzero"`
-	Streak             int                                                         `json:"streak,omitzero"`
-	JoinedGuild        bool                                                        `json:"joinedGuild,omitzero"`
-	JoinedChallenge    bool                                                        `json:"joinedChallenge,omitzero"`
-	HabiticaDays       int                                                         `json:"habiticaDays,omitzero"`
-	InvitedFriend      bool                                                        `json:"invitedFriend,omitzero"`
-	BackToBasics       bool                                                        `json:"backToBasics,omitzero"`
-	DustDevil          bool                                                        `json:"dustDevil,omitzero"`
-	MonsterMagus       bool                                                        `json:"monsterMagus,omitzero"`
-	CompletedTask      bool                                                        `json:"completedTask,omitzero"`
-	CreatedTask        bool                                                        `json:"createdTask,omitzero"`
-	FedPet             bool                                                        `json:"fedPet,omitzero"`
-	HatchedPet         bool                                                        `json:"hatchedPet,omitzero"`
-	PurchasedEquipment bool                                                        `json:"purchasedEquipment,omitzero"`
-	SeeingRed          bool                                                        `json:"seeingRed,omitzero"`
-	ShadyCustomer      bool                                                        `json:"shadyCustomer,omitzero"`
-	RoyallyLoyal       bool                                                        `json:"royallyLoyal,omitzero"`
-	AllYourBase        bool                                                        `json:"allYourBase,omitzero"`
-	PearlyPro          bool                                                        `json:"pearlyPro,omitzero"`
+	PartyUp            bool                                                        `json:"partyUp"`
+	PartyOn            bool                                                        `json:"partyOn"`
+	HabitBirthdays     int                                                         `json:"habitBirthdays"`
+	Streak             int                                                         `json:"streak"`
+	JoinedGuild        bool                                                        `json:"joinedGuild"`
+	JoinedChallenge    bool                                                        `json:"joinedChallenge"`
+	HabiticaDays       int                                                         `json:"habiticaDays"`
+	InvitedFriend      bool                                                        `json:"invitedFriend"`
+	BackToBasics       bool                                                        `json:"backToBasics"`
+	DustDevil          bool                                                        `json:"dustDevil"`
+	MonsterMagus       bool                                                        `json:"monsterMagus"`
+	CompletedTask      bool                                                        `json:"completedTask"`
+	CreatedTask        bool                                                        `json:"createdTask"`
+	FedPet             bool                                                        `json:"fedPet"`
+	HatchedPet         bool                                                        `json:"hatchedPet"`
+	PurchasedEquipment bool                                                        `json:"purchasedEquipment"`
+	SeeingRed          bool                                                        `json:"seeingRed"`
+	ShadyCustomer      bool                                                        `json:"shadyCustomer"`
+	RoyallyLoyal       bool                                                        `json:"royallyLoyal"`
+	AllYourBase        bool                                                        `json:"allYourBase"`
+	PearlyPro          bool                                                        `json:"pearlyPro"`
 }
 
 // ListApiv3UserOkJSONResponseDataAchievementsQuests defines a model
 type ListApiv3UserOkJSONResponseDataAchievementsQuests struct {
-	Dustbunnies  int `json:"dustbunnies,omitzero"`
-	Basilist     int `json:"basilist,omitzero"`
-	Moon1        int `json:"moon1,omitzero"`
-	Moon2        int `json:"moon2,omitzero"`
-	Dysheartener int `json:"dysheartener,omitzero"`
-	Moon3        int `json:"moon3,omitzero"`
-	Vice1        int `json:"vice1,omitzero"`
-	Vice2        int `json:"vice2,omitzero"`
-	Vice3        int `json:"vice3,omitzero"`
-	Atom1        int `json:"atom1,omitzero"`
-	Atom2        int `json:"atom2,omitzero"`
+	Dustbunnies  int `json:"dustbunnies"`
+	Basilist     int `json:"basilist"`
+	Moon1        int `json:"moon1"`
+	Moon2        int `json:"moon2"`
+	Dysheartener int `json:"dysheartener"`
+	Moon3        int `json:"moon3"`
+	Vice1        int `json:"vice1"`
+	Vice2        int `json:"vice2"`
+	Vice3        int `json:"vice3"`
+	Atom1        int `json:"atom1"`
+	Atom2        int `json:"atom2"`
 }
 
 // ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets defines a model
 type ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets struct {
-	Warrior bool `json:"warrior,omitzero"`
-	Rogue   bool `json:"rogue,omitzero"`
-	Wizard  bool `json:"wizard,omitzero"`
-	Healer  bool `json:"healer,omitzero"`
+	Warrior bool `json:"warrior"`
+	Rogue   bool `json:"rogue"`
+	Wizard  bool `json:"wizard"`
+	Healer  bool `json:"healer"`
 }
 
 // ListApiv3UserOkJSONResponseDataAuth defines a model
@@ -282,7 +282,7 @@ type ListApiv3UserOkJSONResponseDataAuthGoogleEmails []ListApiv3UserOkJSONRespon
 // ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem defines a model
 type ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem struct {
 	Value    types.Email `json:"value,omitzero"`
-	Verified bool        `json:"verified,omitzero"`
+	Verified bool        `json:"verified"`
 }
 
 // ListApiv3UserOkJSONResponseDataAuthLocal defines a model
@@ -290,7 +290,7 @@ type ListApiv3UserOkJSONResponseDataAuthLocal struct {
 	Username          string      `json:"username,omitzero"`
 	LowerCaseUsername string      `json:"lowerCaseUsername,omitzero"`
 	Email             types.Email `json:"email,omitzero"`
-	HasPassword       bool        `json:"has_password,omitzero"`
+	HasPassword       bool        `json:"has_password"`
 }
 
 // ListApiv3UserOkJSONResponseDataAuthTimestamps defines a model
@@ -304,55 +304,55 @@ type ListApiv3UserOkJSONResponseDataAuthTimestamps struct {
 type ListApiv3UserOkJSONResponseDataFlags struct {
 	Tour                        ListApiv3UserOkJSONResponseDataFlagsTour       `json:"tour"`
 	Tutorial                    ListApiv3UserOkJSONResponseDataFlagsTutorial   `json:"tutorial"`
-	CustomizationsNotification  bool                                           `json:"customizationsNotification,omitzero"`
-	ShowTour                    bool                                           `json:"showTour,omitzero"`
-	DropsEnabled                bool                                           `json:"dropsEnabled,omitzero"`
-	ItemsEnabled                bool                                           `json:"itemsEnabled,omitzero"`
+	CustomizationsNotification  bool                                           `json:"customizationsNotification"`
+	ShowTour                    bool                                           `json:"showTour"`
+	DropsEnabled                bool                                           `json:"dropsEnabled"`
+	ItemsEnabled                bool                                           `json:"itemsEnabled"`
 	LastNewStuffRead            uuid.UUID                                      `json:"lastNewStuffRead,omitzero"`
-	Rewrite                     bool                                           `json:"rewrite,omitzero"`
-	ClassSelected               bool                                           `json:"classSelected,omitzero"`
-	RebirthEnabled              bool                                           `json:"rebirthEnabled,omitzero"`
-	RecaptureEmailsPhase        int                                            `json:"recaptureEmailsPhase,omitzero"`
-	WeeklyRecapEmailsPhase      int                                            `json:"weeklyRecapEmailsPhase,omitzero"`
-	CommunityGuidelinesAccepted bool                                           `json:"communityGuidelinesAccepted,omitzero"`
-	CronCount                   int                                            `json:"cronCount,omitzero"`
-	Welcomed                    bool                                           `json:"welcomed,omitzero"`
-	ArmoireEnabled              bool                                           `json:"armoireEnabled,omitzero"`
-	ArmoireOpened               bool                                           `json:"armoireOpened,omitzero"`
-	ArmoireEmpty                bool                                           `json:"armoireEmpty,omitzero"`
-	CardReceived                bool                                           `json:"cardReceived,omitzero"`
-	WarnedLowHealth             bool                                           `json:"warnedLowHealth,omitzero"`
-	VerifiedUsername            bool                                           `json:"verifiedUsername,omitzero"`
+	Rewrite                     bool                                           `json:"rewrite"`
+	ClassSelected               bool                                           `json:"classSelected"`
+	RebirthEnabled              bool                                           `json:"rebirthEnabled"`
+	RecaptureEmailsPhase        int                                            `json:"recaptureEmailsPhase"`
+	WeeklyRecapEmailsPhase      int                                            `json:"weeklyRecapEmailsPhase"`
+	CommunityGuidelinesAccepted bool                                           `json:"communityGuidelinesAccepted"`
+	CronCount                   int                                            `json:"cronCount"`
+	Welcomed                    bool                                           `json:"welcomed"`
+	ArmoireEnabled              bool                                           `json:"armoireEnabled"`
+	ArmoireOpened               bool                                           `json:"armoireOpened"`
+	ArmoireEmpty                bool                                           `json:"armoireEmpty"`
+	CardReceived                bool                                           `json:"cardReceived"`
+	WarnedLowHealth             bool                                           `json:"warnedLowHealth"`
+	VerifiedUsername            bool                                           `json:"verifiedUsername"`
 	LevelDrops                  ListApiv3UserOkJSONResponseDataFlagsLevelDrops `json:"levelDrops"`
 	LastWeeklyRecap             time.Time                                      `json:"lastWeeklyRecap,omitzero"`
-	InitializedUserHistory      bool                                           `json:"initializedUserHistory,omitzero"`
+	InitializedUserHistory      bool                                           `json:"initializedUserHistory"`
 	ThirdPartyTools             time.Time                                      `json:"thirdPartyTools,omitzero"`
-	NewStuff                    bool                                           `json:"newStuff,omitzero"`
+	NewStuff                    bool                                           `json:"newStuff"`
 }
 
 // ListApiv3UserOkJSONResponseDataFlagsLevelDrops defines a model
 type ListApiv3UserOkJSONResponseDataFlagsLevelDrops struct {
-	Atom1         bool `json:"atom1,omitzero"`
-	Vice1         bool `json:"vice1,omitzero"`
-	Goldenknight1 bool `json:"goldenknight1,omitzero"`
-	Moonstone1    bool `json:"moonstone1,omitzero"`
+	Atom1         bool `json:"atom1"`
+	Vice1         bool `json:"vice1"`
+	Goldenknight1 bool `json:"goldenknight1"`
+	Moonstone1    bool `json:"moonstone1"`
 }
 
 // ListApiv3UserOkJSONResponseDataFlagsTour defines a model
 type ListApiv3UserOkJSONResponseDataFlagsTour struct {
-	Intro      int `json:"intro,omitzero"`
-	Classes    int `json:"classes,omitzero"`
-	Stats      int `json:"stats,omitzero"`
-	Tavern     int `json:"tavern,omitzero"`
-	Party      int `json:"party,omitzero"`
-	Guilds     int `json:"guilds,omitzero"`
-	Challenges int `json:"challenges,omitzero"`
-	Market     int `json:"market,omitzero"`
-	Pets       int `json:"pets,omitzero"`
-	Mounts     int `json:"mounts,omitzero"`
-	Hall       int `json:"hall,omitzero"`
-	Equipment  int `json:"equipment,omitzero"`
-	GroupPlans int `json:"groupPlans,omitzero"`
+	Intro      int `json:"intro"`
+	Classes    int `json:"classes"`
+	Stats      int `json:"stats"`
+	Tavern     int `json:"tavern"`
+	Party      int `json:"party"`
+	Guilds     int `json:"guilds"`
+	Challenges int `json:"challenges"`
+	Market     int `json:"market"`
+	Pets       int `json:"pets"`
+	Mounts     int `json:"mounts"`
+	Hall       int `json:"hall"`
+	Equipment  int `json:"equipment"`
+	GroupPlans int `json:"groupPlans"`
 }
 
 // ListApiv3UserOkJSONResponseDataFlagsTutorial defines a model
@@ -363,32 +363,32 @@ type ListApiv3UserOkJSONResponseDataFlagsTutorial struct {
 
 // ListApiv3UserOkJSONResponseDataFlagsTutorialCommon defines a model
 type ListApiv3UserOkJSONResponseDataFlagsTutorialCommon struct {
-	Habits    bool `json:"habits,omitzero"`
-	Dailies   bool `json:"dailies,omitzero"`
-	Todos     bool `json:"todos,omitzero"`
-	Rewards   bool `json:"rewards,omitzero"`
-	Party     bool `json:"party,omitzero"`
-	Pets      bool `json:"pets,omitzero"`
-	Gems      bool `json:"gems,omitzero"`
-	Skills    bool `json:"skills,omitzero"`
-	Classes   bool `json:"classes,omitzero"`
-	Tavern    bool `json:"tavern,omitzero"`
-	Equipment bool `json:"equipment,omitzero"`
-	Items     bool `json:"items,omitzero"`
-	Mounts    bool `json:"mounts,omitzero"`
-	Inbox     bool `json:"inbox,omitzero"`
-	Stats     bool `json:"stats,omitzero"`
+	Habits    bool `json:"habits"`
+	Dailies   bool `json:"dailies"`
+	Todos     bool `json:"todos"`
+	Rewards   bool `json:"rewards"`
+	Party     bool `json:"party"`
+	Pets      bool `json:"pets"`
+	Gems      bool `json:"gems"`
+	Skills    bool `json:"skills"`
+	Classes   bool `json:"classes"`
+	Tavern    bool `json:"tavern"`
+	Equipment bool `json:"equipment"`
+	Items     bool `json:"items"`
+	Mounts    bool `json:"mounts"`
+	Inbox     bool `json:"inbox"`
+	Stats     bool `json:"stats"`
 }
 
 // ListApiv3UserOkJSONResponseDataFlagsTutorialIos defines a model
 type ListApiv3UserOkJSONResponseDataFlagsTutorialIos struct {
-	AddTask     bool `json:"addTask,omitzero"`
-	EditTask    bool `json:"editTask,omitzero"`
-	DeleteTask  bool `json:"deleteTask,omitzero"`
-	FilterTask  bool `json:"filterTask,omitzero"`
-	GroupPets   bool `json:"groupPets,omitzero"`
-	InviteParty bool `json:"inviteParty,omitzero"`
-	ReorderTask bool `json:"reorderTask,omitzero"`
+	AddTask     bool `json:"addTask"`
+	EditTask    bool `json:"editTask"`
+	DeleteTask  bool `json:"deleteTask"`
+	FilterTask  bool `json:"filterTask"`
+	GroupPets   bool `json:"groupPets"`
+	InviteParty bool `json:"inviteParty"`
+	ReorderTask bool `json:"reorderTask"`
 }
 
 // ListApiv3UserOkJSONResponseDataHistory defines a model
@@ -399,10 +399,10 @@ type ListApiv3UserOkJSONResponseDataHistory struct {
 
 // ListApiv3UserOkJSONResponseDataInbox defines a model
 type ListApiv3UserOkJSONResponseDataInbox struct {
-	OptOut      bool                                         `json:"optOut,omitzero"`
+	OptOut      bool                                         `json:"optOut"`
 	Messages    ListApiv3UserOkJSONResponseDataInboxMessages `json:"messages"`
 	Blocks      []struct{}                                   `json:"blocks"`
-	NewMessages int                                          `json:"newMessages,omitzero"`
+	NewMessages int                                          `json:"newMessages"`
 }
 
 // ListApiv3UserOkJSONResponseDataInboxMessages defines a model
@@ -438,60 +438,60 @@ type ListApiv3UserOkJSONResponseDataItems struct {
 
 // ListApiv3UserOkJSONResponseDataItemsEggs defines a model
 type ListApiv3UserOkJSONResponseDataItemsEggs struct {
-	Wolf      int `json:"Wolf,omitzero"`
-	Cactus    int `json:"Cactus,omitzero"`
-	PandaCub  int `json:"PandaCub,omitzero"`
-	Fox       int `json:"Fox,omitzero"`
-	BearCub   int `json:"BearCub,omitzero"`
-	Dragon    int `json:"Dragon,omitzero"`
-	LionCub   int `json:"LionCub,omitzero"`
-	FlyingPig int `json:"FlyingPig,omitzero"`
-	TigerCub  int `json:"TigerCub,omitzero"`
+	Wolf      int `json:"Wolf"`
+	Cactus    int `json:"Cactus"`
+	PandaCub  int `json:"PandaCub"`
+	Fox       int `json:"Fox"`
+	BearCub   int `json:"BearCub"`
+	Dragon    int `json:"Dragon"`
+	LionCub   int `json:"LionCub"`
+	FlyingPig int `json:"FlyingPig"`
+	TigerCub  int `json:"TigerCub"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsFood defines a model
 type ListApiv3UserOkJSONResponseDataItemsFood struct {
-	Potatoe              int `json:"Potatoe,omitzero"`
-	Chocolate            int `json:"Chocolate,omitzero"`
-	CottonCandyPink      int `json:"CottonCandyPink,omitzero"`
-	Meat                 int `json:"Meat,omitzero"`
-	CottonCandyBlue      int `json:"CottonCandyBlue,omitzero"`
-	RottenMeat           int `json:"RottenMeat,omitzero"`
-	CakeSkeleton         int `json:"Cake_Skeleton,omitzero"`
-	CakeBase             int `json:"Cake_Base,omitzero"`
-	CakeCottonCandyBlue  int `json:"Cake_CottonCandyBlue,omitzero"`
-	CakeCottonCandyPink  int `json:"Cake_CottonCandyPink,omitzero"`
-	CakeShade            int `json:"Cake_Shade,omitzero"`
-	CakeWhite            int `json:"Cake_White,omitzero"`
-	CakeGolden           int `json:"Cake_Golden,omitzero"`
-	CakeZombie           int `json:"Cake_Zombie,omitzero"`
-	CakeDesert           int `json:"Cake_Desert,omitzero"`
-	CakeRed              int `json:"Cake_Red,omitzero"`
-	Honey                int `json:"Honey,omitzero"`
-	Strawberry           int `json:"Strawberry,omitzero"`
-	Milk                 int `json:"Milk,omitzero"`
-	Fish                 int `json:"Fish,omitzero"`
-	Saddle               int `json:"Saddle,omitzero"`
-	CandySkeleton        int `json:"Candy_Skeleton,omitzero"`
-	CandyBase            int `json:"Candy_Base,omitzero"`
-	CandyCottonCandyBlue int `json:"Candy_CottonCandyBlue,omitzero"`
-	CandyCottonCandyPink int `json:"Candy_CottonCandyPink,omitzero"`
-	CandyShade           int `json:"Candy_Shade,omitzero"`
-	CandyWhite           int `json:"Candy_White,omitzero"`
-	CandyGolden          int `json:"Candy_Golden,omitzero"`
-	CandyZombie          int `json:"Candy_Zombie,omitzero"`
-	CandyDesert          int `json:"Candy_Desert,omitzero"`
-	CandyRed             int `json:"Candy_Red,omitzero"`
-	PieSkeleton          int `json:"Pie_Skeleton,omitzero"`
-	PieBase              int `json:"Pie_Base,omitzero"`
-	PieCottonCandyBlue   int `json:"Pie_CottonCandyBlue,omitzero"`
-	PieCottonCandyPink   int `json:"Pie_CottonCandyPink,omitzero"`
-	PieShade             int `json:"Pie_Shade,omitzero"`
-	PieWhite             int `json:"Pie_White,omitzero"`
-	PieGolden            int `json:"Pie_Golden,omitzero"`
-	PieZombie            int `json:"Pie_Zombie,omitzero"`
-	PieDesert            int `json:"Pie_Desert,omitzero"`
-	PieRed               int `json:"Pie_Red,omitzero"`
+	Potatoe              int `json:"Potatoe"`
+	Chocolate            int `json:"Chocolate"`
+	CottonCandyPink      int `json:"CottonCandyPink"`
+	Meat                 int `json:"Meat"`
+	CottonCandyBlue      int `json:"CottonCandyBlue"`
+	RottenMeat           int `json:"RottenMeat"`
+	CakeSkeleton         int `json:"Cake_Skeleton"`
+	CakeBase             int `json:"Cake_Base"`
+	CakeCottonCandyBlue  int `json:"Cake_CottonCandyBlue"`
+	CakeCottonCandyPink  int `json:"Cake_CottonCandyPink"`
+	CakeShade            int `json:"Cake_Shade"`
+	CakeWhite            int `json:"Cake_White"`
+	CakeGolden           int `json:"Cake_Golden"`
+	CakeZombie           int `json:"Cake_Zombie"`
+	CakeDesert           int `json:"Cake_Desert"`
+	CakeRed              int `json:"Cake_Red"`
+	Honey                int `json:"Honey"`
+	Strawberry           int `json:"Strawberry"`
+	Milk                 int `json:"Milk"`
+	Fish                 int `json:"Fish"`
+	Saddle               int `json:"Saddle"`
+	CandySkeleton        int `json:"Candy_Skeleton"`
+	CandyBase            int `json:"Candy_Base"`
+	CandyCottonCandyBlue int `json:"Candy_CottonCandyBlue"`
+	CandyCottonCandyPink int `json:"Candy_CottonCandyPink"`
+	CandyShade           int `json:"Candy_Shade"`
+	CandyWhite           int `json:"Candy_White"`
+	CandyGolden          int `json:"Candy_Golden"`
+	CandyZombie          int `json:"Candy_Zombie"`
+	CandyDesert          int `json:"Candy_Desert"`
+	CandyRed             int `json:"Candy_Red"`
+	PieSkeleton          int `json:"Pie_Skeleton"`
+	PieBase              int `json:"Pie_Base"`
+	PieCottonCandyBlue   int `json:"Pie_CottonCandyBlue"`
+	PieCottonCandyPink   int `json:"Pie_CottonCandyPink"`
+	PieShade             int `json:"Pie_Shade"`
+	PieWhite             int `json:"Pie_White"`
+	PieGolden            int `json:"Pie_Golden"`
+	PieZombie            int `json:"Pie_Zombie"`
+	PieDesert            int `json:"Pie_Desert"`
+	PieRed               int `json:"Pie_Red"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsGear defines a model
@@ -521,393 +521,393 @@ type ListApiv3UserOkJSONResponseDataItemsGearEquipped struct {
 
 // ListApiv3UserOkJSONResponseDataItemsGearOwned defines a model
 type ListApiv3UserOkJSONResponseDataItemsGearOwned struct {
-	EyewearSpecialYellowTopFrame       bool `json:"eyewear_special_yellowTopFrame,omitzero"`
-	EyewearSpecialWhiteTopFrame        bool `json:"eyewear_special_whiteTopFrame,omitzero"`
-	EyewearSpecialRedTopFrame          bool `json:"eyewear_special_redTopFrame,omitzero"`
-	EyewearSpecialPinkTopFrame         bool `json:"eyewear_special_pinkTopFrame,omitzero"`
-	EyewearSpecialGreenTopFrame        bool `json:"eyewear_special_greenTopFrame,omitzero"`
-	EyewearSpecialBlueTopFrame         bool `json:"eyewear_special_blueTopFrame,omitzero"`
-	EyewearSpecialBlackTopFrame        bool `json:"eyewear_special_blackTopFrame,omitzero"`
-	ArmorSpecialBardRobes              bool `json:"armor_special_bardRobes,omitzero"`
-	HeadSpecialBardHat                 bool `json:"head_special_bardHat,omitzero"`
-	HeadWarrior1                       bool `json:"head_warrior_1,omitzero"`
-	WeaponWarrior0                     bool `json:"weapon_warrior_0,omitzero"`
-	ShieldWarrior1                     bool `json:"shield_warrior_1,omitzero"`
-	WeaponWarrior1                     bool `json:"weapon_warrior_1,omitzero"`
-	ArmorSpecialBirthday               bool `json:"armor_special_birthday,omitzero"`
-	WeaponWarrior2                     bool `json:"weapon_warrior_2,omitzero"`
-	HeadWarrior2                       bool `json:"head_warrior_2,omitzero"`
-	WeaponSpecialBardInstrument        bool `json:"weapon_special_bardInstrument,omitzero"`
-	ArmorWarrior1                      bool `json:"armor_warrior_1,omitzero"`
-	ShieldWarrior2                     bool `json:"shield_warrior_2,omitzero"`
-	ArmorWarrior2                      bool `json:"armor_warrior_2,omitzero"`
-	HeadWarrior3                       bool `json:"head_warrior_3,omitzero"`
-	HeadSpecialLunarWarriorHelm        bool `json:"head_special_lunarWarriorHelm,omitzero"`
-	ShieldSpecialSpring2017Warrior     bool `json:"shield_special_spring2017Warrior,omitzero"`
-	WeaponWarrior3                     bool `json:"weapon_warrior_3,omitzero"`
-	ArmorSpecialPageArmor              bool `json:"armor_special_pageArmor,omitzero"`
-	HeadSpecialPageHelm                bool `json:"head_special_pageHelm,omitzero"`
-	ArmorWarrior3                      bool `json:"armor_warrior_3,omitzero"`
-	WeaponSpecialPageBanner            bool `json:"weapon_special_pageBanner,omitzero"`
-	ShieldSpecialDiamondStave          bool `json:"shield_special_diamondStave,omitzero"`
-	ArmorSpecialLunarWarriorArmor      bool `json:"armor_special_lunarWarriorArmor,omitzero"`
-	WeaponArmoireBasicLongbow          bool `json:"weapon_armoire_basicLongbow,omitzero"`
-	ArmorWarrior4                      bool `json:"armor_warrior_4,omitzero"`
-	ShieldWarrior3                     bool `json:"shield_warrior_3,omitzero"`
-	ShieldSpecialLootBag               bool `json:"shield_special_lootBag,omitzero"`
-	WeaponSpecialSkeletonKey           bool `json:"weapon_special_skeletonKey,omitzero"`
-	HeadSpecialNye                     bool `json:"head_special_nye,omitzero"`
-	ArmorSpecialSneakthiefRobes        bool `json:"armor_special_sneakthiefRobes,omitzero"`
-	HeadSpecialClandestineCowl         bool `json:"head_special_clandestineCowl,omitzero"`
-	ShieldSpecialWinter2018Warrior     bool `json:"shield_special_winter2018Warrior,omitzero"`
-	ArmorSpecialSnowSovereignRobes     bool `json:"armor_special_snowSovereignRobes,omitzero"`
-	HeadSpecialSnowSovereignCrown      bool `json:"head_special_snowSovereignCrown,omitzero"`
-	ArmorSpecialBirthday2015           bool `json:"armor_special_birthday2015,omitzero"`
-	BackSpecialSnowdriftVeil           bool `json:"back_special_snowdriftVeil,omitzero"`
-	ShieldSpecialWintryMirror          bool `json:"shield_special_wintryMirror,omitzero"`
-	HeadAccessorySpecialBlackHeadband  bool `json:"headAccessory_special_blackHeadband,omitzero"`
-	HeadAccessorySpecialBlueHeadband   bool `json:"headAccessory_special_blueHeadband,omitzero"`
-	HeadAccessorySpecialGreenHeadband  bool `json:"headAccessory_special_greenHeadband,omitzero"`
-	HeadAccessorySpecialPinkHeadband   bool `json:"headAccessory_special_pinkHeadband,omitzero"`
-	HeadAccessorySpecialRedHeadband    bool `json:"headAccessory_special_redHeadband,omitzero"`
-	HeadAccessorySpecialWhiteHeadband  bool `json:"headAccessory_special_whiteHeadband,omitzero"`
-	HeadAccessorySpecialYellowHeadband bool `json:"headAccessory_special_yellowHeadband,omitzero"`
-	WeaponWarrior4                     bool `json:"weapon_warrior_4,omitzero"`
-	WeaponWarrior5                     bool `json:"weapon_warrior_5,omitzero"`
-	HeadWarrior4                       bool `json:"head_warrior_4,omitzero"`
-	ArmorWarrior5                      bool `json:"armor_warrior_5,omitzero"`
-	ShieldWarrior4                     bool `json:"shield_warrior_4,omitzero"`
-	WeaponSpecialLunarScythe           bool `json:"weapon_special_lunarScythe,omitzero"`
-	HeadSpecialNye2014                 bool `json:"head_special_nye2014,omitzero"`
-	ArmorSpecialNomadsCuirass          bool `json:"armor_special_nomadsCuirass,omitzero"`
-	WeaponSpecialNomadsScimitar        bool `json:"weapon_special_nomadsScimitar,omitzero"`
-	HeadArmoireBigWig                  bool `json:"head_armoire_bigWig,omitzero"`
-	ArmorSpecialBirthday2016           bool `json:"armor_special_birthday2016,omitzero"`
-	HeadSpecialSpikedHelm              bool `json:"head_special_spikedHelm,omitzero"`
-	HeadSpecialPiDay                   bool `json:"head_special_piDay,omitzero"`
-	ShieldSpecialPiDay                 bool `json:"shield_special_piDay,omitzero"`
-	EyewearSpecialBlackHalfMoon        bool `json:"eyewear_special_blackHalfMoon,omitzero"`
-	EyewearSpecialBlueHalfMoon         bool `json:"eyewear_special_blueHalfMoon,omitzero"`
-	EyewearSpecialGreenHalfMoon        bool `json:"eyewear_special_greenHalfMoon,omitzero"`
-	EyewearSpecialPinkHalfMoon         bool `json:"eyewear_special_pinkHalfMoon,omitzero"`
-	EyewearSpecialRedHalfMoon          bool `json:"eyewear_special_redHalfMoon,omitzero"`
-	EyewearSpecialWhiteHalfMoon        bool `json:"eyewear_special_whiteHalfMoon,omitzero"`
-	EyewearSpecialYellowHalfMoon       bool `json:"eyewear_special_yellowHalfMoon,omitzero"`
-	HeadSpecialNamingDay2017           bool `json:"head_special_namingDay2017,omitzero"`
-	HeadSpecialNye2015                 bool `json:"head_special_nye2015,omitzero"`
-	ArmorSpecialBirthday2017           bool `json:"armor_special_birthday2017,omitzero"`
-	BodySpecialNamingDay2018           bool `json:"body_special_namingDay2018,omitzero"`
-	HeadSpecialNye2016                 bool `json:"head_special_nye2016,omitzero"`
-	ArmorSpecialBirthday2018           bool `json:"armor_special_birthday2018,omitzero"`
-	BackSpecialNamingDay2020           bool `json:"back_special_namingDay2020,omitzero"`
-	HeadSpecialDandyHat                bool `json:"head_special_dandyHat,omitzero"`
-	WeaponSpecialFencingFoil           bool `json:"weapon_special_fencingFoil,omitzero"`
-	ArmorSpecialDandySuit              bool `json:"armor_special_dandySuit,omitzero"`
-	ShieldWarrior5                     bool `json:"shield_warrior_5,omitzero"`
-	HeadWarrior5                       bool `json:"head_warrior_5,omitzero"`
-	WeaponWarrior6                     bool `json:"weapon_warrior_6,omitzero"`
-	WeaponSpecialFall2021Warrior       bool `json:"weapon_special_fall2021Warrior,omitzero"`
-	ArmorSpecialTurkeyArmorBase        bool `json:"armor_special_turkeyArmorBase,omitzero"`
-	BackSpecialTurkeyTailBase          bool `json:"back_special_turkeyTailBase,omitzero"`
-	HeadSpecialTurkeyHelmBase          bool `json:"head_special_turkeyHelmBase,omitzero"`
-	HeadSpecialNye2017                 bool `json:"head_special_nye2017,omitzero"`
-	WeaponArmoireJesterBaton           bool `json:"weapon_armoire_jesterBaton,omitzero"`
-	WeaponSpecialTachi                 bool `json:"weapon_special_tachi,omitzero"`
-	ArmorSpecialSamuraiArmor           bool `json:"armor_special_samuraiArmor,omitzero"`
-	WeaponSpecialWinter2022Warrior     bool `json:"weapon_special_winter2022Warrior,omitzero"`
-	HeadSpecialWinter2022Warrior       bool `json:"head_special_winter2022Warrior,omitzero"`
-	ShieldSpecialWinter2022Warrior     bool `json:"shield_special_winter2022Warrior,omitzero"`
-	ArmorSpecialBirthday2019           bool `json:"armor_special_birthday2019,omitzero"`
-	HeadSpecialKabuto                  bool `json:"head_special_kabuto,omitzero"`
-	ShieldSpecialWakizashi             bool `json:"shield_special_wakizashi,omitzero"`
-	WeaponSpecial2                     bool `json:"weapon_special_2,omitzero"`
-	WeaponArmoirePotionBase            bool `json:"weapon_armoire_potionBase,omitzero"`
-	WeaponArmoirePotionSkeleton        bool `json:"weapon_armoire_potionSkeleton,omitzero"`
-	WeaponSpecialSpring2022Warrior     bool `json:"weapon_special_spring2022Warrior,omitzero"`
-	HeadSpecialSpring2022Warrior       bool `json:"head_special_spring2022Warrior,omitzero"`
-	HeadSpecialFall2022Warrior         bool `json:"head_special_fall2022Warrior,omitzero"`
-	WeaponSpecialFall2022Warrior       bool `json:"weapon_special_fall2022Warrior,omitzero"`
-	ArmorSpecialFall2022Warrior        bool `json:"armor_special_fall2022Warrior,omitzero"`
-	ShieldSpecialFall2022Warrior       bool `json:"shield_special_fall2022Warrior,omitzero"`
-	ArmorSpecialTurkeyArmorGilded      bool `json:"armor_special_turkeyArmorGilded,omitzero"`
-	BackSpecialTurkeyTailGilded        bool `json:"back_special_turkeyTailGilded,omitzero"`
-	HeadSpecialTurkeyHelmGilded        bool `json:"head_special_turkeyHelmGilded,omitzero"`
-	HeadSpecialNye2018                 bool `json:"head_special_nye2018,omitzero"`
-	ArmorSpecialSummer2023Warrior      bool `json:"armor_special_summer2023Warrior,omitzero"`
-	HeadSpecialSummer2023Warrior       bool `json:"head_special_summer2023Warrior,omitzero"`
-	WeaponSpecialSummer2023Warrior     bool `json:"weapon_special_summer2023Warrior,omitzero"`
-	ShieldSpecialSummer2023Warrior     bool `json:"shield_special_summer2023Warrior,omitzero"`
-	HeadSpecialNye2019                 bool `json:"head_special_nye2019,omitzero"`
-	ArmorSpecialBirthday2020           bool `json:"armor_special_birthday2020,omitzero"`
-	HeadSpecialNye2020                 bool `json:"head_special_nye2020,omitzero"`
-	ArmorSpecialBirthday2021           bool `json:"armor_special_birthday2021,omitzero"`
-	ArmorSpecialSpring2025Warrior      bool `json:"armor_special_spring2025Warrior,omitzero"`
-	WeaponSpecialSpring2025Warrior     bool `json:"weapon_special_spring2025Warrior,omitzero"`
-	HeadSpecialSpring2025Warrior       bool `json:"head_special_spring2025Warrior,omitzero"`
-	ShieldSpecialSpring2025Warrior     bool `json:"shield_special_spring2025Warrior,omitzero"`
-	ShieldArmoireBaseballGlove         bool `json:"shield_armoire_baseballGlove,omitzero"`
-	HeadSpecialNye2021                 bool `json:"head_special_nye2021,omitzero"`
-	ArmorSpecialBirthday2022           bool `json:"armor_special_birthday2022,omitzero"`
+	EyewearSpecialYellowTopFrame       bool `json:"eyewear_special_yellowTopFrame"`
+	EyewearSpecialWhiteTopFrame        bool `json:"eyewear_special_whiteTopFrame"`
+	EyewearSpecialRedTopFrame          bool `json:"eyewear_special_redTopFrame"`
+	EyewearSpecialPinkTopFrame         bool `json:"eyewear_special_pinkTopFrame"`
+	EyewearSpecialGreenTopFrame        bool `json:"eyewear_special_greenTopFrame"`
+	EyewearSpecialBlueTopFrame         bool `json:"eyewear_special_blueTopFrame"`
+	EyewearSpecialBlackTopFrame        bool `json:"eyewear_special_blackTopFrame"`
+	ArmorSpecialBardRobes              bool `json:"armor_special_bardRobes"`
+	HeadSpecialBardHat                 bool `json:"head_special_bardHat"`
+	HeadWarrior1                       bool `json:"head_warrior_1"`
+	WeaponWarrior0                     bool `json:"weapon_warrior_0"`
+	ShieldWarrior1                     bool `json:"shield_warrior_1"`
+	WeaponWarrior1                     bool `json:"weapon_warrior_1"`
+	ArmorSpecialBirthday               bool `json:"armor_special_birthday"`
+	WeaponWarrior2                     bool `json:"weapon_warrior_2"`
+	HeadWarrior2                       bool `json:"head_warrior_2"`
+	WeaponSpecialBardInstrument        bool `json:"weapon_special_bardInstrument"`
+	ArmorWarrior1                      bool `json:"armor_warrior_1"`
+	ShieldWarrior2                     bool `json:"shield_warrior_2"`
+	ArmorWarrior2                      bool `json:"armor_warrior_2"`
+	HeadWarrior3                       bool `json:"head_warrior_3"`
+	HeadSpecialLunarWarriorHelm        bool `json:"head_special_lunarWarriorHelm"`
+	ShieldSpecialSpring2017Warrior     bool `json:"shield_special_spring2017Warrior"`
+	WeaponWarrior3                     bool `json:"weapon_warrior_3"`
+	ArmorSpecialPageArmor              bool `json:"armor_special_pageArmor"`
+	HeadSpecialPageHelm                bool `json:"head_special_pageHelm"`
+	ArmorWarrior3                      bool `json:"armor_warrior_3"`
+	WeaponSpecialPageBanner            bool `json:"weapon_special_pageBanner"`
+	ShieldSpecialDiamondStave          bool `json:"shield_special_diamondStave"`
+	ArmorSpecialLunarWarriorArmor      bool `json:"armor_special_lunarWarriorArmor"`
+	WeaponArmoireBasicLongbow          bool `json:"weapon_armoire_basicLongbow"`
+	ArmorWarrior4                      bool `json:"armor_warrior_4"`
+	ShieldWarrior3                     bool `json:"shield_warrior_3"`
+	ShieldSpecialLootBag               bool `json:"shield_special_lootBag"`
+	WeaponSpecialSkeletonKey           bool `json:"weapon_special_skeletonKey"`
+	HeadSpecialNye                     bool `json:"head_special_nye"`
+	ArmorSpecialSneakthiefRobes        bool `json:"armor_special_sneakthiefRobes"`
+	HeadSpecialClandestineCowl         bool `json:"head_special_clandestineCowl"`
+	ShieldSpecialWinter2018Warrior     bool `json:"shield_special_winter2018Warrior"`
+	ArmorSpecialSnowSovereignRobes     bool `json:"armor_special_snowSovereignRobes"`
+	HeadSpecialSnowSovereignCrown      bool `json:"head_special_snowSovereignCrown"`
+	ArmorSpecialBirthday2015           bool `json:"armor_special_birthday2015"`
+	BackSpecialSnowdriftVeil           bool `json:"back_special_snowdriftVeil"`
+	ShieldSpecialWintryMirror          bool `json:"shield_special_wintryMirror"`
+	HeadAccessorySpecialBlackHeadband  bool `json:"headAccessory_special_blackHeadband"`
+	HeadAccessorySpecialBlueHeadband   bool `json:"headAccessory_special_blueHeadband"`
+	HeadAccessorySpecialGreenHeadband  bool `json:"headAccessory_special_greenHeadband"`
+	HeadAccessorySpecialPinkHeadband   bool `json:"headAccessory_special_pinkHeadband"`
+	HeadAccessorySpecialRedHeadband    bool `json:"headAccessory_special_redHeadband"`
+	HeadAccessorySpecialWhiteHeadband  bool `json:"headAccessory_special_whiteHeadband"`
+	HeadAccessorySpecialYellowHeadband bool `json:"headAccessory_special_yellowHeadband"`
+	WeaponWarrior4                     bool `json:"weapon_warrior_4"`
+	WeaponWarrior5                     bool `json:"weapon_warrior_5"`
+	HeadWarrior4                       bool `json:"head_warrior_4"`
+	ArmorWarrior5                      bool `json:"armor_warrior_5"`
+	ShieldWarrior4                     bool `json:"shield_warrior_4"`
+	WeaponSpecialLunarScythe           bool `json:"weapon_special_lunarScythe"`
+	HeadSpecialNye2014                 bool `json:"head_special_nye2014"`
+	ArmorSpecialNomadsCuirass          bool `json:"armor_special_nomadsCuirass"`
+	WeaponSpecialNomadsScimitar        bool `json:"weapon_special_nomadsScimitar"`
+	HeadArmoireBigWig                  bool `json:"head_armoire_bigWig"`
+	ArmorSpecialBirthday2016           bool `json:"armor_special_birthday2016"`
+	HeadSpecialSpikedHelm              bool `json:"head_special_spikedHelm"`
+	HeadSpecialPiDay                   bool `json:"head_special_piDay"`
+	ShieldSpecialPiDay                 bool `json:"shield_special_piDay"`
+	EyewearSpecialBlackHalfMoon        bool `json:"eyewear_special_blackHalfMoon"`
+	EyewearSpecialBlueHalfMoon         bool `json:"eyewear_special_blueHalfMoon"`
+	EyewearSpecialGreenHalfMoon        bool `json:"eyewear_special_greenHalfMoon"`
+	EyewearSpecialPinkHalfMoon         bool `json:"eyewear_special_pinkHalfMoon"`
+	EyewearSpecialRedHalfMoon          bool `json:"eyewear_special_redHalfMoon"`
+	EyewearSpecialWhiteHalfMoon        bool `json:"eyewear_special_whiteHalfMoon"`
+	EyewearSpecialYellowHalfMoon       bool `json:"eyewear_special_yellowHalfMoon"`
+	HeadSpecialNamingDay2017           bool `json:"head_special_namingDay2017"`
+	HeadSpecialNye2015                 bool `json:"head_special_nye2015"`
+	ArmorSpecialBirthday2017           bool `json:"armor_special_birthday2017"`
+	BodySpecialNamingDay2018           bool `json:"body_special_namingDay2018"`
+	HeadSpecialNye2016                 bool `json:"head_special_nye2016"`
+	ArmorSpecialBirthday2018           bool `json:"armor_special_birthday2018"`
+	BackSpecialNamingDay2020           bool `json:"back_special_namingDay2020"`
+	HeadSpecialDandyHat                bool `json:"head_special_dandyHat"`
+	WeaponSpecialFencingFoil           bool `json:"weapon_special_fencingFoil"`
+	ArmorSpecialDandySuit              bool `json:"armor_special_dandySuit"`
+	ShieldWarrior5                     bool `json:"shield_warrior_5"`
+	HeadWarrior5                       bool `json:"head_warrior_5"`
+	WeaponWarrior6                     bool `json:"weapon_warrior_6"`
+	WeaponSpecialFall2021Warrior       bool `json:"weapon_special_fall2021Warrior"`
+	ArmorSpecialTurkeyArmorBase        bool `json:"armor_special_turkeyArmorBase"`
+	BackSpecialTurkeyTailBase          bool `json:"back_special_turkeyTailBase"`
+	HeadSpecialTurkeyHelmBase          bool `json:"head_special_turkeyHelmBase"`
+	HeadSpecialNye2017                 bool `json:"head_special_nye2017"`
+	WeaponArmoireJesterBaton           bool `json:"weapon_armoire_jesterBaton"`
+	WeaponSpecialTachi                 bool `json:"weapon_special_tachi"`
+	ArmorSpecialSamuraiArmor           bool `json:"armor_special_samuraiArmor"`
+	WeaponSpecialWinter2022Warrior     bool `json:"weapon_special_winter2022Warrior"`
+	HeadSpecialWinter2022Warrior       bool `json:"head_special_winter2022Warrior"`
+	ShieldSpecialWinter2022Warrior     bool `json:"shield_special_winter2022Warrior"`
+	ArmorSpecialBirthday2019           bool `json:"armor_special_birthday2019"`
+	HeadSpecialKabuto                  bool `json:"head_special_kabuto"`
+	ShieldSpecialWakizashi             bool `json:"shield_special_wakizashi"`
+	WeaponSpecial2                     bool `json:"weapon_special_2"`
+	WeaponArmoirePotionBase            bool `json:"weapon_armoire_potionBase"`
+	WeaponArmoirePotionSkeleton        bool `json:"weapon_armoire_potionSkeleton"`
+	WeaponSpecialSpring2022Warrior     bool `json:"weapon_special_spring2022Warrior"`
+	HeadSpecialSpring2022Warrior       bool `json:"head_special_spring2022Warrior"`
+	HeadSpecialFall2022Warrior         bool `json:"head_special_fall2022Warrior"`
+	WeaponSpecialFall2022Warrior       bool `json:"weapon_special_fall2022Warrior"`
+	ArmorSpecialFall2022Warrior        bool `json:"armor_special_fall2022Warrior"`
+	ShieldSpecialFall2022Warrior       bool `json:"shield_special_fall2022Warrior"`
+	ArmorSpecialTurkeyArmorGilded      bool `json:"armor_special_turkeyArmorGilded"`
+	BackSpecialTurkeyTailGilded        bool `json:"back_special_turkeyTailGilded"`
+	HeadSpecialTurkeyHelmGilded        bool `json:"head_special_turkeyHelmGilded"`
+	HeadSpecialNye2018                 bool `json:"head_special_nye2018"`
+	ArmorSpecialSummer2023Warrior      bool `json:"armor_special_summer2023Warrior"`
+	HeadSpecialSummer2023Warrior       bool `json:"head_special_summer2023Warrior"`
+	WeaponSpecialSummer2023Warrior     bool `json:"weapon_special_summer2023Warrior"`
+	ShieldSpecialSummer2023Warrior     bool `json:"shield_special_summer2023Warrior"`
+	HeadSpecialNye2019                 bool `json:"head_special_nye2019"`
+	ArmorSpecialBirthday2020           bool `json:"armor_special_birthday2020"`
+	HeadSpecialNye2020                 bool `json:"head_special_nye2020"`
+	ArmorSpecialBirthday2021           bool `json:"armor_special_birthday2021"`
+	ArmorSpecialSpring2025Warrior      bool `json:"armor_special_spring2025Warrior"`
+	WeaponSpecialSpring2025Warrior     bool `json:"weapon_special_spring2025Warrior"`
+	HeadSpecialSpring2025Warrior       bool `json:"head_special_spring2025Warrior"`
+	ShieldSpecialSpring2025Warrior     bool `json:"shield_special_spring2025Warrior"`
+	ShieldArmoireBaseballGlove         bool `json:"shield_armoire_baseballGlove"`
+	HeadSpecialNye2021                 bool `json:"head_special_nye2021"`
+	ArmorSpecialBirthday2022           bool `json:"armor_special_birthday2022"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsHatchingPotions defines a model
 type ListApiv3UserOkJSONResponseDataItemsHatchingPotions struct {
-	RoyalPurple     int `json:"RoyalPurple,omitzero"`
-	Desert          int `json:"Desert,omitzero"`
-	CottonCandyPink int `json:"CottonCandyPink,omitzero"`
-	CottonCandyBlue int `json:"CottonCandyBlue,omitzero"`
-	Red             int `json:"Red,omitzero"`
-	Zombie          int `json:"Zombie,omitzero"`
-	Base            int `json:"Base,omitzero"`
-	White           int `json:"White,omitzero"`
-	Shade           int `json:"Shade,omitzero"`
-	Skeleton        int `json:"Skeleton,omitzero"`
-	Golden          int `json:"Golden,omitzero"`
+	RoyalPurple     int `json:"RoyalPurple"`
+	Desert          int `json:"Desert"`
+	CottonCandyPink int `json:"CottonCandyPink"`
+	CottonCandyBlue int `json:"CottonCandyBlue"`
+	Red             int `json:"Red"`
+	Zombie          int `json:"Zombie"`
+	Base            int `json:"Base"`
+	White           int `json:"White"`
+	Shade           int `json:"Shade"`
+	Skeleton        int `json:"Skeleton"`
+	Golden          int `json:"Golden"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsLastDrop defines a model
 type ListApiv3UserOkJSONResponseDataItemsLastDrop struct {
-	Count int       `json:"count,omitzero"`
+	Count int       `json:"count"`
 	Date  time.Time `json:"date,omitzero"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsMounts defines a model
 type ListApiv3UserOkJSONResponseDataItemsMounts struct {
-	WolfRoyalPurple         bool `json:"Wolf-RoyalPurple,omitzero"`
-	PandaCubDesert          bool `json:"PandaCub-Desert,omitzero"`
-	OrcaBase                bool `json:"Orca-Base,omitzero"`
-	GryphonRoyalPurple      bool `json:"Gryphon-RoyalPurple,omitzero"`
-	HippogriffHopeful       bool `json:"Hippogriff-Hopeful,omitzero"`
-	JackOLanternBase        bool `json:"JackOLantern-Base,omitzero"`
-	TurkeyBase              bool `json:"Turkey-Base,omitzero"`
-	DragonRed               bool `json:"Dragon-Red,omitzero"`
-	WolfRed                 bool `json:"Wolf-Red,omitzero"`
-	PandaCubBase            bool `json:"PandaCub-Base,omitzero"`
-	PandaCubWhite           bool `json:"PandaCub-White,omitzero"`
-	FlyingPigDesert         bool `json:"FlyingPig-Desert,omitzero"`
-	TigerCubShade           bool `json:"TigerCub-Shade,omitzero"`
-	WolfSkeleton            bool `json:"Wolf-Skeleton,omitzero"`
-	TigerCubZombie          bool `json:"TigerCub-Zombie,omitzero"`
-	PandaCubZombie          bool `json:"PandaCub-Zombie,omitzero"`
-	TigerCubSkeleton        bool `json:"TigerCub-Skeleton,omitzero"`
-	WolfCottonCandyPink     bool `json:"Wolf-CottonCandyPink,omitzero"`
-	DragonCottonCandyPink   bool `json:"Dragon-CottonCandyPink,omitzero"`
-	WolfCottonCandyBlue     bool `json:"Wolf-CottonCandyBlue,omitzero"`
-	CactusCottonCandyBlue   bool `json:"Cactus-CottonCandyBlue,omitzero"`
-	DragonGolden            bool `json:"Dragon-Golden,omitzero"`
-	WolfGolden              bool `json:"Wolf-Golden,omitzero"`
-	FoxCottonCandyBlue      bool `json:"Fox-CottonCandyBlue,omitzero"`
-	PandaCubShade           bool `json:"PandaCub-Shade,omitzero"`
-	WolfWhite               bool `json:"Wolf-White,omitzero"`
-	BearCubGolden           bool `json:"BearCub-Golden,omitzero"`
-	CactusDesert            bool `json:"Cactus-Desert,omitzero"`
-	TigerCubRed             bool `json:"TigerCub-Red,omitzero"`
-	WolfBase                bool `json:"Wolf-Base,omitzero"`
-	JackOLanternGhost       bool `json:"JackOLantern-Ghost,omitzero"`
-	TurkeyGilded            bool `json:"Turkey-Gilded,omitzero"`
-	JackOLanternGlow        bool `json:"JackOLantern-Glow,omitzero"`
-	JackOLanternRoyalPurple bool `json:"JackOLantern-RoyalPurple,omitzero"`
-	WolfDesert              bool `json:"Wolf-Desert,omitzero"`
-	WolfShade               bool `json:"Wolf-Shade,omitzero"`
-	WolfZombie              bool `json:"Wolf-Zombie,omitzero"`
-	TigerCubBase            bool `json:"TigerCub-Base,omitzero"`
-	TigerCubWhite           bool `json:"TigerCub-White,omitzero"`
-	TigerCubDesert          bool `json:"TigerCub-Desert,omitzero"`
-	TigerCubCottonCandyPink bool `json:"TigerCub-CottonCandyPink,omitzero"`
-	TigerCubCottonCandyBlue bool `json:"TigerCub-CottonCandyBlue,omitzero"`
-	TigerCubGolden          bool `json:"TigerCub-Golden,omitzero"`
-	PandaCubRed             bool `json:"PandaCub-Red,omitzero"`
-	PandaCubSkeleton        bool `json:"PandaCub-Skeleton,omitzero"`
-	PandaCubCottonCandyPink bool `json:"PandaCub-CottonCandyPink,omitzero"`
-	PandaCubCottonCandyBlue bool `json:"PandaCub-CottonCandyBlue,omitzero"`
-	PandaCubGolden          bool `json:"PandaCub-Golden,omitzero"`
-	LionCubBase             bool `json:"LionCub-Base,omitzero"`
-	LionCubWhite            bool `json:"LionCub-White,omitzero"`
-	LionCubShade            bool `json:"LionCub-Shade,omitzero"`
-	LionCubSkeleton         bool `json:"LionCub-Skeleton,omitzero"`
-	LionCubZombie           bool `json:"LionCub-Zombie,omitzero"`
-	LionCubCottonCandyPink  bool `json:"LionCub-CottonCandyPink,omitzero"`
-	LionCubCottonCandyBlue  bool `json:"LionCub-CottonCandyBlue,omitzero"`
-	FoxBase                 bool `json:"Fox-Base,omitzero"`
-	BearCubBase             bool `json:"BearCub-Base,omitzero"`
-	CactusBase              bool `json:"Cactus-Base,omitzero"`
-	DragonBase              bool `json:"Dragon-Base,omitzero"`
-	FlyingPigBase           bool `json:"FlyingPig-Base,omitzero"`
-	FlyingPigWhite          bool `json:"FlyingPig-White,omitzero"`
-	FoxWhite                bool `json:"Fox-White,omitzero"`
-	DragonWhite             bool `json:"Dragon-White,omitzero"`
-	DragonDesert            bool `json:"Dragon-Desert,omitzero"`
-	DragonShade             bool `json:"Dragon-Shade,omitzero"`
-	DragonSkeleton          bool `json:"Dragon-Skeleton,omitzero"`
-	DragonZombie            bool `json:"Dragon-Zombie,omitzero"`
-	DragonCottonCandyBlue   bool `json:"Dragon-CottonCandyBlue,omitzero"`
-	BearCubWhite            bool `json:"BearCub-White,omitzero"`
-	BearCubDesert           bool `json:"BearCub-Desert,omitzero"`
-	BearCubRed              bool `json:"BearCub-Red,omitzero"`
-	BearCubShade            bool `json:"BearCub-Shade,omitzero"`
-	BearCubSkeleton         bool `json:"BearCub-Skeleton,omitzero"`
-	BearCubZombie           bool `json:"BearCub-Zombie,omitzero"`
-	BearCubCottonCandyPink  bool `json:"BearCub-CottonCandyPink,omitzero"`
-	BearCubCottonCandyBlue  bool `json:"BearCub-CottonCandyBlue,omitzero"`
-	CactusWhite             bool `json:"Cactus-White,omitzero"`
-	CactusRed               bool `json:"Cactus-Red,omitzero"`
-	CactusShade             bool `json:"Cactus-Shade,omitzero"`
-	CactusSkeleton          bool `json:"Cactus-Skeleton,omitzero"`
+	WolfRoyalPurple         bool `json:"Wolf-RoyalPurple"`
+	PandaCubDesert          bool `json:"PandaCub-Desert"`
+	OrcaBase                bool `json:"Orca-Base"`
+	GryphonRoyalPurple      bool `json:"Gryphon-RoyalPurple"`
+	HippogriffHopeful       bool `json:"Hippogriff-Hopeful"`
+	JackOLanternBase        bool `json:"JackOLantern-Base"`
+	TurkeyBase              bool `json:"Turkey-Base"`
+	DragonRed               bool `json:"Dragon-Red"`
+	WolfRed                 bool `json:"Wolf-Red"`
+	PandaCubBase            bool `json:"PandaCub-Base"`
+	PandaCubWhite           bool `json:"PandaCub-White"`
+	FlyingPigDesert         bool `json:"FlyingPig-Desert"`
+	TigerCubShade           bool `json:"TigerCub-Shade"`
+	WolfSkeleton            bool `json:"Wolf-Skeleton"`
+	TigerCubZombie          bool `json:"TigerCub-Zombie"`
+	PandaCubZombie          bool `json:"PandaCub-Zombie"`
+	TigerCubSkeleton        bool `json:"TigerCub-Skeleton"`
+	WolfCottonCandyPink     bool `json:"Wolf-CottonCandyPink"`
+	DragonCottonCandyPink   bool `json:"Dragon-CottonCandyPink"`
+	WolfCottonCandyBlue     bool `json:"Wolf-CottonCandyBlue"`
+	CactusCottonCandyBlue   bool `json:"Cactus-CottonCandyBlue"`
+	DragonGolden            bool `json:"Dragon-Golden"`
+	WolfGolden              bool `json:"Wolf-Golden"`
+	FoxCottonCandyBlue      bool `json:"Fox-CottonCandyBlue"`
+	PandaCubShade           bool `json:"PandaCub-Shade"`
+	WolfWhite               bool `json:"Wolf-White"`
+	BearCubGolden           bool `json:"BearCub-Golden"`
+	CactusDesert            bool `json:"Cactus-Desert"`
+	TigerCubRed             bool `json:"TigerCub-Red"`
+	WolfBase                bool `json:"Wolf-Base"`
+	JackOLanternGhost       bool `json:"JackOLantern-Ghost"`
+	TurkeyGilded            bool `json:"Turkey-Gilded"`
+	JackOLanternGlow        bool `json:"JackOLantern-Glow"`
+	JackOLanternRoyalPurple bool `json:"JackOLantern-RoyalPurple"`
+	WolfDesert              bool `json:"Wolf-Desert"`
+	WolfShade               bool `json:"Wolf-Shade"`
+	WolfZombie              bool `json:"Wolf-Zombie"`
+	TigerCubBase            bool `json:"TigerCub-Base"`
+	TigerCubWhite           bool `json:"TigerCub-White"`
+	TigerCubDesert          bool `json:"TigerCub-Desert"`
+	TigerCubCottonCandyPink bool `json:"TigerCub-CottonCandyPink"`
+	TigerCubCottonCandyBlue bool `json:"TigerCub-CottonCandyBlue"`
+	TigerCubGolden          bool `json:"TigerCub-Golden"`
+	PandaCubRed             bool `json:"PandaCub-Red"`
+	PandaCubSkeleton        bool `json:"PandaCub-Skeleton"`
+	PandaCubCottonCandyPink bool `json:"PandaCub-CottonCandyPink"`
+	PandaCubCottonCandyBlue bool `json:"PandaCub-CottonCandyBlue"`
+	PandaCubGolden          bool `json:"PandaCub-Golden"`
+	LionCubBase             bool `json:"LionCub-Base"`
+	LionCubWhite            bool `json:"LionCub-White"`
+	LionCubShade            bool `json:"LionCub-Shade"`
+	LionCubSkeleton         bool `json:"LionCub-Skeleton"`
+	LionCubZombie           bool `json:"LionCub-Zombie"`
+	LionCubCottonCandyPink  bool `json:"LionCub-CottonCandyPink"`
+	LionCubCottonCandyBlue  bool `json:"LionCub-CottonCandyBlue"`
+	FoxBase                 bool `json:"Fox-Base"`
+	BearCubBase             bool `json:"BearCub-Base"`
+	CactusBase              bool `json:"Cactus-Base"`
+	DragonBase              bool `json:"Dragon-Base"`
+	FlyingPigBase           bool `json:"FlyingPig-Base"`
+	FlyingPigWhite          bool `json:"FlyingPig-White"`
+	FoxWhite                bool `json:"Fox-White"`
+	DragonWhite             bool `json:"Dragon-White"`
+	DragonDesert            bool `json:"Dragon-Desert"`
+	DragonShade             bool `json:"Dragon-Shade"`
+	DragonSkeleton          bool `json:"Dragon-Skeleton"`
+	DragonZombie            bool `json:"Dragon-Zombie"`
+	DragonCottonCandyBlue   bool `json:"Dragon-CottonCandyBlue"`
+	BearCubWhite            bool `json:"BearCub-White"`
+	BearCubDesert           bool `json:"BearCub-Desert"`
+	BearCubRed              bool `json:"BearCub-Red"`
+	BearCubShade            bool `json:"BearCub-Shade"`
+	BearCubSkeleton         bool `json:"BearCub-Skeleton"`
+	BearCubZombie           bool `json:"BearCub-Zombie"`
+	BearCubCottonCandyPink  bool `json:"BearCub-CottonCandyPink"`
+	BearCubCottonCandyBlue  bool `json:"BearCub-CottonCandyBlue"`
+	CactusWhite             bool `json:"Cactus-White"`
+	CactusRed               bool `json:"Cactus-Red"`
+	CactusShade             bool `json:"Cactus-Shade"`
+	CactusSkeleton          bool `json:"Cactus-Skeleton"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsPets defines a model
 type ListApiv3UserOkJSONResponseDataItemsPets struct {
-	WolfRoyalPurple          int `json:"Wolf-RoyalPurple,omitzero"`
-	PandaCubDesert           int `json:"PandaCub-Desert,omitzero"`
-	CactusDesert             int `json:"Cactus-Desert,omitzero"`
-	FoxRoyalPurple           int `json:"Fox-RoyalPurple,omitzero"`
-	WolfCottonCandyBlue      int `json:"Wolf-CottonCandyBlue,omitzero"`
-	DragonCottonCandyPink    int `json:"Dragon-CottonCandyPink,omitzero"`
-	DragonRed                int `json:"Dragon-Red,omitzero"`
-	FlyingPigCottonCandyPink int `json:"FlyingPig-CottonCandyPink,omitzero"`
-	DragonZombie             int `json:"Dragon-Zombie,omitzero"`
-	LionCubDesert            int `json:"LionCub-Desert,omitzero"`
-	BearCubDesert            int `json:"BearCub-Desert,omitzero"`
-	FoxRed                   int `json:"Fox-Red,omitzero"`
-	FlyingPigRed             int `json:"FlyingPig-Red,omitzero"`
-	PandaCubBase             int `json:"PandaCub-Base,omitzero"`
-	LionCubRoyalPurple       int `json:"LionCub-RoyalPurple,omitzero"`
-	DragonGolden             int `json:"Dragon-Golden,omitzero"`
-	BearCubBase              int `json:"BearCub-Base,omitzero"`
-	CactusCottonCandyBlue    int `json:"Cactus-CottonCandyBlue,omitzero"`
-	CactusCottonCandyPink    int `json:"Cactus-CottonCandyPink,omitzero"`
-	DragonRoyalPurple        int `json:"Dragon-RoyalPurple,omitzero"`
-	FlyingPigDesert          int `json:"FlyingPig-Desert,omitzero"`
-	FlyingPigRoyalPurple     int `json:"FlyingPig-RoyalPurple,omitzero"`
-	FoxCottonCandyBlue       int `json:"Fox-CottonCandyBlue,omitzero"`
-	LionCubCottonCandyBlue   int `json:"LionCub-CottonCandyBlue,omitzero"`
-	LionCubRed               int `json:"LionCub-Red,omitzero"`
-	PandaCubRed              int `json:"PandaCub-Red,omitzero"`
-	WolfRed                  int `json:"Wolf-Red,omitzero"`
-	WolfSkeleton             int `json:"Wolf-Skeleton,omitzero"`
-	WolfWhite                int `json:"Wolf-White,omitzero"`
-	TigerCubWhite            int `json:"TigerCub-White,omitzero"`
-	PandaCubWhite            int `json:"PandaCub-White,omitzero"`
-	TigerCubZombie           int `json:"TigerCub-Zombie,omitzero"`
-	PandaCubZombie           int `json:"PandaCub-Zombie,omitzero"`
-	TigerCubShade            int `json:"TigerCub-Shade,omitzero"`
-	PandaCubShade            int `json:"PandaCub-Shade,omitzero"`
-	TigerCubRoyalPurple      int `json:"TigerCub-RoyalPurple,omitzero"`
-	TigerCubSkeleton         int `json:"TigerCub-Skeleton,omitzero"`
-	TigerCubRed              int `json:"TigerCub-Red,omitzero"`
-	WolfVeteran              int `json:"Wolf-Veteran,omitzero"`
-	JackOLanternBase         int `json:"JackOLantern-Base,omitzero"`
-	TurkeyBase               int `json:"Turkey-Base,omitzero"`
-	HippogriffHopeful        int `json:"Hippogriff-Hopeful,omitzero"`
-	OrcaBase                 int `json:"Orca-Base,omitzero"`
-	GryphonRoyalPurple       int `json:"Gryphon-RoyalPurple,omitzero"`
-	TigerVeteran             int `json:"Tiger-Veteran,omitzero"`
-	PandaCubRoyalPurple      int `json:"PandaCub-RoyalPurple,omitzero"`
-	CactusRoyalPurple        int `json:"Cactus-RoyalPurple,omitzero"`
-	BearCubRoyalPurple       int `json:"BearCub-RoyalPurple,omitzero"`
-	WolfBase                 int `json:"Wolf-Base,omitzero"`
-	WolfDesert               int `json:"Wolf-Desert,omitzero"`
-	WolfShade                int `json:"Wolf-Shade,omitzero"`
-	WolfZombie               int `json:"Wolf-Zombie,omitzero"`
-	WolfCottonCandyPink      int `json:"Wolf-CottonCandyPink,omitzero"`
-	WolfGolden               int `json:"Wolf-Golden,omitzero"`
-	TigerCubBase             int `json:"TigerCub-Base,omitzero"`
-	BearCubWhite             int `json:"BearCub-White,omitzero"`
-	BearCubGolden            int `json:"BearCub-Golden,omitzero"`
-	PandaCubSkeleton         int `json:"PandaCub-Skeleton,omitzero"`
-	TigerCubDesert           int `json:"TigerCub-Desert,omitzero"`
-	TigerCubCottonCandyPink  int `json:"TigerCub-CottonCandyPink,omitzero"`
-	TigerCubCottonCandyBlue  int `json:"TigerCub-CottonCandyBlue,omitzero"`
-	TigerCubGolden           int `json:"TigerCub-Golden,omitzero"`
-	LionCubBase              int `json:"LionCub-Base,omitzero"`
-	FoxDesert                int `json:"Fox-Desert,omitzero"`
-	FlyingPigSkeleton        int `json:"FlyingPig-Skeleton,omitzero"`
-	DragonSkeleton           int `json:"Dragon-Skeleton,omitzero"`
-	FlyingPigWhite           int `json:"FlyingPig-White,omitzero"`
-	DragonDesert             int `json:"Dragon-Desert,omitzero"`
-	FoxShade                 int `json:"Fox-Shade,omitzero"`
-	LionCubZombie            int `json:"LionCub-Zombie,omitzero"`
-	FlyingPigZombie          int `json:"FlyingPig-Zombie,omitzero"`
-	CactusWhite              int `json:"Cactus-White,omitzero"`
-	FoxBase                  int `json:"Fox-Base,omitzero"`
-	FoxZombie                int `json:"Fox-Zombie,omitzero"`
-	DragonCottonCandyBlue    int `json:"Dragon-CottonCandyBlue,omitzero"`
-	FoxCottonCandyPink       int `json:"Fox-CottonCandyPink,omitzero"`
-	FlyingPigCottonCandyBlue int `json:"FlyingPig-CottonCandyBlue,omitzero"`
-	LionCubCottonCandyPink   int `json:"LionCub-CottonCandyPink,omitzero"`
-	FoxSkeleton              int `json:"Fox-Skeleton,omitzero"`
-	LionCubSkeleton          int `json:"LionCub-Skeleton,omitzero"`
-	LionCubShade             int `json:"LionCub-Shade,omitzero"`
-	FoxWhite                 int `json:"Fox-White,omitzero"`
-	LionCubWhite             int `json:"LionCub-White,omitzero"`
-	PandaCubCottonCandyPink  int `json:"PandaCub-CottonCandyPink,omitzero"`
-	FlyingPigShade           int `json:"FlyingPig-Shade,omitzero"`
-	FlyingPigBase            int `json:"FlyingPig-Base,omitzero"`
-	DragonBase               int `json:"Dragon-Base,omitzero"`
-	DragonWhite              int `json:"Dragon-White,omitzero"`
-	DragonShade              int `json:"Dragon-Shade,omitzero"`
-	PandaCubCottonCandyBlue  int `json:"PandaCub-CottonCandyBlue,omitzero"`
-	CactusBase               int `json:"Cactus-Base,omitzero"`
-	BearCubZombie            int `json:"BearCub-Zombie,omitzero"`
-	CactusShade              int `json:"Cactus-Shade,omitzero"`
-	CactusSkeleton           int `json:"Cactus-Skeleton,omitzero"`
-	CactusZombie             int `json:"Cactus-Zombie,omitzero"`
-	BearCubCottonCandyPink   int `json:"BearCub-CottonCandyPink,omitzero"`
-	CactusRed                int `json:"Cactus-Red,omitzero"`
-	BearCubSkeleton          int `json:"BearCub-Skeleton,omitzero"`
-	BearCubShade             int `json:"BearCub-Shade,omitzero"`
-	BearCubRed               int `json:"BearCub-Red,omitzero"`
-	BearCubCottonCandyBlue   int `json:"BearCub-CottonCandyBlue,omitzero"`
-	PandaCubGolden           int `json:"PandaCub-Golden,omitzero"`
-	JackOLanternGhost        int `json:"JackOLantern-Ghost,omitzero"`
-	TurkeyGilded             int `json:"Turkey-Gilded,omitzero"`
-	JackOLanternGlow         int `json:"JackOLantern-Glow,omitzero"`
-	JackOLanternRoyalPurple  int `json:"JackOLantern-RoyalPurple,omitzero"`
-	LionVeteran              int `json:"Lion-Veteran,omitzero"`
-	BearVeteran              int `json:"Bear-Veteran,omitzero"`
-	CactusGolden             int `json:"Cactus-Golden,omitzero"`
+	WolfRoyalPurple          int `json:"Wolf-RoyalPurple"`
+	PandaCubDesert           int `json:"PandaCub-Desert"`
+	CactusDesert             int `json:"Cactus-Desert"`
+	FoxRoyalPurple           int `json:"Fox-RoyalPurple"`
+	WolfCottonCandyBlue      int `json:"Wolf-CottonCandyBlue"`
+	DragonCottonCandyPink    int `json:"Dragon-CottonCandyPink"`
+	DragonRed                int `json:"Dragon-Red"`
+	FlyingPigCottonCandyPink int `json:"FlyingPig-CottonCandyPink"`
+	DragonZombie             int `json:"Dragon-Zombie"`
+	LionCubDesert            int `json:"LionCub-Desert"`
+	BearCubDesert            int `json:"BearCub-Desert"`
+	FoxRed                   int `json:"Fox-Red"`
+	FlyingPigRed             int `json:"FlyingPig-Red"`
+	PandaCubBase             int `json:"PandaCub-Base"`
+	LionCubRoyalPurple       int `json:"LionCub-RoyalPurple"`
+	DragonGolden             int `json:"Dragon-Golden"`
+	BearCubBase              int `json:"BearCub-Base"`
+	CactusCottonCandyBlue    int `json:"Cactus-CottonCandyBlue"`
+	CactusCottonCandyPink    int `json:"Cactus-CottonCandyPink"`
+	DragonRoyalPurple        int `json:"Dragon-RoyalPurple"`
+	FlyingPigDesert          int `json:"FlyingPig-Desert"`
+	FlyingPigRoyalPurple     int `json:"FlyingPig-RoyalPurple"`
+	FoxCottonCandyBlue       int `json:"Fox-CottonCandyBlue"`
+	LionCubCottonCandyBlue   int `json:"LionCub-CottonCandyBlue"`
+	LionCubRed               int `json:"LionCub-Red"`
+	PandaCubRed              int `json:"PandaCub-Red"`
+	WolfRed                  int `json:"Wolf-Red"`
+	WolfSkeleton             int `json:"Wolf-Skeleton"`
+	WolfWhite                int `json:"Wolf-White"`
+	TigerCubWhite            int `json:"TigerCub-White"`
+	PandaCubWhite            int `json:"PandaCub-White"`
+	TigerCubZombie           int `json:"TigerCub-Zombie"`
+	PandaCubZombie           int `json:"PandaCub-Zombie"`
+	TigerCubShade            int `json:"TigerCub-Shade"`
+	PandaCubShade            int `json:"PandaCub-Shade"`
+	TigerCubRoyalPurple      int `json:"TigerCub-RoyalPurple"`
+	TigerCubSkeleton         int `json:"TigerCub-Skeleton"`
+	TigerCubRed              int `json:"TigerCub-Red"`
+	WolfVeteran              int `json:"Wolf-Veteran"`
+	JackOLanternBase         int `json:"JackOLantern-Base"`
+	TurkeyBase               int `json:"Turkey-Base"`
+	HippogriffHopeful        int `json:"Hippogriff-Hopeful"`
+	OrcaBase                 int `json:"Orca-Base"`
+	GryphonRoyalPurple       int `json:"Gryphon-RoyalPurple"`
+	TigerVeteran             int `json:"Tiger-Veteran"`
+	PandaCubRoyalPurple      int `json:"PandaCub-RoyalPurple"`
+	CactusRoyalPurple        int `json:"Cactus-RoyalPurple"`
+	BearCubRoyalPurple       int `json:"BearCub-RoyalPurple"`
+	WolfBase                 int `json:"Wolf-Base"`
+	WolfDesert               int `json:"Wolf-Desert"`
+	WolfShade                int `json:"Wolf-Shade"`
+	WolfZombie               int `json:"Wolf-Zombie"`
+	WolfCottonCandyPink      int `json:"Wolf-CottonCandyPink"`
+	WolfGolden               int `json:"Wolf-Golden"`
+	TigerCubBase             int `json:"TigerCub-Base"`
+	BearCubWhite             int `json:"BearCub-White"`
+	BearCubGolden            int `json:"BearCub-Golden"`
+	PandaCubSkeleton         int `json:"PandaCub-Skeleton"`
+	TigerCubDesert           int `json:"TigerCub-Desert"`
+	TigerCubCottonCandyPink  int `json:"TigerCub-CottonCandyPink"`
+	TigerCubCottonCandyBlue  int `json:"TigerCub-CottonCandyBlue"`
+	TigerCubGolden           int `json:"TigerCub-Golden"`
+	LionCubBase              int `json:"LionCub-Base"`
+	FoxDesert                int `json:"Fox-Desert"`
+	FlyingPigSkeleton        int `json:"FlyingPig-Skeleton"`
+	DragonSkeleton           int `json:"Dragon-Skeleton"`
+	FlyingPigWhite           int `json:"FlyingPig-White"`
+	DragonDesert             int `json:"Dragon-Desert"`
+	FoxShade                 int `json:"Fox-Shade"`
+	LionCubZombie            int `json:"LionCub-Zombie"`
+	FlyingPigZombie          int `json:"FlyingPig-Zombie"`
+	CactusWhite              int `json:"Cactus-White"`
+	FoxBase                  int `json:"Fox-Base"`
+	FoxZombie                int `json:"Fox-Zombie"`
+	DragonCottonCandyBlue    int `json:"Dragon-CottonCandyBlue"`
+	FoxCottonCandyPink       int `json:"Fox-CottonCandyPink"`
+	FlyingPigCottonCandyBlue int `json:"FlyingPig-CottonCandyBlue"`
+	LionCubCottonCandyPink   int `json:"LionCub-CottonCandyPink"`
+	FoxSkeleton              int `json:"Fox-Skeleton"`
+	LionCubSkeleton          int `json:"LionCub-Skeleton"`
+	LionCubShade             int `json:"LionCub-Shade"`
+	FoxWhite                 int `json:"Fox-White"`
+	LionCubWhite             int `json:"LionCub-White"`
+	PandaCubCottonCandyPink  int `json:"PandaCub-CottonCandyPink"`
+	FlyingPigShade           int `json:"FlyingPig-Shade"`
+	FlyingPigBase            int `json:"FlyingPig-Base"`
+	DragonBase               int `json:"Dragon-Base"`
+	DragonWhite              int `json:"Dragon-White"`
+	DragonShade              int `json:"Dragon-Shade"`
+	PandaCubCottonCandyBlue  int `json:"PandaCub-CottonCandyBlue"`
+	CactusBase               int `json:"Cactus-Base"`
+	BearCubZombie            int `json:"BearCub-Zombie"`
+	CactusShade              int `json:"Cactus-Shade"`
+	CactusSkeleton           int `json:"Cactus-Skeleton"`
+	CactusZombie             int `json:"Cactus-Zombie"`
+	BearCubCottonCandyPink   int `json:"BearCub-CottonCandyPink"`
+	CactusRed                int `json:"Cactus-Red"`
+	BearCubSkeleton          int `json:"BearCub-Skeleton"`
+	BearCubShade             int `json:"BearCub-Shade"`
+	BearCubRed               int `json:"BearCub-Red"`
+	BearCubCottonCandyBlue   int `json:"BearCub-CottonCandyBlue"`
+	PandaCubGolden           int `json:"PandaCub-Golden"`
+	JackOLanternGhost        int `json:"JackOLantern-Ghost"`
+	TurkeyGilded             int `json:"Turkey-Gilded"`
+	JackOLanternGlow         int `json:"JackOLantern-Glow"`
+	JackOLanternRoyalPurple  int `json:"JackOLantern-RoyalPurple"`
+	LionVeteran              int `json:"Lion-Veteran"`
+	BearVeteran              int `json:"Bear-Veteran"`
+	CactusGolden             int `json:"Cactus-Golden"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsQuests defines a model
 type ListApiv3UserOkJSONResponseDataItemsQuests struct {
-	Dustbunnies       int `json:"dustbunnies,omitzero"`
-	Moon1             int `json:"moon1,omitzero"`
-	Basilist          int `json:"basilist,omitzero"`
-	Moon2             int `json:"moon2,omitzero"`
-	Moon3             int `json:"moon3,omitzero"`
-	Atom1             int `json:"atom1,omitzero"`
-	DilatoryDistress1 int `json:"dilatoryDistress1,omitzero"`
-	Vice1             int `json:"vice1,omitzero"`
-	Vice2             int `json:"vice2,omitzero"`
-	Goldenknight1     int `json:"goldenknight1,omitzero"`
-	Vice3             int `json:"vice3,omitzero"`
-	Atom2             int `json:"atom2,omitzero"`
-	Atom3             int `json:"atom3,omitzero"`
-	Moonstone1        int `json:"moonstone1,omitzero"`
+	Dustbunnies       int `json:"dustbunnies"`
+	Moon1             int `json:"moon1"`
+	Basilist          int `json:"basilist"`
+	Moon2             int `json:"moon2"`
+	Moon3             int `json:"moon3"`
+	Atom1             int `json:"atom1"`
+	DilatoryDistress1 int `json:"dilatoryDistress1"`
+	Vice1             int `json:"vice1"`
+	Vice2             int `json:"vice2"`
+	Goldenknight1     int `json:"goldenknight1"`
+	Vice3             int `json:"vice3"`
+	Atom2             int `json:"atom2"`
+	Atom3             int `json:"atom3"`
+	Moonstone1        int `json:"moonstone1"`
 }
 
 // ListApiv3UserOkJSONResponseDataItemsSpecial defines a model
 type ListApiv3UserOkJSONResponseDataItemsSpecial struct {
 	BirthdayReceived  []struct{} `json:"birthdayReceived"`
-	Birthday          int        `json:"birthday,omitzero"`
+	Birthday          int        `json:"birthday"`
 	ThankyouReceived  []struct{} `json:"thankyouReceived"`
-	Thankyou          int        `json:"thankyou,omitzero"`
+	Thankyou          int        `json:"thankyou"`
 	GreetingReceived  []struct{} `json:"greetingReceived"`
-	Greeting          int        `json:"greeting,omitzero"`
+	Greeting          int        `json:"greeting"`
 	NyeReceived       []struct{} `json:"nyeReceived"`
-	Nye               int        `json:"nye,omitzero"`
+	Nye               int        `json:"nye"`
 	ValentineReceived []struct{} `json:"valentineReceived"`
-	Valentine         int        `json:"valentine,omitzero"`
-	Seafoam           int        `json:"seafoam,omitzero"`
-	ShinySeed         int        `json:"shinySeed,omitzero"`
-	SpookySparkles    int        `json:"spookySparkles,omitzero"`
-	Snowball          int        `json:"snowball,omitzero"`
+	Valentine         int        `json:"valentine"`
+	Seafoam           int        `json:"seafoam"`
+	ShinySeed         int        `json:"shinySeed"`
+	SpookySparkles    int        `json:"spookySparkles"`
+	Snowball          int        `json:"snowball"`
 	CongratsReceived  []struct{} `json:"congratsReceived"`
 	GetwellReceived   []struct{} `json:"getwellReceived"`
 	GoodluckReceived  []struct{} `json:"goodluckReceived"`
-	Congrats          int        `json:"congrats,omitzero"`
-	Getwell           int        `json:"getwell,omitzero"`
-	Goodluck          int        `json:"goodluck,omitzero"`
+	Congrats          int        `json:"congrats"`
+	Getwell           int        `json:"getwell"`
+	Goodluck          int        `json:"goodluck"`
 }
 
 // ListApiv3UserOkJSONResponseDataParty defines a model
@@ -921,14 +921,14 @@ type ListApiv3UserOkJSONResponseDataParty struct {
 // ListApiv3UserOkJSONResponseDataPartyQuest defines a model
 type ListApiv3UserOkJSONResponseDataPartyQuest struct {
 	Progress   ListApiv3UserOkJSONResponseDataPartyQuestProgress `json:"progress"`
-	RsvpNeeded bool                                              `json:"RSVPNeeded,omitzero"`
+	RsvpNeeded bool                                              `json:"RSVPNeeded"`
 }
 
 // ListApiv3UserOkJSONResponseDataPartyQuestProgress defines a model
 type ListApiv3UserOkJSONResponseDataPartyQuestProgress struct {
 	Up             float64  `json:"up"`
-	Down           int      `json:"down,omitzero"`
-	CollectedItems int      `json:"collectedItems,omitzero"`
+	Down           int      `json:"down"`
+	CollectedItems int      `json:"collectedItems"`
 	Collect        struct{} `json:"collect"`
 }
 
@@ -948,99 +948,99 @@ type ListApiv3UserOkJSONResponseDataPreferences struct {
 	PushNotifications                ListApiv3UserOkJSONResponseDataPreferencesPushNotifications  `json:"pushNotifications"`
 	SuppressModals                   ListApiv3UserOkJSONResponseDataPreferencesSuppressModals     `json:"suppressModals"`
 	Tasks                            ListApiv3UserOkJSONResponseDataPreferencesTasks              `json:"tasks"`
-	DayStart                         int                                                          `json:"dayStart,omitzero"`
+	DayStart                         int                                                          `json:"dayStart"`
 	Size                             string                                                       `json:"size,omitzero"`
-	HideHeader                       bool                                                         `json:"hideHeader,omitzero"`
+	HideHeader                       bool                                                         `json:"hideHeader"`
 	Skin                             string                                                       `json:"skin,omitzero"`
 	Shirt                            string                                                       `json:"shirt,omitzero"`
-	TimezoneOffset                   int                                                          `json:"timezoneOffset,omitzero"`
+	TimezoneOffset                   int                                                          `json:"timezoneOffset"`
 	Sound                            string                                                       `json:"sound,omitzero"`
 	Chair                            string                                                       `json:"chair,omitzero"`
 	AllocationMode                   string                                                       `json:"allocationMode,omitzero"`
-	AutoEquip                        bool                                                         `json:"autoEquip,omitzero"`
-	Costume                          bool                                                         `json:"costume,omitzero"`
+	AutoEquip                        bool                                                         `json:"autoEquip"`
+	Costume                          bool                                                         `json:"costume"`
 	DateFormat                       string                                                       `json:"dateFormat,omitzero"`
-	Sleep                            bool                                                         `json:"sleep,omitzero"`
-	StickyHeader                     bool                                                         `json:"stickyHeader,omitzero"`
-	DisableClasses                   bool                                                         `json:"disableClasses,omitzero"`
-	NewTaskEdit                      bool                                                         `json:"newTaskEdit,omitzero"`
-	DailyDueDefaultView              bool                                                         `json:"dailyDueDefaultView,omitzero"`
-	AdvancedCollapsed                bool                                                         `json:"advancedCollapsed,omitzero"`
-	ToolbarCollapsed                 bool                                                         `json:"toolbarCollapsed,omitzero"`
-	ReverseChatOrder                 bool                                                         `json:"reverseChatOrder,omitzero"`
-	DeveloperMode                    bool                                                         `json:"developerMode,omitzero"`
-	DisplayInviteToPartyWhenPartyIs1 bool                                                         `json:"displayInviteToPartyWhenPartyIs1,omitzero"`
+	Sleep                            bool                                                         `json:"sleep"`
+	StickyHeader                     bool                                                         `json:"stickyHeader"`
+	DisableClasses                   bool                                                         `json:"disableClasses"`
+	NewTaskEdit                      bool                                                         `json:"newTaskEdit"`
+	DailyDueDefaultView              bool                                                         `json:"dailyDueDefaultView"`
+	AdvancedCollapsed                bool                                                         `json:"advancedCollapsed"`
+	ToolbarCollapsed                 bool                                                         `json:"toolbarCollapsed"`
+	ReverseChatOrder                 bool                                                         `json:"reverseChatOrder"`
+	DeveloperMode                    bool                                                         `json:"developerMode"`
+	DisplayInviteToPartyWhenPartyIs1 bool                                                         `json:"displayInviteToPartyWhenPartyIs1"`
 	ImprovementCategories            []struct{}                                                   `json:"improvementCategories"`
-	AutomaticAllocation              bool                                                         `json:"automaticAllocation,omitzero"`
-	TimezoneOffsetAtLastCron         int                                                          `json:"timezoneOffsetAtLastCron,omitzero"`
+	AutomaticAllocation              bool                                                         `json:"automaticAllocation"`
+	TimezoneOffsetAtLastCron         int                                                          `json:"timezoneOffsetAtLastCron"`
 	Language                         string                                                       `json:"language,omitzero"`
 	Webhooks                         struct{}                                                     `json:"webhooks"`
-	AnalyticsConsent                 bool                                                         `json:"analyticsConsent,omitzero"`
+	AnalyticsConsent                 bool                                                         `json:"analyticsConsent"`
 	Background                       string                                                       `json:"background,omitzero"`
 }
 
 // ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications defines a model
 type ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications struct {
-	UnsubscribeFromAll     bool `json:"unsubscribeFromAll,omitzero"`
-	NewPm                  bool `json:"newPM,omitzero"`
-	KickedGroup            bool `json:"kickedGroup,omitzero"`
-	WonChallenge           bool `json:"wonChallenge,omitzero"`
-	GiftedGems             bool `json:"giftedGems,omitzero"`
-	GiftedSubscription     bool `json:"giftedSubscription,omitzero"`
-	InvitedParty           bool `json:"invitedParty,omitzero"`
-	InvitedGuild           bool `json:"invitedGuild,omitzero"`
-	QuestStarted           bool `json:"questStarted,omitzero"`
-	InvitedQuest           bool `json:"invitedQuest,omitzero"`
-	ImportantAnnouncements bool `json:"importantAnnouncements,omitzero"`
-	WeeklyRecaps           bool `json:"weeklyRecaps,omitzero"`
-	Onboarding             bool `json:"onboarding,omitzero"`
-	MajorUpdates           bool `json:"majorUpdates,omitzero"`
-	SubscriptionReminders  bool `json:"subscriptionReminders,omitzero"`
-	ContentRelease         bool `json:"contentRelease,omitzero"`
+	UnsubscribeFromAll     bool `json:"unsubscribeFromAll"`
+	NewPm                  bool `json:"newPM"`
+	KickedGroup            bool `json:"kickedGroup"`
+	WonChallenge           bool `json:"wonChallenge"`
+	GiftedGems             bool `json:"giftedGems"`
+	GiftedSubscription     bool `json:"giftedSubscription"`
+	InvitedParty           bool `json:"invitedParty"`
+	InvitedGuild           bool `json:"invitedGuild"`
+	QuestStarted           bool `json:"questStarted"`
+	InvitedQuest           bool `json:"invitedQuest"`
+	ImportantAnnouncements bool `json:"importantAnnouncements"`
+	WeeklyRecaps           bool `json:"weeklyRecaps"`
+	Onboarding             bool `json:"onboarding"`
+	MajorUpdates           bool `json:"majorUpdates"`
+	SubscriptionReminders  bool `json:"subscriptionReminders"`
+	ContentRelease         bool `json:"contentRelease"`
 }
 
 // ListApiv3UserOkJSONResponseDataPreferencesHair defines a model
 type ListApiv3UserOkJSONResponseDataPreferencesHair struct {
 	Color    string `json:"color,omitzero"`
-	Base     int    `json:"base,omitzero"`
-	Bangs    int    `json:"bangs,omitzero"`
-	Beard    int    `json:"beard,omitzero"`
-	Mustache int    `json:"mustache,omitzero"`
-	Flower   int    `json:"flower,omitzero"`
+	Base     int    `json:"base"`
+	Bangs    int    `json:"bangs"`
+	Beard    int    `json:"beard"`
+	Mustache int    `json:"mustache"`
+	Flower   int    `json:"flower"`
 }
 
 // ListApiv3UserOkJSONResponseDataPreferencesPushNotifications defines a model
 type ListApiv3UserOkJSONResponseDataPreferencesPushNotifications struct {
-	UnsubscribeFromAll   bool `json:"unsubscribeFromAll,omitzero"`
-	NewPm                bool `json:"newPM,omitzero"`
-	WonChallenge         bool `json:"wonChallenge,omitzero"`
-	GiftedGems           bool `json:"giftedGems,omitzero"`
-	GiftedSubscription   bool `json:"giftedSubscription,omitzero"`
-	InvitedParty         bool `json:"invitedParty,omitzero"`
-	InvitedGuild         bool `json:"invitedGuild,omitzero"`
-	QuestStarted         bool `json:"questStarted,omitzero"`
-	InvitedQuest         bool `json:"invitedQuest,omitzero"`
-	MajorUpdates         bool `json:"majorUpdates,omitzero"`
-	MentionParty         bool `json:"mentionParty,omitzero"`
-	MentionJoinedGuild   bool `json:"mentionJoinedGuild,omitzero"`
-	MentionUnjoinedGuild bool `json:"mentionUnjoinedGuild,omitzero"`
-	PartyActivity        bool `json:"partyActivity,omitzero"`
-	ContentRelease       bool `json:"contentRelease,omitzero"`
+	UnsubscribeFromAll   bool `json:"unsubscribeFromAll"`
+	NewPm                bool `json:"newPM"`
+	WonChallenge         bool `json:"wonChallenge"`
+	GiftedGems           bool `json:"giftedGems"`
+	GiftedSubscription   bool `json:"giftedSubscription"`
+	InvitedParty         bool `json:"invitedParty"`
+	InvitedGuild         bool `json:"invitedGuild"`
+	QuestStarted         bool `json:"questStarted"`
+	InvitedQuest         bool `json:"invitedQuest"`
+	MajorUpdates         bool `json:"majorUpdates"`
+	MentionParty         bool `json:"mentionParty"`
+	MentionJoinedGuild   bool `json:"mentionJoinedGuild"`
+	MentionUnjoinedGuild bool `json:"mentionUnjoinedGuild"`
+	PartyActivity        bool `json:"partyActivity"`
+	ContentRelease       bool `json:"contentRelease"`
 }
 
 // ListApiv3UserOkJSONResponseDataPreferencesSuppressModals defines a model
 type ListApiv3UserOkJSONResponseDataPreferencesSuppressModals struct {
-	LevelUp  bool `json:"levelUp,omitzero"`
-	HatchPet bool `json:"hatchPet,omitzero"`
-	RaisePet bool `json:"raisePet,omitzero"`
-	Streak   bool `json:"streak,omitzero"`
+	LevelUp  bool `json:"levelUp"`
+	HatchPet bool `json:"hatchPet"`
+	RaisePet bool `json:"raisePet"`
+	Streak   bool `json:"streak"`
 }
 
 // ListApiv3UserOkJSONResponseDataPreferencesTasks defines a model
 type ListApiv3UserOkJSONResponseDataPreferencesTasks struct {
 	ActiveFilter      ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter `json:"activeFilter"`
-	GroupByChallenge  bool                                                        `json:"groupByChallenge,omitzero"`
-	ConfirmScoreNotes bool                                                        `json:"confirmScoreNotes,omitzero"`
+	GroupByChallenge  bool                                                        `json:"groupByChallenge"`
+	ConfirmScoreNotes bool                                                        `json:"confirmScoreNotes"`
 	MirrorGroupTasks  []struct{}                                                  `json:"mirrorGroupTasks"`
 }
 
@@ -1060,43 +1060,43 @@ type ListApiv3UserOkJSONResponseDataProfile struct {
 // ListApiv3UserOkJSONResponseDataPurchased defines a model
 type ListApiv3UserOkJSONResponseDataPurchased struct {
 	Plan       ListApiv3UserOkJSONResponseDataPurchasedPlan       `json:"plan"`
-	TxnCount   int                                                `json:"txnCount,omitzero"`
+	TxnCount   int                                                `json:"txnCount"`
 	Background ListApiv3UserOkJSONResponseDataPurchasedBackground `json:"background"`
 	Shirt      struct{}                                           `json:"shirt"`
 	Hair       struct{}                                           `json:"hair"`
 	Skin       struct{}                                           `json:"skin"`
-	Ads        bool                                               `json:"ads,omitzero"`
+	Ads        bool                                               `json:"ads"`
 }
 
 // ListApiv3UserOkJSONResponseDataPurchasedBackground defines a model
 type ListApiv3UserOkJSONResponseDataPurchasedBackground struct {
-	Yellow           bool `json:"yellow,omitzero"`
-	Red              bool `json:"red,omitzero"`
-	Purple           bool `json:"purple,omitzero"`
-	Green            bool `json:"green,omitzero"`
-	Blue             bool `json:"blue,omitzero"`
-	Violet           bool `json:"violet,omitzero"`
-	OnAStrangePlanet bool `json:"on_a_strange_planet,omitzero"`
+	Yellow           bool `json:"yellow"`
+	Red              bool `json:"red"`
+	Purple           bool `json:"purple"`
+	Green            bool `json:"green"`
+	Blue             bool `json:"blue"`
+	Violet           bool `json:"violet"`
+	OnAStrangePlanet bool `json:"on_a_strange_planet"`
 }
 
 // ListApiv3UserOkJSONResponseDataPurchasedPlan defines a model
 type ListApiv3UserOkJSONResponseDataPurchasedPlan struct {
 	Consecutive     ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive `json:"consecutive"`
 	MysteryItems    []struct{}                                              `json:"mysteryItems"`
-	GemsBought      int                                                     `json:"gemsBought,omitzero"`
-	ExtraMonths     int                                                     `json:"extraMonths,omitzero"`
-	Quantity        int                                                     `json:"quantity,omitzero"`
+	GemsBought      int                                                     `json:"gemsBought"`
+	ExtraMonths     int                                                     `json:"extraMonths"`
+	Quantity        int                                                     `json:"quantity"`
 	DateUpdated     time.Time                                               `json:"dateUpdated,omitzero"`
-	PerkMonthCount  int                                                     `json:"perkMonthCount,omitzero"`
-	CumulativeCount int                                                     `json:"cumulativeCount,omitzero"`
+	PerkMonthCount  int                                                     `json:"perkMonthCount"`
+	CumulativeCount int                                                     `json:"cumulativeCount"`
 }
 
 // ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive defines a model
 type ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive struct {
-	Trinkets    int `json:"trinkets,omitzero"`
-	GemCapExtra int `json:"gemCapExtra,omitzero"`
-	Offset      int `json:"offset,omitzero"`
-	Count       int `json:"count,omitzero"`
+	Trinkets    int `json:"trinkets"`
+	GemCapExtra int `json:"gemCapExtra"`
+	Offset      int `json:"offset"`
+	Count       int `json:"count"`
 }
 
 // ListApiv3UserOkJSONResponseDataPushDevices defines a model
@@ -1114,20 +1114,20 @@ type ListApiv3UserOkJSONResponseDataPushDevicesItem struct {
 type ListApiv3UserOkJSONResponseDataStats struct {
 	Buffs       ListApivUserDataStatsBuffs    `json:"buffs"`
 	Training    ListApivUserDataStatsTraining `json:"training"`
-	Per         int                           `json:"per,omitzero"`
-	Int         int                           `json:"int,omitzero"`
-	Con         int                           `json:"con,omitzero"`
-	Str         int                           `json:"str,omitzero"`
-	Points      int                           `json:"points,omitzero"`
+	Per         int                           `json:"per"`
+	Int         int                           `json:"int"`
+	Con         int                           `json:"con"`
+	Str         int                           `json:"str"`
+	Points      int                           `json:"points"`
 	Class       string                        `json:"class,omitzero"`
-	Lvl         int                           `json:"lvl,omitzero"`
+	Lvl         int                           `json:"lvl"`
 	Gp          float64                       `json:"gp"`
-	Exp         int                           `json:"exp,omitzero"`
+	Exp         int                           `json:"exp"`
 	Mp          float64                       `json:"mp"`
 	Hp          float64                       `json:"hp"`
-	ToNextLevel int                           `json:"toNextLevel,omitzero"`
-	MaxHealth   int                           `json:"maxHealth,omitzero"`
-	MaxMp       int                           `json:"maxMP,omitzero"`
+	ToNextLevel int                           `json:"toNextLevel"`
+	MaxHealth   int                           `json:"maxHealth"`
+	MaxMp       int                           `json:"maxMP"`
 }
 
 // ListApiv3UserOkJSONResponseDataTags defines a model
@@ -1160,8 +1160,8 @@ type ListApivUserDataHistoryExpItem struct {
 // ListApivUserDataInboxMessagesfeffAcddbf defines a model
 type ListApivUserDataInboxMessagesfeffAcddbf struct {
 	UnderscoreID uuid.UUID `json:"_id,omitzero"`
-	Sent         bool      `json:"sent,omitzero"`
-	FlagCount    int       `json:"flagCount,omitzero"`
+	Sent         bool      `json:"sent"`
+	FlagCount    int       `json:"flagCount"`
 	User         string    `json:"user,omitzero"`
 	Backer       struct{}  `json:"backer"`
 	Contributor  struct{}  `json:"contributor"`
@@ -1176,36 +1176,36 @@ type ListApivUserDataInboxMessagesfeffAcddbf struct {
 
 // ListApivUserDataStatsBuffs defines a model
 type ListApivUserDataStatsBuffs struct {
-	Str            int  `json:"str,omitzero"`
-	Int            int  `json:"int,omitzero"`
-	Per            int  `json:"per,omitzero"`
-	Con            int  `json:"con,omitzero"`
-	Stealth        int  `json:"stealth,omitzero"`
-	Streaks        bool `json:"streaks,omitzero"`
-	Seafoam        bool `json:"seafoam,omitzero"`
-	ShinySeed      bool `json:"shinySeed,omitzero"`
-	Snowball       bool `json:"snowball,omitzero"`
-	SpookySparkles bool `json:"spookySparkles,omitzero"`
+	Str            int  `json:"str"`
+	Int            int  `json:"int"`
+	Per            int  `json:"per"`
+	Con            int  `json:"con"`
+	Stealth        int  `json:"stealth"`
+	Streaks        bool `json:"streaks"`
+	Seafoam        bool `json:"seafoam"`
+	ShinySeed      bool `json:"shinySeed"`
+	Snowball       bool `json:"snowball"`
+	SpookySparkles bool `json:"spookySparkles"`
 }
 
 // ListApivUserDataStatsTraining defines a model
 type ListApivUserDataStatsTraining struct {
-	Con int     `json:"con,omitzero"`
+	Con int     `json:"con"`
 	Str float64 `json:"str"`
-	Per int     `json:"per,omitzero"`
-	Int int     `json:"int,omitzero"`
+	Per int     `json:"per"`
+	Int int     `json:"int"`
 }
 
 // PostApiv3TaskScoreUpNotFoundJSONResponse defines a model
 type PostApiv3TaskScoreUpNotFoundJSONResponse struct {
-	Success bool   `json:"success,omitzero"`
+	Success bool   `json:"success"`
 	Err     string `json:"error,omitzero"`
 	Message string `json:"message,omitzero"`
 }
 
 // PostApiv3TaskScoreUpOkJSONResponse defines a model
 type PostApiv3TaskScoreUpOkJSONResponse struct {
-	Success       bool                                   `json:"success,omitzero"`
+	Success       bool                                   `json:"success"`
 	Data          PostApiv3TaskScoreUpOkJSONResponseData `json:"data"`
 	Notifications []struct{}                             `json:"notifications"`
 	UserV         *int                                   `json:"userV,omitempty"`
@@ -1220,13 +1220,13 @@ type PostApiv3TaskScoreUpOkJSONResponseData struct {
 	Mp            float64                                   `json:"mp"`
 	Exp           float64                                   `json:"exp"`
 	Gp            float64                                   `json:"gp"`
-	Lvl           int                                       `json:"lvl,omitzero"`
+	Lvl           int                                       `json:"lvl"`
 	Class         string                                    `json:"class,omitzero"`
-	Points        int                                       `json:"points,omitzero"`
-	Str           int                                       `json:"str,omitzero"`
-	Con           int                                       `json:"con,omitzero"`
-	Int           int                                       `json:"int,omitzero"`
-	Per           int                                       `json:"per,omitzero"`
+	Points        int                                       `json:"points"`
+	Str           int                                       `json:"str"`
+	Con           int                                       `json:"con"`
+	Int           int                                       `json:"int"`
+	Per           int                                       `json:"per"`
 	Buffs         ListApivUserDataStatsBuffs                `json:"buffs"`
 	Training      ListApivUserDataStatsTraining             `json:"training"`
 }
@@ -1241,8 +1241,8 @@ type PostApiv3TaskScoreUpOkJSONResponseDataTmp struct {
 // PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop defines a model
 type PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop struct {
 	Target  string `json:"target,omitzero"`
-	CanDrop bool   `json:"canDrop,omitzero"`
-	Value   int    `json:"value,omitzero"`
+	CanDrop bool   `json:"canDrop"`
+	Value   int    `json:"value"`
 	Key     string `json:"key,omitzero"`
 	Type    string `json:"type,omitzero"`
 	Dialog  string `json:"dialog,omitzero"`
@@ -1251,5 +1251,5 @@ type PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop struct {
 // PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest defines a model
 type PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest struct {
 	ProgressDelta float64 `json:"progressDelta"`
-	Collection    int     `json:"collection,omitzero"`
+	Collection    int     `json:"collection"`
 }

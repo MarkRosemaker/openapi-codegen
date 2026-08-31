@@ -245,21 +245,21 @@
 					"name": "Required",
 					"jsonName": "required",
 					"type": "bool",
-					"jsonTag": "json:\"required,omitzero\"",
+					"jsonTag": "json:\"required\"",
 					"required": true
 				},
 				{
 					"name": "Approved",
 					"jsonName": "approved",
 					"type": "bool",
-					"jsonTag": "json:\"approved,omitzero\"",
+					"jsonTag": "json:\"approved\"",
 					"required": true
 				},
 				{
 					"name": "Requested",
 					"jsonName": "requested",
 					"type": "bool",
-					"jsonTag": "json:\"requested,omitzero\"",
+					"jsonTag": "json:\"requested\"",
 					"required": true
 				}
 			]
@@ -272,7 +272,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"required": true
 				},
 				{
@@ -411,14 +411,14 @@
 					"name": "Down",
 					"jsonName": "down",
 					"type": "bool",
-					"jsonTag": "json:\"down,omitzero\"",
+					"jsonTag": "json:\"down\"",
 					"required": true
 				},
 				{
 					"name": "Up",
 					"jsonName": "up",
 					"type": "bool",
-					"jsonTag": "json:\"up,omitzero\"",
+					"jsonTag": "json:\"up\"",
 					"required": true
 				},
 				{
@@ -471,7 +471,7 @@
 					"name": "Date",
 					"jsonName": "date",
 					"type": "int",
-					"jsonTag": "json:\"date,omitzero\"",
+					"jsonTag": "json:\"date\"",
 					"required": true
 				}
 			]
@@ -484,7 +484,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"required": true
 				},
 				{
@@ -559,14 +559,14 @@
 					"name": "Value",
 					"jsonName": "value",
 					"type": "int",
-					"jsonTag": "json:\"value,omitzero\"",
+					"jsonTag": "json:\"value\"",
 					"required": true
 				},
 				{
 					"name": "Priority",
 					"jsonName": "priority",
 					"type": "int",
-					"jsonTag": "json:\"priority,omitzero\"",
+					"jsonTag": "json:\"priority\"",
 					"required": true
 				},
 				{
@@ -718,49 +718,49 @@
 					"name": "Su",
 					"jsonName": "su",
 					"type": "bool",
-					"jsonTag": "json:\"su,omitzero\"",
+					"jsonTag": "json:\"su\"",
 					"required": true
 				},
 				{
 					"name": "S",
 					"jsonName": "s",
 					"type": "bool",
-					"jsonTag": "json:\"s,omitzero\"",
+					"jsonTag": "json:\"s\"",
 					"required": true
 				},
 				{
 					"name": "F",
 					"jsonName": "f",
 					"type": "bool",
-					"jsonTag": "json:\"f,omitzero\"",
+					"jsonTag": "json:\"f\"",
 					"required": true
 				},
 				{
 					"name": "Th",
 					"jsonName": "th",
 					"type": "bool",
-					"jsonTag": "json:\"th,omitzero\"",
+					"jsonTag": "json:\"th\"",
 					"required": true
 				},
 				{
 					"name": "W",
 					"jsonName": "w",
 					"type": "bool",
-					"jsonTag": "json:\"w,omitzero\"",
+					"jsonTag": "json:\"w\"",
 					"required": true
 				},
 				{
 					"name": "T",
 					"jsonName": "t",
 					"type": "bool",
-					"jsonTag": "json:\"t,omitzero\"",
+					"jsonTag": "json:\"t\"",
 					"required": true
 				},
 				{
 					"name": "M",
 					"jsonName": "m",
 					"type": "bool",
-					"jsonTag": "json:\"m,omitzero\"",
+					"jsonTag": "json:\"m\"",
 					"required": true
 				}
 			]
@@ -773,7 +773,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"required": true
 				},
 				{
@@ -794,7 +794,7 @@
 					"name": "UserV",
 					"jsonName": "userV",
 					"type": "int",
-					"jsonTag": "json:\"userV,omitzero\"",
+					"jsonTag": "json:\"userV\"",
 					"required": true
 				},
 				{
@@ -940,7 +940,7 @@
 					"name": "LoginIncentives",
 					"jsonName": "loginIncentives",
 					"type": "int",
-					"jsonTag": "json:\"loginIncentives,omitzero\"",
+					"jsonTag": "json:\"loginIncentives\"",
 					"required": true
 				},
 				{
@@ -1010,14 +1010,14 @@
 					"name": "Balance",
 					"jsonName": "balance",
 					"type": "int",
-					"jsonTag": "json:\"balance,omitzero\"",
+					"jsonTag": "json:\"balance\"",
 					"required": true
 				},
 				{
 					"name": "UnderscoreV",
 					"jsonName": "_v",
 					"type": "int",
-					"jsonTag": "json:\"_v,omitzero\"",
+					"jsonTag": "json:\"_v\"",
 					"required": true
 				},
 				{
@@ -1045,7 +1045,7 @@
 					"name": "InvitesSent",
 					"jsonName": "invitesSent",
 					"type": "int",
-					"jsonTag": "json:\"invitesSent,omitzero\"",
+					"jsonTag": "json:\"invitesSent\"",
 					"required": true
 				},
 				{
@@ -1073,7 +1073,7 @@
 					"name": "NeedsCron",
 					"jsonName": "needsCron",
 					"type": "bool",
-					"jsonTag": "json:\"needsCron,omitzero\"",
+					"jsonTag": "json:\"needsCron\"",
 					"required": true
 				}
 			]
@@ -1093,7 +1093,7 @@
 					"name": "Perfect",
 					"jsonName": "perfect",
 					"type": "int",
-					"jsonTag": "json:\"perfect,omitzero\"",
+					"jsonTag": "json:\"perfect\"",
 					"required": true
 				},
 				{
@@ -1114,147 +1114,147 @@
 					"name": "PartyUp",
 					"jsonName": "partyUp",
 					"type": "bool",
-					"jsonTag": "json:\"partyUp,omitzero\"",
+					"jsonTag": "json:\"partyUp\"",
 					"required": true
 				},
 				{
 					"name": "PartyOn",
 					"jsonName": "partyOn",
 					"type": "bool",
-					"jsonTag": "json:\"partyOn,omitzero\"",
+					"jsonTag": "json:\"partyOn\"",
 					"required": true
 				},
 				{
 					"name": "HabitBirthdays",
 					"jsonName": "habitBirthdays",
 					"type": "int",
-					"jsonTag": "json:\"habitBirthdays,omitzero\"",
+					"jsonTag": "json:\"habitBirthdays\"",
 					"required": true
 				},
 				{
 					"name": "Streak",
 					"jsonName": "streak",
 					"type": "int",
-					"jsonTag": "json:\"streak,omitzero\"",
+					"jsonTag": "json:\"streak\"",
 					"required": true
 				},
 				{
 					"name": "JoinedGuild",
 					"jsonName": "joinedGuild",
 					"type": "bool",
-					"jsonTag": "json:\"joinedGuild,omitzero\"",
+					"jsonTag": "json:\"joinedGuild\"",
 					"required": true
 				},
 				{
 					"name": "JoinedChallenge",
 					"jsonName": "joinedChallenge",
 					"type": "bool",
-					"jsonTag": "json:\"joinedChallenge,omitzero\"",
+					"jsonTag": "json:\"joinedChallenge\"",
 					"required": true
 				},
 				{
 					"name": "HabiticaDays",
 					"jsonName": "habiticaDays",
 					"type": "int",
-					"jsonTag": "json:\"habiticaDays,omitzero\"",
+					"jsonTag": "json:\"habiticaDays\"",
 					"required": true
 				},
 				{
 					"name": "InvitedFriend",
 					"jsonName": "invitedFriend",
 					"type": "bool",
-					"jsonTag": "json:\"invitedFriend,omitzero\"",
+					"jsonTag": "json:\"invitedFriend\"",
 					"required": true
 				},
 				{
 					"name": "BackToBasics",
 					"jsonName": "backToBasics",
 					"type": "bool",
-					"jsonTag": "json:\"backToBasics,omitzero\"",
+					"jsonTag": "json:\"backToBasics\"",
 					"required": true
 				},
 				{
 					"name": "DustDevil",
 					"jsonName": "dustDevil",
 					"type": "bool",
-					"jsonTag": "json:\"dustDevil,omitzero\"",
+					"jsonTag": "json:\"dustDevil\"",
 					"required": true
 				},
 				{
 					"name": "MonsterMagus",
 					"jsonName": "monsterMagus",
 					"type": "bool",
-					"jsonTag": "json:\"monsterMagus,omitzero\"",
+					"jsonTag": "json:\"monsterMagus\"",
 					"required": true
 				},
 				{
 					"name": "CompletedTask",
 					"jsonName": "completedTask",
 					"type": "bool",
-					"jsonTag": "json:\"completedTask,omitzero\"",
+					"jsonTag": "json:\"completedTask\"",
 					"required": true
 				},
 				{
 					"name": "CreatedTask",
 					"jsonName": "createdTask",
 					"type": "bool",
-					"jsonTag": "json:\"createdTask,omitzero\"",
+					"jsonTag": "json:\"createdTask\"",
 					"required": true
 				},
 				{
 					"name": "FedPet",
 					"jsonName": "fedPet",
 					"type": "bool",
-					"jsonTag": "json:\"fedPet,omitzero\"",
+					"jsonTag": "json:\"fedPet\"",
 					"required": true
 				},
 				{
 					"name": "HatchedPet",
 					"jsonName": "hatchedPet",
 					"type": "bool",
-					"jsonTag": "json:\"hatchedPet,omitzero\"",
+					"jsonTag": "json:\"hatchedPet\"",
 					"required": true
 				},
 				{
 					"name": "PurchasedEquipment",
 					"jsonName": "purchasedEquipment",
 					"type": "bool",
-					"jsonTag": "json:\"purchasedEquipment,omitzero\"",
+					"jsonTag": "json:\"purchasedEquipment\"",
 					"required": true
 				},
 				{
 					"name": "SeeingRed",
 					"jsonName": "seeingRed",
 					"type": "bool",
-					"jsonTag": "json:\"seeingRed,omitzero\"",
+					"jsonTag": "json:\"seeingRed\"",
 					"required": true
 				},
 				{
 					"name": "ShadyCustomer",
 					"jsonName": "shadyCustomer",
 					"type": "bool",
-					"jsonTag": "json:\"shadyCustomer,omitzero\"",
+					"jsonTag": "json:\"shadyCustomer\"",
 					"required": true
 				},
 				{
 					"name": "RoyallyLoyal",
 					"jsonName": "royallyLoyal",
 					"type": "bool",
-					"jsonTag": "json:\"royallyLoyal,omitzero\"",
+					"jsonTag": "json:\"royallyLoyal\"",
 					"required": true
 				},
 				{
 					"name": "AllYourBase",
 					"jsonName": "allYourBase",
 					"type": "bool",
-					"jsonTag": "json:\"allYourBase,omitzero\"",
+					"jsonTag": "json:\"allYourBase\"",
 					"required": true
 				},
 				{
 					"name": "PearlyPro",
 					"jsonName": "pearlyPro",
 					"type": "bool",
-					"jsonTag": "json:\"pearlyPro,omitzero\"",
+					"jsonTag": "json:\"pearlyPro\"",
 					"required": true
 				}
 			]
@@ -1267,77 +1267,77 @@
 					"name": "Dustbunnies",
 					"jsonName": "dustbunnies",
 					"type": "int",
-					"jsonTag": "json:\"dustbunnies,omitzero\"",
+					"jsonTag": "json:\"dustbunnies\"",
 					"required": true
 				},
 				{
 					"name": "Basilist",
 					"jsonName": "basilist",
 					"type": "int",
-					"jsonTag": "json:\"basilist,omitzero\"",
+					"jsonTag": "json:\"basilist\"",
 					"required": true
 				},
 				{
 					"name": "Moon1",
 					"jsonName": "moon1",
 					"type": "int",
-					"jsonTag": "json:\"moon1,omitzero\"",
+					"jsonTag": "json:\"moon1\"",
 					"required": true
 				},
 				{
 					"name": "Moon2",
 					"jsonName": "moon2",
 					"type": "int",
-					"jsonTag": "json:\"moon2,omitzero\"",
+					"jsonTag": "json:\"moon2\"",
 					"required": true
 				},
 				{
 					"name": "Dysheartener",
 					"jsonName": "dysheartener",
 					"type": "int",
-					"jsonTag": "json:\"dysheartener,omitzero\"",
+					"jsonTag": "json:\"dysheartener\"",
 					"required": true
 				},
 				{
 					"name": "Moon3",
 					"jsonName": "moon3",
 					"type": "int",
-					"jsonTag": "json:\"moon3,omitzero\"",
+					"jsonTag": "json:\"moon3\"",
 					"required": true
 				},
 				{
 					"name": "Vice1",
 					"jsonName": "vice1",
 					"type": "int",
-					"jsonTag": "json:\"vice1,omitzero\"",
+					"jsonTag": "json:\"vice1\"",
 					"required": true
 				},
 				{
 					"name": "Vice2",
 					"jsonName": "vice2",
 					"type": "int",
-					"jsonTag": "json:\"vice2,omitzero\"",
+					"jsonTag": "json:\"vice2\"",
 					"required": true
 				},
 				{
 					"name": "Vice3",
 					"jsonName": "vice3",
 					"type": "int",
-					"jsonTag": "json:\"vice3,omitzero\"",
+					"jsonTag": "json:\"vice3\"",
 					"required": true
 				},
 				{
 					"name": "Atom1",
 					"jsonName": "atom1",
 					"type": "int",
-					"jsonTag": "json:\"atom1,omitzero\"",
+					"jsonTag": "json:\"atom1\"",
 					"required": true
 				},
 				{
 					"name": "Atom2",
 					"jsonName": "atom2",
 					"type": "int",
-					"jsonTag": "json:\"atom2,omitzero\"",
+					"jsonTag": "json:\"atom2\"",
 					"required": true
 				}
 			]
@@ -1350,28 +1350,28 @@
 					"name": "Warrior",
 					"jsonName": "warrior",
 					"type": "bool",
-					"jsonTag": "json:\"warrior,omitzero\"",
+					"jsonTag": "json:\"warrior\"",
 					"required": true
 				},
 				{
 					"name": "Rogue",
 					"jsonName": "rogue",
 					"type": "bool",
-					"jsonTag": "json:\"rogue,omitzero\"",
+					"jsonTag": "json:\"rogue\"",
 					"required": true
 				},
 				{
 					"name": "Wizard",
 					"jsonName": "wizard",
 					"type": "bool",
-					"jsonTag": "json:\"wizard,omitzero\"",
+					"jsonTag": "json:\"wizard\"",
 					"required": true
 				},
 				{
 					"name": "Healer",
 					"jsonName": "healer",
 					"type": "bool",
-					"jsonTag": "json:\"healer,omitzero\"",
+					"jsonTag": "json:\"healer\"",
 					"required": true
 				}
 			]
@@ -1458,7 +1458,7 @@
 					"name": "Verified",
 					"jsonName": "verified",
 					"type": "bool",
-					"jsonTag": "json:\"verified,omitzero\"",
+					"jsonTag": "json:\"verified\"",
 					"required": true
 				}
 			]
@@ -1492,7 +1492,7 @@
 					"name": "HasPassword",
 					"jsonName": "has_password",
 					"type": "bool",
-					"jsonTag": "json:\"has_password,omitzero\"",
+					"jsonTag": "json:\"has_password\"",
 					"required": true
 				}
 			]
@@ -1546,28 +1546,28 @@
 					"name": "CustomizationsNotification",
 					"jsonName": "customizationsNotification",
 					"type": "bool",
-					"jsonTag": "json:\"customizationsNotification,omitzero\"",
+					"jsonTag": "json:\"customizationsNotification\"",
 					"required": true
 				},
 				{
 					"name": "ShowTour",
 					"jsonName": "showTour",
 					"type": "bool",
-					"jsonTag": "json:\"showTour,omitzero\"",
+					"jsonTag": "json:\"showTour\"",
 					"required": true
 				},
 				{
 					"name": "DropsEnabled",
 					"jsonName": "dropsEnabled",
 					"type": "bool",
-					"jsonTag": "json:\"dropsEnabled,omitzero\"",
+					"jsonTag": "json:\"dropsEnabled\"",
 					"required": true
 				},
 				{
 					"name": "ItemsEnabled",
 					"jsonName": "itemsEnabled",
 					"type": "bool",
-					"jsonTag": "json:\"itemsEnabled,omitzero\"",
+					"jsonTag": "json:\"itemsEnabled\"",
 					"required": true
 				},
 				{
@@ -1581,98 +1581,98 @@
 					"name": "Rewrite",
 					"jsonName": "rewrite",
 					"type": "bool",
-					"jsonTag": "json:\"rewrite,omitzero\"",
+					"jsonTag": "json:\"rewrite\"",
 					"required": true
 				},
 				{
 					"name": "ClassSelected",
 					"jsonName": "classSelected",
 					"type": "bool",
-					"jsonTag": "json:\"classSelected,omitzero\"",
+					"jsonTag": "json:\"classSelected\"",
 					"required": true
 				},
 				{
 					"name": "RebirthEnabled",
 					"jsonName": "rebirthEnabled",
 					"type": "bool",
-					"jsonTag": "json:\"rebirthEnabled,omitzero\"",
+					"jsonTag": "json:\"rebirthEnabled\"",
 					"required": true
 				},
 				{
 					"name": "RecaptureEmailsPhase",
 					"jsonName": "recaptureEmailsPhase",
 					"type": "int",
-					"jsonTag": "json:\"recaptureEmailsPhase,omitzero\"",
+					"jsonTag": "json:\"recaptureEmailsPhase\"",
 					"required": true
 				},
 				{
 					"name": "WeeklyRecapEmailsPhase",
 					"jsonName": "weeklyRecapEmailsPhase",
 					"type": "int",
-					"jsonTag": "json:\"weeklyRecapEmailsPhase,omitzero\"",
+					"jsonTag": "json:\"weeklyRecapEmailsPhase\"",
 					"required": true
 				},
 				{
 					"name": "CommunityGuidelinesAccepted",
 					"jsonName": "communityGuidelinesAccepted",
 					"type": "bool",
-					"jsonTag": "json:\"communityGuidelinesAccepted,omitzero\"",
+					"jsonTag": "json:\"communityGuidelinesAccepted\"",
 					"required": true
 				},
 				{
 					"name": "CronCount",
 					"jsonName": "cronCount",
 					"type": "int",
-					"jsonTag": "json:\"cronCount,omitzero\"",
+					"jsonTag": "json:\"cronCount\"",
 					"required": true
 				},
 				{
 					"name": "Welcomed",
 					"jsonName": "welcomed",
 					"type": "bool",
-					"jsonTag": "json:\"welcomed,omitzero\"",
+					"jsonTag": "json:\"welcomed\"",
 					"required": true
 				},
 				{
 					"name": "ArmoireEnabled",
 					"jsonName": "armoireEnabled",
 					"type": "bool",
-					"jsonTag": "json:\"armoireEnabled,omitzero\"",
+					"jsonTag": "json:\"armoireEnabled\"",
 					"required": true
 				},
 				{
 					"name": "ArmoireOpened",
 					"jsonName": "armoireOpened",
 					"type": "bool",
-					"jsonTag": "json:\"armoireOpened,omitzero\"",
+					"jsonTag": "json:\"armoireOpened\"",
 					"required": true
 				},
 				{
 					"name": "ArmoireEmpty",
 					"jsonName": "armoireEmpty",
 					"type": "bool",
-					"jsonTag": "json:\"armoireEmpty,omitzero\"",
+					"jsonTag": "json:\"armoireEmpty\"",
 					"required": true
 				},
 				{
 					"name": "CardReceived",
 					"jsonName": "cardReceived",
 					"type": "bool",
-					"jsonTag": "json:\"cardReceived,omitzero\"",
+					"jsonTag": "json:\"cardReceived\"",
 					"required": true
 				},
 				{
 					"name": "WarnedLowHealth",
 					"jsonName": "warnedLowHealth",
 					"type": "bool",
-					"jsonTag": "json:\"warnedLowHealth,omitzero\"",
+					"jsonTag": "json:\"warnedLowHealth\"",
 					"required": true
 				},
 				{
 					"name": "VerifiedUsername",
 					"jsonName": "verifiedUsername",
 					"type": "bool",
-					"jsonTag": "json:\"verifiedUsername,omitzero\"",
+					"jsonTag": "json:\"verifiedUsername\"",
 					"required": true
 				},
 				{
@@ -1693,7 +1693,7 @@
 					"name": "InitializedUserHistory",
 					"jsonName": "initializedUserHistory",
 					"type": "bool",
-					"jsonTag": "json:\"initializedUserHistory,omitzero\"",
+					"jsonTag": "json:\"initializedUserHistory\"",
 					"required": true
 				},
 				{
@@ -1707,7 +1707,7 @@
 					"name": "NewStuff",
 					"jsonName": "newStuff",
 					"type": "bool",
-					"jsonTag": "json:\"newStuff,omitzero\"",
+					"jsonTag": "json:\"newStuff\"",
 					"required": true
 				}
 			]
@@ -1720,28 +1720,28 @@
 					"name": "Atom1",
 					"jsonName": "atom1",
 					"type": "bool",
-					"jsonTag": "json:\"atom1,omitzero\"",
+					"jsonTag": "json:\"atom1\"",
 					"required": true
 				},
 				{
 					"name": "Vice1",
 					"jsonName": "vice1",
 					"type": "bool",
-					"jsonTag": "json:\"vice1,omitzero\"",
+					"jsonTag": "json:\"vice1\"",
 					"required": true
 				},
 				{
 					"name": "Goldenknight1",
 					"jsonName": "goldenknight1",
 					"type": "bool",
-					"jsonTag": "json:\"goldenknight1,omitzero\"",
+					"jsonTag": "json:\"goldenknight1\"",
 					"required": true
 				},
 				{
 					"name": "Moonstone1",
 					"jsonName": "moonstone1",
 					"type": "bool",
-					"jsonTag": "json:\"moonstone1,omitzero\"",
+					"jsonTag": "json:\"moonstone1\"",
 					"required": true
 				}
 			]
@@ -1754,91 +1754,91 @@
 					"name": "Intro",
 					"jsonName": "intro",
 					"type": "int",
-					"jsonTag": "json:\"intro,omitzero\"",
+					"jsonTag": "json:\"intro\"",
 					"required": true
 				},
 				{
 					"name": "Classes",
 					"jsonName": "classes",
 					"type": "int",
-					"jsonTag": "json:\"classes,omitzero\"",
+					"jsonTag": "json:\"classes\"",
 					"required": true
 				},
 				{
 					"name": "Stats",
 					"jsonName": "stats",
 					"type": "int",
-					"jsonTag": "json:\"stats,omitzero\"",
+					"jsonTag": "json:\"stats\"",
 					"required": true
 				},
 				{
 					"name": "Tavern",
 					"jsonName": "tavern",
 					"type": "int",
-					"jsonTag": "json:\"tavern,omitzero\"",
+					"jsonTag": "json:\"tavern\"",
 					"required": true
 				},
 				{
 					"name": "Party",
 					"jsonName": "party",
 					"type": "int",
-					"jsonTag": "json:\"party,omitzero\"",
+					"jsonTag": "json:\"party\"",
 					"required": true
 				},
 				{
 					"name": "Guilds",
 					"jsonName": "guilds",
 					"type": "int",
-					"jsonTag": "json:\"guilds,omitzero\"",
+					"jsonTag": "json:\"guilds\"",
 					"required": true
 				},
 				{
 					"name": "Challenges",
 					"jsonName": "challenges",
 					"type": "int",
-					"jsonTag": "json:\"challenges,omitzero\"",
+					"jsonTag": "json:\"challenges\"",
 					"required": true
 				},
 				{
 					"name": "Market",
 					"jsonName": "market",
 					"type": "int",
-					"jsonTag": "json:\"market,omitzero\"",
+					"jsonTag": "json:\"market\"",
 					"required": true
 				},
 				{
 					"name": "Pets",
 					"jsonName": "pets",
 					"type": "int",
-					"jsonTag": "json:\"pets,omitzero\"",
+					"jsonTag": "json:\"pets\"",
 					"required": true
 				},
 				{
 					"name": "Mounts",
 					"jsonName": "mounts",
 					"type": "int",
-					"jsonTag": "json:\"mounts,omitzero\"",
+					"jsonTag": "json:\"mounts\"",
 					"required": true
 				},
 				{
 					"name": "Hall",
 					"jsonName": "hall",
 					"type": "int",
-					"jsonTag": "json:\"hall,omitzero\"",
+					"jsonTag": "json:\"hall\"",
 					"required": true
 				},
 				{
 					"name": "Equipment",
 					"jsonName": "equipment",
 					"type": "int",
-					"jsonTag": "json:\"equipment,omitzero\"",
+					"jsonTag": "json:\"equipment\"",
 					"required": true
 				},
 				{
 					"name": "GroupPlans",
 					"jsonName": "groupPlans",
 					"type": "int",
-					"jsonTag": "json:\"groupPlans,omitzero\"",
+					"jsonTag": "json:\"groupPlans\"",
 					"required": true
 				}
 			]
@@ -1871,105 +1871,105 @@
 					"name": "Habits",
 					"jsonName": "habits",
 					"type": "bool",
-					"jsonTag": "json:\"habits,omitzero\"",
+					"jsonTag": "json:\"habits\"",
 					"required": true
 				},
 				{
 					"name": "Dailies",
 					"jsonName": "dailies",
 					"type": "bool",
-					"jsonTag": "json:\"dailies,omitzero\"",
+					"jsonTag": "json:\"dailies\"",
 					"required": true
 				},
 				{
 					"name": "Todos",
 					"jsonName": "todos",
 					"type": "bool",
-					"jsonTag": "json:\"todos,omitzero\"",
+					"jsonTag": "json:\"todos\"",
 					"required": true
 				},
 				{
 					"name": "Rewards",
 					"jsonName": "rewards",
 					"type": "bool",
-					"jsonTag": "json:\"rewards,omitzero\"",
+					"jsonTag": "json:\"rewards\"",
 					"required": true
 				},
 				{
 					"name": "Party",
 					"jsonName": "party",
 					"type": "bool",
-					"jsonTag": "json:\"party,omitzero\"",
+					"jsonTag": "json:\"party\"",
 					"required": true
 				},
 				{
 					"name": "Pets",
 					"jsonName": "pets",
 					"type": "bool",
-					"jsonTag": "json:\"pets,omitzero\"",
+					"jsonTag": "json:\"pets\"",
 					"required": true
 				},
 				{
 					"name": "Gems",
 					"jsonName": "gems",
 					"type": "bool",
-					"jsonTag": "json:\"gems,omitzero\"",
+					"jsonTag": "json:\"gems\"",
 					"required": true
 				},
 				{
 					"name": "Skills",
 					"jsonName": "skills",
 					"type": "bool",
-					"jsonTag": "json:\"skills,omitzero\"",
+					"jsonTag": "json:\"skills\"",
 					"required": true
 				},
 				{
 					"name": "Classes",
 					"jsonName": "classes",
 					"type": "bool",
-					"jsonTag": "json:\"classes,omitzero\"",
+					"jsonTag": "json:\"classes\"",
 					"required": true
 				},
 				{
 					"name": "Tavern",
 					"jsonName": "tavern",
 					"type": "bool",
-					"jsonTag": "json:\"tavern,omitzero\"",
+					"jsonTag": "json:\"tavern\"",
 					"required": true
 				},
 				{
 					"name": "Equipment",
 					"jsonName": "equipment",
 					"type": "bool",
-					"jsonTag": "json:\"equipment,omitzero\"",
+					"jsonTag": "json:\"equipment\"",
 					"required": true
 				},
 				{
 					"name": "Items",
 					"jsonName": "items",
 					"type": "bool",
-					"jsonTag": "json:\"items,omitzero\"",
+					"jsonTag": "json:\"items\"",
 					"required": true
 				},
 				{
 					"name": "Mounts",
 					"jsonName": "mounts",
 					"type": "bool",
-					"jsonTag": "json:\"mounts,omitzero\"",
+					"jsonTag": "json:\"mounts\"",
 					"required": true
 				},
 				{
 					"name": "Inbox",
 					"jsonName": "inbox",
 					"type": "bool",
-					"jsonTag": "json:\"inbox,omitzero\"",
+					"jsonTag": "json:\"inbox\"",
 					"required": true
 				},
 				{
 					"name": "Stats",
 					"jsonName": "stats",
 					"type": "bool",
-					"jsonTag": "json:\"stats,omitzero\"",
+					"jsonTag": "json:\"stats\"",
 					"required": true
 				}
 			]
@@ -1982,49 +1982,49 @@
 					"name": "AddTask",
 					"jsonName": "addTask",
 					"type": "bool",
-					"jsonTag": "json:\"addTask,omitzero\"",
+					"jsonTag": "json:\"addTask\"",
 					"required": true
 				},
 				{
 					"name": "EditTask",
 					"jsonName": "editTask",
 					"type": "bool",
-					"jsonTag": "json:\"editTask,omitzero\"",
+					"jsonTag": "json:\"editTask\"",
 					"required": true
 				},
 				{
 					"name": "DeleteTask",
 					"jsonName": "deleteTask",
 					"type": "bool",
-					"jsonTag": "json:\"deleteTask,omitzero\"",
+					"jsonTag": "json:\"deleteTask\"",
 					"required": true
 				},
 				{
 					"name": "FilterTask",
 					"jsonName": "filterTask",
 					"type": "bool",
-					"jsonTag": "json:\"filterTask,omitzero\"",
+					"jsonTag": "json:\"filterTask\"",
 					"required": true
 				},
 				{
 					"name": "GroupPets",
 					"jsonName": "groupPets",
 					"type": "bool",
-					"jsonTag": "json:\"groupPets,omitzero\"",
+					"jsonTag": "json:\"groupPets\"",
 					"required": true
 				},
 				{
 					"name": "InviteParty",
 					"jsonName": "inviteParty",
 					"type": "bool",
-					"jsonTag": "json:\"inviteParty,omitzero\"",
+					"jsonTag": "json:\"inviteParty\"",
 					"required": true
 				},
 				{
 					"name": "ReorderTask",
 					"jsonName": "reorderTask",
 					"type": "bool",
-					"jsonTag": "json:\"reorderTask,omitzero\"",
+					"jsonTag": "json:\"reorderTask\"",
 					"required": true
 				}
 			]
@@ -2057,7 +2057,7 @@
 					"name": "OptOut",
 					"jsonName": "optOut",
 					"type": "bool",
-					"jsonTag": "json:\"optOut,omitzero\"",
+					"jsonTag": "json:\"optOut\"",
 					"required": true
 				},
 				{
@@ -2078,7 +2078,7 @@
 					"name": "NewMessages",
 					"jsonName": "newMessages",
 					"type": "int",
-					"jsonTag": "json:\"newMessages,omitzero\"",
+					"jsonTag": "json:\"newMessages\"",
 					"required": true
 				}
 			]
@@ -2242,63 +2242,63 @@
 					"name": "Wolf",
 					"jsonName": "Wolf",
 					"type": "int",
-					"jsonTag": "json:\"Wolf,omitzero\"",
+					"jsonTag": "json:\"Wolf\"",
 					"required": true
 				},
 				{
 					"name": "Cactus",
 					"jsonName": "Cactus",
 					"type": "int",
-					"jsonTag": "json:\"Cactus,omitzero\"",
+					"jsonTag": "json:\"Cactus\"",
 					"required": true
 				},
 				{
 					"name": "PandaCub",
 					"jsonName": "PandaCub",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub,omitzero\"",
+					"jsonTag": "json:\"PandaCub\"",
 					"required": true
 				},
 				{
 					"name": "Fox",
 					"jsonName": "Fox",
 					"type": "int",
-					"jsonTag": "json:\"Fox,omitzero\"",
+					"jsonTag": "json:\"Fox\"",
 					"required": true
 				},
 				{
 					"name": "BearCub",
 					"jsonName": "BearCub",
 					"type": "int",
-					"jsonTag": "json:\"BearCub,omitzero\"",
+					"jsonTag": "json:\"BearCub\"",
 					"required": true
 				},
 				{
 					"name": "Dragon",
 					"jsonName": "Dragon",
 					"type": "int",
-					"jsonTag": "json:\"Dragon,omitzero\"",
+					"jsonTag": "json:\"Dragon\"",
 					"required": true
 				},
 				{
 					"name": "LionCub",
 					"jsonName": "LionCub",
 					"type": "int",
-					"jsonTag": "json:\"LionCub,omitzero\"",
+					"jsonTag": "json:\"LionCub\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPig",
 					"jsonName": "FlyingPig",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig,omitzero\"",
+					"jsonTag": "json:\"FlyingPig\"",
 					"required": true
 				},
 				{
 					"name": "TigerCub",
 					"jsonName": "TigerCub",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub,omitzero\"",
+					"jsonTag": "json:\"TigerCub\"",
 					"required": true
 				}
 			]
@@ -2311,287 +2311,287 @@
 					"name": "Potatoe",
 					"jsonName": "Potatoe",
 					"type": "int",
-					"jsonTag": "json:\"Potatoe,omitzero\"",
+					"jsonTag": "json:\"Potatoe\"",
 					"required": true
 				},
 				{
 					"name": "Chocolate",
 					"jsonName": "Chocolate",
 					"type": "int",
-					"jsonTag": "json:\"Chocolate,omitzero\"",
+					"jsonTag": "json:\"Chocolate\"",
 					"required": true
 				},
 				{
 					"name": "CottonCandyPink",
 					"jsonName": "CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "Meat",
 					"jsonName": "Meat",
 					"type": "int",
-					"jsonTag": "json:\"Meat,omitzero\"",
+					"jsonTag": "json:\"Meat\"",
 					"required": true
 				},
 				{
 					"name": "CottonCandyBlue",
 					"jsonName": "CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "RottenMeat",
 					"jsonName": "RottenMeat",
 					"type": "int",
-					"jsonTag": "json:\"RottenMeat,omitzero\"",
+					"jsonTag": "json:\"RottenMeat\"",
 					"required": true
 				},
 				{
 					"name": "CakeSkeleton",
 					"jsonName": "Cake_Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Skeleton,omitzero\"",
+					"jsonTag": "json:\"Cake_Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "CakeBase",
 					"jsonName": "Cake_Base",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Base,omitzero\"",
+					"jsonTag": "json:\"Cake_Base\"",
 					"required": true
 				},
 				{
 					"name": "CakeCottonCandyBlue",
 					"jsonName": "Cake_CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Cake_CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Cake_CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "CakeCottonCandyPink",
 					"jsonName": "Cake_CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Cake_CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Cake_CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "CakeShade",
 					"jsonName": "Cake_Shade",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Shade,omitzero\"",
+					"jsonTag": "json:\"Cake_Shade\"",
 					"required": true
 				},
 				{
 					"name": "CakeWhite",
 					"jsonName": "Cake_White",
 					"type": "int",
-					"jsonTag": "json:\"Cake_White,omitzero\"",
+					"jsonTag": "json:\"Cake_White\"",
 					"required": true
 				},
 				{
 					"name": "CakeGolden",
 					"jsonName": "Cake_Golden",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Golden,omitzero\"",
+					"jsonTag": "json:\"Cake_Golden\"",
 					"required": true
 				},
 				{
 					"name": "CakeZombie",
 					"jsonName": "Cake_Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Zombie,omitzero\"",
+					"jsonTag": "json:\"Cake_Zombie\"",
 					"required": true
 				},
 				{
 					"name": "CakeDesert",
 					"jsonName": "Cake_Desert",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Desert,omitzero\"",
+					"jsonTag": "json:\"Cake_Desert\"",
 					"required": true
 				},
 				{
 					"name": "CakeRed",
 					"jsonName": "Cake_Red",
 					"type": "int",
-					"jsonTag": "json:\"Cake_Red,omitzero\"",
+					"jsonTag": "json:\"Cake_Red\"",
 					"required": true
 				},
 				{
 					"name": "Honey",
 					"jsonName": "Honey",
 					"type": "int",
-					"jsonTag": "json:\"Honey,omitzero\"",
+					"jsonTag": "json:\"Honey\"",
 					"required": true
 				},
 				{
 					"name": "Strawberry",
 					"jsonName": "Strawberry",
 					"type": "int",
-					"jsonTag": "json:\"Strawberry,omitzero\"",
+					"jsonTag": "json:\"Strawberry\"",
 					"required": true
 				},
 				{
 					"name": "Milk",
 					"jsonName": "Milk",
 					"type": "int",
-					"jsonTag": "json:\"Milk,omitzero\"",
+					"jsonTag": "json:\"Milk\"",
 					"required": true
 				},
 				{
 					"name": "Fish",
 					"jsonName": "Fish",
 					"type": "int",
-					"jsonTag": "json:\"Fish,omitzero\"",
+					"jsonTag": "json:\"Fish\"",
 					"required": true
 				},
 				{
 					"name": "Saddle",
 					"jsonName": "Saddle",
 					"type": "int",
-					"jsonTag": "json:\"Saddle,omitzero\"",
+					"jsonTag": "json:\"Saddle\"",
 					"required": true
 				},
 				{
 					"name": "CandySkeleton",
 					"jsonName": "Candy_Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Skeleton,omitzero\"",
+					"jsonTag": "json:\"Candy_Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "CandyBase",
 					"jsonName": "Candy_Base",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Base,omitzero\"",
+					"jsonTag": "json:\"Candy_Base\"",
 					"required": true
 				},
 				{
 					"name": "CandyCottonCandyBlue",
 					"jsonName": "Candy_CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Candy_CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Candy_CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "CandyCottonCandyPink",
 					"jsonName": "Candy_CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Candy_CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Candy_CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "CandyShade",
 					"jsonName": "Candy_Shade",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Shade,omitzero\"",
+					"jsonTag": "json:\"Candy_Shade\"",
 					"required": true
 				},
 				{
 					"name": "CandyWhite",
 					"jsonName": "Candy_White",
 					"type": "int",
-					"jsonTag": "json:\"Candy_White,omitzero\"",
+					"jsonTag": "json:\"Candy_White\"",
 					"required": true
 				},
 				{
 					"name": "CandyGolden",
 					"jsonName": "Candy_Golden",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Golden,omitzero\"",
+					"jsonTag": "json:\"Candy_Golden\"",
 					"required": true
 				},
 				{
 					"name": "CandyZombie",
 					"jsonName": "Candy_Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Zombie,omitzero\"",
+					"jsonTag": "json:\"Candy_Zombie\"",
 					"required": true
 				},
 				{
 					"name": "CandyDesert",
 					"jsonName": "Candy_Desert",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Desert,omitzero\"",
+					"jsonTag": "json:\"Candy_Desert\"",
 					"required": true
 				},
 				{
 					"name": "CandyRed",
 					"jsonName": "Candy_Red",
 					"type": "int",
-					"jsonTag": "json:\"Candy_Red,omitzero\"",
+					"jsonTag": "json:\"Candy_Red\"",
 					"required": true
 				},
 				{
 					"name": "PieSkeleton",
 					"jsonName": "Pie_Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Skeleton,omitzero\"",
+					"jsonTag": "json:\"Pie_Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "PieBase",
 					"jsonName": "Pie_Base",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Base,omitzero\"",
+					"jsonTag": "json:\"Pie_Base\"",
 					"required": true
 				},
 				{
 					"name": "PieCottonCandyBlue",
 					"jsonName": "Pie_CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Pie_CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Pie_CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "PieCottonCandyPink",
 					"jsonName": "Pie_CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Pie_CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Pie_CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "PieShade",
 					"jsonName": "Pie_Shade",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Shade,omitzero\"",
+					"jsonTag": "json:\"Pie_Shade\"",
 					"required": true
 				},
 				{
 					"name": "PieWhite",
 					"jsonName": "Pie_White",
 					"type": "int",
-					"jsonTag": "json:\"Pie_White,omitzero\"",
+					"jsonTag": "json:\"Pie_White\"",
 					"required": true
 				},
 				{
 					"name": "PieGolden",
 					"jsonName": "Pie_Golden",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Golden,omitzero\"",
+					"jsonTag": "json:\"Pie_Golden\"",
 					"required": true
 				},
 				{
 					"name": "PieZombie",
 					"jsonName": "Pie_Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Zombie,omitzero\"",
+					"jsonTag": "json:\"Pie_Zombie\"",
 					"required": true
 				},
 				{
 					"name": "PieDesert",
 					"jsonName": "Pie_Desert",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Desert,omitzero\"",
+					"jsonTag": "json:\"Pie_Desert\"",
 					"required": true
 				},
 				{
 					"name": "PieRed",
 					"jsonName": "Pie_Red",
 					"type": "int",
-					"jsonTag": "json:\"Pie_Red,omitzero\"",
+					"jsonTag": "json:\"Pie_Red\"",
 					"required": true
 				}
 			]
@@ -2713,889 +2713,889 @@
 					"name": "EyewearSpecialYellowTopFrame",
 					"jsonName": "eyewear_special_yellowTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_yellowTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_yellowTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialWhiteTopFrame",
 					"jsonName": "eyewear_special_whiteTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_whiteTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_whiteTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialRedTopFrame",
 					"jsonName": "eyewear_special_redTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_redTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_redTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialPinkTopFrame",
 					"jsonName": "eyewear_special_pinkTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_pinkTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_pinkTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialGreenTopFrame",
 					"jsonName": "eyewear_special_greenTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_greenTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_greenTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialBlueTopFrame",
 					"jsonName": "eyewear_special_blueTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_blueTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_blueTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialBlackTopFrame",
 					"jsonName": "eyewear_special_blackTopFrame",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_blackTopFrame,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_blackTopFrame\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBardRobes",
 					"jsonName": "armor_special_bardRobes",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_bardRobes,omitzero\"",
+					"jsonTag": "json:\"armor_special_bardRobes\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialBardHat",
 					"jsonName": "head_special_bardHat",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_bardHat,omitzero\"",
+					"jsonTag": "json:\"head_special_bardHat\"",
 					"required": true
 				},
 				{
 					"name": "HeadWarrior1",
 					"jsonName": "head_warrior_1",
 					"type": "bool",
-					"jsonTag": "json:\"head_warrior_1,omitzero\"",
+					"jsonTag": "json:\"head_warrior_1\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior0",
 					"jsonName": "weapon_warrior_0",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_0,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_0\"",
 					"required": true
 				},
 				{
 					"name": "ShieldWarrior1",
 					"jsonName": "shield_warrior_1",
 					"type": "bool",
-					"jsonTag": "json:\"shield_warrior_1,omitzero\"",
+					"jsonTag": "json:\"shield_warrior_1\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior1",
 					"jsonName": "weapon_warrior_1",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_1,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_1\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday",
 					"jsonName": "armor_special_birthday",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior2",
 					"jsonName": "weapon_warrior_2",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_2,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_2\"",
 					"required": true
 				},
 				{
 					"name": "HeadWarrior2",
 					"jsonName": "head_warrior_2",
 					"type": "bool",
-					"jsonTag": "json:\"head_warrior_2,omitzero\"",
+					"jsonTag": "json:\"head_warrior_2\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialBardInstrument",
 					"jsonName": "weapon_special_bardInstrument",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_bardInstrument,omitzero\"",
+					"jsonTag": "json:\"weapon_special_bardInstrument\"",
 					"required": true
 				},
 				{
 					"name": "ArmorWarrior1",
 					"jsonName": "armor_warrior_1",
 					"type": "bool",
-					"jsonTag": "json:\"armor_warrior_1,omitzero\"",
+					"jsonTag": "json:\"armor_warrior_1\"",
 					"required": true
 				},
 				{
 					"name": "ShieldWarrior2",
 					"jsonName": "shield_warrior_2",
 					"type": "bool",
-					"jsonTag": "json:\"shield_warrior_2,omitzero\"",
+					"jsonTag": "json:\"shield_warrior_2\"",
 					"required": true
 				},
 				{
 					"name": "ArmorWarrior2",
 					"jsonName": "armor_warrior_2",
 					"type": "bool",
-					"jsonTag": "json:\"armor_warrior_2,omitzero\"",
+					"jsonTag": "json:\"armor_warrior_2\"",
 					"required": true
 				},
 				{
 					"name": "HeadWarrior3",
 					"jsonName": "head_warrior_3",
 					"type": "bool",
-					"jsonTag": "json:\"head_warrior_3,omitzero\"",
+					"jsonTag": "json:\"head_warrior_3\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialLunarWarriorHelm",
 					"jsonName": "head_special_lunarWarriorHelm",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_lunarWarriorHelm,omitzero\"",
+					"jsonTag": "json:\"head_special_lunarWarriorHelm\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialSpring2017Warrior",
 					"jsonName": "shield_special_spring2017Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_spring2017Warrior,omitzero\"",
+					"jsonTag": "json:\"shield_special_spring2017Warrior\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior3",
 					"jsonName": "weapon_warrior_3",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_3,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_3\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialPageArmor",
 					"jsonName": "armor_special_pageArmor",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_pageArmor,omitzero\"",
+					"jsonTag": "json:\"armor_special_pageArmor\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialPageHelm",
 					"jsonName": "head_special_pageHelm",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_pageHelm,omitzero\"",
+					"jsonTag": "json:\"head_special_pageHelm\"",
 					"required": true
 				},
 				{
 					"name": "ArmorWarrior3",
 					"jsonName": "armor_warrior_3",
 					"type": "bool",
-					"jsonTag": "json:\"armor_warrior_3,omitzero\"",
+					"jsonTag": "json:\"armor_warrior_3\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialPageBanner",
 					"jsonName": "weapon_special_pageBanner",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_pageBanner,omitzero\"",
+					"jsonTag": "json:\"weapon_special_pageBanner\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialDiamondStave",
 					"jsonName": "shield_special_diamondStave",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_diamondStave,omitzero\"",
+					"jsonTag": "json:\"shield_special_diamondStave\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialLunarWarriorArmor",
 					"jsonName": "armor_special_lunarWarriorArmor",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_lunarWarriorArmor,omitzero\"",
+					"jsonTag": "json:\"armor_special_lunarWarriorArmor\"",
 					"required": true
 				},
 				{
 					"name": "WeaponArmoireBasicLongbow",
 					"jsonName": "weapon_armoire_basicLongbow",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_armoire_basicLongbow,omitzero\"",
+					"jsonTag": "json:\"weapon_armoire_basicLongbow\"",
 					"required": true
 				},
 				{
 					"name": "ArmorWarrior4",
 					"jsonName": "armor_warrior_4",
 					"type": "bool",
-					"jsonTag": "json:\"armor_warrior_4,omitzero\"",
+					"jsonTag": "json:\"armor_warrior_4\"",
 					"required": true
 				},
 				{
 					"name": "ShieldWarrior3",
 					"jsonName": "shield_warrior_3",
 					"type": "bool",
-					"jsonTag": "json:\"shield_warrior_3,omitzero\"",
+					"jsonTag": "json:\"shield_warrior_3\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialLootBag",
 					"jsonName": "shield_special_lootBag",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_lootBag,omitzero\"",
+					"jsonTag": "json:\"shield_special_lootBag\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialSkeletonKey",
 					"jsonName": "weapon_special_skeletonKey",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_skeletonKey,omitzero\"",
+					"jsonTag": "json:\"weapon_special_skeletonKey\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye",
 					"jsonName": "head_special_nye",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye,omitzero\"",
+					"jsonTag": "json:\"head_special_nye\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialSneakthiefRobes",
 					"jsonName": "armor_special_sneakthiefRobes",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_sneakthiefRobes,omitzero\"",
+					"jsonTag": "json:\"armor_special_sneakthiefRobes\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialClandestineCowl",
 					"jsonName": "head_special_clandestineCowl",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_clandestineCowl,omitzero\"",
+					"jsonTag": "json:\"head_special_clandestineCowl\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialWinter2018Warrior",
 					"jsonName": "shield_special_winter2018Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_winter2018Warrior,omitzero\"",
+					"jsonTag": "json:\"shield_special_winter2018Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialSnowSovereignRobes",
 					"jsonName": "armor_special_snowSovereignRobes",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_snowSovereignRobes,omitzero\"",
+					"jsonTag": "json:\"armor_special_snowSovereignRobes\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialSnowSovereignCrown",
 					"jsonName": "head_special_snowSovereignCrown",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_snowSovereignCrown,omitzero\"",
+					"jsonTag": "json:\"head_special_snowSovereignCrown\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2015",
 					"jsonName": "armor_special_birthday2015",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2015,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2015\"",
 					"required": true
 				},
 				{
 					"name": "BackSpecialSnowdriftVeil",
 					"jsonName": "back_special_snowdriftVeil",
 					"type": "bool",
-					"jsonTag": "json:\"back_special_snowdriftVeil,omitzero\"",
+					"jsonTag": "json:\"back_special_snowdriftVeil\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialWintryMirror",
 					"jsonName": "shield_special_wintryMirror",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_wintryMirror,omitzero\"",
+					"jsonTag": "json:\"shield_special_wintryMirror\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialBlackHeadband",
 					"jsonName": "headAccessory_special_blackHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_blackHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_blackHeadband\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialBlueHeadband",
 					"jsonName": "headAccessory_special_blueHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_blueHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_blueHeadband\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialGreenHeadband",
 					"jsonName": "headAccessory_special_greenHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_greenHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_greenHeadband\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialPinkHeadband",
 					"jsonName": "headAccessory_special_pinkHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_pinkHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_pinkHeadband\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialRedHeadband",
 					"jsonName": "headAccessory_special_redHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_redHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_redHeadband\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialWhiteHeadband",
 					"jsonName": "headAccessory_special_whiteHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_whiteHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_whiteHeadband\"",
 					"required": true
 				},
 				{
 					"name": "HeadAccessorySpecialYellowHeadband",
 					"jsonName": "headAccessory_special_yellowHeadband",
 					"type": "bool",
-					"jsonTag": "json:\"headAccessory_special_yellowHeadband,omitzero\"",
+					"jsonTag": "json:\"headAccessory_special_yellowHeadband\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior4",
 					"jsonName": "weapon_warrior_4",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_4,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_4\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior5",
 					"jsonName": "weapon_warrior_5",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_5,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_5\"",
 					"required": true
 				},
 				{
 					"name": "HeadWarrior4",
 					"jsonName": "head_warrior_4",
 					"type": "bool",
-					"jsonTag": "json:\"head_warrior_4,omitzero\"",
+					"jsonTag": "json:\"head_warrior_4\"",
 					"required": true
 				},
 				{
 					"name": "ArmorWarrior5",
 					"jsonName": "armor_warrior_5",
 					"type": "bool",
-					"jsonTag": "json:\"armor_warrior_5,omitzero\"",
+					"jsonTag": "json:\"armor_warrior_5\"",
 					"required": true
 				},
 				{
 					"name": "ShieldWarrior4",
 					"jsonName": "shield_warrior_4",
 					"type": "bool",
-					"jsonTag": "json:\"shield_warrior_4,omitzero\"",
+					"jsonTag": "json:\"shield_warrior_4\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialLunarScythe",
 					"jsonName": "weapon_special_lunarScythe",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_lunarScythe,omitzero\"",
+					"jsonTag": "json:\"weapon_special_lunarScythe\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2014",
 					"jsonName": "head_special_nye2014",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2014,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2014\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialNomadsCuirass",
 					"jsonName": "armor_special_nomadsCuirass",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_nomadsCuirass,omitzero\"",
+					"jsonTag": "json:\"armor_special_nomadsCuirass\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialNomadsScimitar",
 					"jsonName": "weapon_special_nomadsScimitar",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_nomadsScimitar,omitzero\"",
+					"jsonTag": "json:\"weapon_special_nomadsScimitar\"",
 					"required": true
 				},
 				{
 					"name": "HeadArmoireBigWig",
 					"jsonName": "head_armoire_bigWig",
 					"type": "bool",
-					"jsonTag": "json:\"head_armoire_bigWig,omitzero\"",
+					"jsonTag": "json:\"head_armoire_bigWig\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2016",
 					"jsonName": "armor_special_birthday2016",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2016,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2016\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialSpikedHelm",
 					"jsonName": "head_special_spikedHelm",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_spikedHelm,omitzero\"",
+					"jsonTag": "json:\"head_special_spikedHelm\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialPiDay",
 					"jsonName": "head_special_piDay",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_piDay,omitzero\"",
+					"jsonTag": "json:\"head_special_piDay\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialPiDay",
 					"jsonName": "shield_special_piDay",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_piDay,omitzero\"",
+					"jsonTag": "json:\"shield_special_piDay\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialBlackHalfMoon",
 					"jsonName": "eyewear_special_blackHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_blackHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_blackHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialBlueHalfMoon",
 					"jsonName": "eyewear_special_blueHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_blueHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_blueHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialGreenHalfMoon",
 					"jsonName": "eyewear_special_greenHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_greenHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_greenHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialPinkHalfMoon",
 					"jsonName": "eyewear_special_pinkHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_pinkHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_pinkHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialRedHalfMoon",
 					"jsonName": "eyewear_special_redHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_redHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_redHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialWhiteHalfMoon",
 					"jsonName": "eyewear_special_whiteHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_whiteHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_whiteHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "EyewearSpecialYellowHalfMoon",
 					"jsonName": "eyewear_special_yellowHalfMoon",
 					"type": "bool",
-					"jsonTag": "json:\"eyewear_special_yellowHalfMoon,omitzero\"",
+					"jsonTag": "json:\"eyewear_special_yellowHalfMoon\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNamingDay2017",
 					"jsonName": "head_special_namingDay2017",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_namingDay2017,omitzero\"",
+					"jsonTag": "json:\"head_special_namingDay2017\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2015",
 					"jsonName": "head_special_nye2015",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2015,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2015\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2017",
 					"jsonName": "armor_special_birthday2017",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2017,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2017\"",
 					"required": true
 				},
 				{
 					"name": "BodySpecialNamingDay2018",
 					"jsonName": "body_special_namingDay2018",
 					"type": "bool",
-					"jsonTag": "json:\"body_special_namingDay2018,omitzero\"",
+					"jsonTag": "json:\"body_special_namingDay2018\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2016",
 					"jsonName": "head_special_nye2016",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2016,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2016\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2018",
 					"jsonName": "armor_special_birthday2018",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2018,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2018\"",
 					"required": true
 				},
 				{
 					"name": "BackSpecialNamingDay2020",
 					"jsonName": "back_special_namingDay2020",
 					"type": "bool",
-					"jsonTag": "json:\"back_special_namingDay2020,omitzero\"",
+					"jsonTag": "json:\"back_special_namingDay2020\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialDandyHat",
 					"jsonName": "head_special_dandyHat",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_dandyHat,omitzero\"",
+					"jsonTag": "json:\"head_special_dandyHat\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialFencingFoil",
 					"jsonName": "weapon_special_fencingFoil",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_fencingFoil,omitzero\"",
+					"jsonTag": "json:\"weapon_special_fencingFoil\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialDandySuit",
 					"jsonName": "armor_special_dandySuit",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_dandySuit,omitzero\"",
+					"jsonTag": "json:\"armor_special_dandySuit\"",
 					"required": true
 				},
 				{
 					"name": "ShieldWarrior5",
 					"jsonName": "shield_warrior_5",
 					"type": "bool",
-					"jsonTag": "json:\"shield_warrior_5,omitzero\"",
+					"jsonTag": "json:\"shield_warrior_5\"",
 					"required": true
 				},
 				{
 					"name": "HeadWarrior5",
 					"jsonName": "head_warrior_5",
 					"type": "bool",
-					"jsonTag": "json:\"head_warrior_5,omitzero\"",
+					"jsonTag": "json:\"head_warrior_5\"",
 					"required": true
 				},
 				{
 					"name": "WeaponWarrior6",
 					"jsonName": "weapon_warrior_6",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_warrior_6,omitzero\"",
+					"jsonTag": "json:\"weapon_warrior_6\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialFall2021Warrior",
 					"jsonName": "weapon_special_fall2021Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_fall2021Warrior,omitzero\"",
+					"jsonTag": "json:\"weapon_special_fall2021Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialTurkeyArmorBase",
 					"jsonName": "armor_special_turkeyArmorBase",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_turkeyArmorBase,omitzero\"",
+					"jsonTag": "json:\"armor_special_turkeyArmorBase\"",
 					"required": true
 				},
 				{
 					"name": "BackSpecialTurkeyTailBase",
 					"jsonName": "back_special_turkeyTailBase",
 					"type": "bool",
-					"jsonTag": "json:\"back_special_turkeyTailBase,omitzero\"",
+					"jsonTag": "json:\"back_special_turkeyTailBase\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialTurkeyHelmBase",
 					"jsonName": "head_special_turkeyHelmBase",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_turkeyHelmBase,omitzero\"",
+					"jsonTag": "json:\"head_special_turkeyHelmBase\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2017",
 					"jsonName": "head_special_nye2017",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2017,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2017\"",
 					"required": true
 				},
 				{
 					"name": "WeaponArmoireJesterBaton",
 					"jsonName": "weapon_armoire_jesterBaton",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_armoire_jesterBaton,omitzero\"",
+					"jsonTag": "json:\"weapon_armoire_jesterBaton\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialTachi",
 					"jsonName": "weapon_special_tachi",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_tachi,omitzero\"",
+					"jsonTag": "json:\"weapon_special_tachi\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialSamuraiArmor",
 					"jsonName": "armor_special_samuraiArmor",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_samuraiArmor,omitzero\"",
+					"jsonTag": "json:\"armor_special_samuraiArmor\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialWinter2022Warrior",
 					"jsonName": "weapon_special_winter2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_winter2022Warrior,omitzero\"",
+					"jsonTag": "json:\"weapon_special_winter2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialWinter2022Warrior",
 					"jsonName": "head_special_winter2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_winter2022Warrior,omitzero\"",
+					"jsonTag": "json:\"head_special_winter2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialWinter2022Warrior",
 					"jsonName": "shield_special_winter2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_winter2022Warrior,omitzero\"",
+					"jsonTag": "json:\"shield_special_winter2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2019",
 					"jsonName": "armor_special_birthday2019",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2019,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2019\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialKabuto",
 					"jsonName": "head_special_kabuto",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_kabuto,omitzero\"",
+					"jsonTag": "json:\"head_special_kabuto\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialWakizashi",
 					"jsonName": "shield_special_wakizashi",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_wakizashi,omitzero\"",
+					"jsonTag": "json:\"shield_special_wakizashi\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecial2",
 					"jsonName": "weapon_special_2",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_2,omitzero\"",
+					"jsonTag": "json:\"weapon_special_2\"",
 					"required": true
 				},
 				{
 					"name": "WeaponArmoirePotionBase",
 					"jsonName": "weapon_armoire_potionBase",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_armoire_potionBase,omitzero\"",
+					"jsonTag": "json:\"weapon_armoire_potionBase\"",
 					"required": true
 				},
 				{
 					"name": "WeaponArmoirePotionSkeleton",
 					"jsonName": "weapon_armoire_potionSkeleton",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_armoire_potionSkeleton,omitzero\"",
+					"jsonTag": "json:\"weapon_armoire_potionSkeleton\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialSpring2022Warrior",
 					"jsonName": "weapon_special_spring2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_spring2022Warrior,omitzero\"",
+					"jsonTag": "json:\"weapon_special_spring2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialSpring2022Warrior",
 					"jsonName": "head_special_spring2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_spring2022Warrior,omitzero\"",
+					"jsonTag": "json:\"head_special_spring2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialFall2022Warrior",
 					"jsonName": "head_special_fall2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_fall2022Warrior,omitzero\"",
+					"jsonTag": "json:\"head_special_fall2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialFall2022Warrior",
 					"jsonName": "weapon_special_fall2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_fall2022Warrior,omitzero\"",
+					"jsonTag": "json:\"weapon_special_fall2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialFall2022Warrior",
 					"jsonName": "armor_special_fall2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_fall2022Warrior,omitzero\"",
+					"jsonTag": "json:\"armor_special_fall2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialFall2022Warrior",
 					"jsonName": "shield_special_fall2022Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_fall2022Warrior,omitzero\"",
+					"jsonTag": "json:\"shield_special_fall2022Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialTurkeyArmorGilded",
 					"jsonName": "armor_special_turkeyArmorGilded",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_turkeyArmorGilded,omitzero\"",
+					"jsonTag": "json:\"armor_special_turkeyArmorGilded\"",
 					"required": true
 				},
 				{
 					"name": "BackSpecialTurkeyTailGilded",
 					"jsonName": "back_special_turkeyTailGilded",
 					"type": "bool",
-					"jsonTag": "json:\"back_special_turkeyTailGilded,omitzero\"",
+					"jsonTag": "json:\"back_special_turkeyTailGilded\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialTurkeyHelmGilded",
 					"jsonName": "head_special_turkeyHelmGilded",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_turkeyHelmGilded,omitzero\"",
+					"jsonTag": "json:\"head_special_turkeyHelmGilded\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2018",
 					"jsonName": "head_special_nye2018",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2018,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2018\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialSummer2023Warrior",
 					"jsonName": "armor_special_summer2023Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_summer2023Warrior,omitzero\"",
+					"jsonTag": "json:\"armor_special_summer2023Warrior\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialSummer2023Warrior",
 					"jsonName": "head_special_summer2023Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_summer2023Warrior,omitzero\"",
+					"jsonTag": "json:\"head_special_summer2023Warrior\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialSummer2023Warrior",
 					"jsonName": "weapon_special_summer2023Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_summer2023Warrior,omitzero\"",
+					"jsonTag": "json:\"weapon_special_summer2023Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialSummer2023Warrior",
 					"jsonName": "shield_special_summer2023Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_summer2023Warrior,omitzero\"",
+					"jsonTag": "json:\"shield_special_summer2023Warrior\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2019",
 					"jsonName": "head_special_nye2019",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2019,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2019\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2020",
 					"jsonName": "armor_special_birthday2020",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2020,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2020\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2020",
 					"jsonName": "head_special_nye2020",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2020,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2020\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2021",
 					"jsonName": "armor_special_birthday2021",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2021,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2021\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialSpring2025Warrior",
 					"jsonName": "armor_special_spring2025Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_spring2025Warrior,omitzero\"",
+					"jsonTag": "json:\"armor_special_spring2025Warrior\"",
 					"required": true
 				},
 				{
 					"name": "WeaponSpecialSpring2025Warrior",
 					"jsonName": "weapon_special_spring2025Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"weapon_special_spring2025Warrior,omitzero\"",
+					"jsonTag": "json:\"weapon_special_spring2025Warrior\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialSpring2025Warrior",
 					"jsonName": "head_special_spring2025Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_spring2025Warrior,omitzero\"",
+					"jsonTag": "json:\"head_special_spring2025Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ShieldSpecialSpring2025Warrior",
 					"jsonName": "shield_special_spring2025Warrior",
 					"type": "bool",
-					"jsonTag": "json:\"shield_special_spring2025Warrior,omitzero\"",
+					"jsonTag": "json:\"shield_special_spring2025Warrior\"",
 					"required": true
 				},
 				{
 					"name": "ShieldArmoireBaseballGlove",
 					"jsonName": "shield_armoire_baseballGlove",
 					"type": "bool",
-					"jsonTag": "json:\"shield_armoire_baseballGlove,omitzero\"",
+					"jsonTag": "json:\"shield_armoire_baseballGlove\"",
 					"required": true
 				},
 				{
 					"name": "HeadSpecialNye2021",
 					"jsonName": "head_special_nye2021",
 					"type": "bool",
-					"jsonTag": "json:\"head_special_nye2021,omitzero\"",
+					"jsonTag": "json:\"head_special_nye2021\"",
 					"required": true
 				},
 				{
 					"name": "ArmorSpecialBirthday2022",
 					"jsonName": "armor_special_birthday2022",
 					"type": "bool",
-					"jsonTag": "json:\"armor_special_birthday2022,omitzero\"",
+					"jsonTag": "json:\"armor_special_birthday2022\"",
 					"required": true
 				}
 			]
@@ -3608,77 +3608,77 @@
 					"name": "RoyalPurple",
 					"jsonName": "RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "Desert",
 					"jsonName": "Desert",
 					"type": "int",
-					"jsonTag": "json:\"Desert,omitzero\"",
+					"jsonTag": "json:\"Desert\"",
 					"required": true
 				},
 				{
 					"name": "CottonCandyPink",
 					"jsonName": "CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "CottonCandyBlue",
 					"jsonName": "CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "Red",
 					"jsonName": "Red",
 					"type": "int",
-					"jsonTag": "json:\"Red,omitzero\"",
+					"jsonTag": "json:\"Red\"",
 					"required": true
 				},
 				{
 					"name": "Zombie",
 					"jsonName": "Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Zombie,omitzero\"",
+					"jsonTag": "json:\"Zombie\"",
 					"required": true
 				},
 				{
 					"name": "Base",
 					"jsonName": "Base",
 					"type": "int",
-					"jsonTag": "json:\"Base,omitzero\"",
+					"jsonTag": "json:\"Base\"",
 					"required": true
 				},
 				{
 					"name": "White",
 					"jsonName": "White",
 					"type": "int",
-					"jsonTag": "json:\"White,omitzero\"",
+					"jsonTag": "json:\"White\"",
 					"required": true
 				},
 				{
 					"name": "Shade",
 					"jsonName": "Shade",
 					"type": "int",
-					"jsonTag": "json:\"Shade,omitzero\"",
+					"jsonTag": "json:\"Shade\"",
 					"required": true
 				},
 				{
 					"name": "Skeleton",
 					"jsonName": "Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Skeleton,omitzero\"",
+					"jsonTag": "json:\"Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "Golden",
 					"jsonName": "Golden",
 					"type": "int",
-					"jsonTag": "json:\"Golden,omitzero\"",
+					"jsonTag": "json:\"Golden\"",
 					"required": true
 				}
 			]
@@ -3691,7 +3691,7 @@
 					"name": "Count",
 					"jsonName": "count",
 					"type": "int",
-					"jsonTag": "json:\"count,omitzero\"",
+					"jsonTag": "json:\"count\"",
 					"required": true
 				},
 				{
@@ -3711,560 +3711,560 @@
 					"name": "WolfRoyalPurple",
 					"jsonName": "Wolf-RoyalPurple",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Wolf-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubDesert",
 					"jsonName": "PandaCub-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Desert,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "OrcaBase",
 					"jsonName": "Orca-Base",
 					"type": "bool",
-					"jsonTag": "json:\"Orca-Base,omitzero\"",
+					"jsonTag": "json:\"Orca-Base\"",
 					"required": true
 				},
 				{
 					"name": "GryphonRoyalPurple",
 					"jsonName": "Gryphon-RoyalPurple",
 					"type": "bool",
-					"jsonTag": "json:\"Gryphon-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Gryphon-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "HippogriffHopeful",
 					"jsonName": "Hippogriff-Hopeful",
 					"type": "bool",
-					"jsonTag": "json:\"Hippogriff-Hopeful,omitzero\"",
+					"jsonTag": "json:\"Hippogriff-Hopeful\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternBase",
 					"jsonName": "JackOLantern-Base",
 					"type": "bool",
-					"jsonTag": "json:\"JackOLantern-Base,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-Base\"",
 					"required": true
 				},
 				{
 					"name": "TurkeyBase",
 					"jsonName": "Turkey-Base",
 					"type": "bool",
-					"jsonTag": "json:\"Turkey-Base,omitzero\"",
+					"jsonTag": "json:\"Turkey-Base\"",
 					"required": true
 				},
 				{
 					"name": "DragonRed",
 					"jsonName": "Dragon-Red",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Red,omitzero\"",
+					"jsonTag": "json:\"Dragon-Red\"",
 					"required": true
 				},
 				{
 					"name": "WolfRed",
 					"jsonName": "Wolf-Red",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Red,omitzero\"",
+					"jsonTag": "json:\"Wolf-Red\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubBase",
 					"jsonName": "PandaCub-Base",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Base,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubWhite",
 					"jsonName": "PandaCub-White",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-White,omitzero\"",
+					"jsonTag": "json:\"PandaCub-White\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigDesert",
 					"jsonName": "FlyingPig-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"FlyingPig-Desert,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Desert\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubShade",
 					"jsonName": "TigerCub-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Shade,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "WolfSkeleton",
 					"jsonName": "Wolf-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Wolf-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubZombie",
 					"jsonName": "TigerCub-Zombie",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubZombie",
 					"jsonName": "PandaCub-Zombie",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubSkeleton",
 					"jsonName": "TigerCub-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "WolfCottonCandyPink",
 					"jsonName": "Wolf-CottonCandyPink",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Wolf-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "DragonCottonCandyPink",
 					"jsonName": "Dragon-CottonCandyPink",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Dragon-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "WolfCottonCandyBlue",
 					"jsonName": "Wolf-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Wolf-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "CactusCottonCandyBlue",
 					"jsonName": "Cactus-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Cactus-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "DragonGolden",
 					"jsonName": "Dragon-Golden",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Golden,omitzero\"",
+					"jsonTag": "json:\"Dragon-Golden\"",
 					"required": true
 				},
 				{
 					"name": "WolfGolden",
 					"jsonName": "Wolf-Golden",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Golden,omitzero\"",
+					"jsonTag": "json:\"Wolf-Golden\"",
 					"required": true
 				},
 				{
 					"name": "FoxCottonCandyBlue",
 					"jsonName": "Fox-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"Fox-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Fox-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubShade",
 					"jsonName": "PandaCub-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Shade,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "WolfWhite",
 					"jsonName": "Wolf-White",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-White,omitzero\"",
+					"jsonTag": "json:\"Wolf-White\"",
 					"required": true
 				},
 				{
 					"name": "BearCubGolden",
 					"jsonName": "BearCub-Golden",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Golden,omitzero\"",
+					"jsonTag": "json:\"BearCub-Golden\"",
 					"required": true
 				},
 				{
 					"name": "CactusDesert",
 					"jsonName": "Cactus-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-Desert,omitzero\"",
+					"jsonTag": "json:\"Cactus-Desert\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubRed",
 					"jsonName": "TigerCub-Red",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Red,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "WolfBase",
 					"jsonName": "Wolf-Base",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Base,omitzero\"",
+					"jsonTag": "json:\"Wolf-Base\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternGhost",
 					"jsonName": "JackOLantern-Ghost",
 					"type": "bool",
-					"jsonTag": "json:\"JackOLantern-Ghost,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-Ghost\"",
 					"required": true
 				},
 				{
 					"name": "TurkeyGilded",
 					"jsonName": "Turkey-Gilded",
 					"type": "bool",
-					"jsonTag": "json:\"Turkey-Gilded,omitzero\"",
+					"jsonTag": "json:\"Turkey-Gilded\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternGlow",
 					"jsonName": "JackOLantern-Glow",
 					"type": "bool",
-					"jsonTag": "json:\"JackOLantern-Glow,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-Glow\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternRoyalPurple",
 					"jsonName": "JackOLantern-RoyalPurple",
 					"type": "bool",
-					"jsonTag": "json:\"JackOLantern-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "WolfDesert",
 					"jsonName": "Wolf-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Desert,omitzero\"",
+					"jsonTag": "json:\"Wolf-Desert\"",
 					"required": true
 				},
 				{
 					"name": "WolfShade",
 					"jsonName": "Wolf-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Shade,omitzero\"",
+					"jsonTag": "json:\"Wolf-Shade\"",
 					"required": true
 				},
 				{
 					"name": "WolfZombie",
 					"jsonName": "Wolf-Zombie",
 					"type": "bool",
-					"jsonTag": "json:\"Wolf-Zombie,omitzero\"",
+					"jsonTag": "json:\"Wolf-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubBase",
 					"jsonName": "TigerCub-Base",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Base,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubWhite",
 					"jsonName": "TigerCub-White",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-White,omitzero\"",
+					"jsonTag": "json:\"TigerCub-White\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubDesert",
 					"jsonName": "TigerCub-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Desert,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubCottonCandyPink",
 					"jsonName": "TigerCub-CottonCandyPink",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"TigerCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubCottonCandyBlue",
 					"jsonName": "TigerCub-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"TigerCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubGolden",
 					"jsonName": "TigerCub-Golden",
 					"type": "bool",
-					"jsonTag": "json:\"TigerCub-Golden,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Golden\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubRed",
 					"jsonName": "PandaCub-Red",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Red,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubSkeleton",
 					"jsonName": "PandaCub-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubCottonCandyPink",
 					"jsonName": "PandaCub-CottonCandyPink",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"PandaCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubCottonCandyBlue",
 					"jsonName": "PandaCub-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"PandaCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubGolden",
 					"jsonName": "PandaCub-Golden",
 					"type": "bool",
-					"jsonTag": "json:\"PandaCub-Golden,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Golden\"",
 					"required": true
 				},
 				{
 					"name": "LionCubBase",
 					"jsonName": "LionCub-Base",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-Base,omitzero\"",
+					"jsonTag": "json:\"LionCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "LionCubWhite",
 					"jsonName": "LionCub-White",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-White,omitzero\"",
+					"jsonTag": "json:\"LionCub-White\"",
 					"required": true
 				},
 				{
 					"name": "LionCubShade",
 					"jsonName": "LionCub-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-Shade,omitzero\"",
+					"jsonTag": "json:\"LionCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "LionCubSkeleton",
 					"jsonName": "LionCub-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"LionCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "LionCubZombie",
 					"jsonName": "LionCub-Zombie",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"LionCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "LionCubCottonCandyPink",
 					"jsonName": "LionCub-CottonCandyPink",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"LionCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "LionCubCottonCandyBlue",
 					"jsonName": "LionCub-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"LionCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"LionCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "FoxBase",
 					"jsonName": "Fox-Base",
 					"type": "bool",
-					"jsonTag": "json:\"Fox-Base,omitzero\"",
+					"jsonTag": "json:\"Fox-Base\"",
 					"required": true
 				},
 				{
 					"name": "BearCubBase",
 					"jsonName": "BearCub-Base",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Base,omitzero\"",
+					"jsonTag": "json:\"BearCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "CactusBase",
 					"jsonName": "Cactus-Base",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-Base,omitzero\"",
+					"jsonTag": "json:\"Cactus-Base\"",
 					"required": true
 				},
 				{
 					"name": "DragonBase",
 					"jsonName": "Dragon-Base",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Base,omitzero\"",
+					"jsonTag": "json:\"Dragon-Base\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigBase",
 					"jsonName": "FlyingPig-Base",
 					"type": "bool",
-					"jsonTag": "json:\"FlyingPig-Base,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Base\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigWhite",
 					"jsonName": "FlyingPig-White",
 					"type": "bool",
-					"jsonTag": "json:\"FlyingPig-White,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-White\"",
 					"required": true
 				},
 				{
 					"name": "FoxWhite",
 					"jsonName": "Fox-White",
 					"type": "bool",
-					"jsonTag": "json:\"Fox-White,omitzero\"",
+					"jsonTag": "json:\"Fox-White\"",
 					"required": true
 				},
 				{
 					"name": "DragonWhite",
 					"jsonName": "Dragon-White",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-White,omitzero\"",
+					"jsonTag": "json:\"Dragon-White\"",
 					"required": true
 				},
 				{
 					"name": "DragonDesert",
 					"jsonName": "Dragon-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Desert,omitzero\"",
+					"jsonTag": "json:\"Dragon-Desert\"",
 					"required": true
 				},
 				{
 					"name": "DragonShade",
 					"jsonName": "Dragon-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Shade,omitzero\"",
+					"jsonTag": "json:\"Dragon-Shade\"",
 					"required": true
 				},
 				{
 					"name": "DragonSkeleton",
 					"jsonName": "Dragon-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Dragon-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "DragonZombie",
 					"jsonName": "Dragon-Zombie",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-Zombie,omitzero\"",
+					"jsonTag": "json:\"Dragon-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "DragonCottonCandyBlue",
 					"jsonName": "Dragon-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"Dragon-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Dragon-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "BearCubWhite",
 					"jsonName": "BearCub-White",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-White,omitzero\"",
+					"jsonTag": "json:\"BearCub-White\"",
 					"required": true
 				},
 				{
 					"name": "BearCubDesert",
 					"jsonName": "BearCub-Desert",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Desert,omitzero\"",
+					"jsonTag": "json:\"BearCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "BearCubRed",
 					"jsonName": "BearCub-Red",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Red,omitzero\"",
+					"jsonTag": "json:\"BearCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "BearCubShade",
 					"jsonName": "BearCub-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Shade,omitzero\"",
+					"jsonTag": "json:\"BearCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "BearCubSkeleton",
 					"jsonName": "BearCub-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"BearCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "BearCubZombie",
 					"jsonName": "BearCub-Zombie",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"BearCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "BearCubCottonCandyPink",
 					"jsonName": "BearCub-CottonCandyPink",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"BearCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "BearCubCottonCandyBlue",
 					"jsonName": "BearCub-CottonCandyBlue",
 					"type": "bool",
-					"jsonTag": "json:\"BearCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"BearCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "CactusWhite",
 					"jsonName": "Cactus-White",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-White,omitzero\"",
+					"jsonTag": "json:\"Cactus-White\"",
 					"required": true
 				},
 				{
 					"name": "CactusRed",
 					"jsonName": "Cactus-Red",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-Red,omitzero\"",
+					"jsonTag": "json:\"Cactus-Red\"",
 					"required": true
 				},
 				{
 					"name": "CactusShade",
 					"jsonName": "Cactus-Shade",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-Shade,omitzero\"",
+					"jsonTag": "json:\"Cactus-Shade\"",
 					"required": true
 				},
 				{
 					"name": "CactusSkeleton",
 					"jsonName": "Cactus-Skeleton",
 					"type": "bool",
-					"jsonTag": "json:\"Cactus-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Cactus-Skeleton\"",
 					"required": true
 				}
 			]
@@ -4277,763 +4277,763 @@
 					"name": "WolfRoyalPurple",
 					"jsonName": "Wolf-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Wolf-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubDesert",
 					"jsonName": "PandaCub-Desert",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Desert,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "CactusDesert",
 					"jsonName": "Cactus-Desert",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Desert,omitzero\"",
+					"jsonTag": "json:\"Cactus-Desert\"",
 					"required": true
 				},
 				{
 					"name": "FoxRoyalPurple",
 					"jsonName": "Fox-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"Fox-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Fox-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "WolfCottonCandyBlue",
 					"jsonName": "Wolf-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Wolf-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "DragonCottonCandyPink",
 					"jsonName": "Dragon-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Dragon-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "DragonRed",
 					"jsonName": "Dragon-Red",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Red,omitzero\"",
+					"jsonTag": "json:\"Dragon-Red\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigCottonCandyPink",
 					"jsonName": "FlyingPig-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "DragonZombie",
 					"jsonName": "Dragon-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Zombie,omitzero\"",
+					"jsonTag": "json:\"Dragon-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "LionCubDesert",
 					"jsonName": "LionCub-Desert",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-Desert,omitzero\"",
+					"jsonTag": "json:\"LionCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "BearCubDesert",
 					"jsonName": "BearCub-Desert",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Desert,omitzero\"",
+					"jsonTag": "json:\"BearCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "FoxRed",
 					"jsonName": "Fox-Red",
 					"type": "int",
-					"jsonTag": "json:\"Fox-Red,omitzero\"",
+					"jsonTag": "json:\"Fox-Red\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigRed",
 					"jsonName": "FlyingPig-Red",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-Red,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Red\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubBase",
 					"jsonName": "PandaCub-Base",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Base,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "LionCubRoyalPurple",
 					"jsonName": "LionCub-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"LionCub-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "DragonGolden",
 					"jsonName": "Dragon-Golden",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Golden,omitzero\"",
+					"jsonTag": "json:\"Dragon-Golden\"",
 					"required": true
 				},
 				{
 					"name": "BearCubBase",
 					"jsonName": "BearCub-Base",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Base,omitzero\"",
+					"jsonTag": "json:\"BearCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "CactusCottonCandyBlue",
 					"jsonName": "Cactus-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Cactus-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "CactusCottonCandyPink",
 					"jsonName": "Cactus-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Cactus-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "DragonRoyalPurple",
 					"jsonName": "Dragon-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Dragon-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigDesert",
 					"jsonName": "FlyingPig-Desert",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-Desert,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Desert\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigRoyalPurple",
 					"jsonName": "FlyingPig-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "FoxCottonCandyBlue",
 					"jsonName": "Fox-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Fox-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Fox-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "LionCubCottonCandyBlue",
 					"jsonName": "LionCub-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"LionCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "LionCubRed",
 					"jsonName": "LionCub-Red",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-Red,omitzero\"",
+					"jsonTag": "json:\"LionCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubRed",
 					"jsonName": "PandaCub-Red",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Red,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "WolfRed",
 					"jsonName": "Wolf-Red",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Red,omitzero\"",
+					"jsonTag": "json:\"Wolf-Red\"",
 					"required": true
 				},
 				{
 					"name": "WolfSkeleton",
 					"jsonName": "Wolf-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Wolf-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "WolfWhite",
 					"jsonName": "Wolf-White",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-White,omitzero\"",
+					"jsonTag": "json:\"Wolf-White\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubWhite",
 					"jsonName": "TigerCub-White",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-White,omitzero\"",
+					"jsonTag": "json:\"TigerCub-White\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubWhite",
 					"jsonName": "PandaCub-White",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-White,omitzero\"",
+					"jsonTag": "json:\"PandaCub-White\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubZombie",
 					"jsonName": "TigerCub-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubZombie",
 					"jsonName": "PandaCub-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubShade",
 					"jsonName": "TigerCub-Shade",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Shade,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubShade",
 					"jsonName": "PandaCub-Shade",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Shade,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubRoyalPurple",
 					"jsonName": "TigerCub-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"TigerCub-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubSkeleton",
 					"jsonName": "TigerCub-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubRed",
 					"jsonName": "TigerCub-Red",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Red,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "WolfVeteran",
 					"jsonName": "Wolf-Veteran",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Veteran,omitzero\"",
+					"jsonTag": "json:\"Wolf-Veteran\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternBase",
 					"jsonName": "JackOLantern-Base",
 					"type": "int",
-					"jsonTag": "json:\"JackOLantern-Base,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-Base\"",
 					"required": true
 				},
 				{
 					"name": "TurkeyBase",
 					"jsonName": "Turkey-Base",
 					"type": "int",
-					"jsonTag": "json:\"Turkey-Base,omitzero\"",
+					"jsonTag": "json:\"Turkey-Base\"",
 					"required": true
 				},
 				{
 					"name": "HippogriffHopeful",
 					"jsonName": "Hippogriff-Hopeful",
 					"type": "int",
-					"jsonTag": "json:\"Hippogriff-Hopeful,omitzero\"",
+					"jsonTag": "json:\"Hippogriff-Hopeful\"",
 					"required": true
 				},
 				{
 					"name": "OrcaBase",
 					"jsonName": "Orca-Base",
 					"type": "int",
-					"jsonTag": "json:\"Orca-Base,omitzero\"",
+					"jsonTag": "json:\"Orca-Base\"",
 					"required": true
 				},
 				{
 					"name": "GryphonRoyalPurple",
 					"jsonName": "Gryphon-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"Gryphon-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Gryphon-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "TigerVeteran",
 					"jsonName": "Tiger-Veteran",
 					"type": "int",
-					"jsonTag": "json:\"Tiger-Veteran,omitzero\"",
+					"jsonTag": "json:\"Tiger-Veteran\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubRoyalPurple",
 					"jsonName": "PandaCub-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"PandaCub-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "CactusRoyalPurple",
 					"jsonName": "Cactus-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"Cactus-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "BearCubRoyalPurple",
 					"jsonName": "BearCub-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"BearCub-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "WolfBase",
 					"jsonName": "Wolf-Base",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Base,omitzero\"",
+					"jsonTag": "json:\"Wolf-Base\"",
 					"required": true
 				},
 				{
 					"name": "WolfDesert",
 					"jsonName": "Wolf-Desert",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Desert,omitzero\"",
+					"jsonTag": "json:\"Wolf-Desert\"",
 					"required": true
 				},
 				{
 					"name": "WolfShade",
 					"jsonName": "Wolf-Shade",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Shade,omitzero\"",
+					"jsonTag": "json:\"Wolf-Shade\"",
 					"required": true
 				},
 				{
 					"name": "WolfZombie",
 					"jsonName": "Wolf-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Zombie,omitzero\"",
+					"jsonTag": "json:\"Wolf-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "WolfCottonCandyPink",
 					"jsonName": "Wolf-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Wolf-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "WolfGolden",
 					"jsonName": "Wolf-Golden",
 					"type": "int",
-					"jsonTag": "json:\"Wolf-Golden,omitzero\"",
+					"jsonTag": "json:\"Wolf-Golden\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubBase",
 					"jsonName": "TigerCub-Base",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Base,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "BearCubWhite",
 					"jsonName": "BearCub-White",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-White,omitzero\"",
+					"jsonTag": "json:\"BearCub-White\"",
 					"required": true
 				},
 				{
 					"name": "BearCubGolden",
 					"jsonName": "BearCub-Golden",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Golden,omitzero\"",
+					"jsonTag": "json:\"BearCub-Golden\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubSkeleton",
 					"jsonName": "PandaCub-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubDesert",
 					"jsonName": "TigerCub-Desert",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Desert,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Desert\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubCottonCandyPink",
 					"jsonName": "TigerCub-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"TigerCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubCottonCandyBlue",
 					"jsonName": "TigerCub-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"TigerCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "TigerCubGolden",
 					"jsonName": "TigerCub-Golden",
 					"type": "int",
-					"jsonTag": "json:\"TigerCub-Golden,omitzero\"",
+					"jsonTag": "json:\"TigerCub-Golden\"",
 					"required": true
 				},
 				{
 					"name": "LionCubBase",
 					"jsonName": "LionCub-Base",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-Base,omitzero\"",
+					"jsonTag": "json:\"LionCub-Base\"",
 					"required": true
 				},
 				{
 					"name": "FoxDesert",
 					"jsonName": "Fox-Desert",
 					"type": "int",
-					"jsonTag": "json:\"Fox-Desert,omitzero\"",
+					"jsonTag": "json:\"Fox-Desert\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigSkeleton",
 					"jsonName": "FlyingPig-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-Skeleton,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "DragonSkeleton",
 					"jsonName": "Dragon-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Dragon-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigWhite",
 					"jsonName": "FlyingPig-White",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-White,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-White\"",
 					"required": true
 				},
 				{
 					"name": "DragonDesert",
 					"jsonName": "Dragon-Desert",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Desert,omitzero\"",
+					"jsonTag": "json:\"Dragon-Desert\"",
 					"required": true
 				},
 				{
 					"name": "FoxShade",
 					"jsonName": "Fox-Shade",
 					"type": "int",
-					"jsonTag": "json:\"Fox-Shade,omitzero\"",
+					"jsonTag": "json:\"Fox-Shade\"",
 					"required": true
 				},
 				{
 					"name": "LionCubZombie",
 					"jsonName": "LionCub-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"LionCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigZombie",
 					"jsonName": "FlyingPig-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-Zombie,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "CactusWhite",
 					"jsonName": "Cactus-White",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-White,omitzero\"",
+					"jsonTag": "json:\"Cactus-White\"",
 					"required": true
 				},
 				{
 					"name": "FoxBase",
 					"jsonName": "Fox-Base",
 					"type": "int",
-					"jsonTag": "json:\"Fox-Base,omitzero\"",
+					"jsonTag": "json:\"Fox-Base\"",
 					"required": true
 				},
 				{
 					"name": "FoxZombie",
 					"jsonName": "Fox-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Fox-Zombie,omitzero\"",
+					"jsonTag": "json:\"Fox-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "DragonCottonCandyBlue",
 					"jsonName": "Dragon-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"Dragon-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "FoxCottonCandyPink",
 					"jsonName": "Fox-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"Fox-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"Fox-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigCottonCandyBlue",
 					"jsonName": "FlyingPig-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "LionCubCottonCandyPink",
 					"jsonName": "LionCub-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"LionCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "FoxSkeleton",
 					"jsonName": "Fox-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Fox-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Fox-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "LionCubSkeleton",
 					"jsonName": "LionCub-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"LionCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "LionCubShade",
 					"jsonName": "LionCub-Shade",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-Shade,omitzero\"",
+					"jsonTag": "json:\"LionCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "FoxWhite",
 					"jsonName": "Fox-White",
 					"type": "int",
-					"jsonTag": "json:\"Fox-White,omitzero\"",
+					"jsonTag": "json:\"Fox-White\"",
 					"required": true
 				},
 				{
 					"name": "LionCubWhite",
 					"jsonName": "LionCub-White",
 					"type": "int",
-					"jsonTag": "json:\"LionCub-White,omitzero\"",
+					"jsonTag": "json:\"LionCub-White\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubCottonCandyPink",
 					"jsonName": "PandaCub-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"PandaCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigShade",
 					"jsonName": "FlyingPig-Shade",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-Shade,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Shade\"",
 					"required": true
 				},
 				{
 					"name": "FlyingPigBase",
 					"jsonName": "FlyingPig-Base",
 					"type": "int",
-					"jsonTag": "json:\"FlyingPig-Base,omitzero\"",
+					"jsonTag": "json:\"FlyingPig-Base\"",
 					"required": true
 				},
 				{
 					"name": "DragonBase",
 					"jsonName": "Dragon-Base",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Base,omitzero\"",
+					"jsonTag": "json:\"Dragon-Base\"",
 					"required": true
 				},
 				{
 					"name": "DragonWhite",
 					"jsonName": "Dragon-White",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-White,omitzero\"",
+					"jsonTag": "json:\"Dragon-White\"",
 					"required": true
 				},
 				{
 					"name": "DragonShade",
 					"jsonName": "Dragon-Shade",
 					"type": "int",
-					"jsonTag": "json:\"Dragon-Shade,omitzero\"",
+					"jsonTag": "json:\"Dragon-Shade\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubCottonCandyBlue",
 					"jsonName": "PandaCub-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"PandaCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "CactusBase",
 					"jsonName": "Cactus-Base",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Base,omitzero\"",
+					"jsonTag": "json:\"Cactus-Base\"",
 					"required": true
 				},
 				{
 					"name": "BearCubZombie",
 					"jsonName": "BearCub-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Zombie,omitzero\"",
+					"jsonTag": "json:\"BearCub-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "CactusShade",
 					"jsonName": "Cactus-Shade",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Shade,omitzero\"",
+					"jsonTag": "json:\"Cactus-Shade\"",
 					"required": true
 				},
 				{
 					"name": "CactusSkeleton",
 					"jsonName": "Cactus-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Skeleton,omitzero\"",
+					"jsonTag": "json:\"Cactus-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "CactusZombie",
 					"jsonName": "Cactus-Zombie",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Zombie,omitzero\"",
+					"jsonTag": "json:\"Cactus-Zombie\"",
 					"required": true
 				},
 				{
 					"name": "BearCubCottonCandyPink",
 					"jsonName": "BearCub-CottonCandyPink",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-CottonCandyPink,omitzero\"",
+					"jsonTag": "json:\"BearCub-CottonCandyPink\"",
 					"required": true
 				},
 				{
 					"name": "CactusRed",
 					"jsonName": "Cactus-Red",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Red,omitzero\"",
+					"jsonTag": "json:\"Cactus-Red\"",
 					"required": true
 				},
 				{
 					"name": "BearCubSkeleton",
 					"jsonName": "BearCub-Skeleton",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Skeleton,omitzero\"",
+					"jsonTag": "json:\"BearCub-Skeleton\"",
 					"required": true
 				},
 				{
 					"name": "BearCubShade",
 					"jsonName": "BearCub-Shade",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Shade,omitzero\"",
+					"jsonTag": "json:\"BearCub-Shade\"",
 					"required": true
 				},
 				{
 					"name": "BearCubRed",
 					"jsonName": "BearCub-Red",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-Red,omitzero\"",
+					"jsonTag": "json:\"BearCub-Red\"",
 					"required": true
 				},
 				{
 					"name": "BearCubCottonCandyBlue",
 					"jsonName": "BearCub-CottonCandyBlue",
 					"type": "int",
-					"jsonTag": "json:\"BearCub-CottonCandyBlue,omitzero\"",
+					"jsonTag": "json:\"BearCub-CottonCandyBlue\"",
 					"required": true
 				},
 				{
 					"name": "PandaCubGolden",
 					"jsonName": "PandaCub-Golden",
 					"type": "int",
-					"jsonTag": "json:\"PandaCub-Golden,omitzero\"",
+					"jsonTag": "json:\"PandaCub-Golden\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternGhost",
 					"jsonName": "JackOLantern-Ghost",
 					"type": "int",
-					"jsonTag": "json:\"JackOLantern-Ghost,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-Ghost\"",
 					"required": true
 				},
 				{
 					"name": "TurkeyGilded",
 					"jsonName": "Turkey-Gilded",
 					"type": "int",
-					"jsonTag": "json:\"Turkey-Gilded,omitzero\"",
+					"jsonTag": "json:\"Turkey-Gilded\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternGlow",
 					"jsonName": "JackOLantern-Glow",
 					"type": "int",
-					"jsonTag": "json:\"JackOLantern-Glow,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-Glow\"",
 					"required": true
 				},
 				{
 					"name": "JackOLanternRoyalPurple",
 					"jsonName": "JackOLantern-RoyalPurple",
 					"type": "int",
-					"jsonTag": "json:\"JackOLantern-RoyalPurple,omitzero\"",
+					"jsonTag": "json:\"JackOLantern-RoyalPurple\"",
 					"required": true
 				},
 				{
 					"name": "LionVeteran",
 					"jsonName": "Lion-Veteran",
 					"type": "int",
-					"jsonTag": "json:\"Lion-Veteran,omitzero\"",
+					"jsonTag": "json:\"Lion-Veteran\"",
 					"required": true
 				},
 				{
 					"name": "BearVeteran",
 					"jsonName": "Bear-Veteran",
 					"type": "int",
-					"jsonTag": "json:\"Bear-Veteran,omitzero\"",
+					"jsonTag": "json:\"Bear-Veteran\"",
 					"required": true
 				},
 				{
 					"name": "CactusGolden",
 					"jsonName": "Cactus-Golden",
 					"type": "int",
-					"jsonTag": "json:\"Cactus-Golden,omitzero\"",
+					"jsonTag": "json:\"Cactus-Golden\"",
 					"required": true
 				}
 			]
@@ -5046,98 +5046,98 @@
 					"name": "Dustbunnies",
 					"jsonName": "dustbunnies",
 					"type": "int",
-					"jsonTag": "json:\"dustbunnies,omitzero\"",
+					"jsonTag": "json:\"dustbunnies\"",
 					"required": true
 				},
 				{
 					"name": "Moon1",
 					"jsonName": "moon1",
 					"type": "int",
-					"jsonTag": "json:\"moon1,omitzero\"",
+					"jsonTag": "json:\"moon1\"",
 					"required": true
 				},
 				{
 					"name": "Basilist",
 					"jsonName": "basilist",
 					"type": "int",
-					"jsonTag": "json:\"basilist,omitzero\"",
+					"jsonTag": "json:\"basilist\"",
 					"required": true
 				},
 				{
 					"name": "Moon2",
 					"jsonName": "moon2",
 					"type": "int",
-					"jsonTag": "json:\"moon2,omitzero\"",
+					"jsonTag": "json:\"moon2\"",
 					"required": true
 				},
 				{
 					"name": "Moon3",
 					"jsonName": "moon3",
 					"type": "int",
-					"jsonTag": "json:\"moon3,omitzero\"",
+					"jsonTag": "json:\"moon3\"",
 					"required": true
 				},
 				{
 					"name": "Atom1",
 					"jsonName": "atom1",
 					"type": "int",
-					"jsonTag": "json:\"atom1,omitzero\"",
+					"jsonTag": "json:\"atom1\"",
 					"required": true
 				},
 				{
 					"name": "DilatoryDistress1",
 					"jsonName": "dilatoryDistress1",
 					"type": "int",
-					"jsonTag": "json:\"dilatoryDistress1,omitzero\"",
+					"jsonTag": "json:\"dilatoryDistress1\"",
 					"required": true
 				},
 				{
 					"name": "Vice1",
 					"jsonName": "vice1",
 					"type": "int",
-					"jsonTag": "json:\"vice1,omitzero\"",
+					"jsonTag": "json:\"vice1\"",
 					"required": true
 				},
 				{
 					"name": "Vice2",
 					"jsonName": "vice2",
 					"type": "int",
-					"jsonTag": "json:\"vice2,omitzero\"",
+					"jsonTag": "json:\"vice2\"",
 					"required": true
 				},
 				{
 					"name": "Goldenknight1",
 					"jsonName": "goldenknight1",
 					"type": "int",
-					"jsonTag": "json:\"goldenknight1,omitzero\"",
+					"jsonTag": "json:\"goldenknight1\"",
 					"required": true
 				},
 				{
 					"name": "Vice3",
 					"jsonName": "vice3",
 					"type": "int",
-					"jsonTag": "json:\"vice3,omitzero\"",
+					"jsonTag": "json:\"vice3\"",
 					"required": true
 				},
 				{
 					"name": "Atom2",
 					"jsonName": "atom2",
 					"type": "int",
-					"jsonTag": "json:\"atom2,omitzero\"",
+					"jsonTag": "json:\"atom2\"",
 					"required": true
 				},
 				{
 					"name": "Atom3",
 					"jsonName": "atom3",
 					"type": "int",
-					"jsonTag": "json:\"atom3,omitzero\"",
+					"jsonTag": "json:\"atom3\"",
 					"required": true
 				},
 				{
 					"name": "Moonstone1",
 					"jsonName": "moonstone1",
 					"type": "int",
-					"jsonTag": "json:\"moonstone1,omitzero\"",
+					"jsonTag": "json:\"moonstone1\"",
 					"required": true
 				}
 			]
@@ -5157,7 +5157,7 @@
 					"name": "Birthday",
 					"jsonName": "birthday",
 					"type": "int",
-					"jsonTag": "json:\"birthday,omitzero\"",
+					"jsonTag": "json:\"birthday\"",
 					"required": true
 				},
 				{
@@ -5171,7 +5171,7 @@
 					"name": "Thankyou",
 					"jsonName": "thankyou",
 					"type": "int",
-					"jsonTag": "json:\"thankyou,omitzero\"",
+					"jsonTag": "json:\"thankyou\"",
 					"required": true
 				},
 				{
@@ -5185,7 +5185,7 @@
 					"name": "Greeting",
 					"jsonName": "greeting",
 					"type": "int",
-					"jsonTag": "json:\"greeting,omitzero\"",
+					"jsonTag": "json:\"greeting\"",
 					"required": true
 				},
 				{
@@ -5199,7 +5199,7 @@
 					"name": "Nye",
 					"jsonName": "nye",
 					"type": "int",
-					"jsonTag": "json:\"nye,omitzero\"",
+					"jsonTag": "json:\"nye\"",
 					"required": true
 				},
 				{
@@ -5213,35 +5213,35 @@
 					"name": "Valentine",
 					"jsonName": "valentine",
 					"type": "int",
-					"jsonTag": "json:\"valentine,omitzero\"",
+					"jsonTag": "json:\"valentine\"",
 					"required": true
 				},
 				{
 					"name": "Seafoam",
 					"jsonName": "seafoam",
 					"type": "int",
-					"jsonTag": "json:\"seafoam,omitzero\"",
+					"jsonTag": "json:\"seafoam\"",
 					"required": true
 				},
 				{
 					"name": "ShinySeed",
 					"jsonName": "shinySeed",
 					"type": "int",
-					"jsonTag": "json:\"shinySeed,omitzero\"",
+					"jsonTag": "json:\"shinySeed\"",
 					"required": true
 				},
 				{
 					"name": "SpookySparkles",
 					"jsonName": "spookySparkles",
 					"type": "int",
-					"jsonTag": "json:\"spookySparkles,omitzero\"",
+					"jsonTag": "json:\"spookySparkles\"",
 					"required": true
 				},
 				{
 					"name": "Snowball",
 					"jsonName": "snowball",
 					"type": "int",
-					"jsonTag": "json:\"snowball,omitzero\"",
+					"jsonTag": "json:\"snowball\"",
 					"required": true
 				},
 				{
@@ -5269,21 +5269,21 @@
 					"name": "Congrats",
 					"jsonName": "congrats",
 					"type": "int",
-					"jsonTag": "json:\"congrats,omitzero\"",
+					"jsonTag": "json:\"congrats\"",
 					"required": true
 				},
 				{
 					"name": "Getwell",
 					"jsonName": "getwell",
 					"type": "int",
-					"jsonTag": "json:\"getwell,omitzero\"",
+					"jsonTag": "json:\"getwell\"",
 					"required": true
 				},
 				{
 					"name": "Goodluck",
 					"jsonName": "goodluck",
 					"type": "int",
-					"jsonTag": "json:\"goodluck,omitzero\"",
+					"jsonTag": "json:\"goodluck\"",
 					"required": true
 				}
 			]
@@ -5337,7 +5337,7 @@
 					"name": "RsvpNeeded",
 					"jsonName": "RSVPNeeded",
 					"type": "bool",
-					"jsonTag": "json:\"RSVPNeeded,omitzero\"",
+					"jsonTag": "json:\"RSVPNeeded\"",
 					"required": true
 				}
 			]
@@ -5357,14 +5357,14 @@
 					"name": "Down",
 					"jsonName": "down",
 					"type": "int",
-					"jsonTag": "json:\"down,omitzero\"",
+					"jsonTag": "json:\"down\"",
 					"required": true
 				},
 				{
 					"name": "CollectedItems",
 					"jsonName": "collectedItems",
 					"type": "int",
-					"jsonTag": "json:\"collectedItems,omitzero\"",
+					"jsonTag": "json:\"collectedItems\"",
 					"required": true
 				},
 				{
@@ -5445,7 +5445,7 @@
 					"name": "DayStart",
 					"jsonName": "dayStart",
 					"type": "int",
-					"jsonTag": "json:\"dayStart,omitzero\"",
+					"jsonTag": "json:\"dayStart\"",
 					"required": true
 				},
 				{
@@ -5459,7 +5459,7 @@
 					"name": "HideHeader",
 					"jsonName": "hideHeader",
 					"type": "bool",
-					"jsonTag": "json:\"hideHeader,omitzero\"",
+					"jsonTag": "json:\"hideHeader\"",
 					"required": true
 				},
 				{
@@ -5480,7 +5480,7 @@
 					"name": "TimezoneOffset",
 					"jsonName": "timezoneOffset",
 					"type": "int",
-					"jsonTag": "json:\"timezoneOffset,omitzero\"",
+					"jsonTag": "json:\"timezoneOffset\"",
 					"required": true
 				},
 				{
@@ -5508,14 +5508,14 @@
 					"name": "AutoEquip",
 					"jsonName": "autoEquip",
 					"type": "bool",
-					"jsonTag": "json:\"autoEquip,omitzero\"",
+					"jsonTag": "json:\"autoEquip\"",
 					"required": true
 				},
 				{
 					"name": "Costume",
 					"jsonName": "costume",
 					"type": "bool",
-					"jsonTag": "json:\"costume,omitzero\"",
+					"jsonTag": "json:\"costume\"",
 					"required": true
 				},
 				{
@@ -5529,70 +5529,70 @@
 					"name": "Sleep",
 					"jsonName": "sleep",
 					"type": "bool",
-					"jsonTag": "json:\"sleep,omitzero\"",
+					"jsonTag": "json:\"sleep\"",
 					"required": true
 				},
 				{
 					"name": "StickyHeader",
 					"jsonName": "stickyHeader",
 					"type": "bool",
-					"jsonTag": "json:\"stickyHeader,omitzero\"",
+					"jsonTag": "json:\"stickyHeader\"",
 					"required": true
 				},
 				{
 					"name": "DisableClasses",
 					"jsonName": "disableClasses",
 					"type": "bool",
-					"jsonTag": "json:\"disableClasses,omitzero\"",
+					"jsonTag": "json:\"disableClasses\"",
 					"required": true
 				},
 				{
 					"name": "NewTaskEdit",
 					"jsonName": "newTaskEdit",
 					"type": "bool",
-					"jsonTag": "json:\"newTaskEdit,omitzero\"",
+					"jsonTag": "json:\"newTaskEdit\"",
 					"required": true
 				},
 				{
 					"name": "DailyDueDefaultView",
 					"jsonName": "dailyDueDefaultView",
 					"type": "bool",
-					"jsonTag": "json:\"dailyDueDefaultView,omitzero\"",
+					"jsonTag": "json:\"dailyDueDefaultView\"",
 					"required": true
 				},
 				{
 					"name": "AdvancedCollapsed",
 					"jsonName": "advancedCollapsed",
 					"type": "bool",
-					"jsonTag": "json:\"advancedCollapsed,omitzero\"",
+					"jsonTag": "json:\"advancedCollapsed\"",
 					"required": true
 				},
 				{
 					"name": "ToolbarCollapsed",
 					"jsonName": "toolbarCollapsed",
 					"type": "bool",
-					"jsonTag": "json:\"toolbarCollapsed,omitzero\"",
+					"jsonTag": "json:\"toolbarCollapsed\"",
 					"required": true
 				},
 				{
 					"name": "ReverseChatOrder",
 					"jsonName": "reverseChatOrder",
 					"type": "bool",
-					"jsonTag": "json:\"reverseChatOrder,omitzero\"",
+					"jsonTag": "json:\"reverseChatOrder\"",
 					"required": true
 				},
 				{
 					"name": "DeveloperMode",
 					"jsonName": "developerMode",
 					"type": "bool",
-					"jsonTag": "json:\"developerMode,omitzero\"",
+					"jsonTag": "json:\"developerMode\"",
 					"required": true
 				},
 				{
 					"name": "DisplayInviteToPartyWhenPartyIs1",
 					"jsonName": "displayInviteToPartyWhenPartyIs1",
 					"type": "bool",
-					"jsonTag": "json:\"displayInviteToPartyWhenPartyIs1,omitzero\"",
+					"jsonTag": "json:\"displayInviteToPartyWhenPartyIs1\"",
 					"required": true
 				},
 				{
@@ -5606,14 +5606,14 @@
 					"name": "AutomaticAllocation",
 					"jsonName": "automaticAllocation",
 					"type": "bool",
-					"jsonTag": "json:\"automaticAllocation,omitzero\"",
+					"jsonTag": "json:\"automaticAllocation\"",
 					"required": true
 				},
 				{
 					"name": "TimezoneOffsetAtLastCron",
 					"jsonName": "timezoneOffsetAtLastCron",
 					"type": "int",
-					"jsonTag": "json:\"timezoneOffsetAtLastCron,omitzero\"",
+					"jsonTag": "json:\"timezoneOffsetAtLastCron\"",
 					"required": true
 				},
 				{
@@ -5634,7 +5634,7 @@
 					"name": "AnalyticsConsent",
 					"jsonName": "analyticsConsent",
 					"type": "bool",
-					"jsonTag": "json:\"analyticsConsent,omitzero\"",
+					"jsonTag": "json:\"analyticsConsent\"",
 					"required": true
 				},
 				{
@@ -5654,112 +5654,112 @@
 					"name": "UnsubscribeFromAll",
 					"jsonName": "unsubscribeFromAll",
 					"type": "bool",
-					"jsonTag": "json:\"unsubscribeFromAll,omitzero\"",
+					"jsonTag": "json:\"unsubscribeFromAll\"",
 					"required": true
 				},
 				{
 					"name": "NewPm",
 					"jsonName": "newPM",
 					"type": "bool",
-					"jsonTag": "json:\"newPM,omitzero\"",
+					"jsonTag": "json:\"newPM\"",
 					"required": true
 				},
 				{
 					"name": "KickedGroup",
 					"jsonName": "kickedGroup",
 					"type": "bool",
-					"jsonTag": "json:\"kickedGroup,omitzero\"",
+					"jsonTag": "json:\"kickedGroup\"",
 					"required": true
 				},
 				{
 					"name": "WonChallenge",
 					"jsonName": "wonChallenge",
 					"type": "bool",
-					"jsonTag": "json:\"wonChallenge,omitzero\"",
+					"jsonTag": "json:\"wonChallenge\"",
 					"required": true
 				},
 				{
 					"name": "GiftedGems",
 					"jsonName": "giftedGems",
 					"type": "bool",
-					"jsonTag": "json:\"giftedGems,omitzero\"",
+					"jsonTag": "json:\"giftedGems\"",
 					"required": true
 				},
 				{
 					"name": "GiftedSubscription",
 					"jsonName": "giftedSubscription",
 					"type": "bool",
-					"jsonTag": "json:\"giftedSubscription,omitzero\"",
+					"jsonTag": "json:\"giftedSubscription\"",
 					"required": true
 				},
 				{
 					"name": "InvitedParty",
 					"jsonName": "invitedParty",
 					"type": "bool",
-					"jsonTag": "json:\"invitedParty,omitzero\"",
+					"jsonTag": "json:\"invitedParty\"",
 					"required": true
 				},
 				{
 					"name": "InvitedGuild",
 					"jsonName": "invitedGuild",
 					"type": "bool",
-					"jsonTag": "json:\"invitedGuild,omitzero\"",
+					"jsonTag": "json:\"invitedGuild\"",
 					"required": true
 				},
 				{
 					"name": "QuestStarted",
 					"jsonName": "questStarted",
 					"type": "bool",
-					"jsonTag": "json:\"questStarted,omitzero\"",
+					"jsonTag": "json:\"questStarted\"",
 					"required": true
 				},
 				{
 					"name": "InvitedQuest",
 					"jsonName": "invitedQuest",
 					"type": "bool",
-					"jsonTag": "json:\"invitedQuest,omitzero\"",
+					"jsonTag": "json:\"invitedQuest\"",
 					"required": true
 				},
 				{
 					"name": "ImportantAnnouncements",
 					"jsonName": "importantAnnouncements",
 					"type": "bool",
-					"jsonTag": "json:\"importantAnnouncements,omitzero\"",
+					"jsonTag": "json:\"importantAnnouncements\"",
 					"required": true
 				},
 				{
 					"name": "WeeklyRecaps",
 					"jsonName": "weeklyRecaps",
 					"type": "bool",
-					"jsonTag": "json:\"weeklyRecaps,omitzero\"",
+					"jsonTag": "json:\"weeklyRecaps\"",
 					"required": true
 				},
 				{
 					"name": "Onboarding",
 					"jsonName": "onboarding",
 					"type": "bool",
-					"jsonTag": "json:\"onboarding,omitzero\"",
+					"jsonTag": "json:\"onboarding\"",
 					"required": true
 				},
 				{
 					"name": "MajorUpdates",
 					"jsonName": "majorUpdates",
 					"type": "bool",
-					"jsonTag": "json:\"majorUpdates,omitzero\"",
+					"jsonTag": "json:\"majorUpdates\"",
 					"required": true
 				},
 				{
 					"name": "SubscriptionReminders",
 					"jsonName": "subscriptionReminders",
 					"type": "bool",
-					"jsonTag": "json:\"subscriptionReminders,omitzero\"",
+					"jsonTag": "json:\"subscriptionReminders\"",
 					"required": true
 				},
 				{
 					"name": "ContentRelease",
 					"jsonName": "contentRelease",
 					"type": "bool",
-					"jsonTag": "json:\"contentRelease,omitzero\"",
+					"jsonTag": "json:\"contentRelease\"",
 					"required": true
 				}
 			]
@@ -5779,35 +5779,35 @@
 					"name": "Base",
 					"jsonName": "base",
 					"type": "int",
-					"jsonTag": "json:\"base,omitzero\"",
+					"jsonTag": "json:\"base\"",
 					"required": true
 				},
 				{
 					"name": "Bangs",
 					"jsonName": "bangs",
 					"type": "int",
-					"jsonTag": "json:\"bangs,omitzero\"",
+					"jsonTag": "json:\"bangs\"",
 					"required": true
 				},
 				{
 					"name": "Beard",
 					"jsonName": "beard",
 					"type": "int",
-					"jsonTag": "json:\"beard,omitzero\"",
+					"jsonTag": "json:\"beard\"",
 					"required": true
 				},
 				{
 					"name": "Mustache",
 					"jsonName": "mustache",
 					"type": "int",
-					"jsonTag": "json:\"mustache,omitzero\"",
+					"jsonTag": "json:\"mustache\"",
 					"required": true
 				},
 				{
 					"name": "Flower",
 					"jsonName": "flower",
 					"type": "int",
-					"jsonTag": "json:\"flower,omitzero\"",
+					"jsonTag": "json:\"flower\"",
 					"required": true
 				}
 			]
@@ -5820,105 +5820,105 @@
 					"name": "UnsubscribeFromAll",
 					"jsonName": "unsubscribeFromAll",
 					"type": "bool",
-					"jsonTag": "json:\"unsubscribeFromAll,omitzero\"",
+					"jsonTag": "json:\"unsubscribeFromAll\"",
 					"required": true
 				},
 				{
 					"name": "NewPm",
 					"jsonName": "newPM",
 					"type": "bool",
-					"jsonTag": "json:\"newPM,omitzero\"",
+					"jsonTag": "json:\"newPM\"",
 					"required": true
 				},
 				{
 					"name": "WonChallenge",
 					"jsonName": "wonChallenge",
 					"type": "bool",
-					"jsonTag": "json:\"wonChallenge,omitzero\"",
+					"jsonTag": "json:\"wonChallenge\"",
 					"required": true
 				},
 				{
 					"name": "GiftedGems",
 					"jsonName": "giftedGems",
 					"type": "bool",
-					"jsonTag": "json:\"giftedGems,omitzero\"",
+					"jsonTag": "json:\"giftedGems\"",
 					"required": true
 				},
 				{
 					"name": "GiftedSubscription",
 					"jsonName": "giftedSubscription",
 					"type": "bool",
-					"jsonTag": "json:\"giftedSubscription,omitzero\"",
+					"jsonTag": "json:\"giftedSubscription\"",
 					"required": true
 				},
 				{
 					"name": "InvitedParty",
 					"jsonName": "invitedParty",
 					"type": "bool",
-					"jsonTag": "json:\"invitedParty,omitzero\"",
+					"jsonTag": "json:\"invitedParty\"",
 					"required": true
 				},
 				{
 					"name": "InvitedGuild",
 					"jsonName": "invitedGuild",
 					"type": "bool",
-					"jsonTag": "json:\"invitedGuild,omitzero\"",
+					"jsonTag": "json:\"invitedGuild\"",
 					"required": true
 				},
 				{
 					"name": "QuestStarted",
 					"jsonName": "questStarted",
 					"type": "bool",
-					"jsonTag": "json:\"questStarted,omitzero\"",
+					"jsonTag": "json:\"questStarted\"",
 					"required": true
 				},
 				{
 					"name": "InvitedQuest",
 					"jsonName": "invitedQuest",
 					"type": "bool",
-					"jsonTag": "json:\"invitedQuest,omitzero\"",
+					"jsonTag": "json:\"invitedQuest\"",
 					"required": true
 				},
 				{
 					"name": "MajorUpdates",
 					"jsonName": "majorUpdates",
 					"type": "bool",
-					"jsonTag": "json:\"majorUpdates,omitzero\"",
+					"jsonTag": "json:\"majorUpdates\"",
 					"required": true
 				},
 				{
 					"name": "MentionParty",
 					"jsonName": "mentionParty",
 					"type": "bool",
-					"jsonTag": "json:\"mentionParty,omitzero\"",
+					"jsonTag": "json:\"mentionParty\"",
 					"required": true
 				},
 				{
 					"name": "MentionJoinedGuild",
 					"jsonName": "mentionJoinedGuild",
 					"type": "bool",
-					"jsonTag": "json:\"mentionJoinedGuild,omitzero\"",
+					"jsonTag": "json:\"mentionJoinedGuild\"",
 					"required": true
 				},
 				{
 					"name": "MentionUnjoinedGuild",
 					"jsonName": "mentionUnjoinedGuild",
 					"type": "bool",
-					"jsonTag": "json:\"mentionUnjoinedGuild,omitzero\"",
+					"jsonTag": "json:\"mentionUnjoinedGuild\"",
 					"required": true
 				},
 				{
 					"name": "PartyActivity",
 					"jsonName": "partyActivity",
 					"type": "bool",
-					"jsonTag": "json:\"partyActivity,omitzero\"",
+					"jsonTag": "json:\"partyActivity\"",
 					"required": true
 				},
 				{
 					"name": "ContentRelease",
 					"jsonName": "contentRelease",
 					"type": "bool",
-					"jsonTag": "json:\"contentRelease,omitzero\"",
+					"jsonTag": "json:\"contentRelease\"",
 					"required": true
 				}
 			]
@@ -5931,28 +5931,28 @@
 					"name": "LevelUp",
 					"jsonName": "levelUp",
 					"type": "bool",
-					"jsonTag": "json:\"levelUp,omitzero\"",
+					"jsonTag": "json:\"levelUp\"",
 					"required": true
 				},
 				{
 					"name": "HatchPet",
 					"jsonName": "hatchPet",
 					"type": "bool",
-					"jsonTag": "json:\"hatchPet,omitzero\"",
+					"jsonTag": "json:\"hatchPet\"",
 					"required": true
 				},
 				{
 					"name": "RaisePet",
 					"jsonName": "raisePet",
 					"type": "bool",
-					"jsonTag": "json:\"raisePet,omitzero\"",
+					"jsonTag": "json:\"raisePet\"",
 					"required": true
 				},
 				{
 					"name": "Streak",
 					"jsonName": "streak",
 					"type": "bool",
-					"jsonTag": "json:\"streak,omitzero\"",
+					"jsonTag": "json:\"streak\"",
 					"required": true
 				}
 			]
@@ -5972,14 +5972,14 @@
 					"name": "GroupByChallenge",
 					"jsonName": "groupByChallenge",
 					"type": "bool",
-					"jsonTag": "json:\"groupByChallenge,omitzero\"",
+					"jsonTag": "json:\"groupByChallenge\"",
 					"required": true
 				},
 				{
 					"name": "ConfirmScoreNotes",
 					"jsonName": "confirmScoreNotes",
 					"type": "bool",
-					"jsonTag": "json:\"confirmScoreNotes,omitzero\"",
+					"jsonTag": "json:\"confirmScoreNotes\"",
 					"required": true
 				},
 				{
@@ -6053,7 +6053,7 @@
 					"name": "TxnCount",
 					"jsonName": "txnCount",
 					"type": "int",
-					"jsonTag": "json:\"txnCount,omitzero\"",
+					"jsonTag": "json:\"txnCount\"",
 					"required": true
 				},
 				{
@@ -6088,7 +6088,7 @@
 					"name": "Ads",
 					"jsonName": "ads",
 					"type": "bool",
-					"jsonTag": "json:\"ads,omitzero\"",
+					"jsonTag": "json:\"ads\"",
 					"required": true
 				}
 			]
@@ -6101,49 +6101,49 @@
 					"name": "Yellow",
 					"jsonName": "yellow",
 					"type": "bool",
-					"jsonTag": "json:\"yellow,omitzero\"",
+					"jsonTag": "json:\"yellow\"",
 					"required": true
 				},
 				{
 					"name": "Red",
 					"jsonName": "red",
 					"type": "bool",
-					"jsonTag": "json:\"red,omitzero\"",
+					"jsonTag": "json:\"red\"",
 					"required": true
 				},
 				{
 					"name": "Purple",
 					"jsonName": "purple",
 					"type": "bool",
-					"jsonTag": "json:\"purple,omitzero\"",
+					"jsonTag": "json:\"purple\"",
 					"required": true
 				},
 				{
 					"name": "Green",
 					"jsonName": "green",
 					"type": "bool",
-					"jsonTag": "json:\"green,omitzero\"",
+					"jsonTag": "json:\"green\"",
 					"required": true
 				},
 				{
 					"name": "Blue",
 					"jsonName": "blue",
 					"type": "bool",
-					"jsonTag": "json:\"blue,omitzero\"",
+					"jsonTag": "json:\"blue\"",
 					"required": true
 				},
 				{
 					"name": "Violet",
 					"jsonName": "violet",
 					"type": "bool",
-					"jsonTag": "json:\"violet,omitzero\"",
+					"jsonTag": "json:\"violet\"",
 					"required": true
 				},
 				{
 					"name": "OnAStrangePlanet",
 					"jsonName": "on_a_strange_planet",
 					"type": "bool",
-					"jsonTag": "json:\"on_a_strange_planet,omitzero\"",
+					"jsonTag": "json:\"on_a_strange_planet\"",
 					"required": true
 				}
 			]
@@ -6170,21 +6170,21 @@
 					"name": "GemsBought",
 					"jsonName": "gemsBought",
 					"type": "int",
-					"jsonTag": "json:\"gemsBought,omitzero\"",
+					"jsonTag": "json:\"gemsBought\"",
 					"required": true
 				},
 				{
 					"name": "ExtraMonths",
 					"jsonName": "extraMonths",
 					"type": "int",
-					"jsonTag": "json:\"extraMonths,omitzero\"",
+					"jsonTag": "json:\"extraMonths\"",
 					"required": true
 				},
 				{
 					"name": "Quantity",
 					"jsonName": "quantity",
 					"type": "int",
-					"jsonTag": "json:\"quantity,omitzero\"",
+					"jsonTag": "json:\"quantity\"",
 					"required": true
 				},
 				{
@@ -6198,14 +6198,14 @@
 					"name": "PerkMonthCount",
 					"jsonName": "perkMonthCount",
 					"type": "int",
-					"jsonTag": "json:\"perkMonthCount,omitzero\"",
+					"jsonTag": "json:\"perkMonthCount\"",
 					"required": true
 				},
 				{
 					"name": "CumulativeCount",
 					"jsonName": "cumulativeCount",
 					"type": "int",
-					"jsonTag": "json:\"cumulativeCount,omitzero\"",
+					"jsonTag": "json:\"cumulativeCount\"",
 					"required": true
 				}
 			]
@@ -6218,28 +6218,28 @@
 					"name": "Trinkets",
 					"jsonName": "trinkets",
 					"type": "int",
-					"jsonTag": "json:\"trinkets,omitzero\"",
+					"jsonTag": "json:\"trinkets\"",
 					"required": true
 				},
 				{
 					"name": "GemCapExtra",
 					"jsonName": "gemCapExtra",
 					"type": "int",
-					"jsonTag": "json:\"gemCapExtra,omitzero\"",
+					"jsonTag": "json:\"gemCapExtra\"",
 					"required": true
 				},
 				{
 					"name": "Offset",
 					"jsonName": "offset",
 					"type": "int",
-					"jsonTag": "json:\"offset,omitzero\"",
+					"jsonTag": "json:\"offset\"",
 					"required": true
 				},
 				{
 					"name": "Count",
 					"jsonName": "count",
 					"type": "int",
-					"jsonTag": "json:\"count,omitzero\"",
+					"jsonTag": "json:\"count\"",
 					"required": true
 				}
 			]
@@ -6306,35 +6306,35 @@
 					"name": "Per",
 					"jsonName": "per",
 					"type": "int",
-					"jsonTag": "json:\"per,omitzero\"",
+					"jsonTag": "json:\"per\"",
 					"required": true
 				},
 				{
 					"name": "Int",
 					"jsonName": "int",
 					"type": "int",
-					"jsonTag": "json:\"int,omitzero\"",
+					"jsonTag": "json:\"int\"",
 					"required": true
 				},
 				{
 					"name": "Con",
 					"jsonName": "con",
 					"type": "int",
-					"jsonTag": "json:\"con,omitzero\"",
+					"jsonTag": "json:\"con\"",
 					"required": true
 				},
 				{
 					"name": "Str",
 					"jsonName": "str",
 					"type": "int",
-					"jsonTag": "json:\"str,omitzero\"",
+					"jsonTag": "json:\"str\"",
 					"required": true
 				},
 				{
 					"name": "Points",
 					"jsonName": "points",
 					"type": "int",
-					"jsonTag": "json:\"points,omitzero\"",
+					"jsonTag": "json:\"points\"",
 					"required": true
 				},
 				{
@@ -6348,7 +6348,7 @@
 					"name": "Lvl",
 					"jsonName": "lvl",
 					"type": "int",
-					"jsonTag": "json:\"lvl,omitzero\"",
+					"jsonTag": "json:\"lvl\"",
 					"required": true
 				},
 				{
@@ -6362,7 +6362,7 @@
 					"name": "Exp",
 					"jsonName": "exp",
 					"type": "int",
-					"jsonTag": "json:\"exp,omitzero\"",
+					"jsonTag": "json:\"exp\"",
 					"required": true
 				},
 				{
@@ -6383,21 +6383,21 @@
 					"name": "ToNextLevel",
 					"jsonName": "toNextLevel",
 					"type": "int",
-					"jsonTag": "json:\"toNextLevel,omitzero\"",
+					"jsonTag": "json:\"toNextLevel\"",
 					"required": true
 				},
 				{
 					"name": "MaxHealth",
 					"jsonName": "maxHealth",
 					"type": "int",
-					"jsonTag": "json:\"maxHealth,omitzero\"",
+					"jsonTag": "json:\"maxHealth\"",
 					"required": true
 				},
 				{
 					"name": "MaxMp",
 					"jsonName": "maxMP",
 					"type": "int",
-					"jsonTag": "json:\"maxMP,omitzero\"",
+					"jsonTag": "json:\"maxMP\"",
 					"required": true
 				}
 			]
@@ -6510,14 +6510,14 @@
 					"name": "Sent",
 					"jsonName": "sent",
 					"type": "bool",
-					"jsonTag": "json:\"sent,omitzero\"",
+					"jsonTag": "json:\"sent\"",
 					"required": true
 				},
 				{
 					"name": "FlagCount",
 					"jsonName": "flagCount",
 					"type": "int",
-					"jsonTag": "json:\"flagCount,omitzero\"",
+					"jsonTag": "json:\"flagCount\"",
 					"required": true
 				},
 				{
@@ -6600,70 +6600,70 @@
 					"name": "Str",
 					"jsonName": "str",
 					"type": "int",
-					"jsonTag": "json:\"str,omitzero\"",
+					"jsonTag": "json:\"str\"",
 					"required": true
 				},
 				{
 					"name": "Int",
 					"jsonName": "int",
 					"type": "int",
-					"jsonTag": "json:\"int,omitzero\"",
+					"jsonTag": "json:\"int\"",
 					"required": true
 				},
 				{
 					"name": "Per",
 					"jsonName": "per",
 					"type": "int",
-					"jsonTag": "json:\"per,omitzero\"",
+					"jsonTag": "json:\"per\"",
 					"required": true
 				},
 				{
 					"name": "Con",
 					"jsonName": "con",
 					"type": "int",
-					"jsonTag": "json:\"con,omitzero\"",
+					"jsonTag": "json:\"con\"",
 					"required": true
 				},
 				{
 					"name": "Stealth",
 					"jsonName": "stealth",
 					"type": "int",
-					"jsonTag": "json:\"stealth,omitzero\"",
+					"jsonTag": "json:\"stealth\"",
 					"required": true
 				},
 				{
 					"name": "Streaks",
 					"jsonName": "streaks",
 					"type": "bool",
-					"jsonTag": "json:\"streaks,omitzero\"",
+					"jsonTag": "json:\"streaks\"",
 					"required": true
 				},
 				{
 					"name": "Seafoam",
 					"jsonName": "seafoam",
 					"type": "bool",
-					"jsonTag": "json:\"seafoam,omitzero\"",
+					"jsonTag": "json:\"seafoam\"",
 					"required": true
 				},
 				{
 					"name": "ShinySeed",
 					"jsonName": "shinySeed",
 					"type": "bool",
-					"jsonTag": "json:\"shinySeed,omitzero\"",
+					"jsonTag": "json:\"shinySeed\"",
 					"required": true
 				},
 				{
 					"name": "Snowball",
 					"jsonName": "snowball",
 					"type": "bool",
-					"jsonTag": "json:\"snowball,omitzero\"",
+					"jsonTag": "json:\"snowball\"",
 					"required": true
 				},
 				{
 					"name": "SpookySparkles",
 					"jsonName": "spookySparkles",
 					"type": "bool",
-					"jsonTag": "json:\"spookySparkles,omitzero\"",
+					"jsonTag": "json:\"spookySparkles\"",
 					"required": true
 				}
 			]
@@ -6676,7 +6676,7 @@
 					"name": "Con",
 					"jsonName": "con",
 					"type": "int",
-					"jsonTag": "json:\"con,omitzero\"",
+					"jsonTag": "json:\"con\"",
 					"required": true
 				},
 				{
@@ -6690,14 +6690,14 @@
 					"name": "Per",
 					"jsonName": "per",
 					"type": "int",
-					"jsonTag": "json:\"per,omitzero\"",
+					"jsonTag": "json:\"per\"",
 					"required": true
 				},
 				{
 					"name": "Int",
 					"jsonName": "int",
 					"type": "int",
-					"jsonTag": "json:\"int,omitzero\"",
+					"jsonTag": "json:\"int\"",
 					"required": true
 				}
 			]
@@ -6710,7 +6710,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"required": true
 				},
 				{
@@ -6737,7 +6737,7 @@
 					"name": "Success",
 					"jsonName": "success",
 					"type": "bool",
-					"jsonTag": "json:\"success,omitzero\"",
+					"jsonTag": "json:\"success\"",
 					"required": true
 				},
 				{
@@ -6818,7 +6818,7 @@
 					"name": "Lvl",
 					"jsonName": "lvl",
 					"type": "int",
-					"jsonTag": "json:\"lvl,omitzero\"",
+					"jsonTag": "json:\"lvl\"",
 					"required": true
 				},
 				{
@@ -6832,35 +6832,35 @@
 					"name": "Points",
 					"jsonName": "points",
 					"type": "int",
-					"jsonTag": "json:\"points,omitzero\"",
+					"jsonTag": "json:\"points\"",
 					"required": true
 				},
 				{
 					"name": "Str",
 					"jsonName": "str",
 					"type": "int",
-					"jsonTag": "json:\"str,omitzero\"",
+					"jsonTag": "json:\"str\"",
 					"required": true
 				},
 				{
 					"name": "Con",
 					"jsonName": "con",
 					"type": "int",
-					"jsonTag": "json:\"con,omitzero\"",
+					"jsonTag": "json:\"con\"",
 					"required": true
 				},
 				{
 					"name": "Int",
 					"jsonName": "int",
 					"type": "int",
-					"jsonTag": "json:\"int,omitzero\"",
+					"jsonTag": "json:\"int\"",
 					"required": true
 				},
 				{
 					"name": "Per",
 					"jsonName": "per",
 					"type": "int",
-					"jsonTag": "json:\"per,omitzero\"",
+					"jsonTag": "json:\"per\"",
 					"required": true
 				},
 				{
@@ -6920,14 +6920,14 @@
 					"name": "CanDrop",
 					"jsonName": "canDrop",
 					"type": "bool",
-					"jsonTag": "json:\"canDrop,omitzero\"",
+					"jsonTag": "json:\"canDrop\"",
 					"required": true
 				},
 				{
 					"name": "Value",
 					"jsonName": "value",
 					"type": "int",
-					"jsonTag": "json:\"value,omitzero\"",
+					"jsonTag": "json:\"value\"",
 					"required": true
 				},
 				{
@@ -6968,7 +6968,7 @@
 					"name": "Collection",
 					"jsonName": "collection",
 					"type": "int",
-					"jsonTag": "json:\"collection,omitzero\"",
+					"jsonTag": "json:\"collection\"",
 					"required": true
 				}
 			]

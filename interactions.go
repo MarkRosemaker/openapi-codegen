@@ -1,6 +1,7 @@
 package codegen
 
 import (
+	"encoding/json/jsontext"
 	"fmt"
 	"net/url"
 	"strconv"
@@ -65,6 +66,18 @@ func matchInteractions(doc *ir.Document, interactions cassette.Interactions) err
 					Literal:   goLiteralForType(hp.Type, val),
 				})
 			}
+		}
+
+		if op.RequestBody != nil && len(ia.Request.Body) > 0 {
+			// Clone before compacting: Compact mutates its receiver's backing
+			// array in place, and ia.Request.Body's array is shared across
+			// every codegen.Generate call in a run -- compacting it directly
+			// would corrupt the recording for the next call to reuse it.
+			body := jsontext.Value(ia.Request.Body).Clone()
+			if err := body.Compact(); err != nil {
+				return fmt.Errorf("compacting request body for %s: %w", op.Name, err)
+			}
+			call.BodyJSON = string(body)
 		}
 
 		if r := findResponse(op, ia.Response.StatusCode); r != nil {

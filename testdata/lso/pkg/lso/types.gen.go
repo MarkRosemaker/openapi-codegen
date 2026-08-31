@@ -85,7 +85,7 @@ type BandResult struct {
 	// Band label (e.g. 'OK', 'red flag', 'solid', 'very strong')
 	Label string `json:"label,omitzero"`
 	// Whether the value is within acceptable range
-	Passing bool `json:"passing,omitzero"`
+	Passing bool `json:"passing"`
 }
 
 // CashBalance defines a model
@@ -107,7 +107,7 @@ type ChartSeriesPoints []DataPoint
 // Company defines a model
 type Company struct {
 	// SEC Central Index Key
-	Cik int `json:"cik,omitzero"`
+	Cik int `json:"cik"`
 	// The name of the company
 	Name string `json:"name,omitzero"`
 	// A long summary of the company
@@ -115,7 +115,7 @@ type Company struct {
 	Sector            string  `json:"sector,omitzero"`
 	Industry          string  `json:"industry,omitzero"`
 	Website           url.URL `json:"website,omitzero"`
-	FullTimeEmployees int     `json:"full_time_employees,omitzero"`
+	FullTimeEmployees int     `json:"full_time_employees"`
 }
 
 // CompanyAndSecurity defines a model
@@ -152,7 +152,7 @@ type DataPoint struct {
 
 // Error defines a model
 type Error struct {
-	Code    int    `json:"code,omitzero"`
+	Code    int    `json:"code"`
 	Message string `json:"message,omitzero"`
 }
 
@@ -205,7 +205,7 @@ type MarketStatus struct {
 	// Current NYSE-local date
 	Today civil.Date `json:"today,omitzero"`
 	// Whether today is a trading day (weekday + not NYSE holiday)
-	IsTradingDay bool `json:"is_trading_day,omitzero"`
+	IsTradingDay bool `json:"is_trading_day"`
 	// Next Friday for weekly options expiry
 	NextFriday civil.Date `json:"next_friday,omitzero"`
 }
@@ -219,11 +219,11 @@ type Option struct {
 	// Option expiration date
 	Expiry civil.Date `json:"expiry,omitzero"`
 	// Calendar days until expiration
-	DaysToExpiry int `json:"days_to_expiry,omitzero"`
+	DaysToExpiry int `json:"days_to_expiry"`
 	// Strike price
 	Strike float64 `json:"strike"`
 	// Number of contracts (negative = short)
-	Qty int `json:"qty,omitzero"`
+	Qty int `json:"qty"`
 }
 
 // Put or Call
@@ -284,7 +284,7 @@ func (e SecurityType) Valid() bool {
 type Stock struct {
 	Symbol string `json:"symbol,omitzero"`
 	// Number of shares held
-	Qty int `json:"qty,omitzero"`
+	Qty int `json:"qty"`
 	// Average cost per share
 	CostBasis *float64 `json:"cost_basis,omitempty"`
 	// Current market price per share (if available from broker)

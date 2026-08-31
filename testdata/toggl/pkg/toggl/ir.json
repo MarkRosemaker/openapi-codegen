@@ -453,7 +453,7 @@
 					"name": "Billable",
 					"jsonName": "billable",
 					"type": "bool",
-					"jsonTag": "json:\"billable,omitzero\"",
+					"jsonTag": "json:\"billable\"",
 					"description": "Whether the time entry is marked as billable, optional, default false",
 					"required": true
 				},
@@ -477,7 +477,7 @@
 					"name": "Duration",
 					"jsonName": "duration",
 					"type": "time.Duration",
-					"jsonTag": "json:\"duration,omitzero\"",
+					"jsonTag": "json:\"duration\"",
 					"description": "Time entry duration. For running entries should be negative, preferable -1",
 					"required": true
 				},
@@ -598,7 +598,7 @@
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "int",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"description": "Workspace ID",
 					"required": true
 				}
@@ -619,7 +619,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Organization ID",
 					"required": true
 				},
@@ -635,7 +635,7 @@
 					"name": "PricingPlanID",
 					"jsonName": "pricing_plan_id",
 					"type": "int",
-					"jsonTag": "json:\"pricing_plan_id,omitzero\"",
+					"jsonTag": "json:\"pricing_plan_id\"",
 					"description": "Organization plan ID",
 					"required": true
 				},
@@ -666,7 +666,7 @@
 					"name": "IsMultiWorkspaceEnabled",
 					"jsonName": "is_multi_workspace_enabled",
 					"type": "bool",
-					"jsonTag": "json:\"is_multi_workspace_enabled,omitzero\"",
+					"jsonTag": "json:\"is_multi_workspace_enabled\"",
 					"description": "Is true when the organization option is_multi_workspace_enabled is set",
 					"required": true
 				},
@@ -682,7 +682,7 @@
 					"name": "UserCount",
 					"jsonName": "user_count",
 					"type": "int",
-					"jsonTag": "json:\"user_count,omitzero\"",
+					"jsonTag": "json:\"user_count\"",
 					"description": "Number of organization users",
 					"required": true
 				},
@@ -697,14 +697,14 @@
 					"name": "IsUnified",
 					"jsonName": "is_unified",
 					"type": "bool",
-					"jsonTag": "json:\"is_unified,omitzero\"",
+					"jsonTag": "json:\"is_unified\"",
 					"required": true
 				},
 				{
 					"name": "MaxWorkspaces",
 					"jsonName": "max_workspaces",
 					"type": "int",
-					"jsonTag": "json:\"max_workspaces,omitzero\"",
+					"jsonTag": "json:\"max_workspaces\"",
 					"description": "Maximum number of workspaces allowed for the organization",
 					"required": true
 				},
@@ -719,7 +719,7 @@
 					"name": "Admin",
 					"jsonName": "admin",
 					"type": "bool",
-					"jsonTag": "json:\"admin,omitzero\"",
+					"jsonTag": "json:\"admin\"",
 					"description": "Whether the requester is an admin of the organization",
 					"required": true
 				},
@@ -727,7 +727,7 @@
 					"name": "Owner",
 					"jsonName": "owner",
 					"type": "bool",
-					"jsonTag": "json:\"owner,omitzero\"",
+					"jsonTag": "json:\"owner\"",
 					"description": "Whether the requester is a the owner of the organization",
 					"required": true
 				},
@@ -743,7 +743,7 @@
 					"name": "PricingPlanEnterprise",
 					"jsonName": "pricing_plan_enterprise",
 					"type": "bool",
-					"jsonTag": "json:\"pricing_plan_enterprise,omitzero\"",
+					"jsonTag": "json:\"pricing_plan_enterprise\"",
 					"description": "The subscription plan is an enterprise plan",
 					"required": true
 				},
@@ -784,14 +784,14 @@
 					"name": "DefaultHourlyRate",
 					"jsonName": "default_hourly_rate",
 					"type": "int",
-					"jsonTag": "json:\"default_hourly_rate,omitzero\"",
+					"jsonTag": "json:\"default_hourly_rate\"",
 					"required": true
 				},
 				{
 					"name": "InitialPricingPlan",
 					"jsonName": "initial_pricing_plan",
 					"type": "int",
-					"jsonTag": "json:\"initial_pricing_plan,omitzero\"",
+					"jsonTag": "json:\"initial_pricing_plan\"",
 					"required": true
 				},
 				{
@@ -805,49 +805,49 @@
 					"name": "OnlyAdminsMayCreateProjects",
 					"jsonName": "only_admins_may_create_projects",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_may_create_projects,omitzero\"",
+					"jsonTag": "json:\"only_admins_may_create_projects\"",
 					"required": true
 				},
 				{
 					"name": "OnlyAdminsSeeBillableRates",
 					"jsonName": "only_admins_see_billable_rates",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_see_billable_rates,omitzero\"",
+					"jsonTag": "json:\"only_admins_see_billable_rates\"",
 					"required": true
 				},
 				{
 					"name": "OnlyAdminsSeeTeamDashboard",
 					"jsonName": "only_admins_see_team_dashboard",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_see_team_dashboard,omitzero\"",
+					"jsonTag": "json:\"only_admins_see_team_dashboard\"",
 					"required": true
 				},
 				{
 					"name": "OrganizationID",
 					"jsonName": "organizationID",
 					"type": "int",
-					"jsonTag": "json:\"organizationID,omitzero\"",
+					"jsonTag": "json:\"organizationID\"",
 					"required": true
 				},
 				{
 					"name": "ProjectsBillableByDefault",
 					"jsonName": "projects_billable_by_default",
 					"type": "bool",
-					"jsonTag": "json:\"projects_billable_by_default,omitzero\"",
+					"jsonTag": "json:\"projects_billable_by_default\"",
 					"required": true
 				},
 				{
 					"name": "Rounding",
 					"jsonName": "rounding",
 					"type": "int",
-					"jsonTag": "json:\"rounding,omitzero\"",
+					"jsonTag": "json:\"rounding\"",
 					"required": true
 				},
 				{
 					"name": "RoundingMinutes",
 					"jsonName": "rounding_minutes",
 					"type": "int",
-					"jsonTag": "json:\"rounding_minutes,omitzero\"",
+					"jsonTag": "json:\"rounding_minutes\"",
 					"required": true
 				}
 			]
@@ -860,7 +860,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Project ID",
 					"required": true
 				},
@@ -868,14 +868,14 @@
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "int",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"required": true
 				},
 				{
 					"name": "ClientID",
 					"jsonName": "client_id",
 					"type": "int",
-					"jsonTag": "json:\"client_id,omitzero\"",
+					"jsonTag": "json:\"client_id\"",
 					"description": "Client ID",
 					"required": true
 				},
@@ -890,14 +890,14 @@
 					"name": "IsPrivate",
 					"jsonName": "is_private",
 					"type": "bool",
-					"jsonTag": "json:\"is_private,omitzero\"",
+					"jsonTag": "json:\"is_private\"",
 					"required": true
 				},
 				{
 					"name": "Active",
 					"jsonName": "active",
 					"type": "bool",
-					"jsonTag": "json:\"active,omitzero\"",
+					"jsonTag": "json:\"active\"",
 					"description": "Whether the project is active or archived",
 					"required": true
 				},
@@ -936,7 +936,7 @@
 					"name": "Billable",
 					"jsonName": "billable",
 					"type": "bool",
-					"jsonTag": "json:\"billable,omitzero\"",
+					"jsonTag": "json:\"billable\"",
 					"description": "Whether the project is billable, premium feature",
 					"required": true
 				},
@@ -951,7 +951,7 @@
 					"name": "AutoEstimates",
 					"jsonName": "auto_estimates",
 					"type": "bool",
-					"jsonTag": "json:\"auto_estimates,omitzero\"",
+					"jsonTag": "json:\"auto_estimates\"",
 					"description": "Whether estimates are based on task hours, premium feature",
 					"required": true
 				},
@@ -972,7 +972,7 @@
 					"name": "EstimatedHours",
 					"jsonName": "estimated_hours",
 					"type": "int",
-					"jsonTag": "json:\"estimated_hours,omitzero\"",
+					"jsonTag": "json:\"estimated_hours\"",
 					"description": "Estimated hours",
 					"required": true
 				},
@@ -980,7 +980,7 @@
 					"name": "EstimatedSeconds",
 					"jsonName": "estimated_seconds",
 					"type": "int",
-					"jsonTag": "json:\"estimated_seconds,omitzero\"",
+					"jsonTag": "json:\"estimated_seconds\"",
 					"description": "Estimated seconds",
 					"required": true
 				},
@@ -1010,7 +1010,7 @@
 					"name": "Recurring",
 					"jsonName": "recurring",
 					"type": "bool",
-					"jsonTag": "json:\"recurring,omitzero\"",
+					"jsonTag": "json:\"recurring\"",
 					"required": true
 				},
 				{
@@ -1039,7 +1039,7 @@
 					"name": "ActualHours",
 					"jsonName": "actual_hours",
 					"type": "int",
-					"jsonTag": "json:\"actual_hours,omitzero\"",
+					"jsonTag": "json:\"actual_hours\"",
 					"description": "Actual hours",
 					"required": true
 				},
@@ -1047,7 +1047,7 @@
 					"name": "ActualSeconds",
 					"jsonName": "actual_seconds",
 					"type": "int",
-					"jsonTag": "json:\"actual_seconds,omitzero\"",
+					"jsonTag": "json:\"actual_seconds\"",
 					"description": "Actual seconds",
 					"required": true
 				},
@@ -1062,7 +1062,7 @@
 					"name": "CanTrackTime",
 					"jsonName": "can_track_time",
 					"type": "bool",
-					"jsonTag": "json:\"can_track_time,omitzero\"",
+					"jsonTag": "json:\"can_track_time\"",
 					"required": true
 				},
 				{
@@ -1083,14 +1083,14 @@
 					"name": "Wid",
 					"jsonName": "wid",
 					"type": "int",
-					"jsonTag": "json:\"wid,omitzero\"",
+					"jsonTag": "json:\"wid\"",
 					"required": true
 				},
 				{
 					"name": "Cid",
 					"jsonName": "cid",
 					"type": "int",
-					"jsonTag": "json:\"cid,omitzero\"",
+					"jsonTag": "json:\"cid\"",
 					"description": "Client ID legacy field",
 					"required": true
 				},
@@ -1098,14 +1098,14 @@
 					"name": "IsShared",
 					"jsonName": "is_shared",
 					"type": "bool",
-					"jsonTag": "json:\"is_shared,omitzero\"",
+					"jsonTag": "json:\"is_shared\"",
 					"required": true
 				},
 				{
 					"name": "Pinned",
 					"jsonName": "pinned",
 					"type": "bool",
-					"jsonTag": "json:\"pinned,omitzero\"",
+					"jsonTag": "json:\"pinned\"",
 					"required": true
 				},
 				{
@@ -1145,7 +1145,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -1165,7 +1165,7 @@
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "int",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"required": true
 				},
 				{
@@ -1185,14 +1185,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "int",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"required": true
 				},
 				{
@@ -1213,7 +1213,7 @@
 					"name": "CreatorID",
 					"jsonName": "creator_id",
 					"type": "int",
-					"jsonTag": "json:\"creator_id,omitzero\"",
+					"jsonTag": "json:\"creator_id\"",
 					"required": true
 				}
 			]
@@ -1256,21 +1256,21 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "int",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"required": true
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
 					"type": "int",
-					"jsonTag": "json:\"project_id,omitzero\"",
+					"jsonTag": "json:\"project_id\"",
 					"required": true
 				},
 				{
@@ -1284,7 +1284,7 @@
 					"name": "Billable",
 					"jsonName": "billable",
 					"type": "bool",
-					"jsonTag": "json:\"billable,omitzero\"",
+					"jsonTag": "json:\"billable\"",
 					"required": true
 				},
 				{
@@ -1305,7 +1305,7 @@
 					"name": "Duration",
 					"jsonName": "duration",
 					"type": "time.Duration",
-					"jsonTag": "json:\"duration,omitzero\"",
+					"jsonTag": "json:\"duration\"",
 					"required": true
 				},
 				{
@@ -1333,7 +1333,7 @@
 					"name": "Duronly",
 					"jsonName": "duronly",
 					"type": "bool",
-					"jsonTag": "json:\"duronly,omitzero\"",
+					"jsonTag": "json:\"duronly\"",
 					"required": true
 				},
 				{
@@ -1354,28 +1354,28 @@
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "int",
-					"jsonTag": "json:\"user_id,omitzero\"",
+					"jsonTag": "json:\"user_id\"",
 					"required": true
 				},
 				{
 					"name": "UID",
 					"jsonName": "uid",
 					"type": "int",
-					"jsonTag": "json:\"uid,omitzero\"",
+					"jsonTag": "json:\"uid\"",
 					"required": true
 				},
 				{
 					"name": "Wid",
 					"jsonName": "wid",
 					"type": "int",
-					"jsonTag": "json:\"wid,omitzero\"",
+					"jsonTag": "json:\"wid\"",
 					"required": true
 				},
 				{
 					"name": "Pid",
 					"jsonName": "pid",
 					"type": "int",
-					"jsonTag": "json:\"pid,omitzero\"",
+					"jsonTag": "json:\"pid\"",
 					"required": true
 				},
 				{
@@ -1430,7 +1430,7 @@
 					"name": "Trial",
 					"jsonName": "trial",
 					"type": "bool",
-					"jsonTag": "json:\"trial,omitzero\"",
+					"jsonTag": "json:\"trial\"",
 					"description": "Whether the organization's subscription is currently on trial",
 					"required": true
 				},
@@ -1438,7 +1438,7 @@
 					"name": "TrialAvailable",
 					"jsonName": "trial_available",
 					"type": "bool",
-					"jsonTag": "json:\"trial_available,omitzero\"",
+					"jsonTag": "json:\"trial_available\"",
 					"description": "When a trial is available for this organization",
 					"required": true
 				},
@@ -1462,7 +1462,7 @@
 					"name": "LastPricingPlanID",
 					"jsonName": "last_pricing_plan_id",
 					"type": "int",
-					"jsonTag": "json:\"last_pricing_plan_id,omitzero\"",
+					"jsonTag": "json:\"last_pricing_plan_id\"",
 					"description": "What was the previous plan before the trial",
 					"required": true
 				},
@@ -1470,7 +1470,7 @@
 					"name": "CanHaveTrial",
 					"jsonName": "can_have_trial",
 					"type": "bool",
-					"jsonTag": "json:\"can_have_trial,omitzero\"",
+					"jsonTag": "json:\"can_have_trial\"",
 					"description": "True, if neither the organization nor the owner has never had a trial before",
 					"required": true
 				},
@@ -1491,7 +1491,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -1533,14 +1533,14 @@
 					"name": "DefaultWorkspaceID",
 					"jsonName": "default_workspace_id",
 					"type": "int",
-					"jsonTag": "json:\"default_workspace_id,omitzero\"",
+					"jsonTag": "json:\"default_workspace_id\"",
 					"required": true
 				},
 				{
 					"name": "BeginningOfWeek",
 					"jsonName": "beginning_of_week",
 					"type": "int",
-					"jsonTag": "json:\"beginning_of_week,omitzero\"",
+					"jsonTag": "json:\"beginning_of_week\"",
 					"required": true
 				},
 				{
@@ -1575,21 +1575,21 @@
 					"name": "OpenidEnabled",
 					"jsonName": "openid_enabled",
 					"type": "bool",
-					"jsonTag": "json:\"openid_enabled,omitzero\"",
+					"jsonTag": "json:\"openid_enabled\"",
 					"required": true
 				},
 				{
 					"name": "CountryID",
 					"jsonName": "country_id",
 					"type": "int",
-					"jsonTag": "json:\"country_id,omitzero\"",
+					"jsonTag": "json:\"country_id\"",
 					"required": true
 				},
 				{
 					"name": "HasPassword",
 					"jsonName": "has_password",
 					"type": "bool",
-					"jsonTag": "json:\"has_password,omitzero\"",
+					"jsonTag": "json:\"has_password\"",
 					"required": true
 				},
 				{
@@ -1669,7 +1669,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Client ID",
 					"required": true
 				},
@@ -1677,7 +1677,7 @@
 					"name": "Wid",
 					"jsonName": "wid",
 					"type": "int",
-					"jsonTag": "json:\"wid,omitzero\"",
+					"jsonTag": "json:\"wid\"",
 					"description": "Workspace ID",
 					"required": true
 				},
@@ -1685,7 +1685,7 @@
 					"name": "Archived",
 					"jsonName": "archived",
 					"type": "bool",
-					"jsonTag": "json:\"archived,omitzero\"",
+					"jsonTag": "json:\"archived\"",
 					"description": "true, if the client is archived",
 					"required": true
 				},
@@ -1709,7 +1709,7 @@
 					"name": "CreatorID",
 					"jsonName": "creator_id",
 					"type": "int",
-					"jsonTag": "json:\"creator_id,omitzero\"",
+					"jsonTag": "json:\"creator_id\"",
 					"description": "The ID of the user who created the client",
 					"required": true
 				},
@@ -1757,14 +1757,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "OrganizationID",
 					"jsonName": "organization_id",
 					"type": "int",
-					"jsonTag": "json:\"organization_id,omitzero\"",
+					"jsonTag": "json:\"organization_id\"",
 					"required": true
 				},
 				{
@@ -1778,21 +1778,21 @@
 					"name": "Premium",
 					"jsonName": "premium",
 					"type": "bool",
-					"jsonTag": "json:\"premium,omitzero\"",
+					"jsonTag": "json:\"premium\"",
 					"required": true
 				},
 				{
 					"name": "BusinessWs",
 					"jsonName": "business_ws",
 					"type": "bool",
-					"jsonTag": "json:\"business_ws,omitzero\"",
+					"jsonTag": "json:\"business_ws\"",
 					"required": true
 				},
 				{
 					"name": "Admin",
 					"jsonName": "admin",
 					"type": "bool",
-					"jsonTag": "json:\"admin,omitzero\"",
+					"jsonTag": "json:\"admin\"",
 					"required": true
 				},
 				{
@@ -1841,56 +1841,56 @@
 					"name": "OnlyAdminsMayCreateProjects",
 					"jsonName": "only_admins_may_create_projects",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_may_create_projects,omitzero\"",
+					"jsonTag": "json:\"only_admins_may_create_projects\"",
 					"required": true
 				},
 				{
 					"name": "OnlyAdminsMayCreateTags",
 					"jsonName": "only_admins_may_create_tags",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_may_create_tags,omitzero\"",
+					"jsonTag": "json:\"only_admins_may_create_tags\"",
 					"required": true
 				},
 				{
 					"name": "OnlyAdminsSeeBillableRates",
 					"jsonName": "only_admins_see_billable_rates",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_see_billable_rates,omitzero\"",
+					"jsonTag": "json:\"only_admins_see_billable_rates\"",
 					"required": true
 				},
 				{
 					"name": "OnlyAdminsSeeTeamDashboard",
 					"jsonName": "only_admins_see_team_dashboard",
 					"type": "bool",
-					"jsonTag": "json:\"only_admins_see_team_dashboard,omitzero\"",
+					"jsonTag": "json:\"only_admins_see_team_dashboard\"",
 					"required": true
 				},
 				{
 					"name": "ProjectsBillableByDefault",
 					"jsonName": "projects_billable_by_default",
 					"type": "bool",
-					"jsonTag": "json:\"projects_billable_by_default,omitzero\"",
+					"jsonTag": "json:\"projects_billable_by_default\"",
 					"required": true
 				},
 				{
 					"name": "ProjectsPrivateByDefault",
 					"jsonName": "projects_private_by_default",
 					"type": "bool",
-					"jsonTag": "json:\"projects_private_by_default,omitzero\"",
+					"jsonTag": "json:\"projects_private_by_default\"",
 					"required": true
 				},
 				{
 					"name": "ProjectsEnforceBillable",
 					"jsonName": "projects_enforce_billable",
 					"type": "bool",
-					"jsonTag": "json:\"projects_enforce_billable,omitzero\"",
+					"jsonTag": "json:\"projects_enforce_billable\"",
 					"required": true
 				},
 				{
 					"name": "LimitPublicProjectData",
 					"jsonName": "limit_public_project_data",
 					"type": "bool",
-					"jsonTag": "json:\"limit_public_project_data,omitzero\"",
+					"jsonTag": "json:\"limit_public_project_data\"",
 					"required": true
 				},
 				{
@@ -1904,21 +1904,21 @@
 					"name": "ReportsCollapse",
 					"jsonName": "reports_collapse",
 					"type": "bool",
-					"jsonTag": "json:\"reports_collapse,omitzero\"",
+					"jsonTag": "json:\"reports_collapse\"",
 					"required": true
 				},
 				{
 					"name": "Rounding",
 					"jsonName": "rounding",
 					"type": "int",
-					"jsonTag": "json:\"rounding,omitzero\"",
+					"jsonTag": "json:\"rounding\"",
 					"required": true
 				},
 				{
 					"name": "RoundingMinutes",
 					"jsonName": "rounding_minutes",
 					"type": "int",
-					"jsonTag": "json:\"rounding_minutes,omitzero\"",
+					"jsonTag": "json:\"rounding_minutes\"",
 					"required": true
 				},
 				{
@@ -1953,7 +1953,7 @@
 					"name": "IcalEnabled",
 					"jsonName": "ical_enabled",
 					"type": "bool",
-					"jsonTag": "json:\"ical_enabled,omitzero\"",
+					"jsonTag": "json:\"ical_enabled\"",
 					"required": true
 				},
 				{
@@ -1974,7 +1974,7 @@
 					"name": "HideStartEndTimes",
 					"jsonName": "hide_start_end_times",
 					"type": "bool",
-					"jsonTag": "json:\"hide_start_end_times,omitzero\"",
+					"jsonTag": "json:\"hide_start_end_times\"",
 					"required": true
 				},
 				{
