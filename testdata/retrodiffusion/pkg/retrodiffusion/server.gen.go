@@ -16,13 +16,14 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	ListV1StylesSelector(ctx context.Context, params *ListV1StylesSelectorParams) (*ListV1StylesSelectorOkJSONResponse, error)
+	PostV1Inferences(ctx context.Context, body PostV1InferencesJSONRequestBody) (*PostV1InferencesOkJSONResponse, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
 // Optionally, a path prefix may be provided.
 func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/v1/styles/selector")
+		path := fmt.Sprintf("%s%s", pathPrefix, "/styles/selector")
 		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListV1StylesSelector"))
 
 		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
@@ -36,6 +37,56 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			res, err := svc.ListV1StylesSelector(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/inferences")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "PostV1Inferences"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body PostV1InferencesJSONRequestBody
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.PostV1Inferences(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

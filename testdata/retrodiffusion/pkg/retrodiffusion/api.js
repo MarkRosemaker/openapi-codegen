@@ -10,13 +10,14 @@
  * Usage:
  *   import './api.js';        // or <script src="api.js"></script>
  *   const result = await window.API.listV1StylesSelector();
+ *   const result = await window.API.postV1Inferences();
  *
  * Environment:
  *   Set `window.ENV = 'development'` to enable mocking via /mocks.json.
  *   Set `window.ENV = 'production'` (or anything else) to use real API calls.
  */
 
-const API_BASE = "https://api.retrodiffusion.ai";
+const API_BASE = "https://api.retrodiffusion.ai/v1";
 const TIMEOUT = 4000;
 
 // ====================== ENVIRONMENT ======================
@@ -169,12 +170,18 @@ async function apiFetch(path, options = {}) {
 // ====================== PUBLIC API ======================
 
 window.API = {
-    // GET /v1/styles/selector
+    // GET /styles/selector
     listV1StylesSelector: (params = {}) => {
         const q = new URLSearchParams();
         if (params.model != null) q.set("model", String(params.model));
-        return apiFetch(`/v1/styles/selector?${q}`, {
+        return apiFetch(`/styles/selector?${q}`, {
             operationId: "ListV1StylesSelector",
         });
     },
+    // POST /inferences
+    postV1Inferences: (body) => apiFetch("/inferences", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "PostV1Inferences",
+    }),
 };

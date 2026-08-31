@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/json/v2"
 	"errors"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -21,7 +22,7 @@ const defaultUserAgent = "API"
 var defaultBaseURL = &url.URL{
 	Scheme: "https",
 	Host:   "api.retrodiffusion.ai",
-	Path:   "/",
+	Path:   "/v1",
 }
 
 // Client is an HTTP client for the retrodiffusion API.
@@ -80,14 +81,14 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 	return c, nil
 }
 
-// GET /v1/styles/selector
+// GET /styles/selector
 func (c *Client) ListV1StylesSelector(ctx context.Context, params *ListV1StylesSelectorParams) (*ListV1StylesSelectorOkJSONResponse, error) {
 	return c.ListV1StylesSelectorWithResult[ListV1StylesSelectorOkJSONResponse](ctx, params)
 }
 
-// GET /v1/styles/selector
+// GET /styles/selector
 func (c *Client) ListV1StylesSelectorWithResult[R any](ctx context.Context, params *ListV1StylesSelectorParams) (*R, error) {
-	u := c.baseURL.JoinPath("v1", "styles", "selector")
+	u := c.baseURL.JoinPath("styles", "selector")
 	if params != nil {
 		q := make(url.Values, 1)
 
@@ -110,6 +111,59 @@ func (c *Client) ListV1StylesSelectorWithResult[R any](ctx context.Context, para
 		ProtoMinor: 1,
 		URL:        u,
 	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// OK
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out R
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// POST /inferences
+func (c *Client) PostV1Inferences(ctx context.Context, body PostV1InferencesJSONRequestBody) (*PostV1InferencesOkJSONResponse, error) {
+	return c.PostV1InferencesWithResult[PostV1InferencesOkJSONResponse](ctx, body)
+}
+
+// POST /inferences
+func (c *Client) PostV1InferencesWithResult[R any](ctx context.Context, body PostV1InferencesJSONRequestBody) (*R, error) {
+	u := c.baseURL.JoinPath("inferences")
+	pr, pw := io.Pipe()
+	req := (&http.Request{
+		Header: http.Header{
+			"X-Rd-Token":   []string{c.apiKey},
+			"User-Agent":   []string{c.userAgent},
+			"Content-Type": []string{"application/json"},
+		},
+		Host:          u.Host,
+		Method:        http.MethodPost,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		URL:           u,
+		Body:          pr,
+		ContentLength: -1,
+	}).WithContext(ctx)
+
+	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOpts)) }()
+	defer pr.Close()
 
 	rsp, err := c.cli.Do(req)
 	if err != nil {
