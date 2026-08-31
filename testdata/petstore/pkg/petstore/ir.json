@@ -101,28 +101,28 @@
 					"name": "Page",
 					"jsonName": "page",
 					"type": "int",
-					"jsonTag": "json:\"page,omitzero\"",
+					"jsonTag": "json:\"page\"",
 					"required": true
 				},
 				{
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "int",
-					"jsonTag": "json:\"limit,omitzero\"",
+					"jsonTag": "json:\"limit\"",
 					"required": true
 				},
 				{
 					"name": "TotalItems",
 					"jsonName": "totalItems",
 					"type": "int",
-					"jsonTag": "json:\"totalItems,omitzero\"",
+					"jsonTag": "json:\"totalItems\"",
 					"required": true
 				},
 				{
 					"name": "TotalPages",
 					"jsonName": "totalPages",
 					"type": "int",
-					"jsonTag": "json:\"totalPages,omitzero\"",
+					"jsonTag": "json:\"totalPages\"",
 					"required": true
 				}
 			]
@@ -163,7 +163,7 @@
 					"name": "AgeMonths",
 					"jsonName": "ageMonths",
 					"type": "int",
-					"jsonTag": "json:\"ageMonths,omitzero\"",
+					"jsonTag": "json:\"ageMonths\"",
 					"required": true
 				},
 				{
@@ -198,7 +198,7 @@
 					"name": "GoodWithKids",
 					"jsonName": "goodWithKids",
 					"type": "bool",
-					"jsonTag": "json:\"goodWithKids,omitzero\"",
+					"jsonTag": "json:\"goodWithKids\"",
 					"required": true
 				},
 				{
@@ -232,28 +232,28 @@
 					"name": "Vaccinated",
 					"jsonName": "vaccinated",
 					"type": "bool",
-					"jsonTag": "json:\"vaccinated,omitzero\"",
+					"jsonTag": "json:\"vaccinated\"",
 					"required": true
 				},
 				{
 					"name": "SpayedNeutered",
 					"jsonName": "spayedNeutered",
 					"type": "bool",
-					"jsonTag": "json:\"spayedNeutered,omitzero\"",
+					"jsonTag": "json:\"spayedNeutered\"",
 					"required": true
 				},
 				{
 					"name": "Microchipped",
 					"jsonName": "microchipped",
 					"type": "bool",
-					"jsonTag": "json:\"microchipped,omitzero\"",
+					"jsonTag": "json:\"microchipped\"",
 					"required": true
 				},
 				{
 					"name": "SpecialNeeds",
 					"jsonName": "specialNeeds",
 					"type": "bool",
-					"jsonTag": "json:\"specialNeeds,omitzero\"",
+					"jsonTag": "json:\"specialNeeds\"",
 					"required": true
 				},
 				{

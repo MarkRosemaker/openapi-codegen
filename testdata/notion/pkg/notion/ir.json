@@ -183,21 +183,21 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitzero\"",
+					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				},
 				{
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitzero\"",
+					"jsonTag": "json:\"is_archived\"",
 					"required": true
 				},
 				{
 					"name": "IsLocked",
 					"jsonName": "is_locked",
 					"type": "bool",
-					"jsonTag": "json:\"is_locked,omitzero\"",
+					"jsonTag": "json:\"is_locked\"",
 					"required": true
 				},
 				{
@@ -352,7 +352,7 @@
 					"name": "HasMore",
 					"jsonName": "has_more",
 					"type": "bool",
-					"jsonTag": "json:\"has_more,omitzero\"",
+					"jsonTag": "json:\"has_more\"",
 					"required": true
 				},
 				{
@@ -441,14 +441,14 @@
 					"name": "HasChildren",
 					"jsonName": "has_children",
 					"type": "bool",
-					"jsonTag": "json:\"has_children,omitzero\"",
+					"jsonTag": "json:\"has_children\"",
 					"required": true
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitzero\"",
+					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				},
 				{
@@ -589,35 +589,35 @@
 					"name": "Bold",
 					"jsonName": "bold",
 					"type": "bool",
-					"jsonTag": "json:\"bold,omitzero\"",
+					"jsonTag": "json:\"bold\"",
 					"required": true
 				},
 				{
 					"name": "Italic",
 					"jsonName": "italic",
 					"type": "bool",
-					"jsonTag": "json:\"italic,omitzero\"",
+					"jsonTag": "json:\"italic\"",
 					"required": true
 				},
 				{
 					"name": "Strikethrough",
 					"jsonName": "strikethrough",
 					"type": "bool",
-					"jsonTag": "json:\"strikethrough,omitzero\"",
+					"jsonTag": "json:\"strikethrough\"",
 					"required": true
 				},
 				{
 					"name": "Underline",
 					"jsonName": "underline",
 					"type": "bool",
-					"jsonTag": "json:\"underline,omitzero\"",
+					"jsonTag": "json:\"underline\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "bool",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{

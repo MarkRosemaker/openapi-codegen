@@ -14,7 +14,7 @@ var jsonOpts = json.JoinOptions(
 
 // ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse defines a model
 type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse struct {
-	Cik        int                                                  `json:"cik,omitzero"`
+	Cik        int                                                  `json:"cik"`
 	EntityName string                                               `json:"entityName,omitzero"`
 	Facts      ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts `json:"facts"`
 }
@@ -859,7 +859,7 @@ type ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsSh
 	End   string  `json:"end,omitzero"`
 	Val   float64 `json:"val"`
 	Accn  string  `json:"accn,omitzero"`
-	Fy    int     `json:"fy,omitzero"`
+	Fy    int     `json:"fy"`
 	Fp    string  `json:"fp,omitzero"`
 	Form  string  `json:"form,omitzero"`
 	Filed string  `json:"filed,omitzero"`
@@ -975,7 +975,7 @@ type ListFilesCompanyTickersJSONOkJSONResponse map[string]ListFilesCompanyTicker
 
 // ListFilesCompanyTickersJSONOkJSONResponseValue defines a model
 type ListFilesCompanyTickersJSONOkJSONResponseValue struct {
-	CikStr int    `json:"cik_str,omitzero"`
+	CikStr int    `json:"cik_str"`
 	Ticker string `json:"ticker,omitzero"`
 	Title  string `json:"title,omitzero"`
 }

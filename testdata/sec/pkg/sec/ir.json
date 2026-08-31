@@ -96,7 +96,7 @@
 					"name": "Cik",
 					"jsonName": "cik",
 					"type": "int",
-					"jsonTag": "json:\"cik,omitzero\"",
+					"jsonTag": "json:\"cik\"",
 					"required": true
 				},
 				{
@@ -5488,7 +5488,7 @@
 					"name": "Fy",
 					"jsonName": "fy",
 					"type": "int",
-					"jsonTag": "json:\"fy,omitzero\"",
+					"jsonTag": "json:\"fy\"",
 					"required": true
 				},
 				{
@@ -5917,7 +5917,7 @@
 					"name": "CikStr",
 					"jsonName": "cik_str",
 					"type": "int",
-					"jsonTag": "json:\"cik_str,omitzero\"",
+					"jsonTag": "json:\"cik_str\"",
 					"required": true
 				},
 				{

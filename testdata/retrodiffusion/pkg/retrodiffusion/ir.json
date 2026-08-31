@@ -173,49 +173,49 @@
 					"name": "MinWidth",
 					"jsonName": "min_width",
 					"type": "int",
-					"jsonTag": "json:\"min_width,omitzero\"",
+					"jsonTag": "json:\"min_width\"",
 					"required": true
 				},
 				{
 					"name": "MaxWidth",
 					"jsonName": "max_width",
 					"type": "int",
-					"jsonTag": "json:\"max_width,omitzero\"",
+					"jsonTag": "json:\"max_width\"",
 					"required": true
 				},
 				{
 					"name": "MinHeight",
 					"jsonName": "min_height",
 					"type": "int",
-					"jsonTag": "json:\"min_height,omitzero\"",
+					"jsonTag": "json:\"min_height\"",
 					"required": true
 				},
 				{
 					"name": "MaxHeight",
 					"jsonName": "max_height",
 					"type": "int",
-					"jsonTag": "json:\"max_height,omitzero\"",
+					"jsonTag": "json:\"max_height\"",
 					"required": true
 				},
 				{
 					"name": "MaxNumberOfImages",
 					"jsonName": "max_number_of_images",
 					"type": "int",
-					"jsonTag": "json:\"max_number_of_images,omitzero\"",
+					"jsonTag": "json:\"max_number_of_images\"",
 					"required": true
 				},
 				{
 					"name": "RequireInputImage",
 					"jsonName": "require_input_image",
 					"type": "bool",
-					"jsonTag": "json:\"require_input_image,omitzero\"",
+					"jsonTag": "json:\"require_input_image\"",
 					"required": true
 				},
 				{
 					"name": "SupportsReferenceImages",
 					"jsonName": "supports_reference_images",
 					"type": "bool",
-					"jsonTag": "json:\"supports_reference_images,omitzero\"",
+					"jsonTag": "json:\"supports_reference_images\"",
 					"required": true
 				},
 				{
@@ -249,84 +249,84 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
+					"jsonTag": "json:\"width\"",
 					"required": true
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
 					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
+					"jsonTag": "json:\"height\"",
 					"required": true
 				},
 				{
 					"name": "NumImages",
 					"jsonName": "num_images",
 					"type": "int",
-					"jsonTag": "json:\"num_images,omitzero\"",
+					"jsonTag": "json:\"num_images\"",
 					"required": true
 				},
 				{
 					"name": "RemoveBg",
 					"jsonName": "remove_bg",
 					"type": "bool",
-					"jsonTag": "json:\"remove_bg,omitzero\"",
+					"jsonTag": "json:\"remove_bg\"",
 					"required": true
 				},
 				{
 					"name": "TileX",
 					"jsonName": "tile_x",
 					"type": "bool",
-					"jsonTag": "json:\"tile_x,omitzero\"",
+					"jsonTag": "json:\"tile_x\"",
 					"required": true
 				},
 				{
 					"name": "TileY",
 					"jsonName": "tile_y",
 					"type": "bool",
-					"jsonTag": "json:\"tile_y,omitzero\"",
+					"jsonTag": "json:\"tile_y\"",
 					"required": true
 				},
 				{
 					"name": "ReturnSpritesheet",
 					"jsonName": "return_spritesheet",
 					"type": "bool",
-					"jsonTag": "json:\"return_spritesheet,omitzero\"",
+					"jsonTag": "json:\"return_spritesheet\"",
 					"required": true
 				},
 				{
 					"name": "BypassPromptExpansion",
 					"jsonName": "bypass_prompt_expansion",
 					"type": "bool",
-					"jsonTag": "json:\"bypass_prompt_expansion,omitzero\"",
+					"jsonTag": "json:\"bypass_prompt_expansion\"",
 					"required": true
 				},
 				{
 					"name": "IncludeDownloadableData",
 					"jsonName": "include_downloadable_data",
 					"type": "bool",
-					"jsonTag": "json:\"include_downloadable_data,omitzero\"",
+					"jsonTag": "json:\"include_downloadable_data\"",
 					"required": true
 				},
 				{
 					"name": "CheckCost",
 					"jsonName": "check_cost",
 					"type": "bool",
-					"jsonTag": "json:\"check_cost,omitzero\"",
+					"jsonTag": "json:\"check_cost\"",
 					"required": true
 				},
 				{
 					"name": "Async",
 					"jsonName": "async",
 					"type": "bool",
-					"jsonTag": "json:\"async,omitzero\"",
+					"jsonTag": "json:\"async\"",
 					"required": true
 				},
 				{
 					"name": "UploadOutputs",
 					"jsonName": "upload_outputs",
 					"type": "bool",
-					"jsonTag": "json:\"upload_outputs,omitzero\"",
+					"jsonTag": "json:\"upload_outputs\"",
 					"required": true
 				}
 			]
@@ -339,14 +339,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "int",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"required": true
 				},
 				{
 					"name": "CreditCost",
 					"jsonName": "credit_cost",
 					"type": "int",
-					"jsonTag": "json:\"credit_cost,omitzero\"",
+					"jsonTag": "json:\"credit_cost\"",
 					"required": true
 				},
 				{
@@ -388,7 +388,7 @@
 					"name": "RemainingCredits",
 					"jsonName": "remaining_credits",
 					"type": "int",
-					"jsonTag": "json:\"remaining_credits,omitzero\"",
+					"jsonTag": "json:\"remaining_credits\"",
 					"required": true
 				},
 				{

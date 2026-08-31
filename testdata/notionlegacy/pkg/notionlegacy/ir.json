@@ -135,7 +135,7 @@
 					"name": "Bold",
 					"jsonName": "bold",
 					"type": "bool",
-					"jsonTag": "json:\"bold,omitzero\"",
+					"jsonTag": "json:\"bold\"",
 					"description": "Whether the text is **bolded**.",
 					"required": true
 				},
@@ -143,7 +143,7 @@
 					"name": "Italic",
 					"jsonName": "italic",
 					"type": "bool",
-					"jsonTag": "json:\"italic,omitzero\"",
+					"jsonTag": "json:\"italic\"",
 					"description": "Whether the text is *italicized*.",
 					"required": true
 				},
@@ -151,7 +151,7 @@
 					"name": "Strikethrough",
 					"jsonName": "strikethrough",
 					"type": "bool",
-					"jsonTag": "json:\"strikethrough,omitzero\"",
+					"jsonTag": "json:\"strikethrough\"",
 					"description": "Whether the text is struck through.",
 					"required": true
 				},
@@ -159,7 +159,7 @@
 					"name": "Underline",
 					"jsonName": "underline",
 					"type": "bool",
-					"jsonTag": "json:\"underline,omitzero\"",
+					"jsonTag": "json:\"underline\"",
 					"description": "Whether the text is underlined.",
 					"required": true
 				},
@@ -167,7 +167,7 @@
 					"name": "Code",
 					"jsonName": "code",
 					"type": "bool",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"description": "Whether the text is code `style`.",
 					"required": true
 				},
@@ -242,7 +242,7 @@
 					"name": "HasChildren",
 					"jsonName": "has_children",
 					"type": "bool",
-					"jsonTag": "json:\"has_children,omitzero\"",
+					"jsonTag": "json:\"has_children\"",
 					"description": "Whether or not the block has children blocks nested within it.",
 					"required": true
 				},
@@ -250,7 +250,7 @@
 					"name": "Archived",
 					"jsonName": "archived",
 					"type": "bool",
-					"jsonTag": "json:\"archived,omitzero\"",
+					"jsonTag": "json:\"archived\"",
 					"description": "The archived status of the block.",
 					"required": true
 				},
@@ -258,7 +258,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitzero\"",
+					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				},
 				{
@@ -1392,7 +1392,7 @@
 					"name": "IsToggleable",
 					"jsonName": "is_toggleable",
 					"type": "bool",
-					"jsonTag": "json:\"is_toggleable,omitzero\"",
+					"jsonTag": "json:\"is_toggleable\"",
 					"required": true
 				},
 				{
@@ -1559,7 +1559,7 @@
 					"name": "HasMore",
 					"jsonName": "has_more",
 					"type": "bool",
-					"jsonTag": "json:\"has_more,omitzero\"",
+					"jsonTag": "json:\"has_more\"",
 					"description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
 					"required": true
 				}
@@ -1721,7 +1721,7 @@
 					"name": "Archived",
 					"jsonName": "archived",
 					"type": "bool",
-					"jsonTag": "json:\"archived,omitzero\"",
+					"jsonTag": "json:\"archived\"",
 					"description": "The archived status of the page.",
 					"required": true
 				},
@@ -1729,7 +1729,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitzero\"",
+					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				},
 				{
@@ -2148,7 +2148,7 @@
 					"name": "TableWidth",
 					"jsonName": "table_width",
 					"type": "int",
-					"jsonTag": "json:\"table_width,omitzero\"",
+					"jsonTag": "json:\"table_width\"",
 					"description": "Number of columns in the table. Note that this cannot be changed via the public API once a table is created.",
 					"required": true
 				},
@@ -2156,7 +2156,7 @@
 					"name": "HasColumnHeader",
 					"jsonName": "has_column_header",
 					"type": "bool",
-					"jsonTag": "json:\"has_column_header,omitzero\"",
+					"jsonTag": "json:\"has_column_header\"",
 					"description": "Whether or not the table has a column header. If true, the first row in the table will appear visually distinct from the other rows.",
 					"required": true
 				},
@@ -2164,7 +2164,7 @@
 					"name": "HasRowHeader",
 					"jsonName": "has_row_header",
 					"type": "bool",
-					"jsonTag": "json:\"has_row_header,omitzero\"",
+					"jsonTag": "json:\"has_row_header\"",
 					"description": "Whether or not the table has a header row. If true, the first column in the table will appear visually distinct from the other columns.",
 					"required": true
 				}
@@ -2220,7 +2220,7 @@
 					"name": "Checked",
 					"jsonName": "checked",
 					"type": "bool",
-					"jsonTag": "json:\"checked,omitzero\"",
+					"jsonTag": "json:\"checked\"",
 					"description": "Whether the to_do is checked or not.",
 					"required": true
 				},

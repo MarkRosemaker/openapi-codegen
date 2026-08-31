@@ -611,7 +611,7 @@
 					"name": "Passing",
 					"jsonName": "passing",
 					"type": "bool",
-					"jsonTag": "json:\"passing,omitzero\"",
+					"jsonTag": "json:\"passing\"",
 					"description": "Whether the value is within acceptable range",
 					"required": true
 				}
@@ -672,7 +672,7 @@
 					"name": "Cik",
 					"jsonName": "cik",
 					"type": "int",
-					"jsonTag": "json:\"cik,omitzero\"",
+					"jsonTag": "json:\"cik\"",
 					"description": "SEC Central Index Key",
 					"required": true
 				},
@@ -717,7 +717,7 @@
 					"name": "FullTimeEmployees",
 					"jsonName": "full_time_employees",
 					"type": "int",
-					"jsonTag": "json:\"full_time_employees,omitzero\"",
+					"jsonTag": "json:\"full_time_employees\"",
 					"required": true
 				}
 			]
@@ -790,7 +790,7 @@
 					"name": "Code",
 					"jsonName": "code",
 					"type": "int",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -975,7 +975,7 @@
 					"name": "IsTradingDay",
 					"jsonName": "is_trading_day",
 					"type": "bool",
-					"jsonTag": "json:\"is_trading_day,omitzero\"",
+					"jsonTag": "json:\"is_trading_day\"",
 					"description": "Whether today is a trading day (weekday + not NYSE holiday)",
 					"required": true
 				},
@@ -1021,7 +1021,7 @@
 					"name": "DaysToExpiry",
 					"jsonName": "days_to_expiry",
 					"type": "int",
-					"jsonTag": "json:\"days_to_expiry,omitzero\"",
+					"jsonTag": "json:\"days_to_expiry\"",
 					"description": "Calendar days until expiration",
 					"required": true
 				},
@@ -1037,7 +1037,7 @@
 					"name": "Qty",
 					"jsonName": "qty",
 					"type": "int",
-					"jsonTag": "json:\"qty,omitzero\"",
+					"jsonTag": "json:\"qty\"",
 					"description": "Number of contracts (negative = short)",
 					"required": true
 				}
@@ -1155,7 +1155,7 @@
 					"name": "Qty",
 					"jsonName": "qty",
 					"type": "int",
-					"jsonTag": "json:\"qty,omitzero\"",
+					"jsonTag": "json:\"qty\"",
 					"description": "Number of shares held",
 					"required": true
 				},

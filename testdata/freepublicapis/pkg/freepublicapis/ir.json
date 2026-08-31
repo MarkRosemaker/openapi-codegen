@@ -55,7 +55,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -90,14 +90,14 @@
 					"name": "Methods",
 					"jsonName": "methods",
 					"type": "int",
-					"jsonTag": "json:\"methods,omitzero\"",
+					"jsonTag": "json:\"methods\"",
 					"required": true
 				},
 				{
 					"name": "Health",
 					"jsonName": "health",
 					"type": "int",
-					"jsonTag": "json:\"health,omitzero\"",
+					"jsonTag": "json:\"health\"",
 					"required": true
 				},
 				{

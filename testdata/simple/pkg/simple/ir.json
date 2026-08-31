@@ -88,7 +88,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "int",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{

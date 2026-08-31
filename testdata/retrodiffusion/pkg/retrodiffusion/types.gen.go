@@ -35,13 +35,13 @@ type ListV1StylesSelectorOkJSONResponseStylesItem struct {
 	GroupID                 string `json:"group_id,omitzero"`
 	RequiredModel           string `json:"required_model,omitzero"`
 	RequiredTab             string `json:"required_tab,omitzero"`
-	MinWidth                int    `json:"min_width,omitzero"`
-	MaxWidth                int    `json:"max_width,omitzero"`
-	MinHeight               int    `json:"min_height,omitzero"`
-	MaxHeight               int    `json:"max_height,omitzero"`
-	MaxNumberOfImages       int    `json:"max_number_of_images,omitzero"`
-	RequireInputImage       bool   `json:"require_input_image,omitzero"`
-	SupportsReferenceImages bool   `json:"supports_reference_images,omitzero"`
+	MinWidth                int    `json:"min_width"`
+	MaxWidth                int    `json:"max_width"`
+	MinHeight               int    `json:"min_height"`
+	MaxHeight               int    `json:"max_height"`
+	MaxNumberOfImages       int    `json:"max_number_of_images"`
+	RequireInputImage       bool   `json:"require_input_image"`
+	SupportsReferenceImages bool   `json:"supports_reference_images"`
 	ExamplePrompt           string `json:"example_prompt,omitzero"`
 }
 
@@ -49,29 +49,29 @@ type ListV1StylesSelectorOkJSONResponseStylesItem struct {
 type PostV1InferencesJSONRequestBody struct {
 	Prompt                  string `json:"prompt,omitzero"`
 	PromptStyle             string `json:"prompt_style,omitzero"`
-	Width                   int    `json:"width,omitzero"`
-	Height                  int    `json:"height,omitzero"`
-	NumImages               int    `json:"num_images,omitzero"`
-	RemoveBg                bool   `json:"remove_bg,omitzero"`
-	TileX                   bool   `json:"tile_x,omitzero"`
-	TileY                   bool   `json:"tile_y,omitzero"`
-	ReturnSpritesheet       bool   `json:"return_spritesheet,omitzero"`
-	BypassPromptExpansion   bool   `json:"bypass_prompt_expansion,omitzero"`
-	IncludeDownloadableData bool   `json:"include_downloadable_data,omitzero"`
-	CheckCost               bool   `json:"check_cost,omitzero"`
-	Async                   bool   `json:"async,omitzero"`
-	UploadOutputs           bool   `json:"upload_outputs,omitzero"`
+	Width                   int    `json:"width"`
+	Height                  int    `json:"height"`
+	NumImages               int    `json:"num_images"`
+	RemoveBg                bool   `json:"remove_bg"`
+	TileX                   bool   `json:"tile_x"`
+	TileY                   bool   `json:"tile_y"`
+	ReturnSpritesheet       bool   `json:"return_spritesheet"`
+	BypassPromptExpansion   bool   `json:"bypass_prompt_expansion"`
+	IncludeDownloadableData bool   `json:"include_downloadable_data"`
+	CheckCost               bool   `json:"check_cost"`
+	Async                   bool   `json:"async"`
+	UploadOutputs           bool   `json:"upload_outputs"`
 }
 
 // PostV1InferencesOkJSONResponse defines a model
 type PostV1InferencesOkJSONResponse struct {
-	CreatedAt        int        `json:"created_at,omitzero"`
-	CreditCost       int        `json:"credit_cost,omitzero"`
+	CreatedAt        int        `json:"created_at"`
+	CreditCost       int        `json:"credit_cost"`
 	BalanceCost      float64    `json:"balance_cost"`
 	OutputImages     []struct{} `json:"output_images"`
 	Base64Images     []struct{} `json:"base64_images"`
 	OutputUrls       []struct{} `json:"output_urls"`
 	Model            string     `json:"model,omitzero"`
-	RemainingCredits int        `json:"remaining_credits,omitzero"`
+	RemainingCredits int        `json:"remaining_credits"`
 	RemainingBalance float64    `json:"remaining_balance"`
 }
