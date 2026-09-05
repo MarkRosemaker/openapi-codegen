@@ -78,8 +78,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /api/xbrl/companyfacts/CIK{cik}.json
-func (c *Client) ListAPIXbrlCompanyfactsCikCikJSON(ctx context.Context, cik string) (*ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse, error) {
-	return c.ListAPIXbrlCompanyfactsCikCikJSONWithResult[ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse](ctx, cik)
+func (c *Client) ListAPIXbrlCompanyfactsCikCikJSON(ctx context.Context, cik string) (*ListAPIXbrlCompanyfactsCikCikJSONOk, error) {
+	return c.ListAPIXbrlCompanyfactsCikCikJSONWithResult[ListAPIXbrlCompanyfactsCikCikJSONOk](ctx, cik)
 }
 
 // GET /api/xbrl/companyfacts/CIK{cik}.json
@@ -136,8 +136,8 @@ func (c *Client) ListAPIXbrlCompanyfactsCikCikJSONWithResult[R any](ctx context.
 }
 
 // GET /files/company_tickers.json
-func (c *Client) ListFilesCompanyTickersJSON(ctx context.Context) (*ListFilesCompanyTickersJSONOkJSONResponse, error) {
-	return c.ListFilesCompanyTickersJSONWithResult[ListFilesCompanyTickersJSONOkJSONResponse](ctx)
+func (c *Client) ListFilesCompanyTickersJSON(ctx context.Context) (*ListFilesCompanyTickersJSONOk, error) {
+	return c.ListFilesCompanyTickersJSONWithResult[ListFilesCompanyTickersJSONOk](ctx)
 }
 
 // GET /files/company_tickers.json

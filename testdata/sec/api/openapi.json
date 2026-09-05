@@ -46,7 +46,7 @@
   },
   "components": {
     "schemas": {
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOk": {
         "type": "object",
         "properties": {
           "cik": {
@@ -58,7 +58,7 @@
             "example": "Apple Inc."
           },
           "facts": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFacts"
           }
         },
         "required": [
@@ -67,17 +67,17 @@
           "facts"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFacts": {
         "type": "object",
         "properties": {
           "dei": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei"
           },
           "us-gaap": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap"
           },
           "ecd": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd"
           }
         },
         "required": [
@@ -85,7 +85,7 @@
           "us-gaap"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei": {
         "type": "object",
         "properties": {
           "EntityCommonStockSharesOutstanding": {
@@ -100,11 +100,11 @@
           "EntityPublicFloat"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd": {
         "type": "object",
         "properties": {
           "CoSelectedMeasureAmt": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt"
           },
           "NonPeoNeoAvgCompActuallyPaidAmt": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt"
@@ -135,7 +135,7 @@
           "TotalShareholderRtnAmt"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt": {
         "type": "object",
         "properties": {
           "label": {
@@ -147,7 +147,7 @@
             "example": ""
           },
           "units": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits"
           }
         },
         "required": [
@@ -156,7 +156,7 @@
           "units"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits": {
         "type": "object",
         "properties": {
           "pure": {
@@ -167,7 +167,7 @@
           "pure"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap": {
         "type": "object",
         "properties": {
           "AccountsPayable": {
@@ -1032,7 +1032,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "NumberOfStores": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores"
           },
           "OciBeforeReclassificationsBeforeTaxAttributableToParent": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -2981,7 +2981,7 @@
           "SellingAndMarketingExpense"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores": {
         "type": "object",
         "properties": {
           "label": {
@@ -2993,7 +2993,7 @@
             "example": "Represents the number of stores."
           },
           "units": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits"
           }
         },
         "required": [
@@ -3002,7 +3002,7 @@
           "units"
         ]
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits": {
         "type": "object",
         "properties": {
           "Store": {
@@ -3399,13 +3399,13 @@
           "Year"
         ]
       },
-      "ListFilesCompanyTickersJSONOkJSONResponse": {
+      "ListFilesCompanyTickersJSONOk": {
         "type": "object",
         "additionalProperties": {
-          "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkJSONResponseValue"
+          "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkValue"
         }
       },
-      "ListFilesCompanyTickersJSONOkJSONResponseValue": {
+      "ListFilesCompanyTickersJSONOkValue": {
         "type": "object",
         "properties": {
           "cik_str": {
@@ -3440,7 +3440,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse"
+              "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOk"
             }
           }
         }
@@ -3450,7 +3450,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkJSONResponse"
+              "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOk"
             }
           }
         }

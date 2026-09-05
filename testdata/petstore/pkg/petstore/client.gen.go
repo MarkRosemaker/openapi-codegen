@@ -66,8 +66,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /
-func (c *Client) ListV1Pets(ctx context.Context) (*ListV1PetsOkJSONResponse, error) {
-	return c.ListV1PetsWithResult[ListV1PetsOkJSONResponse](ctx)
+func (c *Client) ListV1Pets(ctx context.Context) (*ListV1PetsOk, error) {
+	return c.ListV1PetsWithResult[ListV1PetsOk](ctx)
 }
 
 // GET /

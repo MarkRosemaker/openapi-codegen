@@ -21,8 +21,8 @@ var jsonOpts = json.JoinOptions(
 	)),
 )
 
-// GetApiapiByApiidOkJSONResponse defines a model
-type GetApiapiByApiidOkJSONResponse struct {
+// GetApiapiByApiidOk defines a model
+type GetApiapiByApiidOk struct {
 	ID            int     `json:"id"`
 	Emoji         string  `json:"emoji,omitzero"`
 	Title         string  `json:"title,omitzero"`

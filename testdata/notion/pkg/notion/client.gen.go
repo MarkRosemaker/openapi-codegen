@@ -86,8 +86,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /pages/{pageId}
-func (c *Client) GetV1PageByPageID(ctx context.Context, pageID string) (*GetV1PageByPageIDOkJSONResponse, error) {
-	return c.GetV1PageByPageIDWithResult[GetV1PageByPageIDOkJSONResponse](ctx, pageID)
+func (c *Client) GetV1PageByPageID(ctx context.Context, pageID string) (*GetV1PageByPageIDOk, error) {
+	return c.GetV1PageByPageIDWithResult[GetV1PageByPageIDOk](ctx, pageID)
 }
 
 // GET /pages/{pageId}
@@ -133,8 +133,8 @@ func (c *Client) GetV1PageByPageIDWithResult[R any](ctx context.Context, pageID 
 }
 
 // GET /blocks/{blockId}/children
-func (c *Client) ListV1BlockChildren(ctx context.Context, blockID string, params *ListV1BlockChildrenParams) (*ListV1BlockChildrenOkJSONResponse, error) {
-	return c.ListV1BlockChildrenWithResult[ListV1BlockChildrenOkJSONResponse](ctx, blockID, params)
+func (c *Client) ListV1BlockChildren(ctx context.Context, blockID string, params *ListV1BlockChildrenParams) (*ListV1BlockChildrenOk, error) {
+	return c.ListV1BlockChildrenWithResult[ListV1BlockChildrenOk](ctx, blockID, params)
 }
 
 // GET /blocks/{blockId}/children

@@ -516,8 +516,8 @@ func TestClient_Interactions(t *testing.T) {
 		XAPIUser: uuid.MustParse("00000000-0000-0000-0000-000000000000"),
 	}); err == nil {
 		t.Fatal("PostApiv3TaskScoreUp: expected error")
-	} else if _, ok := errors.AsType[*PostApiv3TaskScoreUpNotFoundJSONResponse](err); !ok {
-		t.Fatalf("PostApiv3TaskScoreUp: got: %T, want: *PostApiv3TaskScoreUpNotFoundJSONResponse", err)
+	} else if _, ok := errors.AsType[*PostApiv3TaskScoreUpNotFound](err); !ok {
+		t.Fatalf("PostApiv3TaskScoreUp: got: %T, want: *PostApiv3TaskScoreUpNotFound", err)
 	}
 
 	if _, err := c.PostApiv3TaskScoreUp(ctx, "488a92c0-164c-445a-be31-1bcb1b04ab04", PostApiv3TaskScoreUpParams{

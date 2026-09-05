@@ -8,7 +8,7 @@ package habitica
 
 import "fmt"
 
-func (e *PostApiv3TaskScoreUpNotFoundJSONResponse) Error() string {
+func (e *PostApiv3TaskScoreUpNotFound) Error() string {
 	if e.Message == "" {
 		return e.Err
 	}

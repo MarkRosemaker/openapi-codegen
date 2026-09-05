@@ -24,20 +24,20 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListV1APITickleOkJSONResponse"
+						"name": "ListV1APITickleOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListV1APITickleOkJSONResponse"
+				"name": "ListV1APITickleOk"
 			}
 		}
 	],
 	"schemas": [
 		{
-			"name": "ListV1APITickleOkJSONResponse",
-			"description": "ListV1APITickleOkJSONResponse defines a model",
+			"name": "ListV1APITickleOk",
+			"description": "ListV1APITickleOk defines a model",
 			"fields": [
 				{
 					"name": "Session",
@@ -70,22 +70,22 @@
 				{
 					"name": "Hmds",
 					"jsonName": "hmds",
-					"type": "ListV1APITickleOkJSONResponseHmds",
+					"type": "ListV1APITickleOkHmds",
 					"jsonTag": "json:\"hmds\"",
 					"required": true
 				},
 				{
 					"name": "Iserver",
 					"jsonName": "iserver",
-					"type": "ListV1APITickleOkJSONResponseIserver",
+					"type": "ListV1APITickleOkIserver",
 					"jsonTag": "json:\"iserver\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListV1APITickleOkJSONResponseHmds",
-			"description": "ListV1APITickleOkJSONResponseHmds defines a model",
+			"name": "ListV1APITickleOkHmds",
+			"description": "ListV1APITickleOkHmds defines a model",
 			"fields": [
 				{
 					"name": "Err",
@@ -97,21 +97,21 @@
 			]
 		},
 		{
-			"name": "ListV1APITickleOkJSONResponseIserver",
-			"description": "ListV1APITickleOkJSONResponseIserver defines a model",
+			"name": "ListV1APITickleOkIserver",
+			"description": "ListV1APITickleOkIserver defines a model",
 			"fields": [
 				{
 					"name": "AuthStatus",
 					"jsonName": "authStatus",
-					"type": "ListV1APITickleOkJSONResponseIserverAuthStatus",
+					"type": "ListV1APITickleOkIserverAuthStatus",
 					"jsonTag": "json:\"authStatus\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListV1APITickleOkJSONResponseIserverAuthStatus",
-			"description": "ListV1APITickleOkJSONResponseIserverAuthStatus defines a model",
+			"name": "ListV1APITickleOkIserverAuthStatus",
+			"description": "ListV1APITickleOkIserverAuthStatus defines a model",
 			"fields": [
 				{
 					"name": "Authenticated",
@@ -158,7 +158,7 @@
 				{
 					"name": "ServerInfo",
 					"jsonName": "serverInfo",
-					"type": "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo",
+					"type": "ListV1APITickleOkIserverAuthStatusServerInfo",
 					"jsonTag": "json:\"serverInfo\"",
 					"required": true
 				},
@@ -172,8 +172,8 @@
 			]
 		},
 		{
-			"name": "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo",
-			"description": "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo defines a model",
+			"name": "ListV1APITickleOkIserverAuthStatusServerInfo",
+			"description": "ListV1APITickleOkIserverAuthStatusServerInfo defines a model",
 			"fields": [
 				{
 					"name": "ServerName",

@@ -28,7 +28,7 @@
   },
   "components": {
     "schemas": {
-      "GetApiapiByApiidOkJSONResponse": {
+      "GetApiapiByApiidOk": {
         "type": "object",
         "properties": {
           "id": {
@@ -84,7 +84,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/GetApiapiByApiidOkJSONResponse"
+              "$ref": "#/components/schemas/GetApiapiByApiidOk"
             }
           }
         }

@@ -37,13 +37,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListApiv3TasksUserOkJSONResponse"
+						"name": "ListApiv3TasksUserOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListApiv3TasksUserOkJSONResponse"
+				"name": "ListApiv3TasksUserOk"
 			}
 		},
 		{
@@ -86,13 +86,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GetApiv3TaskByTaskIDOkJSONResponse"
+						"name": "GetApiv3TaskByTaskIDOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "GetApiv3TaskByTaskIDOkJSONResponse"
+				"name": "GetApiv3TaskByTaskIDOk"
 			}
 		},
 		{
@@ -122,13 +122,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListApiv3UserOkJSONResponse"
+						"name": "ListApiv3UserOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListApiv3UserOkJSONResponse"
+				"name": "ListApiv3UserOk"
 			}
 		},
 		{
@@ -173,7 +173,7 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PostApiv3TaskScoreUpOkJSONResponse"
+						"name": "PostApiv3TaskScoreUpOk"
 					},
 					"isSuccess": true
 				},
@@ -183,12 +183,12 @@
 					"description": "Not Found",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PostApiv3TaskScoreUpNotFoundJSONResponse"
+						"name": "PostApiv3TaskScoreUpNotFound"
 					}
 				}
 			],
 			"successReturn": {
-				"name": "PostApiv3TaskScoreUpOkJSONResponse"
+				"name": "PostApiv3TaskScoreUpOk"
 			}
 		}
 	],
@@ -265,8 +265,8 @@
 			]
 		},
 		{
-			"name": "GetApiv3TaskByTaskIDOkJSONResponse",
-			"description": "GetApiv3TaskByTaskIDOkJSONResponse defines a model",
+			"name": "GetApiv3TaskByTaskIDOk",
+			"description": "GetApiv3TaskByTaskIDOk defines a model",
 			"fields": [
 				{
 					"name": "Success",
@@ -278,7 +278,7 @@
 				{
 					"name": "Data",
 					"jsonName": "data",
-					"type": "GetApiv3TaskByTaskIDOkJSONResponseData",
+					"type": "GetApiv3TaskByTaskIDOkData",
 					"jsonTag": "json:\"data\"",
 					"required": true
 				},
@@ -292,8 +292,8 @@
 			]
 		},
 		{
-			"name": "GetApiv3TaskByTaskIDOkJSONResponseData",
-			"description": "GetApiv3TaskByTaskIDOkJSONResponseData defines a model",
+			"name": "GetApiv3TaskByTaskIDOkData",
+			"description": "GetApiv3TaskByTaskIDOkData defines a model",
 			"fields": [
 				{
 					"name": "UnderscoreID",
@@ -368,7 +368,7 @@
 				{
 					"name": "Challenge",
 					"jsonName": "challenge",
-					"type": "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge",
+					"type": "GetApiv3TaskByTaskIDOkDataChallenge",
 					"jsonTag": "json:\"challenge\"",
 					"required": true
 				},
@@ -403,7 +403,7 @@
 				{
 					"name": "History",
 					"jsonName": "history",
-					"type": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory",
+					"type": "GetApiv3TaskByTaskIDOkDataHistory",
 					"jsonTag": "json:\"history\"",
 					"required": true
 				},
@@ -431,8 +431,8 @@
 			]
 		},
 		{
-			"name": "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge",
-			"description": "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge defines a model",
+			"name": "GetApiv3TaskByTaskIDOkDataChallenge",
+			"description": "GetApiv3TaskByTaskIDOkDataChallenge defines a model",
 			"fields": [
 				{
 					"name": "TaskID",
@@ -451,14 +451,14 @@
 			]
 		},
 		{
-			"name": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory",
-			"description": "GetApiv3TaskByTaskIDOkJSONResponseDataHistory defines a model",
+			"name": "GetApiv3TaskByTaskIDOkDataHistory",
+			"description": "GetApiv3TaskByTaskIDOkDataHistory defines a model",
 			"kind": 2,
-			"type": "[]GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem"
+			"type": "[]GetApiv3TaskByTaskIDOkDataHistoryItem"
 		},
 		{
-			"name": "GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem",
-			"description": "GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem defines a model",
+			"name": "GetApiv3TaskByTaskIDOkDataHistoryItem",
+			"description": "GetApiv3TaskByTaskIDOkDataHistoryItem defines a model",
 			"fields": [
 				{
 					"name": "Value",
@@ -477,8 +477,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3TasksUserOkJSONResponse",
-			"description": "ListApiv3TasksUserOkJSONResponse defines a model",
+			"name": "ListApiv3TasksUserOk",
+			"description": "ListApiv3TasksUserOk defines a model",
 			"fields": [
 				{
 					"name": "Success",
@@ -490,7 +490,7 @@
 				{
 					"name": "Data",
 					"jsonName": "data",
-					"type": "ListApiv3TasksUserOkJSONResponseData",
+					"type": "ListApiv3TasksUserOkData",
 					"jsonTag": "json:\"data\"",
 					"required": true
 				},
@@ -504,14 +504,14 @@
 			]
 		},
 		{
-			"name": "ListApiv3TasksUserOkJSONResponseData",
-			"description": "ListApiv3TasksUserOkJSONResponseData defines a model",
+			"name": "ListApiv3TasksUserOkData",
+			"description": "ListApiv3TasksUserOkData defines a model",
 			"kind": 2,
-			"type": "[]ListApiv3TasksUserOkJSONResponseDataItem"
+			"type": "[]ListApiv3TasksUserOkDataItem"
 		},
 		{
-			"name": "ListApiv3TasksUserOkJSONResponseDataItem",
-			"description": "ListApiv3TasksUserOkJSONResponseDataItem defines a model",
+			"name": "ListApiv3TasksUserOkDataItem",
+			"description": "ListApiv3TasksUserOkDataItem defines a model",
 			"fields": [
 				{
 					"name": "UnderscoreID",
@@ -593,7 +593,7 @@
 				{
 					"name": "Reminders",
 					"jsonName": "reminders",
-					"type": "ListApiv3TasksUserOkJSONResponseDataItemReminders",
+					"type": "ListApiv3TasksUserOkDataItemReminders",
 					"jsonTag": "json:\"reminders\"",
 					"required": true
 				},
@@ -657,7 +657,7 @@
 				{
 					"name": "Repeat",
 					"jsonName": "repeat",
-					"type": "*ListApiv3TasksUserOkJSONResponseDataItemRepeat",
+					"type": "*ListApiv3TasksUserOkDataItemRepeat",
 					"jsonTag": "json:\"repeat,omitempty\""
 				},
 				{
@@ -681,14 +681,14 @@
 			]
 		},
 		{
-			"name": "ListApiv3TasksUserOkJSONResponseDataItemReminders",
-			"description": "ListApiv3TasksUserOkJSONResponseDataItemReminders defines a model",
+			"name": "ListApiv3TasksUserOkDataItemReminders",
+			"description": "ListApiv3TasksUserOkDataItemReminders defines a model",
 			"kind": 2,
-			"type": "[]ListApiv3TasksUserOkJSONResponseDataItemRemindersItem"
+			"type": "[]ListApiv3TasksUserOkDataItemRemindersItem"
 		},
 		{
-			"name": "ListApiv3TasksUserOkJSONResponseDataItemRemindersItem",
-			"description": "ListApiv3TasksUserOkJSONResponseDataItemRemindersItem defines a model",
+			"name": "ListApiv3TasksUserOkDataItemRemindersItem",
+			"description": "ListApiv3TasksUserOkDataItemRemindersItem defines a model",
 			"fields": [
 				{
 					"name": "Time",
@@ -711,8 +711,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3TasksUserOkJSONResponseDataItemRepeat",
-			"description": "ListApiv3TasksUserOkJSONResponseDataItemRepeat defines a model",
+			"name": "ListApiv3TasksUserOkDataItemRepeat",
+			"description": "ListApiv3TasksUserOkDataItemRepeat defines a model",
 			"fields": [
 				{
 					"name": "Su",
@@ -766,8 +766,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponse",
-			"description": "ListApiv3UserOkJSONResponse defines a model",
+			"name": "ListApiv3UserOk",
+			"description": "ListApiv3UserOk defines a model",
 			"fields": [
 				{
 					"name": "Success",
@@ -779,7 +779,7 @@
 				{
 					"name": "Data",
 					"jsonName": "data",
-					"type": "ListApiv3UserOkJSONResponseData",
+					"type": "ListApiv3UserOkData",
 					"jsonTag": "json:\"data\"",
 					"required": true
 				},
@@ -807,20 +807,20 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseData",
-			"description": "ListApiv3UserOkJSONResponseData defines a model",
+			"name": "ListApiv3UserOkData",
+			"description": "ListApiv3UserOkData defines a model",
 			"fields": [
 				{
 					"name": "Auth",
 					"jsonName": "auth",
-					"type": "ListApiv3UserOkJSONResponseDataAuth",
+					"type": "ListApiv3UserOkDataAuth",
 					"jsonTag": "json:\"auth\"",
 					"required": true
 				},
 				{
 					"name": "Achievements",
 					"jsonName": "achievements",
-					"type": "ListApiv3UserOkJSONResponseDataAchievements",
+					"type": "ListApiv3UserOkDataAchievements",
 					"jsonTag": "json:\"achievements\"",
 					"required": true
 				},
@@ -848,77 +848,77 @@
 				{
 					"name": "Purchased",
 					"jsonName": "purchased",
-					"type": "ListApiv3UserOkJSONResponseDataPurchased",
+					"type": "ListApiv3UserOkDataPurchased",
 					"jsonTag": "json:\"purchased\"",
 					"required": true
 				},
 				{
 					"name": "Flags",
 					"jsonName": "flags",
-					"type": "ListApiv3UserOkJSONResponseDataFlags",
+					"type": "ListApiv3UserOkDataFlags",
 					"jsonTag": "json:\"flags\"",
 					"required": true
 				},
 				{
 					"name": "History",
 					"jsonName": "history",
-					"type": "ListApiv3UserOkJSONResponseDataHistory",
+					"type": "ListApiv3UserOkDataHistory",
 					"jsonTag": "json:\"history\"",
 					"required": true
 				},
 				{
 					"name": "Items",
 					"jsonName": "items",
-					"type": "ListApiv3UserOkJSONResponseDataItems",
+					"type": "ListApiv3UserOkDataItems",
 					"jsonTag": "json:\"items\"",
 					"required": true
 				},
 				{
 					"name": "Invitations",
 					"jsonName": "invitations",
-					"type": "ListApiv3UserOkJSONResponseDataInvitations",
+					"type": "ListApiv3UserOkDataInvitations",
 					"jsonTag": "json:\"invitations\"",
 					"required": true
 				},
 				{
 					"name": "Party",
 					"jsonName": "party",
-					"type": "ListApiv3UserOkJSONResponseDataParty",
+					"type": "ListApiv3UserOkDataParty",
 					"jsonTag": "json:\"party\"",
 					"required": true
 				},
 				{
 					"name": "Preferences",
 					"jsonName": "preferences",
-					"type": "ListApiv3UserOkJSONResponseDataPreferences",
+					"type": "ListApiv3UserOkDataPreferences",
 					"jsonTag": "json:\"preferences\"",
 					"required": true
 				},
 				{
 					"name": "Profile",
 					"jsonName": "profile",
-					"type": "ListApiv3UserOkJSONResponseDataProfile",
+					"type": "ListApiv3UserOkDataProfile",
 					"jsonTag": "json:\"profile\"",
 					"required": true
 				},
 				{
 					"name": "Stats",
 					"jsonName": "stats",
-					"type": "ListApiv3UserOkJSONResponseDataStats",
+					"type": "ListApiv3UserOkDataStats",
 					"jsonTag": "json:\"stats\"",
 					"required": true
 				},
 				{
 					"name": "Inbox",
 					"jsonName": "inbox",
-					"type": "ListApiv3UserOkJSONResponseDataInbox",
+					"type": "ListApiv3UserOkDataInbox",
 					"jsonTag": "json:\"inbox\"",
 					"required": true
 				},
 				{
 					"name": "TasksOrder",
 					"jsonName": "tasksOrder",
-					"type": "ListApiv3UserOkJSONResponseDataTasksOrder",
+					"type": "ListApiv3UserOkDataTasksOrder",
 					"jsonTag": "json:\"tasksOrder\"",
 					"required": true
 				},
@@ -953,7 +953,7 @@
 				{
 					"name": "PushDevices",
 					"jsonName": "pushDevices",
-					"type": "ListApiv3UserOkJSONResponseDataPushDevices",
+					"type": "ListApiv3UserOkDataPushDevices",
 					"jsonTag": "json:\"pushDevices\"",
 					"required": true
 				},
@@ -967,7 +967,7 @@
 				{
 					"name": "Tags",
 					"jsonName": "tags",
-					"type": "ListApiv3UserOkJSONResponseDataTags",
+					"type": "ListApiv3UserOkDataTags",
 					"jsonTag": "json:\"tags\"",
 					"required": true
 				},
@@ -1030,7 +1030,7 @@
 				{
 					"name": "PinnedItems",
 					"jsonName": "pinnedItems",
-					"type": "ListApiv3UserOkJSONResponseDataPinnedItems",
+					"type": "ListApiv3UserOkDataPinnedItems",
 					"jsonTag": "json:\"pinnedItems\"",
 					"required": true
 				},
@@ -1079,13 +1079,13 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAchievements",
-			"description": "ListApiv3UserOkJSONResponseDataAchievements defines a model",
+			"name": "ListApiv3UserOkDataAchievements",
+			"description": "ListApiv3UserOkDataAchievements defines a model",
 			"fields": [
 				{
 					"name": "UltimateGearSets",
 					"jsonName": "ultimateGearSets",
-					"type": "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets",
+					"type": "ListApiv3UserOkDataAchievementsUltimateGearSets",
 					"jsonTag": "json:\"ultimateGearSets\"",
 					"required": true
 				},
@@ -1099,7 +1099,7 @@
 				{
 					"name": "Quests",
 					"jsonName": "quests",
-					"type": "ListApiv3UserOkJSONResponseDataAchievementsQuests",
+					"type": "ListApiv3UserOkDataAchievementsQuests",
 					"jsonTag": "json:\"quests\"",
 					"required": true
 				},
@@ -1260,8 +1260,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAchievementsQuests",
-			"description": "ListApiv3UserOkJSONResponseDataAchievementsQuests defines a model",
+			"name": "ListApiv3UserOkDataAchievementsQuests",
+			"description": "ListApiv3UserOkDataAchievementsQuests defines a model",
 			"fields": [
 				{
 					"name": "Dustbunnies",
@@ -1343,8 +1343,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets",
-			"description": "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets defines a model",
+			"name": "ListApiv3UserOkDataAchievementsUltimateGearSets",
+			"description": "ListApiv3UserOkDataAchievementsUltimateGearSets defines a model",
 			"fields": [
 				{
 					"name": "Warrior",
@@ -1377,27 +1377,27 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAuth",
-			"description": "ListApiv3UserOkJSONResponseDataAuth defines a model",
+			"name": "ListApiv3UserOkDataAuth",
+			"description": "ListApiv3UserOkDataAuth defines a model",
 			"fields": [
 				{
 					"name": "Local",
 					"jsonName": "local",
-					"type": "ListApiv3UserOkJSONResponseDataAuthLocal",
+					"type": "ListApiv3UserOkDataAuthLocal",
 					"jsonTag": "json:\"local\"",
 					"required": true
 				},
 				{
 					"name": "Timestamps",
 					"jsonName": "timestamps",
-					"type": "ListApiv3UserOkJSONResponseDataAuthTimestamps",
+					"type": "ListApiv3UserOkDataAuthTimestamps",
 					"jsonTag": "json:\"timestamps\"",
 					"required": true
 				},
 				{
 					"name": "Google",
 					"jsonName": "google",
-					"type": "ListApiv3UserOkJSONResponseDataAuthGoogle",
+					"type": "ListApiv3UserOkDataAuthGoogle",
 					"jsonTag": "json:\"google\"",
 					"required": true
 				},
@@ -1418,8 +1418,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAuthGoogle",
-			"description": "ListApiv3UserOkJSONResponseDataAuthGoogle defines a model",
+			"name": "ListApiv3UserOkDataAuthGoogle",
+			"description": "ListApiv3UserOkDataAuthGoogle defines a model",
 			"fields": [
 				{
 					"name": "ID",
@@ -1431,21 +1431,21 @@
 				{
 					"name": "Emails",
 					"jsonName": "emails",
-					"type": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails",
+					"type": "ListApiv3UserOkDataAuthGoogleEmails",
 					"jsonTag": "json:\"emails\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails",
-			"description": "ListApiv3UserOkJSONResponseDataAuthGoogleEmails defines a model",
+			"name": "ListApiv3UserOkDataAuthGoogleEmails",
+			"description": "ListApiv3UserOkDataAuthGoogleEmails defines a model",
 			"kind": 2,
-			"type": "[]ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem"
+			"type": "[]ListApiv3UserOkDataAuthGoogleEmailsItem"
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem",
-			"description": "ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem defines a model",
+			"name": "ListApiv3UserOkDataAuthGoogleEmailsItem",
+			"description": "ListApiv3UserOkDataAuthGoogleEmailsItem defines a model",
 			"fields": [
 				{
 					"name": "Value",
@@ -1464,8 +1464,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAuthLocal",
-			"description": "ListApiv3UserOkJSONResponseDataAuthLocal defines a model",
+			"name": "ListApiv3UserOkDataAuthLocal",
+			"description": "ListApiv3UserOkDataAuthLocal defines a model",
 			"fields": [
 				{
 					"name": "Username",
@@ -1498,8 +1498,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataAuthTimestamps",
-			"description": "ListApiv3UserOkJSONResponseDataAuthTimestamps defines a model",
+			"name": "ListApiv3UserOkDataAuthTimestamps",
+			"description": "ListApiv3UserOkDataAuthTimestamps defines a model",
 			"fields": [
 				{
 					"name": "Loggedin",
@@ -1525,20 +1525,20 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataFlags",
-			"description": "ListApiv3UserOkJSONResponseDataFlags defines a model",
+			"name": "ListApiv3UserOkDataFlags",
+			"description": "ListApiv3UserOkDataFlags defines a model",
 			"fields": [
 				{
 					"name": "Tour",
 					"jsonName": "tour",
-					"type": "ListApiv3UserOkJSONResponseDataFlagsTour",
+					"type": "ListApiv3UserOkDataFlagsTour",
 					"jsonTag": "json:\"tour\"",
 					"required": true
 				},
 				{
 					"name": "Tutorial",
 					"jsonName": "tutorial",
-					"type": "ListApiv3UserOkJSONResponseDataFlagsTutorial",
+					"type": "ListApiv3UserOkDataFlagsTutorial",
 					"jsonTag": "json:\"tutorial\"",
 					"required": true
 				},
@@ -1678,7 +1678,7 @@
 				{
 					"name": "LevelDrops",
 					"jsonName": "levelDrops",
-					"type": "ListApiv3UserOkJSONResponseDataFlagsLevelDrops",
+					"type": "ListApiv3UserOkDataFlagsLevelDrops",
 					"jsonTag": "json:\"levelDrops\"",
 					"required": true
 				},
@@ -1713,8 +1713,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataFlagsLevelDrops",
-			"description": "ListApiv3UserOkJSONResponseDataFlagsLevelDrops defines a model",
+			"name": "ListApiv3UserOkDataFlagsLevelDrops",
+			"description": "ListApiv3UserOkDataFlagsLevelDrops defines a model",
 			"fields": [
 				{
 					"name": "Atom1",
@@ -1747,8 +1747,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataFlagsTour",
-			"description": "ListApiv3UserOkJSONResponseDataFlagsTour defines a model",
+			"name": "ListApiv3UserOkDataFlagsTour",
+			"description": "ListApiv3UserOkDataFlagsTour defines a model",
 			"fields": [
 				{
 					"name": "Intro",
@@ -1844,28 +1844,28 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataFlagsTutorial",
-			"description": "ListApiv3UserOkJSONResponseDataFlagsTutorial defines a model",
+			"name": "ListApiv3UserOkDataFlagsTutorial",
+			"description": "ListApiv3UserOkDataFlagsTutorial defines a model",
 			"fields": [
 				{
 					"name": "Common",
 					"jsonName": "common",
-					"type": "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon",
+					"type": "ListApiv3UserOkDataFlagsTutorialCommon",
 					"jsonTag": "json:\"common\"",
 					"required": true
 				},
 				{
 					"name": "Ios",
 					"jsonName": "ios",
-					"type": "ListApiv3UserOkJSONResponseDataFlagsTutorialIos",
+					"type": "ListApiv3UserOkDataFlagsTutorialIos",
 					"jsonTag": "json:\"ios\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon",
-			"description": "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon defines a model",
+			"name": "ListApiv3UserOkDataFlagsTutorialCommon",
+			"description": "ListApiv3UserOkDataFlagsTutorialCommon defines a model",
 			"fields": [
 				{
 					"name": "Habits",
@@ -1975,8 +1975,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataFlagsTutorialIos",
-			"description": "ListApiv3UserOkJSONResponseDataFlagsTutorialIos defines a model",
+			"name": "ListApiv3UserOkDataFlagsTutorialIos",
+			"description": "ListApiv3UserOkDataFlagsTutorialIos defines a model",
 			"fields": [
 				{
 					"name": "AddTask",
@@ -2030,8 +2030,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataHistory",
-			"description": "ListApiv3UserOkJSONResponseDataHistory defines a model",
+			"name": "ListApiv3UserOkDataHistory",
+			"description": "ListApiv3UserOkDataHistory defines a model",
 			"fields": [
 				{
 					"name": "Todos",
@@ -2050,8 +2050,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataInbox",
-			"description": "ListApiv3UserOkJSONResponseDataInbox defines a model",
+			"name": "ListApiv3UserOkDataInbox",
+			"description": "ListApiv3UserOkDataInbox defines a model",
 			"fields": [
 				{
 					"name": "OptOut",
@@ -2063,7 +2063,7 @@
 				{
 					"name": "Messages",
 					"jsonName": "messages",
-					"type": "ListApiv3UserOkJSONResponseDataInboxMessages",
+					"type": "ListApiv3UserOkDataInboxMessages",
 					"jsonTag": "json:\"messages\"",
 					"required": true
 				},
@@ -2084,8 +2084,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataInboxMessages",
-			"description": "ListApiv3UserOkJSONResponseDataInboxMessages defines a model",
+			"name": "ListApiv3UserOkDataInboxMessages",
+			"description": "ListApiv3UserOkDataInboxMessages defines a model",
 			"fields": [
 				{
 					"name": "EightSixThreeSixThreeB9cF1c4400787f9607d399af305",
@@ -2125,8 +2125,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataInvitations",
-			"description": "ListApiv3UserOkJSONResponseDataInvitations defines a model",
+			"name": "ListApiv3UserOkDataInvitations",
+			"description": "ListApiv3UserOkDataInvitations defines a model",
 			"fields": [
 				{
 					"name": "Party",
@@ -2152,69 +2152,69 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItems",
-			"description": "ListApiv3UserOkJSONResponseDataItems defines a model",
+			"name": "ListApiv3UserOkDataItems",
+			"description": "ListApiv3UserOkDataItems defines a model",
 			"fields": [
 				{
 					"name": "Gear",
 					"jsonName": "gear",
-					"type": "ListApiv3UserOkJSONResponseDataItemsGear",
+					"type": "ListApiv3UserOkDataItemsGear",
 					"jsonTag": "json:\"gear\"",
 					"required": true
 				},
 				{
 					"name": "Special",
 					"jsonName": "special",
-					"type": "ListApiv3UserOkJSONResponseDataItemsSpecial",
+					"type": "ListApiv3UserOkDataItemsSpecial",
 					"jsonTag": "json:\"special\"",
 					"required": true
 				},
 				{
 					"name": "LastDrop",
 					"jsonName": "lastDrop",
-					"type": "ListApiv3UserOkJSONResponseDataItemsLastDrop",
+					"type": "ListApiv3UserOkDataItemsLastDrop",
 					"jsonTag": "json:\"lastDrop\"",
 					"required": true
 				},
 				{
 					"name": "Quests",
 					"jsonName": "quests",
-					"type": "ListApiv3UserOkJSONResponseDataItemsQuests",
+					"type": "ListApiv3UserOkDataItemsQuests",
 					"jsonTag": "json:\"quests\"",
 					"required": true
 				},
 				{
 					"name": "Mounts",
 					"jsonName": "mounts",
-					"type": "ListApiv3UserOkJSONResponseDataItemsMounts",
+					"type": "ListApiv3UserOkDataItemsMounts",
 					"jsonTag": "json:\"mounts\"",
 					"required": true
 				},
 				{
 					"name": "Food",
 					"jsonName": "food",
-					"type": "ListApiv3UserOkJSONResponseDataItemsFood",
+					"type": "ListApiv3UserOkDataItemsFood",
 					"jsonTag": "json:\"food\"",
 					"required": true
 				},
 				{
 					"name": "HatchingPotions",
 					"jsonName": "hatchingPotions",
-					"type": "ListApiv3UserOkJSONResponseDataItemsHatchingPotions",
+					"type": "ListApiv3UserOkDataItemsHatchingPotions",
 					"jsonTag": "json:\"hatchingPotions\"",
 					"required": true
 				},
 				{
 					"name": "Eggs",
 					"jsonName": "eggs",
-					"type": "ListApiv3UserOkJSONResponseDataItemsEggs",
+					"type": "ListApiv3UserOkDataItemsEggs",
 					"jsonTag": "json:\"eggs\"",
 					"required": true
 				},
 				{
 					"name": "Pets",
 					"jsonName": "pets",
-					"type": "ListApiv3UserOkJSONResponseDataItemsPets",
+					"type": "ListApiv3UserOkDataItemsPets",
 					"jsonTag": "json:\"pets\"",
 					"required": true
 				},
@@ -2235,8 +2235,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsEggs",
-			"description": "ListApiv3UserOkJSONResponseDataItemsEggs defines a model",
+			"name": "ListApiv3UserOkDataItemsEggs",
+			"description": "ListApiv3UserOkDataItemsEggs defines a model",
 			"fields": [
 				{
 					"name": "Wolf",
@@ -2304,8 +2304,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsFood",
-			"description": "ListApiv3UserOkJSONResponseDataItemsFood defines a model",
+			"name": "ListApiv3UserOkDataItemsFood",
+			"description": "ListApiv3UserOkDataItemsFood defines a model",
 			"fields": [
 				{
 					"name": "Potatoe",
@@ -2597,35 +2597,35 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsGear",
-			"description": "ListApiv3UserOkJSONResponseDataItemsGear defines a model",
+			"name": "ListApiv3UserOkDataItemsGear",
+			"description": "ListApiv3UserOkDataItemsGear defines a model",
 			"fields": [
 				{
 					"name": "Equipped",
 					"jsonName": "equipped",
-					"type": "ListApiv3UserOkJSONResponseDataItemsGearEquipped",
+					"type": "ListApiv3UserOkDataItemsGearEquipped",
 					"jsonTag": "json:\"equipped\"",
 					"required": true
 				},
 				{
 					"name": "Costume",
 					"jsonName": "costume",
-					"type": "ListApiv3UserOkJSONResponseDataItemsGearCostume",
+					"type": "ListApiv3UserOkDataItemsGearCostume",
 					"jsonTag": "json:\"costume\"",
 					"required": true
 				},
 				{
 					"name": "Owned",
 					"jsonName": "owned",
-					"type": "ListApiv3UserOkJSONResponseDataItemsGearOwned",
+					"type": "ListApiv3UserOkDataItemsGearOwned",
 					"jsonTag": "json:\"owned\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsGearCostume",
-			"description": "ListApiv3UserOkJSONResponseDataItemsGearCostume defines a model",
+			"name": "ListApiv3UserOkDataItemsGearCostume",
+			"description": "ListApiv3UserOkDataItemsGearCostume defines a model",
 			"fields": [
 				{
 					"name": "Shield",
@@ -2651,8 +2651,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsGearEquipped",
-			"description": "ListApiv3UserOkJSONResponseDataItemsGearEquipped defines a model",
+			"name": "ListApiv3UserOkDataItemsGearEquipped",
+			"description": "ListApiv3UserOkDataItemsGearEquipped defines a model",
 			"fields": [
 				{
 					"name": "Weapon",
@@ -2706,8 +2706,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsGearOwned",
-			"description": "ListApiv3UserOkJSONResponseDataItemsGearOwned defines a model",
+			"name": "ListApiv3UserOkDataItemsGearOwned",
+			"description": "ListApiv3UserOkDataItemsGearOwned defines a model",
 			"fields": [
 				{
 					"name": "EyewearSpecialYellowTopFrame",
@@ -3601,8 +3601,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsHatchingPotions",
-			"description": "ListApiv3UserOkJSONResponseDataItemsHatchingPotions defines a model",
+			"name": "ListApiv3UserOkDataItemsHatchingPotions",
+			"description": "ListApiv3UserOkDataItemsHatchingPotions defines a model",
 			"fields": [
 				{
 					"name": "RoyalPurple",
@@ -3684,8 +3684,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsLastDrop",
-			"description": "ListApiv3UserOkJSONResponseDataItemsLastDrop defines a model",
+			"name": "ListApiv3UserOkDataItemsLastDrop",
+			"description": "ListApiv3UserOkDataItemsLastDrop defines a model",
 			"fields": [
 				{
 					"name": "Count",
@@ -3704,8 +3704,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsMounts",
-			"description": "ListApiv3UserOkJSONResponseDataItemsMounts defines a model",
+			"name": "ListApiv3UserOkDataItemsMounts",
+			"description": "ListApiv3UserOkDataItemsMounts defines a model",
 			"fields": [
 				{
 					"name": "WolfRoyalPurple",
@@ -4270,8 +4270,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsPets",
-			"description": "ListApiv3UserOkJSONResponseDataItemsPets defines a model",
+			"name": "ListApiv3UserOkDataItemsPets",
+			"description": "ListApiv3UserOkDataItemsPets defines a model",
 			"fields": [
 				{
 					"name": "WolfRoyalPurple",
@@ -5039,8 +5039,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsQuests",
-			"description": "ListApiv3UserOkJSONResponseDataItemsQuests defines a model",
+			"name": "ListApiv3UserOkDataItemsQuests",
+			"description": "ListApiv3UserOkDataItemsQuests defines a model",
 			"fields": [
 				{
 					"name": "Dustbunnies",
@@ -5143,8 +5143,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataItemsSpecial",
-			"description": "ListApiv3UserOkJSONResponseDataItemsSpecial defines a model",
+			"name": "ListApiv3UserOkDataItemsSpecial",
+			"description": "ListApiv3UserOkDataItemsSpecial defines a model",
 			"fields": [
 				{
 					"name": "BirthdayReceived",
@@ -5289,13 +5289,13 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataParty",
-			"description": "ListApiv3UserOkJSONResponseDataParty defines a model",
+			"name": "ListApiv3UserOkDataParty",
+			"description": "ListApiv3UserOkDataParty defines a model",
 			"fields": [
 				{
 					"name": "Quest",
 					"jsonName": "quest",
-					"type": "ListApiv3UserOkJSONResponseDataPartyQuest",
+					"type": "ListApiv3UserOkDataPartyQuest",
 					"jsonTag": "json:\"quest\"",
 					"required": true
 				},
@@ -5323,13 +5323,13 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPartyQuest",
-			"description": "ListApiv3UserOkJSONResponseDataPartyQuest defines a model",
+			"name": "ListApiv3UserOkDataPartyQuest",
+			"description": "ListApiv3UserOkDataPartyQuest defines a model",
 			"fields": [
 				{
 					"name": "Progress",
 					"jsonName": "progress",
-					"type": "ListApiv3UserOkJSONResponseDataPartyQuestProgress",
+					"type": "ListApiv3UserOkDataPartyQuestProgress",
 					"jsonTag": "json:\"progress\"",
 					"required": true
 				},
@@ -5343,8 +5343,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPartyQuestProgress",
-			"description": "ListApiv3UserOkJSONResponseDataPartyQuestProgress defines a model",
+			"name": "ListApiv3UserOkDataPartyQuestProgress",
+			"description": "ListApiv3UserOkDataPartyQuestProgress defines a model",
 			"fields": [
 				{
 					"name": "Up",
@@ -5377,14 +5377,14 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPinnedItems",
-			"description": "ListApiv3UserOkJSONResponseDataPinnedItems defines a model",
+			"name": "ListApiv3UserOkDataPinnedItems",
+			"description": "ListApiv3UserOkDataPinnedItems defines a model",
 			"kind": 2,
-			"type": "[]ListApiv3UserOkJSONResponseDataPinnedItemsItem"
+			"type": "[]ListApiv3UserOkDataPinnedItemsItem"
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPinnedItemsItem",
-			"description": "ListApiv3UserOkJSONResponseDataPinnedItemsItem defines a model",
+			"name": "ListApiv3UserOkDataPinnedItemsItem",
+			"description": "ListApiv3UserOkDataPinnedItemsItem defines a model",
 			"fields": [
 				{
 					"name": "Type",
@@ -5403,41 +5403,41 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferences",
-			"description": "ListApiv3UserOkJSONResponseDataPreferences defines a model",
+			"name": "ListApiv3UserOkDataPreferences",
+			"description": "ListApiv3UserOkDataPreferences defines a model",
 			"fields": [
 				{
 					"name": "Hair",
 					"jsonName": "hair",
-					"type": "ListApiv3UserOkJSONResponseDataPreferencesHair",
+					"type": "ListApiv3UserOkDataPreferencesHair",
 					"jsonTag": "json:\"hair\"",
 					"required": true
 				},
 				{
 					"name": "EmailNotifications",
 					"jsonName": "emailNotifications",
-					"type": "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications",
+					"type": "ListApiv3UserOkDataPreferencesEmailNotifications",
 					"jsonTag": "json:\"emailNotifications\"",
 					"required": true
 				},
 				{
 					"name": "PushNotifications",
 					"jsonName": "pushNotifications",
-					"type": "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications",
+					"type": "ListApiv3UserOkDataPreferencesPushNotifications",
 					"jsonTag": "json:\"pushNotifications\"",
 					"required": true
 				},
 				{
 					"name": "SuppressModals",
 					"jsonName": "suppressModals",
-					"type": "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals",
+					"type": "ListApiv3UserOkDataPreferencesSuppressModals",
 					"jsonTag": "json:\"suppressModals\"",
 					"required": true
 				},
 				{
 					"name": "Tasks",
 					"jsonName": "tasks",
-					"type": "ListApiv3UserOkJSONResponseDataPreferencesTasks",
+					"type": "ListApiv3UserOkDataPreferencesTasks",
 					"jsonTag": "json:\"tasks\"",
 					"required": true
 				},
@@ -5647,8 +5647,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications",
-			"description": "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications defines a model",
+			"name": "ListApiv3UserOkDataPreferencesEmailNotifications",
+			"description": "ListApiv3UserOkDataPreferencesEmailNotifications defines a model",
 			"fields": [
 				{
 					"name": "UnsubscribeFromAll",
@@ -5765,8 +5765,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferencesHair",
-			"description": "ListApiv3UserOkJSONResponseDataPreferencesHair defines a model",
+			"name": "ListApiv3UserOkDataPreferencesHair",
+			"description": "ListApiv3UserOkDataPreferencesHair defines a model",
 			"fields": [
 				{
 					"name": "Color",
@@ -5813,8 +5813,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications",
-			"description": "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications defines a model",
+			"name": "ListApiv3UserOkDataPreferencesPushNotifications",
+			"description": "ListApiv3UserOkDataPreferencesPushNotifications defines a model",
 			"fields": [
 				{
 					"name": "UnsubscribeFromAll",
@@ -5924,8 +5924,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals",
-			"description": "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals defines a model",
+			"name": "ListApiv3UserOkDataPreferencesSuppressModals",
+			"description": "ListApiv3UserOkDataPreferencesSuppressModals defines a model",
 			"fields": [
 				{
 					"name": "LevelUp",
@@ -5958,13 +5958,13 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferencesTasks",
-			"description": "ListApiv3UserOkJSONResponseDataPreferencesTasks defines a model",
+			"name": "ListApiv3UserOkDataPreferencesTasks",
+			"description": "ListApiv3UserOkDataPreferencesTasks defines a model",
 			"fields": [
 				{
 					"name": "ActiveFilter",
 					"jsonName": "activeFilter",
-					"type": "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter",
+					"type": "ListApiv3UserOkDataPreferencesTasksActiveFilter",
 					"jsonTag": "json:\"activeFilter\"",
 					"required": true
 				},
@@ -5992,8 +5992,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter",
-			"description": "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter defines a model",
+			"name": "ListApiv3UserOkDataPreferencesTasksActiveFilter",
+			"description": "ListApiv3UserOkDataPreferencesTasksActiveFilter defines a model",
 			"fields": [
 				{
 					"name": "Habit",
@@ -6026,8 +6026,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataProfile",
-			"description": "ListApiv3UserOkJSONResponseDataProfile defines a model",
+			"name": "ListApiv3UserOkDataProfile",
+			"description": "ListApiv3UserOkDataProfile defines a model",
 			"fields": [
 				{
 					"name": "Name",
@@ -6039,13 +6039,13 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPurchased",
-			"description": "ListApiv3UserOkJSONResponseDataPurchased defines a model",
+			"name": "ListApiv3UserOkDataPurchased",
+			"description": "ListApiv3UserOkDataPurchased defines a model",
 			"fields": [
 				{
 					"name": "Plan",
 					"jsonName": "plan",
-					"type": "ListApiv3UserOkJSONResponseDataPurchasedPlan",
+					"type": "ListApiv3UserOkDataPurchasedPlan",
 					"jsonTag": "json:\"plan\"",
 					"required": true
 				},
@@ -6059,7 +6059,7 @@
 				{
 					"name": "Background",
 					"jsonName": "background",
-					"type": "ListApiv3UserOkJSONResponseDataPurchasedBackground",
+					"type": "ListApiv3UserOkDataPurchasedBackground",
 					"jsonTag": "json:\"background\"",
 					"required": true
 				},
@@ -6094,8 +6094,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPurchasedBackground",
-			"description": "ListApiv3UserOkJSONResponseDataPurchasedBackground defines a model",
+			"name": "ListApiv3UserOkDataPurchasedBackground",
+			"description": "ListApiv3UserOkDataPurchasedBackground defines a model",
 			"fields": [
 				{
 					"name": "Yellow",
@@ -6149,13 +6149,13 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPurchasedPlan",
-			"description": "ListApiv3UserOkJSONResponseDataPurchasedPlan defines a model",
+			"name": "ListApiv3UserOkDataPurchasedPlan",
+			"description": "ListApiv3UserOkDataPurchasedPlan defines a model",
 			"fields": [
 				{
 					"name": "Consecutive",
 					"jsonName": "consecutive",
-					"type": "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive",
+					"type": "ListApiv3UserOkDataPurchasedPlanConsecutive",
 					"jsonTag": "json:\"consecutive\"",
 					"required": true
 				},
@@ -6211,8 +6211,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive",
-			"description": "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive defines a model",
+			"name": "ListApiv3UserOkDataPurchasedPlanConsecutive",
+			"description": "ListApiv3UserOkDataPurchasedPlanConsecutive defines a model",
 			"fields": [
 				{
 					"name": "Trinkets",
@@ -6245,14 +6245,14 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPushDevices",
-			"description": "ListApiv3UserOkJSONResponseDataPushDevices defines a model",
+			"name": "ListApiv3UserOkDataPushDevices",
+			"description": "ListApiv3UserOkDataPushDevices defines a model",
 			"kind": 2,
-			"type": "[]ListApiv3UserOkJSONResponseDataPushDevicesItem"
+			"type": "[]ListApiv3UserOkDataPushDevicesItem"
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataPushDevicesItem",
-			"description": "ListApiv3UserOkJSONResponseDataPushDevicesItem defines a model",
+			"name": "ListApiv3UserOkDataPushDevicesItem",
+			"description": "ListApiv3UserOkDataPushDevicesItem defines a model",
 			"fields": [
 				{
 					"name": "RegID",
@@ -6285,8 +6285,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataStats",
-			"description": "ListApiv3UserOkJSONResponseDataStats defines a model",
+			"name": "ListApiv3UserOkDataStats",
+			"description": "ListApiv3UserOkDataStats defines a model",
 			"fields": [
 				{
 					"name": "Buffs",
@@ -6403,14 +6403,14 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataTags",
-			"description": "ListApiv3UserOkJSONResponseDataTags defines a model",
+			"name": "ListApiv3UserOkDataTags",
+			"description": "ListApiv3UserOkDataTags defines a model",
 			"kind": 2,
-			"type": "[]ListApiv3UserOkJSONResponseDataTagsItem"
+			"type": "[]ListApiv3UserOkDataTagsItem"
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataTagsItem",
-			"description": "ListApiv3UserOkJSONResponseDataTagsItem defines a model",
+			"name": "ListApiv3UserOkDataTagsItem",
+			"description": "ListApiv3UserOkDataTagsItem defines a model",
 			"fields": [
 				{
 					"name": "Name",
@@ -6435,8 +6435,8 @@
 			]
 		},
 		{
-			"name": "ListApiv3UserOkJSONResponseDataTasksOrder",
-			"description": "ListApiv3UserOkJSONResponseDataTasksOrder defines a model",
+			"name": "ListApiv3UserOkDataTasksOrder",
+			"description": "ListApiv3UserOkDataTasksOrder defines a model",
 			"fields": [
 				{
 					"name": "Rewards",
@@ -6703,8 +6703,8 @@
 			]
 		},
 		{
-			"name": "PostApiv3TaskScoreUpNotFoundJSONResponse",
-			"description": "PostApiv3TaskScoreUpNotFoundJSONResponse defines a model",
+			"name": "PostApiv3TaskScoreUpNotFound",
+			"description": "PostApiv3TaskScoreUpNotFound defines a model",
 			"fields": [
 				{
 					"name": "Success",
@@ -6730,8 +6730,8 @@
 			]
 		},
 		{
-			"name": "PostApiv3TaskScoreUpOkJSONResponse",
-			"description": "PostApiv3TaskScoreUpOkJSONResponse defines a model",
+			"name": "PostApiv3TaskScoreUpOk",
+			"description": "PostApiv3TaskScoreUpOk defines a model",
 			"fields": [
 				{
 					"name": "Success",
@@ -6743,7 +6743,7 @@
 				{
 					"name": "Data",
 					"jsonName": "data",
-					"type": "PostApiv3TaskScoreUpOkJSONResponseData",
+					"type": "PostApiv3TaskScoreUpOkData",
 					"jsonTag": "json:\"data\"",
 					"required": true
 				},
@@ -6769,8 +6769,8 @@
 			]
 		},
 		{
-			"name": "PostApiv3TaskScoreUpOkJSONResponseData",
-			"description": "PostApiv3TaskScoreUpOkJSONResponseData defines a model",
+			"name": "PostApiv3TaskScoreUpOkData",
+			"description": "PostApiv3TaskScoreUpOkData defines a model",
 			"fields": [
 				{
 					"name": "Delta",
@@ -6782,7 +6782,7 @@
 				{
 					"name": "UnderscoreTmp",
 					"jsonName": "_tmp",
-					"type": "PostApiv3TaskScoreUpOkJSONResponseDataTmp",
+					"type": "PostApiv3TaskScoreUpOkDataTmp",
 					"jsonTag": "json:\"_tmp\"",
 					"required": true
 				},
@@ -6880,20 +6880,20 @@
 			]
 		},
 		{
-			"name": "PostApiv3TaskScoreUpOkJSONResponseDataTmp",
-			"description": "PostApiv3TaskScoreUpOkJSONResponseDataTmp defines a model",
+			"name": "PostApiv3TaskScoreUpOkDataTmp",
+			"description": "PostApiv3TaskScoreUpOkDataTmp defines a model",
 			"fields": [
 				{
 					"name": "Quest",
 					"jsonName": "quest",
-					"type": "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest",
+					"type": "PostApiv3TaskScoreUpOkDataTmpQuest",
 					"jsonTag": "json:\"quest\"",
 					"required": true
 				},
 				{
 					"name": "Drop",
 					"jsonName": "drop",
-					"type": "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop",
+					"type": "PostApiv3TaskScoreUpOkDataTmpDrop",
 					"jsonTag": "json:\"drop\"",
 					"required": true
 				},
@@ -6906,8 +6906,8 @@
 			]
 		},
 		{
-			"name": "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop",
-			"description": "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop defines a model",
+			"name": "PostApiv3TaskScoreUpOkDataTmpDrop",
+			"description": "PostApiv3TaskScoreUpOkDataTmpDrop defines a model",
 			"fields": [
 				{
 					"name": "Target",
@@ -6954,8 +6954,8 @@
 			]
 		},
 		{
-			"name": "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest",
-			"description": "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest defines a model",
+			"name": "PostApiv3TaskScoreUpOkDataTmpQuest",
+			"description": "PostApiv3TaskScoreUpOkDataTmpQuest defines a model",
 			"fields": [
 				{
 					"name": "ProgressDelta",

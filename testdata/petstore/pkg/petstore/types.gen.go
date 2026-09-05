@@ -15,17 +15,17 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 )
 
-// ListV1PetsOkJSONResponse defines a model
-type ListV1PetsOkJSONResponse struct {
-	Data       ListV1PetsOkJSONResponseData       `json:"data"`
-	Pagination ListV1PetsOkJSONResponsePagination `json:"pagination"`
+// ListV1PetsOk defines a model
+type ListV1PetsOk struct {
+	Data       ListV1PetsOkData       `json:"data"`
+	Pagination ListV1PetsOkPagination `json:"pagination"`
 }
 
-// ListV1PetsOkJSONResponseData defines a model
-type ListV1PetsOkJSONResponseData []PetByPetID
+// ListV1PetsOkData defines a model
+type ListV1PetsOkData []PetByPetID
 
-// ListV1PetsOkJSONResponsePagination defines a model
-type ListV1PetsOkJSONResponsePagination struct {
+// ListV1PetsOkPagination defines a model
+type ListV1PetsOkPagination struct {
 	Page       int `json:"page"`
 	Limit      int `json:"limit"`
 	TotalItems int `json:"totalItems"`

@@ -38,7 +38,7 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse"
+						"name": "ListAPIXbrlCompanyfactsCikCikJSONOk"
 					},
 					"isSuccess": true
 				},
@@ -55,7 +55,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse"
+				"name": "ListAPIXbrlCompanyfactsCikCikJSONOk"
 			}
 		},
 		{
@@ -77,20 +77,20 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListFilesCompanyTickersJSONOkJSONResponse"
+						"name": "ListFilesCompanyTickersJSONOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListFilesCompanyTickersJSONOkJSONResponse"
+				"name": "ListFilesCompanyTickersJSONOk"
 			}
 		}
 	],
 	"schemas": [
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOk",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOk defines a model",
 			"fields": [
 				{
 					"name": "Cik",
@@ -109,41 +109,41 @@
 				{
 					"name": "Facts",
 					"jsonName": "facts",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFacts",
 					"jsonTag": "json:\"facts\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFacts",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFacts defines a model",
 			"fields": [
 				{
 					"name": "Dei",
 					"jsonName": "dei",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei",
 					"jsonTag": "json:\"dei\"",
 					"required": true
 				},
 				{
 					"name": "UsGaap",
 					"jsonName": "us-gaap",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap",
 					"jsonTag": "json:\"us-gaap\"",
 					"required": true
 				},
 				{
 					"name": "Ecd",
 					"jsonName": "ecd",
-					"type": "*ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd",
+					"type": "*ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd",
 					"jsonTag": "json:\"ecd,omitempty\""
 				}
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei defines a model",
 			"fields": [
 				{
 					"name": "EntityCommonStockSharesOutstanding",
@@ -162,13 +162,13 @@
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd defines a model",
 			"fields": [
 				{
 					"name": "CoSelectedMeasureAmt",
 					"jsonName": "CoSelectedMeasureAmt",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt",
 					"jsonTag": "json:\"CoSelectedMeasureAmt\"",
 					"required": true
 				},
@@ -217,8 +217,8 @@
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt defines a model",
 			"fields": [
 				{
 					"name": "Label",
@@ -237,15 +237,15 @@
 				{
 					"name": "Units",
 					"jsonName": "units",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits",
 					"jsonTag": "json:\"units\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits defines a model",
 			"fields": [
 				{
 					"name": "Pure",
@@ -257,8 +257,8 @@
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap defines a model",
 			"fields": [
 				{
 					"name": "AccountsPayable",
@@ -2272,7 +2272,7 @@
 				{
 					"name": "NumberOfStores",
 					"jsonName": "NumberOfStores",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores",
 					"jsonTag": "json:\"NumberOfStores\"",
 					"required": true
 				},
@@ -5374,8 +5374,8 @@
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores defines a model",
 			"fields": [
 				{
 					"name": "Label",
@@ -5394,15 +5394,15 @@
 				{
 					"name": "Units",
 					"jsonName": "units",
-					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits",
 					"jsonTag": "json:\"units\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits",
-			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits defines a model",
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits defines a model",
 			"fields": [
 				{
 					"name": "Store",
@@ -5903,15 +5903,15 @@
 			]
 		},
 		{
-			"name": "ListFilesCompanyTickersJSONOkJSONResponse",
-			"description": "ListFilesCompanyTickersJSONOkJSONResponse defines a model",
+			"name": "ListFilesCompanyTickersJSONOk",
+			"description": "ListFilesCompanyTickersJSONOk defines a model",
 			"kind": 4,
 			"mapKey": "string",
-			"mapValue": "ListFilesCompanyTickersJSONOkJSONResponseValue"
+			"mapValue": "ListFilesCompanyTickersJSONOkValue"
 		},
 		{
-			"name": "ListFilesCompanyTickersJSONOkJSONResponseValue",
-			"description": "ListFilesCompanyTickersJSONOkJSONResponseValue defines a model",
+			"name": "ListFilesCompanyTickersJSONOkValue",
+			"description": "ListFilesCompanyTickersJSONOkValue defines a model",
 			"fields": [
 				{
 					"name": "CikStr",

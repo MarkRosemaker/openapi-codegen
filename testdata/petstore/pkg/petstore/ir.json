@@ -20,13 +20,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListV1PetsOkJSONResponse"
+						"name": "ListV1PetsOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListV1PetsOkJSONResponse"
+				"name": "ListV1PetsOk"
 			}
 		},
 		{
@@ -68,34 +68,34 @@
 	],
 	"schemas": [
 		{
-			"name": "ListV1PetsOkJSONResponse",
-			"description": "ListV1PetsOkJSONResponse defines a model",
+			"name": "ListV1PetsOk",
+			"description": "ListV1PetsOk defines a model",
 			"fields": [
 				{
 					"name": "Data",
 					"jsonName": "data",
-					"type": "ListV1PetsOkJSONResponseData",
+					"type": "ListV1PetsOkData",
 					"jsonTag": "json:\"data\"",
 					"required": true
 				},
 				{
 					"name": "Pagination",
 					"jsonName": "pagination",
-					"type": "ListV1PetsOkJSONResponsePagination",
+					"type": "ListV1PetsOkPagination",
 					"jsonTag": "json:\"pagination\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListV1PetsOkJSONResponseData",
-			"description": "ListV1PetsOkJSONResponseData defines a model",
+			"name": "ListV1PetsOkData",
+			"description": "ListV1PetsOkData defines a model",
 			"kind": 2,
 			"type": "[]PetByPetID"
 		},
 		{
-			"name": "ListV1PetsOkJSONResponsePagination",
-			"description": "ListV1PetsOkJSONResponsePagination defines a model",
+			"name": "ListV1PetsOkPagination",
+			"description": "ListV1PetsOkPagination defines a model",
 			"fields": [
 				{
 					"name": "Page",

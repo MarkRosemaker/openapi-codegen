@@ -143,7 +143,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.PostV1Inferences(t.Context(), PostV1InferencesJSONRequestBody{}); err == nil {
+			if _, err := c.PostV1Inferences(t.Context(), PostV1Inferences{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -163,7 +163,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.PostV1Inferences(t.Context(), PostV1InferencesJSONRequestBody{}); err == nil {
+			if _, err := c.PostV1Inferences(t.Context(), PostV1Inferences{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -191,7 +191,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.PostV1Inferences(t.Context(), PostV1InferencesJSONRequestBody{}); err == nil {
+			if _, err := c.PostV1Inferences(t.Context(), PostV1Inferences{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -216,7 +216,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.PostV1Inferences(t.Context(), PostV1InferencesJSONRequestBody{}); err == nil {
+			if _, err := c.PostV1Inferences(t.Context(), PostV1Inferences{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -309,7 +309,7 @@ func TestClient_Interactions(t *testing.T) {
 		t.Fatalf("ListV1StylesSelector: %v", err)
 	}
 
-	if _, err := c.PostV1Inferences(ctx, PostV1InferencesJSONRequestBody{
+	if _, err := c.PostV1Inferences(ctx, PostV1Inferences{
 		Prompt:                  "security officer (a soldier). A 34-year-old male human. Lean and wiry, with a posture that suggests he's always expecting something to break. He wears the standard grey-blue security fatigues, kept meticulously clean despite the dust of the colony. A thin, jagged scar running through his left eyebrow. He has a habit of clicking his tongue when he's impatient.",
 		PromptStyle:             "rd_pro__topdown",
 		Width:                   128,

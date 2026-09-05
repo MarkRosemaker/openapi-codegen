@@ -15,7 +15,7 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListV1APITickle(ctx context.Context) (*ListV1APITickleOkJSONResponse, error)
+	ListV1APITickle(ctx context.Context) (*ListV1APITickleOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].

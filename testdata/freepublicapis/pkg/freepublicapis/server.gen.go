@@ -16,7 +16,7 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	GetApiapiByApiid(ctx context.Context, apiID int) (*GetApiapiByApiidOkJSONResponse, error)
+	GetApiapiByApiid(ctx context.Context, apiID int) (*GetApiapiByApiidOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].

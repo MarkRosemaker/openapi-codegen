@@ -28,86 +28,86 @@ type ListV1BlockChildrenParams struct {
 	PageSize int
 }
 
-// GetV1PageByPageIDOkJSONResponse defines a model
-type GetV1PageByPageIDOkJSONResponse struct {
-	Object         string                                    `json:"object,omitzero"`
-	ID             uuid.UUID                                 `json:"id,omitzero"`
-	CreatedTime    time.Time                                 `json:"created_time,omitzero"`
-	LastEditedTime time.Time                                 `json:"last_edited_time,omitzero"`
-	CreatedBy      PageByPageIDCreatedBy                     `json:"created_by"`
-	LastEditedBy   PageByPageIDCreatedBy                     `json:"last_edited_by"`
-	Cover          GetV1PageByPageIDOkJSONResponseCover      `json:"cover"`
-	Icon           GetV1PageByPageIDOkJSONResponseIcon       `json:"icon"`
-	Parent         PageByPageIDParent                        `json:"parent"`
-	InTrash        bool                                      `json:"in_trash"`
-	IsArchived     bool                                      `json:"is_archived"`
-	IsLocked       bool                                      `json:"is_locked"`
-	Properties     GetV1PageByPageIDOkJSONResponseProperties `json:"properties"`
-	URL            url.URL                                   `json:"url,omitzero"`
-	PublicURL      url.URL                                   `json:"public_url,omitzero"`
-	RequestID      uuid.UUID                                 `json:"request_id,omitzero"`
+// GetV1PageByPageIDOk defines a model
+type GetV1PageByPageIDOk struct {
+	Object         string                        `json:"object,omitzero"`
+	ID             uuid.UUID                     `json:"id,omitzero"`
+	CreatedTime    time.Time                     `json:"created_time,omitzero"`
+	LastEditedTime time.Time                     `json:"last_edited_time,omitzero"`
+	CreatedBy      PageByPageIDCreatedBy         `json:"created_by"`
+	LastEditedBy   PageByPageIDCreatedBy         `json:"last_edited_by"`
+	Cover          GetV1PageByPageIDOkCover      `json:"cover"`
+	Icon           GetV1PageByPageIDOkIcon       `json:"icon"`
+	Parent         PageByPageIDParent            `json:"parent"`
+	InTrash        bool                          `json:"in_trash"`
+	IsArchived     bool                          `json:"is_archived"`
+	IsLocked       bool                          `json:"is_locked"`
+	Properties     GetV1PageByPageIDOkProperties `json:"properties"`
+	URL            url.URL                       `json:"url,omitzero"`
+	PublicURL      url.URL                       `json:"public_url,omitzero"`
+	RequestID      uuid.UUID                     `json:"request_id,omitzero"`
 }
 
-// GetV1PageByPageIDOkJSONResponseCover defines a model
-type GetV1PageByPageIDOkJSONResponseCover struct {
-	Type     string                                       `json:"type,omitzero"`
-	External GetV1PageByPageIDOkJSONResponseCoverExternal `json:"external"`
+// GetV1PageByPageIDOkCover defines a model
+type GetV1PageByPageIDOkCover struct {
+	Type     string                           `json:"type,omitzero"`
+	External GetV1PageByPageIDOkCoverExternal `json:"external"`
 }
 
-// GetV1PageByPageIDOkJSONResponseCoverExternal defines a model
-type GetV1PageByPageIDOkJSONResponseCoverExternal struct {
+// GetV1PageByPageIDOkCoverExternal defines a model
+type GetV1PageByPageIDOkCoverExternal struct {
 	URL url.URL `json:"url,omitzero"`
 }
 
-// GetV1PageByPageIDOkJSONResponseIcon defines a model
-type GetV1PageByPageIDOkJSONResponseIcon struct {
+// GetV1PageByPageIDOkIcon defines a model
+type GetV1PageByPageIDOkIcon struct {
 	Type  string `json:"type,omitzero"`
 	Emoji string `json:"emoji,omitzero"`
 }
 
-// GetV1PageByPageIDOkJSONResponseProperties defines a model
-type GetV1PageByPageIDOkJSONResponseProperties struct {
-	Title GetV1PageByPageIDOkJSONResponsePropertiesTitle `json:"title"`
+// GetV1PageByPageIDOkProperties defines a model
+type GetV1PageByPageIDOkProperties struct {
+	Title GetV1PageByPageIDOkPropertiesTitle `json:"title"`
 }
 
-// GetV1PageByPageIDOkJSONResponsePropertiesTitle defines a model
-type GetV1PageByPageIDOkJSONResponsePropertiesTitle struct {
+// GetV1PageByPageIDOkPropertiesTitle defines a model
+type GetV1PageByPageIDOkPropertiesTitle struct {
 	ID    string                      `json:"id,omitzero"`
 	Type  string                      `json:"type,omitzero"`
 	Title PageByPageIDPropertiesTitle `json:"title"`
 }
 
-// ListV1BlockChildrenOkJSONResponse defines a model
-type ListV1BlockChildrenOkJSONResponse struct {
-	Object     string                                   `json:"object,omitzero"`
-	Results    ListV1BlockChildrenOkJSONResponseResults `json:"results"`
-	NextCursor uuid.UUID                                `json:"next_cursor,omitzero"`
-	HasMore    bool                                     `json:"has_more"`
-	Type       string                                   `json:"type,omitzero"`
-	Block      struct{}                                 `json:"block"`
-	RequestID  uuid.UUID                                `json:"request_id,omitzero"`
+// ListV1BlockChildrenOk defines a model
+type ListV1BlockChildrenOk struct {
+	Object     string                       `json:"object,omitzero"`
+	Results    ListV1BlockChildrenOkResults `json:"results"`
+	NextCursor uuid.UUID                    `json:"next_cursor,omitzero"`
+	HasMore    bool                         `json:"has_more"`
+	Type       string                       `json:"type,omitzero"`
+	Block      struct{}                     `json:"block"`
+	RequestID  uuid.UUID                    `json:"request_id,omitzero"`
 }
 
-// ListV1BlockChildrenOkJSONResponseResults defines a model
-type ListV1BlockChildrenOkJSONResponseResults []ListV1BlockChildrenOkJSONResponseResultsItem
+// ListV1BlockChildrenOkResults defines a model
+type ListV1BlockChildrenOkResults []ListV1BlockChildrenOkResultsItem
 
-// ListV1BlockChildrenOkJSONResponseResultsItem defines a model
-type ListV1BlockChildrenOkJSONResponseResultsItem struct {
-	Object         string                                                `json:"object,omitzero"`
-	ID             uuid.UUID                                             `json:"id,omitzero"`
-	Parent         PageByPageIDParent                                    `json:"parent"`
-	CreatedTime    time.Time                                             `json:"created_time,omitzero"`
-	LastEditedTime time.Time                                             `json:"last_edited_time,omitzero"`
-	CreatedBy      PageByPageIDCreatedBy                                 `json:"created_by"`
-	LastEditedBy   PageByPageIDCreatedBy                                 `json:"last_edited_by"`
-	HasChildren    bool                                                  `json:"has_children"`
-	InTrash        bool                                                  `json:"in_trash"`
-	Type           string                                                `json:"type,omitzero"`
-	Paragraph      ListV1BlockChildrenOkJSONResponseResultsItemParagraph `json:"paragraph"`
+// ListV1BlockChildrenOkResultsItem defines a model
+type ListV1BlockChildrenOkResultsItem struct {
+	Object         string                                    `json:"object,omitzero"`
+	ID             uuid.UUID                                 `json:"id,omitzero"`
+	Parent         PageByPageIDParent                        `json:"parent"`
+	CreatedTime    time.Time                                 `json:"created_time,omitzero"`
+	LastEditedTime time.Time                                 `json:"last_edited_time,omitzero"`
+	CreatedBy      PageByPageIDCreatedBy                     `json:"created_by"`
+	LastEditedBy   PageByPageIDCreatedBy                     `json:"last_edited_by"`
+	HasChildren    bool                                      `json:"has_children"`
+	InTrash        bool                                      `json:"in_trash"`
+	Type           string                                    `json:"type,omitzero"`
+	Paragraph      ListV1BlockChildrenOkResultsItemParagraph `json:"paragraph"`
 }
 
-// ListV1BlockChildrenOkJSONResponseResultsItemParagraph defines a model
-type ListV1BlockChildrenOkJSONResponseResultsItemParagraph struct {
+// ListV1BlockChildrenOkResultsItemParagraph defines a model
+type ListV1BlockChildrenOkResultsItemParagraph struct {
 	RichText PageByPageIDPropertiesTitle `json:"rich_text"`
 	Icon     struct{}                    `json:"icon"`
 	Color    string                      `json:"color,omitzero"`

@@ -15,7 +15,7 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListV1Pets(ctx context.Context) (*ListV1PetsOkJSONResponse, error)
+	ListV1Pets(ctx context.Context) (*ListV1PetsOk, error)
 	GetV1PetByPetID(ctx context.Context, petID string) (*PetByPetID, error)
 }
 

@@ -36,20 +36,20 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GetApiapiByApiidOkJSONResponse"
+						"name": "GetApiapiByApiidOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "GetApiapiByApiidOkJSONResponse"
+				"name": "GetApiapiByApiidOk"
 			}
 		}
 	],
 	"schemas": [
 		{
-			"name": "GetApiapiByApiidOkJSONResponse",
-			"description": "GetApiapiByApiidOkJSONResponse defines a model",
+			"name": "GetApiapiByApiidOk",
+			"description": "GetApiapiByApiidOk defines a model",
 			"fields": [
 				{
 					"name": "ID",

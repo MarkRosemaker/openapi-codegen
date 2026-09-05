@@ -37,13 +37,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GetV1PageByPageIDOkJSONResponse"
+						"name": "GetV1PageByPageIDOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "GetV1PageByPageIDOkJSONResponse"
+				"name": "GetV1PageByPageIDOk"
 			}
 		},
 		{
@@ -86,13 +86,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListV1BlockChildrenOkJSONResponse"
+						"name": "ListV1BlockChildrenOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListV1BlockChildrenOkJSONResponse"
+				"name": "ListV1BlockChildrenOk"
 			}
 		}
 	],
@@ -113,8 +113,8 @@
 	],
 	"schemas": [
 		{
-			"name": "GetV1PageByPageIDOkJSONResponse",
-			"description": "GetV1PageByPageIDOkJSONResponse defines a model",
+			"name": "GetV1PageByPageIDOk",
+			"description": "GetV1PageByPageIDOk defines a model",
 			"fields": [
 				{
 					"name": "Object",
@@ -161,14 +161,14 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "GetV1PageByPageIDOkJSONResponseCover",
+					"type": "GetV1PageByPageIDOkCover",
 					"jsonTag": "json:\"cover\"",
 					"required": true
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "GetV1PageByPageIDOkJSONResponseIcon",
+					"type": "GetV1PageByPageIDOkIcon",
 					"jsonTag": "json:\"icon\"",
 					"required": true
 				},
@@ -203,7 +203,7 @@
 				{
 					"name": "Properties",
 					"jsonName": "properties",
-					"type": "GetV1PageByPageIDOkJSONResponseProperties",
+					"type": "GetV1PageByPageIDOkProperties",
 					"jsonTag": "json:\"properties\"",
 					"required": true
 				},
@@ -231,8 +231,8 @@
 			]
 		},
 		{
-			"name": "GetV1PageByPageIDOkJSONResponseCover",
-			"description": "GetV1PageByPageIDOkJSONResponseCover defines a model",
+			"name": "GetV1PageByPageIDOkCover",
+			"description": "GetV1PageByPageIDOkCover defines a model",
 			"fields": [
 				{
 					"name": "Type",
@@ -244,15 +244,15 @@
 				{
 					"name": "External",
 					"jsonName": "external",
-					"type": "GetV1PageByPageIDOkJSONResponseCoverExternal",
+					"type": "GetV1PageByPageIDOkCoverExternal",
 					"jsonTag": "json:\"external\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "GetV1PageByPageIDOkJSONResponseCoverExternal",
-			"description": "GetV1PageByPageIDOkJSONResponseCoverExternal defines a model",
+			"name": "GetV1PageByPageIDOkCoverExternal",
+			"description": "GetV1PageByPageIDOkCoverExternal defines a model",
 			"fields": [
 				{
 					"name": "URL",
@@ -264,8 +264,8 @@
 			]
 		},
 		{
-			"name": "GetV1PageByPageIDOkJSONResponseIcon",
-			"description": "GetV1PageByPageIDOkJSONResponseIcon defines a model",
+			"name": "GetV1PageByPageIDOkIcon",
+			"description": "GetV1PageByPageIDOkIcon defines a model",
 			"fields": [
 				{
 					"name": "Type",
@@ -284,21 +284,21 @@
 			]
 		},
 		{
-			"name": "GetV1PageByPageIDOkJSONResponseProperties",
-			"description": "GetV1PageByPageIDOkJSONResponseProperties defines a model",
+			"name": "GetV1PageByPageIDOkProperties",
+			"description": "GetV1PageByPageIDOkProperties defines a model",
 			"fields": [
 				{
 					"name": "Title",
 					"jsonName": "title",
-					"type": "GetV1PageByPageIDOkJSONResponsePropertiesTitle",
+					"type": "GetV1PageByPageIDOkPropertiesTitle",
 					"jsonTag": "json:\"title\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "GetV1PageByPageIDOkJSONResponsePropertiesTitle",
-			"description": "GetV1PageByPageIDOkJSONResponsePropertiesTitle defines a model",
+			"name": "GetV1PageByPageIDOkPropertiesTitle",
+			"description": "GetV1PageByPageIDOkPropertiesTitle defines a model",
 			"fields": [
 				{
 					"name": "ID",
@@ -324,8 +324,8 @@
 			]
 		},
 		{
-			"name": "ListV1BlockChildrenOkJSONResponse",
-			"description": "ListV1BlockChildrenOkJSONResponse defines a model",
+			"name": "ListV1BlockChildrenOk",
+			"description": "ListV1BlockChildrenOk defines a model",
 			"fields": [
 				{
 					"name": "Object",
@@ -337,7 +337,7 @@
 				{
 					"name": "Results",
 					"jsonName": "results",
-					"type": "ListV1BlockChildrenOkJSONResponseResults",
+					"type": "ListV1BlockChildrenOkResults",
 					"jsonTag": "json:\"results\"",
 					"required": true
 				},
@@ -379,14 +379,14 @@
 			]
 		},
 		{
-			"name": "ListV1BlockChildrenOkJSONResponseResults",
-			"description": "ListV1BlockChildrenOkJSONResponseResults defines a model",
+			"name": "ListV1BlockChildrenOkResults",
+			"description": "ListV1BlockChildrenOkResults defines a model",
 			"kind": 2,
-			"type": "[]ListV1BlockChildrenOkJSONResponseResultsItem"
+			"type": "[]ListV1BlockChildrenOkResultsItem"
 		},
 		{
-			"name": "ListV1BlockChildrenOkJSONResponseResultsItem",
-			"description": "ListV1BlockChildrenOkJSONResponseResultsItem defines a model",
+			"name": "ListV1BlockChildrenOkResultsItem",
+			"description": "ListV1BlockChildrenOkResultsItem defines a model",
 			"fields": [
 				{
 					"name": "Object",
@@ -461,15 +461,15 @@
 				{
 					"name": "Paragraph",
 					"jsonName": "paragraph",
-					"type": "ListV1BlockChildrenOkJSONResponseResultsItemParagraph",
+					"type": "ListV1BlockChildrenOkResultsItemParagraph",
 					"jsonTag": "json:\"paragraph\"",
 					"required": true
 				}
 			]
 		},
 		{
-			"name": "ListV1BlockChildrenOkJSONResponseResultsItemParagraph",
-			"description": "ListV1BlockChildrenOkJSONResponseResultsItemParagraph defines a model",
+			"name": "ListV1BlockChildrenOkResultsItemParagraph",
+			"description": "ListV1BlockChildrenOkResultsItemParagraph defines a model",
 			"fields": [
 				{
 					"name": "RichText",

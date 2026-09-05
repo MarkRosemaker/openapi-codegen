@@ -82,8 +82,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /styles/selector
-func (c *Client) ListV1StylesSelector(ctx context.Context, params *ListV1StylesSelectorParams) (*ListV1StylesSelectorOkJSONResponse, error) {
-	return c.ListV1StylesSelectorWithResult[ListV1StylesSelectorOkJSONResponse](ctx, params)
+func (c *Client) ListV1StylesSelector(ctx context.Context, params *ListV1StylesSelectorParams) (*ListV1StylesSelectorOk, error) {
+	return c.ListV1StylesSelectorWithResult[ListV1StylesSelectorOk](ctx, params)
 }
 
 // GET /styles/selector
@@ -138,12 +138,12 @@ func (c *Client) ListV1StylesSelectorWithResult[R any](ctx context.Context, para
 }
 
 // POST /inferences
-func (c *Client) PostV1Inferences(ctx context.Context, body PostV1InferencesJSONRequestBody) (*PostV1InferencesOkJSONResponse, error) {
-	return c.PostV1InferencesWithResult[PostV1InferencesOkJSONResponse](ctx, body)
+func (c *Client) PostV1Inferences(ctx context.Context, body PostV1Inferences) (*PostV1InferencesOk, error) {
+	return c.PostV1InferencesWithResult[PostV1InferencesOk](ctx, body)
 }
 
 // POST /inferences
-func (c *Client) PostV1InferencesWithResult[R any](ctx context.Context, body PostV1InferencesJSONRequestBody) (*R, error) {
+func (c *Client) PostV1InferencesWithResult[R any](ctx context.Context, body PostV1Inferences) (*R, error) {
 	u := c.baseURL.JoinPath("inferences")
 	pr, pw := io.Pipe()
 	req := (&http.Request{

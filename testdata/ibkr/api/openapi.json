@@ -23,7 +23,7 @@
   },
   "components": {
     "schemas": {
-      "ListV1APITickleOkJSONResponse": {
+      "ListV1APITickleOk": {
         "type": "object",
         "properties": {
           "session": {
@@ -41,10 +41,10 @@
             "type": "integer"
           },
           "hmds": {
-            "$ref": "#/components/schemas/ListV1APITickleOkJSONResponseHmds"
+            "$ref": "#/components/schemas/ListV1APITickleOkHmds"
           },
           "iserver": {
-            "$ref": "#/components/schemas/ListV1APITickleOkJSONResponseIserver"
+            "$ref": "#/components/schemas/ListV1APITickleOkIserver"
           }
         },
         "required": [
@@ -56,7 +56,7 @@
           "iserver"
         ]
       },
-      "ListV1APITickleOkJSONResponseHmds": {
+      "ListV1APITickleOkHmds": {
         "type": "object",
         "properties": {
           "error": {
@@ -68,18 +68,18 @@
           "error"
         ]
       },
-      "ListV1APITickleOkJSONResponseIserver": {
+      "ListV1APITickleOkIserver": {
         "type": "object",
         "properties": {
           "authStatus": {
-            "$ref": "#/components/schemas/ListV1APITickleOkJSONResponseIserverAuthStatus"
+            "$ref": "#/components/schemas/ListV1APITickleOkIserverAuthStatus"
           }
         },
         "required": [
           "authStatus"
         ]
       },
-      "ListV1APITickleOkJSONResponseIserverAuthStatus": {
+      "ListV1APITickleOkIserverAuthStatus": {
         "type": "object",
         "properties": {
           "authenticated": {
@@ -102,7 +102,7 @@
             "type": "string"
           },
           "serverInfo": {
-            "$ref": "#/components/schemas/ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo"
+            "$ref": "#/components/schemas/ListV1APITickleOkIserverAuthStatusServerInfo"
           },
           "hardware_info": {
             "type": "string"
@@ -119,7 +119,7 @@
           "hardware_info"
         ]
       },
-      "ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo": {
+      "ListV1APITickleOkIserverAuthStatusServerInfo": {
         "type": "object",
         "properties": {
           "serverName": {
@@ -143,7 +143,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListV1APITickleOkJSONResponse"
+              "$ref": "#/components/schemas/ListV1APITickleOk"
             }
           }
         }

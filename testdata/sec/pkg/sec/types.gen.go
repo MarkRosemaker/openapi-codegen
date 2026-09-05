@@ -12,51 +12,51 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 )
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse struct {
-	Cik        int                                                  `json:"cik"`
-	EntityName string                                               `json:"entityName,omitzero"`
-	Facts      ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts `json:"facts"`
+// ListAPIXbrlCompanyfactsCikCikJSONOk defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOk struct {
+	Cik        int                                      `json:"cik"`
+	EntityName string                                   `json:"entityName,omitzero"`
+	Facts      ListAPIXbrlCompanyfactsCikCikJSONOkFacts `json:"facts"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFacts struct {
-	Dei    ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei    `json:"dei"`
-	UsGaap ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap `json:"us-gaap"`
-	Ecd    *ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd   `json:"ecd,omitempty"`
+// ListAPIXbrlCompanyfactsCikCikJSONOkFacts defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFacts struct {
+	Dei    ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei    `json:"dei"`
+	UsGaap ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap `json:"us-gaap"`
+	Ecd    *ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd   `json:"ecd,omitempty"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsDei struct {
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsDei struct {
 	EntityCommonStockSharesOutstanding ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding `json:"EntityCommonStockSharesOutstanding"`
 	EntityPublicFloat                  ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                  `json:"EntityPublicFloat"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcd struct {
-	CoSelectedMeasureAmt            ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt `json:"CoSelectedMeasureAmt"`
-	NonPeoNeoAvgCompActuallyPaidAmt ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt           `json:"NonPeoNeoAvgCompActuallyPaidAmt"`
-	NonPeoNeoAvgTotalCompAmt        ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt           `json:"NonPeoNeoAvgTotalCompAmt"`
-	PeerGroupTotalShareholderRtnAmt ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt           `json:"PeerGroupTotalShareholderRtnAmt"`
-	PeoActuallyPaidCompAmt          ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt           `json:"PeoActuallyPaidCompAmt"`
-	PeoTotalCompAmt                 ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt           `json:"PeoTotalCompAmt"`
-	TotalShareholderRtnAmt          ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt           `json:"TotalShareholderRtnAmt"`
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcd struct {
+	CoSelectedMeasureAmt            ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt   `json:"CoSelectedMeasureAmt"`
+	NonPeoNeoAvgCompActuallyPaidAmt ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt `json:"NonPeoNeoAvgCompActuallyPaidAmt"`
+	NonPeoNeoAvgTotalCompAmt        ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt `json:"NonPeoNeoAvgTotalCompAmt"`
+	PeerGroupTotalShareholderRtnAmt ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt `json:"PeerGroupTotalShareholderRtnAmt"`
+	PeoActuallyPaidCompAmt          ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt `json:"PeoActuallyPaidCompAmt"`
+	PeoTotalCompAmt                 ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt `json:"PeoTotalCompAmt"`
+	TotalShareholderRtnAmt          ListAPIXbrlCompanyfactsCikFactsEcdNonPeoNeoAvgCompActuallyPaidAmt `json:"TotalShareholderRtnAmt"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmt struct {
-	Label       string                                                                           `json:"label,omitzero"`
-	Description string                                                                           `json:"description,omitzero"`
-	Units       ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits `json:"units"`
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmt struct {
+	Label       string                                                               `json:"label,omitzero"`
+	Description string                                                               `json:"description,omitzero"`
+	Units       ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits `json:"units"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsEcdCoSelectedMeasureAmtUnits struct {
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsEcdCoSelectedMeasureAmtUnits struct {
 	Pure ListAPIXbrlCompanyfactsCikFactsEcdCoSelectedMeasureAmtUnitsPure `json:"pure"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap struct {
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaap struct {
 	AccountsPayable                                                                                                                                           ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"AccountsPayable"`
 	AccountsPayableCurrent                                                                                                                                    ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"AccountsPayableCurrent"`
 	AccountsReceivableNetCurrent                                                                                                                              ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"AccountsReceivableNetCurrent"`
@@ -344,7 +344,7 @@ type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap struct {
 	NonoperatingIncomeExpense                                                                                                                                 ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"NonoperatingIncomeExpense"`
 	NontradeReceivablesCurrent                                                                                                                                ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"NontradeReceivablesCurrent"`
 	NotionalAmountOfForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstruments                                                                     ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"NotionalAmountOfForeignCurrencyDerivativeInstrumentsNotDesignatedAsHedgingInstruments"`
-	NumberOfStores                                                                                                                                            ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores                                                                           `json:"NumberOfStores"`
+	NumberOfStores                                                                                                                                            ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores                                                                                       `json:"NumberOfStores"`
 	OciBeforeReclassificationsBeforeTaxAttributableToParent                                                                                                   ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"OciBeforeReclassificationsBeforeTaxAttributableToParent"`
 	OperatingExpenses                                                                                                                                         ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"OperatingExpenses"`
 	OperatingIncomeLoss                                                                                                                                       ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                                `json:"OperatingIncomeLoss"`
@@ -827,15 +827,15 @@ type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaap struct {
 	OtherComprehensiveIncomeLossBeforeTaxPortionAttributableToParent                                                                                          *ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat                                                                                               `json:"OtherComprehensiveIncomeLossBeforeTaxPortionAttributableToParent,omitempty"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStores struct {
-	Label       string                                                                        `json:"label,omitzero"`
-	Description string                                                                        `json:"description,omitzero"`
-	Units       ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits `json:"units"`
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores struct {
+	Label       string                                                            `json:"label,omitzero"`
+	Description string                                                            `json:"description,omitzero"`
+	Units       ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits `json:"units"`
 }
 
-// ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits defines a model
-type ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponseFactsUsGaapNumberOfStoresUnits struct {
+// ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits defines a model
+type ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStoresUnits struct {
 	Store ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Store"`
 }
 
@@ -970,11 +970,11 @@ type ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeM
 	Year ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Year"`
 }
 
-// ListFilesCompanyTickersJSONOkJSONResponse defines a model
-type ListFilesCompanyTickersJSONOkJSONResponse map[string]ListFilesCompanyTickersJSONOkJSONResponseValue
+// ListFilesCompanyTickersJSONOk defines a model
+type ListFilesCompanyTickersJSONOk map[string]ListFilesCompanyTickersJSONOkValue
 
-// ListFilesCompanyTickersJSONOkJSONResponseValue defines a model
-type ListFilesCompanyTickersJSONOkJSONResponseValue struct {
+// ListFilesCompanyTickersJSONOkValue defines a model
+type ListFilesCompanyTickersJSONOkValue struct {
 	CikStr int    `json:"cik_str"`
 	Ticker string `json:"ticker,omitzero"`
 	Title  string `json:"title,omitzero"`

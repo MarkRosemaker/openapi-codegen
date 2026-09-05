@@ -15,8 +15,8 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListV1StylesSelector(ctx context.Context, params *ListV1StylesSelectorParams) (*ListV1StylesSelectorOkJSONResponse, error)
-	PostV1Inferences(ctx context.Context, body PostV1InferencesJSONRequestBody) (*PostV1InferencesOkJSONResponse, error)
+	ListV1StylesSelector(ctx context.Context, params *ListV1StylesSelectorParams) (*ListV1StylesSelectorOk, error)
+	PostV1Inferences(ctx context.Context, body PostV1Inferences) (*PostV1InferencesOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -78,7 +78,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var body PostV1InferencesJSONRequestBody
+			var body PostV1Inferences
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))

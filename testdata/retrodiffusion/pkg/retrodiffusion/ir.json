@@ -37,13 +37,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListV1StylesSelectorOkJSONResponse"
+						"name": "ListV1StylesSelectorOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListV1StylesSelectorOkJSONResponse"
+				"name": "ListV1StylesSelectorOk"
 			}
 		},
 		{
@@ -54,7 +54,7 @@
 				"\"inferences\""
 			],
 			"requestBody": {
-				"typeName": "PostV1InferencesJSONRequestBody",
+				"typeName": "PostV1Inferences",
 				"contentType": "application/json",
 				"required": true
 			},
@@ -65,13 +65,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PostV1InferencesOkJSONResponse"
+						"name": "PostV1InferencesOk"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "PostV1InferencesOkJSONResponse"
+				"name": "PostV1InferencesOk"
 			}
 		}
 	],
@@ -91,13 +91,13 @@
 	],
 	"schemas": [
 		{
-			"name": "ListV1StylesSelectorOkJSONResponse",
-			"description": "ListV1StylesSelectorOkJSONResponse defines a model",
+			"name": "ListV1StylesSelectorOk",
+			"description": "ListV1StylesSelectorOk defines a model",
 			"fields": [
 				{
 					"name": "Styles",
 					"jsonName": "styles",
-					"type": "ListV1StylesSelectorOkJSONResponseStyles",
+					"type": "ListV1StylesSelectorOkStyles",
 					"jsonTag": "json:\"styles\"",
 					"required": true
 				},
@@ -118,14 +118,14 @@
 			]
 		},
 		{
-			"name": "ListV1StylesSelectorOkJSONResponseStyles",
-			"description": "ListV1StylesSelectorOkJSONResponseStyles defines a model",
+			"name": "ListV1StylesSelectorOkStyles",
+			"description": "ListV1StylesSelectorOkStyles defines a model",
 			"kind": 2,
-			"type": "[]ListV1StylesSelectorOkJSONResponseStylesItem"
+			"type": "[]ListV1StylesSelectorOkStylesItem"
 		},
 		{
-			"name": "ListV1StylesSelectorOkJSONResponseStylesItem",
-			"description": "ListV1StylesSelectorOkJSONResponseStylesItem defines a model",
+			"name": "ListV1StylesSelectorOkStylesItem",
+			"description": "ListV1StylesSelectorOkStylesItem defines a model",
 			"fields": [
 				{
 					"name": "PromptStyle",
@@ -228,8 +228,8 @@
 			]
 		},
 		{
-			"name": "PostV1InferencesJSONRequestBody",
-			"description": "PostV1InferencesJSONRequestBody defines a model",
+			"name": "PostV1Inferences",
+			"description": "PostV1Inferences defines a model",
 			"fields": [
 				{
 					"name": "Prompt",
@@ -332,8 +332,8 @@
 			]
 		},
 		{
-			"name": "PostV1InferencesOkJSONResponse",
-			"description": "PostV1InferencesOkJSONResponse defines a model",
+			"name": "PostV1InferencesOk",
+			"description": "PostV1InferencesOk defines a model",
 			"fields": [
 				{
 					"name": "CreatedAt",

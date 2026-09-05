@@ -15,8 +15,8 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListAPIXbrlCompanyfactsCikCikJSON(ctx context.Context, cik string) (*ListAPIXbrlCompanyfactsCikCikJSONOkJSONResponse, error)
-	ListFilesCompanyTickersJSON(ctx context.Context) (*ListFilesCompanyTickersJSONOkJSONResponse, error)
+	ListAPIXbrlCompanyfactsCikCikJSON(ctx context.Context, cik string) (*ListAPIXbrlCompanyfactsCikCikJSONOk, error)
+	ListFilesCompanyTickersJSON(ctx context.Context) (*ListFilesCompanyTickersJSONOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].

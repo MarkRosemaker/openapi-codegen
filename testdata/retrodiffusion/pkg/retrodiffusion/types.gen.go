@@ -17,18 +17,18 @@ type ListV1StylesSelectorParams struct {
 	Model string
 }
 
-// ListV1StylesSelectorOkJSONResponse defines a model
-type ListV1StylesSelectorOkJSONResponse struct {
-	Styles ListV1StylesSelectorOkJSONResponseStyles `json:"styles"`
-	Models []string                                 `json:"models"`
-	Tabs   []string                                 `json:"tabs"`
+// ListV1StylesSelectorOk defines a model
+type ListV1StylesSelectorOk struct {
+	Styles ListV1StylesSelectorOkStyles `json:"styles"`
+	Models []string                     `json:"models"`
+	Tabs   []string                     `json:"tabs"`
 }
 
-// ListV1StylesSelectorOkJSONResponseStyles defines a model
-type ListV1StylesSelectorOkJSONResponseStyles []ListV1StylesSelectorOkJSONResponseStylesItem
+// ListV1StylesSelectorOkStyles defines a model
+type ListV1StylesSelectorOkStyles []ListV1StylesSelectorOkStylesItem
 
-// ListV1StylesSelectorOkJSONResponseStylesItem defines a model
-type ListV1StylesSelectorOkJSONResponseStylesItem struct {
+// ListV1StylesSelectorOkStylesItem defines a model
+type ListV1StylesSelectorOkStylesItem struct {
 	PromptStyle             string `json:"prompt_style,omitzero"`
 	Name                    string `json:"name,omitzero"`
 	Description             string `json:"description,omitzero"`
@@ -45,8 +45,8 @@ type ListV1StylesSelectorOkJSONResponseStylesItem struct {
 	ExamplePrompt           string `json:"example_prompt,omitzero"`
 }
 
-// PostV1InferencesJSONRequestBody defines a model
-type PostV1InferencesJSONRequestBody struct {
+// PostV1Inferences defines a model
+type PostV1Inferences struct {
 	Prompt                  string `json:"prompt,omitzero"`
 	PromptStyle             string `json:"prompt_style,omitzero"`
 	Width                   int    `json:"width"`
@@ -63,8 +63,8 @@ type PostV1InferencesJSONRequestBody struct {
 	UploadOutputs           bool   `json:"upload_outputs"`
 }
 
-// PostV1InferencesOkJSONResponse defines a model
-type PostV1InferencesOkJSONResponse struct {
+// PostV1InferencesOk defines a model
+type PostV1InferencesOk struct {
 	CreatedAt        int        `json:"created_at"`
 	CreditCost       int        `json:"credit_cost"`
 	BalanceCost      float64    `json:"balance_cost"`

@@ -144,14 +144,14 @@
           "requested"
         ]
       },
-      "GetApiv3TaskByTaskIDOkJSONResponse": {
+      "GetApiv3TaskByTaskIDOk": {
         "type": "object",
         "properties": {
           "success": {
             "type": "boolean"
           },
           "data": {
-            "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkJSONResponseData"
+            "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkData"
           },
           "notifications": {
             "type": "array",
@@ -167,7 +167,7 @@
           "notifications"
         ]
       },
-      "GetApiv3TaskByTaskIDOkJSONResponseData": {
+      "GetApiv3TaskByTaskIDOkData": {
         "type": "object",
         "properties": {
           "_id": {
@@ -216,7 +216,7 @@
             "example": "str"
           },
           "challenge": {
-            "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkJSONResponseDataChallenge"
+            "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkDataChallenge"
           },
           "group": {
             "$ref": "#/components/schemas/ApivTaskByTaskIDDataGroup"
@@ -239,7 +239,7 @@
             "example": "2017-01-13T20:52:02.927Z"
           },
           "history": {
-            "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkJSONResponseDataHistory"
+            "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkDataHistory"
           },
           "down": {
             "type": "boolean"
@@ -274,7 +274,7 @@
           "id"
         ]
       },
-      "GetApiv3TaskByTaskIDOkJSONResponseDataChallenge": {
+      "GetApiv3TaskByTaskIDOkDataChallenge": {
         "type": "object",
         "properties": {
           "taskId": {
@@ -292,13 +292,13 @@
           "id"
         ]
       },
-      "GetApiv3TaskByTaskIDOkJSONResponseDataHistory": {
+      "GetApiv3TaskByTaskIDOkDataHistory": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem"
+          "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkDataHistoryItem"
         }
       },
-      "GetApiv3TaskByTaskIDOkJSONResponseDataHistoryItem": {
+      "GetApiv3TaskByTaskIDOkDataHistoryItem": {
         "type": "object",
         "properties": {
           "value": {
@@ -316,14 +316,14 @@
           "date"
         ]
       },
-      "ListApiv3TasksUserOkJSONResponse": {
+      "ListApiv3TasksUserOk": {
         "type": "object",
         "properties": {
           "success": {
             "type": "boolean"
           },
           "data": {
-            "$ref": "#/components/schemas/ListApiv3TasksUserOkJSONResponseData"
+            "$ref": "#/components/schemas/ListApiv3TasksUserOkData"
           },
           "notifications": {
             "type": "array",
@@ -339,13 +339,13 @@
           "notifications"
         ]
       },
-      "ListApiv3TasksUserOkJSONResponseData": {
+      "ListApiv3TasksUserOkData": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListApiv3TasksUserOkJSONResponseDataItem"
+          "$ref": "#/components/schemas/ListApiv3TasksUserOkDataItem"
         }
       },
-      "ListApiv3TasksUserOkJSONResponseDataItem": {
+      "ListApiv3TasksUserOkDataItem": {
         "type": "object",
         "properties": {
           "_id": {
@@ -394,7 +394,7 @@
             "$ref": "#/components/schemas/ApivTaskByTaskIDDataGroup"
           },
           "reminders": {
-            "$ref": "#/components/schemas/ListApiv3TasksUserOkJSONResponseDataItemReminders"
+            "$ref": "#/components/schemas/ListApiv3TasksUserOkDataItemReminders"
           },
           "createdAt": {
             "type": "string",
@@ -439,7 +439,7 @@
             "example": 1
           },
           "repeat": {
-            "$ref": "#/components/schemas/ListApiv3TasksUserOkJSONResponseDataItemRepeat"
+            "$ref": "#/components/schemas/ListApiv3TasksUserOkDataItemRepeat"
           },
           "startDate": {
             "type": "string",
@@ -473,13 +473,13 @@
           "id"
         ]
       },
-      "ListApiv3TasksUserOkJSONResponseDataItemReminders": {
+      "ListApiv3TasksUserOkDataItemReminders": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListApiv3TasksUserOkJSONResponseDataItemRemindersItem"
+          "$ref": "#/components/schemas/ListApiv3TasksUserOkDataItemRemindersItem"
         }
       },
-      "ListApiv3TasksUserOkJSONResponseDataItemRemindersItem": {
+      "ListApiv3TasksUserOkDataItemRemindersItem": {
         "type": "object",
         "properties": {
           "time": {
@@ -499,7 +499,7 @@
         },
         "example": null
       },
-      "ListApiv3TasksUserOkJSONResponseDataItemRepeat": {
+      "ListApiv3TasksUserOkDataItemRepeat": {
         "type": "object",
         "properties": {
           "su": {
@@ -534,14 +534,14 @@
           "m"
         ]
       },
-      "ListApiv3UserOkJSONResponse": {
+      "ListApiv3UserOk": {
         "type": "object",
         "properties": {
           "success": {
             "type": "boolean"
           },
           "data": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseData"
+            "$ref": "#/components/schemas/ListApiv3UserOkData"
           },
           "notifications": {
             "type": "array",
@@ -567,14 +567,14 @@
           "appVersion"
         ]
       },
-      "ListApiv3UserOkJSONResponseData": {
+      "ListApiv3UserOkData": {
         "type": "object",
         "properties": {
           "auth": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAuth"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAuth"
           },
           "achievements": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAchievements"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAchievements"
           },
           "backer": {
             "type": "object"
@@ -586,37 +586,37 @@
             "type": "object"
           },
           "purchased": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPurchased"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPurchased"
           },
           "flags": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataFlags"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataFlags"
           },
           "history": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataHistory"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataHistory"
           },
           "items": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItems"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItems"
           },
           "invitations": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataInvitations"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataInvitations"
           },
           "party": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataParty"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataParty"
           },
           "preferences": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferences"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferences"
           },
           "profile": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataProfile"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataProfile"
           },
           "stats": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataStats"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataStats"
           },
           "inbox": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataInbox"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataInbox"
           },
           "tasksOrder": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataTasksOrder"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataTasksOrder"
           },
           "_id": {
             "type": "string",
@@ -638,13 +638,13 @@
             }
           },
           "pushDevices": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPushDevices"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPushDevices"
           },
           "extra": {
             "type": "object"
           },
           "tags": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataTags"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataTags"
           },
           "notifications": {
             "type": "array",
@@ -690,7 +690,7 @@
             "example": "20264april-fools-2026"
           },
           "pinnedItems": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPinnedItems"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPinnedItems"
           },
           "unpinnedItems": {
             "type": "array",
@@ -763,18 +763,18 @@
           "needsCron"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAchievements": {
+      "ListApiv3UserOkDataAchievements": {
         "type": "object",
         "properties": {
           "ultimateGearSets": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAchievementsUltimateGearSets"
           },
           "perfect": {
             "type": "integer",
             "example": 93
           },
           "quests": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAchievementsQuests"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAchievementsQuests"
           },
           "challenges": {
             "type": "array",
@@ -878,7 +878,7 @@
           "pearlyPro"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAchievementsQuests": {
+      "ListApiv3UserOkDataAchievementsQuests": {
         "type": "object",
         "properties": {
           "dustbunnies": {
@@ -940,7 +940,7 @@
           "atom2"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAchievementsUltimateGearSets": {
+      "ListApiv3UserOkDataAchievementsUltimateGearSets": {
         "type": "object",
         "properties": {
           "warrior": {
@@ -963,17 +963,17 @@
           "healer"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAuth": {
+      "ListApiv3UserOkDataAuth": {
         "type": "object",
         "properties": {
           "local": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAuthLocal"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAuthLocal"
           },
           "timestamps": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAuthTimestamps"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAuthTimestamps"
           },
           "google": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAuthGoogle"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAuthGoogle"
           },
           "apple": {
             "type": "object"
@@ -990,14 +990,14 @@
           "facebook"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAuthGoogle": {
+      "ListApiv3UserOkDataAuthGoogle": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
           "emails": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAuthGoogleEmails"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataAuthGoogleEmails"
           }
         },
         "required": [
@@ -1005,13 +1005,13 @@
           "emails"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAuthGoogleEmails": {
+      "ListApiv3UserOkDataAuthGoogleEmails": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem"
+          "$ref": "#/components/schemas/ListApiv3UserOkDataAuthGoogleEmailsItem"
         }
       },
-      "ListApiv3UserOkJSONResponseDataAuthGoogleEmailsItem": {
+      "ListApiv3UserOkDataAuthGoogleEmailsItem": {
         "type": "object",
         "properties": {
           "value": {
@@ -1027,7 +1027,7 @@
           "verified"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAuthLocal": {
+      "ListApiv3UserOkDataAuthLocal": {
         "type": "object",
         "properties": {
           "username": {
@@ -1051,7 +1051,7 @@
           "has_password"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataAuthTimestamps": {
+      "ListApiv3UserOkDataAuthTimestamps": {
         "type": "object",
         "properties": {
           "loggedin": {
@@ -1076,14 +1076,14 @@
           "updated"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataFlags": {
+      "ListApiv3UserOkDataFlags": {
         "type": "object",
         "properties": {
           "tour": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataFlagsTour"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataFlagsTour"
           },
           "tutorial": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataFlagsTutorial"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataFlagsTutorial"
           },
           "customizationsNotification": {
             "type": "boolean"
@@ -1148,7 +1148,7 @@
             "type": "boolean"
           },
           "levelDrops": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataFlagsLevelDrops"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataFlagsLevelDrops"
           },
           "lastWeeklyRecap": {
             "type": "string",
@@ -1196,7 +1196,7 @@
           "newStuff"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataFlagsLevelDrops": {
+      "ListApiv3UserOkDataFlagsLevelDrops": {
         "type": "object",
         "properties": {
           "atom1": {
@@ -1219,7 +1219,7 @@
           "moonstone1"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataFlagsTour": {
+      "ListApiv3UserOkDataFlagsTour": {
         "type": "object",
         "properties": {
           "intro": {
@@ -1291,14 +1291,14 @@
           "groupPlans"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataFlagsTutorial": {
+      "ListApiv3UserOkDataFlagsTutorial": {
         "type": "object",
         "properties": {
           "common": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataFlagsTutorialCommon"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataFlagsTutorialCommon"
           },
           "ios": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataFlagsTutorialIos"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataFlagsTutorialIos"
           }
         },
         "required": [
@@ -1306,7 +1306,7 @@
           "ios"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataFlagsTutorialCommon": {
+      "ListApiv3UserOkDataFlagsTutorialCommon": {
         "type": "object",
         "properties": {
           "habits": {
@@ -1373,7 +1373,7 @@
           "stats"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataFlagsTutorialIos": {
+      "ListApiv3UserOkDataFlagsTutorialIos": {
         "type": "object",
         "properties": {
           "addTask": {
@@ -1408,7 +1408,7 @@
           "reorderTask"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataHistory": {
+      "ListApiv3UserOkDataHistory": {
         "type": "object",
         "properties": {
           "todos": {
@@ -1423,14 +1423,14 @@
           "exp"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataInbox": {
+      "ListApiv3UserOkDataInbox": {
         "type": "object",
         "properties": {
           "optOut": {
             "type": "boolean"
           },
           "messages": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataInboxMessages"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataInboxMessages"
           },
           "blocks": {
             "type": "array",
@@ -1451,7 +1451,7 @@
           "newMessages"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataInboxMessages": {
+      "ListApiv3UserOkDataInboxMessages": {
         "type": "object",
         "properties": {
           "86363b9c-f1c4-4007-87f9-607d399af305": {
@@ -1478,7 +1478,7 @@
           "068fe676-8854-43ff-a0cd-673d7b766f01"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataInvitations": {
+      "ListApiv3UserOkDataInvitations": {
         "type": "object",
         "properties": {
           "party": {
@@ -1505,35 +1505,35 @@
           "parties"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItems": {
+      "ListApiv3UserOkDataItems": {
         "type": "object",
         "properties": {
           "gear": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsGear"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsGear"
           },
           "special": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsSpecial"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsSpecial"
           },
           "lastDrop": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsLastDrop"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsLastDrop"
           },
           "quests": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsQuests"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsQuests"
           },
           "mounts": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsMounts"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsMounts"
           },
           "food": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsFood"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsFood"
           },
           "hatchingPotions": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsHatchingPotions"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsHatchingPotions"
           },
           "eggs": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsEggs"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsEggs"
           },
           "pets": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsPets"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsPets"
           },
           "currentPet": {
             "type": "string",
@@ -1558,7 +1558,7 @@
           "currentMount"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsEggs": {
+      "ListApiv3UserOkDataItemsEggs": {
         "type": "object",
         "properties": {
           "Wolf": {
@@ -1610,7 +1610,7 @@
           "TigerCub"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsFood": {
+      "ListApiv3UserOkDataItemsFood": {
         "type": "object",
         "properties": {
           "Potatoe": {
@@ -1822,17 +1822,17 @@
           "Pie_Red"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsGear": {
+      "ListApiv3UserOkDataItemsGear": {
         "type": "object",
         "properties": {
           "equipped": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsGearEquipped"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsGearEquipped"
           },
           "costume": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsGearCostume"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsGearCostume"
           },
           "owned": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataItemsGearOwned"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataItemsGearOwned"
           }
         },
         "required": [
@@ -1841,7 +1841,7 @@
           "owned"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsGearCostume": {
+      "ListApiv3UserOkDataItemsGearCostume": {
         "type": "object",
         "properties": {
           "shield": {
@@ -1863,7 +1863,7 @@
           "armor"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsGearEquipped": {
+      "ListApiv3UserOkDataItemsGearEquipped": {
         "type": "object",
         "properties": {
           "weapon": {
@@ -1905,7 +1905,7 @@
           "body"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsGearOwned": {
+      "ListApiv3UserOkDataItemsGearOwned": {
         "type": "object",
         "properties": {
           "eyewear_special_yellowTopFrame": {
@@ -2420,7 +2420,7 @@
           "armor_special_birthday2022"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsHatchingPotions": {
+      "ListApiv3UserOkDataItemsHatchingPotions": {
         "type": "object",
         "properties": {
           "RoyalPurple": {
@@ -2482,7 +2482,7 @@
           "Golden"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsLastDrop": {
+      "ListApiv3UserOkDataItemsLastDrop": {
         "type": "object",
         "properties": {
           "count": {
@@ -2500,7 +2500,7 @@
           "date"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsMounts": {
+      "ListApiv3UserOkDataItemsMounts": {
         "type": "object",
         "properties": {
           "Wolf-RoyalPurple": {
@@ -2827,7 +2827,7 @@
           "Cactus-Skeleton"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsPets": {
+      "ListApiv3UserOkDataItemsPets": {
         "type": "object",
         "properties": {
           "Wolf-RoyalPurple": {
@@ -3379,7 +3379,7 @@
           "Cactus-Golden"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsQuests": {
+      "ListApiv3UserOkDataItemsQuests": {
         "type": "object",
         "properties": {
           "dustbunnies": {
@@ -3456,7 +3456,7 @@
           "moonstone1"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataItemsSpecial": {
+      "ListApiv3UserOkDataItemsSpecial": {
         "type": "object",
         "properties": {
           "birthdayReceived": {
@@ -3587,11 +3587,11 @@
           "goodluck"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataParty": {
+      "ListApiv3UserOkDataParty": {
         "type": "object",
         "properties": {
           "quest": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPartyQuest"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPartyQuest"
           },
           "_id": {
             "type": "string",
@@ -3613,11 +3613,11 @@
           "orderAscending"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPartyQuest": {
+      "ListApiv3UserOkDataPartyQuest": {
         "type": "object",
         "properties": {
           "progress": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPartyQuestProgress"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPartyQuestProgress"
           },
           "RSVPNeeded": {
             "type": "boolean"
@@ -3628,7 +3628,7 @@
           "RSVPNeeded"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPartyQuestProgress": {
+      "ListApiv3UserOkDataPartyQuestProgress": {
         "type": "object",
         "properties": {
           "up": {
@@ -3655,13 +3655,13 @@
           "collect"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPinnedItems": {
+      "ListApiv3UserOkDataPinnedItems": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPinnedItemsItem"
+          "$ref": "#/components/schemas/ListApiv3UserOkDataPinnedItemsItem"
         }
       },
-      "ListApiv3UserOkJSONResponseDataPinnedItemsItem": {
+      "ListApiv3UserOkDataPinnedItemsItem": {
         "type": "object",
         "properties": {
           "type": {
@@ -3678,23 +3678,23 @@
           "path"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferences": {
+      "ListApiv3UserOkDataPreferences": {
         "type": "object",
         "properties": {
           "hair": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferencesHair"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferencesHair"
           },
           "emailNotifications": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferencesEmailNotifications"
           },
           "pushNotifications": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferencesPushNotifications"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferencesPushNotifications"
           },
           "suppressModals": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferencesSuppressModals"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferencesSuppressModals"
           },
           "tasks": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferencesTasks"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferencesTasks"
           },
           "dayStart": {
             "type": "integer",
@@ -3837,7 +3837,7 @@
           "background"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferencesEmailNotifications": {
+      "ListApiv3UserOkDataPreferencesEmailNotifications": {
         "type": "object",
         "properties": {
           "unsubscribeFromAll": {
@@ -3908,7 +3908,7 @@
           "contentRelease"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferencesHair": {
+      "ListApiv3UserOkDataPreferencesHair": {
         "type": "object",
         "properties": {
           "color": {
@@ -3945,7 +3945,7 @@
           "flower"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferencesPushNotifications": {
+      "ListApiv3UserOkDataPreferencesPushNotifications": {
         "type": "object",
         "properties": {
           "unsubscribeFromAll": {
@@ -4012,7 +4012,7 @@
           "contentRelease"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferencesSuppressModals": {
+      "ListApiv3UserOkDataPreferencesSuppressModals": {
         "type": "object",
         "properties": {
           "levelUp": {
@@ -4035,11 +4035,11 @@
           "streak"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferencesTasks": {
+      "ListApiv3UserOkDataPreferencesTasks": {
         "type": "object",
         "properties": {
           "activeFilter": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPreferencesTasksActiveFilter"
           },
           "groupByChallenge": {
             "type": "boolean"
@@ -4062,7 +4062,7 @@
           "mirrorGroupTasks"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPreferencesTasksActiveFilter": {
+      "ListApiv3UserOkDataPreferencesTasksActiveFilter": {
         "type": "object",
         "properties": {
           "habit": {
@@ -4089,7 +4089,7 @@
           "reward"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataProfile": {
+      "ListApiv3UserOkDataProfile": {
         "type": "object",
         "properties": {
           "name": {
@@ -4101,18 +4101,18 @@
           "name"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPurchased": {
+      "ListApiv3UserOkDataPurchased": {
         "type": "object",
         "properties": {
           "plan": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPurchasedPlan"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPurchasedPlan"
           },
           "txnCount": {
             "type": "integer",
             "example": 0
           },
           "background": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPurchasedBackground"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPurchasedBackground"
           },
           "shirt": {
             "type": "object"
@@ -4137,7 +4137,7 @@
           "ads"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPurchasedBackground": {
+      "ListApiv3UserOkDataPurchasedBackground": {
         "type": "object",
         "properties": {
           "yellow": {
@@ -4172,11 +4172,11 @@
           "on_a_strange_planet"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPurchasedPlan": {
+      "ListApiv3UserOkDataPurchasedPlan": {
         "type": "object",
         "properties": {
           "consecutive": {
-            "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive"
+            "$ref": "#/components/schemas/ListApiv3UserOkDataPurchasedPlanConsecutive"
           },
           "mysteryItems": {
             "type": "array",
@@ -4222,7 +4222,7 @@
           "cumulativeCount"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPurchasedPlanConsecutive": {
+      "ListApiv3UserOkDataPurchasedPlanConsecutive": {
         "type": "object",
         "properties": {
           "trinkets": {
@@ -4249,13 +4249,13 @@
           "count"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataPushDevices": {
+      "ListApiv3UserOkDataPushDevices": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataPushDevicesItem"
+          "$ref": "#/components/schemas/ListApiv3UserOkDataPushDevicesItem"
         }
       },
-      "ListApiv3UserOkJSONResponseDataPushDevicesItem": {
+      "ListApiv3UserOkDataPushDevicesItem": {
         "type": "object",
         "properties": {
           "regId": {
@@ -4284,7 +4284,7 @@
           "createdAt"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataStats": {
+      "ListApiv3UserOkDataStats": {
         "type": "object",
         "properties": {
           "buffs": {
@@ -4372,13 +4372,13 @@
           "maxMP"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataTags": {
+      "ListApiv3UserOkDataTags": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListApiv3UserOkJSONResponseDataTagsItem"
+          "$ref": "#/components/schemas/ListApiv3UserOkDataTagsItem"
         }
       },
-      "ListApiv3UserOkJSONResponseDataTagsItem": {
+      "ListApiv3UserOkDataTagsItem": {
         "type": "object",
         "properties": {
           "name": {
@@ -4398,7 +4398,7 @@
           "id"
         ]
       },
-      "ListApiv3UserOkJSONResponseDataTasksOrder": {
+      "ListApiv3UserOkDataTasksOrder": {
         "type": "object",
         "properties": {
           "rewards": {
@@ -4625,7 +4625,7 @@
           "int"
         ]
       },
-      "PostApiv3TaskScoreUpNotFoundJSONResponse": {
+      "PostApiv3TaskScoreUpNotFound": {
         "type": "object",
         "properties": {
           "success": {
@@ -4646,14 +4646,14 @@
           "message"
         ]
       },
-      "PostApiv3TaskScoreUpOkJSONResponse": {
+      "PostApiv3TaskScoreUpOk": {
         "type": "object",
         "properties": {
           "success": {
             "type": "boolean"
           },
           "data": {
-            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkJSONResponseData"
+            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkData"
           },
           "notifications": {
             "type": "array",
@@ -4677,7 +4677,7 @@
           "notifications"
         ]
       },
-      "PostApiv3TaskScoreUpOkJSONResponseData": {
+      "PostApiv3TaskScoreUpOkData": {
         "type": "object",
         "properties": {
           "delta": {
@@ -4686,7 +4686,7 @@
             "example": 1.0259567046270648
           },
           "_tmp": {
-            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkJSONResponseDataTmp"
+            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkDataTmp"
           },
           "hp": {
             "type": "number",
@@ -4761,14 +4761,14 @@
           "training"
         ]
       },
-      "PostApiv3TaskScoreUpOkJSONResponseDataTmp": {
+      "PostApiv3TaskScoreUpOkDataTmp": {
         "type": "object",
         "properties": {
           "quest": {
-            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest"
+            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkDataTmpQuest"
           },
           "drop": {
-            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop"
+            "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkDataTmpDrop"
           },
           "streakBonus": {
             "type": "number",
@@ -4781,7 +4781,7 @@
           "drop"
         ]
       },
-      "PostApiv3TaskScoreUpOkJSONResponseDataTmpDrop": {
+      "PostApiv3TaskScoreUpOkDataTmpDrop": {
         "type": "object",
         "properties": {
           "target": {
@@ -4817,7 +4817,7 @@
           "dialog"
         ]
       },
-      "PostApiv3TaskScoreUpOkJSONResponseDataTmpQuest": {
+      "PostApiv3TaskScoreUpOkDataTmpQuest": {
         "type": "object",
         "properties": {
           "progressDelta": {
@@ -4842,7 +4842,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkJSONResponse"
+              "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOk"
             }
           }
         }
@@ -4852,7 +4852,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListApiv3TasksUserOkJSONResponse"
+              "$ref": "#/components/schemas/ListApiv3TasksUserOk"
             }
           }
         }
@@ -4862,7 +4862,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListApiv3UserOkJSONResponse"
+              "$ref": "#/components/schemas/ListApiv3UserOk"
             }
           }
         }
@@ -4872,7 +4872,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PostApiv3TaskScoreUpNotFoundJSONResponse"
+              "$ref": "#/components/schemas/PostApiv3TaskScoreUpNotFound"
             }
           }
         }
@@ -4882,7 +4882,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PostApiv3TaskScoreUpOkJSONResponse"
+              "$ref": "#/components/schemas/PostApiv3TaskScoreUpOk"
             }
           }
         }

@@ -15,10 +15,10 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListApiv3TasksUser(ctx context.Context) (*ListApiv3TasksUserOkJSONResponse, error)
-	GetApiv3TaskByTaskID(ctx context.Context, taskID string) (*GetApiv3TaskByTaskIDOkJSONResponse, error)
-	ListApiv3User(ctx context.Context) (*ListApiv3UserOkJSONResponse, error)
-	PostApiv3TaskScoreUp(ctx context.Context, taskID string) (*PostApiv3TaskScoreUpOkJSONResponse, error)
+	ListApiv3TasksUser(ctx context.Context) (*ListApiv3TasksUserOk, error)
+	GetApiv3TaskByTaskID(ctx context.Context, taskID string) (*GetApiv3TaskByTaskIDOk, error)
+	ListApiv3User(ctx context.Context) (*ListApiv3UserOk, error)
+	PostApiv3TaskScoreUp(ctx context.Context, taskID string) (*PostApiv3TaskScoreUpOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].

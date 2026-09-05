@@ -52,7 +52,7 @@
   },
   "components": {
     "schemas": {
-      "GetV1PageByPageIDOkJSONResponse": {
+      "GetV1PageByPageIDOk": {
         "type": "object",
         "properties": {
           "object": {
@@ -80,10 +80,10 @@
             "$ref": "#/components/schemas/PageByPageIDCreatedBy"
           },
           "cover": {
-            "$ref": "#/components/schemas/GetV1PageByPageIDOkJSONResponseCover"
+            "$ref": "#/components/schemas/GetV1PageByPageIDOkCover"
           },
           "icon": {
-            "$ref": "#/components/schemas/GetV1PageByPageIDOkJSONResponseIcon"
+            "$ref": "#/components/schemas/GetV1PageByPageIDOkIcon"
           },
           "parent": {
             "$ref": "#/components/schemas/PageByPageIDParent"
@@ -98,7 +98,7 @@
             "type": "boolean"
           },
           "properties": {
-            "$ref": "#/components/schemas/GetV1PageByPageIDOkJSONResponseProperties"
+            "$ref": "#/components/schemas/GetV1PageByPageIDOkProperties"
           },
           "url": {
             "type": "string",
@@ -135,7 +135,7 @@
           "request_id"
         ]
       },
-      "GetV1PageByPageIDOkJSONResponseCover": {
+      "GetV1PageByPageIDOkCover": {
         "type": "object",
         "properties": {
           "type": {
@@ -143,7 +143,7 @@
             "example": "external"
           },
           "external": {
-            "$ref": "#/components/schemas/GetV1PageByPageIDOkJSONResponseCoverExternal"
+            "$ref": "#/components/schemas/GetV1PageByPageIDOkCoverExternal"
           }
         },
         "required": [
@@ -151,7 +151,7 @@
           "external"
         ]
       },
-      "GetV1PageByPageIDOkJSONResponseCoverExternal": {
+      "GetV1PageByPageIDOkCoverExternal": {
         "type": "object",
         "properties": {
           "url": {
@@ -164,7 +164,7 @@
           "url"
         ]
       },
-      "GetV1PageByPageIDOkJSONResponseIcon": {
+      "GetV1PageByPageIDOkIcon": {
         "type": "object",
         "properties": {
           "type": {
@@ -181,18 +181,18 @@
           "emoji"
         ]
       },
-      "GetV1PageByPageIDOkJSONResponseProperties": {
+      "GetV1PageByPageIDOkProperties": {
         "type": "object",
         "properties": {
           "title": {
-            "$ref": "#/components/schemas/GetV1PageByPageIDOkJSONResponsePropertiesTitle"
+            "$ref": "#/components/schemas/GetV1PageByPageIDOkPropertiesTitle"
           }
         },
         "required": [
           "title"
         ]
       },
-      "GetV1PageByPageIDOkJSONResponsePropertiesTitle": {
+      "GetV1PageByPageIDOkPropertiesTitle": {
         "type": "object",
         "properties": {
           "id": {
@@ -213,7 +213,7 @@
           "title"
         ]
       },
-      "ListV1BlockChildrenOkJSONResponse": {
+      "ListV1BlockChildrenOk": {
         "type": "object",
         "properties": {
           "object": {
@@ -221,7 +221,7 @@
             "example": "list"
           },
           "results": {
-            "$ref": "#/components/schemas/ListV1BlockChildrenOkJSONResponseResults"
+            "$ref": "#/components/schemas/ListV1BlockChildrenOkResults"
           },
           "next_cursor": {
             "type": "string",
@@ -254,13 +254,13 @@
           "request_id"
         ]
       },
-      "ListV1BlockChildrenOkJSONResponseResults": {
+      "ListV1BlockChildrenOkResults": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListV1BlockChildrenOkJSONResponseResultsItem"
+          "$ref": "#/components/schemas/ListV1BlockChildrenOkResultsItem"
         }
       },
-      "ListV1BlockChildrenOkJSONResponseResultsItem": {
+      "ListV1BlockChildrenOkResultsItem": {
         "type": "object",
         "properties": {
           "object": {
@@ -301,7 +301,7 @@
             "example": "paragraph"
           },
           "paragraph": {
-            "$ref": "#/components/schemas/ListV1BlockChildrenOkJSONResponseResultsItemParagraph"
+            "$ref": "#/components/schemas/ListV1BlockChildrenOkResultsItemParagraph"
           }
         },
         "required": [
@@ -318,7 +318,7 @@
           "paragraph"
         ]
       },
-      "ListV1BlockChildrenOkJSONResponseResultsItemParagraph": {
+      "ListV1BlockChildrenOkResultsItemParagraph": {
         "type": "object",
         "properties": {
           "rich_text": {
@@ -466,7 +466,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/GetV1PageByPageIDOkJSONResponse"
+              "$ref": "#/components/schemas/GetV1PageByPageIDOk"
             }
           }
         }
@@ -476,7 +476,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListV1BlockChildrenOkJSONResponse"
+              "$ref": "#/components/schemas/ListV1BlockChildrenOk"
             }
           }
         }

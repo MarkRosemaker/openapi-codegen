@@ -14,40 +14,40 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 )
 
-// ListV1APITickleOkJSONResponse defines a model
-type ListV1APITickleOkJSONResponse struct {
-	Session    uuid.UUID                            `json:"session,omitzero"`
-	SsoExpires int                                  `json:"ssoExpires"`
-	Collission bool                                 `json:"collission"`
-	UserID     int                                  `json:"userId"`
-	Hmds       ListV1APITickleOkJSONResponseHmds    `json:"hmds"`
-	Iserver    ListV1APITickleOkJSONResponseIserver `json:"iserver"`
+// ListV1APITickleOk defines a model
+type ListV1APITickleOk struct {
+	Session    uuid.UUID                `json:"session,omitzero"`
+	SsoExpires int                      `json:"ssoExpires"`
+	Collission bool                     `json:"collission"`
+	UserID     int                      `json:"userId"`
+	Hmds       ListV1APITickleOkHmds    `json:"hmds"`
+	Iserver    ListV1APITickleOkIserver `json:"iserver"`
 }
 
-// ListV1APITickleOkJSONResponseHmds defines a model
-type ListV1APITickleOkJSONResponseHmds struct {
+// ListV1APITickleOkHmds defines a model
+type ListV1APITickleOkHmds struct {
 	Err string `json:"error,omitzero"`
 }
 
-// ListV1APITickleOkJSONResponseIserver defines a model
-type ListV1APITickleOkJSONResponseIserver struct {
-	AuthStatus ListV1APITickleOkJSONResponseIserverAuthStatus `json:"authStatus"`
+// ListV1APITickleOkIserver defines a model
+type ListV1APITickleOkIserver struct {
+	AuthStatus ListV1APITickleOkIserverAuthStatus `json:"authStatus"`
 }
 
-// ListV1APITickleOkJSONResponseIserverAuthStatus defines a model
-type ListV1APITickleOkJSONResponseIserverAuthStatus struct {
-	Authenticated bool                                                     `json:"authenticated"`
-	Established   bool                                                     `json:"established"`
-	Competing     bool                                                     `json:"competing"`
-	Connected     bool                                                     `json:"connected"`
-	Message       string                                                   `json:"message,omitzero"`
-	Mac           string                                                   `json:"MAC,omitzero"`
-	ServerInfo    ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo `json:"serverInfo"`
-	HardwareInfo  string                                                   `json:"hardware_info,omitzero"`
+// ListV1APITickleOkIserverAuthStatus defines a model
+type ListV1APITickleOkIserverAuthStatus struct {
+	Authenticated bool                                         `json:"authenticated"`
+	Established   bool                                         `json:"established"`
+	Competing     bool                                         `json:"competing"`
+	Connected     bool                                         `json:"connected"`
+	Message       string                                       `json:"message,omitzero"`
+	Mac           string                                       `json:"MAC,omitzero"`
+	ServerInfo    ListV1APITickleOkIserverAuthStatusServerInfo `json:"serverInfo"`
+	HardwareInfo  string                                       `json:"hardware_info,omitzero"`
 }
 
-// ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo defines a model
-type ListV1APITickleOkJSONResponseIserverAuthStatusServerInfo struct {
+// ListV1APITickleOkIserverAuthStatusServerInfo defines a model
+type ListV1APITickleOkIserverAuthStatusServerInfo struct {
 	ServerName    string `json:"serverName,omitzero"`
 	ServerVersion string `json:"serverVersion,omitzero"`
 }

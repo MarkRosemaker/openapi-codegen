@@ -93,8 +93,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /tasks/user
-func (c *Client) ListApiv3TasksUser(ctx context.Context, params ListApiv3TasksUserParams) (*ListApiv3TasksUserOkJSONResponse, error) {
-	return c.ListApiv3TasksUserWithResult[ListApiv3TasksUserOkJSONResponse](ctx, params)
+func (c *Client) ListApiv3TasksUser(ctx context.Context, params ListApiv3TasksUserParams) (*ListApiv3TasksUserOk, error) {
+	return c.ListApiv3TasksUserWithResult[ListApiv3TasksUserOk](ctx, params)
 }
 
 // GET /tasks/user
@@ -141,8 +141,8 @@ func (c *Client) ListApiv3TasksUserWithResult[R any](ctx context.Context, params
 }
 
 // GET /tasks/{taskId}
-func (c *Client) GetApiv3TaskByTaskID(ctx context.Context, taskID string, params GetApiv3TaskByTaskIDParams) (*GetApiv3TaskByTaskIDOkJSONResponse, error) {
-	return c.GetApiv3TaskByTaskIDWithResult[GetApiv3TaskByTaskIDOkJSONResponse](ctx, taskID, params)
+func (c *Client) GetApiv3TaskByTaskID(ctx context.Context, taskID string, params GetApiv3TaskByTaskIDParams) (*GetApiv3TaskByTaskIDOk, error) {
+	return c.GetApiv3TaskByTaskIDWithResult[GetApiv3TaskByTaskIDOk](ctx, taskID, params)
 }
 
 // GET /tasks/{taskId}
@@ -189,8 +189,8 @@ func (c *Client) GetApiv3TaskByTaskIDWithResult[R any](ctx context.Context, task
 }
 
 // GET /user
-func (c *Client) ListApiv3User(ctx context.Context, params ListApiv3UserParams) (*ListApiv3UserOkJSONResponse, error) {
-	return c.ListApiv3UserWithResult[ListApiv3UserOkJSONResponse](ctx, params)
+func (c *Client) ListApiv3User(ctx context.Context, params ListApiv3UserParams) (*ListApiv3UserOk, error) {
+	return c.ListApiv3UserWithResult[ListApiv3UserOk](ctx, params)
 }
 
 // GET /user
@@ -237,8 +237,8 @@ func (c *Client) ListApiv3UserWithResult[R any](ctx context.Context, params List
 }
 
 // POST /tasks/{taskId}/score/up
-func (c *Client) PostApiv3TaskScoreUp(ctx context.Context, taskID string, params PostApiv3TaskScoreUpParams) (*PostApiv3TaskScoreUpOkJSONResponse, error) {
-	return c.PostApiv3TaskScoreUpWithResult[PostApiv3TaskScoreUpOkJSONResponse](ctx, taskID, params)
+func (c *Client) PostApiv3TaskScoreUp(ctx context.Context, taskID string, params PostApiv3TaskScoreUpParams) (*PostApiv3TaskScoreUpOk, error) {
+	return c.PostApiv3TaskScoreUpWithResult[PostApiv3TaskScoreUpOk](ctx, taskID, params)
 }
 
 // POST /tasks/{taskId}/score/up
@@ -283,7 +283,7 @@ func (c *Client) PostApiv3TaskScoreUpWithResult[R any](ctx context.Context, task
 		// Not Found
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out PostApiv3TaskScoreUpNotFoundJSONResponse
+			var out PostApiv3TaskScoreUpNotFound
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}

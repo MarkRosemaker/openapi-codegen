@@ -38,14 +38,14 @@
   },
   "components": {
     "schemas": {
-      "ListV1PetsOkJSONResponse": {
+      "ListV1PetsOk": {
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/ListV1PetsOkJSONResponseData"
+            "$ref": "#/components/schemas/ListV1PetsOkData"
           },
           "pagination": {
-            "$ref": "#/components/schemas/ListV1PetsOkJSONResponsePagination"
+            "$ref": "#/components/schemas/ListV1PetsOkPagination"
           }
         },
         "required": [
@@ -53,13 +53,13 @@
           "pagination"
         ]
       },
-      "ListV1PetsOkJSONResponseData": {
+      "ListV1PetsOkData": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/PetByPetID"
         }
       },
-      "ListV1PetsOkJSONResponsePagination": {
+      "ListV1PetsOkPagination": {
         "type": "object",
         "properties": {
           "page": {
@@ -203,7 +203,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListV1PetsOkJSONResponse"
+              "$ref": "#/components/schemas/ListV1PetsOk"
             }
           }
         }

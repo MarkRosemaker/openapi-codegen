@@ -67,8 +67,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /api/apis/{apiId}
-func (c *Client) GetApiapiByApiid(ctx context.Context, apiID int) (*GetApiapiByApiidOkJSONResponse, error) {
-	return c.GetApiapiByApiidWithResult[GetApiapiByApiidOkJSONResponse](ctx, apiID)
+func (c *Client) GetApiapiByApiid(ctx context.Context, apiID int) (*GetApiapiByApiidOk, error) {
+	return c.GetApiapiByApiidWithResult[GetApiapiByApiidOk](ctx, apiID)
 }
 
 // GET /api/apis/{apiId}

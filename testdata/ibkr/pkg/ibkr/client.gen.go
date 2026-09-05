@@ -66,8 +66,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /v1/api/tickle
-func (c *Client) ListV1APITickle(ctx context.Context) (*ListV1APITickleOkJSONResponse, error) {
-	return c.ListV1APITickleWithResult[ListV1APITickleOkJSONResponse](ctx)
+func (c *Client) ListV1APITickle(ctx context.Context) (*ListV1APITickleOk, error) {
+	return c.ListV1APITickleWithResult[ListV1APITickleOk](ctx)
 }
 
 // GET /v1/api/tickle
