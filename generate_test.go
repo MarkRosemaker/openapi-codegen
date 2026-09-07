@@ -179,7 +179,7 @@ func TestGenerate_IRError(t *testing.T) {
 
 func TestGenerate_MkdirError(t *testing.T) {
 	// Use a regular file as OutputDir so MkdirAll fails.
-	tmpFile, err := os.CreateTemp("", "codegen-test-*")
+	tmpFile, err := os.CreateTemp(t.TempDir(), "codegen-test-*")
 	if err != nil {
 		t.Fatal(err)
 	}
