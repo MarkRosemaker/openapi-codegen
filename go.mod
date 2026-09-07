@@ -6,7 +6,7 @@ require (
 	github.com/MarkRosemaker/fsutil v0.0.0-20260905160058-a5ca186d9a9d
 	github.com/MarkRosemaker/jsonutil v0.0.0-20260905160105-5e81f9654374
 	github.com/MarkRosemaker/openapi v0.0.0-20260905160141-933af336d1e3
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20260905162311-36f05ed3e07c
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20260907143039-3fa3b301d9e1
 	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260905161434-377d6441ee4e
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260905160249-6aed8b0b43cd
 	github.com/MarkRosemaker/ordmap v0.0.0-20260905160117-d1940fc06596
@@ -23,7 +23,7 @@ require (
 	github.com/MarkRosemaker/errpath v0.0.0-20260905160101-b767f06676ce // indirect
 	github.com/MarkRosemaker/json2yaml v0.0.0-20260905160102-90094cbdc27a // indirect
 	github.com/MarkRosemaker/openapi-compare v0.0.0-20260905160218-f0ea74662d7d // indirect
-	github.com/MarkRosemaker/openapi-edit v0.0.0-20260905160213-02eab925b41a // indirect
+	github.com/MarkRosemaker/openapi-edit v0.0.0-20260907142638-d544e9ef7586 // indirect
 	github.com/MarkRosemaker/yaml v0.0.0-20260905160118-287c5415b0bb // indirect
 	github.com/MarkRosemaker/yaml2json v0.0.0-20260905160101-04874ebebfcf // indirect
 	github.com/go-api-libs/types v0.0.0-20260821232109-0cf45378823e // indirect
