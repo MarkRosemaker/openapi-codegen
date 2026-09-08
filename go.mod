@@ -3,12 +3,12 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/fsutil v0.0.0-20260908160046-cd51648c6793
+	github.com/MarkRosemaker/fsutil v0.0.0-20260908182017-99957a62418f
 	github.com/MarkRosemaker/jsonutil v0.0.0-20260908160045-7e280e06ea7c
 	github.com/MarkRosemaker/openapi v0.0.0-20260908160126-ac1ed10e1e23
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20260908162107-6855592c3040
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20260908183040-8f81271143f9
 	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260908161300-20dd54015613
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260908160229-b940873664ee
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260908182110-4a8ebdbfc587
 	github.com/MarkRosemaker/ordmap v0.0.0-20260908160056-ecd5c9eeefde
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20260827160132-fe8c2393f615
@@ -30,6 +30,6 @@ require (
 	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
