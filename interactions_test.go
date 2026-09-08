@@ -190,13 +190,13 @@ func TestMatchPathTemplate(t *testing.T) {
 func TestMatchPathTemplate_ExactFlag(t *testing.T) {
 	// Segment-for-segment matches are exact; wildcard captures are not.
 	if _, ok, exact := matchPathTemplate("/tasks/{id}", "/tasks/abc"); !ok || !exact {
-		t.Errorf("segment-count match: ok=%v exact=%v, want true true", ok, exact)
+		t.Errorf("segment-count match: ok=%v exact=%v, want true", ok, exact)
 	}
 	if _, ok, exact := matchPathTemplate("/tasks/{id}", "/tasks/abc/score/up"); !ok || exact {
 		t.Errorf("wildcard match: ok=%v exact=%v, want true false", ok, exact)
 	}
 	if _, ok, exact := matchPathTemplate("/tasks/{id}/score/up", "/tasks/abc/score/up"); !ok || !exact {
-		t.Errorf("longer exact match: ok=%v exact=%v, want true true", ok, exact)
+		t.Errorf("longer exact match: ok=%v exact=%v, want true", ok, exact)
 	}
 }
 
