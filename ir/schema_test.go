@@ -24,7 +24,7 @@ func TestGoTypeZeroValue(t *testing.T) {
 		{ir.GoType{Name: "float32"}, "0"},
 		{ir.GoType{Name: "float64"}, "0"},
 		{ir.GoType{Name: "Pet"}, "Pet{}"},
-		{ir.GoType{Name: "uuid.UUID"}, "uuid.Nil"},
+		{ir.GoType{Name: "uuid.UUID"}, "uuid.Nil()"},
 	}
 	for _, tc := range tests {
 		if got := tc.t.ZeroValue(); got != tc.want {

@@ -8,10 +8,10 @@ import (
 	"encoding/json/v2"
 	"net/url"
 	"time"
+	"uuid"
 
 	"github.com/MarkRosemaker/jsonutil"
 	"github.com/go-api-libs/types"
-	"github.com/google/uuid"
 )
 
 var jsonOpts = json.JoinOptions(

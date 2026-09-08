@@ -6,8 +6,7 @@ package ibkr
 
 import (
 	"encoding/json/v2"
-
-	"github.com/google/uuid"
+	"uuid"
 )
 
 var jsonOpts = json.JoinOptions(

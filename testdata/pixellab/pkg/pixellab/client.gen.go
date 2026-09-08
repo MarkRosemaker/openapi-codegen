@@ -15,9 +15,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"uuid"
 
 	"github.com/go-api-libs/api"
-	"github.com/google/uuid"
 )
 
 const defaultUserAgent = "Pixel Lab API"
@@ -9499,7 +9499,7 @@ func (c *Client) DeleteObjectAnimationsObjectsObjectIDAnimationsDeleteWithResult
 			q["animation_type"] = []string{params.AnimationType}
 		}
 
-		if params.AnimationGroupID != uuid.Nil {
+		if params.AnimationGroupID != uuid.Nil() {
 			q["animation_group_id"] = []string{params.AnimationGroupID.String()}
 		}
 
@@ -10234,7 +10234,7 @@ func (c *Client) DeleteCharacterAnimationsCharactersCharacterIDAnimationsDeleteW
 			q["animation_type"] = []string{params.AnimationType}
 		}
 
-		if params.AnimationGroupID != uuid.Nil {
+		if params.AnimationGroupID != uuid.Nil() {
 			q["animation_group_id"] = []string{params.AnimationGroupID.String()}
 		}
 

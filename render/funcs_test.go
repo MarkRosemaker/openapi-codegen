@@ -71,7 +71,7 @@ func TestTypeZeroVal(t *testing.T) {
 		{"float32", "0"},
 		{"float64", "0"},
 		{"time.Duration", "0"},
-		{"uuid.UUID", "uuid.Nil"},
+		{"uuid.UUID", "uuid.Nil()"},
 		{"url.URL", "url.URL{}"},
 		{"time.Time", "time.Time{}"},
 		{"civil.Date", "civil.Date{}"},

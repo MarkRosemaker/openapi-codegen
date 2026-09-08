@@ -10,9 +10,9 @@ import (
 	"log/slog"
 	"net/http"
 	"strconv"
+	"uuid"
 
 	"github.com/go-api-libs/api/server"
-	"github.com/google/uuid"
 )
 
 // Service defines the operations the server must implement.

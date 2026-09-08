@@ -7,8 +7,7 @@ package petstore
 import (
 	"encoding/json/v2"
 	"time"
-
-	"github.com/google/uuid"
+	"uuid"
 )
 
 var jsonOpts = json.JoinOptions(

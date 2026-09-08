@@ -12,7 +12,6 @@ require (
 	github.com/MarkRosemaker/ordmap v0.0.0-20260908160056-ecd5c9eeefde
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20260827160132-fe8c2393f615
-	github.com/google/uuid v1.6.0
 	github.com/spf13/afero v1.15.0
 	golang.org/x/tools v0.49.0
 	mvdan.cc/gofumpt v0.12.0
@@ -27,6 +26,7 @@ require (
 	github.com/MarkRosemaker/yaml v0.0.0-20260908160059-d407f389fd7b // indirect
 	github.com/MarkRosemaker/yaml2json v0.0.0-20260908160043-42c0f14e5943 // indirect
 	github.com/go-api-libs/types v0.0.0-20260821232109-0cf45378823e // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect

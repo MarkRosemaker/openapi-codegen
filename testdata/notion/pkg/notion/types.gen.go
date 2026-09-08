@@ -8,9 +8,9 @@ import (
 	"encoding/json/v2"
 	"net/url"
 	"time"
+	"uuid"
 
 	"github.com/MarkRosemaker/jsonutil"
-	"github.com/google/uuid"
 )
 
 var jsonOpts = json.JoinOptions(

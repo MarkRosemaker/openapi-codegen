@@ -13,7 +13,6 @@ import (
 	_ "github.com/MarkRosemaker/openapi-enrich/cassette"
 	_ "github.com/go-api-libs/api"
 	_ "github.com/go-api-libs/api/server"
-	_ "github.com/google/uuid"
 )
 
 // TestCodegen_Golden builds the generated packages and runs their tests.

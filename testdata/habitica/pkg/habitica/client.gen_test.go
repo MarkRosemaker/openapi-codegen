@@ -16,10 +16,10 @@ import (
 	"net/url"
 	"slices"
 	"testing"
+	"uuid"
 
 	"github.com/MarkRosemaker/openapi-enrich/cassette"
 	"github.com/go-api-libs/api"
-	"github.com/google/uuid"
 )
 
 func newTestServer(t *testing.T, status int) *httptest.Server {

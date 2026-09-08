@@ -472,7 +472,7 @@ func TestFormatAndNotZeroExprs(t *testing.T) {
 	tests := []test{
 		{openapi.TypeString, "", `params.Name`, `params.Name != ""`},
 		{openapi.TypeString, openapi.FormatEmail, `string(params.Name)`, `params.Name != ""`},
-		{openapi.TypeString, openapi.FormatUUID, `params.Name.String()`, `params.Name != uuid.Nil`},
+		{openapi.TypeString, openapi.FormatUUID, `params.Name.String()`, `params.Name != uuid.Nil()`},
 		{openapi.TypeString, openapi.FormatURI, `params.Name.String()`, `params.Name.Host != ""`},
 		{openapi.TypeString, openapi.FormatDateTime, `params.Name.Format(time.RFC3339)`, `!params.Name.IsZero()`},
 		{openapi.TypeString, openapi.FormatDate, `params.Name.String()`, `params.Name != (civil.Date{})`},

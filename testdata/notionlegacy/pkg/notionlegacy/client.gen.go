@@ -13,9 +13,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"uuid"
 
 	"github.com/go-api-libs/api"
-	"github.com/google/uuid"
 )
 
 const defaultUserAgent = "Notion API"
@@ -154,7 +154,7 @@ func (c *Client) GetBlocksWithResult[R any](ctx context.Context, id uuid.UUID, p
 	if params != nil {
 		q := make(url.Values, 2)
 
-		if params.StartCursor != uuid.Nil {
+		if params.StartCursor != uuid.Nil() {
 			q["start_cursor"] = []string{params.StartCursor.String()}
 		}
 
