@@ -46,7 +46,7 @@ func TestCodegen_Golden(t *testing.T) {
 		t.Run(entry.Name(), func(t *testing.T) {
 			t.Parallel()
 
-			out, err := exec.Command("go", "test", "./"+dir).CombinedOutput()
+			out, err := exec.CommandContext(t.Context(), "go", "test", "./"+dir).CombinedOutput()
 			if err != nil {
 				t.Fatalf("generated code does not build or its tests fail:\n%s", out)
 			}
