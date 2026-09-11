@@ -23,6 +23,7 @@ func makeParam(name string, in openapi.ParameterLocation, required bool, schema 
 		Required: required,
 		Schema:   &openapi.SchemaRef{Value: schema},
 	}
+
 	return p
 }
 
@@ -35,6 +36,7 @@ func makeResponse(desc, contentType string, schemaRef *openapi.SchemaRef) *opena
 		c.Set(openapi.MediaRange(contentType), mt)
 		r.Value.Content = c
 	}
+
 	return r
 }
 
@@ -54,24 +56,31 @@ func TestFromOperation_Basic(t *testing.T) {
 	if got.Name != "ListPets" {
 		t.Errorf("Name = %q, want ListPets", got.Name)
 	}
+
 	if got.Method != "GET" {
 		t.Errorf("Method = %q, want GET", got.Method)
 	}
+
 	if got.PathTemplate != "/pets" {
 		t.Errorf("PathTemplate = %q, want /pets", got.PathTemplate)
 	}
+
 	if got.Summary != "List all pets" {
 		t.Errorf("Summary = %q, want 'List all pets'", got.Summary)
 	}
+
 	if got.HasParams {
 		t.Error("HasParams = true, want false")
 	}
+
 	if got.SuccessReturn == nil || got.SuccessReturn.Name != "PetList" {
 		t.Errorf("SuccessReturn = %v, want &GoType{Name:PetList}", got.SuccessReturn)
 	}
+
 	if len(got.Responses) != 1 {
 		t.Fatalf("Responses len = %d, want 1", len(got.Responses))
 	}
+
 	if got.Responses[0].GoConstant != "http.StatusOK" {
 		t.Errorf("GoConstant = %q, want http.StatusOK", got.Responses[0].GoConstant)
 	}
@@ -92,15 +101,19 @@ func TestFromOperation_RawBytesSuccess(t *testing.T) {
 	if got.SuccessReturn == nil || got.SuccessReturn.String() != "[]byte" {
 		t.Fatalf("SuccessReturn = %v, want []byte", got.SuccessReturn)
 	}
+
 	if !got.RawBytesSuccess {
 		t.Error("RawBytesSuccess = false, want true")
 	}
+
 	if len(got.Responses) != 1 {
 		t.Fatalf("Responses len = %d, want 1", len(got.Responses))
 	}
+
 	if !got.Responses[0].IsRawBytes {
 		t.Error("Responses[0].IsRawBytes = false, want true")
 	}
+
 	if got.Responses[0].ContentType != "text/plain" {
 		t.Errorf("Responses[0].ContentType = %q, want text/plain", got.Responses[0].ContentType)
 	}
@@ -122,9 +135,11 @@ func TestFromOperation_RawBytesErrorOnly(t *testing.T) {
 	if got.SuccessReturn == nil || got.SuccessReturn.Name != "Thing" {
 		t.Fatalf("SuccessReturn = %v, want &GoType{Name:Thing}", got.SuccessReturn)
 	}
+
 	if got.RawBytesSuccess {
 		t.Error("RawBytesSuccess = true, want false (success response is JSON)")
 	}
+
 	if len(got.Responses) != 2 {
 		t.Fatalf("Responses len = %d, want 2", len(got.Responses))
 	}
@@ -133,9 +148,11 @@ func TestFromOperation_RawBytesErrorOnly(t *testing.T) {
 	if !errResp.IsRawBytes {
 		t.Error("Responses[1].IsRawBytes = false, want true")
 	}
+
 	if errResp.GoType == nil || errResp.GoType.String() != "[]byte" {
 		t.Errorf("Responses[1].GoType = %v, want []byte", errResp.GoType)
 	}
+
 	if errResp.ContentType != "text/html" {
 		t.Errorf("Responses[1].ContentType = %q, want text/html", errResp.ContentType)
 	}
@@ -160,9 +177,11 @@ func TestFromOperation_JSONPreferredOverRawBytes(t *testing.T) {
 	if got.RawBytesSuccess {
 		t.Error("RawBytesSuccess = true, want false (JSON media type present)")
 	}
+
 	if got.Responses[0].IsRawBytes {
 		t.Error("Responses[0].IsRawBytes = true, want false")
 	}
+
 	if got.Responses[0].ContentType != "application/json" {
 		t.Errorf("Responses[0].ContentType = %q, want application/json", got.Responses[0].ContentType)
 	}
@@ -188,16 +207,20 @@ func TestFromOperation_PathParam(t *testing.T) {
 	if len(got.PathParams) != 1 {
 		t.Fatalf("PathParams len = %d, want 1", len(got.PathParams))
 	}
+
 	p := got.PathParams[0]
 	if p.GoName != "petID" {
 		t.Errorf("GoName = %q, want petID", p.GoName)
 	}
+
 	if p.Type != "int" {
 		t.Errorf("Type = %q, want int", p.Type)
 	}
+
 	if got, want := p.FormatExpr(), "strconv.Itoa(petID)"; got != want {
 		t.Errorf("FormatExpr = %q, want %q", got, want)
 	}
+
 	if !p.Required {
 		t.Error("Required = false, want true")
 	}
@@ -206,9 +229,11 @@ func TestFromOperation_PathParam(t *testing.T) {
 	if len(got.JoinPathArgs) != 2 {
 		t.Fatalf("JoinPathArgs len = %d, want 2", len(got.JoinPathArgs))
 	}
+
 	if got.JoinPathArgs[0] != `"pets"` {
 		t.Errorf("JoinPathArgs[0] = %q, want \"pets\"", got.JoinPathArgs[0])
 	}
+
 	if got.JoinPathArgs[1] != "strconv.Itoa(petID)" {
 		t.Errorf("JoinPathArgs[1] = %q, want strconv.Itoa(petID)", got.JoinPathArgs[1])
 	}
@@ -238,9 +263,11 @@ func TestFromOperation_QueryParams(t *testing.T) {
 	if len(got.QueryParams) != 2 {
 		t.Fatalf("QueryParams len = %d, want 2", len(got.QueryParams))
 	}
+
 	if got.ParamStructName != "ListPetsParams" {
 		t.Errorf("ParamStructName = %q, want ListPetsParams", got.ParamStructName)
 	}
+
 	if !got.HasParams {
 		t.Error("HasParams = false, want true")
 	}
@@ -258,6 +285,7 @@ func TestFromOperation_QueryParams(t *testing.T) {
 
 func TestFromOperation_MissingOperationID(t *testing.T) {
 	op := &openapi.Operation{}
+
 	_, err := ir.FromOperation("/pets", nil, "GET", op, nil)
 	if err == nil {
 		t.Fatal("expected error for missing operationId")
@@ -294,6 +322,7 @@ func TestFromOperation_PathItemParamsMerge(t *testing.T) {
 	if got.QueryParams[0].JSONName != "offset" {
 		t.Errorf("QueryParams[0].JSONName = %q, want offset", got.QueryParams[0].JSONName)
 	}
+
 	if got.QueryParams[1].JSONName != "limit" {
 		t.Errorf("QueryParams[1].JSONName = %q, want limit", got.QueryParams[1].JSONName)
 	}
@@ -327,9 +356,11 @@ func TestFromOperation_RequestBody(t *testing.T) {
 	if got.RequestBody == nil {
 		t.Fatal("RequestBody = nil, want &ReqBody")
 	}
+
 	if got.RequestBody.TypeName != "NewPet" {
 		t.Errorf("TypeName = %q, want NewPet", got.RequestBody.TypeName)
 	}
+
 	if !got.RequestBody.Required {
 		t.Error("Required = false, want true")
 	}
@@ -366,9 +397,11 @@ func TestStatusCodeToConst(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+
 		if len(got.Responses) == 0 {
 			t.Fatalf("no responses for code %s", codes[i])
 		}
+
 		if got.Responses[0].GoConstant != tc.want {
 			t.Errorf("code %s: GoConstant = %q, want %q", codes[i], got.Responses[0].GoConstant, tc.want)
 		}
@@ -384,6 +417,7 @@ func TestFromOperation_ParamMissingSchema(t *testing.T) {
 	}
 	op.Responses = openapi.OperationResponses{}
 	op.Responses.Set("200", makeResponse("OK", "", nil))
+
 	_, err := ir.FromOperation("/items/{id}", nil, "GET", op, nil)
 	if err == nil {
 		t.Fatal("expected error for missing param schema")
@@ -395,6 +429,7 @@ func TestFromOperation_RequestBodyNoSchema(t *testing.T) {
 	mt := &openapi.MediaType{Schema: nil}
 	c := openapi.Content{}
 	c.Set("application/json", mt)
+
 	rb := &openapi.RequestBodyRef{}
 	rb.Value = &openapi.RequestBody{Content: c}
 
@@ -406,6 +441,7 @@ func TestFromOperation_RequestBodyNoSchema(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.RequestBody != nil {
 		t.Errorf("RequestBody = %v, want nil (no schema)", got.RequestBody)
 	}
@@ -424,6 +460,7 @@ func TestFromOperation_RangeStatusCode(t *testing.T) {
 	if len(got.Responses) == 0 {
 		t.Fatal("no responses")
 	}
+
 	if got.Responses[0].StatusCode != "2XX" {
 		t.Errorf("StatusCode = %q, want 2XX", got.Responses[0].StatusCode)
 	}
@@ -457,6 +494,7 @@ func TestFromOperation_Deprecated(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if !got.Deprecated {
 		t.Error("Deprecated = false, want true")
 	}
@@ -469,6 +507,7 @@ func TestFormatAndNotZeroExprs(t *testing.T) {
 		wantFmt     string
 		wantNotZero string
 	}
+
 	tests := []test{
 		{openapi.TypeString, "", `params.Name`, `params.Name != ""`},
 		{openapi.TypeString, openapi.FormatEmail, `string(params.Name)`, `params.Name != ""`},
@@ -500,18 +539,20 @@ func TestFormatAndNotZeroExprs(t *testing.T) {
 		if err != nil {
 			t.Fatalf("type=%s format=%s: %v", tc.typ, tc.format, err)
 		}
+
 		if len(got.QueryParams) == 0 {
 			t.Fatal("no query params")
 		}
+
 		p := got.QueryParams[0]
 		if got := p.FormatExpr(); got != tc.wantFmt {
 			t.Errorf("type=%s format=%s: FormatExpr = %q, want %q",
 				tc.typ, tc.format, got, tc.wantFmt)
 		}
+
 		if got := p.NotZero(); got != tc.wantNotZero {
 			t.Fatalf("type=%s format=%s: ZeroCheck = %q, want %q",
 				tc.typ, tc.format, got, tc.wantNotZero)
 		}
-
 	}
 }

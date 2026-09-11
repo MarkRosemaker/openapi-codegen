@@ -12,7 +12,6 @@ func buildMinimalDoc() *openapi.Document {
 	//   GET /pets            → listPets (returns PetList)
 	//   GET /pets/{petId}    → getPet   (returns Pet)
 	//   POST /pets           → createPet (body: NewPet, returns Pet)
-
 	petSchema := &openapi.Schema{
 		Type:        openapi.TypeObject,
 		Description: "A pet",
@@ -22,6 +21,7 @@ func buildMinimalDoc() *openapi.Document {
 	idRef := &openapi.SchemaRef{}
 	idRef.Value = &openapi.Schema{Type: openapi.TypeInteger}
 	petSchema.Properties.Set("id", idRef)
+
 	nameRef := &openapi.SchemaRef{}
 	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
 	petSchema.Properties.Set("name", nameRef)
@@ -70,6 +70,7 @@ func buildMinimalDoc() *openapi.Document {
 	newPetMT := &openapi.MediaType{Schema: makeNamedRef("NewPet")}
 	newPetContent := openapi.Content{}
 	newPetContent.Set("application/json", newPetMT)
+
 	createRB := &openapi.RequestBodyRef{}
 	createRB.Value = &openapi.RequestBody{Content: newPetContent, Required: true}
 	createPetOp := &openapi.Operation{OperationID: "createPet", RequestBody: createRB}
@@ -94,15 +95,19 @@ func TestFromDocument_Basic(t *testing.T) {
 	if irDoc.PackageName != "petapi" {
 		t.Errorf("PackageName = %q, want petapi", irDoc.PackageName)
 	}
+
 	if irDoc.BaseURL.Scheme != "https" {
 		t.Errorf("BaseURL.Scheme = %q, want https", irDoc.BaseURL.Scheme)
 	}
+
 	if irDoc.BaseURL.Host != "api.example.com" {
 		t.Errorf("BaseURL.Host = %q, want api.example.com", irDoc.BaseURL.Host)
 	}
+
 	if irDoc.BaseURL.Path != "/v1/pets" {
 		t.Errorf("BaseURL.Path = %q, want /v1", irDoc.BaseURL.Path)
 	}
+
 	if irDoc.UserAgent != "Pet API" {
 		t.Errorf("UserAgent = %q, want 'Pet API'", irDoc.UserAgent)
 	}
@@ -120,6 +125,7 @@ func TestFromDocument_Basic(t *testing.T) {
 
 func TestFromDocument_OperationDetails(t *testing.T) {
 	doc := buildMinimalDoc()
+
 	irDoc, err := ir.FromDocument(doc, "petapi", "test-agent")
 	if err != nil {
 		t.Fatal(err)
@@ -135,9 +141,11 @@ func TestFromDocument_OperationDetails(t *testing.T) {
 	if !ok {
 		t.Fatal("ListPets operation not found")
 	}
+
 	if listPets.Method != "GET" {
 		t.Errorf("ListPets.Method = %q, want GET", listPets.Method)
 	}
+
 	if listPets.SuccessReturn == nil || listPets.SuccessReturn.Name != "PetList" {
 		t.Errorf("ListPets.SuccessReturn = %v, want &GoType{Name:PetList}", listPets.SuccessReturn)
 	}
@@ -146,9 +154,11 @@ func TestFromDocument_OperationDetails(t *testing.T) {
 	if !ok {
 		t.Fatal("GetPet operation not found")
 	}
+
 	if len(getPet.PathParams) != 1 {
 		t.Fatalf("GetPet.PathParams len = %d, want 1", len(getPet.PathParams))
 	}
+
 	if getPet.PathParams[0].GoName != "petID" {
 		t.Errorf("GetPet.PathParams[0].GoName = %q, want petID", getPet.PathParams[0].GoName)
 	}
@@ -157,9 +167,11 @@ func TestFromDocument_OperationDetails(t *testing.T) {
 	if !ok {
 		t.Fatal("CreatePet operation not found")
 	}
+
 	if createPet.RequestBody == nil {
 		t.Fatal("CreatePet.RequestBody = nil")
 	}
+
 	if createPet.RequestBody.TypeName != "NewPet" {
 		t.Errorf("CreatePet.RequestBody.TypeName = %q, want NewPet", createPet.RequestBody.TypeName)
 	}
@@ -177,6 +189,7 @@ func TestFromDocument_NoServers(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if irDoc.BaseURL.Scheme != "https" {
 		t.Errorf("BaseURL.Scheme = %q, want https (default)", irDoc.BaseURL.Scheme)
 	}
@@ -200,6 +213,7 @@ func TestFromDocument_SpecialImports(t *testing.T) {
 	listOp := &openapi.Operation{OperationID: "listThings"}
 	listOp.Responses = openapi.OperationResponses{}
 	listOp.Responses.Set("200", makeResponse("OK", "", nil))
+
 	doc.Paths = openapi.Paths{}
 	doc.Paths.Set("/things", &openapi.PathItem{Get: listOp})
 
@@ -207,6 +221,7 @@ func TestFromDocument_SpecialImports(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if !irDoc.HasURLFields {
 		t.Error("HasURLFields = false, want true")
 	}
@@ -239,12 +254,15 @@ func TestFromDocument_APIKeyHeaders(t *testing.T) {
 			if key.JSONName != name {
 				t.Errorf("JSONName = %q, want %q", key.JSONName, name)
 			}
+
 			if key.VarName != "apiKey" {
 				t.Errorf("VarName = %q, want apiKey", key.VarName)
 			}
+
 			if key.EnvName != "PET_API_KEY" {
 				t.Errorf("EnvName = %q, want PET_API_KEY", key.EnvName)
 			}
+
 			if got := key.FormatExpr(); got != "c.apiKey" {
 				t.Errorf("FormatExpr() = %q, want c.apiKey", got)
 			}

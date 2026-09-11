@@ -85,9 +85,11 @@ func TestSchemaGoType(t *testing.T) {
 				}
 				return
 			}
+
 			if err != nil {
 				t.Fatalf("SchemaGoType() unexpected error: %v", err)
 			}
+
 			if got.String() != tc.want {
 				t.Errorf("SchemaGoType() = %q, want %q", got, tc.want)
 			}
@@ -100,10 +102,12 @@ func TestSchemaGoType_Array(t *testing.T) {
 	items.Value = &openapi.Schema{Type: openapi.TypeString}
 
 	s := &openapi.Schema{Type: openapi.TypeArray, Items: items}
+
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.String() != "[]string" {
 		t.Errorf("got %q, want []string", got)
 	}
@@ -115,10 +119,12 @@ func TestSchemaGoType_ArrayRef(t *testing.T) {
 	items.Ref = &openapi.Reference{Identifier: "#/components/schemas/MyObject"}
 
 	s := &openapi.Schema{Type: openapi.TypeArray, Items: items}
+
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.String() != "[]MyObject" {
 		t.Errorf("got %q, want []MyObject", got)
 	}
@@ -129,10 +135,12 @@ func TestSchemaGoType_MapAdditional(t *testing.T) {
 	addl.Value = &openapi.Schema{Type: openapi.TypeString}
 
 	s := &openapi.Schema{Type: openapi.TypeObject, AdditionalProperties: addl}
+
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.String() != "map[string]string" {
 		t.Errorf("got %q, want map[string]string", got)
 	}
@@ -143,6 +151,7 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	idRef := &openapi.SchemaRef{}
 	idRef.Value = &openapi.Schema{Type: openapi.TypeInteger}
 	props.Set("id", idRef)
+
 	nameRef := &openapi.SchemaRef{}
 	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
 	props.Set("name", nameRef)
@@ -159,6 +168,7 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
@@ -167,12 +177,15 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	if s.Name != "Pet" {
 		t.Errorf("Name = %q, want Pet", s.Name)
 	}
+
 	if s.Kind != ir.SchemaKindStruct {
 		t.Errorf("Kind = %v, want SchemaKindStruct", s.Kind)
 	}
+
 	if s.Description != "A pet" {
 		t.Errorf("Description = %q, want 'A pet'", s.Description)
 	}
+
 	if len(s.Fields) != 2 {
 		t.Fatalf("expected 2 fields, got %d", len(s.Fields))
 	}
@@ -182,15 +195,19 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	if id.Name != "ID" {
 		t.Errorf("Fields[0].Name = %q, want ID", id.Name)
 	}
+
 	if id.JSONName != "id" {
 		t.Errorf("Fields[0].JSONName = %q, want id", id.JSONName)
 	}
+
 	if id.Type != "int" {
 		t.Errorf("Fields[0].Type = %q, want int", id.Type)
 	}
+
 	if !id.Required {
 		t.Error("Fields[0].Required = false, want true")
 	}
+
 	if id.JSONTag != `json:"id"` {
 		t.Errorf("Fields[0].JSONTag = %q, want json:\"id\"", id.JSONTag)
 	}
@@ -200,6 +217,7 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	if name.Name != "Name" {
 		t.Errorf("Fields[1].Name = %q, want Name", name.Name)
 	}
+
 	if name.JSONTag != `json:"name,omitzero"` {
 		t.Errorf("Fields[1].JSONTag = %q, want json:\"name\"", name.JSONTag)
 	}
@@ -216,6 +234,7 @@ func TestFromComponentSchemas_Enum(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
@@ -224,18 +243,23 @@ func TestFromComponentSchemas_Enum(t *testing.T) {
 	if s.Kind != ir.SchemaKindEnum {
 		t.Errorf("Kind = %v, want SchemaKindEnum", s.Kind)
 	}
+
 	if s.Type != "string" {
 		t.Errorf("EnumType = %q, want string", s.Type)
 	}
+
 	if len(s.EnumValues) != 3 {
 		t.Fatalf("expected 3 enum values, got %d", len(s.EnumValues))
 	}
+
 	if s.EnumValues[0].GoName != "StatusActive" {
 		t.Errorf("EnumValues[0].GoName = %q, want StatusActive", s.EnumValues[0].GoName)
 	}
+
 	if s.EnumValues[0].Value != "active" {
 		t.Errorf("EnumValues[0].Value = %q, want active", s.EnumValues[0].Value)
 	}
+
 	if s.EnumValues[0].Literal != `"active"` {
 		t.Errorf("EnumValues[0].Literal = %q, want %q", s.EnumValues[0].Literal, `"active"`)
 	}
@@ -256,6 +280,7 @@ func TestFromComponentSchemas_EnumInteger(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
@@ -264,18 +289,23 @@ func TestFromComponentSchemas_EnumInteger(t *testing.T) {
 	if s.Kind != ir.SchemaKindEnum {
 		t.Errorf("Kind = %v, want SchemaKindEnum", s.Kind)
 	}
+
 	if s.Type != "int" {
 		t.Errorf("EnumType = %q, want int", s.Type)
 	}
+
 	if len(s.EnumValues) != 3 {
 		t.Fatalf("expected 3 enum values, got %d", len(s.EnumValues))
 	}
+
 	if s.EnumValues[0].Value != "1" {
 		t.Errorf("EnumValues[0].Value = %q, want 1", s.EnumValues[0].Value)
 	}
+
 	if s.EnumValues[0].Literal != "1" {
 		t.Errorf("EnumValues[0].Literal = %q, want 1", s.EnumValues[0].Literal)
 	}
+
 	if s.EnumValues[0].GoName != "PriorityOne" {
 		t.Errorf("EnumValues[0].GoName = %q, want PriorityOne", s.EnumValues[0].GoName)
 	}
@@ -292,6 +322,7 @@ func TestFromComponentSchemas_EnumBoolean(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
@@ -300,12 +331,15 @@ func TestFromComponentSchemas_EnumBoolean(t *testing.T) {
 	if s.Type != "bool" {
 		t.Errorf("EnumType = %q, want bool", s.Type)
 	}
+
 	if len(s.EnumValues) != 2 {
 		t.Fatalf("expected 2 enum values, got %d", len(s.EnumValues))
 	}
+
 	if s.EnumValues[0].Literal != "true" {
 		t.Errorf("EnumValues[0].Literal = %q, want true", s.EnumValues[0].Literal)
 	}
+
 	if s.EnumValues[1].Literal != "false" {
 		t.Errorf("EnumValues[1].Literal = %q, want false", s.EnumValues[1].Literal)
 	}
@@ -325,6 +359,7 @@ func TestFromComponentSchemas_ArrayAlias(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
@@ -333,6 +368,7 @@ func TestFromComponentSchemas_ArrayAlias(t *testing.T) {
 	if s.Kind != ir.SchemaKindAlias {
 		t.Errorf("Kind = %v, want SchemaKindAlias", s.Kind)
 	}
+
 	if s.Type != "[]string" {
 		t.Errorf("Type = %q, want []string", s.Type)
 	}
@@ -350,6 +386,7 @@ func TestFromComponentSchemas_Scalars(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 2 {
 		t.Fatalf("expected 2 schemas, got %d", len(got))
 	}
@@ -361,9 +398,11 @@ func TestFromComponentSchemas_Scalars(t *testing.T) {
 		if got[i].Name != want.name {
 			t.Errorf("[%d].Name = %q, want %q", i, got[i].Name, want.name)
 		}
+
 		if got[i].Kind != ir.SchemaKindAlias {
 			t.Errorf("[%d].Kind = %v, want %v", i, got[i].Kind, ir.SchemaKindAlias)
 		}
+
 		if got[i].Type != want.goType {
 			t.Errorf("[%d].Type = %q, want %q", i, got[i].Type, want.goType)
 		}
@@ -379,6 +418,7 @@ func TestFromComponentSchemas_AllOf(t *testing.T) {
 	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
 	inlineProps := openapi.SchemaRefs{}
 	inlineProps.Set("name", nameRef)
+
 	inlineEntry := &openapi.SchemaRef{}
 	inlineEntry.Value = &openapi.Schema{
 		Type:       openapi.TypeObject,
@@ -395,6 +435,7 @@ func TestFromComponentSchemas_AllOf(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
@@ -403,6 +444,7 @@ func TestFromComponentSchemas_AllOf(t *testing.T) {
 	if s.Kind != ir.SchemaKindAllOf {
 		t.Errorf("Kind = %v, want SchemaKindAllOf", s.Kind)
 	}
+
 	if len(s.Fields) != 2 {
 		t.Fatalf("expected 2 fields (1 embedded + 1 regular), got %d", len(s.Fields))
 	}
@@ -411,6 +453,7 @@ func TestFromComponentSchemas_AllOf(t *testing.T) {
 	if !embed.Embedded {
 		t.Error("first field: Embedded = false, want true")
 	}
+
 	if embed.Type != "Base" {
 		t.Errorf("first field Type = %q, want %q", embed.Type, "Base")
 	}
@@ -419,9 +462,11 @@ func TestFromComponentSchemas_AllOf(t *testing.T) {
 	if regular.Embedded {
 		t.Error("second field: Embedded = true, want false")
 	}
+
 	if regular.Name != "Name" {
 		t.Errorf("second field Name = %q, want %q", regular.Name, "Name")
 	}
+
 	if regular.Type != "string" {
 		t.Errorf("second field Type = %q, want %q", regular.Type, "string")
 	}
@@ -454,9 +499,11 @@ func TestFromComponentSchemas_MapObject(t *testing.T) {
 	if s.Name != "StringMap" {
 		t.Errorf("Name = %q, want StringMap", s.Name)
 	}
+
 	if s.Kind != ir.SchemaKindMap {
 		t.Errorf("Kind = %v, want %v", s.Kind, ir.SchemaKindMap)
 	}
+
 	if s.MapKey != "string" || s.MapValue != "string" {
 		t.Errorf("map[%s]%s, want map[string]string", s.MapKey, s.MapValue)
 	}
@@ -468,6 +515,7 @@ func TestFromComponentSchemas_AllOf_OuterRequired(t *testing.T) {
 	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
 	inlineProps := openapi.SchemaRefs{}
 	inlineProps.Set("name", nameRef)
+
 	inlineEntry := &openapi.SchemaRef{}
 	inlineEntry.Value = &openapi.Schema{
 		Type:       openapi.TypeObject,
@@ -484,9 +532,11 @@ func TestFromComponentSchemas_AllOf_OuterRequired(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 || len(got[0].Fields) != 1 {
 		t.Fatalf("expected 1 schema with 1 field, got %v", got)
 	}
+
 	if !got[0].Fields[0].Required {
 		t.Error("expected field to be required (from outer schema Required list)")
 	}
@@ -501,6 +551,7 @@ func TestFromComponentSchemas_EmptyTypeNoAllOf(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 0 {
 		t.Errorf("expected 0 schemas, got %d", len(got))
 	}
@@ -519,12 +570,15 @@ func TestFromComponentSchemas_AllOf_NilValueEntry(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d", len(got))
 	}
+
 	if got[0].Kind != ir.SchemaKindAllOf {
 		t.Errorf("Kind = %v, want SchemaKindAllOf", got[0].Kind)
 	}
+
 	if len(got[0].Fields) != 0 {
 		t.Errorf("expected 0 fields, got %d", len(got[0].Fields))
 	}
@@ -565,10 +619,12 @@ func TestGoTypeNilable(t *testing.T) {
 
 func TestSchemaGoType_ArrayNilItems(t *testing.T) {
 	s := &openapi.Schema{Type: openapi.TypeArray, Items: nil}
+
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.String() != "[]any" {
 		t.Errorf("got %q, want []any", got)
 	}
@@ -576,10 +632,12 @@ func TestSchemaGoType_ArrayNilItems(t *testing.T) {
 
 func TestSchemaGoType_ObjectNoProps(t *testing.T) {
 	s := &openapi.Schema{Type: openapi.TypeObject}
+
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.String() != "struct{}" {
 		t.Errorf("got %q, want any", got)
 	}
@@ -604,13 +662,16 @@ func TestFromComponentSchemas_StructWithArrayField(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) == 0 || len(got[0].Fields) == 0 {
 		t.Fatal("no fields")
 	}
+
 	f := got[0].Fields[0]
 	if f.Type != "[]string" {
 		t.Errorf("Type = %q, want []string", f.Type)
 	}
+
 	if want := `json:"tags,omitzero"`; f.JSONTag != want {
 		t.Errorf("JSONTag = %q, want %q", f.JSONTag, want)
 	}
@@ -633,9 +694,11 @@ func TestFromComponentSchemas_StructRequiredNonString(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) == 0 || len(got[0].Fields) == 0 {
 		t.Fatal("no fields")
 	}
+
 	f := got[0].Fields[0]
 	if f.JSONTag != `json:"count"` {
 		t.Errorf("JSONTag = %q, want json:\"count\"", f.JSONTag)
@@ -673,13 +736,16 @@ func TestFieldGoName(t *testing.T) {
 				Type:       openapi.TypeObject,
 				Properties: props,
 			})
+
 			got, err := ir.FromComponentSchemas(schemas)
 			if err != nil {
 				t.Fatal(err)
 			}
+
 			if len(got) == 0 || len(got[0].Fields) == 0 {
 				t.Fatal("no fields generated")
 			}
+
 			if got[0].Fields[0].Name != tc.want {
 				t.Errorf("field name for %q = %q, want %q", tc.in, got[0].Fields[0].Name, tc.want)
 			}
@@ -692,11 +758,13 @@ func TestFieldGoName(t *testing.T) {
 func dateTimeOrIntSchema(intFirst bool) *openapi.Schema {
 	dt := &openapi.SchemaRef{}
 	dt.Value = &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
+
 	num := &openapi.SchemaRef{}
 	num.Value = &openapi.Schema{Type: openapi.TypeInteger}
 	if intFirst {
 		return &openapi.Schema{OneOf: openapi.SchemaRefList{num, dt}}
 	}
+
 	return &openapi.Schema{OneOf: openapi.SchemaRefList{dt, num}}
 }
 
@@ -706,6 +774,7 @@ func TestSchemaGoType_DateTimeOrIntOneOf(t *testing.T) {
 		if err != nil {
 			t.Fatalf("intFirst=%v: %v", intFirst, err)
 		}
+
 		if got.Name != "time.Time" {
 			t.Errorf("intFirst=%v: got %q, want time.Time", intFirst, got.Name)
 		}
@@ -722,10 +791,12 @@ func TestSchemaGoType_UnrelatedOneOfFallsBackToAny(t *testing.T) {
 	b := &openapi.SchemaRef{}
 	b.Value = &openapi.Schema{Type: openapi.TypeBoolean}
 	s := &openapi.Schema{OneOf: openapi.SchemaRefList{a, b}}
+
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.Name != "any" {
 		t.Errorf("got %q, want any", got.Name)
 	}
@@ -747,6 +818,7 @@ func TestFromComponentSchemas_DateTimeOrIntField(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 || len(got[0].Fields) != 1 {
 		t.Fatalf("unexpected schemas/fields: %+v", got)
 	}
@@ -755,6 +827,7 @@ func TestFromComponentSchemas_DateTimeOrIntField(t *testing.T) {
 	if f.Type != "time.Time" {
 		t.Errorf("Type = %q, want time.Time", f.Type)
 	}
+
 	if !f.IsDateTimeOrInt {
 		t.Error("IsDateTimeOrInt = false, want true")
 	}
@@ -771,6 +844,7 @@ func TestSchemaRefGoType_DateTimeOrIntOneOfViaRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.Name != "time.Time" {
 		t.Errorf("got %q, want time.Time", got.Name)
 	}
@@ -789,6 +863,7 @@ func anyOfUnionSchema() *openapi.Schema {
 	a.Ref = &openapi.Reference{Identifier: "#/components/schemas/A"}
 	b := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeObject}}
 	b.Ref = &openapi.Reference{Identifier: "#/components/schemas/B"}
+
 	return &openapi.Schema{AnyOf: openapi.SchemaRefList{a, b}}
 }
 
@@ -798,6 +873,7 @@ func TestSchemaGoType_AnyOfOnly(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.Name != "any" {
 		t.Errorf("got %q, want any", got.Name)
 	}
@@ -814,6 +890,7 @@ func TestSchemaRefGoType_AnyOfOnlyViaRef(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if got.Name != "SomeUnion" {
 		t.Errorf("got %q, want SomeUnion", got.Name)
 	}
@@ -827,6 +904,7 @@ func TestFromComponentSchemas_AnyOfEmitsUnionType(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d: %+v", len(got), got)
 	}
@@ -835,15 +913,19 @@ func TestFromComponentSchemas_AnyOfEmitsUnionType(t *testing.T) {
 	if s.Kind != ir.SchemaKindUnion {
 		t.Errorf("Kind = %v, want SchemaKindUnion", s.Kind)
 	}
+
 	if s.IsOneOf {
 		t.Error("IsOneOf = true, want false for anyOf")
 	}
+
 	if len(s.UnionVariants) != 2 {
 		t.Fatalf("expected 2 variants, got %d: %+v", len(s.UnionVariants), s.UnionVariants)
 	}
+
 	if s.UnionVariants[0].FieldName != "A" || s.UnionVariants[0].Type != "A" {
 		t.Errorf("UnionVariants[0] = %+v, want {FieldName:A Type:A}", s.UnionVariants[0])
 	}
+
 	if s.UnionVariants[1].FieldName != "B" || s.UnionVariants[1].Type != "B" {
 		t.Errorf("UnionVariants[1] = %+v, want {FieldName:B Type:B}", s.UnionVariants[1])
 	}
@@ -862,6 +944,7 @@ func TestFromComponentSchemas_OneOfEmitsUnionType(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 {
 		t.Fatalf("expected 1 schema, got %d: %+v", len(got), got)
 	}
@@ -870,15 +953,19 @@ func TestFromComponentSchemas_OneOfEmitsUnionType(t *testing.T) {
 	if s.Kind != ir.SchemaKindUnion {
 		t.Errorf("Kind = %v, want SchemaKindUnion", s.Kind)
 	}
+
 	if !s.IsOneOf {
 		t.Error("IsOneOf = false, want true for oneOf")
 	}
+
 	if len(s.UnionVariants) != 2 {
 		t.Fatalf("expected 2 variants, got %d: %+v", len(s.UnionVariants), s.UnionVariants)
 	}
+
 	if s.UnionVariants[0].FieldName != "Card" {
 		t.Errorf("UnionVariants[0].FieldName = %q, want Card", s.UnionVariants[0].FieldName)
 	}
+
 	if s.UnionVariants[1].FieldName != "Bank" {
 		t.Errorf("UnionVariants[1].FieldName = %q, want Bank", s.UnionVariants[1].FieldName)
 	}
@@ -896,12 +983,15 @@ func TestFromComponentSchemas_OneOfVariantFieldNameCollision(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 || len(got[0].UnionVariants) != 2 {
 		t.Fatalf("unexpected schemas: %+v", got)
 	}
+
 	if got[0].UnionVariants[0].FieldName != "UUID" {
 		t.Errorf("UnionVariants[0].FieldName = %q, want UUID", got[0].UnionVariants[0].FieldName)
 	}
+
 	if got[0].UnionVariants[1].FieldName != "UUID2" {
 		t.Errorf("UnionVariants[1].FieldName = %q, want UUID2", got[0].UnionVariants[1].FieldName)
 	}
@@ -918,6 +1008,7 @@ func TestFromSchema_DateTimeOrIntOneOfNamedSchemaEmitsNothing(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 0 {
 		t.Fatalf("expected no named schema for the date-time-or-int oneOf, got %+v", got)
 	}
@@ -950,9 +1041,11 @@ func TestFromComponentSchemas_PlainDateTimeFieldNotFlagged(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if len(got) != 1 || len(got[0].Fields) != 1 {
 		t.Fatalf("unexpected schemas/fields: %+v", got)
 	}
+
 	if got[0].Fields[0].IsDateTimeOrInt {
 		t.Error("plain date-time field: IsDateTimeOrInt = true, want false")
 	}

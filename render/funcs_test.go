@@ -36,6 +36,7 @@ func TestIsGoKeyword(t *testing.T) {
 			t.Errorf("isGoKeyword(%q) = false, want true", kw)
 		}
 	}
+
 	nonKeywords := []string{"Foo", "bar", "for1", ""}
 	for _, s := range nonKeywords {
 		if isGoKeyword(s) {
@@ -93,10 +94,12 @@ func TestTemplateFuncs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	var buf bytes.Buffer
 	if err := tmpl.Execute(&buf, nil); err != nil {
 		t.Fatal(err)
 	}
+
 	got := buf.String()
 	// spot-check a few results
 	if got[:3] != "foo" {

@@ -112,6 +112,7 @@ func run(ctx context.Context) error {
 		if err != nil {
 			return fmt.Errorf("build IR: %w", err)
 		}
+
 		irDoc.Debug = debugMode
 
 		// Mirrors the layout the CLI produces -- api/ beside pkg/<package> --
@@ -151,8 +152,10 @@ func run(ctx context.Context) error {
 }
 
 func copyPreviousStep() error {
-	const enrichDir = "../openapi-enrich/testdata"
-	const compressDir = "../openapi-compress/testdata"
+	const (
+		enrichDir   = "../openapi-enrich/testdata"
+		compressDir = "../openapi-compress/testdata"
+	)
 
 	for srcDir, names := range map[string][2]string{
 		enrichDir:   {"interactions.json", "interactions.json"},
@@ -175,7 +178,6 @@ func copyPreviousStep() error {
 				return fmt.Errorf("copying %q: %w", srcDir, err)
 			}
 		}
-
 	}
 
 	return nil

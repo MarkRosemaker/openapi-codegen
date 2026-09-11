@@ -32,6 +32,7 @@ func TestMatchInteractions_ErrorsOnMethodMismatch(t *testing.T) {
 			{Name: "PostFoo", Method: "POST", PathTemplate: "/foo"},
 		},
 	}
+
 	err := matchInteractions(doc, cassette.Interactions{
 		{
 			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
@@ -49,6 +50,7 @@ func TestMatchInteractions_ErrorsOnNoMatch(t *testing.T) {
 			{Name: "GetBar", Method: "GET", PathTemplate: "/bar"},
 		},
 	}
+
 	err := matchInteractions(doc, cassette.Interactions{
 		{
 			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
@@ -86,9 +88,11 @@ func TestMatchInteractions_WithPathParam(t *testing.T) {
 	if len(doc.InteractionCalls) != 1 {
 		t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 	}
+
 	if len(doc.InteractionCalls[0].PathArgs) != 1 {
 		t.Fatalf("expected 1 path arg, got %d", len(doc.InteractionCalls[0].PathArgs))
 	}
+
 	if doc.InteractionCalls[0].PathArgs[0] != `"abc-123"` {
 		t.Errorf("unexpected path arg: %s", doc.InteractionCalls[0].PathArgs[0])
 	}
@@ -125,9 +129,11 @@ func TestMatchInteractions_WithQueryParam(t *testing.T) {
 	if len(doc.InteractionCalls) != 1 {
 		t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 	}
+
 	if len(doc.InteractionCalls[0].QueryArgs) != 1 {
 		t.Fatalf("expected 1 query arg, got %d", len(doc.InteractionCalls[0].QueryArgs))
 	}
+
 	if doc.InteractionCalls[0].QueryArgs[0].Literal != "10" {
 		t.Errorf("unexpected query arg literal: %s", doc.InteractionCalls[0].QueryArgs[0].Literal)
 	}
@@ -180,6 +186,7 @@ func TestMatchPathTemplate(t *testing.T) {
 			t.Errorf("matchPathTemplate(%q, %q): got match=%v, want %v", tc.tmpl, tc.path, ok, tc.match)
 			continue
 		}
+
 		if tc.key != "" && vals[tc.key] != tc.val {
 			t.Errorf("matchPathTemplate(%q, %q): param[%q]=%q, want %q",
 				tc.tmpl, tc.path, tc.key, vals[tc.key], tc.val)
@@ -192,9 +199,11 @@ func TestMatchPathTemplate_ExactFlag(t *testing.T) {
 	if _, ok, exact := matchPathTemplate("/tasks/{id}", "/tasks/abc"); !ok || !exact {
 		t.Errorf("segment-count match: ok=%v exact=%v, want true", ok, exact)
 	}
+
 	if _, ok, exact := matchPathTemplate("/tasks/{id}", "/tasks/abc/score/up"); !ok || exact {
 		t.Errorf("wildcard match: ok=%v exact=%v, want true false", ok, exact)
 	}
+
 	if _, ok, exact := matchPathTemplate("/tasks/{id}/score/up", "/tasks/abc/score/up"); !ok || !exact {
 		t.Errorf("longer exact match: ok=%v exact=%v, want true", ok, exact)
 	}
@@ -227,12 +236,15 @@ func TestMatchInteractions_PrefersExactOverWildcard(t *testing.T) {
 		}); err != nil {
 			t.Fatal(err)
 		}
+
 		if len(doc.InteractionCalls) != 1 {
 			t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 		}
+
 		if got := doc.InteractionCalls[0].Op.Name; got != "ListApiv3TaskScoreUp" {
 			t.Errorf("order %v: matched %s, want ListApiv3TaskScoreUp", []string{order[0].Name, order[1].Name}, got)
 		}
+
 		if got := doc.InteractionCalls[0].PathArgs[0]; got != `"abc"` {
 			t.Errorf("path arg = %s, want %q", got, `"abc"`)
 		}
@@ -287,6 +299,7 @@ func TestExtractSegmentParam_NoParam(t *testing.T) {
 	if !extractSegmentParam("foo", "foo", out) {
 		t.Error("expected match for static segment")
 	}
+
 	if extractSegmentParam("foo", "bar", out) {
 		t.Error("expected mismatch for static segment")
 	}
@@ -320,9 +333,11 @@ func TestMatchInteractions_MidSegmentParam(t *testing.T) {
 	if len(doc.InteractionCalls) != 1 {
 		t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 	}
+
 	if len(doc.InteractionCalls[0].PathArgs) != 1 {
 		t.Fatalf("expected 1 path arg, got %d", len(doc.InteractionCalls[0].PathArgs))
 	}
+
 	want := `"0000320193"`
 	if doc.InteractionCalls[0].PathArgs[0] != want {
 		t.Errorf("path arg = %q, want %q", doc.InteractionCalls[0].PathArgs[0], want)
@@ -358,12 +373,15 @@ func TestMatchInteractions_BasePathStripping(t *testing.T) {
 	if len(doc.InteractionCalls) != 2 {
 		t.Fatalf("expected 2 calls, got %d", len(doc.InteractionCalls))
 	}
+
 	if doc.InteractionCalls[0].Op.Name != "ListPets" {
 		t.Errorf("expected ListPets, got %s", doc.InteractionCalls[0].Op.Name)
 	}
+
 	if doc.InteractionCalls[1].Op.Name != "GetPet" {
 		t.Errorf("expected GetPet, got %s", doc.InteractionCalls[1].Op.Name)
 	}
+
 	if !strings.Contains(doc.InteractionCalls[1].PathArgs[0], "abc-123") {
 		t.Errorf("expected abc-123 in path arg, got %s", doc.InteractionCalls[1].PathArgs[0])
 	}
@@ -390,13 +408,16 @@ func TestMatchInteractions_SuccessStatusCode(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
+
 	if len(doc.InteractionCalls) != 1 {
 		t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 	}
+
 	call := doc.InteractionCalls[0]
 	if !call.IsSuccess {
 		t.Error("IsSuccess = false, want true")
 	}
+
 	if call.ErrorType != "" {
 		t.Errorf("ErrorType = %q, want empty", call.ErrorType)
 	}
@@ -424,13 +445,16 @@ func TestMatchInteractions_ErrorStatusCodeWithSchema(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
+
 	if len(doc.InteractionCalls) != 1 {
 		t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 	}
+
 	call := doc.InteractionCalls[0]
 	if call.IsSuccess {
 		t.Error("IsSuccess = true, want false")
 	}
+
 	if call.ErrorType != "FooNotFoundResponse" {
 		t.Errorf("ErrorType = %q, want FooNotFoundResponse", call.ErrorType)
 	}
@@ -458,10 +482,12 @@ func TestMatchInteractions_ErrorStatusCodeWithoutSchema(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
+
 	call := doc.InteractionCalls[0]
 	if call.IsSuccess {
 		t.Error("IsSuccess = true, want false")
 	}
+
 	if call.ErrorType != "" {
 		t.Errorf("ErrorType = %q, want empty", call.ErrorType)
 	}
@@ -482,10 +508,12 @@ func TestMatchInteractions_UndeclaredStatusCodeFallback(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
+
 	call := doc.InteractionCalls[0]
 	if call.IsSuccess {
 		t.Error("IsSuccess = true, want false for 500 fallback")
 	}
+
 	if call.ErrorType != "" {
 		t.Errorf("ErrorType = %q, want empty", call.ErrorType)
 	}
@@ -501,9 +529,11 @@ func TestFindResponse(t *testing.T) {
 	if r := findResponse(op, 200); r == nil || !r.IsSuccess {
 		t.Errorf("findResponse(200) = %v, want success response", r)
 	}
+
 	if r := findResponse(op, 404); r == nil || r.IsSuccess {
 		t.Errorf("findResponse(404) = %v, want non-success response", r)
 	}
+
 	if r := findResponse(op, 500); r != nil {
 		t.Errorf("findResponse(500) = %v, want nil", r)
 	}
@@ -529,9 +559,11 @@ func TestMatchInteractions_MultiSegmentPathParam(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
+
 	if len(doc.InteractionCalls) != 1 {
 		t.Fatalf("expected 1 call, got %d", len(doc.InteractionCalls))
 	}
+
 	want := `"github.com/google/go-cmp/cmp"`
 	if doc.InteractionCalls[0].PathArgs[0] != want {
 		t.Errorf("path arg = %q, want %q", doc.InteractionCalls[0].PathArgs[0], want)

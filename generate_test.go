@@ -30,11 +30,13 @@ func TestGenerate_HappyPath(t *testing.T) {
 	wantFiles := []string{"types.gen.go", "client.gen.go", "client.gen_test.go"}
 	for _, name := range wantFiles {
 		path := filepath.Join(outDir, name)
+
 		data, err := os.ReadFile(path)
 		if err != nil {
 			t.Fatalf("expected file %s not found: %v", name, err)
 			continue
 		}
+
 		if len(data) == 0 {
 			t.Fatalf("file %s is empty", name)
 		}
@@ -45,10 +47,12 @@ func TestGenerate_HappyPath(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	content := string(types)
 	if !containsStr(content, "package simple") {
 		t.Error("types.go: missing package declaration")
 	}
+
 	if !containsStr(content, "type Item struct") {
 		t.Fatalf("types.go: missing Item struct; content:\n%s", content)
 	}
@@ -85,6 +89,7 @@ func TestGenerate_SelectiveFiles(t *testing.T) {
 			}); err != nil {
 				t.Fatalf("Generate: %v", err)
 			}
+
 			for _, name := range tc.wantFiles {
 				if _, err := os.Stat(filepath.Join(outDir, name)); err != nil {
 					t.Errorf("expected %s to be generated: %v", name, err)
@@ -184,6 +189,7 @@ func TestGenerate_MkdirError(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer os.Remove(tmpFile.Name()) //nolint:errcheck
+
 	_ = tmpFile.Close()
 
 	if err := codegen.Generate(codegen.Config{
@@ -229,5 +235,6 @@ func indexStr(s, sub string) int {
 			return i
 		}
 	}
+
 	return -1
 }

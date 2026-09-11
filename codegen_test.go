@@ -63,6 +63,7 @@ func TestCodegen_TestData(t *testing.T) {
 			irDoc.Debug = debugMode
 
 			iasPath := filepath.Join("testdata", name, "api", "interactions.json")
+
 			ias, err := cassette.InteractionsReadFile(iasPath)
 			if err != nil && !errors.Is(err, fs.ErrNotExist) {
 				t.Fatal(err)
