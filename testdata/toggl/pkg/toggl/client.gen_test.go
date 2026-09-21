@@ -5,14 +5,19 @@
 package toggl
 
 import (
+	"bytes"
 	"encoding/json/jsontext"
 	"errors"
+	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"slices"
 	"testing"
 
+	"github.com/MarkRosemaker/openapi-enrich/cassette"
 	"github.com/go-api-libs/api"
 )
 
@@ -792,4 +797,86 @@ func TestClient_Error(t *testing.T) {
 			}
 		})
 	})
+}
+
+func replay(t *testing.T) http.RoundTripper {
+	t.Helper()
+
+	interactions, err := cassette.InteractionsReadFile("../../api/interactions.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var idx int
+	return roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		if idx >= len(interactions) {
+			return nil, fmt.Errorf("unexpected request: %s %s", req.Method, req.URL)
+		}
+
+		ia := interactions[idx]
+
+		r, err := cassette.NewRequest(req)
+		if err != nil {
+			return nil, err
+		}
+
+		if r.URL != ia.Request.URL {
+			return nil, fmt.Errorf("interaction #%d: got URL %s, want %s", idx, r.URL, ia.Request.URL)
+		}
+
+		if r.Method != ia.Request.Method {
+			return nil, fmt.Errorf("interaction #%d: got method %s, want %s", idx, r.Method, ia.Request.Method)
+		}
+
+		gotBody := jsontext.Value(r.Body)
+		gotBody.Canonicalize()
+
+		wantBody := jsontext.Value(ia.Request.Body)
+		wantBody.Canonicalize()
+
+		if !bytes.Equal(gotBody, wantBody) {
+			return nil, fmt.Errorf("interaction #%d: got body %s, want %s", idx, string(gotBody), string(wantBody))
+		}
+
+		if ia.Request.Headers == nil {
+			ia.Request.Headers = http.Header{}
+		}
+
+		ia.Request.Headers.Set("User-Agent", defaultUserAgent)
+
+		if len(ia.Request.Body) == 0 {
+			ia.Request.Headers.Del("Content-Type")
+		}
+
+		if auth := r.Headers.Get("Authorization"); auth == "Basic dXNlcjpwYXNz" {
+			r.Headers.Set("Authorization", "**************************************************************")
+		}
+
+		if !maps.EqualFunc(r.Headers, ia.Request.Headers, slices.Equal) {
+			return nil, fmt.Errorf("interaction #%d: got headers %s, want %s", idx, r.Headers, ia.Request.Headers)
+		}
+
+		idx++
+		return &http.Response{
+			Status:     fmt.Sprintf("%d %s", ia.Response.StatusCode, http.StatusText(ia.Response.StatusCode)),
+			StatusCode: ia.Response.StatusCode,
+			Header:     ia.Response.Headers.Clone(),
+			Body:       io.NopCloser(bytes.NewReader(ia.Response.Body)),
+		}, nil
+	})
+}
+
+func TestClient_Interactions(t *testing.T) {
+	ctx := t.Context()
+	t.Setenv("TOGGL_API_USERNAME", "user")
+	t.Setenv("TOGGL_API_PASSWORD", "pass")
+
+	c, err := NewClient(WithHTTPClient(&http.Client{Transport: replay(t)}))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := c.GetMe(ctx, &GetMeParams{}); err != nil {
+		t.Fatalf("GetMe: %v", err)
+	}
 }

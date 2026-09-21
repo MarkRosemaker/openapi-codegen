@@ -1,0 +1,42 @@
+[
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.track.toggl.com/api/v9/me",
+			"header": {
+				"Authorization": "**************************************************************",
+				"User-Agent": "Toggl API"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json; charset=utf-8"
+			},
+			"body": {
+				"id": 2166261,
+				"api_token": "dd662503d9c1274e6657170f3e5b8de2",
+				"email": "john.doe@example.com",
+				"fullname": "Marco",
+				"timezone": "Europe/Berlin",
+				"2fa_enabled": false,
+				"toggl_accounts_id": "WSBrE7LiQPJ7PKA7WnCAnk",
+				"user_account_id": 2063736,
+				"default_workspace_id": 2230580,
+				"beginning_of_week": 1,
+				"image_url": "https://secure.gravatar.com/avatar/af0a4ad100669ddbc678eb40ba90459d?d=404&s=200",
+				"created_at": "2016-03-20T20:40:08.017845Z",
+				"updated_at": "2026-09-07T08:36:08.556083Z",
+				"openid_email": null,
+				"openid_enabled": true,
+				"country_id": null,
+				"has_password": true,
+				"at": "2026-09-21T00:41:02.912939Z",
+				"oauth_providers": [
+					"google"
+				],
+				"authorization_updated_at": "2026-09-21T00:30:55.694886905Z"
+			}
+		}
+	}
+]
