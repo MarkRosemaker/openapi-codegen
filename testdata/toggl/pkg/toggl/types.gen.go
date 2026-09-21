@@ -153,22 +153,6 @@ type Organization struct {
 // Organizations defines a model
 type Organizations []Organization
 
-// PostOrganizations9011051WorkspacesJSONRequestBody defines a model
-type PostOrganizations9011051WorkspacesJSONRequestBody struct {
-	Admins                      []int  `json:"admins"`
-	DefaultCurrency             string `json:"default_currency,omitzero"`
-	DefaultHourlyRate           int    `json:"default_hourly_rate"`
-	InitialPricingPlan          int    `json:"initial_pricing_plan"`
-	Name                        string `json:"name,omitzero"`
-	OnlyAdminsMayCreateProjects bool   `json:"only_admins_may_create_projects"`
-	OnlyAdminsSeeBillableRates  bool   `json:"only_admins_see_billable_rates"`
-	OnlyAdminsSeeTeamDashboard  bool   `json:"only_admins_see_team_dashboard"`
-	OrganizationID              int    `json:"organizationID"`
-	ProjectsBillableByDefault   bool   `json:"projects_billable_by_default"`
-	Rounding                    int    `json:"rounding"`
-	RoundingMinutes             int    `json:"rounding_minutes"`
-}
-
 // Project defines a model
 type Project struct {
 	// Project ID
@@ -191,7 +175,8 @@ type Project struct {
 	Billable bool     `json:"billable"`
 	Template struct{} `json:"template"`
 	// Whether estimates are based on task hours, premium feature
-	AutoEstimates bool           `json:"auto_estimates"`
+	AutoEstimates bool `json:"auto_estimates"`
+	// RecurringPeriod
 	CurrentPeriod *EventMetadata `json:"current_period,omitempty"`
 	// End date
 	EndDate string `json:"end_date,omitzero"`
@@ -348,8 +333,10 @@ type UserWithRelated struct {
 	TimeEntries TimeEntries `json:"time_entries,omitzero"`
 	Options     *Options    `json:"options,omitempty"`
 	// Projects, null if with_related_data was not set to true or if the user does not have any projects
-	Projects   Projects   `json:"projects,omitzero"`
-	Workspaces Workspaces `json:"workspaces,omitzero"`
+	Projects      Projects   `json:"projects,omitzero"`
+	Workspaces    Workspaces `json:"workspaces,omitzero"`
+	TwoFaEnabled  bool       `json:"2fa_enabled,omitempty"`
+	UserAccountID *int       `json:"user_account_id,omitempty"`
 }
 
 // WorkClient defines a model

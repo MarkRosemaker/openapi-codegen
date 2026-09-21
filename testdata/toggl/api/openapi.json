@@ -196,22 +196,6 @@
           }
         }
       }
-    },
-    "/organizations/9011051/workspaces": {
-      "post": {
-        "operationId": "PostOrganizations9011051Workspaces",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/PostOrganizations9011051WorkspacesRequestBody"
-        },
-        "responses": {
-          "403": {
-            "$ref": "#/components/responses/PostOrganizations9011051WorkspacesForbiddenResponse"
-          },
-          "200": {
-            "$ref": "#/components/responses/PostOrganizations9011051WorkspacesOkResponse"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -518,7 +502,7 @@
         ],
         "example": {
           "id": 2108099,
-          "name": "Atlantean Renaissance",
+          "name": "Example Company",
           "pricing_plan_id": 0,
           "created_at": "2020-07-01T07:42:35.365613Z",
           "at": "2020-07-01T07:42:35.365613Z",
@@ -552,7 +536,7 @@
         "example": [
           {
             "id": 2108099,
-            "name": "Atlantean Renaissance",
+            "name": "Example Company",
             "pricing_plan_id": 0,
             "created_at": "2020-07-01T07:42:35.365613Z",
             "at": "2020-07-01T07:42:35.365613Z",
@@ -605,95 +589,6 @@
             "pricing_plan_enterprise": false
           }
         ]
-      },
-      "PostOrganizations9011051WorkspacesJSONRequestBody": {
-        "type": "object",
-        "properties": {
-          "admins": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "example": 0
-            },
-            "example": [
-              0
-            ]
-          },
-          "default_currency": {
-            "type": "string",
-            "example": "string"
-          },
-          "default_hourly_rate": {
-            "type": "integer",
-            "example": 0
-          },
-          "initial_pricing_plan": {
-            "type": "integer",
-            "example": 0
-          },
-          "name": {
-            "type": "string",
-            "example": "string"
-          },
-          "only_admins_may_create_projects": {
-            "type": "boolean",
-            "example": true
-          },
-          "only_admins_see_billable_rates": {
-            "type": "boolean",
-            "example": true
-          },
-          "only_admins_see_team_dashboard": {
-            "type": "boolean",
-            "example": true
-          },
-          "organizationID": {
-            "type": "integer",
-            "example": 0
-          },
-          "projects_billable_by_default": {
-            "type": "boolean",
-            "example": true
-          },
-          "rounding": {
-            "type": "integer",
-            "example": 0
-          },
-          "rounding_minutes": {
-            "type": "integer",
-            "example": 0
-          }
-        },
-        "required": [
-          "admins",
-          "default_currency",
-          "default_hourly_rate",
-          "initial_pricing_plan",
-          "name",
-          "only_admins_may_create_projects",
-          "only_admins_see_billable_rates",
-          "only_admins_see_team_dashboard",
-          "organizationID",
-          "projects_billable_by_default",
-          "rounding",
-          "rounding_minutes"
-        ],
-        "example": {
-          "admins": [
-            0
-          ],
-          "default_currency": "string",
-          "default_hourly_rate": 0,
-          "initial_pricing_plan": 0,
-          "name": "string",
-          "only_admins_may_create_projects": true,
-          "only_admins_see_billable_rates": true,
-          "only_admins_see_team_dashboard": true,
-          "organizationID": 0,
-          "projects_billable_by_default": true,
-          "rounding": 0,
-          "rounding_minutes": 0
-        }
       },
       "Project": {
         "type": "object",
@@ -761,7 +656,8 @@
             "x-nullable": true
           },
           "current_period": {
-            "$ref": "#/components/schemas/EventMetadata"
+            "$ref": "#/components/schemas/EventMetadata",
+            "description": "RecurringPeriod"
           },
           "end_date": {
             "description": "End date",
@@ -2243,15 +2139,17 @@
             "example": 2166261
           },
           "api_token": {
-            "type": "string"
+            "type": "string",
+            "example": "********************************"
           },
           "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "example": "john.doe@example.com"
           },
           "fullname": {
             "type": "string",
-            "example": "John Doe"
+            "example": "John"
           },
           "timezone": {
             "type": "string",
@@ -2285,14 +2183,16 @@
             "example": "2024-11-26T17:13:54.850204Z"
           },
           "openid_email": {
-            "type": "object"
+            "type": "object",
+            "example": null
           },
           "openid_enabled": {
             "type": "boolean",
             "example": true
           },
           "country_id": {
-            "type": "integer"
+            "type": "integer",
+            "example": null
           },
           "has_password": {
             "type": "boolean",
@@ -2342,6 +2242,13 @@
           },
           "workspaces": {
             "$ref": "#/components/schemas/Workspaces"
+          },
+          "2fa_enabled": {
+            "type": "boolean"
+          },
+          "user_account_id": {
+            "type": "integer",
+            "example": 2063736
           }
         },
         "required": [
@@ -2369,7 +2276,7 @@
           "id": 2166261,
           "api_token": "********************************",
           "email": "john.doe@example.com",
-          "fullname": "John Doe",
+          "fullname": "John",
           "timezone": "Europe/Berlin",
           "toggl_accounts_id": "WSBrE7LiQPJ7PKA7WnCAnk",
           "default_workspace_id": 2230580,
@@ -2473,7 +2380,7 @@
           },
           "name": {
             "type": "string",
-            "example": "Atlantean Renaissance"
+            "example": "Example Company"
           },
           "premium": {
             "type": "boolean",
@@ -2631,7 +2538,7 @@
         "example": {
           "id": 2230580,
           "organization_id": 2108099,
-          "name": "Atlantean Renaissance",
+          "name": "Example Company",
           "premium": false,
           "business_ws": false,
           "admin": true,
@@ -2673,7 +2580,7 @@
           {
             "id": 2230580,
             "organization_id": 2108099,
-            "name": "Atlantean Renaissance",
+            "name": "Example Company",
             "premium": false,
             "business_ws": false,
             "admin": true,
@@ -2767,7 +2674,7 @@
             "example": [
               {
                 "id": 2108099,
-                "name": "Atlantean Renaissance",
+                "name": "Example Company",
                 "pricing_plan_id": 0,
                 "created_at": "2020-07-01T07:42:35.365613Z",
                 "at": "2020-07-01T07:42:35.365613Z",
@@ -2822,20 +2729,6 @@
             ]
           }
         }
-      },
-      "PostOrganizations9011051WorkspacesForbiddenResponse": {
-        "description": "TODO",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/APIErrorString"
-            },
-            "example": "User does not have access to this resource"
-          }
-        }
-      },
-      "PostOrganizations9011051WorkspacesOkResponse": {
-        "description": "TODO"
       },
       "SimpleOrganizationResponse": {
         "description": "Organization and workspace IDs",
@@ -2929,7 +2822,7 @@
               "id": 2166261,
               "api_token": "********************************",
               "email": "john.doe@example.com",
-              "fullname": "John Doe",
+              "fullname": "John",
               "timezone": "Europe/Berlin",
               "toggl_accounts_id": "WSBrE7LiQPJ7PKA7WnCAnk",
               "default_workspace_id": 2230580,
@@ -3070,32 +2963,6 @@
             "example": {
               "name": "Your Organization",
               "workspace_name": "Your Workspace"
-            }
-          }
-        }
-      },
-      "PostOrganizations9011051WorkspacesRequestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/PostOrganizations9011051WorkspacesJSONRequestBody"
-            },
-            "example": {
-              "admins": [
-                0
-              ],
-              "default_currency": "string",
-              "default_hourly_rate": 0,
-              "initial_pricing_plan": 0,
-              "name": "string",
-              "only_admins_may_create_projects": true,
-              "only_admins_see_billable_rates": true,
-              "only_admins_see_team_dashboard": true,
-              "organizationID": 0,
-              "projects_billable_by_default": true,
-              "rounding": 0,
-              "rounding_minutes": 0
             }
           }
         }

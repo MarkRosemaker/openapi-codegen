@@ -17,7 +17,6 @@
  *   const result = await window.API.createOrganization();
  *   const result = await window.API.listOrganizations();
  *   const result = await window.API.getOrganization(organizationID);
- *   window.API.postOrganizations9011051Workspaces();
  *
  * Environment:
  *   Set `window.ENV = 'development'` to enable mocking via /mocks.json.
@@ -234,11 +233,5 @@ window.API = {
     // Get organization data
     getOrganization: (organizationID) => apiFetch(`/organizations/${organizationID}`, {
         operationId: "GetOrganization",
-    }),
-    // POST /organizations/9011051/workspaces
-    postOrganizations9011051Workspaces: (body) => apiFetch("/organizations/9011051/workspaces", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "PostOrganizations9011051Workspaces",
     }),
 };

@@ -372,38 +372,6 @@
 			"successReturn": {
 				"name": "Organization"
 			}
-		},
-		{
-			"name": "PostOrganizations9011051Workspaces",
-			"method": "POST",
-			"pathTemplate": "/organizations/9011051/workspaces",
-			"joinPathArgs": [
-				"\"organizations\"",
-				"\"9011051\"",
-				"\"workspaces\""
-			],
-			"requestBody": {
-				"typeName": "PostOrganizations9011051WorkspacesJSONRequestBody",
-				"contentType": "application/json",
-				"required": true
-			},
-			"responses": [
-				{
-					"statusCode": "200",
-					"goConstant": "http.StatusOK",
-					"description": "TODO",
-					"isSuccess": true
-				},
-				{
-					"statusCode": "403",
-					"goConstant": "http.StatusForbidden",
-					"description": "TODO",
-					"contentType": "application/json",
-					"goType": {
-						"name": "APIErrorString"
-					}
-				}
-			]
 		}
 	],
 	"schemas": [
@@ -763,96 +731,6 @@
 			"type": "[]Organization"
 		},
 		{
-			"name": "PostOrganizations9011051WorkspacesJSONRequestBody",
-			"description": "PostOrganizations9011051WorkspacesJSONRequestBody defines a model",
-			"fields": [
-				{
-					"name": "Admins",
-					"jsonName": "admins",
-					"type": "[]int",
-					"jsonTag": "json:\"admins\"",
-					"required": true
-				},
-				{
-					"name": "DefaultCurrency",
-					"jsonName": "default_currency",
-					"type": "string",
-					"jsonTag": "json:\"default_currency,omitzero\"",
-					"required": true
-				},
-				{
-					"name": "DefaultHourlyRate",
-					"jsonName": "default_hourly_rate",
-					"type": "int",
-					"jsonTag": "json:\"default_hourly_rate\"",
-					"required": true
-				},
-				{
-					"name": "InitialPricingPlan",
-					"jsonName": "initial_pricing_plan",
-					"type": "int",
-					"jsonTag": "json:\"initial_pricing_plan\"",
-					"required": true
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
-					"required": true
-				},
-				{
-					"name": "OnlyAdminsMayCreateProjects",
-					"jsonName": "only_admins_may_create_projects",
-					"type": "bool",
-					"jsonTag": "json:\"only_admins_may_create_projects\"",
-					"required": true
-				},
-				{
-					"name": "OnlyAdminsSeeBillableRates",
-					"jsonName": "only_admins_see_billable_rates",
-					"type": "bool",
-					"jsonTag": "json:\"only_admins_see_billable_rates\"",
-					"required": true
-				},
-				{
-					"name": "OnlyAdminsSeeTeamDashboard",
-					"jsonName": "only_admins_see_team_dashboard",
-					"type": "bool",
-					"jsonTag": "json:\"only_admins_see_team_dashboard\"",
-					"required": true
-				},
-				{
-					"name": "OrganizationID",
-					"jsonName": "organizationID",
-					"type": "int",
-					"jsonTag": "json:\"organizationID\"",
-					"required": true
-				},
-				{
-					"name": "ProjectsBillableByDefault",
-					"jsonName": "projects_billable_by_default",
-					"type": "bool",
-					"jsonTag": "json:\"projects_billable_by_default\"",
-					"required": true
-				},
-				{
-					"name": "Rounding",
-					"jsonName": "rounding",
-					"type": "int",
-					"jsonTag": "json:\"rounding\"",
-					"required": true
-				},
-				{
-					"name": "RoundingMinutes",
-					"jsonName": "rounding_minutes",
-					"type": "int",
-					"jsonTag": "json:\"rounding_minutes\"",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "Project",
 			"description": "Project defines a model",
 			"fields": [
@@ -959,7 +837,8 @@
 					"name": "CurrentPeriod",
 					"jsonName": "current_period",
 					"type": "*EventMetadata",
-					"jsonTag": "json:\"current_period,omitempty\""
+					"jsonTag": "json:\"current_period,omitempty\"",
+					"description": "RecurringPeriod"
 				},
 				{
 					"name": "EndDate",
@@ -1658,6 +1537,18 @@
 					"jsonName": "workspaces",
 					"type": "Workspaces",
 					"jsonTag": "json:\"workspaces,omitzero\""
+				},
+				{
+					"name": "TwoFaEnabled",
+					"jsonName": "2fa_enabled",
+					"type": "bool",
+					"jsonTag": "json:\"2fa_enabled,omitempty\""
+				},
+				{
+					"name": "UserAccountID",
+					"jsonName": "user_account_id",
+					"type": "*int",
+					"jsonTag": "json:\"user_account_id,omitempty\""
 				}
 			]
 		},
