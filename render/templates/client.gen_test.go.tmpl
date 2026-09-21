@@ -216,13 +216,13 @@ func replay(t *testing.T) http.RoundTripper {
 
 		{{/* Authorization always carries this client's own live test credentials,
 			never what was recorded -- see the "Authorization" entry in
-			openapi-enrich/cassette.DefaultMasker's HeaderKeys. There is nothing
-			left in it worth comparing, for any auth scheme; only that the client
-			sent one exactly when the recording shows one was sent. */}}
-		_, gotAuth := r.Headers["Authorization"]
-		_, wantAuth := ia.Request.Headers["Authorization"]
-		if gotAuth != wantAuth {
-			return nil, fmt.Errorf("interaction #%d: got Authorization present %v, want %v", idx, gotAuth, wantAuth)
+			openapi-enrich/cassette.DefaultMasker's HeaderKeys. The masker keeps
+			the scheme visible (e.g. "Bearer ", "Basic "), so that much is still
+			worth checking; the credential after it is not. */}}
+		gotScheme, _, _ := strings.Cut(r.Headers.Get("Authorization"), " ")
+		wantScheme, _, _ := strings.Cut(ia.Request.Headers.Get("Authorization"), " ")
+		if gotScheme != wantScheme {
+			return nil, fmt.Errorf("interaction #%d: got Authorization scheme %q, want %q", idx, gotScheme, wantScheme)
 		}
 		r.Headers.Del("Authorization")
 		ia.Request.Headers.Del("Authorization")

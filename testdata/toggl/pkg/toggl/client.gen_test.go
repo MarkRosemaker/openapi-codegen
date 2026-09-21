@@ -15,6 +15,7 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/MarkRosemaker/openapi-enrich/cassette"
@@ -848,10 +849,10 @@ func replay(t *testing.T) http.RoundTripper {
 			ia.Request.Headers.Del("Content-Type")
 		}
 
-		_, gotAuth := r.Headers["Authorization"]
-		_, wantAuth := ia.Request.Headers["Authorization"]
-		if gotAuth != wantAuth {
-			return nil, fmt.Errorf("interaction #%d: got Authorization present %v, want %v", idx, gotAuth, wantAuth)
+		gotScheme, _, _ := strings.Cut(r.Headers.Get("Authorization"), " ")
+		wantScheme, _, _ := strings.Cut(ia.Request.Headers.Get("Authorization"), " ")
+		if gotScheme != wantScheme {
+			return nil, fmt.Errorf("interaction #%d: got Authorization scheme %q, want %q", idx, gotScheme, wantScheme)
 		}
 		r.Headers.Del("Authorization")
 		ia.Request.Headers.Del("Authorization")
