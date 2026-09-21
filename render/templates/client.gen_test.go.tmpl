@@ -41,6 +41,10 @@ func TestClient_Error(t *testing.T) {
 		{{- with $.Auth.Bearer.Name}}
 		t.Setenv({{printf "%q" . }}, "**************************************************")
 		{{end}}
+		{{- with $.Auth.Basic.UsernameEnvName}}
+		t.Setenv({{printf "%q" . }}, "user")
+		t.Setenv({{printf "%q" $.Auth.Basic.PasswordEnvName }}, "pass")
+		{{end}}
 		{{- with $.APIKey }}
 		t.Setenv({{printf "%q" .EnvName }}, {{ or .Example `"**************************************************"` }})
 		{{end}}
@@ -246,6 +250,10 @@ func TestClient_Interactions(t *testing.T) {
 	ctx := t.Context()
 	{{- with $.Auth.Bearer.Name}}
 	t.Setenv({{printf "%q" . }}, "**************************************************")
+	{{end}}
+	{{- with $.Auth.Basic.UsernameEnvName}}
+	t.Setenv({{printf "%q" . }}, "user")
+	t.Setenv({{printf "%q" $.Auth.Basic.PasswordEnvName }}, "pass")
 	{{end}}
 	{{- with $.APIKey }}
 	t.Setenv({{printf "%q" .EnvName }}, {{ or .Example `"**************************************************"` }})

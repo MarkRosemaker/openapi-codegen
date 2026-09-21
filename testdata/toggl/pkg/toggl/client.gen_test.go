@@ -34,6 +34,9 @@ func (f roundTripFunc) RoundTrip(r *http.Request) (*http.Response, error) {
 
 func TestClient_Error(t *testing.T) {
 	t.Run("GetMe", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -126,6 +129,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("CreateTimeEntry", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -218,6 +224,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("GetCurrentTimeEntry", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -310,6 +319,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("StopTimeEntry", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -402,6 +414,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("ListTimeEntries", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -494,6 +509,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("CreateOrganization", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -586,6 +604,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("ListOrganizations", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -678,6 +699,9 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("GetOrganization", func(t *testing.T) {
+		t.Setenv("TOGGL_API_USERNAME", "user")
+		t.Setenv("TOGGL_API_PASSWORD", "pass")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },

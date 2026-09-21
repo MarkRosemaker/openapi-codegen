@@ -1884,6 +1884,12 @@
 			"type": "[]Workspace"
 		}
 	],
+	"security": {
+		"basic": {
+			"usernameEnvName": "TOGGL_API_USERNAME",
+			"passwordEnvName": "TOGGL_API_PASSWORD"
+		}
+	},
 	"hasURLFields": true,
 	"hasDurationFields": true
 }
