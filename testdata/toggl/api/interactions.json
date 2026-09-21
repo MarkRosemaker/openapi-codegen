@@ -4,7 +4,7 @@
 			"method": "GET",
 			"url": "https://api.track.toggl.com/api/v9/me",
 			"header": {
-				"Authorization": "**************************************************************",
+				"Authorization": "Basic ********************************************************",
 				"User-Agent": "Toggl API"
 			}
 		},
