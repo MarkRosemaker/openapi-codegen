@@ -6,11 +6,14 @@ package toggl
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json/v2"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -30,6 +33,8 @@ var defaultBaseURL = &url.URL{
 type Client struct {
 	// The HTTP client to use for requests.
 	cli *http.Client
+	// The basic auth header
+	basic string
 	// The base URL
 	baseURL *url.URL
 	// The user agent
@@ -54,7 +59,16 @@ func WithHTTPClient(cli *http.Client) ClientOption {
 	return func(c *Client) { c.cli = cli }
 }
 
-// NewClient creates a new Client.
+// WithBasic returns a [ClientOption] that sets a custom basic auth username and password.
+func WithBasic(username, password string) ClientOption {
+	return func(c *Client) {
+		if username != "" || password != "" {
+			c.basic = "Basic " + base64.StdEncoding.EncodeToString([]byte(username+":"+password))
+		}
+	}
+}
+
+// NewClient creates a new Client, reading the basic auth username and password from [os.Getenv]("TOGGL_API_USERNAME") and [os.Getenv]("TOGGL_API_PASSWORD").
 func NewClient(opts ...ClientOption) (*Client, error) {
 	c := &Client{
 		cli:       http.DefaultClient,
@@ -62,8 +76,14 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 		userAgent: defaultUserAgent,
 	}
 
+	WithBasic(os.Getenv("TOGGL_API_USERNAME"), os.Getenv("TOGGL_API_PASSWORD"))(c)
+
 	for _, opt := range opts {
 		opt(c)
+	}
+
+	if c.basic == "" {
+		return nil, errors.New("basic auth TOGGL_API_USERNAME / TOGGL_API_PASSWORD not provided")
 	}
 
 	return c, nil
@@ -94,7 +114,8 @@ func (c *Client) GetMeWithResult[R any](ctx context.Context, params *GetMeParams
 
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
@@ -148,8 +169,9 @@ func (c *Client) CreateTimeEntryWithResult[R any](ctx context.Context, workspace
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent":   []string{c.userAgent},
-			"Content-Type": []string{"application/json"},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
+			"Content-Type":  []string{"application/json"},
 		},
 		Host:          u.Host,
 		Method:        http.MethodPost,
@@ -217,7 +239,8 @@ func (c *Client) GetCurrentTimeEntryWithResult[R any](ctx context.Context) (*R, 
 	u := c.baseURL.JoinPath("me", "time_entries", "current")
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
@@ -267,7 +290,8 @@ func (c *Client) StopTimeEntryWithResult[R any](ctx context.Context, workspaceID
 	u := c.baseURL.JoinPath("workspaces", strconv.Itoa(workspaceID), "time_entries", strconv.Itoa(timeEntryID), "stop")
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodPatch,
@@ -347,7 +371,8 @@ func (c *Client) ListTimeEntriesWithResult[R any](ctx context.Context, params *L
 
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
@@ -411,8 +436,9 @@ func (c *Client) CreateOrganizationWithResult[R any](ctx context.Context, body N
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent":   []string{c.userAgent},
-			"Content-Type": []string{"application/json"},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
+			"Content-Type":  []string{"application/json"},
 		},
 		Host:          u.Host,
 		Method:        http.MethodPost,
@@ -467,7 +493,8 @@ func (c *Client) ListOrganizationsWithResult[R any](ctx context.Context) (*R, er
 	u := c.baseURL.JoinPath("me", "organizations")
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
@@ -517,7 +544,8 @@ func (c *Client) GetOrganizationWithResult[R any](ctx context.Context, organizat
 	u := c.baseURL.JoinPath("organizations", strconv.Itoa(organizationID))
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.basic},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
