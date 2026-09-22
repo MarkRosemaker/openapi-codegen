@@ -7,7 +7,7 @@ require (
 	github.com/MarkRosemaker/jsonutil v0.0.0-20260920172211-f6e22a1a8311
 	github.com/MarkRosemaker/openapi v0.0.0-20260922040130-e048f24d28df
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20260922040426-5baefaaee83b
-	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260922160221-24b195119a53
+	github.com/MarkRosemaker/openapi-enrich v0.0.0-20260922220315-380e1fc1750e
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20260922040210-c85d1daf8fe7
 	github.com/MarkRosemaker/ordmap v0.0.0-20260920172223-2eab4db34adb
 	github.com/ettle/strcase v0.2.0
