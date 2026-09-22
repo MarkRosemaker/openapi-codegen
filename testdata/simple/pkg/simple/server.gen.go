@@ -16,7 +16,7 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListItems(ctx context.Context, params *ListItemsParams) (*ItemList, error)
+	ListItems(ctx context.Context, params *ListItemsParams) (ItemList, error)
 	GetItem(ctx context.Context, id int) (*Item, error)
 }
 

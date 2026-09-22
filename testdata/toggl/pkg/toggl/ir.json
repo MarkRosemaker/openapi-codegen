@@ -260,7 +260,8 @@
 					"description": "Returns a list of time entries",
 					"contentType": "application/json",
 					"goType": {
-						"name": "TimeEntries"
+						"name": "TimeEntries",
+						"isNilable": true
 					},
 					"isSuccess": true
 				},
@@ -275,7 +276,8 @@
 				}
 			],
 			"successReturn": {
-				"name": "TimeEntries"
+				"name": "TimeEntries",
+				"isNilable": true
 			}
 		},
 		{
@@ -325,13 +327,15 @@
 					"description": "Returns an array of organisations",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Organizations"
+						"name": "Organizations",
+						"isNilable": true
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "Organizations"
+				"name": "Organizations",
+				"isNilable": true
 			}
 		},
 		{

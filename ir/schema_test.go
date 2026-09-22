@@ -130,6 +130,30 @@ func TestSchemaGoType_ArrayRef(t *testing.T) {
 	}
 }
 
+// TestSchemaRefGoType_NamedArrayViaRef covers a $ref to a named component
+// schema that is itself array-kind (e.g. "type TimeEntries []TimeEntry"):
+// the resolved GoType is already a nilable Go type on its own, so Nilable
+// must not add a pointer to it.
+func TestSchemaRefGoType_NamedArrayViaRef(t *testing.T) {
+	ref := &openapi.SchemaRef{
+		Ref:   &openapi.Reference{Identifier: "#/components/schemas/TimeEntries"},
+		Value: &openapi.Schema{Type: openapi.TypeArray, Items: &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}}},
+	}
+
+	got, err := ir.SchemaRefGoType(ref)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if got.String() != "TimeEntries" {
+		t.Errorf("String() = %q, want TimeEntries", got.String())
+	}
+
+	if got.Nilable() != "TimeEntries" {
+		t.Errorf("Nilable() = %q, want TimeEntries", got.Nilable())
+	}
+}
+
 func TestSchemaGoType_MapAdditional(t *testing.T) {
 	addl := &openapi.SchemaRef{}
 	addl.Value = &openapi.Schema{Type: openapi.TypeString}
@@ -609,6 +633,7 @@ func TestGoTypeNilable(t *testing.T) {
 		{ir.GoType{Name: "Pet", IsSlice: true}, "[]Pet"},
 		{ir.GoType{Name: "Pet", IsPointer: true}, "*Pet"},
 		{ir.GoType{Name: "Pet", IsArrayOfSize: 3}, "[3]Pet"},
+		{ir.GoType{Name: "Pets", IsNilable: true}, "Pets"},
 	}
 	for _, tc := range tests {
 		if got := tc.gt.Nilable(); got != tc.want {

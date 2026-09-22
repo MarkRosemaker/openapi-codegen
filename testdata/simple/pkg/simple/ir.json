@@ -33,13 +33,15 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ItemList"
+						"name": "ItemList",
+						"isNilable": true
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ItemList"
+				"name": "ItemList",
+				"isNilable": true
 			}
 		},
 		{

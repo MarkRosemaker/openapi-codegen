@@ -69,8 +69,13 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // List all items
 //
 //	GET /
-func (c *Client) ListItems(ctx context.Context, params *ListItemsParams) (*ItemList, error) {
-	return c.ListItemsWithResult[ItemList](ctx, params)
+func (c *Client) ListItems(ctx context.Context, params *ListItemsParams) (ItemList, error) {
+	out, err := c.ListItemsWithResult[ItemList](ctx, params)
+	if err != nil {
+		return nil, err
+	}
+
+	return *out, nil
 }
 
 // List all items

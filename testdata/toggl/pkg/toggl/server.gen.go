@@ -21,9 +21,9 @@ type Service interface {
 	CreateTimeEntry(ctx context.Context, workspaceID int, body NewTimeEntry) (*TimeEntry, error)
 	GetCurrentTimeEntry(ctx context.Context) (*TimeEntry, error)
 	StopTimeEntry(ctx context.Context, workspaceID int, timeEntryID int) (*TimeEntry, error)
-	ListTimeEntries(ctx context.Context, params *ListTimeEntriesParams) (*TimeEntries, error)
+	ListTimeEntries(ctx context.Context, params *ListTimeEntriesParams) (TimeEntries, error)
 	CreateOrganization(ctx context.Context, body NewOrganization) (*SimpleOrganization, error)
-	ListOrganizations(ctx context.Context) (*Organizations, error)
+	ListOrganizations(ctx context.Context) (Organizations, error)
 	GetOrganization(ctx context.Context, organizationID int) (*Organization, error)
 }
 
