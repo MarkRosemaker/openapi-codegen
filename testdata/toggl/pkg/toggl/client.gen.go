@@ -329,8 +329,13 @@ func (c *Client) StopTimeEntryWithResult[R any](ctx context.Context, workspaceID
 // Lists latest time entries.
 //
 //	GET /me/time_entries
-func (c *Client) ListTimeEntries(ctx context.Context, params *ListTimeEntriesParams) (*TimeEntries, error) {
-	return c.ListTimeEntriesWithResult[TimeEntries](ctx, params)
+func (c *Client) ListTimeEntries(ctx context.Context, params *ListTimeEntriesParams) (TimeEntries, error) {
+	out, err := c.ListTimeEntriesWithResult[TimeEntries](ctx, params)
+	if err != nil {
+		return nil, err
+	}
+
+	return *out, nil
 }
 
 // Lists latest time entries.
@@ -481,8 +486,13 @@ func (c *Client) CreateOrganizationWithResult[R any](ctx context.Context, body N
 // Get all organizations a given user is part of.
 //
 //	GET /me/organizations
-func (c *Client) ListOrganizations(ctx context.Context) (*Organizations, error) {
-	return c.ListOrganizationsWithResult[Organizations](ctx)
+func (c *Client) ListOrganizations(ctx context.Context) (Organizations, error) {
+	out, err := c.ListOrganizationsWithResult[Organizations](ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return *out, nil
 }
 
 // Get all organizations a given user is part of.

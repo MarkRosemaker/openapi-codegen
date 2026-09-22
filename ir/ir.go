@@ -280,6 +280,11 @@ type GoType struct {
 	IsPointer     bool   `json:"isPointer,omitzero"`
 	IsSlice       bool   `json:"isSlice,omitzero"`
 	IsArrayOfSize int    `json:"isArrayOfSize,omitzero"`
+	// IsNilable is true for a $ref to a named component schema that is
+	// itself array-kind (e.g. "type TimeEntries []TimeEntry"): Name is
+	// already a nilable Go type on its own, so Nilable returns it
+	// unchanged instead of adding a pointer.
+	IsNilable bool `json:"isNilable,omitzero"`
 }
 
 // String returns the Go type expression.
@@ -302,6 +307,8 @@ func (t GoType) Nilable() string {
 		return "[]" + t.Name
 	case t.IsArrayOfSize > 0:
 		return fmt.Sprintf("[%d]%s", t.IsArrayOfSize, t.Name)
+	case t.IsNilable:
+		return t.Name
 	default:
 		return "*" + t.Name
 	}
