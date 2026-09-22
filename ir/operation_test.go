@@ -514,6 +514,7 @@ func TestFormatAndNotZeroExprs(t *testing.T) {
 		{openapi.TypeString, openapi.FormatUUID, `params.Name.String()`, `params.Name != uuid.Nil()`},
 		{openapi.TypeString, openapi.FormatURI, `params.Name.String()`, `params.Name.Host != ""`},
 		{openapi.TypeString, openapi.FormatDateTime, `params.Name.Format(time.RFC3339)`, `!params.Name.IsZero()`},
+		{openapi.TypeInteger, openapi.FormatDateTime, `strconv.Itoa(int(params.Name.Unix()))`, `!params.Name.IsZero()`},
 		{openapi.TypeString, openapi.FormatDate, `params.Name.String()`, `params.Name != (civil.Date{})`},
 		{openapi.TypeString, openapi.FormatIPv4, `params.Name.String()`, `params.Name != nil`},
 		{openapi.TypeBoolean, "", `strconv.FormatBool(params.Name)`, `params.Name`},
