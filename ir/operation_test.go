@@ -239,6 +239,52 @@ func TestFromOperation_PathParam(t *testing.T) {
 	}
 }
 
+// TestFromOperation_PathParamEnumRef covers a path parameter whose schema is
+// a $ref to a named enum component (what flatten leaves behind for an enum
+// declared inline in the source spec): the parameter's own Go type must be
+// the generated enum type, not the "string" its underlying schema resolves
+// to when the $ref is ignored.
+func TestFromOperation_PathParamEnumRef(t *testing.T) {
+	statusRef := &openapi.SchemaRef{
+		Ref: &openapi.Reference{Identifier: "#/components/schemas/Status"},
+		Value: &openapi.Schema{
+			Type: openapi.TypeString,
+			Enum: []jsontext.Value{jsontext.Value(`"active"`), jsontext.Value(`"archived"`)},
+		},
+	}
+
+	params := openapi.ParameterList{{
+		Value: &openapi.Parameter{
+			Name:     "status",
+			In:       openapi.ParameterLocationPath,
+			Required: true,
+			Schema:   statusRef,
+		},
+	}}
+
+	op := &openapi.Operation{OperationID: "getByStatus", Parameters: params}
+	op.Responses = openapi.OperationResponses{}
+	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("Pet")))
+
+	got, err := ir.FromOperation("/pets/{status}", nil, "GET", op, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got.PathParams) != 1 {
+		t.Fatalf("PathParams len = %d, want 1", len(got.PathParams))
+	}
+
+	p := got.PathParams[0]
+	if p.Type != "Status" {
+		t.Errorf("Type = %q, want Status", p.Type)
+	}
+
+	if !p.IsEnum {
+		t.Error("IsEnum = false, want true")
+	}
+}
+
 func TestFromOperation_QueryParams(t *testing.T) {
 	params := openapi.ParameterList{
 		makeParam("limit", openapi.ParameterLocationQuery, false, &openapi.Schema{Type: openapi.TypeInteger}),
