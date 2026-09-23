@@ -1,0 +1,770 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "My Example API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.retrodiffusion.ai/v1",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/styles/selector": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/X-Rd-Token"
+        },
+        {
+          "$ref": "#/components/parameters/model"
+        },
+        {
+          "$ref": "#/components/parameters/tab"
+        }
+      ],
+      "get": {
+        "summary": "Live style catalog with limits",
+        "operationId": "ListAvailableStyles",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/StyleDescriptors"
+          }
+        }
+      }
+    },
+    "/styles/{style_id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/X-Rd-Token"
+        },
+        {
+          "$ref": "#/components/parameters/style_id"
+        }
+      ],
+      "delete": {
+        "summary": "Delete user style",
+        "operationId": "DeleteUserStyle",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/DeleteUserStyleOkResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DeleteUserStyleOkJSONResponse": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "$ref": "#/components/schemas/ErrorWithCode"
+          }
+        },
+        "required": [
+          "detail"
+        ]
+      },
+      "ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorDetails": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ErrorDetail"
+        }
+      },
+      "ErrorWithCode": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "inference_failed"
+          },
+          "message": {
+            "type": "string",
+            "example": "Unable to run inference."
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "070ef31d-b384-426e-b4e8-3773d9ad1c94"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "request_id"
+        ]
+      },
+      "ErrorWithLocation": {
+        "type": "object",
+        "properties": {
+          "loc": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "body"
+            }
+          },
+          "msg": {
+            "type": "string",
+            "example": "field required"
+          },
+          "type": {
+            "type": "string",
+            "example": "value_error.missing"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ]
+      },
+      "Errors": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "$ref": "#/components/schemas/ErrorDetails"
+          }
+        }
+      },
+      "Inference": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "integer",
+            "format": "date-time",
+            "example": 1788096424
+          },
+          "balance_cost": {
+            "type": "number",
+            "format": "double",
+            "example": 0.18
+          },
+          "base64_images": {
+            "description": "Raw base64 PNG (or GIF for animations)",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "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"
+            }
+          },
+          "output_urls": {
+            "description": "15-minute signed URLs when upload_outputs=true",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": null
+            }
+          },
+          "model": {
+            "type": "string",
+            "example": "check_cost"
+          },
+          "remaining_balance": {
+            "type": "number",
+            "format": "double",
+            "example": 0.5
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "38cc4f48-cbcd-4420-ae51-3c3ec21e5b41"
+          },
+          "outputs_retained_until": {
+            "type": "integer",
+            "format": "date-time",
+            "example": 1788302691
+          },
+          "credit_cost": {
+            "type": "integer",
+            "example": 0
+          },
+          "output_images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": null
+            }
+          },
+          "remaining_credits": {
+            "type": "integer",
+            "example": 0
+          }
+        },
+        "required": [
+          "created_at",
+          "balance_cost",
+          "base64_images",
+          "model",
+          "remaining_balance",
+          "request_id",
+          "outputs_retained_until"
+        ]
+      },
+      "InferenceRequest": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "description": "Describe the SUBJECT only. Never write 'pixel art'.",
+            "type": "string",
+            "example": "security officer (a soldier). A 34-year-old male human. Lean and wiry, with a posture that suggests he's always expecting something to break. He wears the standard grey-blue security fatigues, kept meticulously clean despite the dust of the colony. A thin, jagged scar running through his left eyebrow. He has a habit of clicking his tongue when he's impatient."
+          },
+          "prompt_style": {
+            "$ref": "#/components/schemas/PromptStyle"
+          },
+          "width": {
+            "description": "Style-enforced tighter limits apply (most top out at 384)",
+            "type": "integer",
+            "minimum": 16,
+            "maximum": 512,
+            "example": 128
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 16,
+            "maximum": 512,
+            "example": 128
+          },
+          "num_images": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 1
+          },
+          "seed": {
+            "description": "Reproducible generation",
+            "type": "integer"
+          },
+          "input_image": {
+            "description": "Raw base64 PNG (no data: URI prefix), RGB no transparency. Required for img2img, advanced animation, some edit tools.",
+            "type": "string"
+          },
+          "strength": {
+            "description": "How much to change input_image",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.75
+          },
+          "reference_images": {
+            "description": "Base64 images. RD Pro styles only. Guides style/content.",
+            "type": "array",
+            "maxItems": 9,
+            "items": {
+              "type": "string"
+            }
+          },
+          "input_palette": {
+            "description": "Base64 palette constraining output colors",
+            "type": "string"
+          },
+          "remove_bg": {
+            "description": "Transparent output",
+            "type": "boolean"
+          },
+          "tile_x": {
+            "type": "boolean"
+          },
+          "tile_y": {
+            "type": "boolean"
+          },
+          "frames_duration": {
+            "description": "Animation styles only",
+            "type": "integer",
+            "enum": [
+              4,
+              6,
+              8,
+              10,
+              12,
+              16
+            ]
+          },
+          "return_spritesheet": {
+            "description": "Animations: PNG spritesheet instead of GIF",
+            "type": "boolean"
+          },
+          "upscale_output_factor": {
+            "description": "1 = native pixel size",
+            "type": "integer",
+            "example": 1
+          },
+          "bypass_prompt_expansion": {
+            "description": "Skip automatic LLM prompt enrichment",
+            "type": "boolean"
+          },
+          "include_downloadable_data": {
+            "description": "Extra structured assets e.g. item atlas JSON",
+            "type": "boolean"
+          },
+          "check_cost": {
+            "description": "FREE dry run: returns price, generates nothing, charges nothing",
+            "type": "boolean"
+          },
+          "async": {
+            "description": "Return task_id for polling instead of waiting",
+            "type": "boolean"
+          },
+          "upload_outputs": {
+            "description": "Receive temporary signed URLs in output_urls instead of (or with) base64",
+            "type": "boolean"
+          },
+          "extra_prompt": {
+            "description": "For advanced tileset styles",
+            "type": "string"
+          },
+          "extra_input_image": {
+            "description": "For advanced tileset styles",
+            "type": "string"
+          },
+          "negative": {
+            "description": "Placeholder — current models ignore it. Do not rely on it.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "prompt",
+          "prompt_style",
+          "width",
+          "height",
+          "num_images"
+        ]
+      },
+      "InferenceRequestResult": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
+      "ListEditToolsOkJSONResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      },
+      "Model": {
+        "type": "string",
+        "enum": [
+          "rd_fast",
+          "rd_plus",
+          "rd_pro",
+          "rd_mini"
+        ],
+        "example": "rd_pro"
+      },
+      "Models": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Model"
+        }
+      },
+      "PixelFixerRequest": {
+        "description": "Provide exactly one of input_image or image_url. width/height are optional and only used by the neural endpoint.",
+        "type": "object",
+        "properties": {
+          "input_image": {
+            "description": "Raw base64 PNG/JPEG/WebP or data URI",
+            "type": "string"
+          },
+          "image_url": {
+            "description": "Public HTTPS PNG/JPEG/WebP",
+            "type": "string",
+            "format": "uri"
+          },
+          "width": {
+            "description": "Neural only: target output width",
+            "type": "integer"
+          },
+          "height": {
+            "description": "Neural only: target output height",
+            "type": "integer"
+          }
+        }
+      },
+      "PixelFixerResponse": {
+        "type": "object",
+        "properties": {
+          "base64_images": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PromptStyle": {
+        "description": "Style id e.g. rd_fast__default, rd_pro__default, rd_plus__default, animation/tile variants, or user__name_id",
+        "type": "string",
+        "enum": [
+          "rd_animation__8_dir_rotation",
+          "rd_animation__any_animation",
+          "rd_animation__big_animation",
+          "rd_advanced_animation__custom_action",
+          "rd_pro__default",
+          "rd_pro__default_copy_1784901263973",
+          "rd_tile__tileset",
+          "rd_animation__large_walking_idle",
+          "rd_pro__painterly",
+          "rd_tile__tileset_advanced",
+          "rd_advanced_animation__walking",
+          "rd_advanced_animation__idle",
+          "rd_pro__simple",
+          "rd_tile__single_tile",
+          "rd_animation__four_angle_walking_idle",
+          "rd_pro__fantasy",
+          "rd_animation__four_angle_walking",
+          "rd_advanced_animation__jump",
+          "rd_tile__tile_variation",
+          "rd_animation__battle_sprites",
+          "rd_advanced_animation__crouch",
+          "rd_pro__horror",
+          "rd_animation__small_sprites",
+          "rd_tile__tile_object",
+          "rd_advanced_animation__attack",
+          "rd_tile__scene_object",
+          "rd_pro__scifi",
+          "rd_animation__vfx",
+          "rd_advanced_animation__destroy",
+          "rd_pro__isometric",
+          "rd_advanced_animation__subtle_motion",
+          "rd_pro__topdown",
+          "rd_pro__platformer",
+          "rd_pro__dungeon_map",
+          "rd_pro__spritesheet",
+          "rd_pro__hexagonal_tiles",
+          "rd_pro__fps_weapon",
+          "rd_pro__typography",
+          "rd_pro__ui_panel",
+          "rd_pro__inventory_items",
+          "rd_animation__dinoki",
+          "animation:rd_animated256_4by4_v3_000013000",
+          "rd_pro__pixelate",
+          "rd_pro__edit",
+          "rd_pro__default_copy_1782957236125",
+          "rd_pro__default_copy_1782957236125_copy_1786939279986",
+          "rd_pro__default_copy_1782957236125_copy_1786939279986_copy_1786990902501",
+          "rd_plus__default",
+          "default:rd_flux",
+          "simple:rd_flux",
+          "detailed:rd_flux",
+          "rd_plus__retro",
+          "retro:rd_flux",
+          "rd_plus__watercolor",
+          "game_asset:rd_flux",
+          "portrait:rd_flux",
+          "rd_plus__textured",
+          "rd_plus__cartoon",
+          "texture:rd_flux",
+          "rd_plus__ui_element",
+          "ui_element:rd_flux",
+          "item_sheet",
+          "rd_plus__item_sheet",
+          "character_turnaround:rd_flux",
+          "rd_plus__character_turnaround",
+          "rd_fast__1_bit",
+          "rd_plus__environment",
+          "rd_mini__fast_low_res",
+          "rd_fast__low_res",
+          "rd_mini__fast_mc_item",
+          "rd_plus__isometric",
+          "rd_fast__mc_item",
+          "rd_mini__fast_mc_texture",
+          "rd_plus__isometric_asset",
+          "rd_fast__mc_texture",
+          "rd_mini__classic",
+          "rd_mini__topdown_item",
+          "rd_plus__topdown_map",
+          "rd_mini__low_res",
+          "rd_plus__topdown_asset",
+          "rd_mini__skill_icon",
+          "rd_plus__topdown_item",
+          "rd_plus__classic",
+          "rd_mini__mc_item",
+          "rd_mini__mc_texture",
+          "rd_plus__skill_icon",
+          "rd_plus__low_res",
+          "rd_plus__mc_item",
+          "rd_plus__mc_texture",
+          "craftverse__t7",
+          "rd_plus__no_style",
+          "no_style:rd_flux"
+        ],
+        "example": "rd_animation__8_dir_rotation"
+      },
+      "StatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "updated_at": {
+            "type": "integer"
+          }
+        }
+      },
+      "Style": {
+        "type": "object",
+        "properties": {
+          "prompt_style": {
+            "$ref": "#/components/schemas/PromptStyle"
+          },
+          "name": {
+            "type": "string",
+            "example": "8 Direction Rotation"
+          },
+          "description": {
+            "type": "string",
+            "example": "Create 8 direction rotations of anything."
+          },
+          "required_model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "required_tab": {
+            "$ref": "#/components/schemas/Tab"
+          },
+          "min_width": {
+            "type": "integer",
+            "example": 80
+          },
+          "max_width": {
+            "type": "integer",
+            "example": 80
+          },
+          "min_height": {
+            "type": "integer",
+            "example": 80
+          },
+          "max_height": {
+            "type": "integer",
+            "example": 80
+          },
+          "max_number_of_images": {
+            "type": "integer",
+            "example": 1
+          },
+          "require_input_image": {
+            "type": "boolean",
+            "example": null
+          },
+          "supports_reference_images": {
+            "type": "boolean"
+          },
+          "example_prompt": {
+            "type": "string",
+            "example": "An orange cat playing with a blue ball of yarn"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "RD Animation"
+          }
+        }
+      },
+      "StyleDescriptors": {
+        "type": "object",
+        "properties": {
+          "styles": {
+            "$ref": "#/components/schemas/Styles"
+          },
+          "models": {
+            "$ref": "#/components/schemas/Models"
+          },
+          "tabs": {
+            "$ref": "#/components/schemas/Tabs"
+          }
+        }
+      },
+      "Styles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Style"
+        }
+      },
+      "Tab": {
+        "type": "string",
+        "enum": [
+          "tab:image",
+          "tab:animation",
+          "tab:advanced-animation",
+          "tab:tileset"
+        ],
+        "example": "tab:advanced-animation"
+      },
+      "Tabs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tab"
+        }
+      },
+      "TaskStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/TaskStatusStatus"
+          },
+          "task_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Inference"
+          },
+          "error": {
+            "$ref": "#/components/schemas/TaskStatusError"
+          }
+        },
+        "required": [
+          "status",
+          "task_id"
+        ]
+      },
+      "TaskStatusError": {
+        "type": "object",
+        "properties": {
+          "status_code": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      },
+      "TaskStatusStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "running",
+          "succeeded",
+          "failed"
+        ]
+      },
+      "ToolID": {
+        "type": "string",
+        "enum": [
+          "image_edit",
+          "inpainting",
+          "outpainting",
+          "seam_tiling",
+          "background_remover",
+          "color_style_transfer",
+          "color_reducer",
+          "palette_converter",
+          "k_centroid_downscale",
+          "pixel_correction",
+          "rotate"
+        ]
+      }
+    },
+    "responses": {
+      "DeleteUserStyleOkResponse": {
+        "description": "Deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/DeleteUserStyleOkJSONResponse"
+            }
+          }
+        }
+      },
+      "Style": {
+        "description": "Style created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Style"
+            }
+          }
+        }
+      },
+      "StyleDescriptors": {
+        "description": "Array of style descriptors",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StyleDescriptors"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "X-Rd-Token": {
+        "name": "X-Rd-Token",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "model": {
+        "name": "model",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "example": "rd_pro",
+          "$ref": "#/components/schemas/Model"
+        }
+      },
+      "request_id": {
+        "name": "request_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "style_id": {
+        "name": "style_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/PromptStyle"
+        }
+      },
+      "tab": {
+        "name": "tab",
+        "in": "query",
+        "schema": {
+          "$ref": "#/components/schemas/Tab"
+        }
+      }
+    },
+    "securitySchemes": {
+      "XRdToken": {
+        "type": "apiKey",
+        "description": "API key starting with rdpk-. Create at https://www.retrodiffusion.ai/app/devtools (max 5 per account).",
+        "name": "X-RD-Token",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "XRdToken": []
+    }
+  ]
+}
