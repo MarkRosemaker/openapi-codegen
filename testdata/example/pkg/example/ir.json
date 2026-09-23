@@ -35,7 +35,8 @@
 					"type": "Tab",
 					"parseExpr": "Tab(s)",
 					"parseErrFree": true,
-					"isEnum": true
+					"isEnum": true,
+					"baseType": "string"
 				}
 			],
 			"hasParams": true,
@@ -74,7 +75,8 @@
 					"required": true,
 					"parseExpr": "PromptStyle(s)",
 					"parseErrFree": true,
-					"isEnum": true
+					"isEnum": true,
+					"baseType": "string"
 				}
 			],
 			"hasParams": true,
