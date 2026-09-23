@@ -245,6 +245,12 @@ type Param struct {
 	ParseCast    string     `json:"parseCast,omitzero"`
 	ParseErrFree bool       `json:"parseErrFree,omitzero"`
 	IsEnum       bool       `json:"isEnum,omitzero"`
+	// EnumBaseType is the Go type the enum's constants are declared
+	// against (e.g. "string", "int32") when IsEnum is true. Type itself is
+	// the generated enum name (e.g. "Status"), which carries no zero-value
+	// or formatting behavior of its own, so NotZero and FormatExpr switch
+	// on this instead.
+	EnumBaseType string `json:"enumBaseType,omitzero"`
 	// IsUnixTime is true when Type is "time.Time" but the OpenAPI schema
 	// itself is an integer (format: date-time), not a date-time string --
 	// see [integerGoType]. FormatExpr needs this to know whether to encode

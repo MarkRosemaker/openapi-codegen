@@ -285,6 +285,55 @@ func TestFromOperation_PathParamEnumRef(t *testing.T) {
 	}
 }
 
+// TestFromOperation_EnumParamNotZeroFormatExpr covers a query parameter
+// whose schema is a $ref to a named string enum component: NotZero and
+// FormatExpr must switch on the enum's underlying string representation,
+// not fall through to their numeric-zero-value default -- which produces
+// code that fails to compile (`params.Status != 0` for a string-kind type).
+func TestFromOperation_EnumParamNotZeroFormatExpr(t *testing.T) {
+	statusRef := &openapi.SchemaRef{
+		Ref: &openapi.Reference{Identifier: "#/components/schemas/Status"},
+		Value: &openapi.Schema{
+			Type: openapi.TypeString,
+			Enum: []jsontext.Value{jsontext.Value(`"active"`), jsontext.Value(`"archived"`)},
+		},
+	}
+
+	params := openapi.ParameterList{{
+		Value: &openapi.Parameter{
+			Name:   "status",
+			In:     openapi.ParameterLocationQuery,
+			Schema: statusRef,
+		},
+	}}
+
+	op := &openapi.Operation{OperationID: "listPets", Parameters: params}
+	op.Responses = openapi.OperationResponses{}
+	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("PetList")))
+
+	got, err := ir.FromOperation("/pets", nil, "GET", op, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got.QueryParams) != 1 {
+		t.Fatalf("QueryParams len = %d, want 1", len(got.QueryParams))
+	}
+
+	status := got.QueryParams[0]
+	if status.Type != "Status" {
+		t.Fatalf("Type = %q, want Status", status.Type)
+	}
+
+	if got, want := status.NotZero(), `params.Status != ""`; got != want {
+		t.Errorf("NotZero = %q, want %q", got, want)
+	}
+
+	if got, want := status.FormatExpr(), "string(params.Status)"; got != want {
+		t.Errorf("FormatExpr = %q, want %q", got, want)
+	}
+}
+
 func TestFromOperation_QueryParams(t *testing.T) {
 	params := openapi.ParameterList{
 		makeParam("limit", openapi.ParameterLocationQuery, false, &openapi.Schema{Type: openapi.TypeInteger}),
