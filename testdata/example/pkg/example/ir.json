@@ -36,7 +36,7 @@
 					"parseExpr": "Tab(s)",
 					"parseErrFree": true,
 					"isEnum": true,
-					"enumBaseType": "string"
+					"baseType": "string"
 				}
 			],
 			"hasParams": true,
@@ -76,7 +76,7 @@
 					"parseExpr": "PromptStyle(s)",
 					"parseErrFree": true,
 					"isEnum": true,
-					"enumBaseType": "string"
+					"baseType": "string"
 				}
 			],
 			"hasParams": true,

@@ -136,14 +136,6 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 	}
 
 	param.IsEnum = len(p.Schema.Value.Enum) > 0
-	if param.IsEnum {
-		base, err := enumBaseGoType(p.Schema.Value.Type, p.Schema.Value.Format)
-		if err != nil {
-			return param, err
-		}
-
-		param.EnumBaseType = base.Name
-	}
 
 	// SchemaRefGoType, not SchemaGoType(p.Schema.Value): a $ref resolves to
 	// its own generated type name (e.g. a string enum), where reading the
@@ -154,6 +146,20 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 	}
 
 	param.Type = tp.String()
+
+	if p.Schema.Ref != nil {
+		// Type is a generated name here (an enum or any other named
+		// scalar component), not a builtin: NotZero and FormatExpr need
+		// the underlying representation it was declared from to know how
+		// to compare or format it.
+		base, err := SchemaGoType(p.Schema.Value)
+		if err != nil {
+			return param, err
+		}
+
+		param.BaseType = base.String()
+	}
+
 	param.IsUnixTime = param.Type == "time.Time" && p.Schema.Value.Type == openapi.TypeInteger
 
 	param.GoName = strcase.ToGoCamel(p.Name)
@@ -309,14 +315,13 @@ func segmentExpr(seg string, params map[string]Param) string {
 
 // NotZero returns the Go boolean expression that is true when param is not the zero value.
 func (p Param) NotZero() string {
-	// An enum's own Type is the generated name (e.g. "Status"), which
-	// carries no zero-value semantics of its own: switch on the type its
-	// constants are declared against instead. Comparisons against an
-	// untyped constant ("", 0) work directly on the named type, no
-	// conversion needed.
+	// A generated Type (BaseType set) carries no zero-value semantics of
+	// its own: switch on the type it was declared from instead.
+	// Comparisons against an untyped constant ("", 0) work directly on
+	// the named type, no conversion needed.
 	tp := p.Type
-	if p.IsEnum {
-		tp = p.EnumBaseType
+	if p.BaseType != "" {
+		tp = p.BaseType
 	}
 
 	switch tp {
@@ -350,13 +355,13 @@ func (p Param) FormatExpr() string {
 		return "c." + p.VarName
 	}
 
-	// An enum's own Type is the generated name (e.g. "Status"), which has
-	// none of the methods or conversions below: convert to the type its
-	// constants are declared against first. That conversion is always
-	// legal, since it targets the enum's own underlying type.
+	// A generated Type (BaseType set) has none of the methods or
+	// conversions below: convert to the type it was declared from first.
+	// That conversion is always legal, since it targets the generated
+	// type's own underlying type.
 	tp, v := p.Type, p.VarName
-	if p.IsEnum {
-		tp = p.EnumBaseType
+	if p.BaseType != "" {
+		tp = p.BaseType
 		v = tp + "(" + p.VarName + ")"
 	}
 
