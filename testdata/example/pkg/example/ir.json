@@ -62,7 +62,7 @@
 			"method": "DELETE",
 			"pathTemplate": "/{style_id}",
 			"joinPathArgs": [
-				"fmt.Sprint(styleID)"
+				"string(styleID)"
 			],
 			"pathParams": [
 				{

@@ -8,7 +8,6 @@ import (
 	"context"
 	"encoding/json/v2"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -101,8 +100,8 @@ func (c *Client) ListAvailableStylesWithResult[R any](ctx context.Context, param
 			q["model"] = []string{params.Model}
 		}
 
-		if params.Tab != 0 {
-			q["tab"] = []string{fmt.Sprint(params.Tab)}
+		if params.Tab != "" {
+			q["tab"] = []string{string(params.Tab)}
 		}
 
 		u.RawQuery = q.Encode()
@@ -158,7 +157,7 @@ func (c *Client) DeleteUserStyle(ctx context.Context, styleID PromptStyle) (*Del
 //
 //	DELETE /{style_id}
 func (c *Client) DeleteUserStyleWithResult[R any](ctx context.Context, styleID PromptStyle) (*R, error) {
-	u := c.baseURL.JoinPath(fmt.Sprint(styleID))
+	u := c.baseURL.JoinPath(string(styleID))
 	req := (&http.Request{
 		Header: http.Header{
 			"X-Rd-Token": []string{c.apiKey},
