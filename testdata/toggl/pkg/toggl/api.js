@@ -17,66 +17,13 @@
  *   const result = await window.API.createOrganization();
  *   const result = await window.API.listOrganizations();
  *   const result = await window.API.getOrganization(organizationID);
- *
- * Environment:
- *   Set `window.ENV = 'development'` to enable mocking via /mocks.json.
- *   Set `window.ENV = 'production'` (or anything else) to use real API calls.
- */
+ **/
 
 const API_BASE = "https://api.track.toggl.com/api/v9";
 const TIMEOUT = 4000;
 
 // ====================== ENVIRONMENT ======================
-// Change this to 'production' when connecting to a real backend
 window.ENV = "production";
-
-// Cache for mocks (loaded once)
-let mocks = null;
-let mocksPromise = null;
-
-async function loadMocks() {
-    if (mocks) return mocks;
-    if (mocksPromise) return mocksPromise;
-
-    mocksPromise = fetch("mocks.json")
-        .then((res) => {
-            if (!res.ok) throw new Error(`Failed to load mocks.json: ${res.status}`);
-            return res.json();
-        })
-        .then((data) => {
-            mocks = Array.isArray(data) ? data : [];
-            console.log(
-                `%c[Mock] Loaded ${mocks.length} mock(s)`,
-                "color: #10b981; font-weight: bold",
-            );
-            return mocks;
-        })
-        .catch((err) => {
-            console.error("[Mock] Failed to load mocks.json", err);
-            mocks = [];
-            return [];
-        });
-
-    return mocksPromise;
-}
-
-function matchesRequest(mockRequest, method, path) {
-    if (!mockRequest) return false;
-
-    const mockMethod = mockRequest.method?.toUpperCase();
-    const mockUrl = mockRequest.url;
-
-    if (mockMethod && mockMethod !== method) return false;
-
-    if (mockUrl === path) return true;
-
-    try {
-        const mockPath = new URL(mockUrl).pathname;
-        return mockPath === path || mockPath.endsWith(path);
-    } catch {
-        return mockUrl.endsWith(path) || mockUrl === path;
-    }
-}
 
 // reportApiError broadcasts a failed API call as a "toggl:ws-message"
 // CustomEvent, the same channel server-pushed notifications use, so a single
@@ -96,43 +43,6 @@ async function apiFetch(path, options = {}) {
     const {
         method = "GET", operationId = "Request"
     } = options;
-
-    // ====================== DEVELOPMENT MOCKING ======================
-    if (window.ENV === "development") {
-        await loadMocks();
-
-        const mockEntry = mocks.find((m) =>
-            matchesRequest(m.request, method, path),
-        );
-
-        if (mockEntry?.response) {
-            const {
-                statusCode = 200, body
-            } = mockEntry.response;
-
-            console.log(
-                `%c[Mock] ${method} ${path} → ${statusCode}`,
-                "color: #10b981; font-weight: 600",
-            );
-
-            if (statusCode >= 400) {
-                console.warn(`[Mock] Error ${statusCode} for ${path}`);
-                const message = (body && (body.message || body.error)) || "Request failed";
-                reportApiError(operationId, statusCode, message);
-                return null;
-            }
-
-            return typeof body === "object" && body !== null ? structuredClone(body) : body;
-        }
-
-        console.warn(
-            `%c[Mock] No mock found for ${method} ${path}`,
-            "color: #f59e0b",
-        );
-        return null;
-    }
-
-    // ====================== REAL API CALL ======================
     const ctrl = new AbortController();
     const timeoutId = setTimeout(() => ctrl.abort(), TIMEOUT);
 
@@ -149,7 +59,7 @@ async function apiFetch(path, options = {}) {
         clearTimeout(timeoutId);
 
         if (!res.ok) {
-            console.warn(`API Error: ${res.status} ${path}`);
+            console.warn(`API Error: ${res.status} ${method} ${path}`);
             let message = res.statusText || "Request failed";
             try {
                 const body = await res.clone().json();

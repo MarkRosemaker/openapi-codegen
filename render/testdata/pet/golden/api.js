@@ -20,8 +20,8 @@ const API_BASE = "https://api.example.com/v1";
 const TIMEOUT = 4000;
 
 // ====================== ENVIRONMENT ======================
-// Change this to 'production' when connecting to a real backend
-window.ENV = "development";
+const inClaudeDesign = typeof window.claude !== "undefined";
+window.ENV = inClaudeDesign ? "development" : "production";
 
 // Cache for mocks (loaded once)
 let mocks = null;
@@ -142,7 +142,7 @@ async function apiFetch(path, options = {}) {
         clearTimeout(timeoutId);
 
         if (!res.ok) {
-            console.warn(`API Error: ${res.status} ${path}`);
+            console.warn(`API Error: ${res.status} ${method} ${path}`);
             let message = res.statusText || "Request failed";
             try {
                 const body = await res.clone().json();

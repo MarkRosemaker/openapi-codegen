@@ -21,7 +21,10 @@ import (
 )
 
 // Whether to test in debug mode.
-const debugMode = false
+const (
+	debugMode  = false
+	production = true
+)
 
 //go:embed testdata
 var testdata embed.FS
@@ -55,7 +58,7 @@ func TestCodegen_TestData(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			irDoc, err := ir.FromDocument(doc, name, "")
+			irDoc, err := ir.FromDocument(doc, name, "", production)
 			if err != nil {
 				t.Fatalf("build IR: %v", err)
 			}
@@ -82,6 +85,7 @@ func TestCodegen_TestData(t *testing.T) {
 						OutputFs:     memFs,
 						Interactions: ias,
 						Generate:     genAll,
+						Production:   production,
 					}); err != nil {
 						t.Fatal(err)
 					}
@@ -108,7 +112,7 @@ func compareBytes(t *testing.T, expected, actual []byte, path string) {
 		i++
 	}
 
-	t.Errorf("\n┌─ Diff in %s at offset %d\n│ Expected: %q\n│ Actual:   %q\n└─ %s",
+	t.Fatalf("\n┌─ Diff in %s at offset %d\n│ Expected: %q\n│ Actual:   %q\n└─ %s",
 		path, i, expected[i:min(len(expected), i+20)], actual[i:min(len(actual), i+20)],
 		func() string {
 			if len(expected) != len(actual) {

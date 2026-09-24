@@ -87,7 +87,7 @@ func buildMinimalDoc() *openapi.Document {
 func TestFromDocument_Basic(t *testing.T) {
 	doc := buildMinimalDoc()
 
-	irDoc, err := ir.FromDocument(doc, "petapi", "")
+	irDoc, err := ir.FromDocument(doc, "petapi", "", true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -126,7 +126,7 @@ func TestFromDocument_Basic(t *testing.T) {
 func TestFromDocument_OperationDetails(t *testing.T) {
 	doc := buildMinimalDoc()
 
-	irDoc, err := ir.FromDocument(doc, "petapi", "test-agent")
+	irDoc, err := ir.FromDocument(doc, "petapi", "test-agent", false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -185,7 +185,7 @@ func TestFromDocument_NoServers(t *testing.T) {
 	doc := buildMinimalDoc()
 	doc.Servers = nil
 
-	irDoc, err := ir.FromDocument(doc, "pkg", "")
+	irDoc, err := ir.FromDocument(doc, "pkg", "", false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -217,7 +217,7 @@ func TestFromDocument_SpecialImports(t *testing.T) {
 	doc.Paths = openapi.Paths{}
 	doc.Paths.Set("/things", &openapi.PathItem{Get: listOp})
 
-	irDoc, err := ir.FromDocument(doc, "pkg", "")
+	irDoc, err := ir.FromDocument(doc, "pkg", "", false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -241,7 +241,7 @@ func TestFromDocument_APIKeyHeaders(t *testing.T) {
 				pi.Parameters = openapi.ParameterList{p}
 			}
 
-			irDoc, err := ir.FromDocument(doc, "petapi", "")
+			irDoc, err := ir.FromDocument(doc, "petapi", "", false)
 			if err != nil {
 				t.Fatal(err)
 			}

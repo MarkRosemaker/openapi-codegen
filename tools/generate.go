@@ -22,7 +22,10 @@ import (
 )
 
 // Whether to generate in debug mode.
-const debugMode = false
+const (
+	debugMode  = false
+	production = true
+)
 
 var genAll = config.Generate{
 	Types:      true,
@@ -59,6 +62,7 @@ func run(ctx context.Context) error {
 		}
 
 		petDoc.Debug = debugMode
+		petDoc.Production = false // only exception
 
 		files, err := render.Files(petDoc, genAll)
 		if err != nil {
@@ -108,7 +112,7 @@ func run(ctx context.Context) error {
 			return err
 		}
 
-		irDoc, err := ir.FromDocument(doc, name, "")
+		irDoc, err := ir.FromDocument(doc, name, "", production)
 		if err != nil {
 			return fmt.Errorf("build IR: %w", err)
 		}
@@ -143,6 +147,7 @@ func run(ctx context.Context) error {
 			OutputDir:        outDir,
 			InteractionsPath: iaPath,
 			Generate:         genAll,
+			Production:       production,
 		}); err != nil {
 			return err
 		}
