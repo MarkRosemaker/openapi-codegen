@@ -1146,3 +1146,58 @@ func TestFromComponentSchemas_PlainDateTimeFieldNotFlagged(t *testing.T) {
 		t.Error("plain date-time field: IsDateTimeOrInt = true, want false")
 	}
 }
+
+func TestFromComponentSchemas_UnixTimeField(t *testing.T) {
+	prop := &openapi.SchemaRef{}
+	prop.Value = &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
+	props := openapi.SchemaRefs{}
+	props.Set("created_at", prop)
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Event", &openapi.Schema{
+		Type:       openapi.TypeObject,
+		Properties: props,
+		Required:   []string{"created_at"},
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].Fields) != 1 {
+		t.Fatalf("unexpected schemas/fields: %+v", got)
+	}
+
+	f := got[0].Fields[0]
+	if f.Type != "time.Time" {
+		t.Errorf("Type = %q, want time.Time", f.Type)
+	}
+
+	if !f.IsUnixTime {
+		t.Error("IsUnixTime = false, want true")
+	}
+}
+
+func TestFromComponentSchemas_PlainDateTimeFieldNotUnixTime(t *testing.T) {
+	// A regular string+date-time property must not set IsUnixTime either.
+	prop := &openapi.SchemaRef{}
+	prop.Value = &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
+	props := openapi.SchemaRefs{}
+	props.Set("createdAt", prop)
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Event", &openapi.Schema{
+		Type:       openapi.TypeObject,
+		Properties: props,
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if got[0].Fields[0].IsUnixTime {
+		t.Error("plain date-time field: IsUnixTime = true, want false")
+	}
+}

@@ -430,6 +430,7 @@ func getField(jsonName string, propRef *openapi.SchemaRef, requiredSet map[strin
 		Description:     cmp.Or(ref.Description, v.Description),
 		Required:        required,
 		IsDateTimeOrInt: isDateTimeOrIntegerOneOf(v),
+		IsUnixTime:      goType.Name == "time.Time" && v.Type == openapi.TypeInteger,
 	}, nil
 }
 

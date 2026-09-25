@@ -230,7 +230,8 @@
 					"jsonName": "created_at",
 					"type": "time.Time",
 					"jsonTag": "json:\"created_at\"",
-					"required": true
+					"required": true,
+					"isUnixTime": true
 				},
 				{
 					"name": "BalanceCost",
@@ -280,7 +281,8 @@
 					"jsonName": "outputs_retained_until",
 					"type": "time.Time",
 					"jsonTag": "json:\"outputs_retained_until\"",
-					"required": true
+					"required": true,
+					"isUnixTime": true
 				},
 				{
 					"name": "CreditCost",
@@ -1353,5 +1355,6 @@
 			]
 		}
 	],
-	"hasURLFields": true
+	"hasURLFields": true,
+	"hasUnixTimeFields": true
 }
