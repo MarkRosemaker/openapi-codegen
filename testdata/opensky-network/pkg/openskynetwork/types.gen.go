@@ -5,7 +5,9 @@
 package openskynetwork
 
 import (
+	"encoding/json/jsontext"
 	"encoding/json/v2"
+	"fmt"
 )
 
 var jsonOpts = json.JoinOptions(
@@ -19,4 +21,75 @@ type ListAPIStatesAllOk struct {
 }
 
 // ListAPIStatesAllOkStatesItem defines a model
-type ListAPIStatesAllOkStatesItem []any
+type ListAPIStatesAllOkStatesItem struct {
+	Item00 string
+	Item01 string
+	Item02 string
+	Item03 int
+	Item04 int
+	Item05 float64
+	Item06 float64
+	Item07 float64
+	Item08 bool
+	Item09 float64
+	Item10 float64
+	Item11 float64
+	Item12 struct{} // (or something else)
+	Item13 float64
+	Item14 string
+	Item15 bool
+	Item16 int
+}
+
+func (a *ListAPIStatesAllOkStatesItem) Items(yield func(int, any) bool) {
+	for i, v := range []any{&a.Item00, &a.Item01, &a.Item02, &a.Item03, &a.Item04, &a.Item05, &a.Item06, &a.Item07, &a.Item08, &a.Item09, &a.Item10, &a.Item11, &a.Item12, &a.Item13, &a.Item14, &a.Item15, &a.Item16} {
+		if !yield(i, v) {
+			return
+		}
+	}
+}
+
+func (a *ListAPIStatesAllOkStatesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	if k := dec.PeekKind(); k != jsontext.KindBeginArray {
+		return &json.SemanticError{JSONKind: k}
+	}
+
+	if _, err := dec.ReadToken(); err != nil {
+		return err
+	}
+
+	for _, f := range a.Items {
+		if dec.PeekKind() == jsontext.KindEndArray {
+			return &json.SemanticError{Err: fmt.Errorf("array shorter than 17")}
+		}
+
+		if err := json.UnmarshalDecode(dec, f); err != nil {
+			return err
+		}
+	}
+
+	if k := dec.PeekKind(); k != jsontext.KindEndArray {
+		return &json.SemanticError{JSONKind: k, Err: fmt.Errorf("array longer than 17")}
+	}
+
+	_, err := dec.ReadToken()
+	return err
+}
+
+func (a ListAPIStatesAllOkStatesItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	if err := enc.WriteToken(jsontext.BeginArray); err != nil {
+		return err
+	}
+
+	for _, v := range a.Items {
+		if err := json.MarshalEncode(enc, v); err != nil {
+			return err
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndArray); err != nil {
+		return err
+	}
+
+	return nil
+}
