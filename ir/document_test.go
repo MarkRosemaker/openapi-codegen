@@ -227,6 +227,38 @@ func TestFromDocument_SpecialImports(t *testing.T) {
 	}
 }
 
+func TestFromDocument_SpecialImports_UnixTime(t *testing.T) {
+	// A doc with an integer+date-time field should set HasUnixTimeFields=true.
+	eventSchema := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.SchemaRefs{}, Required: []string{"created_at"}}
+	createdAtRef := &openapi.SchemaRef{}
+	createdAtRef.Value = &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
+	eventSchema.Properties.Set("created_at", createdAtRef)
+
+	doc := &openapi.Document{
+		OpenAPI: "3.1.0",
+		Info:    &openapi.Info{Title: "T", Version: "1"},
+		Servers: openapi.Servers{{URL: "https://example.com"}},
+	}
+	doc.Components.Schemas = openapi.Schemas{}
+	doc.Components.Schemas.Set("Event", eventSchema)
+
+	listOp := &openapi.Operation{OperationID: "listEvents"}
+	listOp.Responses = openapi.OperationResponses{}
+	listOp.Responses.Set("200", makeResponse("OK", "", nil))
+
+	doc.Paths = openapi.Paths{}
+	doc.Paths.Set("/events", &openapi.PathItem{Get: listOp})
+
+	irDoc, err := ir.FromDocument(doc, "pkg", "", false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !irDoc.HasUnixTimeFields {
+		t.Error("HasUnixTimeFields = false, want true")
+	}
+}
+
 func TestFromDocument_APIKeyHeaders(t *testing.T) {
 	// X-Rd-Token is an API token and is wired up exactly like X-Api-Key: a
 	// client field, a ClientOption and a value read from the environment.
