@@ -1,0 +1,137 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://opensky-network.org"
+    }
+  ],
+  "paths": {
+    "/api/states/all": {
+      "get": {
+        "operationId": "ListAPIStatesAll",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ListAPIStatesAllOkResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ListAPIStatesAllOk": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "example": 1790341107
+          },
+          "states": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListAPIStatesAllOkStatesItem"
+            }
+          }
+        },
+        "required": [
+          "time",
+          "states"
+        ]
+      },
+      "ListAPIStatesAllOkStatesItem": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string",
+            "example": "39de4f"
+          },
+          {
+            "type": "string",
+            "example": "TVF42VD "
+          },
+          {
+            "type": "string",
+            "example": "France"
+          },
+          {
+            "type": "integer",
+            "example": 1790341107
+          },
+          {
+            "type": "integer",
+            "example": 1790341107
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 2.3604
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 48.7239
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 792.48
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 3.09
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 255.94
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 3.9
+          },
+          {
+            "type": "object",
+            "example": null
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "example": 868.68
+          },
+          {
+            "type": "string",
+            "example": "1000"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "integer",
+            "example": 0
+          }
+        ]
+      }
+    },
+    "responses": {
+      "ListAPIStatesAllOkResponse": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ListAPIStatesAllOk"
+            }
+          }
+        }
+      }
+    }
+  }
+}

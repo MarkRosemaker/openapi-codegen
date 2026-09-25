@@ -1,0 +1,65 @@
+{
+	"title": "Opensky Network API",
+	"production": true,
+	"packageName": "opensky-network",
+	"baseURL": {
+		"scheme": "https",
+		"host": "opensky-network.org"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"name": "ListAPIStatesAll",
+			"method": "GET",
+			"pathTemplate": "/api/states/all",
+			"joinPathArgs": [
+				"\"api\"",
+				"\"states\"",
+				"\"all\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListAPIStatesAllOk"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListAPIStatesAllOk"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "ListAPIStatesAllOk",
+			"description": "ListAPIStatesAllOk defines a model",
+			"fields": [
+				{
+					"name": "Time",
+					"jsonName": "time",
+					"type": "int",
+					"jsonTag": "json:\"time\"",
+					"required": true
+				},
+				{
+					"name": "States",
+					"jsonName": "states",
+					"type": "[]ListAPIStatesAllOkStatesItem",
+					"jsonTag": "json:\"states\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAPIStatesAllOkStatesItem",
+			"description": "ListAPIStatesAllOkStatesItem defines a model",
+			"kind": 2,
+			"type": "[]any"
+		}
+	]
+}
