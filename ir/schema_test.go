@@ -398,6 +398,77 @@ func TestFromComponentSchemas_ArrayAlias(t *testing.T) {
 	}
 }
 
+func TestFromComponentSchemas_Tuple(t *testing.T) {
+	schemas := openapi.Schemas{}
+	schemas.Set("StateVector", &openapi.Schema{
+		Type: openapi.TypeArray,
+		PrefixItems: openapi.SchemaRefList{
+			{Value: &openapi.Schema{Type: openapi.TypeString}},
+			{Value: &openapi.Schema{Type: openapi.TypeInteger}},
+			{Value: &openapi.Schema{Type: openapi.TypeBoolean}},
+		},
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 {
+		t.Fatalf("expected 1 schema, got %d", len(got))
+	}
+
+	s := got[0]
+	if s.Kind != ir.SchemaKindTuple {
+		t.Fatalf("Kind = %v, want SchemaKindTuple", s.Kind)
+	}
+
+	wantFields := []ir.Field{
+		{Name: "Item0", Type: "string"},
+		{Name: "Item1", Type: "int"},
+		{Name: "Item2", Type: "bool"},
+	}
+
+	if len(s.Fields) != len(wantFields) {
+		t.Fatalf("len(Fields) = %d, want %d", len(s.Fields), len(wantFields))
+	}
+
+	for i, want := range wantFields {
+		if s.Fields[i] != want {
+			t.Errorf("Fields[%d] = %+v, want %+v", i, s.Fields[i], want)
+		}
+	}
+}
+
+// TestFromComponentSchemas_TupleWidePadding covers a tuple with more than 10
+// positions: the zero-padding must be wide enough that every field name
+// sorts the same as its position (Item00 before Item01 before ... Item10),
+// not the lexical-but-wrong Item0, Item1, Item10, Item2 a fixed single digit
+// would produce.
+func TestFromComponentSchemas_TupleWidePadding(t *testing.T) {
+	prefixItems := make(openapi.SchemaRefList, 11)
+	for i := range prefixItems {
+		prefixItems[i] = &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}}
+	}
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Wide", &openapi.Schema{Type: openapi.TypeArray, PrefixItems: prefixItems})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	s := got[0]
+	if got, want := s.Fields[0].Name, "Item00"; got != want {
+		t.Errorf("Fields[0].Name = %q, want %q", got, want)
+	}
+
+	if got, want := s.Fields[10].Name, "Item10"; got != want {
+		t.Errorf("Fields[10].Name = %q, want %q", got, want)
+	}
+}
+
 func TestFromComponentSchemas_Scalars(t *testing.T) {
 	// A named scalar component is declared like any other: a $ref resolves to
 	// its name, and a response body decoded into it can carry an Error method,

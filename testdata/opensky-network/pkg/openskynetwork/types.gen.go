@@ -34,7 +34,7 @@ type ListAPIStatesAllOkStatesItem struct {
 	Item09 float64
 	Item10 float64
 	Item11 float64
-	Item12 struct{} // (or something else)
+	Item12 struct{}
 	Item13 float64
 	Item14 string
 	Item15 bool
@@ -49,6 +49,7 @@ func (a *ListAPIStatesAllOkStatesItem) Items(yield func(int, any) bool) {
 	}
 }
 
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (a *ListAPIStatesAllOkStatesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	if k := dec.PeekKind(); k != jsontext.KindBeginArray {
 		return &json.SemanticError{JSONKind: k}
@@ -76,6 +77,7 @@ func (a *ListAPIStatesAllOkStatesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	return err
 }
 
+// MarshalJSONTo implements [json.MarshalerTo].
 func (a ListAPIStatesAllOkStatesItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	if err := enc.WriteToken(jsontext.BeginArray); err != nil {
 		return err
