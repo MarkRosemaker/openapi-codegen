@@ -469,6 +469,133 @@ func TestFromComponentSchemas_TupleWidePadding(t *testing.T) {
 	}
 }
 
+// TestFromComponentSchemas_XGoNameType covers overriding a named component's
+// own Go type name via x-go-name, the same as oapi-codegen's extension:
+// https://github.com/oapi-codegen/oapi-codegen/blob/main/docs/extensions.md#x-go-name
+func TestFromComponentSchemas_XGoNameType(t *testing.T) {
+	schemas := openapi.Schemas{}
+	schemas.Set("ClientWithExtension", &openapi.Schema{
+		Type:       openapi.TypeObject,
+		Extensions: jsontext.Value(`{"x-go-name":"ClientRenamedByExtension"}`),
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 {
+		t.Fatalf("expected 1 schema, got %d", len(got))
+	}
+
+	if got[0].Name != "ClientRenamedByExtension" {
+		t.Errorf("Name = %q, want ClientRenamedByExtension", got[0].Name)
+	}
+}
+
+// TestFromComponentSchemas_XGoNameField covers overriding a single property's
+// Go field name via x-go-name, while its JSON tag keeps the wire name.
+func TestFromComponentSchemas_XGoNameField(t *testing.T) {
+	props := openapi.SchemaRefs{}
+	props.Set("id", &openapi.SchemaRef{Value: &openapi.Schema{
+		Type:       openapi.TypeNumber,
+		Extensions: jsontext.Value(`{"x-go-name":"AccountIdentifier"}`),
+	}})
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Client", &openapi.Schema{Type: openapi.TypeObject, Properties: props})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].Fields) != 1 {
+		t.Fatalf("unexpected schemas/fields: %+v", got)
+	}
+
+	f := got[0].Fields[0]
+	if f.Name != "AccountIdentifier" {
+		t.Errorf("Name = %q, want AccountIdentifier", f.Name)
+	}
+
+	if f.JSONName != "id" {
+		t.Errorf("JSONName = %q, want id (the wire name, unaffected by x-go-name)", f.JSONName)
+	}
+}
+
+// TestFromComponentSchemas_XGoNameIgnoredThroughRef covers a property that
+// references a named component carrying its own x-go-name: that override
+// renames the component's own type elsewhere, not every field that happens
+// to reference it, so the field itself still gets its usual, jsonName-derived
+// Go name.
+func TestFromComponentSchemas_XGoNameIgnoredThroughRef(t *testing.T) {
+	petSchema := &openapi.Schema{
+		Type:       openapi.TypeObject,
+		Extensions: jsontext.Value(`{"x-go-name":"Animal"}`),
+	}
+
+	props := openapi.SchemaRefs{}
+	props.Set("pet", &openapi.SchemaRef{
+		Ref:   &openapi.Reference{Identifier: "#/components/schemas/Pet"},
+		Value: petSchema,
+	})
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Pet", petSchema)
+	schemas.Set("Owner", &openapi.Schema{Type: openapi.TypeObject, Properties: props})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var owner *ir.Schema
+	for i := range got {
+		if got[i].Name == "Owner" {
+			owner = &got[i]
+		}
+	}
+
+	if owner == nil || len(owner.Fields) != 1 {
+		t.Fatalf("unexpected schemas: %+v", got)
+	}
+
+	if got, want := owner.Fields[0].Name, "Pet"; got != want {
+		t.Errorf("Name = %q, want %q (Animal is Pet's own rename, not this field's)", got, want)
+	}
+}
+
+// TestFromComponentSchemas_XGoNameTuplePosition covers x-go-name on a
+// prefixItems entry, naming that tuple position instead of leaving it ItemNN.
+func TestFromComponentSchemas_XGoNameTuplePosition(t *testing.T) {
+	schemas := openapi.Schemas{}
+	schemas.Set("StateVector", &openapi.Schema{
+		Type: openapi.TypeArray,
+		PrefixItems: openapi.SchemaRefList{
+			{Value: &openapi.Schema{Type: openapi.TypeString, Extensions: jsontext.Value(`{"x-go-name":"Icao24"}`)}},
+			{Value: &openapi.Schema{Type: openapi.TypeString}},
+		},
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].Fields) != 2 {
+		t.Fatalf("unexpected schemas/fields: %+v", got)
+	}
+
+	if got, want := got[0].Fields[0].Name, "Icao24"; got != want {
+		t.Errorf("Fields[0].Name = %q, want %q", got, want)
+	}
+
+	if got, want := got[0].Fields[1].Name, "Item1"; got != want {
+		t.Errorf("Fields[1].Name = %q, want %q (no override, unaffected)", got, want)
+	}
+}
+
 func TestFromComponentSchemas_Scalars(t *testing.T) {
 	// A named scalar component is declared like any other: a $ref resolves to
 	// its name, and a response body decoded into it can carry an Error method,
