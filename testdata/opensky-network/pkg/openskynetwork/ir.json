@@ -58,8 +58,77 @@
 		{
 			"name": "ListAPIStatesAllOkStatesItem",
 			"description": "ListAPIStatesAllOkStatesItem defines a model",
-			"kind": 2,
-			"type": "[]any"
+			"kind": 6,
+			"fields": [
+				{
+					"name": "Item00",
+					"type": "string"
+				},
+				{
+					"name": "Item01",
+					"type": "string"
+				},
+				{
+					"name": "Item02",
+					"type": "string"
+				},
+				{
+					"name": "Item03",
+					"type": "int"
+				},
+				{
+					"name": "Item04",
+					"type": "int"
+				},
+				{
+					"name": "Item05",
+					"type": "float64"
+				},
+				{
+					"name": "Item06",
+					"type": "float64"
+				},
+				{
+					"name": "Item07",
+					"type": "float64"
+				},
+				{
+					"name": "Item08",
+					"type": "bool"
+				},
+				{
+					"name": "Item09",
+					"type": "float64"
+				},
+				{
+					"name": "Item10",
+					"type": "float64"
+				},
+				{
+					"name": "Item11",
+					"type": "float64"
+				},
+				{
+					"name": "Item12",
+					"type": "struct{}"
+				},
+				{
+					"name": "Item13",
+					"type": "float64"
+				},
+				{
+					"name": "Item14",
+					"type": "string"
+				},
+				{
+					"name": "Item15",
+					"type": "bool"
+				},
+				{
+					"name": "Item16",
+					"type": "int"
+				}
+			]
 		}
 	]
 }
