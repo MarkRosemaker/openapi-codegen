@@ -9,6 +9,7 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/MarkRosemaker/errpath"
 	"github.com/MarkRosemaker/openapi"
 	"github.com/ettle/strcase"
 )
@@ -570,7 +571,7 @@ func fromTupleSchema(name string, s *openapi.Schema) (*Schema, error) {
 	for i, p := range s.PrefixItems {
 		tp, err := SchemaRefGoType(p)
 		if err != nil {
-			return nil, fmt.Errorf("prefixItems[%d]: %w", i, err)
+			return nil, &errpath.ErrField{Field: "prefixItems", Err: &errpath.ErrIndex{Index: i, Err: err}}
 		}
 
 		fields[i] = Field{
