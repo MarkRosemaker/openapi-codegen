@@ -9,6 +9,7 @@ import (
 	"encoding/json/v2"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/go-api-libs/api"
@@ -68,16 +69,26 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // All State Vectors
 //
 //	GET /api/states/all
-func (c *Client) ListAllStateVectors(ctx context.Context) (*CurrentStates, error) {
-	return c.ListAllStateVectorsWithResult[CurrentStates](ctx)
+func (c *Client) ListAllStateVectors(ctx context.Context, params *ListAllStateVectorsParams) (*CurrentStates, error) {
+	return c.ListAllStateVectorsWithResult[CurrentStates](ctx, params)
 }
 
 // All State Vectors
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /api/states/all
-func (c *Client) ListAllStateVectorsWithResult[R any](ctx context.Context) (*R, error) {
+func (c *Client) ListAllStateVectorsWithResult[R any](ctx context.Context, params *ListAllStateVectorsParams) (*R, error) {
 	u := c.baseURL.JoinPath("api", "states", "all")
+	if params != nil {
+		q := make(url.Values, 1)
+
+		if !params.Begin.IsZero() {
+			q["begin"] = []string{strconv.Itoa(int(params.Begin.Unix()))}
+		}
+
+		u.RawQuery = q.Encode()
+	}
+
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},

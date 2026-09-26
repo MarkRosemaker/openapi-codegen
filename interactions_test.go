@@ -269,27 +269,37 @@ func TestExtractSegmentParam_MidSegmentMismatch(t *testing.T) {
 
 func TestGoLiteralForType(t *testing.T) {
 	tests := []struct {
-		goType string
-		value  string
-		want   string
+		param ir.Param
+		value string
+		want  string
 	}{
-		{"string", "hello", `"hello"`},
-		{"int", "42", "42"},
-		{"int32", "10", "10"},
-		{"int64", "100", "100"},
-		{"uint", "5", "5"},
-		{"uint32", "3", "3"},
-		{"uint64", "7", "7"},
+		{ir.Param{Type: "string"}, "hello", `"hello"`},
+		{ir.Param{Type: "int"}, "42", "42"},
+		{ir.Param{Type: "int32"}, "10", "10"},
+		{ir.Param{Type: "int64"}, "100", "100"},
+		{ir.Param{Type: "uint"}, "5", "5"},
+		{ir.Param{Type: "uint32"}, "3", "3"},
+		{ir.Param{Type: "uint64"}, "7", "7"},
+		{ir.Param{Type: "float32"}, "1.5", "1.5"},
+		{ir.Param{Type: "float64"}, "1.5", "1.5"},
 		{
-			"uuid.UUID", "96245c8f-1784-44a4-82ad-1941127c3ec3",
+			ir.Param{Type: "uuid.UUID"},
+			"96245c8f-1784-44a4-82ad-1941127c3ec3",
 			`uuid.MustParse("96245c8f-1784-44a4-82ad-1941127c3ec3")`,
 		},
-		{"float64", "1.5", `"1.5"`},
+		// A date-time query/header/path param backed by an integer schema
+		// (Unix seconds) must decode back to that same instant, not the
+		// quoted digit string FormatExpr's encoding of it looks like.
+		{ir.Param{Type: "time.Time", IsUnixTime: true}, "1790341107", "time.Unix(1790341107, 0)"},
+		// A plain date-time string param has no literal-building support
+		// yet (tracked separately) and falls back to a quoted string, same
+		// as any other type this function doesn't know.
+		{ir.Param{Type: "time.Time"}, "2024-01-15T10:30:00Z", `"2024-01-15T10:30:00Z"`},
 	}
 	for _, tc := range tests {
-		got := goLiteralForType(tc.goType, tc.value)
+		got := goLiteralForType(tc.param, tc.value)
 		if got != tc.want {
-			t.Errorf("goLiteralForType(%q, %q) = %q, want %q", tc.goType, tc.value, got, tc.want)
+			t.Errorf("goLiteralForType(%+v, %q) = %q, want %q", tc.param, tc.value, got, tc.want)
 		}
 	}
 }

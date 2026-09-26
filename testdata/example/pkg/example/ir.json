@@ -18,6 +18,19 @@
 				"\"states\"",
 				"\"all\""
 			],
+			"queryParams": [
+				{
+					"varName": "params.Begin",
+					"goName": "begin",
+					"fieldName": "Begin",
+					"jsonName": "begin",
+					"type": "time.Time",
+					"parseExpr": "time.Parse(time.RFC3339, s)",
+					"isUnixTime": true
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListAllStateVectorsParams",
 			"responses": [
 				{
 					"statusCode": "200",
