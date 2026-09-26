@@ -293,6 +293,70 @@ func TestFromComponentSchemas_Enum(t *testing.T) {
 	}
 }
 
+// TestFromComponentSchemas_EnumVarNames covers x-enum-varnames, matching
+// oapi-codegen's own extension:
+// https://github.com/oapi-codegen/oapi-codegen/blob/main/docs/extensions.md#x-enum-varnames--x-enumnames
+func TestFromComponentSchemas_EnumVarNames(t *testing.T) {
+	schemas := openapi.Schemas{}
+	schemas.Set("ClientType", &openapi.Schema{
+		Type:       openapi.TypeString,
+		Enum:       []jsontext.Value{jsontext.Value(`"ACT"`), jsontext.Value(`"EXP"`)},
+		Extensions: jsontext.Value(`{"x-enum-varnames":["Active","Expired"]}`),
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].EnumValues) != 2 {
+		t.Fatalf("unexpected schemas/enum values: %+v", got)
+	}
+
+	ev := got[0].EnumValues
+	if ev[0].GoName != "ClientTypeActive" {
+		t.Errorf("EnumValues[0].GoName = %q, want ClientTypeActive", ev[0].GoName)
+	}
+
+	if ev[0].Value != "ACT" || ev[0].Literal != `"ACT"` {
+		t.Errorf("EnumValues[0] Value/Literal = %q/%q, want ACT/%q (unaffected by the rename)", ev[0].Value, ev[0].Literal, `"ACT"`)
+	}
+
+	if ev[1].GoName != "ClientTypeExpired" {
+		t.Errorf("EnumValues[1].GoName = %q, want ClientTypeExpired", ev[1].GoName)
+	}
+}
+
+// TestFromComponentSchemas_EnumNames covers the x-enumNames alias, and that
+// a name missing from the array (fewer entries than enum values) falls back
+// to the usual value-derived name for that position.
+func TestFromComponentSchemas_EnumNames(t *testing.T) {
+	schemas := openapi.Schemas{}
+	schemas.Set("Status", &openapi.Schema{
+		Type:       openapi.TypeString,
+		Enum:       []jsontext.Value{jsontext.Value(`"active"`), jsontext.Value(`"inactive"`)},
+		Extensions: jsontext.Value(`{"x-enumNames":["Enabled"]}`),
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].EnumValues) != 2 {
+		t.Fatalf("unexpected schemas/enum values: %+v", got)
+	}
+
+	ev := got[0].EnumValues
+	if ev[0].GoName != "StatusEnabled" {
+		t.Errorf("EnumValues[0].GoName = %q, want StatusEnabled", ev[0].GoName)
+	}
+
+	if ev[1].GoName != "StatusInactive" {
+		t.Errorf("EnumValues[1].GoName = %q, want StatusInactive (no override, value-derived)", ev[1].GoName)
+	}
+}
+
 func TestFromComponentSchemas_EnumInteger(t *testing.T) {
 	schemas := openapi.Schemas{}
 	schemas.Set("Priority", &openapi.Schema{
