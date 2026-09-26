@@ -15,76 +15,21 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListAvailableStyles(ctx context.Context, params *ListAvailableStylesParams) (*StyleDescriptors, error)
-	DeleteUserStyle(ctx context.Context, styleID PromptStyle) (*DeleteUserStyleOkJSONResponse, error)
+	ListAllStateVectors(ctx context.Context) (*CurrentStates, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
 // Optionally, a path prefix may be provided.
 func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/selector")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListAvailableStyles"))
+		path := fmt.Sprintf("%s%s", pathPrefix, "/api/states/all")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListAllStateVectors"))
 
 		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var params ListAvailableStylesParams
-			q := r.URL.Query()
-			if s := q.Get("model"); s != "" {
-				params.Model = s
-			}
-			if s := q.Get("tab"); s != "" {
-				params.Tab = Tab(s)
-			}
-
-			res, err := svc.ListAvailableStyles(ctx, &params)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/{style_id}")
-		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteUserStyle"))
-
-		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("style_id")
-			styleID := PromptStyle(s)
-
-			res, err := svc.DeleteUserStyle(ctx, styleID)
+			res, err := svc.ListAllStateVectors(ctx)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

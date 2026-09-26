@@ -7,29 +7,25 @@ package example
 import (
 	"context"
 	"encoding/json/v2"
-	"errors"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 
 	"github.com/go-api-libs/api"
 )
 
-const defaultUserAgent = "My Example API"
+const defaultUserAgent = "Test API"
 
 var defaultBaseURL = &url.URL{
 	Scheme: "https",
-	Host:   "api.retrodiffusion.ai",
-	Path:   "/v1/styles",
+	Host:   "opensky-network.org",
+	Path:   "/",
 }
 
 // Client is an HTTP client for the example API.
 type Client struct {
 	// The HTTP client to use for requests.
 	cli *http.Client
-	// The API key
-	apiKey string
 	// The base URL
 	baseURL *url.URL
 	// The user agent
@@ -54,11 +50,6 @@ func WithHTTPClient(cli *http.Client) ClientOption {
 	return func(c *Client) { c.cli = cli }
 }
 
-// WithAPIKey returns a [ClientOption] that sets a custom API key.
-func WithAPIKey(apiKey string) ClientOption {
-	return func(c *Client) { c.apiKey = apiKey }
-}
-
 // NewClient creates a new Client.
 func NewClient(opts ...ClientOption) (*Client, error) {
 	c := &Client{
@@ -67,49 +58,28 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 		userAgent: defaultUserAgent,
 	}
 
-	c.apiKey = os.Getenv("MY_EXAMPLE_API_KEY")
-
 	for _, opt := range opts {
 		opt(c)
-	}
-
-	if c.apiKey == "" {
-		return nil, errors.New("api key MY_EXAMPLE_API_KEY not provided")
 	}
 
 	return c, nil
 }
 
-// Live style catalog with limits
+// All State Vectors
 //
-//	GET /selector
-func (c *Client) ListAvailableStyles(ctx context.Context, params *ListAvailableStylesParams) (*StyleDescriptors, error) {
-	return c.ListAvailableStylesWithResult[StyleDescriptors](ctx, params)
+//	GET /api/states/all
+func (c *Client) ListAllStateVectors(ctx context.Context) (*CurrentStates, error) {
+	return c.ListAllStateVectorsWithResult[CurrentStates](ctx)
 }
 
-// Live style catalog with limits
+// All State Vectors
 // You can define a custom result to unmarshal the response into.
 //
-//	GET /selector
-func (c *Client) ListAvailableStylesWithResult[R any](ctx context.Context, params *ListAvailableStylesParams) (*R, error) {
-	u := c.baseURL.JoinPath("selector")
-	if params != nil {
-		q := make(url.Values, 2)
-
-		if params.Model != "" {
-			q["model"] = []string{params.Model}
-		}
-
-		if params.Tab != "" {
-			q["tab"] = []string{string(params.Tab)}
-		}
-
-		u.RawQuery = q.Encode()
-	}
-
+//	GET /api/states/all
+func (c *Client) ListAllStateVectorsWithResult[R any](ctx context.Context) (*R, error) {
+	u := c.baseURL.JoinPath("api", "states", "all")
 	req := (&http.Request{
 		Header: http.Header{
-			"X-Rd-Token": []string{c.apiKey},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -128,58 +98,7 @@ func (c *Client) ListAvailableStylesWithResult[R any](ctx context.Context, param
 
 	switch rsp.StatusCode {
 	case http.StatusOK:
-		// Array of style descriptors
-		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
-		case "application/json":
-			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
-			}
-
-			return &out, nil
-		default:
-			return nil, api.NewErrUnknownContentType(rsp)
-		}
-	default:
-		return nil, api.NewErrUnknownStatusCode(rsp)
-	}
-}
-
-// Delete user style
-//
-//	DELETE /{style_id}
-func (c *Client) DeleteUserStyle(ctx context.Context, styleID PromptStyle) (*DeleteUserStyleOkJSONResponse, error) {
-	return c.DeleteUserStyleWithResult[DeleteUserStyleOkJSONResponse](ctx, styleID)
-}
-
-// Delete user style
-// You can define a custom result to unmarshal the response into.
-//
-//	DELETE /{style_id}
-func (c *Client) DeleteUserStyleWithResult[R any](ctx context.Context, styleID PromptStyle) (*R, error) {
-	u := c.baseURL.JoinPath(string(styleID))
-	req := (&http.Request{
-		Header: http.Header{
-			"X-Rd-Token": []string{c.apiKey},
-			"User-Agent": []string{c.userAgent},
-		},
-		Host:       u.Host,
-		Method:     http.MethodDelete,
-		Proto:      "HTTP/1.1",
-		ProtoMajor: 1,
-		ProtoMinor: 1,
-		URL:        u,
-	}).WithContext(ctx)
-
-	rsp, err := c.cli.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer rsp.Body.Close()
-
-	switch rsp.StatusCode {
-	case http.StatusOK:
-		// Deleted
+		// OK
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
