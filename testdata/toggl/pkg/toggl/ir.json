@@ -173,7 +173,7 @@
 				{
 					"statusCode": "200",
 					"goConstant": "http.StatusOK",
-					"description": "Returns a time entry",
+					"description": "The stopped workspace TimeEntry.",
 					"contentType": "application/json",
 					"goType": {
 						"name": "TimeEntry"

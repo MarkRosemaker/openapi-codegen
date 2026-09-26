@@ -312,3 +312,43 @@ func TestFromDocument_APIKeyHeaders(t *testing.T) {
 		})
 	}
 }
+
+// TestFromDocument_GlobalParamRefDescriptionOverride covers the same $ref
+// sibling-description precedence for a global parameter (e.g. an API key
+// header declared as a $ref with its own override description).
+func TestFromDocument_GlobalParamRefDescriptionOverride(t *testing.T) {
+	doc := buildMinimalDoc()
+
+	sharedParam := &openapi.Parameter{
+		Name:     "X-Api-Key",
+		In:       openapi.ParameterLocationHeader,
+		Required: true,
+		Schema:   &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}},
+	}
+
+	pRef := &openapi.ParameterRef{
+		Value: sharedParam,
+		Ref: &openapi.Reference{
+			Identifier:  "#/components/parameters/ApiKeyHeader",
+			Description: "Your personal API key.",
+		},
+	}
+
+	for _, pi := range doc.Paths {
+		pi.Parameters = openapi.ParameterList{pRef}
+	}
+
+	irDoc, err := ir.FromDocument(doc, "petapi", "", false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	key := irDoc.APIKey()
+	if key == nil {
+		t.Fatal("APIKey() = nil, want the parameter")
+	}
+
+	if d := key.Description; d != "Your personal API key." {
+		t.Errorf("Description = %q, want the $ref's override", d)
+	}
+}
