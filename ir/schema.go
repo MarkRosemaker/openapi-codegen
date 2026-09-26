@@ -444,12 +444,8 @@ func getField(jsonName string, propRef *openapi.SchemaRef, requiredSet map[strin
 	ref := cmp.Or(propRef.Ref, &openapi.Reference{})
 
 	fieldName := fieldGoName(jsonName)
-	// only from an inline schema: a $ref'd component's own x-go-name renames
-	// that type, not every field that happens to reference it.
-	if propRef.Ref == nil {
-		if override := goNameOverride(v); override != "" {
-			fieldName = override
-		}
+	if override := goNameOverride(v); override != "" {
+		fieldName = override
 	}
 
 	return Field{
@@ -606,12 +602,8 @@ func fromTupleSchema(name string, s *openapi.Schema) (*Schema, error) {
 		}
 
 		fieldName := fmt.Sprintf("Item%0*d", width, i)
-		// only from an inline schema, same as an object property: a $ref'd
-		// position's own x-go-name renames that type, not this position.
-		if p.Ref == nil {
-			if override := goNameOverride(p.Value); override != "" {
-				fieldName = override
-			}
+		if override := goNameOverride(p.Value); override != "" {
+			fieldName = override
 		}
 
 		ref := cmp.Or(p.Ref, &openapi.Reference{})

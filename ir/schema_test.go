@@ -555,12 +555,11 @@ func TestFromComponentSchemas_XGoNameField(t *testing.T) {
 	}
 }
 
-// TestFromComponentSchemas_XGoNameIgnoredThroughRef covers a property that
-// references a named component carrying its own x-go-name: that override
-// renames the component's own type elsewhere, not every field that happens
-// to reference it, so the field itself still gets its usual, jsonName-derived
-// Go name.
-func TestFromComponentSchemas_XGoNameIgnoredThroughRef(t *testing.T) {
+// TestFromComponentSchemas_XGoNameRespectedThroughRef covers a property that
+// references a named component carrying its own x-go-name: the override is
+// respected for the field too, the same as it would be if the schema were
+// inline instead of behind a $ref.
+func TestFromComponentSchemas_XGoNameRespectedThroughRef(t *testing.T) {
 	petSchema := &openapi.Schema{
 		Type:       openapi.TypeObject,
 		Extensions: jsontext.Value(`{"x-go-name":"Animal"}`),
@@ -592,8 +591,8 @@ func TestFromComponentSchemas_XGoNameIgnoredThroughRef(t *testing.T) {
 		t.Fatalf("unexpected schemas: %+v", got)
 	}
 
-	if got, want := owner.Fields[0].Name, "Pet"; got != want {
-		t.Errorf("Name = %q, want %q (Animal is Pet's own rename, not this field's)", got, want)
+	if got, want := owner.Fields[0].Name, "Animal"; got != want {
+		t.Errorf("Name = %q, want %q (Pet's own x-go-name, respected through the $ref)", got, want)
 	}
 }
 
@@ -624,6 +623,50 @@ func TestFromComponentSchemas_XGoNameTuplePosition(t *testing.T) {
 
 	if got, want := got[0].Fields[1].Name, "Item1"; got != want {
 		t.Errorf("Fields[1].Name = %q, want %q (no override, unaffected)", got, want)
+	}
+}
+
+// TestFromComponentSchemas_XGoNameTuplePositionThroughRef covers a
+// prefixItems entry that references a named component carrying its own
+// x-go-name: the override is respected for that position too, not just for
+// an inline entry.
+func TestFromComponentSchemas_XGoNameTuplePositionThroughRef(t *testing.T) {
+	icaoSchema := &openapi.Schema{
+		Type:       openapi.TypeString,
+		Extensions: jsontext.Value(`{"x-go-name":"Icao24"}`),
+	}
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Icao24Code", icaoSchema)
+	schemas.Set("StateVector", &openapi.Schema{
+		Type: openapi.TypeArray,
+		PrefixItems: openapi.SchemaRefList{
+			{
+				Ref:   &openapi.Reference{Identifier: "#/components/schemas/Icao24Code"},
+				Value: icaoSchema,
+			},
+			{Value: &openapi.Schema{Type: openapi.TypeString}},
+		},
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var stateVector *ir.Schema
+	for i := range got {
+		if got[i].Name == "StateVector" {
+			stateVector = &got[i]
+		}
+	}
+
+	if stateVector == nil || len(stateVector.Fields) != 2 {
+		t.Fatalf("unexpected schemas: %+v", got)
+	}
+
+	if got, want := stateVector.Fields[0].Name, "Icao24"; got != want {
+		t.Errorf("Fields[0].Name = %q, want %q (Icao24Code's own x-go-name, respected through the $ref)", got, want)
 	}
 }
 
