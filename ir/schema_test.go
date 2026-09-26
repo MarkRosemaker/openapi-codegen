@@ -440,6 +440,37 @@ func TestFromComponentSchemas_Tuple(t *testing.T) {
 	}
 }
 
+// TestFromComponentSchemas_TupleFieldDescription covers a prefixItems entry's
+// own description becoming that position's field description, the same way
+// an object property's does.
+func TestFromComponentSchemas_TupleFieldDescription(t *testing.T) {
+	schemas := openapi.Schemas{}
+	schemas.Set("StateVector", &openapi.Schema{
+		Type: openapi.TypeArray,
+		PrefixItems: openapi.SchemaRefList{
+			{Value: &openapi.Schema{Type: openapi.TypeString, Description: "The ICAO 24-bit address."}},
+			{Value: &openapi.Schema{Type: openapi.TypeInteger}},
+		},
+	})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].Fields) != 2 {
+		t.Fatalf("unexpected schemas/fields: %+v", got)
+	}
+
+	if got, want := got[0].Fields[0].Description, "The ICAO 24-bit address."; got != want {
+		t.Errorf("Fields[0].Description = %q, want %q", got, want)
+	}
+
+	if got := got[0].Fields[1].Description; got != "" {
+		t.Errorf("Fields[1].Description = %q, want empty", got)
+	}
+}
+
 // TestFromComponentSchemas_TupleWidePadding covers a tuple with more than 10
 // positions: the zero-padding must be wide enough that every field name
 // sorts the same as its position (Item00 before Item01 before ... Item10),
