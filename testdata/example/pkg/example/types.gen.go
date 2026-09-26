@@ -23,6 +23,11 @@ var jsonOpts = json.JoinOptions(
 	)),
 )
 
+// ListAllStateVectorsParams holds the query parameters for ListAllStateVectors.
+type ListAllStateVectorsParams struct {
+	Begin time.Time
+}
+
 // CurrentStates defines a model
 type CurrentStates struct {
 	Time   time.Time `json:"time"`

@@ -14,6 +14,16 @@
       "get": {
         "summary": "All State Vectors",
         "operationId": "ListAllStateVectors",
+        "parameters": [
+          {
+            "name": "begin",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "date-time"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "$ref": "#/components/responses/CurrentStates"

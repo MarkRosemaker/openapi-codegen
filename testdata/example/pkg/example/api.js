@@ -81,7 +81,11 @@ async function apiFetch(path, options = {}) {
 window.API = {
     // GET /api/states/all
     // All State Vectors
-    listAllStateVectors: () => apiFetch("/api/states/all", {
-        operationId: "ListAllStateVectors",
-    }),
+    listAllStateVectors: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.begin != null) q.set("begin", String(params.begin));
+        return apiFetch(`/api/states/all?${q}`, {
+            operationId: "ListAllStateVectors",
+        });
+    },
 };
