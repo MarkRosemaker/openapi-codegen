@@ -20,16 +20,16 @@ github.com/MarkRosemaker/openapi
 # github.com/MarkRosemaker/openapi-compare v0.0.0-20260925152010-e9740f154291
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compare/schema
-# github.com/MarkRosemaker/openapi-compress v0.0.0-20260925183241-fc4ab6b2a0ac
+# github.com/MarkRosemaker/openapi-compress v0.0.0-20260926121429-12ee7c1845d7
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compress
 # github.com/MarkRosemaker/openapi-edit v0.0.0-20260925152014-db661384fb81
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-edit
-# github.com/MarkRosemaker/openapi-enrich v0.0.0-20260926114818-212e84ba084c
+# github.com/MarkRosemaker/openapi-enrich v0.0.0-20260926120500-f089c142a305
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-enrich/cassette
-# github.com/MarkRosemaker/openapi-flatten v0.0.0-20260926114807-4ece6e68dfa6
+# github.com/MarkRosemaker/openapi-flatten v0.0.0-20260926121624-04dc1567203b
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-flatten
 # github.com/MarkRosemaker/ordmap v0.0.0-20260920172223-2eab4db34adb
