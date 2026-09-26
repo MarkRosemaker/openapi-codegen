@@ -84,6 +84,7 @@ window.API = {
     listAllStateVectors: (params = {}) => {
         const q = new URLSearchParams();
         if (params.begin != null) q.set("begin", String(params.begin));
+        if (params.icao24 != null) q.set("icao24", String(params.icao24));
         return apiFetch(`/api/states/all?${q}`, {
             operationId: "ListAllStateVectors",
         });

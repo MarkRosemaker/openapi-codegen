@@ -27,6 +27,16 @@
 					"type": "time.Time",
 					"parseExpr": "time.Parse(time.RFC3339, s)",
 					"isUnixTime": true
+				},
+				{
+					"varName": "params.Icao24",
+					"goName": "icao24",
+					"fieldName": "Icao24",
+					"jsonName": "icao24",
+					"type": "string",
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Filter results to this specific aircraft."
 				}
 			],
 			"hasParams": true,

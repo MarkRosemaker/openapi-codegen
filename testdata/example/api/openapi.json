@@ -22,6 +22,10 @@
               "type": "integer",
               "format": "date-time"
             }
+          },
+          {
+            "$ref": "#/components/parameters/Icao24Filter",
+            "description": "Filter results to this specific aircraft."
           }
         ],
         "responses": {
@@ -86,6 +90,16 @@
               "$ref": "#/components/schemas/CurrentStates"
             }
           }
+        }
+      }
+    },
+    "parameters": {
+      "Icao24Filter": {
+        "name": "icao24",
+        "in": "query",
+        "description": "One or more ICAO24 transponder addresses represented as hex strings.",
+        "schema": {
+          "type": "string"
         }
       }
     }

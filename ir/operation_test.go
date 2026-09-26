@@ -430,6 +430,76 @@ func TestFromOperation_QueryParams(t *testing.T) {
 	}
 }
 
+// TestFromOperation_QueryParamRefDescriptionOverride covers a $ref'd
+// parameter whose reference carries its own sibling "description", which the
+// spec says overrides the referenced component's own -- and which must not
+// leak onto the shared component itself, since another operation referencing
+// the same component (unresolvedParam here, standing in for
+// #/components/parameters/foo) must still see its own description.
+func TestFromOperation_QueryParamRefDescriptionOverride(t *testing.T) {
+	sharedParam := &openapi.Parameter{
+		Name:        "foo",
+		In:          openapi.ParameterLocationQuery,
+		Description: "the component's own description",
+		Schema:      &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}},
+	}
+
+	withOverride := &openapi.ParameterRef{
+		Value: sharedParam,
+		Ref: &openapi.Reference{
+			Identifier:  "#/components/parameters/foo",
+			Description: "Description for foo",
+		},
+	}
+
+	op := &openapi.Operation{
+		OperationID: "getFoo",
+		Parameters:  openapi.ParameterList{withOverride},
+	}
+	op.Responses = openapi.OperationResponses{}
+	op.Responses.Set("200", makeResponse("OK", "application/json", nil))
+
+	got, err := ir.FromOperation("/foo", nil, "GET", op, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got.QueryParams) != 1 {
+		t.Fatalf("QueryParams len = %d, want 1", len(got.QueryParams))
+	}
+
+	if d := got.QueryParams[0].Description; d != "Description for foo" {
+		t.Errorf("Description = %q, want the $ref's override", d)
+	}
+
+	if sharedParam.Description != "the component's own description" {
+		t.Errorf("shared component's own Description was overwritten: %q", sharedParam.Description)
+	}
+
+	// A second operation referencing the same component without its own
+	// override must still see the component's own description.
+	withoutOverride := &openapi.ParameterRef{
+		Value: sharedParam,
+		Ref:   &openapi.Reference{Identifier: "#/components/parameters/foo"},
+	}
+
+	op2 := &openapi.Operation{
+		OperationID: "getBar",
+		Parameters:  openapi.ParameterList{withoutOverride},
+	}
+	op2.Responses = openapi.OperationResponses{}
+	op2.Responses.Set("200", makeResponse("OK", "application/json", nil))
+
+	got2, err := ir.FromOperation("/bar", nil, "GET", op2, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if d := got2.QueryParams[0].Description; d != "the component's own description" {
+		t.Errorf("Description = %q, want the component's own", d)
+	}
+}
+
 func TestFromOperation_MissingOperationID(t *testing.T) {
 	op := &openapi.Operation{}
 

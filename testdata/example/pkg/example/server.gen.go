@@ -42,6 +42,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				}
 				params.Begin = rawParam
 			}
+			if s := q.Get("icao24"); s != "" {
+				params.Icao24 = s
+			}
 
 			res, err := svc.ListAllStateVectors(ctx, &params)
 			if err != nil {

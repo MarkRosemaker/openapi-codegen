@@ -47,6 +47,15 @@ func FromOperation(
 			return nil, fmt.Errorf("param %q: %w", p.Name, err)
 		}
 
+		// A description on the $ref itself overrides the referenced
+		// component's own, per the Reference Object spec. Applied here
+		// rather than onto p.Description: p is the shared component value,
+		// so writing through it would leak this operation's override into
+		// every other reference to the same component.
+		if pRef.Ref != nil && pRef.Ref.Description != "" {
+			param.Description = pRef.Ref.Description
+		}
+
 		paramByName[p.Name] = param
 
 		switch p.In {
