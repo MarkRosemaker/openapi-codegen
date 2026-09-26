@@ -309,7 +309,7 @@ func (c *Client) StopTimeEntryWithResult[R any](ctx context.Context, workspaceID
 
 	switch rsp.StatusCode {
 	case http.StatusOK:
-		// Returns a time entry
+		// The stopped workspace TimeEntry.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
