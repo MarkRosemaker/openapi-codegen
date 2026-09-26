@@ -64,8 +64,8 @@ async function loadMocks() {
     return mocksPromise;
 }
 
-// searchParamsMatch compares two URLSearchParams as multisets: same keys,
-// same values, same number of each, order and pairing irrelevant.
+{{/* searchParamsMatch compares two URLSearchParams as multisets: same keys,
+     same values, same number of each, order and pairing irrelevant. */ -}}
 function searchParamsMatch(a, b) {
     const sorted = (params) =>
         [...params.entries()].sort(([k1, v1], [k2, v2]) =>
