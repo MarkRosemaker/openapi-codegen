@@ -9,14 +9,13 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
-	"time"
 
 	"github.com/go-api-libs/api/server"
 )
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListAllStateVectors(ctx context.Context, params *ListAllStateVectorsParams) (*CurrentStates, error)
+	ListAllStateVectors(ctx context.Context) (*CurrentStates, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -30,23 +29,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var params ListAllStateVectorsParams
-			q := r.URL.Query()
-			if s := q.Get("begin"); s != "" {
-				rawParam, err := time.Parse(time.RFC3339, s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid begin: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Begin = rawParam
-			}
-			if s := q.Get("icao24"); s != "" {
-				params.Icao24 = s
-			}
-
-			res, err := svc.ListAllStateVectors(ctx, &params)
+			res, err := svc.ListAllStateVectors(ctx)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

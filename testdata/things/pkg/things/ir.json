@@ -1,0 +1,130 @@
+{
+	"title": "repro",
+	"production": true,
+	"packageName": "things",
+	"baseURL": {
+		"scheme": "http",
+		"host": "localhost:8083",
+		"path": "/api/things"
+	},
+	"userAgent": "repro",
+	"operations": [
+		{
+			"name": "GetThing",
+			"method": "GET",
+			"pathTemplate": "/{thingID}",
+			"joinPathArgs": [
+				"thingID"
+			],
+			"pathParams": [
+				{
+					"varName": "thingID",
+					"goName": "thingID",
+					"fieldName": "ThingID",
+					"jsonName": "thingID",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"isSuccess": true
+				}
+			]
+		},
+		{
+			"name": "StartThing",
+			"method": "POST",
+			"pathTemplate": "/{thingID}/start",
+			"joinPathArgs": [
+				"thingID",
+				"\"start\""
+			],
+			"pathParams": [
+				{
+					"varName": "thingID",
+					"goName": "thingID",
+					"fieldName": "ThingID",
+					"jsonName": "thingID",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "StartThingOk"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "StartThingOk"
+			}
+		},
+		{
+			"name": "ListRunningThings",
+			"method": "GET",
+			"pathTemplate": "/running",
+			"joinPathArgs": [
+				"\"running\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListRunningThingsOk"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListRunningThingsOk"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "ListRunningThingsOk",
+			"description": "ListRunningThingsOk defines a model",
+			"fields": [
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "StartThingOk",
+			"description": "StartThingOk defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
+				}
+			]
+		}
+	]
+}
