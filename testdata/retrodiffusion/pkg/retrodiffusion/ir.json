@@ -158,8 +158,8 @@
 				{
 					"name": "RequiredModel",
 					"jsonName": "required_model",
-					"type": "struct{}",
-					"jsonTag": "json:\"required_model\"",
+					"type": "string",
+					"jsonTag": "json:\"required_model,omitzero\"",
 					"required": true
 				},
 				{
@@ -207,7 +207,7 @@
 				{
 					"name": "RequireInputImage",
 					"jsonName": "require_input_image",
-					"type": "struct{}",
+					"type": "bool",
 					"jsonTag": "json:\"require_input_image\"",
 					"required": true
 				},

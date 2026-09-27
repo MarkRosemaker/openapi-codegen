@@ -102,8 +102,8 @@
             "example": "RD Animation"
           },
           "required_model": {
-            "type": "object",
-            "example": null
+            "type": "string",
+            "example": "rd_pro"
           },
           "required_tab": {
             "type": "string",
@@ -130,7 +130,7 @@
             "example": 1
           },
           "require_input_image": {
-            "type": "object",
+            "type": "boolean",
             "example": null
           },
           "supports_reference_images": {
