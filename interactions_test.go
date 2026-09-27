@@ -251,6 +251,39 @@ func TestMatchInteractions_PrefersExactOverWildcard(t *testing.T) {
 	}
 }
 
+func TestMatchInteractions_PrefersLiteralOverParam(t *testing.T) {
+	// Both operations match /running exactly, one through a literal segment
+	// and one through a parameter. The literal one must win regardless of
+	// declaration order, or /running gets replayed as GetThing("running").
+	getThing := ir.Operation{
+		Name:         "GetThing",
+		Method:       "GET",
+		PathTemplate: "/{thingID}",
+		PathParams:   []ir.Param{{GoName: "thingID", JSONName: "thingID", Type: "string"}},
+	}
+	listRunning := ir.Operation{
+		Name:         "ListRunningThings",
+		Method:       "GET",
+		PathTemplate: "/running",
+	}
+
+	for _, order := range [][]ir.Operation{{getThing, listRunning}, {listRunning, getThing}} {
+		doc := &ir.Document{Operations: order}
+		if err := matchInteractions(doc, cassette.Interactions{
+			{
+				Request:  cassette.Request{Method: "GET", URL: "http://localhost:8083/running"},
+				Response: cassette.Response{StatusCode: 200},
+			},
+		}); err != nil {
+			t.Fatal(err)
+		}
+
+		if got := doc.InteractionCalls[0].Op.Name; got != "ListRunningThings" {
+			t.Errorf("order %v: matched %s, want ListRunningThings", []string{order[0].Name, order[1].Name}, got)
+		}
+	}
+}
+
 func TestExtractSegmentParam_MidSegmentMismatch(t *testing.T) {
 	out := map[string]string{}
 	// Prefix mismatch

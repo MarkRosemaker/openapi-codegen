@@ -348,7 +348,7 @@ func TestClient_Interactions(t *testing.T) {
 		t.Fatalf("StartThing: %v", err)
 	}
 
-	if err := c.GetThing(ctx, "running"); err != nil {
-		t.Fatalf("GetThing: %v", err)
+	if _, err := c.ListRunningThings(ctx); err != nil {
+		t.Fatalf("ListRunningThings: %v", err)
 	}
 }
