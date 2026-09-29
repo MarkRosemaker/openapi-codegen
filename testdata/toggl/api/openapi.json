@@ -656,8 +656,8 @@
             "x-nullable": true
           },
           "current_period": {
-            "$ref": "#/components/schemas/EventMetadata",
-            "description": "RecurringPeriod"
+            "description": "RecurringPeriod",
+            "$ref": "#/components/schemas/EventMetadata"
           },
           "end_date": {
             "description": "End date",
@@ -2183,16 +2183,17 @@
             "example": "2024-11-26T17:13:54.850204Z"
           },
           "openid_email": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "openid_enabled": {
             "type": "boolean",
             "example": true
           },
           "country_id": {
-            "type": "integer",
-            "example": null
+            "type": [
+              "integer",
+              "null"
+            ]
           },
           "has_password": {
             "type": "boolean",
@@ -2227,8 +2228,8 @@
             "$ref": "#/components/schemas/Tags"
           },
           "clients": {
-            "$ref": "#/components/schemas/Clients",
-            "description": "Clients, null if with_related_data was not set to true or if the user does not have any clients"
+            "description": "Clients, null if with_related_data was not set to true or if the user does not have any clients",
+            "$ref": "#/components/schemas/Clients"
           },
           "time_entries": {
             "$ref": "#/components/schemas/TimeEntries"
@@ -2237,8 +2238,8 @@
             "$ref": "#/components/schemas/Options"
           },
           "projects": {
-            "$ref": "#/components/schemas/Projects",
-            "description": "Projects, null if with_related_data was not set to true or if the user does not have any projects"
+            "description": "Projects, null if with_related_data was not set to true or if the user does not have any projects",
+            "$ref": "#/components/schemas/Projects"
           },
           "workspaces": {
             "$ref": "#/components/schemas/Workspaces"

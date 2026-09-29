@@ -325,8 +325,7 @@
             "$ref": "#/components/schemas/PageByPageIDPropertiesTitle"
           },
           "icon": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "color": {
             "type": "string",
@@ -398,8 +397,7 @@
             "example": "Example Page"
           },
           "href": {
-            "type": "object",
-            "example": null
+            "type": "null"
           }
         },
         "required": [
@@ -450,8 +448,7 @@
             "example": "Example Page"
           },
           "link": {
-            "type": "object",
-            "example": null
+            "type": "null"
           }
         },
         "required": [

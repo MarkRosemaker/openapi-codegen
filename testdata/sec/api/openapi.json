@@ -219,7 +219,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "AllocatedShareBasedCompensationExpense": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "AllowanceForDoubtfulAccountsReceivableCurrent": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -252,10 +252,10 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedGainBeforeTax": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedLossBeforeTax": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "AvailableForSaleSecuritiesAmortizedCost": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -366,7 +366,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "CommercialPaper": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "CommitmentsAndContingencies": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -381,7 +381,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
           },
           "CommonStockParOrStatedValuePerShare": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShare"
           },
           "CommonStockSharesAuthorized": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
@@ -393,7 +393,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
           },
           "CommonStocksIncludingAdditionalPaidInCapital": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "CommonStockValue": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -477,7 +477,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "DeferredIncomeTaxLiabilities": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "DeferredIncomeTaxLiabilitiesNet": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -567,7 +567,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "DefinedContributionPlanMaximumAnnualContributionsPerEmployeeAmount": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "Depreciation": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -585,7 +585,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "DerivativeFairValueOfDerivativeNet": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "DerivativeInstrumentsGainLossReclassifiedFromAccumulatedOCIIntoIncomeEffectivePortionNet": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -615,7 +615,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
           },
           "EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential"
           },
           "EffectiveIncomeTaxRateReconciliationShareBasedCompensationExcessTaxBenefitAmount": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -711,7 +711,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "FiniteLivedIntangibleAssetsAmortizationExpenseNextTwelveMonths": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -798,7 +798,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -846,7 +846,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "IncomeTaxReconciliationTaxSettlementsDomestic": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "IncreaseDecreaseInAccountsPayable": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -873,7 +873,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "IndefiniteLivedIntangibleAssetsExcludingGoodwill": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "IntangibleAssetsGrossExcludingGoodwill": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -891,7 +891,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "InterestPaid": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "InterestPaidNet": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1002,25 +1002,25 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "NetCashProvidedByUsedInFinancingActivitiesContinuingOperations": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "NetCashProvidedByUsedInInvestingActivities": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "NetCashProvidedByUsedInInvestingActivitiesContinuingOperations": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "NetCashProvidedByUsedInOperatingActivities": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "NetIncomeLoss": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "NoncurrentAssets": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "NonoperatingIncomeExpense": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1272,16 +1272,16 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "ProceedsFromRepaymentsOfCommercialPaper": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "ProceedsFromRepaymentsOfShortTermDebt": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "ProceedsFromRepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "ProceedsFromSaleAndMaturityOfOtherInvestments": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1293,7 +1293,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "ProceedsFromShortTermDebtMaturingInMoreThanThreeMonths": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "ProductWarrantyAccrualClassifiedCurrent": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1329,7 +1329,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "RepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "ResearchAndDevelopmentExpense": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1527,7 +1527,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "StockholdersEquityNoteStockSplitConversionRatio1": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential"
           },
           "StockIssuedDuringPeriodSharesStockOptionsExercised": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstanding"
@@ -1548,7 +1548,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "StockRepurchaseProgramAuthorizedAmount1": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "TaxAdjustmentsSettlementsAndUnusualProvisions": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1560,7 +1560,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "TreasuryStockValueAcquiredCostMethod": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "UndistributedEarningsOfForeignSubsidiaries": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1569,7 +1569,7 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "UnrecognizedTaxBenefitsDecreasesResultingFromPriorPeriodTaxPositions": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "UnrecognizedTaxBenefitsDecreasesResultingFromSettlementsWithTaxingAuthorities": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -1578,13 +1578,13 @@
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
           },
           "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestExpense": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "UnrecognizedTaxBenefitsIncreasesResultingFromCurrentPeriodTaxPositions": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "UnrecognizedTaxBenefitsIncreasesResultingFromPriorPeriodTaxPositions": {
-            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense"
           },
           "UnrecognizedTaxBenefitsPeriodIncreaseDecrease": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat"
@@ -2981,6 +2981,38 @@
           "SellingAndMarketingExpense"
         ]
       },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShare": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Common Stock, Par or Stated Value Per Share"
+          },
+          "description": {
+            "type": "string",
+            "example": "Face amount or stated value per share of common stock."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShareUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShareUnits": {
+        "type": "object",
+        "properties": {
+          "USD/shares": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd"
+          }
+        },
+        "required": [
+          "USD/shares"
+        ]
+      },
       "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores": {
         "type": "object",
         "properties": {
@@ -3161,12 +3193,10 @@
             "example": "0001308179-26-000342"
           },
           "fy": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "fp": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "form": {
             "type": "string",
@@ -3225,6 +3255,101 @@
           "USD"
         ]
       },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Share-based Payment Arrangement, Expense"
+          },
+          "description": {
+            "type": "string",
+            "example": "Amount of expense for award under share-based payment arrangement. Excludes amount capitalized."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnits": {
+        "type": "object",
+        "properties": {
+          "USD": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd"
+          }
+        },
+        "required": [
+          "USD"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsdItem"
+        }
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsdItem": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "example": "2011-09-25"
+          },
+          "end": {
+            "type": "string",
+            "example": "2012-09-29"
+          },
+          "val": {
+            "type": "number",
+            "format": "double",
+            "example": 1740000000
+          },
+          "accn": {
+            "type": "string",
+            "example": "0001193125-14-383437"
+          },
+          "fy": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "example": 2014
+          },
+          "fp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "FY"
+          },
+          "form": {
+            "type": "string",
+            "example": "10-K"
+          },
+          "filed": {
+            "type": "string",
+            "example": "2014-10-27"
+          },
+          "frame": {
+            "type": "string",
+            "example": "CY2012"
+          }
+        },
+        "required": [
+          "end",
+          "val",
+          "accn",
+          "fy",
+          "fp",
+          "form",
+          "filed"
+        ]
+      },
       "ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid": {
         "type": "object",
         "properties": {
@@ -3261,12 +3386,10 @@
         "type": "object",
         "properties": {
           "label": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "description": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "units": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloatUnits"
@@ -3314,12 +3437,10 @@
         "type": "object",
         "properties": {
           "label": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "description": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "units": {
             "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits"
@@ -3329,6 +3450,38 @@
           "label",
           "description",
           "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Effective Income Tax Rate Reconciliation, Foreign Income Tax Rate Differential, Percent"
+          },
+          "description": {
+            "type": "string",
+            "example": "Percentage of the difference between reported income tax expense (benefit) and expected income tax expense (benefit) computed by applying the domestic federal statutory income tax rates to pretax income (loss) from continuing operations applicable to statutory income tax expense (benefit) outside of the country of domicile."
+          },
+          "units": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferentialUnits"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "units"
+        ]
+      },
+      "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferentialUnits": {
+        "type": "object",
+        "properties": {
+          "pure": {
+            "$ref": "#/components/schemas/ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd"
+          }
+        },
+        "required": [
+          "pure"
         ]
       },
       "ListAPIXbrlCompanyfactsCikFactsUsGaapEmployeeServiceShareBasedCompensationNonvestedAwardsTotalCompensationCostNotYetRecognizedPeriodForRecognition": {

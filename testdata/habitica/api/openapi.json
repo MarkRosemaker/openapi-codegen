@@ -111,10 +111,7 @@
         "properties": {
           "assignedUsers": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "approval": {
             "$ref": "#/components/schemas/ApivTaskByTaskIDDataGroupApproval"
@@ -155,10 +152,7 @@
           },
           "notifications": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           }
         },
         "required": [
@@ -196,10 +190,7 @@
           },
           "tags": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "value": {
             "type": "number",
@@ -223,10 +214,7 @@
           },
           "reminders": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "createdAt": {
             "type": "string",
@@ -327,10 +315,7 @@
           },
           "notifications": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           }
         },
         "required": [
@@ -370,10 +355,7 @@
           },
           "tags": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "value": {
             "type": "integer",
@@ -416,10 +398,7 @@
           },
           "checklist": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "collapseChecklist": {
             "type": "boolean"
@@ -429,10 +408,7 @@
           },
           "history": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "streak": {
             "type": "integer",
@@ -497,7 +473,11 @@
             "format": "uuid"
           }
         },
-        "example": null
+        "required": [
+          "time",
+          "startDate",
+          "id"
+        ]
       },
       "ListApiv3TasksUserOkDataItemRepeat": {
         "type": "object",
@@ -545,10 +525,7 @@
           },
           "notifications": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "userV": {
             "type": "integer",
@@ -632,10 +609,7 @@
           },
           "webhooks": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "pushDevices": {
             "$ref": "#/components/schemas/ListApiv3UserOkDataPushDevices"
@@ -648,10 +622,7 @@
           },
           "notifications": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "guilds": {
             "type": "array",
@@ -694,10 +665,7 @@
           },
           "unpinnedItems": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "invitesSent": {
             "type": "integer",
@@ -705,10 +673,7 @@
           },
           "pinnedItemsOrder": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "_subSignature": {
             "type": "string",
@@ -778,10 +743,7 @@
           },
           "challenges": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "partyUp": {
             "type": "boolean"
@@ -1434,10 +1396,7 @@
           },
           "blocks": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "newMessages": {
             "type": "integer",
@@ -1486,17 +1445,11 @@
           },
           "guilds": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "parties": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           }
         },
         "required": [
@@ -3461,10 +3414,7 @@
         "properties": {
           "birthdayReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "birthday": {
             "type": "integer",
@@ -3472,10 +3422,7 @@
           },
           "thankyouReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "thankyou": {
             "type": "integer",
@@ -3483,10 +3430,7 @@
           },
           "greetingReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "greeting": {
             "type": "integer",
@@ -3494,10 +3438,7 @@
           },
           "nyeReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "nye": {
             "type": "integer",
@@ -3505,10 +3446,7 @@
           },
           "valentineReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "valentine": {
             "type": "integer",
@@ -3532,24 +3470,15 @@
           },
           "congratsReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "getwellReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "goodluckReceived": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "congrats": {
             "type": "integer",
@@ -3773,10 +3702,7 @@
           },
           "improvementCategories": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "automaticAllocation": {
             "type": "boolean"
@@ -4049,10 +3975,7 @@
           },
           "mirrorGroupTasks": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           }
         },
         "required": [
@@ -4180,10 +4103,7 @@
           },
           "mysteryItems": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "gemsBought": {
             "type": "integer",
@@ -4472,7 +4392,10 @@
             "example": "2026-05-06T02:26:43.371Z"
           },
           {
-            "type": "integer",
+            "type": [
+              "integer",
+              "null"
+            ],
             "example": 1485487350827
           }
         ]
@@ -4657,10 +4580,7 @@
           },
           "notifications": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "example": null
-            }
+            "maxItems": 0
           },
           "userV": {
             "type": "integer",

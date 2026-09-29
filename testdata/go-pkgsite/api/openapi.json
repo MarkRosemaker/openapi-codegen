@@ -274,15 +274,18 @@
         "type": "object",
         "properties": {
           "candidates": {
-            "$ref": "#/components/schemas/ErrorCandidates"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Candidate"
+            }
           },
           "code": {
             "description": "HTTP status code",
             "type": "integer"
           },
           "err": {
-            "$ref": "#/components/schemas/Error",
-            "description": "Unexported field for internal tracking"
+            "description": "Unexported field for internal tracking",
+            "$ref": "#/components/schemas/Error"
           },
           "fixes": {
             "description": "suggestions for how to fix",
@@ -294,12 +297,6 @@
           "message": {
             "type": "string"
           }
-        }
-      },
-      "ErrorCandidates": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Candidate"
         }
       },
       "License": {
@@ -343,7 +340,10 @@
             "type": "boolean"
           },
           "licenses": {
-            "$ref": "#/components/schemas/ModuleLicenses"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/License"
+            }
           },
           "path": {
             "type": "string"
@@ -359,24 +359,20 @@
           }
         }
       },
-      "ModuleLicenses": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/License"
-        }
-      },
       "ModuleVersion": {
         "type": "object",
         "properties": {
           "commitTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2026-02-11T19:14:29Z"
           },
           "deprecated": {
             "type": "boolean"
           },
           "deprecationReason": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "hasGoMod": {
             "description": "Whether the module has a go.mod file.",
@@ -388,19 +384,23 @@
           },
           "latestVersion": {
             "description": "latest unretracted version",
-            "type": "string"
+            "type": "string",
+            "example": "v0.15.0"
           },
           "modulePath": {
-            "type": "string"
+            "type": "string",
+            "example": "golang.org/x/time"
           },
           "retracted": {
             "type": "boolean"
           },
           "retractionReason": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "version": {
-            "type": "string"
+            "type": "string",
+            "example": "v0.15.0"
           }
         }
       },
@@ -431,7 +431,10 @@
             "type": "boolean"
           },
           "licenses": {
-            "$ref": "#/components/schemas/ModuleLicenses"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/License"
+            }
           },
           "modulePath": {
             "type": "string",
