@@ -732,15 +732,19 @@
           },
           "cost_basis": {
             "description": "Average cost per share",
-            "type": "number",
-            "format": "double",
-            "nullable": true
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double"
           },
           "market_price": {
             "description": "Current market price per share (if available from broker)",
-            "type": "number",
-            "format": "double",
-            "nullable": true
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double"
           }
         },
         "required": [

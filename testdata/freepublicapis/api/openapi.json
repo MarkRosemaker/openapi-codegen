@@ -20,7 +20,7 @@
         "operationId": "GetAPIAPIByAPIID",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetApiapiByApiidOkResponse"
+            "$ref": "#/components/responses/GetApiapiByApiidOk"
           }
         }
       }
@@ -79,7 +79,7 @@
       }
     },
     "responses": {
-      "GetApiapiByApiidOkResponse": {
+      "GetApiapiByApiidOk": {
         "description": "OK",
         "content": {
           "application/json": {

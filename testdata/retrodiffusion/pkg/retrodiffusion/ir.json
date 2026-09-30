@@ -158,7 +158,7 @@
 				{
 					"name": "RequiredModel",
 					"jsonName": "required_model",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"required_model\"",
 					"required": true
 				},
@@ -207,7 +207,7 @@
 				{
 					"name": "RequireInputImage",
 					"jsonName": "require_input_image",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"require_input_image\"",
 					"required": true
 				},
@@ -359,21 +359,21 @@
 				{
 					"name": "OutputImages",
 					"jsonName": "output_images",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"output_images\"",
 					"required": true
 				},
 				{
 					"name": "Base64Images",
 					"jsonName": "base64_images",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"base64_images\"",
 					"required": true
 				},
 				{
 					"name": "OutputUrls",
 					"jsonName": "output_urls",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"output_urls\"",
 					"required": true
 				},

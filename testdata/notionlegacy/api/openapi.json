@@ -1143,13 +1143,11 @@
           },
           "end": {
             "description": "An ISO 8601 formatted date, with optional time. Represents the end of a date range.\n\nIf `null`, this property's date value is not a range.",
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "time_zone": {
             "description": "Time zone information for start and end. Possible values are extracted from the IANA database and they are based on the time zones from Moment.js.\n\nWhen time zone is provided, start and end should not have any UTC offset. In addition, when time zone is provided, start and end cannot be dates without time information.\n\nIf null, time zone information will be contained in UTC offsets in start and end.",
-            "type": "object",
-            "example": null
+            "type": "null"
           }
         },
         "required": [

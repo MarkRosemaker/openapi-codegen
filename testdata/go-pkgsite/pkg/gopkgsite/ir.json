@@ -434,13 +434,13 @@
 					"description": "Successful response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PaginatedResponse"
+						"name": "PaginatedSearchResult"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "PaginatedResponse"
+				"name": "PaginatedSearchResult"
 			}
 		},
 		{
@@ -614,13 +614,13 @@
 					"description": "Successful response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PaginatedResponse"
+						"name": "PaginatedModuleVersion"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "PaginatedResponse"
+				"name": "PaginatedModuleVersion"
 			}
 		},
 		{
@@ -704,13 +704,13 @@
 					"description": "Successful response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PaginatedResponse"
+						"name": "PaginatedVulnerability"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "PaginatedResponse"
+				"name": "PaginatedVulnerability"
 			}
 		}
 	],
@@ -740,7 +740,7 @@
 				{
 					"name": "Candidates",
 					"jsonName": "candidates",
-					"type": "ErrorCandidates",
+					"type": "[]Candidate",
 					"jsonTag": "json:\"candidates,omitzero\""
 				},
 				{
@@ -771,12 +771,6 @@
 					"jsonTag": "json:\"message,omitzero\""
 				}
 			]
-		},
-		{
-			"name": "ErrorCandidates",
-			"description": "ErrorCandidates defines a model",
-			"kind": 2,
-			"type": "[]Candidate"
 		},
 		{
 			"name": "License",
@@ -846,7 +840,7 @@
 				{
 					"name": "Licenses",
 					"jsonName": "licenses",
-					"type": "ModuleLicenses",
+					"type": "[]License",
 					"jsonTag": "json:\"licenses,omitzero\""
 				},
 				{
@@ -874,12 +868,6 @@
 					"jsonTag": "json:\"version,omitzero\""
 				}
 			]
-		},
-		{
-			"name": "ModuleLicenses",
-			"description": "ModuleLicenses defines a model",
-			"kind": 2,
-			"type": "[]License"
 		},
 		{
 			"name": "ModuleVersion",
@@ -993,7 +981,7 @@
 				{
 					"name": "Licenses",
 					"jsonName": "licenses",
-					"type": "ModuleLicenses",
+					"type": "[]License",
 					"jsonTag": "json:\"licenses,omitzero\""
 				},
 				{
@@ -1041,7 +1029,7 @@
 				{
 					"name": "ImportedBy",
 					"jsonName": "importedBy",
-					"type": "*PaginatedResponse",
+					"type": "*PaginatedString",
 					"jsonTag": "json:\"importedBy,omitempty\""
 				},
 				{
@@ -1102,7 +1090,7 @@
 				{
 					"name": "Symbols",
 					"jsonName": "symbols",
-					"type": "*PaginatedResponse",
+					"type": "*PaginatedSymbol",
 					"jsonTag": "json:\"symbols,omitempty\""
 				},
 				{
@@ -1132,7 +1120,7 @@
 				{
 					"name": "Packages",
 					"jsonName": "packages",
-					"type": "*PaginatedResponse",
+					"type": "*PaginatedPackageInfo",
 					"jsonTag": "json:\"packages,omitempty\""
 				},
 				{
@@ -1162,13 +1150,13 @@
 			]
 		},
 		{
-			"name": "PaginatedResponse",
-			"description": "PaginatedResponse defines a model",
+			"name": "PaginatedModuleVersion",
+			"description": "PaginatedModuleVersion defines a model",
 			"fields": [
 				{
 					"name": "Items",
 					"jsonName": "items",
-					"type": "PaginatedResponseItems",
+					"type": "[]ModuleVersion",
 					"jsonTag": "json:\"items,omitzero\""
 				},
 				{
@@ -1186,10 +1174,124 @@
 			]
 		},
 		{
-			"name": "PaginatedResponseItems",
-			"description": "PaginatedResponseItems defines a model",
-			"kind": 2,
-			"type": "[]ModuleVersion"
+			"name": "PaginatedPackageInfo",
+			"description": "PaginatedPackageInfo defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "[]PackageInfo",
+					"jsonTag": "json:\"items,omitzero\""
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "nextPageToken",
+					"type": "string",
+					"jsonTag": "json:\"nextPageToken,omitzero\""
+				},
+				{
+					"name": "Total",
+					"jsonName": "total",
+					"type": "*int",
+					"jsonTag": "json:\"total,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PaginatedSearchResult",
+			"description": "PaginatedSearchResult defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "[]SearchResult",
+					"jsonTag": "json:\"items,omitzero\""
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "nextPageToken",
+					"type": "string",
+					"jsonTag": "json:\"nextPageToken,omitzero\""
+				},
+				{
+					"name": "Total",
+					"jsonName": "total",
+					"type": "*int",
+					"jsonTag": "json:\"total,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PaginatedString",
+			"description": "PaginatedString defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "[]string",
+					"jsonTag": "json:\"items,omitzero\""
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "nextPageToken",
+					"type": "string",
+					"jsonTag": "json:\"nextPageToken,omitzero\""
+				},
+				{
+					"name": "Total",
+					"jsonName": "total",
+					"type": "*int",
+					"jsonTag": "json:\"total,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PaginatedSymbol",
+			"description": "PaginatedSymbol defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "[]Symbol",
+					"jsonTag": "json:\"items,omitzero\""
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "nextPageToken",
+					"type": "string",
+					"jsonTag": "json:\"nextPageToken,omitzero\""
+				},
+				{
+					"name": "Total",
+					"jsonName": "total",
+					"type": "*int",
+					"jsonTag": "json:\"total,omitempty\""
+				}
+			]
+		},
+		{
+			"name": "PaginatedVulnerability",
+			"description": "PaginatedVulnerability defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "[]Vulnerability",
+					"jsonTag": "json:\"items,omitzero\""
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "nextPageToken",
+					"type": "string",
+					"jsonTag": "json:\"nextPageToken,omitzero\""
+				},
+				{
+					"name": "Total",
+					"jsonName": "total",
+					"type": "*int",
+					"jsonTag": "json:\"total,omitempty\""
+				}
+			]
 		},
 		{
 			"name": "Readme",

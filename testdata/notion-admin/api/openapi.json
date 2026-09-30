@@ -27,29 +27,29 @@
         "summary": "Export a legal hold",
         "operationId": "export-legal-hold",
         "requestBody": {
-          "$ref": "#/components/requestBodies/export-legal-holdRequestBody"
+          "$ref": "#/components/requestBodies/ExportLegalHold"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ExportLegalHoldOkResponse"
+            "$ref": "#/components/responses/ExportLegalHoldOk"
           },
           "400": {
-            "$ref": "#/components/responses/ExportLegalHoldBadRequestResponse"
+            "$ref": "#/components/responses/ExportLegalHoldBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ExportLegalHoldUnauthorizedResponse"
+            "$ref": "#/components/responses/ExportLegalHoldUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ExportLegalHoldForbiddenResponse"
+            "$ref": "#/components/responses/ExportLegalHoldForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ExportLegalHoldNotFoundResponse"
+            "$ref": "#/components/responses/ExportLegalHoldNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ExportLegalHoldTooManyRequestsResponse"
+            "$ref": "#/components/responses/ExportLegalHoldTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ExportLegalHoldInternalServerErrorResponse"
+            "$ref": "#/components/responses/ExportLegalHoldInternalServerError"
           }
         },
         "x-scopes": [
@@ -76,25 +76,25 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetLegalHoldOkResponse"
+            "$ref": "#/components/responses/GetLegalHoldOk"
           },
           "400": {
-            "$ref": "#/components/responses/GetLegalHoldBadRequestResponse"
+            "$ref": "#/components/responses/GetLegalHoldBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/GetLegalHoldUnauthorizedResponse"
+            "$ref": "#/components/responses/GetLegalHoldUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/GetLegalHoldForbiddenResponse"
+            "$ref": "#/components/responses/GetLegalHoldForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/GetLegalHoldNotFoundResponse"
+            "$ref": "#/components/responses/GetLegalHoldNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/GetLegalHoldTooManyRequestsResponse"
+            "$ref": "#/components/responses/GetLegalHoldTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/GetLegalHoldInternalServerErrorResponse"
+            "$ref": "#/components/responses/GetLegalHoldInternalServerError"
           }
         },
         "x-scopes": [
@@ -113,29 +113,29 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-legal-holdRequestBody"
+          "$ref": "#/components/requestBodies/UpdateLegalHold"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateLegalHoldOkResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateLegalHoldBadRequestResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateLegalHoldUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateLegalHoldForbiddenResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateLegalHoldNotFoundResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateLegalHoldTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateLegalHoldInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateLegalHoldInternalServerError"
           }
         },
         "x-scopes": [
@@ -165,25 +165,25 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListLegalHoldUsersOkResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListLegalHoldUsersBadRequestResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListLegalHoldUsersUnauthorizedResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListLegalHoldUsersForbiddenResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListLegalHoldUsersNotFoundResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ListLegalHoldUsersTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListLegalHoldUsersInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListLegalHoldUsersInternalServerError"
           }
         },
         "x-scopes": [
@@ -202,29 +202,29 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/add-legal-hold-usersRequestBody"
+          "$ref": "#/components/requestBodies/AddLegalHoldUsers"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/AddLegalHoldUsersOkResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersOk"
           },
           "400": {
-            "$ref": "#/components/responses/AddLegalHoldUsersBadRequestResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/AddLegalHoldUsersUnauthorizedResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/AddLegalHoldUsersForbiddenResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/AddLegalHoldUsersNotFoundResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/AddLegalHoldUsersTooManyRequestsResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/AddLegalHoldUsersInternalServerErrorResponse"
+            "$ref": "#/components/responses/AddLegalHoldUsersInternalServerError"
           }
         },
         "x-scopes": [
@@ -254,25 +254,25 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListLegalHoldsOkResponse"
+            "$ref": "#/components/responses/ListLegalHoldsOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListLegalHoldsBadRequestResponse"
+            "$ref": "#/components/responses/ListLegalHoldsBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListLegalHoldsUnauthorizedResponse"
+            "$ref": "#/components/responses/ListLegalHoldsUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListLegalHoldsForbiddenResponse"
+            "$ref": "#/components/responses/ListLegalHoldsForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListLegalHoldsNotFoundResponse"
+            "$ref": "#/components/responses/ListLegalHoldsNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ListLegalHoldsTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListLegalHoldsTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListLegalHoldsInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListLegalHoldsInternalServerError"
           }
         },
         "x-scopes": [
@@ -286,29 +286,29 @@
         "summary": "Create a legal hold",
         "operationId": "create-legal-hold",
         "requestBody": {
-          "$ref": "#/components/requestBodies/create-legal-holdRequestBody"
+          "$ref": "#/components/requestBodies/CreateLegalHold"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/CreateLegalHoldOkResponse"
+            "$ref": "#/components/responses/CreateLegalHoldOk"
           },
           "400": {
-            "$ref": "#/components/responses/CreateLegalHoldBadRequestResponse"
+            "$ref": "#/components/responses/CreateLegalHoldBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/CreateLegalHoldUnauthorizedResponse"
+            "$ref": "#/components/responses/CreateLegalHoldUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/CreateLegalHoldForbiddenResponse"
+            "$ref": "#/components/responses/CreateLegalHoldForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/CreateLegalHoldNotFoundResponse"
+            "$ref": "#/components/responses/CreateLegalHoldNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/CreateLegalHoldTooManyRequestsResponse"
+            "$ref": "#/components/responses/CreateLegalHoldTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/CreateLegalHoldInternalServerErrorResponse"
+            "$ref": "#/components/responses/CreateLegalHoldInternalServerError"
           }
         },
         "x-scopes": [
@@ -336,25 +336,25 @@
         "operationId": "list-legal-hold-workspaces",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesOkResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesBadRequestResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesUnauthorizedResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesForbiddenResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesNotFoundResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListLegalHoldWorkspacesInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListLegalHoldWorkspacesInternalServerError"
           }
         },
         "x-scopes": [
@@ -379,25 +379,25 @@
         "operationId": "release-legal-hold",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ReleaseLegalHoldOkResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldOk"
           },
           "400": {
-            "$ref": "#/components/responses/ReleaseLegalHoldBadRequestResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ReleaseLegalHoldUnauthorizedResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ReleaseLegalHoldForbiddenResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ReleaseLegalHoldNotFoundResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ReleaseLegalHoldTooManyRequestsResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ReleaseLegalHoldInternalServerErrorResponse"
+            "$ref": "#/components/responses/ReleaseLegalHoldInternalServerError"
           }
         },
         "x-scopes": [
@@ -425,25 +425,25 @@
         "operationId": "remove-legal-hold-user",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserOkResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserOk"
           },
           "400": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserBadRequestResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserUnauthorizedResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserForbiddenResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserNotFoundResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserTooManyRequestsResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/RemoveLegalHoldUserInternalServerErrorResponse"
+            "$ref": "#/components/responses/RemoveLegalHoldUserInternalServerError"
           }
         },
         "x-scopes": [
@@ -467,29 +467,29 @@
         "summary": "Enqueue a workspace export",
         "operationId": "enqueue-space-export",
         "requestBody": {
-          "$ref": "#/components/requestBodies/enqueue-space-exportRequestBody"
+          "$ref": "#/components/requestBodies/EnqueueSpaceExport"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/EnqueueSpaceExportOkResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportOk"
           },
           "400": {
-            "$ref": "#/components/responses/EnqueueSpaceExportBadRequestResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/EnqueueSpaceExportUnauthorizedResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/EnqueueSpaceExportForbiddenResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/EnqueueSpaceExportNotFoundResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/EnqueueSpaceExportTooManyRequestsResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/EnqueueSpaceExportInternalServerErrorResponse"
+            "$ref": "#/components/responses/EnqueueSpaceExportInternalServerError"
           }
         },
         "x-scopes": [
@@ -517,25 +517,25 @@
         "operationId": "get-space-export-status",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetSpaceExportStatusOkResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusOk"
           },
           "400": {
-            "$ref": "#/components/responses/GetSpaceExportStatusBadRequestResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/GetSpaceExportStatusUnauthorizedResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/GetSpaceExportStatusForbiddenResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/GetSpaceExportStatusNotFoundResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/GetSpaceExportStatusTooManyRequestsResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/GetSpaceExportStatusInternalServerErrorResponse"
+            "$ref": "#/components/responses/GetSpaceExportStatusInternalServerError"
           }
         },
         "x-scopes": [
@@ -566,25 +566,25 @@
         "operationId": "list-legal-hold-pages",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListLegalHoldPagesOkResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListLegalHoldPagesBadRequestResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListLegalHoldPagesUnauthorizedResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListLegalHoldPagesForbiddenResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListLegalHoldPagesNotFoundResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ListLegalHoldPagesTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListLegalHoldPagesInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListLegalHoldPagesInternalServerError"
           }
         },
         "x-scopes": [
@@ -605,29 +605,29 @@
         "summary": "Revoke a managed user's sessions",
         "operationId": "revoke-user-session",
         "requestBody": {
-          "$ref": "#/components/requestBodies/revoke-user-sessionRequestBody"
+          "$ref": "#/components/requestBodies/RevokeUserSession"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RevokeUserSessionOkResponse"
+            "$ref": "#/components/responses/RevokeUserSessionOk"
           },
           "400": {
-            "$ref": "#/components/responses/RevokeUserSessionBadRequestResponse"
+            "$ref": "#/components/responses/RevokeUserSessionBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/RevokeUserSessionUnauthorizedResponse"
+            "$ref": "#/components/responses/RevokeUserSessionUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/RevokeUserSessionForbiddenResponse"
+            "$ref": "#/components/responses/RevokeUserSessionForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/RevokeUserSessionNotFoundResponse"
+            "$ref": "#/components/responses/RevokeUserSessionNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/RevokeUserSessionTooManyRequestsResponse"
+            "$ref": "#/components/responses/RevokeUserSessionTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/RevokeUserSessionInternalServerErrorResponse"
+            "$ref": "#/components/responses/RevokeUserSessionInternalServerError"
           }
         },
         "x-scopes": [
@@ -661,25 +661,25 @@
         "operationId": "list-mcp-client-connections",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsOkResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsBadRequestResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsUnauthorizedResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsForbiddenResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsNotFoundResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListMcpClientConnectionsInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListMcpClientConnectionsInternalServerError"
           }
         },
         "x-scopes": [
@@ -700,29 +700,29 @@
         "summary": "Deny or restore enterprise-managed MCP client access",
         "operationId": "update-mcp-client-connection-enterprise-managed-access",
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-mcp-client-connection-enterprise-managed-accessRequestBody"
+          "$ref": "#/components/requestBodies/UpdateMcpClientConnectionEnterpriseManagedAccess"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessOkResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessBadRequestResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessForbiddenResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessNotFoundResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessInternalServerError"
           }
         },
         "x-scopes": [
@@ -743,29 +743,29 @@
         "summary": "Revoke an MCP client connection",
         "operationId": "revoke-mcp-client-connection",
         "requestBody": {
-          "$ref": "#/components/requestBodies/revoke-mcp-client-connectionRequestBody"
+          "$ref": "#/components/requestBodies/RevokeMcpClientConnection"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionOkResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionOk"
           },
           "400": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionBadRequestResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionUnauthorizedResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionForbiddenResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionNotFoundResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionTooManyRequestsResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/RevokeMcpClientConnectionInternalServerErrorResponse"
+            "$ref": "#/components/responses/RevokeMcpClientConnectionInternalServerError"
           }
         },
         "x-scopes": [
@@ -795,31 +795,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RetrievePermissionGroupOkResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupOk"
           },
           "400": {
-            "$ref": "#/components/responses/RetrievePermissionGroupBadRequestResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/RetrievePermissionGroupUnauthorizedResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/RetrievePermissionGroupForbiddenResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/RetrievePermissionGroupNotFoundResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/RetrievePermissionGroupConflictResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupConflict"
           },
           "429": {
-            "$ref": "#/components/responses/RetrievePermissionGroupTooManyRequestsResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/RetrievePermissionGroupInternalServerErrorResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/RetrievePermissionGroupServiceUnavailableResponse"
+            "$ref": "#/components/responses/RetrievePermissionGroupServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -845,31 +845,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/DeletePermissionGroupOkResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupOk"
           },
           "400": {
-            "$ref": "#/components/responses/DeletePermissionGroupBadRequestResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/DeletePermissionGroupUnauthorizedResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/DeletePermissionGroupForbiddenResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/DeletePermissionGroupNotFoundResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/DeletePermissionGroupConflictResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupConflict"
           },
           "429": {
-            "$ref": "#/components/responses/DeletePermissionGroupTooManyRequestsResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/DeletePermissionGroupInternalServerErrorResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/DeletePermissionGroupServiceUnavailableResponse"
+            "$ref": "#/components/responses/DeletePermissionGroupServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -891,35 +891,35 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-permission-groupRequestBody"
+          "$ref": "#/components/requestBodies/UpdatePermissionGroup"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdatePermissionGroupOkResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdatePermissionGroupBadRequestResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdatePermissionGroupUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdatePermissionGroupForbiddenResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdatePermissionGroupNotFoundResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/UpdatePermissionGroupConflictResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupConflict"
           },
           "429": {
-            "$ref": "#/components/responses/UpdatePermissionGroupTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdatePermissionGroupInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/UpdatePermissionGroupServiceUnavailableResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -952,31 +952,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListPermissionGroupsOkResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListPermissionGroupsBadRequestResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListPermissionGroupsUnauthorizedResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListPermissionGroupsForbiddenResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListPermissionGroupsNotFoundResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/ListPermissionGroupsConflictResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsConflict"
           },
           "429": {
-            "$ref": "#/components/responses/ListPermissionGroupsTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListPermissionGroupsInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/ListPermissionGroupsServiceUnavailableResponse"
+            "$ref": "#/components/responses/ListPermissionGroupsServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -995,35 +995,35 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/create-permission-groupRequestBody"
+          "$ref": "#/components/requestBodies/CreatePermissionGroup"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/CreatePermissionGroupOkResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupOk"
           },
           "400": {
-            "$ref": "#/components/responses/CreatePermissionGroupBadRequestResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/CreatePermissionGroupUnauthorizedResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/CreatePermissionGroupForbiddenResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/CreatePermissionGroupNotFoundResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/CreatePermissionGroupConflictResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupConflict"
           },
           "429": {
-            "$ref": "#/components/responses/CreatePermissionGroupTooManyRequestsResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/CreatePermissionGroupInternalServerErrorResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/CreatePermissionGroupServiceUnavailableResponse"
+            "$ref": "#/components/responses/CreatePermissionGroupServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -1054,31 +1054,31 @@
         "operationId": "list-users",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListUsersOkResponse"
+            "$ref": "#/components/responses/ListUsersOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListUsersBadRequestResponse"
+            "$ref": "#/components/responses/ListUsersBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListUsersUnauthorizedResponse"
+            "$ref": "#/components/responses/ListUsersUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListUsersForbiddenResponse"
+            "$ref": "#/components/responses/ListUsersForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListUsersNotFoundResponse"
+            "$ref": "#/components/responses/ListUsersNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/ListUsersConflictResponse"
+            "$ref": "#/components/responses/ListUsersConflict"
           },
           "429": {
-            "$ref": "#/components/responses/ListUsersTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListUsersTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListUsersInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListUsersInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/ListUsersServiceUnavailableResponse"
+            "$ref": "#/components/responses/ListUsersServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -1114,31 +1114,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersOkResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersBadRequestResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersUnauthorizedResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersForbiddenResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersNotFoundResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersConflictResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersConflict"
           },
           "429": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/ListPermissionGroupMembersServiceUnavailableResponse"
+            "$ref": "#/components/responses/ListPermissionGroupMembersServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -1160,35 +1160,35 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/add-permission-group-memberRequestBody"
+          "$ref": "#/components/requestBodies/AddPermissionGroupMember"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberOkResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberOk"
           },
           "400": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberBadRequestResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberUnauthorizedResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberForbiddenResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberNotFoundResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberConflictResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberConflict"
           },
           "429": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberTooManyRequestsResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberInternalServerErrorResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/AddPermissionGroupMemberServiceUnavailableResponse"
+            "$ref": "#/components/responses/AddPermissionGroupMemberServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -1221,31 +1221,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberOkResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberOk"
           },
           "400": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberBadRequestResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberUnauthorizedResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberForbiddenResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberNotFoundResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberConflictResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberConflict"
           },
           "429": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberTooManyRequestsResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberInternalServerErrorResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/RemovePermissionGroupMemberServiceUnavailableResponse"
+            "$ref": "#/components/responses/RemovePermissionGroupMemberServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -1270,35 +1270,35 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-permission-group-memberRequestBody"
+          "$ref": "#/components/requestBodies/UpdatePermissionGroupMember"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberOkResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberBadRequestResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberForbiddenResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberNotFoundResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberConflictResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberConflict"
           },
           "429": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/UpdatePermissionGroupMemberServiceUnavailableResponse"
+            "$ref": "#/components/responses/UpdatePermissionGroupMemberServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -1338,25 +1338,25 @@
         "operationId": "list-personal-access-tokens",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensOkResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensBadRequestResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensUnauthorizedResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensForbiddenResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensNotFoundResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListPersonalAccessTokensInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListPersonalAccessTokensInternalServerError"
           }
         },
         "x-scopes": [
@@ -1384,25 +1384,25 @@
         "operationId": "revoke-personal-access-token",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenOkResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenOk"
           },
           "400": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenBadRequestResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenUnauthorizedResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenForbiddenResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenNotFoundResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenTooManyRequestsResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/RevokePersonalAccessTokenInternalServerErrorResponse"
+            "$ref": "#/components/responses/RevokePersonalAccessTokenInternalServerError"
           }
         },
         "x-scopes": [
@@ -1426,29 +1426,29 @@
         "summary": "Update who can create agents in a space",
         "operationId": "update-agent-creation-policy",
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-agent-creation-policyRequestBody"
+          "$ref": "#/components/requestBodies/UpdateAgentCreationPolicy"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyOkResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyBadRequestResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyForbiddenResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyNotFoundResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateAgentCreationPolicyInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateAgentCreationPolicyInternalServerError"
           }
         },
         "x-scopes": [
@@ -1472,29 +1472,29 @@
         "summary": "Update the default agent credit limit for a workspace",
         "operationId": "update-workspace-credit-limit",
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-workspace-credit-limitRequestBody"
+          "$ref": "#/components/requestBodies/UpdateWorkspaceCreditLimit"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitOkResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitBadRequestResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitForbiddenResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitNotFoundResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateWorkspaceCreditLimitInternalServerError"
           }
         },
         "x-scopes": [
@@ -1521,29 +1521,29 @@
         "summary": "Disable or re-enable an agent in a space",
         "operationId": "update-agent-status",
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-agent-statusRequestBody"
+          "$ref": "#/components/requestBodies/UpdateAgentStatus"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateAgentStatusOkResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateAgentStatusBadRequestResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateAgentStatusUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateAgentStatusForbiddenResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateAgentStatusNotFoundResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateAgentStatusTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateAgentStatusInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateAgentStatusInternalServerError"
           }
         },
         "x-scopes": [
@@ -1571,25 +1571,25 @@
         "operationId": "delete-agent",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/DeleteAgentOkResponse"
+            "$ref": "#/components/responses/DeleteAgentOk"
           },
           "400": {
-            "$ref": "#/components/responses/DeleteAgentBadRequestResponse"
+            "$ref": "#/components/responses/DeleteAgentBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/DeleteAgentUnauthorizedResponse"
+            "$ref": "#/components/responses/DeleteAgentUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/DeleteAgentForbiddenResponse"
+            "$ref": "#/components/responses/DeleteAgentForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/DeleteAgentNotFoundResponse"
+            "$ref": "#/components/responses/DeleteAgentNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/DeleteAgentTooManyRequestsResponse"
+            "$ref": "#/components/responses/DeleteAgentTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/DeleteAgentInternalServerErrorResponse"
+            "$ref": "#/components/responses/DeleteAgentInternalServerError"
           }
         },
         "x-scopes": [
@@ -1662,25 +1662,25 @@
         "operationId": "get-workflows-metadata-for-space",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceOkResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceOk"
           },
           "400": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceBadRequestResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceUnauthorizedResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceForbiddenResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceNotFoundResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceTooManyRequestsResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceInternalServerErrorResponse"
+            "$ref": "#/components/responses/GetWorkflowsMetadataForSpaceInternalServerError"
           }
         },
         "x-scopes": [
@@ -1711,25 +1711,25 @@
         "operationId": "get-agent-credit-usage",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetAgentCreditUsageOkResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageOk"
           },
           "400": {
-            "$ref": "#/components/responses/GetAgentCreditUsageBadRequestResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/GetAgentCreditUsageUnauthorizedResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/GetAgentCreditUsageForbiddenResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/GetAgentCreditUsageNotFoundResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/GetAgentCreditUsageTooManyRequestsResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/GetAgentCreditUsageInternalServerErrorResponse"
+            "$ref": "#/components/responses/GetAgentCreditUsageInternalServerError"
           }
         },
         "x-scopes": [
@@ -1762,25 +1762,25 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetAgentPermissionsOkResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsOk"
           },
           "400": {
-            "$ref": "#/components/responses/GetAgentPermissionsBadRequestResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/GetAgentPermissionsUnauthorizedResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/GetAgentPermissionsForbiddenResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/GetAgentPermissionsNotFoundResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/GetAgentPermissionsTooManyRequestsResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/GetAgentPermissionsInternalServerErrorResponse"
+            "$ref": "#/components/responses/GetAgentPermissionsInternalServerError"
           }
         },
         "x-scopes": [
@@ -1802,29 +1802,29 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-agent-permissionsRequestBody"
+          "$ref": "#/components/requestBodies/UpdateAgentPermissions"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsOkResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsBadRequestResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsForbiddenResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsNotFoundResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateAgentPermissionsInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateAgentPermissionsInternalServerError"
           }
         },
         "x-scopes": [
@@ -1864,25 +1864,25 @@
         "operationId": "get-agents-credit-usage",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageOkResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageOk"
           },
           "400": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageBadRequestResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageUnauthorizedResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageForbiddenResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageNotFoundResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageTooManyRequestsResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/GetAgentsCreditUsageInternalServerErrorResponse"
+            "$ref": "#/components/responses/GetAgentsCreditUsageInternalServerError"
           }
         },
         "x-scopes": [
@@ -1909,29 +1909,29 @@
         "summary": "Update credit limit for an agent in a space",
         "operationId": "update-agent-credit-limit",
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-agent-credit-limitRequestBody"
+          "$ref": "#/components/requestBodies/UpdateAgentCreditLimit"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitOkResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitBadRequestResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitForbiddenResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitNotFoundResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitNotFound"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateAgentCreditLimitInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateAgentCreditLimitInternalServerError"
           }
         },
         "x-scopes": [
@@ -1964,31 +1964,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesOkResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesOk"
           },
           "400": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesBadRequestResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesUnauthorizedResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesForbiddenResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesNotFoundResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesConflictResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesConflict"
           },
           "429": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesTooManyRequestsResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesInternalServerErrorResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/ListCreditLimitPoliciesServiceUnavailableResponse"
+            "$ref": "#/components/responses/ListCreditLimitPoliciesServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -2007,35 +2007,35 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/create-credit-limit-policyRequestBody"
+          "$ref": "#/components/requestBodies/CreateCreditLimitPolicy"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyOkResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyOk"
           },
           "400": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyBadRequestResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyUnauthorizedResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyForbiddenResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyNotFoundResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyConflictResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyConflict"
           },
           "429": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyTooManyRequestsResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyInternalServerErrorResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/CreateCreditLimitPolicyServiceUnavailableResponse"
+            "$ref": "#/components/responses/CreateCreditLimitPolicyServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -2065,31 +2065,31 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyOkResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyOk"
           },
           "400": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyBadRequestResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyUnauthorizedResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyForbiddenResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyNotFoundResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyConflictResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyConflict"
           },
           "429": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyTooManyRequestsResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyInternalServerErrorResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/ExpireCreditLimitPolicyServiceUnavailableResponse"
+            "$ref": "#/components/responses/ExpireCreditLimitPolicyServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -2111,35 +2111,35 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/update-credit-limit-policyRequestBody"
+          "$ref": "#/components/requestBodies/UpdateCreditLimitPolicy"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyOkResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyOk"
           },
           "400": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyBadRequestResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyBadRequest"
           },
           "401": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyUnauthorizedResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyUnauthorized"
           },
           "403": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyForbiddenResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyForbidden"
           },
           "404": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyNotFoundResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyNotFound"
           },
           "409": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyConflictResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyConflict"
           },
           "429": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyTooManyRequestsResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyTooManyRequests"
           },
           "500": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyInternalServerErrorResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyInternalServerError"
           },
           "503": {
-            "$ref": "#/components/responses/UpdateCreditLimitPolicyServiceUnavailableResponse"
+            "$ref": "#/components/responses/UpdateCreditLimitPolicyServiceUnavailable"
           }
         },
         "x-scopes": [
@@ -2580,58 +2580,48 @@
         "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
         "oneOf": [
           {
-            "type": "object",
-            "properties": {
-              "group_id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "type": {
-                "description": "Always `group`",
-                "type": "string",
-                "const": "group"
-              }
-            },
-            "required": [
-              "group_id",
-              "type"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/AgentPermissionsItemPrincipalOneOf"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `user`",
-                "type": "string",
-                "const": "user"
-              },
-              "user_id": {
-                "type": "string",
-                "format": "uuid"
-              }
-            },
-            "required": [
-              "type",
-              "user_id"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `workspace`",
-                "type": "string",
-                "const": "workspace"
-              }
-            },
-            "required": [
-              "type"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/AgentPermissionsItemPrincipalOneOf2"
           }
         ]
+      },
+      "AgentPermissionsItemPrincipalOneOf": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "description": "Always `group`",
+            "type": "string",
+            "const": "group"
+          }
+        },
+        "required": [
+          "group_id",
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "AgentPermissionsItemPrincipalOneOf2": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `workspace`",
+            "type": "string",
+            "const": "workspace"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
       },
       "AgentPermissionsItemResolvedRole": {
         "description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
@@ -2640,6 +2630,25 @@
           "edit",
           "full_access",
           "view_and_interact"
+        ]
+      },
+      "Bot": {
+        "title": "Bot",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Indicates this user is a bot.",
+            "type": "string",
+            "const": "bot"
+          },
+          "bot": {
+            "description": "Details about the bot, when the `type` of the user is `bot`.",
+            "$ref": "#/components/schemas/emptyObject"
+          }
+        },
+        "required": [
+          "type",
+          "bot"
         ]
       },
       "CreateCreditLimitPolicy": {
@@ -2745,40 +2754,46 @@
         "description": "All workspace members or one workspace member affected by the policy.",
         "oneOf": [
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `all_space_members`",
-                "type": "string",
-                "const": "all_space_members"
-              }
-            },
-            "required": [
-              "type"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `user`",
-                "type": "string",
-                "const": "user"
-              },
-              "user_id": {
-                "description": "The ID returned by the workspace users API.",
-                "type": "string",
-                "format": "uuid"
-              }
-            },
-            "required": [
-              "type",
-              "user_id"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
           }
         ]
+      },
+      "CreateCreditLimitPolicySelectorOneOf": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `all_space_members`",
+            "type": "string",
+            "const": "all_space_members"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "CreateCreditLimitPolicySelectorOneOf2": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `user`",
+            "type": "string",
+            "const": "user"
+          },
+          "user_id": {
+            "description": "The ID returned by the workspace users API.",
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "type",
+          "user_id"
+        ],
+        "additionalProperties": false
       },
       "CreateLegalHold": {
         "type": "object",
@@ -2962,39 +2977,45 @@
       "ExportLegalHold": {
         "anyOf": [
           {
-            "type": "object",
-            "properties": {
-              "legal_hold_export_id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "requesting_user_id": {
-                "type": "string",
-                "format": "uuid"
-              }
-            },
-            "required": [
-              "legal_hold_export_id",
-              "requesting_user_id"
-            ]
+            "$ref": "#/components/schemas/ExportLegalHoldAnyOf0"
           },
           {
-            "type": "object",
-            "properties": {
-              "requesting_user_id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "space_id": {
-                "type": "string",
-                "format": "uuid"
-              }
-            },
-            "required": [
-              "requesting_user_id",
-              "space_id"
-            ]
+            "$ref": "#/components/schemas/ExportLegalHoldAnyOf1"
           }
+        ]
+      },
+      "ExportLegalHoldAnyOf0": {
+        "type": "object",
+        "properties": {
+          "legal_hold_export_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requesting_user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "legal_hold_export_id",
+          "requesting_user_id"
+        ]
+      },
+      "ExportLegalHoldAnyOf1": {
+        "type": "object",
+        "properties": {
+          "requesting_user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "space_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "requesting_user_id",
+          "space_id"
         ]
       },
       "ExportLegalHoldOk": {
@@ -3865,51 +3886,44 @@
           {
             "oneOf": [
               {
-                "title": "Person",
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "description": "Indicates this user is a person.",
-                    "type": "string",
-                    "const": "person"
-                  },
-                  "membership_type": {
-                    "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf1OneOf0MembershipType"
-                  },
-                  "person": {
-                    "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf1OneOf0Person"
-                  }
-                },
-                "required": [
-                  "type",
-                  "membership_type",
-                  "person"
-                ]
+                "$ref": "#/components/schemas/Person"
               },
               {
-                "title": "Bot",
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "description": "Indicates this user is a bot.",
-                    "type": "string",
-                    "const": "bot"
-                  },
-                  "bot": {
-                    "description": "Details about the bot, when the `type` of the user is `bot`.",
-                    "$ref": "#/components/schemas/emptyObject"
-                  }
-                },
-                "required": [
-                  "type",
-                  "bot"
-                ]
+                "$ref": "#/components/schemas/Bot"
               }
             ]
           }
         ]
       },
-      "ListUsersOkResultsItemAllOf1OneOf0MembershipType": {
+      "NotionVersion": {
+        "type": "string",
+        "enum": [
+          "2026-06-01"
+        ]
+      },
+      "Person": {
+        "title": "Person",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Indicates this user is a person.",
+            "type": "string",
+            "const": "person"
+          },
+          "membership_type": {
+            "$ref": "#/components/schemas/PersonMembershipType"
+          },
+          "person": {
+            "$ref": "#/components/schemas/PersonPerson"
+          }
+        },
+        "required": [
+          "type",
+          "membership_type",
+          "person"
+        ]
+      },
+      "PersonMembershipType": {
         "description": "The person's effective workspace membership type.",
         "type": "string",
         "enum": [
@@ -3921,7 +3935,7 @@
           "owner"
         ]
       },
-      "ListUsersOkResultsItemAllOf1OneOf0Person": {
+      "PersonPerson": {
         "description": "Details about the person, when the `type` of the user is `person`.",
         "type": "object",
         "properties": {
@@ -3931,12 +3945,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "NotionVersion": {
-        "type": "string",
-        "enum": [
-          "2026-06-01"
-        ]
       },
       "RevokeMcpClientConnection": {
         "type": "object",
@@ -4000,53 +4008,56 @@
         "description": "The managed user whose active sessions should be revoked.",
         "oneOf": [
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `email`",
-                "type": "string",
-                "const": "email"
-              },
-              "email": {
-                "description": "The managed user's primary email address.",
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "email"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/RevokeUserSessionUserOneOf0"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `id`",
-                "type": "string",
-                "const": "id"
-              },
-              "id": {
-                "description": "The managed user's Notion user UUID.",
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "id"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/RevokeUserSessionUserOneOf1"
           }
         ]
+      },
+      "RevokeUserSessionUserOneOf0": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `email`",
+            "type": "string",
+            "const": "email"
+          },
+          "email": {
+            "description": "The managed user's primary email address.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "RevokeUserSessionUserOneOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `id`",
+            "type": "string",
+            "const": "id"
+          },
+          "id": {
+            "description": "The managed user's Notion user UUID.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ],
+        "additionalProperties": false
       },
       "Status": {
         "description": "Token statuses to include. Use bracket encoding for multiple values.",
         "oneOf": [
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ListPersonalAccessTokensResultsItemStatus"
-            }
+            "$ref": "#/components/schemas/StatusOneOf0"
           },
           {
             "description": "Always `active`",
@@ -4096,6 +4107,12 @@
           "tool_unavailable",
           "workspace_credit_limit"
         ]
+      },
+      "StatusOneOf0": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ListPersonalAccessTokensResultsItemStatus"
+        }
       },
       "UpdateAgentCreationPolicy": {
         "type": "object",
@@ -4165,18 +4182,21 @@
         "description": "The policy now in effect, or null when no explicit policy has ever been set for the workspace (which behaves as the \"all_workspace_members\" default).",
         "oneOf": [
           {
-            "description": "One of: `all_workspace_members`, `custom`, `disabled`, `workspace_owners_only`",
-            "type": "string",
-            "enum": [
-              "all_workspace_members",
-              "custom",
-              "disabled",
-              "workspace_owners_only"
-            ]
+            "$ref": "#/components/schemas/UpdateAgentCreationPolicyOkCurrentPolicyOneOf0"
           },
           {
             "type": "null"
           }
+        ]
+      },
+      "UpdateAgentCreationPolicyOkCurrentPolicyOneOf0": {
+        "description": "One of: `all_workspace_members`, `custom`, `disabled`, `workspace_owners_only`",
+        "type": "string",
+        "enum": [
+          "all_workspace_members",
+          "custom",
+          "disabled",
+          "workspace_owners_only"
         ]
       },
       "UpdateAgentCreationPolicyPolicy": {
@@ -4934,7 +4954,7 @@
       }
     },
     "responses": {
-      "AddLegalHoldUsersBadRequestResponse": {
+      "AddLegalHoldUsersBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -4950,7 +4970,7 @@
           }
         }
       },
-      "AddLegalHoldUsersForbiddenResponse": {
+      "AddLegalHoldUsersForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -4966,7 +4986,7 @@
           }
         }
       },
-      "AddLegalHoldUsersInternalServerErrorResponse": {
+      "AddLegalHoldUsersInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -4982,7 +5002,7 @@
           }
         }
       },
-      "AddLegalHoldUsersNotFoundResponse": {
+      "AddLegalHoldUsersNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -4998,7 +5018,7 @@
           }
         }
       },
-      "AddLegalHoldUsersOkResponse": {
+      "AddLegalHoldUsersOk": {
         "description": "The result of: Add users to a legal hold.",
         "content": {
           "application/json": {
@@ -5008,7 +5028,7 @@
           }
         }
       },
-      "AddLegalHoldUsersTooManyRequestsResponse": {
+      "AddLegalHoldUsersTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5032,7 +5052,7 @@
           }
         }
       },
-      "AddLegalHoldUsersUnauthorizedResponse": {
+      "AddLegalHoldUsersUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5048,7 +5068,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberBadRequestResponse": {
+      "AddPermissionGroupMemberBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5064,7 +5084,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberConflictResponse": {
+      "AddPermissionGroupMemberConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -5080,7 +5100,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberForbiddenResponse": {
+      "AddPermissionGroupMemberForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5096,7 +5116,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberInternalServerErrorResponse": {
+      "AddPermissionGroupMemberInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5112,7 +5132,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberNotFoundResponse": {
+      "AddPermissionGroupMemberNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5128,7 +5148,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberOkResponse": {
+      "AddPermissionGroupMemberOk": {
         "description": "The result of: Add a group member.",
         "content": {
           "application/json": {
@@ -5138,7 +5158,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberServiceUnavailableResponse": {
+      "AddPermissionGroupMemberServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -5154,7 +5174,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberTooManyRequestsResponse": {
+      "AddPermissionGroupMemberTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5178,7 +5198,7 @@
           }
         }
       },
-      "AddPermissionGroupMemberUnauthorizedResponse": {
+      "AddPermissionGroupMemberUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5194,7 +5214,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyBadRequestResponse": {
+      "CreateCreditLimitPolicyBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5210,7 +5230,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyConflictResponse": {
+      "CreateCreditLimitPolicyConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -5226,7 +5246,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyForbiddenResponse": {
+      "CreateCreditLimitPolicyForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5242,7 +5262,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyInternalServerErrorResponse": {
+      "CreateCreditLimitPolicyInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5258,7 +5278,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyNotFoundResponse": {
+      "CreateCreditLimitPolicyNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5274,7 +5294,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyOkResponse": {
+      "CreateCreditLimitPolicyOk": {
         "description": "The created credit limit policy.",
         "content": {
           "application/json": {
@@ -5284,7 +5304,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyServiceUnavailableResponse": {
+      "CreateCreditLimitPolicyServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -5300,7 +5320,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyTooManyRequestsResponse": {
+      "CreateCreditLimitPolicyTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5324,7 +5344,7 @@
           }
         }
       },
-      "CreateCreditLimitPolicyUnauthorizedResponse": {
+      "CreateCreditLimitPolicyUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5340,7 +5360,7 @@
           }
         }
       },
-      "CreateLegalHoldBadRequestResponse": {
+      "CreateLegalHoldBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5356,7 +5376,7 @@
           }
         }
       },
-      "CreateLegalHoldForbiddenResponse": {
+      "CreateLegalHoldForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5372,7 +5392,7 @@
           }
         }
       },
-      "CreateLegalHoldInternalServerErrorResponse": {
+      "CreateLegalHoldInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5388,7 +5408,7 @@
           }
         }
       },
-      "CreateLegalHoldNotFoundResponse": {
+      "CreateLegalHoldNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5404,7 +5424,7 @@
           }
         }
       },
-      "CreateLegalHoldOkResponse": {
+      "CreateLegalHoldOk": {
         "description": "The created legal hold.",
         "content": {
           "application/json": {
@@ -5414,7 +5434,7 @@
           }
         }
       },
-      "CreateLegalHoldTooManyRequestsResponse": {
+      "CreateLegalHoldTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5438,7 +5458,7 @@
           }
         }
       },
-      "CreateLegalHoldUnauthorizedResponse": {
+      "CreateLegalHoldUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5454,7 +5474,7 @@
           }
         }
       },
-      "CreatePermissionGroupBadRequestResponse": {
+      "CreatePermissionGroupBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5470,7 +5490,7 @@
           }
         }
       },
-      "CreatePermissionGroupConflictResponse": {
+      "CreatePermissionGroupConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -5486,7 +5506,7 @@
           }
         }
       },
-      "CreatePermissionGroupForbiddenResponse": {
+      "CreatePermissionGroupForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5502,7 +5522,7 @@
           }
         }
       },
-      "CreatePermissionGroupInternalServerErrorResponse": {
+      "CreatePermissionGroupInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5518,7 +5538,7 @@
           }
         }
       },
-      "CreatePermissionGroupNotFoundResponse": {
+      "CreatePermissionGroupNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5534,7 +5554,7 @@
           }
         }
       },
-      "CreatePermissionGroupOkResponse": {
+      "CreatePermissionGroupOk": {
         "description": "The created group.",
         "content": {
           "application/json": {
@@ -5544,7 +5564,7 @@
           }
         }
       },
-      "CreatePermissionGroupServiceUnavailableResponse": {
+      "CreatePermissionGroupServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -5560,7 +5580,7 @@
           }
         }
       },
-      "CreatePermissionGroupTooManyRequestsResponse": {
+      "CreatePermissionGroupTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5584,7 +5604,7 @@
           }
         }
       },
-      "CreatePermissionGroupUnauthorizedResponse": {
+      "CreatePermissionGroupUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5600,7 +5620,7 @@
           }
         }
       },
-      "DeleteAgentBadRequestResponse": {
+      "DeleteAgentBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5616,7 +5636,7 @@
           }
         }
       },
-      "DeleteAgentForbiddenResponse": {
+      "DeleteAgentForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5632,7 +5652,7 @@
           }
         }
       },
-      "DeleteAgentInternalServerErrorResponse": {
+      "DeleteAgentInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5648,7 +5668,7 @@
           }
         }
       },
-      "DeleteAgentNotFoundResponse": {
+      "DeleteAgentNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5664,7 +5684,7 @@
           }
         }
       },
-      "DeleteAgentOkResponse": {
+      "DeleteAgentOk": {
         "description": "The deleted agent in a space.",
         "content": {
           "application/json": {
@@ -5674,7 +5694,7 @@
           }
         }
       },
-      "DeleteAgentTooManyRequestsResponse": {
+      "DeleteAgentTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5698,7 +5718,7 @@
           }
         }
       },
-      "DeleteAgentUnauthorizedResponse": {
+      "DeleteAgentUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5714,7 +5734,7 @@
           }
         }
       },
-      "DeletePermissionGroupBadRequestResponse": {
+      "DeletePermissionGroupBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5730,7 +5750,7 @@
           }
         }
       },
-      "DeletePermissionGroupConflictResponse": {
+      "DeletePermissionGroupConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -5746,7 +5766,7 @@
           }
         }
       },
-      "DeletePermissionGroupForbiddenResponse": {
+      "DeletePermissionGroupForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5762,7 +5782,7 @@
           }
         }
       },
-      "DeletePermissionGroupInternalServerErrorResponse": {
+      "DeletePermissionGroupInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5778,7 +5798,7 @@
           }
         }
       },
-      "DeletePermissionGroupNotFoundResponse": {
+      "DeletePermissionGroupNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5794,7 +5814,7 @@
           }
         }
       },
-      "DeletePermissionGroupOkResponse": {
+      "DeletePermissionGroupOk": {
         "description": "The deleted group.",
         "content": {
           "application/json": {
@@ -5804,7 +5824,7 @@
           }
         }
       },
-      "DeletePermissionGroupServiceUnavailableResponse": {
+      "DeletePermissionGroupServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -5820,7 +5840,7 @@
           }
         }
       },
-      "DeletePermissionGroupTooManyRequestsResponse": {
+      "DeletePermissionGroupTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5844,7 +5864,7 @@
           }
         }
       },
-      "DeletePermissionGroupUnauthorizedResponse": {
+      "DeletePermissionGroupUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5860,7 +5880,7 @@
           }
         }
       },
-      "EnqueueSpaceExportBadRequestResponse": {
+      "EnqueueSpaceExportBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5876,7 +5896,7 @@
           }
         }
       },
-      "EnqueueSpaceExportForbiddenResponse": {
+      "EnqueueSpaceExportForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -5892,7 +5912,7 @@
           }
         }
       },
-      "EnqueueSpaceExportInternalServerErrorResponse": {
+      "EnqueueSpaceExportInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -5908,7 +5928,7 @@
           }
         }
       },
-      "EnqueueSpaceExportNotFoundResponse": {
+      "EnqueueSpaceExportNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -5924,7 +5944,7 @@
           }
         }
       },
-      "EnqueueSpaceExportOkResponse": {
+      "EnqueueSpaceExportOk": {
         "description": "The result of: Enqueue a workspace export.",
         "content": {
           "application/json": {
@@ -5934,7 +5954,7 @@
           }
         }
       },
-      "EnqueueSpaceExportTooManyRequestsResponse": {
+      "EnqueueSpaceExportTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -5958,7 +5978,7 @@
           }
         }
       },
-      "EnqueueSpaceExportUnauthorizedResponse": {
+      "EnqueueSpaceExportUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -5974,7 +5994,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyBadRequestResponse": {
+      "ExpireCreditLimitPolicyBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -5990,7 +6010,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyConflictResponse": {
+      "ExpireCreditLimitPolicyConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -6006,7 +6026,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyForbiddenResponse": {
+      "ExpireCreditLimitPolicyForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6022,7 +6042,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyInternalServerErrorResponse": {
+      "ExpireCreditLimitPolicyInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6038,7 +6058,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyNotFoundResponse": {
+      "ExpireCreditLimitPolicyNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6054,7 +6074,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyOkResponse": {
+      "ExpireCreditLimitPolicyOk": {
         "description": "The result of: Expire a credit limit policy.",
         "content": {
           "application/json": {
@@ -6064,7 +6084,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyServiceUnavailableResponse": {
+      "ExpireCreditLimitPolicyServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -6080,7 +6100,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyTooManyRequestsResponse": {
+      "ExpireCreditLimitPolicyTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6104,7 +6124,7 @@
           }
         }
       },
-      "ExpireCreditLimitPolicyUnauthorizedResponse": {
+      "ExpireCreditLimitPolicyUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6120,7 +6140,7 @@
           }
         }
       },
-      "ExportLegalHoldBadRequestResponse": {
+      "ExportLegalHoldBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6136,7 +6156,7 @@
           }
         }
       },
-      "ExportLegalHoldForbiddenResponse": {
+      "ExportLegalHoldForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6152,7 +6172,7 @@
           }
         }
       },
-      "ExportLegalHoldInternalServerErrorResponse": {
+      "ExportLegalHoldInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6168,7 +6188,7 @@
           }
         }
       },
-      "ExportLegalHoldNotFoundResponse": {
+      "ExportLegalHoldNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6184,7 +6204,7 @@
           }
         }
       },
-      "ExportLegalHoldOkResponse": {
+      "ExportLegalHoldOk": {
         "description": "The result of: Export a legal hold.",
         "content": {
           "application/json": {
@@ -6194,7 +6214,7 @@
           }
         }
       },
-      "ExportLegalHoldTooManyRequestsResponse": {
+      "ExportLegalHoldTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6218,7 +6238,7 @@
           }
         }
       },
-      "ExportLegalHoldUnauthorizedResponse": {
+      "ExportLegalHoldUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6234,7 +6254,7 @@
           }
         }
       },
-      "GetAgentCreditUsageBadRequestResponse": {
+      "GetAgentCreditUsageBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6250,7 +6270,7 @@
           }
         }
       },
-      "GetAgentCreditUsageForbiddenResponse": {
+      "GetAgentCreditUsageForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6266,7 +6286,7 @@
           }
         }
       },
-      "GetAgentCreditUsageInternalServerErrorResponse": {
+      "GetAgentCreditUsageInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6282,7 +6302,7 @@
           }
         }
       },
-      "GetAgentCreditUsageNotFoundResponse": {
+      "GetAgentCreditUsageNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6298,7 +6318,7 @@
           }
         }
       },
-      "GetAgentCreditUsageOkResponse": {
+      "GetAgentCreditUsageOk": {
         "description": "The credit usage for an agent in a space.",
         "content": {
           "application/json": {
@@ -6308,7 +6328,7 @@
           }
         }
       },
-      "GetAgentCreditUsageTooManyRequestsResponse": {
+      "GetAgentCreditUsageTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6332,7 +6352,7 @@
           }
         }
       },
-      "GetAgentCreditUsageUnauthorizedResponse": {
+      "GetAgentCreditUsageUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6348,7 +6368,7 @@
           }
         }
       },
-      "GetAgentPermissionsBadRequestResponse": {
+      "GetAgentPermissionsBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6364,7 +6384,7 @@
           }
         }
       },
-      "GetAgentPermissionsForbiddenResponse": {
+      "GetAgentPermissionsForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6380,7 +6400,7 @@
           }
         }
       },
-      "GetAgentPermissionsInternalServerErrorResponse": {
+      "GetAgentPermissionsInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6396,7 +6416,7 @@
           }
         }
       },
-      "GetAgentPermissionsNotFoundResponse": {
+      "GetAgentPermissionsNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6412,7 +6432,7 @@
           }
         }
       },
-      "GetAgentPermissionsOkResponse": {
+      "GetAgentPermissionsOk": {
         "description": "The custom agent's sharing permissions.",
         "content": {
           "application/json": {
@@ -6422,7 +6442,7 @@
           }
         }
       },
-      "GetAgentPermissionsTooManyRequestsResponse": {
+      "GetAgentPermissionsTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6446,7 +6466,7 @@
           }
         }
       },
-      "GetAgentPermissionsUnauthorizedResponse": {
+      "GetAgentPermissionsUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6462,7 +6482,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageBadRequestResponse": {
+      "GetAgentsCreditUsageBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6478,7 +6498,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageForbiddenResponse": {
+      "GetAgentsCreditUsageForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6494,7 +6514,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageInternalServerErrorResponse": {
+      "GetAgentsCreditUsageInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6510,7 +6530,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageNotFoundResponse": {
+      "GetAgentsCreditUsageNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6526,7 +6546,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageOkResponse": {
+      "GetAgentsCreditUsageOk": {
         "description": "The credit usage for agents in a space.",
         "content": {
           "application/json": {
@@ -6536,7 +6556,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageTooManyRequestsResponse": {
+      "GetAgentsCreditUsageTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6560,7 +6580,7 @@
           }
         }
       },
-      "GetAgentsCreditUsageUnauthorizedResponse": {
+      "GetAgentsCreditUsageUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6576,7 +6596,7 @@
           }
         }
       },
-      "GetLegalHoldBadRequestResponse": {
+      "GetLegalHoldBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6592,7 +6612,7 @@
           }
         }
       },
-      "GetLegalHoldForbiddenResponse": {
+      "GetLegalHoldForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6608,7 +6628,7 @@
           }
         }
       },
-      "GetLegalHoldInternalServerErrorResponse": {
+      "GetLegalHoldInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6624,7 +6644,7 @@
           }
         }
       },
-      "GetLegalHoldNotFoundResponse": {
+      "GetLegalHoldNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6640,7 +6660,7 @@
           }
         }
       },
-      "GetLegalHoldOkResponse": {
+      "GetLegalHoldOk": {
         "description": "The legal hold.",
         "content": {
           "application/json": {
@@ -6650,7 +6670,7 @@
           }
         }
       },
-      "GetLegalHoldTooManyRequestsResponse": {
+      "GetLegalHoldTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6674,7 +6694,7 @@
           }
         }
       },
-      "GetLegalHoldUnauthorizedResponse": {
+      "GetLegalHoldUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6690,7 +6710,7 @@
           }
         }
       },
-      "GetSpaceExportStatusBadRequestResponse": {
+      "GetSpaceExportStatusBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6706,7 +6726,7 @@
           }
         }
       },
-      "GetSpaceExportStatusForbiddenResponse": {
+      "GetSpaceExportStatusForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6722,7 +6742,7 @@
           }
         }
       },
-      "GetSpaceExportStatusInternalServerErrorResponse": {
+      "GetSpaceExportStatusInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6738,7 +6758,7 @@
           }
         }
       },
-      "GetSpaceExportStatusNotFoundResponse": {
+      "GetSpaceExportStatusNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6754,7 +6774,7 @@
           }
         }
       },
-      "GetSpaceExportStatusOkResponse": {
+      "GetSpaceExportStatusOk": {
         "description": "The workspace export status.",
         "content": {
           "application/json": {
@@ -6764,7 +6784,7 @@
           }
         }
       },
-      "GetSpaceExportStatusTooManyRequestsResponse": {
+      "GetSpaceExportStatusTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6788,7 +6808,7 @@
           }
         }
       },
-      "GetSpaceExportStatusUnauthorizedResponse": {
+      "GetSpaceExportStatusUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6804,7 +6824,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceBadRequestResponse": {
+      "GetWorkflowsMetadataForSpaceBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6820,7 +6840,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceForbiddenResponse": {
+      "GetWorkflowsMetadataForSpaceForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6836,7 +6856,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceInternalServerErrorResponse": {
+      "GetWorkflowsMetadataForSpaceInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6852,7 +6872,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceNotFoundResponse": {
+      "GetWorkflowsMetadataForSpaceNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6868,7 +6888,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceOkResponse": {
+      "GetWorkflowsMetadataForSpaceOk": {
         "description": "The agents in a space.",
         "content": {
           "application/json": {
@@ -6878,7 +6898,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceTooManyRequestsResponse": {
+      "GetWorkflowsMetadataForSpaceTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -6902,7 +6922,7 @@
           }
         }
       },
-      "GetWorkflowsMetadataForSpaceUnauthorizedResponse": {
+      "GetWorkflowsMetadataForSpaceUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -6918,7 +6938,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesBadRequestResponse": {
+      "ListCreditLimitPoliciesBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -6934,7 +6954,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesConflictResponse": {
+      "ListCreditLimitPoliciesConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -6950,7 +6970,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesForbiddenResponse": {
+      "ListCreditLimitPoliciesForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -6966,7 +6986,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesInternalServerErrorResponse": {
+      "ListCreditLimitPoliciesInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -6982,7 +7002,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesNotFoundResponse": {
+      "ListCreditLimitPoliciesNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -6998,7 +7018,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesOkResponse": {
+      "ListCreditLimitPoliciesOk": {
         "description": "A list of credit limit policies.",
         "content": {
           "application/json": {
@@ -7008,7 +7028,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesServiceUnavailableResponse": {
+      "ListCreditLimitPoliciesServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -7024,7 +7044,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesTooManyRequestsResponse": {
+      "ListCreditLimitPoliciesTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7048,7 +7068,7 @@
           }
         }
       },
-      "ListCreditLimitPoliciesUnauthorizedResponse": {
+      "ListCreditLimitPoliciesUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7064,7 +7084,7 @@
           }
         }
       },
-      "ListLegalHoldPagesBadRequestResponse": {
+      "ListLegalHoldPagesBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7080,7 +7100,7 @@
           }
         }
       },
-      "ListLegalHoldPagesForbiddenResponse": {
+      "ListLegalHoldPagesForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7096,7 +7116,7 @@
           }
         }
       },
-      "ListLegalHoldPagesInternalServerErrorResponse": {
+      "ListLegalHoldPagesInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7112,7 +7132,7 @@
           }
         }
       },
-      "ListLegalHoldPagesNotFoundResponse": {
+      "ListLegalHoldPagesNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7128,7 +7148,7 @@
           }
         }
       },
-      "ListLegalHoldPagesOkResponse": {
+      "ListLegalHoldPagesOk": {
         "description": "A list of pages on a legal hold.",
         "content": {
           "application/json": {
@@ -7138,7 +7158,7 @@
           }
         }
       },
-      "ListLegalHoldPagesTooManyRequestsResponse": {
+      "ListLegalHoldPagesTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7162,7 +7182,7 @@
           }
         }
       },
-      "ListLegalHoldPagesUnauthorizedResponse": {
+      "ListLegalHoldPagesUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7178,7 +7198,7 @@
           }
         }
       },
-      "ListLegalHoldUsersBadRequestResponse": {
+      "ListLegalHoldUsersBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7194,7 +7214,7 @@
           }
         }
       },
-      "ListLegalHoldUsersForbiddenResponse": {
+      "ListLegalHoldUsersForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7210,7 +7230,7 @@
           }
         }
       },
-      "ListLegalHoldUsersInternalServerErrorResponse": {
+      "ListLegalHoldUsersInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7226,7 +7246,7 @@
           }
         }
       },
-      "ListLegalHoldUsersNotFoundResponse": {
+      "ListLegalHoldUsersNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7242,7 +7262,7 @@
           }
         }
       },
-      "ListLegalHoldUsersOkResponse": {
+      "ListLegalHoldUsersOk": {
         "description": "A list of users on a legal hold.",
         "content": {
           "application/json": {
@@ -7252,7 +7272,7 @@
           }
         }
       },
-      "ListLegalHoldUsersTooManyRequestsResponse": {
+      "ListLegalHoldUsersTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7276,7 +7296,7 @@
           }
         }
       },
-      "ListLegalHoldUsersUnauthorizedResponse": {
+      "ListLegalHoldUsersUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7292,7 +7312,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesBadRequestResponse": {
+      "ListLegalHoldWorkspacesBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7308,7 +7328,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesForbiddenResponse": {
+      "ListLegalHoldWorkspacesForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7324,7 +7344,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesInternalServerErrorResponse": {
+      "ListLegalHoldWorkspacesInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7340,7 +7360,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesNotFoundResponse": {
+      "ListLegalHoldWorkspacesNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7356,7 +7376,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesOkResponse": {
+      "ListLegalHoldWorkspacesOk": {
         "description": "A list of workspaces on a legal hold.",
         "content": {
           "application/json": {
@@ -7366,7 +7386,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesTooManyRequestsResponse": {
+      "ListLegalHoldWorkspacesTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7390,7 +7410,7 @@
           }
         }
       },
-      "ListLegalHoldWorkspacesUnauthorizedResponse": {
+      "ListLegalHoldWorkspacesUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7406,7 +7426,7 @@
           }
         }
       },
-      "ListLegalHoldsBadRequestResponse": {
+      "ListLegalHoldsBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7422,7 +7442,7 @@
           }
         }
       },
-      "ListLegalHoldsForbiddenResponse": {
+      "ListLegalHoldsForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7438,7 +7458,7 @@
           }
         }
       },
-      "ListLegalHoldsInternalServerErrorResponse": {
+      "ListLegalHoldsInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7454,7 +7474,7 @@
           }
         }
       },
-      "ListLegalHoldsNotFoundResponse": {
+      "ListLegalHoldsNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7470,7 +7490,7 @@
           }
         }
       },
-      "ListLegalHoldsOkResponse": {
+      "ListLegalHoldsOk": {
         "description": "A list of legal holds.",
         "content": {
           "application/json": {
@@ -7480,7 +7500,7 @@
           }
         }
       },
-      "ListLegalHoldsTooManyRequestsResponse": {
+      "ListLegalHoldsTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7504,7 +7524,7 @@
           }
         }
       },
-      "ListLegalHoldsUnauthorizedResponse": {
+      "ListLegalHoldsUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7520,7 +7540,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsBadRequestResponse": {
+      "ListMcpClientConnectionsBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7536,7 +7556,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsForbiddenResponse": {
+      "ListMcpClientConnectionsForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7552,7 +7572,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsInternalServerErrorResponse": {
+      "ListMcpClientConnectionsInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7568,7 +7588,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsNotFoundResponse": {
+      "ListMcpClientConnectionsNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7584,7 +7604,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsOkResponse": {
+      "ListMcpClientConnectionsOk": {
         "description": "A list of MCP client connections in an organization.",
         "content": {
           "application/json": {
@@ -7594,7 +7614,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsTooManyRequestsResponse": {
+      "ListMcpClientConnectionsTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7618,7 +7638,7 @@
           }
         }
       },
-      "ListMcpClientConnectionsUnauthorizedResponse": {
+      "ListMcpClientConnectionsUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7634,7 +7654,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersBadRequestResponse": {
+      "ListPermissionGroupMembersBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7650,7 +7670,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersConflictResponse": {
+      "ListPermissionGroupMembersConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -7666,7 +7686,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersForbiddenResponse": {
+      "ListPermissionGroupMembersForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7682,7 +7702,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersInternalServerErrorResponse": {
+      "ListPermissionGroupMembersInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7698,7 +7718,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersNotFoundResponse": {
+      "ListPermissionGroupMembersNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7714,7 +7734,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersOkResponse": {
+      "ListPermissionGroupMembersOk": {
         "description": "A list of group members.",
         "content": {
           "application/json": {
@@ -7724,7 +7744,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersServiceUnavailableResponse": {
+      "ListPermissionGroupMembersServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -7740,7 +7760,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersTooManyRequestsResponse": {
+      "ListPermissionGroupMembersTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7764,7 +7784,7 @@
           }
         }
       },
-      "ListPermissionGroupMembersUnauthorizedResponse": {
+      "ListPermissionGroupMembersUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7780,7 +7800,7 @@
           }
         }
       },
-      "ListPermissionGroupsBadRequestResponse": {
+      "ListPermissionGroupsBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7796,7 +7816,7 @@
           }
         }
       },
-      "ListPermissionGroupsConflictResponse": {
+      "ListPermissionGroupsConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -7812,7 +7832,7 @@
           }
         }
       },
-      "ListPermissionGroupsForbiddenResponse": {
+      "ListPermissionGroupsForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7828,7 +7848,7 @@
           }
         }
       },
-      "ListPermissionGroupsInternalServerErrorResponse": {
+      "ListPermissionGroupsInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7844,7 +7864,7 @@
           }
         }
       },
-      "ListPermissionGroupsNotFoundResponse": {
+      "ListPermissionGroupsNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7860,7 +7880,7 @@
           }
         }
       },
-      "ListPermissionGroupsOkResponse": {
+      "ListPermissionGroupsOk": {
         "description": "A list of groups.",
         "content": {
           "application/json": {
@@ -7870,7 +7890,7 @@
           }
         }
       },
-      "ListPermissionGroupsServiceUnavailableResponse": {
+      "ListPermissionGroupsServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -7886,7 +7906,7 @@
           }
         }
       },
-      "ListPermissionGroupsTooManyRequestsResponse": {
+      "ListPermissionGroupsTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -7910,7 +7930,7 @@
           }
         }
       },
-      "ListPermissionGroupsUnauthorizedResponse": {
+      "ListPermissionGroupsUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -7926,7 +7946,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensBadRequestResponse": {
+      "ListPersonalAccessTokensBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -7942,7 +7962,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensForbiddenResponse": {
+      "ListPersonalAccessTokensForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -7958,7 +7978,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensInternalServerErrorResponse": {
+      "ListPersonalAccessTokensInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -7974,7 +7994,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensNotFoundResponse": {
+      "ListPersonalAccessTokensNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -7990,7 +8010,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensOkResponse": {
+      "ListPersonalAccessTokensOk": {
         "description": "A list of personal access tokens in a workspace.",
         "content": {
           "application/json": {
@@ -8000,7 +8020,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensTooManyRequestsResponse": {
+      "ListPersonalAccessTokensTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8024,7 +8044,7 @@
           }
         }
       },
-      "ListPersonalAccessTokensUnauthorizedResponse": {
+      "ListPersonalAccessTokensUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8040,7 +8060,7 @@
           }
         }
       },
-      "ListUsersBadRequestResponse": {
+      "ListUsersBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8056,7 +8076,7 @@
           }
         }
       },
-      "ListUsersConflictResponse": {
+      "ListUsersConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -8072,7 +8092,7 @@
           }
         }
       },
-      "ListUsersForbiddenResponse": {
+      "ListUsersForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8088,7 +8108,7 @@
           }
         }
       },
-      "ListUsersInternalServerErrorResponse": {
+      "ListUsersInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8104,7 +8124,7 @@
           }
         }
       },
-      "ListUsersNotFoundResponse": {
+      "ListUsersNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8120,7 +8140,7 @@
           }
         }
       },
-      "ListUsersOkResponse": {
+      "ListUsersOk": {
         "description": "A list of users.",
         "content": {
           "application/json": {
@@ -8130,7 +8150,7 @@
           }
         }
       },
-      "ListUsersServiceUnavailableResponse": {
+      "ListUsersServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -8146,7 +8166,7 @@
           }
         }
       },
-      "ListUsersTooManyRequestsResponse": {
+      "ListUsersTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8170,7 +8190,7 @@
           }
         }
       },
-      "ListUsersUnauthorizedResponse": {
+      "ListUsersUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8186,7 +8206,7 @@
           }
         }
       },
-      "ReleaseLegalHoldBadRequestResponse": {
+      "ReleaseLegalHoldBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8202,7 +8222,7 @@
           }
         }
       },
-      "ReleaseLegalHoldForbiddenResponse": {
+      "ReleaseLegalHoldForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8218,7 +8238,7 @@
           }
         }
       },
-      "ReleaseLegalHoldInternalServerErrorResponse": {
+      "ReleaseLegalHoldInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8234,7 +8254,7 @@
           }
         }
       },
-      "ReleaseLegalHoldNotFoundResponse": {
+      "ReleaseLegalHoldNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8250,7 +8270,7 @@
           }
         }
       },
-      "ReleaseLegalHoldOkResponse": {
+      "ReleaseLegalHoldOk": {
         "description": "The result of: Release a legal hold.",
         "content": {
           "application/json": {
@@ -8260,7 +8280,7 @@
           }
         }
       },
-      "ReleaseLegalHoldTooManyRequestsResponse": {
+      "ReleaseLegalHoldTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8284,7 +8304,7 @@
           }
         }
       },
-      "ReleaseLegalHoldUnauthorizedResponse": {
+      "ReleaseLegalHoldUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8300,7 +8320,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserBadRequestResponse": {
+      "RemoveLegalHoldUserBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8316,7 +8336,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserForbiddenResponse": {
+      "RemoveLegalHoldUserForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8332,7 +8352,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserInternalServerErrorResponse": {
+      "RemoveLegalHoldUserInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8348,7 +8368,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserNotFoundResponse": {
+      "RemoveLegalHoldUserNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8364,7 +8384,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserOkResponse": {
+      "RemoveLegalHoldUserOk": {
         "description": "The removed user from a legal hold.",
         "content": {
           "application/json": {
@@ -8374,7 +8394,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserTooManyRequestsResponse": {
+      "RemoveLegalHoldUserTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8398,7 +8418,7 @@
           }
         }
       },
-      "RemoveLegalHoldUserUnauthorizedResponse": {
+      "RemoveLegalHoldUserUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8414,7 +8434,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberBadRequestResponse": {
+      "RemovePermissionGroupMemberBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8430,7 +8450,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberConflictResponse": {
+      "RemovePermissionGroupMemberConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -8446,7 +8466,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberForbiddenResponse": {
+      "RemovePermissionGroupMemberForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8462,7 +8482,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberInternalServerErrorResponse": {
+      "RemovePermissionGroupMemberInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8478,7 +8498,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberNotFoundResponse": {
+      "RemovePermissionGroupMemberNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8494,7 +8514,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberOkResponse": {
+      "RemovePermissionGroupMemberOk": {
         "description": "The removed group member.",
         "content": {
           "application/json": {
@@ -8504,7 +8524,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberServiceUnavailableResponse": {
+      "RemovePermissionGroupMemberServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -8520,7 +8540,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberTooManyRequestsResponse": {
+      "RemovePermissionGroupMemberTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8544,7 +8564,7 @@
           }
         }
       },
-      "RemovePermissionGroupMemberUnauthorizedResponse": {
+      "RemovePermissionGroupMemberUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8560,7 +8580,7 @@
           }
         }
       },
-      "RetrievePermissionGroupBadRequestResponse": {
+      "RetrievePermissionGroupBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8576,7 +8596,7 @@
           }
         }
       },
-      "RetrievePermissionGroupConflictResponse": {
+      "RetrievePermissionGroupConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -8592,7 +8612,7 @@
           }
         }
       },
-      "RetrievePermissionGroupForbiddenResponse": {
+      "RetrievePermissionGroupForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8608,7 +8628,7 @@
           }
         }
       },
-      "RetrievePermissionGroupInternalServerErrorResponse": {
+      "RetrievePermissionGroupInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8624,7 +8644,7 @@
           }
         }
       },
-      "RetrievePermissionGroupNotFoundResponse": {
+      "RetrievePermissionGroupNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8640,7 +8660,7 @@
           }
         }
       },
-      "RetrievePermissionGroupOkResponse": {
+      "RetrievePermissionGroupOk": {
         "description": "The group.",
         "content": {
           "application/json": {
@@ -8650,7 +8670,7 @@
           }
         }
       },
-      "RetrievePermissionGroupServiceUnavailableResponse": {
+      "RetrievePermissionGroupServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -8666,7 +8686,7 @@
           }
         }
       },
-      "RetrievePermissionGroupTooManyRequestsResponse": {
+      "RetrievePermissionGroupTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8690,7 +8710,7 @@
           }
         }
       },
-      "RetrievePermissionGroupUnauthorizedResponse": {
+      "RetrievePermissionGroupUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8706,7 +8726,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionBadRequestResponse": {
+      "RevokeMcpClientConnectionBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8722,7 +8742,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionForbiddenResponse": {
+      "RevokeMcpClientConnectionForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8738,7 +8758,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionInternalServerErrorResponse": {
+      "RevokeMcpClientConnectionInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8754,7 +8774,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionNotFoundResponse": {
+      "RevokeMcpClientConnectionNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8770,7 +8790,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionOkResponse": {
+      "RevokeMcpClientConnectionOk": {
         "description": "The revoked MCP client connection.",
         "content": {
           "application/json": {
@@ -8780,7 +8800,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionTooManyRequestsResponse": {
+      "RevokeMcpClientConnectionTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8804,7 +8824,7 @@
           }
         }
       },
-      "RevokeMcpClientConnectionUnauthorizedResponse": {
+      "RevokeMcpClientConnectionUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8820,7 +8840,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenBadRequestResponse": {
+      "RevokePersonalAccessTokenBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8836,7 +8856,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenForbiddenResponse": {
+      "RevokePersonalAccessTokenForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8852,7 +8872,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenInternalServerErrorResponse": {
+      "RevokePersonalAccessTokenInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8868,7 +8888,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenNotFoundResponse": {
+      "RevokePersonalAccessTokenNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8884,7 +8904,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenOkResponse": {
+      "RevokePersonalAccessTokenOk": {
         "description": "The revoked personal access token in a workspace.",
         "content": {
           "application/json": {
@@ -8894,7 +8914,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenTooManyRequestsResponse": {
+      "RevokePersonalAccessTokenTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -8918,7 +8938,7 @@
           }
         }
       },
-      "RevokePersonalAccessTokenUnauthorizedResponse": {
+      "RevokePersonalAccessTokenUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -8934,7 +8954,7 @@
           }
         }
       },
-      "RevokeUserSessionBadRequestResponse": {
+      "RevokeUserSessionBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -8950,7 +8970,7 @@
           }
         }
       },
-      "RevokeUserSessionForbiddenResponse": {
+      "RevokeUserSessionForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -8966,7 +8986,7 @@
           }
         }
       },
-      "RevokeUserSessionInternalServerErrorResponse": {
+      "RevokeUserSessionInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -8982,7 +9002,7 @@
           }
         }
       },
-      "RevokeUserSessionNotFoundResponse": {
+      "RevokeUserSessionNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -8998,7 +9018,7 @@
           }
         }
       },
-      "RevokeUserSessionOkResponse": {
+      "RevokeUserSessionOk": {
         "description": "The revoked managed user's sessions.",
         "content": {
           "application/json": {
@@ -9008,7 +9028,7 @@
           }
         }
       },
-      "RevokeUserSessionTooManyRequestsResponse": {
+      "RevokeUserSessionTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9032,7 +9052,7 @@
           }
         }
       },
-      "RevokeUserSessionUnauthorizedResponse": {
+      "RevokeUserSessionUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9048,7 +9068,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyBadRequestResponse": {
+      "UpdateAgentCreationPolicyBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9064,7 +9084,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyForbiddenResponse": {
+      "UpdateAgentCreationPolicyForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9080,7 +9100,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyInternalServerErrorResponse": {
+      "UpdateAgentCreationPolicyInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9096,7 +9116,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyNotFoundResponse": {
+      "UpdateAgentCreationPolicyNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9112,7 +9132,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyOkResponse": {
+      "UpdateAgentCreationPolicyOk": {
         "description": "The updated setting for who can create agents in a space.",
         "content": {
           "application/json": {
@@ -9122,7 +9142,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyTooManyRequestsResponse": {
+      "UpdateAgentCreationPolicyTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9146,7 +9166,7 @@
           }
         }
       },
-      "UpdateAgentCreationPolicyUnauthorizedResponse": {
+      "UpdateAgentCreationPolicyUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9162,7 +9182,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitBadRequestResponse": {
+      "UpdateAgentCreditLimitBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9178,7 +9198,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitForbiddenResponse": {
+      "UpdateAgentCreditLimitForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9194,7 +9214,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitInternalServerErrorResponse": {
+      "UpdateAgentCreditLimitInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9210,7 +9230,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitNotFoundResponse": {
+      "UpdateAgentCreditLimitNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9226,7 +9246,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitOkResponse": {
+      "UpdateAgentCreditLimitOk": {
         "description": "The updated credit limit for an agent in a space.",
         "content": {
           "application/json": {
@@ -9236,7 +9256,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitTooManyRequestsResponse": {
+      "UpdateAgentCreditLimitTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9260,7 +9280,7 @@
           }
         }
       },
-      "UpdateAgentCreditLimitUnauthorizedResponse": {
+      "UpdateAgentCreditLimitUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9276,7 +9296,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsBadRequestResponse": {
+      "UpdateAgentPermissionsBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9292,7 +9312,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsForbiddenResponse": {
+      "UpdateAgentPermissionsForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9308,7 +9328,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsInternalServerErrorResponse": {
+      "UpdateAgentPermissionsInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9324,7 +9344,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsNotFoundResponse": {
+      "UpdateAgentPermissionsNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9340,7 +9360,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsOkResponse": {
+      "UpdateAgentPermissionsOk": {
         "description": "The updated custom agent's sharing permissions.",
         "content": {
           "application/json": {
@@ -9350,7 +9370,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsTooManyRequestsResponse": {
+      "UpdateAgentPermissionsTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9374,7 +9394,7 @@
           }
         }
       },
-      "UpdateAgentPermissionsUnauthorizedResponse": {
+      "UpdateAgentPermissionsUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9390,7 +9410,7 @@
           }
         }
       },
-      "UpdateAgentStatusBadRequestResponse": {
+      "UpdateAgentStatusBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9406,7 +9426,7 @@
           }
         }
       },
-      "UpdateAgentStatusForbiddenResponse": {
+      "UpdateAgentStatusForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9422,7 +9442,7 @@
           }
         }
       },
-      "UpdateAgentStatusInternalServerErrorResponse": {
+      "UpdateAgentStatusInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9438,7 +9458,7 @@
           }
         }
       },
-      "UpdateAgentStatusNotFoundResponse": {
+      "UpdateAgentStatusNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9454,7 +9474,7 @@
           }
         }
       },
-      "UpdateAgentStatusOkResponse": {
+      "UpdateAgentStatusOk": {
         "description": "The result of: Disable or re-enable an agent in a space.",
         "content": {
           "application/json": {
@@ -9469,7 +9489,7 @@
           }
         }
       },
-      "UpdateAgentStatusTooManyRequestsResponse": {
+      "UpdateAgentStatusTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9493,7 +9513,7 @@
           }
         }
       },
-      "UpdateAgentStatusUnauthorizedResponse": {
+      "UpdateAgentStatusUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9509,7 +9529,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyBadRequestResponse": {
+      "UpdateCreditLimitPolicyBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9525,7 +9545,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyConflictResponse": {
+      "UpdateCreditLimitPolicyConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -9541,7 +9561,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyForbiddenResponse": {
+      "UpdateCreditLimitPolicyForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9557,7 +9577,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyInternalServerErrorResponse": {
+      "UpdateCreditLimitPolicyInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9573,7 +9593,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyNotFoundResponse": {
+      "UpdateCreditLimitPolicyNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9589,7 +9609,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyOkResponse": {
+      "UpdateCreditLimitPolicyOk": {
         "description": "The updated credit limit policy.",
         "content": {
           "application/json": {
@@ -9599,7 +9619,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyServiceUnavailableResponse": {
+      "UpdateCreditLimitPolicyServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -9615,7 +9635,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyTooManyRequestsResponse": {
+      "UpdateCreditLimitPolicyTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9639,7 +9659,7 @@
           }
         }
       },
-      "UpdateCreditLimitPolicyUnauthorizedResponse": {
+      "UpdateCreditLimitPolicyUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9655,7 +9675,7 @@
           }
         }
       },
-      "UpdateLegalHoldBadRequestResponse": {
+      "UpdateLegalHoldBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9671,7 +9691,7 @@
           }
         }
       },
-      "UpdateLegalHoldForbiddenResponse": {
+      "UpdateLegalHoldForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9687,7 +9707,7 @@
           }
         }
       },
-      "UpdateLegalHoldInternalServerErrorResponse": {
+      "UpdateLegalHoldInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9703,7 +9723,7 @@
           }
         }
       },
-      "UpdateLegalHoldNotFoundResponse": {
+      "UpdateLegalHoldNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9719,7 +9739,7 @@
           }
         }
       },
-      "UpdateLegalHoldOkResponse": {
+      "UpdateLegalHoldOk": {
         "description": "The updated legal hold.",
         "content": {
           "application/json": {
@@ -9729,7 +9749,7 @@
           }
         }
       },
-      "UpdateLegalHoldTooManyRequestsResponse": {
+      "UpdateLegalHoldTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9753,7 +9773,7 @@
           }
         }
       },
-      "UpdateLegalHoldUnauthorizedResponse": {
+      "UpdateLegalHoldUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9769,7 +9789,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessBadRequestResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9785,7 +9805,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessForbiddenResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9801,7 +9821,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessInternalServerErrorResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9817,7 +9837,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessNotFoundResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -9833,7 +9853,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessOkResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessOk": {
         "description": "The result of: Deny or restore enterprise-managed MCP client access.",
         "content": {
           "application/json": {
@@ -9843,7 +9863,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessTooManyRequestsResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -9867,7 +9887,7 @@
           }
         }
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccessUnauthorizedResponse": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -9883,7 +9903,7 @@
           }
         }
       },
-      "UpdatePermissionGroupBadRequestResponse": {
+      "UpdatePermissionGroupBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9899,7 +9919,7 @@
           }
         }
       },
-      "UpdatePermissionGroupConflictResponse": {
+      "UpdatePermissionGroupConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -9915,7 +9935,7 @@
           }
         }
       },
-      "UpdatePermissionGroupForbiddenResponse": {
+      "UpdatePermissionGroupForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9931,7 +9951,7 @@
           }
         }
       },
-      "UpdatePermissionGroupInternalServerErrorResponse": {
+      "UpdatePermissionGroupInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -9947,7 +9967,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberBadRequestResponse": {
+      "UpdatePermissionGroupMemberBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -9963,7 +9983,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberConflictResponse": {
+      "UpdatePermissionGroupMemberConflict": {
         "description": "The request conflicts with the current state of the resource.",
         "content": {
           "application/json": {
@@ -9979,7 +9999,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberForbiddenResponse": {
+      "UpdatePermissionGroupMemberForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -9995,7 +10015,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberInternalServerErrorResponse": {
+      "UpdatePermissionGroupMemberInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -10011,7 +10031,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberNotFoundResponse": {
+      "UpdatePermissionGroupMemberNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -10027,7 +10047,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberOkResponse": {
+      "UpdatePermissionGroupMemberOk": {
         "description": "The updated group member.",
         "content": {
           "application/json": {
@@ -10037,7 +10057,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberServiceUnavailableResponse": {
+      "UpdatePermissionGroupMemberServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -10053,7 +10073,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberTooManyRequestsResponse": {
+      "UpdatePermissionGroupMemberTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -10077,7 +10097,7 @@
           }
         }
       },
-      "UpdatePermissionGroupMemberUnauthorizedResponse": {
+      "UpdatePermissionGroupMemberUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -10093,7 +10113,7 @@
           }
         }
       },
-      "UpdatePermissionGroupNotFoundResponse": {
+      "UpdatePermissionGroupNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -10109,7 +10129,7 @@
           }
         }
       },
-      "UpdatePermissionGroupOkResponse": {
+      "UpdatePermissionGroupOk": {
         "description": "The updated group.",
         "content": {
           "application/json": {
@@ -10119,7 +10139,7 @@
           }
         }
       },
-      "UpdatePermissionGroupServiceUnavailableResponse": {
+      "UpdatePermissionGroupServiceUnavailable": {
         "description": "A required service is temporarily unavailable.",
         "content": {
           "application/json": {
@@ -10135,7 +10155,7 @@
           }
         }
       },
-      "UpdatePermissionGroupTooManyRequestsResponse": {
+      "UpdatePermissionGroupTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -10159,7 +10179,7 @@
           }
         }
       },
-      "UpdatePermissionGroupUnauthorizedResponse": {
+      "UpdatePermissionGroupUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -10175,7 +10195,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitBadRequestResponse": {
+      "UpdateWorkspaceCreditLimitBadRequest": {
         "description": "The request body, path parameters, or query parameters are invalid.",
         "content": {
           "application/json": {
@@ -10191,7 +10211,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitForbiddenResponse": {
+      "UpdateWorkspaceCreditLimitForbidden": {
         "description": "The authenticated bot does not have access to the requested resource or scope.",
         "content": {
           "application/json": {
@@ -10207,7 +10227,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitInternalServerErrorResponse": {
+      "UpdateWorkspaceCreditLimitInternalServerError": {
         "description": "An unexpected server error occurred.",
         "content": {
           "application/json": {
@@ -10223,7 +10243,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitNotFoundResponse": {
+      "UpdateWorkspaceCreditLimitNotFound": {
         "description": "The requested resource could not be found.",
         "content": {
           "application/json": {
@@ -10239,7 +10259,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitOkResponse": {
+      "UpdateWorkspaceCreditLimitOk": {
         "description": "The updated default agent credit limit for a workspace.",
         "content": {
           "application/json": {
@@ -10249,7 +10269,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitTooManyRequestsResponse": {
+      "UpdateWorkspaceCreditLimitTooManyRequests": {
         "description": "The request was rate limited.",
         "headers": {
           "retry-after": {
@@ -10273,7 +10293,7 @@
           }
         }
       },
-      "UpdateWorkspaceCreditLimitUnauthorizedResponse": {
+      "UpdateWorkspaceCreditLimitUnauthorized": {
         "description": "The request is missing a valid bearer token.",
         "content": {
           "application/json": {
@@ -10787,7 +10807,7 @@
       }
     },
     "requestBodies": {
-      "add-legal-hold-usersRequestBody": {
+      "AddLegalHoldUsers": {
         "required": true,
         "content": {
           "application/json": {
@@ -10797,7 +10817,7 @@
           }
         }
       },
-      "add-permission-group-memberRequestBody": {
+      "AddPermissionGroupMember": {
         "required": true,
         "content": {
           "application/json": {
@@ -10807,7 +10827,7 @@
           }
         }
       },
-      "create-credit-limit-policyRequestBody": {
+      "CreateCreditLimitPolicy": {
         "required": true,
         "content": {
           "application/json": {
@@ -10817,7 +10837,7 @@
           }
         }
       },
-      "create-legal-holdRequestBody": {
+      "CreateLegalHold": {
         "required": true,
         "content": {
           "application/json": {
@@ -10827,7 +10847,7 @@
           }
         }
       },
-      "create-permission-groupRequestBody": {
+      "CreatePermissionGroup": {
         "required": true,
         "content": {
           "application/json": {
@@ -10837,7 +10857,7 @@
           }
         }
       },
-      "enqueue-space-exportRequestBody": {
+      "EnqueueSpaceExport": {
         "required": true,
         "content": {
           "application/json": {
@@ -10847,7 +10867,7 @@
           }
         }
       },
-      "export-legal-holdRequestBody": {
+      "ExportLegalHold": {
         "required": true,
         "content": {
           "application/json": {
@@ -10857,7 +10877,7 @@
           }
         }
       },
-      "revoke-mcp-client-connectionRequestBody": {
+      "RevokeMcpClientConnection": {
         "required": true,
         "content": {
           "application/json": {
@@ -10867,7 +10887,7 @@
           }
         }
       },
-      "revoke-user-sessionRequestBody": {
+      "RevokeUserSession": {
         "required": true,
         "content": {
           "application/json": {
@@ -10877,7 +10897,7 @@
           }
         }
       },
-      "update-agent-creation-policyRequestBody": {
+      "UpdateAgentCreationPolicy": {
         "required": true,
         "content": {
           "application/json": {
@@ -10887,7 +10907,7 @@
           }
         }
       },
-      "update-agent-credit-limitRequestBody": {
+      "UpdateAgentCreditLimit": {
         "required": true,
         "content": {
           "application/json": {
@@ -10897,7 +10917,7 @@
           }
         }
       },
-      "update-agent-permissionsRequestBody": {
+      "UpdateAgentPermissions": {
         "required": true,
         "content": {
           "application/json": {
@@ -10907,7 +10927,7 @@
           }
         }
       },
-      "update-agent-statusRequestBody": {
+      "UpdateAgentStatus": {
         "required": true,
         "content": {
           "application/json": {
@@ -10920,7 +10940,7 @@
           }
         }
       },
-      "update-credit-limit-policyRequestBody": {
+      "UpdateCreditLimitPolicy": {
         "required": true,
         "content": {
           "application/json": {
@@ -10930,7 +10950,7 @@
           }
         }
       },
-      "update-legal-holdRequestBody": {
+      "UpdateLegalHold": {
         "required": true,
         "content": {
           "application/json": {
@@ -10940,7 +10960,7 @@
           }
         }
       },
-      "update-mcp-client-connection-enterprise-managed-accessRequestBody": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccess": {
         "required": true,
         "content": {
           "application/json": {
@@ -10950,17 +10970,7 @@
           }
         }
       },
-      "update-permission-group-memberRequestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/UpdatePermissionGroupMember"
-            }
-          }
-        }
-      },
-      "update-permission-groupRequestBody": {
+      "UpdatePermissionGroup": {
         "required": true,
         "content": {
           "application/json": {
@@ -10970,7 +10980,17 @@
           }
         }
       },
-      "update-workspace-credit-limitRequestBody": {
+      "UpdatePermissionGroupMember": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdatePermissionGroupMember"
+            }
+          }
+        }
+      },
+      "UpdateWorkspaceCreditLimit": {
         "required": true,
         "content": {
           "application/json": {

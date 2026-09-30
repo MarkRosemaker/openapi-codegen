@@ -114,9 +114,7 @@ type Block struct {
 	TableOfContents *TableOfContents `json:"table_of_contents,omitempty"`
 	// Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column.
 	ColumnList *struct{} `json:"column_list,omitempty"`
-	// Link Preview block objects return the originally pasted url.
-	//
-	// NOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API.
+	// An external file is any URL that isn't hosted by Notion.
 	LinkPreview *ExternalFile `json:"link_preview,omitempty"`
 	SyncedBlock *SyncedBlock  `json:"synced_block,omitempty"`
 	LinkToPage  *LinkToPage   `json:"link_to_page,omitempty"`

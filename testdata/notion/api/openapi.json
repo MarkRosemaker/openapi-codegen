@@ -23,7 +23,7 @@
         "operationId": "GetV1PageByPageID",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetV1PageByPageIDOkResponse"
+            "$ref": "#/components/responses/GetV1PageByPageIDOk"
           }
         }
       }
@@ -44,7 +44,7 @@
         "operationId": "ListV1BlockChildren",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListV1BlockChildrenOkResponse"
+            "$ref": "#/components/responses/ListV1BlockChildrenOk"
           }
         }
       }
@@ -458,7 +458,7 @@
       }
     },
     "responses": {
-      "GetV1PageByPageIDOkResponse": {
+      "GetV1PageByPageIDOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -468,7 +468,7 @@
           }
         }
       },
-      "ListV1BlockChildrenOkResponse": {
+      "ListV1BlockChildrenOk": {
         "description": "OK",
         "content": {
           "application/json": {

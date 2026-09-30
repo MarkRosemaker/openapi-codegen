@@ -20,10 +20,10 @@ type Service interface {
 	GetModule(ctx context.Context, path string, params *GetModuleParams) (*Module, error)
 	GetPackage(ctx context.Context, path string, params *GetPackageParams) (*Package, error)
 	GetPackages(ctx context.Context, path string, params *GetPackagesParams) (*PackagesResponse, error)
-	GetSearch(ctx context.Context, params *GetSearchParams) (*PaginatedResponse, error)
+	GetSearch(ctx context.Context, params *GetSearchParams) (*PaginatedSearchResult, error)
 	GetSymbols(ctx context.Context, path string, params *GetSymbolsParams) (*PackageSymbols, error)
-	GetVersions(ctx context.Context, path string, params *GetVersionsParams) (*PaginatedResponse, error)
-	GetVulns(ctx context.Context, path string, params *GetVulnsParams) (*PaginatedResponse, error)
+	GetVersions(ctx context.Context, path string, params *GetVersionsParams) (*PaginatedModuleVersion, error)
+	GetVulns(ctx context.Context, path string, params *GetVulnsParams) (*PaginatedVulnerability, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].

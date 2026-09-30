@@ -29,20 +29,20 @@ type ListV1StylesSelectorOkStyles []ListV1StylesSelectorOkStylesItem
 
 // ListV1StylesSelectorOkStylesItem defines a model
 type ListV1StylesSelectorOkStylesItem struct {
-	PromptStyle             string   `json:"prompt_style,omitzero"`
-	Name                    string   `json:"name,omitzero"`
-	Description             string   `json:"description,omitzero"`
-	GroupID                 string   `json:"group_id,omitzero"`
-	RequiredModel           struct{} `json:"required_model"`
-	RequiredTab             string   `json:"required_tab,omitzero"`
-	MinWidth                int      `json:"min_width"`
-	MaxWidth                int      `json:"max_width"`
-	MinHeight               int      `json:"min_height"`
-	MaxHeight               int      `json:"max_height"`
-	MaxNumberOfImages       int      `json:"max_number_of_images"`
-	RequireInputImage       struct{} `json:"require_input_image"`
-	SupportsReferenceImages bool     `json:"supports_reference_images"`
-	ExamplePrompt           string   `json:"example_prompt,omitzero"`
+	PromptStyle             string    `json:"prompt_style,omitzero"`
+	Name                    string    `json:"name,omitzero"`
+	Description             string    `json:"description,omitzero"`
+	GroupID                 string    `json:"group_id,omitzero"`
+	RequiredModel           *struct{} `json:"required_model"`
+	RequiredTab             string    `json:"required_tab,omitzero"`
+	MinWidth                int       `json:"min_width"`
+	MaxWidth                int       `json:"max_width"`
+	MinHeight               int       `json:"min_height"`
+	MaxHeight               int       `json:"max_height"`
+	MaxNumberOfImages       int       `json:"max_number_of_images"`
+	RequireInputImage       *struct{} `json:"require_input_image"`
+	SupportsReferenceImages bool      `json:"supports_reference_images"`
+	ExamplePrompt           string    `json:"example_prompt,omitzero"`
 }
 
 // PostV1Inferences defines a model
@@ -65,13 +65,13 @@ type PostV1Inferences struct {
 
 // PostV1InferencesOk defines a model
 type PostV1InferencesOk struct {
-	CreatedAt        int        `json:"created_at"`
-	CreditCost       int        `json:"credit_cost"`
-	BalanceCost      float64    `json:"balance_cost"`
-	OutputImages     []struct{} `json:"output_images"`
-	Base64Images     []struct{} `json:"base64_images"`
-	OutputUrls       []struct{} `json:"output_urls"`
-	Model            string     `json:"model,omitzero"`
-	RemainingCredits int        `json:"remaining_credits"`
-	RemainingBalance float64    `json:"remaining_balance"`
+	CreatedAt        int     `json:"created_at"`
+	CreditCost       int     `json:"credit_cost"`
+	BalanceCost      float64 `json:"balance_cost"`
+	OutputImages     []any   `json:"output_images"`
+	Base64Images     []any   `json:"base64_images"`
+	OutputUrls       []any   `json:"output_urls"`
+	Model            string  `json:"model,omitzero"`
+	RemainingCredits int     `json:"remaining_credits"`
+	RemainingBalance float64 `json:"remaining_balance"`
 }

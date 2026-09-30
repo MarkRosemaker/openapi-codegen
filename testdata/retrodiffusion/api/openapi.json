@@ -23,7 +23,7 @@
         "operationId": "ListV1StylesSelector",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListV1StylesSelectorOkResponse"
+            "$ref": "#/components/responses/ListV1StylesSelectorOk"
           }
         }
       }
@@ -37,11 +37,11 @@
       "post": {
         "operationId": "PostV1Inferences",
         "requestBody": {
-          "$ref": "#/components/requestBodies/PostV1InferencesRequestBody"
+          "$ref": "#/components/requestBodies/PostV1Inferences"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/PostV1InferencesOkResponse"
+            "$ref": "#/components/responses/PostV1InferencesOk"
           }
         }
       }
@@ -283,7 +283,7 @@
       }
     },
     "responses": {
-      "ListV1StylesSelectorOkResponse": {
+      "ListV1StylesSelectorOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -293,7 +293,7 @@
           }
         }
       },
-      "PostV1InferencesOkResponse": {
+      "PostV1InferencesOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -323,7 +323,7 @@
       }
     },
     "requestBodies": {
-      "PostV1InferencesRequestBody": {
+      "PostV1Inferences": {
         "required": true,
         "content": {
           "application/json": {

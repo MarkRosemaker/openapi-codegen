@@ -10,78 +10,26 @@
  * Usage:
  *   import './api.js';        // or <script src="api.js"></script>
  *   const result = await window.API.generateImageV2GenerateImageV2Post();
+ *   const result = await window.API.generateImagePixenCreateImagePixenPost();
  *   const result = await window.API.generateWithStyleV2GenerateWithStyleV2Post();
- *   const result = await window.API.generateUiv2GenerateUiv2Post();
  *   const result = await window.API.generateImagePixfluxCreateImagePixfluxPost();
  *   const result = await window.API.createImagePixfluxBackgroundCreateImagePixfluxBackgroundPost();
- *   const result = await window.API.generateImagePixenCreateImagePixenPost();
  *   const result = await window.API.generateImageBitforgeCreateImageBitforgePost();
  *   const result = await window.API.imageToPixelartImageToPixelartPost();
  *   const result = await window.API.imageToPixelartProImageToPixelartProPost();
- *   const result = await window.API.resizeImageResizePost();
- *   const result = await window.API.removeBackgroundEndpointRemoveBackgroundPost();
- *   const result = await window.API.editAnimationV2EditAnimationV2Post();
- *   const result = await window.API.interpolationV2InterpolationV2Post();
- *   const result = await window.API.transferOutfitV2TransferOutfitV2Post();
- *   const result = await window.API.portraitCharacterProPortraitCharacterProPost();
- *   const result = await window.API.getPortraitCharacterPortraitCharacterProJobIDGet(jobID);
- *   const result = await window.API.setPortraitCharactersCharacterIDPortraitPost(characterID);
- *   const result = await window.API.createVocalAnimationVocalAnimationPost();
- *   const result = await window.API.getVocalAnimationVocalAnimationJobIDGet(jobID);
- *   const result = await window.API.createTalkingGifTalkingGifPost();
- *   const result = await window.API.getLipSyncLipSyncPost();
- *   const result = await window.API.generateFontProGenerateFontProPost();
- *   const result = await window.API.getFontGenerateFontProJobIDGet(jobID);
- *   const result = await window.API.animateWithSkeletonAnimateWithSkeletonPost();
- *   const result = await window.API.animateWithTextAnimateWithTextPost();
- *   const result = await window.API.animateWithTextV2AnimateWithTextV2Post();
- *   const result = await window.API.animateWithTextV3AnimateWithTextV3Post();
- *   const result = await window.API.estimateSkeletonEstimateSkeletonPost();
- *   const result = await window.API.generate8RotationsV2Generate8RotationsV2Post();
- *   const result = await window.API.generate8RotationsV3Generate8RotationsV3Post();
- *   const result = await window.API.generateRotationRotatePost();
- *   const result = await window.API.inpaintV3InpaintV3Post();
- *   const result = await window.API.generateInpaintingInpaintPost();
- *   const result = await window.API.editImagesV2EditImagesV2Post();
- *   const result = await window.API.editImageEditImagePost();
- *   const result = await window.API.listTilesetsTilesetsGet();
- *   const result = await window.API.generateTilesetTilesetsPost();
- *   const result = await window.API.generateTilesetCreateTilesetPost();
- *   const result = await window.API.getTilesetTilesetsTilesetIDGet(tilesetID);
- *   const result = await window.API.deleteTopdownTilesetTilesetsTilesetIDDelete(tilesetID);
- *   const result = await window.API.listSidescrollerTilesetsTilesetsSidescrollerGet();
- *   const result = await window.API.generateTilesetSidescrollerTilesetsSidescrollerPost();
- *   const result = await window.API.generateTilesetSidescrollerCreateTilesetSidescrollerPost();
- *   const result = await window.API.getSidescrollerTilesetTilesetsSidescrollerTilesetIDGet(tilesetID);
- *   const result = await window.API.deleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(tilesetID);
- *   const result = await window.API.generateIsometricTileCreateIsometricTilePost();
- *   const result = await window.API.getIsometricTileIsometricTilesTileIDGet(tileID);
- *   const result = await window.API.deleteIsometricTileIsometricTilesTileIDDelete(tileID);
- *   const result = await window.API.listIsometricTilesIsometricTilesGet();
- *   const result = await window.API.createTilesProCreateTilesProPost();
- *   const result = await window.API.getTilesProTilesProTileIDGet(tileID);
- *   const result = await window.API.deleteTilesProTilesProTileIDDelete(tileID);
- *   const result = await window.API.listTilesProTilesProGet();
- *   const result = await window.API.createMapObjectMapObjectsPost();
- *   const result = await window.API.getMapObjectMapObjectsObjectIDGet(objectID);
- *   const result = await window.API.createUIAssetCreateUIAssetPost();
- *   const result = await window.API.listUIAssetsUIAssetsGet();
- *   const result = await window.API.getUIAssetUIAssetsUIAssetIDGet(uiAssetID);
- *   const result = await window.API.deleteUIAssetUIAssetsUIAssetIDDelete(uiAssetID);
- *   const result = await window.API.getBalanceBalanceGet();
- *   const result = await window.API.createCharacterWith4DirectionsCreateCharacterWith4DirectionsPost();
- *   const result = await window.API.createCharacterWith8DirectionsCreateCharacterWith8DirectionsPost();
- *   const result = await window.API.createCharacterProCreateCharacterProPost();
  *   const result = await window.API.createCharacterV3CreateCharacterV3Post();
+ *   const result = await window.API.createCharacterProCreateCharacterProPost();
  *   const result = await window.API.createCharacterAnimationCharactersAnimationsPost();
  *   const result = await window.API.createCharacterAnimationAnimateCharacterPost();
  *   const result = await window.API.createCharacterStateCreateCharacterStatePost();
+ *   const result = await window.API.createCharacterWith4DirectionsCreateCharacterWith4DirectionsPost();
+ *   const result = await window.API.createCharacterWith8DirectionsCreateCharacterWith8DirectionsPost();
  *   const result = await window.API.listCharactersCharactersGet();
  *   const result = await window.API.getCharacterCharactersCharacterIDGet(characterID);
  *   const result = await window.API.deleteCharacterV2CharactersCharacterIDDelete(characterID);
  *   const result = await window.API.downloadCharacterCharactersCharacterIDZipGet(characterID);
+ *   const result = await window.API.downloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet(characterID);
  *   const result = await window.API.updateCharacterTagsCharactersCharacterIDTagsPatch(characterID);
- *   const result = await window.API.getBackgroundJobStatusBackgroundJobsJobIDGet(jobID);
  *   const result = await window.API.create1DirectionObjectCreate1DirectionObjectPost();
  *   const result = await window.API.create8DirectionObjectCreate8DirectionObjectPost();
  *   const result = await window.API.animateObjectObjectsObjectIDAnimationsPost(objectID);
@@ -93,10 +41,78 @@
  *   const result = await window.API.getObjectObjectsObjectIDGet(objectID);
  *   const result = await window.API.deleteObjectObjectsObjectIDDelete(objectID);
  *   const result = await window.API.updateObjectTagsObjectsObjectIDTagsPatch(objectID);
+ *   const result = await window.API.downloadObjectSpritesheetObjectsObjectIDSpritesheetGet(objectID);
  *   const result = await window.API.deleteCharacterAnimationsCharactersCharacterIDAnimationsDelete(characterID);
+ *   const result = await window.API.animateWithTextV3AnimateWithTextV3Post();
+ *   const result = await window.API.animatePixminimaxAnimatePixminimaxPost();
+ *   const result = await window.API.interpolationV2InterpolationV2Post();
+ *   const result = await window.API.editAnimationV2EditAnimationV2Post();
+ *   const result = await window.API.transferOutfitV2TransferOutfitV2Post();
+ *   const result = await window.API.animateWithTextV2AnimateWithTextV2Post();
+ *   const result = await window.API.animateWithTextAnimateWithTextPost();
+ *   const result = await window.API.estimateSkeletonEstimateSkeletonPost();
+ *   const result = await window.API.animateWithSkeletonV3AnimateWithSkeletonV3Post();
+ *   const result = await window.API.animateWithSkeletonAnimateWithSkeletonPost();
+ *   const result = await window.API.generate8RotationsV3Generate8RotationsV3Post();
+ *   const result = await window.API.generate8RotationsV2Generate8RotationsV2Post();
+ *   const result = await window.API.generateRotationRotatePost();
+ *   const result = await window.API.editImagesV2EditImagesV2Post();
+ *   const result = await window.API.editImagePixenEditImagePixenPost();
+ *   const result = await window.API.editImageEditImagePost();
+ *   const result = await window.API.inpaintV3InpaintV3Post();
+ *   const result = await window.API.generateInpaintingInpaintPost();
+ *   const result = await window.API.listTilesetsTilesetsGet();
+ *   const result = await window.API.generateTilesetTilesetsPost();
+ *   const result = await window.API.generateTilesetCreateTilesetPost();
+ *   const result = await window.API.getTilesetTilesetsTilesetIDGet(tilesetID);
+ *   const result = await window.API.deleteTopdownTilesetTilesetsTilesetIDDelete(tilesetID);
+ *   const result = await window.API.listSidescrollerTilesetsTilesetsSidescrollerGet();
+ *   const result = await window.API.generateTilesetSidescrollerTilesetsSidescrollerPost();
+ *   const result = await window.API.generateTilesetSidescrollerCreateTilesetSidescrollerPost();
+ *   const result = await window.API.getSidescrollerTilesetTilesetsSidescrollerTilesetIDGet(tilesetID);
+ *   const result = await window.API.deleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(tilesetID);
+ *   const result = await window.API.createTilesProCreateTilesProPost();
+ *   const result = await window.API.getTilesProTilesProTileIDGet(tileID);
+ *   const result = await window.API.deleteTilesProTilesProTileIDDelete(tileID);
+ *   const result = await window.API.listTilesProTilesProGet();
+ *   const result = await window.API.generateIsometricTileCreateIsometricTilePost();
+ *   const result = await window.API.getIsometricTileIsometricTilesTileIDGet(tileID);
+ *   const result = await window.API.deleteIsometricTileIsometricTilesTileIDDelete(tileID);
+ *   const result = await window.API.listIsometricTilesIsometricTilesGet();
+ *   const result = await window.API.createMapObjectMapObjectsPost();
+ *   const result = await window.API.getMapObjectMapObjectsObjectIDGet(objectID);
+ *   const result = await window.API.createUIAssetCreateUIAssetPost();
+ *   const result = await window.API.generateUiv2GenerateUiv2Post();
+ *   const result = await window.API.listUIAssetsUIAssetsGet();
+ *   const result = await window.API.getUIAssetUIAssetsUIAssetIDGet(uiAssetID);
+ *   const result = await window.API.deleteUIAssetUIAssetsUIAssetIDDelete(uiAssetID);
+ *   const result = await window.API.portraitCharacterProPortraitCharacterProPost();
+ *   const result = await window.API.getPortraitCharacterPortraitCharacterProJobIDGet(jobID);
+ *   const result = await window.API.setPortraitCharactersCharacterIDPortraitPost(characterID);
+ *   const result = await window.API.createVocalAnimationVocalAnimationPost();
+ *   const result = await window.API.getVocalAnimationVocalAnimationJobIDGet(jobID);
+ *   const result = await window.API.createTalkingGifTalkingGifPost();
+ *   const result = await window.API.getLipSyncLipSyncPost();
+ *   const result = await window.API.generateFontProGenerateFontProPost();
+ *   const result = await window.API.getFontGenerateFontProJobIDGet(jobID);
+ *   const result = await window.API.unzoomEndpointUnzoomPost();
+ *   const result = await window.API.correctPixelartEndpointCorrectPixelartPost();
+ *   const result = await window.API.reduceColorsEndpointReduceColorsPost();
+ *   const result = await window.API.removeBackgroundEndpointRemoveBackgroundPost();
+ *   const result = await window.API.resizeImageResizePost();
  *   const result = await window.API.enhancePixenPromptEnhancePixenPromptPost();
  *   const result = await window.API.enhanceCharacterV3PromptEnhanceCharacterV3PromptPost();
  *   const result = await window.API.enhanceAnimationV3PromptEnhanceAnimationV3PromptPost();
+ *   const result = await window.API.imageToTextEndpointImageToTextPost();
+ *   const result = await window.API.getBackgroundJobStatusBackgroundJobsJobIDGet(jobID);
+ *   const result = await window.API.createImageProFlash();
+ *   const result = await window.API.editImageProFlash();
+ *   const result = await window.API.inpaintImageProFlash();
+ *   const result = await window.API.createCharacterProFlash();
+ *   const result = await window.API.createObjectProFlash();
+ *   const result = await window.API.getProFlashCapabilities();
+ *   const result = await window.API.getProFlashCost();
+ *   const result = await window.API.getBalanceBalanceGet();
  *   const result = await window.API.getLlmsTxtLlmsTxtGet();
  **/
 
@@ -174,19 +190,19 @@ window.API = {
         body: JSON.stringify(body),
         operationId: "GenerateImageV2GenerateImageV2Post",
     }),
+    // POST /create-image-pixen
+    // Create image (pixen)
+    generateImagePixenCreateImagePixenPost: (body) => apiFetch("/create-image-pixen", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateImagePixenCreateImagePixenPost",
+    }),
     // POST /generate-with-style-v2
     // Generate with style (Pro)
     generateWithStyleV2GenerateWithStyleV2Post: (body) => apiFetch("/generate-with-style-v2", {
         method: "POST",
         body: JSON.stringify(body),
         operationId: "GenerateWithStyleV2GenerateWithStyleV2Post",
-    }),
-    // POST /generate-ui-v2
-    // Generate UI (Pro)
-    generateUiv2GenerateUiv2Post: (body) => apiFetch("/generate-ui-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateUiv2GenerateUiv2Post",
     }),
     // POST /create-image-pixflux
     // Create image (pixflux)
@@ -201,13 +217,6 @@ window.API = {
         method: "POST",
         body: JSON.stringify(body),
         operationId: "CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPost",
-    }),
-    // POST /create-image-pixen
-    // Create image (pixen)
-    generateImagePixenCreateImagePixenPost: (body) => apiFetch("/create-image-pixen", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateImagePixenCreateImagePixenPost",
     }),
     // POST /create-image-bitforge
     // Create image (bitforge)
@@ -230,366 +239,12 @@ window.API = {
         body: JSON.stringify(body),
         operationId: "ImageToPixelartProImageToPixelartProPost",
     }),
-    // POST /resize
-    // Resize pixel art image
-    resizeImageResizePost: (body) => apiFetch("/resize", {
+    // POST /create-character-v3
+    // Create character (v3, 8 rotations)
+    createCharacterV3CreateCharacterV3Post: (body) => apiFetch("/create-character-v3", {
         method: "POST",
         body: JSON.stringify(body),
-        operationId: "ResizeImageResizePost",
-    }),
-    // POST /remove-background
-    // Remove background
-    removeBackgroundEndpointRemoveBackgroundPost: (body) => apiFetch("/remove-background", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "RemoveBackgroundEndpointRemoveBackgroundPost",
-    }),
-    // POST /edit-animation-v2
-    // Edit animation (Pro)
-    editAnimationV2EditAnimationV2Post: (body) => apiFetch("/edit-animation-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "EditAnimationV2EditAnimationV2Post",
-    }),
-    // POST /interpolation-v2
-    // Interpolate (Pro)
-    interpolationV2InterpolationV2Post: (body) => apiFetch("/interpolation-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "InterpolationV2InterpolationV2Post",
-    }),
-    // POST /transfer-outfit-v2
-    // Transfer outfit (Pro)
-    transferOutfitV2TransferOutfitV2Post: (body) => apiFetch("/transfer-outfit-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "TransferOutfitV2TransferOutfitV2Post",
-    }),
-    // POST /portrait-character-pro
-    // Portrait ↔ character (Pro)
-    portraitCharacterProPortraitCharacterProPost: (body) => apiFetch("/portrait-character-pro", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "PortraitCharacterProPortraitCharacterProPost",
-    }),
-    // GET /portrait-character-pro/{job_id}
-    // Get portrait ↔ character job status + result
-    getPortraitCharacterPortraitCharacterProJobIDGet: (jobID) => apiFetch(`/portrait-character-pro/${jobID}`, {
-        operationId: "GetPortraitCharacterPortraitCharacterProJobIDGet",
-    }),
-    // POST /characters/{character_id}/portrait
-    // Set a character's portrait
-    setPortraitCharactersCharacterIDPortraitPost: (characterID, body) => apiFetch(`/characters/${characterID}/portrait`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "SetPortraitCharactersCharacterIDPortraitPost",
-    }),
-    // POST /vocal-animation
-    // Generate talking mouth positions for a portrait
-    createVocalAnimationVocalAnimationPost: (body) => apiFetch("/vocal-animation", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateVocalAnimationVocalAnimationPost",
-    }),
-    // GET /vocal-animation/{job_id}
-    // Get mouth-position job status + result
-    getVocalAnimationVocalAnimationJobIDGet: (jobID) => apiFetch(`/vocal-animation/${jobID}`, {
-        operationId: "GetVocalAnimationVocalAnimationJobIDGet",
-    }),
-    // POST /talking-gif
-    // Lip-sync text to a talking GIF (free)
-    createTalkingGifTalkingGifPost: (body) => apiFetch("/talking-gif", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateTalkingGifTalkingGifPost",
-    }),
-    // POST /lip-sync
-    // Get the lip-sync frame plan for text (free)
-    getLipSyncLipSyncPost: (body) => apiFetch("/lip-sync", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GetLipSyncLipSyncPost",
-    }),
-    // POST /generate-font-pro
-    // Generate pixel font (Pro)
-    generateFontProGenerateFontProPost: (body) => apiFetch("/generate-font-pro", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateFontProGenerateFontProPost",
-    }),
-    // GET /generate-font-pro/{job_id}
-    // Get font-pro job status + result
-    getFontGenerateFontProJobIDGet: (jobID) => apiFetch(`/generate-font-pro/${jobID}`, {
-        operationId: "GetFontGenerateFontProJobIDGet",
-    }),
-    // POST /animate-with-skeleton
-    // Animate with skeleton
-    animateWithSkeletonAnimateWithSkeletonPost: (body) => apiFetch("/animate-with-skeleton", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "AnimateWithSkeletonAnimateWithSkeletonPost",
-    }),
-    // POST /animate-with-text
-    // Animate with text
-    animateWithTextAnimateWithTextPost: (body) => apiFetch("/animate-with-text", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "AnimateWithTextAnimateWithTextPost",
-    }),
-    // POST /animate-with-text-v2
-    // Animate with text (pro)
-    animateWithTextV2AnimateWithTextV2Post: (body) => apiFetch("/animate-with-text-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "AnimateWithTextV2AnimateWithTextV2Post",
-    }),
-    // POST /animate-with-text-v3
-    // Animate with text v3
-    animateWithTextV3AnimateWithTextV3Post: (body) => apiFetch("/animate-with-text-v3", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "AnimateWithTextV3AnimateWithTextV3Post",
-    }),
-    // POST /estimate-skeleton
-    // Estimate skeleton
-    estimateSkeletonEstimateSkeletonPost: (body) => apiFetch("/estimate-skeleton", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "EstimateSkeletonEstimateSkeletonPost",
-    }),
-    // POST /generate-8-rotations-v2
-    // Generate 8 rotations (Pro)
-    generate8RotationsV2Generate8RotationsV2Post: (body) => apiFetch("/generate-8-rotations-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "Generate8RotationsV2Generate8RotationsV2Post",
-    }),
-    // POST /generate-8-rotations-v3
-    // Generate 8 rotations v3
-    generate8RotationsV3Generate8RotationsV3Post: (body) => apiFetch("/generate-8-rotations-v3", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "Generate8RotationsV3Generate8RotationsV3Post",
-    }),
-    // POST /rotate
-    // Rotate character or object
-    generateRotationRotatePost: (body) => apiFetch("/rotate", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateRotationRotatePost",
-    }),
-    // POST /inpaint-v3
-    // Inpaint image (Pro)
-    inpaintV3InpaintV3Post: (body) => apiFetch("/inpaint-v3", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "InpaintV3InpaintV3Post",
-    }),
-    // POST /inpaint
-    // Inpaint image
-    generateInpaintingInpaintPost: (body) => apiFetch("/inpaint", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateInpaintingInpaintPost",
-    }),
-    // POST /edit-images-v2
-    // Edit images (Pro)
-    editImagesV2EditImagesV2Post: (body) => apiFetch("/edit-images-v2", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "EditImagesV2EditImagesV2Post",
-    }),
-    // POST /edit-image
-    // Edit image
-    editImageEditImagePost: (body) => apiFetch("/edit-image", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "EditImageEditImagePost",
-    }),
-    // GET /tilesets
-    // List user's tilesets
-    listTilesetsTilesetsGet: (params = {}) => {
-        const q = new URLSearchParams();
-        if (params.limit != null) q.set("limit", String(params.limit));
-        if (params.offset != null) q.set("offset", String(params.offset));
-        return apiFetch(`/tilesets?${q}`, {
-            operationId: "ListTilesetsTilesetsGet",
-        });
-    },
-    // POST /tilesets
-    // Create a tileset asynchronously
-    generateTilesetTilesetsPost: (body) => apiFetch("/tilesets", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateTilesetTilesetsPost",
-    }),
-    // POST /create-tileset
-    // Create top-down tileset (async processing)
-    generateTilesetCreateTilesetPost: (body) => apiFetch("/create-tileset", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateTilesetCreateTilesetPost",
-    }),
-    // GET /tilesets/{tileset_id}
-    // Get generated tileset by ID
-    getTilesetTilesetsTilesetIDGet: (tilesetID) => apiFetch(`/tilesets/${tilesetID}`, {
-        operationId: "GetTilesetTilesetsTilesetIDGet",
-    }),
-    // DELETE /tilesets/{tileset_id}
-    // Delete a top-down tileset
-    deleteTopdownTilesetTilesetsTilesetIDDelete: (tilesetID) => apiFetch(`/tilesets/${tilesetID}`, {
-        method: "DELETE",
-        operationId: "DeleteTopdownTilesetTilesetsTilesetIDDelete",
-    }),
-    // GET /tilesets-sidescroller
-    // List your sidescroller tilesets
-    listSidescrollerTilesetsTilesetsSidescrollerGet: (params = {}) => {
-        const q = new URLSearchParams();
-        if (params.limit != null) q.set("limit", String(params.limit));
-        if (params.offset != null) q.set("offset", String(params.offset));
-        return apiFetch(`/tilesets-sidescroller?${q}`, {
-            operationId: "ListSidescrollerTilesetsTilesetsSidescrollerGet",
-        });
-    },
-    // POST /tilesets-sidescroller
-    // Create a sidescroller tileset asynchronously
-    generateTilesetSidescrollerTilesetsSidescrollerPost: (body) => apiFetch("/tilesets-sidescroller", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateTilesetSidescrollerTilesetsSidescrollerPost",
-    }),
-    // POST /create-tileset-sidescroller
-    // Create sidescroller tileset (async processing)
-    generateTilesetSidescrollerCreateTilesetSidescrollerPost: (body) => apiFetch("/create-tileset-sidescroller", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateTilesetSidescrollerCreateTilesetSidescrollerPost",
-    }),
-    // GET /tilesets-sidescroller/{tileset_id}
-    // Get a sidescroller tileset by ID
-    getSidescrollerTilesetTilesetsSidescrollerTilesetIDGet: (tilesetID) => apiFetch(`/tilesets-sidescroller/${tilesetID}`, {
-        operationId: "GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet",
-    }),
-    // DELETE /tilesets-sidescroller/{tileset_id}
-    // Delete a sidescroller tileset
-    deleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete: (tilesetID) => apiFetch(`/tilesets-sidescroller/${tilesetID}`, {
-        method: "DELETE",
-        operationId: "DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete",
-    }),
-    // POST /create-isometric-tile
-    // Create isometric tile (async processing)
-    generateIsometricTileCreateIsometricTilePost: (body) => apiFetch("/create-isometric-tile", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "GenerateIsometricTileCreateIsometricTilePost",
-    }),
-    // GET /isometric-tiles/{tile_id}
-    // Get generated isometric tile by ID
-    getIsometricTileIsometricTilesTileIDGet: (tileID) => apiFetch(`/isometric-tiles/${tileID}`, {
-        operationId: "GetIsometricTileIsometricTilesTileIDGet",
-    }),
-    // DELETE /isometric-tiles/{tile_id}
-    // Delete an isometric tile
-    deleteIsometricTileIsometricTilesTileIDDelete: (tileID) => apiFetch(`/isometric-tiles/${tileID}`, {
-        method: "DELETE",
-        operationId: "DeleteIsometricTileIsometricTilesTileIDDelete",
-    }),
-    // GET /isometric-tiles
-    // List user's isometric tiles
-    listIsometricTilesIsometricTilesGet: (params = {}) => {
-        const q = new URLSearchParams();
-        if (params.limit != null) q.set("limit", String(params.limit));
-        if (params.offset != null) q.set("offset", String(params.offset));
-        return apiFetch(`/isometric-tiles?${q}`, {
-            operationId: "ListIsometricTilesIsometricTilesGet",
-        });
-    },
-    // POST /create-tiles-pro
-    // Create tiles pro (async processing)
-    createTilesProCreateTilesProPost: (body) => apiFetch("/create-tiles-pro", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateTilesProCreateTilesProPost",
-    }),
-    // GET /tiles-pro/{tile_id}
-    // Get generated tiles pro by ID
-    getTilesProTilesProTileIDGet: (tileID) => apiFetch(`/tiles-pro/${tileID}`, {
-        operationId: "GetTilesProTilesProTileIDGet",
-    }),
-    // DELETE /tiles-pro/{tile_id}
-    // Delete a tiles-pro tile
-    deleteTilesProTilesProTileIDDelete: (tileID) => apiFetch(`/tiles-pro/${tileID}`, {
-        method: "DELETE",
-        operationId: "DeleteTilesProTilesProTileIDDelete",
-    }),
-    // GET /tiles-pro
-    // List your tiles-pro tiles
-    listTilesProTilesProGet: (params = {}) => {
-        const q = new URLSearchParams();
-        if (params.limit != null) q.set("limit", String(params.limit));
-        if (params.offset != null) q.set("offset", String(params.offset));
-        return apiFetch(`/tiles-pro?${q}`, {
-            operationId: "ListTilesProTilesProGet",
-        });
-    },
-    // POST /map-objects
-    // Create map object
-    createMapObjectMapObjectsPost: (body) => apiFetch("/map-objects", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateMapObjectMapObjectsPost",
-    }),
-    // GET /map-objects/{object_id}
-    // Get map object status + metadata
-    getMapObjectMapObjectsObjectIDGet: (objectID) => apiFetch(`/map-objects/${objectID}`, {
-        operationId: "GetMapObjectMapObjectsObjectIDGet",
-    }),
-    // POST /create-ui-asset
-    // Create UI panel (Pro)
-    createUIAssetCreateUIAssetPost: (body) => apiFetch("/create-ui-asset", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateUIAssetCreateUIAssetPost",
-    }),
-    // GET /ui-assets
-    // List UI assets
-    listUIAssetsUIAssetsGet: (params = {}) => {
-        const q = new URLSearchParams();
-        if (params.limit != null) q.set("limit", String(params.limit));
-        if (params.offset != null) q.set("offset", String(params.offset));
-        return apiFetch(`/ui-assets?${q}`, {
-            operationId: "ListUIAssetsUIAssetsGet",
-        });
-    },
-    // GET /ui-assets/{ui_asset_id}
-    // Get UI asset
-    getUIAssetUIAssetsUIAssetIDGet: (uiAssetID) => apiFetch(`/ui-assets/${uiAssetID}`, {
-        operationId: "GetUIAssetUIAssetsUIAssetIDGet",
-    }),
-    // DELETE /ui-assets/{ui_asset_id}
-    // Delete UI asset
-    deleteUIAssetUIAssetsUIAssetIDDelete: (uiAssetID) => apiFetch(`/ui-assets/${uiAssetID}`, {
-        method: "DELETE",
-        operationId: "DeleteUIAssetUIAssetsUIAssetIDDelete",
-    }),
-    // GET /balance
-    // Get balance
-    getBalanceBalanceGet: () => apiFetch("/balance", {
-        operationId: "GetBalanceBalanceGet",
-    }),
-    // POST /create-character-with-4-directions
-    // Create character with 4 directions
-    createCharacterWith4DirectionsCreateCharacterWith4DirectionsPost: (body) => apiFetch("/create-character-with-4-directions", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost",
-    }),
-    // POST /create-character-with-8-directions
-    // Create character with 8 directions
-    createCharacterWith8DirectionsCreateCharacterWith8DirectionsPost: (body) => apiFetch("/create-character-with-8-directions", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost",
+        operationId: "CreateCharacterV3CreateCharacterV3Post",
     }),
     // POST /create-character-pro
     // Create character with Pro mode (8 directions)
@@ -597,13 +252,6 @@ window.API = {
         method: "POST",
         body: JSON.stringify(body),
         operationId: "CreateCharacterProCreateCharacterProPost",
-    }),
-    // POST /create-character-v3
-    // Create character with v3 model (8 rotations)
-    createCharacterV3CreateCharacterV3Post: (body) => apiFetch("/create-character-v3", {
-        method: "POST",
-        body: JSON.stringify(body),
-        operationId: "CreateCharacterV3CreateCharacterV3Post",
     }),
     // POST /characters/animations
     // Create Character Animation
@@ -626,6 +274,20 @@ window.API = {
         body: JSON.stringify(body),
         operationId: "CreateCharacterStateCreateCharacterStatePost",
     }),
+    // POST /create-character-with-4-directions
+    // Create character with 4 directions
+    createCharacterWith4DirectionsCreateCharacterWith4DirectionsPost: (body) => apiFetch("/create-character-with-4-directions", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost",
+    }),
+    // POST /create-character-with-8-directions
+    // Create character with 8 directions
+    createCharacterWith8DirectionsCreateCharacterWith8DirectionsPost: (body) => apiFetch("/create-character-with-8-directions", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost",
+    }),
     // GET /characters
     // List user's characters
     listCharactersCharactersGet: (params = {}) => {
@@ -642,7 +304,7 @@ window.API = {
         operationId: "GetCharacterCharactersCharacterIDGet",
     }),
     // DELETE /characters/{character_id}
-    // Delete a character and all associated data
+    // Delete one character state
     deleteCharacterV2CharactersCharacterIDDelete: (characterID) => apiFetch(`/characters/${characterID}`, {
         method: "DELETE",
         operationId: "DeleteCharacterV2CharactersCharacterIDDelete",
@@ -656,17 +318,17 @@ window.API = {
             operationId: "DownloadCharacterCharactersCharacterIDZipGet",
         });
     },
+    // GET /characters/{character_id}/spritesheet
+    // Export character as spritesheet
+    downloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet: (characterID) => apiFetch(`/characters/${characterID}/spritesheet`, {
+        operationId: "DownloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet",
+    }),
     // PATCH /characters/{character_id}/tags
     // Update character tags
     updateCharacterTagsCharactersCharacterIDTagsPatch: (characterID, body) => apiFetch(`/characters/${characterID}/tags`, {
         method: "PATCH",
         body: JSON.stringify(body),
         operationId: "UpdateCharacterTagsCharactersCharacterIDTagsPatch",
-    }),
-    // GET /background-jobs/{job_id}
-    // Get background job status
-    getBackgroundJobStatusBackgroundJobsJobIDGet: (jobID) => apiFetch(`/background-jobs/${jobID}`, {
-        operationId: "GetBackgroundJobStatusBackgroundJobsJobIDGet",
     }),
     // POST /create-1-direction-object
     // Create a 1-direction object
@@ -749,6 +411,11 @@ window.API = {
         body: JSON.stringify(body),
         operationId: "UpdateObjectTagsObjectsObjectIDTagsPatch",
     }),
+    // GET /objects/{object_id}/spritesheet
+    // Export object as spritesheet
+    downloadObjectSpritesheetObjectsObjectIDSpritesheetGet: (objectID) => apiFetch(`/objects/${objectID}/spritesheet`, {
+        operationId: "DownloadObjectSpritesheetObjectsObjectIDSpritesheetGet",
+    }),
     // DELETE /characters/{character_id}/animations
     // Delete animations from a character
     deleteCharacterAnimationsCharactersCharacterIDAnimationsDelete: (characterID, params = {}) => {
@@ -761,6 +428,397 @@ window.API = {
             operationId: "DeleteCharacterAnimationsCharactersCharacterIDAnimationsDelete",
         });
     },
+    // POST /animate-with-text-v3
+    // Animate with text (v3)
+    animateWithTextV3AnimateWithTextV3Post: (body) => apiFetch("/animate-with-text-v3", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "AnimateWithTextV3AnimateWithTextV3Post",
+    }),
+    // POST /animate-pixminimax
+    // Animate with text (PixMiniMax)
+    animatePixminimaxAnimatePixminimaxPost: (body) => apiFetch("/animate-pixminimax", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "AnimatePixminimaxAnimatePixminimaxPost",
+    }),
+    // POST /interpolation-v2
+    // Interpolate (Pro)
+    interpolationV2InterpolationV2Post: (body) => apiFetch("/interpolation-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "InterpolationV2InterpolationV2Post",
+    }),
+    // POST /edit-animation-v2
+    // Edit animation (Pro)
+    editAnimationV2EditAnimationV2Post: (body) => apiFetch("/edit-animation-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "EditAnimationV2EditAnimationV2Post",
+    }),
+    // POST /transfer-outfit-v2
+    // Transfer outfit (Pro)
+    transferOutfitV2TransferOutfitV2Post: (body) => apiFetch("/transfer-outfit-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "TransferOutfitV2TransferOutfitV2Post",
+    }),
+    // POST /animate-with-text-v2
+    // Animate with text (pro)
+    animateWithTextV2AnimateWithTextV2Post: (body) => apiFetch("/animate-with-text-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "AnimateWithTextV2AnimateWithTextV2Post",
+    }),
+    // POST /animate-with-text
+    // Animate with text
+    animateWithTextAnimateWithTextPost: (body) => apiFetch("/animate-with-text", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "AnimateWithTextAnimateWithTextPost",
+    }),
+    // POST /estimate-skeleton
+    // Estimate skeleton
+    estimateSkeletonEstimateSkeletonPost: (body) => apiFetch("/estimate-skeleton", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "EstimateSkeletonEstimateSkeletonPost",
+    }),
+    // POST /animate-with-skeleton-v3
+    // Animate with skeleton v3
+    animateWithSkeletonV3AnimateWithSkeletonV3Post: (body) => apiFetch("/animate-with-skeleton-v3", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "AnimateWithSkeletonV3AnimateWithSkeletonV3Post",
+    }),
+    // POST /animate-with-skeleton
+    // Animate with skeleton
+    animateWithSkeletonAnimateWithSkeletonPost: (body) => apiFetch("/animate-with-skeleton", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "AnimateWithSkeletonAnimateWithSkeletonPost",
+    }),
+    // POST /generate-8-rotations-v3
+    // Generate 8 rotations (v3)
+    generate8RotationsV3Generate8RotationsV3Post: (body) => apiFetch("/generate-8-rotations-v3", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "Generate8RotationsV3Generate8RotationsV3Post",
+    }),
+    // POST /generate-8-rotations-v2
+    // Generate 8 rotations (Pro)
+    generate8RotationsV2Generate8RotationsV2Post: (body) => apiFetch("/generate-8-rotations-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "Generate8RotationsV2Generate8RotationsV2Post",
+    }),
+    // POST /rotate
+    // Rotate character or object
+    generateRotationRotatePost: (body) => apiFetch("/rotate", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateRotationRotatePost",
+    }),
+    // POST /edit-images-v2
+    // Edit images (Pro)
+    editImagesV2EditImagesV2Post: (body) => apiFetch("/edit-images-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "EditImagesV2EditImagesV2Post",
+    }),
+    // POST /edit-image-pixen
+    // Edit image (pixen)
+    editImagePixenEditImagePixenPost: (body) => apiFetch("/edit-image-pixen", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "EditImagePixenEditImagePixenPost",
+    }),
+    // POST /edit-image
+    // Edit image
+    editImageEditImagePost: (body) => apiFetch("/edit-image", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "EditImageEditImagePost",
+    }),
+    // POST /inpaint-v3
+    // Inpaint image (Pro)
+    inpaintV3InpaintV3Post: (body) => apiFetch("/inpaint-v3", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "InpaintV3InpaintV3Post",
+    }),
+    // POST /inpaint
+    // Inpaint image
+    generateInpaintingInpaintPost: (body) => apiFetch("/inpaint", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateInpaintingInpaintPost",
+    }),
+    // GET /tilesets
+    // List user's tilesets
+    listTilesetsTilesetsGet: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.limit != null) q.set("limit", String(params.limit));
+        if (params.offset != null) q.set("offset", String(params.offset));
+        return apiFetch(`/tilesets?${q}`, {
+            operationId: "ListTilesetsTilesetsGet",
+        });
+    },
+    // POST /tilesets
+    // Create a tileset · alias of /create-tileset
+    generateTilesetTilesetsPost: (body) => apiFetch("/tilesets", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateTilesetTilesetsPost",
+    }),
+    // POST /create-tileset
+    // Create top-down tileset (async processing)
+    generateTilesetCreateTilesetPost: (body) => apiFetch("/create-tileset", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateTilesetCreateTilesetPost",
+    }),
+    // GET /tilesets/{tileset_id}
+    // Get generated tileset by ID
+    getTilesetTilesetsTilesetIDGet: (tilesetID) => apiFetch(`/tilesets/${tilesetID}`, {
+        operationId: "GetTilesetTilesetsTilesetIDGet",
+    }),
+    // DELETE /tilesets/{tileset_id}
+    // Delete a top-down tileset
+    deleteTopdownTilesetTilesetsTilesetIDDelete: (tilesetID) => apiFetch(`/tilesets/${tilesetID}`, {
+        method: "DELETE",
+        operationId: "DeleteTopdownTilesetTilesetsTilesetIDDelete",
+    }),
+    // GET /tilesets-sidescroller
+    // List your sidescroller tilesets
+    listSidescrollerTilesetsTilesetsSidescrollerGet: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.limit != null) q.set("limit", String(params.limit));
+        if (params.offset != null) q.set("offset", String(params.offset));
+        return apiFetch(`/tilesets-sidescroller?${q}`, {
+            operationId: "ListSidescrollerTilesetsTilesetsSidescrollerGet",
+        });
+    },
+    // POST /tilesets-sidescroller
+    // Create a sidescroller tileset · alias of /create-tileset-sidescroller
+    generateTilesetSidescrollerTilesetsSidescrollerPost: (body) => apiFetch("/tilesets-sidescroller", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateTilesetSidescrollerTilesetsSidescrollerPost",
+    }),
+    // POST /create-tileset-sidescroller
+    // Create sidescroller tileset (async processing)
+    generateTilesetSidescrollerCreateTilesetSidescrollerPost: (body) => apiFetch("/create-tileset-sidescroller", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateTilesetSidescrollerCreateTilesetSidescrollerPost",
+    }),
+    // GET /tilesets-sidescroller/{tileset_id}
+    // Get a sidescroller tileset by ID
+    getSidescrollerTilesetTilesetsSidescrollerTilesetIDGet: (tilesetID) => apiFetch(`/tilesets-sidescroller/${tilesetID}`, {
+        operationId: "GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet",
+    }),
+    // DELETE /tilesets-sidescroller/{tileset_id}
+    // Delete a sidescroller tileset
+    deleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete: (tilesetID) => apiFetch(`/tilesets-sidescroller/${tilesetID}`, {
+        method: "DELETE",
+        operationId: "DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete",
+    }),
+    // POST /create-tiles-pro
+    // Create tiles pro (async processing)
+    createTilesProCreateTilesProPost: (body) => apiFetch("/create-tiles-pro", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateTilesProCreateTilesProPost",
+    }),
+    // GET /tiles-pro/{tile_id}
+    // Get generated tiles pro by ID
+    getTilesProTilesProTileIDGet: (tileID) => apiFetch(`/tiles-pro/${tileID}`, {
+        operationId: "GetTilesProTilesProTileIDGet",
+    }),
+    // DELETE /tiles-pro/{tile_id}
+    // Delete a tiles-pro tile
+    deleteTilesProTilesProTileIDDelete: (tileID) => apiFetch(`/tiles-pro/${tileID}`, {
+        method: "DELETE",
+        operationId: "DeleteTilesProTilesProTileIDDelete",
+    }),
+    // GET /tiles-pro
+    // List your tiles-pro tiles
+    listTilesProTilesProGet: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.limit != null) q.set("limit", String(params.limit));
+        if (params.offset != null) q.set("offset", String(params.offset));
+        return apiFetch(`/tiles-pro?${q}`, {
+            operationId: "ListTilesProTilesProGet",
+        });
+    },
+    // POST /create-isometric-tile
+    // Create isometric tile (async processing)
+    generateIsometricTileCreateIsometricTilePost: (body) => apiFetch("/create-isometric-tile", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateIsometricTileCreateIsometricTilePost",
+    }),
+    // GET /isometric-tiles/{tile_id}
+    // Get generated isometric tile by ID
+    getIsometricTileIsometricTilesTileIDGet: (tileID) => apiFetch(`/isometric-tiles/${tileID}`, {
+        operationId: "GetIsometricTileIsometricTilesTileIDGet",
+    }),
+    // DELETE /isometric-tiles/{tile_id}
+    // Delete an isometric tile
+    deleteIsometricTileIsometricTilesTileIDDelete: (tileID) => apiFetch(`/isometric-tiles/${tileID}`, {
+        method: "DELETE",
+        operationId: "DeleteIsometricTileIsometricTilesTileIDDelete",
+    }),
+    // GET /isometric-tiles
+    // List user's isometric tiles
+    listIsometricTilesIsometricTilesGet: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.limit != null) q.set("limit", String(params.limit));
+        if (params.offset != null) q.set("offset", String(params.offset));
+        return apiFetch(`/isometric-tiles?${q}`, {
+            operationId: "ListIsometricTilesIsometricTilesGet",
+        });
+    },
+    // POST /map-objects
+    // Create map object
+    createMapObjectMapObjectsPost: (body) => apiFetch("/map-objects", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateMapObjectMapObjectsPost",
+    }),
+    // GET /map-objects/{object_id}
+    // Get map object status + metadata
+    getMapObjectMapObjectsObjectIDGet: (objectID) => apiFetch(`/map-objects/${objectID}`, {
+        operationId: "GetMapObjectMapObjectsObjectIDGet",
+    }),
+    // POST /create-ui-asset
+    // Create UI panel (Pro)
+    createUIAssetCreateUIAssetPost: (body) => apiFetch("/create-ui-asset", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateUIAssetCreateUIAssetPost",
+    }),
+    // POST /generate-ui-v2
+    // Generate UI (Pro)
+    generateUiv2GenerateUiv2Post: (body) => apiFetch("/generate-ui-v2", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateUIV2GenerateUIV2Post",
+    }),
+    // GET /ui-assets
+    // List UI assets
+    listUIAssetsUIAssetsGet: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.limit != null) q.set("limit", String(params.limit));
+        if (params.offset != null) q.set("offset", String(params.offset));
+        return apiFetch(`/ui-assets?${q}`, {
+            operationId: "ListUIAssetsUIAssetsGet",
+        });
+    },
+    // GET /ui-assets/{ui_asset_id}
+    // Get UI asset
+    getUIAssetUIAssetsUIAssetIDGet: (uiAssetID) => apiFetch(`/ui-assets/${uiAssetID}`, {
+        operationId: "GetUIAssetUIAssetsUIAssetIDGet",
+    }),
+    // DELETE /ui-assets/{ui_asset_id}
+    // Delete UI asset
+    deleteUIAssetUIAssetsUIAssetIDDelete: (uiAssetID) => apiFetch(`/ui-assets/${uiAssetID}`, {
+        method: "DELETE",
+        operationId: "DeleteUIAssetUIAssetsUIAssetIDDelete",
+    }),
+    // POST /portrait-character-pro
+    // Portrait ↔ character (Pro)
+    portraitCharacterProPortraitCharacterProPost: (body) => apiFetch("/portrait-character-pro", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "PortraitCharacterProPortraitCharacterProPost",
+    }),
+    // GET /portrait-character-pro/{job_id}
+    // Get portrait ↔ character job status + result
+    getPortraitCharacterPortraitCharacterProJobIDGet: (jobID) => apiFetch(`/portrait-character-pro/${jobID}`, {
+        operationId: "GetPortraitCharacterPortraitCharacterProJobIDGet",
+    }),
+    // POST /characters/{character_id}/portrait
+    // Set a character's portrait
+    setPortraitCharactersCharacterIDPortraitPost: (characterID, body) => apiFetch(`/characters/${characterID}/portrait`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "SetPortraitCharactersCharacterIDPortraitPost",
+    }),
+    // POST /vocal-animation
+    // Generate talking mouth positions for a portrait
+    createVocalAnimationVocalAnimationPost: (body) => apiFetch("/vocal-animation", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateVocalAnimationVocalAnimationPost",
+    }),
+    // GET /vocal-animation/{job_id}
+    // Get mouth-position job status + result
+    getVocalAnimationVocalAnimationJobIDGet: (jobID) => apiFetch(`/vocal-animation/${jobID}`, {
+        operationId: "GetVocalAnimationVocalAnimationJobIDGet",
+    }),
+    // POST /talking-gif
+    // Lip-sync text to a talking GIF (free)
+    createTalkingGifTalkingGifPost: (body) => apiFetch("/talking-gif", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateTalkingGifTalkingGifPost",
+    }),
+    // POST /lip-sync
+    // Get the lip-sync frame plan for text (free)
+    getLipSyncLipSyncPost: (body) => apiFetch("/lip-sync", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GetLipSyncLipSyncPost",
+    }),
+    // POST /generate-font-pro
+    // Generate pixel font (Pro)
+    generateFontProGenerateFontProPost: (body) => apiFetch("/generate-font-pro", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "GenerateFontProGenerateFontProPost",
+    }),
+    // GET /generate-font-pro/{job_id}
+    // Get font-pro job status + result
+    getFontGenerateFontProJobIDGet: (jobID) => apiFetch(`/generate-font-pro/${jobID}`, {
+        operationId: "GetFontGenerateFontProJobIDGet",
+    }),
+    // POST /unzoom
+    // Unzoom pixel art
+    unzoomEndpointUnzoomPost: (body) => apiFetch("/unzoom", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "UnzoomEndpointUnzoomPost",
+    }),
+    // POST /correct-pixelart
+    // Correct pixel art
+    correctPixelartEndpointCorrectPixelartPost: (body) => apiFetch("/correct-pixelart", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CorrectPixelartEndpointCorrectPixelartPost",
+    }),
+    // POST /reduce-colors
+    // Reduce colors
+    reduceColorsEndpointReduceColorsPost: (body) => apiFetch("/reduce-colors", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "ReduceColorsEndpointReduceColorsPost",
+    }),
+    // POST /remove-background
+    // Remove background
+    removeBackgroundEndpointRemoveBackgroundPost: (body) => apiFetch("/remove-background", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "RemoveBackgroundEndpointRemoveBackgroundPost",
+    }),
+    // POST /resize
+    // Resize pixel art image
+    resizeImageResizePost: (body) => apiFetch("/resize", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "ResizeImageResizePost",
+    }),
     // POST /enhance-pixen-prompt
     // Enhance pixen prompt
     enhancePixenPromptEnhancePixenPromptPost: (body) => apiFetch("/enhance-pixen-prompt", {
@@ -781,6 +839,75 @@ window.API = {
         method: "POST",
         body: JSON.stringify(body),
         operationId: "EnhanceAnimationV3PromptEnhanceAnimationV3PromptPost",
+    }),
+    // POST /image-to-text
+    // Image to text
+    imageToTextEndpointImageToTextPost: (body) => apiFetch("/image-to-text", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "ImageToTextEndpointImageToTextPost",
+    }),
+    // GET /background-jobs/{job_id}
+    // Get background job status
+    getBackgroundJobStatusBackgroundJobsJobIDGet: (jobID) => apiFetch(`/background-jobs/${jobID}`, {
+        operationId: "GetBackgroundJobStatusBackgroundJobsJobIDGet",
+    }),
+    // POST /create-image-pro-flash
+    // Create image (Pro Flash)
+    createImageProFlash: (body) => apiFetch("/create-image-pro-flash", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateImageProFlash",
+    }),
+    // POST /edit-image-pro-flash
+    // Edit image (Pro Flash)
+    editImageProFlash: (body) => apiFetch("/edit-image-pro-flash", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "EditImageProFlash",
+    }),
+    // POST /inpaint-image-pro-flash
+    // Inpaint image (Pro Flash)
+    inpaintImageProFlash: (body) => apiFetch("/inpaint-image-pro-flash", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "InpaintImageProFlash",
+    }),
+    // POST /create-character-pro-flash
+    // Create character (Pro Flash)
+    createCharacterProFlash: (body) => apiFetch("/create-character-pro-flash", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateCharacterProFlash",
+    }),
+    // POST /create-object-pro-flash
+    // Create object (Pro Flash)
+    createObjectProFlash: (body) => apiFetch("/create-object-pro-flash", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateObjectProFlash",
+    }),
+    // GET /pro-flash/capabilities
+    // Get Pro Flash capabilities
+    getProFlashCapabilities: () => apiFetch("/pro-flash/capabilities", {
+        operationId: "GetProFlashCapabilities",
+    }),
+    // GET /pro-flash/cost
+    // Estimate Pro Flash generation cost
+    getProFlashCost: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.operation != null) q.set("operation", String(params.operation));
+        if (params.width != null) q.set("width", String(params.width));
+        if (params.height != null) q.set("height", String(params.height));
+        if (params.nDirections != null) q.set("n_directions", String(params.nDirections));
+        return apiFetch(`/pro-flash/cost?${q}`, {
+            operationId: "GetProFlashCost",
+        });
+    },
+    // GET /balance
+    // Get balance
+    getBalanceBalanceGet: () => apiFetch("/balance", {
+        operationId: "GetBalanceBalanceGet",
     }),
     // GET /llms.txt
     // Get LLM-friendly API documentation

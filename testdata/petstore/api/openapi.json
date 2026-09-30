@@ -15,7 +15,7 @@
         "operationId": "ListV1Pets",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListV1PetsOkResponse"
+            "$ref": "#/components/responses/ListV1PetsOk"
           }
         }
       }
@@ -30,7 +30,7 @@
         "operationId": "GetV1PetByPetID",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetV1PetByPetIDOkResponse"
+            "$ref": "#/components/responses/GetV1PetByPetIDOk"
           }
         }
       }
@@ -188,7 +188,7 @@
       }
     },
     "responses": {
-      "GetV1PetByPetIDOkResponse": {
+      "GetV1PetByPetIDOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -198,7 +198,7 @@
           }
         }
       },
-      "ListV1PetsOkResponse": {
+      "ListV1PetsOk": {
         "description": "OK",
         "content": {
           "application/json": {

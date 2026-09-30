@@ -26,7 +26,7 @@
         "operationId": "ListAPIV3TasksUser",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListApiv3TasksUserOkResponse"
+            "$ref": "#/components/responses/ListApiv3TasksUserOk"
           }
         }
       }
@@ -50,7 +50,7 @@
         "operationId": "GetAPIV3TaskByTaskID",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetApiv3TaskByTaskIDOkResponse"
+            "$ref": "#/components/responses/GetApiv3TaskByTaskIDOk"
           }
         }
       }
@@ -71,7 +71,7 @@
         "operationId": "ListAPIV3User",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListApiv3UserOkResponse"
+            "$ref": "#/components/responses/ListApiv3UserOk"
           }
         }
       }
@@ -95,10 +95,10 @@
         "operationId": "PostAPIV3TaskScoreUp",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/PostApiv3TaskScoreUpOkResponse"
+            "$ref": "#/components/responses/PostApiv3TaskScoreUpOk"
           },
           "404": {
-            "$ref": "#/components/responses/PostApiv3TaskScoreUpNotFoundResponse"
+            "$ref": "#/components/responses/PostApiv3TaskScoreUpNotFound"
           }
         }
       }
@@ -4757,7 +4757,7 @@
       }
     },
     "responses": {
-      "GetApiv3TaskByTaskIDOkResponse": {
+      "GetApiv3TaskByTaskIDOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -4767,7 +4767,7 @@
           }
         }
       },
-      "ListApiv3TasksUserOkResponse": {
+      "ListApiv3TasksUserOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -4777,7 +4777,7 @@
           }
         }
       },
-      "ListApiv3UserOkResponse": {
+      "ListApiv3UserOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -4787,7 +4787,7 @@
           }
         }
       },
-      "PostApiv3TaskScoreUpNotFoundResponse": {
+      "PostApiv3TaskScoreUpNotFound": {
         "description": "Not Found",
         "content": {
           "application/json": {
@@ -4797,7 +4797,7 @@
           }
         }
       },
-      "PostApiv3TaskScoreUpOkResponse": {
+      "PostApiv3TaskScoreUpOk": {
         "description": "OK",
         "content": {
           "application/json": {

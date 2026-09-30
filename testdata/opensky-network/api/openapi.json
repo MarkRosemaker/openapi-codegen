@@ -15,7 +15,7 @@
         "operationId": "ListAPIStatesAll",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListAPIStatesAllOkResponse"
+            "$ref": "#/components/responses/ListAPIStatesAllOk"
           }
         }
       }
@@ -133,7 +133,7 @@
       }
     },
     "responses": {
-      "ListAPIStatesAllOkResponse": {
+      "ListAPIStatesAllOk": {
         "description": "OK",
         "content": {
           "application/json": {

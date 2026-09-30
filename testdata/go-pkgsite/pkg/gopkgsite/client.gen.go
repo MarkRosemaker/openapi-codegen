@@ -385,8 +385,8 @@ func (c *Client) GetPackagesWithResult[R any](ctx context.Context, path string, 
 // Search results. Only results that match the filter query parameter are returned.
 //
 //	GET /search
-func (c *Client) GetSearch(ctx context.Context, params *GetSearchParams) (*PaginatedResponse, error) {
-	return c.GetSearchWithResult[PaginatedResponse](ctx, params)
+func (c *Client) GetSearch(ctx context.Context, params *GetSearchParams) (*PaginatedSearchResult, error) {
+	return c.GetSearchWithResult[PaginatedSearchResult](ctx, params)
 }
 
 // Search results. Only results that match the filter query parameter are returned.
@@ -553,8 +553,8 @@ func (c *Client) GetSymbolsWithResult[R any](ctx context.Context, path string, p
 // Only results that match the filter query parameter are returned.
 //
 //	GET /versions/{path}
-func (c *Client) GetVersions(ctx context.Context, path string, params *GetVersionsParams) (*PaginatedResponse, error) {
-	return c.GetVersionsWithResult[PaginatedResponse](ctx, path, params)
+func (c *Client) GetVersions(ctx context.Context, path string, params *GetVersionsParams) (*PaginatedModuleVersion, error) {
+	return c.GetVersionsWithResult[PaginatedModuleVersion](ctx, path, params)
 }
 
 // Versions of the module at {path}.
@@ -627,8 +627,8 @@ func (c *Client) GetVersionsWithResult[R any](ctx context.Context, path string, 
 // Only results that match the filter query parameter are returned.
 //
 //	GET /vulns/{path}
-func (c *Client) GetVulns(ctx context.Context, path string, params *GetVulnsParams) (*PaginatedResponse, error) {
-	return c.GetVulnsWithResult[PaginatedResponse](ctx, path, params)
+func (c *Client) GetVulns(ctx context.Context, path string, params *GetVulnsParams) (*PaginatedVulnerability, error) {
+	return c.GetVulnsWithResult[PaginatedVulnerability](ctx, path, params)
 }
 
 // Vulnerabilities of the module or package at {path}, from

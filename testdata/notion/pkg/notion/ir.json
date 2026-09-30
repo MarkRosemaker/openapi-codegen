@@ -10,6 +10,7 @@
 	"userAgent": "API",
 	"operations": [
 		{
+			"auth": "bearer",
 			"name": "GetV1PageByPageID",
 			"method": "GET",
 			"pathTemplate": "/pages/{pageId}",
@@ -47,6 +48,7 @@
 			}
 		},
 		{
+			"auth": "bearer",
 			"name": "ListV1BlockChildren",
 			"method": "GET",
 			"pathTemplate": "/blocks/{blockId}/children",
@@ -481,7 +483,7 @@
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"icon\"",
 					"required": true
 				},
@@ -575,7 +577,7 @@
 				{
 					"name": "Href",
 					"jsonName": "href",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"href\"",
 					"required": true
 				}
@@ -643,7 +645,7 @@
 				{
 					"name": "Link",
 					"jsonName": "link",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"link\"",
 					"required": true
 				}
@@ -653,7 +655,8 @@
 	"security": {
 		"bearer": {
 			"name": "API_TOKEN"
-		}
+		},
+		"default": "bearer"
 	},
 	"hasURLFields": true
 }

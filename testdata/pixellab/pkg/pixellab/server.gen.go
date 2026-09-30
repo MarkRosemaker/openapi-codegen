@@ -17,80 +17,28 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	GenerateImageV2GenerateImageV2Post(ctx context.Context, body GenerateImageV2Request) (*AnimateWithText, error)
-	GenerateWithStyleV2GenerateWithStyleV2Post(ctx context.Context, body GenerateWithStyleV2Request) (*AnimateWithText, error)
-	GenerateUiv2GenerateUiv2Post(ctx context.Context, body GenerateUIV2Request) (*AnimateWithText, error)
-	GenerateImagePixfluxCreateImagePixfluxPost(ctx context.Context, body CreateImagePixfluxRequest) (*CreateImageBitforge, error)
-	CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPost(ctx context.Context, body CreateImagePixfluxRequest) (*AnimateWithText, error)
+	GenerateImageV2GenerateImageV2Post(ctx context.Context, body GenerateImageV2Request) (*AnimateWithSkeleton2, error)
 	GenerateImagePixenCreateImagePixenPost(ctx context.Context, body CreateImagePixenRequest) (*CreateImagePixenResponse, error)
+	GenerateWithStyleV2GenerateWithStyleV2Post(ctx context.Context, body GenerateWithStyleV2Request) (*AnimateWithSkeleton2, error)
+	GenerateImagePixfluxCreateImagePixfluxPost(ctx context.Context, body CreateImagePixfluxRequest) (*CreateImageBitforge, error)
+	CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPost(ctx context.Context, body CreateImagePixfluxRequest) (*AnimateWithSkeleton2, error)
 	GenerateImageBitforgeCreateImageBitforgePost(ctx context.Context, body CreateImageBitforgeRequest) (*CreateImageBitforge, error)
 	ImageToPixelartImageToPixelartPost(ctx context.Context, body ImageToPixelartRequest) (*CreateImageBitforge, error)
-	ImageToPixelartProImageToPixelartProPost(ctx context.Context, body ImageToPixelartProRequest) (*AnimateWithText, error)
-	ResizeImageResizePost(ctx context.Context, body ResizeRequest) (*CreateImageBitforge, error)
-	RemoveBackgroundEndpointRemoveBackgroundPost(ctx context.Context, body RemoveBackgroundRequest) (*CreateImageBitforge, error)
-	EditAnimationV2EditAnimationV2Post(ctx context.Context, body EditAnimationV2Request) (*AnimateWithText, error)
-	InterpolationV2InterpolationV2Post(ctx context.Context, body InterpolationV2Request) (*AnimateWithText, error)
-	TransferOutfitV2TransferOutfitV2Post(ctx context.Context, body TransferOutfitV2Request) (*AnimateWithText, error)
-	PortraitCharacterProPortraitCharacterProPost(ctx context.Context, body PortraitCharacterProRequest) (*AnimateWithText, error)
-	GetPortraitCharacterPortraitCharacterProJobIDGet(ctx context.Context, jobID string) (*GetPortraitCharacterResponse, error)
-	SetPortraitCharactersCharacterIDPortraitPost(ctx context.Context, characterID string, body SetPortraitRequest) (*SetPortraitResponse, error)
-	CreateVocalAnimationVocalAnimationPost(ctx context.Context, body VocalAnimationRequest) (*VocalAnimationResponse, error)
-	GetVocalAnimationVocalAnimationJobIDGet(ctx context.Context, jobID string) (*GetVocalAnimationResponse, error)
-	CreateTalkingGifTalkingGifPost(ctx context.Context, body TalkingGifRequest) (*TalkingGifResponse, error)
-	GetLipSyncLipSyncPost(ctx context.Context, body LipSyncRequest) (*LipSyncResponse, error)
-	GenerateFontProGenerateFontProPost(ctx context.Context, body GenerateFontProRequest) (*AnimateWithText, error)
-	GetFontGenerateFontProJobIDGet(ctx context.Context, jobID string) (*GetFontResponse, error)
-	AnimateWithSkeletonAnimateWithSkeletonPost(ctx context.Context, body AnimateWithSkeletonRequest) (*AnimateWithSkeleton, error)
-	AnimateWithTextAnimateWithTextPost(ctx context.Context, body AnimateWithTextRequest) (*AnimateWithSkeleton, error)
-	AnimateWithTextV2AnimateWithTextV2Post(ctx context.Context, body AnimateWithTextV2Request) (*AnimateWithText, error)
-	AnimateWithTextV3AnimateWithTextV3Post(ctx context.Context, body AnimateWithTextV3Request) (*AnimateWithTextV3Response, error)
-	EstimateSkeletonEstimateSkeletonPost(ctx context.Context, body EstimateSkeletonRequest) (*EstimateSkeletonResponse, error)
-	Generate8RotationsV2Generate8RotationsV2Post(ctx context.Context, body Generate8RotationsV2Request) (*AnimateWithText, error)
-	Generate8RotationsV3Generate8RotationsV3Post(ctx context.Context, body Generate8RotationsV3Request) (*AnimateWithText, error)
-	GenerateRotationRotatePost(ctx context.Context, body RotateRequest) (*CreateImageBitforge, error)
-	InpaintV3InpaintV3Post(ctx context.Context, body InpaintV3Request) (*AnimateWithText, error)
-	GenerateInpaintingInpaintPost(ctx context.Context, body InpaintRequest) (*CreateImageBitforge, error)
-	EditImagesV2EditImagesV2Post(ctx context.Context, body EditImagesV2Request) (*AnimateWithText, error)
-	EditImageEditImagePost(ctx context.Context, body EditImageRequest) (*AnimateWithText, error)
-	ListTilesetsTilesetsGet(ctx context.Context, params *ListTilesetsTilesetsGetParams) (*TilesetsListResponse, error)
-	GenerateTilesetTilesetsPost(ctx context.Context, body CreateTilesetRequest) (*CreateTilesetBackgroundResponse, error)
-	GenerateTilesetCreateTilesetPost(ctx context.Context, body CreateTilesetRequest) (*CreateTilesetBackgroundResponse, error)
-	GetTilesetTilesetsTilesetIDGet(ctx context.Context, tilesetID string) (*CreateTilesetResponse, error)
-	DeleteTopdownTilesetTilesetsTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*SidescrollerTileset, error)
-	ListSidescrollerTilesetsTilesetsSidescrollerGet(ctx context.Context, params *ListSidescrollerTilesetsTilesetsSidescrollerGetParams) (*SidescrollerTilesetsListResponse, error)
-	GenerateTilesetSidescrollerTilesetsSidescrollerPost(ctx context.Context, body CreateTilesetSidescrollerRequest) (*CreateTilesetBackgroundResponse, error)
-	GenerateTilesetSidescrollerCreateTilesetSidescrollerPost(ctx context.Context, body CreateTilesetSidescrollerRequest) (*CreateTilesetBackgroundResponse, error)
-	GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet(ctx context.Context, tilesetID string) (*DownloadCharacterCharactersCharacterIDZip, error)
-	DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*SidescrollerTileset, error)
-	GenerateIsometricTileCreateIsometricTilePost(ctx context.Context, body CreateIsometricTileRequest) (*CreateIsometricTileBackground, error)
-	GetIsometricTileIsometricTilesTileIDGet(ctx context.Context, tileID string) (*CreateImageBitforge, error)
-	DeleteIsometricTileIsometricTilesTileIDDelete(ctx context.Context, tileID uuid.UUID) (*IsometricTile, error)
-	ListIsometricTilesIsometricTilesGet(ctx context.Context, params *ListIsometricTilesIsometricTilesGetParams) (*IsometricTilesListResponse, error)
-	CreateTilesProCreateTilesProPost(ctx context.Context, body CreateTilesProRequest) (*CreateIsometricTileBackground, error)
-	GetTilesProTilesProTileIDGet(ctx context.Context, tileID string) (*GetTilesProResponse, error)
-	DeleteTilesProTilesProTileIDDelete(ctx context.Context, tileID uuid.UUID) (*IsometricTile, error)
-	ListTilesProTilesProGet(ctx context.Context, params *ListTilesProTilesProGetParams) (*TilesProListResponse, error)
-	CreateMapObjectMapObjectsPost(ctx context.Context, body CreateMapObjectRequest) (*CreateDirectionObject, error)
-	GetMapObjectMapObjectsObjectIDGet(ctx context.Context, objectID string) (*GetMapObjectResponse, error)
-	CreateUIAssetCreateUIAssetPost(ctx context.Context, body CreateUIAssetRequest) (*CreateUIAssetResponse, error)
-	ListUIAssetsUIAssetsGet(ctx context.Context, params *ListUIAssetsUIAssetsGetParams) (*UIAssetsListResponse, error)
-	GetUIAssetUIAssetsUIAssetIDGet(ctx context.Context, uiAssetID uuid.UUID) (*UIAssetDetail, error)
-	DeleteUIAssetUIAssetsUIAssetIDDelete(ctx context.Context, uiAssetID uuid.UUID) (*DeleteUIAssetResponse, error)
-	GetBalanceBalanceGet(ctx context.Context) (*BalanceResponse, error)
-	CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost(ctx context.Context, body CreateCharacterWith4DirectionsRequest) (*CreateCharacterPro, error)
-	CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost(ctx context.Context, body CreateCharacterWith8DirectionsRequest) (*CreateCharacterPro, error)
+	ImageToPixelartProImageToPixelartProPost(ctx context.Context, body ImageToPixelartProRequest) (*AnimateWithSkeleton2, error)
+	CreateCharacterV3CreateCharacterV3Post(ctx context.Context, body CreateCharacterV3Request) (*AnimatePixminimax, error)
 	CreateCharacterProCreateCharacterProPost(ctx context.Context, body CreateCharacterProRequest) (*CreateCharacterPro, error)
-	CreateCharacterV3CreateCharacterV3Post(ctx context.Context, body CreateCharacterV3Request) (*CreateCharacterV3Response, error)
 	CreateCharacterAnimationCharactersAnimationsPost(ctx context.Context, body CreateCharacterAnimationRequest) (*CreateCharacterAnimationResponse, error)
 	CreateCharacterAnimationAnimateCharacterPost(ctx context.Context, body CreateCharacterAnimationRequest) (*CreateCharacterAnimationResponse, error)
 	CreateCharacterStateCreateCharacterStatePost(ctx context.Context, body CreateCharacterStateRequest) (*CreateCharacterPro, error)
+	CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost(ctx context.Context, body CreateCharacterWithDirections) (*CreateCharacterPro, error)
+	CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost(ctx context.Context, body CreateCharacterWithDirections) (*CreateCharacterPro, error)
 	ListCharactersCharactersGet(ctx context.Context, params *ListCharactersCharactersGetParams) (*CharactersListResponse, error)
 	GetCharacterCharactersCharacterIDGet(ctx context.Context, characterID string) (*CharacterDetail, error)
 	DeleteCharacterV2CharactersCharacterIDDelete(ctx context.Context, characterID string) (*DeleteCharacterResponse, error)
-	DownloadCharacterCharactersCharacterIDZipGet(ctx context.Context, characterID string, params *DownloadCharacterCharactersCharacterIDZipGetParams) (*DownloadCharacterCharactersCharacterIDZip, error)
+	DownloadCharacterCharactersCharacterIDZipGet(ctx context.Context, characterID string, params *DownloadCharacterCharactersCharacterIDZipGetParams) (*any, error)
+	DownloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet(ctx context.Context, characterID string) (*any, error)
 	UpdateCharacterTagsCharactersCharacterIDTagsPatch(ctx context.Context, characterID string, body UpdateObjectTags) (*UpdateObjectTags2, error)
-	GetBackgroundJobStatusBackgroundJobsJobIDGet(ctx context.Context, jobID string) (*BackgroundJobResponse, error)
-	Create1DirectionObjectCreate1DirectionObjectPost(ctx context.Context, body Create1DirectionObjectRequest) (*Create1DirectionObjectResponse, error)
+	Create1DirectionObjectCreate1DirectionObjectPost(ctx context.Context, body Create1DirectionObjectRequest) (*CreateDirectionObject, error)
 	Create8DirectionObjectCreate8DirectionObjectPost(ctx context.Context, body Create8DirectionObjectRequest) (*CreateDirectionObject, error)
 	AnimateObjectObjectsObjectIDAnimationsPost(ctx context.Context, objectID uuid.UUID, body AnimateObjectRequest) (*AnimateObjectResponse, error)
 	DeleteObjectAnimationsObjectsObjectIDAnimationsDelete(ctx context.Context, objectID uuid.UUID, params *DeleteObjectAnimationsObjectsObjectIDAnimationsDeleteParams) (*DeleteAnimationResponse, error)
@@ -101,10 +49,78 @@ type Service interface {
 	GetObjectObjectsObjectIDGet(ctx context.Context, objectID uuid.UUID) (*ObjectDetail, error)
 	DeleteObjectObjectsObjectIDDelete(ctx context.Context, objectID uuid.UUID) (*DeleteObjectResponse, error)
 	UpdateObjectTagsObjectsObjectIDTagsPatch(ctx context.Context, objectID uuid.UUID, body UpdateObjectTags) (*UpdateObjectTags2, error)
+	DownloadObjectSpritesheetObjectsObjectIDSpritesheetGet(ctx context.Context, objectID uuid.UUID) (*any, error)
 	DeleteCharacterAnimationsCharactersCharacterIDAnimationsDelete(ctx context.Context, characterID uuid.UUID, params *DeleteCharacterAnimationsCharactersCharacterIDAnimationsDeleteParams) (*DeleteAnimationResponse, error)
+	AnimateWithTextV3AnimateWithTextV3Post(ctx context.Context, body AnimateWithTextV3Request) (*AnimatePixminimax, error)
+	AnimatePixminimaxAnimatePixminimaxPost(ctx context.Context, body AnimatePixminimaxRequest) (*AnimatePixminimax, error)
+	InterpolationV2InterpolationV2Post(ctx context.Context, body InterpolationV2Request) (*AnimateWithSkeleton2, error)
+	EditAnimationV2EditAnimationV2Post(ctx context.Context, body EditAnimationV2Request) (*AnimateWithSkeleton2, error)
+	TransferOutfitV2TransferOutfitV2Post(ctx context.Context, body TransferOutfitV2Request) (*AnimateWithSkeleton2, error)
+	AnimateWithTextV2AnimateWithTextV2Post(ctx context.Context, body AnimateWithTextV2Request) (*AnimateWithSkeleton2, error)
+	AnimateWithTextAnimateWithTextPost(ctx context.Context, body AnimateWithTextRequest) (*AnimateWithSkeleton, error)
+	EstimateSkeletonEstimateSkeletonPost(ctx context.Context, body EstimateSkeleton) (*EstimateSkeletonResponse, error)
+	AnimateWithSkeletonV3AnimateWithSkeletonV3Post(ctx context.Context, body AnimateWithSkeletonV3Request) (*AnimateWithSkeleton2, error)
+	AnimateWithSkeletonAnimateWithSkeletonPost(ctx context.Context, body AnimateWithSkeletonRequest) (*AnimateWithSkeleton, error)
+	Generate8RotationsV3Generate8RotationsV3Post(ctx context.Context, body Generate8RotationsV3Request) (*AnimateWithSkeleton2, error)
+	Generate8RotationsV2Generate8RotationsV2Post(ctx context.Context, body Generate8RotationsV2Request) (*AnimateWithSkeleton2, error)
+	GenerateRotationRotatePost(ctx context.Context, body RotateRequest) (*CreateImageBitforge, error)
+	EditImagesV2EditImagesV2Post(ctx context.Context, body EditImagesV2Request) (*AnimateWithSkeleton2, error)
+	EditImagePixenEditImagePixenPost(ctx context.Context, body EditImagePixenRequest) (*AnimateWithSkeleton2, error)
+	EditImageEditImagePost(ctx context.Context, body EditImageRequest) (*AnimateWithSkeleton2, error)
+	InpaintV3InpaintV3Post(ctx context.Context, body InpaintV3Request) (*AnimateWithSkeleton2, error)
+	GenerateInpaintingInpaintPost(ctx context.Context, body InpaintRequest) (*CreateImageBitforge, error)
+	ListTilesetsTilesetsGet(ctx context.Context, params *ListTilesetsTilesetsGetParams) (*TilesetsListResponse, error)
+	GenerateTilesetTilesetsPost(ctx context.Context, body CreateTilesetRequest) (*CreateTilesetBackgroundResponse, error)
+	GenerateTilesetCreateTilesetPost(ctx context.Context, body CreateTilesetRequest) (*CreateTilesetBackgroundResponse, error)
+	GetTilesetTilesetsTilesetIDGet(ctx context.Context, tilesetID string) (*CreateTilesetResponse, error)
+	DeleteTopdownTilesetTilesetsTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*SidescrollerTileset, error)
+	ListSidescrollerTilesetsTilesetsSidescrollerGet(ctx context.Context, params *ListSidescrollerTilesetsTilesetsSidescrollerGetParams) (*SidescrollerTilesetsListResponse, error)
+	GenerateTilesetSidescrollerTilesetsSidescrollerPost(ctx context.Context, body CreateTilesetSidescrollerRequest) (*CreateTilesetBackgroundResponse, error)
+	GenerateTilesetSidescrollerCreateTilesetSidescrollerPost(ctx context.Context, body CreateTilesetSidescrollerRequest) (*CreateTilesetBackgroundResponse, error)
+	GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet(ctx context.Context, tilesetID string) (*any, error)
+	DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*SidescrollerTileset, error)
+	CreateTilesProCreateTilesProPost(ctx context.Context, body CreateTilesProRequest) (*CreateIsometricTileBackground, error)
+	GetTilesProTilesProTileIDGet(ctx context.Context, tileID string) (*GetTilesProResponse, error)
+	DeleteTilesProTilesProTileIDDelete(ctx context.Context, tileID uuid.UUID) (*IsometricTile, error)
+	ListTilesProTilesProGet(ctx context.Context, params *ListTilesProTilesProGetParams) (*TilesProListResponse, error)
+	GenerateIsometricTileCreateIsometricTilePost(ctx context.Context, body CreateIsometricTileRequest) (*CreateIsometricTileBackground, error)
+	GetIsometricTileIsometricTilesTileIDGet(ctx context.Context, tileID string) (*CreateImageBitforge, error)
+	DeleteIsometricTileIsometricTilesTileIDDelete(ctx context.Context, tileID uuid.UUID) (*IsometricTile, error)
+	ListIsometricTilesIsometricTilesGet(ctx context.Context, params *ListIsometricTilesIsometricTilesGetParams) (*IsometricTilesListResponse, error)
+	CreateMapObjectMapObjectsPost(ctx context.Context, body CreateMapObjectRequest) (*CreateDirectionObject, error)
+	GetMapObjectMapObjectsObjectIDGet(ctx context.Context, objectID string) (*GetMapObjectResponse, error)
+	CreateUIAssetCreateUIAssetPost(ctx context.Context, body CreateUIAssetRequest) (*CreateUIAssetResponse, error)
+	GenerateUIV2GenerateUIV2Post(ctx context.Context, body GenerateUIV2Request) (*AnimateWithSkeleton2, error)
+	ListUIAssetsUIAssetsGet(ctx context.Context, params *ListUIAssetsUIAssetsGetParams) (*UIAssetsListResponse, error)
+	GetUIAssetUIAssetsUIAssetIDGet(ctx context.Context, uiAssetID uuid.UUID) (*UIAssetDetail, error)
+	DeleteUIAssetUIAssetsUIAssetIDDelete(ctx context.Context, uiAssetID uuid.UUID) (*DeleteUIAssetResponse, error)
+	PortraitCharacterProPortraitCharacterProPost(ctx context.Context, body PortraitCharacterProRequest) (*AnimateWithSkeleton2, error)
+	GetPortraitCharacterPortraitCharacterProJobIDGet(ctx context.Context, jobID string) (*GetPortraitCharacterResponse, error)
+	SetPortraitCharactersCharacterIDPortraitPost(ctx context.Context, characterID string, body EstimateSkeleton) (*SetPortraitResponse, error)
+	CreateVocalAnimationVocalAnimationPost(ctx context.Context, body VocalAnimationRequest) (*VocalAnimationResponse, error)
+	GetVocalAnimationVocalAnimationJobIDGet(ctx context.Context, jobID string) (*GetVocalAnimationResponse, error)
+	CreateTalkingGifTalkingGifPost(ctx context.Context, body TalkingGifRequest) (*TalkingGifResponse, error)
+	GetLipSyncLipSyncPost(ctx context.Context, body LipSyncRequest) (*LipSyncResponse, error)
+	GenerateFontProGenerateFontProPost(ctx context.Context, body GenerateFontProRequest) (*AnimateWithSkeleton2, error)
+	GetFontGenerateFontProJobIDGet(ctx context.Context, jobID string) (*GetFontResponse, error)
+	UnzoomEndpointUnzoomPost(ctx context.Context, body UnzoomRequest) (*UnzoomResponse, error)
+	CorrectPixelartEndpointCorrectPixelartPost(ctx context.Context, body CorrectPixelartRequest) (*AnimateWithSkeleton, error)
+	ReduceColorsEndpointReduceColorsPost(ctx context.Context, body ReduceColorsRequest) (*ReduceColorsResponse, error)
+	RemoveBackgroundEndpointRemoveBackgroundPost(ctx context.Context, body RemoveBackgroundRequest) (*CreateImageBitforge, error)
+	ResizeImageResizePost(ctx context.Context, body ResizeRequest) (*CreateImageBitforge, error)
 	EnhancePixenPromptEnhancePixenPromptPost(ctx context.Context, body EnhancePixenPromptRequest) (*EnhanceAnimationPrompt, error)
 	EnhanceCharacterV3PromptEnhanceCharacterV3PromptPost(ctx context.Context, body EnhanceCharacterV3PromptRequest) (*EnhanceAnimationPrompt, error)
 	EnhanceAnimationV3PromptEnhanceAnimationV3PromptPost(ctx context.Context, body EnhanceAnimationV3PromptRequest) (*EnhanceAnimationPrompt, error)
+	ImageToTextEndpointImageToTextPost(ctx context.Context, body ImageToTextRequest) (*ImageToTextResponse, error)
+	GetBackgroundJobStatusBackgroundJobsJobIDGet(ctx context.Context, jobID string) (*BackgroundJobResponse, error)
+	CreateImageProFlash(ctx context.Context, body CreateImageProFlashRequest) (*ProFlashImageResponse, error)
+	EditImageProFlash(ctx context.Context, body EditImageProFlashRequest) (*ProFlashImageResponse, error)
+	InpaintImageProFlash(ctx context.Context, body InpaintImageProFlashRequest) (*ProFlashImageResponse, error)
+	CreateCharacterProFlash(ctx context.Context, body CreateCharacterProFlashRequest) (*CreateCharacterProFlashResponse, error)
+	CreateObjectProFlash(ctx context.Context, body CreateObjectProFlashRequest) (*CreateObjectProFlashResponse, error)
+	GetProFlashCapabilities(ctx context.Context) (*ProFlashCapabilities, error)
+	GetProFlashCost(ctx context.Context, params GetProFlashCostParams) (*ProFlashCapabilities, error)
+	GetBalanceBalanceGet(ctx context.Context) (*BalanceResponse, error)
 	GetLlmsTxtLlmsTxtGet(ctx context.Context) ([]byte, error)
 }
 
@@ -162,14 +178,14 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	}
 
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-with-style-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateWithStyleV2GenerateWithStyleV2Post"))
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-image-pixen")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateImagePixenCreateImagePixenPost"))
 
 		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var body GenerateWithStyleV2Request
+			var body CreateImagePixenRequest
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
@@ -177,7 +193,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.GenerateWithStyleV2GenerateWithStyleV2Post(ctx, body)
+			res, err := svc.GenerateImagePixenCreateImagePixenPost(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -199,7 +215,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
+			w.WriteHeader(http.StatusOK)
 
 			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
 				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
@@ -212,14 +228,14 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	}
 
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-ui-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateUiv2GenerateUiv2Post"))
+		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-with-style-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateWithStyleV2GenerateWithStyleV2Post"))
 
 		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var body GenerateUIV2Request
+			var body GenerateWithStyleV2Request
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
@@ -227,7 +243,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.GenerateUiv2GenerateUiv2Post(ctx, body)
+			res, err := svc.GenerateWithStyleV2GenerateWithStyleV2Post(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -350,56 +366,6 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-image-pixen")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateImagePixenCreateImagePixenPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateImagePixenRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateImagePixenCreateImagePixenPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
 
 			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
 				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
@@ -562,14 +528,14 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	}
 
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/resize")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "ResizeImageResizePost"))
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-v3")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterV3CreateCharacterV3Post"))
 
 		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var body ResizeRequest
+			var body CreateCharacterV3Request
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
@@ -577,2633 +543,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.ResizeImageResizePost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/remove-background")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "RemoveBackgroundEndpointRemoveBackgroundPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body RemoveBackgroundRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.RemoveBackgroundEndpointRemoveBackgroundPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-animation-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditAnimationV2EditAnimationV2Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body EditAnimationV2Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.EditAnimationV2EditAnimationV2Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/interpolation-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "InterpolationV2InterpolationV2Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body InterpolationV2Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.InterpolationV2InterpolationV2Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/transfer-outfit-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "TransferOutfitV2TransferOutfitV2Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body TransferOutfitV2Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.TransferOutfitV2TransferOutfitV2Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/portrait-character-pro")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "PortraitCharacterProPortraitCharacterProPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body PortraitCharacterProRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.PortraitCharacterProPortraitCharacterProPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/portrait-character-pro/{job_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetPortraitCharacterPortraitCharacterProJobIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			jobID := r.PathValue("job_id")
-
-			res, err := svc.GetPortraitCharacterPortraitCharacterProJobIDGet(ctx, jobID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/characters/{character_id}/portrait")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "SetPortraitCharactersCharacterIDPortraitPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			characterID := r.PathValue("character_id")
-			var body SetPortraitRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.SetPortraitCharactersCharacterIDPortraitPost(ctx, characterID, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/vocal-animation")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateVocalAnimationVocalAnimationPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body VocalAnimationRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateVocalAnimationVocalAnimationPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/vocal-animation/{job_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetVocalAnimationVocalAnimationJobIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			jobID := r.PathValue("job_id")
-
-			res, err := svc.GetVocalAnimationVocalAnimationJobIDGet(ctx, jobID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/talking-gif")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateTalkingGifTalkingGifPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body TalkingGifRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateTalkingGifTalkingGifPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/lip-sync")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GetLipSyncLipSyncPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body LipSyncRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GetLipSyncLipSyncPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-font-pro")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateFontProGenerateFontProPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body GenerateFontProRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateFontProGenerateFontProPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-font-pro/{job_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetFontGenerateFontProJobIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			jobID := r.PathValue("job_id")
-
-			res, err := svc.GetFontGenerateFontProJobIDGet(ctx, jobID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-skeleton")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithSkeletonAnimateWithSkeletonPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body AnimateWithSkeletonRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.AnimateWithSkeletonAnimateWithSkeletonPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-text")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithTextAnimateWithTextPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body AnimateWithTextRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.AnimateWithTextAnimateWithTextPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-text-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithTextV2AnimateWithTextV2Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body AnimateWithTextV2Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.AnimateWithTextV2AnimateWithTextV2Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-text-v3")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithTextV3AnimateWithTextV3Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body AnimateWithTextV3Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.AnimateWithTextV3AnimateWithTextV3Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/estimate-skeleton")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EstimateSkeletonEstimateSkeletonPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body EstimateSkeletonRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.EstimateSkeletonEstimateSkeletonPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-8-rotations-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "Generate8RotationsV2Generate8RotationsV2Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body Generate8RotationsV2Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.Generate8RotationsV2Generate8RotationsV2Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-8-rotations-v3")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "Generate8RotationsV3Generate8RotationsV3Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body Generate8RotationsV3Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.Generate8RotationsV3Generate8RotationsV3Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/rotate")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateRotationRotatePost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body RotateRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateRotationRotatePost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/inpaint-v3")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "InpaintV3InpaintV3Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body InpaintV3Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.InpaintV3InpaintV3Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/inpaint")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateInpaintingInpaintPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body InpaintRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateInpaintingInpaintPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-images-v2")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditImagesV2EditImagesV2Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body EditImagesV2Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.EditImagesV2EditImagesV2Post(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-image")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditImageEditImagePost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body EditImageRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.EditImageEditImagePost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListTilesetsTilesetsGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var params ListTilesetsTilesetsGetParams
-			q := r.URL.Query()
-			if s := q.Get("limit"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid limit: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Limit = rawParam
-			}
-			if s := q.Get("offset"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid offset: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Offset = rawParam
-			}
-
-			res, err := svc.ListTilesetsTilesetsGet(ctx, &params)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetTilesetsPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateTilesetRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateTilesetTilesetsPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-tileset")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetCreateTilesetPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateTilesetRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateTilesetCreateTilesetPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets/{tileset_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetTilesetTilesetsTilesetIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			tilesetID := r.PathValue("tileset_id")
-
-			res, err := svc.GetTilesetTilesetsTilesetIDGet(ctx, tilesetID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets/{tileset_id}")
-		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteTopdownTilesetTilesetsTilesetIDDelete"))
-
-		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("tileset_id")
-			tilesetID, err := uuid.Parse(s)
-			if err != nil {
-				msg := fmt.Sprintf("invalid tileset_id: %v", err)
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.DeleteTopdownTilesetTilesetsTilesetIDDelete(ctx, tilesetID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListSidescrollerTilesetsTilesetsSidescrollerGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var params ListSidescrollerTilesetsTilesetsSidescrollerGetParams
-			q := r.URL.Query()
-			if s := q.Get("limit"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid limit: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Limit = rawParam
-			}
-			if s := q.Get("offset"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid offset: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Offset = rawParam
-			}
-
-			res, err := svc.ListSidescrollerTilesetsTilesetsSidescrollerGet(ctx, &params)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetSidescrollerTilesetsSidescrollerPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateTilesetSidescrollerRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateTilesetSidescrollerTilesetsSidescrollerPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-tileset-sidescroller")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetSidescrollerCreateTilesetSidescrollerPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateTilesetSidescrollerRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateTilesetSidescrollerCreateTilesetSidescrollerPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller/{tileset_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			tilesetID := r.PathValue("tileset_id")
-
-			res, err := svc.GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet(ctx, tilesetID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller/{tileset_id}")
-		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete"))
-
-		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("tileset_id")
-			tilesetID, err := uuid.Parse(s)
-			if err != nil {
-				msg := fmt.Sprintf("invalid tileset_id: %v", err)
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(ctx, tilesetID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-isometric-tile")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateIsometricTileCreateIsometricTilePost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateIsometricTileRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GenerateIsometricTileCreateIsometricTilePost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/isometric-tiles/{tile_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetIsometricTileIsometricTilesTileIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			tileID := r.PathValue("tile_id")
-
-			res, err := svc.GetIsometricTileIsometricTilesTileIDGet(ctx, tileID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/isometric-tiles/{tile_id}")
-		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteIsometricTileIsometricTilesTileIDDelete"))
-
-		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("tile_id")
-			tileID, err := uuid.Parse(s)
-			if err != nil {
-				msg := fmt.Sprintf("invalid tile_id: %v", err)
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.DeleteIsometricTileIsometricTilesTileIDDelete(ctx, tileID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/isometric-tiles")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListIsometricTilesIsometricTilesGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var params ListIsometricTilesIsometricTilesGetParams
-			q := r.URL.Query()
-			if s := q.Get("limit"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid limit: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Limit = rawParam
-			}
-			if s := q.Get("offset"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid offset: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Offset = rawParam
-			}
-
-			res, err := svc.ListIsometricTilesIsometricTilesGet(ctx, &params)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-tiles-pro")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateTilesProCreateTilesProPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateTilesProRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateTilesProCreateTilesProPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tiles-pro/{tile_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetTilesProTilesProTileIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			tileID := r.PathValue("tile_id")
-
-			res, err := svc.GetTilesProTilesProTileIDGet(ctx, tileID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tiles-pro/{tile_id}")
-		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteTilesProTilesProTileIDDelete"))
-
-		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("tile_id")
-			tileID, err := uuid.Parse(s)
-			if err != nil {
-				msg := fmt.Sprintf("invalid tile_id: %v", err)
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.DeleteTilesProTilesProTileIDDelete(ctx, tileID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/tiles-pro")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListTilesProTilesProGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var params ListTilesProTilesProGetParams
-			q := r.URL.Query()
-			if s := q.Get("limit"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid limit: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Limit = rawParam
-			}
-			if s := q.Get("offset"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid offset: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Offset = rawParam
-			}
-
-			res, err := svc.ListTilesProTilesProGet(ctx, &params)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/map-objects")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateMapObjectMapObjectsPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateMapObjectRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateMapObjectMapObjectsPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/map-objects/{object_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetMapObjectMapObjectsObjectIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			objectID := r.PathValue("object_id")
-
-			res, err := svc.GetMapObjectMapObjectsObjectIDGet(ctx, objectID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-ui-asset")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateUIAssetCreateUIAssetPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateUIAssetRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateUIAssetCreateUIAssetPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusAccepted)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/ui-assets")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListUIAssetsUIAssetsGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var params ListUIAssetsUIAssetsGetParams
-			q := r.URL.Query()
-			if s := q.Get("limit"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid limit: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Limit = rawParam
-			}
-			if s := q.Get("offset"); s != "" {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid offset: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Offset = rawParam
-			}
-
-			res, err := svc.ListUIAssetsUIAssetsGet(ctx, &params)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/ui-assets/{ui_asset_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetUIAssetUIAssetsUIAssetIDGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("ui_asset_id")
-			uiAssetID, err := uuid.Parse(s)
-			if err != nil {
-				msg := fmt.Sprintf("invalid ui_asset_id: %v", err)
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.GetUIAssetUIAssetsUIAssetIDGet(ctx, uiAssetID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/ui-assets/{ui_asset_id}")
-		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteUIAssetUIAssetsUIAssetIDDelete"))
-
-		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			s := r.PathValue("ui_asset_id")
-			uiAssetID, err := uuid.Parse(s)
-			if err != nil {
-				msg := fmt.Sprintf("invalid ui_asset_id: %v", err)
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.DeleteUIAssetUIAssetsUIAssetIDDelete(ctx, uiAssetID)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/balance")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetBalanceBalanceGet"))
-
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			res, err := svc.GetBalanceBalanceGet(ctx)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-with-4-directions")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateCharacterWith4DirectionsRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-with-8-directions")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateCharacterWith8DirectionsRequest
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost(ctx, body)
+			res, err := svc.CreateCharacterV3CreateCharacterV3Post(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -3254,56 +594,6 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			res, err := svc.CreateCharacterProCreateCharacterProPost(ctx, body)
-			if err != nil {
-				sErr, ok := errors.AsType[*server.Error](err)
-				if !ok {
-					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-					return
-				}
-
-				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
-
-				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(sErr.Code)
-
-				if err := json.MarshalWrite(w, err); err != nil {
-					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				}
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-				return
-			}
-
-			l.DebugContext(ctx, "success")
-		})
-	}
-
-	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-v3")
-		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterV3CreateCharacterV3Post"))
-
-		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
-			ctx := r.Context()
-			l.DebugContext(ctx, "called")
-
-			var body CreateCharacterV3Request
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
-
-			res, err := svc.CreateCharacterV3CreateCharacterV3Post(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -3454,6 +744,106 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			res, err := svc.CreateCharacterStateCreateCharacterStatePost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-with-4-directions")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateCharacterWithDirections
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-with-8-directions")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateCharacterWithDirections
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -3691,23 +1081,16 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	}
 
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/characters/{character_id}/tags")
-		l := slog.Default().With(slog.String("method", "PATCH"), slog.String("path", path), slog.String("function", "UpdateCharacterTagsCharactersCharacterIDTagsPatch"))
+		path := fmt.Sprintf("%s%s", pathPrefix, "/characters/{character_id}/spritesheet")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "DownloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet"))
 
-		mux.HandleFunc(fmt.Sprintf("PATCH %s", path), func(w http.ResponseWriter, r *http.Request) {
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
 			characterID := r.PathValue("character_id")
-			var body UpdateObjectTags
-			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
-				msg := err.Error()
-				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-				http.Error(w, msg, http.StatusBadRequest)
-				return
-			}
 
-			res, err := svc.UpdateCharacterTagsCharactersCharacterIDTagsPatch(ctx, characterID, body)
+			res, err := svc.DownloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet(ctx, characterID)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -3742,16 +1125,23 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	}
 
 	{
-		path := fmt.Sprintf("%s%s", pathPrefix, "/background-jobs/{job_id}")
-		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetBackgroundJobStatusBackgroundJobsJobIDGet"))
+		path := fmt.Sprintf("%s%s", pathPrefix, "/characters/{character_id}/tags")
+		l := slog.Default().With(slog.String("method", "PATCH"), slog.String("path", path), slog.String("function", "UpdateCharacterTagsCharactersCharacterIDTagsPatch"))
 
-		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+		mux.HandleFunc(fmt.Sprintf("PATCH %s", path), func(w http.ResponseWriter, r *http.Request) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			jobID := r.PathValue("job_id")
+			characterID := r.PathValue("character_id")
+			var body UpdateObjectTags
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
 
-			res, err := svc.GetBackgroundJobStatusBackgroundJobsJobIDGet(ctx, jobID)
+			res, err := svc.UpdateCharacterTagsCharactersCharacterIDTagsPatch(ctx, characterID, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -4406,6 +1796,57 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 	}
 
 	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/objects/{object_id}/spritesheet")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "DownloadObjectSpritesheetObjectsObjectIDSpritesheetGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("object_id")
+			objectID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid object_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.DownloadObjectSpritesheetObjectsObjectIDSpritesheetGet(ctx, objectID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
 		path := fmt.Sprintf("%s%s", pathPrefix, "/characters/{character_id}/animations")
 		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteCharacterAnimationsCharactersCharacterIDAnimationsDelete"))
 
@@ -4442,6 +1883,2890 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			res, err := svc.DeleteCharacterAnimationsCharactersCharacterIDAnimationsDelete(ctx, characterID, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-text-v3")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithTextV3AnimateWithTextV3Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body AnimateWithTextV3Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.AnimateWithTextV3AnimateWithTextV3Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-pixminimax")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimatePixminimaxAnimatePixminimaxPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body AnimatePixminimaxRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.AnimatePixminimaxAnimatePixminimaxPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/interpolation-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "InterpolationV2InterpolationV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body InterpolationV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.InterpolationV2InterpolationV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-animation-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditAnimationV2EditAnimationV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body EditAnimationV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.EditAnimationV2EditAnimationV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/transfer-outfit-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "TransferOutfitV2TransferOutfitV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body TransferOutfitV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.TransferOutfitV2TransferOutfitV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-text-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithTextV2AnimateWithTextV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body AnimateWithTextV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.AnimateWithTextV2AnimateWithTextV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-text")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithTextAnimateWithTextPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body AnimateWithTextRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.AnimateWithTextAnimateWithTextPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/estimate-skeleton")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EstimateSkeletonEstimateSkeletonPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body EstimateSkeleton
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.EstimateSkeletonEstimateSkeletonPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-skeleton-v3")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithSkeletonV3AnimateWithSkeletonV3Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body AnimateWithSkeletonV3Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.AnimateWithSkeletonV3AnimateWithSkeletonV3Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/animate-with-skeleton")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "AnimateWithSkeletonAnimateWithSkeletonPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body AnimateWithSkeletonRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.AnimateWithSkeletonAnimateWithSkeletonPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-8-rotations-v3")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "Generate8RotationsV3Generate8RotationsV3Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body Generate8RotationsV3Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.Generate8RotationsV3Generate8RotationsV3Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-8-rotations-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "Generate8RotationsV2Generate8RotationsV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body Generate8RotationsV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.Generate8RotationsV2Generate8RotationsV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/rotate")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateRotationRotatePost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body RotateRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateRotationRotatePost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-images-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditImagesV2EditImagesV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body EditImagesV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.EditImagesV2EditImagesV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-image-pixen")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditImagePixenEditImagePixenPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body EditImagePixenRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.EditImagePixenEditImagePixenPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-image")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditImageEditImagePost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body EditImageRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.EditImageEditImagePost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/inpaint-v3")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "InpaintV3InpaintV3Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body InpaintV3Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.InpaintV3InpaintV3Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/inpaint")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateInpaintingInpaintPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body InpaintRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateInpaintingInpaintPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListTilesetsTilesetsGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var params ListTilesetsTilesetsGetParams
+			q := r.URL.Query()
+			if s := q.Get("limit"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid limit: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Limit = rawParam
+			}
+			if s := q.Get("offset"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid offset: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Offset = rawParam
+			}
+
+			res, err := svc.ListTilesetsTilesetsGet(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetTilesetsPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateTilesetRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateTilesetTilesetsPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-tileset")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetCreateTilesetPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateTilesetRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateTilesetCreateTilesetPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets/{tileset_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetTilesetTilesetsTilesetIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			tilesetID := r.PathValue("tileset_id")
+
+			res, err := svc.GetTilesetTilesetsTilesetIDGet(ctx, tilesetID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets/{tileset_id}")
+		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteTopdownTilesetTilesetsTilesetIDDelete"))
+
+		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("tileset_id")
+			tilesetID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid tileset_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.DeleteTopdownTilesetTilesetsTilesetIDDelete(ctx, tilesetID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListSidescrollerTilesetsTilesetsSidescrollerGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var params ListSidescrollerTilesetsTilesetsSidescrollerGetParams
+			q := r.URL.Query()
+			if s := q.Get("limit"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid limit: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Limit = rawParam
+			}
+			if s := q.Get("offset"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid offset: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Offset = rawParam
+			}
+
+			res, err := svc.ListSidescrollerTilesetsTilesetsSidescrollerGet(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetSidescrollerTilesetsSidescrollerPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateTilesetSidescrollerRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateTilesetSidescrollerTilesetsSidescrollerPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-tileset-sidescroller")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateTilesetSidescrollerCreateTilesetSidescrollerPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateTilesetSidescrollerRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateTilesetSidescrollerCreateTilesetSidescrollerPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller/{tileset_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			tilesetID := r.PathValue("tileset_id")
+
+			res, err := svc.GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGet(ctx, tilesetID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tilesets-sidescroller/{tileset_id}")
+		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete"))
+
+		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("tileset_id")
+			tilesetID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid tileset_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(ctx, tilesetID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-tiles-pro")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateTilesProCreateTilesProPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateTilesProRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateTilesProCreateTilesProPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tiles-pro/{tile_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetTilesProTilesProTileIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			tileID := r.PathValue("tile_id")
+
+			res, err := svc.GetTilesProTilesProTileIDGet(ctx, tileID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tiles-pro/{tile_id}")
+		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteTilesProTilesProTileIDDelete"))
+
+		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("tile_id")
+			tileID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid tile_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.DeleteTilesProTilesProTileIDDelete(ctx, tileID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/tiles-pro")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListTilesProTilesProGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var params ListTilesProTilesProGetParams
+			q := r.URL.Query()
+			if s := q.Get("limit"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid limit: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Limit = rawParam
+			}
+			if s := q.Get("offset"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid offset: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Offset = rawParam
+			}
+
+			res, err := svc.ListTilesProTilesProGet(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-isometric-tile")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateIsometricTileCreateIsometricTilePost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateIsometricTileRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateIsometricTileCreateIsometricTilePost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/isometric-tiles/{tile_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetIsometricTileIsometricTilesTileIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			tileID := r.PathValue("tile_id")
+
+			res, err := svc.GetIsometricTileIsometricTilesTileIDGet(ctx, tileID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/isometric-tiles/{tile_id}")
+		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteIsometricTileIsometricTilesTileIDDelete"))
+
+		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("tile_id")
+			tileID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid tile_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.DeleteIsometricTileIsometricTilesTileIDDelete(ctx, tileID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/isometric-tiles")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListIsometricTilesIsometricTilesGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var params ListIsometricTilesIsometricTilesGetParams
+			q := r.URL.Query()
+			if s := q.Get("limit"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid limit: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Limit = rawParam
+			}
+			if s := q.Get("offset"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid offset: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Offset = rawParam
+			}
+
+			res, err := svc.ListIsometricTilesIsometricTilesGet(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/map-objects")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateMapObjectMapObjectsPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateMapObjectRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateMapObjectMapObjectsPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/map-objects/{object_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetMapObjectMapObjectsObjectIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			objectID := r.PathValue("object_id")
+
+			res, err := svc.GetMapObjectMapObjectsObjectIDGet(ctx, objectID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-ui-asset")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateUIAssetCreateUIAssetPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateUIAssetRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateUIAssetCreateUIAssetPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-ui-v2")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateUIV2GenerateUIV2Post"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body GenerateUIV2Request
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateUIV2GenerateUIV2Post(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/ui-assets")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListUIAssetsUIAssetsGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var params ListUIAssetsUIAssetsGetParams
+			q := r.URL.Query()
+			if s := q.Get("limit"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid limit: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Limit = rawParam
+			}
+			if s := q.Get("offset"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid offset: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Offset = rawParam
+			}
+
+			res, err := svc.ListUIAssetsUIAssetsGet(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/ui-assets/{ui_asset_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetUIAssetUIAssetsUIAssetIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("ui_asset_id")
+			uiAssetID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid ui_asset_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GetUIAssetUIAssetsUIAssetIDGet(ctx, uiAssetID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/ui-assets/{ui_asset_id}")
+		l := slog.Default().With(slog.String("method", "DELETE"), slog.String("path", path), slog.String("function", "DeleteUIAssetUIAssetsUIAssetIDDelete"))
+
+		mux.HandleFunc(fmt.Sprintf("DELETE %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			s := r.PathValue("ui_asset_id")
+			uiAssetID, err := uuid.Parse(s)
+			if err != nil {
+				msg := fmt.Sprintf("invalid ui_asset_id: %v", err)
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.DeleteUIAssetUIAssetsUIAssetIDDelete(ctx, uiAssetID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/portrait-character-pro")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "PortraitCharacterProPortraitCharacterProPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body PortraitCharacterProRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.PortraitCharacterProPortraitCharacterProPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/portrait-character-pro/{job_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetPortraitCharacterPortraitCharacterProJobIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			jobID := r.PathValue("job_id")
+
+			res, err := svc.GetPortraitCharacterPortraitCharacterProJobIDGet(ctx, jobID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/characters/{character_id}/portrait")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "SetPortraitCharactersCharacterIDPortraitPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			characterID := r.PathValue("character_id")
+			var body EstimateSkeleton
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.SetPortraitCharactersCharacterIDPortraitPost(ctx, characterID, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/vocal-animation")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateVocalAnimationVocalAnimationPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body VocalAnimationRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateVocalAnimationVocalAnimationPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/vocal-animation/{job_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetVocalAnimationVocalAnimationJobIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			jobID := r.PathValue("job_id")
+
+			res, err := svc.GetVocalAnimationVocalAnimationJobIDGet(ctx, jobID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/talking-gif")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateTalkingGifTalkingGifPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body TalkingGifRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateTalkingGifTalkingGifPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/lip-sync")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GetLipSyncLipSyncPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body LipSyncRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GetLipSyncLipSyncPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-font-pro")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "GenerateFontProGenerateFontProPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body GenerateFontProRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GenerateFontProGenerateFontProPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/generate-font-pro/{job_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetFontGenerateFontProJobIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			jobID := r.PathValue("job_id")
+
+			res, err := svc.GetFontGenerateFontProJobIDGet(ctx, jobID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/unzoom")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "UnzoomEndpointUnzoomPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body UnzoomRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.UnzoomEndpointUnzoomPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/correct-pixelart")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CorrectPixelartEndpointCorrectPixelartPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CorrectPixelartRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CorrectPixelartEndpointCorrectPixelartPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/reduce-colors")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "ReduceColorsEndpointReduceColorsPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body ReduceColorsRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.ReduceColorsEndpointReduceColorsPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/remove-background")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "RemoveBackgroundEndpointRemoveBackgroundPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body RemoveBackgroundRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.RemoveBackgroundEndpointRemoveBackgroundPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/resize")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "ResizeImageResizePost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body ResizeRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.ResizeImageResizePost(ctx, body)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -4592,6 +4917,512 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			res, err := svc.EnhanceAnimationV3PromptEnhanceAnimationV3PromptPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/image-to-text")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "ImageToTextEndpointImageToTextPost"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body ImageToTextRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.ImageToTextEndpointImageToTextPost(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/background-jobs/{job_id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetBackgroundJobStatusBackgroundJobsJobIDGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			jobID := r.PathValue("job_id")
+
+			res, err := svc.GetBackgroundJobStatusBackgroundJobsJobIDGet(ctx, jobID)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-image-pro-flash")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateImageProFlash"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateImageProFlashRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateImageProFlash(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/edit-image-pro-flash")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "EditImageProFlash"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body EditImageProFlashRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.EditImageProFlash(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/inpaint-image-pro-flash")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "InpaintImageProFlash"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body InpaintImageProFlashRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.InpaintImageProFlash(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-character-pro-flash")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateCharacterProFlash"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateCharacterProFlashRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateCharacterProFlash(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/create-object-pro-flash")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateObjectProFlash"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateObjectProFlashRequest
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateObjectProFlash(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/pro-flash/capabilities")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetProFlashCapabilities"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			res, err := svc.GetProFlashCapabilities(ctx)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/pro-flash/cost")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetProFlashCost"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var params GetProFlashCostParams
+			q := r.URL.Query()
+			if s := q.Get("operation"); s != "" {
+				params.Operation = Operation(s)
+			}
+			if s := q.Get("width"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid width: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Width = rawParam
+			}
+			if s := q.Get("height"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid height: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.Height = rawParam
+			}
+			if s := q.Get("n_directions"); s != "" {
+				rawParam, err := strconv.Atoi(s)
+				if err != nil {
+					msg := fmt.Sprintf("invalid n_directions: %v", err)
+					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+					http.Error(w, msg, http.StatusBadRequest)
+					return
+				}
+				params.NDirections = rawParam
+			}
+
+			res, err := svc.GetProFlashCost(ctx, params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/balance")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetBalanceBalanceGet"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			res, err := svc.GetBalanceBalanceGet(ctx)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

@@ -375,7 +375,7 @@
 				{
 					"name": "AllocatedShareBasedCompensationExpense",
 					"jsonName": "AllocatedShareBasedCompensationExpense",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"AllocatedShareBasedCompensationExpense\"",
 					"required": true
 				},
@@ -452,14 +452,14 @@
 				{
 					"name": "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedGainBeforeTax",
 					"jsonName": "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedGainBeforeTax",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"AvailableForSaleSecuritiesAccumulatedGrossUnrealizedGainBeforeTax\"",
 					"required": true
 				},
 				{
 					"name": "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedLossBeforeTax",
 					"jsonName": "AvailableForSaleSecuritiesAccumulatedGrossUnrealizedLossBeforeTax",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"AvailableForSaleSecuritiesAccumulatedGrossUnrealizedLossBeforeTax\"",
 					"required": true
 				},
@@ -718,7 +718,7 @@
 				{
 					"name": "CommercialPaper",
 					"jsonName": "CommercialPaper",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"CommercialPaper\"",
 					"required": true
 				},
@@ -753,7 +753,7 @@
 				{
 					"name": "CommonStockParOrStatedValuePerShare",
 					"jsonName": "CommonStockParOrStatedValuePerShare",
-					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShare",
 					"jsonTag": "json:\"CommonStockParOrStatedValuePerShare\"",
 					"required": true
 				},
@@ -781,7 +781,7 @@
 				{
 					"name": "CommonStocksIncludingAdditionalPaidInCapital",
 					"jsonName": "CommonStocksIncludingAdditionalPaidInCapital",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"CommonStocksIncludingAdditionalPaidInCapital\"",
 					"required": true
 				},
@@ -977,7 +977,7 @@
 				{
 					"name": "DeferredIncomeTaxLiabilities",
 					"jsonName": "DeferredIncomeTaxLiabilities",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"DeferredIncomeTaxLiabilities\"",
 					"required": true
 				},
@@ -1187,7 +1187,7 @@
 				{
 					"name": "DefinedContributionPlanMaximumAnnualContributionsPerEmployeeAmount",
 					"jsonName": "DefinedContributionPlanMaximumAnnualContributionsPerEmployeeAmount",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"DefinedContributionPlanMaximumAnnualContributionsPerEmployeeAmount\"",
 					"required": true
 				},
@@ -1229,7 +1229,7 @@
 				{
 					"name": "DerivativeFairValueOfDerivativeNet",
 					"jsonName": "DerivativeFairValueOfDerivativeNet",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"DerivativeFairValueOfDerivativeNet\"",
 					"required": true
 				},
@@ -1299,7 +1299,7 @@
 				{
 					"name": "EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
 					"jsonName": "EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
-					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
 					"jsonTag": "json:\"EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential\"",
 					"required": true
 				},
@@ -1523,7 +1523,7 @@
 				{
 					"name": "FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive",
 					"jsonName": "FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive\"",
 					"required": true
 				},
@@ -1726,7 +1726,7 @@
 				{
 					"name": "ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill",
 					"jsonName": "ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"ImpairmentOfIntangibleAssetsIndefinitelivedExcludingGoodwill\"",
 					"required": true
 				},
@@ -1838,7 +1838,7 @@
 				{
 					"name": "IncomeTaxReconciliationTaxSettlementsDomestic",
 					"jsonName": "IncomeTaxReconciliationTaxSettlementsDomestic",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"IncomeTaxReconciliationTaxSettlementsDomestic\"",
 					"required": true
 				},
@@ -1901,7 +1901,7 @@
 				{
 					"name": "IndefiniteLivedIntangibleAssetsExcludingGoodwill",
 					"jsonName": "IndefiniteLivedIntangibleAssetsExcludingGoodwill",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"IndefiniteLivedIntangibleAssetsExcludingGoodwill\"",
 					"required": true
 				},
@@ -1943,7 +1943,7 @@
 				{
 					"name": "InterestPaid",
 					"jsonName": "InterestPaid",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"InterestPaid\"",
 					"required": true
 				},
@@ -2202,7 +2202,7 @@
 				{
 					"name": "NetCashProvidedByUsedInFinancingActivitiesContinuingOperations",
 					"jsonName": "NetCashProvidedByUsedInFinancingActivitiesContinuingOperations",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"NetCashProvidedByUsedInFinancingActivitiesContinuingOperations\"",
 					"required": true
 				},
@@ -2216,7 +2216,7 @@
 				{
 					"name": "NetCashProvidedByUsedInInvestingActivitiesContinuingOperations",
 					"jsonName": "NetCashProvidedByUsedInInvestingActivitiesContinuingOperations",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"NetCashProvidedByUsedInInvestingActivitiesContinuingOperations\"",
 					"required": true
 				},
@@ -2230,7 +2230,7 @@
 				{
 					"name": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
 					"jsonName": "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"NetCashProvidedByUsedInOperatingActivitiesContinuingOperations\"",
 					"required": true
 				},
@@ -2244,7 +2244,7 @@
 				{
 					"name": "NoncurrentAssets",
 					"jsonName": "NoncurrentAssets",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"NoncurrentAssets\"",
 					"required": true
 				},
@@ -2832,28 +2832,28 @@
 				{
 					"name": "ProceedsFromRepaymentsOfCommercialPaper",
 					"jsonName": "ProceedsFromRepaymentsOfCommercialPaper",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"ProceedsFromRepaymentsOfCommercialPaper\"",
 					"required": true
 				},
 				{
 					"name": "ProceedsFromRepaymentsOfShortTermDebt",
 					"jsonName": "ProceedsFromRepaymentsOfShortTermDebt",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"ProceedsFromRepaymentsOfShortTermDebt\"",
 					"required": true
 				},
 				{
 					"name": "ProceedsFromRepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths",
 					"jsonName": "ProceedsFromRepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"ProceedsFromRepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths\"",
 					"required": true
 				},
 				{
 					"name": "ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess",
 					"jsonName": "ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess\"",
 					"required": true
 				},
@@ -2881,7 +2881,7 @@
 				{
 					"name": "ProceedsFromShortTermDebtMaturingInMoreThanThreeMonths",
 					"jsonName": "ProceedsFromShortTermDebtMaturingInMoreThanThreeMonths",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"ProceedsFromShortTermDebtMaturingInMoreThanThreeMonths\"",
 					"required": true
 				},
@@ -2965,7 +2965,7 @@
 				{
 					"name": "RepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths",
 					"jsonName": "RepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"RepaymentsOfShortTermDebtMaturingInMoreThanThreeMonths\"",
 					"required": true
 				},
@@ -3427,7 +3427,7 @@
 				{
 					"name": "StockholdersEquityNoteStockSplitConversionRatio1",
 					"jsonName": "StockholdersEquityNoteStockSplitConversionRatio1",
-					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperations",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
 					"jsonTag": "json:\"StockholdersEquityNoteStockSplitConversionRatio1\"",
 					"required": true
 				},
@@ -3476,7 +3476,7 @@
 				{
 					"name": "StockRepurchaseProgramAuthorizedAmount1",
 					"jsonName": "StockRepurchaseProgramAuthorizedAmount1",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"StockRepurchaseProgramAuthorizedAmount1\"",
 					"required": true
 				},
@@ -3504,7 +3504,7 @@
 				{
 					"name": "TreasuryStockValueAcquiredCostMethod",
 					"jsonName": "TreasuryStockValueAcquiredCostMethod",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"TreasuryStockValueAcquiredCostMethod\"",
 					"required": true
 				},
@@ -3525,7 +3525,7 @@
 				{
 					"name": "UnrecognizedTaxBenefitsDecreasesResultingFromPriorPeriodTaxPositions",
 					"jsonName": "UnrecognizedTaxBenefitsDecreasesResultingFromPriorPeriodTaxPositions",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"UnrecognizedTaxBenefitsDecreasesResultingFromPriorPeriodTaxPositions\"",
 					"required": true
 				},
@@ -3546,21 +3546,21 @@
 				{
 					"name": "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestExpense",
 					"jsonName": "UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestExpense",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"UnrecognizedTaxBenefitsIncomeTaxPenaltiesAndInterestExpense\"",
 					"required": true
 				},
 				{
 					"name": "UnrecognizedTaxBenefitsIncreasesResultingFromCurrentPeriodTaxPositions",
 					"jsonName": "UnrecognizedTaxBenefitsIncreasesResultingFromCurrentPeriodTaxPositions",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"UnrecognizedTaxBenefitsIncreasesResultingFromCurrentPeriodTaxPositions\"",
 					"required": true
 				},
 				{
 					"name": "UnrecognizedTaxBenefitsIncreasesResultingFromPriorPeriodTaxPositions",
 					"jsonName": "UnrecognizedTaxBenefitsIncreasesResultingFromPriorPeriodTaxPositions",
-					"type": "ListAPIXbrlCompanyfactsCikFactsDeiEntityPublicFloat",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
 					"jsonTag": "json:\"UnrecognizedTaxBenefitsIncreasesResultingFromPriorPeriodTaxPositions\"",
 					"required": true
 				},
@@ -5374,6 +5374,46 @@
 			]
 		},
 		{
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShare",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShare defines a model",
+			"fields": [
+				{
+					"name": "Label",
+					"jsonName": "label",
+					"type": "string",
+					"jsonTag": "json:\"label,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Units",
+					"jsonName": "units",
+					"type": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShareUnits",
+					"jsonTag": "json:\"units\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShareUnits",
+			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapCommonStockParOrStatedValuePerShareUnits defines a model",
+			"fields": [
+				{
+					"name": "UsdShares",
+					"jsonName": "USD/shares",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd",
+					"jsonTag": "json:\"USD/shares\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores",
 			"description": "ListAPIXbrlCompanyfactsCikCikJSONOkFactsUsGaapNumberOfStores defines a model",
 			"fields": [
@@ -5607,14 +5647,14 @@
 				{
 					"name": "Fy",
 					"jsonName": "fy",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"fy\"",
 					"required": true
 				},
 				{
 					"name": "Fp",
 					"jsonName": "fp",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"fp\"",
 					"required": true
 				},
@@ -5682,6 +5722,119 @@
 			]
 		},
 		{
+			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense",
+			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpense defines a model",
+			"fields": [
+				{
+					"name": "Label",
+					"jsonName": "label",
+					"type": "string",
+					"jsonTag": "json:\"label,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Units",
+					"jsonName": "units",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnits",
+					"jsonTag": "json:\"units\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnits",
+			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnits defines a model",
+			"fields": [
+				{
+					"name": "Usd",
+					"jsonName": "USD",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd",
+					"jsonTag": "json:\"USD\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd",
+			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd defines a model",
+			"kind": 2,
+			"type": "[]ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsdItem"
+		},
+		{
+			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsdItem",
+			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsdItem defines a model",
+			"fields": [
+				{
+					"name": "Start",
+					"jsonName": "start",
+					"type": "string",
+					"jsonTag": "json:\"start,omitzero\""
+				},
+				{
+					"name": "End",
+					"jsonName": "end",
+					"type": "string",
+					"jsonTag": "json:\"end,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Val",
+					"jsonName": "val",
+					"type": "float64",
+					"jsonTag": "json:\"val\"",
+					"required": true
+				},
+				{
+					"name": "Accn",
+					"jsonName": "accn",
+					"type": "string",
+					"jsonTag": "json:\"accn,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Fy",
+					"jsonName": "fy",
+					"type": "int",
+					"jsonTag": "json:\"fy\"",
+					"required": true
+				},
+				{
+					"name": "Fp",
+					"jsonName": "fp",
+					"type": "string",
+					"jsonTag": "json:\"fp,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Form",
+					"jsonName": "form",
+					"type": "string",
+					"jsonTag": "json:\"form,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Filed",
+					"jsonName": "filed",
+					"type": "string",
+					"jsonTag": "json:\"filed,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Frame",
+					"jsonName": "frame",
+					"type": "string",
+					"jsonTag": "json:\"frame,omitzero\""
+				}
+			]
+		},
+		{
 			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid",
 			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapCommonStockDividendsPerShareCashPaid defines a model",
 			"fields": [
@@ -5728,14 +5881,14 @@
 				{
 					"name": "Label",
 					"jsonName": "label",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"label\"",
 					"required": true
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"description\"",
 					"required": true
 				},
@@ -5795,14 +5948,14 @@
 				{
 					"name": "Label",
 					"jsonName": "label",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"label\"",
 					"required": true
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"description\"",
 					"required": true
 				},
@@ -5811,6 +5964,46 @@
 					"jsonName": "units",
 					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateContinuingOperationsUnits",
 					"jsonTag": "json:\"units\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
+			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential defines a model",
+			"fields": [
+				{
+					"name": "Label",
+					"jsonName": "label",
+					"type": "string",
+					"jsonTag": "json:\"label,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Units",
+					"jsonName": "units",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferentialUnits",
+					"jsonTag": "json:\"units\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferentialUnits",
+			"description": "ListAPIXbrlCompanyfactsCikFactsUsGaapEffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferentialUnits defines a model",
+			"fields": [
+				{
+					"name": "Pure",
+					"jsonName": "pure",
+					"type": "ListAPIXbrlCompanyfactsCikFactsUsGaapAllocatedShareBasedCompensationExpenseUnitsUsd",
+					"jsonTag": "json:\"pure\"",
 					"required": true
 				}
 			]

@@ -10,6 +10,7 @@
 	"userAgent": "Notion API",
 	"operations": [
 		{
+			"auth": "bearer",
 			"name": "GetPage",
 			"description": "Retrieves a Page object using the ID in the request path. This endpoint exposes page properties, not page content.",
 			"summary": "Retrieve a Page",
@@ -49,6 +50,7 @@
 			}
 		},
 		{
+			"auth": "bearer",
 			"name": "GetBlocks",
 			"description": "Returns a paginated array of child [block objects](https://developers.notion.com/reference/block) contained in the block using the ID specified. In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.",
 			"summary": "Retrieve block children",
@@ -433,7 +435,7 @@
 					"jsonName": "link_preview",
 					"type": "*ExternalFile",
 					"jsonTag": "json:\"link_preview,omitempty\"",
-					"description": "Link Preview block objects return the originally pasted url.\n\nNOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API."
+					"description": "An external file is any URL that isn't hosted by Notion."
 				},
 				{
 					"name": "SyncedBlock",
@@ -2320,7 +2322,8 @@
 	"security": {
 		"bearer": {
 			"name": "NOTION_API_KEY"
-		}
+		},
+		"default": "bearer"
 	},
 	"hasURLFields": true
 }

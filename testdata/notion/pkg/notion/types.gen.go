@@ -109,7 +109,7 @@ type ListV1BlockChildrenOkResultsItem struct {
 // ListV1BlockChildrenOkResultsItemParagraph defines a model
 type ListV1BlockChildrenOkResultsItemParagraph struct {
 	RichText PageByPageIDPropertiesTitle `json:"rich_text"`
-	Icon     struct{}                    `json:"icon"`
+	Icon     *struct{}                   `json:"icon"`
 	Color    string                      `json:"color,omitzero"`
 }
 
@@ -134,7 +134,7 @@ type PageByPageIDPropertiesTitleItem struct {
 	Text        PageByPageIDPropertiesTitleItemText        `json:"text"`
 	Annotations PageByPageIDPropertiesTitleItemAnnotations `json:"annotations"`
 	PlainText   string                                     `json:"plain_text,omitzero"`
-	Href        struct{}                                   `json:"href"`
+	Href        *struct{}                                  `json:"href"`
 }
 
 // PageByPageIDPropertiesTitleItemAnnotations defines a model
@@ -149,6 +149,6 @@ type PageByPageIDPropertiesTitleItemAnnotations struct {
 
 // PageByPageIDPropertiesTitleItemText defines a model
 type PageByPageIDPropertiesTitleItemText struct {
-	Content string   `json:"content,omitzero"`
-	Link    struct{} `json:"link"`
+	Content string    `json:"content,omitzero"`
+	Link    *struct{} `json:"link"`
 }

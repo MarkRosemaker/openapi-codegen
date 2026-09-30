@@ -20,10 +20,10 @@
         "operationId": "ListAPIXbrlCompanyfactsCikCikJSON",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListAPIXbrlCompanyfactsCikCikJSONOkResponse"
+            "$ref": "#/components/responses/ListAPIXbrlCompanyfactsCikCikJSONOk"
           },
           "403": {
-            "$ref": "#/components/responses/ListAPIXbrlCompanyfactsCikCikJSONForbiddenResponse"
+            "$ref": "#/components/responses/ListAPIXbrlCompanyfactsCikCikJSONForbidden"
           }
         }
       }
@@ -38,7 +38,7 @@
         "operationId": "ListFilesCompanyTickersJSON",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListFilesCompanyTickersJSONOkResponse"
+            "$ref": "#/components/responses/ListFilesCompanyTickersJSONOk"
           }
         }
       }
@@ -3582,13 +3582,13 @@
       }
     },
     "responses": {
-      "ListAPIXbrlCompanyfactsCikCikJSONForbiddenResponse": {
+      "ListAPIXbrlCompanyfactsCikCikJSONForbidden": {
         "description": "Forbidden",
         "content": {
           "text/html": {}
         }
       },
-      "ListAPIXbrlCompanyfactsCikCikJSONOkResponse": {
+      "ListAPIXbrlCompanyfactsCikCikJSONOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -3598,7 +3598,7 @@
           }
         }
       },
-      "ListFilesCompanyTickersJSONOkResponse": {
+      "ListFilesCompanyTickersJSONOk": {
         "description": "OK",
         "content": {
           "application/json": {

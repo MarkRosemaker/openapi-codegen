@@ -10,6 +10,7 @@
 	"userAgent": "Toggl API",
 	"operations": [
 		{
+			"auth": "basic",
 			"name": "GetMe",
 			"description": "Returns details for the current user.",
 			"summary": "Return Current User",
@@ -53,6 +54,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "CreateTimeEntry",
 			"description": "Creates a new workspace TimeEntry.",
 			"summary": "Create a time entry",
@@ -107,6 +109,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "GetCurrentTimeEntry",
 			"description": "Load running time entry for the current user.",
 			"summary": "Get current time entry",
@@ -134,6 +137,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "StopTimeEntry",
 			"description": "Stops a workspace time entry.",
 			"summary": "Stop an existing time entry",
@@ -186,6 +190,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "ListTimeEntries",
 			"description": "Lists latest time entries.",
 			"summary": "List time entries",
@@ -281,6 +286,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "CreateOrganization",
 			"description": "Creates a new organization with a single workspace and assigns current user as the organization owner",
 			"summary": "Create a new organization",
@@ -311,6 +317,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "ListOrganizations",
 			"description": "Get all organizations a given user is part of.",
 			"summary": "List my organizations",
@@ -339,6 +346,7 @@
 			}
 		},
 		{
+			"auth": "basic",
 			"name": "GetOrganization",
 			"description": "Returns organization name and current pricing plan",
 			"summary": "Get organization data",
@@ -1450,7 +1458,7 @@
 				{
 					"name": "OpenidEmail",
 					"jsonName": "openid_email",
-					"type": "struct{}",
+					"type": "*struct{}",
 					"jsonTag": "json:\"openid_email\"",
 					"required": true
 				},
@@ -1892,7 +1900,8 @@
 		"basic": {
 			"usernameEnvName": "TOGGL_API_USERNAME",
 			"passwordEnvName": "TOGGL_API_PASSWORD"
-		}
+		},
+		"default": "basic"
 	},
 	"hasURLFields": true,
 	"hasDurationFields": true

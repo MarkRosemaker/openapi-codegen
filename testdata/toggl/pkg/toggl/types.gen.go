@@ -318,7 +318,7 @@ type UserWithRelated struct {
 	ImageURL           url.URL     `json:"image_url,omitzero"`
 	CreatedAt          time.Time   `json:"created_at,omitzero"`
 	UpdatedAt          time.Time   `json:"updated_at,omitzero"`
-	OpenidEmail        struct{}    `json:"openid_email"`
+	OpenidEmail        *struct{}   `json:"openid_email"`
 	OpenidEnabled      bool        `json:"openid_enabled"`
 	CountryID          int         `json:"country_id"`
 	HasPassword        bool        `json:"has_password"`
