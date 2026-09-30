@@ -5,6 +5,7 @@ import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 	"unicode"
@@ -19,8 +20,8 @@ import (
 // a reference maps to the name of the component it points to.
 func SchemaGoType(s *openapi.Schema) (*GoType, error) {
 	if s.Ref != nil {
-		// A component that is only a reference declares no type: use its target's.
-		if isRefAlias(s.Ref.Value) {
+		// a component that declares no type of its own is used as it would be inline
+		if declaresNoType(s.Ref.Value) {
 			return SchemaGoType(s.Ref.Value)
 		}
 
@@ -39,7 +40,7 @@ func SchemaGoType(s *openapi.Schema) (*GoType, error) {
 		}
 		// "#/components/schemas/Name" → "Name"
 		parts := strings.Split(s.Ref.Identifier, "/")
-		name := parts[len(parts)-1]
+		name := componentGoName(parts[len(parts)-1], s.Ref.Value)
 
 		// The named type this $ref points at is itself array-kind (e.g.
 		// "type TimeEntries []TimeEntry"), so it's already nilable on its
@@ -292,9 +293,7 @@ func mapValues(s *openapi.Schema) *openapi.Schema {
 func FromComponentSchemas(schemas openapi.Schemas) ([]Schema, error) {
 	result := make([]Schema, 0, len(schemas))
 	for name, s := range schemas.ByIndex() {
-		if override := goNameOverride(s); override != "" {
-			name = override
-		}
+		name = componentGoName(name, s)
 
 		irSchema, err := fromSchema(name, s)
 		if err != nil {
@@ -811,11 +810,20 @@ var replInvalidChars = strings.NewReplacer(
 	"(", "",
 	")", "",
 	":", "",
+	"'", "",
+	"’", "",
 )
 
 // enumConstName builds the Go constant name for an enum value, e.g. MyEnum + "foo_bar" → MyEnumFooBar.
 func enumConstName(typeName, value string) string {
 	sanitized := replInvalidChars.Replace(value)
+	sanitized = strings.Map(func(r rune) rune {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) || r == '_' || r == '-' {
+			return r
+		}
+
+		return ' ' // any other character only separates words, e.g. the comma in "Modify, only changes"
+	}, sanitized)
 	sanitized = replaceLeadingDigits(sanitized)
 
 	if len(sanitized) <= 3 && sanitized == strings.ToUpper(sanitized) {
@@ -932,8 +940,24 @@ func deref(s *openapi.Schema) *openapi.Schema {
 	return s
 }
 
-// isRefAlias reports whether s is a reference and nothing else a type could be made of.
-func isRefAlias(s *openapi.Schema) bool {
-	return s != nil && s.Ref != nil && s.Type == "" &&
-		len(s.AllOf) == 0 && len(s.OneOf) == 0 && len(s.AnyOf) == 0 && len(s.Properties) == 0
+// declaresNoType reports whether fromSchema declares no type for the component s: it is null, only a reference, or the empty schema.
+func declaresNoType(s *openapi.Schema) bool {
+	return s != nil && (s.Type == openapi.TypeNull ||
+		s.Type == "" && len(s.AllOf) == 0 && len(s.OneOf) == 0 && len(s.AnyOf) == 0 && len(s.Properties) == 0)
+}
+
+// reNotInGoName matches what a component name may hold but a Go identifier may not, e.g. the "-" in "Keypoint-Input".
+var reNotInGoName = regexp.MustCompile(`[^A-Za-z0-9_]+(.?)`)
+
+// componentGoName is the Go type name of the component schema s, named name: its x-go-name, or name made a valid identifier.
+func componentGoName(name string, s *openapi.Schema) string {
+	if s != nil {
+		if override := goNameOverride(s); override != "" {
+			return override
+		}
+	}
+
+	return reNotInGoName.ReplaceAllStringFunc(name, func(m string) string {
+		return strings.ToUpper(reNotInGoName.ReplaceAllString(m, "$1"))
+	})
 }

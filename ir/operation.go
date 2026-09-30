@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"fmt"
 	"net/http"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -134,7 +135,7 @@ func mergeParams(pathItem, operation openapi.ParameterList) openapi.ParameterLis
 	return append(result, operation...)
 }
 
-// paramSchema is the schema a parameter is sent as. A union of strings is a string,
+// paramSchema is the schema a parameter is sent as. Null is dropped, a union of strings is a string,
 // and a union of an array and its items is the array: form style writes one value alike.
 func paramSchema(s *openapi.Schema) *openapi.Schema {
 	d := deref(s)
@@ -145,6 +146,12 @@ func paramSchema(s *openapi.Schema) *openapi.Schema {
 
 	if d.Type != "" || len(variants) == 0 {
 		return s
+	}
+
+	// a query string cannot carry null, so only the other alternatives matter
+	variants = slices.DeleteFunc(slices.Clone(variants), isNull)
+	if len(variants) == 1 {
+		return paramSchema(variants[0])
 	}
 
 	var array *openapi.Schema

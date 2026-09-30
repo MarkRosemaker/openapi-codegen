@@ -1480,3 +1480,80 @@ func TestSchemaGoType_RefAlias(t *testing.T) {
 		t.Errorf("got %q, want Target", got.Name)
 	}
 }
+
+func TestSchemaGoType_ComponentName(t *testing.T) {
+	t.Parallel()
+
+	for identifier, want := range map[string]string{
+		"#/components/schemas/Keypoint-Input": "KeypointInput",
+		"#/components/schemas/a.b-c":          "aBC",
+		"#/components/schemas/Pet":            "Pet",
+	} {
+		got, err := ir.SchemaGoType(&openapi.Schema{Ref: &openapi.SchemaRef{Identifier: identifier, Value: &openapi.Schema{Type: openapi.TypeObject}}})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if got.Name != want {
+			t.Errorf("%s: got %q, want %q", identifier, got.Name, want)
+		}
+	}
+
+	// a component's x-go-name names it where it is referenced too
+	renamed := &openapi.Schema{Type: openapi.TypeObject, Extensions: jsontext.Value(`{"x-go-name":"Renamed"}`)}
+
+	got, err := ir.SchemaGoType(&openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Original", Value: renamed}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if got.Name != "Renamed" {
+		t.Errorf("got %q, want Renamed", got.Name)
+	}
+}
+
+func TestSchemaGoType_ComponentWithoutType(t *testing.T) {
+	t.Parallel()
+
+	for name, tc := range map[string]struct {
+		target *openapi.Schema
+		want   string
+	}{
+		"empty schema": {&openapi.Schema{}, "any"},
+		"null":         {&openapi.Schema{Type: openapi.TypeNull}, "*struct{}"},
+	} {
+		got, err := ir.SchemaGoType(&openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/X", Value: tc.target}})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if got.String() != tc.want {
+			t.Errorf("%s: got %q, want %q", name, got.String(), tc.want)
+		}
+	}
+}
+
+func TestFromComponentSchemas_EnumConstNames(t *testing.T) {
+	t.Parallel()
+
+	var schemas openapi.Schemas
+	schemas.Set("Method", &openapi.Schema{Type: openapi.TypeString, Enum: []jsontext.Value{
+		jsontext.Value(`"Modify current layer"`),
+		jsontext.Value(`"Modify current layer, only changes"`),
+		jsontext.Value(`"Don't stop!"`),
+	}})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var names []string
+	for _, v := range got[0].EnumValues {
+		names = append(names, v.GoName)
+	}
+
+	if want := "MethodModifyCurrentLayer MethodModifyCurrentLayerOnlyChanges MethodDontStop"; strings.Join(names, " ") != want {
+		t.Errorf("got %v, want %s", names, want)
+	}
+}
