@@ -94,22 +94,24 @@ type URLParts struct {
 type Operation struct {
 	// BaseURL is set when the path item names a server of its own, overriding
 	// the document's for this operation only.
-	BaseURL         *URLParts `json:"baseURL,omitzero"`
-	Name            string    `json:"name,omitzero"`
-	Description     string    `json:"description,omitzero"`
-	Summary         string    `json:"summary,omitzero"`
-	Method          string    `json:"method,omitzero"`
-	PathTemplate    string    `json:"pathTemplate,omitzero"`
-	JoinPathArgs    []string  `json:"joinPathArgs,omitempty"`
-	PathParams      Params    `json:"pathParams,omitempty"`
-	QueryParams     Params    `json:"queryParams,omitempty"`
-	HeaderParams    Params    `json:"headerParams,omitempty"`
-	HasParams       bool      `json:"hasParams,omitzero"`
-	ParamStructName string    `json:"paramStructName,omitzero"`
-	RequestBody     *ReqBody  `json:"requestBody,omitempty"`
-	Responses       Responses `json:"responses,omitempty"`
-	SuccessReturn   *GoType   `json:"successReturn,omitempty"`
-	Deprecated      bool      `json:"deprecated,omitzero"`
+	BaseURL *URLParts `json:"baseURL,omitzero"`
+	// Auth is the scheme whose credential the operation sends, if any.
+	Auth            AuthScheme `json:"auth,omitzero"`
+	Name            string     `json:"name,omitzero"`
+	Description     string     `json:"description,omitzero"`
+	Summary         string     `json:"summary,omitzero"`
+	Method          string     `json:"method,omitzero"`
+	PathTemplate    string     `json:"pathTemplate,omitzero"`
+	JoinPathArgs    []string   `json:"joinPathArgs,omitempty"`
+	PathParams      Params     `json:"pathParams,omitempty"`
+	QueryParams     Params     `json:"queryParams,omitempty"`
+	HeaderParams    Params     `json:"headerParams,omitempty"`
+	HasParams       bool       `json:"hasParams,omitzero"`
+	ParamStructName string     `json:"paramStructName,omitzero"`
+	RequestBody     *ReqBody   `json:"requestBody,omitempty"`
+	Responses       Responses  `json:"responses,omitempty"`
+	SuccessReturn   *GoType    `json:"successReturn,omitempty"`
+	Deprecated      bool       `json:"deprecated,omitzero"`
 	// RawBytesSuccess is true when the operation's success response has no
 	// JSON media type, so SuccessReturn is a raw []byte read directly from
 	// the response body rather than a JSON-decoded type. Such operations
@@ -162,6 +164,8 @@ type Schema struct {
 	// oneOf, at least one for anyOf.
 	UnionVariants []UnionVariant `json:"unionVariants,omitempty"`
 	IsOneOf       bool           `json:"isOneOf,omitzero"`
+	// IsTypeAlias declares the type as an alias of Type rather than a new type.
+	IsTypeAlias bool `json:"isTypeAlias,omitzero"`
 }
 
 // SchemaKind categorizes a schema into struct, enum, or array alias.
@@ -266,8 +270,10 @@ type Param struct {
 	// the param back into an integer instead of an RFC 3339 string.
 	IsUnixTime  bool   `json:"isUnixTime,omitzero"`
 	Description string `json:"description,omitzero"`
-	Value       string `json:"value,omitzero"`   // hardcoded value, always the same
-	Example     string `json:"example,omitzero"` // hardcoded example for tests
+	// Item is one element of an array parameter, with v as its variable.
+	Item    *Param `json:"item,omitzero"`
+	Value   string `json:"value,omitzero"`   // hardcoded value, always the same
+	Example string `json:"example,omitzero"` // hardcoded example for tests
 }
 
 func (doc Document) APIKey() *Param {
@@ -379,7 +385,17 @@ type ReqBody struct {
 type Auth struct {
 	Bearer Bearer `json:"bearer,omitzero"`
 	Basic  Basic  `json:"basic,omitzero"`
+	// Default is the scheme operations use unless they name their own, so the client requires its credential.
+	Default AuthScheme `json:"default,omitzero"`
 }
+
+// AuthScheme names the credential an operation sends in its Authorization header.
+type AuthScheme string
+
+const (
+	AuthBearer AuthScheme = "bearer"
+	AuthBasic  AuthScheme = "basic"
+)
 
 type Bearer struct {
 	Name string `json:"name,omitzero"`

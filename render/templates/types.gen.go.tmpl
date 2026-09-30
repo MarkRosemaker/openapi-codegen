@@ -102,7 +102,7 @@ func (e {{.Name}}) Valid() bool {
 }
 
 {{- else if eq .Kind 2}}{{/* SchemaKindArrayAlias */}}
-type {{.Name}} {{ .Type }}
+type {{.Name}} {{ if .IsTypeAlias }}= {{ end }}{{ .Type }}
 {{- else if eq .Kind 3}}{{/* SchemaKindAllOf */}}
 	type {{.Name}} struct {
 		{{- range .Fields}}

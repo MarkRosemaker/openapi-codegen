@@ -163,17 +163,17 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 		opt(c)
 	}
 
-	{{ with .Auth.Bearer.Name }}
+	{{ if eq .Auth.Default "bearer" }}{{ with .Auth.Bearer.Name }}
 	if c.bearer == "" {
 		return nil, errors.New("bearer token {{ . }} not provided")
 	}
-	{{ end }}
+	{{ end }}{{ end }}
 
-	{{ with .Auth.Basic.UsernameEnvName }}
+	{{ if eq .Auth.Default "basic" }}{{ with .Auth.Basic.UsernameEnvName }}
 	if c.basic == "" {
 		return nil, errors.New("basic auth {{ . }} / {{ $.Auth.Basic.PasswordEnvName }} not provided")
 	}
-	{{ end }}
+	{{ end }}{{ end }}
 
 	{{ with .APIKey }}
 	if {{ .FormatExpr }} == "" {
@@ -260,7 +260,11 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 	{{- end }}
 		q := make(url.Values, {{ len .QueryParams }})
 {{- range .QueryParams }}
-	{{ if .Required }}
+	{{ if .Item }}
+		for _, v := range {{ .VarName }} {
+			q.Add({{printf "%q" .JSONName}}, {{ .Item.FormatExpr }})
+		}
+	{{ else if .Required }}
 		q[{{printf "%q" .JSONName}}] = []string{ {{- .FormatExpr -}} }
 	{{ else }}
 		if {{ .NotZero }} {
@@ -279,10 +283,9 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 {{ end -}}
 	req := (&http.Request{
 		Header: http.Header{
-			{{ if $.Auth.Bearer.Name -}}
+			{{ if eq .Auth "bearer" -}}
 			"Authorization":  []string{c.bearer},
-			{{ end -}}
-			{{ if $.Auth.Basic.UsernameEnvName -}}
+			{{ else if eq .Auth "basic" -}}
 			"Authorization":  []string{c.basic},
 			{{ end -}}
 			{{ range $.GlobalParams -}}

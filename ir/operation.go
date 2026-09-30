@@ -134,6 +134,75 @@ func mergeParams(pathItem, operation openapi.ParameterList) openapi.ParameterLis
 	return append(result, operation...)
 }
 
+// paramSchema is the schema a parameter is sent as. A union of strings is a string,
+// and a union of an array and its items is the array: form style writes one value alike.
+func paramSchema(s *openapi.Schema) *openapi.Schema {
+	d := deref(s)
+	variants := d.OneOf
+	if len(variants) == 0 {
+		variants = d.AnyOf
+	}
+
+	if d.Type != "" || len(variants) == 0 {
+		return s
+	}
+
+	var array *openapi.Schema
+	for _, v := range variants {
+		switch deref(v).Type {
+		case openapi.TypeString:
+		case openapi.TypeArray:
+			if array != nil {
+				return s
+			}
+
+			array = v
+		default:
+			return s
+		}
+	}
+
+	if array != nil {
+		return array
+	}
+
+	return &openapi.Schema{Type: openapi.TypeString}
+}
+
+// setType sets the parameter's Go type, and how to format and parse it, from s.
+func (p *Param) setType(s *openapi.Schema) error {
+	p.IsEnum = len(deref(s).Enum) > 0
+
+	// SchemaGoType(s), not of deref(s): a $ref resolves to
+	// its own generated type name (e.g. a string enum), where reading the
+	// resolved value directly would only ever see its underlying builtin.
+	tp, err := SchemaGoType(s)
+	if err != nil {
+		return err
+	}
+
+	p.Type = tp.String()
+
+	if s.Ref != nil {
+		// Type is a generated name here (an enum or any other named
+		// scalar component), not a builtin: NotZero and FormatExpr need
+		// the underlying representation it was declared from to know how
+		// to compare or format it.
+		base, err := SchemaGoType(s.Ref.Value)
+		if err != nil {
+			return err
+		}
+
+		p.BaseType = base.String()
+	}
+
+	p.IsUnixTime = p.Type == "time.Time" && deref(s).Type == openapi.TypeInteger
+
+	p.ParseExpr, p.ParseCast, p.ParseErrFree = tp.serverParseExpr()
+
+	return nil
+}
+
 func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 	param := Param{
 		JSONName:    p.Name,
@@ -144,35 +213,20 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 		return param, fmt.Errorf("schema is required")
 	}
 
-	param.IsEnum = len(p.Schema.Value.Enum) > 0
+	schema := paramSchema(p.Schema)
+	if items := deref(schema); items.Type == openapi.TypeArray && items.Items != nil {
+		item := &Param{VarName: "v"}
+		if err := item.setType(paramSchema(items.Items)); err != nil {
+			return param, fmt.Errorf("items: %w", err)
+		}
 
-	// SchemaRefGoType, not SchemaGoType(p.Schema.Value): a $ref resolves to
-	// its own generated type name (e.g. a string enum), where reading the
-	// resolved value directly would only ever see its underlying builtin.
-	tp, err := SchemaRefGoType(p.Schema)
-	if err != nil {
+		param.Item = item
+		param.Type = "[]" + item.Type
+	} else if err := param.setType(schema); err != nil {
 		return param, err
 	}
 
-	param.Type = tp.String()
-
-	if p.Schema.Ref != nil {
-		// Type is a generated name here (an enum or any other named
-		// scalar component), not a builtin: NotZero and FormatExpr need
-		// the underlying representation it was declared from to know how
-		// to compare or format it.
-		base, err := SchemaGoType(p.Schema.Value)
-		if err != nil {
-			return param, err
-		}
-
-		param.BaseType = base.String()
-	}
-
-	param.IsUnixTime = param.Type == "time.Time" && p.Schema.Value.Type == openapi.TypeInteger
-
 	param.GoName = strcase.ToGoCamel(p.Name)
-	param.ParseExpr, param.ParseCast, param.ParseErrFree = tp.serverParseExpr()
 
 	param.FieldName = strcase.ToGoPascal(p.Name)
 
@@ -195,9 +249,7 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 			if p.In == openapi.ParameterLocationHeader &&
 				strings.HasSuffix(p.Name, "Version") {
 				param.GlobalType = GlobalVersion
-				if p.Schema.Value.Example != nil {
-					param.Value = p.Schema.Value.Example.String()
-				}
+				param.Value = fixedValue(deref(p.Schema))
 			}
 		}
 	}
@@ -212,8 +264,8 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 
 	// A nil example renders as the literal "null", which would reach the
 	// templates as a bare identifier rather than a Go string.
-	if param.GlobalType != "" && p.Schema.Value.Example != nil {
-		param.Example = p.Schema.Value.Example.String()
+	if param.GlobalType != "" && deref(p.Schema).Example != nil {
+		param.Example = deref(p.Schema).Example.String()
 	}
 
 	return param, nil
@@ -324,6 +376,10 @@ func segmentExpr(seg string, params map[string]Param) string {
 
 // NotZero returns the Go boolean expression that is true when param is not the zero value.
 func (p Param) NotZero() string {
+	if p.Item != nil {
+		return "len(" + p.VarName + ") > 0"
+	}
+
 	// A generated Type (BaseType set) carries no zero-value semantics of
 	// its own: switch on the type it was declared from instead.
 	// Comparisons against an untyped constant ("", 0) work directly on
@@ -424,7 +480,7 @@ func fromRequestBody(rb *openapi.RequestBody) (*ReqBody, error) {
 			continue
 		}
 
-		tp, err := SchemaRefGoType(mt.Schema)
+		tp, err := SchemaGoType(mt.Schema)
 		if err != nil {
 			return nil, err
 		}
@@ -457,7 +513,7 @@ func fromResponses(responses openapi.OperationResponses) (Responses, *GoType, bo
 		// media type and treat the body as an opaque byte stream.
 		var (
 			jsonContentType  string
-			jsonSchema       *openapi.SchemaRef
+			jsonSchema       *openapi.Schema
 			firstContentType string
 		)
 		for mr, mt := range r.Content.ByIndex() {
@@ -485,7 +541,7 @@ func fromResponses(responses openapi.OperationResponses) (Responses, *GoType, bo
 			if jsonSchema != nil {
 				var err error
 
-				goType, err = SchemaRefGoType(jsonSchema)
+				goType, err = SchemaGoType(jsonSchema)
 				if err != nil {
 					return nil, nil, false, fmt.Errorf("response %s: %w", code, err)
 				}
@@ -536,4 +592,18 @@ func statusCodeToConst(code openapi.StatusCode) string {
 	}
 	// "No Content" → "NoContent" → "http.StatusNoContent"
 	return "http.Status" + strings.ReplaceAll(text, " ", "")
+}
+
+// fixedValue is the value a schema pins a parameter to: its example, else its const, else its only enum value.
+func fixedValue(s *openapi.Schema) string {
+	switch {
+	case s.Example != nil:
+		return s.Example.String()
+	case len(s.Const) > 0:
+		return s.Const.String()
+	case len(s.Enum) == 1:
+		return s.Enum[0].String()
+	default:
+		return ""
+	}
 }
