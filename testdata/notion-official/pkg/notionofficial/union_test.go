@@ -8,6 +8,7 @@ package notionofficial
 
 import (
 	"encoding/json/v2"
+	"errors"
 	"strings"
 	"testing"
 )
@@ -23,9 +24,9 @@ func TestUnion_Discriminator(t *testing.T) {
 	}
 
 	for in, want := range map[string]string{
-		`{"mode":"random"}`:                  `unknown mode "random"`,
+		`{"mode":"random"}`:                  `unknown value of "mode"`,
 		`{"id":"gpt","mode":"pinned"}`:       `first member is "id", want "mode"`,
-		`{"mode":"pinned","id":"gpt","x":1}`: `unknown member "x"`,
+		`{"mode":"pinned","id":"gpt","x":1}`: `unknown object member name "x"`,
 	} {
 		if err := json.Unmarshal([]byte(in), &m, jsonOpts); err == nil || !strings.Contains(err.Error(), want) {
 			t.Errorf("%s: got %v, want %s", in, err, want)
@@ -56,11 +57,11 @@ func TestAllOf_Union(t *testing.T) {
 	}
 
 	for in, want := range map[string]string{
-		`{"type":"page_id","page_id":"59833787-2cf9-4fdf-8782-e53db20768a5","extra":1}`: `unknown member "extra"`,
-		`{"type":"page_id","workspace":true}`:                                           `unknown member "workspace"`,
+		`{"type":"page_id","page_id":"59833787-2cf9-4fdf-8782-e53db20768a5","extra":1}`: `unknown object member name "extra"`,
+		`{"type":"page_id","workspace":true}`:                                           `unknown object member name "workspace"`,
 		`{"page_id":"59833787-2cf9-4fdf-8782-e53db20768a5"}`:                            `first member is "page_id", want "type"`,
 		`{"page_id":"59833787-2cf9-4fdf-8782-e53db20768a5","type":"page_id"}`:           `first member is "page_id", want "type"`,
-		`{}`: `missing member "type"`,
+		`{}`: `missing object member name "type"`,
 	} {
 		var p CreateDatabaseParent
 		if err := json.Unmarshal([]byte(in), &p, jsonOpts); err == nil || !strings.Contains(err.Error(), want) {
@@ -110,5 +111,16 @@ func TestUnion_EncodesDiscriminatorFirst(t *testing.T) {
 	_, err = json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{Mode: "auto", ID: new("gpt")}}, jsonOpts)
 	if err == nil || !strings.Contains(err.Error(), `member "mode" is "auto", want "pinned"`) {
 		t.Errorf("got %v, want the wrong mode refused", err)
+	}
+}
+
+func TestUnion_StandardErrors(t *testing.T) {
+	// an unknown member reads, and matches, as encoding/json's own
+	var m AgentModel
+	err := json.Unmarshal([]byte(`{"mode":"pinned","id":"gpt","x":1}`), &m, jsonOpts)
+
+	var se *json.SemanticError
+	if !errors.As(err, &se) || !errors.Is(err, json.ErrUnknownName) || se.JSONPointer != "/x" {
+		t.Errorf("got %v, want a semantic error for an unknown name at /x", err)
 	}
 }

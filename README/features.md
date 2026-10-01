@@ -27,7 +27,9 @@ How the specification maps onto Go:
   alternative each take the members they declare, chosen by the discriminator or by
   which members are present, and a member none of them declares is an error.
 - **Strictness** — decoding fails as soon as the input differs from what the
-  specification allows, so that an incomplete specification shows itself. A case
+  specification allows, so that an incomplete specification shows itself. The
+  generated methods report it as `encoding/json` does, with a `*json.SemanticError`
+  locating it in the input; an unknown member wraps `json.ErrUnknownName`. A case
   that could be supported but has no real example yet, such as an `allOf` of two
   unions, is generated with methods that return an "unimplemented" error.
 - **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null"
