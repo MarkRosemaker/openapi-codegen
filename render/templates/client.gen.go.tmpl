@@ -232,14 +232,19 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 }
 {{ end }}
 
+{{- $withResult := and .SuccessReturn (not .RawBytesSuccess) }}
 {{ with .Description}}
 	{{- toGoComment . }}
+	{{- if $withResult }}
 	// You can define a custom result to unmarshal the response into.
+	{{- end }}
 	//
 {{- else }}
 	{{- with .Summary -}}
 	{{ toGoComment . }}
+	{{- if $withResult }}
 	// You can define a custom result to unmarshal the response into.
+	{{- end }}
 	//
 	{{- end }}
 {{- end }}
@@ -367,7 +372,10 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 	{{ if ne .GoConstant "default" -}}
 		case {{ end }}{{ .GoConstant }}:
 		{{ with .Description }}{{ toGoComment . }}{{ end }}
-{{- if or .IsSuccess .GoType }}
+{{- if and .IsSuccess $op.EmptySuccess (not $.Debug) }}
+		{{- /* an empty object holds nothing to return, so the body is not read */}}
+		return nil
+{{- else if or .IsSuccess .GoType }}
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "{{ .ContentType }}":
 			{{- if eq .ContentType "application/json" }}

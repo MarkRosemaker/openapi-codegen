@@ -87,8 +87,9 @@ How the specification maps onto Go:
   each operation fails before sending if its own is missing.
 - **Success responses** — an operation returns its success body as `*T`, or as
   `T` where `T` is already nilable: a slice, a map, or a named type of either. An
-  operation whose success body is an empty object returns just `error`: the body
-  is still decoded, so anything in it fails loudly, and the server writes `{}`.
+  operation whose success body is an empty object returns just `error`, and the
+  server writes `{}`. Its body is read only in debug mode, where it is decoded so
+  that anything in it fails loudly and is recorded.
 - **Error responses** — an error body's type is returned wrapped in
   `api.Error`, so it needs an `Error() string` method. The generator does not
   write one, since a good message depends on the API: add it by hand beside the
