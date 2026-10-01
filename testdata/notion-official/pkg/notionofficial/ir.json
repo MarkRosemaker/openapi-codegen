@@ -12867,18 +12867,12 @@
 			"kind": 3,
 			"fields": [
 				{
-					"name": "Attachments",
-					"jsonName": "attachments",
-					"type": "CreateACommentAllOf0Attachments",
-					"jsonTag": "json:\"attachments,omitzero\"",
-					"description": "An array of files to attach to the comment. Maximum of 3 allowed."
+					"type": "CreateACommentAllOf0",
+					"embedded": true
 				},
 				{
-					"name": "DisplayName",
-					"jsonName": "display_name",
-					"type": "*CreateACommentAllOf0DisplayName",
-					"jsonTag": "json:\"display_name,omitempty\"",
-					"description": "Display name for the comment."
+					"type": "CreateACommentAllOf1",
+					"embedded": true
 				}
 			]
 		},
@@ -12897,6 +12891,26 @@
 				}
 			],
 			"isOneOf": true
+		},
+		{
+			"name": "CreateACommentAllOf0",
+			"description": "CreateACommentAllOf0 defines a model",
+			"fields": [
+				{
+					"name": "Attachments",
+					"jsonName": "attachments",
+					"type": "CreateACommentAllOf0Attachments",
+					"jsonTag": "json:\"attachments,omitzero\"",
+					"description": "An array of files to attach to the comment. Maximum of 3 allowed."
+				},
+				{
+					"name": "DisplayName",
+					"jsonName": "display_name",
+					"type": "*CreateACommentAllOf0DisplayName",
+					"jsonTag": "json:\"display_name,omitempty\"",
+					"description": "Display name for the comment."
+				}
+			]
 		},
 		{
 			"name": "CreateACommentAllOf0Attachments",
@@ -12941,6 +12955,30 @@
 				{
 					"fieldName": "Custom",
 					"type": "Custom"
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "CreateACommentAllOf1",
+			"description": "CreateACommentAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "CreateACommentAllOf1OneOf0",
+					"type": "CreateACommentAllOf1OneOf0"
+				},
+				{
+					"fieldName": "CreateACommentAllOf1OneOf1",
+					"type": "CreateACommentAllOf1OneOf1"
+				},
+				{
+					"fieldName": "CreateACommentAllOf1OneOf2",
+					"type": "CreateACommentAllOf1OneOf2"
+				},
+				{
+					"fieldName": "CreateACommentAllOf1OneOf3",
+					"type": "CreateACommentAllOf1OneOf3"
 				}
 			],
 			"isOneOf": true
@@ -13450,6 +13488,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "CreateDatabaseParentAllOf",
+					"embedded": true
+				},
+				{
+					"type": "CreateDatabaseParentAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "CreateDatabaseParentAllOf",
+			"description": "CreateDatabaseParentAllOf defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "CreateDatabaseParentAllOfType",
@@ -13458,6 +13510,22 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "CreateDatabaseParentAllOf2",
+			"description": "CreateDatabaseParentAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "CreateACommentAllOfOneOfParentOneOf",
+					"type": "CreateACommentAllOfOneOfParentOneOf"
+				},
+				{
+					"fieldName": "Workspace",
+					"type": "Workspace"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "CreateDatabaseParentAllOfType",
@@ -13545,6 +13613,20 @@
 			"name": "CreateMeetingNote",
 			"description": "CreateMeetingNote defines a model",
 			"kind": 3,
+			"fields": [
+				{
+					"type": "CreateMeetingNoteAllOf0",
+					"embedded": true
+				},
+				{
+					"type": "CreateMeetingNoteAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "CreateMeetingNoteAllOf0",
+			"description": "CreateMeetingNoteAllOf0 defines a model",
 			"fields": [
 				{
 					"name": "Title",
@@ -13704,6 +13786,22 @@
 					"description": "Whether to start summary generation after transcription."
 				}
 			]
+		},
+		{
+			"name": "CreateMeetingNoteAllOf1",
+			"description": "CreateMeetingNoteAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "CreateMeetingNoteAllOf1OneOf0",
+					"type": "CreateMeetingNoteAllOf1OneOf0"
+				},
+				{
+					"fieldName": "CreateMeetingNoteAllOf1OneOf1",
+					"type": "CreateMeetingNoteAllOf1OneOf1"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "CreateMeetingNoteAllOf1OneOf0",
@@ -15933,6 +16031,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "FileUploadObjectResponseFileImportResultAllOf0",
+					"embedded": true
+				},
+				{
+					"type": "FileUploadObjectResponseFileImportResultAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "FileUploadObjectResponseFileImportResultAllOf0",
+			"description": "FileUploadObjectResponseFileImportResultAllOf0 defines a model",
+			"fields": [
+				{
 					"name": "ImportedTime",
 					"jsonName": "imported_time",
 					"type": "time.Time",
@@ -15941,6 +16053,22 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "FileUploadObjectResponseFileImportResultAllOf1",
+			"description": "FileUploadObjectResponseFileImportResultAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Success",
+					"type": "Success"
+				},
+				{
+					"fieldName": "Error",
+					"type": "Error"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "FileUploadObjectResponseNumberOfParts",
@@ -18287,10 +18415,6 @@
 				{
 					"fieldName": "MultiSelectMultiSelectItemAnyOf",
 					"type": "MultiSelectMultiSelectItemAnyOf"
-				},
-				{
-					"fieldName": "MultiSelectMultiSelectItemAnyOf2",
-					"type": "MultiSelectMultiSelectItemAnyOf"
 				}
 			]
 		},
@@ -18298,6 +18422,20 @@
 			"name": "MultiSelectMultiSelectItem2",
 			"description": "MultiSelectMultiSelectItem2 defines a model",
 			"kind": 3,
+			"fields": [
+				{
+					"type": "MultiSelectMultiSelectItemAllOf",
+					"embedded": true
+				},
+				{
+					"type": "MultiSelectMultiSelectItemAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "MultiSelectMultiSelectItemAllOf",
+			"description": "MultiSelectMultiSelectItemAllOf defines a model",
 			"fields": [
 				{
 					"name": "Color",
@@ -18314,6 +18452,18 @@
 					"description": "The name of the bot's workspace."
 				}
 			]
+		},
+		{
+			"name": "MultiSelectMultiSelectItemAllOf2",
+			"description": "MultiSelectMultiSelectItemAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "MultiSelectMultiSelectItemAllOfOneOf",
+					"type": "MultiSelectMultiSelectItemAllOfOneOf"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "MultiSelectMultiSelectItemAllOfOneOf",
@@ -24527,6 +24677,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "RelationPropertyConfigurationRelationAllOf",
+					"embedded": true
+				},
+				{
+					"type": "RelationPropertyConfigurationRelationAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "RelationPropertyConfigurationRelationAllOf",
+			"description": "RelationPropertyConfigurationRelationAllOf defines a model",
+			"fields": [
+				{
 					"name": "DataSourceID",
 					"jsonName": "data_source_id",
 					"type": "emoji",
@@ -24534,6 +24698,22 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "RelationPropertyConfigurationRelationAllOf2",
+			"description": "RelationPropertyConfigurationRelationAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "SingleProperty",
+					"type": "SingleProperty"
+				},
+				{
+					"fieldName": "DualProperty",
+					"type": "DualProperty"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "RelationPropertyItemObjectResponseRelation",
@@ -26185,6 +26365,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "RollupPropertyConfigurationRollupAllOf",
+					"embedded": true
+				},
+				{
+					"type": "RollupPropertyConfigurationRollupAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "RollupPropertyConfigurationRollupAllOf",
+			"description": "RollupPropertyConfigurationRollupAllOf defines a model",
+			"fields": [
+				{
 					"name": "Function",
 					"jsonName": "function",
 					"type": "rollupFunction",
@@ -26193,6 +26387,30 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "RollupPropertyConfigurationRollupAllOf2",
+			"description": "RollupPropertyConfigurationRollupAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "RollupPropertyConfigurationRollupAllOfOneOf",
+					"type": "RollupPropertyConfigurationRollupAllOfOneOf"
+				},
+				{
+					"fieldName": "RollupPropertyConfigurationRollupAllOfOneOf2",
+					"type": "RollupPropertyConfigurationRollupAllOfOneOf2"
+				},
+				{
+					"fieldName": "RollupPropertyConfigurationRollupAllOfOneOf3",
+					"type": "RollupPropertyConfigurationRollupAllOfOneOf3"
+				},
+				{
+					"fieldName": "RollupPropertyConfigurationRollupAllOfOneOf4",
+					"type": "RollupPropertyConfigurationRollupAllOfOneOf4"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "RollupPropertyConfigurationRollupAllOfOneOf",
@@ -26321,7 +26539,7 @@
 				{
 					"name": "Select",
 					"jsonName": "select",
-					"type": "Select2",
+					"type": "*MultiSelectMultiSelectItemAnyOf",
 					"jsonTag": "json:\"select\"",
 					"required": true
 				},
@@ -26330,21 +26548,6 @@
 					"jsonName": "type",
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "Select2",
-			"description": "Select2 defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "MultiSelectMultiSelectItemAnyOf",
-					"type": "MultiSelectMultiSelectItemAnyOf"
-				},
-				{
-					"fieldName": "MultiSelectMultiSelectItemAnyOf2",
-					"type": "MultiSelectMultiSelectItemAnyOf"
 				}
 			]
 		},
@@ -26439,7 +26642,7 @@
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "Select2",
+					"type": "*MultiSelectMultiSelectItemAnyOf",
 					"jsonTag": "json:\"status\"",
 					"required": true
 				},
@@ -28244,6 +28447,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "UpdateADataSourcePropertiesValueOneOf0AllOf0",
+					"embedded": true
+				},
+				{
+					"type": "UpdateADataSourcePropertiesValueOneOf0AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "UpdateADataSourcePropertiesValueOneOf0AllOf0",
+			"description": "UpdateADataSourcePropertiesValueOneOf0AllOf0 defines a model",
+			"fields": [
+				{
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
@@ -28258,6 +28475,102 @@
 					"description": "The description of the property."
 				}
 			]
+		},
+		{
+			"name": "UpdateADataSourcePropertiesValueOneOf0AllOf1",
+			"description": "UpdateADataSourcePropertiesValueOneOf0AllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Number2",
+					"type": "Number2"
+				},
+				{
+					"fieldName": "Formula",
+					"type": "Formula"
+				},
+				{
+					"fieldName": "Select3",
+					"type": "Select3"
+				},
+				{
+					"fieldName": "MultiSelect3",
+					"type": "MultiSelect3"
+				},
+				{
+					"fieldName": "Status3",
+					"type": "Status3"
+				},
+				{
+					"fieldName": "Relation2",
+					"type": "Relation2"
+				},
+				{
+					"fieldName": "Rollup",
+					"type": "Rollup"
+				},
+				{
+					"fieldName": "UniqueID",
+					"type": "UniqueID"
+				},
+				{
+					"fieldName": "Title2",
+					"type": "Title2"
+				},
+				{
+					"fieldName": "RichText2",
+					"type": "RichText2"
+				},
+				{
+					"fieldName": "Url2",
+					"type": "URL2"
+				},
+				{
+					"fieldName": "People2",
+					"type": "People2"
+				},
+				{
+					"fieldName": "Files2",
+					"type": "Files2"
+				},
+				{
+					"fieldName": "Email2",
+					"type": "Email2"
+				},
+				{
+					"fieldName": "PhoneNumber2",
+					"type": "PhoneNumber2"
+				},
+				{
+					"fieldName": "Date2",
+					"type": "Date2"
+				},
+				{
+					"fieldName": "Checkbox2",
+					"type": "Checkbox2"
+				},
+				{
+					"fieldName": "CreatedBy",
+					"type": "CreatedBy"
+				},
+				{
+					"fieldName": "CreatedTime",
+					"type": "CreatedTime"
+				},
+				{
+					"fieldName": "LastEditedBy",
+					"type": "LastEditedBy"
+				},
+				{
+					"fieldName": "LastEditedTime",
+					"type": "LastEditedTime"
+				},
+				{
+					"fieldName": "Place2",
+					"type": "Place2"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "UpdateAgentCreditLimitOk",
@@ -28470,11 +28783,12 @@
 			"kind": 3,
 			"fields": [
 				{
-					"name": "AllowAsync",
-					"jsonName": "allow_async",
-					"type": "bool",
-					"jsonTag": "json:\"allow_async,omitempty\"",
-					"description": "Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape."
+					"type": "UpdatePageMarkdownAllOf0",
+					"embedded": true
+				},
+				{
+					"type": "UpdatePageMarkdownAllOf1",
+					"embedded": true
 				}
 			]
 		},
@@ -28653,6 +28967,43 @@
 					"literal": "\"mcp\""
 				}
 			]
+		},
+		{
+			"name": "UpdatePageMarkdownAllOf0",
+			"description": "UpdatePageMarkdownAllOf0 defines a model",
+			"fields": [
+				{
+					"name": "AllowAsync",
+					"jsonName": "allow_async",
+					"type": "bool",
+					"jsonTag": "json:\"allow_async,omitempty\"",
+					"description": "Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape."
+				}
+			]
+		},
+		{
+			"name": "UpdatePageMarkdownAllOf1",
+			"description": "UpdatePageMarkdownAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "InsertContent",
+					"type": "InsertContent"
+				},
+				{
+					"fieldName": "ReplaceContentRange",
+					"type": "ReplaceContentRange"
+				},
+				{
+					"fieldName": "UpdateContent",
+					"type": "UpdateContent"
+				},
+				{
+					"fieldName": "ReplaceContent",
+					"type": "ReplaceContent"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "UpdateSessionRequest",
@@ -32356,6 +32707,16 @@
 					"embedded": true
 				},
 				{
+					"type": "commentCreatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "commentCreatedWebhookPayloadAllOf1",
+			"description": "commentCreatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -32390,6 +32751,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "commentDeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "commentDeletedWebhookPayloadAllOf1",
+			"description": "commentDeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -32542,6 +32913,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "commentUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "commentUpdatedWebhookPayloadAllOf1",
+			"description": "commentUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -33165,6 +33546,16 @@
 					"embedded": true
 				},
 				{
+					"type": "dataSourceContentUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "dataSourceContentUpdatedWebhookPayloadAllOf1",
+			"description": "dataSourceContentUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -33199,6 +33590,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "dataSourceCreatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "dataSourceCreatedWebhookPayloadAllOf1",
+			"description": "dataSourceCreatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -33235,6 +33636,16 @@
 					"embedded": true
 				},
 				{
+					"type": "dataSourceDeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "dataSourceDeletedWebhookPayloadAllOf1",
+			"description": "dataSourceDeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -33269,6 +33680,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "dataSourceMovedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "dataSourceMovedWebhookPayloadAllOf1",
+			"description": "dataSourceMovedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -33422,7 +33843,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*pageCoverResponse",
+					"type": "*internalOrExternalFileWithNameAllOf",
 					"jsonTag": "json:\"cover\"",
 					"description": "The cover of the data source.",
 					"required": true
@@ -33507,6 +33928,16 @@
 					"embedded": true
 				},
 				{
+					"type": "dataSourceSchemaUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "dataSourceSchemaUpdatedWebhookPayloadAllOf1",
+			"description": "dataSourceSchemaUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -33541,6 +33972,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "dataSourceUndeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "dataSourceUndeletedWebhookPayloadAllOf1",
+			"description": "dataSourceUndeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -33725,6 +34166,16 @@
 					"embedded": true
 				},
 				{
+					"type": "databaseContentUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "databaseContentUpdatedWebhookPayloadAllOf1",
+			"description": "databaseContentUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -33759,6 +34210,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "databaseCreatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "databaseCreatedWebhookPayloadAllOf1",
+			"description": "databaseCreatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -33795,6 +34256,16 @@
 					"embedded": true
 				},
 				{
+					"type": "databaseDeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "databaseDeletedWebhookPayloadAllOf1",
+			"description": "databaseDeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -33829,6 +34300,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "databaseMovedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "databaseMovedWebhookPayloadAllOf1",
+			"description": "databaseMovedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -33966,7 +34447,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*pageCoverResponse",
+					"type": "*internalOrExternalFileWithNameAllOf",
 					"jsonTag": "json:\"cover\"",
 					"description": "The cover of the data source.",
 					"required": true
@@ -34019,8 +34500,104 @@
 				{
 					"type": "databasePropertyConfigResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "databasePropertyConfigResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "databasePropertyConfigResponseAllOf1",
+			"description": "databasePropertyConfigResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Number2",
+					"type": "Number2"
+				},
+				{
+					"fieldName": "Formula",
+					"type": "Formula"
+				},
+				{
+					"fieldName": "SelectDatabasePropertyConfigResponse",
+					"type": "selectDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "MultiSelectDatabasePropertyConfigResponse",
+					"type": "multiSelectDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "StatusDatabasePropertyConfigResponse",
+					"type": "statusDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "RelationDatabasePropertyConfigResponse",
+					"type": "relationDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "RollupDatabasePropertyConfigResponse",
+					"type": "rollupDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "UniqueID",
+					"type": "UniqueID"
+				},
+				{
+					"fieldName": "Title2",
+					"type": "Title2"
+				},
+				{
+					"fieldName": "RichText2",
+					"type": "RichText2"
+				},
+				{
+					"fieldName": "Url2",
+					"type": "URL2"
+				},
+				{
+					"fieldName": "People2",
+					"type": "People2"
+				},
+				{
+					"fieldName": "Files2",
+					"type": "Files2"
+				},
+				{
+					"fieldName": "Email2",
+					"type": "Email2"
+				},
+				{
+					"fieldName": "PhoneNumber2",
+					"type": "PhoneNumber2"
+				},
+				{
+					"fieldName": "Date2",
+					"type": "Date2"
+				},
+				{
+					"fieldName": "Checkbox2",
+					"type": "Checkbox2"
+				},
+				{
+					"fieldName": "CreatedBy",
+					"type": "CreatedBy"
+				},
+				{
+					"fieldName": "CreatedTime",
+					"type": "CreatedTime"
+				},
+				{
+					"fieldName": "LastEditedBy",
+					"type": "LastEditedBy"
+				},
+				{
+					"fieldName": "LastEditedTime",
+					"type": "LastEditedTime"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "databasePropertyConfigResponseCommon",
@@ -34060,6 +34637,10 @@
 				{
 					"type": "databasePropertyRelationConfigResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "RelationPropertyConfigurationRelationAllOf2",
+					"embedded": true
 				}
 			]
 		},
@@ -34092,6 +34673,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "databaseSchemaUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "databaseSchemaUpdatedWebhookPayloadAllOf1",
+			"description": "databaseSchemaUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -34127,6 +34718,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "databaseUndeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "databaseUndeletedWebhookPayloadAllOf1",
+			"description": "databaseUndeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -34934,18 +35535,8 @@
 					"embedded": true
 				},
 				{
-					"name": "Code",
-					"jsonName": "code",
-					"type": "ErrorAPIAllOfCode",
-					"jsonTag": "json:\"code,omitzero\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "int",
-					"jsonTag": "json:\"status\"",
-					"required": true
+					"type": "error_api_AllOf",
+					"embedded": true
 				}
 			]
 		},
@@ -34958,6 +35549,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_400AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_400AllOf1",
+			"description": "error_api_400AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -34983,6 +35584,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_401AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_401AllOf1",
+			"description": "error_api_401AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35029,6 +35640,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_403OneOf0AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_403OneOf0AllOf1",
+			"description": "error_api_403OneOf0AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI403OneOf0AllOf1Code",
@@ -35053,6 +35674,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_403OneOf1AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_403OneOf1AllOf1",
+			"description": "error_api_403OneOf1AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35086,6 +35717,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_403OneOf2AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_403OneOf2AllOf1",
+			"description": "error_api_403OneOf2AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "string",
@@ -35118,6 +35759,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_404AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_404AllOf1",
+			"description": "error_api_404AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI404AllOf1Code",
@@ -35142,6 +35793,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_406AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_406AllOf1",
+			"description": "error_api_406AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35168,6 +35829,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_409AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_409AllOf1",
+			"description": "error_api_409AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI409AllOf1Code",
@@ -35192,6 +35863,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_429AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_429AllOf1",
+			"description": "error_api_429AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35218,6 +35899,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_503AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_503AllOf1",
+			"description": "error_api_503AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI503AllOf1Code",
@@ -35242,6 +35933,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_504AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_504AllOf1",
+			"description": "error_api_504AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35268,9 +35969,39 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_529AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_529AllOf1",
+			"description": "error_api_529AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI529AllOf1Code",
+					"jsonTag": "json:\"code,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "int",
+					"jsonTag": "json:\"status\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "error_api_AllOf",
+			"description": "error_api_AllOf defines a model",
+			"fields": [
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "ErrorAPIAllOfCode",
 					"jsonTag": "json:\"code,omitzero\"",
 					"required": true
 				},
@@ -35292,6 +36023,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_oauth_400AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_oauth_400AllOf1",
+			"description": "error_oauth_400AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35318,6 +36059,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_oauth_401AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_oauth_401AllOf1",
+			"description": "error_oauth_401AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorOauth401AllOf1Code",
@@ -35342,6 +36093,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_oauth_403AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_oauth_403AllOf1",
+			"description": "error_oauth_403AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -35658,6 +36419,16 @@
 					"embedded": true
 				},
 				{
+					"type": "fileUploadCompletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "fileUploadCompletedWebhookPayloadAllOf1",
+			"description": "fileUploadCompletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -35685,6 +36456,16 @@
 					"embedded": true
 				},
 				{
+					"type": "fileUploadCreatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "fileUploadCreatedWebhookPayloadAllOf1",
+			"description": "fileUploadCreatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -35711,6 +36492,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "fileUploadExpiredWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "fileUploadExpiredWebhookPayloadAllOf1",
+			"description": "fileUploadExpiredWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -35870,6 +36661,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "fileUploadUploadFailedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "fileUploadUploadFailedWebhookPayloadAllOf1",
+			"description": "fileUploadUploadFailedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -37240,6 +38041,22 @@
 			]
 		},
 		{
+			"name": "internalOrExternalFileWithNameAllOf",
+			"description": "internalOrExternalFileWithNameAllOf defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "FileInternalOrExternalFileWithName",
+					"type": "fileInternalOrExternalFileWithName"
+				},
+				{
+					"fieldName": "ExternalInternalOrExternalFileWithName",
+					"type": "externalInternalOrExternalFileWithName"
+				}
+			],
+			"isOneOf": true
+		},
+		{
 			"name": "internalOrExternalFileWithNameRequest",
 			"description": "internalOrExternalFileWithNameRequest defines a model",
 			"kind": 5,
@@ -37261,6 +38078,10 @@
 			"fields": [
 				{
 					"type": "UpdateADataSourcePropertiesValueOneOf",
+					"embedded": true
+				},
+				{
+					"type": "internalOrExternalFileWithNameAllOf",
 					"embedded": true
 				}
 			]
@@ -38980,6 +39801,16 @@
 					"embedded": true
 				},
 				{
+					"type": "pageContentUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageContentUpdatedWebhookPayloadAllOf1",
+			"description": "pageContentUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -39022,22 +39853,6 @@
 			"isOneOf": true
 		},
 		{
-			"name": "pageCoverResponse",
-			"description": "pageCoverResponse defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "FileInternalOrExternalFileWithName",
-					"type": "fileInternalOrExternalFileWithName"
-				},
-				{
-					"fieldName": "ExternalInternalOrExternalFileWithName",
-					"type": "externalInternalOrExternalFileWithName"
-				}
-			],
-			"isOneOf": true
-		},
-		{
 			"name": "pageCreatedWebhookPayload",
 			"description": "pageCreatedWebhookPayload defines a model",
 			"kind": 3,
@@ -39046,6 +39861,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "pageCreatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageCreatedWebhookPayloadAllOf1",
+			"description": "pageCreatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -39081,6 +39906,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "pageDeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageDeletedWebhookPayloadAllOf1",
+			"description": "pageDeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -39194,6 +40029,16 @@
 					"embedded": true
 				},
 				{
+					"type": "pageLockedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageLockedWebhookPayloadAllOf1",
+			"description": "pageLockedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -39274,6 +40119,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "pageMovedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageMovedWebhookPayloadAllOf1",
+			"description": "pageMovedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -39403,7 +40258,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*pageCoverResponse",
+					"type": "*internalOrExternalFileWithNameAllOf",
 					"jsonTag": "json:\"cover\"",
 					"description": "The cover of the data source.",
 					"required": true
@@ -39481,6 +40336,16 @@
 					"embedded": true
 				},
 				{
+					"type": "pagePropertiesUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pagePropertiesUpdatedWebhookPayloadAllOf1",
+			"description": "pagePropertiesUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -39514,8 +40379,28 @@
 				{
 					"type": "FileUploadPageCoverFileUpload",
 					"embedded": true
+				},
+				{
+					"type": "pagePropertyValueWithIdResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "pagePropertyValueWithIdResponseAllOf1",
+			"description": "pagePropertyValueWithIdResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "SimpleOrArrayPropertyValueResponse",
+					"type": "simpleOrArrayPropertyValueResponse"
+				},
+				{
+					"fieldName": "PartialRollupPropertyResponse",
+					"type": "partialRollupPropertyResponse"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "pageReferenceResponse",
@@ -39548,6 +40433,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1",
+			"description": "pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -39584,6 +40479,16 @@
 					"embedded": true
 				},
 				{
+					"type": "pageUndeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageUndeletedWebhookPayloadAllOf1",
+			"description": "pageUndeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -39618,6 +40523,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "pageUnlockedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "pageUnlockedWebhookPayloadAllOf1",
+			"description": "pageUnlockedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -40148,24 +41063,38 @@
 			"kind": 3,
 			"fields": [
 				{
-					"type": "partialRollupValueResponseCommon",
+					"type": "RollupPropertyConfigurationRollupAllOf",
+					"embedded": true
+				},
+				{
+					"type": "partialRollupValueResponseAllOf1",
 					"embedded": true
 				}
 			]
 		},
 		{
-			"name": "partialRollupValueResponseCommon",
-			"description": "partialRollupValueResponseCommon defines a model",
-			"fields": [
+			"name": "partialRollupValueResponseAllOf1",
+			"description": "partialRollupValueResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
 				{
-					"name": "Function",
-					"jsonName": "function",
-					"type": "rollupFunction",
-					"jsonTag": "json:\"function,omitzero\"",
-					"description": "The function used for the rollup, e.g. count, count_values, percent_not_empty, max.",
-					"required": true
+					"fieldName": "NumberFormulaPropertyValue",
+					"type": "numberFormulaPropertyValue"
+				},
+				{
+					"fieldName": "DateFormulaPropertyValue",
+					"type": "dateFormulaPropertyValue"
+				},
+				{
+					"fieldName": "ArrayPartialRollupValueResponse",
+					"type": "arrayPartialRollupValueResponse"
+				},
+				{
+					"fieldName": "UnsupportedFormulaProperty",
+					"type": "unsupportedFormulaProperty"
 				}
-			]
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "partialSelectPropertyValue",
@@ -40678,8 +41607,124 @@
 				{
 					"type": "propertyConfigurationRequestCommon",
 					"embedded": true
+				},
+				{
+					"type": "propertyConfigurationRequestAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "propertyConfigurationRequestAllOf1",
+			"description": "propertyConfigurationRequestAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Number2",
+					"type": "Number2"
+				},
+				{
+					"fieldName": "Formula",
+					"type": "Formula"
+				},
+				{
+					"fieldName": "SelectPropertyConfigurationRequest",
+					"type": "selectPropertyConfigurationRequest"
+				},
+				{
+					"fieldName": "MultiSelectPropertyConfigurationRequest",
+					"type": "multiSelectPropertyConfigurationRequest"
+				},
+				{
+					"fieldName": "StatusPropertyConfigurationRequest",
+					"type": "statusPropertyConfigurationRequest"
+				},
+				{
+					"fieldName": "Relation2",
+					"type": "Relation2"
+				},
+				{
+					"fieldName": "Rollup",
+					"type": "Rollup"
+				},
+				{
+					"fieldName": "UniqueID",
+					"type": "UniqueID"
+				},
+				{
+					"fieldName": "Title2",
+					"type": "Title2"
+				},
+				{
+					"fieldName": "RichText2",
+					"type": "RichText2"
+				},
+				{
+					"fieldName": "Url2",
+					"type": "URL2"
+				},
+				{
+					"fieldName": "People2",
+					"type": "People2"
+				},
+				{
+					"fieldName": "Files2",
+					"type": "Files2"
+				},
+				{
+					"fieldName": "Email2",
+					"type": "Email2"
+				},
+				{
+					"fieldName": "PhoneNumber2",
+					"type": "PhoneNumber2"
+				},
+				{
+					"fieldName": "Date2",
+					"type": "Date2"
+				},
+				{
+					"fieldName": "Checkbox2",
+					"type": "Checkbox2"
+				},
+				{
+					"fieldName": "CreatedBy",
+					"type": "CreatedBy"
+				},
+				{
+					"fieldName": "CreatedTime",
+					"type": "CreatedTime"
+				},
+				{
+					"fieldName": "LastEditedBy",
+					"type": "LastEditedBy"
+				},
+				{
+					"fieldName": "LastEditedTime",
+					"type": "LastEditedTime"
+				},
+				{
+					"fieldName": "ButtonPropertyConfiguration",
+					"type": "buttonPropertyConfiguration"
+				},
+				{
+					"fieldName": "LocationPropertyConfigurationRequest",
+					"type": "locationPropertyConfigurationRequest"
+				},
+				{
+					"fieldName": "VerificationPropertyConfigurationRequest",
+					"type": "verificationPropertyConfigurationRequest"
+				},
+				{
+					"fieldName": "LastVisitedTimePropertyConfigurationRequest",
+					"type": "lastVisitedTimePropertyConfigurationRequest"
+				},
+				{
+					"fieldName": "Place2",
+					"type": "Place2"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "propertyConfigurationRequestCommon",
@@ -41312,8 +42357,32 @@
 				{
 					"type": "richTextItemRequestCommon",
 					"embedded": true
+				},
+				{
+					"type": "richTextItemRequestAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "richTextItemRequestAllOf1",
+			"description": "richTextItemRequestAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "TextRichTextItem",
+					"type": "textRichTextItem"
+				},
+				{
+					"fieldName": "MentionRichTextItemRequest",
+					"type": "mentionRichTextItemRequest"
+				},
+				{
+					"fieldName": "EquationRichTextItem",
+					"type": "equationRichTextItem"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "richTextItemRequestCommon",
@@ -41336,8 +42405,32 @@
 				{
 					"type": "richTextItemResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "richTextItemResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "richTextItemResponseAllOf1",
+			"description": "richTextItemResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "TextRichTextItem",
+					"type": "textRichTextItem"
+				},
+				{
+					"fieldName": "MentionRichTextItemResponse",
+					"type": "mentionRichTextItemResponse"
+				},
+				{
+					"fieldName": "EquationRichTextItem",
+					"type": "equationRichTextItem"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "richTextItemResponseCommon",
@@ -42265,6 +43358,10 @@
 			"fields": [
 				{
 					"type": "statusOptionUpdateRequestCommon",
+					"embedded": true
+				},
+				{
+					"type": "MultiSelectMultiSelectItemAllOf2",
 					"embedded": true
 				}
 			]
@@ -44376,8 +45473,28 @@
 				{
 					"type": "userObjectResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "userObjectResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "userObjectResponseAllOf1",
+			"description": "userObjectResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "PersonUserObjectResponse",
+					"type": "personUserObjectResponse"
+				},
+				{
+					"fieldName": "BotUserObjectResponse",
+					"type": "botUserObjectResponse"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "userObjectResponseCommon",
@@ -44791,6 +45908,16 @@
 					"embedded": true
 				},
 				{
+					"type": "viewCreatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "viewCreatedWebhookPayloadAllOf1",
+			"description": "viewCreatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
@@ -44825,6 +45952,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "viewDeletedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "viewDeletedWebhookPayloadAllOf1",
+			"description": "viewDeletedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
@@ -45179,6 +46316,16 @@
 					"type": "baseWebhookPayload",
 					"embedded": true
 				},
+				{
+					"type": "viewUpdatedWebhookPayloadAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "viewUpdatedWebhookPayloadAllOf1",
+			"description": "viewUpdatedWebhookPayloadAllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",

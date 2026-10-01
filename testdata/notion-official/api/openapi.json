@@ -7898,31 +7898,10 @@
       "CreateAComment": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "attachments": {
-                "$ref": "#/components/schemas/CreateACommentAllOf0Attachments"
-              },
-              "display_name": {
-                "$ref": "#/components/schemas/CreateACommentAllOf0DisplayName"
-              }
-            }
+            "$ref": "#/components/schemas/CreateACommentAllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CreateACommentAllOf1OneOf0"
-              },
-              {
-                "$ref": "#/components/schemas/CreateACommentAllOf1OneOf1"
-              },
-              {
-                "$ref": "#/components/schemas/CreateACommentAllOf1OneOf2"
-              },
-              {
-                "$ref": "#/components/schemas/CreateACommentAllOf1OneOf3"
-              }
-            ]
+            "$ref": "#/components/schemas/CreateACommentAllOf1"
           }
         ]
       },
@@ -7935,6 +7914,17 @@
             "$ref": "#/components/schemas/commentObjectResponse"
           }
         ]
+      },
+      "CreateACommentAllOf0": {
+        "type": "object",
+        "properties": {
+          "attachments": {
+            "$ref": "#/components/schemas/CreateACommentAllOf0Attachments"
+          },
+          "display_name": {
+            "$ref": "#/components/schemas/CreateACommentAllOf0DisplayName"
+          }
+        }
       },
       "CreateACommentAllOf0Attachments": {
         "description": "An array of files to attach to the comment. Maximum of 3 allowed.",
@@ -7972,6 +7962,22 @@
           },
           {
             "$ref": "#/components/schemas/Custom"
+          }
+        ]
+      },
+      "CreateACommentAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateACommentAllOf1OneOf0"
+          },
+          {
+            "$ref": "#/components/schemas/CreateACommentAllOf1OneOf1"
+          },
+          {
+            "$ref": "#/components/schemas/CreateACommentAllOf1OneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/CreateACommentAllOf1OneOf3"
           }
         ]
       },
@@ -8370,25 +8376,31 @@
         "description": "The parent page or workspace where the database will be created.",
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/CreateDatabaseParentAllOfType"
-              }
-            },
-            "required": [
-              "type"
-            ]
+            "$ref": "#/components/schemas/CreateDatabaseParentAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CreateACommentAllOfOneOfParentOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/Workspace"
-              }
-            ]
+            "$ref": "#/components/schemas/CreateDatabaseParentAllOf2"
+          }
+        ]
+      },
+      "CreateDatabaseParentAllOf": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/CreateDatabaseParentAllOfType"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "CreateDatabaseParentAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateACommentAllOfOneOfParentOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/Workspace"
           }
         ]
       },
@@ -8444,32 +8456,28 @@
       "CreateMeetingNote": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "title": {
-                "description": "Title for the meeting note.",
-                "type": "string",
-                "maxLength": 2000
-              },
-              "language": {
-                "$ref": "#/components/schemas/CreateMeetingNoteAllOf0Language"
-              },
-              "options": {
-                "$ref": "#/components/schemas/CreateMeetingNoteAllOf0Options"
-              }
-            }
+            "$ref": "#/components/schemas/CreateMeetingNoteAllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CreateMeetingNoteAllOf1OneOf0"
-              },
-              {
-                "$ref": "#/components/schemas/CreateMeetingNoteAllOf1OneOf1"
-              }
-            ]
+            "$ref": "#/components/schemas/CreateMeetingNoteAllOf1"
           }
         ]
+      },
+      "CreateMeetingNoteAllOf0": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "Title for the meeting note.",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "language": {
+            "$ref": "#/components/schemas/CreateMeetingNoteAllOf0Language"
+          },
+          "options": {
+            "$ref": "#/components/schemas/CreateMeetingNoteAllOf0Options"
+          }
+        }
       },
       "CreateMeetingNoteAllOf0Language": {
         "description": "Language hint for transcription. Defaults to automatic detection.",
@@ -8510,6 +8518,16 @@
           }
         },
         "additionalProperties": false
+      },
+      "CreateMeetingNoteAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateMeetingNoteAllOf1OneOf0"
+          },
+          {
+            "$ref": "#/components/schemas/CreateMeetingNoteAllOf1OneOf1"
+          }
+        ]
       },
       "CreateMeetingNoteAllOf1OneOf0": {
         "type": "object",
@@ -9012,7 +9030,7 @@
         "description": "The cover of the data source.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/pageCoverResponse"
+            "$ref": "#/components/schemas/internalOrExternalFileWithNameAllOf"
           },
           {
             "type": "null"
@@ -10287,28 +10305,34 @@
       "FileUploadObjectResponseFileImportResult": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "imported_time": {
-                "description": "The time the file was imported into Notion. ISO 8601 format.",
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": [
-              "imported_time"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/FileUploadObjectResponseFileImportResultAllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Success"
-              },
-              {
-                "$ref": "#/components/schemas/Error"
-              }
-            ]
+            "$ref": "#/components/schemas/FileUploadObjectResponseFileImportResultAllOf1"
+          }
+        ]
+      },
+      "FileUploadObjectResponseFileImportResultAllOf0": {
+        "type": "object",
+        "properties": {
+          "imported_time": {
+            "description": "The time the file was imported into Notion. ISO 8601 format.",
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "imported_time"
+        ],
+        "additionalProperties": false
+      },
+      "FileUploadObjectResponseFileImportResultAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Success"
+          },
+          {
+            "$ref": "#/components/schemas/Error"
           }
         ]
       },
@@ -12137,34 +12161,34 @@
         "anyOf": [
           {
             "$ref": "#/components/schemas/MultiSelectMultiSelectItemAnyOf"
-          },
-          {
-            "$ref": "#/components/schemas/MultiSelectMultiSelectItemAnyOf"
           }
         ]
       },
       "MultiSelectMultiSelectItem2": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "color": {
-                "$ref": "#/components/schemas/PartialSelectPropertyValueColor"
-              },
-              "description": {
-                "$ref": "#/components/schemas/BotInfoWorkspaceName"
-              }
-            }
+            "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOfOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOfOneOf"
-              }
-            ]
+            "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOf2"
+          }
+        ]
+      },
+      "MultiSelectMultiSelectItemAllOf": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/components/schemas/PartialSelectPropertyValueColor"
+          },
+          "description": {
+            "$ref": "#/components/schemas/BotInfoWorkspaceName"
+          }
+        }
+      },
+      "MultiSelectMultiSelectItemAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOfOneOf"
           }
         ]
       },
@@ -16843,25 +16867,31 @@
       "RelationPropertyConfigurationRelation": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "data_source_id": {
-                "$ref": "#/components/schemas/emoji"
-              }
-            },
-            "required": [
-              "data_source_id"
-            ]
+            "$ref": "#/components/schemas/RelationPropertyConfigurationRelationAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/SingleProperty"
-              },
-              {
-                "$ref": "#/components/schemas/DualProperty"
-              }
-            ]
+            "$ref": "#/components/schemas/RelationPropertyConfigurationRelationAllOf2"
+          }
+        ]
+      },
+      "RelationPropertyConfigurationRelationAllOf": {
+        "type": "object",
+        "properties": {
+          "data_source_id": {
+            "$ref": "#/components/schemas/emoji"
+          }
+        },
+        "required": [
+          "data_source_id"
+        ]
+      },
+      "RelationPropertyConfigurationRelationAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SingleProperty"
+          },
+          {
+            "$ref": "#/components/schemas/DualProperty"
           }
         ]
       },
@@ -18198,32 +18228,38 @@
       "RollupPropertyConfigurationRollup": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "function": {
-                "description": "The function to use for the rollup, e.g. count, count_values, percent_not_empty, max.",
-                "$ref": "#/components/schemas/rollupFunction"
-              }
-            },
-            "required": [
-              "function"
-            ]
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf2"
-              },
-              {
-                "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf3"
-              },
-              {
-                "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf4"
-              }
-            ]
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOf2"
+          }
+        ]
+      },
+      "RollupPropertyConfigurationRollupAllOf": {
+        "type": "object",
+        "properties": {
+          "function": {
+            "description": "The function to use for the rollup, e.g. count, count_values, percent_not_empty, max.",
+            "$ref": "#/components/schemas/rollupFunction"
+          }
+        },
+        "required": [
+          "function"
+        ]
+      },
+      "RollupPropertyConfigurationRollupAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf3"
+          },
+          {
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOfOneOf4"
           }
         ]
       },
@@ -18337,9 +18373,6 @@
       },
       "Select2": {
         "anyOf": [
-          {
-            "$ref": "#/components/schemas/MultiSelectMultiSelectItemAnyOf"
-          },
           {
             "$ref": "#/components/schemas/MultiSelectMultiSelectItemAnyOf"
           },
@@ -19923,86 +19956,92 @@
       "UpdateADataSourcePropertiesValueOneOf0": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "The name of the property.",
-                "type": "string"
-              },
-              "description": {
-                "$ref": "#/components/schemas/DatabasePropertyConfigCommonDescription"
-              }
-            }
+            "$ref": "#/components/schemas/UpdateADataSourcePropertiesValueOneOf0AllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Number2"
-              },
-              {
-                "$ref": "#/components/schemas/Formula"
-              },
-              {
-                "$ref": "#/components/schemas/Select3"
-              },
-              {
-                "$ref": "#/components/schemas/MultiSelect3"
-              },
-              {
-                "$ref": "#/components/schemas/Status3"
-              },
-              {
-                "$ref": "#/components/schemas/Relation2"
-              },
-              {
-                "$ref": "#/components/schemas/Rollup"
-              },
-              {
-                "$ref": "#/components/schemas/UniqueID"
-              },
-              {
-                "$ref": "#/components/schemas/Title2"
-              },
-              {
-                "$ref": "#/components/schemas/RichText2"
-              },
-              {
-                "$ref": "#/components/schemas/URL2"
-              },
-              {
-                "$ref": "#/components/schemas/People2"
-              },
-              {
-                "$ref": "#/components/schemas/Files2"
-              },
-              {
-                "$ref": "#/components/schemas/Email2"
-              },
-              {
-                "$ref": "#/components/schemas/PhoneNumber2"
-              },
-              {
-                "$ref": "#/components/schemas/Date2"
-              },
-              {
-                "$ref": "#/components/schemas/Checkbox2"
-              },
-              {
-                "$ref": "#/components/schemas/CreatedBy"
-              },
-              {
-                "$ref": "#/components/schemas/CreatedTime"
-              },
-              {
-                "$ref": "#/components/schemas/LastEditedBy"
-              },
-              {
-                "$ref": "#/components/schemas/LastEditedTime"
-              },
-              {
-                "$ref": "#/components/schemas/Place2"
-              }
-            ]
+            "$ref": "#/components/schemas/UpdateADataSourcePropertiesValueOneOf0AllOf1"
+          }
+        ]
+      },
+      "UpdateADataSourcePropertiesValueOneOf0AllOf0": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the property.",
+            "type": "string"
+          },
+          "description": {
+            "$ref": "#/components/schemas/DatabasePropertyConfigCommonDescription"
+          }
+        }
+      },
+      "UpdateADataSourcePropertiesValueOneOf0AllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Number2"
+          },
+          {
+            "$ref": "#/components/schemas/Formula"
+          },
+          {
+            "$ref": "#/components/schemas/Select3"
+          },
+          {
+            "$ref": "#/components/schemas/MultiSelect3"
+          },
+          {
+            "$ref": "#/components/schemas/Status3"
+          },
+          {
+            "$ref": "#/components/schemas/Relation2"
+          },
+          {
+            "$ref": "#/components/schemas/Rollup"
+          },
+          {
+            "$ref": "#/components/schemas/UniqueID"
+          },
+          {
+            "$ref": "#/components/schemas/Title2"
+          },
+          {
+            "$ref": "#/components/schemas/RichText2"
+          },
+          {
+            "$ref": "#/components/schemas/URL2"
+          },
+          {
+            "$ref": "#/components/schemas/People2"
+          },
+          {
+            "$ref": "#/components/schemas/Files2"
+          },
+          {
+            "$ref": "#/components/schemas/Email2"
+          },
+          {
+            "$ref": "#/components/schemas/PhoneNumber2"
+          },
+          {
+            "$ref": "#/components/schemas/Date2"
+          },
+          {
+            "$ref": "#/components/schemas/Checkbox2"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedBy"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedTime"
+          },
+          {
+            "$ref": "#/components/schemas/LastEditedBy"
+          },
+          {
+            "$ref": "#/components/schemas/LastEditedTime"
+          },
+          {
+            "$ref": "#/components/schemas/Place2"
           }
         ]
       },
@@ -20163,29 +20202,10 @@
       "UpdatePageMarkdown": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "allow_async": {
-                "description": "Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape.",
-                "type": "boolean"
-              }
-            }
+            "$ref": "#/components/schemas/UpdatePageMarkdownAllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/InsertContent"
-              },
-              {
-                "$ref": "#/components/schemas/ReplaceContentRange"
-              },
-              {
-                "$ref": "#/components/schemas/UpdateContent"
-              },
-              {
-                "$ref": "#/components/schemas/ReplaceContent"
-              }
-            ]
+            "$ref": "#/components/schemas/UpdatePageMarkdownAllOf1"
           }
         ]
       },
@@ -20299,6 +20319,31 @@
         "type": "string",
         "enum": [
           "mcp"
+        ]
+      },
+      "UpdatePageMarkdownAllOf0": {
+        "type": "object",
+        "properties": {
+          "allow_async": {
+            "description": "Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape.",
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdatePageMarkdownAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InsertContent"
+          },
+          {
+            "$ref": "#/components/schemas/ReplaceContentRange"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateContent"
+          },
+          {
+            "$ref": "#/components/schemas/ReplaceContent"
+          }
         ]
       },
       "UpdateSessionRequest": {
@@ -22892,27 +22937,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `comment.created`",
-                "type": "string",
-                "const": "comment.created"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookCommentEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/CommentCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/commentCreatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "commentCreatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `comment.created`",
+            "type": "string",
+            "const": "comment.created"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookCommentEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CommentCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "commentDeletedWebhookPayload": {
@@ -22921,27 +22969,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `comment.deleted`",
-                "type": "string",
-                "const": "comment.deleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookCommentEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/CommentCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/commentDeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "commentDeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `comment.deleted`",
+            "type": "string",
+            "const": "comment.deleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookCommentEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CommentCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "commentObjectResponse": {
@@ -23032,27 +23083,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `comment.updated`",
-                "type": "string",
-                "const": "comment.updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookCommentEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/CommentCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/commentUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "commentUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `comment.updated`",
+            "type": "string",
+            "const": "comment.updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookCommentEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CommentCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "contentPositionSchema": {
@@ -23546,27 +23600,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `data_source.content_updated`",
-                "type": "string",
-                "const": "data_source.content_updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceContentUpdatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/dataSourceContentUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "dataSourceContentUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `data_source.content_updated`",
+            "type": "string",
+            "const": "data_source.content_updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceContentUpdatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "dataSourceCreatedWebhookPayload": {
@@ -23575,27 +23632,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `data_source.created`",
-                "type": "string",
-                "const": "data_source.created"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/dataSourceCreatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "dataSourceCreatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `data_source.created`",
+            "type": "string",
+            "const": "data_source.created"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "dataSourceDeletedWebhookPayload": {
@@ -23604,27 +23664,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `data_source.deleted`",
-                "type": "string",
-                "const": "data_source.deleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/dataSourceDeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "dataSourceDeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `data_source.deleted`",
+            "type": "string",
+            "const": "data_source.deleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "dataSourceMovedWebhookPayload": {
@@ -23633,27 +23696,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `data_source.moved`",
-                "type": "string",
-                "const": "data_source.moved"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/dataSourceMovedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "dataSourceMovedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `data_source.moved`",
+            "type": "string",
+            "const": "data_source.moved"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "dataSourceObjectResponse": {
@@ -23812,27 +23878,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `data_source.schema_updated`",
-                "type": "string",
-                "const": "data_source.schema_updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceSchemaUpdatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/dataSourceSchemaUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "dataSourceSchemaUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `data_source.schema_updated`",
+            "type": "string",
+            "const": "data_source.schema_updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceSchemaUpdatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "dataSourceUndeletedWebhookPayload": {
@@ -23841,27 +23910,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `data_source.undeleted`",
-                "type": "string",
-                "const": "data_source.undeleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/dataSourceUndeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "dataSourceUndeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `data_source.undeleted`",
+            "type": "string",
+            "const": "data_source.undeleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "dataSourceViewObjectResponse": {
@@ -23965,27 +24037,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `database.content_updated`",
-                "type": "string",
-                "const": "database.content_updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceContentUpdatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/databaseContentUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "databaseContentUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `database.content_updated`",
+            "type": "string",
+            "const": "database.content_updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceContentUpdatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "databaseCreatedWebhookPayload": {
@@ -23994,27 +24069,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `database.created`",
-                "type": "string",
-                "const": "database.created"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/databaseCreatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "databaseCreatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `database.created`",
+            "type": "string",
+            "const": "database.created"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "databaseDeletedWebhookPayload": {
@@ -24023,27 +24101,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `database.deleted`",
-                "type": "string",
-                "const": "database.deleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/databaseDeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "databaseDeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `database.deleted`",
+            "type": "string",
+            "const": "database.deleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "databaseMovedWebhookPayload": {
@@ -24052,27 +24133,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `database.moved`",
-                "type": "string",
-                "const": "database.moved"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/databaseMovedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "databaseMovedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `database.moved`",
+            "type": "string",
+            "const": "database.moved"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "databaseObjectResponse": {
@@ -24199,71 +24283,74 @@
             "$ref": "#/components/schemas/databasePropertyConfigResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Number2"
-              },
-              {
-                "$ref": "#/components/schemas/Formula"
-              },
-              {
-                "$ref": "#/components/schemas/selectDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/multiSelectDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/statusDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/relationDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/rollupDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/UniqueID"
-              },
-              {
-                "$ref": "#/components/schemas/Title2"
-              },
-              {
-                "$ref": "#/components/schemas/RichText2"
-              },
-              {
-                "$ref": "#/components/schemas/URL2"
-              },
-              {
-                "$ref": "#/components/schemas/People2"
-              },
-              {
-                "$ref": "#/components/schemas/Files2"
-              },
-              {
-                "$ref": "#/components/schemas/Email2"
-              },
-              {
-                "$ref": "#/components/schemas/PhoneNumber2"
-              },
-              {
-                "$ref": "#/components/schemas/Date2"
-              },
-              {
-                "$ref": "#/components/schemas/Checkbox2"
-              },
-              {
-                "$ref": "#/components/schemas/CreatedBy"
-              },
-              {
-                "$ref": "#/components/schemas/CreatedTime"
-              },
-              {
-                "$ref": "#/components/schemas/LastEditedBy"
-              },
-              {
-                "$ref": "#/components/schemas/LastEditedTime"
-              }
-            ]
+            "$ref": "#/components/schemas/databasePropertyConfigResponseAllOf1"
+          }
+        ]
+      },
+      "databasePropertyConfigResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Number2"
+          },
+          {
+            "$ref": "#/components/schemas/Formula"
+          },
+          {
+            "$ref": "#/components/schemas/selectDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/multiSelectDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/statusDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/relationDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/rollupDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/UniqueID"
+          },
+          {
+            "$ref": "#/components/schemas/Title2"
+          },
+          {
+            "$ref": "#/components/schemas/RichText2"
+          },
+          {
+            "$ref": "#/components/schemas/URL2"
+          },
+          {
+            "$ref": "#/components/schemas/People2"
+          },
+          {
+            "$ref": "#/components/schemas/Files2"
+          },
+          {
+            "$ref": "#/components/schemas/Email2"
+          },
+          {
+            "$ref": "#/components/schemas/PhoneNumber2"
+          },
+          {
+            "$ref": "#/components/schemas/Date2"
+          },
+          {
+            "$ref": "#/components/schemas/Checkbox2"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedBy"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedTime"
+          },
+          {
+            "$ref": "#/components/schemas/LastEditedBy"
+          },
+          {
+            "$ref": "#/components/schemas/LastEditedTime"
           }
         ]
       },
@@ -24295,14 +24382,7 @@
             "$ref": "#/components/schemas/databasePropertyRelationConfigResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/SingleProperty"
-              },
-              {
-                "$ref": "#/components/schemas/DualProperty"
-              }
-            ]
+            "$ref": "#/components/schemas/RelationPropertyConfigurationRelationAllOf2"
           }
         ]
       },
@@ -24328,27 +24408,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `database.schema_updated`",
-                "type": "string",
-                "const": "database.schema_updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceSchemaUpdatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/databaseSchemaUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "databaseSchemaUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `database.schema_updated`",
+            "type": "string",
+            "const": "database.schema_updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceSchemaUpdatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "databaseUndeletedWebhookPayload": {
@@ -24357,27 +24440,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `database.undeleted`",
-                "type": "string",
-                "const": "database.undeleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookDatabaseEventEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/databaseUndeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "databaseUndeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `database.undeleted`",
+            "type": "string",
+            "const": "database.undeleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookDatabaseEventEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "date": {
@@ -24978,21 +25064,7 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPIAllOfCode"
-              },
-              "status": {
-                "type": "integer",
-                "const": 500
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_AllOf"
           }
         ]
       },
@@ -25002,23 +25074,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI400AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 400
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_400AllOf1"
           }
         ]
+      },
+      "error_api_400AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI400AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 400
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_401": {
         "allOf": [
@@ -25026,23 +25101,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI401AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 401
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_401AllOf1"
           }
         ]
+      },
+      "error_api_401AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI401AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 401
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_403": {
         "oneOf": [
@@ -25063,23 +25141,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI403OneOf0AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_403OneOf0AllOf1"
           }
         ]
+      },
+      "error_api_403OneOf0AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI403OneOf0AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_403OneOf1": {
         "allOf": [
@@ -25087,26 +25168,29 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string",
-                "const": "workspace_credits_exhausted"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              },
-              "additional_data": {
-                "$ref": "#/components/schemas/ErrorAPI403OneOf1AllOf1AdditionalData"
-              }
-            },
-            "required": [
-              "code",
-              "status",
-              "additional_data"
-            ]
+            "$ref": "#/components/schemas/error_api_403OneOf1AllOf1"
           }
+        ]
+      },
+      "error_api_403OneOf1AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "workspace_credits_exhausted"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          },
+          "additional_data": {
+            "$ref": "#/components/schemas/ErrorAPI403OneOf1AllOf1AdditionalData"
+          }
+        },
+        "required": [
+          "code",
+          "status",
+          "additional_data"
         ]
       },
       "error_api_403OneOf2": {
@@ -25115,26 +25199,29 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string",
-                "const": "agent_credit_limit_reached"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              },
-              "additional_data": {
-                "$ref": "#/components/schemas/ErrorAPI403OneOf2AllOf1AdditionalData"
-              }
-            },
-            "required": [
-              "code",
-              "status",
-              "additional_data"
-            ]
+            "$ref": "#/components/schemas/error_api_403OneOf2AllOf1"
           }
+        ]
+      },
+      "error_api_403OneOf2AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "agent_credit_limit_reached"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          },
+          "additional_data": {
+            "$ref": "#/components/schemas/ErrorAPI403OneOf2AllOf1AdditionalData"
+          }
+        },
+        "required": [
+          "code",
+          "status",
+          "additional_data"
         ]
       },
       "error_api_404": {
@@ -25143,23 +25230,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI404AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 404
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_404AllOf1"
           }
         ]
+      },
+      "error_api_404AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI404AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 404
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_406": {
         "allOf": [
@@ -25167,23 +25257,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI406AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 406
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_406AllOf1"
           }
         ]
+      },
+      "error_api_406AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI406AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 406
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_409": {
         "allOf": [
@@ -25191,23 +25284,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI409AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 409
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_409AllOf1"
           }
         ]
+      },
+      "error_api_409AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI409AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 409
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_429": {
         "allOf": [
@@ -25215,23 +25311,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI429AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 429
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_429AllOf1"
           }
         ]
+      },
+      "error_api_429AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI429AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 429
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_503": {
         "allOf": [
@@ -25239,23 +25338,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI503AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 503
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_503AllOf1"
           }
         ]
+      },
+      "error_api_503AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI503AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 503
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_504": {
         "allOf": [
@@ -25263,23 +25365,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI504AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 504
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_504AllOf1"
           }
         ]
+      },
+      "error_api_504AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI504AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 504
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_529": {
         "allOf": [
@@ -25287,23 +25392,43 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI529AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 529
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_529AllOf1"
           }
         ]
+      },
+      "error_api_529AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI529AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 529
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "error_api_AllOf": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPIAllOfCode"
+          },
+          "status": {
+            "type": "integer",
+            "const": 500
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_oauth_400": {
         "allOf": [
@@ -25311,23 +25436,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorOauth400AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 400
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_oauth_400AllOf1"
           }
         ]
+      },
+      "error_oauth_400AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorOauth400AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 400
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_oauth_401": {
         "allOf": [
@@ -25335,23 +25463,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorOauth401AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 401
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_oauth_401AllOf1"
           }
         ]
+      },
+      "error_oauth_401AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorOauth401AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 401
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_oauth_403": {
         "allOf": [
@@ -25359,23 +25490,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorOauth403AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_oauth_403AllOf1"
           }
         ]
+      },
+      "error_oauth_403AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorOauth403AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "existencePropertyFilter": {
         "anyOf": [
@@ -25619,23 +25753,26 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `file_upload.completed`",
-                "type": "string",
-                "const": "file_upload.completed"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookFileUploadEntity"
-              }
-            },
-            "required": [
-              "type",
-              "entity"
-            ]
+            "$ref": "#/components/schemas/fileUploadCompletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "fileUploadCompletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `file_upload.completed`",
+            "type": "string",
+            "const": "file_upload.completed"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookFileUploadEntity"
+          }
+        },
+        "required": [
+          "type",
+          "entity"
         ]
       },
       "fileUploadCreatedWebhookPayload": {
@@ -25644,23 +25781,26 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `file_upload.created`",
-                "type": "string",
-                "const": "file_upload.created"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookFileUploadEntity"
-              }
-            },
-            "required": [
-              "type",
-              "entity"
-            ]
+            "$ref": "#/components/schemas/fileUploadCreatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "fileUploadCreatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `file_upload.created`",
+            "type": "string",
+            "const": "file_upload.created"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookFileUploadEntity"
+          }
+        },
+        "required": [
+          "type",
+          "entity"
         ]
       },
       "fileUploadExpiredWebhookPayload": {
@@ -25669,23 +25809,26 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `file_upload.expired`",
-                "type": "string",
-                "const": "file_upload.expired"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookFileUploadEntity"
-              }
-            },
-            "required": [
-              "type",
-              "entity"
-            ]
+            "$ref": "#/components/schemas/fileUploadExpiredWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "fileUploadExpiredWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `file_upload.expired`",
+            "type": "string",
+            "const": "file_upload.expired"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookFileUploadEntity"
+          }
+        },
+        "required": [
+          "type",
+          "entity"
         ]
       },
       "fileUploadObjectResponse": {
@@ -25779,27 +25922,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `file_upload.upload_failed`",
-                "type": "string",
-                "const": "file_upload.upload_failed"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookFileUploadEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/FileUploadUploadFailedWebhookPayloadAllOf1Data"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/fileUploadUploadFailedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "fileUploadUploadFailedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `file_upload.upload_failed`",
+            "type": "string",
+            "const": "file_upload.upload_failed"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookFileUploadEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FileUploadUploadFailedWebhookPayloadAllOf1Data"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "fileUploadWithOptionalNameRequest": {
@@ -26803,6 +26949,16 @@
         ],
         "additionalProperties": false
       },
+      "internalOrExternalFileWithNameAllOf": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/fileInternalOrExternalFileWithName"
+          },
+          {
+            "$ref": "#/components/schemas/externalInternalOrExternalFileWithName"
+          }
+        ]
+      },
       "internalOrExternalFileWithNameRequest": {
         "anyOf": [
           {
@@ -26819,14 +26975,7 @@
             "$ref": "#/components/schemas/UpdateADataSourcePropertiesValueOneOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/fileInternalOrExternalFileWithName"
-              },
-              {
-                "$ref": "#/components/schemas/externalInternalOrExternalFileWithName"
-              }
-            ]
+            "$ref": "#/components/schemas/internalOrExternalFileWithNameAllOf"
           }
         ]
       },
@@ -27872,27 +28021,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.content_updated`",
-                "type": "string",
-                "const": "page.content_updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceContentUpdatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageContentUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageContentUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.content_updated`",
+            "type": "string",
+            "const": "page.content_updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceContentUpdatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageCoverRequest": {
@@ -27905,43 +28057,36 @@
           }
         ]
       },
-      "pageCoverResponse": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/fileInternalOrExternalFileWithName"
-          },
-          {
-            "$ref": "#/components/schemas/externalInternalOrExternalFileWithName"
-          }
-        ]
-      },
       "pageCreatedWebhookPayload": {
         "allOf": [
           {
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.created`",
-                "type": "string",
-                "const": "page.created"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageCreatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageCreatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.created`",
+            "type": "string",
+            "const": "page.created"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageDeletedWebhookPayload": {
@@ -27950,27 +28095,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.deleted`",
-                "type": "string",
-                "const": "page.deleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageDeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageDeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.deleted`",
+            "type": "string",
+            "const": "page.deleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageIconRequest": {
@@ -28036,27 +28184,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.locked`",
-                "type": "string",
-                "const": "page.locked"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageLockedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageLockedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.locked`",
+            "type": "string",
+            "const": "page.locked"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageMarkdownResponse": {
@@ -28103,27 +28254,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.moved`",
-                "type": "string",
-                "const": "page.moved"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageMovedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageMovedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.moved`",
+            "type": "string",
+            "const": "page.moved"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageObjectResponse": {
@@ -28255,27 +28409,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.properties_updated`",
-                "type": "string",
-                "const": "page.properties_updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/PagePropertiesUpdatedWebhookPayloadAllOf1Data"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pagePropertiesUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pagePropertiesUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.properties_updated`",
+            "type": "string",
+            "const": "page.properties_updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PagePropertiesUpdatedWebhookPayloadAllOf1Data"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pagePropertyValueWithIdResponse": {
@@ -28284,14 +28441,17 @@
             "$ref": "#/components/schemas/FileUploadPageCoverFileUpload"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/simpleOrArrayPropertyValueResponse"
-              },
-              {
-                "$ref": "#/components/schemas/partialRollupPropertyResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/pagePropertyValueWithIdResponseAllOf1"
+          }
+        ]
+      },
+      "pagePropertyValueWithIdResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/simpleOrArrayPropertyValueResponse"
+          },
+          {
+            "$ref": "#/components/schemas/partialRollupPropertyResponse"
           }
         ]
       },
@@ -28319,27 +28479,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.transcription_block.transcript_deleted`",
-                "type": "string",
-                "const": "page.transcription_block.transcript_deleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/PageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1Data"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.transcription_block.transcript_deleted`",
+            "type": "string",
+            "const": "page.transcription_block.transcript_deleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1Data"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageUndeletedWebhookPayload": {
@@ -28348,27 +28511,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.undeleted`",
-                "type": "string",
-                "const": "page.undeleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageUndeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageUndeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.undeleted`",
+            "type": "string",
+            "const": "page.undeleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "pageUnlockedWebhookPayload": {
@@ -28377,27 +28543,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `page.unlocked`",
-                "type": "string",
-                "const": "page.unlocked"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookPageEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/pageUnlockedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "pageUnlockedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page.unlocked`",
+            "type": "string",
+            "const": "page.unlocked"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookPageEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "paragraphBlockObjectResponse": {
@@ -28760,38 +28929,28 @@
       "partialRollupValueResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/partialRollupValueResponseCommon"
+            "$ref": "#/components/schemas/RollupPropertyConfigurationRollupAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/numberFormulaPropertyValue"
-              },
-              {
-                "$ref": "#/components/schemas/dateFormulaPropertyValue"
-              },
-              {
-                "$ref": "#/components/schemas/arrayPartialRollupValueResponse"
-              },
-              {
-                "$ref": "#/components/schemas/unsupportedFormulaProperty"
-              }
-            ]
+            "$ref": "#/components/schemas/partialRollupValueResponseAllOf1"
           }
         ]
       },
-      "partialRollupValueResponseCommon": {
-        "type": "object",
-        "properties": {
-          "function": {
-            "description": "The function used for the rollup, e.g. count, count_values, percent_not_empty, max.",
-            "$ref": "#/components/schemas/rollupFunction"
+      "partialRollupValueResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/numberFormulaPropertyValue"
+          },
+          {
+            "$ref": "#/components/schemas/dateFormulaPropertyValue"
+          },
+          {
+            "$ref": "#/components/schemas/arrayPartialRollupValueResponse"
+          },
+          {
+            "$ref": "#/components/schemas/unsupportedFormulaProperty"
           }
-        },
-        "required": [
-          "function"
-        ],
-        "additionalProperties": false
+        ]
       },
       "partialSelectPropertyValue": {
         "type": "object",
@@ -29181,86 +29340,89 @@
             "$ref": "#/components/schemas/propertyConfigurationRequestCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Number2"
-              },
-              {
-                "$ref": "#/components/schemas/Formula"
-              },
-              {
-                "$ref": "#/components/schemas/selectPropertyConfigurationRequest"
-              },
-              {
-                "$ref": "#/components/schemas/multiSelectPropertyConfigurationRequest"
-              },
-              {
-                "$ref": "#/components/schemas/statusPropertyConfigurationRequest"
-              },
-              {
-                "$ref": "#/components/schemas/Relation2"
-              },
-              {
-                "$ref": "#/components/schemas/Rollup"
-              },
-              {
-                "$ref": "#/components/schemas/UniqueID"
-              },
-              {
-                "$ref": "#/components/schemas/Title2"
-              },
-              {
-                "$ref": "#/components/schemas/RichText2"
-              },
-              {
-                "$ref": "#/components/schemas/URL2"
-              },
-              {
-                "$ref": "#/components/schemas/People2"
-              },
-              {
-                "$ref": "#/components/schemas/Files2"
-              },
-              {
-                "$ref": "#/components/schemas/Email2"
-              },
-              {
-                "$ref": "#/components/schemas/PhoneNumber2"
-              },
-              {
-                "$ref": "#/components/schemas/Date2"
-              },
-              {
-                "$ref": "#/components/schemas/Checkbox2"
-              },
-              {
-                "$ref": "#/components/schemas/CreatedBy"
-              },
-              {
-                "$ref": "#/components/schemas/CreatedTime"
-              },
-              {
-                "$ref": "#/components/schemas/LastEditedBy"
-              },
-              {
-                "$ref": "#/components/schemas/LastEditedTime"
-              },
-              {
-                "$ref": "#/components/schemas/buttonPropertyConfiguration"
-              },
-              {
-                "$ref": "#/components/schemas/locationPropertyConfigurationRequest"
-              },
-              {
-                "$ref": "#/components/schemas/verificationPropertyConfigurationRequest"
-              },
-              {
-                "$ref": "#/components/schemas/lastVisitedTimePropertyConfigurationRequest"
-              },
-              {
-                "$ref": "#/components/schemas/Place2"
-              }
-            ]
+            "$ref": "#/components/schemas/propertyConfigurationRequestAllOf1"
+          }
+        ]
+      },
+      "propertyConfigurationRequestAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Number2"
+          },
+          {
+            "$ref": "#/components/schemas/Formula"
+          },
+          {
+            "$ref": "#/components/schemas/selectPropertyConfigurationRequest"
+          },
+          {
+            "$ref": "#/components/schemas/multiSelectPropertyConfigurationRequest"
+          },
+          {
+            "$ref": "#/components/schemas/statusPropertyConfigurationRequest"
+          },
+          {
+            "$ref": "#/components/schemas/Relation2"
+          },
+          {
+            "$ref": "#/components/schemas/Rollup"
+          },
+          {
+            "$ref": "#/components/schemas/UniqueID"
+          },
+          {
+            "$ref": "#/components/schemas/Title2"
+          },
+          {
+            "$ref": "#/components/schemas/RichText2"
+          },
+          {
+            "$ref": "#/components/schemas/URL2"
+          },
+          {
+            "$ref": "#/components/schemas/People2"
+          },
+          {
+            "$ref": "#/components/schemas/Files2"
+          },
+          {
+            "$ref": "#/components/schemas/Email2"
+          },
+          {
+            "$ref": "#/components/schemas/PhoneNumber2"
+          },
+          {
+            "$ref": "#/components/schemas/Date2"
+          },
+          {
+            "$ref": "#/components/schemas/Checkbox2"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedBy"
+          },
+          {
+            "$ref": "#/components/schemas/CreatedTime"
+          },
+          {
+            "$ref": "#/components/schemas/LastEditedBy"
+          },
+          {
+            "$ref": "#/components/schemas/LastEditedTime"
+          },
+          {
+            "$ref": "#/components/schemas/buttonPropertyConfiguration"
+          },
+          {
+            "$ref": "#/components/schemas/locationPropertyConfigurationRequest"
+          },
+          {
+            "$ref": "#/components/schemas/verificationPropertyConfigurationRequest"
+          },
+          {
+            "$ref": "#/components/schemas/lastVisitedTimePropertyConfigurationRequest"
+          },
+          {
+            "$ref": "#/components/schemas/Place2"
           }
         ]
       },
@@ -29757,17 +29919,20 @@
             "$ref": "#/components/schemas/richTextItemRequestCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/textRichTextItem"
-              },
-              {
-                "$ref": "#/components/schemas/mentionRichTextItemRequest"
-              },
-              {
-                "$ref": "#/components/schemas/equationRichTextItem"
-              }
-            ]
+            "$ref": "#/components/schemas/richTextItemRequestAllOf1"
+          }
+        ]
+      },
+      "richTextItemRequestAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/textRichTextItem"
+          },
+          {
+            "$ref": "#/components/schemas/mentionRichTextItemRequest"
+          },
+          {
+            "$ref": "#/components/schemas/equationRichTextItem"
           }
         ]
       },
@@ -29786,17 +29951,20 @@
             "$ref": "#/components/schemas/richTextItemResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/textRichTextItem"
-              },
-              {
-                "$ref": "#/components/schemas/mentionRichTextItemResponse"
-              },
-              {
-                "$ref": "#/components/schemas/equationRichTextItem"
-              }
-            ]
+            "$ref": "#/components/schemas/richTextItemResponseAllOf1"
+          }
+        ]
+      },
+      "richTextItemResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/textRichTextItem"
+          },
+          {
+            "$ref": "#/components/schemas/mentionRichTextItemResponse"
+          },
+          {
+            "$ref": "#/components/schemas/equationRichTextItem"
           }
         ]
       },
@@ -30425,14 +30593,7 @@
             "$ref": "#/components/schemas/statusOptionUpdateRequestCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOfOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOfOneOf"
-              }
-            ]
+            "$ref": "#/components/schemas/MultiSelectMultiSelectItemAllOf2"
           }
         ]
       },
@@ -31990,14 +32151,17 @@
             "$ref": "#/components/schemas/userObjectResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/personUserObjectResponse"
-              },
-              {
-                "$ref": "#/components/schemas/botUserObjectResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/userObjectResponseAllOf1"
+          }
+        ]
+      },
+      "userObjectResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/personUserObjectResponse"
+          },
+          {
+            "$ref": "#/components/schemas/botUserObjectResponse"
           }
         ]
       },
@@ -32308,27 +32472,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `view.created`",
-                "type": "string",
-                "const": "view.created"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookViewEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/ViewCreatedWebhookPayloadAllOf1Data"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/viewCreatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "viewCreatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `view.created`",
+            "type": "string",
+            "const": "view.created"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookViewEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ViewCreatedWebhookPayloadAllOf1Data"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "viewDeletedWebhookPayload": {
@@ -32337,27 +32504,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `view.deleted`",
-                "type": "string",
-                "const": "view.deleted"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookViewEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/viewDeletedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "viewDeletedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `view.deleted`",
+            "type": "string",
+            "const": "view.deleted"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookViewEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DataSourceCreatedWebhookPayloadAllOfData"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "viewFilterResponse": {
@@ -32593,27 +32763,30 @@
             "$ref": "#/components/schemas/baseWebhookPayload"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "description": "Always `view.updated`",
-                "type": "string",
-                "const": "view.updated"
-              },
-              "entity": {
-                "description": "The object that triggered the event.",
-                "$ref": "#/components/schemas/webhookViewEntity"
-              },
-              "data": {
-                "$ref": "#/components/schemas/ViewUpdatedWebhookPayloadAllOf1Data"
-              }
-            },
-            "required": [
-              "type",
-              "entity",
-              "data"
-            ]
+            "$ref": "#/components/schemas/viewUpdatedWebhookPayloadAllOf1"
           }
+        ]
+      },
+      "viewUpdatedWebhookPayloadAllOf1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `view.updated`",
+            "type": "string",
+            "const": "view.updated"
+          },
+          "entity": {
+            "description": "The object that triggered the event.",
+            "$ref": "#/components/schemas/webhookViewEntity"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ViewUpdatedWebhookPayloadAllOf1Data"
+          }
+        },
+        "required": [
+          "type",
+          "entity",
+          "data"
         ]
       },
       "webhookCommentEntity": {

@@ -2424,9 +2424,6 @@
           }
         ]
       },
-      "Agent": {
-        "type": "object"
-      },
       "AgentCreditUsage": {
         "type": "object",
         "properties": {
@@ -3857,41 +3854,47 @@
       "ListUsersOkResultsItem": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "object": {
-                "description": "The user object type name.",
-                "type": "string",
-                "const": "user"
-              },
-              "id": {
-                "description": "The ID of the user.",
-                "type": "string"
-              },
-              "name": {
-                "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
-              },
-              "avatar_url": {
-                "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
-              }
-            },
-            "required": [
-              "object",
-              "id",
-              "name",
-              "avatar_url"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Person"
-              },
-              {
-                "$ref": "#/components/schemas/Bot"
-              }
-            ]
+            "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf1"
+          }
+        ]
+      },
+      "ListUsersOkResultsItemAllOf0": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "The user object type name.",
+            "type": "string",
+            "const": "user"
+          },
+          "id": {
+            "description": "The ID of the user.",
+            "type": "string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+          },
+          "avatar_url": {
+            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "name",
+          "avatar_url"
+        ],
+        "additionalProperties": false
+      },
+      "ListUsersOkResultsItemAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Person"
+          },
+          {
+            "$ref": "#/components/schemas/Bot"
           }
         ]
       },
@@ -5689,7 +5692,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Agent"
+              "type": "object"
             }
           }
         }
@@ -8909,7 +8912,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Agent"
+              "type": "object"
             }
           }
         }

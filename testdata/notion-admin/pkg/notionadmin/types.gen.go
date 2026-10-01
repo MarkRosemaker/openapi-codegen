@@ -1517,6 +1517,12 @@ type ListUsersOk struct {
 
 // ListUsersOkResultsItem defines a model
 type ListUsersOkResultsItem struct {
+	ListUsersOkResultsItemAllOf0
+	ListUsersOkResultsItemAllOf1
+}
+
+// ListUsersOkResultsItemAllOf0 defines a model
+type ListUsersOkResultsItemAllOf0 struct {
 	// The user object type name.
 	Object string `json:"object,omitzero"`
 	// The ID of the user.
@@ -1525,6 +1531,57 @@ type ListUsersOkResultsItem struct {
 	Name *string `json:"name"`
 	// Cursor for the next page, or null on the last page.
 	AvatarURL *string `json:"avatar_url"`
+}
+
+// ListUsersOkResultsItemAllOf1 defines a model
+// ListUsersOkResultsItemAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type ListUsersOkResultsItemAllOf1 struct {
+	Person *Person
+	Bot    *Bot
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv Person
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Person = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv Bot
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Bot = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("ListUsersOkResultsItemAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *ListUsersOkResultsItemAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.Person != nil:
+		return json.MarshalEncode(enc, v.Person, jsonOpts)
+	case v.Bot != nil:
+		return json.MarshalEncode(enc, v.Bot, jsonOpts)
+	}
+
+	return fmt.Errorf("ListUsersOkResultsItemAllOf1: no variant set")
 }
 
 // NotionVersion defines a model

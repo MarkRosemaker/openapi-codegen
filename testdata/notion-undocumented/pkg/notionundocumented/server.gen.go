@@ -16,14 +16,14 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
-	ListGroupMembers(ctx context.Context, groupID ChatWithAgentOk, params *ListGroupMembersParams) (*ListGroupMembersOk, error)
-	AddGroupMember(ctx context.Context, groupID ChatWithAgentOk, body AddGroupMember) (*groupMembershipObjectResponse, error)
+	ListGroupMembers(ctx context.Context, groupID ChatWithAgent3, params *ListGroupMembersParams) (*ListGroupMembersOk, error)
+	AddGroupMember(ctx context.Context, groupID ChatWithAgent3, body AddGroupMember) (*groupMembershipObjectResponse, error)
 	ExternalDecagon(ctx context.Context, body ExternalDecagon) (*ExternalDecagonOk, error)
 	ExternalRefundEligibility(ctx context.Context, params *ExternalRefundEligibilityParams, body ExternalRefundEligibility) (*ExternalRefundEligibilityOk, error)
 	ExternalUserC360Profile(ctx context.Context, body ExternalUserC360Profile) (*ExternalUserC360ProfileOk, error)
 	ChatWithAgent(ctx context.Context, agentID string, params *ChatWithAgentParams, body ChatWithAgent) (*ChatWithAgent2, error)
 	ChatWithAgentStream(ctx context.Context, agentID string, params *ChatWithAgentStreamParams, body ChatWithAgent) (*ChatStreamChunk, error)
-	ContinueThread(ctx context.Context, threadID ChatWithAgentOk, body ContinueThreadRequest) (*ChatWithAgent2, error)
+	ContinueThread(ctx context.Context, threadID ChatWithAgent3, body ContinueThreadRequest) (*ChatWithAgent2, error)
 	CreateExternalAgentStubVault(ctx context.Context, agentID string, body CreateExternalAgentStubVault) (*CreateExternalAgentStubVault2, error)
 	CreateGroup(ctx context.Context, body CreateGroup) (*permissionGroupObjectResponse, error)
 	CreateRollout(ctx context.Context, body CreateRollout) (*CreateRolloutOk, error)
@@ -31,35 +31,35 @@ type Service interface {
 	CreateTeamspace(ctx context.Context, body CreateTeamspace) (*CreateTeamspace2, error)
 	DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) (*emptyObject, error)
 	UpdateExternalAgentStubVault(ctx context.Context, agentID string, vaultID string, body UpdateExternalAgentStubVault) (*CreateExternalAgentStubVault2, error)
-	RetrieveGroup(ctx context.Context, groupID ChatWithAgentOk) (*permissionGroupObjectResponse, error)
-	DeleteGroup(ctx context.Context, groupID ChatWithAgentOk, body DeleteGroup) (*permissionGroupObjectResponse, error)
-	UpdateGroup(ctx context.Context, groupID ChatWithAgentOk, body CreateGroup) (*permissionGroupObjectResponse, error)
-	ExportPage(ctx context.Context, id ChatWithAgentOk) (*ExportPage, error)
+	RetrieveGroup(ctx context.Context, groupID ChatWithAgent3) (*permissionGroupObjectResponse, error)
+	DeleteGroup(ctx context.Context, groupID ChatWithAgent3, body DeleteGroup) (*permissionGroupObjectResponse, error)
+	UpdateGroup(ctx context.Context, groupID ChatWithAgent3, body CreateGroup) (*permissionGroupObjectResponse, error)
+	ExportPage(ctx context.Context, id ChatWithAgent3) (*ExportPage, error)
 	GenerateTranscript(ctx context.Context, body GenerateTranscript) (*GenerateTranscriptOk, error)
 	GetRollout(ctx context.Context, rolloutID string) (*Rollout, error)
 	GetSecurityPosture(ctx context.Context) (*GetSecurityPostureOk, error)
-	GetTeamspace(ctx context.Context, teamID ChatWithAgentOk) (*CreateTeamspace2, error)
-	UpdateTeamspace(ctx context.Context, teamID ChatWithAgentOk, body CreateTeamspace) (*CreateTeamspace2, error)
+	GetTeamspace(ctx context.Context, teamID ChatWithAgent3) (*CreateTeamspace2, error)
+	UpdateTeamspace(ctx context.Context, teamID ChatWithAgent3, body CreateTeamspace) (*CreateTeamspace2, error)
 	InitiatePageExport(ctx context.Context, body InitiatePageExport) (*ExportPage, error)
 	ListAgents(ctx context.Context, params *ListAgentsParams) (*ListAgentsOk, error)
 	ListConnections(ctx context.Context, params *ListConnectionsParams) (*ListConnectionsOk, error)
 	GetDatabases(ctx context.Context, params *GetDatabasesParams) (*GetDatabasesOk, error)
-	ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID ChatWithAgentOk, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error)
-	ListTeamMembership(ctx context.Context, teamID ChatWithAgentOk, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error)
-	UpdateTeamMembership(ctx context.Context, teamID ChatWithAgentOk, body UpdateTeamMembership) (*emptyObject, error)
-	ListTeamPermissions(ctx context.Context, teamID ChatWithAgentOk, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error)
-	UpdateTeamspacePermissions(ctx context.Context, teamID ChatWithAgentOk, body UpdateTeamspacePermissions) (*emptyObject, error)
-	ListThreadMessages(ctx context.Context, threadID ChatWithAgentOk, params *ListThreadMessagesParams) (*ListThreadMessages, error)
-	SendThreadMessage(ctx context.Context, threadID ChatWithAgentOk, body ChatWithAgent) (*ChatWithAgent2, error)
+	ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID ChatWithAgent3, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error)
+	ListTeamMembership(ctx context.Context, teamID ChatWithAgent3, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error)
+	UpdateTeamMembership(ctx context.Context, teamID ChatWithAgent3, body UpdateTeamMembership) (*emptyObject, error)
+	ListTeamPermissions(ctx context.Context, teamID ChatWithAgent3, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error)
+	UpdateTeamspacePermissions(ctx context.Context, teamID ChatWithAgent3, body UpdateTeamspacePermissions) (*emptyObject, error)
+	ListThreadMessages(ctx context.Context, threadID ChatWithAgent3, params *ListThreadMessagesParams) (*ListThreadMessages, error)
+	SendThreadMessage(ctx context.Context, threadID ChatWithAgent3, body ChatWithAgent) (*ChatWithAgent2, error)
 	ListThreads(ctx context.Context, agentID string, params *ListThreadsParams) (*ListThreads, error)
 	ListTools(ctx context.Context) (*ListToolsOk, error)
 	EmaResolveIdentity(ctx context.Context, body EmaResolveIdentity) (*EmaResolveIdentityOk, error)
 	EmaResolveTrustedIssuer(ctx context.Context, body EmaResolveTrustedIssuer) (*EmaResolveTrustedIssuerOk, error)
-	QueryThreadMessages(ctx context.Context, threadID ChatWithAgentOk, body QueryThreadMessages) (*ListThreadMessages, error)
+	QueryThreadMessages(ctx context.Context, threadID ChatWithAgent3, body QueryThreadMessages) (*ListThreadMessages, error)
 	QueryThreads(ctx context.Context, agentID string, body QueryThreads) (*ListThreads, error)
-	RemoveGroupMember(ctx context.Context, groupID ChatWithAgentOk, userID ChatWithAgentOk) (*groupMembershipObjectResponse, error)
-	UpdateGroupMember(ctx context.Context, groupID ChatWithAgentOk, userID ChatWithAgentOk, body UpdateGroupMember) (*groupMembershipObjectResponse, error)
-	RemovePageGuest(ctx context.Context, pageID ChatWithAgentOk, body struct{}) (*RemovePageGuestOk, error)
+	RemoveGroupMember(ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3) (*groupMembershipObjectResponse, error)
+	UpdateGroupMember(ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3, body UpdateGroupMember) (*groupMembershipObjectResponse, error)
+	RemovePageGuest(ctx context.Context, pageID ChatWithAgent3, body struct{}) (*RemovePageGuestOk, error)
 	RunInternalTool(ctx context.Context, body RunInternalTool) (*RunInternalToolOk, error)
 	RunMinimalRollout(ctx context.Context, body RunMinimalRollout) (*RunMinimalRolloutOk, error)
 	RunRollout(ctx context.Context, body CreateRollout) (*RolloutResult, error)
@@ -68,13 +68,13 @@ type Service interface {
 	RunToolByID(ctx context.Context, toolID ToolID, body ToolInput) (*runToolResponse, error)
 	RunToolEval(ctx context.Context, body RunToolEval) (*runToolResponse, error)
 	RunUnifiedRollout(ctx context.Context, body RunUnifiedRollout) (*Rollout, error)
-	SendExternalAgentStubSessionMessage(ctx context.Context, agentID string, sessionID ChatWithAgentOk, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageOk, error)
-	SendExternalAgentStubSessionMessageStream(ctx context.Context, agentID string, sessionID ChatWithAgentOk, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageStreamOk, error)
+	SendExternalAgentStubSessionMessage(ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageOk, error)
+	SendExternalAgentStubSessionMessageStream(ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageStreamOk, error)
 	StartExternalAgentStubSession(ctx context.Context, agentID string, body StartExternalAgentStubSession) (*StartExternalAgentStubSessionOk, error)
 	TransferUserContent(ctx context.Context, body TransferUserContent) (*TransferUserContentOk, error)
-	UnsharePageFromWeb(ctx context.Context, pageID ChatWithAgentOk, body struct{}) (*UnsharePageFromWebOk, error)
+	UnsharePageFromWeb(ctx context.Context, pageID ChatWithAgent3, body struct{}) (*UnsharePageFromWebOk, error)
 	UpdateAgent(ctx context.Context, agentID string, body UpdateAgent) (*UpdateAgentOk, error)
-	PrivateUpdatePagePermissions(ctx context.Context, pageID ChatWithAgentOk, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error)
+	PrivateUpdatePagePermissions(ctx context.Context, pageID ChatWithAgent3, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error)
 	SearchWorkspace(ctx context.Context, body SearchWorkspace) (*SearchResult, error)
 }
 
@@ -90,7 +90,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 
 			var params ListGroupMembersParams
 			q := r.URL.Query()
@@ -151,7 +151,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 			var body AddGroupMember
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -486,7 +486,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("thread_id")
-			threadID := ChatWithAgentOk(s)
+			threadID := ChatWithAgent3(s)
 			var body ContinueThreadRequest
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -704,7 +704,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				params.PageSize = rawParam
 			}
 			if s := q.Get("user_id"); s != "" {
-				params.UserID = ChatWithAgentOk(s)
+				params.UserID = ChatWithAgent3(s)
 			}
 
 			res, err := svc.ListTeamspaces(ctx, &params)
@@ -897,7 +897,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 
 			res, err := svc.RetrieveGroup(ctx, groupID)
 			if err != nil {
@@ -942,7 +942,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 			var body DeleteGroup
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -994,7 +994,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 			var body CreateGroup
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1046,7 +1046,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("id")
-			id := ChatWithAgentOk(s)
+			id := ChatWithAgent3(s)
 
 			res, err := svc.ExportPage(ctx, id)
 			if err != nil {
@@ -1227,7 +1227,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("team_id")
-			teamID := ChatWithAgentOk(s)
+			teamID := ChatWithAgent3(s)
 
 			res, err := svc.GetTeamspace(ctx, teamID)
 			if err != nil {
@@ -1272,7 +1272,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("team_id")
-			teamID := ChatWithAgentOk(s)
+			teamID := ChatWithAgent3(s)
 			var body CreateTeamspace
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1568,7 +1568,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 
 			agentID := r.PathValue("agent_id")
 			s := r.PathValue("session_id")
-			sessionID := ChatWithAgentOk(s)
+			sessionID := ChatWithAgent3(s)
 
 			var params ListExternalAgentStubSessionEventsParams
 			q := r.URL.Query()
@@ -1619,7 +1619,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("team_id")
-			teamID := ChatWithAgentOk(s)
+			teamID := ChatWithAgent3(s)
 
 			var params ListTeamMembershipParams
 			q := r.URL.Query()
@@ -1680,7 +1680,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("team_id")
-			teamID := ChatWithAgentOk(s)
+			teamID := ChatWithAgent3(s)
 			var body UpdateTeamMembership
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1732,7 +1732,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("team_id")
-			teamID := ChatWithAgentOk(s)
+			teamID := ChatWithAgent3(s)
 
 			var params ListTeamPermissionsParams
 			q := r.URL.Query()
@@ -1793,7 +1793,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("team_id")
-			teamID := ChatWithAgentOk(s)
+			teamID := ChatWithAgent3(s)
 			var body UpdateTeamspacePermissions
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1845,7 +1845,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("thread_id")
-			threadID := ChatWithAgentOk(s)
+			threadID := ChatWithAgent3(s)
 
 			var params ListThreadMessagesParams
 			q := r.URL.Query()
@@ -1919,7 +1919,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("thread_id")
-			threadID := ChatWithAgentOk(s)
+			threadID := ChatWithAgent3(s)
 			var body ChatWithAgent
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1975,7 +1975,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			var params ListThreadsParams
 			q := r.URL.Query()
 			if s := q.Get("id"); s != "" {
-				params.ID = ChatWithAgentOk(s)
+				params.ID = ChatWithAgent3(s)
 			}
 			if s := q.Get("title"); s != "" {
 				params.Title = s
@@ -2197,7 +2197,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("thread_id")
-			threadID := ChatWithAgentOk(s)
+			threadID := ChatWithAgent3(s)
 			var body QueryThreadMessages
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -2300,9 +2300,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 			s = r.PathValue("user_id")
-			userID := ChatWithAgentOk(s)
+			userID := ChatWithAgent3(s)
 
 			res, err := svc.RemoveGroupMember(ctx, groupID, userID)
 			if err != nil {
@@ -2347,9 +2347,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := ChatWithAgentOk(s)
+			groupID := ChatWithAgent3(s)
 			s = r.PathValue("user_id")
-			userID := ChatWithAgentOk(s)
+			userID := ChatWithAgent3(s)
 			var body UpdateGroupMember
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -2401,7 +2401,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := ChatWithAgentOk(s)
+			pageID := ChatWithAgent3(s)
 			var body struct{}
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -2848,7 +2848,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 
 			agentID := r.PathValue("agent_id")
 			s := r.PathValue("session_id")
-			sessionID := ChatWithAgentOk(s)
+			sessionID := ChatWithAgent3(s)
 			var body SendExternalAgentStubSessionMessage
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -2901,7 +2901,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 
 			agentID := r.PathValue("agent_id")
 			s := r.PathValue("session_id")
-			sessionID := ChatWithAgentOk(s)
+			sessionID := ChatWithAgent3(s)
 			var body SendExternalAgentStubSessionMessage
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -3054,7 +3054,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := ChatWithAgentOk(s)
+			pageID := ChatWithAgent3(s)
 			var body struct{}
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -3157,7 +3157,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := ChatWithAgentOk(s)
+			pageID := ChatWithAgent3(s)
 			var body PrivateUpdatePagePermissions
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()

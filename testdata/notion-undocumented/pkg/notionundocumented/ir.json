@@ -26,9 +26,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -186,9 +186,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -758,9 +758,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -1321,8 +1321,8 @@
 					"goName": "userID",
 					"fieldName": "UserID",
 					"jsonName": "user_id",
-					"type": "ChatWithAgentOk",
-					"parseExpr": "ChatWithAgentOk(s)",
+					"type": "ChatWithAgent3",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -1894,9 +1894,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2033,9 +2033,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2177,9 +2177,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2321,9 +2321,9 @@
 					"goName": "id",
 					"fieldName": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2854,9 +2854,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2993,9 +2993,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -3764,9 +3764,9 @@
 					"goName": "sessionID",
 					"fieldName": "SessionID",
 					"jsonName": "session_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -3916,9 +3916,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4076,9 +4076,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4221,9 +4221,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4381,9 +4381,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4526,9 +4526,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4706,9 +4706,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4864,8 +4864,8 @@
 					"goName": "id",
 					"fieldName": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
-					"parseExpr": "ChatWithAgentOk(s)",
+					"type": "ChatWithAgent3",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				},
@@ -5362,9 +5362,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -5654,9 +5654,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				},
@@ -5665,9 +5665,9 @@
 					"goName": "userID",
 					"fieldName": "UserID",
 					"jsonName": "user_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -5807,9 +5807,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				},
@@ -5818,9 +5818,9 @@
 					"goName": "userID",
 					"fieldName": "UserID",
 					"jsonName": "user_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -5963,9 +5963,9 @@
 					"goName": "pageID",
 					"fieldName": "PageID",
 					"jsonName": "page_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7192,9 +7192,9 @@
 					"goName": "sessionID",
 					"fieldName": "SessionID",
 					"jsonName": "session_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7350,9 +7350,9 @@
 					"goName": "sessionID",
 					"fieldName": "SessionID",
 					"jsonName": "session_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7670,9 +7670,9 @@
 					"goName": "pageID",
 					"fieldName": "PageID",
 					"jsonName": "page_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7959,9 +7959,9 @@
 					"goName": "pageID",
 					"fieldName": "PageID",
 					"jsonName": "page_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"required": true,
-					"parseExpr": "ChatWithAgentOk(s)",
+					"parseExpr": "ChatWithAgent3(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -8306,7 +8306,7 @@
 				{
 					"name": "UserID",
 					"jsonName": "user_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"user_id,omitzero\"",
 					"description": "The ID of the user to add.",
 					"required": true
@@ -8401,8 +8401,8 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "ChatWithAgentOk",
-					"type": "ChatWithAgentOk"
+					"fieldName": "ChatWithAgent3",
+					"type": "ChatWithAgent3"
 				},
 				{
 					"fieldName": "AgentIDOneOf",
@@ -8417,8 +8417,8 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "ChatWithAgentOk",
-					"type": "ChatWithAgentOk"
+					"fieldName": "ChatWithAgent3",
+					"type": "ChatWithAgent3"
 				},
 				{
 					"fieldName": "String",
@@ -8585,14 +8585,14 @@
 				{
 					"name": "CreatedByUserIds",
 					"jsonName": "created_by_user_ids",
-					"type": "[]ChatWithAgentOk",
+					"type": "[]ChatWithAgent3",
 					"jsonTag": "json:\"created_by_user_ids,omitzero\"",
 					"description": "Optional filter to only produce search results created by the Notion users that have the specified user IDs."
 				},
 				{
 					"name": "EditedByUserIds",
 					"jsonName": "edited_by_user_ids",
-					"type": "[]ChatWithAgentOk",
+					"type": "[]ChatWithAgent3",
 					"jsonTag": "json:\"edited_by_user_ids,omitzero\"",
 					"description": "Optional filter to only produce search results edited by the Notion users that have the specified user IDs. Available on the Business plan."
 				},
@@ -8606,7 +8606,7 @@
 				{
 					"name": "TeamspaceIds",
 					"jsonName": "teamspace_ids",
-					"type": "[]ChatWithAgentOk",
+					"type": "[]ChatWithAgent3",
 					"jsonTag": "json:\"teamspace_ids,omitzero\"",
 					"description": "Optional filter to only produce search results inside one of the specified teamspaces. Selecting more than one teamspace is available on the Business plan; use teamspace_id for one teamspace on other plans."
 				},
@@ -10568,7 +10568,7 @@
 				{
 					"name": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"thread_id,omitzero\"",
 					"description": "Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created."
 				}
@@ -10618,6 +10618,12 @@
 			]
 		},
 		{
+			"name": "ChatWithAgent3",
+			"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
+			"kind": 2,
+			"type": "string"
+		},
+		{
 			"name": "ChatWithAgentAttachments",
 			"description": "An array of file uploads to attach to this chat turn. Use the File Upload APIs to create uploads and pass their IDs here.",
 			"kind": 2,
@@ -10664,12 +10670,6 @@
 					"required": true
 				}
 			]
-		},
-		{
-			"name": "ChatWithAgentOk",
-			"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
-			"kind": 2,
-			"type": "string"
 		},
 		{
 			"name": "CheckboxFilter",
@@ -10812,7 +10812,7 @@
 				{
 					"name": "CommentID",
 					"jsonName": "comment_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"comment_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -11007,7 +11007,7 @@
 				{
 					"name": "ActionID",
 					"jsonName": "action_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"action_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -11029,7 +11029,7 @@
 				{
 					"name": "ActionID",
 					"jsonName": "action_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"action_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -11058,7 +11058,7 @@
 				{
 					"name": "ConnectionID",
 					"jsonName": "connection_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"connection_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -11107,6 +11107,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "CreateANotionAttachmentAllOf",
+					"embedded": true
+				},
+				{
+					"type": "CreateANotionAttachmentAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "CreateANotionAttachmentAllOf",
+			"description": "CreateANotionAttachmentAllOf defines a model",
+			"fields": [
+				{
 					"name": "Filename",
 					"jsonName": "filename",
 					"type": "string",
@@ -11121,6 +11135,26 @@
 					"description": "Optional MIME type, such as text/html or application/pdf. It must match the filename extension; omit it to infer the type from the filename. Omit it with source_file_id; the stored upload already carries a content type."
 				}
 			]
+		},
+		{
+			"name": "CreateANotionAttachmentAllOf2",
+			"description": "CreateANotionAttachmentAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "CreateANotionAttachmentAllOfOneOf",
+					"type": "CreateANotionAttachmentAllOfOneOf"
+				},
+				{
+					"fieldName": "CreateANotionAttachmentAllOfOneOf2",
+					"type": "CreateANotionAttachmentAllOfOneOf2"
+				},
+				{
+					"fieldName": "CreateANotionAttachmentAllOfOneOf3",
+					"type": "CreateANotionAttachmentAllOfOneOf3"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "CreateANotionAttachmentAllOfOneOf",
@@ -11244,6 +11278,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "CreateCommentCreateCommentAllOf",
+					"embedded": true
+				},
+				{
+					"type": "CreateCommentCreateCommentAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "CreateCommentCreateCommentAllOf",
+			"description": "CreateCommentCreateCommentAllOf defines a model",
+			"fields": [
+				{
 					"name": "PageID",
 					"jsonName": "page_id",
 					"type": "string",
@@ -11266,6 +11314,22 @@
 					"description": "Unique start and end snippet of the content to comment on.\nDO NOT provide the entire string. Instead, provide up to the first ~10 characters, an ellipsis, and then up to the last ~10 characters.\nMake sure you provide enough of the start and end snippet to uniquely identify the content.\nFor example: \"# Section heading...last paragraph.\""
 				}
 			]
+		},
+		{
+			"name": "CreateCommentCreateCommentAllOf2",
+			"description": "CreateCommentCreateCommentAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "CreateCommentCreateCommentAllOfOneOf",
+					"type": "CreateCommentCreateCommentAllOfOneOf"
+				},
+				{
+					"fieldName": "CreateCommentCreateCommentAllOfOneOf2",
+					"type": "CreateCommentCreateCommentAllOfOneOf2"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "CreateCommentCreateCommentAllOfOneOf",
@@ -11323,6 +11387,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "CreateDatabaseCreateDatabaseAllOf",
+					"embedded": true
+				},
+				{
+					"type": "CreateDatabaseCreateDatabaseAllOf2",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "CreateDatabaseCreateDatabaseAllOf",
+			"description": "CreateDatabaseCreateDatabaseAllOf defines a model",
+			"fields": [
+				{
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*CreateDatabaseCreateDatabaseAllOfParent",
@@ -11344,6 +11422,22 @@
 					"description": "The description of the new database."
 				}
 			]
+		},
+		{
+			"name": "CreateDatabaseCreateDatabaseAllOf2",
+			"description": "CreateDatabaseCreateDatabaseAllOf2 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "CreateDatabaseCreateDatabaseAllOfOneOf",
+					"type": "CreateDatabaseCreateDatabaseAllOfOneOf"
+				},
+				{
+					"fieldName": "CreateDatabaseCreateDatabaseAllOfOneOf2",
+					"type": "CreateDatabaseCreateDatabaseAllOfOneOf2"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "CreateDatabaseCreateDatabaseAllOfOneOf",
@@ -11649,31 +11743,9 @@
 				{
 					"name": "CreateFileUpload",
 					"jsonName": "create_file_upload",
-					"type": "CreateFileUploadCreateFileUpload",
+					"type": "CreateANotionAttachmentAllOf",
 					"jsonTag": "json:\"create_file_upload\"",
-					"description": "The parameters for the create_file_upload tool. Create a short-lived URL for uploading one local file directly to Notion.\n\nAfter calling this tool, send exactly one multipart/form-data POST request to `upload_url`. Put the file in the `file` form field and include every header returned in `upload_headers`. Files are limited to 20 MiB for this single-part upload flow, and workspace file-size limits still apply.\n\nThe upload response includes `markdown_source` and `suggested_markdown`, which can be passed directly to create-pages or update-page, or included on a separate line in create-comment markdown to attach the file. The URL is short-lived, can upload only the FileUpload created by this call, and runs as this same integration.\n\n<examples>\n1. Prepare an image upload: {\"filename\":\"diagram.png\"}\n2. Prepare a PDF upload with an explicit MIME type: {\"filename\":\"report.pdf\",\"content_type\":\"application/pdf\"}\n</examples>",
 					"required": true
-				}
-			]
-		},
-		{
-			"name": "CreateFileUploadCreateFileUpload",
-			"description": "The parameters for the create_file_upload tool. Create a short-lived URL for uploading one local file directly to Notion.\n\nAfter calling this tool, send exactly one multipart/form-data POST request to `upload_url`. Put the file in the `file` form field and include every header returned in `upload_headers`. Files are limited to 20 MiB for this single-part upload flow, and workspace file-size limits still apply.\n\nThe upload response includes `markdown_source` and `suggested_markdown`, which can be passed directly to create-pages or update-page, or included on a separate line in create-comment markdown to attach the file. The URL is short-lived, can upload only the FileUpload created by this call, and runs as this same integration.\n\n<examples>\n1. Prepare an image upload: {\"filename\":\"diagram.png\"}\n2. Prepare a PDF upload with an explicit MIME type: {\"filename\":\"report.pdf\",\"content_type\":\"application/pdf\"}\n</examples>",
-			"fields": [
-				{
-					"name": "Filename",
-					"jsonName": "filename",
-					"type": "string",
-					"jsonTag": "json:\"filename,omitzero\"",
-					"description": "The filename to create in Notion, including a supported extension such as .pdf, .png, or .zip.",
-					"required": true
-				},
-				{
-					"name": "ContentType",
-					"jsonName": "content_type",
-					"type": "string",
-					"jsonTag": "json:\"content_type,omitzero\"",
-					"description": "Optional MIME type, such as application/pdf or image/png. Prefer omitting it so the type is inferred from the filename: a type that disagrees with the extension is stored as given, and the file then renders as the wrong kind."
 				}
 			]
 		},
@@ -12889,8 +12961,8 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "ChatWithAgentOk",
-					"type": "ChatWithAgentOk"
+					"fieldName": "ChatWithAgent3",
+					"type": "ChatWithAgent3"
 				},
 				{
 					"fieldName": "String",
@@ -12985,7 +13057,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the custom emoji.",
 					"required": true
@@ -13136,7 +13208,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the database in the mention.",
 					"required": true
@@ -13171,7 +13243,7 @@
 				{
 					"name": "DatabaseID",
 					"jsonName": "database_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"database_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -13820,7 +13892,7 @@
 				{
 					"name": "TransferToOwnerID",
 					"jsonName": "transfer_to_owner_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"transfer_to_owner_id,omitzero\"",
 					"description": "The ID of an active workspace owner who will receive access that would otherwise be orphaned."
 				}
@@ -14434,7 +14506,7 @@
 				{
 					"name": "FileUploadID",
 					"jsonName": "file_upload_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"file_upload_id,omitzero\"",
 					"description": "The FileUpload ID returned by the create-attachment tool.",
 					"required": true
@@ -15662,7 +15734,7 @@
 				{
 					"name": "ProductName",
 					"jsonName": "product_name",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"product_name,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -15890,7 +15962,7 @@
 				{
 					"name": "ProductName",
 					"jsonName": "product_name",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"product_name,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -18119,7 +18191,7 @@
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.",
 					"required": true
@@ -18167,7 +18239,7 @@
 				{
 					"name": "BlockID",
 					"jsonName": "blockId",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"blockId,omitzero\"",
 					"description": "The ID of the page or block to export.",
 					"required": true
@@ -22124,7 +22196,7 @@
 				{
 					"name": "Format",
 					"jsonName": "format",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"format,omitzero\"",
 					"description": "The number format for the property.",
 					"required": true
@@ -22312,7 +22384,7 @@
 				{
 					"name": "PageID",
 					"jsonName": "page_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"page_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -24339,7 +24411,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "Filter threads by ID (exact match)."
 				},
@@ -25997,6 +26069,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "RunToolEvalAllOf0",
+					"embedded": true
+				},
+				{
+					"type": "RunToolEvalAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "RunToolEvalAllOf0",
+			"description": "RunToolEvalAllOf0 defines a model",
+			"fields": [
+				{
 					"name": "EvalSessionID",
 					"jsonName": "eval_session_id",
 					"type": "string",
@@ -26013,6 +26099,186 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "RunToolEvalAllOf1",
+			"description": "RunToolEvalAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Search",
+					"type": "Search"
+				},
+				{
+					"fieldName": "AiSearch",
+					"type": "AiSearch"
+				},
+				{
+					"fieldName": "MemorySearch",
+					"type": "MemorySearch"
+				},
+				{
+					"fieldName": "ToolAccess",
+					"type": "ToolAccess"
+				},
+				{
+					"fieldName": "Fetch",
+					"type": "Fetch"
+				},
+				{
+					"fieldName": "McpBusinessPlanEducation",
+					"type": "McpBusinessPlanEducation"
+				},
+				{
+					"fieldName": "CreatePages",
+					"type": "CreatePages"
+				},
+				{
+					"fieldName": "UpdatePage",
+					"type": "UpdatePage"
+				},
+				{
+					"fieldName": "ConvertPageToSkill",
+					"type": "ConvertPageToSkill"
+				},
+				{
+					"fieldName": "SearchSkills",
+					"type": "SearchSkills"
+				},
+				{
+					"fieldName": "MovePages",
+					"type": "MovePages"
+				},
+				{
+					"fieldName": "DuplicatePage",
+					"type": "DuplicatePage"
+				},
+				{
+					"fieldName": "CreateDatabase",
+					"type": "CreateDatabase"
+				},
+				{
+					"fieldName": "CreateFolder",
+					"type": "CreateFolder"
+				},
+				{
+					"fieldName": "UpdateFolder",
+					"type": "UpdateFolder"
+				},
+				{
+					"fieldName": "UpdateDataSource",
+					"type": "UpdateDataSource"
+				},
+				{
+					"fieldName": "CreateComment",
+					"type": "CreateComment"
+				},
+				{
+					"fieldName": "Comments",
+					"type": "Comments"
+				},
+				{
+					"fieldName": "CreateSuggestedEdit",
+					"type": "CreateSuggestedEdit"
+				},
+				{
+					"fieldName": "SuggestedEdit",
+					"type": "SuggestedEdit"
+				},
+				{
+					"fieldName": "ResolveSuggestedEdit",
+					"type": "ResolveSuggestedEdit"
+				},
+				{
+					"fieldName": "AsyncTask",
+					"type": "AsyncTask"
+				},
+				{
+					"fieldName": "Teams",
+					"type": "Teams"
+				},
+				{
+					"fieldName": "Users",
+					"type": "Users"
+				},
+				{
+					"fieldName": "ReplyToSlackThread",
+					"type": "ReplyToSlackThread"
+				},
+				{
+					"fieldName": "AnswerQuestion",
+					"type": "AnswerQuestion"
+				},
+				{
+					"fieldName": "QueryDataSources",
+					"type": "QueryDataSources"
+				},
+				{
+					"fieldName": "QueryMultipleDataSources",
+					"type": "QueryMultipleDataSources"
+				},
+				{
+					"fieldName": "QueryDatabaseView",
+					"type": "QueryDatabaseView"
+				},
+				{
+					"fieldName": "QueryMeetingNotes",
+					"type": "QueryMeetingNotes"
+				},
+				{
+					"fieldName": "ListAgents",
+					"type": "ListAgents"
+				},
+				{
+					"fieldName": "ListPrivatePages",
+					"type": "ListPrivatePages"
+				},
+				{
+					"fieldName": "ListSharedPages",
+					"type": "ListSharedPages"
+				},
+				{
+					"fieldName": "ListFavoritePages",
+					"type": "ListFavoritePages"
+				},
+				{
+					"fieldName": "ListRecentPages",
+					"type": "ListRecentPages"
+				},
+				{
+					"fieldName": "SearchAgents",
+					"type": "SearchAgents"
+				},
+				{
+					"fieldName": "CreateView",
+					"type": "CreateView"
+				},
+				{
+					"fieldName": "UpdateView",
+					"type": "UpdateView"
+				},
+				{
+					"fieldName": "SearchEmails",
+					"type": "SearchEmails"
+				},
+				{
+					"fieldName": "ViewThreadContent",
+					"type": "ViewThreadContent"
+				},
+				{
+					"fieldName": "CreateWorkspaceBookmark",
+					"type": "CreateWorkspaceBookmark"
+				},
+				{
+					"fieldName": "ListWorkspaceBookmarks",
+					"type": "ListWorkspaceBookmarks"
+				},
+				{
+					"fieldName": "WorkspaceBookmark",
+					"type": "WorkspaceBookmark"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "RunToolOneOfAccounts",
@@ -33854,7 +34120,7 @@
 				{
 					"name": "BlockID",
 					"jsonName": "block_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"block_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
 					"required": true
@@ -34595,10 +34861,6 @@
 					"type": "AiSearchAiSearch"
 				},
 				{
-					"fieldName": "AiSearchAiSearch2",
-					"type": "AiSearchAiSearch"
-				},
-				{
 					"fieldName": "MemorySearchMemorySearch",
 					"type": "MemorySearchMemorySearch"
 				},
@@ -34649,10 +34911,6 @@
 				{
 					"fieldName": "MovePagesMovePages",
 					"type": "MovePagesMovePages"
-				},
-				{
-					"fieldName": "CreateFolderCreateFolderParentOneOf2",
-					"type": "CreateFolderCreateFolderParentOneOf"
 				},
 				{
 					"fieldName": "CreateDatabaseCreateDatabase",
@@ -34761,10 +35019,6 @@
 				{
 					"fieldName": "ToolInputAnyOf6",
 					"type": "ToolInputAnyOf6"
-				},
-				{
-					"fieldName": "SessionStatusSessionStatus2",
-					"type": "SessionStatusSessionStatus"
 				},
 				{
 					"fieldName": "SendMessageToSessionSendMessageToSession",
@@ -35536,7 +35790,7 @@
 				{
 					"name": "FromUserID",
 					"jsonName": "from_user_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"from_user_id,omitzero\"",
 					"description": "The ID of the source user to transfer content from.",
 					"required": true
@@ -35544,7 +35798,7 @@
 				{
 					"name": "ToUserID",
 					"jsonName": "to_user_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"to_user_id,omitzero\"",
 					"description": "The ID of the destination user to transfer content to.",
 					"required": true
@@ -36478,7 +36732,7 @@
 				{
 					"name": "EntityID",
 					"jsonName": "entity_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"entity_id,omitzero\"",
 					"description": "The ID of the entity (person or group).",
 					"required": true
@@ -36516,7 +36770,7 @@
 				{
 					"name": "EntityID",
 					"jsonName": "entity_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"entity_id,omitzero\"",
 					"description": "The ID of the entity (person or group).",
 					"required": true
@@ -36554,7 +36808,7 @@
 				{
 					"name": "EntityID",
 					"jsonName": "entity_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"entity_id,omitzero\"",
 					"description": "The ID of the entity (person or group).",
 					"required": true
@@ -36604,7 +36858,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the space, teamspace, group, or person.",
 					"required": true
@@ -39160,7 +39414,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*pageCoverResponse",
+					"type": "*internalOrExternalFileWithNameAllOf",
 					"jsonTag": "json:\"cover\"",
 					"description": "The cover of the data source.",
 					"required": true
@@ -39243,8 +39497,104 @@
 				{
 					"type": "databasePropertyConfigResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "databasePropertyConfigResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "databasePropertyConfigResponseAllOf1",
+			"description": "databasePropertyConfigResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "NumberDatabasePropertyConfigResponse",
+					"type": "numberDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "FormulaDatabasePropertyConfigResponse",
+					"type": "formulaDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "SelectDatabasePropertyConfigResponse",
+					"type": "selectDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "MultiSelectDatabasePropertyConfigResponse",
+					"type": "multiSelectDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "StatusDatabasePropertyConfigResponse",
+					"type": "statusDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "RelationDatabasePropertyConfigResponse",
+					"type": "relationDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "RollupDatabasePropertyConfigResponse",
+					"type": "rollupDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "UniqueIDDatabasePropertyConfigResponse",
+					"type": "uniqueIdDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "TitleDatabasePropertyConfigResponse",
+					"type": "titleDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "RichTextDatabasePropertyConfigResponse",
+					"type": "richTextDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "URLDatabasePropertyConfigResponse",
+					"type": "urlDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "PeopleDatabasePropertyConfigResponse",
+					"type": "peopleDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "FilesDatabasePropertyConfigResponse",
+					"type": "filesDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "EmailDatabasePropertyConfigResponse",
+					"type": "emailDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "PhoneNumberDatabasePropertyConfigResponse",
+					"type": "phoneNumberDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "DateDatabasePropertyConfigResponse",
+					"type": "dateDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "CheckboxDatabasePropertyConfigResponse",
+					"type": "checkboxDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "CreatedByDatabasePropertyConfigResponse",
+					"type": "createdByDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "CreatedTimeDatabasePropertyConfigResponse",
+					"type": "createdTimeDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "LastEditedByDatabasePropertyConfigResponse",
+					"type": "lastEditedByDatabasePropertyConfigResponse"
+				},
+				{
+					"fieldName": "LastEditedTimeDatabasePropertyConfigResponse",
+					"type": "lastEditedTimeDatabasePropertyConfigResponse"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "databasePropertyConfigResponseCommon",
@@ -39284,8 +39634,28 @@
 				{
 					"type": "databasePropertyRelationConfigResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "databasePropertyRelationConfigResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "databasePropertyRelationConfigResponseAllOf1",
+			"description": "databasePropertyRelationConfigResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "SinglePropertyDatabasePropertyRelationConfigResponse",
+					"type": "singlePropertyDatabasePropertyRelationConfigResponse"
+				},
+				{
+					"fieldName": "DualPropertyDatabasePropertyRelationConfigResponse",
+					"type": "dualPropertyDatabasePropertyRelationConfigResponse"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "databasePropertyRelationConfigResponseCommon",
@@ -39329,7 +39699,7 @@
 				{
 					"name": "TimeZone",
 					"jsonName": "time_zone",
-					"type": "*ChatWithAgentOk",
+					"type": "*ChatWithAgent3",
 					"jsonTag": "json:\"time_zone,omitempty\"",
 					"description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc."
 				}
@@ -39708,7 +40078,7 @@
 				{
 					"name": "Emoji",
 					"jsonName": "emoji",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"emoji,omitzero\"",
 					"description": "An emoji character.",
 					"required": true
@@ -39834,18 +40204,8 @@
 					"embedded": true
 				},
 				{
-					"name": "Code",
-					"jsonName": "code",
-					"type": "ErrorAPIAllOfCode",
-					"jsonTag": "json:\"code,omitzero\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "int",
-					"jsonTag": "json:\"status\"",
-					"required": true
+					"type": "error_api_AllOf",
+					"embedded": true
 				}
 			]
 		},
@@ -39858,6 +40218,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_400AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_400AllOf1",
+			"description": "error_api_400AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -39883,6 +40253,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_401AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_401AllOf1",
+			"description": "error_api_401AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -39929,6 +40309,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_403OneOf0AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_403OneOf0AllOf1",
+			"description": "error_api_403OneOf0AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI403OneOf0AllOf1Code",
@@ -39953,6 +40343,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_403OneOf1AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_403OneOf1AllOf1",
+			"description": "error_api_403OneOf1AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -39986,6 +40386,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_403OneOf2AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_403OneOf2AllOf1",
+			"description": "error_api_403OneOf2AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "string",
@@ -40018,6 +40428,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_404AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_404AllOf1",
+			"description": "error_api_404AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI404AllOf1Code",
@@ -40042,6 +40462,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_406AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_406AllOf1",
+			"description": "error_api_406AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -40068,6 +40498,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_409AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_409AllOf1",
+			"description": "error_api_409AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI409AllOf1Code",
@@ -40092,6 +40532,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_429AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_429AllOf1",
+			"description": "error_api_429AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -40118,6 +40568,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_503AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_503AllOf1",
+			"description": "error_api_503AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI503AllOf1Code",
@@ -40142,6 +40602,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_api_504AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_504AllOf1",
+			"description": "error_api_504AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -40168,9 +40638,39 @@
 					"embedded": true
 				},
 				{
+					"type": "error_api_529AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_api_529AllOf1",
+			"description": "error_api_529AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorAPI529AllOf1Code",
+					"jsonTag": "json:\"code,omitzero\"",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "int",
+					"jsonTag": "json:\"status\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "error_api_AllOf",
+			"description": "error_api_AllOf defines a model",
+			"fields": [
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "ErrorAPIAllOfCode",
 					"jsonTag": "json:\"code,omitzero\"",
 					"required": true
 				},
@@ -40192,6 +40692,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_oauth_400AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_oauth_400AllOf1",
+			"description": "error_oauth_400AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -40218,6 +40728,16 @@
 					"embedded": true
 				},
 				{
+					"type": "error_oauth_401AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_oauth_401AllOf1",
+			"description": "error_oauth_401AllOf1 defines a model",
+			"fields": [
+				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "ErrorOauth401AllOf1Code",
@@ -40242,6 +40762,16 @@
 					"type": "publicApiCommonErrorResponse",
 					"embedded": true
 				},
+				{
+					"type": "error_oauth_403AllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "error_oauth_403AllOf1",
+			"description": "error_oauth_403AllOf1 defines a model",
+			"fields": [
 				{
 					"name": "Code",
 					"jsonName": "code",
@@ -41211,12 +41741,32 @@
 			]
 		},
 		{
+			"name": "internalOrExternalFileWithNameAllOf",
+			"description": "internalOrExternalFileWithNameAllOf defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "File",
+					"type": "File"
+				},
+				{
+					"fieldName": "External",
+					"type": "External"
+				}
+			],
+			"isOneOf": true
+		},
+		{
 			"name": "internalOrExternalFileWithNameResponse",
 			"description": "internalOrExternalFileWithNameResponse defines a model",
 			"kind": 3,
 			"fields": [
 				{
 					"type": "internalOrExternalFileWithNameResponseCommon",
+					"embedded": true
+				},
+				{
+					"type": "internalOrExternalFileWithNameAllOf",
 					"embedded": true
 				}
 			]
@@ -42551,22 +43101,6 @@
 			]
 		},
 		{
-			"name": "pageCoverResponse",
-			"description": "pageCoverResponse defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "File",
-					"type": "File"
-				},
-				{
-					"fieldName": "External",
-					"type": "External"
-				}
-			],
-			"isOneOf": true
-		},
-		{
 			"name": "pageIconRequest",
 			"description": "pageIconRequest defines a model",
 			"kind": 5,
@@ -42747,7 +43281,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*pageCoverResponse",
+					"type": "*internalOrExternalFileWithNameAllOf",
 					"jsonTag": "json:\"cover\"",
 					"description": "The cover of the data source.",
 					"required": true
@@ -42778,8 +43312,28 @@
 				{
 					"type": "ChatWithAgentAttachmentsItemFileUpload",
 					"embedded": true
+				},
+				{
+					"type": "pagePropertyValueWithIdResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "pagePropertyValueWithIdResponseAllOf1",
+			"description": "pagePropertyValueWithIdResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "SimpleOrArrayPropertyValueResponse",
+					"type": "simpleOrArrayPropertyValueResponse"
+				},
+				{
+					"fieldName": "PartialRollupPropertyResponse",
+					"type": "partialRollupPropertyResponse"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "paragraphBlockObjectResponse",
@@ -43037,8 +43591,36 @@
 				{
 					"type": "partialRollupValueResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "partialRollupValueResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "partialRollupValueResponseAllOf1",
+			"description": "partialRollupValueResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "NumberFormulaPropertyValue",
+					"type": "numberFormulaPropertyValue"
+				},
+				{
+					"fieldName": "DateFormulaPropertyValue",
+					"type": "dateFormulaPropertyValue"
+				},
+				{
+					"fieldName": "ArrayPartialRollupValueResponse",
+					"type": "arrayPartialRollupValueResponse"
+				},
+				{
+					"fieldName": "UnsupportedFormulaProperty",
+					"type": "unsupportedFormulaProperty"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "partialRollupValueResponseCommon",
@@ -43089,7 +43671,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the user.",
 					"required": true
@@ -43928,8 +44510,32 @@
 				{
 					"type": "richTextItemRequestCommon",
 					"embedded": true
+				},
+				{
+					"type": "richTextItemRequestAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "richTextItemRequestAllOf1",
+			"description": "richTextItemRequestAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "TextRichTextItem",
+					"type": "textRichTextItem"
+				},
+				{
+					"fieldName": "MentionRichTextItemRequest",
+					"type": "mentionRichTextItemRequest"
+				},
+				{
+					"fieldName": "EquationRichTextItem",
+					"type": "equationRichTextItem"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "richTextItemRequestCommon",
@@ -43952,8 +44558,32 @@
 				{
 					"type": "richTextItemResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "richTextItemResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "richTextItemResponseAllOf1",
+			"description": "richTextItemResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "TextRichTextItem",
+					"type": "textRichTextItem"
+				},
+				{
+					"fieldName": "MentionRichTextItemResponse",
+					"type": "mentionRichTextItemResponse"
+				},
+				{
+					"fieldName": "EquationRichTextItem",
+					"type": "equationRichTextItem"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "richTextItemResponseCommon",
@@ -44415,10 +45045,6 @@
 					"type": "runToolResponseOneOf11"
 				},
 				{
-					"fieldName": "RunToolOneOf3",
-					"type": "runToolOneOf"
-				},
-				{
 					"fieldName": "RunToolResponseOneOf13",
 					"type": "runToolResponseOneOf13"
 				},
@@ -44467,19 +45093,7 @@
 					"type": "runToolResponseOneOf24"
 				},
 				{
-					"fieldName": "RunToolOneOf22",
-					"type": "runToolOneOf2"
-				},
-				{
-					"fieldName": "RunToolOneOf32",
-					"type": "runToolOneOf3"
-				},
-				{
-					"fieldName": "RunToolOneOf33",
-					"type": "runToolOneOf3"
-				},
-				{
-					"fieldName": "RunToolOneOf34",
+					"fieldName": "RunToolOneOf3",
 					"type": "runToolOneOf3"
 				},
 				{
@@ -44517,10 +45131,6 @@
 				{
 					"fieldName": "RunToolResponseOneOf37",
 					"type": "runToolResponseOneOf37"
-				},
-				{
-					"fieldName": "RunToolOneOf42",
-					"type": "runToolOneOf4"
 				},
 				{
 					"fieldName": "RunToolResponseOneOf39",
@@ -44583,18 +45193,6 @@
 					"type": "runToolOneOf5"
 				},
 				{
-					"fieldName": "RunToolOneOf52",
-					"type": "runToolOneOf5"
-				},
-				{
-					"fieldName": "RunToolOneOf53",
-					"type": "runToolOneOf5"
-				},
-				{
-					"fieldName": "RunToolOneOf54",
-					"type": "runToolOneOf5"
-				},
-				{
 					"fieldName": "RunToolResponseOneOf57",
 					"type": "runToolResponseOneOf57"
 				},
@@ -44615,28 +45213,8 @@
 					"type": "runToolResponseOneOf61"
 				},
 				{
-					"fieldName": "RunToolOneOf62",
-					"type": "runToolOneOf6"
-				},
-				{
-					"fieldName": "RunToolOneOf23",
-					"type": "runToolOneOf2"
-				},
-				{
-					"fieldName": "RunToolOneOf24",
-					"type": "runToolOneOf2"
-				},
-				{
 					"fieldName": "RunToolResponseOneOf65",
 					"type": "runToolResponseOneOf65"
-				},
-				{
-					"fieldName": "RunToolOneOf25",
-					"type": "runToolOneOf2"
-				},
-				{
-					"fieldName": "RunToolOneOf26",
-					"type": "runToolOneOf2"
 				},
 				{
 					"fieldName": "RunToolResponseOneOf68",
@@ -44716,10 +45294,6 @@
 				},
 				{
 					"fieldName": "RunToolOneOf7",
-					"type": "runToolOneOf7"
-				},
-				{
-					"fieldName": "RunToolOneOf72",
 					"type": "runToolOneOf7"
 				},
 				{
@@ -47890,7 +48464,7 @@
 				{
 					"name": "Attendees",
 					"jsonName": "attendees",
-					"type": "[]ChatWithAgentOk",
+					"type": "[]ChatWithAgent3",
 					"jsonTag": "json:\"attendees,omitzero\""
 				}
 			]
@@ -47902,21 +48476,21 @@
 				{
 					"name": "SummaryBlockID",
 					"jsonName": "summary_block_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"summary_block_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk."
 				},
 				{
 					"name": "NotesBlockID",
 					"jsonName": "notes_block_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"notes_block_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk."
 				},
 				{
 					"name": "TranscriptBlockID",
 					"jsonName": "transcript_block_id",
-					"type": "ChatWithAgentOk",
+					"type": "ChatWithAgent3",
 					"jsonTag": "json:\"transcript_block_id,omitzero\"",
 					"description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk."
 				}
@@ -48226,8 +48800,28 @@
 				{
 					"type": "userObjectResponseCommon",
 					"embedded": true
+				},
+				{
+					"type": "userObjectResponseAllOf1",
+					"embedded": true
 				}
 			]
+		},
+		{
+			"name": "userObjectResponseAllOf1",
+			"description": "userObjectResponseAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "PersonUserObjectResponse",
+					"type": "personUserObjectResponse"
+				},
+				{
+					"fieldName": "BotUserObjectResponse",
+					"type": "botUserObjectResponse"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "userObjectResponseCommon",

@@ -103,7 +103,7 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // List group members
 //
 //	GET /groups/{group_id}/members
-func (c *Client) ListGroupMembers(ctx context.Context, groupID ChatWithAgentOk, params *ListGroupMembersParams) (*ListGroupMembersOk, error) {
+func (c *Client) ListGroupMembers(ctx context.Context, groupID ChatWithAgent3, params *ListGroupMembersParams) (*ListGroupMembersOk, error) {
 	return c.ListGroupMembersWithResult[ListGroupMembersOk](ctx, groupID, params)
 }
 
@@ -111,7 +111,7 @@ func (c *Client) ListGroupMembers(ctx context.Context, groupID ChatWithAgentOk, 
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /groups/{group_id}/members
-func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID ChatWithAgentOk, params *ListGroupMembersParams) (*R, error) {
+func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID ChatWithAgent3, params *ListGroupMembersParams) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID), "members")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -312,7 +312,7 @@ func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID 
 // Add a group member
 //
 //	POST /groups/{group_id}/members
-func (c *Client) AddGroupMember(ctx context.Context, groupID ChatWithAgentOk, body AddGroupMember) (*groupMembershipObjectResponse, error) {
+func (c *Client) AddGroupMember(ctx context.Context, groupID ChatWithAgent3, body AddGroupMember) (*groupMembershipObjectResponse, error) {
 	return c.AddGroupMemberWithResult[groupMembershipObjectResponse](ctx, groupID, body)
 }
 
@@ -320,7 +320,7 @@ func (c *Client) AddGroupMember(ctx context.Context, groupID ChatWithAgentOk, bo
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /groups/{group_id}/members
-func (c *Client) AddGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgentOk, body AddGroupMember) (*R, error) {
+func (c *Client) AddGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgent3, body AddGroupMember) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID), "members")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -1148,7 +1148,7 @@ func (c *Client) ChatWithAgentStreamWithResult[R any](ctx context.Context, agent
 //	POST /threads/{thread_id}/continue
 //
 // Deprecated.
-func (c *Client) ContinueThread(ctx context.Context, threadID ChatWithAgentOk, body ContinueThreadRequest) (*ChatWithAgent2, error) {
+func (c *Client) ContinueThread(ctx context.Context, threadID ChatWithAgent3, body ContinueThreadRequest) (*ChatWithAgent2, error) {
 	return c.ContinueThreadWithResult[ChatWithAgent2](ctx, threadID, body)
 }
 
@@ -1158,7 +1158,7 @@ func (c *Client) ContinueThread(ctx context.Context, threadID ChatWithAgentOk, b
 //	POST /threads/{thread_id}/continue
 //
 // Deprecated.
-func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID ChatWithAgentOk, body ContinueThreadRequest) (*R, error) {
+func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID ChatWithAgent3, body ContinueThreadRequest) (*R, error) {
 	u := c.baseURL.JoinPath("threads", string(threadID), "continue")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2770,7 +2770,7 @@ func (c *Client) UpdateExternalAgentStubVaultWithResult[R any](ctx context.Conte
 // Retrieve a group
 //
 //	GET /groups/{group_id}
-func (c *Client) RetrieveGroup(ctx context.Context, groupID ChatWithAgentOk) (*permissionGroupObjectResponse, error) {
+func (c *Client) RetrieveGroup(ctx context.Context, groupID ChatWithAgent3) (*permissionGroupObjectResponse, error) {
 	return c.RetrieveGroupWithResult[permissionGroupObjectResponse](ctx, groupID)
 }
 
@@ -2778,7 +2778,7 @@ func (c *Client) RetrieveGroup(ctx context.Context, groupID ChatWithAgentOk) (*p
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /groups/{group_id}
-func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID ChatWithAgentOk) (*R, error) {
+func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID ChatWithAgent3) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -2965,7 +2965,7 @@ func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID Cha
 // Delete a group
 //
 //	DELETE /groups/{group_id}
-func (c *Client) DeleteGroup(ctx context.Context, groupID ChatWithAgentOk, body DeleteGroup) (*permissionGroupObjectResponse, error) {
+func (c *Client) DeleteGroup(ctx context.Context, groupID ChatWithAgent3, body DeleteGroup) (*permissionGroupObjectResponse, error) {
 	return c.DeleteGroupWithResult[permissionGroupObjectResponse](ctx, groupID, body)
 }
 
@@ -2973,7 +2973,7 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID ChatWithAgentOk, body 
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /groups/{group_id}
-func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID ChatWithAgentOk, body DeleteGroup) (*R, error) {
+func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID ChatWithAgent3, body DeleteGroup) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3167,7 +3167,7 @@ func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID ChatW
 // Update a group
 //
 //	PATCH /groups/{group_id}
-func (c *Client) UpdateGroup(ctx context.Context, groupID ChatWithAgentOk, body CreateGroup) (*permissionGroupObjectResponse, error) {
+func (c *Client) UpdateGroup(ctx context.Context, groupID ChatWithAgent3, body CreateGroup) (*permissionGroupObjectResponse, error) {
 	return c.UpdateGroupWithResult[permissionGroupObjectResponse](ctx, groupID, body)
 }
 
@@ -3175,7 +3175,7 @@ func (c *Client) UpdateGroup(ctx context.Context, groupID ChatWithAgentOk, body 
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /groups/{group_id}
-func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID ChatWithAgentOk, body CreateGroup) (*R, error) {
+func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID ChatWithAgent3, body CreateGroup) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3371,7 +3371,7 @@ func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID ChatW
 //	GET /export/{id}
 //
 // Deprecated.
-func (c *Client) ExportPage(ctx context.Context, id ChatWithAgentOk) (*ExportPage, error) {
+func (c *Client) ExportPage(ctx context.Context, id ChatWithAgent3) (*ExportPage, error) {
 	return c.ExportPageWithResult[ExportPage](ctx, id)
 }
 
@@ -3381,7 +3381,7 @@ func (c *Client) ExportPage(ctx context.Context, id ChatWithAgentOk) (*ExportPag
 //	GET /export/{id}
 //
 // Deprecated.
-func (c *Client) ExportPageWithResult[R any](ctx context.Context, id ChatWithAgentOk) (*R, error) {
+func (c *Client) ExportPageWithResult[R any](ctx context.Context, id ChatWithAgent3) (*R, error) {
 	u := c.baseURL.JoinPath("export", string(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -4160,7 +4160,7 @@ func (c *Client) GetSecurityPostureWithResult[R any](ctx context.Context) (*R, e
 // Get teamspace
 //
 //	GET /teamspaces/{team_id}
-func (c *Client) GetTeamspace(ctx context.Context, teamID ChatWithAgentOk) (*CreateTeamspace2, error) {
+func (c *Client) GetTeamspace(ctx context.Context, teamID ChatWithAgent3) (*CreateTeamspace2, error) {
 	return c.GetTeamspaceWithResult[CreateTeamspace2](ctx, teamID)
 }
 
@@ -4168,7 +4168,7 @@ func (c *Client) GetTeamspace(ctx context.Context, teamID ChatWithAgentOk) (*Cre
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /teamspaces/{team_id}
-func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID ChatWithAgentOk) (*R, error) {
+func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID ChatWithAgent3) (*R, error) {
 	u := c.baseURL.JoinPath("teamspaces", string(teamID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -4355,7 +4355,7 @@ func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID ChatW
 // Update teamspace
 //
 //	PATCH /teamspaces/{team_id}
-func (c *Client) UpdateTeamspace(ctx context.Context, teamID ChatWithAgentOk, body CreateTeamspace) (*CreateTeamspace2, error) {
+func (c *Client) UpdateTeamspace(ctx context.Context, teamID ChatWithAgent3, body CreateTeamspace) (*CreateTeamspace2, error) {
 	return c.UpdateTeamspaceWithResult[CreateTeamspace2](ctx, teamID, body)
 }
 
@@ -4363,7 +4363,7 @@ func (c *Client) UpdateTeamspace(ctx context.Context, teamID ChatWithAgentOk, bo
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}
-func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID ChatWithAgentOk, body CreateTeamspace) (*R, error) {
+func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID ChatWithAgent3, body CreateTeamspace) (*R, error) {
 	u := c.baseURL.JoinPath("teamspaces", string(teamID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -5406,7 +5406,7 @@ func (c *Client) GetDatabasesWithResult[R any](ctx context.Context, params *GetD
 // List external agent stub session events
 //
 //	GET /external_agent_stub/{agent_id}/sessions/{session_id}/events
-func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID ChatWithAgentOk, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error) {
+func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID ChatWithAgent3, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error) {
 	return c.ListExternalAgentStubSessionEventsWithResult[ListExternalAgentStubSessionEventsOk](ctx, agentID, sessionID, params)
 }
 
@@ -5414,7 +5414,7 @@ func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /external_agent_stub/{agent_id}/sessions/{session_id}/events
-func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgentOk, params *ListExternalAgentStubSessionEventsParams) (*R, error) {
+func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgent3, params *ListExternalAgentStubSessionEventsParams) (*R, error) {
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions", string(sessionID), "events")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -5611,7 +5611,7 @@ func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context
 // Lists team membership (users/groups that are owners/members) of a team.
 //
 //	GET /teamspaces/{team_id}/membership
-func (c *Client) ListTeamMembership(ctx context.Context, teamID ChatWithAgentOk, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error) {
+func (c *Client) ListTeamMembership(ctx context.Context, teamID ChatWithAgent3, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error) {
 	return c.ListTeamMembershipWithResult[ListTeamMembershipOk](ctx, teamID, params)
 }
 
@@ -5619,7 +5619,7 @@ func (c *Client) ListTeamMembership(ctx context.Context, teamID ChatWithAgentOk,
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /teamspaces/{team_id}/membership
-func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID ChatWithAgentOk, params *ListTeamMembershipParams) (*R, error) {
+func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID ChatWithAgent3, params *ListTeamMembershipParams) (*R, error) {
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "membership")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -5820,7 +5820,7 @@ func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID
 // Updates team membership for a given team.
 //
 //	PATCH /teamspaces/{team_id}/membership
-func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ChatWithAgentOk, body UpdateTeamMembership) (*emptyObject, error) {
+func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ChatWithAgent3, body UpdateTeamMembership) (*emptyObject, error) {
 	return c.UpdateTeamMembershipWithResult[emptyObject](ctx, teamID, body)
 }
 
@@ -5828,7 +5828,7 @@ func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ChatWithAgentO
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}/membership
-func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, teamID ChatWithAgentOk, body UpdateTeamMembership) (*R, error) {
+func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, teamID ChatWithAgent3, body UpdateTeamMembership) (*R, error) {
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "membership")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6022,7 +6022,7 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 // List permission roles for various entities in a teamspace.
 //
 //	GET /teamspaces/{team_id}/permissions
-func (c *Client) ListTeamPermissions(ctx context.Context, teamID ChatWithAgentOk, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error) {
+func (c *Client) ListTeamPermissions(ctx context.Context, teamID ChatWithAgent3, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error) {
 	return c.ListTeamPermissionsWithResult[ListTeamPermissionsOk](ctx, teamID, params)
 }
 
@@ -6030,7 +6030,7 @@ func (c *Client) ListTeamPermissions(ctx context.Context, teamID ChatWithAgentOk
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /teamspaces/{team_id}/permissions
-func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamID ChatWithAgentOk, params *ListTeamPermissionsParams) (*R, error) {
+func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamID ChatWithAgent3, params *ListTeamPermissionsParams) (*R, error) {
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "permissions")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -6231,7 +6231,7 @@ func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamI
 // Updates permission levels for a given teamspace.
 //
 //	PATCH /teamspaces/{team_id}/permissions
-func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ChatWithAgentOk, body UpdateTeamspacePermissions) (*emptyObject, error) {
+func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ChatWithAgent3, body UpdateTeamspacePermissions) (*emptyObject, error) {
 	return c.UpdateTeamspacePermissionsWithResult[emptyObject](ctx, teamID, body)
 }
 
@@ -6239,7 +6239,7 @@ func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ChatWith
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}/permissions
-func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context, teamID ChatWithAgentOk, body UpdateTeamspacePermissions) (*R, error) {
+func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context, teamID ChatWithAgent3, body UpdateTeamspacePermissions) (*R, error) {
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "permissions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6435,7 +6435,7 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 //	GET /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) ListThreadMessages(ctx context.Context, threadID ChatWithAgentOk, params *ListThreadMessagesParams) (*ListThreadMessages, error) {
+func (c *Client) ListThreadMessages(ctx context.Context, threadID ChatWithAgent3, params *ListThreadMessagesParams) (*ListThreadMessages, error) {
 	return c.ListThreadMessagesWithResult[ListThreadMessages](ctx, threadID, params)
 }
 
@@ -6445,7 +6445,7 @@ func (c *Client) ListThreadMessages(ctx context.Context, threadID ChatWithAgentO
 //	GET /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, threadID ChatWithAgentOk, params *ListThreadMessagesParams) (*R, error) {
+func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, threadID ChatWithAgent3, params *ListThreadMessagesParams) (*R, error) {
 	u := c.baseURL.JoinPath("threads", string(threadID), "messages")
 	if params != nil {
 		q := make(url.Values, 4)
@@ -6656,7 +6656,7 @@ func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, thread
 //	POST /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) SendThreadMessage(ctx context.Context, threadID ChatWithAgentOk, body ChatWithAgent) (*ChatWithAgent2, error) {
+func (c *Client) SendThreadMessage(ctx context.Context, threadID ChatWithAgent3, body ChatWithAgent) (*ChatWithAgent2, error) {
 	return c.SendThreadMessageWithResult[ChatWithAgent2](ctx, threadID, body)
 }
 
@@ -6666,7 +6666,7 @@ func (c *Client) SendThreadMessage(ctx context.Context, threadID ChatWithAgentOk
 //	POST /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID ChatWithAgentOk, body ChatWithAgent) (*R, error) {
+func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID ChatWithAgent3, body ChatWithAgent) (*R, error) {
 	u := c.baseURL.JoinPath("threads", string(threadID), "messages")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7522,7 +7522,7 @@ func (c *Client) EmaResolveTrustedIssuerWithResult[R any](ctx context.Context, b
 // Query thread messages
 //
 //	POST /threads/{thread_id}/messages/query
-func (c *Client) QueryThreadMessages(ctx context.Context, threadID ChatWithAgentOk, body QueryThreadMessages) (*ListThreadMessages, error) {
+func (c *Client) QueryThreadMessages(ctx context.Context, threadID ChatWithAgent3, body QueryThreadMessages) (*ListThreadMessages, error) {
 	return c.QueryThreadMessagesWithResult[ListThreadMessages](ctx, threadID, body)
 }
 
@@ -7530,7 +7530,7 @@ func (c *Client) QueryThreadMessages(ctx context.Context, threadID ChatWithAgent
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /threads/{thread_id}/messages/query
-func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threadID ChatWithAgentOk, body QueryThreadMessages) (*R, error) {
+func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threadID ChatWithAgent3, body QueryThreadMessages) (*R, error) {
 	u := c.baseURL.JoinPath("threads", string(threadID), "messages", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7926,7 +7926,7 @@ func (c *Client) QueryThreadsWithResult[R any](ctx context.Context, agentID stri
 // Remove a group member
 //
 //	DELETE /groups/{group_id}/members/users/{user_id}
-func (c *Client) RemoveGroupMember(ctx context.Context, groupID ChatWithAgentOk, userID ChatWithAgentOk) (*groupMembershipObjectResponse, error) {
+func (c *Client) RemoveGroupMember(ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3) (*groupMembershipObjectResponse, error) {
 	return c.RemoveGroupMemberWithResult[groupMembershipObjectResponse](ctx, groupID, userID)
 }
 
@@ -7934,7 +7934,7 @@ func (c *Client) RemoveGroupMember(ctx context.Context, groupID ChatWithAgentOk,
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /groups/{group_id}/members/users/{user_id}
-func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgentOk, userID ChatWithAgentOk) (*R, error) {
+func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID), "members", "users", string(userID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -8121,7 +8121,7 @@ func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID
 // Update a group member
 //
 //	PATCH /groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdateGroupMember(ctx context.Context, groupID ChatWithAgentOk, userID ChatWithAgentOk, body UpdateGroupMember) (*groupMembershipObjectResponse, error) {
+func (c *Client) UpdateGroupMember(ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3, body UpdateGroupMember) (*groupMembershipObjectResponse, error) {
 	return c.UpdateGroupMemberWithResult[groupMembershipObjectResponse](ctx, groupID, userID, body)
 }
 
@@ -8129,7 +8129,7 @@ func (c *Client) UpdateGroupMember(ctx context.Context, groupID ChatWithAgentOk,
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgentOk, userID ChatWithAgentOk, body UpdateGroupMember) (*R, error) {
+func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3, body UpdateGroupMember) (*R, error) {
 	u := c.baseURL.JoinPath("groups", string(groupID), "members", "users", string(userID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8323,7 +8323,7 @@ func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID
 // Remove guests from a page
 //
 //	POST /pages/{page_id}/remove_guests
-func (c *Client) RemovePageGuest(ctx context.Context, pageID ChatWithAgentOk, body struct{}) (*RemovePageGuestOk, error) {
+func (c *Client) RemovePageGuest(ctx context.Context, pageID ChatWithAgent3, body struct{}) (*RemovePageGuestOk, error) {
 	return c.RemovePageGuestWithResult[RemovePageGuestOk](ctx, pageID, body)
 }
 
@@ -8331,7 +8331,7 @@ func (c *Client) RemovePageGuest(ctx context.Context, pageID ChatWithAgentOk, bo
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /pages/{page_id}/remove_guests
-func (c *Client) RemovePageGuestWithResult[R any](ctx context.Context, pageID ChatWithAgentOk, body struct{}) (*R, error) {
+func (c *Client) RemovePageGuestWithResult[R any](ctx context.Context, pageID ChatWithAgent3, body struct{}) (*R, error) {
 	u := c.baseURL.JoinPath("pages", string(pageID), "remove_guests")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10160,7 +10160,7 @@ func (c *Client) RunUnifiedRolloutWithResult[R any](ctx context.Context, body Ru
 // Send external agent stub session message
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages
-func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentID string, sessionID ChatWithAgentOk, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageOk, error) {
+func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageOk, error) {
 	return c.SendExternalAgentStubSessionMessageWithResult[SendExternalAgentStubSessionMessageOk](ctx, agentID, sessionID, body)
 }
 
@@ -10168,7 +10168,7 @@ func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentI
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages
-func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgentOk, body SendExternalAgentStubSessionMessage) (*R, error) {
+func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*R, error) {
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions", string(sessionID), "messages")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10362,7 +10362,7 @@ func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx contex
 // Send external agent stub session message (streaming)
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages/stream
-func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, agentID string, sessionID ChatWithAgentOk, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageStreamOk, error) {
+func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageStreamOk, error) {
 	return c.SendExternalAgentStubSessionMessageStreamWithResult[SendExternalAgentStubSessionMessageStreamOk](ctx, agentID, sessionID, body)
 }
 
@@ -10370,7 +10370,7 @@ func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, 
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages/stream
-func (c *Client) SendExternalAgentStubSessionMessageStreamWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgentOk, body SendExternalAgentStubSessionMessage) (*R, error) {
+func (c *Client) SendExternalAgentStubSessionMessageStreamWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*R, error) {
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions", string(sessionID), "messages", "stream")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10825,7 +10825,7 @@ func (c *Client) TransferUserContentWithResult[R any](ctx context.Context, body 
 // Unshare a page from web
 //
 //	POST /pages/{page_id}/unshare_from_web
-func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID ChatWithAgentOk, body struct{}) (*UnsharePageFromWebOk, error) {
+func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID ChatWithAgent3, body struct{}) (*UnsharePageFromWebOk, error) {
 	return c.UnsharePageFromWebWithResult[UnsharePageFromWebOk](ctx, pageID, body)
 }
 
@@ -10833,7 +10833,7 @@ func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID ChatWithAgentOk,
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /pages/{page_id}/unshare_from_web
-func (c *Client) UnsharePageFromWebWithResult[R any](ctx context.Context, pageID ChatWithAgentOk, body struct{}) (*R, error) {
+func (c *Client) UnsharePageFromWebWithResult[R any](ctx context.Context, pageID ChatWithAgent3, body struct{}) (*R, error) {
 	u := c.baseURL.JoinPath("pages", string(pageID), "unshare_from_web")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -11229,7 +11229,7 @@ func (c *Client) UpdateAgentWithResult[R any](ctx context.Context, agentID strin
 // Update page permissions
 //
 //	PATCH /_/pages/{page_id}/permissions
-func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID ChatWithAgentOk, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error) {
+func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID ChatWithAgent3, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error) {
 	return c.PrivateUpdatePagePermissionsWithResult[PrivateUpdatePagePermissions2](ctx, pageID, body)
 }
 
@@ -11237,7 +11237,7 @@ func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID ChatWi
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /_/pages/{page_id}/permissions
-func (c *Client) PrivateUpdatePagePermissionsWithResult[R any](ctx context.Context, pageID ChatWithAgentOk, body PrivateUpdatePagePermissions) (*R, error) {
+func (c *Client) PrivateUpdatePagePermissionsWithResult[R any](ctx context.Context, pageID ChatWithAgent3, body PrivateUpdatePagePermissions) (*R, error) {
 	u := c.baseURL.JoinPath("_", "pages", string(pageID), "permissions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{

@@ -51,7 +51,7 @@ type ChatWithAgentStreamParams struct {
 type ListTeamspacesParams struct {
 	StartCursor string
 	PageSize    int
-	UserID      ChatWithAgentOk
+	UserID      ChatWithAgent3
 }
 
 // ListAgentsParams holds the query parameters for ListAgents.
@@ -103,7 +103,7 @@ type ListThreadMessagesParams struct {
 
 // ListThreadsParams holds the query parameters for ListThreads.
 type ListThreadsParams struct {
-	ID            ChatWithAgentOk
+	ID            ChatWithAgent3
 	Title         string
 	Status        Status
 	Activity      Activity
@@ -149,7 +149,7 @@ type AddGroupMemberMember struct {
 	// The type of member.
 	Type string `json:"type,omitzero"`
 	// The ID of the user to add.
-	UserID ChatWithAgentOk `json:"user_id,omitzero"`
+	UserID ChatWithAgent3 `json:"user_id,omitzero"`
 }
 
 // The user's role in the group.
@@ -252,8 +252,8 @@ func (e AdvancedFilterOperator) Valid() bool {
 // The ID of the agent to chat with. Use a UUID for custom agents or `notion_ai` for Notion Agent (personal agent); the reserved UUID `33333333-3333-3333-3333-333333333333` remains supported for backward compatibility.
 // AgentID is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AgentID struct {
-	ChatWithAgentOk *ChatWithAgentOk
-	AgentIDOneOf    *AgentIDOneOf
+	ChatWithAgent3 *ChatWithAgent3
+	AgentIDOneOf   *AgentIDOneOf
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -266,9 +266,9 @@ func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ChatWithAgentOk
+		var vv ChatWithAgent3
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChatWithAgentOk = &vv
+			v.ChatWithAgent3 = &vv
 			matched++
 		}
 	}
@@ -291,8 +291,8 @@ func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *AgentID) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.ChatWithAgentOk != nil:
-		return json.MarshalEncode(enc, v.ChatWithAgentOk, jsonOpts)
+	case v.ChatWithAgent3 != nil:
+		return json.MarshalEncode(enc, v.ChatWithAgent3, jsonOpts)
 	case v.AgentIDOneOf != nil:
 		return json.MarshalEncode(enc, v.AgentIDOneOf, jsonOpts)
 	}
@@ -303,8 +303,8 @@ func (v *AgentID) MarshalJSONTo(enc *jsontext.Encoder) error {
 // The ID of the agent backing this external agent session.
 // AgentID2 is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AgentID2 struct {
-	ChatWithAgentOk *ChatWithAgentOk
-	String          *string
+	ChatWithAgent3 *ChatWithAgent3
+	String         *string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -317,9 +317,9 @@ func (v *AgentID2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ChatWithAgentOk
+		var vv ChatWithAgent3
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChatWithAgentOk = &vv
+			v.ChatWithAgent3 = &vv
 			matched++
 		}
 	}
@@ -342,8 +342,8 @@ func (v *AgentID2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *AgentID2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.ChatWithAgentOk != nil:
-		return json.MarshalEncode(enc, v.ChatWithAgentOk, jsonOpts)
+	case v.ChatWithAgent3 != nil:
+		return json.MarshalEncode(enc, v.ChatWithAgent3, jsonOpts)
 	case v.String != nil:
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	}
@@ -461,13 +461,13 @@ type AiSearchAiSearchFilters struct {
 	// Optional filter to only produce search results created within the specified date range.
 	CreatedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"created_date_range,omitempty"`
 	// Optional filter to only produce search results created by the Notion users that have the specified user IDs.
-	CreatedByUserIds []ChatWithAgentOk `json:"created_by_user_ids,omitzero"`
+	CreatedByUserIds []ChatWithAgent3 `json:"created_by_user_ids,omitzero"`
 	// Optional filter to only produce search results edited by the Notion users that have the specified user IDs. Available on the Business plan.
-	EditedByUserIds []ChatWithAgentOk `json:"edited_by_user_ids,omitzero"`
+	EditedByUserIds []ChatWithAgent3 `json:"edited_by_user_ids,omitzero"`
 	// Optional filter to only produce search results created within the specified date range.
 	LastEditedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"last_edited_date_range,omitempty"`
 	// Optional filter to only produce search results inside one of the specified teamspaces. Selecting more than one teamspace is available on the Business plan; use teamspace_id for one teamspace on other plans.
-	TeamspaceIds []ChatWithAgentOk `json:"teamspace_ids,omitzero"`
+	TeamspaceIds []ChatWithAgent3 `json:"teamspace_ids,omitzero"`
 	// When true, match the query only against page and database titles instead of page content. Available on the Business plan.
 	TitleOnly bool `json:"title_only,omitempty"`
 	// Which pages to include by status. Omit for the default live pages. Supplying this field, even with the default value, requires Business access.
@@ -1490,7 +1490,7 @@ type ChatWithAgent struct {
 	// Additional caller-provided context for the agent to consider while responding.
 	PromptContext string `json:"prompt_context,omitzero"`
 	// Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created.
-	ThreadID ChatWithAgentOk `json:"thread_id,omitzero"`
+	ThreadID ChatWithAgent3 `json:"thread_id,omitzero"`
 }
 
 // ChatWithAgent2 defines a model
@@ -1503,6 +1503,9 @@ type ChatWithAgent2 struct {
 	// Always `pending`
 	Status string `json:"status,omitzero"`
 }
+
+// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
+type ChatWithAgent3 string
 
 // An array of file uploads to attach to this chat turn. Use the File Upload APIs to create uploads and pass their IDs here.
 type ChatWithAgentAttachments []ChatWithAgentAttachmentsItem
@@ -1522,9 +1525,6 @@ type ChatWithAgentAttachmentsItemFileUpload struct {
 	// ID of a FileUpload object that has the status `uploaded`.
 	ID string `json:"id,omitzero"`
 }
-
-// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-type ChatWithAgentOk string
 
 // Property filter for checkbox properties.
 type CheckboxFilter struct {
@@ -1583,7 +1583,7 @@ type Comment struct {
 type CommentID struct {
 	Type string `json:"type,omitzero"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	CommentID ChatWithAgentOk `json:"comment_id,omitzero"`
+	CommentID ChatWithAgent3 `json:"comment_id,omitzero"`
 }
 
 // The comment to delete.
@@ -1746,7 +1746,7 @@ func (v *ContinueThreadRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 // ContinueThreadRequestOneOf0 defines a model
 type ContinueThreadRequestOneOf0 struct {
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	ActionID ChatWithAgentOk `json:"action_id,omitzero"`
+	ActionID ChatWithAgent3 `json:"action_id,omitzero"`
 	// One of: `approve`, `reject`
 	OptionID ContinueThreadOneOfOptionID `json:"option_id,omitzero"`
 }
@@ -1754,7 +1754,7 @@ type ContinueThreadRequestOneOf0 struct {
 // ContinueThreadRequestOneOf1 defines a model
 type ContinueThreadRequestOneOf1 struct {
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	ActionID ChatWithAgentOk `json:"action_id,omitzero"`
+	ActionID ChatWithAgent3 `json:"action_id,omitzero"`
 	// Always `use_connection`
 	OptionID string                           `json:"option_id,omitzero"`
 	Input    ContinueThreadRequestOneOf1Input `json:"input"`
@@ -1763,7 +1763,7 @@ type ContinueThreadRequestOneOf1 struct {
 // ContinueThreadRequestOneOf1Input defines a model
 type ContinueThreadRequestOneOf1Input struct {
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	ConnectionID ChatWithAgentOk `json:"connection_id,omitzero"`
+	ConnectionID ChatWithAgent3 `json:"connection_id,omitzero"`
 }
 
 // ConvertPageToSkill defines a model
@@ -1786,10 +1786,78 @@ type ConvertPageToSkillConvertPageToSkill struct {
 
 // Provide exactly one of content for inline UTF-8 text, source_url for a direct HTTPS download, or source_file_id for a file upload this integration already created.
 type CreateANotionAttachment struct {
+	CreateANotionAttachmentAllOf
+	CreateANotionAttachmentAllOf2
+}
+
+// CreateANotionAttachmentAllOf defines a model
+type CreateANotionAttachmentAllOf struct {
 	// The filename to create in Notion, including a supported extension such as .html, .md, .pdf, or .png. Required with content and source_url. Omit it with source_file_id; the stored upload already carries a filename.
 	Filename string `json:"filename,omitzero"`
 	// Optional MIME type, such as text/html or application/pdf. It must match the filename extension; omit it to infer the type from the filename. Omit it with source_file_id; the stored upload already carries a content type.
 	ContentType string `json:"content_type,omitzero"`
+}
+
+// CreateANotionAttachmentAllOf2 defines a model
+// CreateANotionAttachmentAllOf2 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type CreateANotionAttachmentAllOf2 struct {
+	CreateANotionAttachmentAllOfOneOf  *CreateANotionAttachmentAllOfOneOf
+	CreateANotionAttachmentAllOfOneOf2 *CreateANotionAttachmentAllOfOneOf2
+	CreateANotionAttachmentAllOfOneOf3 *CreateANotionAttachmentAllOfOneOf3
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *CreateANotionAttachmentAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv CreateANotionAttachmentAllOfOneOf
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateANotionAttachmentAllOfOneOf = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateANotionAttachmentAllOfOneOf2
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateANotionAttachmentAllOfOneOf2 = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateANotionAttachmentAllOfOneOf3
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateANotionAttachmentAllOfOneOf3 = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("CreateANotionAttachmentAllOf2: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *CreateANotionAttachmentAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.CreateANotionAttachmentAllOfOneOf != nil:
+		return json.MarshalEncode(enc, v.CreateANotionAttachmentAllOfOneOf, jsonOpts)
+	case v.CreateANotionAttachmentAllOfOneOf2 != nil:
+		return json.MarshalEncode(enc, v.CreateANotionAttachmentAllOfOneOf2, jsonOpts)
+	case v.CreateANotionAttachmentAllOfOneOf3 != nil:
+		return json.MarshalEncode(enc, v.CreateANotionAttachmentAllOfOneOf3, jsonOpts)
+	}
+
+	return fmt.Errorf("CreateANotionAttachmentAllOf2: no variant set")
 }
 
 // CreateANotionAttachmentAllOfOneOf defines a model
@@ -1886,6 +1954,12 @@ type CreateComment struct {
 //
 // </example>
 type CreateCommentCreateComment struct {
+	CreateCommentCreateCommentAllOf
+	CreateCommentCreateCommentAllOf2
+}
+
+// CreateCommentCreateCommentAllOf defines a model
+type CreateCommentCreateCommentAllOf struct {
 	// The ID of the page to comment on (with or without dashes).
 	PageID string `json:"page_id,omitzero"`
 	// The ID or URL of an existing discussion to reply to (e.g., discussion://pageId/blockId/discussionId).
@@ -1895,6 +1969,57 @@ type CreateCommentCreateComment struct {
 	// Make sure you provide enough of the start and end snippet to uniquely identify the content.
 	// For example: "# Section heading...last paragraph."
 	SelectionWithEllipsis string `json:"selection_with_ellipsis,omitzero"`
+}
+
+// CreateCommentCreateCommentAllOf2 defines a model
+// CreateCommentCreateCommentAllOf2 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type CreateCommentCreateCommentAllOf2 struct {
+	CreateCommentCreateCommentAllOfOneOf  *CreateCommentCreateCommentAllOfOneOf
+	CreateCommentCreateCommentAllOfOneOf2 *CreateCommentCreateCommentAllOfOneOf2
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *CreateCommentCreateCommentAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv CreateCommentCreateCommentAllOfOneOf
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateCommentCreateCommentAllOfOneOf = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateCommentCreateCommentAllOfOneOf2
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateCommentCreateCommentAllOfOneOf2 = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("CreateCommentCreateCommentAllOf2: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *CreateCommentCreateCommentAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.CreateCommentCreateCommentAllOfOneOf != nil:
+		return json.MarshalEncode(enc, v.CreateCommentCreateCommentAllOfOneOf, jsonOpts)
+	case v.CreateCommentCreateCommentAllOfOneOf2 != nil:
+		return json.MarshalEncode(enc, v.CreateCommentCreateCommentAllOfOneOf2, jsonOpts)
+	}
+
+	return fmt.Errorf("CreateCommentCreateCommentAllOf2: no variant set")
 }
 
 // CreateCommentCreateCommentAllOfOneOf defines a model
@@ -1973,12 +2098,69 @@ type CreateDatabase struct {
 // <example description="With parent and options">{"parent": {"page_id": "f336d0bc-b841-465b-8045-024475c079dd"}, "title": "Projects", "schema": "CREATE TABLE (\"Name\" TITLE, \"Budget\" NUMBER FORMAT 'dollar', \"Tags\" MULTI_SELECT('eng':blue, 'design':pink), \"Task ID\" UNIQUE_ID PREFIX 'PRJ')"}</example>
 // <example description="Self-relation (two-step: create database first, then use its data source ID with update_data_source to add self-relations)">{"title": "Tasks", "schema": "CREATE TABLE (\"Name\" TITLE, \"Parent\" RELATION('ds_id', DUAL 'Children' 'children'), \"Children\" RELATION('ds_id', DUAL 'Parent' 'parent'))"}</example>
 type CreateDatabaseCreateDatabase struct {
+	CreateDatabaseCreateDatabaseAllOf
+	CreateDatabaseCreateDatabaseAllOf2
+}
+
+// CreateDatabaseCreateDatabaseAllOf defines a model
+type CreateDatabaseCreateDatabaseAllOf struct {
 	// The parent under which to create the new database. If omitted, the database will be created as a private page at the workspace level.
 	Parent *CreateDatabaseCreateDatabaseAllOfParent `json:"parent,omitempty"`
 	// The title of the new database.
 	Title string `json:"title,omitzero"`
 	// The description of the new database.
 	Description string `json:"description,omitzero"`
+}
+
+// CreateDatabaseCreateDatabaseAllOf2 defines a model
+// CreateDatabaseCreateDatabaseAllOf2 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type CreateDatabaseCreateDatabaseAllOf2 struct {
+	CreateDatabaseCreateDatabaseAllOfOneOf  *CreateDatabaseCreateDatabaseAllOfOneOf
+	CreateDatabaseCreateDatabaseAllOfOneOf2 *CreateDatabaseCreateDatabaseAllOfOneOf2
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *CreateDatabaseCreateDatabaseAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv CreateDatabaseCreateDatabaseAllOfOneOf
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateDatabaseCreateDatabaseAllOfOneOf = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateDatabaseCreateDatabaseAllOfOneOf2
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateDatabaseCreateDatabaseAllOfOneOf2 = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("CreateDatabaseCreateDatabaseAllOf2: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *CreateDatabaseCreateDatabaseAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.CreateDatabaseCreateDatabaseAllOfOneOf != nil:
+		return json.MarshalEncode(enc, v.CreateDatabaseCreateDatabaseAllOfOneOf, jsonOpts)
+	case v.CreateDatabaseCreateDatabaseAllOfOneOf2 != nil:
+		return json.MarshalEncode(enc, v.CreateDatabaseCreateDatabaseAllOfOneOf2, jsonOpts)
+	}
+
+	return fmt.Errorf("CreateDatabaseCreateDatabaseAllOf2: no variant set")
 }
 
 // CreateDatabaseCreateDatabaseAllOfOneOf defines a model
@@ -2100,35 +2282,8 @@ type CreateExternalAgentStubVaultTargetAuthorization struct {
 // CreateFileUpload defines a model
 type CreateFileUpload struct {
 	// The name of the tool to run.
-	Type string `json:"type,omitzero"`
-	// The parameters for the create_file_upload tool. Create a short-lived URL for uploading one local file directly to Notion.
-	//
-	// After calling this tool, send exactly one multipart/form-data POST request to `upload_url`. Put the file in the `file` form field and include every header returned in `upload_headers`. Files are limited to 20 MiB for this single-part upload flow, and workspace file-size limits still apply.
-	//
-	// The upload response includes `markdown_source` and `suggested_markdown`, which can be passed directly to create-pages or update-page, or included on a separate line in create-comment markdown to attach the file. The URL is short-lived, can upload only the FileUpload created by this call, and runs as this same integration.
-	//
-	// <examples>
-	// 1. Prepare an image upload: {"filename":"diagram.png"}
-	// 2. Prepare a PDF upload with an explicit MIME type: {"filename":"report.pdf","content_type":"application/pdf"}
-	// </examples>
-	CreateFileUpload CreateFileUploadCreateFileUpload `json:"create_file_upload"`
-}
-
-// The parameters for the create_file_upload tool. Create a short-lived URL for uploading one local file directly to Notion.
-//
-// After calling this tool, send exactly one multipart/form-data POST request to `upload_url`. Put the file in the `file` form field and include every header returned in `upload_headers`. Files are limited to 20 MiB for this single-part upload flow, and workspace file-size limits still apply.
-//
-// The upload response includes `markdown_source` and `suggested_markdown`, which can be passed directly to create-pages or update-page, or included on a separate line in create-comment markdown to attach the file. The URL is short-lived, can upload only the FileUpload created by this call, and runs as this same integration.
-//
-// <examples>
-// 1. Prepare an image upload: {"filename":"diagram.png"}
-// 2. Prepare a PDF upload with an explicit MIME type: {"filename":"report.pdf","content_type":"application/pdf"}
-// </examples>
-type CreateFileUploadCreateFileUpload struct {
-	// The filename to create in Notion, including a supported extension such as .pdf, .png, or .zip.
-	Filename string `json:"filename,omitzero"`
-	// Optional MIME type, such as application/pdf or image/png. Prefer omitting it so the type is inferred from the filename: a type that disagrees with the extension is stored as given, and the file then renders as the wrong kind.
-	ContentType string `json:"content_type,omitzero"`
+	Type             string                       `json:"type,omitzero"`
+	CreateFileUpload CreateANotionAttachmentAllOf `json:"create_file_upload"`
 }
 
 // CreateFolder defines a model
@@ -3432,8 +3587,8 @@ func (v *CreateWorkspaceBookmarkCreateWorkspaceBookmarkTimestamp) MarshalJSONTo(
 // CreatedByItem defines a model
 // CreatedByItem is an untagged oneOf union: exactly one field is set after unmarshaling.
 type CreatedByItem struct {
-	ChatWithAgentOk *ChatWithAgentOk
-	String          *string
+	ChatWithAgent3 *ChatWithAgent3
+	String         *string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -3446,9 +3601,9 @@ func (v *CreatedByItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ChatWithAgentOk
+		var vv ChatWithAgent3
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChatWithAgentOk = &vv
+			v.ChatWithAgent3 = &vv
 			matched++
 		}
 	}
@@ -3471,8 +3626,8 @@ func (v *CreatedByItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *CreatedByItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.ChatWithAgentOk != nil:
-		return json.MarshalEncode(enc, v.ChatWithAgentOk, jsonOpts)
+	case v.ChatWithAgent3 != nil:
+		return json.MarshalEncode(enc, v.ChatWithAgent3, jsonOpts)
 	case v.String != nil:
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	}
@@ -3557,7 +3712,7 @@ type CustomEmoji4 struct {
 // Details of the custom emoji mention.
 type CustomEmojiCustomEmoji struct {
 	// The ID of the custom emoji.
-	ID ChatWithAgentOk `json:"id,omitzero"`
+	ID ChatWithAgent3 `json:"id,omitzero"`
 	// The name of the custom emoji.
 	Name string `json:"name,omitzero"`
 	// The URL of the custom emoji.
@@ -3615,7 +3770,7 @@ type Database2 struct {
 // Details of the database mention.
 type Database3 struct {
 	// The ID of the database in the mention.
-	ID ChatWithAgentOk `json:"id,omitzero"`
+	ID ChatWithAgent3 `json:"id,omitzero"`
 }
 
 // Details of the database mention.
@@ -3628,7 +3783,7 @@ type Database4 struct {
 type DatabaseID struct {
 	Type string `json:"type,omitzero"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	DatabaseID ChatWithAgentOk `json:"database_id,omitzero"`
+	DatabaseID ChatWithAgent3 `json:"database_id,omitzero"`
 }
 
 // Date defines a model
@@ -4073,7 +4228,7 @@ type DeleteComment struct {
 // DeleteGroup defines a model
 type DeleteGroup struct {
 	// The ID of an active workspace owner who will receive access that would otherwise be orphaned.
-	TransferToOwnerID ChatWithAgentOk `json:"transfer_to_owner_id,omitzero"`
+	TransferToOwnerID ChatWithAgent3 `json:"transfer_to_owner_id,omitzero"`
 }
 
 // DeletePage defines a model
@@ -4487,7 +4642,7 @@ type DownloadAttachment struct {
 // If availability is not already known for this connection, call get_tool_access with {} before using this tool. Reuse the returned access map across tools; check the status and restricted_parameters.
 type DownloadAttachmentDownloadAttachment struct {
 	// The FileUpload ID returned by the create-attachment tool.
-	FileUploadID ChatWithAgentOk `json:"file_upload_id,omitzero"`
+	FileUploadID ChatWithAgent3 `json:"file_upload_id,omitzero"`
 }
 
 // DownloadSkill defines a model
@@ -5338,11 +5493,11 @@ type ExternalDecagonOkAnyOf2 struct {
 	SubscriptionExists bool   `json:"subscription_exists"`
 	IsEligible         bool   `json:"is_eligible"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	ProductName      ChatWithAgentOk `json:"product_name,omitzero"`
-	InvoiceID        string          `json:"invoice_id,omitzero"`
-	EligibleAmount   float64         `json:"eligible_amount"`
-	EligibleCurrency string          `json:"eligible_currency,omitzero"`
-	Reason           string          `json:"reason,omitzero"`
+	ProductName      ChatWithAgent3 `json:"product_name,omitzero"`
+	InvoiceID        string         `json:"invoice_id,omitzero"`
+	EligibleAmount   float64        `json:"eligible_amount"`
+	EligibleCurrency string         `json:"eligible_currency,omitzero"`
+	Reason           string         `json:"reason,omitzero"`
 }
 
 // ExternalDecagonOkAnyOf3 defines a model
@@ -5456,12 +5611,12 @@ type ExternalRefundEligibilityOkAnyOf1 struct {
 	SubscriptionExists bool `json:"subscription_exists"`
 	IsEligible         bool `json:"is_eligible"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	ProductName          ChatWithAgentOk `json:"product_name,omitzero"`
-	InvoiceID            string          `json:"invoice_id,omitzero"`
-	EligibleAmount       float64         `json:"eligible_amount"`
-	EligibleCurrency     string          `json:"eligible_currency,omitzero"`
-	Reason               string          `json:"reason,omitzero"`
-	InvoiceGeneratedDate string          `json:"invoice_generated_date,omitzero"`
+	ProductName          ChatWithAgent3 `json:"product_name,omitzero"`
+	InvoiceID            string         `json:"invoice_id,omitzero"`
+	EligibleAmount       float64        `json:"eligible_amount"`
+	EligibleCurrency     string         `json:"eligible_currency,omitzero"`
+	Reason               string         `json:"reason,omitzero"`
+	InvoiceGeneratedDate string         `json:"invoice_generated_date,omitzero"`
 }
 
 // ExternalRefundEligibilityOkAnyOf2 defines a model
@@ -6662,7 +6817,7 @@ type IconIcon struct {
 // A Notion native icon, specified by name and optional color.
 type IconPageIcon struct {
 	// The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.
-	Name ChatWithAgentOk `json:"name,omitzero"`
+	Name ChatWithAgent3 `json:"name,omitzero"`
 	// The color variant of the icon. Defaults to gray if not specified. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.
 	Color IconColor `json:"color,omitzero"`
 }
@@ -6677,7 +6832,7 @@ type Incomplete struct {
 // InitiatePageExport defines a model
 type InitiatePageExport struct {
 	// The ID of the page or block to export.
-	BlockID ChatWithAgentOk `json:"blockId,omitzero"`
+	BlockID ChatWithAgent3 `json:"blockId,omitzero"`
 }
 
 // LinkMention defines a model
@@ -9295,7 +9450,7 @@ type Number struct {
 // NumberDatabasePropertyConfigResponseNumber defines a model
 type NumberDatabasePropertyConfigResponseNumber struct {
 	// The number format for the property.
-	Format ChatWithAgentOk `json:"format,omitzero"`
+	Format ChatWithAgent3 `json:"format,omitzero"`
 }
 
 // Property filter for number properties.
@@ -9380,7 +9535,7 @@ type Page2 struct {
 type PageID struct {
 	Type string `json:"type,omitzero"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	PageID ChatWithAgentOk `json:"page_id,omitzero"`
+	PageID ChatWithAgent3 `json:"page_id,omitzero"`
 }
 
 // The parameters for the get_page_version tool. Read one snapshot returned by view_version_history. Use this before comparing or restoring a version. Requires current edit access. Locked versions return metadata without content.
@@ -12083,7 +12238,7 @@ type QueryThreads struct {
 // Thread filters.
 type QueryThreadsFilter struct {
 	// Filter threads by ID (exact match).
-	ID ChatWithAgentOk `json:"id,omitzero"`
+	ID ChatWithAgent3 `json:"id,omitzero"`
 	// Filter by one or more activity statuses. `all` cannot be combined with another status.
 	Status QueryThreadsFilterStatus `json:"status,omitzero"`
 	// Filter by creator IDs or "me".
@@ -13764,10 +13919,518 @@ func (e RunToolAcceptedStatus) Valid() bool {
 
 // RunToolEval defines a model
 type RunToolEval struct {
+	RunToolEvalAllOf0
+	RunToolEvalAllOf1
+}
+
+// RunToolEvalAllOf0 defines a model
+type RunToolEvalAllOf0 struct {
 	// The eval session ID for tracking operations across multiple tool calls.
 	EvalSessionID string `json:"eval_session_id,omitzero"`
 	// The eval run ID for organizing a group of eval sessions.
 	EvalRunID string `json:"eval_run_id,omitzero"`
+}
+
+// RunToolEvalAllOf1 defines a model
+// RunToolEvalAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type RunToolEvalAllOf1 struct {
+	Search                   *Search
+	AiSearch                 *AiSearch
+	MemorySearch             *MemorySearch
+	ToolAccess               *ToolAccess
+	Fetch                    *Fetch
+	McpBusinessPlanEducation *McpBusinessPlanEducation
+	CreatePages              *CreatePages
+	UpdatePage               *UpdatePage
+	ConvertPageToSkill       *ConvertPageToSkill
+	SearchSkills             *SearchSkills
+	MovePages                *MovePages
+	DuplicatePage            *DuplicatePage
+	CreateDatabase           *CreateDatabase
+	CreateFolder             *CreateFolder
+	UpdateFolder             *UpdateFolder
+	UpdateDataSource         *UpdateDataSource
+	CreateComment            *CreateComment
+	Comments                 *Comments
+	CreateSuggestedEdit      *CreateSuggestedEdit
+	SuggestedEdit            *SuggestedEdit
+	ResolveSuggestedEdit     *ResolveSuggestedEdit
+	AsyncTask                *AsyncTask
+	Teams                    *Teams
+	Users                    *Users
+	ReplyToSlackThread       *ReplyToSlackThread
+	AnswerQuestion           *AnswerQuestion
+	QueryDataSources         *QueryDataSources
+	QueryMultipleDataSources *QueryMultipleDataSources
+	QueryDatabaseView        *QueryDatabaseView
+	QueryMeetingNotes        *QueryMeetingNotes
+	ListAgents               *ListAgents
+	ListPrivatePages         *ListPrivatePages
+	ListSharedPages          *ListSharedPages
+	ListFavoritePages        *ListFavoritePages
+	ListRecentPages          *ListRecentPages
+	SearchAgents             *SearchAgents
+	CreateView               *CreateView
+	UpdateView               *UpdateView
+	SearchEmails             *SearchEmails
+	ViewThreadContent        *ViewThreadContent
+	CreateWorkspaceBookmark  *CreateWorkspaceBookmark
+	ListWorkspaceBookmarks   *ListWorkspaceBookmarks
+	WorkspaceBookmark        *WorkspaceBookmark
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *RunToolEvalAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv Search
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Search = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv AiSearch
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.AiSearch = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv MemorySearch
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.MemorySearch = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ToolAccess
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ToolAccess = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv Fetch
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Fetch = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv McpBusinessPlanEducation
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.McpBusinessPlanEducation = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreatePages
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreatePages = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv UpdatePage
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.UpdatePage = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ConvertPageToSkill
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ConvertPageToSkill = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv SearchSkills
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SearchSkills = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv MovePages
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.MovePages = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv DuplicatePage
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.DuplicatePage = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateDatabase
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateDatabase = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateFolder
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateFolder = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv UpdateFolder
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.UpdateFolder = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv UpdateDataSource
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.UpdateDataSource = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateComment
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateComment = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv Comments
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Comments = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateSuggestedEdit
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateSuggestedEdit = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv SuggestedEdit
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SuggestedEdit = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ResolveSuggestedEdit
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ResolveSuggestedEdit = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv AsyncTask
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.AsyncTask = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv Teams
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Teams = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv Users
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.Users = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ReplyToSlackThread
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ReplyToSlackThread = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv AnswerQuestion
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.AnswerQuestion = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv QueryDataSources
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.QueryDataSources = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv QueryMultipleDataSources
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.QueryMultipleDataSources = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv QueryDatabaseView
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.QueryDatabaseView = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv QueryMeetingNotes
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.QueryMeetingNotes = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ListAgents
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ListAgents = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ListPrivatePages
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ListPrivatePages = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ListSharedPages
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ListSharedPages = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ListFavoritePages
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ListFavoritePages = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ListRecentPages
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ListRecentPages = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv SearchAgents
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SearchAgents = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateView
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateView = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv UpdateView
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.UpdateView = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv SearchEmails
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SearchEmails = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ViewThreadContent
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ViewThreadContent = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv CreateWorkspaceBookmark
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreateWorkspaceBookmark = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv ListWorkspaceBookmarks
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ListWorkspaceBookmarks = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv WorkspaceBookmark
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.WorkspaceBookmark = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("RunToolEvalAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *RunToolEvalAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.Search != nil:
+		return json.MarshalEncode(enc, v.Search, jsonOpts)
+	case v.AiSearch != nil:
+		return json.MarshalEncode(enc, v.AiSearch, jsonOpts)
+	case v.MemorySearch != nil:
+		return json.MarshalEncode(enc, v.MemorySearch, jsonOpts)
+	case v.ToolAccess != nil:
+		return json.MarshalEncode(enc, v.ToolAccess, jsonOpts)
+	case v.Fetch != nil:
+		return json.MarshalEncode(enc, v.Fetch, jsonOpts)
+	case v.McpBusinessPlanEducation != nil:
+		return json.MarshalEncode(enc, v.McpBusinessPlanEducation, jsonOpts)
+	case v.CreatePages != nil:
+		return json.MarshalEncode(enc, v.CreatePages, jsonOpts)
+	case v.UpdatePage != nil:
+		return json.MarshalEncode(enc, v.UpdatePage, jsonOpts)
+	case v.ConvertPageToSkill != nil:
+		return json.MarshalEncode(enc, v.ConvertPageToSkill, jsonOpts)
+	case v.SearchSkills != nil:
+		return json.MarshalEncode(enc, v.SearchSkills, jsonOpts)
+	case v.MovePages != nil:
+		return json.MarshalEncode(enc, v.MovePages, jsonOpts)
+	case v.DuplicatePage != nil:
+		return json.MarshalEncode(enc, v.DuplicatePage, jsonOpts)
+	case v.CreateDatabase != nil:
+		return json.MarshalEncode(enc, v.CreateDatabase, jsonOpts)
+	case v.CreateFolder != nil:
+		return json.MarshalEncode(enc, v.CreateFolder, jsonOpts)
+	case v.UpdateFolder != nil:
+		return json.MarshalEncode(enc, v.UpdateFolder, jsonOpts)
+	case v.UpdateDataSource != nil:
+		return json.MarshalEncode(enc, v.UpdateDataSource, jsonOpts)
+	case v.CreateComment != nil:
+		return json.MarshalEncode(enc, v.CreateComment, jsonOpts)
+	case v.Comments != nil:
+		return json.MarshalEncode(enc, v.Comments, jsonOpts)
+	case v.CreateSuggestedEdit != nil:
+		return json.MarshalEncode(enc, v.CreateSuggestedEdit, jsonOpts)
+	case v.SuggestedEdit != nil:
+		return json.MarshalEncode(enc, v.SuggestedEdit, jsonOpts)
+	case v.ResolveSuggestedEdit != nil:
+		return json.MarshalEncode(enc, v.ResolveSuggestedEdit, jsonOpts)
+	case v.AsyncTask != nil:
+		return json.MarshalEncode(enc, v.AsyncTask, jsonOpts)
+	case v.Teams != nil:
+		return json.MarshalEncode(enc, v.Teams, jsonOpts)
+	case v.Users != nil:
+		return json.MarshalEncode(enc, v.Users, jsonOpts)
+	case v.ReplyToSlackThread != nil:
+		return json.MarshalEncode(enc, v.ReplyToSlackThread, jsonOpts)
+	case v.AnswerQuestion != nil:
+		return json.MarshalEncode(enc, v.AnswerQuestion, jsonOpts)
+	case v.QueryDataSources != nil:
+		return json.MarshalEncode(enc, v.QueryDataSources, jsonOpts)
+	case v.QueryMultipleDataSources != nil:
+		return json.MarshalEncode(enc, v.QueryMultipleDataSources, jsonOpts)
+	case v.QueryDatabaseView != nil:
+		return json.MarshalEncode(enc, v.QueryDatabaseView, jsonOpts)
+	case v.QueryMeetingNotes != nil:
+		return json.MarshalEncode(enc, v.QueryMeetingNotes, jsonOpts)
+	case v.ListAgents != nil:
+		return json.MarshalEncode(enc, v.ListAgents, jsonOpts)
+	case v.ListPrivatePages != nil:
+		return json.MarshalEncode(enc, v.ListPrivatePages, jsonOpts)
+	case v.ListSharedPages != nil:
+		return json.MarshalEncode(enc, v.ListSharedPages, jsonOpts)
+	case v.ListFavoritePages != nil:
+		return json.MarshalEncode(enc, v.ListFavoritePages, jsonOpts)
+	case v.ListRecentPages != nil:
+		return json.MarshalEncode(enc, v.ListRecentPages, jsonOpts)
+	case v.SearchAgents != nil:
+		return json.MarshalEncode(enc, v.SearchAgents, jsonOpts)
+	case v.CreateView != nil:
+		return json.MarshalEncode(enc, v.CreateView, jsonOpts)
+	case v.UpdateView != nil:
+		return json.MarshalEncode(enc, v.UpdateView, jsonOpts)
+	case v.SearchEmails != nil:
+		return json.MarshalEncode(enc, v.SearchEmails, jsonOpts)
+	case v.ViewThreadContent != nil:
+		return json.MarshalEncode(enc, v.ViewThreadContent, jsonOpts)
+	case v.CreateWorkspaceBookmark != nil:
+		return json.MarshalEncode(enc, v.CreateWorkspaceBookmark, jsonOpts)
+	case v.ListWorkspaceBookmarks != nil:
+		return json.MarshalEncode(enc, v.ListWorkspaceBookmarks, jsonOpts)
+	case v.WorkspaceBookmark != nil:
+		return json.MarshalEncode(enc, v.WorkspaceBookmark, jsonOpts)
+	}
+
+	return fmt.Errorf("RunToolEvalAllOf1: no variant set")
 }
 
 // RunToolOneOfAccounts defines a model
@@ -17921,7 +18584,7 @@ type SyncedBlockBlockObjectResponseSyncedBlock struct {
 type SyncedBlockBlockObjectResponseSyncedBlockSyncedFrom struct {
 	Type string `json:"type,omitzero"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	BlockID ChatWithAgentOk `json:"block_id,omitzero"`
+	BlockID ChatWithAgent3 `json:"block_id,omitzero"`
 }
 
 // TableOfContentsBlockObjectResponseTableOfContents defines a model
@@ -18178,7 +18841,6 @@ func (e ToolID) Valid() bool {
 // ToolInput is an untagged anyOf union: at least one field is set after unmarshaling.
 type ToolInput struct {
 	AiSearchAiSearch                                           *AiSearchAiSearch
-	AiSearchAiSearch2                                          *AiSearchAiSearch
 	MemorySearchMemorySearch                                   *MemorySearchMemorySearch
 	ToolAccessToolAccess                                       *ToolAccessToolAccess
 	Fetch2                                                     *Fetch2
@@ -18192,7 +18854,6 @@ type ToolInput struct {
 	Database3                                                  *Database3
 	SearchSkillsSearchSkills                                   *SearchSkillsSearchSkills
 	MovePagesMovePages                                         *MovePagesMovePages
-	CreateFolderCreateFolderParentOneOf2                       *CreateFolderCreateFolderParentOneOf
 	CreateDatabaseCreateDatabase                               *CreateDatabaseCreateDatabase
 	CreateFolderCreateFolder                                   *CreateFolderCreateFolder
 	ToolInputAnyOf2                                            *ToolInputAnyOf2
@@ -18220,7 +18881,6 @@ type ToolInput struct {
 	SpawnSessionSpawnSession                                   *SpawnSessionSpawnSession
 	SessionStatusSessionStatus                                 *SessionStatusSessionStatus
 	ToolInputAnyOf6                                            *ToolInputAnyOf6
-	SessionStatusSessionStatus2                                *SessionStatusSessionStatus
 	SendMessageToSessionSendMessageToSession                   *SendMessageToSessionSendMessageToSession
 	ListSessionEventsListSessionEvents                         *ListSessionEventsListSessionEvents
 	ReadSessionEventReadSessionEvent                           *ReadSessionEventReadSessionEvent
@@ -18262,14 +18922,6 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		var vv AiSearchAiSearch
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.AiSearchAiSearch = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv AiSearchAiSearch
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AiSearchAiSearch2 = &vv
 			matched++
 		}
 	}
@@ -18374,14 +19026,6 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		var vv MovePagesMovePages
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.MovePagesMovePages = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv CreateFolderCreateFolderParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateFolderCreateFolderParentOneOf2 = &vv
 			matched++
 		}
 	}
@@ -18598,14 +19242,6 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		var vv ToolInputAnyOf6
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.ToolInputAnyOf6 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv SessionStatusSessionStatus
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SessionStatusSessionStatus2 = &vv
 			matched++
 		}
 	}
@@ -18830,8 +19466,6 @@ func (v *ToolInput) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AiSearchAiSearch != nil:
 		return json.MarshalEncode(enc, v.AiSearchAiSearch, jsonOpts)
-	case v.AiSearchAiSearch2 != nil:
-		return json.MarshalEncode(enc, v.AiSearchAiSearch2, jsonOpts)
 	case v.MemorySearchMemorySearch != nil:
 		return json.MarshalEncode(enc, v.MemorySearchMemorySearch, jsonOpts)
 	case v.ToolAccessToolAccess != nil:
@@ -18858,8 +19492,6 @@ func (v *ToolInput) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.SearchSkillsSearchSkills, jsonOpts)
 	case v.MovePagesMovePages != nil:
 		return json.MarshalEncode(enc, v.MovePagesMovePages, jsonOpts)
-	case v.CreateFolderCreateFolderParentOneOf2 != nil:
-		return json.MarshalEncode(enc, v.CreateFolderCreateFolderParentOneOf2, jsonOpts)
 	case v.CreateDatabaseCreateDatabase != nil:
 		return json.MarshalEncode(enc, v.CreateDatabaseCreateDatabase, jsonOpts)
 	case v.CreateFolderCreateFolder != nil:
@@ -18914,8 +19546,6 @@ func (v *ToolInput) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.SessionStatusSessionStatus, jsonOpts)
 	case v.ToolInputAnyOf6 != nil:
 		return json.MarshalEncode(enc, v.ToolInputAnyOf6, jsonOpts)
-	case v.SessionStatusSessionStatus2 != nil:
-		return json.MarshalEncode(enc, v.SessionStatusSessionStatus2, jsonOpts)
 	case v.SendMessageToSessionSendMessageToSession != nil:
 		return json.MarshalEncode(enc, v.SendMessageToSessionSendMessageToSession, jsonOpts)
 	case v.ListSessionEventsListSessionEvents != nil:
@@ -19404,9 +20034,9 @@ func (e ToolStatus) Valid() bool {
 // TransferUserContent defines a model
 type TransferUserContent struct {
 	// The ID of the source user to transfer content from.
-	FromUserID ChatWithAgentOk `json:"from_user_id,omitzero"`
+	FromUserID ChatWithAgent3 `json:"from_user_id,omitzero"`
 	// The ID of the destination user to transfer content to.
-	ToUserID ChatWithAgentOk `json:"to_user_id,omitzero"`
+	ToUserID ChatWithAgent3 `json:"to_user_id,omitzero"`
 	// The content to transfer. Defaults to pages when omitted.
 	ContentTypes TransferUserContentContentTypes `json:"content_types,omitzero"`
 }
@@ -20120,7 +20750,7 @@ func (v *UpdateTeamMembershipOperationsItem) MarshalJSONTo(enc *jsontext.Encoder
 // UpdateTeamMembershipOperationsItemOneOf0 defines a model
 type UpdateTeamMembershipOperationsItemOneOf0 struct {
 	// The ID of the entity (person or group).
-	EntityID ChatWithAgentOk `json:"entity_id,omitzero"`
+	EntityID ChatWithAgent3 `json:"entity_id,omitzero"`
 	// Type of the member: person or group.
 	EntityType ListTeamMembershipResultsItemType `json:"entity_type,omitzero"`
 	// Always `add`
@@ -20132,7 +20762,7 @@ type UpdateTeamMembershipOperationsItemOneOf0 struct {
 // UpdateTeamMembershipOperationsItemOneOf1 defines a model
 type UpdateTeamMembershipOperationsItemOneOf1 struct {
 	// The ID of the entity (person or group).
-	EntityID ChatWithAgentOk `json:"entity_id,omitzero"`
+	EntityID ChatWithAgent3 `json:"entity_id,omitzero"`
 	// Type of the member: person or group.
 	EntityType ListTeamMembershipResultsItemType `json:"entity_type,omitzero"`
 	// Always `replace`
@@ -20144,7 +20774,7 @@ type UpdateTeamMembershipOperationsItemOneOf1 struct {
 // UpdateTeamMembershipOperationsItemOneOf2 defines a model
 type UpdateTeamMembershipOperationsItemOneOf2 struct {
 	// The ID of the entity (person or group).
-	EntityID ChatWithAgentOk `json:"entity_id,omitzero"`
+	EntityID ChatWithAgent3 `json:"entity_id,omitzero"`
 	// Type of the member: person or group.
 	EntityType ListTeamMembershipResultsItemType `json:"entity_type,omitzero"`
 	// Always `remove`
@@ -20163,7 +20793,7 @@ type UpdateTeamspacePermissionsOperations []UpdateTeamspacePermissionsOperations
 // UpdateTeamspacePermissionsOperationsItem defines a model
 type UpdateTeamspacePermissionsOperationsItem struct {
 	// The ID of the space, teamspace, group, or person.
-	ID ChatWithAgentOk `json:"id,omitzero"`
+	ID ChatWithAgent3 `json:"id,omitzero"`
 	// Type of permission: space, team owners, team members, custom group role, or custom person role.
 	Type ListTeamPermissionsResultsItemType `json:"type,omitzero"`
 	// The permission role for the entity in the teamspace.
@@ -21601,7 +22231,7 @@ type dataSourceObjectResponse struct {
 	// The icon of the teamspace.
 	Icon *pageIconResponse `json:"icon"`
 	// The cover of the data source.
-	Cover *pageCoverResponse `json:"cover"`
+	Cover *internalOrExternalFileWithNameAllOf `json:"cover"`
 	// The URL of the data source.
 	URL string `json:"url,omitzero"`
 	// The name of the bot's workspace.
@@ -21629,6 +22259,267 @@ type databaseParentResponse struct {
 // databasePropertyConfigResponse defines a model
 type databasePropertyConfigResponse struct {
 	databasePropertyConfigResponseCommon
+	databasePropertyConfigResponseAllOf1
+}
+
+// databasePropertyConfigResponseAllOf1 defines a model
+// databasePropertyConfigResponseAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type databasePropertyConfigResponseAllOf1 struct {
+	NumberDatabasePropertyConfigResponse         *numberDatabasePropertyConfigResponse
+	FormulaDatabasePropertyConfigResponse        *formulaDatabasePropertyConfigResponse
+	SelectDatabasePropertyConfigResponse         *selectDatabasePropertyConfigResponse
+	MultiSelectDatabasePropertyConfigResponse    *multiSelectDatabasePropertyConfigResponse
+	StatusDatabasePropertyConfigResponse         *statusDatabasePropertyConfigResponse
+	RelationDatabasePropertyConfigResponse       *relationDatabasePropertyConfigResponse
+	RollupDatabasePropertyConfigResponse         *rollupDatabasePropertyConfigResponse
+	UniqueIDDatabasePropertyConfigResponse       *uniqueIdDatabasePropertyConfigResponse
+	TitleDatabasePropertyConfigResponse          *titleDatabasePropertyConfigResponse
+	RichTextDatabasePropertyConfigResponse       *richTextDatabasePropertyConfigResponse
+	URLDatabasePropertyConfigResponse            *urlDatabasePropertyConfigResponse
+	PeopleDatabasePropertyConfigResponse         *peopleDatabasePropertyConfigResponse
+	FilesDatabasePropertyConfigResponse          *filesDatabasePropertyConfigResponse
+	EmailDatabasePropertyConfigResponse          *emailDatabasePropertyConfigResponse
+	PhoneNumberDatabasePropertyConfigResponse    *phoneNumberDatabasePropertyConfigResponse
+	DateDatabasePropertyConfigResponse           *dateDatabasePropertyConfigResponse
+	CheckboxDatabasePropertyConfigResponse       *checkboxDatabasePropertyConfigResponse
+	CreatedByDatabasePropertyConfigResponse      *createdByDatabasePropertyConfigResponse
+	CreatedTimeDatabasePropertyConfigResponse    *createdTimeDatabasePropertyConfigResponse
+	LastEditedByDatabasePropertyConfigResponse   *lastEditedByDatabasePropertyConfigResponse
+	LastEditedTimeDatabasePropertyConfigResponse *lastEditedTimeDatabasePropertyConfigResponse
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *databasePropertyConfigResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv numberDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.NumberDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv formulaDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.FormulaDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv selectDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SelectDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv multiSelectDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.MultiSelectDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv statusDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.StatusDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv relationDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.RelationDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv rollupDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.RollupDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv uniqueIdDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.UniqueIDDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv titleDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.TitleDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv richTextDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.RichTextDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv urlDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.URLDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv peopleDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.PeopleDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv filesDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.FilesDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv emailDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.EmailDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv phoneNumberDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.PhoneNumberDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv dateDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.DateDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv checkboxDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CheckboxDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv createdByDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreatedByDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv createdTimeDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.CreatedTimeDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv lastEditedByDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.LastEditedByDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv lastEditedTimeDatabasePropertyConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.LastEditedTimeDatabasePropertyConfigResponse = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("databasePropertyConfigResponseAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *databasePropertyConfigResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.NumberDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.NumberDatabasePropertyConfigResponse, jsonOpts)
+	case v.FormulaDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.FormulaDatabasePropertyConfigResponse, jsonOpts)
+	case v.SelectDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.SelectDatabasePropertyConfigResponse, jsonOpts)
+	case v.MultiSelectDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.MultiSelectDatabasePropertyConfigResponse, jsonOpts)
+	case v.StatusDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.StatusDatabasePropertyConfigResponse, jsonOpts)
+	case v.RelationDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.RelationDatabasePropertyConfigResponse, jsonOpts)
+	case v.RollupDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.RollupDatabasePropertyConfigResponse, jsonOpts)
+	case v.UniqueIDDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.UniqueIDDatabasePropertyConfigResponse, jsonOpts)
+	case v.TitleDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.TitleDatabasePropertyConfigResponse, jsonOpts)
+	case v.RichTextDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.RichTextDatabasePropertyConfigResponse, jsonOpts)
+	case v.URLDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.URLDatabasePropertyConfigResponse, jsonOpts)
+	case v.PeopleDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.PeopleDatabasePropertyConfigResponse, jsonOpts)
+	case v.FilesDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.FilesDatabasePropertyConfigResponse, jsonOpts)
+	case v.EmailDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.EmailDatabasePropertyConfigResponse, jsonOpts)
+	case v.PhoneNumberDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.PhoneNumberDatabasePropertyConfigResponse, jsonOpts)
+	case v.DateDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.DateDatabasePropertyConfigResponse, jsonOpts)
+	case v.CheckboxDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.CheckboxDatabasePropertyConfigResponse, jsonOpts)
+	case v.CreatedByDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.CreatedByDatabasePropertyConfigResponse, jsonOpts)
+	case v.CreatedTimeDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.CreatedTimeDatabasePropertyConfigResponse, jsonOpts)
+	case v.LastEditedByDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.LastEditedByDatabasePropertyConfigResponse, jsonOpts)
+	case v.LastEditedTimeDatabasePropertyConfigResponse != nil:
+		return json.MarshalEncode(enc, v.LastEditedTimeDatabasePropertyConfigResponse, jsonOpts)
+	}
+
+	return fmt.Errorf("databasePropertyConfigResponseAllOf1: no variant set")
 }
 
 // databasePropertyConfigResponseCommon defines a model
@@ -21644,6 +22535,58 @@ type databasePropertyConfigResponseCommon struct {
 // databasePropertyRelationConfigResponse defines a model
 type databasePropertyRelationConfigResponse struct {
 	databasePropertyRelationConfigResponseCommon
+	databasePropertyRelationConfigResponseAllOf1
+}
+
+// databasePropertyRelationConfigResponseAllOf1 defines a model
+// databasePropertyRelationConfigResponseAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type databasePropertyRelationConfigResponseAllOf1 struct {
+	SinglePropertyDatabasePropertyRelationConfigResponse *singlePropertyDatabasePropertyRelationConfigResponse
+	DualPropertyDatabasePropertyRelationConfigResponse   *dualPropertyDatabasePropertyRelationConfigResponse
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *databasePropertyRelationConfigResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv singlePropertyDatabasePropertyRelationConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SinglePropertyDatabasePropertyRelationConfigResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv dualPropertyDatabasePropertyRelationConfigResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.DualPropertyDatabasePropertyRelationConfigResponse = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("databasePropertyRelationConfigResponseAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *databasePropertyRelationConfigResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.SinglePropertyDatabasePropertyRelationConfigResponse != nil:
+		return json.MarshalEncode(enc, v.SinglePropertyDatabasePropertyRelationConfigResponse, jsonOpts)
+	case v.DualPropertyDatabasePropertyRelationConfigResponse != nil:
+		return json.MarshalEncode(enc, v.DualPropertyDatabasePropertyRelationConfigResponse, jsonOpts)
+	}
+
+	return fmt.Errorf("databasePropertyRelationConfigResponseAllOf1: no variant set")
 }
 
 // databasePropertyRelationConfigResponseCommon defines a model
@@ -21659,7 +22602,7 @@ type date struct {
 	// The end date of the date object, if any.
 	End *civil.Date `json:"end,omitempty"`
 	// The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.
-	TimeZone *ChatWithAgentOk `json:"time_zone,omitempty"`
+	TimeZone *ChatWithAgent3 `json:"time_zone,omitempty"`
 }
 
 // dateDatabasePropertyConfigResponse defines a model
@@ -21755,7 +22698,7 @@ type emojiPageIcon struct {
 	// Always `emoji`
 	Type string `json:"type,omitzero"`
 	// An emoji character.
-	Emoji ChatWithAgentOk `json:"emoji,omitzero"`
+	Emoji ChatWithAgent3 `json:"emoji,omitzero"`
 }
 
 // emptyObject defines a model
@@ -21788,13 +22731,17 @@ type equationRichTextItem struct {
 // error_api_ defines a model
 type error_api_ struct {
 	publicApiCommonErrorResponse
-	Code   ErrorAPIAllOfCode `json:"code,omitzero"`
-	Status int               `json:"status"`
+	error_api_AllOf
 }
 
 // error_api_400 defines a model
 type error_api_400 struct {
 	publicApiCommonErrorResponse
+	error_api_400AllOf1
+}
+
+// error_api_400AllOf1 defines a model
+type error_api_400AllOf1 struct {
 	Code   ErrorAPI400AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21802,6 +22749,11 @@ type error_api_400 struct {
 // error_api_401 defines a model
 type error_api_401 struct {
 	publicApiCommonErrorResponse
+	error_api_401AllOf1
+}
+
+// error_api_401AllOf1 defines a model
+type error_api_401AllOf1 struct {
 	Code   ErrorAPI401AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21871,6 +22823,11 @@ func (v *error_api_403) MarshalJSONTo(enc *jsontext.Encoder) error {
 // error_api_403OneOf0 defines a model
 type error_api_403OneOf0 struct {
 	publicApiCommonErrorResponse
+	error_api_403OneOf0AllOf1
+}
+
+// error_api_403OneOf0AllOf1 defines a model
+type error_api_403OneOf0AllOf1 struct {
 	Code   ErrorAPI403OneOf0AllOf1Code `json:"code,omitzero"`
 	Status int                         `json:"status"`
 }
@@ -21878,6 +22835,11 @@ type error_api_403OneOf0 struct {
 // error_api_403OneOf1 defines a model
 type error_api_403OneOf1 struct {
 	publicApiCommonErrorResponse
+	error_api_403OneOf1AllOf1
+}
+
+// error_api_403OneOf1AllOf1 defines a model
+type error_api_403OneOf1AllOf1 struct {
 	Code           string                                `json:"code,omitzero"`
 	Status         int                                   `json:"status"`
 	AdditionalData ErrorAPI403OneOf1AllOf1AdditionalData `json:"additional_data"`
@@ -21886,6 +22848,11 @@ type error_api_403OneOf1 struct {
 // error_api_403OneOf2 defines a model
 type error_api_403OneOf2 struct {
 	publicApiCommonErrorResponse
+	error_api_403OneOf2AllOf1
+}
+
+// error_api_403OneOf2AllOf1 defines a model
+type error_api_403OneOf2AllOf1 struct {
 	Code           string                                `json:"code,omitzero"`
 	Status         int                                   `json:"status"`
 	AdditionalData ErrorAPI403OneOf2AllOf1AdditionalData `json:"additional_data"`
@@ -21894,6 +22861,11 @@ type error_api_403OneOf2 struct {
 // error_api_404 defines a model
 type error_api_404 struct {
 	publicApiCommonErrorResponse
+	error_api_404AllOf1
+}
+
+// error_api_404AllOf1 defines a model
+type error_api_404AllOf1 struct {
 	Code   ErrorAPI404AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21901,6 +22873,11 @@ type error_api_404 struct {
 // error_api_406 defines a model
 type error_api_406 struct {
 	publicApiCommonErrorResponse
+	error_api_406AllOf1
+}
+
+// error_api_406AllOf1 defines a model
+type error_api_406AllOf1 struct {
 	Code   ErrorAPI406AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21908,6 +22885,11 @@ type error_api_406 struct {
 // error_api_409 defines a model
 type error_api_409 struct {
 	publicApiCommonErrorResponse
+	error_api_409AllOf1
+}
+
+// error_api_409AllOf1 defines a model
+type error_api_409AllOf1 struct {
 	Code   ErrorAPI409AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21915,6 +22897,11 @@ type error_api_409 struct {
 // error_api_429 defines a model
 type error_api_429 struct {
 	publicApiCommonErrorResponse
+	error_api_429AllOf1
+}
+
+// error_api_429AllOf1 defines a model
+type error_api_429AllOf1 struct {
 	Code   ErrorAPI429AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21922,6 +22909,11 @@ type error_api_429 struct {
 // error_api_503 defines a model
 type error_api_503 struct {
 	publicApiCommonErrorResponse
+	error_api_503AllOf1
+}
+
+// error_api_503AllOf1 defines a model
+type error_api_503AllOf1 struct {
 	Code   ErrorAPI503AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21929,6 +22921,11 @@ type error_api_503 struct {
 // error_api_504 defines a model
 type error_api_504 struct {
 	publicApiCommonErrorResponse
+	error_api_504AllOf1
+}
+
+// error_api_504AllOf1 defines a model
+type error_api_504AllOf1 struct {
 	Code   ErrorAPI504AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -21936,13 +22933,29 @@ type error_api_504 struct {
 // error_api_529 defines a model
 type error_api_529 struct {
 	publicApiCommonErrorResponse
+	error_api_529AllOf1
+}
+
+// error_api_529AllOf1 defines a model
+type error_api_529AllOf1 struct {
 	Code   ErrorAPI529AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
+}
+
+// error_api_AllOf defines a model
+type error_api_AllOf struct {
+	Code   ErrorAPIAllOfCode `json:"code,omitzero"`
+	Status int               `json:"status"`
 }
 
 // error_oauth_400 defines a model
 type error_oauth_400 struct {
 	publicApiCommonErrorResponse
+	error_oauth_400AllOf1
+}
+
+// error_oauth_400AllOf1 defines a model
+type error_oauth_400AllOf1 struct {
 	Code   ErrorOauth400AllOf1Code `json:"code,omitzero"`
 	Status int                     `json:"status"`
 }
@@ -21950,6 +22963,11 @@ type error_oauth_400 struct {
 // error_oauth_401 defines a model
 type error_oauth_401 struct {
 	publicApiCommonErrorResponse
+	error_oauth_401AllOf1
+}
+
+// error_oauth_401AllOf1 defines a model
+type error_oauth_401AllOf1 struct {
 	Code   ErrorOauth401AllOf1Code `json:"code,omitzero"`
 	Status int                     `json:"status"`
 }
@@ -21957,6 +22975,11 @@ type error_oauth_401 struct {
 // error_oauth_403 defines a model
 type error_oauth_403 struct {
 	publicApiCommonErrorResponse
+	error_oauth_403AllOf1
+}
+
+// error_oauth_403AllOf1 defines a model
+type error_oauth_403AllOf1 struct {
 	Code   ErrorOauth403AllOf1Code `json:"code,omitzero"`
 	Status int                     `json:"status"`
 }
@@ -22335,9 +23358,61 @@ type imageBlockObjectResponse struct {
 	InTrash        bool                                   `json:"in_trash"`
 }
 
+// internalOrExternalFileWithNameAllOf defines a model
+// internalOrExternalFileWithNameAllOf is an untagged oneOf union: exactly one field is set after unmarshaling.
+type internalOrExternalFileWithNameAllOf struct {
+	File     *File
+	External *External
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *internalOrExternalFileWithNameAllOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv File
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.File = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv External
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.External = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("internalOrExternalFileWithNameAllOf: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *internalOrExternalFileWithNameAllOf) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.File != nil:
+		return json.MarshalEncode(enc, v.File, jsonOpts)
+	case v.External != nil:
+		return json.MarshalEncode(enc, v.External, jsonOpts)
+	}
+
+	return fmt.Errorf("internalOrExternalFileWithNameAllOf: no variant set")
+}
+
 // internalOrExternalFileWithNameResponse defines a model
 type internalOrExternalFileWithNameResponse struct {
 	internalOrExternalFileWithNameResponseCommon
+	internalOrExternalFileWithNameAllOf
 }
 
 // internalOrExternalFileWithNameResponseCommon defines a model
@@ -22776,57 +23851,6 @@ type numberedListItemBlockObjectResponse struct {
 	InTrash          bool                                       `json:"in_trash"`
 }
 
-// pageCoverResponse defines a model
-// pageCoverResponse is an untagged oneOf union: exactly one field is set after unmarshaling.
-type pageCoverResponse struct {
-	File     *File
-	External *External
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *pageCoverResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv File
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.File = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv External
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.External = &vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return fmt.Errorf("pageCoverResponse: expected exactly one matching variant, got %d", matched)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *pageCoverResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.File != nil:
-		return json.MarshalEncode(enc, v.File, jsonOpts)
-	case v.External != nil:
-		return json.MarshalEncode(enc, v.External, jsonOpts)
-	}
-
-	return fmt.Errorf("pageCoverResponse: no variant set")
-}
-
 // pageIconRequest defines a model
 // pageIconRequest is an untagged oneOf union: exactly one field is set after unmarshaling.
 type pageIconRequest struct {
@@ -23030,7 +24054,7 @@ type pageObjectResponse struct {
 	// The icon of the teamspace.
 	Icon *pageIconResponse `json:"icon"`
 	// The cover of the data source.
-	Cover *pageCoverResponse `json:"cover"`
+	Cover *internalOrExternalFileWithNameAllOf `json:"cover"`
 	// User who created the page.
 	CreatedBy partialUserObjectResponse `json:"created_by"`
 	// User who last edited the page.
@@ -23040,6 +24064,58 @@ type pageObjectResponse struct {
 // pagePropertyValueWithIdResponse defines a model
 type pagePropertyValueWithIdResponse struct {
 	ChatWithAgentAttachmentsItemFileUpload
+	pagePropertyValueWithIdResponseAllOf1
+}
+
+// pagePropertyValueWithIdResponseAllOf1 defines a model
+// pagePropertyValueWithIdResponseAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type pagePropertyValueWithIdResponseAllOf1 struct {
+	SimpleOrArrayPropertyValueResponse *simpleOrArrayPropertyValueResponse
+	PartialRollupPropertyResponse      *partialRollupPropertyResponse
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *pagePropertyValueWithIdResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv simpleOrArrayPropertyValueResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.SimpleOrArrayPropertyValueResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv partialRollupPropertyResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.PartialRollupPropertyResponse = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *pagePropertyValueWithIdResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.SimpleOrArrayPropertyValueResponse != nil:
+		return json.MarshalEncode(enc, v.SimpleOrArrayPropertyValueResponse, jsonOpts)
+	case v.PartialRollupPropertyResponse != nil:
+		return json.MarshalEncode(enc, v.PartialRollupPropertyResponse, jsonOpts)
+	}
+
+	return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: no variant set")
 }
 
 // paragraphBlockObjectResponse defines a model
@@ -23310,6 +24386,80 @@ type partialRollupPropertyResponse struct {
 // partialRollupValueResponse defines a model
 type partialRollupValueResponse struct {
 	partialRollupValueResponseCommon
+	partialRollupValueResponseAllOf1
+}
+
+// partialRollupValueResponseAllOf1 defines a model
+// partialRollupValueResponseAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type partialRollupValueResponseAllOf1 struct {
+	NumberFormulaPropertyValue      *numberFormulaPropertyValue
+	DateFormulaPropertyValue        *dateFormulaPropertyValue
+	ArrayPartialRollupValueResponse *arrayPartialRollupValueResponse
+	UnsupportedFormulaProperty      *unsupportedFormulaProperty
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *partialRollupValueResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv numberFormulaPropertyValue
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.NumberFormulaPropertyValue = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv dateFormulaPropertyValue
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.DateFormulaPropertyValue = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv arrayPartialRollupValueResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.ArrayPartialRollupValueResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv unsupportedFormulaProperty
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.UnsupportedFormulaProperty = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("partialRollupValueResponseAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *partialRollupValueResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.NumberFormulaPropertyValue != nil:
+		return json.MarshalEncode(enc, v.NumberFormulaPropertyValue, jsonOpts)
+	case v.DateFormulaPropertyValue != nil:
+		return json.MarshalEncode(enc, v.DateFormulaPropertyValue, jsonOpts)
+	case v.ArrayPartialRollupValueResponse != nil:
+		return json.MarshalEncode(enc, v.ArrayPartialRollupValueResponse, jsonOpts)
+	case v.UnsupportedFormulaProperty != nil:
+		return json.MarshalEncode(enc, v.UnsupportedFormulaProperty, jsonOpts)
+	}
+
+	return fmt.Errorf("partialRollupValueResponseAllOf1: no variant set")
 }
 
 // partialRollupValueResponseCommon defines a model
@@ -23329,7 +24479,7 @@ type partialSelectPropertyValue struct {
 // partialUserObjectRequest defines a model
 type partialUserObjectRequest struct {
 	// The ID of the user.
-	ID ChatWithAgentOk `json:"id,omitzero"`
+	ID ChatWithAgent3 `json:"id,omitzero"`
 	// The user object type name.
 	Object string `json:"object,omitzero"`
 }
@@ -23823,6 +24973,69 @@ type richTextDatabasePropertyConfigResponse struct {
 // richTextItemRequest defines a model
 type richTextItemRequest struct {
 	richTextItemRequestCommon
+	richTextItemRequestAllOf1
+}
+
+// richTextItemRequestAllOf1 defines a model
+// richTextItemRequestAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type richTextItemRequestAllOf1 struct {
+	TextRichTextItem           *textRichTextItem
+	MentionRichTextItemRequest *mentionRichTextItemRequest
+	EquationRichTextItem       *equationRichTextItem
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *richTextItemRequestAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv textRichTextItem
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.TextRichTextItem = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv mentionRichTextItemRequest
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.MentionRichTextItemRequest = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv equationRichTextItem
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.EquationRichTextItem = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("richTextItemRequestAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *richTextItemRequestAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.TextRichTextItem != nil:
+		return json.MarshalEncode(enc, v.TextRichTextItem, jsonOpts)
+	case v.MentionRichTextItemRequest != nil:
+		return json.MarshalEncode(enc, v.MentionRichTextItemRequest, jsonOpts)
+	case v.EquationRichTextItem != nil:
+		return json.MarshalEncode(enc, v.EquationRichTextItem, jsonOpts)
+	}
+
+	return fmt.Errorf("richTextItemRequestAllOf1: no variant set")
 }
 
 // richTextItemRequestCommon defines a model
@@ -23834,6 +25047,69 @@ type richTextItemRequestCommon struct {
 // richTextItemResponse defines a model
 type richTextItemResponse struct {
 	richTextItemResponseCommon
+	richTextItemResponseAllOf1
+}
+
+// richTextItemResponseAllOf1 defines a model
+// richTextItemResponseAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type richTextItemResponseAllOf1 struct {
+	TextRichTextItem            *textRichTextItem
+	MentionRichTextItemResponse *mentionRichTextItemResponse
+	EquationRichTextItem        *equationRichTextItem
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *richTextItemResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv textRichTextItem
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.TextRichTextItem = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv mentionRichTextItemResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.MentionRichTextItemResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv equationRichTextItem
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.EquationRichTextItem = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("richTextItemResponseAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *richTextItemResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.TextRichTextItem != nil:
+		return json.MarshalEncode(enc, v.TextRichTextItem, jsonOpts)
+	case v.MentionRichTextItemResponse != nil:
+		return json.MarshalEncode(enc, v.MentionRichTextItemResponse, jsonOpts)
+	case v.EquationRichTextItem != nil:
+		return json.MarshalEncode(enc, v.EquationRichTextItem, jsonOpts)
+	}
+
+	return fmt.Errorf("richTextItemResponseAllOf1: no variant set")
 }
 
 // richTextItemResponseCommon defines a model
@@ -23980,7 +25256,6 @@ type runToolResponse struct {
 	RunToolResponseOneOf9               *runToolResponseOneOf9
 	RunToolOneOf                        *runToolOneOf
 	RunToolResponseOneOf11              *runToolResponseOneOf11
-	RunToolOneOf3                       *runToolOneOf
 	RunToolResponseOneOf13              *runToolResponseOneOf13
 	RunToolResponseOneOf14              *runToolResponseOneOf14
 	RunToolResponseOneOf15              *runToolResponseOneOf15
@@ -23993,10 +25268,7 @@ type runToolResponse struct {
 	RunToolResponseOneOf22              *runToolResponseOneOf22
 	RunToolResponseOneOf23              *runToolResponseOneOf23
 	RunToolResponseOneOf24              *runToolResponseOneOf24
-	RunToolOneOf22                      *runToolOneOf2
-	RunToolOneOf32                      *runToolOneOf3
-	RunToolOneOf33                      *runToolOneOf3
-	RunToolOneOf34                      *runToolOneOf3
+	RunToolOneOf3                       *runToolOneOf3
 	RunToolResponseOneOf29              *runToolResponseOneOf29
 	RunToolResponseOneOf30              *runToolResponseOneOf30
 	RunToolResponseOneOf31              *runToolResponseOneOf31
@@ -24006,7 +25278,6 @@ type runToolResponse struct {
 	RunToolResponseOneOf35              *runToolResponseOneOf35
 	RunToolOneOf4                       *runToolOneOf4
 	RunToolResponseOneOf37              *runToolResponseOneOf37
-	RunToolOneOf42                      *runToolOneOf4
 	RunToolResponseOneOf39              *runToolResponseOneOf39
 	RunToolResponseOneOf40              *runToolResponseOneOf40
 	RunToolResponseOneOf41              *runToolResponseOneOf41
@@ -24022,20 +25293,12 @@ type runToolResponse struct {
 	RunToolResponseOneOf51              *runToolResponseOneOf51
 	RunToolResponseOneOf52              *runToolResponseOneOf52
 	RunToolOneOf5                       *runToolOneOf5
-	RunToolOneOf52                      *runToolOneOf5
-	RunToolOneOf53                      *runToolOneOf5
-	RunToolOneOf54                      *runToolOneOf5
 	RunToolResponseOneOf57              *runToolResponseOneOf57
 	RunToolResponseOneOf58              *runToolResponseOneOf58
 	RunToolOneOf6                       *runToolOneOf6
 	RunToolResponseOneOf60              *runToolResponseOneOf60
 	RunToolResponseOneOf61              *runToolResponseOneOf61
-	RunToolOneOf62                      *runToolOneOf6
-	RunToolOneOf23                      *runToolOneOf2
-	RunToolOneOf24                      *runToolOneOf2
 	RunToolResponseOneOf65              *runToolResponseOneOf65
-	RunToolOneOf25                      *runToolOneOf2
-	RunToolOneOf26                      *runToolOneOf2
 	RunToolResponseOneOf68              *runToolResponseOneOf68
 	RunToolResponseOneOf69              *runToolResponseOneOf69
 	RunToolResponseOneOf70              *runToolResponseOneOf70
@@ -24056,7 +25319,6 @@ type runToolResponse struct {
 	RunToolResponseOneOf85              *runToolResponseOneOf85
 	RunToolResponseOneOf86              *runToolResponseOneOf86
 	RunToolOneOf7                       *runToolOneOf7
-	RunToolOneOf72                      *runToolOneOf7
 	RunToolResponseOneOf89              *runToolResponseOneOf89
 }
 
@@ -24166,14 +25428,6 @@ func (v *runToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv runToolOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf3 = &vv
-			matched++
-		}
-	}
-
-	{
 		var vv runToolResponseOneOf13
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.RunToolResponseOneOf13 = &vv
@@ -24270,33 +25524,9 @@ func (v *runToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv runToolOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf22 = &vv
-			matched++
-		}
-	}
-
-	{
 		var vv runToolOneOf3
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf32 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf33 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf34 = &vv
+			v.RunToolOneOf3 = &vv
 			matched++
 		}
 	}
@@ -24369,14 +25599,6 @@ func (v *runToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		var vv runToolResponseOneOf37
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.RunToolResponseOneOf37 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf42 = &vv
 			matched++
 		}
 	}
@@ -24502,30 +25724,6 @@ func (v *runToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv runToolOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf52 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf53 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf54 = &vv
-			matched++
-		}
-	}
-
-	{
 		var vv runToolResponseOneOf57
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.RunToolResponseOneOf57 = &vv
@@ -24566,49 +25764,9 @@ func (v *runToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv runToolOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf62 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf23 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf24 = &vv
-			matched++
-		}
-	}
-
-	{
 		var vv runToolResponseOneOf65
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.RunToolResponseOneOf65 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf25 = &vv
-			matched++
-		}
-	}
-
-	{
-		var vv runToolOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf26 = &vv
 			matched++
 		}
 	}
@@ -24774,14 +25932,6 @@ func (v *runToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv runToolOneOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RunToolOneOf72 = &vv
-			matched++
-		}
-	}
-
-	{
 		var vv runToolResponseOneOf89
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
 			v.RunToolResponseOneOf89 = &vv
@@ -24823,8 +25973,6 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.RunToolOneOf, jsonOpts)
 	case v.RunToolResponseOneOf11 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf11, jsonOpts)
-	case v.RunToolOneOf3 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf3, jsonOpts)
 	case v.RunToolResponseOneOf13 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf13, jsonOpts)
 	case v.RunToolResponseOneOf14 != nil:
@@ -24849,14 +25997,8 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf23, jsonOpts)
 	case v.RunToolResponseOneOf24 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf24, jsonOpts)
-	case v.RunToolOneOf22 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf22, jsonOpts)
-	case v.RunToolOneOf32 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf32, jsonOpts)
-	case v.RunToolOneOf33 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf33, jsonOpts)
-	case v.RunToolOneOf34 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf34, jsonOpts)
+	case v.RunToolOneOf3 != nil:
+		return json.MarshalEncode(enc, v.RunToolOneOf3, jsonOpts)
 	case v.RunToolResponseOneOf29 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf29, jsonOpts)
 	case v.RunToolResponseOneOf30 != nil:
@@ -24875,8 +26017,6 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.RunToolOneOf4, jsonOpts)
 	case v.RunToolResponseOneOf37 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf37, jsonOpts)
-	case v.RunToolOneOf42 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf42, jsonOpts)
 	case v.RunToolResponseOneOf39 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf39, jsonOpts)
 	case v.RunToolResponseOneOf40 != nil:
@@ -24907,12 +26047,6 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf52, jsonOpts)
 	case v.RunToolOneOf5 != nil:
 		return json.MarshalEncode(enc, v.RunToolOneOf5, jsonOpts)
-	case v.RunToolOneOf52 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf52, jsonOpts)
-	case v.RunToolOneOf53 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf53, jsonOpts)
-	case v.RunToolOneOf54 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf54, jsonOpts)
 	case v.RunToolResponseOneOf57 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf57, jsonOpts)
 	case v.RunToolResponseOneOf58 != nil:
@@ -24923,18 +26057,8 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf60, jsonOpts)
 	case v.RunToolResponseOneOf61 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf61, jsonOpts)
-	case v.RunToolOneOf62 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf62, jsonOpts)
-	case v.RunToolOneOf23 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf23, jsonOpts)
-	case v.RunToolOneOf24 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf24, jsonOpts)
 	case v.RunToolResponseOneOf65 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf65, jsonOpts)
-	case v.RunToolOneOf25 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf25, jsonOpts)
-	case v.RunToolOneOf26 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf26, jsonOpts)
 	case v.RunToolResponseOneOf68 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf68, jsonOpts)
 	case v.RunToolResponseOneOf69 != nil:
@@ -24975,8 +26099,6 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf86, jsonOpts)
 	case v.RunToolOneOf7 != nil:
 		return json.MarshalEncode(enc, v.RunToolOneOf7, jsonOpts)
-	case v.RunToolOneOf72 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOf72, jsonOpts)
 	case v.RunToolResponseOneOf89 != nil:
 		return json.MarshalEncode(enc, v.RunToolResponseOneOf89, jsonOpts)
 	}
@@ -26178,19 +27300,19 @@ type transcriptionBlockResponse struct {
 
 // transcriptionCalendarEventResponse defines a model
 type transcriptionCalendarEventResponse struct {
-	StartTime time.Time         `json:"start_time,omitzero"`
-	EndTime   time.Time         `json:"end_time,omitzero"`
-	Attendees []ChatWithAgentOk `json:"attendees,omitzero"`
+	StartTime time.Time        `json:"start_time,omitzero"`
+	EndTime   time.Time        `json:"end_time,omitzero"`
+	Attendees []ChatWithAgent3 `json:"attendees,omitzero"`
 }
 
 // transcriptionChildrenResponse defines a model
 type transcriptionChildrenResponse struct {
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	SummaryBlockID ChatWithAgentOk `json:"summary_block_id,omitzero"`
+	SummaryBlockID ChatWithAgent3 `json:"summary_block_id,omitzero"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	NotesBlockID ChatWithAgentOk `json:"notes_block_id,omitzero"`
+	NotesBlockID ChatWithAgent3 `json:"notes_block_id,omitzero"`
 	// Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.
-	TranscriptBlockID ChatWithAgentOk `json:"transcript_block_id,omitzero"`
+	TranscriptBlockID ChatWithAgent3 `json:"transcript_block_id,omitzero"`
 }
 
 // transcriptionRecordingResponse defines a model
@@ -26276,6 +27398,58 @@ type urlSimplePropertyValueResponse struct {
 // userObjectResponse defines a model
 type userObjectResponse struct {
 	userObjectResponseCommon
+	userObjectResponseAllOf1
+}
+
+// userObjectResponseAllOf1 defines a model
+// userObjectResponseAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
+type userObjectResponseAllOf1 struct {
+	PersonUserObjectResponse *personUserObjectResponse
+	BotUserObjectResponse    *botUserObjectResponse
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *userObjectResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv personUserObjectResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.PersonUserObjectResponse = &vv
+			matched++
+		}
+	}
+
+	{
+		var vv botUserObjectResponse
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.BotUserObjectResponse = &vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return fmt.Errorf("userObjectResponseAllOf1: expected exactly one matching variant, got %d", matched)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *userObjectResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.PersonUserObjectResponse != nil:
+		return json.MarshalEncode(enc, v.PersonUserObjectResponse, jsonOpts)
+	case v.BotUserObjectResponse != nil:
+		return json.MarshalEncode(enc, v.BotUserObjectResponse, jsonOpts)
+	}
+
+	return fmt.Errorf("userObjectResponseAllOf1: no variant set")
 }
 
 // userObjectResponseCommon defines a model

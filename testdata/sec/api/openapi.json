@@ -3552,12 +3552,6 @@
           "Year"
         ]
       },
-      "ListFilesCompanyTickersJSONOk": {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkValue"
-        }
-      },
       "ListFilesCompanyTickersJSONOkValue": {
         "type": "object",
         "properties": {
@@ -3603,7 +3597,10 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOk"
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ListFilesCompanyTickersJSONOkValue"
+              }
             }
           }
         }

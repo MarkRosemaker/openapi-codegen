@@ -2998,7 +2998,7 @@ type GetVocalAnimationResponse struct {
 	CharacterID *string `json:"character_id,omitempty"`
 	// Mouth positions produced so far.
 	CompletedVisemes []string `json:"completed_visemes,omitzero"`
-	// Optional reference images per direction. Allowed keys: 'south', 'east', 'north', 'west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'; oblique view requires all 4 cardinals.
+	// The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead.
 	Visemes *map[string]BaseImage `json:"visemes,omitempty"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
 	MoodsOnCharacter *string `json:"moods_on_character,omitempty"`
@@ -3976,7 +3976,7 @@ type TalkingGifRequest struct {
 	CharacterID *string `json:"character_id,omitempty"`
 	// Which stored expression to use. Defaults to the character's first. Only valid with `character_id`.
 	Mood *LipSyncMoodAnyOf `json:"mood,omitempty"`
-	// Optional reference images per direction. Allowed keys: 'south', 'east', 'north', 'west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'; oblique view requires all 4 cardinals.
+	// The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead.
 	Visemes *map[string]BaseImage `json:"visemes,omitempty"`
 	// Milliseconds per mouth position.
 	FrameMs *int `json:"frame_ms,omitempty"`

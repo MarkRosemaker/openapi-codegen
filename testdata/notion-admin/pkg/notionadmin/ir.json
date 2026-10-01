@@ -7705,6 +7705,20 @@
 			"kind": 3,
 			"fields": [
 				{
+					"type": "ListUsersOkResultsItemAllOf0",
+					"embedded": true
+				},
+				{
+					"type": "ListUsersOkResultsItemAllOf1",
+					"embedded": true
+				}
+			]
+		},
+		{
+			"name": "ListUsersOkResultsItemAllOf0",
+			"description": "ListUsersOkResultsItemAllOf0 defines a model",
+			"fields": [
+				{
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
@@ -7737,6 +7751,22 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "ListUsersOkResultsItemAllOf1",
+			"description": "ListUsersOkResultsItemAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Person",
+					"type": "Person"
+				},
+				{
+					"fieldName": "Bot",
+					"type": "Bot"
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "NotionVersion",

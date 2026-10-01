@@ -3501,7 +3501,7 @@
           },
           "user_id": {
             "description": "The ID of the user to add.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -3566,7 +3566,7 @@
         "description": "The ID of the agent to chat with. Use a UUID for custom agents or `notion_ai` for Notion Agent (personal agent); the reserved UUID `33333333-3333-3333-3333-333333333333` remains supported for backward compatibility.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           {
             "$ref": "#/components/schemas/AgentIDOneOf"
@@ -3577,7 +3577,7 @@
         "description": "The ID of the agent backing this external agent session.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           {
             "description": "Always `33333333-3333-3333-3333-333333333333`",
@@ -3690,7 +3690,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
             }
           },
           "edited_by_user_ids": {
@@ -3698,7 +3698,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
             }
           },
           "last_edited_date_range": {
@@ -3709,7 +3709,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
             }
           },
           "title_only": {
@@ -5269,7 +5269,7 @@
           "thread_id": {
             "description": "Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created.",
             "deprecated": true,
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "additionalProperties": false
@@ -5348,18 +5348,6 @@
           "id"
         ],
         "additionalProperties": false
-      },
-      "ChatWithAgentOk": {
-        "description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
-        "type": "string",
-        "example": "😀",
-        "examples": [
-          "pizza",
-          "meeting",
-          "home",
-          "star",
-          "robot"
-        ]
       },
       "CheckboxFilter": {
         "description": "Property filter for checkbox properties.",
@@ -5472,7 +5460,7 @@
             "const": "comment_id"
           },
           "comment_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -5619,7 +5607,7 @@
         "type": "object",
         "properties": {
           "action_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "option_id": {
             "$ref": "#/components/schemas/ContinueThreadOneOfOptionID"
@@ -5635,7 +5623,7 @@
         "type": "object",
         "properties": {
           "action_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "option_id": {
             "description": "Always `use_connection`",
@@ -5657,7 +5645,7 @@
         "type": "object",
         "properties": {
           "connection_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -5704,33 +5692,39 @@
         "description": "Provide exactly one of content for inline UTF-8 text, source_url for a direct HTTPS download, or source_file_id for a file upload this integration already created.",
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "filename": {
-                "description": "The filename to create in Notion, including a supported extension such as .html, .md, .pdf, or .png. Required with content and source_url. Omit it with source_file_id; the stored upload already carries a filename.",
-                "type": "string",
-                "minLength": 1
-              },
-              "content_type": {
-                "description": "Optional MIME type, such as text/html or application/pdf. It must match the filename extension; omit it to infer the type from the filename. Omit it with source_file_id; the stored upload already carries a content type.",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 255
-              }
-            }
+            "$ref": "#/components/schemas/CreateANotionAttachmentAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CreateANotionAttachmentAllOfOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/CreateANotionAttachmentAllOfOneOf2"
-              },
-              {
-                "$ref": "#/components/schemas/CreateANotionAttachmentAllOfOneOf3"
-              }
-            ]
+            "$ref": "#/components/schemas/CreateANotionAttachmentAllOf2"
+          }
+        ]
+      },
+      "CreateANotionAttachmentAllOf": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "description": "The filename to create in Notion, including a supported extension such as .html, .md, .pdf, or .png. Required with content and source_url. Omit it with source_file_id; the stored upload already carries a filename.",
+            "type": "string",
+            "minLength": 1
+          },
+          "content_type": {
+            "description": "Optional MIME type, such as text/html or application/pdf. It must match the filename extension; omit it to infer the type from the filename. Omit it with source_file_id; the stored upload already carries a content type.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        }
+      },
+      "CreateANotionAttachmentAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateANotionAttachmentAllOfOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateANotionAttachmentAllOfOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/CreateANotionAttachmentAllOfOneOf3"
           }
         ]
       },
@@ -5839,34 +5833,40 @@
         "description": "The parameters for the create_comment tool. Add a comment to a page or specific content.\n\nProvide `page_id` to identify the page, then choose ONE targeting mode:\n- `page_id` alone: Add a top-level comment to the page\n- `page_id` + `selection_with_ellipsis`: Start a new discussion on the matching block\n- `discussion_id`: Reply to an existing discussion thread (page_id is still required)\n\nProvide exactly one content format:\n- `markdown`: Preferred. Inline Notion-flavored Markdown for comment text. For exact syntax, read the MCP resource `notion://docs/enhanced-markdown-spec` through your MCP client's resource-reading interface, or call the Notion \"fetch\" tool with this URI if your client does not support reading MCP resources. Do NOT pass this URI to any other URL-fetching tool. Use only the Rich text types and Mentions syntax that comments support. Comments support inline formatting (bold, italic, strikethrough, underline, code, links), inline math using `$`Equation`$`, and user/page/database/date mention tags such as `<mention-date start=\"YYYY-MM-DD\"/>`. To attach a file created by `create-file-upload` or `create-attachment`, include its returned `suggested_markdown` on a separate line; up to three file attachments are supported. Do not use UI shortcuts like `@today`, `@name`, `[[page]]`, or autocomplete-style emoji syntax; those are editor affordances, not markdown syntax. Mention tags must include a real `url` where required by the spec. Other block-level Markdown such as headings, lists, tables, blockquotes, and fenced code blocks is stored as plain comment text rather than rendered as blocks.\n- `rich_text`: Array of rich text objects.\n\nFor content targeting, use `selection_with_ellipsis` with ~10 chars from start and end: \"# Section Ti...tle content\"\n\n<example description=\"Page-level comment\">\n{\"page_id\": \"uuid\", \"markdown\": \"Comment with **important** context.\"}\n</example>\n<example description=\"Comment on specific content\">\n{\"page_id\": \"uuid\", \"selection_with_ellipsis\": \"# Meeting No...es heading\",\n \"markdown\": \"Comment on this section.\"}\n</example>\n<example description=\"Reply to discussion\">\n{\"page_id\": \"uuid\", \"discussion_id\": \"discussion://pageId/blockId/discussionId\",\n \"markdown\": \"Reply with [context](https://example.com).\"}\n</example>",
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "page_id": {
-                "description": "The ID of the page to comment on (with or without dashes).",
-                "type": "string"
-              },
-              "discussion_id": {
-                "description": "The ID or URL of an existing discussion to reply to (e.g., discussion://pageId/blockId/discussionId).",
-                "type": "string"
-              },
-              "selection_with_ellipsis": {
-                "description": "Unique start and end snippet of the content to comment on.\nDO NOT provide the entire string. Instead, provide up to the first ~10 characters, an ellipsis, and then up to the last ~10 characters.\nMake sure you provide enough of the start and end snippet to uniquely identify the content.\nFor example: \"# Section heading...last paragraph.\"",
-                "type": "string"
-              }
-            },
-            "required": [
-              "page_id"
-            ]
+            "$ref": "#/components/schemas/CreateCommentCreateCommentAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CreateCommentCreateCommentAllOfOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/CreateCommentCreateCommentAllOfOneOf2"
-              }
-            ]
+            "$ref": "#/components/schemas/CreateCommentCreateCommentAllOf2"
+          }
+        ]
+      },
+      "CreateCommentCreateCommentAllOf": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "description": "The ID of the page to comment on (with or without dashes).",
+            "type": "string"
+          },
+          "discussion_id": {
+            "description": "The ID or URL of an existing discussion to reply to (e.g., discussion://pageId/blockId/discussionId).",
+            "type": "string"
+          },
+          "selection_with_ellipsis": {
+            "description": "Unique start and end snippet of the content to comment on.\nDO NOT provide the entire string. Instead, provide up to the first ~10 characters, an ellipsis, and then up to the last ~10 characters.\nMake sure you provide enough of the start and end snippet to uniquely identify the content.\nFor example: \"# Section heading...last paragraph.\"",
+            "type": "string"
+          }
+        },
+        "required": [
+          "page_id"
+        ]
+      },
+      "CreateCommentCreateCommentAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateCommentCreateCommentAllOfOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCommentCreateCommentAllOfOneOf2"
           }
         ]
       },
@@ -5920,30 +5920,36 @@
         "description": "The parameters for the create_database tool. Creates a new Notion database using SQL DDL syntax, or a canonical typed database\nfor tasks, projects, or skills.\n\nProvide exactly one of:\n- schema: a CREATE TABLE statement. If no title property is provided, \"Name\" is auto-added.\n- database_type: one of tasks, projects, or skills. The database is created with\n  the canonical required properties and typed metadata used by Notion.\n\nReturns Markdown with schema, SQLite definition, and data source ID in\n<data-source> tag for use with update_data_source and query_data_sources tools.\n\nType syntax:\n- Simple: TITLE, RICH_TEXT, DATE, PEOPLE, CHECKBOX, URL, EMAIL, PHONE_NUMBER, STATUS, FILES\n- SELECT('opt':color, ...) / MULTI_SELECT('opt':color, ...)\n- NUMBER [FORMAT 'dollar'] / FORMULA('expression')\n- RELATION('data_source_id') — one-way relation\n- RELATION('data_source_id', DUAL) — two-way relation\n- RELATION('data_source_id', DUAL 'synced_name') — two-way with synced property name\n- RELATION('data_source_id', DUAL 'synced_name' 'synced_id') — two-way with synced name and ID (for self-relations)\n- ROLLUP('rel_prop', 'target_prop', 'function')\n- UNIQUE_ID [PREFIX 'X'] / CREATED_TIME / LAST_EDITED_TIME\n- Any column: COMMENT 'description text'\nColors: default, gray, brown, orange, yellow, green, blue, purple, pink, red\n\n<example description=\"Minimal\">{\"schema\": \"CREATE TABLE (\\\"Name\\\" TITLE)\"}</example>\n<example description=\"Tasks\">{\"database_type\": \"tasks\", \"title\": \"Tasks\"}</example>\n<example description=\"With parent and options\">{\"parent\": {\"page_id\": \"f336d0bc-b841-465b-8045-024475c079dd\"}, \"title\": \"Projects\", \"schema\": \"CREATE TABLE (\\\"Name\\\" TITLE, \\\"Budget\\\" NUMBER FORMAT 'dollar', \\\"Tags\\\" MULTI_SELECT('eng':blue, 'design':pink), \\\"Task ID\\\" UNIQUE_ID PREFIX 'PRJ')\"}</example>\n<example description=\"Self-relation (two-step: create database first, then use its data source ID with update_data_source to add self-relations)\">{\"title\": \"Tasks\", \"schema\": \"CREATE TABLE (\\\"Name\\\" TITLE, \\\"Parent\\\" RELATION('ds_id', DUAL 'Children' 'children'), \\\"Children\\\" RELATION('ds_id', DUAL 'Parent' 'parent'))\"}</example>",
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "parent": {
-                "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOfParent"
-              },
-              "title": {
-                "description": "The title of the new database.",
-                "type": "string"
-              },
-              "description": {
-                "description": "The description of the new database.",
-                "type": "string"
-              }
-            }
+            "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOf"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOfOneOf"
-              },
-              {
-                "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOfOneOf2"
-              }
-            ]
+            "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOf2"
+          }
+        ]
+      },
+      "CreateDatabaseCreateDatabaseAllOf": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOfParent"
+          },
+          "title": {
+            "description": "The title of the new database.",
+            "type": "string"
+          },
+          "description": {
+            "description": "The description of the new database.",
+            "type": "string"
+          }
+        }
+      },
+      "CreateDatabaseCreateDatabaseAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOfOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateDatabaseCreateDatabaseAllOfOneOf2"
           }
         ]
       },
@@ -6168,34 +6174,13 @@
             "const": "create_file_upload"
           },
           "create_file_upload": {
-            "$ref": "#/components/schemas/CreateFileUploadCreateFileUpload"
+            "$ref": "#/components/schemas/CreateANotionAttachmentAllOf"
           }
         },
         "required": [
           "type",
           "create_file_upload"
         ]
-      },
-      "CreateFileUploadCreateFileUpload": {
-        "description": "The parameters for the create_file_upload tool. Create a short-lived URL for uploading one local file directly to Notion.\n\nAfter calling this tool, send exactly one multipart/form-data POST request to `upload_url`. Put the file in the `file` form field and include every header returned in `upload_headers`. Files are limited to 20 MiB for this single-part upload flow, and workspace file-size limits still apply.\n\nThe upload response includes `markdown_source` and `suggested_markdown`, which can be passed directly to create-pages or update-page, or included on a separate line in create-comment markdown to attach the file. The URL is short-lived, can upload only the FileUpload created by this call, and runs as this same integration.\n\n<examples>\n1. Prepare an image upload: {\"filename\":\"diagram.png\"}\n2. Prepare a PDF upload with an explicit MIME type: {\"filename\":\"report.pdf\",\"content_type\":\"application/pdf\"}\n</examples>",
-        "type": "object",
-        "properties": {
-          "filename": {
-            "description": "The filename to create in Notion, including a supported extension such as .pdf, .png, or .zip.",
-            "type": "string",
-            "minLength": 1
-          },
-          "content_type": {
-            "description": "Optional MIME type, such as application/pdf or image/png. Prefer omitting it so the type is inferred from the filename: a type that disagrees with the extension is stored as given, and the file then renders as the wrong kind.",
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 255
-          }
-        },
-        "required": [
-          "filename"
-        ],
-        "additionalProperties": false
       },
       "CreateFolder": {
         "title": "Create Folder",
@@ -7035,7 +7020,7 @@
       "CreatedByItem": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           {
             "description": "Always `me`",
@@ -7116,7 +7101,7 @@
         "properties": {
           "id": {
             "description": "The ID of the custom emoji.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "name": {
             "description": "The name of the custom emoji.",
@@ -7157,7 +7142,7 @@
         "description": "The cover of the data source.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/pageCoverResponse"
+            "$ref": "#/components/schemas/internalOrExternalFileWithNameAllOf"
           },
           {
             "type": "null"
@@ -7232,7 +7217,7 @@
         "properties": {
           "id": {
             "description": "The ID of the database in the mention.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -7262,7 +7247,7 @@
             "const": "database_id"
           },
           "database_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -7702,7 +7687,7 @@
         "description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           {
             "type": "null"
@@ -7732,7 +7717,7 @@
         "properties": {
           "transfer_to_owner_id": {
             "description": "The ID of an active workspace owner who will receive access that would otherwise be orphaned.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         }
       },
@@ -8233,7 +8218,7 @@
         "properties": {
           "file_upload_id": {
             "description": "The FileUpload ID returned by the create-attachment tool.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -8929,6 +8914,18 @@
           "space_id"
         ]
       },
+      "ExternalDecagonAnyOfProductName": {
+        "type": "string",
+        "enum": [],
+        "example": "😀",
+        "examples": [
+          "pizza",
+          "meeting",
+          "home",
+          "star",
+          "robot"
+        ]
+      },
       "ExternalDecagonOk": {
         "anyOf": [
           {
@@ -9003,7 +9000,7 @@
             "const": true
           },
           "product_name": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "invoice_id": {
             "type": "string"
@@ -9180,7 +9177,7 @@
             "const": true
           },
           "product_name": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "invoice_id": {
             "type": "string"
@@ -10827,7 +10824,7 @@
         "properties": {
           "name": {
             "description": "The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "color": {
             "description": "The color variant of the icon. Defaults to gray if not specified. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.",
@@ -10864,7 +10861,7 @@
         "properties": {
           "blockId": {
             "description": "The ID of the page or block to export.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -13830,7 +13827,7 @@
         "properties": {
           "format": {
             "description": "The number format for the property.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -13955,7 +13952,7 @@
             "const": "page_id"
           },
           "page_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -15454,7 +15451,7 @@
         "properties": {
           "id": {
             "description": "Filter threads by ID (exact match).",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "status": {
             "$ref": "#/components/schemas/QueryThreadsFilterStatus"
@@ -16627,160 +16624,166 @@
       "RunToolEval": {
         "allOf": [
           {
-            "type": "object",
-            "properties": {
-              "eval_session_id": {
-                "description": "The eval session ID for tracking operations across multiple tool calls.",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 64,
-                "pattern": "^[A-Za-z0-9_-]{1,64}$"
-              },
-              "eval_run_id": {
-                "description": "The eval run ID for organizing a group of eval sessions.",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 64,
-                "pattern": "^[A-Za-z0-9_-]{1,64}$"
-              }
-            },
-            "required": [
-              "eval_session_id",
-              "eval_run_id"
-            ]
+            "$ref": "#/components/schemas/RunToolEvalAllOf0"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Search"
-              },
-              {
-                "$ref": "#/components/schemas/AiSearch"
-              },
-              {
-                "$ref": "#/components/schemas/MemorySearch"
-              },
-              {
-                "$ref": "#/components/schemas/ToolAccess"
-              },
-              {
-                "$ref": "#/components/schemas/Fetch"
-              },
-              {
-                "$ref": "#/components/schemas/McpBusinessPlanEducation"
-              },
-              {
-                "$ref": "#/components/schemas/CreatePages"
-              },
-              {
-                "$ref": "#/components/schemas/UpdatePage"
-              },
-              {
-                "$ref": "#/components/schemas/ConvertPageToSkill"
-              },
-              {
-                "$ref": "#/components/schemas/SearchSkills"
-              },
-              {
-                "$ref": "#/components/schemas/MovePages"
-              },
-              {
-                "$ref": "#/components/schemas/DuplicatePage"
-              },
-              {
-                "$ref": "#/components/schemas/CreateDatabase"
-              },
-              {
-                "$ref": "#/components/schemas/CreateFolder"
-              },
-              {
-                "$ref": "#/components/schemas/UpdateFolder"
-              },
-              {
-                "$ref": "#/components/schemas/UpdateDataSource"
-              },
-              {
-                "$ref": "#/components/schemas/CreateComment"
-              },
-              {
-                "$ref": "#/components/schemas/Comments"
-              },
-              {
-                "$ref": "#/components/schemas/CreateSuggestedEdit"
-              },
-              {
-                "$ref": "#/components/schemas/SuggestedEdit"
-              },
-              {
-                "$ref": "#/components/schemas/ResolveSuggestedEdit"
-              },
-              {
-                "$ref": "#/components/schemas/AsyncTask"
-              },
-              {
-                "$ref": "#/components/schemas/Teams"
-              },
-              {
-                "$ref": "#/components/schemas/Users"
-              },
-              {
-                "$ref": "#/components/schemas/ReplyToSlackThread"
-              },
-              {
-                "$ref": "#/components/schemas/AnswerQuestion"
-              },
-              {
-                "$ref": "#/components/schemas/QueryDataSources"
-              },
-              {
-                "$ref": "#/components/schemas/QueryMultipleDataSources"
-              },
-              {
-                "$ref": "#/components/schemas/QueryDatabaseView"
-              },
-              {
-                "$ref": "#/components/schemas/QueryMeetingNotes"
-              },
-              {
-                "$ref": "#/components/schemas/ListAgents"
-              },
-              {
-                "$ref": "#/components/schemas/ListPrivatePages"
-              },
-              {
-                "$ref": "#/components/schemas/ListSharedPages"
-              },
-              {
-                "$ref": "#/components/schemas/ListFavoritePages"
-              },
-              {
-                "$ref": "#/components/schemas/ListRecentPages"
-              },
-              {
-                "$ref": "#/components/schemas/SearchAgents"
-              },
-              {
-                "$ref": "#/components/schemas/CreateView"
-              },
-              {
-                "$ref": "#/components/schemas/UpdateView"
-              },
-              {
-                "$ref": "#/components/schemas/SearchEmails"
-              },
-              {
-                "$ref": "#/components/schemas/ViewThreadContent"
-              },
-              {
-                "$ref": "#/components/schemas/CreateWorkspaceBookmark"
-              },
-              {
-                "$ref": "#/components/schemas/ListWorkspaceBookmarks"
-              },
-              {
-                "$ref": "#/components/schemas/WorkspaceBookmark"
-              }
-            ]
+            "$ref": "#/components/schemas/RunToolEvalAllOf1"
+          }
+        ]
+      },
+      "RunToolEvalAllOf0": {
+        "type": "object",
+        "properties": {
+          "eval_session_id": {
+            "description": "The eval session ID for tracking operations across multiple tool calls.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "eval_run_id": {
+            "description": "The eval run ID for organizing a group of eval sessions.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          }
+        },
+        "required": [
+          "eval_session_id",
+          "eval_run_id"
+        ]
+      },
+      "RunToolEvalAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Search"
+          },
+          {
+            "$ref": "#/components/schemas/AiSearch"
+          },
+          {
+            "$ref": "#/components/schemas/MemorySearch"
+          },
+          {
+            "$ref": "#/components/schemas/ToolAccess"
+          },
+          {
+            "$ref": "#/components/schemas/Fetch"
+          },
+          {
+            "$ref": "#/components/schemas/McpBusinessPlanEducation"
+          },
+          {
+            "$ref": "#/components/schemas/CreatePages"
+          },
+          {
+            "$ref": "#/components/schemas/UpdatePage"
+          },
+          {
+            "$ref": "#/components/schemas/ConvertPageToSkill"
+          },
+          {
+            "$ref": "#/components/schemas/SearchSkills"
+          },
+          {
+            "$ref": "#/components/schemas/MovePages"
+          },
+          {
+            "$ref": "#/components/schemas/DuplicatePage"
+          },
+          {
+            "$ref": "#/components/schemas/CreateDatabase"
+          },
+          {
+            "$ref": "#/components/schemas/CreateFolder"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateFolder"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateDataSource"
+          },
+          {
+            "$ref": "#/components/schemas/CreateComment"
+          },
+          {
+            "$ref": "#/components/schemas/Comments"
+          },
+          {
+            "$ref": "#/components/schemas/CreateSuggestedEdit"
+          },
+          {
+            "$ref": "#/components/schemas/SuggestedEdit"
+          },
+          {
+            "$ref": "#/components/schemas/ResolveSuggestedEdit"
+          },
+          {
+            "$ref": "#/components/schemas/AsyncTask"
+          },
+          {
+            "$ref": "#/components/schemas/Teams"
+          },
+          {
+            "$ref": "#/components/schemas/Users"
+          },
+          {
+            "$ref": "#/components/schemas/ReplyToSlackThread"
+          },
+          {
+            "$ref": "#/components/schemas/AnswerQuestion"
+          },
+          {
+            "$ref": "#/components/schemas/QueryDataSources"
+          },
+          {
+            "$ref": "#/components/schemas/QueryMultipleDataSources"
+          },
+          {
+            "$ref": "#/components/schemas/QueryDatabaseView"
+          },
+          {
+            "$ref": "#/components/schemas/QueryMeetingNotes"
+          },
+          {
+            "$ref": "#/components/schemas/ListAgents"
+          },
+          {
+            "$ref": "#/components/schemas/ListPrivatePages"
+          },
+          {
+            "$ref": "#/components/schemas/ListSharedPages"
+          },
+          {
+            "$ref": "#/components/schemas/ListFavoritePages"
+          },
+          {
+            "$ref": "#/components/schemas/ListRecentPages"
+          },
+          {
+            "$ref": "#/components/schemas/SearchAgents"
+          },
+          {
+            "$ref": "#/components/schemas/CreateView"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateView"
+          },
+          {
+            "$ref": "#/components/schemas/SearchEmails"
+          },
+          {
+            "$ref": "#/components/schemas/ViewThreadContent"
+          },
+          {
+            "$ref": "#/components/schemas/CreateWorkspaceBookmark"
+          },
+          {
+            "$ref": "#/components/schemas/ListWorkspaceBookmarks"
+          },
+          {
+            "$ref": "#/components/schemas/WorkspaceBookmark"
           }
         ]
       },
@@ -22529,7 +22532,7 @@
             "const": "block_id"
           },
           "block_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -22905,9 +22908,6 @@
             "$ref": "#/components/schemas/AiSearchAiSearch"
           },
           {
-            "$ref": "#/components/schemas/AiSearchAiSearch"
-          },
-          {
             "$ref": "#/components/schemas/MemorySearchMemorySearch"
           },
           {
@@ -22945,9 +22945,6 @@
           },
           {
             "$ref": "#/components/schemas/MovePagesMovePages"
-          },
-          {
-            "$ref": "#/components/schemas/CreateFolderCreateFolderParentOneOf"
           },
           {
             "$ref": "#/components/schemas/CreateDatabaseCreateDatabase"
@@ -23029,9 +23026,6 @@
           },
           {
             "$ref": "#/components/schemas/ToolInputAnyOf6"
-          },
-          {
-            "$ref": "#/components/schemas/SessionStatusSessionStatus"
           },
           {
             "$ref": "#/components/schemas/SendMessageToSessionSendMessageToSession"
@@ -23575,11 +23569,11 @@
         "properties": {
           "from_user_id": {
             "description": "The ID of the source user to transfer content from.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "to_user_id": {
             "description": "The ID of the destination user to transfer content to.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "content_types": {
             "$ref": "#/components/schemas/TransferUserContentContentTypes"
@@ -24254,7 +24248,7 @@
         "properties": {
           "entity_id": {
             "description": "The ID of the entity (person or group).",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "entity_type": {
             "$ref": "#/components/schemas/ListTeamMembershipResultsItemType"
@@ -24280,7 +24274,7 @@
         "properties": {
           "entity_id": {
             "description": "The ID of the entity (person or group).",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "entity_type": {
             "$ref": "#/components/schemas/ListTeamMembershipResultsItemType"
@@ -24306,7 +24300,7 @@
         "properties": {
           "entity_id": {
             "description": "The ID of the entity (person or group).",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "entity_type": {
             "$ref": "#/components/schemas/ListTeamMembershipResultsItemType"
@@ -24347,7 +24341,7 @@
         "properties": {
           "id": {
             "description": "The ID of the space, teamspace, group, or person.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "type": {
             "$ref": "#/components/schemas/ListTeamPermissionsResultsItemType"
@@ -26274,71 +26268,74 @@
             "$ref": "#/components/schemas/databasePropertyConfigResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/numberDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/formulaDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/selectDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/multiSelectDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/statusDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/relationDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/rollupDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/uniqueIdDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/titleDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/richTextDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/urlDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/peopleDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/filesDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/emailDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/phoneNumberDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/dateDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/checkboxDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/createdByDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/createdTimeDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/lastEditedByDatabasePropertyConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/lastEditedTimeDatabasePropertyConfigResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/databasePropertyConfigResponseAllOf1"
+          }
+        ]
+      },
+      "databasePropertyConfigResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/numberDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/formulaDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/selectDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/multiSelectDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/statusDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/relationDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/rollupDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/uniqueIdDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/titleDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/richTextDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/urlDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/peopleDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/filesDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/emailDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/phoneNumberDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/dateDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/checkboxDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/createdByDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/createdTimeDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/lastEditedByDatabasePropertyConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/lastEditedTimeDatabasePropertyConfigResponse"
           }
         ]
       },
@@ -26370,14 +26367,17 @@
             "$ref": "#/components/schemas/databasePropertyRelationConfigResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/singlePropertyDatabasePropertyRelationConfigResponse"
-              },
-              {
-                "$ref": "#/components/schemas/dualPropertyDatabasePropertyRelationConfigResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/databasePropertyRelationConfigResponseAllOf1"
+          }
+        ]
+      },
+      "databasePropertyRelationConfigResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/singlePropertyDatabasePropertyRelationConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/dualPropertyDatabasePropertyRelationConfigResponse"
           }
         ]
       },
@@ -26705,7 +26705,7 @@
           },
           "emoji": {
             "description": "An emoji character.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         },
         "required": [
@@ -26796,21 +26796,7 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPIAllOfCode"
-              },
-              "status": {
-                "type": "integer",
-                "const": 500
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_AllOf"
           }
         ]
       },
@@ -26820,23 +26806,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI400AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 400
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_400AllOf1"
           }
         ]
+      },
+      "error_api_400AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI400AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 400
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_401": {
         "allOf": [
@@ -26844,23 +26833,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI401AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 401
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_401AllOf1"
           }
         ]
+      },
+      "error_api_401AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI401AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 401
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_403": {
         "oneOf": [
@@ -26881,23 +26873,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI403OneOf0AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_403OneOf0AllOf1"
           }
         ]
+      },
+      "error_api_403OneOf0AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI403OneOf0AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_403OneOf1": {
         "allOf": [
@@ -26905,26 +26900,29 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string",
-                "const": "workspace_credits_exhausted"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              },
-              "additional_data": {
-                "$ref": "#/components/schemas/ErrorAPI403OneOf1AllOf1AdditionalData"
-              }
-            },
-            "required": [
-              "code",
-              "status",
-              "additional_data"
-            ]
+            "$ref": "#/components/schemas/error_api_403OneOf1AllOf1"
           }
+        ]
+      },
+      "error_api_403OneOf1AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "workspace_credits_exhausted"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          },
+          "additional_data": {
+            "$ref": "#/components/schemas/ErrorAPI403OneOf1AllOf1AdditionalData"
+          }
+        },
+        "required": [
+          "code",
+          "status",
+          "additional_data"
         ]
       },
       "error_api_403OneOf2": {
@@ -26933,26 +26931,29 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string",
-                "const": "agent_credit_limit_reached"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              },
-              "additional_data": {
-                "$ref": "#/components/schemas/ErrorAPI403OneOf2AllOf1AdditionalData"
-              }
-            },
-            "required": [
-              "code",
-              "status",
-              "additional_data"
-            ]
+            "$ref": "#/components/schemas/error_api_403OneOf2AllOf1"
           }
+        ]
+      },
+      "error_api_403OneOf2AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "agent_credit_limit_reached"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          },
+          "additional_data": {
+            "$ref": "#/components/schemas/ErrorAPI403OneOf2AllOf1AdditionalData"
+          }
+        },
+        "required": [
+          "code",
+          "status",
+          "additional_data"
         ]
       },
       "error_api_404": {
@@ -26961,23 +26962,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI404AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 404
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_404AllOf1"
           }
         ]
+      },
+      "error_api_404AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI404AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 404
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_406": {
         "allOf": [
@@ -26985,23 +26989,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI406AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 406
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_406AllOf1"
           }
         ]
+      },
+      "error_api_406AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI406AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 406
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_409": {
         "allOf": [
@@ -27009,23 +27016,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI409AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 409
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_409AllOf1"
           }
         ]
+      },
+      "error_api_409AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI409AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 409
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_429": {
         "allOf": [
@@ -27033,23 +27043,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI429AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 429
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_429AllOf1"
           }
         ]
+      },
+      "error_api_429AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI429AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 429
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_503": {
         "allOf": [
@@ -27057,23 +27070,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI503AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 503
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_503AllOf1"
           }
         ]
+      },
+      "error_api_503AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI503AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 503
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_504": {
         "allOf": [
@@ -27081,23 +27097,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI504AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 504
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_504AllOf1"
           }
         ]
+      },
+      "error_api_504AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI504AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 504
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_api_529": {
         "allOf": [
@@ -27105,23 +27124,43 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorAPI529AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 529
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_api_529AllOf1"
           }
         ]
+      },
+      "error_api_529AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPI529AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 529
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "error_api_AllOf": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorAPIAllOfCode"
+          },
+          "status": {
+            "type": "integer",
+            "const": 500
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_oauth_400": {
         "allOf": [
@@ -27129,23 +27168,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorOauth400AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 400
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_oauth_400AllOf1"
           }
         ]
+      },
+      "error_oauth_400AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorOauth400AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 400
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_oauth_401": {
         "allOf": [
@@ -27153,23 +27195,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorOauth401AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 401
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_oauth_401AllOf1"
           }
         ]
+      },
+      "error_oauth_401AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorOauth401AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 401
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "error_oauth_403": {
         "allOf": [
@@ -27177,23 +27222,26 @@
             "$ref": "#/components/schemas/publicApiCommonErrorResponse"
           },
           {
-            "type": "object",
-            "properties": {
-              "code": {
-                "$ref": "#/components/schemas/ErrorOauth403AllOf1Code"
-              },
-              "status": {
-                "type": "integer",
-                "const": 403
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ],
-            "additionalProperties": false
+            "$ref": "#/components/schemas/error_oauth_403AllOf1"
           }
         ]
+      },
+      "error_oauth_403AllOf1": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorOauth403AllOf1Code"
+          },
+          "status": {
+            "type": "integer",
+            "const": 403
+          }
+        },
+        "required": [
+          "code",
+          "status"
+        ],
+        "additionalProperties": false
       },
       "externalMediaContentWithFileAndCaptionResponse": {
         "title": "External",
@@ -27911,20 +27959,23 @@
           "in_trash"
         ]
       },
+      "internalOrExternalFileWithNameAllOf": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/File"
+          },
+          {
+            "$ref": "#/components/schemas/External"
+          }
+        ]
+      },
       "internalOrExternalFileWithNameResponse": {
         "allOf": [
           {
             "$ref": "#/components/schemas/internalOrExternalFileWithNameResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/File"
-              },
-              {
-                "$ref": "#/components/schemas/External"
-              }
-            ]
+            "$ref": "#/components/schemas/internalOrExternalFileWithNameAllOf"
           }
         ]
       },
@@ -28684,16 +28735,6 @@
           "in_trash"
         ]
       },
-      "pageCoverResponse": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/File"
-          },
-          {
-            "$ref": "#/components/schemas/External"
-          }
-        ]
-      },
       "pageIconRequest": {
         "oneOf": [
           {
@@ -28843,14 +28884,17 @@
             "$ref": "#/components/schemas/ChatWithAgentAttachmentsItemFileUpload"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/simpleOrArrayPropertyValueResponse"
-              },
-              {
-                "$ref": "#/components/schemas/partialRollupPropertyResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/pagePropertyValueWithIdResponseAllOf1"
+          }
+        ]
+      },
+      "pagePropertyValueWithIdResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/simpleOrArrayPropertyValueResponse"
+          },
+          {
+            "$ref": "#/components/schemas/partialRollupPropertyResponse"
           }
         ]
       },
@@ -29047,20 +29091,23 @@
             "$ref": "#/components/schemas/partialRollupValueResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/numberFormulaPropertyValue"
-              },
-              {
-                "$ref": "#/components/schemas/dateFormulaPropertyValue"
-              },
-              {
-                "$ref": "#/components/schemas/arrayPartialRollupValueResponse"
-              },
-              {
-                "$ref": "#/components/schemas/unsupportedFormulaProperty"
-              }
-            ]
+            "$ref": "#/components/schemas/partialRollupValueResponseAllOf1"
+          }
+        ]
+      },
+      "partialRollupValueResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/numberFormulaPropertyValue"
+          },
+          {
+            "$ref": "#/components/schemas/dateFormulaPropertyValue"
+          },
+          {
+            "$ref": "#/components/schemas/arrayPartialRollupValueResponse"
+          },
+          {
+            "$ref": "#/components/schemas/unsupportedFormulaProperty"
           }
         ]
       },
@@ -29102,7 +29149,7 @@
         "properties": {
           "id": {
             "description": "The ID of the user.",
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "object": {
             "description": "The user object type name.",
@@ -29771,17 +29818,20 @@
             "$ref": "#/components/schemas/richTextItemRequestCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/textRichTextItem"
-              },
-              {
-                "$ref": "#/components/schemas/mentionRichTextItemRequest"
-              },
-              {
-                "$ref": "#/components/schemas/equationRichTextItem"
-              }
-            ]
+            "$ref": "#/components/schemas/richTextItemRequestAllOf1"
+          }
+        ]
+      },
+      "richTextItemRequestAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/textRichTextItem"
+          },
+          {
+            "$ref": "#/components/schemas/mentionRichTextItemRequest"
+          },
+          {
+            "$ref": "#/components/schemas/equationRichTextItem"
           }
         ]
       },
@@ -29800,17 +29850,20 @@
             "$ref": "#/components/schemas/richTextItemResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/textRichTextItem"
-              },
-              {
-                "$ref": "#/components/schemas/mentionRichTextItemResponse"
-              },
-              {
-                "$ref": "#/components/schemas/equationRichTextItem"
-              }
-            ]
+            "$ref": "#/components/schemas/richTextItemResponseAllOf1"
+          }
+        ]
+      },
+      "richTextItemResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/textRichTextItem"
+          },
+          {
+            "$ref": "#/components/schemas/mentionRichTextItemResponse"
+          },
+          {
+            "$ref": "#/components/schemas/equationRichTextItem"
           }
         ]
       },
@@ -30108,9 +30161,6 @@
             "$ref": "#/components/schemas/runToolResponseOneOf11"
           },
           {
-            "$ref": "#/components/schemas/runToolOneOf"
-          },
-          {
             "$ref": "#/components/schemas/runToolResponseOneOf13"
           },
           {
@@ -30147,15 +30197,6 @@
             "$ref": "#/components/schemas/runToolResponseOneOf24"
           },
           {
-            "$ref": "#/components/schemas/runToolOneOf2"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf3"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf3"
-          },
-          {
             "$ref": "#/components/schemas/runToolOneOf3"
           },
           {
@@ -30184,9 +30225,6 @@
           },
           {
             "$ref": "#/components/schemas/runToolResponseOneOf37"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf4"
           },
           {
             "$ref": "#/components/schemas/runToolResponseOneOf39"
@@ -30234,15 +30272,6 @@
             "$ref": "#/components/schemas/runToolOneOf5"
           },
           {
-            "$ref": "#/components/schemas/runToolOneOf5"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf5"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf5"
-          },
-          {
             "$ref": "#/components/schemas/runToolResponseOneOf57"
           },
           {
@@ -30258,22 +30287,7 @@
             "$ref": "#/components/schemas/runToolResponseOneOf61"
           },
           {
-            "$ref": "#/components/schemas/runToolOneOf6"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf2"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf2"
-          },
-          {
             "$ref": "#/components/schemas/runToolResponseOneOf65"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf2"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf2"
           },
           {
             "$ref": "#/components/schemas/runToolResponseOneOf68"
@@ -30331,9 +30345,6 @@
           },
           {
             "$ref": "#/components/schemas/runToolResponseOneOf86"
-          },
-          {
-            "$ref": "#/components/schemas/runToolOneOf7"
           },
           {
             "$ref": "#/components/schemas/runToolOneOf7"
@@ -32706,7 +32717,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
             }
           }
         },
@@ -32719,13 +32730,13 @@
         "type": "object",
         "properties": {
           "summary_block_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "notes_block_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           },
           "transcript_block_id": {
-            "$ref": "#/components/schemas/ChatWithAgentOk"
+            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
           }
         }
       },
@@ -32967,14 +32978,17 @@
             "$ref": "#/components/schemas/userObjectResponseCommon"
           },
           {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/personUserObjectResponse"
-              },
-              {
-                "$ref": "#/components/schemas/botUserObjectResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/userObjectResponseAllOf1"
+          }
+        ]
+      },
+      "userObjectResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/personUserObjectResponse"
+          },
+          {
+            "$ref": "#/components/schemas/botUserObjectResponse"
           }
         ]
       },
@@ -33547,7 +33561,8 @@
           },
           "application/x-ndjson": {
             "schema": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chat stream chunk.",
+              "type": "string"
             }
           }
         }
@@ -33572,7 +33587,8 @@
           },
           "application/x-ndjson": {
             "schema": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chunk object.",
+              "type": "string"
             }
           }
         }
@@ -38537,7 +38553,8 @@
           },
           "application/x-ndjson": {
             "schema": {
-              "$ref": "#/components/schemas/ChatWithAgentOk"
+              "description": "Newline-delimited JSON (NDJSON) stream. Each line is a JSON-encoded chunk object.",
+              "type": "string"
             }
           }
         }
@@ -39986,7 +40003,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the group.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "id": {
@@ -39995,7 +40012,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page or block to export.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "id2": {
@@ -40003,7 +40020,7 @@
         "in": "query",
         "schema": {
           "description": "Filter threads by ID (exact match).",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "include_types": {
@@ -40052,7 +40069,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page to remove guests from.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "page_id2": {
@@ -40060,7 +40077,7 @@
         "in": "path",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "page_size": {
@@ -40124,7 +40141,7 @@
         "required": true,
         "schema": {
           "description": "The provider-owned session ID returned when the session was created.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "sort_by": {
@@ -40177,7 +40194,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to retrieve.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "team_id2": {
@@ -40186,7 +40203,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to update.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "team_id3": {
@@ -40195,7 +40212,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to retrieve membership for.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "team_id4": {
@@ -40204,7 +40221,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to update membership for.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "team_id5": {
@@ -40213,7 +40230,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to retrieve permissions for",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "team_id6": {
@@ -40222,7 +40239,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to update permissions for.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "thread_id": {
@@ -40231,7 +40248,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the thread.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "title": {
@@ -40255,7 +40272,7 @@
         "in": "query",
         "schema": {
           "description": "If provided, returns the teamspaces that the given user can access.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "user_id2": {
@@ -40264,7 +40281,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the user.",
-          "$ref": "#/components/schemas/ChatWithAgentOk"
+          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
         }
       },
       "vault_id": {

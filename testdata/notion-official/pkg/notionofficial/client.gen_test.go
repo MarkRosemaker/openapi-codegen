@@ -926,7 +926,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{}); err == nil {
+			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{UpdatePageMarkdownAllOf1: UpdatePageMarkdownAllOf1{InsertContent: new(InsertContent)}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -946,7 +946,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{}); err == nil {
+			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{UpdatePageMarkdownAllOf1: UpdatePageMarkdownAllOf1{InsertContent: new(InsertContent)}}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -974,7 +974,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{}); err == nil {
+			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{UpdatePageMarkdownAllOf1: UpdatePageMarkdownAllOf1{InsertContent: new(InsertContent)}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -999,7 +999,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{}); err == nil {
+			if _, err := c.UpdatePageMarkdown(t.Context(), "", UpdatePageMarkdown{UpdatePageMarkdownAllOf1: UpdatePageMarkdownAllOf1{InsertContent: new(InsertContent)}}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -2284,7 +2284,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{}); err == nil {
+			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{Parent: CreateDatabaseParent{CreateDatabaseParentAllOf2: CreateDatabaseParentAllOf2{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -2304,7 +2304,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{}); err == nil {
+			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{Parent: CreateDatabaseParent{CreateDatabaseParentAllOf2: CreateDatabaseParentAllOf2{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -2332,7 +2332,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{}); err == nil {
+			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{Parent: CreateDatabaseParent{CreateDatabaseParentAllOf2: CreateDatabaseParentAllOf2{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -2357,7 +2357,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{}); err == nil {
+			if _, err := c.CreateDatabase(t.Context(), CreateDatabase{Parent: CreateDatabaseParent{CreateDatabaseParentAllOf2: CreateDatabaseParentAllOf2{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -2575,7 +2575,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateAComment(t.Context(), CreateAComment{}); err == nil {
+			if _, err := c.CreateAComment(t.Context(), CreateAComment{CreateACommentAllOf1: CreateACommentAllOf1{CreateACommentAllOf1OneOf0: &CreateACommentAllOf1OneOf0{Parent: CreateACommentAllOfOneOfParent{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -2595,7 +2595,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateAComment(t.Context(), CreateAComment{}); err == nil {
+			if _, err := c.CreateAComment(t.Context(), CreateAComment{CreateACommentAllOf1: CreateACommentAllOf1{CreateACommentAllOf1OneOf0: &CreateACommentAllOf1OneOf0{Parent: CreateACommentAllOfOneOfParent{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -2623,7 +2623,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateAComment(t.Context(), CreateAComment{}); err == nil {
+			if _, err := c.CreateAComment(t.Context(), CreateAComment{CreateACommentAllOf1: CreateACommentAllOf1{CreateACommentAllOf1OneOf0: &CreateACommentAllOf1OneOf0{Parent: CreateACommentAllOfOneOfParent{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -2648,7 +2648,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateAComment(t.Context(), CreateAComment{}); err == nil {
+			if _, err := c.CreateAComment(t.Context(), CreateAComment{CreateACommentAllOf1: CreateACommentAllOf1{CreateACommentAllOf1OneOf0: &CreateACommentAllOf1OneOf0{Parent: CreateACommentAllOfOneOfParent{CreateACommentAllOfOneOfParentOneOf: new(CreateACommentAllOfOneOfParentOneOf)}}}}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -4321,7 +4321,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{}); err == nil {
+			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{CreateMeetingNoteAllOf1: CreateMeetingNoteAllOf1{CreateMeetingNoteAllOf1OneOf0: new(CreateMeetingNoteAllOf1OneOf0)}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -4341,7 +4341,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{}); err == nil {
+			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{CreateMeetingNoteAllOf1: CreateMeetingNoteAllOf1{CreateMeetingNoteAllOf1OneOf0: new(CreateMeetingNoteAllOf1OneOf0)}}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -4369,7 +4369,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{}); err == nil {
+			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{CreateMeetingNoteAllOf1: CreateMeetingNoteAllOf1{CreateMeetingNoteAllOf1OneOf0: new(CreateMeetingNoteAllOf1OneOf0)}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -4394,7 +4394,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{}); err == nil {
+			if _, err := c.CreateMeetingNote(t.Context(), CreateMeetingNote{CreateMeetingNoteAllOf1: CreateMeetingNoteAllOf1{CreateMeetingNoteAllOf1OneOf0: new(CreateMeetingNoteAllOf1OneOf0)}}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)

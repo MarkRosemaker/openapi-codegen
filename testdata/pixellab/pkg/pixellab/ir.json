@@ -12145,7 +12145,7 @@
 					"jsonName": "visemes",
 					"type": "*map[string]BaseImage",
 					"jsonTag": "json:\"visemes,omitempty\"",
-					"description": "Optional reference images per direction. Allowed keys: 'south', 'east', 'north', 'west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'; oblique view requires all 4 cardinals."
+					"description": "The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead."
 				},
 				{
 					"name": "MoodsOnCharacter",
@@ -14678,7 +14678,7 @@
 					"jsonName": "visemes",
 					"type": "*map[string]BaseImage",
 					"jsonTag": "json:\"visemes,omitempty\"",
-					"description": "Optional reference images per direction. Allowed keys: 'south', 'east', 'north', 'west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'; oblique view requires all 4 cardinals."
+					"description": "The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead."
 				},
 				{
 					"name": "FrameMs",

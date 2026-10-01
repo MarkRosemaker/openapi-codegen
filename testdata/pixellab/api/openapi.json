@@ -8450,7 +8450,6 @@
           }
         }
       },
-      "DownloadCharacterCharactersCharacterIDZip": {},
       "EditAnimationV2Request": {
         "title": "EditAnimationV2Request",
         "description": "Request model for edit-animation-v2 endpoint",
@@ -9465,9 +9464,6 @@
           "job_id"
         ]
       },
-      "GetLlmsTxtLlmsTxtGetOk": {
-        "type": "string"
-      },
       "GetMapObjectResponse": {
         "title": "GetMapObjectResponse",
         "type": "object",
@@ -9605,7 +9601,7 @@
             }
           },
           "visemes": {
-            "$ref": "#/components/schemas/CreateCharacterWithDirections2"
+            "$ref": "#/components/schemas/VocalAnimationVisemes"
           },
           "moods_on_character": {
             "$ref": "#/components/schemas/CreateDirectionObjectItemDescriptions"
@@ -11021,11 +11017,6 @@
         ],
         "additionalProperties": false
       },
-      "ProFlashCapabilities": {
-        "title": "Response Get Pro Flash Capabilities",
-        "type": "object",
-        "additionalProperties": true
-      },
       "ProFlashImageResponse": {
         "title": "ProFlashImageResponse",
         "description": "Queued image identifiers; source_image_id becomes usable on completion.",
@@ -11838,7 +11829,7 @@
             "$ref": "#/components/schemas/LipSyncMood"
           },
           "visemes": {
-            "$ref": "#/components/schemas/CreateCharacterWithDirections2"
+            "$ref": "#/components/schemas/VocalAnimationVisemes"
           },
           "frame_ms": {
             "title": "Frame Ms",
@@ -13039,6 +13030,21 @@
           "background_job_id",
           "mood",
           "viseme_count"
+        ]
+      },
+      "VocalAnimationVisemes": {
+        "title": "Visemes",
+        "description": "The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead.",
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/BaseImage"
+            }
+          },
+          {
+            "type": "null"
+          }
         ]
       },
       "app__endpoints__external__v2__animate_with_text__ImageSize": {
@@ -14682,9 +14688,7 @@
         "description": "ZIP file download containing character data",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/DownloadCharacterCharactersCharacterIDZip"
-            }
+            "schema": {}
           },
           "application/zip": {
             "example": "Binary ZIP file content"
@@ -14711,9 +14715,7 @@
         "description": "ZIP file containing the sheet PNG and layout JSON",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/DownloadCharacterCharactersCharacterIDZip"
-            }
+            "schema": {}
           },
           "application/zip": {
             "example": "Binary ZIP file content"
@@ -14736,9 +14738,7 @@
         "description": "ZIP file containing the sheet PNG and layout JSON",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/DownloadCharacterCharactersCharacterIDZip"
-            }
+            "schema": {}
           },
           "application/zip": {
             "example": "Binary ZIP file content"
@@ -15887,7 +15887,7 @@
         "content": {
           "text/plain": {
             "schema": {
-              "$ref": "#/components/schemas/GetLlmsTxtLlmsTxtGetOk"
+              "type": "string"
             },
             "example": "# PixelLab v2 API Documentation\n\n..."
           }
@@ -15991,7 +15991,9 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ProFlashCapabilities"
+              "title": "Response Get Pro Flash Capabilities",
+              "type": "object",
+              "additionalProperties": true
             }
           }
         }
@@ -16001,7 +16003,9 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/ProFlashCapabilities"
+              "title": "Response Get Pro Flash Cost",
+              "type": "object",
+              "additionalProperties": true
             }
           }
         }
@@ -16026,9 +16030,7 @@
         "description": "Successfully retrieved sidescroller tileset",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/DownloadCharacterCharactersCharacterIDZip"
-            }
+            "schema": {}
           }
         }
       },
