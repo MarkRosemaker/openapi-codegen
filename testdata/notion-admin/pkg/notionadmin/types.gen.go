@@ -5,6 +5,7 @@
 package notionadmin
 
 import (
+	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
@@ -601,34 +602,35 @@ func (v *AgentPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder)
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+	}
 
-	{
+	switch tag {
+	case "group":
 		var vv AgentPermissionsItemPrincipalOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentPermissionsItemPrincipalOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentPermissionsItemPrincipalOneOf = &vv
+	case "user":
 		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
+	case "workspace":
 		var vv AgentPermissionsItemPrincipalOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentPermissionsItemPrincipalOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentPermissionsItemPrincipal: expected exactly one matching variant, got %d", matched)
+		v.AgentPermissionsItemPrincipalOneOf2 = &vv
+	default:
+		return fmt.Errorf("AgentPermissionsItemPrincipal: unknown type %q", tag)
 	}
 
 	return nil
@@ -755,26 +757,28 @@ func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decode
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
+	}
 
-	{
+	switch tag {
+	case "all_space_members":
 		var vv CreateCreditLimitPolicySelectorOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateCreditLimitPolicySelectorOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateCreditLimitPolicySelectorOneOf = &vv
+	case "user":
 		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("CreateCreditLimitPolicySelector: expected exactly one matching variant, got %d", matched)
+		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
+	default:
+		return fmt.Errorf("CreateCreditLimitPolicySelector: unknown type %q", tag)
 	}
 
 	return nil
@@ -1517,12 +1521,6 @@ type ListUsersOk struct {
 
 // ListUsersOkResultsItem defines a model
 type ListUsersOkResultsItem struct {
-	ListUsersOkResultsItemAllOf0
-	ListUsersOkResultsItemAllOf1
-}
-
-// ListUsersOkResultsItemAllOf0 defines a model
-type ListUsersOkResultsItemAllOf0 struct {
 	// The user object type name.
 	Object string `json:"object,omitzero"`
 	// The ID of the user.
@@ -1530,7 +1528,120 @@ type ListUsersOkResultsItemAllOf0 struct {
 	// Cursor for the next page, or null on the last page.
 	Name *string `json:"name"`
 	// Cursor for the next page, or null on the last page.
-	AvatarURL *string `json:"avatar_url"`
+	AvatarURL                    *string                      `json:"avatar_url"`
+	ListUsersOkResultsItemAllOf1 ListUsersOkResultsItemAllOf1 `json:"-"`
+}
+
+// fieldsOfListUsersOkResultsItem is ListUsersOkResultsItem without its methods, to encode the fields outside its union.
+type fieldsOfListUsersOkResultsItem ListUsersOkResultsItem
+
+// membersOfListUsersOkResultsItem are the members ListUsersOkResultsItem declares outside its union.
+var membersOfListUsersOkResultsItem = map[string]bool{"avatar_url": true, "id": true, "name": true, "object": true}
+
+// variantsOfListUsersOkResultsItem are the alternatives of its union, in order.
+var variantsOfListUsersOkResultsItem = []jsonVariant{
+	{
+		value:    "person",
+		members:  map[string]bool{"membership_type": true, "person": true, "type": true},
+		required: []string{"membership_type", "person", "type"},
+	},
+	{
+		value:    "bot",
+		members:  map[string]bool{"bot": true, "type": true},
+		required: []string{"bot", "type"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of ListUsersOkResultsItemAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfListUsersOkResultsItem, membersOfListUsersOkResultsItem, true)
+	if err != nil {
+		return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfListUsersOkResultsItem)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfListUsersOkResultsItem)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfListUsersOkResultsItem[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv Person
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.ListUsersOkResultsItemAllOf1.Person = &vv
+		case 1:
+			var vv Bot
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.ListUsersOkResultsItemAllOf1.Bot = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of ListUsersOkResultsItemAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfListUsersOkResultsItem)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.ListUsersOkResultsItemAllOf1.Person != nil {
+		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Person, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+		}
+
+		set++
+	}
+
+	if v.ListUsersOkResultsItemAllOf1.Bot != nil {
+		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Bot, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("ListUsersOkResultsItem: want exactly one alternative of ListUsersOkResultsItemAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListUsersOkResultsItemAllOf1 defines a model
@@ -1547,26 +1658,28 @@ func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "person":
 		var vv Person
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Person = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Person = &vv
+	case "bot":
 		var vv Bot
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Bot = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("ListUsersOkResultsItemAllOf1: expected exactly one matching variant, got %d", matched)
+		v.Bot = &vv
+	default:
+		return fmt.Errorf("ListUsersOkResultsItemAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -1679,26 +1792,28 @@ func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("RevokeUserSessionUser: %w", err)
+	}
 
-	{
+	switch tag {
+	case "email":
 		var vv RevokeUserSessionUserOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RevokeUserSessionUserOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RevokeUserSessionUserOneOf0 = &vv
+	case "id":
 		var vv RevokeUserSessionUserOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RevokeUserSessionUserOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("RevokeUserSessionUser: expected exactly one matching variant, got %d", matched)
+		v.RevokeUserSessionUserOneOf1 = &vv
+	default:
+		return fmt.Errorf("RevokeUserSessionUser: unknown type %q", tag)
 	}
 
 	return nil
@@ -2301,3 +2416,259 @@ type emptyObject struct{}
 
 // idRequest defines a model
 type idRequest string
+
+// jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
+func jsonMemberString(raw jsontext.Value, name string) (string, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil {
+		return "", err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return "", fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return "", err
+		}
+
+		if tok.String() != name {
+			if err := dec.SkipValue(); err != nil {
+				return "", err
+			}
+
+			continue
+		}
+
+		val, err := dec.ReadToken()
+		if err != nil {
+			return "", err
+		}
+
+		if val.Kind() != jsontext.KindString {
+			return "", fmt.Errorf("member %q is %v, not a string", name, val.Kind())
+		}
+
+		return val.String(), nil
+	}
+
+	return "", fmt.Errorf("missing member %q", name)
+}
+
+// jsonMembers returns the names of the members of the JSON object raw, in order.
+func jsonMembers(raw jsontext.Value) ([]string, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil {
+		return nil, err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return nil, fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	var names []string
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		names = append(names, tok.String())
+
+		if err := dec.SkipValue(); err != nil {
+			return nil, err
+		}
+	}
+
+	return names, nil
+}
+
+// jsonSelect returns the JSON object raw with only the members keep holds.
+func jsonSelect(raw jsontext.Value, keep map[string]bool) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	var buf bytes.Buffer
+	enc := jsontext.NewEncoder(&buf)
+	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+		return nil, err
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		name := tok.String() // a token is void once the decoder reads on
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return nil, err
+		}
+
+		if !keep[name] {
+			continue
+		}
+
+		if err := enc.WriteToken(jsontext.String(name)); err != nil {
+			return nil, err
+		}
+
+		if err := enc.WriteValue(val); err != nil {
+			return nil, err
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndObject); err != nil {
+		return nil, err
+	}
+
+	return bytes.TrimSpace(buf.Bytes()), nil
+}
+
+// jsonMerge returns the members of the JSON objects a and b in one object. A member both hold must have the same
+// value in each.
+func jsonMerge(a, b jsontext.Value) (jsontext.Value, error) {
+	var buf bytes.Buffer
+	enc := jsontext.NewEncoder(&buf)
+	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+		return nil, err
+	}
+
+	written := map[string]jsontext.Value{}
+	for _, raw := range []jsontext.Value{a, b} {
+		dec := jsontext.NewDecoder(bytes.NewReader(raw))
+		if _, err := dec.ReadToken(); err != nil {
+			return nil, err
+		}
+
+		for dec.PeekKind() != jsontext.KindEndObject {
+			tok, err := dec.ReadToken()
+			if err != nil {
+				return nil, err
+			}
+
+			name := tok.String() // a token is void once the decoder reads on
+
+			val, err := dec.ReadValue()
+			if err != nil {
+				return nil, err
+			}
+			if prev, ok := written[name]; ok {
+				if err := prev.Canonicalize(); err != nil {
+					return nil, err
+				}
+
+				cur := val.Clone()
+				if err := cur.Canonicalize(); err != nil {
+					return nil, err
+				}
+
+				if !bytes.Equal(prev, cur) {
+					return nil, fmt.Errorf("member %q is %s in one part and %s in another", name, prev, cur)
+				}
+
+				continue
+			}
+
+			written[name] = val.Clone()
+
+			if err := enc.WriteToken(jsontext.String(name)); err != nil {
+				return nil, err
+			}
+
+			if err := enc.WriteValue(val); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndObject); err != nil {
+		return nil, err
+	}
+
+	return bytes.TrimSpace(buf.Bytes()), nil
+}
+
+// jsonVariant is an alternative of a union: its value of the discriminator, the members it declares and those it
+// requires.
+type jsonVariant struct {
+	value    string
+	members  map[string]bool
+	required []string
+}
+
+// jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
+// one, else those whose required members it has and whose members it holds, besides those of plain. Every member
+// must belong to plain or to a chosen alternative.
+func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf bool) ([]int, error) {
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	present := make(map[string]bool, len(names))
+	for _, n := range names {
+		present[n] = true
+	}
+
+	var chosen []int
+	if discriminator != "" {
+		tag, err := jsonMemberString(raw, discriminator)
+		if err != nil {
+			return nil, err
+		}
+
+		for i, v := range variants {
+			if v.value == tag {
+				chosen = append(chosen, i)
+			}
+		}
+
+		if len(chosen) == 0 {
+			return nil, fmt.Errorf("unknown %s %q", discriminator, tag)
+		}
+	} else {
+	variants:
+		for i, v := range variants {
+			for _, r := range v.required {
+				if !present[r] {
+					continue variants
+				}
+			}
+
+			for _, n := range names {
+				if !plain[n] && !v.members[n] {
+					continue variants
+				}
+			}
+
+			chosen = append(chosen, i)
+		}
+
+		switch {
+		case len(chosen) == 0:
+			return nil, fmt.Errorf("matches none of its alternatives")
+		case oneOf && len(chosen) > 1:
+			return nil, fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))
+		}
+	}
+
+	for _, n := range names {
+		if plain[n] {
+			continue
+		}
+
+		known := false
+		for _, i := range chosen {
+			known = known || variants[i].members[n]
+		}
+
+		if !known {
+			return nil, fmt.Errorf("unknown member %q", n)
+		}
+	}
+
+	return chosen, nil
+}

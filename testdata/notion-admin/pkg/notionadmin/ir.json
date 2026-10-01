@@ -5779,18 +5779,44 @@
 			"unionVariants": [
 				{
 					"fieldName": "AgentPermissionsItemPrincipalOneOf",
-					"type": "AgentPermissionsItemPrincipalOneOf"
+					"type": "AgentPermissionsItemPrincipalOneOf",
+					"value": "group",
+					"members": [
+						"group_id",
+						"type"
+					],
+					"required": [
+						"group_id",
+						"type"
+					]
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2"
+					"type": "CreateCreditLimitPolicySelectorOneOf2",
+					"value": "user",
+					"members": [
+						"type",
+						"user_id"
+					],
+					"required": [
+						"type",
+						"user_id"
+					]
 				},
 				{
 					"fieldName": "AgentPermissionsItemPrincipalOneOf2",
-					"type": "AgentPermissionsItemPrincipalOneOf2"
+					"type": "AgentPermissionsItemPrincipalOneOf2",
+					"value": "workspace",
+					"members": [
+						"type"
+					],
+					"required": [
+						"type"
+					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "type"
 		},
 		{
 			"name": "AgentPermissionsItemPrincipalOneOf",
@@ -6028,14 +6054,31 @@
 			"unionVariants": [
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf"
+					"type": "CreateCreditLimitPolicySelectorOneOf",
+					"value": "all_space_members",
+					"members": [
+						"type"
+					],
+					"required": [
+						"type"
+					]
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2"
+					"type": "CreateCreditLimitPolicySelectorOneOf2",
+					"value": "user",
+					"members": [
+						"type",
+						"user_id"
+					],
+					"required": [
+						"type",
+						"user_id"
+					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "type"
 		},
 		{
 			"name": "CreateCreditLimitPolicySelectorOneOf",
@@ -6372,11 +6415,27 @@
 			"unionVariants": [
 				{
 					"fieldName": "ExportLegalHoldAnyOf0",
-					"type": "ExportLegalHoldAnyOf0"
+					"type": "ExportLegalHoldAnyOf0",
+					"members": [
+						"legal_hold_export_id",
+						"requesting_user_id"
+					],
+					"required": [
+						"legal_hold_export_id",
+						"requesting_user_id"
+					]
 				},
 				{
 					"fieldName": "ExportLegalHoldAnyOf1",
-					"type": "ExportLegalHoldAnyOf1"
+					"type": "ExportLegalHoldAnyOf1",
+					"members": [
+						"requesting_user_id",
+						"space_id"
+					],
+					"required": [
+						"requesting_user_id",
+						"space_id"
+					]
 				}
 			]
 		},
@@ -7705,20 +7764,6 @@
 			"kind": 3,
 			"fields": [
 				{
-					"type": "ListUsersOkResultsItemAllOf0",
-					"embedded": true
-				},
-				{
-					"type": "ListUsersOkResultsItemAllOf1",
-					"embedded": true
-				}
-			]
-		},
-		{
-			"name": "ListUsersOkResultsItemAllOf0",
-			"description": "ListUsersOkResultsItemAllOf0 defines a model",
-			"fields": [
-				{
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
@@ -7749,7 +7794,54 @@
 					"jsonTag": "json:\"avatar_url\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
+				},
+				{
+					"name": "ListUsersOkResultsItemAllOf1",
+					"type": "ListUsersOkResultsItemAllOf1",
+					"jsonTag": "json:\"-\"",
+					"required": true
 				}
+			],
+			"allOfUnion": {
+				"fieldName": "ListUsersOkResultsItemAllOf1",
+				"isOneOf": true,
+				"discriminator": "type",
+				"variants": [
+					{
+						"fieldName": "Person",
+						"type": "Person",
+						"value": "person",
+						"members": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"required": [
+							"membership_type",
+							"person",
+							"type"
+						]
+					},
+					{
+						"fieldName": "Bot",
+						"type": "Bot",
+						"value": "bot",
+						"members": [
+							"bot",
+							"type"
+						],
+						"required": [
+							"bot",
+							"type"
+						]
+					}
+				]
+			},
+			"members": [
+				"avatar_url",
+				"id",
+				"name",
+				"object"
 			]
 		},
 		{
@@ -7759,14 +7851,35 @@
 			"unionVariants": [
 				{
 					"fieldName": "Person",
-					"type": "Person"
+					"type": "Person",
+					"value": "person",
+					"members": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"required": [
+						"membership_type",
+						"person",
+						"type"
+					]
 				},
 				{
 					"fieldName": "Bot",
-					"type": "Bot"
+					"type": "Bot",
+					"value": "bot",
+					"members": [
+						"bot",
+						"type"
+					],
+					"required": [
+						"bot",
+						"type"
+					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "type"
 		},
 		{
 			"name": "NotionVersion",
@@ -7939,14 +8052,33 @@
 			"unionVariants": [
 				{
 					"fieldName": "RevokeUserSessionUserOneOf0",
-					"type": "RevokeUserSessionUserOneOf0"
+					"type": "RevokeUserSessionUserOneOf0",
+					"value": "email",
+					"members": [
+						"email",
+						"type"
+					],
+					"required": [
+						"email",
+						"type"
+					]
 				},
 				{
 					"fieldName": "RevokeUserSessionUserOneOf1",
-					"type": "RevokeUserSessionUserOneOf1"
+					"type": "RevokeUserSessionUserOneOf1",
+					"value": "id",
+					"members": [
+						"id",
+						"type"
+					],
+					"required": [
+						"id",
+						"type"
+					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "type"
 		},
 		{
 			"name": "RevokeUserSessionUserOneOf0",

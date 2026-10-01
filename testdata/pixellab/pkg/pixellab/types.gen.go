@@ -5,6 +5,7 @@
 package pixellab
 
 import (
+	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
@@ -1275,26 +1276,28 @@ func (v *CreateCharacterWithDirectionsProportionsAnyOf) UnmarshalJSONFrom(dec *j
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: %w", err)
+	}
 
-	{
+	switch tag {
+	case "preset":
 		var vv CharacterProportionsPreset
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CharacterProportionsPreset = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CharacterProportionsPreset = &vv
+	case "custom":
 		var vv CharacterProportions
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CharacterProportions = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: expected exactly one matching variant, got %d", matched)
+		v.CharacterProportions = &vv
+	default:
+		return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: unknown type %q", tag)
 	}
 
 	return nil
@@ -2288,34 +2291,35 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) UnmarshalJSONFrom(dec *jsontext.D
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "kind")
+	if err != nil {
+		return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: %w", err)
+	}
 
-	{
+	switch tag {
+	case "rounded_rect":
 		var vv UiPieceRect
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UIPieceRect = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UIPieceRect = &vv
+	case "circle":
 		var vv UiPieceCircle
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UIPieceCircle = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UIPieceCircle = &vv
+	case "polygon":
 		var vv UiPiecePolygon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UIPiecePolygon = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: expected at least one matching variant, got 0")
+		v.UIPiecePolygon = &vv
+	default:
+		return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: unknown kind %q", tag)
 	}
 
 	return nil
@@ -4652,4 +4656,260 @@ type app__endpoints__external__v__generate_image_v__ReferenceImageSize struct {
 	Width int `json:"width"`
 	// Reference image height
 	Height int `json:"height"`
+}
+
+// jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
+func jsonMemberString(raw jsontext.Value, name string) (string, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil {
+		return "", err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return "", fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return "", err
+		}
+
+		if tok.String() != name {
+			if err := dec.SkipValue(); err != nil {
+				return "", err
+			}
+
+			continue
+		}
+
+		val, err := dec.ReadToken()
+		if err != nil {
+			return "", err
+		}
+
+		if val.Kind() != jsontext.KindString {
+			return "", fmt.Errorf("member %q is %v, not a string", name, val.Kind())
+		}
+
+		return val.String(), nil
+	}
+
+	return "", fmt.Errorf("missing member %q", name)
+}
+
+// jsonMembers returns the names of the members of the JSON object raw, in order.
+func jsonMembers(raw jsontext.Value) ([]string, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil {
+		return nil, err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return nil, fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	var names []string
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		names = append(names, tok.String())
+
+		if err := dec.SkipValue(); err != nil {
+			return nil, err
+		}
+	}
+
+	return names, nil
+}
+
+// jsonSelect returns the JSON object raw with only the members keep holds.
+func jsonSelect(raw jsontext.Value, keep map[string]bool) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	var buf bytes.Buffer
+	enc := jsontext.NewEncoder(&buf)
+	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+		return nil, err
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		name := tok.String() // a token is void once the decoder reads on
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return nil, err
+		}
+
+		if !keep[name] {
+			continue
+		}
+
+		if err := enc.WriteToken(jsontext.String(name)); err != nil {
+			return nil, err
+		}
+
+		if err := enc.WriteValue(val); err != nil {
+			return nil, err
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndObject); err != nil {
+		return nil, err
+	}
+
+	return bytes.TrimSpace(buf.Bytes()), nil
+}
+
+// jsonMerge returns the members of the JSON objects a and b in one object. A member both hold must have the same
+// value in each.
+func jsonMerge(a, b jsontext.Value) (jsontext.Value, error) {
+	var buf bytes.Buffer
+	enc := jsontext.NewEncoder(&buf)
+	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+		return nil, err
+	}
+
+	written := map[string]jsontext.Value{}
+	for _, raw := range []jsontext.Value{a, b} {
+		dec := jsontext.NewDecoder(bytes.NewReader(raw))
+		if _, err := dec.ReadToken(); err != nil {
+			return nil, err
+		}
+
+		for dec.PeekKind() != jsontext.KindEndObject {
+			tok, err := dec.ReadToken()
+			if err != nil {
+				return nil, err
+			}
+
+			name := tok.String() // a token is void once the decoder reads on
+
+			val, err := dec.ReadValue()
+			if err != nil {
+				return nil, err
+			}
+			if prev, ok := written[name]; ok {
+				if err := prev.Canonicalize(); err != nil {
+					return nil, err
+				}
+
+				cur := val.Clone()
+				if err := cur.Canonicalize(); err != nil {
+					return nil, err
+				}
+
+				if !bytes.Equal(prev, cur) {
+					return nil, fmt.Errorf("member %q is %s in one part and %s in another", name, prev, cur)
+				}
+
+				continue
+			}
+
+			written[name] = val.Clone()
+
+			if err := enc.WriteToken(jsontext.String(name)); err != nil {
+				return nil, err
+			}
+
+			if err := enc.WriteValue(val); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndObject); err != nil {
+		return nil, err
+	}
+
+	return bytes.TrimSpace(buf.Bytes()), nil
+}
+
+// jsonVariant is an alternative of a union: its value of the discriminator, the members it declares and those it
+// requires.
+type jsonVariant struct {
+	value    string
+	members  map[string]bool
+	required []string
+}
+
+// jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
+// one, else those whose required members it has and whose members it holds, besides those of plain. Every member
+// must belong to plain or to a chosen alternative.
+func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf bool) ([]int, error) {
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	present := make(map[string]bool, len(names))
+	for _, n := range names {
+		present[n] = true
+	}
+
+	var chosen []int
+	if discriminator != "" {
+		tag, err := jsonMemberString(raw, discriminator)
+		if err != nil {
+			return nil, err
+		}
+
+		for i, v := range variants {
+			if v.value == tag {
+				chosen = append(chosen, i)
+			}
+		}
+
+		if len(chosen) == 0 {
+			return nil, fmt.Errorf("unknown %s %q", discriminator, tag)
+		}
+	} else {
+	variants:
+		for i, v := range variants {
+			for _, r := range v.required {
+				if !present[r] {
+					continue variants
+				}
+			}
+
+			for _, n := range names {
+				if !plain[n] && !v.members[n] {
+					continue variants
+				}
+			}
+
+			chosen = append(chosen, i)
+		}
+
+		switch {
+		case len(chosen) == 0:
+			return nil, fmt.Errorf("matches none of its alternatives")
+		case oneOf && len(chosen) > 1:
+			return nil, fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))
+		}
+	}
+
+	for _, n := range names {
+		if plain[n] {
+			continue
+		}
+
+		known := false
+		for _, i := range chosen {
+			known = known || variants[i].members[n]
+		}
+
+		if !known {
+			return nil, fmt.Errorf("unknown member %q", n)
+		}
+	}
+
+	return chosen, nil
 }

@@ -179,7 +179,14 @@ type Blocks []Block
 
 // BlocksList defines a model
 type BlocksList struct {
-	List
+	// Always `list`.
+	Object string `json:"object,omitzero"`
+	// Only available when has_more is true.
+	//
+	// Used to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.
+	NextCursor uuid.UUID `json:"next_cursor,omitzero"`
+	// When the response includes the end of the list, `false`. Otherwise, `true`.
+	HasMore bool `json:"has_more"`
 	// The result, an array of block objects.
 	Results Blocks `json:"results"`
 	// Type of the objects in results. Always `block`.
@@ -477,18 +484,6 @@ func (e LinkToPageType) Valid() bool {
 	default:
 		return false
 	}
-}
-
-// List defines a model
-type List struct {
-	// Always `list`.
-	Object string `json:"object,omitzero"`
-	// Only available when has_more is true.
-	//
-	// Used to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.
-	NextCursor uuid.UUID `json:"next_cursor,omitzero"`
-	// When the response includes the end of the list, `false`. Otherwise, `true`.
-	HasMore bool `json:"has_more"`
 }
 
 // Mention defines a model

@@ -5,8 +5,10 @@
 package notionofficial
 
 import (
+	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
+	"errors"
 	"fmt"
 	"net/url"
 	"time"
@@ -184,34 +186,35 @@ func (v *AgentBatchOperationsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "action")
+	if err != nil {
+		return fmt.Errorf("AgentBatchOperationsItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "update_status":
 		var vv AgentBatchOperationsItemOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentBatchOperationsItemOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentBatchOperationsItemOneOf0 = &vv
+	case "update_credit_limit":
 		var vv AgentBatchOperationsItemOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentBatchOperationsItemOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentBatchOperationsItemOneOf1 = &vv
+	case "delete":
 		var vv AgentBatchOperationsItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentBatchOperationsItemOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentBatchOperationsItem: expected exactly one matching variant, got %d", matched)
+		v.AgentBatchOperationsItemOneOf2 = &vv
+	default:
+		return fmt.Errorf("AgentBatchOperationsItem: unknown action %q", tag)
 	}
 
 	return nil
@@ -832,66 +835,63 @@ func (v *AgentConnectionsItemOneOfPermissionsItemTarget) UnmarshalJSONFrom(dec *
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf = &vv
+	case "database_property":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf2 = &vv
+	case "agent":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf3 = &vv
+	case "workspace":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf4 = &vv
+	case "owner_private_pages":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf5 = &vv
+	case "web_search":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf6 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf6 = &vv
+	case "notion_help_docs_search":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf7 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget: expected exactly one matching variant, got %d", matched)
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf7 = &vv
+	default:
+		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget: unknown type %q", tag)
 	}
 
 	return nil
@@ -934,34 +934,35 @@ func (v *AgentConnectionsItemOneOfPermissionsItemTarget2) UnmarshalJSONFrom(dec 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget2: %w", err)
+	}
 
-	{
+	switch tag {
+	case "slack_channel":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf8 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf8 = &vv
+	case "slack_all_public_channels":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf9
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf9 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf9 = &vv
+	case "slack_all_channels":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf10
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf10 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget2: expected exactly one matching variant, got %d", matched)
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf10 = &vv
+	default:
+		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget2: unknown type %q", tag)
 	}
 
 	return nil
@@ -995,26 +996,28 @@ func (v *AgentConnectionsItemOneOfPermissionsItemTarget3) UnmarshalJSONFrom(dec 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget3: %w", err)
+	}
 
-	{
+	switch tag {
+	case "discord_channel":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf11
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf11 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf11 = &vv
+	case "discord_all_channels":
 		var vv AgentConnectionsItemOneOfPermissionsItemTargetOneOf12
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf12 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget3: expected exactly one matching variant, got %d", matched)
+		v.AgentConnectionsItemOneOfPermissionsItemTargetOneOf12 = &vv
+	default:
+		return fmt.Errorf("AgentConnectionsItemOneOfPermissionsItemTarget3: unknown type %q", tag)
 	}
 
 	return nil
@@ -1458,26 +1461,28 @@ func (v *AgentModel) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "mode")
+	if err != nil {
+		return fmt.Errorf("AgentModel: %w", err)
+	}
 
-	{
+	switch tag {
+	case "auto":
 		var vv AgentModelOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentModelOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentModelOneOf = &vv
+	case "pinned":
 		var vv AgentModelOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentModelOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentModel: expected exactly one matching variant, got %d", matched)
+		v.AgentModelOneOf2 = &vv
+	default:
+		return fmt.Errorf("AgentModel: unknown mode %q", tag)
 	}
 
 	return nil
@@ -1562,26 +1567,28 @@ func (v *AgentTriggersItemScheduleEnd) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("AgentTriggersItemScheduleEnd: %w", err)
+	}
 
-	{
+	switch tag {
+	case "date":
 		var vv AgentTriggersItemScheduleEndOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentTriggersItemScheduleEndOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentTriggersItemScheduleEndOneOf = &vv
+	case "count":
 		var vv AgentTriggersItemScheduleEndOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentTriggersItemScheduleEndOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("AgentTriggersItemScheduleEnd: expected exactly one matching variant, got %d", matched)
+		v.AgentTriggersItemScheduleEndOneOf2 = &vv
+	default:
+		return fmt.Errorf("AgentTriggersItemScheduleEnd: unknown type %q", tag)
 	}
 
 	return nil
@@ -1679,26 +1686,28 @@ func (v *BaseWebhookPayloadAccessibleByItem) UnmarshalJSONFrom(dec *jsontext.Dec
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("BaseWebhookPayloadAccessibleByItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "person":
 		var vv BaseWebhookPayloadAccessibleByItemOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BaseWebhookPayloadAccessibleByItemOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BaseWebhookPayloadAccessibleByItemOneOf = &vv
+	case "bot":
 		var vv BaseWebhookPayloadAccessibleByItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BaseWebhookPayloadAccessibleByItemOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("BaseWebhookPayloadAccessibleByItem: expected exactly one matching variant, got %d", matched)
+		v.BaseWebhookPayloadAccessibleByItemOneOf2 = &vv
+	default:
+		return fmt.Errorf("BaseWebhookPayloadAccessibleByItem: unknown type %q", tag)
 	}
 
 	return nil
@@ -1876,26 +1885,28 @@ func (v *BotInfoResponseOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("BotInfoResponseOwner: %w", err)
+	}
 
-	{
+	switch tag {
+	case "user":
 		var vv User4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.User4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.User4 = &vv
+	case "workspace":
 		var vv Workspace
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Workspace = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("BotInfoResponseOwner: expected exactly one matching variant, got %d", matched)
+		v.Workspace = &vv
+	default:
+		return fmt.Errorf("BotInfoResponseOwner: unknown type %q", tag)
 	}
 
 	return nil
@@ -2651,8 +2662,173 @@ func (e CoverConfigResponseType) Valid() bool {
 
 // CreateAComment defines a model
 type CreateAComment struct {
-	CreateACommentAllOf0
-	CreateACommentAllOf1
+	// An array of files to attach to the comment. Maximum of 3 allowed.
+	Attachments CreateACommentAllOf0Attachments `json:"attachments,omitzero"`
+	// Display name for the comment.
+	DisplayName          *CreateACommentAllOf0DisplayName `json:"display_name,omitempty"`
+	CreateACommentAllOf1 CreateACommentAllOf1             `json:"-"`
+}
+
+// fieldsOfCreateAComment is CreateAComment without its methods, to encode the fields outside its union.
+type fieldsOfCreateAComment CreateAComment
+
+// membersOfCreateAComment are the members CreateAComment declares outside its union.
+var membersOfCreateAComment = map[string]bool{"attachments": true, "display_name": true}
+
+// variantsOfCreateAComment are the alternatives of its union, in order.
+var variantsOfCreateAComment = []jsonVariant{
+	{
+		value:    "",
+		members:  map[string]bool{"parent": true, "rich_text": true},
+		required: []string{"parent", "rich_text"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"markdown": true, "parent": true},
+		required: []string{"markdown", "parent"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"discussion_id": true, "rich_text": true},
+		required: []string{"discussion_id", "rich_text"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"discussion_id": true, "markdown": true},
+		required: []string{"discussion_id", "markdown"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of CreateACommentAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *CreateAComment) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "", variantsOfCreateAComment, membersOfCreateAComment, true)
+	if err != nil {
+		return fmt.Errorf("CreateAComment: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfCreateAComment)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfCreateAComment)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfCreateAComment[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv CreateACommentAllOf1OneOf0
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateACommentAllOf1.CreateACommentAllOf1OneOf0 = &vv
+		case 1:
+			var vv CreateACommentAllOf1OneOf1
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateACommentAllOf1.CreateACommentAllOf1OneOf1 = &vv
+		case 2:
+			var vv CreateACommentAllOf1OneOf2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateACommentAllOf1.CreateACommentAllOf1OneOf2 = &vv
+		case 3:
+			var vv CreateACommentAllOf1OneOf3
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateACommentAllOf1.CreateACommentAllOf1OneOf3 = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of CreateACommentAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *CreateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfCreateAComment)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf0 != nil {
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf0, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateAComment: %w", err)
+		}
+
+		set++
+	}
+
+	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf1 != nil {
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf1, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateAComment: %w", err)
+		}
+
+		set++
+	}
+
+	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf2 != nil {
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateAComment: %w", err)
+		}
+
+		set++
+	}
+
+	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf3 != nil {
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf3, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateAComment: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("CreateAComment: want exactly one alternative of CreateACommentAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // CreateAComment2 defines a model
@@ -2706,14 +2882,6 @@ func (v *CreateAComment2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return fmt.Errorf("CreateAComment2: no variant set")
 }
 
-// CreateACommentAllOf0 defines a model
-type CreateACommentAllOf0 struct {
-	// An array of files to attach to the comment. Maximum of 3 allowed.
-	Attachments CreateACommentAllOf0Attachments `json:"attachments,omitzero"`
-	// Display name for the comment.
-	DisplayName *CreateACommentAllOf0DisplayName `json:"display_name,omitempty"`
-}
-
 // An array of files to attach to the comment. Maximum of 3 allowed.
 type CreateACommentAllOf0Attachments []CreateACommentAllOf0AttachmentsItem
 
@@ -2740,34 +2908,35 @@ func (v *CreateACommentAllOf0DisplayName) UnmarshalJSONFrom(dec *jsontext.Decode
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("CreateACommentAllOf0DisplayName: %w", err)
+	}
 
-	{
+	switch tag {
+	case "integration":
 		var vv Integration
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Integration = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Integration = &vv
+	case "user":
 		var vv User2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.User2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.User2 = &vv
+	case "custom":
 		var vv Custom
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Custom = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("CreateACommentAllOf0DisplayName: expected exactly one matching variant, got %d", matched)
+		v.Custom = &vv
+	default:
+		return fmt.Errorf("CreateACommentAllOf0DisplayName: unknown type %q", tag)
 	}
 
 	return nil
@@ -2906,26 +3075,28 @@ func (v *CreateACommentAllOfOneOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("CreateACommentAllOfOneOfParent: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv CreateACommentAllOfOneOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateACommentAllOfOneOfParentOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateACommentAllOfOneOfParentOneOf = &vv
+	case "block_id":
 		var vv CreateACommentAllOfOneOfParentOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateACommentAllOfOneOfParentOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("CreateACommentAllOfOneOfParent: expected exactly one matching variant, got %d", matched)
+		v.CreateACommentAllOfOneOfParentOneOf2 = &vv
+	default:
+		return fmt.Errorf("CreateACommentAllOfOneOfParent: unknown type %q", tag)
 	}
 
 	return nil
@@ -3036,26 +3207,28 @@ func (v *CreateAToken) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "grant_type")
+	if err != nil {
+		return fmt.Errorf("CreateAToken: %w", err)
+	}
 
-	{
+	switch tag {
+	case "authorization_code":
 		var vv CreateATokenAnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateATokenAnyOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateATokenAnyOf0 = &vv
+	case "refresh_token":
 		var vv CreateATokenAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateATokenAnyOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("CreateAToken: expected at least one matching variant, got 0")
+		v.CreateATokenAnyOf1 = &vv
+	default:
+		return fmt.Errorf("CreateAToken: unknown grant_type %q", tag)
 	}
 
 	return nil
@@ -3121,26 +3294,28 @@ func (v *CreateATokenOkOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("CreateATokenOkOwner: %w", err)
+	}
 
-	{
+	switch tag {
+	case "user":
 		var vv User3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.User3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.User3 = &vv
+	case "workspace":
 		var vv Workspace
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Workspace = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("CreateATokenOkOwner: expected at least one matching variant, got 0")
+		v.Workspace = &vv
+	default:
+		return fmt.Errorf("CreateATokenOkOwner: unknown type %q", tag)
 	}
 
 	return nil
@@ -3258,14 +3433,121 @@ type CreateDatabaseForViewRequestPosition struct {
 
 // The parent page or workspace where the database will be created.
 type CreateDatabaseParent struct {
-	CreateDatabaseParentAllOf
-	CreateDatabaseParentAllOf2
+	// The type of parent.
+	Type                       CreateDatabaseParentAllOfType `json:"type,omitzero"`
+	CreateDatabaseParentAllOf2 CreateDatabaseParentAllOf2    `json:"-"`
 }
 
-// CreateDatabaseParentAllOf defines a model
-type CreateDatabaseParentAllOf struct {
-	// The type of parent.
-	Type CreateDatabaseParentAllOfType `json:"type,omitzero"`
+// fieldsOfCreateDatabaseParent is CreateDatabaseParent without its methods, to encode the fields outside its union.
+type fieldsOfCreateDatabaseParent CreateDatabaseParent
+
+// membersOfCreateDatabaseParent are the members CreateDatabaseParent declares outside its union.
+var membersOfCreateDatabaseParent = map[string]bool{"type": true}
+
+// variantsOfCreateDatabaseParent are the alternatives of its union, in order.
+var variantsOfCreateDatabaseParent = []jsonVariant{
+	{
+		value:    "page_id",
+		members:  map[string]bool{"page_id": true, "type": true},
+		required: []string{"page_id"},
+	},
+	{
+		value:    "workspace",
+		members:  map[string]bool{"type": true, "workspace": true},
+		required: []string{"workspace"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of CreateDatabaseParentAllOf2 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *CreateDatabaseParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfCreateDatabaseParent, membersOfCreateDatabaseParent, true)
+	if err != nil {
+		return fmt.Errorf("CreateDatabaseParent: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfCreateDatabaseParent)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfCreateDatabaseParent)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfCreateDatabaseParent[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv CreateACommentAllOfOneOfParentOneOf
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateDatabaseParentAllOf2.CreateACommentAllOfOneOfParentOneOf = &vv
+		case 1:
+			var vv Workspace
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateDatabaseParentAllOf2.Workspace = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of CreateDatabaseParentAllOf2 that is set;
+// a member both write must have the same value in each.
+func (v *CreateDatabaseParent) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfCreateDatabaseParent)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.CreateDatabaseParentAllOf2.CreateACommentAllOfOneOfParentOneOf != nil {
+		variant, err := json.Marshal(v.CreateDatabaseParentAllOf2.CreateACommentAllOfOneOfParentOneOf, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateDatabaseParent: %w", err)
+		}
+
+		set++
+	}
+
+	if v.CreateDatabaseParentAllOf2.Workspace != nil {
+		variant, err := json.Marshal(v.CreateDatabaseParentAllOf2.Workspace, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateDatabaseParent: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("CreateDatabaseParent: want exactly one alternative of CreateDatabaseParentAllOf2 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // CreateDatabaseParentAllOf2 defines a model
@@ -3282,26 +3564,28 @@ func (v *CreateDatabaseParentAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("CreateDatabaseParentAllOf2: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv CreateACommentAllOfOneOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateACommentAllOfOneOfParentOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateACommentAllOfOneOfParentOneOf = &vv
+	case "workspace":
 		var vv Workspace
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Workspace = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("CreateDatabaseParentAllOf2: expected exactly one matching variant, got %d", matched)
+		v.Workspace = &vv
+	default:
+		return fmt.Errorf("CreateDatabaseParentAllOf2: unknown type %q", tag)
 	}
 
 	return nil
@@ -3372,18 +3656,125 @@ func (e CreateFileMode) Valid() bool {
 
 // CreateMeetingNote defines a model
 type CreateMeetingNote struct {
-	CreateMeetingNoteAllOf0
-	CreateMeetingNoteAllOf1
-}
-
-// CreateMeetingNoteAllOf0 defines a model
-type CreateMeetingNoteAllOf0 struct {
 	// Title for the meeting note.
 	Title string `json:"title,omitzero"`
 	// Language hint for transcription. Defaults to automatic detection.
 	Language CreateMeetingNoteAllOf0Language `json:"language,omitzero"`
 	// Optional processing settings.
-	Options *CreateMeetingNoteAllOf0Options `json:"options,omitempty"`
+	Options                 *CreateMeetingNoteAllOf0Options `json:"options,omitempty"`
+	CreateMeetingNoteAllOf1 CreateMeetingNoteAllOf1         `json:"-"`
+}
+
+// fieldsOfCreateMeetingNote is CreateMeetingNote without its methods, to encode the fields outside its union.
+type fieldsOfCreateMeetingNote CreateMeetingNote
+
+// membersOfCreateMeetingNote are the members CreateMeetingNote declares outside its union.
+var membersOfCreateMeetingNote = map[string]bool{"language": true, "options": true, "title": true}
+
+// variantsOfCreateMeetingNote are the alternatives of its union, in order.
+var variantsOfCreateMeetingNote = []jsonVariant{
+	{
+		value:    "",
+		members:  map[string]bool{"parent": true, "source": true},
+		required: []string{"parent", "source"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"parent": true, "source": true},
+		required: []string{"source"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of CreateMeetingNoteAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *CreateMeetingNote) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "", variantsOfCreateMeetingNote, membersOfCreateMeetingNote, true)
+	if err != nil {
+		return fmt.Errorf("CreateMeetingNote: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfCreateMeetingNote)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfCreateMeetingNote)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfCreateMeetingNote[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv CreateMeetingNoteAllOf1OneOf0
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf0 = &vv
+		case 1:
+			var vv CreateMeetingNoteAllOf1OneOf1
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf1 = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of CreateMeetingNoteAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *CreateMeetingNote) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfCreateMeetingNote)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf0 != nil {
+		variant, err := json.Marshal(v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf0, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateMeetingNote: %w", err)
+		}
+
+		set++
+	}
+
+	if v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf1 != nil {
+		variant, err := json.Marshal(v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf1, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("CreateMeetingNote: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("CreateMeetingNote: want exactly one alternative of CreateMeetingNoteAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Language hint for transcription. Defaults to automatic detection.
@@ -4789,14 +5180,121 @@ func (e FileUploadObjectResponseCreatedByType) Valid() bool {
 
 // FileUploadObjectResponseFileImportResult defines a model
 type FileUploadObjectResponseFileImportResult struct {
-	FileUploadObjectResponseFileImportResultAllOf0
-	FileUploadObjectResponseFileImportResultAllOf1
+	// The time the file was imported into Notion. ISO 8601 format.
+	ImportedTime                                   time.Time                                      `json:"imported_time,omitzero"`
+	FileUploadObjectResponseFileImportResultAllOf1 FileUploadObjectResponseFileImportResultAllOf1 `json:"-"`
 }
 
-// FileUploadObjectResponseFileImportResultAllOf0 defines a model
-type FileUploadObjectResponseFileImportResultAllOf0 struct {
-	// The time the file was imported into Notion. ISO 8601 format.
-	ImportedTime time.Time `json:"imported_time,omitzero"`
+// fieldsOfFileUploadObjectResponseFileImportResult is FileUploadObjectResponseFileImportResult without its methods, to encode the fields outside its union.
+type fieldsOfFileUploadObjectResponseFileImportResult FileUploadObjectResponseFileImportResult
+
+// membersOfFileUploadObjectResponseFileImportResult are the members FileUploadObjectResponseFileImportResult declares outside its union.
+var membersOfFileUploadObjectResponseFileImportResult = map[string]bool{"imported_time": true}
+
+// variantsOfFileUploadObjectResponseFileImportResult are the alternatives of its union, in order.
+var variantsOfFileUploadObjectResponseFileImportResult = []jsonVariant{
+	{
+		value:    "success",
+		members:  map[string]bool{"success": true, "type": true},
+		required: []string{"success", "type"},
+	},
+	{
+		value:    "error",
+		members:  map[string]bool{"error": true, "type": true},
+		required: []string{"error", "type"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of FileUploadObjectResponseFileImportResultAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *FileUploadObjectResponseFileImportResult) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfFileUploadObjectResponseFileImportResult, membersOfFileUploadObjectResponseFileImportResult, true)
+	if err != nil {
+		return fmt.Errorf("FileUploadObjectResponseFileImportResult: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfFileUploadObjectResponseFileImportResult)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfFileUploadObjectResponseFileImportResult)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfFileUploadObjectResponseFileImportResult[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv Success
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.FileUploadObjectResponseFileImportResultAllOf1.Success = &vv
+		case 1:
+			var vv Error
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.FileUploadObjectResponseFileImportResultAllOf1.Error = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of FileUploadObjectResponseFileImportResultAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *FileUploadObjectResponseFileImportResult) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfFileUploadObjectResponseFileImportResult)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.FileUploadObjectResponseFileImportResultAllOf1.Success != nil {
+		variant, err := json.Marshal(v.FileUploadObjectResponseFileImportResultAllOf1.Success, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("FileUploadObjectResponseFileImportResult: %w", err)
+		}
+
+		set++
+	}
+
+	if v.FileUploadObjectResponseFileImportResultAllOf1.Error != nil {
+		variant, err := json.Marshal(v.FileUploadObjectResponseFileImportResultAllOf1.Error, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("FileUploadObjectResponseFileImportResult: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("FileUploadObjectResponseFileImportResult: want exactly one alternative of FileUploadObjectResponseFileImportResultAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // FileUploadObjectResponseFileImportResultAllOf1 defines a model
@@ -4813,26 +5311,28 @@ func (v *FileUploadObjectResponseFileImportResultAllOf1) UnmarshalJSONFrom(dec *
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("FileUploadObjectResponseFileImportResultAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "success":
 		var vv Success
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Success = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Success = &vv
+	case "error":
 		var vv Error
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Error = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("FileUploadObjectResponseFileImportResultAllOf1: expected exactly one matching variant, got %d", matched)
+		v.Error = &vv
+	default:
+		return fmt.Errorf("FileUploadObjectResponseFileImportResultAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -4902,26 +5402,28 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Unmarsh
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult: %w", err)
+	}
 
-	{
+	switch tag {
+	case "success":
 		var vv FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf0 = &vv
+	case "error":
 		var vv FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult: expected exactly one matching variant, got %d", matched)
+		v.FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf1 = &vv
+	default:
+		return fmt.Errorf("FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult: unknown type %q", tag)
 	}
 
 	return nil
@@ -5082,42 +5584,42 @@ func (v *FormulaGroupByConfigGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("FormulaGroupByConfigGroupBy: %w", err)
+	}
 
-	{
+	switch tag {
+	case "date":
 		var vv formulaDateSubGroupBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormulaDateSubGroupBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormulaDateSubGroupBy = &vv
+	case "text":
 		var vv formulaTextSubGroupBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormulaTextSubGroupBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormulaTextSubGroupBy = &vv
+	case "number":
 		var vv formulaNumberSubGroupBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormulaNumberSubGroupBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormulaNumberSubGroupBy = &vv
+	case "checkbox":
 		var vv formulaCheckboxSubGroupBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormulaCheckboxSubGroupBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("FormulaGroupByConfigGroupBy: expected exactly one matching variant, got %d", matched)
+		v.FormulaCheckboxSubGroupBy = &vv
+	default:
+		return fmt.Errorf("FormulaGroupByConfigGroupBy: unknown type %q", tag)
 	}
 
 	return nil
@@ -5685,26 +6187,28 @@ func (v *InsertContentInsertContentPosition) UnmarshalJSONFrom(dec *jsontext.Dec
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("InsertContentInsertContentPosition: %w", err)
+	}
 
-	{
+	switch tag {
+	case "start":
 		var vv InsertContentInsertContentPositionOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContentInsertContentPositionOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.InsertContentInsertContentPositionOneOf = &vv
+	case "end":
 		var vv InsertContentInsertContentPositionOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContentInsertContentPositionOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("InsertContentInsertContentPosition: expected exactly one matching variant, got %d", matched)
+		v.InsertContentInsertContentPositionOneOf2 = &vv
+	default:
+		return fmt.Errorf("InsertContentInsertContentPosition: unknown type %q", tag)
 	}
 
 	return nil
@@ -5826,34 +6330,35 @@ func (v *LinkToPageBlockObjectLinkToPage) UnmarshalJSONFrom(dec *jsontext.Decode
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("LinkToPageBlockObjectLinkToPage: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv CreateACommentAllOfOneOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateACommentAllOfOneOfParentOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateACommentAllOfOneOfParentOneOf = &vv
+	case "database_id":
 		var vv DatabaseID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DatabaseID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DatabaseID = &vv
+	case "comment_id":
 		var vv CommentID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CommentID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("LinkToPageBlockObjectLinkToPage: expected at least one matching variant, got 0")
+		v.CommentID = &vv
+	default:
+		return fmt.Errorf("LinkToPageBlockObjectLinkToPage: unknown type %q", tag)
 	}
 
 	return nil
@@ -5990,58 +6495,56 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("MentionRichTextItemRequestMention: %w", err)
+	}
 
-	{
+	switch tag {
+	case "user":
 		var vv User5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.User5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.User5 = &vv
+	case "date":
 		var vv Date3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date3 = &vv
+	case "page":
 		var vv Page
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Page = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Page = &vv
+	case "database":
 		var vv Database
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Database = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Database = &vv
+	case "template_mention":
 		var vv TemplateMention
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TemplateMention = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TemplateMention = &vv
+	case "custom_emoji":
 		var vv CustomEmoji
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CustomEmoji = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("MentionRichTextItemRequestMention: expected exactly one matching variant, got %d", matched)
+		v.CustomEmoji = &vv
+	default:
+		return fmt.Errorf("MentionRichTextItemRequestMention: unknown type %q", tag)
 	}
 
 	return nil
@@ -6087,74 +6590,70 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("MentionRichTextItemResponseMention: %w", err)
+	}
 
-	{
+	switch tag {
+	case "user":
 		var vv User6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.User6 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.User6 = &vv
+	case "date":
 		var vv Date3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date3 = &vv
+	case "link_preview":
 		var vv LinkPreview
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkPreview = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkPreview = &vv
+	case "link_mention":
 		var vv LinkMention
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkMention = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkMention = &vv
+	case "page":
 		var vv Page2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Page2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Page2 = &vv
+	case "database":
 		var vv Database2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Database2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Database2 = &vv
+	case "template_mention":
 		var vv TemplateMention
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TemplateMention = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TemplateMention = &vv
+	case "custom_emoji":
 		var vv CustomEmoji3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CustomEmoji3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("MentionRichTextItemResponseMention: expected exactly one matching variant, got %d", matched)
+		v.CustomEmoji3 = &vv
+	default:
+		return fmt.Errorf("MentionRichTextItemResponseMention: unknown type %q", tag)
 	}
 
 	return nil
@@ -6255,26 +6754,28 @@ func (v *MovePageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("MovePageParent: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv CreateACommentAllOfOneOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateACommentAllOfOneOfParentOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateACommentAllOfOneOfParentOneOf = &vv
+	case "data_source_id":
 		var vv DataSourceID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DataSourceID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("MovePageParent: expected exactly one matching variant, got %d", matched)
+		v.DataSourceID = &vv
+	default:
+		return fmt.Errorf("MovePageParent: unknown type %q", tag)
 	}
 
 	return nil
@@ -6364,16 +6865,98 @@ func (v *MultiSelectMultiSelectItem) MarshalJSONTo(enc *jsontext.Encoder) error 
 
 // MultiSelectMultiSelectItem2 defines a model
 type MultiSelectMultiSelectItem2 struct {
-	MultiSelectMultiSelectItemAllOf
-	MultiSelectMultiSelectItemAllOf2
-}
-
-// MultiSelectMultiSelectItemAllOf defines a model
-type MultiSelectMultiSelectItemAllOf struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color PartialSelectPropertyValueColor `json:"color,omitzero"`
 	// The name of the bot's workspace.
-	Description *string `json:"description,omitempty"`
+	Description                      *string                          `json:"description,omitempty"`
+	MultiSelectMultiSelectItemAllOf2 MultiSelectMultiSelectItemAllOf2 `json:"-"`
+}
+
+// fieldsOfMultiSelectMultiSelectItem2 is MultiSelectMultiSelectItem2 without its methods, to encode the fields outside its union.
+type fieldsOfMultiSelectMultiSelectItem2 MultiSelectMultiSelectItem2
+
+// membersOfMultiSelectMultiSelectItem2 are the members MultiSelectMultiSelectItem2 declares outside its union.
+var membersOfMultiSelectMultiSelectItem2 = map[string]bool{"color": true, "description": true}
+
+// variantsOfMultiSelectMultiSelectItem2 are the alternatives of its union, in order.
+var variantsOfMultiSelectMultiSelectItem2 = []jsonVariant{
+	{
+		value:    "",
+		members:  map[string]bool{"id": true, "name": true},
+		required: []string{"name"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of MultiSelectMultiSelectItemAllOf2 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *MultiSelectMultiSelectItem2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "", variantsOfMultiSelectMultiSelectItem2, membersOfMultiSelectMultiSelectItem2, true)
+	if err != nil {
+		return fmt.Errorf("MultiSelectMultiSelectItem2: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfMultiSelectMultiSelectItem2)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfMultiSelectMultiSelectItem2)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfMultiSelectMultiSelectItem2[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv MultiSelectMultiSelectItemAllOfOneOf
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.MultiSelectMultiSelectItemAllOf2.MultiSelectMultiSelectItemAllOfOneOf = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of MultiSelectMultiSelectItemAllOf2 that is set;
+// a member both write must have the same value in each.
+func (v *MultiSelectMultiSelectItem2) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfMultiSelectMultiSelectItem2)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.MultiSelectMultiSelectItemAllOf2.MultiSelectMultiSelectItemAllOfOneOf != nil {
+		variant, err := json.Marshal(v.MultiSelectMultiSelectItemAllOf2.MultiSelectMultiSelectItemAllOfOneOf, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("MultiSelectMultiSelectItem2: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("MultiSelectMultiSelectItem2: want exactly one alternative of MultiSelectMultiSelectItemAllOf2 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // MultiSelectMultiSelectItemAllOf2 defines a model
@@ -6782,138 +7365,126 @@ func (v *PagePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("PagePropertiesValue: %w", err)
+	}
 
-	{
+	switch tag {
+	case "title":
 		var vv Title
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Title = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Title = &vv
+	case "rich_text":
 		var vv RichText
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichText = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichText = &vv
+	case "number":
 		var vv Number
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number = &vv
+	case "url":
 		var vv URL
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.URL = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.URL = &vv
+	case "select":
 		var vv Select
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Select = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Select = &vv
+	case "multi_select":
 		var vv MultiSelect
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelect = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelect = &vv
+	case "people":
 		var vv People
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.People = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.People = &vv
+	case "email":
 		var vv Email
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Email = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Email = &vv
+	case "phone_number":
 		var vv PhoneNumber
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumber = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumber = &vv
+	case "date":
 		var vv Date
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date = &vv
+	case "checkbox":
 		var vv Checkbox
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Checkbox = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Checkbox = &vv
+	case "relation":
 		var vv Relation
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Relation = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Relation = &vv
+	case "files":
 		var vv Files
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Files = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Files = &vv
+	case "status":
 		var vv Status
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Status = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Status = &vv
+	case "place":
 		var vv Place
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Place = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Place = &vv
+	case "verification":
 		var vv Verification
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Verification = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PagePropertiesValue: expected at least one matching variant, got 0")
+		v.Verification = &vv
+	default:
+		return fmt.Errorf("PagePropertiesValue: unknown type %q", tag)
 	}
 
 	return nil
@@ -7146,26 +7717,28 @@ func (v *PatchPageTemplate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("PatchPageTemplate: %w", err)
+	}
 
-	{
+	switch tag {
+	case "default":
 		var vv PageTemplateAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageTemplateAnyOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PageTemplateAnyOf = &vv
+	case "template_id":
 		var vv PageTemplateAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageTemplateAnyOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PatchPageTemplate: expected at least one matching variant, got 0")
+		v.PageTemplateAnyOf2 = &vv
+	default:
+		return fmt.Errorf("PatchPageTemplate: unknown type %q", tag)
 	}
 
 	return nil
@@ -7290,26 +7863,28 @@ func (v *PeopleItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "object")
+	if err != nil {
+		return fmt.Errorf("PeopleItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "user":
 		var vv partialUserObjectRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PartialUserObjectRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PartialUserObjectRequest = &vv
+	case "group":
 		var vv groupObjectRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.GroupObjectRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PeopleItem: expected at least one matching variant, got 0")
+		v.GroupObjectRequest = &vv
+	default:
+		return fmt.Errorf("PeopleItem: unknown object %q", tag)
 	}
 
 	return nil
@@ -7632,26 +8207,28 @@ func (v *PostPageAcceptedOperation) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "surface")
+	if err != nil {
+		return fmt.Errorf("PostPageAcceptedOperation: %w", err)
+	}
 
-	{
+	switch tag {
+	case "rest":
 		var vv PostPageAcceptedOperationAnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PostPageAcceptedOperationAnyOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PostPageAcceptedOperationAnyOf0 = &vv
+	case "mcp":
 		var vv PostPageAcceptedOperationAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PostPageAcceptedOperationAnyOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PostPageAcceptedOperation: expected at least one matching variant, got 0")
+		v.PostPageAcceptedOperationAnyOf1 = &vv
+	default:
+		return fmt.Errorf("PostPageAcceptedOperation: unknown surface %q", tag)
 	}
 
 	return nil
@@ -7697,42 +8274,42 @@ func (v *PostPageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("PostPageParent: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv CreateACommentAllOfOneOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreateACommentAllOfOneOfParentOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreateACommentAllOfOneOfParentOneOf = &vv
+	case "database_id":
 		var vv DatabaseID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DatabaseID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DatabaseID = &vv
+	case "data_source_id":
 		var vv DataSourceID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DataSourceID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DataSourceID = &vv
+	case "workspace":
 		var vv Workspace
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Workspace = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PostPageParent: expected at least one matching variant, got 0")
+		v.Workspace = &vv
+	default:
+		return fmt.Errorf("PostPageParent: unknown type %q", tag)
 	}
 
 	return nil
@@ -7769,34 +8346,35 @@ func (v *PostPageTemplate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("PostPageTemplate: %w", err)
+	}
 
-	{
+	switch tag {
+	case "none":
 		var vv PostPageTemplateAnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PostPageTemplateAnyOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PostPageTemplateAnyOf0 = &vv
+	case "default":
 		var vv PageTemplateAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageTemplateAnyOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PageTemplateAnyOf = &vv
+	case "template_id":
 		var vv PageTemplateAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageTemplateAnyOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PostPageTemplate: expected at least one matching variant, got 0")
+		v.PageTemplateAnyOf2 = &vv
+	default:
+		return fmt.Errorf("PostPageTemplate: unknown type %q", tag)
 	}
 
 	return nil
@@ -8019,50 +8597,49 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) UnmarshalJSONFrom(dec
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("PropertyItemPropertyItemListResponsePropertyItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "title":
 		var vv Title5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Title5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Title5 = &vv
+	case "rich_text":
 		var vv RichText5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichText5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichText5 = &vv
+	case "people":
 		var vv People5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.People5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.People5 = &vv
+	case "relation":
 		var vv Relation5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Relation5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Relation5 = &vv
+	case "rollup":
 		var vv Rollup3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Rollup3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("PropertyItemPropertyItemListResponsePropertyItem: expected at least one matching variant, got 0")
+		v.Rollup3 = &vv
+	default:
+		return fmt.Errorf("PropertyItemPropertyItemListResponsePropertyItem: unknown type %q", tag)
 	}
 
 	return nil
@@ -8177,90 +8754,84 @@ func (v *QueryAgentsFilterOneOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "property")
+	if err != nil {
+		return fmt.Errorf("QueryAgentsFilterOneOf: %w", err)
+	}
 
-	{
+	switch tag {
+	case "id":
 		var vv QueryAgentsFilterOneOfOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf = &vv
+	case "agent_type":
 		var vv QueryAgentsFilterOneOfOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf2 = &vv
+	case "created_by":
 		var vv QueryAgentsFilterOneOfOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf3 = &vv
+	case "created_time":
 		var vv QueryAgentsFilterOneOfOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf4 = &vv
+	case "favorited":
 		var vv QueryAgentsFilterOneOfOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf5 = &vv
+	case "connections":
 		var vv QueryAgentsFilterOneOfOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf6 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf6 = &vv
+	case "status":
 		var vv QueryAgentsFilterOneOfOneOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf7 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf7 = &vv
+	case "model_mode":
 		var vv QueryAgentsFilterOneOfOneOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf8 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf8 = &vv
+	case "agent_version":
 		var vv QueryAgentsFilterOneOfOneOf9
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf9 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryAgentsFilterOneOfOneOf9 = &vv
+	case "last_run_at":
 		var vv QueryAgentsFilterOneOfOneOf10
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryAgentsFilterOneOfOneOf10 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QueryAgentsFilterOneOf: expected exactly one matching variant, got %d", matched)
+		v.QueryAgentsFilterOneOfOneOf10 = &vv
+	default:
+		return fmt.Errorf("QueryAgentsFilterOneOf: unknown property %q", tag)
 	}
 
 	return nil
@@ -9154,26 +9725,28 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2) UnmarshalJSON
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2: %w", err)
+	}
 
-	{
+	switch tag {
+	case "relative":
 		var vv QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf = &vv
+	case "exact":
 		var vv QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2: expected exactly one matching variant, got %d", matched)
+		v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf2 = &vv
+	default:
+		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2: unknown type %q", tag)
 	}
 
 	return nil
@@ -9278,26 +9851,28 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem) UnmarshalJ
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "exact":
 		var vv QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf = &vv
+	case "relative":
 		var vv QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem: expected exactly one matching variant, got %d", matched)
+		v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf2 = &vv
+	default:
+		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem: unknown type %q", tag)
 	}
 
 	return nil
@@ -9470,26 +10045,28 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue2) Unm
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue2: %w", err)
+	}
 
-	{
+	switch tag {
+	case "date":
 		var vv QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf = &vv
+	case "datetime":
 		var vv QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue2: expected exactly one matching variant, got %d", matched)
+		v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2 = &vv
+	default:
+		return fmt.Errorf("QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue2: unknown type %q", tag)
 	}
 
 	return nil
@@ -10011,42 +10588,42 @@ func (v *QuerySessionEventsFilterOneOfAndItemOneOfAndItemOneOfAndItem) Unmarshal
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "property")
+	if err != nil {
+		return fmt.Errorf("QuerySessionEventsFilterOneOfAndItemOneOfAndItemOneOfAndItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "id":
 		var vv QuerySessionEventsFilterOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsFilterOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsFilterOneOf = &vv
+	case "type":
 		var vv QuerySessionEventsFilterOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsFilterOneOf6 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsFilterOneOf6 = &vv
+	case "sequence":
 		var vv QuerySessionEventsFilterOneOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsFilterOneOf7 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsFilterOneOf7 = &vv
+	case "created_at":
 		var vv QuerySessionEventsFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsFilterOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QuerySessionEventsFilterOneOfAndItemOneOfAndItemOneOfAndItem: expected exactly one matching variant, got %d", matched)
+		v.QuerySessionEventsFilterOneOf2 = &vv
+	default:
+		return fmt.Errorf("QuerySessionEventsFilterOneOfAndItemOneOfAndItemOneOfAndItem: unknown property %q", tag)
 	}
 
 	return nil
@@ -10215,58 +10792,56 @@ func (v *QuerySessionEventsOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decode
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("QuerySessionEventsOkResultsItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "user.message":
 		var vv QuerySessionEventsOkResultsItemOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsOkResultsItemOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsOkResultsItemOneOf0 = &vv
+	case "agent.message":
 		var vv QuerySessionEventsOkResultsItemOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsOkResultsItemOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsOkResultsItemOneOf1 = &vv
+	case "agent.thinking":
 		var vv QuerySessionEventsOkResultsItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsOkResultsItemOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsOkResultsItemOneOf2 = &vv
+	case "agent.tool_use":
 		var vv QuerySessionEventsOkResultsItemOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsOkResultsItemOneOf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsOkResultsItemOneOf3 = &vv
+	case "agent.tool_result":
 		var vv QuerySessionEventsOkResultsItemOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsOkResultsItemOneOf4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsOkResultsItemOneOf4 = &vv
+	case "session.status":
 		var vv QuerySessionEventsOkResultsItemOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsOkResultsItemOneOf5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QuerySessionEventsOkResultsItem: expected exactly one matching variant, got %d", matched)
+		v.QuerySessionEventsOkResultsItemOneOf5 = &vv
+	default:
+		return fmt.Errorf("QuerySessionEventsOkResultsItem: unknown type %q", tag)
 	}
 
 	return nil
@@ -10422,26 +10997,28 @@ func (v *QuerySessionEventsResultsItemOneOfContentItem) UnmarshalJSONFrom(dec *j
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("QuerySessionEventsResultsItemOneOfContentItem: %w", err)
+	}
 
-	{
+	switch tag {
+	case "text":
 		var vv QuerySessionEventsResultsItemOneOfContentItemOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsResultsItemOneOfContentItemOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionEventsResultsItemOneOfContentItemOneOf = &vv
+	case "file":
 		var vv QuerySessionEventsResultsItemOneOfContentItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionEventsResultsItemOneOfContentItemOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QuerySessionEventsResultsItemOneOfContentItem: expected exactly one matching variant, got %d", matched)
+		v.QuerySessionEventsResultsItemOneOfContentItemOneOf2 = &vv
+	default:
+		return fmt.Errorf("QuerySessionEventsResultsItemOneOfContentItem: unknown type %q", tag)
 	}
 
 	return nil
@@ -10958,26 +11535,28 @@ func (v *QuerySessionsResultsItemModels) UnmarshalJSONFrom(dec *jsontext.Decoder
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("QuerySessionsResultsItemModels: %w", err)
+	}
 
-	{
+	switch tag {
+	case "auto":
 		var vv QuerySessionsResultsItemModelsOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionsResultsItemModelsOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuerySessionsResultsItemModelsOneOf = &vv
+	case "pinned":
 		var vv QuerySessionsResultsItemModelsOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuerySessionsResultsItemModelsOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("QuerySessionsResultsItemModels: expected exactly one matching variant, got %d", matched)
+		v.QuerySessionsResultsItemModelsOneOf2 = &vv
+	default:
+		return fmt.Errorf("QuerySessionsResultsItemModels: unknown type %q", tag)
 	}
 
 	return nil
@@ -11076,13 +11655,120 @@ type Relation5 struct {
 
 // RelationPropertyConfigurationRelation defines a model
 type RelationPropertyConfigurationRelation struct {
-	RelationPropertyConfigurationRelationAllOf
-	RelationPropertyConfigurationRelationAllOf2
+	DataSourceID                                emoji                                       `json:"data_source_id,omitzero"`
+	RelationPropertyConfigurationRelationAllOf2 RelationPropertyConfigurationRelationAllOf2 `json:"-"`
 }
 
-// RelationPropertyConfigurationRelationAllOf defines a model
-type RelationPropertyConfigurationRelationAllOf struct {
-	DataSourceID emoji `json:"data_source_id,omitzero"`
+// fieldsOfRelationPropertyConfigurationRelation is RelationPropertyConfigurationRelation without its methods, to encode the fields outside its union.
+type fieldsOfRelationPropertyConfigurationRelation RelationPropertyConfigurationRelation
+
+// membersOfRelationPropertyConfigurationRelation are the members RelationPropertyConfigurationRelation declares outside its union.
+var membersOfRelationPropertyConfigurationRelation = map[string]bool{"data_source_id": true}
+
+// variantsOfRelationPropertyConfigurationRelation are the alternatives of its union, in order.
+var variantsOfRelationPropertyConfigurationRelation = []jsonVariant{
+	{
+		value:    "single_property",
+		members:  map[string]bool{"single_property": true, "type": true},
+		required: []string{"single_property"},
+	},
+	{
+		value:    "dual_property",
+		members:  map[string]bool{"dual_property": true, "type": true},
+		required: []string{"dual_property"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of RelationPropertyConfigurationRelationAllOf2 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *RelationPropertyConfigurationRelation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfRelationPropertyConfigurationRelation, membersOfRelationPropertyConfigurationRelation, true)
+	if err != nil {
+		return fmt.Errorf("RelationPropertyConfigurationRelation: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfRelationPropertyConfigurationRelation)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfRelationPropertyConfigurationRelation)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfRelationPropertyConfigurationRelation[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv SingleProperty
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RelationPropertyConfigurationRelationAllOf2.SingleProperty = &vv
+		case 1:
+			var vv DualProperty
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RelationPropertyConfigurationRelationAllOf2.DualProperty = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of RelationPropertyConfigurationRelationAllOf2 that is set;
+// a member both write must have the same value in each.
+func (v *RelationPropertyConfigurationRelation) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfRelationPropertyConfigurationRelation)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.RelationPropertyConfigurationRelationAllOf2.SingleProperty != nil {
+		variant, err := json.Marshal(v.RelationPropertyConfigurationRelationAllOf2.SingleProperty, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("RelationPropertyConfigurationRelation: %w", err)
+		}
+
+		set++
+	}
+
+	if v.RelationPropertyConfigurationRelationAllOf2.DualProperty != nil {
+		variant, err := json.Marshal(v.RelationPropertyConfigurationRelationAllOf2.DualProperty, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("RelationPropertyConfigurationRelation: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("RelationPropertyConfigurationRelation: want exactly one alternative of RelationPropertyConfigurationRelationAllOf2 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RelationPropertyConfigurationRelationAllOf2 defines a model
@@ -11099,26 +11785,28 @@ func (v *RelationPropertyConfigurationRelationAllOf2) UnmarshalJSONFrom(dec *jso
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("RelationPropertyConfigurationRelationAllOf2: %w", err)
+	}
 
-	{
+	switch tag {
+	case "single_property":
 		var vv SingleProperty
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SingleProperty = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SingleProperty = &vv
+	case "dual_property":
 		var vv DualProperty
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DualProperty = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("RelationPropertyConfigurationRelationAllOf2: expected exactly one matching variant, got %d", matched)
+		v.DualProperty = &vv
+	default:
+		return fmt.Errorf("RelationPropertyConfigurationRelationAllOf2: unknown type %q", tag)
 	}
 
 	return nil
@@ -11345,194 +12033,175 @@ func (v *RetrieveAsyncTaskOkOneOf2Error) UnmarshalJSONFrom(dec *jsontext.Decoder
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "code")
+	if err != nil {
+		return fmt.Errorf("RetrieveAsyncTaskOkOneOf2Error: %w", err)
+	}
 
-	{
+	switch tag {
+	case "invalid_json":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf0 = &vv
+	case "invalid_request_url":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf1 = &vv
+	case "invalid_request":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf2 = &vv
+	case "missing_version":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf3 = &vv
+	case "invalid_beta":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf4 = &vv
+	case "validation_error":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf5 = &vv
+	case "unauthorized":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf6 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf6 = &vv
+	case "restricted_resource":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf7 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf7 = &vv
+	case "object_not_found":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf8 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf8 = &vv
+	case "directory_not_found":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf9
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf9 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf9 = &vv
+	case "rate_limited":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf10
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf10 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf10 = &vv
+	case "service_overload":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf11
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf11 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf11 = &vv
+	case "internal_server_error":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf12
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf12 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf12 = &vv
+	case "service_unavailable":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf13
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf13 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf13 = &vv
+	case "gateway_timeout":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf14
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf14 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf14 = &vv
+	case "conflict_error":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf15
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf15 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf15 = &vv
+	case "idempotency_key_reused":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf16
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf16 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf16 = &vv
+	case "row_limit_exceeded":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf17
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf17 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf17 = &vv
+	case "status_change_not_allowed":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf18
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf18 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf18 = &vv
+	case "agent_deleted":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf19
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf19 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf19 = &vv
+	case "invalid_credit_limit":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf20
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf20 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf20 = &vv
+	case "workspace_credits_exhausted":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf21
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf21 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf21 = &vv
+	case "agent_credit_limit_reached":
 		var vv RetrieveAsyncTaskOkOneOf2ErrorOneOf22
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RetrieveAsyncTaskOkOneOf2ErrorOneOf22 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("RetrieveAsyncTaskOkOneOf2Error: expected exactly one matching variant, got %d", matched)
+		v.RetrieveAsyncTaskOkOneOf2ErrorOneOf22 = &vv
+	default:
+		return fmt.Errorf("RetrieveAsyncTaskOkOneOf2Error: unknown code %q", tag)
 	}
 
 	return nil
@@ -11894,7 +12563,169 @@ type RollupDatabasePropertyConfigResponseRollup struct {
 // RollupPropertyConfigurationRollup defines a model
 type RollupPropertyConfigurationRollup struct {
 	RollupPropertyConfigurationRollupAllOf
-	RollupPropertyConfigurationRollupAllOf2
+	RollupPropertyConfigurationRollupAllOf2 RollupPropertyConfigurationRollupAllOf2 `json:"-"`
+}
+
+// fieldsOfRollupPropertyConfigurationRollup is RollupPropertyConfigurationRollup without its methods, to encode the fields outside its union.
+type fieldsOfRollupPropertyConfigurationRollup RollupPropertyConfigurationRollup
+
+// membersOfRollupPropertyConfigurationRollup are the members RollupPropertyConfigurationRollup declares outside its union.
+var membersOfRollupPropertyConfigurationRollup = map[string]bool{"function": true}
+
+// variantsOfRollupPropertyConfigurationRollup are the alternatives of its union, in order.
+var variantsOfRollupPropertyConfigurationRollup = []jsonVariant{
+	{
+		value:    "",
+		members:  map[string]bool{"relation_property_name": true, "rollup_property_name": true},
+		required: []string{"relation_property_name", "rollup_property_name"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"relation_property_id": true, "rollup_property_name": true},
+		required: []string{"relation_property_id", "rollup_property_name"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"relation_property_name": true, "rollup_property_id": true},
+		required: []string{"relation_property_name", "rollup_property_id"},
+	},
+	{
+		value:    "",
+		members:  map[string]bool{"relation_property_id": true, "rollup_property_id": true},
+		required: []string{"relation_property_id", "rollup_property_id"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of RollupPropertyConfigurationRollupAllOf2 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *RollupPropertyConfigurationRollup) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "", variantsOfRollupPropertyConfigurationRollup, membersOfRollupPropertyConfigurationRollup, true)
+	if err != nil {
+		return fmt.Errorf("RollupPropertyConfigurationRollup: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfRollupPropertyConfigurationRollup)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfRollupPropertyConfigurationRollup)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfRollupPropertyConfigurationRollup[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv RollupPropertyConfigurationRollupAllOfOneOf
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf = &vv
+		case 1:
+			var vv RollupPropertyConfigurationRollupAllOfOneOf2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf2 = &vv
+		case 2:
+			var vv RollupPropertyConfigurationRollupAllOfOneOf3
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf3 = &vv
+		case 3:
+			var vv RollupPropertyConfigurationRollupAllOfOneOf4
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf4 = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of RollupPropertyConfigurationRollupAllOf2 that is set;
+// a member both write must have the same value in each.
+func (v *RollupPropertyConfigurationRollup) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfRollupPropertyConfigurationRollup)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf != nil {
+		variant, err := json.Marshal(v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("RollupPropertyConfigurationRollup: %w", err)
+		}
+
+		set++
+	}
+
+	if v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf2 != nil {
+		variant, err := json.Marshal(v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("RollupPropertyConfigurationRollup: %w", err)
+		}
+
+		set++
+	}
+
+	if v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf3 != nil {
+		variant, err := json.Marshal(v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf3, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("RollupPropertyConfigurationRollup: %w", err)
+		}
+
+		set++
+	}
+
+	if v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf4 != nil {
+		variant, err := json.Marshal(v.RollupPropertyConfigurationRollupAllOf2.RollupPropertyConfigurationRollupAllOfOneOf4, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("RollupPropertyConfigurationRollup: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("RollupPropertyConfigurationRollup: want exactly one alternative of RollupPropertyConfigurationRollupAllOf2 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RollupPropertyConfigurationRollupAllOf defines a model
@@ -12017,50 +12848,49 @@ func (v *RollupPropertyItemObjectRollup) UnmarshalJSONFrom(dec *jsontext.Decoder
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("RollupPropertyItemObjectRollup: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv Number3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number3 = &vv
+	case "date":
 		var vv Date4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date4 = &vv
+	case "array":
 		var vv Array
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Array = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Array = &vv
+	case "unsupported":
 		var vv Unsupported
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Unsupported = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Unsupported = &vv
+	case "incomplete":
 		var vv Incomplete
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Incomplete = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("RollupPropertyItemObjectRollup: expected at least one matching variant, got 0")
+		v.Incomplete = &vv
+	default:
+		return fmt.Errorf("RollupPropertyItemObjectRollup: unknown type %q", tag)
 	}
 
 	return nil
@@ -12763,250 +13593,224 @@ func (v *UpdateABlockAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("UpdateABlockAnyOf0: %w", err)
+	}
 
-	{
+	switch tag {
+	case "embed":
 		var vv Embed
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Embed = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Embed = &vv
+	case "bookmark":
 		var vv Bookmark
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Bookmark = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Bookmark = &vv
+	case "image":
 		var vv Image
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Image = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Image = &vv
+	case "video":
 		var vv Video
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Video = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Video = &vv
+	case "pdf":
 		var vv Pdf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Pdf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Pdf = &vv
+	case "file":
 		var vv File
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.File = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.File = &vv
+	case "audio":
 		var vv Audio
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Audio = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Audio = &vv
+	case "code":
 		var vv Code
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Code = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Code = &vv
+	case "equation":
 		var vv Equation
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Equation = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Equation = &vv
+	case "divider":
 		var vv Divider
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Divider = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Divider = &vv
+	case "breadcrumb":
 		var vv Breadcrumb
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Breadcrumb = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Breadcrumb = &vv
+	case "tab":
 		var vv Tab
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Tab = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Tab = &vv
+	case "table_of_contents":
 		var vv TableOfContents
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableOfContents = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableOfContents = &vv
+	case "link_to_page":
 		var vv LinkToPage
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkToPage = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkToPage = &vv
+	case "table_row":
 		var vv TableRow
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableRow = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableRow = &vv
+	case "heading_1":
 		var vv Heading1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading1 = &vv
+	case "heading_2":
 		var vv Heading2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading2 = &vv
+	case "heading_3":
 		var vv Heading3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading3 = &vv
+	case "heading_4":
 		var vv Heading4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading4 = &vv
+	case "paragraph":
 		var vv Paragraph
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Paragraph = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Paragraph = &vv
+	case "bulleted_list_item":
 		var vv BulletedListItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BulletedListItem = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BulletedListItem = &vv
+	case "numbered_list_item":
 		var vv NumberedListItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberedListItem = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberedListItem = &vv
+	case "quote":
 		var vv Quote
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Quote = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Quote = &vv
+	case "to_do":
 		var vv ToDo
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ToDo = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ToDo = &vv
+	case "toggle":
 		var vv Toggle
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Toggle = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Toggle = &vv
+	case "template":
 		var vv Template
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Template = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Template = &vv
+	case "callout":
 		var vv Callout
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Callout = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Callout = &vv
+	case "synced_block":
 		var vv SyncedBlock
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SyncedBlock = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SyncedBlock = &vv
+	case "table":
 		var vv Table
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Table = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Table = &vv
+	case "column":
 		var vv Column
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Column = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("UpdateABlockAnyOf0: expected at least one matching variant, got 0")
+		v.Column = &vv
+	default:
+		return fmt.Errorf("UpdateABlockAnyOf0: unknown type %q", tag)
 	}
 
 	return nil
@@ -13216,16 +14020,623 @@ type UpdateADataSourcePropertiesValueOneOf struct {
 
 // UpdateADataSourcePropertiesValueOneOf0 defines a model
 type UpdateADataSourcePropertiesValueOneOf0 struct {
-	UpdateADataSourcePropertiesValueOneOf0AllOf0
-	UpdateADataSourcePropertiesValueOneOf0AllOf1
-}
-
-// UpdateADataSourcePropertiesValueOneOf0AllOf0 defines a model
-type UpdateADataSourcePropertiesValueOneOf0AllOf0 struct {
 	// The name of the property.
 	Name string `json:"name,omitzero"`
 	// The description of the property.
-	Description *propertyDescriptionRequest `json:"description,omitempty"`
+	Description                                  *propertyDescriptionRequest                  `json:"description,omitempty"`
+	UpdateADataSourcePropertiesValueOneOf0AllOf1 UpdateADataSourcePropertiesValueOneOf0AllOf1 `json:"-"`
+}
+
+// fieldsOfUpdateADataSourcePropertiesValueOneOf0 is UpdateADataSourcePropertiesValueOneOf0 without its methods, to encode the fields outside its union.
+type fieldsOfUpdateADataSourcePropertiesValueOneOf0 UpdateADataSourcePropertiesValueOneOf0
+
+// membersOfUpdateADataSourcePropertiesValueOneOf0 are the members UpdateADataSourcePropertiesValueOneOf0 declares outside its union.
+var membersOfUpdateADataSourcePropertiesValueOneOf0 = map[string]bool{"description": true, "name": true}
+
+// variantsOfUpdateADataSourcePropertiesValueOneOf0 are the alternatives of its union, in order.
+var variantsOfUpdateADataSourcePropertiesValueOneOf0 = []jsonVariant{
+	{
+		value:    "number",
+		members:  map[string]bool{"number": true, "type": true},
+		required: []string{"number"},
+	},
+	{
+		value:    "formula",
+		members:  map[string]bool{"formula": true, "type": true},
+		required: []string{"formula"},
+	},
+	{
+		value:    "select",
+		members:  map[string]bool{"select": true, "type": true},
+		required: []string{"select"},
+	},
+	{
+		value:    "multi_select",
+		members:  map[string]bool{"multi_select": true, "type": true},
+		required: []string{"multi_select"},
+	},
+	{
+		value:    "status",
+		members:  map[string]bool{"status": true, "type": true},
+		required: []string{"status"},
+	},
+	{
+		value:    "relation",
+		members:  map[string]bool{"relation": true, "type": true},
+		required: []string{"relation"},
+	},
+	{
+		value:    "rollup",
+		members:  map[string]bool{"rollup": true, "type": true},
+		required: []string{"rollup"},
+	},
+	{
+		value:    "unique_id",
+		members:  map[string]bool{"type": true, "unique_id": true},
+		required: []string{"unique_id"},
+	},
+	{
+		value:    "title",
+		members:  map[string]bool{"title": true, "type": true},
+		required: []string{"title"},
+	},
+	{
+		value:    "rich_text",
+		members:  map[string]bool{"rich_text": true, "type": true},
+		required: []string{"rich_text"},
+	},
+	{
+		value:    "url",
+		members:  map[string]bool{"type": true, "url": true},
+		required: []string{"url"},
+	},
+	{
+		value:    "people",
+		members:  map[string]bool{"people": true, "type": true},
+		required: []string{"people"},
+	},
+	{
+		value:    "files",
+		members:  map[string]bool{"files": true, "type": true},
+		required: []string{"files"},
+	},
+	{
+		value:    "email",
+		members:  map[string]bool{"email": true, "type": true},
+		required: []string{"email"},
+	},
+	{
+		value:    "phone_number",
+		members:  map[string]bool{"phone_number": true, "type": true},
+		required: []string{"phone_number"},
+	},
+	{
+		value:    "date",
+		members:  map[string]bool{"date": true, "type": true},
+		required: []string{"date"},
+	},
+	{
+		value:    "checkbox",
+		members:  map[string]bool{"checkbox": true, "type": true},
+		required: []string{"checkbox"},
+	},
+	{
+		value:    "created_by",
+		members:  map[string]bool{"created_by": true, "type": true},
+		required: []string{"created_by"},
+	},
+	{
+		value:    "created_time",
+		members:  map[string]bool{"created_time": true, "type": true},
+		required: []string{"created_time"},
+	},
+	{
+		value:    "last_edited_by",
+		members:  map[string]bool{"last_edited_by": true, "type": true},
+		required: []string{"last_edited_by"},
+	},
+	{
+		value:    "last_edited_time",
+		members:  map[string]bool{"last_edited_time": true, "type": true},
+		required: []string{"last_edited_time"},
+	},
+	{
+		value:    "place",
+		members:  map[string]bool{"place": true, "type": true},
+		required: []string{"place"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of UpdateADataSourcePropertiesValueOneOf0AllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *UpdateADataSourcePropertiesValueOneOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfUpdateADataSourcePropertiesValueOneOf0, membersOfUpdateADataSourcePropertiesValueOneOf0, true)
+	if err != nil {
+		return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfUpdateADataSourcePropertiesValueOneOf0)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfUpdateADataSourcePropertiesValueOneOf0)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfUpdateADataSourcePropertiesValueOneOf0[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv Number2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Number2 = &vv
+		case 1:
+			var vv Formula
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Formula = &vv
+		case 2:
+			var vv Select3
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Select3 = &vv
+		case 3:
+			var vv MultiSelect3
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.MultiSelect3 = &vv
+		case 4:
+			var vv Status3
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Status3 = &vv
+		case 5:
+			var vv Relation2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Relation2 = &vv
+		case 6:
+			var vv Rollup
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Rollup = &vv
+		case 7:
+			var vv UniqueID
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.UniqueID = &vv
+		case 8:
+			var vv Title2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Title2 = &vv
+		case 9:
+			var vv RichText2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.RichText2 = &vv
+		case 10:
+			var vv URL2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Url2 = &vv
+		case 11:
+			var vv People2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.People2 = &vv
+		case 12:
+			var vv Files2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Files2 = &vv
+		case 13:
+			var vv Email2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Email2 = &vv
+		case 14:
+			var vv PhoneNumber2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.PhoneNumber2 = &vv
+		case 15:
+			var vv Date2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Date2 = &vv
+		case 16:
+			var vv Checkbox2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Checkbox2 = &vv
+		case 17:
+			var vv CreatedBy
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.CreatedBy = &vv
+		case 18:
+			var vv CreatedTime
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.CreatedTime = &vv
+		case 19:
+			var vv LastEditedBy
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.LastEditedBy = &vv
+		case 20:
+			var vv LastEditedTime
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.LastEditedTime = &vv
+		case 21:
+			var vv Place2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Place2 = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of UpdateADataSourcePropertiesValueOneOf0AllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *UpdateADataSourcePropertiesValueOneOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfUpdateADataSourcePropertiesValueOneOf0)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Number2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Number2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Formula != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Formula, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Select3 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Select3, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.MultiSelect3 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.MultiSelect3, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Status3 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Status3, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Relation2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Relation2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Rollup != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Rollup, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.UniqueID != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.UniqueID, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Title2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Title2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.RichText2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.RichText2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Url2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Url2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.People2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.People2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Files2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Files2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Email2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Email2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.PhoneNumber2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.PhoneNumber2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Date2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Date2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Checkbox2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Checkbox2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.CreatedBy != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.CreatedBy, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.CreatedTime != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.CreatedTime, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.LastEditedBy != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.LastEditedBy, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.LastEditedTime != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.LastEditedTime, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Place2 != nil {
+		variant, err := json.Marshal(v.UpdateADataSourcePropertiesValueOneOf0AllOf1.Place2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0: want exactly one alternative of UpdateADataSourcePropertiesValueOneOf0AllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // UpdateADataSourcePropertiesValueOneOf0AllOf1 defines a model
@@ -13262,186 +14673,168 @@ func (v *UpdateADataSourcePropertiesValueOneOf0AllOf1) UnmarshalJSONFrom(dec *js
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0AllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv Number2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number2 = &vv
+	case "formula":
 		var vv Formula
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Formula = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Formula = &vv
+	case "select":
 		var vv Select3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Select3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Select3 = &vv
+	case "multi_select":
 		var vv MultiSelect3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelect3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelect3 = &vv
+	case "status":
 		var vv Status3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Status3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Status3 = &vv
+	case "relation":
 		var vv Relation2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Relation2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Relation2 = &vv
+	case "rollup":
 		var vv Rollup
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Rollup = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Rollup = &vv
+	case "unique_id":
 		var vv UniqueID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UniqueID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UniqueID = &vv
+	case "title":
 		var vv Title2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Title2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Title2 = &vv
+	case "rich_text":
 		var vv RichText2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichText2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichText2 = &vv
+	case "url":
 		var vv URL2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Url2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Url2 = &vv
+	case "people":
 		var vv People2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.People2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.People2 = &vv
+	case "files":
 		var vv Files2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Files2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Files2 = &vv
+	case "email":
 		var vv Email2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Email2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Email2 = &vv
+	case "phone_number":
 		var vv PhoneNumber2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumber2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumber2 = &vv
+	case "date":
 		var vv Date2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date2 = &vv
+	case "checkbox":
 		var vv Checkbox2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Checkbox2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Checkbox2 = &vv
+	case "created_by":
 		var vv CreatedBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedBy = &vv
+	case "created_time":
 		var vv CreatedTime
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedTime = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedTime = &vv
+	case "last_edited_by":
 		var vv LastEditedBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedBy = &vv
+	case "last_edited_time":
 		var vv LastEditedTime
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedTime = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedTime = &vv
+	case "place":
 		var vv Place2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Place2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0AllOf1: expected exactly one matching variant, got %d", matched)
+		v.Place2 = &vv
+	default:
+		return fmt.Errorf("UpdateADataSourcePropertiesValueOneOf0AllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -13569,8 +14962,171 @@ type UpdateDatabase struct {
 
 // UpdatePageMarkdown defines a model
 type UpdatePageMarkdown struct {
-	UpdatePageMarkdownAllOf0
-	UpdatePageMarkdownAllOf1
+	// Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape.
+	AllowAsync               bool                     `json:"allow_async,omitempty"`
+	UpdatePageMarkdownAllOf1 UpdatePageMarkdownAllOf1 `json:"-"`
+}
+
+// fieldsOfUpdatePageMarkdown is UpdatePageMarkdown without its methods, to encode the fields outside its union.
+type fieldsOfUpdatePageMarkdown UpdatePageMarkdown
+
+// membersOfUpdatePageMarkdown are the members UpdatePageMarkdown declares outside its union.
+var membersOfUpdatePageMarkdown = map[string]bool{"allow_async": true}
+
+// variantsOfUpdatePageMarkdown are the alternatives of its union, in order.
+var variantsOfUpdatePageMarkdown = []jsonVariant{
+	{
+		value:    "insert_content",
+		members:  map[string]bool{"insert_content": true, "type": true},
+		required: []string{"insert_content", "type"},
+	},
+	{
+		value:    "replace_content_range",
+		members:  map[string]bool{"replace_content_range": true, "type": true},
+		required: []string{"replace_content_range", "type"},
+	},
+	{
+		value:    "update_content",
+		members:  map[string]bool{"type": true, "update_content": true},
+		required: []string{"type", "update_content"},
+	},
+	{
+		value:    "replace_content",
+		members:  map[string]bool{"replace_content": true, "type": true},
+		required: []string{"replace_content", "type"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of UpdatePageMarkdownAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *UpdatePageMarkdown) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfUpdatePageMarkdown, membersOfUpdatePageMarkdown, true)
+	if err != nil {
+		return fmt.Errorf("UpdatePageMarkdown: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfUpdatePageMarkdown)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfUpdatePageMarkdown)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfUpdatePageMarkdown[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv InsertContent
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdatePageMarkdownAllOf1.InsertContent = &vv
+		case 1:
+			var vv ReplaceContentRange
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdatePageMarkdownAllOf1.ReplaceContentRange = &vv
+		case 2:
+			var vv UpdateContent
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdatePageMarkdownAllOf1.UpdateContent = &vv
+		case 3:
+			var vv ReplaceContent
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.UpdatePageMarkdownAllOf1.ReplaceContent = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of UpdatePageMarkdownAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *UpdatePageMarkdown) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfUpdatePageMarkdown)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.UpdatePageMarkdownAllOf1.InsertContent != nil {
+		variant, err := json.Marshal(v.UpdatePageMarkdownAllOf1.InsertContent, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdatePageMarkdown: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdatePageMarkdownAllOf1.ReplaceContentRange != nil {
+		variant, err := json.Marshal(v.UpdatePageMarkdownAllOf1.ReplaceContentRange, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdatePageMarkdown: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdatePageMarkdownAllOf1.UpdateContent != nil {
+		variant, err := json.Marshal(v.UpdatePageMarkdownAllOf1.UpdateContent, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdatePageMarkdown: %w", err)
+		}
+
+		set++
+	}
+
+	if v.UpdatePageMarkdownAllOf1.ReplaceContent != nil {
+		variant, err := json.Marshal(v.UpdatePageMarkdownAllOf1.ReplaceContent, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("UpdatePageMarkdown: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("UpdatePageMarkdown: want exactly one alternative of UpdatePageMarkdownAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // UpdatePageMarkdownAccepted defines a model
@@ -13615,26 +15171,28 @@ func (v *UpdatePageMarkdownAcceptedOperation) UnmarshalJSONFrom(dec *jsontext.De
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "name")
+	if err != nil {
+		return fmt.Errorf("UpdatePageMarkdownAcceptedOperation: %w", err)
+	}
 
-	{
+	switch tag {
+	case "PATCH /v1/pages/:page_id/markdown":
 		var vv UpdatePageMarkdownAcceptedOperationOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UpdatePageMarkdownAcceptedOperationOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UpdatePageMarkdownAcceptedOperationOneOf0 = &vv
+	case "create_pages":
 		var vv UpdatePageMarkdownAcceptedOperationOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UpdatePageMarkdownAcceptedOperationOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("UpdatePageMarkdownAcceptedOperation: expected exactly one matching variant, got %d", matched)
+		v.UpdatePageMarkdownAcceptedOperationOneOf1 = &vv
+	default:
+		return fmt.Errorf("UpdatePageMarkdownAcceptedOperation: unknown name %q", tag)
 	}
 
 	return nil
@@ -13732,12 +15290,6 @@ func (e UpdatePageMarkdownAcceptedOperationOneOf1Surface) Valid() bool {
 	}
 }
 
-// UpdatePageMarkdownAllOf0 defines a model
-type UpdatePageMarkdownAllOf0 struct {
-	// Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape.
-	AllowAsync bool `json:"allow_async,omitempty"`
-}
-
 // UpdatePageMarkdownAllOf1 defines a model
 // UpdatePageMarkdownAllOf1 is an untagged oneOf union: exactly one field is set after unmarshaling.
 type UpdatePageMarkdownAllOf1 struct {
@@ -13754,42 +15306,42 @@ func (v *UpdatePageMarkdownAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("UpdatePageMarkdownAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "insert_content":
 		var vv InsertContent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.InsertContent = &vv
+	case "replace_content_range":
 		var vv ReplaceContentRange
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ReplaceContentRange = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ReplaceContentRange = &vv
+	case "update_content":
 		var vv UpdateContent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UpdateContent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UpdateContent = &vv
+	case "replace_content":
 		var vv ReplaceContent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ReplaceContent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("UpdatePageMarkdownAllOf1: expected exactly one matching variant, got %d", matched)
+		v.ReplaceContent = &vv
+	default:
+		return fmt.Errorf("UpdatePageMarkdownAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -14114,26 +15666,28 @@ func (v *Verification2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "state")
+	if err != nil {
+		return fmt.Errorf("Verification2: %w", err)
+	}
 
-	{
+	switch tag {
+	case "verified":
 		var vv VerificationAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.VerificationAnyOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.VerificationAnyOf = &vv
+	case "unverified":
 		var vv VerificationAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.VerificationAnyOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("Verification2: expected at least one matching variant, got 0")
+		v.VerificationAnyOf2 = &vv
+	default:
+		return fmt.Errorf("Verification2: unknown state %q", tag)
 	}
 
 	return nil
@@ -14661,42 +16215,42 @@ func (v *arrayBasedPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decode
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("arrayBasedPropertyValueResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "title":
 		var vv titleArrayBasedPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TitleArrayBasedPropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TitleArrayBasedPropertyValueResponse = &vv
+	case "rich_text":
 		var vv richTextArrayBasedPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichTextArrayBasedPropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichTextArrayBasedPropertyValueResponse = &vv
+	case "people":
 		var vv peopleArrayBasedPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PeopleArrayBasedPropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PeopleArrayBasedPropertyValueResponse = &vv
+	case "relation":
 		var vv Relation
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Relation = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("arrayBasedPropertyValueResponse: expected exactly one matching variant, got %d", matched)
+		v.Relation = &vv
+	default:
+		return fmt.Errorf("arrayBasedPropertyValueResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -14850,258 +16404,231 @@ func (v *blockObjectRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("blockObjectRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "embed":
 		var vv Embed3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Embed3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Embed3 = &vv
+	case "bookmark":
 		var vv Bookmark3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Bookmark3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Bookmark3 = &vv
+	case "image":
 		var vv Image3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Image3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Image3 = &vv
+	case "video":
 		var vv Video3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Video3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Video3 = &vv
+	case "pdf":
 		var vv Pdf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Pdf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Pdf3 = &vv
+	case "file":
 		var vv File3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.File3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.File3 = &vv
+	case "audio":
 		var vv Audio3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Audio3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Audio3 = &vv
+	case "code":
 		var vv Code3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Code3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Code3 = &vv
+	case "equation":
 		var vv Equation3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Equation3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Equation3 = &vv
+	case "divider":
 		var vv Divider3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Divider3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Divider3 = &vv
+	case "breadcrumb":
 		var vv Breadcrumb3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Breadcrumb3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Breadcrumb3 = &vv
+	case "tab":
 		var vv Tab2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Tab2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Tab2 = &vv
+	case "table_of_contents":
 		var vv TableOfContents3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableOfContents3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableOfContents3 = &vv
+	case "link_to_page":
 		var vv LinkToPage3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkToPage3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkToPage3 = &vv
+	case "table_row":
 		var vv TableRow3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableRow3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableRow3 = &vv
+	case "table":
 		var vv Table3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Table3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Table3 = &vv
+	case "column_list":
 		var vv ColumnList
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ColumnList = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ColumnList = &vv
+	case "column":
 		var vv Column3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Column3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Column3 = &vv
+	case "heading_1":
 		var vv Heading12
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading12 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading12 = &vv
+	case "heading_2":
 		var vv Heading22
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading22 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading22 = &vv
+	case "heading_3":
 		var vv Heading32
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading32 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading32 = &vv
+	case "heading_4":
 		var vv Heading42
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading42 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading42 = &vv
+	case "paragraph":
 		var vv Paragraph2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Paragraph2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Paragraph2 = &vv
+	case "bulleted_list_item":
 		var vv BulletedListItem2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BulletedListItem2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BulletedListItem2 = &vv
+	case "numbered_list_item":
 		var vv NumberedListItem2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberedListItem2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberedListItem2 = &vv
+	case "quote":
 		var vv Quote2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Quote2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Quote2 = &vv
+	case "to_do":
 		var vv ToDo2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ToDo2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ToDo2 = &vv
+	case "toggle":
 		var vv Toggle2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Toggle2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Toggle2 = &vv
+	case "template":
 		var vv Template2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Template2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Template2 = &vv
+	case "callout":
 		var vv Callout2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Callout2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Callout2 = &vv
+	case "synced_block":
 		var vv SyncedBlock2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SyncedBlock2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("blockObjectRequest: expected at least one matching variant, got 0")
+		v.SyncedBlock2 = &vv
+	default:
+		return fmt.Errorf("blockObjectRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -15217,234 +16744,210 @@ func (v *blockObjectRequestWithoutChildren) UnmarshalJSONFrom(dec *jsontext.Deco
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("blockObjectRequestWithoutChildren: %w", err)
+	}
 
-	{
+	switch tag {
+	case "embed":
 		var vv Embed3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Embed3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Embed3 = &vv
+	case "bookmark":
 		var vv Bookmark3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Bookmark3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Bookmark3 = &vv
+	case "image":
 		var vv Image3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Image3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Image3 = &vv
+	case "video":
 		var vv Video3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Video3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Video3 = &vv
+	case "pdf":
 		var vv Pdf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Pdf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Pdf3 = &vv
+	case "file":
 		var vv File3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.File3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.File3 = &vv
+	case "audio":
 		var vv Audio3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Audio3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Audio3 = &vv
+	case "code":
 		var vv Code3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Code3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Code3 = &vv
+	case "equation":
 		var vv Equation3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Equation3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Equation3 = &vv
+	case "divider":
 		var vv Divider3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Divider3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Divider3 = &vv
+	case "breadcrumb":
 		var vv Breadcrumb3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Breadcrumb3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Breadcrumb3 = &vv
+	case "tab":
 		var vv Tab3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Tab3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Tab3 = &vv
+	case "table_of_contents":
 		var vv TableOfContents3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableOfContents3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableOfContents3 = &vv
+	case "link_to_page":
 		var vv LinkToPage3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkToPage3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkToPage3 = &vv
+	case "table_row":
 		var vv TableRow3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableRow3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableRow3 = &vv
+	case "heading_1":
 		var vv Heading13
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading13 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading13 = &vv
+	case "heading_2":
 		var vv Heading23
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading23 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading23 = &vv
+	case "heading_3":
 		var vv Heading33
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading33 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading33 = &vv
+	case "heading_4":
 		var vv Heading43
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading43 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading43 = &vv
+	case "paragraph":
 		var vv Paragraph5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Paragraph5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Paragraph5 = &vv
+	case "bulleted_list_item":
 		var vv BulletedListItem3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BulletedListItem3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BulletedListItem3 = &vv
+	case "numbered_list_item":
 		var vv NumberedListItem3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberedListItem3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberedListItem3 = &vv
+	case "quote":
 		var vv Quote3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Quote3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Quote3 = &vv
+	case "to_do":
 		var vv ToDo3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ToDo3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ToDo3 = &vv
+	case "toggle":
 		var vv Toggle3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Toggle3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Toggle3 = &vv
+	case "template":
 		var vv Template3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Template3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Template3 = &vv
+	case "callout":
 		var vv Callout3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Callout3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Callout3 = &vv
+	case "synced_block":
 		var vv SyncedBlock3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SyncedBlock3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("blockObjectRequestWithoutChildren: expected at least one matching variant, got 0")
+		v.SyncedBlock3 = &vv
+	default:
+		return fmt.Errorf("blockObjectRequestWithoutChildren: unknown type %q", tag)
 	}
 
 	return nil
@@ -15562,298 +17065,266 @@ func (v *blockObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("blockObjectResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "paragraph":
 		var vv paragraphBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ParagraphBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ParagraphBlockObjectResponse = &vv
+	case "heading_1":
 		var vv heading1BlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading1BlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading1BlockObjectResponse = &vv
+	case "heading_2":
 		var vv heading2BlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading2BlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading2BlockObjectResponse = &vv
+	case "heading_3":
 		var vv heading3BlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading3BlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading3BlockObjectResponse = &vv
+	case "heading_4":
 		var vv heading4BlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading4BlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading4BlockObjectResponse = &vv
+	case "bulleted_list_item":
 		var vv bulletedListItemBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BulletedListItemBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BulletedListItemBlockObjectResponse = &vv
+	case "numbered_list_item":
 		var vv numberedListItemBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberedListItemBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberedListItemBlockObjectResponse = &vv
+	case "quote":
 		var vv quoteBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.QuoteBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.QuoteBlockObjectResponse = &vv
+	case "to_do":
 		var vv toDoBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ToDoBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ToDoBlockObjectResponse = &vv
+	case "toggle":
 		var vv toggleBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ToggleBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ToggleBlockObjectResponse = &vv
+	case "template":
 		var vv templateBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TemplateBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TemplateBlockObjectResponse = &vv
+	case "synced_block":
 		var vv syncedBlockBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SyncedBlockBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SyncedBlockBlockObjectResponse = &vv
+	case "child_page":
 		var vv childPageBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChildPageBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ChildPageBlockObjectResponse = &vv
+	case "child_database":
 		var vv childDatabaseBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChildDatabaseBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ChildDatabaseBlockObjectResponse = &vv
+	case "equation":
 		var vv equationBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EquationBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.EquationBlockObjectResponse = &vv
+	case "code":
 		var vv codeBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CodeBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CodeBlockObjectResponse = &vv
+	case "callout":
 		var vv calloutBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CalloutBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CalloutBlockObjectResponse = &vv
+	case "divider":
 		var vv dividerBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DividerBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DividerBlockObjectResponse = &vv
+	case "breadcrumb":
 		var vv breadcrumbBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BreadcrumbBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BreadcrumbBlockObjectResponse = &vv
+	case "table_of_contents":
 		var vv tableOfContentsBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableOfContentsBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableOfContentsBlockObjectResponse = &vv
+	case "tab":
 		var vv tabBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TabBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TabBlockObjectResponse = &vv
+	case "column_list":
 		var vv columnListBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ColumnListBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ColumnListBlockObjectResponse = &vv
+	case "column":
 		var vv columnBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ColumnBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ColumnBlockObjectResponse = &vv
+	case "link_to_page":
 		var vv linkToPageBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkToPageBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkToPageBlockObjectResponse = &vv
+	case "table":
 		var vv tableBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableBlockObjectResponse = &vv
+	case "table_row":
 		var vv tableRowBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableRowBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableRowBlockObjectResponse = &vv
+	case "meeting_notes":
 		var vv meetingNotesBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MeetingNotesBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MeetingNotesBlockObjectResponse = &vv
+	case "embed":
 		var vv embedBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EmbedBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.EmbedBlockObjectResponse = &vv
+	case "bookmark":
 		var vv bookmarkBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BookmarkBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BookmarkBlockObjectResponse = &vv
+	case "image":
 		var vv imageBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ImageBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ImageBlockObjectResponse = &vv
+	case "video":
 		var vv videoBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.VideoBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.VideoBlockObjectResponse = &vv
+	case "pdf":
 		var vv pdfBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PdfBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PdfBlockObjectResponse = &vv
+	case "file":
 		var vv fileBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FileBlockObjectResponse = &vv
+	case "audio":
 		var vv audioBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AudioBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AudioBlockObjectResponse = &vv
+	case "link_preview":
 		var vv linkPreviewBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkPreviewBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkPreviewBlockObjectResponse = &vv
+	case "unsupported":
 		var vv unsupportedBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UnsupportedBlockObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("blockObjectResponse: expected at least one matching variant, got 0")
+		v.UnsupportedBlockObjectResponse = &vv
+	default:
+		return fmt.Errorf("blockObjectResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -15980,242 +17451,217 @@ func (v *blockObjectWithSingleLevelOfChildrenRequest) UnmarshalJSONFrom(dec *jso
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("blockObjectWithSingleLevelOfChildrenRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "embed":
 		var vv Embed3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Embed3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Embed3 = &vv
+	case "bookmark":
 		var vv Bookmark3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Bookmark3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Bookmark3 = &vv
+	case "image":
 		var vv Image3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Image3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Image3 = &vv
+	case "video":
 		var vv Video3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Video3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Video3 = &vv
+	case "pdf":
 		var vv Pdf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Pdf3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Pdf3 = &vv
+	case "file":
 		var vv File3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.File3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.File3 = &vv
+	case "audio":
 		var vv Audio3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Audio3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Audio3 = &vv
+	case "code":
 		var vv Code3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Code3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Code3 = &vv
+	case "equation":
 		var vv Equation3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Equation3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Equation3 = &vv
+	case "divider":
 		var vv Divider3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Divider3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Divider3 = &vv
+	case "breadcrumb":
 		var vv Breadcrumb3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Breadcrumb3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Breadcrumb3 = &vv
+	case "tab":
 		var vv Tab4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Tab4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Tab4 = &vv
+	case "table_of_contents":
 		var vv TableOfContents3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableOfContents3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableOfContents3 = &vv
+	case "link_to_page":
 		var vv LinkToPage3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LinkToPage3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LinkToPage3 = &vv
+	case "table_row":
 		var vv TableRow3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableRow3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableRow3 = &vv
+	case "heading_1":
 		var vv Heading14
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading14 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading14 = &vv
+	case "heading_2":
 		var vv Heading24
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading24 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading24 = &vv
+	case "heading_3":
 		var vv Heading34
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading34 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading34 = &vv
+	case "heading_4":
 		var vv Heading44
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Heading44 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Heading44 = &vv
+	case "paragraph":
 		var vv Paragraph3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Paragraph3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Paragraph3 = &vv
+	case "bulleted_list_item":
 		var vv BulletedListItem4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BulletedListItem4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BulletedListItem4 = &vv
+	case "numbered_list_item":
 		var vv NumberedListItem4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberedListItem4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberedListItem4 = &vv
+	case "quote":
 		var vv Quote4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Quote4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Quote4 = &vv
+	case "table":
 		var vv Table3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Table3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Table3 = &vv
+	case "to_do":
 		var vv ToDo4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ToDo4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ToDo4 = &vv
+	case "toggle":
 		var vv Toggle4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Toggle4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Toggle4 = &vv
+	case "template":
 		var vv Template4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Template4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Template4 = &vv
+	case "callout":
 		var vv Callout4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Callout4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Callout4 = &vv
+	case "synced_block":
 		var vv SyncedBlock4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SyncedBlock4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("blockObjectWithSingleLevelOfChildrenRequest: expected at least one matching variant, got 0")
+		v.SyncedBlock4 = &vv
+	default:
+		return fmt.Errorf("blockObjectWithSingleLevelOfChildrenRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -16769,11 +18215,6 @@ type columnWithChildrenRequest struct {
 // commentCreatedWebhookPayload defines a model
 type commentCreatedWebhookPayload struct {
 	baseWebhookPayload
-	commentCreatedWebhookPayloadAllOf1
-}
-
-// commentCreatedWebhookPayloadAllOf1 defines a model
-type commentCreatedWebhookPayloadAllOf1 struct {
 	// Always `comment.created`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -16785,11 +18226,6 @@ type commentCreatedWebhookPayloadAllOf1 struct {
 // commentDeletedWebhookPayload defines a model
 type commentDeletedWebhookPayload struct {
 	baseWebhookPayload
-	commentDeletedWebhookPayloadAllOf1
-}
-
-// commentDeletedWebhookPayloadAllOf1 defines a model
-type commentDeletedWebhookPayloadAllOf1 struct {
 	// Always `comment.deleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -16840,26 +18276,28 @@ func (v *commentParentResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("commentParentResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv pageIdCommentParent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageIDCommentParent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PageIDCommentParent = &vv
+	case "block_id":
 		var vv blockIdCommentParent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BlockIDCommentParent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("commentParentResponse: expected exactly one matching variant, got %d", matched)
+		v.BlockIDCommentParent = &vv
+	default:
+		return fmt.Errorf("commentParentResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -16880,11 +18318,6 @@ func (v *commentParentResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 // commentUpdatedWebhookPayload defines a model
 type commentUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	commentUpdatedWebhookPayloadAllOf1
-}
-
-// commentUpdatedWebhookPayloadAllOf1 defines a model
-type commentUpdatedWebhookPayloadAllOf1 struct {
 	// Always `comment.updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -16908,34 +18341,35 @@ func (v *contentPositionSchema) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("contentPositionSchema: %w", err)
+	}
 
-	{
+	switch tag {
+	case "after_block":
 		var vv contentPositionSchemaAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ContentPositionSchemaAnyOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ContentPositionSchemaAnyOf = &vv
+	case "start":
 		var vv InsertContentInsertContentPositionOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContentInsertContentPositionOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.InsertContentInsertContentPositionOneOf = &vv
+	case "end":
 		var vv InsertContentInsertContentPositionOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContentInsertContentPositionOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("contentPositionSchema: expected at least one matching variant, got 0")
+		v.InsertContentInsertContentPositionOneOf2 = &vv
+	default:
+		return fmt.Errorf("contentPositionSchema: unknown type %q", tag)
 	}
 
 	return nil
@@ -17139,11 +18573,6 @@ type dashboardWidgetResponse struct {
 // dataSourceContentUpdatedWebhookPayload defines a model
 type dataSourceContentUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	dataSourceContentUpdatedWebhookPayloadAllOf1
-}
-
-// dataSourceContentUpdatedWebhookPayloadAllOf1 defines a model
-type dataSourceContentUpdatedWebhookPayloadAllOf1 struct {
 	// Always `data_source.content_updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17155,11 +18584,6 @@ type dataSourceContentUpdatedWebhookPayloadAllOf1 struct {
 // dataSourceCreatedWebhookPayload defines a model
 type dataSourceCreatedWebhookPayload struct {
 	baseWebhookPayload
-	dataSourceCreatedWebhookPayloadAllOf1
-}
-
-// dataSourceCreatedWebhookPayloadAllOf1 defines a model
-type dataSourceCreatedWebhookPayloadAllOf1 struct {
 	// Always `data_source.created`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17171,11 +18595,6 @@ type dataSourceCreatedWebhookPayloadAllOf1 struct {
 // dataSourceDeletedWebhookPayload defines a model
 type dataSourceDeletedWebhookPayload struct {
 	baseWebhookPayload
-	dataSourceDeletedWebhookPayloadAllOf1
-}
-
-// dataSourceDeletedWebhookPayloadAllOf1 defines a model
-type dataSourceDeletedWebhookPayloadAllOf1 struct {
 	// Always `data_source.deleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17187,11 +18606,6 @@ type dataSourceDeletedWebhookPayloadAllOf1 struct {
 // dataSourceMovedWebhookPayload defines a model
 type dataSourceMovedWebhookPayload struct {
 	baseWebhookPayload
-	dataSourceMovedWebhookPayloadAllOf1
-}
-
-// dataSourceMovedWebhookPayloadAllOf1 defines a model
-type dataSourceMovedWebhookPayloadAllOf1 struct {
 	// Always `data_source.moved`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17261,11 +18675,6 @@ type dataSourceReferenceResponse struct {
 // dataSourceSchemaUpdatedWebhookPayload defines a model
 type dataSourceSchemaUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	dataSourceSchemaUpdatedWebhookPayloadAllOf1
-}
-
-// dataSourceSchemaUpdatedWebhookPayloadAllOf1 defines a model
-type dataSourceSchemaUpdatedWebhookPayloadAllOf1 struct {
 	// Always `data_source.schema_updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17277,11 +18686,6 @@ type dataSourceSchemaUpdatedWebhookPayloadAllOf1 struct {
 // dataSourceUndeletedWebhookPayload defines a model
 type dataSourceUndeletedWebhookPayload struct {
 	baseWebhookPayload
-	dataSourceUndeletedWebhookPayloadAllOf1
-}
-
-// dataSourceUndeletedWebhookPayloadAllOf1 defines a model
-type dataSourceUndeletedWebhookPayloadAllOf1 struct {
 	// Always `data_source.undeleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17337,11 +18741,6 @@ type dataSourceViewReferenceResponse struct {
 // databaseContentUpdatedWebhookPayload defines a model
 type databaseContentUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	databaseContentUpdatedWebhookPayloadAllOf1
-}
-
-// databaseContentUpdatedWebhookPayloadAllOf1 defines a model
-type databaseContentUpdatedWebhookPayloadAllOf1 struct {
 	// Always `database.content_updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17353,11 +18752,6 @@ type databaseContentUpdatedWebhookPayloadAllOf1 struct {
 // databaseCreatedWebhookPayload defines a model
 type databaseCreatedWebhookPayload struct {
 	baseWebhookPayload
-	databaseCreatedWebhookPayloadAllOf1
-}
-
-// databaseCreatedWebhookPayloadAllOf1 defines a model
-type databaseCreatedWebhookPayloadAllOf1 struct {
 	// Always `database.created`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17369,11 +18763,6 @@ type databaseCreatedWebhookPayloadAllOf1 struct {
 // databaseDeletedWebhookPayload defines a model
 type databaseDeletedWebhookPayload struct {
 	baseWebhookPayload
-	databaseDeletedWebhookPayloadAllOf1
-}
-
-// databaseDeletedWebhookPayloadAllOf1 defines a model
-type databaseDeletedWebhookPayloadAllOf1 struct {
 	// Always `database.deleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17385,11 +18774,6 @@ type databaseDeletedWebhookPayloadAllOf1 struct {
 // databaseMovedWebhookPayload defines a model
 type databaseMovedWebhookPayload struct {
 	baseWebhookPayload
-	databaseMovedWebhookPayloadAllOf1
-}
-
-// databaseMovedWebhookPayloadAllOf1 defines a model
-type databaseMovedWebhookPayloadAllOf1 struct {
 	// Always `database.moved`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17444,8 +18828,600 @@ type databaseParentResponse struct {
 
 // databasePropertyConfigResponse defines a model
 type databasePropertyConfigResponse struct {
-	databasePropertyConfigResponseCommon
-	databasePropertyConfigResponseAllOf1
+	// The ID of the property.
+	ID string `json:"id,omitzero"`
+	// The name of the property.
+	Name string `json:"name,omitzero"`
+	// The description of the property.
+	Description                          *propertyDescriptionRequest          `json:"description"`
+	databasePropertyConfigResponseAllOf1 databasePropertyConfigResponseAllOf1 `json:"-"`
+}
+
+// fieldsOfdatabasePropertyConfigResponse is databasePropertyConfigResponse without its methods, to encode the fields outside its union.
+type fieldsOfdatabasePropertyConfigResponse databasePropertyConfigResponse
+
+// membersOfdatabasePropertyConfigResponse are the members databasePropertyConfigResponse declares outside its union.
+var membersOfdatabasePropertyConfigResponse = map[string]bool{"description": true, "id": true, "name": true}
+
+// variantsOfdatabasePropertyConfigResponse are the alternatives of its union, in order.
+var variantsOfdatabasePropertyConfigResponse = []jsonVariant{
+	{
+		value:    "number",
+		members:  map[string]bool{"number": true, "type": true},
+		required: []string{"number"},
+	},
+	{
+		value:    "formula",
+		members:  map[string]bool{"formula": true, "type": true},
+		required: []string{"formula"},
+	},
+	{
+		value:    "select",
+		members:  map[string]bool{"select": true, "type": true},
+		required: []string{"select", "type"},
+	},
+	{
+		value:    "multi_select",
+		members:  map[string]bool{"multi_select": true, "type": true},
+		required: []string{"multi_select", "type"},
+	},
+	{
+		value:    "status",
+		members:  map[string]bool{"status": true, "type": true},
+		required: []string{"status", "type"},
+	},
+	{
+		value:    "relation",
+		members:  map[string]bool{"relation": true, "type": true},
+		required: []string{"relation", "type"},
+	},
+	{
+		value:    "rollup",
+		members:  map[string]bool{"rollup": true, "type": true},
+		required: []string{"rollup", "type"},
+	},
+	{
+		value:    "unique_id",
+		members:  map[string]bool{"type": true, "unique_id": true},
+		required: []string{"unique_id"},
+	},
+	{
+		value:    "title",
+		members:  map[string]bool{"title": true, "type": true},
+		required: []string{"title"},
+	},
+	{
+		value:    "rich_text",
+		members:  map[string]bool{"rich_text": true, "type": true},
+		required: []string{"rich_text"},
+	},
+	{
+		value:    "url",
+		members:  map[string]bool{"type": true, "url": true},
+		required: []string{"url"},
+	},
+	{
+		value:    "people",
+		members:  map[string]bool{"people": true, "type": true},
+		required: []string{"people"},
+	},
+	{
+		value:    "files",
+		members:  map[string]bool{"files": true, "type": true},
+		required: []string{"files"},
+	},
+	{
+		value:    "email",
+		members:  map[string]bool{"email": true, "type": true},
+		required: []string{"email"},
+	},
+	{
+		value:    "phone_number",
+		members:  map[string]bool{"phone_number": true, "type": true},
+		required: []string{"phone_number"},
+	},
+	{
+		value:    "date",
+		members:  map[string]bool{"date": true, "type": true},
+		required: []string{"date"},
+	},
+	{
+		value:    "checkbox",
+		members:  map[string]bool{"checkbox": true, "type": true},
+		required: []string{"checkbox"},
+	},
+	{
+		value:    "created_by",
+		members:  map[string]bool{"created_by": true, "type": true},
+		required: []string{"created_by"},
+	},
+	{
+		value:    "created_time",
+		members:  map[string]bool{"created_time": true, "type": true},
+		required: []string{"created_time"},
+	},
+	{
+		value:    "last_edited_by",
+		members:  map[string]bool{"last_edited_by": true, "type": true},
+		required: []string{"last_edited_by"},
+	},
+	{
+		value:    "last_edited_time",
+		members:  map[string]bool{"last_edited_time": true, "type": true},
+		required: []string{"last_edited_time"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of databasePropertyConfigResponseAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfdatabasePropertyConfigResponse, membersOfdatabasePropertyConfigResponse, true)
+	if err != nil {
+		return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfdatabasePropertyConfigResponse)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfdatabasePropertyConfigResponse)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfdatabasePropertyConfigResponse[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv Number2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Number2 = &vv
+		case 1:
+			var vv Formula
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Formula = &vv
+		case 2:
+			var vv selectDatabasePropertyConfigResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse = &vv
+		case 3:
+			var vv multiSelectDatabasePropertyConfigResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse = &vv
+		case 4:
+			var vv statusDatabasePropertyConfigResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse = &vv
+		case 5:
+			var vv relationDatabasePropertyConfigResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse = &vv
+		case 6:
+			var vv rollupDatabasePropertyConfigResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse = &vv
+		case 7:
+			var vv UniqueID
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.UniqueID = &vv
+		case 8:
+			var vv Title2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Title2 = &vv
+		case 9:
+			var vv RichText2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.RichText2 = &vv
+		case 10:
+			var vv URL2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Url2 = &vv
+		case 11:
+			var vv People2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.People2 = &vv
+		case 12:
+			var vv Files2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Files2 = &vv
+		case 13:
+			var vv Email2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Email2 = &vv
+		case 14:
+			var vv PhoneNumber2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.PhoneNumber2 = &vv
+		case 15:
+			var vv Date2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Date2 = &vv
+		case 16:
+			var vv Checkbox2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.Checkbox2 = &vv
+		case 17:
+			var vv CreatedBy
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.CreatedBy = &vv
+		case 18:
+			var vv CreatedTime
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.CreatedTime = &vv
+		case 19:
+			var vv LastEditedBy
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.LastEditedBy = &vv
+		case 20:
+			var vv LastEditedTime
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.databasePropertyConfigResponseAllOf1.LastEditedTime = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of databasePropertyConfigResponseAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfdatabasePropertyConfigResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.databasePropertyConfigResponseAllOf1.Number2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Number2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Formula != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Formula, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.UniqueID != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.UniqueID, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Title2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Title2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.RichText2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.RichText2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Url2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Url2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.People2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.People2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Files2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Files2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Email2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Email2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.PhoneNumber2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.PhoneNumber2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Date2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Date2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.Checkbox2 != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.Checkbox2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.CreatedBy != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.CreatedBy, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.CreatedTime != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.CreatedTime, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.LastEditedBy != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.LastEditedBy, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.databasePropertyConfigResponseAllOf1.LastEditedTime != nil {
+		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.LastEditedTime, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("databasePropertyConfigResponse: want exactly one alternative of databasePropertyConfigResponseAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // databasePropertyConfigResponseAllOf1 defines a model
@@ -17481,178 +19457,161 @@ func (v *databasePropertyConfigResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.D
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("databasePropertyConfigResponseAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv Number2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number2 = &vv
+	case "formula":
 		var vv Formula
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Formula = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Formula = &vv
+	case "select":
 		var vv selectDatabasePropertyConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SelectDatabasePropertyConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SelectDatabasePropertyConfigResponse = &vv
+	case "multi_select":
 		var vv multiSelectDatabasePropertyConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelectDatabasePropertyConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelectDatabasePropertyConfigResponse = &vv
+	case "status":
 		var vv statusDatabasePropertyConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StatusDatabasePropertyConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.StatusDatabasePropertyConfigResponse = &vv
+	case "relation":
 		var vv relationDatabasePropertyConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RelationDatabasePropertyConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RelationDatabasePropertyConfigResponse = &vv
+	case "rollup":
 		var vv rollupDatabasePropertyConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RollupDatabasePropertyConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RollupDatabasePropertyConfigResponse = &vv
+	case "unique_id":
 		var vv UniqueID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UniqueID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UniqueID = &vv
+	case "title":
 		var vv Title2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Title2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Title2 = &vv
+	case "rich_text":
 		var vv RichText2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichText2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichText2 = &vv
+	case "url":
 		var vv URL2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Url2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Url2 = &vv
+	case "people":
 		var vv People2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.People2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.People2 = &vv
+	case "files":
 		var vv Files2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Files2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Files2 = &vv
+	case "email":
 		var vv Email2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Email2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Email2 = &vv
+	case "phone_number":
 		var vv PhoneNumber2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumber2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumber2 = &vv
+	case "date":
 		var vv Date2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date2 = &vv
+	case "checkbox":
 		var vv Checkbox2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Checkbox2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Checkbox2 = &vv
+	case "created_by":
 		var vv CreatedBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedBy = &vv
+	case "created_time":
 		var vv CreatedTime
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedTime = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedTime = &vv
+	case "last_edited_by":
 		var vv LastEditedBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedBy = &vv
+	case "last_edited_time":
 		var vv LastEditedTime
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedTime = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("databasePropertyConfigResponseAllOf1: expected exactly one matching variant, got %d", matched)
+		v.LastEditedTime = &vv
+	default:
+		return fmt.Errorf("databasePropertyConfigResponseAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -17708,36 +19667,128 @@ func (v *databasePropertyConfigResponseAllOf1) MarshalJSONTo(enc *jsontext.Encod
 	return fmt.Errorf("databasePropertyConfigResponseAllOf1: no variant set")
 }
 
-// databasePropertyConfigResponseCommon defines a model
-type databasePropertyConfigResponseCommon struct {
-	// The ID of the property.
-	ID string `json:"id,omitzero"`
-	// The name of the property.
-	Name string `json:"name,omitzero"`
-	// The description of the property.
-	Description *propertyDescriptionRequest `json:"description"`
-}
-
 // databasePropertyRelationConfigResponse defines a model
 type databasePropertyRelationConfigResponse struct {
-	databasePropertyRelationConfigResponseCommon
-	RelationPropertyConfigurationRelationAllOf2
+	DatabaseID                                  idResponse                                  `json:"database_id,omitzero"`
+	DataSourceID                                idResponse                                  `json:"data_source_id,omitzero"`
+	RelationPropertyConfigurationRelationAllOf2 RelationPropertyConfigurationRelationAllOf2 `json:"-"`
 }
 
-// databasePropertyRelationConfigResponseCommon defines a model
-type databasePropertyRelationConfigResponseCommon struct {
-	DatabaseID   idResponse `json:"database_id,omitzero"`
-	DataSourceID idResponse `json:"data_source_id,omitzero"`
+// fieldsOfdatabasePropertyRelationConfigResponse is databasePropertyRelationConfigResponse without its methods, to encode the fields outside its union.
+type fieldsOfdatabasePropertyRelationConfigResponse databasePropertyRelationConfigResponse
+
+// membersOfdatabasePropertyRelationConfigResponse are the members databasePropertyRelationConfigResponse declares outside its union.
+var membersOfdatabasePropertyRelationConfigResponse = map[string]bool{"data_source_id": true, "database_id": true}
+
+// variantsOfdatabasePropertyRelationConfigResponse are the alternatives of its union, in order.
+var variantsOfdatabasePropertyRelationConfigResponse = []jsonVariant{
+	{
+		value:    "single_property",
+		members:  map[string]bool{"single_property": true, "type": true},
+		required: []string{"single_property"},
+	},
+	{
+		value:    "dual_property",
+		members:  map[string]bool{"dual_property": true, "type": true},
+		required: []string{"dual_property"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of RelationPropertyConfigurationRelationAllOf2 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *databasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfdatabasePropertyRelationConfigResponse, membersOfdatabasePropertyRelationConfigResponse, true)
+	if err != nil {
+		return fmt.Errorf("databasePropertyRelationConfigResponse: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfdatabasePropertyRelationConfigResponse)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfdatabasePropertyRelationConfigResponse)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfdatabasePropertyRelationConfigResponse[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv SingleProperty
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RelationPropertyConfigurationRelationAllOf2.SingleProperty = &vv
+		case 1:
+			var vv DualProperty
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.RelationPropertyConfigurationRelationAllOf2.DualProperty = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of RelationPropertyConfigurationRelationAllOf2 that is set;
+// a member both write must have the same value in each.
+func (v *databasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfdatabasePropertyRelationConfigResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.RelationPropertyConfigurationRelationAllOf2.SingleProperty != nil {
+		variant, err := json.Marshal(v.RelationPropertyConfigurationRelationAllOf2.SingleProperty, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyRelationConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.RelationPropertyConfigurationRelationAllOf2.DualProperty != nil {
+		variant, err := json.Marshal(v.RelationPropertyConfigurationRelationAllOf2.DualProperty, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("databasePropertyRelationConfigResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("databasePropertyRelationConfigResponse: want exactly one alternative of RelationPropertyConfigurationRelationAllOf2 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // databaseSchemaUpdatedWebhookPayload defines a model
 type databaseSchemaUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	databaseSchemaUpdatedWebhookPayloadAllOf1
-}
-
-// databaseSchemaUpdatedWebhookPayloadAllOf1 defines a model
-type databaseSchemaUpdatedWebhookPayloadAllOf1 struct {
 	// Always `database.schema_updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -17749,11 +19800,6 @@ type databaseSchemaUpdatedWebhookPayloadAllOf1 struct {
 // databaseUndeletedWebhookPayload defines a model
 type databaseUndeletedWebhookPayload struct {
 	baseWebhookPayload
-	databaseUndeletedWebhookPayloadAllOf1
-}
-
-// databaseUndeletedWebhookPayloadAllOf1 defines a model
-type databaseUndeletedWebhookPayloadAllOf1 struct {
 	// Always `database.undeleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -18225,17 +20271,13 @@ type equationRichTextItem struct {
 // error_api_ defines a model
 type error_api_ struct {
 	publicApiCommonErrorResponse
-	error_api_AllOf
+	Code   ErrorAPIAllOfCode `json:"code,omitzero"`
+	Status int               `json:"status"`
 }
 
 // error_api_400 defines a model
 type error_api_400 struct {
 	publicApiCommonErrorResponse
-	error_api_400AllOf1
-}
-
-// error_api_400AllOf1 defines a model
-type error_api_400AllOf1 struct {
 	Code   ErrorAPI400AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18243,11 +20285,6 @@ type error_api_400AllOf1 struct {
 // error_api_401 defines a model
 type error_api_401 struct {
 	publicApiCommonErrorResponse
-	error_api_401AllOf1
-}
-
-// error_api_401AllOf1 defines a model
-type error_api_401AllOf1 struct {
 	Code   ErrorAPI401AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18317,11 +20354,6 @@ func (v *error_api_403) MarshalJSONTo(enc *jsontext.Encoder) error {
 // error_api_403OneOf0 defines a model
 type error_api_403OneOf0 struct {
 	publicApiCommonErrorResponse
-	error_api_403OneOf0AllOf1
-}
-
-// error_api_403OneOf0AllOf1 defines a model
-type error_api_403OneOf0AllOf1 struct {
 	Code   ErrorAPI403OneOf0AllOf1Code `json:"code,omitzero"`
 	Status int                         `json:"status"`
 }
@@ -18329,11 +20361,6 @@ type error_api_403OneOf0AllOf1 struct {
 // error_api_403OneOf1 defines a model
 type error_api_403OneOf1 struct {
 	publicApiCommonErrorResponse
-	error_api_403OneOf1AllOf1
-}
-
-// error_api_403OneOf1AllOf1 defines a model
-type error_api_403OneOf1AllOf1 struct {
 	Code           string                                `json:"code,omitzero"`
 	Status         int                                   `json:"status"`
 	AdditionalData ErrorAPI403OneOf1AllOf1AdditionalData `json:"additional_data"`
@@ -18342,11 +20369,6 @@ type error_api_403OneOf1AllOf1 struct {
 // error_api_403OneOf2 defines a model
 type error_api_403OneOf2 struct {
 	publicApiCommonErrorResponse
-	error_api_403OneOf2AllOf1
-}
-
-// error_api_403OneOf2AllOf1 defines a model
-type error_api_403OneOf2AllOf1 struct {
 	Code           string                                `json:"code,omitzero"`
 	Status         int                                   `json:"status"`
 	AdditionalData ErrorAPI403OneOf2AllOf1AdditionalData `json:"additional_data"`
@@ -18355,11 +20377,6 @@ type error_api_403OneOf2AllOf1 struct {
 // error_api_404 defines a model
 type error_api_404 struct {
 	publicApiCommonErrorResponse
-	error_api_404AllOf1
-}
-
-// error_api_404AllOf1 defines a model
-type error_api_404AllOf1 struct {
 	Code   ErrorAPI404AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18367,11 +20384,6 @@ type error_api_404AllOf1 struct {
 // error_api_406 defines a model
 type error_api_406 struct {
 	publicApiCommonErrorResponse
-	error_api_406AllOf1
-}
-
-// error_api_406AllOf1 defines a model
-type error_api_406AllOf1 struct {
 	Code   ErrorAPI406AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18379,11 +20391,6 @@ type error_api_406AllOf1 struct {
 // error_api_409 defines a model
 type error_api_409 struct {
 	publicApiCommonErrorResponse
-	error_api_409AllOf1
-}
-
-// error_api_409AllOf1 defines a model
-type error_api_409AllOf1 struct {
 	Code   ErrorAPI409AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18391,11 +20398,6 @@ type error_api_409AllOf1 struct {
 // error_api_429 defines a model
 type error_api_429 struct {
 	publicApiCommonErrorResponse
-	error_api_429AllOf1
-}
-
-// error_api_429AllOf1 defines a model
-type error_api_429AllOf1 struct {
 	Code   ErrorAPI429AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18403,11 +20405,6 @@ type error_api_429AllOf1 struct {
 // error_api_503 defines a model
 type error_api_503 struct {
 	publicApiCommonErrorResponse
-	error_api_503AllOf1
-}
-
-// error_api_503AllOf1 defines a model
-type error_api_503AllOf1 struct {
 	Code   ErrorAPI503AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18415,11 +20412,6 @@ type error_api_503AllOf1 struct {
 // error_api_504 defines a model
 type error_api_504 struct {
 	publicApiCommonErrorResponse
-	error_api_504AllOf1
-}
-
-// error_api_504AllOf1 defines a model
-type error_api_504AllOf1 struct {
 	Code   ErrorAPI504AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
 }
@@ -18427,29 +20419,13 @@ type error_api_504AllOf1 struct {
 // error_api_529 defines a model
 type error_api_529 struct {
 	publicApiCommonErrorResponse
-	error_api_529AllOf1
-}
-
-// error_api_529AllOf1 defines a model
-type error_api_529AllOf1 struct {
 	Code   ErrorAPI529AllOf1Code `json:"code,omitzero"`
 	Status int                   `json:"status"`
-}
-
-// error_api_AllOf defines a model
-type error_api_AllOf struct {
-	Code   ErrorAPIAllOfCode `json:"code,omitzero"`
-	Status int               `json:"status"`
 }
 
 // error_oauth_400 defines a model
 type error_oauth_400 struct {
 	publicApiCommonErrorResponse
-	error_oauth_400AllOf1
-}
-
-// error_oauth_400AllOf1 defines a model
-type error_oauth_400AllOf1 struct {
 	Code   ErrorOauth400AllOf1Code `json:"code,omitzero"`
 	Status int                     `json:"status"`
 }
@@ -18457,11 +20433,6 @@ type error_oauth_400AllOf1 struct {
 // error_oauth_401 defines a model
 type error_oauth_401 struct {
 	publicApiCommonErrorResponse
-	error_oauth_401AllOf1
-}
-
-// error_oauth_401AllOf1 defines a model
-type error_oauth_401AllOf1 struct {
 	Code   ErrorOauth401AllOf1Code `json:"code,omitzero"`
 	Status int                     `json:"status"`
 }
@@ -18469,11 +20440,6 @@ type error_oauth_401AllOf1 struct {
 // error_oauth_403 defines a model
 type error_oauth_403 struct {
 	publicApiCommonErrorResponse
-	error_oauth_403AllOf1
-}
-
-// error_oauth_403AllOf1 defines a model
-type error_oauth_403AllOf1 struct {
 	Code   ErrorOauth403AllOf1Code `json:"code,omitzero"`
 	Status int                     `json:"status"`
 }
@@ -18603,11 +20569,6 @@ type fileMediaContentWithFileNameAndCaptionResponse struct {
 // fileUploadCompletedWebhookPayload defines a model
 type fileUploadCompletedWebhookPayload struct {
 	baseWebhookPayload
-	fileUploadCompletedWebhookPayloadAllOf1
-}
-
-// fileUploadCompletedWebhookPayloadAllOf1 defines a model
-type fileUploadCompletedWebhookPayloadAllOf1 struct {
 	// Always `file_upload.completed`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -18617,11 +20578,6 @@ type fileUploadCompletedWebhookPayloadAllOf1 struct {
 // fileUploadCreatedWebhookPayload defines a model
 type fileUploadCreatedWebhookPayload struct {
 	baseWebhookPayload
-	fileUploadCreatedWebhookPayloadAllOf1
-}
-
-// fileUploadCreatedWebhookPayloadAllOf1 defines a model
-type fileUploadCreatedWebhookPayloadAllOf1 struct {
 	// Always `file_upload.created`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -18631,11 +20587,6 @@ type fileUploadCreatedWebhookPayloadAllOf1 struct {
 // fileUploadExpiredWebhookPayload defines a model
 type fileUploadExpiredWebhookPayload struct {
 	baseWebhookPayload
-	fileUploadExpiredWebhookPayloadAllOf1
-}
-
-// fileUploadExpiredWebhookPayloadAllOf1 defines a model
-type fileUploadExpiredWebhookPayloadAllOf1 struct {
 	// Always `file_upload.expired`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -18676,11 +20627,6 @@ type fileUploadPageCover struct {
 // fileUploadUploadFailedWebhookPayload defines a model
 type fileUploadUploadFailedWebhookPayload struct {
 	baseWebhookPayload
-	fileUploadUploadFailedWebhookPayloadAllOf1
-}
-
-// fileUploadUploadFailedWebhookPayloadAllOf1 defines a model
-type fileUploadUploadFailedWebhookPayloadAllOf1 struct {
 	// Always `file_upload.upload_failed`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -18899,50 +20845,49 @@ func (v *formulaPropertyResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("formulaPropertyResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "string":
 		var vv stringFormulaPropertyResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StringFormulaPropertyResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.StringFormulaPropertyResponse = &vv
+	case "date":
 		var vv Date
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date = &vv
+	case "number":
 		var vv Number
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number = &vv
+	case "boolean":
 		var vv booleanFormulaPropertyResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BooleanFormulaPropertyResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BooleanFormulaPropertyResponse = &vv
+	case "unsupported":
 		var vv unsupportedFormulaProperty
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UnsupportedFormulaProperty = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("formulaPropertyResponse: expected at least one matching variant, got 0")
+		v.UnsupportedFormulaProperty = &vv
+	default:
+		return fmt.Errorf("formulaPropertyResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -18983,50 +20928,49 @@ func (v *formulaPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("formulaPropertyValueResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "boolean":
 		var vv booleanFormulaPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BooleanFormulaPropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BooleanFormulaPropertyValueResponse = &vv
+	case "date":
 		var vv dateFormulaPropertyValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DateFormulaPropertyValue = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DateFormulaPropertyValue = &vv
+	case "number":
 		var vv numberFormulaPropertyValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberFormulaPropertyValue = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberFormulaPropertyValue = &vv
+	case "string":
 		var vv stringFormulaPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StringFormulaPropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.StringFormulaPropertyValueResponse = &vv
+	case "unsupported":
 		var vv unsupportedFormulaProperty
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UnsupportedFormulaProperty = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("formulaPropertyValueResponse: expected exactly one matching variant, got %d", matched)
+		v.UnsupportedFormulaProperty = &vv
+	default:
+		return fmt.Errorf("formulaPropertyValueResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -19502,26 +21446,28 @@ func (v *internalOrExternalFileWithNameAllOf) UnmarshalJSONFrom(dec *jsontext.De
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("internalOrExternalFileWithNameAllOf: %w", err)
+	}
 
-	{
+	switch tag {
+	case "file":
 		var vv fileInternalOrExternalFileWithName
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileInternalOrExternalFileWithName = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FileInternalOrExternalFileWithName = &vv
+	case "external":
 		var vv externalInternalOrExternalFileWithName
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalInternalOrExternalFileWithName = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("internalOrExternalFileWithNameAllOf: expected exactly one matching variant, got %d", matched)
+		v.ExternalInternalOrExternalFileWithName = &vv
+	default:
+		return fmt.Errorf("internalOrExternalFileWithNameAllOf: unknown type %q", tag)
 	}
 
 	return nil
@@ -19553,26 +21499,28 @@ func (v *internalOrExternalFileWithNameRequest) UnmarshalJSONFrom(dec *jsontext.
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("internalOrExternalFileWithNameRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "file":
 		var vv File5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.File5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.File5 = &vv
+	case "external":
 		var vv External
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.External = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("internalOrExternalFileWithNameRequest: expected at least one matching variant, got 0")
+		v.External = &vv
+	default:
+		return fmt.Errorf("internalOrExternalFileWithNameRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -19593,7 +21541,119 @@ func (v *internalOrExternalFileWithNameRequest) MarshalJSONTo(enc *jsontext.Enco
 // internalOrExternalFileWithNameResponse defines a model
 type internalOrExternalFileWithNameResponse struct {
 	UpdateADataSourcePropertiesValueOneOf
-	internalOrExternalFileWithNameAllOf
+	internalOrExternalFileWithNameAllOf internalOrExternalFileWithNameAllOf `json:"-"`
+}
+
+// fieldsOfinternalOrExternalFileWithNameResponse is internalOrExternalFileWithNameResponse without its methods, to encode the fields outside its union.
+type fieldsOfinternalOrExternalFileWithNameResponse internalOrExternalFileWithNameResponse
+
+// membersOfinternalOrExternalFileWithNameResponse are the members internalOrExternalFileWithNameResponse declares outside its union.
+var membersOfinternalOrExternalFileWithNameResponse = map[string]bool{"name": true}
+
+// variantsOfinternalOrExternalFileWithNameResponse are the alternatives of its union, in order.
+var variantsOfinternalOrExternalFileWithNameResponse = []jsonVariant{
+	{
+		value:    "file",
+		members:  map[string]bool{"file": true, "type": true},
+		required: []string{"file", "type"},
+	},
+	{
+		value:    "external",
+		members:  map[string]bool{"external": true, "type": true},
+		required: []string{"external", "type"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of internalOrExternalFileWithNameAllOf each
+// decode the members they declare, and a member neither declares is an error.
+func (v *internalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfinternalOrExternalFileWithNameResponse, membersOfinternalOrExternalFileWithNameResponse, true)
+	if err != nil {
+		return fmt.Errorf("internalOrExternalFileWithNameResponse: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfinternalOrExternalFileWithNameResponse)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfinternalOrExternalFileWithNameResponse)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfinternalOrExternalFileWithNameResponse[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv fileInternalOrExternalFileWithName
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.internalOrExternalFileWithNameAllOf.FileInternalOrExternalFileWithName = &vv
+		case 1:
+			var vv externalInternalOrExternalFileWithName
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.internalOrExternalFileWithNameAllOf.ExternalInternalOrExternalFileWithName = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of internalOrExternalFileWithNameAllOf that is set;
+// a member both write must have the same value in each.
+func (v *internalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfinternalOrExternalFileWithNameResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.internalOrExternalFileWithNameAllOf.FileInternalOrExternalFileWithName != nil {
+		variant, err := json.Marshal(v.internalOrExternalFileWithNameAllOf.FileInternalOrExternalFileWithName, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("internalOrExternalFileWithNameResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.internalOrExternalFileWithNameAllOf.ExternalInternalOrExternalFileWithName != nil {
+		variant, err := json.Marshal(v.internalOrExternalFileWithNameAllOf.ExternalInternalOrExternalFileWithName, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("internalOrExternalFileWithNameResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("internalOrExternalFileWithNameResponse: want exactly one alternative of internalOrExternalFileWithNameAllOf set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // languageRequest defines a model
@@ -19858,26 +21918,28 @@ func (v *mediaContentWithFileAndCaptionRequest) UnmarshalJSONFrom(dec *jsontext.
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("mediaContentWithFileAndCaptionRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "external":
 		var vv External2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.External2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.External2 = &vv
+	case "file_upload":
 		var vv FileUpload
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileUpload = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("mediaContentWithFileAndCaptionRequest: expected at least one matching variant, got 0")
+		v.FileUpload = &vv
+	default:
+		return fmt.Errorf("mediaContentWithFileAndCaptionRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -19909,26 +21971,28 @@ func (v *mediaContentWithFileAndCaptionResponse) UnmarshalJSONFrom(dec *jsontext
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("mediaContentWithFileAndCaptionResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "external":
 		var vv externalMediaContentWithFileAndCaptionResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalMediaContentWithFileAndCaptionResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ExternalMediaContentWithFileAndCaptionResponse = &vv
+	case "file":
 		var vv fileMediaContentWithFileAndCaptionResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileMediaContentWithFileAndCaptionResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("mediaContentWithFileAndCaptionResponse: expected at least one matching variant, got 0")
+		v.FileMediaContentWithFileAndCaptionResponse = &vv
+	default:
+		return fmt.Errorf("mediaContentWithFileAndCaptionResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -19960,26 +22024,28 @@ func (v *mediaContentWithFileNameAndCaptionRequest) UnmarshalJSONFrom(dec *jsont
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("mediaContentWithFileNameAndCaptionRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "external":
 		var vv External3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.External3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.External3 = &vv
+	case "file_upload":
 		var vv FileUpload2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileUpload2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("mediaContentWithFileNameAndCaptionRequest: expected at least one matching variant, got 0")
+		v.FileUpload2 = &vv
+	default:
+		return fmt.Errorf("mediaContentWithFileNameAndCaptionRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -20011,26 +22077,28 @@ func (v *mediaContentWithFileNameAndCaptionResponse) UnmarshalJSONFrom(dec *json
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("mediaContentWithFileNameAndCaptionResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "external":
 		var vv externalMediaContentWithFileNameAndCaptionResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalMediaContentWithFileNameAndCaptionResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ExternalMediaContentWithFileNameAndCaptionResponse = &vv
+	case "file":
 		var vv fileMediaContentWithFileNameAndCaptionResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileMediaContentWithFileNameAndCaptionResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("mediaContentWithFileNameAndCaptionResponse: expected at least one matching variant, got 0")
+		v.FileMediaContentWithFileNameAndCaptionResponse = &vv
+	default:
+		return fmt.Errorf("mediaContentWithFileNameAndCaptionResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -20481,11 +22549,6 @@ type numberedListItemBlockObjectResponse struct {
 // pageContentUpdatedWebhookPayload defines a model
 type pageContentUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	pageContentUpdatedWebhookPayloadAllOf1
-}
-
-// pageContentUpdatedWebhookPayloadAllOf1 defines a model
-type pageContentUpdatedWebhookPayloadAllOf1 struct {
 	// Always `page.content_updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -20508,26 +22571,28 @@ func (v *pageCoverRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("pageCoverRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "file_upload":
 		var vv fileUploadPageCover
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileUploadPageCover = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FileUploadPageCover = &vv
+	case "external":
 		var vv externalInternalOrExternalFileWithName
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalInternalOrExternalFileWithName = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("pageCoverRequest: expected exactly one matching variant, got %d", matched)
+		v.ExternalInternalOrExternalFileWithName = &vv
+	default:
+		return fmt.Errorf("pageCoverRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -20548,11 +22613,6 @@ func (v *pageCoverRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 // pageCreatedWebhookPayload defines a model
 type pageCreatedWebhookPayload struct {
 	baseWebhookPayload
-	pageCreatedWebhookPayloadAllOf1
-}
-
-// pageCreatedWebhookPayloadAllOf1 defines a model
-type pageCreatedWebhookPayloadAllOf1 struct {
 	// Always `page.created`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -20564,11 +22624,6 @@ type pageCreatedWebhookPayloadAllOf1 struct {
 // pageDeletedWebhookPayload defines a model
 type pageDeletedWebhookPayload struct {
 	baseWebhookPayload
-	pageDeletedWebhookPayloadAllOf1
-}
-
-// pageDeletedWebhookPayloadAllOf1 defines a model
-type pageDeletedWebhookPayloadAllOf1 struct {
 	// Always `page.deleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -20594,50 +22649,49 @@ func (v *pageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("pageIconRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "file_upload":
 		var vv fileUploadPageCover
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileUploadPageCover = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FileUploadPageCover = &vv
+	case "emoji":
 		var vv emojiPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EmojiPageIcon = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.EmojiPageIcon = &vv
+	case "external":
 		var vv externalInternalOrExternalFileWithName
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalInternalOrExternalFileWithName = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ExternalInternalOrExternalFileWithName = &vv
+	case "custom_emoji":
 		var vv CustomEmoji
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CustomEmoji = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CustomEmoji = &vv
+	case "icon":
 		var vv iconPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.IconPageIcon = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("pageIconRequest: expected exactly one matching variant, got %d", matched)
+		v.IconPageIcon = &vv
+	default:
+		return fmt.Errorf("pageIconRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -20678,50 +22732,49 @@ func (v *pageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("pageIconResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "emoji":
 		var vv emojiPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EmojiPageIcon = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.EmojiPageIcon = &vv
+	case "file":
 		var vv fileInternalOrExternalFileWithName
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FileInternalOrExternalFileWithName = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FileInternalOrExternalFileWithName = &vv
+	case "external":
 		var vv externalInternalOrExternalFileWithName
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalInternalOrExternalFileWithName = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ExternalInternalOrExternalFileWithName = &vv
+	case "custom_emoji":
 		var vv CustomEmoji3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CustomEmoji3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CustomEmoji3 = &vv
+	case "icon":
 		var vv iconPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.IconPageIcon = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("pageIconResponse: expected exactly one matching variant, got %d", matched)
+		v.IconPageIcon = &vv
+	default:
+		return fmt.Errorf("pageIconResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -20755,11 +22808,6 @@ type pageIdCommentParent struct {
 // pageLockedWebhookPayload defines a model
 type pageLockedWebhookPayload struct {
 	baseWebhookPayload
-	pageLockedWebhookPayloadAllOf1
-}
-
-// pageLockedWebhookPayloadAllOf1 defines a model
-type pageLockedWebhookPayloadAllOf1 struct {
 	// Always `page.locked`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -20785,11 +22833,6 @@ type pageMarkdownResponse struct {
 // pageMovedWebhookPayload defines a model
 type pageMovedWebhookPayload struct {
 	baseWebhookPayload
-	pageMovedWebhookPayloadAllOf1
-}
-
-// pageMovedWebhookPayloadAllOf1 defines a model
-type pageMovedWebhookPayloadAllOf1 struct {
 	// Always `page.moved`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -20847,34 +22890,35 @@ func (v *pagePositionSchema) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("pagePositionSchema: %w", err)
+	}
 
-	{
+	switch tag {
+	case "after_block":
 		var vv contentPositionSchemaAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ContentPositionSchemaAnyOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ContentPositionSchemaAnyOf = &vv
+	case "page_start":
 		var vv pagePositionSchemaAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PagePositionSchemaAnyOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PagePositionSchemaAnyOf1 = &vv
+	case "page_end":
 		var vv pagePositionSchemaAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PagePositionSchemaAnyOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("pagePositionSchema: expected at least one matching variant, got 0")
+		v.PagePositionSchemaAnyOf2 = &vv
+	default:
+		return fmt.Errorf("pagePositionSchema: unknown type %q", tag)
 	}
 
 	return nil
@@ -20907,11 +22951,6 @@ type pagePositionSchemaAnyOf2 struct {
 // pagePropertiesUpdatedWebhookPayload defines a model
 type pagePropertiesUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	pagePropertiesUpdatedWebhookPayloadAllOf1
-}
-
-// pagePropertiesUpdatedWebhookPayloadAllOf1 defines a model
-type pagePropertiesUpdatedWebhookPayloadAllOf1 struct {
 	// Always `page.properties_updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -20923,7 +22962,17 @@ type pagePropertiesUpdatedWebhookPayloadAllOf1 struct {
 // pagePropertyValueWithIdResponse defines a model
 type pagePropertyValueWithIdResponse struct {
 	FileUploadPageCoverFileUpload
-	pagePropertyValueWithIdResponseAllOf1
+	pagePropertyValueWithIdResponseAllOf1 pagePropertyValueWithIdResponseAllOf1 `json:"-"`
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It is not supported yet.
+func (v *pagePropertyValueWithIdResponse) UnmarshalJSONFrom(*jsontext.Decoder) error {
+	return fmt.Errorf("pagePropertyValueWithIdResponse: %w: an allOf whose union has an alternative that is not a plain object", errors.ErrUnsupported)
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It is not supported yet.
+func (v *pagePropertyValueWithIdResponse) MarshalJSONTo(*jsontext.Encoder) error {
+	return fmt.Errorf("pagePropertyValueWithIdResponse: %w: an allOf whose union has an alternative that is not a plain object", errors.ErrUnsupported)
 }
 
 // pagePropertyValueWithIdResponseAllOf1 defines a model
@@ -20988,11 +23037,6 @@ type pageReferenceResponse struct {
 // pageTranscriptionBlockTranscriptDeletedWebhookPayload defines a model
 type pageTranscriptionBlockTranscriptDeletedWebhookPayload struct {
 	baseWebhookPayload
-	pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1
-}
-
-// pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1 defines a model
-type pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1 struct {
 	// Always `page.transcription_block.transcript_deleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -21004,11 +23048,6 @@ type pageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1 struct {
 // pageUndeletedWebhookPayload defines a model
 type pageUndeletedWebhookPayload struct {
 	baseWebhookPayload
-	pageUndeletedWebhookPayloadAllOf1
-}
-
-// pageUndeletedWebhookPayloadAllOf1 defines a model
-type pageUndeletedWebhookPayloadAllOf1 struct {
 	// Always `page.undeleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -21020,11 +23059,6 @@ type pageUndeletedWebhookPayloadAllOf1 struct {
 // pageUnlockedWebhookPayload defines a model
 type pageUnlockedWebhookPayload struct {
 	baseWebhookPayload
-	pageUnlockedWebhookPayloadAllOf1
-}
-
-// pageUnlockedWebhookPayloadAllOf1 defines a model
-type pageUnlockedWebhookPayloadAllOf1 struct {
 	// Always `page.unlocked`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -21066,58 +23100,56 @@ func (v *parentForBlockBasedObjectResponse) UnmarshalJSONFrom(dec *jsontext.Deco
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("parentForBlockBasedObjectResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "database_id":
 		var vv databaseParentResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DatabaseParentResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DatabaseParentResponse = &vv
+	case "data_source_id":
 		var vv dataSourceParentResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DataSourceParentResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DataSourceParentResponse = &vv
+	case "page_id":
 		var vv pageIdCommentParent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageIDCommentParent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PageIDCommentParent = &vv
+	case "block_id":
 		var vv blockIdCommentParent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BlockIDCommentParent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BlockIDCommentParent = &vv
+	case "agent_id":
 		var vv agentIdParentForBlockBasedObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.AgentIDParentForBlockBasedObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.AgentIDParentForBlockBasedObjectResponse = &vv
+	case "workspace":
 		var vv Workspace
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Workspace = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("parentForBlockBasedObjectResponse: expected exactly one matching variant, got %d", matched)
+		v.Workspace = &vv
+	default:
+		return fmt.Errorf("parentForBlockBasedObjectResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -21157,26 +23189,28 @@ func (v *parentOfDataSourceResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("parentOfDataSourceResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "database_id":
 		var vv databaseParentResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DatabaseParentResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DatabaseParentResponse = &vv
+	case "data_source_id":
 		var vv dataSourceParentResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DataSourceParentResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("parentOfDataSourceResponse: expected exactly one matching variant, got %d", matched)
+		v.DataSourceParentResponse = &vv
+	default:
+		return fmt.Errorf("parentOfDataSourceResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -21210,42 +23244,42 @@ func (v *parentOfDatabaseResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("parentOfDatabaseResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "page_id":
 		var vv pageIdCommentParent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PageIDCommentParent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PageIDCommentParent = &vv
+	case "workspace":
 		var vv Workspace
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Workspace = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Workspace = &vv
+	case "database_id":
 		var vv databaseParentResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DatabaseParentResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DatabaseParentResponse = &vv
+	case "block_id":
 		var vv blockIdCommentParent
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BlockIDCommentParent = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("parentOfDatabaseResponse: expected exactly one matching variant, got %d", matched)
+		v.BlockIDCommentParent = &vv
+	default:
+		return fmt.Errorf("parentOfDatabaseResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -21357,7 +23391,169 @@ type partialRollupPropertyResponse struct {
 // partialRollupValueResponse defines a model
 type partialRollupValueResponse struct {
 	RollupPropertyConfigurationRollupAllOf
-	partialRollupValueResponseAllOf1
+	partialRollupValueResponseAllOf1 partialRollupValueResponseAllOf1 `json:"-"`
+}
+
+// fieldsOfpartialRollupValueResponse is partialRollupValueResponse without its methods, to encode the fields outside its union.
+type fieldsOfpartialRollupValueResponse partialRollupValueResponse
+
+// membersOfpartialRollupValueResponse are the members partialRollupValueResponse declares outside its union.
+var membersOfpartialRollupValueResponse = map[string]bool{"function": true}
+
+// variantsOfpartialRollupValueResponse are the alternatives of its union, in order.
+var variantsOfpartialRollupValueResponse = []jsonVariant{
+	{
+		value:    "number",
+		members:  map[string]bool{"number": true, "type": true},
+		required: []string{"number", "type"},
+	},
+	{
+		value:    "date",
+		members:  map[string]bool{"date": true, "type": true},
+		required: []string{"date", "type"},
+	},
+	{
+		value:    "array",
+		members:  map[string]bool{"array": true, "type": true},
+		required: []string{"array", "type"},
+	},
+	{
+		value:    "unsupported",
+		members:  map[string]bool{"type": true, "unsupported": true},
+		required: []string{"type", "unsupported"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of partialRollupValueResponseAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfpartialRollupValueResponse, membersOfpartialRollupValueResponse, true)
+	if err != nil {
+		return fmt.Errorf("partialRollupValueResponse: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfpartialRollupValueResponse)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfpartialRollupValueResponse)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfpartialRollupValueResponse[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv numberFormulaPropertyValue
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.partialRollupValueResponseAllOf1.NumberFormulaPropertyValue = &vv
+		case 1:
+			var vv dateFormulaPropertyValue
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.partialRollupValueResponseAllOf1.DateFormulaPropertyValue = &vv
+		case 2:
+			var vv arrayPartialRollupValueResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.partialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse = &vv
+		case 3:
+			var vv unsupportedFormulaProperty
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.partialRollupValueResponseAllOf1.UnsupportedFormulaProperty = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of partialRollupValueResponseAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfpartialRollupValueResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.partialRollupValueResponseAllOf1.NumberFormulaPropertyValue != nil {
+		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.NumberFormulaPropertyValue, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("partialRollupValueResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.partialRollupValueResponseAllOf1.DateFormulaPropertyValue != nil {
+		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.DateFormulaPropertyValue, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("partialRollupValueResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.partialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse != nil {
+		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("partialRollupValueResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.partialRollupValueResponseAllOf1.UnsupportedFormulaProperty != nil {
+		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.UnsupportedFormulaProperty, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("partialRollupValueResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("partialRollupValueResponse: want exactly one alternative of partialRollupValueResponseAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // partialRollupValueResponseAllOf1 defines a model
@@ -21376,42 +23572,42 @@ func (v *partialRollupValueResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decod
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("partialRollupValueResponseAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv numberFormulaPropertyValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberFormulaPropertyValue = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberFormulaPropertyValue = &vv
+	case "date":
 		var vv dateFormulaPropertyValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DateFormulaPropertyValue = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DateFormulaPropertyValue = &vv
+	case "array":
 		var vv arrayPartialRollupValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ArrayPartialRollupValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ArrayPartialRollupValueResponse = &vv
+	case "unsupported":
 		var vv unsupportedFormulaProperty
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UnsupportedFormulaProperty = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("partialRollupValueResponseAllOf1: expected exactly one matching variant, got %d", matched)
+		v.UnsupportedFormulaProperty = &vv
+	default:
+		return fmt.Errorf("partialRollupValueResponseAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -21717,8 +23913,721 @@ type placeSimplePropertyValueResponse struct {
 
 // propertyConfigurationRequest defines a model
 type propertyConfigurationRequest struct {
-	propertyConfigurationRequestCommon
-	propertyConfigurationRequestAllOf1
+	// The description of the property.
+	Description                        *propertyDescriptionRequest        `json:"description,omitempty"`
+	propertyConfigurationRequestAllOf1 propertyConfigurationRequestAllOf1 `json:"-"`
+}
+
+// fieldsOfpropertyConfigurationRequest is propertyConfigurationRequest without its methods, to encode the fields outside its union.
+type fieldsOfpropertyConfigurationRequest propertyConfigurationRequest
+
+// membersOfpropertyConfigurationRequest are the members propertyConfigurationRequest declares outside its union.
+var membersOfpropertyConfigurationRequest = map[string]bool{"description": true}
+
+// variantsOfpropertyConfigurationRequest are the alternatives of its union, in order.
+var variantsOfpropertyConfigurationRequest = []jsonVariant{
+	{
+		value:    "number",
+		members:  map[string]bool{"number": true, "type": true},
+		required: []string{"number"},
+	},
+	{
+		value:    "formula",
+		members:  map[string]bool{"formula": true, "type": true},
+		required: []string{"formula"},
+	},
+	{
+		value:    "select",
+		members:  map[string]bool{"select": true, "type": true},
+		required: []string{"select"},
+	},
+	{
+		value:    "multi_select",
+		members:  map[string]bool{"multi_select": true, "type": true},
+		required: []string{"multi_select"},
+	},
+	{
+		value:    "status",
+		members:  map[string]bool{"status": true, "type": true},
+		required: []string{"status"},
+	},
+	{
+		value:    "relation",
+		members:  map[string]bool{"relation": true, "type": true},
+		required: []string{"relation"},
+	},
+	{
+		value:    "rollup",
+		members:  map[string]bool{"rollup": true, "type": true},
+		required: []string{"rollup"},
+	},
+	{
+		value:    "unique_id",
+		members:  map[string]bool{"type": true, "unique_id": true},
+		required: []string{"unique_id"},
+	},
+	{
+		value:    "title",
+		members:  map[string]bool{"title": true, "type": true},
+		required: []string{"title"},
+	},
+	{
+		value:    "rich_text",
+		members:  map[string]bool{"rich_text": true, "type": true},
+		required: []string{"rich_text"},
+	},
+	{
+		value:    "url",
+		members:  map[string]bool{"type": true, "url": true},
+		required: []string{"url"},
+	},
+	{
+		value:    "people",
+		members:  map[string]bool{"people": true, "type": true},
+		required: []string{"people"},
+	},
+	{
+		value:    "files",
+		members:  map[string]bool{"files": true, "type": true},
+		required: []string{"files"},
+	},
+	{
+		value:    "email",
+		members:  map[string]bool{"email": true, "type": true},
+		required: []string{"email"},
+	},
+	{
+		value:    "phone_number",
+		members:  map[string]bool{"phone_number": true, "type": true},
+		required: []string{"phone_number"},
+	},
+	{
+		value:    "date",
+		members:  map[string]bool{"date": true, "type": true},
+		required: []string{"date"},
+	},
+	{
+		value:    "checkbox",
+		members:  map[string]bool{"checkbox": true, "type": true},
+		required: []string{"checkbox"},
+	},
+	{
+		value:    "created_by",
+		members:  map[string]bool{"created_by": true, "type": true},
+		required: []string{"created_by"},
+	},
+	{
+		value:    "created_time",
+		members:  map[string]bool{"created_time": true, "type": true},
+		required: []string{"created_time"},
+	},
+	{
+		value:    "last_edited_by",
+		members:  map[string]bool{"last_edited_by": true, "type": true},
+		required: []string{"last_edited_by"},
+	},
+	{
+		value:    "last_edited_time",
+		members:  map[string]bool{"last_edited_time": true, "type": true},
+		required: []string{"last_edited_time"},
+	},
+	{
+		value:    "button",
+		members:  map[string]bool{"button": true, "type": true},
+		required: []string{"button"},
+	},
+	{
+		value:    "location",
+		members:  map[string]bool{"location": true, "type": true},
+		required: []string{"location"},
+	},
+	{
+		value:    "verification",
+		members:  map[string]bool{"type": true, "verification": true},
+		required: []string{"verification"},
+	},
+	{
+		value:    "last_visited_time",
+		members:  map[string]bool{"last_visited_time": true, "type": true},
+		required: []string{"last_visited_time"},
+	},
+	{
+		value:    "place",
+		members:  map[string]bool{"place": true, "type": true},
+		required: []string{"place"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of propertyConfigurationRequestAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *propertyConfigurationRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfpropertyConfigurationRequest, membersOfpropertyConfigurationRequest, true)
+	if err != nil {
+		return fmt.Errorf("propertyConfigurationRequest: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfpropertyConfigurationRequest)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfpropertyConfigurationRequest)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfpropertyConfigurationRequest[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv Number2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Number2 = &vv
+		case 1:
+			var vv Formula
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Formula = &vv
+		case 2:
+			var vv selectPropertyConfigurationRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.SelectPropertyConfigurationRequest = &vv
+		case 3:
+			var vv multiSelectPropertyConfigurationRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.MultiSelectPropertyConfigurationRequest = &vv
+		case 4:
+			var vv statusPropertyConfigurationRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.StatusPropertyConfigurationRequest = &vv
+		case 5:
+			var vv Relation2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Relation2 = &vv
+		case 6:
+			var vv Rollup
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Rollup = &vv
+		case 7:
+			var vv UniqueID
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.UniqueID = &vv
+		case 8:
+			var vv Title2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Title2 = &vv
+		case 9:
+			var vv RichText2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.RichText2 = &vv
+		case 10:
+			var vv URL2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Url2 = &vv
+		case 11:
+			var vv People2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.People2 = &vv
+		case 12:
+			var vv Files2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Files2 = &vv
+		case 13:
+			var vv Email2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Email2 = &vv
+		case 14:
+			var vv PhoneNumber2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.PhoneNumber2 = &vv
+		case 15:
+			var vv Date2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Date2 = &vv
+		case 16:
+			var vv Checkbox2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Checkbox2 = &vv
+		case 17:
+			var vv CreatedBy
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.CreatedBy = &vv
+		case 18:
+			var vv CreatedTime
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.CreatedTime = &vv
+		case 19:
+			var vv LastEditedBy
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.LastEditedBy = &vv
+		case 20:
+			var vv LastEditedTime
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.LastEditedTime = &vv
+		case 21:
+			var vv buttonPropertyConfiguration
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.ButtonPropertyConfiguration = &vv
+		case 22:
+			var vv locationPropertyConfigurationRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.LocationPropertyConfigurationRequest = &vv
+		case 23:
+			var vv verificationPropertyConfigurationRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.VerificationPropertyConfigurationRequest = &vv
+		case 24:
+			var vv lastVisitedTimePropertyConfigurationRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.LastVisitedTimePropertyConfigurationRequest = &vv
+		case 25:
+			var vv Place2
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.propertyConfigurationRequestAllOf1.Place2 = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of propertyConfigurationRequestAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *propertyConfigurationRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfpropertyConfigurationRequest)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.propertyConfigurationRequestAllOf1.Number2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Number2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Formula != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Formula, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.SelectPropertyConfigurationRequest != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.SelectPropertyConfigurationRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.MultiSelectPropertyConfigurationRequest != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.MultiSelectPropertyConfigurationRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.StatusPropertyConfigurationRequest != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.StatusPropertyConfigurationRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Relation2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Relation2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Rollup != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Rollup, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.UniqueID != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.UniqueID, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Title2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Title2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.RichText2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.RichText2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Url2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Url2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.People2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.People2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Files2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Files2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Email2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Email2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.PhoneNumber2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.PhoneNumber2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Date2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Date2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Checkbox2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Checkbox2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.CreatedBy != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.CreatedBy, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.CreatedTime != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.CreatedTime, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.LastEditedBy != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.LastEditedBy, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.LastEditedTime != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.LastEditedTime, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.ButtonPropertyConfiguration != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.ButtonPropertyConfiguration, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.LocationPropertyConfigurationRequest != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.LocationPropertyConfigurationRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.VerificationPropertyConfigurationRequest != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.VerificationPropertyConfigurationRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.LastVisitedTimePropertyConfigurationRequest != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.LastVisitedTimePropertyConfigurationRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.propertyConfigurationRequestAllOf1.Place2 != nil {
+		variant, err := json.Marshal(v.propertyConfigurationRequestAllOf1.Place2, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("propertyConfigurationRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("propertyConfigurationRequest: want exactly one alternative of propertyConfigurationRequestAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // propertyConfigurationRequestAllOf1 defines a model
@@ -21759,218 +24668,196 @@ func (v *propertyConfigurationRequestAllOf1) UnmarshalJSONFrom(dec *jsontext.Dec
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("propertyConfigurationRequestAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv Number2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number2 = &vv
+	case "formula":
 		var vv Formula
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Formula = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Formula = &vv
+	case "select":
 		var vv selectPropertyConfigurationRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SelectPropertyConfigurationRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SelectPropertyConfigurationRequest = &vv
+	case "multi_select":
 		var vv multiSelectPropertyConfigurationRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelectPropertyConfigurationRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelectPropertyConfigurationRequest = &vv
+	case "status":
 		var vv statusPropertyConfigurationRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StatusPropertyConfigurationRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.StatusPropertyConfigurationRequest = &vv
+	case "relation":
 		var vv Relation2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Relation2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Relation2 = &vv
+	case "rollup":
 		var vv Rollup
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Rollup = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Rollup = &vv
+	case "unique_id":
 		var vv UniqueID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UniqueID = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UniqueID = &vv
+	case "title":
 		var vv Title2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Title2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Title2 = &vv
+	case "rich_text":
 		var vv RichText2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichText2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichText2 = &vv
+	case "url":
 		var vv URL2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Url2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Url2 = &vv
+	case "people":
 		var vv People2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.People2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.People2 = &vv
+	case "files":
 		var vv Files2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Files2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Files2 = &vv
+	case "email":
 		var vv Email2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Email2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Email2 = &vv
+	case "phone_number":
 		var vv PhoneNumber2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumber2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumber2 = &vv
+	case "date":
 		var vv Date2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date2 = &vv
+	case "checkbox":
 		var vv Checkbox2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Checkbox2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Checkbox2 = &vv
+	case "created_by":
 		var vv CreatedBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedBy = &vv
+	case "created_time":
 		var vv CreatedTime
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedTime = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedTime = &vv
+	case "last_edited_by":
 		var vv LastEditedBy
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedBy = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedBy = &vv
+	case "last_edited_time":
 		var vv LastEditedTime
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedTime = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedTime = &vv
+	case "button":
 		var vv buttonPropertyConfiguration
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ButtonPropertyConfiguration = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ButtonPropertyConfiguration = &vv
+	case "location":
 		var vv locationPropertyConfigurationRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LocationPropertyConfigurationRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LocationPropertyConfigurationRequest = &vv
+	case "verification":
 		var vv verificationPropertyConfigurationRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.VerificationPropertyConfigurationRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.VerificationPropertyConfigurationRequest = &vv
+	case "last_visited_time":
 		var vv lastVisitedTimePropertyConfigurationRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastVisitedTimePropertyConfigurationRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastVisitedTimePropertyConfigurationRequest = &vv
+	case "place":
 		var vv Place2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Place2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("propertyConfigurationRequestAllOf1: expected exactly one matching variant, got %d", matched)
+		v.Place2 = &vv
+	default:
+		return fmt.Errorf("propertyConfigurationRequestAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -22036,12 +24923,6 @@ func (v *propertyConfigurationRequestAllOf1) MarshalJSONTo(enc *jsontext.Encoder
 	return fmt.Errorf("propertyConfigurationRequestAllOf1: no variant set")
 }
 
-// propertyConfigurationRequestCommon defines a model
-type propertyConfigurationRequestCommon struct {
-	// The description of the property.
-	Description *propertyDescriptionRequest `json:"description,omitempty"`
-}
-
 // propertyDescriptionRequest defines a model
 type propertyDescriptionRequest string
 
@@ -22079,186 +24960,168 @@ func (v *propertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("propertyFilter: %w", err)
+	}
 
-	{
+	switch tag {
+	case "title":
 		var vv Title4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Title4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Title4 = &vv
+	case "rich_text":
 		var vv RichText4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichText4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichText4 = &vv
+	case "number":
 		var vv Number4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Number4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Number4 = &vv
+	case "checkbox":
 		var vv Checkbox4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Checkbox4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Checkbox4 = &vv
+	case "select":
 		var vv Select4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Select4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Select4 = &vv
+	case "multi_select":
 		var vv MultiSelect4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelect4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelect4 = &vv
+	case "status":
 		var vv Status5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Status5 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Status5 = &vv
+	case "date":
 		var vv Date6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Date6 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Date6 = &vv
+	case "people":
 		var vv People4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.People4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.People4 = &vv
+	case "files":
 		var vv Files4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Files4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Files4 = &vv
+	case "url":
 		var vv URL4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Url4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Url4 = &vv
+	case "email":
 		var vv Email4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Email4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Email4 = &vv
+	case "phone_number":
 		var vv PhoneNumber4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumber4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumber4 = &vv
+	case "relation":
 		var vv Relation4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Relation4 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Relation4 = &vv
+	case "created_by":
 		var vv CreatedBy2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedBy2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedBy2 = &vv
+	case "created_time":
 		var vv CreatedTime2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedTime2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedTime2 = &vv
+	case "last_edited_by":
 		var vv LastEditedBy2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedBy2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedBy2 = &vv
+	case "last_edited_time":
 		var vv LastEditedTime2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedTime2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedTime2 = &vv
+	case "formula":
 		var vv Formula2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Formula2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Formula2 = &vv
+	case "unique_id":
 		var vv UniqueID2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UniqueId2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UniqueId2 = &vv
+	case "rollup":
 		var vv Rollup2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Rollup2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Rollup2 = &vv
+	case "verification":
 		var vv Verification3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Verification3 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("propertyFilter: expected at least one matching variant, got 0")
+		v.Verification3 = &vv
+	default:
+		return fmt.Errorf("propertyFilter: unknown type %q", tag)
 	}
 
 	return nil
@@ -22352,202 +25215,182 @@ func (v *propertyItemObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("propertyItemObjectResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv numberPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberPropertyItemObjectResponse = &vv
+	case "url":
 		var vv urlPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.URLPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.URLPropertyItemObjectResponse = &vv
+	case "select":
 		var vv selectPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SelectPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SelectPropertyItemObjectResponse = &vv
+	case "multi_select":
 		var vv multiSelectPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelectPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelectPropertyItemObjectResponse = &vv
+	case "status":
 		var vv statusPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StatusPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.StatusPropertyItemObjectResponse = &vv
+	case "date":
 		var vv datePropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DatePropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DatePropertyItemObjectResponse = &vv
+	case "email":
 		var vv emailPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EmailPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.EmailPropertyItemObjectResponse = &vv
+	case "phone_number":
 		var vv phoneNumberPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumberPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumberPropertyItemObjectResponse = &vv
+	case "checkbox":
 		var vv checkboxPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CheckboxPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CheckboxPropertyItemObjectResponse = &vv
+	case "files":
 		var vv filesPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FilesPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FilesPropertyItemObjectResponse = &vv
+	case "created_by":
 		var vv createdByPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedByPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedByPropertyItemObjectResponse = &vv
+	case "created_time":
 		var vv createdTimePropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedTimePropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedTimePropertyItemObjectResponse = &vv
+	case "last_edited_by":
 		var vv lastEditedByPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedByPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedByPropertyItemObjectResponse = &vv
+	case "last_edited_time":
 		var vv lastEditedTimePropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedTimePropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedTimePropertyItemObjectResponse = &vv
+	case "formula":
 		var vv formulaPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormulaPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormulaPropertyItemObjectResponse = &vv
+	case "button":
 		var vv buttonPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ButtonPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ButtonPropertyItemObjectResponse = &vv
+	case "unique_id":
 		var vv uniqueIdPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UniqueIDPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UniqueIDPropertyItemObjectResponse = &vv
+	case "verification":
 		var vv verificationPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.VerificationPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.VerificationPropertyItemObjectResponse = &vv
+	case "place":
 		var vv placePropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PlacePropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PlacePropertyItemObjectResponse = &vv
+	case "title":
 		var vv titlePropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TitlePropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TitlePropertyItemObjectResponse = &vv
+	case "rich_text":
 		var vv richTextPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RichTextPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RichTextPropertyItemObjectResponse = &vv
+	case "people":
 		var vv peoplePropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PeoplePropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PeoplePropertyItemObjectResponse = &vv
+	case "relation":
 		var vv relationPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RelationPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.RelationPropertyItemObjectResponse = &vv
+	case "rollup":
 		var vv rollupPropertyItemObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.RollupPropertyItemObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("propertyItemObjectResponse: expected at least one matching variant, got 0")
+		v.RollupPropertyItemObjectResponse = &vv
+	default:
+		return fmt.Errorf("propertyItemObjectResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -22939,8 +25782,146 @@ type richTextArrayBasedPropertyValueResponse struct {
 
 // richTextItemRequest defines a model
 type richTextItemRequest struct {
-	richTextItemRequestCommon
-	richTextItemRequestAllOf1
+	// All rich text objects contain an annotations object that sets the styling for the rich text.
+	Annotations               *annotation               `json:"annotations,omitempty"`
+	richTextItemRequestAllOf1 richTextItemRequestAllOf1 `json:"-"`
+}
+
+// fieldsOfrichTextItemRequest is richTextItemRequest without its methods, to encode the fields outside its union.
+type fieldsOfrichTextItemRequest richTextItemRequest
+
+// membersOfrichTextItemRequest are the members richTextItemRequest declares outside its union.
+var membersOfrichTextItemRequest = map[string]bool{"annotations": true}
+
+// variantsOfrichTextItemRequest are the alternatives of its union, in order.
+var variantsOfrichTextItemRequest = []jsonVariant{
+	{
+		value:    "text",
+		members:  map[string]bool{"text": true, "type": true},
+		required: []string{"text"},
+	},
+	{
+		value:    "mention",
+		members:  map[string]bool{"mention": true, "type": true},
+		required: []string{"mention"},
+	},
+	{
+		value:    "equation",
+		members:  map[string]bool{"equation": true, "type": true},
+		required: []string{"equation"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of richTextItemRequestAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *richTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfrichTextItemRequest, membersOfrichTextItemRequest, true)
+	if err != nil {
+		return fmt.Errorf("richTextItemRequest: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfrichTextItemRequest)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfrichTextItemRequest)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfrichTextItemRequest[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv textRichTextItem
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.richTextItemRequestAllOf1.TextRichTextItem = &vv
+		case 1:
+			var vv mentionRichTextItemRequest
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.richTextItemRequestAllOf1.MentionRichTextItemRequest = &vv
+		case 2:
+			var vv equationRichTextItem
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.richTextItemRequestAllOf1.EquationRichTextItem = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of richTextItemRequestAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *richTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfrichTextItemRequest)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.richTextItemRequestAllOf1.TextRichTextItem != nil {
+		variant, err := json.Marshal(v.richTextItemRequestAllOf1.TextRichTextItem, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("richTextItemRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.richTextItemRequestAllOf1.MentionRichTextItemRequest != nil {
+		variant, err := json.Marshal(v.richTextItemRequestAllOf1.MentionRichTextItemRequest, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("richTextItemRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if v.richTextItemRequestAllOf1.EquationRichTextItem != nil {
+		variant, err := json.Marshal(v.richTextItemRequestAllOf1.EquationRichTextItem, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("richTextItemRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("richTextItemRequest: want exactly one alternative of richTextItemRequestAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // richTextItemRequestAllOf1 defines a model
@@ -22958,34 +25939,35 @@ func (v *richTextItemRequestAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("richTextItemRequestAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "text":
 		var vv textRichTextItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TextRichTextItem = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TextRichTextItem = &vv
+	case "mention":
 		var vv mentionRichTextItemRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MentionRichTextItemRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MentionRichTextItemRequest = &vv
+	case "equation":
 		var vv equationRichTextItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EquationRichTextItem = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("richTextItemRequestAllOf1: expected exactly one matching variant, got %d", matched)
+		v.EquationRichTextItem = &vv
+	default:
+		return fmt.Errorf("richTextItemRequestAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -23005,16 +25987,152 @@ func (v *richTextItemRequestAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return fmt.Errorf("richTextItemRequestAllOf1: no variant set")
 }
 
-// richTextItemRequestCommon defines a model
-type richTextItemRequestCommon struct {
-	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations *annotation `json:"annotations,omitempty"`
-}
-
 // richTextItemResponse defines a model
 type richTextItemResponse struct {
-	richTextItemResponseCommon
-	richTextItemResponseAllOf1
+	// The plain text content of the rich text object, without any styling.
+	PlainText string `json:"plain_text,omitzero"`
+	// The name of the bot's workspace.
+	Href *string `json:"href"`
+	// All rich text objects contain an annotations object that sets the styling for the rich text.
+	Annotations                annotation                 `json:"annotations"`
+	richTextItemResponseAllOf1 richTextItemResponseAllOf1 `json:"-"`
+}
+
+// fieldsOfrichTextItemResponse is richTextItemResponse without its methods, to encode the fields outside its union.
+type fieldsOfrichTextItemResponse richTextItemResponse
+
+// membersOfrichTextItemResponse are the members richTextItemResponse declares outside its union.
+var membersOfrichTextItemResponse = map[string]bool{"annotations": true, "href": true, "plain_text": true}
+
+// variantsOfrichTextItemResponse are the alternatives of its union, in order.
+var variantsOfrichTextItemResponse = []jsonVariant{
+	{
+		value:    "text",
+		members:  map[string]bool{"text": true, "type": true},
+		required: []string{"text"},
+	},
+	{
+		value:    "mention",
+		members:  map[string]bool{"mention": true, "type": true},
+		required: []string{"mention", "type"},
+	},
+	{
+		value:    "equation",
+		members:  map[string]bool{"equation": true, "type": true},
+		required: []string{"equation"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of richTextItemResponseAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *richTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfrichTextItemResponse, membersOfrichTextItemResponse, true)
+	if err != nil {
+		return fmt.Errorf("richTextItemResponse: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfrichTextItemResponse)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfrichTextItemResponse)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfrichTextItemResponse[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv textRichTextItem
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.richTextItemResponseAllOf1.TextRichTextItem = &vv
+		case 1:
+			var vv mentionRichTextItemResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.richTextItemResponseAllOf1.MentionRichTextItemResponse = &vv
+		case 2:
+			var vv equationRichTextItem
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.richTextItemResponseAllOf1.EquationRichTextItem = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of richTextItemResponseAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *richTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfrichTextItemResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.richTextItemResponseAllOf1.TextRichTextItem != nil {
+		variant, err := json.Marshal(v.richTextItemResponseAllOf1.TextRichTextItem, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("richTextItemResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.richTextItemResponseAllOf1.MentionRichTextItemResponse != nil {
+		variant, err := json.Marshal(v.richTextItemResponseAllOf1.MentionRichTextItemResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("richTextItemResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.richTextItemResponseAllOf1.EquationRichTextItem != nil {
+		variant, err := json.Marshal(v.richTextItemResponseAllOf1.EquationRichTextItem, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("richTextItemResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("richTextItemResponse: want exactly one alternative of richTextItemResponseAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // richTextItemResponseAllOf1 defines a model
@@ -23032,34 +26150,35 @@ func (v *richTextItemResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("richTextItemResponseAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "text":
 		var vv textRichTextItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TextRichTextItem = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TextRichTextItem = &vv
+	case "mention":
 		var vv mentionRichTextItemResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MentionRichTextItemResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MentionRichTextItemResponse = &vv
+	case "equation":
 		var vv equationRichTextItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EquationRichTextItem = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("richTextItemResponseAllOf1: expected exactly one matching variant, got %d", matched)
+		v.EquationRichTextItem = &vv
+	default:
+		return fmt.Errorf("richTextItemResponseAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -23077,16 +26196,6 @@ func (v *richTextItemResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error 
 	}
 
 	return fmt.Errorf("richTextItemResponseAllOf1: no variant set")
-}
-
-// richTextItemResponseCommon defines a model
-type richTextItemResponseCommon struct {
-	// The plain text content of the rich text object, without any styling.
-	PlainText string `json:"plain_text,omitzero"`
-	// The name of the bot's workspace.
-	Href *string `json:"href"`
-	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations annotation `json:"annotations"`
 }
 
 // richTextPropertyItemObjectResponse defines a model
@@ -23672,162 +26781,147 @@ func (v *simplePropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("simplePropertyValueResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "number":
 		var vv numberFormulaPropertyValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.NumberFormulaPropertyValue = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.NumberFormulaPropertyValue = &vv
+	case "url":
 		var vv urlSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.URLSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.URLSimplePropertyValueResponse = &vv
+	case "select":
 		var vv selectSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SelectSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.SelectSimplePropertyValueResponse = &vv
+	case "multi_select":
 		var vv multiSelectSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MultiSelectSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MultiSelectSimplePropertyValueResponse = &vv
+	case "status":
 		var vv statusSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StatusSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.StatusSimplePropertyValueResponse = &vv
+	case "date":
 		var vv dateFormulaPropertyValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DateFormulaPropertyValue = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.DateFormulaPropertyValue = &vv
+	case "email":
 		var vv emailSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.EmailSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.EmailSimplePropertyValueResponse = &vv
+	case "phone_number":
 		var vv phoneNumberSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PhoneNumberSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PhoneNumberSimplePropertyValueResponse = &vv
+	case "checkbox":
 		var vv Checkbox
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Checkbox = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.Checkbox = &vv
+	case "files":
 		var vv filesSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FilesSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FilesSimplePropertyValueResponse = &vv
+	case "created_by":
 		var vv createdBySimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedBySimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedBySimplePropertyValueResponse = &vv
+	case "created_time":
 		var vv createdTimeSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CreatedTimeSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CreatedTimeSimplePropertyValueResponse = &vv
+	case "last_edited_by":
 		var vv lastEditedBySimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedBySimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedBySimplePropertyValueResponse = &vv
+	case "last_edited_time":
 		var vv lastEditedTimeSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.LastEditedTimeSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.LastEditedTimeSimplePropertyValueResponse = &vv
+	case "formula":
 		var vv formulaSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormulaSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormulaSimplePropertyValueResponse = &vv
+	case "button":
 		var vv buttonPropertyConfiguration
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ButtonPropertyConfiguration = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ButtonPropertyConfiguration = &vv
+	case "unique_id":
 		var vv uniqueIdSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UniqueIDSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.UniqueIDSimplePropertyValueResponse = &vv
+	case "verification":
 		var vv verificationSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.VerificationSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.VerificationSimplePropertyValueResponse = &vv
+	case "place":
 		var vv placeSimplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PlaceSimplePropertyValueResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("simplePropertyValueResponse: expected exactly one matching variant, got %d", matched)
+		v.PlaceSimplePropertyValueResponse = &vv
+	default:
+		return fmt.Errorf("simplePropertyValueResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -23937,22 +27031,104 @@ type statusOptionRequestArray []statusOptionRequest
 
 // statusOptionUpdateRequest defines a model
 type statusOptionUpdateRequest struct {
-	statusOptionUpdateRequestCommon
-	MultiSelectMultiSelectItemAllOf2
-}
-
-// statusOptionUpdateRequestArray defines a model
-type statusOptionUpdateRequestArray []statusOptionUpdateRequest
-
-// statusOptionUpdateRequestCommon defines a model
-type statusOptionUpdateRequestCommon struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color PartialSelectPropertyValueColor `json:"color,omitzero"`
 	// The name of the bot's workspace.
 	Description *string `json:"description,omitempty"`
 	// One of: `To-do`, `In progress`, `Complete`
-	Group statusOptionGroup `json:"group,omitzero"`
+	Group                            statusOptionGroup                `json:"group,omitzero"`
+	MultiSelectMultiSelectItemAllOf2 MultiSelectMultiSelectItemAllOf2 `json:"-"`
 }
+
+// fieldsOfstatusOptionUpdateRequest is statusOptionUpdateRequest without its methods, to encode the fields outside its union.
+type fieldsOfstatusOptionUpdateRequest statusOptionUpdateRequest
+
+// membersOfstatusOptionUpdateRequest are the members statusOptionUpdateRequest declares outside its union.
+var membersOfstatusOptionUpdateRequest = map[string]bool{"color": true, "description": true, "group": true}
+
+// variantsOfstatusOptionUpdateRequest are the alternatives of its union, in order.
+var variantsOfstatusOptionUpdateRequest = []jsonVariant{
+	{
+		value:    "",
+		members:  map[string]bool{"id": true, "name": true},
+		required: []string{"name"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of MultiSelectMultiSelectItemAllOf2 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *statusOptionUpdateRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "", variantsOfstatusOptionUpdateRequest, membersOfstatusOptionUpdateRequest, true)
+	if err != nil {
+		return fmt.Errorf("statusOptionUpdateRequest: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfstatusOptionUpdateRequest)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfstatusOptionUpdateRequest)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfstatusOptionUpdateRequest[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv MultiSelectMultiSelectItemAllOfOneOf
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.MultiSelectMultiSelectItemAllOf2.MultiSelectMultiSelectItemAllOfOneOf = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of MultiSelectMultiSelectItemAllOf2 that is set;
+// a member both write must have the same value in each.
+func (v *statusOptionUpdateRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfstatusOptionUpdateRequest)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.MultiSelectMultiSelectItemAllOf2.MultiSelectMultiSelectItemAllOfOneOf != nil {
+		variant, err := json.Marshal(v.MultiSelectMultiSelectItemAllOf2.MultiSelectMultiSelectItemAllOfOneOf, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("statusOptionUpdateRequest: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("statusOptionUpdateRequest: want exactly one alternative of MultiSelectMultiSelectItemAllOf2 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
+}
+
+// statusOptionUpdateRequestArray defines a model
+type statusOptionUpdateRequestArray []statusOptionUpdateRequest
 
 // statusPropertyConfigRequest defines a model
 type statusPropertyConfigRequest struct {
@@ -24226,26 +27402,28 @@ func (v *templateMention) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("templateMention: %w", err)
+	}
 
-	{
+	switch tag {
+	case "template_mention_date":
 		var vv templateMentionDateTemplateMention
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TemplateMentionDateTemplateMention = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TemplateMentionDateTemplateMention = &vv
+	case "template_mention_user":
 		var vv templateMentionUserTemplateMention
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TemplateMentionUserTemplateMention = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("templateMention: expected exactly one matching variant, got %d", matched)
+		v.TemplateMentionUserTemplateMention = &vv
+	default:
+		return fmt.Errorf("templateMention: unknown type %q", tag)
 	}
 
 	return nil
@@ -24561,26 +27739,28 @@ func (v *timestampFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "timestamp")
+	if err != nil {
+		return fmt.Errorf("timestampFilter: %w", err)
+	}
 
-	{
+	switch tag {
+	case "created_time":
 		var vv timestampCreatedTimeFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TimestampCreatedTimeFilter = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TimestampCreatedTimeFilter = &vv
+	case "last_edited_time":
 		var vv timestampLastEditedTimeFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TimestampLastEditedTimeFilter = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched == 0 {
-		return fmt.Errorf("timestampFilter: expected at least one matching variant, got 0")
+		v.TimestampLastEditedTimeFilter = &vv
+	default:
+		return fmt.Errorf("timestampFilter: unknown timestamp %q", tag)
 	}
 
 	return nil
@@ -24782,8 +27962,127 @@ type urlSimplePropertyValueResponse struct {
 
 // userObjectResponse defines a model
 type userObjectResponse struct {
-	userObjectResponseCommon
-	userObjectResponseAllOf1
+	// The ID of the user.
+	ID idResponse `json:"id,omitzero"`
+	// The user object type name.
+	Object string `json:"object,omitzero"`
+	// The name of the bot's workspace.
+	Name *string `json:"name"`
+	// The name of the bot's workspace.
+	AvatarURL                *string                  `json:"avatar_url"`
+	userObjectResponseAllOf1 userObjectResponseAllOf1 `json:"-"`
+}
+
+// fieldsOfuserObjectResponse is userObjectResponse without its methods, to encode the fields outside its union.
+type fieldsOfuserObjectResponse userObjectResponse
+
+// membersOfuserObjectResponse are the members userObjectResponse declares outside its union.
+var membersOfuserObjectResponse = map[string]bool{"avatar_url": true, "id": true, "name": true, "object": true}
+
+// variantsOfuserObjectResponse are the alternatives of its union, in order.
+var variantsOfuserObjectResponse = []jsonVariant{
+	{
+		value:    "person",
+		members:  map[string]bool{"person": true, "type": true},
+		required: []string{"person", "type"},
+	},
+	{
+		value:    "bot",
+		members:  map[string]bool{"bot": true, "type": true},
+		required: []string{"bot", "type"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of userObjectResponseAllOf1 each
+// decode the members they declare, and a member neither declares is an error.
+func (v *userObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	chosen, err := jsonChooseVariants(raw, "type", variantsOfuserObjectResponse, membersOfuserObjectResponse, true)
+	if err != nil {
+		return fmt.Errorf("userObjectResponse: %w", err)
+	}
+
+	fields, err := jsonSelect(raw, membersOfuserObjectResponse)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(fields, (*fieldsOfuserObjectResponse)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	for _, i := range chosen {
+		variant, err := jsonSelect(raw, variantsOfuserObjectResponse[i].members)
+		if err != nil {
+			return err
+		}
+
+		switch i {
+		case 0:
+			var vv personUserObjectResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.userObjectResponseAllOf1.PersonUserObjectResponse = &vv
+		case 1:
+			var vv botUserObjectResponse
+			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+				return err
+			}
+
+			v.userObjectResponseAllOf1.BotUserObjectResponse = &vv
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of userObjectResponseAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *userObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfuserObjectResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	if v.userObjectResponseAllOf1.PersonUserObjectResponse != nil {
+		variant, err := json.Marshal(v.userObjectResponseAllOf1.PersonUserObjectResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("userObjectResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.userObjectResponseAllOf1.BotUserObjectResponse != nil {
+		variant, err := json.Marshal(v.userObjectResponseAllOf1.BotUserObjectResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("userObjectResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("userObjectResponse: want exactly one alternative of userObjectResponseAllOf1 set, got %d", set)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // userObjectResponseAllOf1 defines a model
@@ -24800,26 +28099,28 @@ func (v *userObjectResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("userObjectResponseAllOf1: %w", err)
+	}
 
-	{
+	switch tag {
+	case "person":
 		var vv personUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PersonUserObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.PersonUserObjectResponse = &vv
+	case "bot":
 		var vv botUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BotUserObjectResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("userObjectResponseAllOf1: expected exactly one matching variant, got %d", matched)
+		v.BotUserObjectResponse = &vv
+	default:
+		return fmt.Errorf("userObjectResponseAllOf1: unknown type %q", tag)
 	}
 
 	return nil
@@ -24835,18 +28136,6 @@ func (v *userObjectResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	return fmt.Errorf("userObjectResponseAllOf1: no variant set")
-}
-
-// userObjectResponseCommon defines a model
-type userObjectResponseCommon struct {
-	// The ID of the user.
-	ID idResponse `json:"id,omitzero"`
-	// The user object type name.
-	Object string `json:"object,omitzero"`
-	// The name of the bot's workspace.
-	Name *string `json:"name"`
-	// The name of the bot's workspace.
-	AvatarURL *string `json:"avatar_url"`
 }
 
 // userValueResponse defines a model
@@ -25035,82 +28324,77 @@ func (v *viewConfigRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("viewConfigRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "table":
 		var vv tableViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableViewConfigRequest = &vv
+	case "board":
 		var vv boardViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BoardViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BoardViewConfigRequest = &vv
+	case "calendar":
 		var vv calendarViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CalendarViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CalendarViewConfigRequest = &vv
+	case "timeline":
 		var vv timelineViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TimelineViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TimelineViewConfigRequest = &vv
+	case "gallery":
 		var vv galleryViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.GalleryViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.GalleryViewConfigRequest = &vv
+	case "list":
 		var vv listViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ListViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ListViewConfigRequest = &vv
+	case "map":
 		var vv mapViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MapViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MapViewConfigRequest = &vv
+	case "form":
 		var vv formViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormViewConfigRequest = &vv
+	case "chart":
 		var vv chartViewConfigRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChartViewConfigRequest = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("viewConfigRequest: expected exactly one matching variant, got %d", matched)
+		v.ChartViewConfigRequest = &vv
+	default:
+		return fmt.Errorf("viewConfigRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -25164,90 +28448,84 @@ func (v *viewConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("viewConfigResponse: %w", err)
+	}
 
-	{
+	switch tag {
+	case "table":
 		var vv tableViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TableViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TableViewConfigResponse = &vv
+	case "board":
 		var vv boardViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.BoardViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.BoardViewConfigResponse = &vv
+	case "calendar":
 		var vv calendarViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.CalendarViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.CalendarViewConfigResponse = &vv
+	case "timeline":
 		var vv timelineViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.TimelineViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.TimelineViewConfigResponse = &vv
+	case "gallery":
 		var vv galleryViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.GalleryViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.GalleryViewConfigResponse = &vv
+	case "list":
 		var vv listViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ListViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ListViewConfigResponse = &vv
+	case "map":
 		var vv mapViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.MapViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.MapViewConfigResponse = &vv
+	case "form":
 		var vv formViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.FormViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.FormViewConfigResponse = &vv
+	case "chart":
 		var vv chartViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ChartViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.ChartViewConfigResponse = &vv
+	case "dashboard":
 		var vv dashboardViewConfigResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.DashboardViewConfigResponse = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("viewConfigResponse: expected exactly one matching variant, got %d", matched)
+		v.DashboardViewConfigResponse = &vv
+	default:
+		return fmt.Errorf("viewConfigResponse: unknown type %q", tag)
 	}
 
 	return nil
@@ -25284,11 +28562,6 @@ func (v *viewConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 // viewCreatedWebhookPayload defines a model
 type viewCreatedWebhookPayload struct {
 	baseWebhookPayload
-	viewCreatedWebhookPayloadAllOf1
-}
-
-// viewCreatedWebhookPayloadAllOf1 defines a model
-type viewCreatedWebhookPayloadAllOf1 struct {
 	// Always `view.created`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -25300,11 +28573,6 @@ type viewCreatedWebhookPayloadAllOf1 struct {
 // viewDeletedWebhookPayload defines a model
 type viewDeletedWebhookPayload struct {
 	baseWebhookPayload
-	viewDeletedWebhookPayloadAllOf1
-}
-
-// viewDeletedWebhookPayloadAllOf1 defines a model
-type viewDeletedWebhookPayloadAllOf1 struct {
 	// Always `view.deleted`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -25398,34 +28666,35 @@ func (v *viewPositionRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("viewPositionRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "start":
 		var vv InsertContentInsertContentPositionOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContentInsertContentPositionOneOf = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.InsertContentInsertContentPositionOneOf = &vv
+	case "end":
 		var vv InsertContentInsertContentPositionOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.InsertContentInsertContentPositionOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.InsertContentInsertContentPositionOneOf2 = &vv
+	case "after_view":
 		var vv viewPositionRequestOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ViewPositionRequestOneOf2 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("viewPositionRequest: expected exactly one matching variant, got %d", matched)
+		v.ViewPositionRequestOneOf2 = &vv
+	default:
+		return fmt.Errorf("viewPositionRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -25576,11 +28845,6 @@ type viewSortsRequest []quickFilterCondition
 // viewUpdatedWebhookPayload defines a model
 type viewUpdatedWebhookPayload struct {
 	baseWebhookPayload
-	viewUpdatedWebhookPayloadAllOf1
-}
-
-// viewUpdatedWebhookPayloadAllOf1 defines a model
-type viewUpdatedWebhookPayloadAllOf1 struct {
 	// Always `view.updated`
 	Type string `json:"type,omitzero"`
 	// The object that triggered the event.
@@ -25661,26 +28925,28 @@ func (v *widgetPlacementRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 		return err
 	}
 
-	var matched int
+	tag, err := jsonMemberString(raw, "type")
+	if err != nil {
+		return fmt.Errorf("widgetPlacementRequest: %w", err)
+	}
 
-	{
+	switch tag {
+	case "new_row":
 		var vv widgetPlacementRequestOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.WidgetPlacementRequestOneOf0 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	{
+		v.WidgetPlacementRequestOneOf0 = &vv
+	case "existing_row":
 		var vv widgetPlacementRequestOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.WidgetPlacementRequestOneOf1 = &vv
-			matched++
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("widgetPlacementRequest: expected exactly one matching variant, got %d", matched)
+		v.WidgetPlacementRequestOneOf1 = &vv
+	default:
+		return fmt.Errorf("widgetPlacementRequest: unknown type %q", tag)
 	}
 
 	return nil
@@ -25712,4 +28978,260 @@ type widgetPlacementRequestOneOf1 struct {
 	Type string `json:"type,omitzero"`
 	// The 0-based index of the existing row to add the widget to.
 	RowIndex int `json:"row_index"`
+}
+
+// jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
+func jsonMemberString(raw jsontext.Value, name string) (string, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil {
+		return "", err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return "", fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return "", err
+		}
+
+		if tok.String() != name {
+			if err := dec.SkipValue(); err != nil {
+				return "", err
+			}
+
+			continue
+		}
+
+		val, err := dec.ReadToken()
+		if err != nil {
+			return "", err
+		}
+
+		if val.Kind() != jsontext.KindString {
+			return "", fmt.Errorf("member %q is %v, not a string", name, val.Kind())
+		}
+
+		return val.String(), nil
+	}
+
+	return "", fmt.Errorf("missing member %q", name)
+}
+
+// jsonMembers returns the names of the members of the JSON object raw, in order.
+func jsonMembers(raw jsontext.Value) ([]string, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil {
+		return nil, err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return nil, fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	var names []string
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		names = append(names, tok.String())
+
+		if err := dec.SkipValue(); err != nil {
+			return nil, err
+		}
+	}
+
+	return names, nil
+}
+
+// jsonSelect returns the JSON object raw with only the members keep holds.
+func jsonSelect(raw jsontext.Value, keep map[string]bool) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	var buf bytes.Buffer
+	enc := jsontext.NewEncoder(&buf)
+	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+		return nil, err
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		name := tok.String() // a token is void once the decoder reads on
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return nil, err
+		}
+
+		if !keep[name] {
+			continue
+		}
+
+		if err := enc.WriteToken(jsontext.String(name)); err != nil {
+			return nil, err
+		}
+
+		if err := enc.WriteValue(val); err != nil {
+			return nil, err
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndObject); err != nil {
+		return nil, err
+	}
+
+	return bytes.TrimSpace(buf.Bytes()), nil
+}
+
+// jsonMerge returns the members of the JSON objects a and b in one object. A member both hold must have the same
+// value in each.
+func jsonMerge(a, b jsontext.Value) (jsontext.Value, error) {
+	var buf bytes.Buffer
+	enc := jsontext.NewEncoder(&buf)
+	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+		return nil, err
+	}
+
+	written := map[string]jsontext.Value{}
+	for _, raw := range []jsontext.Value{a, b} {
+		dec := jsontext.NewDecoder(bytes.NewReader(raw))
+		if _, err := dec.ReadToken(); err != nil {
+			return nil, err
+		}
+
+		for dec.PeekKind() != jsontext.KindEndObject {
+			tok, err := dec.ReadToken()
+			if err != nil {
+				return nil, err
+			}
+
+			name := tok.String() // a token is void once the decoder reads on
+
+			val, err := dec.ReadValue()
+			if err != nil {
+				return nil, err
+			}
+			if prev, ok := written[name]; ok {
+				if err := prev.Canonicalize(); err != nil {
+					return nil, err
+				}
+
+				cur := val.Clone()
+				if err := cur.Canonicalize(); err != nil {
+					return nil, err
+				}
+
+				if !bytes.Equal(prev, cur) {
+					return nil, fmt.Errorf("member %q is %s in one part and %s in another", name, prev, cur)
+				}
+
+				continue
+			}
+
+			written[name] = val.Clone()
+
+			if err := enc.WriteToken(jsontext.String(name)); err != nil {
+				return nil, err
+			}
+
+			if err := enc.WriteValue(val); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	if err := enc.WriteToken(jsontext.EndObject); err != nil {
+		return nil, err
+	}
+
+	return bytes.TrimSpace(buf.Bytes()), nil
+}
+
+// jsonVariant is an alternative of a union: its value of the discriminator, the members it declares and those it
+// requires.
+type jsonVariant struct {
+	value    string
+	members  map[string]bool
+	required []string
+}
+
+// jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
+// one, else those whose required members it has and whose members it holds, besides those of plain. Every member
+// must belong to plain or to a chosen alternative.
+func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf bool) ([]int, error) {
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	present := make(map[string]bool, len(names))
+	for _, n := range names {
+		present[n] = true
+	}
+
+	var chosen []int
+	if discriminator != "" {
+		tag, err := jsonMemberString(raw, discriminator)
+		if err != nil {
+			return nil, err
+		}
+
+		for i, v := range variants {
+			if v.value == tag {
+				chosen = append(chosen, i)
+			}
+		}
+
+		if len(chosen) == 0 {
+			return nil, fmt.Errorf("unknown %s %q", discriminator, tag)
+		}
+	} else {
+	variants:
+		for i, v := range variants {
+			for _, r := range v.required {
+				if !present[r] {
+					continue variants
+				}
+			}
+
+			for _, n := range names {
+				if !plain[n] && !v.members[n] {
+					continue variants
+				}
+			}
+
+			chosen = append(chosen, i)
+		}
+
+		switch {
+		case len(chosen) == 0:
+			return nil, fmt.Errorf("matches none of its alternatives")
+		case oneOf && len(chosen) > 1:
+			return nil, fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))
+		}
+	}
+
+	for _, n := range names {
+		if plain[n] {
+			continue
+		}
+
+		known := false
+		for _, i := range chosen {
+			known = known || variants[i].members[n]
+		}
+
+		if !known {
+			return nil, fmt.Errorf("unknown member %q", n)
+		}
+	}
+
+	return chosen, nil
 }

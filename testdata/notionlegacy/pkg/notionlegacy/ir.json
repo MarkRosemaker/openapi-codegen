@@ -656,8 +656,28 @@
 			"kind": 3,
 			"fields": [
 				{
-					"type": "List",
-					"embedded": true
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"description": "Always `list`.",
+					"required": true
+				},
+				{
+					"name": "NextCursor",
+					"jsonName": "next_cursor",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
+					"required": true
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "bool",
+					"jsonTag": "json:\"has_more\"",
+					"description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
+					"required": true
 				},
 				{
 					"name": "Results",
@@ -689,6 +709,15 @@
 					"jsonTag": "json:\"request_id,omitzero\"",
 					"required": true
 				}
+			],
+			"members": [
+				"object",
+				"next_cursor",
+				"has_more",
+				"results",
+				"type",
+				"block",
+				"request_id"
 			]
 		},
 		{
@@ -1377,6 +1406,13 @@
 					"type": "File",
 					"embedded": true
 				}
+			],
+			"members": [
+				"caption",
+				"external",
+				"file",
+				"name",
+				"type"
 			]
 		},
 		{
@@ -1534,36 +1570,6 @@
 					"goName": "LinkToPageTypePageID",
 					"value": "page_id",
 					"literal": "\"page_id\""
-				}
-			]
-		},
-		{
-			"name": "List",
-			"description": "List defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
-					"description": "Always `list`.",
-					"required": true
-				},
-				{
-					"name": "NextCursor",
-					"jsonName": "next_cursor",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"next_cursor,omitzero\"",
-					"description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
-					"required": true
-				},
-				{
-					"name": "HasMore",
-					"jsonName": "has_more",
-					"type": "bool",
-					"jsonTag": "json:\"has_more\"",
-					"description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
-					"required": true
 				}
 			]
 		},
@@ -2277,6 +2283,14 @@
 					"description": "User objects that represent people have the `type` property set to `person`. These objects also have these properties.",
 					"required": true
 				}
+			],
+			"members": [
+				"id",
+				"object",
+				"name",
+				"avatar_url",
+				"type",
+				"person"
 			]
 		},
 		{

@@ -8143,7 +8143,15 @@
 			"unionVariants": [
 				{
 					"fieldName": "ProFlashImageSize",
-					"type": "ProFlashImageSize"
+					"type": "ProFlashImageSize",
+					"members": [
+						"height",
+						"width"
+					],
+					"required": [
+						"height",
+						"width"
+					]
 				}
 			]
 		},
@@ -8720,14 +8728,29 @@
 			"unionVariants": [
 				{
 					"fieldName": "CharacterProportionsPreset",
-					"type": "CharacterProportionsPreset"
+					"type": "CharacterProportionsPreset",
+					"value": "preset",
+					"members": [
+						"name",
+						"type"
+					]
 				},
 				{
 					"fieldName": "CharacterProportions",
-					"type": "CharacterProportions"
+					"type": "CharacterProportions",
+					"value": "custom",
+					"members": [
+						"arms_length",
+						"head_size",
+						"hip_width",
+						"legs_length",
+						"shoulder_width",
+						"type"
+					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "type"
 		},
 		{
 			"name": "CreateDirectionObject",
@@ -9648,15 +9671,30 @@
 			"unionVariants": [
 				{
 					"fieldName": "MaskInpainting",
-					"type": "MaskInpainting"
+					"type": "MaskInpainting",
+					"members": [
+						"mask_image",
+						"type"
+					],
+					"required": [
+						"mask_image"
+					]
 				},
 				{
 					"fieldName": "OvalInpainting",
-					"type": "OvalInpainting"
+					"type": "OvalInpainting",
+					"members": [
+						"fraction",
+						"type"
+					]
 				},
 				{
 					"fieldName": "RectangleInpainting",
-					"type": "RectangleInpainting"
+					"type": "RectangleInpainting",
+					"members": [
+						"fraction",
+						"type"
+					]
 				}
 			]
 		},
@@ -10586,17 +10624,72 @@
 			"unionVariants": [
 				{
 					"fieldName": "UIPieceRect",
-					"type": "UiPieceRect"
+					"type": "UiPieceRect",
+					"value": "rounded_rect",
+					"members": [
+						"h",
+						"id",
+						"kind",
+						"label",
+						"radius",
+						"w",
+						"x",
+						"y"
+					],
+					"required": [
+						"h",
+						"id",
+						"kind",
+						"w",
+						"x",
+						"y"
+					]
 				},
 				{
 					"fieldName": "UIPieceCircle",
-					"type": "UiPieceCircle"
+					"type": "UiPieceCircle",
+					"value": "circle",
+					"members": [
+						"id",
+						"kind",
+						"label",
+						"r",
+						"x",
+						"y"
+					],
+					"required": [
+						"id",
+						"kind",
+						"r",
+						"x",
+						"y"
+					]
 				},
 				{
 					"fieldName": "UIPiecePolygon",
-					"type": "UiPiecePolygon"
+					"type": "UiPiecePolygon",
+					"value": "polygon",
+					"members": [
+						"id",
+						"kind",
+						"label",
+						"phase",
+						"r",
+						"sides",
+						"x",
+						"y"
+					],
+					"required": [
+						"id",
+						"kind",
+						"r",
+						"sides",
+						"x",
+						"y"
+					]
 				}
-			]
+			],
+			"discriminator": "kind"
 		},
 		{
 			"name": "CreateUIAssetResponse",
