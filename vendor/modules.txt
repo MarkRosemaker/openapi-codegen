@@ -17,13 +17,13 @@ github.com/MarkRosemaker/jsonutil
 # github.com/MarkRosemaker/openapi v0.0.0-20261001203346-42d50de94f07
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi
-# github.com/MarkRosemaker/openapi-compare v0.0.0-20261001204032-fc8c08b1df9d
+# github.com/MarkRosemaker/openapi-compare v0.0.0-20261001213930-ce972d5c9432
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compare/schema
-# github.com/MarkRosemaker/openapi-compress v0.0.0-20261001213047-abdc8717f712
+# github.com/MarkRosemaker/openapi-compress v0.0.0-20261001222044-aaccdd68fd32
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-compress
-# github.com/MarkRosemaker/openapi-edit v0.0.0-20261001204032-cfbbb072dfd7
+# github.com/MarkRosemaker/openapi-edit v0.0.0-20261001221052-f7e04352a26c
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-edit
 # github.com/MarkRosemaker/openapi-enrich v0.0.0-20261001205940-e9a91b704e1b
