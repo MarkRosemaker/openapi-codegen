@@ -485,9 +485,6 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) MarshalJSONTo(enc *jsontext.Enc
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
-// Agent defines a model
-type Agent struct{}
-
 // AgentCreditUsage defines a model
 type AgentCreditUsage struct {
 	CreditPerBillingPeriodList AgentCreditUsageCreditPerBillingPeriodList `json:"credit_per_billing_period_list"`

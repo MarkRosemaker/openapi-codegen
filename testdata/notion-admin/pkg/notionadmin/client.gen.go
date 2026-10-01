@@ -4218,8 +4218,8 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 // Revoke a personal access token in a workspace
 //
 //	DELETE /spaces/{space_id}/personal_access_tokens/{bot_id}
-func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) (*Agent, error) {
-	return c.RevokePersonalAccessTokenWithResult[Agent](ctx, botID, spaceID)
+func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) (*struct{}, error) {
+	return c.RevokePersonalAccessTokenWithResult[struct{}](ctx, botID, spaceID)
 }
 
 // Revoke a personal access token in a workspace
@@ -4759,8 +4759,8 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 // Delete an agent in a space
 //
 //	DELETE /spaces/{space_id}/agents/{agent_id}
-func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) (*Agent, error) {
-	return c.DeleteAgentWithResult[Agent](ctx, agentID, spaceID)
+func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) (*struct{}, error) {
+	return c.DeleteAgentWithResult[struct{}](ctx, agentID, spaceID)
 }
 
 // Delete an agent in a space

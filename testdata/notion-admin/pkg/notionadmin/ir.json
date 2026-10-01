@@ -3191,7 +3191,7 @@
 					"description": "The revoked personal access token in a workspace.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Agent"
+						"name": "struct{}"
 					},
 					"isSuccess": true
 				},
@@ -3251,7 +3251,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "Agent"
+				"name": "struct{}"
 			}
 		},
 		{
@@ -3600,7 +3600,7 @@
 					"description": "The deleted agent in a space.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Agent"
+						"name": "struct{}"
 					},
 					"isSuccess": true
 				},
@@ -3660,7 +3660,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "Agent"
+				"name": "struct{}"
 			}
 		},
 		{
@@ -5496,10 +5496,6 @@
 				}
 			],
 			"isOneOf": true
-		},
-		{
-			"name": "Agent",
-			"description": "Agent defines a model"
 		},
 		{
 			"name": "AgentCreditUsage",

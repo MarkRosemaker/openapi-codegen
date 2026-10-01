@@ -77,13 +77,13 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ListFilesCompanyTickersJSONOk"
+						"name": "map[string]ListFilesCompanyTickersJSONOkValue"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ListFilesCompanyTickersJSONOk"
+				"name": "map[string]ListFilesCompanyTickersJSONOkValue"
 			}
 		}
 	],
@@ -6094,13 +6094,6 @@
 					"required": true
 				}
 			]
-		},
-		{
-			"name": "ListFilesCompanyTickersJSONOk",
-			"description": "ListFilesCompanyTickersJSONOk defines a model",
-			"kind": 4,
-			"mapKey": "string",
-			"mapValue": "ListFilesCompanyTickersJSONOkValue"
 		},
 		{
 			"name": "ListFilesCompanyTickersJSONOkValue",

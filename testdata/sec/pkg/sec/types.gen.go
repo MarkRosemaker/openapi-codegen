@@ -1022,9 +1022,6 @@ type ListAPIXbrlCompanyfactsCikFactsUsGaapFiniteLivedIntangibleAssetsUsefulLifeM
 	Year ListAPIXbrlCompanyfactsCikFactsDeiEntityCommonStockSharesOutstandingUnitsShares `json:"Year"`
 }
 
-// ListFilesCompanyTickersJSONOk defines a model
-type ListFilesCompanyTickersJSONOk map[string]ListFilesCompanyTickersJSONOkValue
-
 // ListFilesCompanyTickersJSONOkValue defines a model
 type ListFilesCompanyTickersJSONOkValue struct {
 	CikStr int    `json:"cik_str"`

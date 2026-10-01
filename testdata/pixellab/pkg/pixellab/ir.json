@@ -5830,13 +5830,13 @@
 					"description": "Successful Response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ProFlashCapabilities"
+						"name": "map[string]any"
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "ProFlashCapabilities"
+				"name": "map[string]any"
 			}
 		},
 		{
@@ -5899,7 +5899,7 @@
 					"description": "Successful Response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ProFlashCapabilities"
+						"name": "map[string]any"
 					},
 					"isSuccess": true
 				},
@@ -5914,7 +5914,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ProFlashCapabilities"
+				"name": "map[string]any"
 			}
 		},
 		{
@@ -12170,12 +12170,6 @@
 			]
 		},
 		{
-			"name": "GetLlmsTxtLlmsTxtGetOk",
-			"description": "GetLlmsTxtLlmsTxtGetOk defines a model",
-			"kind": 2,
-			"type": "string"
-		},
-		{
 			"name": "GetMapObjectResponse",
 			"description": "GetMapObjectResponse defines a model",
 			"fields": [
@@ -13973,13 +13967,6 @@
 					"required": true
 				}
 			]
-		},
-		{
-			"name": "ProFlashCapabilities",
-			"description": "ProFlashCapabilities defines a model",
-			"kind": 4,
-			"mapKey": "string",
-			"mapValue": "any"
 		},
 		{
 			"name": "ProFlashImageResponse",

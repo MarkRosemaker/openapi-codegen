@@ -11990,8 +11990,8 @@ func (c *Client) CreateObjectProFlashWithResult[R any](ctx context.Context, body
 // Get native presets, beta creation dimensions and supported controls.
 //
 //	GET /pro-flash/capabilities
-func (c *Client) GetProFlashCapabilities(ctx context.Context) (*ProFlashCapabilities, error) {
-	return c.GetProFlashCapabilitiesWithResult[ProFlashCapabilities](ctx)
+func (c *Client) GetProFlashCapabilities(ctx context.Context) (*map[string]any, error) {
+	return c.GetProFlashCapabilitiesWithResult[map[string]any](ctx)
 }
 
 // Get native presets, beta creation dimensions and supported controls.
@@ -12045,8 +12045,8 @@ func (c *Client) GetProFlashCapabilitiesWithResult[R any](ctx context.Context) (
 // object finalization is free. Actual billed usage is reported on job completion.
 //
 //	GET /pro-flash/cost
-func (c *Client) GetProFlashCost(ctx context.Context, params GetProFlashCostParams) (*ProFlashCapabilities, error) {
-	return c.GetProFlashCostWithResult[ProFlashCapabilities](ctx, params)
+func (c *Client) GetProFlashCost(ctx context.Context, params GetProFlashCostParams) (*map[string]any, error) {
+	return c.GetProFlashCostWithResult[map[string]any](ctx, params)
 }
 
 // Separate provisional first-image and V3 rotation generation units.

@@ -2955,9 +2955,6 @@ type GetFontResponse struct {
 	DownloadTtfURL *string `json:"download_ttf_url,omitempty"`
 }
 
-// GetLlmsTxtLlmsTxtGetOk defines a model
-type GetLlmsTxtLlmsTxtGetOk string
-
 // GetMapObjectResponse defines a model
 type GetMapObjectResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
@@ -3684,9 +3681,6 @@ type ProFlashBoundingBox struct {
 	Width  int `json:"width"`
 	Height int `json:"height"`
 }
-
-// ProFlashCapabilities defines a model
-type ProFlashCapabilities map[string]any
 
 // Queued image identifiers; source_image_id becomes usable on completion.
 type ProFlashImageResponse struct {
