@@ -2423,7 +2423,6 @@ func (c *Client) CreateTeamspaceWithResult[R any](ctx context.Context, body Crea
 }
 
 // Delete external agent stub vault
-// You can define a custom result to unmarshal the response into.
 //
 //	DELETE /external_agent_stub/{agent_id}/vaults/{vault_id}
 func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) error {
@@ -2455,17 +2454,7 @@ func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID strin
 	switch rsp.StatusCode {
 	case http.StatusOK:
 		// The deleted external agent stub vault.
-		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
-		case "application/json":
-			var out emptyObject
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return api.WrapDecodingError(rsp, err)
-			}
-
-			return nil
-		default:
-			return api.NewErrUnknownContentType(rsp)
-		}
+		return nil
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
@@ -5931,7 +5920,6 @@ func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID
 }
 
 // Updates team membership for a given team.
-// You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}/membership
 func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) error {
@@ -5970,17 +5958,7 @@ func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ExternalDecago
 	switch rsp.StatusCode {
 	case http.StatusOK:
 		// The updated team membership for a given team.
-		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
-		case "application/json":
-			var out emptyObject
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return api.WrapDecodingError(rsp, err)
-			}
-
-			return nil
-		default:
-			return api.NewErrUnknownContentType(rsp)
-		}
+		return nil
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
@@ -6343,7 +6321,6 @@ func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamI
 }
 
 // Updates permission levels for a given teamspace.
-// You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}/permissions
 func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) error {
@@ -6382,17 +6359,7 @@ func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID External
 	switch rsp.StatusCode {
 	case http.StatusOK:
 		// The updated permission levels for a given teamspace.
-		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
-		case "application/json":
-			var out emptyObject
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return api.WrapDecodingError(rsp, err)
-			}
-
-			return nil
-		default:
-			return api.NewErrUnknownContentType(rsp)
-		}
+		return nil
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {

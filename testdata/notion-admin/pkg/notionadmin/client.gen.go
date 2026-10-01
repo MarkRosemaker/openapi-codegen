@@ -4216,7 +4216,6 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 }
 
 // Revoke a personal access token in a workspace
-// You can define a custom result to unmarshal the response into.
 //
 //	DELETE /spaces/{space_id}/personal_access_tokens/{bot_id}
 func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) error {
@@ -4244,17 +4243,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 	switch rsp.StatusCode {
 	case http.StatusOK:
 		// The revoked personal access token in a workspace.
-		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
-		case "application/json":
-			var out struct{}
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return api.WrapDecodingError(rsp, err)
-			}
-
-			return nil
-		default:
-			return api.NewErrUnknownContentType(rsp)
-		}
+		return nil
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
@@ -4750,7 +4739,6 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 }
 
 // Delete an agent in a space
-// You can define a custom result to unmarshal the response into.
 //
 //	DELETE /spaces/{space_id}/agents/{agent_id}
 func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) error {
@@ -4778,17 +4766,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 	switch rsp.StatusCode {
 	case http.StatusOK:
 		// The deleted agent in a space.
-		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
-		case "application/json":
-			var out struct{}
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return api.WrapDecodingError(rsp, err)
-			}
-
-			return nil
-		default:
-			return api.NewErrUnknownContentType(rsp)
-		}
+		return nil
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
