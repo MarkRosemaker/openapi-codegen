@@ -9,6 +9,7 @@ import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
+	"slices"
 	"uuid"
 )
 
@@ -1331,16 +1332,32 @@ func (v *CreateCharacterWithDirectionsProportionsAnyOf) UnmarshalJSONFrom(dec *j
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *CreateCharacterWithDirectionsProportionsAnyOf) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.CharacterProportionsPreset != nil:
-		return json.MarshalEncode(enc, v.CharacterProportionsPreset, jsonOpts)
+		variant, tag = v.CharacterProportionsPreset, "preset"
 	case v.CharacterProportions != nil:
-		return json.MarshalEncode(enc, v.CharacterProportions, jsonOpts)
+		variant, tag = v.CharacterProportions, "custom"
+	default:
+		return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: no variant set")
 	}
 
-	return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Response model for 1-direction object creation.
@@ -2349,18 +2366,34 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) UnmarshalJSONFrom(dec *jsontext.D
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with kind first, as decoding wants it, and set to the variant's value.
 func (v *CreateUIAssetRequestPiecesAnyOf0Item) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.UIPieceRect != nil:
-		return json.MarshalEncode(enc, v.UIPieceRect, jsonOpts)
+		variant, tag = v.UIPieceRect, "rounded_rect"
 	case v.UIPieceCircle != nil:
-		return json.MarshalEncode(enc, v.UIPieceCircle, jsonOpts)
+		variant, tag = v.UIPieceCircle, "circle"
 	case v.UIPiecePolygon != nil:
-		return json.MarshalEncode(enc, v.UIPiecePolygon, jsonOpts)
+		variant, tag = v.UIPiecePolygon, "polygon"
+	default:
+		return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: no variant set")
 	}
 
-	return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "kind", tag); err != nil {
+		return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // CreateUIAssetResponse defines a model
@@ -4874,6 +4907,69 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 
 	_, err := dec.ReadToken()
 	return err
+}
+
+// jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
+// is known, the member must have it, and is written in if raw lacks it. raw is returned as it is if all is in order.
+func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	if dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		if tok.String() == name {
+			if value != "" {
+				val, err := dec.ReadToken()
+				if err != nil {
+					return nil, err
+				}
+
+				if got := val.String(); got != value {
+					return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+				}
+			}
+
+			return raw, nil
+		}
+	}
+
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	var first jsontext.Value
+	switch {
+	case slices.Contains(names, name):
+		if first, err = jsonSelect(raw, map[string]bool{name: true}); err != nil {
+			return nil, err
+		}
+
+		if value != "" {
+			if got, err := jsonMemberString(first, name); err != nil {
+				return nil, err
+			} else if got != value {
+				return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+			}
+		}
+	case value != "":
+		member, err := json.Marshal(map[string]string{name: value})
+		if err != nil {
+			return nil, err
+		}
+
+		first = member
+	default:
+		return nil, fmt.Errorf("missing member %q", name)
+	}
+
+	return jsonMerge(first, raw)
 }
 
 // jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.

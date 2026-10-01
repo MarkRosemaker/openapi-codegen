@@ -8,9 +8,9 @@ import (
 	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
-	"errors"
 	"fmt"
 	"net/url"
+	"slices"
 	"time"
 	"uuid"
 
@@ -723,16 +723,32 @@ func (v *BotInfoResponseOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *BotInfoResponseOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.User != nil:
-		return json.MarshalEncode(enc, v.User, jsonOpts)
+		variant, tag = v.User, "user"
 	case v.Workspace != nil:
-		return json.MarshalEncode(enc, v.Workspace, jsonOpts)
+		variant, tag = v.Workspace, "workspace"
+	default:
+		return fmt.Errorf("BotInfoResponseOwner: no variant set")
 	}
 
-	return fmt.Errorf("BotInfoResponseOwner: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("BotInfoResponseOwner: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Limits and restrictions that apply to the bot's workspace
@@ -1659,24 +1675,40 @@ func (v *ChatStreamChunk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ChatStreamChunk) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.Message != nil:
-		return json.MarshalEncode(enc, v.Message, jsonOpts)
+		variant, tag = v.Message, "message"
 	case v.Tool != nil:
-		return json.MarshalEncode(enc, v.Tool, jsonOpts)
+		variant, tag = v.Tool, "tool"
 	case v.Started != nil:
-		return json.MarshalEncode(enc, v.Started, jsonOpts)
+		variant, tag = v.Started, "started"
 	case v.Done != nil:
-		return json.MarshalEncode(enc, v.Done, jsonOpts)
+		variant, tag = v.Done, "done"
 	case v.WaitingForUser != nil:
-		return json.MarshalEncode(enc, v.WaitingForUser, jsonOpts)
+		variant, tag = v.WaitingForUser, "waiting_for_user"
 	case v.Error != nil:
-		return json.MarshalEncode(enc, v.Error, jsonOpts)
+		variant, tag = v.Error, "error"
+	default:
+		return fmt.Errorf("ChatStreamChunk: no variant set")
 	}
 
-	return fmt.Errorf("ChatStreamChunk: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ChatStreamChunk: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ChatWithAgent defines a model
@@ -1724,6 +1756,16 @@ type ChatWithAgentAttachmentsItem struct {
 type ChatWithAgentAttachmentsItemFileUpload struct {
 	// ID of a FileUpload object that has the status `uploaded`.
 	ID string `json:"id,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether ChatWithAgentAttachmentsItemFileUpload declares it.
+func (v *ChatWithAgentAttachmentsItemFileUpload) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // Property filter for checkbox properties.
@@ -2044,7 +2086,7 @@ type fieldsOfCreateANotionAttachment CreateANotionAttachment
 // membersOfCreateANotionAttachment are the members CreateANotionAttachment declares outside its union.
 var membersOfCreateANotionAttachment = map[string]bool{"content_type": true, "filename": true}
 
-// variantsOfCreateANotionAttachment are the alternatives of its union, in order.
+// variantsOfCreateANotionAttachment are the alternatives its union is decoded as, in order.
 var variantsOfCreateANotionAttachment = []jsonVariant{
 	{
 		value:    "",
@@ -2130,6 +2172,7 @@ func (v *CreateANotionAttachment) MarshalJSONTo(enc *jsontext.Encoder) error {
 	var set int
 
 	if v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf != nil {
+
 		variant, err := json.Marshal(v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf, jsonOpts)
 		if err != nil {
 			return err
@@ -2143,6 +2186,7 @@ func (v *CreateANotionAttachment) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf2 != nil {
+
 		variant, err := json.Marshal(v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf2, jsonOpts)
 		if err != nil {
 			return err
@@ -2156,6 +2200,7 @@ func (v *CreateANotionAttachment) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf3 != nil {
+
 		variant, err := json.Marshal(v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf3, jsonOpts)
 		if err != nil {
 			return err
@@ -2381,7 +2426,7 @@ type fieldsOfCreateCommentCreateComment CreateCommentCreateComment
 // membersOfCreateCommentCreateComment are the members CreateCommentCreateComment declares outside its union.
 var membersOfCreateCommentCreateComment = map[string]bool{"discussion_id": true, "page_id": true, "selection_with_ellipsis": true}
 
-// variantsOfCreateCommentCreateComment are the alternatives of its union, in order.
+// variantsOfCreateCommentCreateComment are the alternatives its union is decoded as, in order.
 var variantsOfCreateCommentCreateComment = []jsonVariant{
 	{
 		value:    "",
@@ -2455,6 +2500,7 @@ func (v *CreateCommentCreateComment) MarshalJSONTo(enc *jsontext.Encoder) error 
 	var set int
 
 	if v.CreateCommentCreateCommentAllOf2.CreateCommentCreateCommentAllOfOneOf != nil {
+
 		variant, err := json.Marshal(v.CreateCommentCreateCommentAllOf2.CreateCommentCreateCommentAllOfOneOf, jsonOpts)
 		if err != nil {
 			return err
@@ -2468,6 +2514,7 @@ func (v *CreateCommentCreateComment) MarshalJSONTo(enc *jsontext.Encoder) error 
 	}
 
 	if v.CreateCommentCreateCommentAllOf2.CreateCommentCreateCommentAllOfOneOf2 != nil {
+
 		variant, err := json.Marshal(v.CreateCommentCreateCommentAllOf2.CreateCommentCreateCommentAllOfOneOf2, jsonOpts)
 		if err != nil {
 			return err
@@ -2641,7 +2688,7 @@ type fieldsOfCreateDatabaseCreateDatabase CreateDatabaseCreateDatabase
 // membersOfCreateDatabaseCreateDatabase are the members CreateDatabaseCreateDatabase declares outside its union.
 var membersOfCreateDatabaseCreateDatabase = map[string]bool{"description": true, "parent": true, "title": true}
 
-// variantsOfCreateDatabaseCreateDatabase are the alternatives of its union, in order.
+// variantsOfCreateDatabaseCreateDatabase are the alternatives its union is decoded as, in order.
 var variantsOfCreateDatabaseCreateDatabase = []jsonVariant{
 	{
 		value:    "",
@@ -2715,6 +2762,7 @@ func (v *CreateDatabaseCreateDatabase) MarshalJSONTo(enc *jsontext.Encoder) erro
 	var set int
 
 	if v.CreateDatabaseCreateDatabaseAllOf2.CreateDatabaseCreateDatabaseAllOfOneOf != nil {
+
 		variant, err := json.Marshal(v.CreateDatabaseCreateDatabaseAllOf2.CreateDatabaseCreateDatabaseAllOfOneOf, jsonOpts)
 		if err != nil {
 			return err
@@ -2728,6 +2776,7 @@ func (v *CreateDatabaseCreateDatabase) MarshalJSONTo(enc *jsontext.Encoder) erro
 	}
 
 	if v.CreateDatabaseCreateDatabaseAllOf2.CreateDatabaseCreateDatabaseAllOfOneOf2 != nil {
+
 		variant, err := json.Marshal(v.CreateDatabaseCreateDatabaseAllOf2.CreateDatabaseCreateDatabaseAllOfOneOf2, jsonOpts)
 		if err != nil {
 			return err
@@ -3883,16 +3932,32 @@ func (v *CreateRolloutExecutionLoggingItem) UnmarshalJSONFrom(dec *jsontext.Deco
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *CreateRolloutExecutionLoggingItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.CreateRolloutExecutionLoggingItemOneOf != nil:
-		return json.MarshalEncode(enc, v.CreateRolloutExecutionLoggingItemOneOf, jsonOpts)
+		variant, tag = v.CreateRolloutExecutionLoggingItemOneOf, "includeRawInferences"
 	case v.CreateRolloutExecutionLoggingItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.CreateRolloutExecutionLoggingItemOneOf2, jsonOpts)
+		variant, tag = v.CreateRolloutExecutionLoggingItemOneOf2, "braintrustLogs"
+	default:
+		return fmt.Errorf("CreateRolloutExecutionLoggingItem: no variant set")
 	}
 
-	return fmt.Errorf("CreateRolloutExecutionLoggingItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("CreateRolloutExecutionLoggingItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // CreateRolloutExecutionLoggingItemOneOf defines a model
@@ -4756,16 +4821,32 @@ func (v *DateFilterOneOf0Value) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *DateFilterOneOf0Value) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DateFilterOneOfValueOneOf != nil:
-		return json.MarshalEncode(enc, v.DateFilterOneOfValueOneOf, jsonOpts)
+		variant, tag = v.DateFilterOneOfValueOneOf, "exact"
 	case v.DateFilterOneOfValueOneOf2 != nil:
-		return json.MarshalEncode(enc, v.DateFilterOneOfValueOneOf2, jsonOpts)
+		variant, tag = v.DateFilterOneOfValueOneOf2, "relative"
+	default:
+		return fmt.Errorf("DateFilterOneOf0Value: no variant set")
 	}
 
-	return fmt.Errorf("DateFilterOneOf0Value: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("DateFilterOneOf0Value: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // DateFilterOneOf1 defines a model
@@ -5220,16 +5301,32 @@ func (v *DoneArtifactsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *DoneArtifactsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DoneArtifactsItemOneOf0 != nil:
-		return json.MarshalEncode(enc, v.DoneArtifactsItemOneOf0, jsonOpts)
+		variant, tag = v.DoneArtifactsItemOneOf0, "page"
 	case v.DoneArtifactsItemOneOf1 != nil:
-		return json.MarshalEncode(enc, v.DoneArtifactsItemOneOf1, jsonOpts)
+		variant, tag = v.DoneArtifactsItemOneOf1, "html_artifact"
+	default:
+		return fmt.Errorf("DoneArtifactsItem: no variant set")
 	}
 
-	return fmt.Errorf("DoneArtifactsItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("DoneArtifactsItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // DoneArtifactsItemOneOf0 defines a model
@@ -5334,18 +5431,34 @@ func (v *DonePendingUserActionsItem2) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with id first, as decoding wants it, and set to the variant's value.
 func (v *DonePendingUserActionsItem2) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DonePendingUserActionsItemOneOf != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemOneOf, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemOneOf, "approve"
 	case v.DonePendingUserActionsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemOneOf2, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemOneOf2, "reject"
 	case v.DonePendingUserActionsItemOneOf3 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemOneOf3, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemOneOf3, "use_connection"
+	default:
+		return fmt.Errorf("DonePendingUserActionsItem2: no variant set")
 	}
 
-	return fmt.Errorf("DonePendingUserActionsItem2: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "id", tag); err != nil {
+		return fmt.Errorf("DonePendingUserActionsItem2: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // DonePendingUserActionsItemOneOf defines a model
@@ -5493,26 +5606,42 @@ func (v *DonePendingUserActionsItemRequirementsItem) UnmarshalJSONFrom(dec *json
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *DonePendingUserActionsItemRequirementsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DonePendingUserActionsItemRequirementsItemOneOf != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf, "general"
 	case v.DonePendingUserActionsItemRequirementsItemOneOf7 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf7, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf7, "manage_workers"
 	case v.DonePendingUserActionsItemRequirementsItemOneOf8 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf8, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf8, "url_safety"
 	case v.DonePendingUserActionsItemRequirementsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf2, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf2, "permission_escalation"
 	case v.DonePendingUserActionsItemRequirementsItemOneOf3 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf3, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf3, "delete_content"
 	case v.DonePendingUserActionsItemRequirementsItemOneOf4 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf4, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf4, "connect_integration"
 	case v.DonePendingUserActionsItemRequirementsItemOneOf5 != nil:
-		return json.MarshalEncode(enc, v.DonePendingUserActionsItemRequirementsItemOneOf5, jsonOpts)
+		variant, tag = v.DonePendingUserActionsItemRequirementsItemOneOf5, "admin_mode"
+	default:
+		return fmt.Errorf("DonePendingUserActionsItemRequirementsItem: no variant set")
 	}
 
-	return fmt.Errorf("DonePendingUserActionsItemRequirementsItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("DonePendingUserActionsItemRequirementsItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // DonePendingUserActionsItemRequirementsItemOneOf defines a model
@@ -6457,22 +6586,38 @@ func (v *ExternalDecagon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with tool first, as decoding wants it, and set to the variant's value.
 func (v *ExternalDecagon) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ExternalDecagonAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOf0, jsonOpts)
+		variant, tag = v.ExternalDecagonAnyOf0, "educationEmailVerification"
 	case v.ExternalDecagonAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOf1, jsonOpts)
+		variant, tag = v.ExternalDecagonAnyOf1, "refundEligibility"
 	case v.ExternalDecagonAnyOf2 != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOf2, jsonOpts)
+		variant, tag = v.ExternalDecagonAnyOf2, "getFreeChartsForSpace"
 	case v.ExternalDecagonAnyOf3 != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOf3, jsonOpts)
+		variant, tag = v.ExternalDecagonAnyOf3, "optOutNotionAIDataSharing"
 	case v.ExternalDecagonAnyOf4 != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOf4, jsonOpts)
+		variant, tag = v.ExternalDecagonAnyOf4, "isWorkspaceDeleted"
+	default:
+		return fmt.Errorf("ExternalDecagon: no variant set")
 	}
 
-	return fmt.Errorf("ExternalDecagon: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "tool", tag); err != nil {
+		return fmt.Errorf("ExternalDecagon: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ExternalDecagonAnyOf0 defines a model
@@ -7127,16 +7272,32 @@ func (v *GenerateTranscript) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with kind first, as decoding wants it, and set to the variant's value.
 func (v *GenerateTranscript) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.GenerateTranscriptOneOf0 != nil:
-		return json.MarshalEncode(enc, v.GenerateTranscriptOneOf0, jsonOpts)
+		variant, tag = v.GenerateTranscriptOneOf0, "GenerateTranscriptOneOf0"
 	case v.GenerateTranscriptOneOf1 != nil:
-		return json.MarshalEncode(enc, v.GenerateTranscriptOneOf1, jsonOpts)
+		variant, tag = v.GenerateTranscriptOneOf1, "GenerateTranscriptOneOf1"
+	default:
+		return fmt.Errorf("GenerateTranscript: no variant set")
 	}
 
-	return fmt.Errorf("GenerateTranscript: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "kind", tag); err != nil {
+		return fmt.Errorf("GenerateTranscript: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // GenerateTranscriptOk defines a model
@@ -7859,16 +8020,32 @@ func (v *GroupByDateSort) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *GroupByDateSort) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.GroupByDateSortOneOf != nil:
-		return json.MarshalEncode(enc, v.GroupByDateSortOneOf, jsonOpts)
+		variant, tag = v.GroupByDateSortOneOf, "ascending"
 	case v.GroupByDateSortOneOf2 != nil:
-		return json.MarshalEncode(enc, v.GroupByDateSortOneOf2, jsonOpts)
+		variant, tag = v.GroupByDateSortOneOf2, "descending"
+	default:
+		return fmt.Errorf("GroupByDateSort: no variant set")
 	}
 
-	return fmt.Errorf("GroupByDateSort: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("GroupByDateSort: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // GroupByDateSortOneOf defines a model
@@ -7993,18 +8170,34 @@ func (v *GroupByRelationSort) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *GroupByRelationSort) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.GroupByCheckboxSort != nil:
-		return json.MarshalEncode(enc, v.GroupByCheckboxSort, jsonOpts)
+		variant, tag = v.GroupByCheckboxSort, "manual"
 	case v.GroupByDateSortOneOf != nil:
-		return json.MarshalEncode(enc, v.GroupByDateSortOneOf, jsonOpts)
+		variant, tag = v.GroupByDateSortOneOf, "ascending"
 	case v.GroupByDateSortOneOf2 != nil:
-		return json.MarshalEncode(enc, v.GroupByDateSortOneOf2, jsonOpts)
+		variant, tag = v.GroupByDateSortOneOf2, "descending"
+	default:
+		return fmt.Errorf("GroupByRelationSort: no variant set")
 	}
 
-	return fmt.Errorf("GroupByRelationSort: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("GroupByRelationSort: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Group by for select and multi_select properties.
@@ -8285,18 +8478,34 @@ func (v *LinkToPageBlockObjectResponseLinkToPage) UnmarshalJSONFrom(dec *jsontex
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *LinkToPageBlockObjectResponseLinkToPage) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.PageID != nil:
-		return json.MarshalEncode(enc, v.PageID, jsonOpts)
+		variant, tag = v.PageID, "page_id"
 	case v.DatabaseID != nil:
-		return json.MarshalEncode(enc, v.DatabaseID, jsonOpts)
+		variant, tag = v.DatabaseID, "database_id"
 	case v.CommentID != nil:
-		return json.MarshalEncode(enc, v.CommentID, jsonOpts)
+		variant, tag = v.CommentID, "comment_id"
+	default:
+		return fmt.Errorf("LinkToPageBlockObjectResponseLinkToPage: no variant set")
 	}
 
-	return fmt.Errorf("LinkToPageBlockObjectResponseLinkToPage: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("LinkToPageBlockObjectResponseLinkToPage: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListAgents defines a model
@@ -8942,26 +9151,42 @@ func (v *ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget) Unmarsh
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf, "page"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf2, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf2, "database_property"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf3 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf3, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf3, "agent"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf4 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf4, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf4, "workspace"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf5 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf5, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf5, "owner_private_pages"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf6 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf6, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf6, "web_search"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf7 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf7, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf7, "notion_help_docs_search"
+	default:
+		return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget: no variant set")
 	}
 
-	return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget2 defines a model
@@ -9009,18 +9234,34 @@ func (v *ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget2) Unmars
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget2) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf8 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf8, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf8, "slack_channel"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf9 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf9, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf9, "slack_all_public_channels"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf10 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf10, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf10, "slack_all_channels"
+	default:
+		return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget2: no variant set")
 	}
 
-	return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget2: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget2: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget3 defines a model
@@ -9060,16 +9301,32 @@ func (v *ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget3) Unmars
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget3) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf11 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf11, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf11, "discord_channel"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf12 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf12, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf12, "discord_all_channels"
+	default:
+		return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget3: no variant set")
 	}
 
-	return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget3: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget3: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTarget4 defines a model
@@ -9570,16 +9827,32 @@ func (v *ListAgentsResultsItemModel) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with mode first, as decoding wants it, and set to the variant's value.
 func (v *ListAgentsResultsItemModel) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListAgentsResultsItemModelOneOf != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemModelOneOf, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemModelOneOf, "auto"
 	case v.ListAgentsResultsItemModelOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemModelOneOf2, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemModelOneOf2, "pinned"
+	default:
+		return fmt.Errorf("ListAgentsResultsItemModel: no variant set")
 	}
 
-	return fmt.Errorf("ListAgentsResultsItemModel: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "mode", tag); err != nil {
+		return fmt.Errorf("ListAgentsResultsItemModel: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListAgentsResultsItemModelOneOf defines a model
@@ -9753,22 +10026,38 @@ func (v *ListExternalAgentStubSessionEventsOkEventsItem) UnmarshalJSONFrom(dec *
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListExternalAgentStubSessionEventsOkEventsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListExternalAgentStubSessionEventsOkEventsItemOneOf0 != nil:
-		return json.MarshalEncode(enc, v.ListExternalAgentStubSessionEventsOkEventsItemOneOf0, jsonOpts)
+		variant, tag = v.ListExternalAgentStubSessionEventsOkEventsItemOneOf0, "assistant.thinking"
 	case v.ListExternalAgentStubSessionEventsOkEventsItemOneOf1 != nil:
-		return json.MarshalEncode(enc, v.ListExternalAgentStubSessionEventsOkEventsItemOneOf1, jsonOpts)
+		variant, tag = v.ListExternalAgentStubSessionEventsOkEventsItemOneOf1, "assistant.message"
 	case v.ListExternalAgentStubSessionEventsOkEventsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ListExternalAgentStubSessionEventsOkEventsItemOneOf2, jsonOpts)
+		variant, tag = v.ListExternalAgentStubSessionEventsOkEventsItemOneOf2, "tool.started"
 	case v.ListExternalAgentStubSessionEventsOkEventsItemOneOf3 != nil:
-		return json.MarshalEncode(enc, v.ListExternalAgentStubSessionEventsOkEventsItemOneOf3, jsonOpts)
+		variant, tag = v.ListExternalAgentStubSessionEventsOkEventsItemOneOf3, "tool.output"
 	case v.ListExternalAgentStubSessionEventsOkEventsItemOneOf4 != nil:
-		return json.MarshalEncode(enc, v.ListExternalAgentStubSessionEventsOkEventsItemOneOf4, jsonOpts)
+		variant, tag = v.ListExternalAgentStubSessionEventsOkEventsItemOneOf4, "error"
+	default:
+		return fmt.Errorf("ListExternalAgentStubSessionEventsOkEventsItem: no variant set")
 	}
 
-	return fmt.Errorf("ListExternalAgentStubSessionEventsOkEventsItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListExternalAgentStubSessionEventsOkEventsItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListExternalAgentStubSessionEventsOkEventsItemOneOf0 defines a model
@@ -10274,22 +10563,38 @@ func (v *ListThreadMessagesResultsItemContentPartsItem) UnmarshalJSONFrom(dec *j
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListThreadMessagesResultsItemContentPartsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListThreadMessagesResultsItemContentPartsItemOneOf != nil:
-		return json.MarshalEncode(enc, v.ListThreadMessagesResultsItemContentPartsItemOneOf, jsonOpts)
+		variant, tag = v.ListThreadMessagesResultsItemContentPartsItemOneOf, "text"
 	case v.ListThreadMessagesResultsItemContentPartsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ListThreadMessagesResultsItemContentPartsItemOneOf2, jsonOpts)
+		variant, tag = v.ListThreadMessagesResultsItemContentPartsItemOneOf2, "thinking"
 	case v.ListThreadMessagesResultsItemContentPartsItemOneOf3 != nil:
-		return json.MarshalEncode(enc, v.ListThreadMessagesResultsItemContentPartsItemOneOf3, jsonOpts)
+		variant, tag = v.ListThreadMessagesResultsItemContentPartsItemOneOf3, "tool_call"
 	case v.ListThreadMessagesResultsItemContentPartsItemOneOf4 != nil:
-		return json.MarshalEncode(enc, v.ListThreadMessagesResultsItemContentPartsItemOneOf4, jsonOpts)
+		variant, tag = v.ListThreadMessagesResultsItemContentPartsItemOneOf4, "follow_ups"
 	case v.ListThreadMessagesResultsItemContentPartsItemOneOf5 != nil:
-		return json.MarshalEncode(enc, v.ListThreadMessagesResultsItemContentPartsItemOneOf5, jsonOpts)
+		variant, tag = v.ListThreadMessagesResultsItemContentPartsItemOneOf5, "custom_agent_template_picker"
+	default:
+		return fmt.Errorf("ListThreadMessagesResultsItemContentPartsItem: no variant set")
 	}
 
-	return fmt.Errorf("ListThreadMessagesResultsItemContentPartsItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListThreadMessagesResultsItemContentPartsItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListThreadMessagesResultsItemContentPartsItemOneOf defines a model
@@ -10554,16 +10859,32 @@ func (v *ListThreadsResultsItemModels) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListThreadsResultsItemModels) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListThreadsResultsItemModelsOneOf != nil:
-		return json.MarshalEncode(enc, v.ListThreadsResultsItemModelsOneOf, jsonOpts)
+		variant, tag = v.ListThreadsResultsItemModelsOneOf, "auto"
 	case v.ListThreadsResultsItemModelsOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ListThreadsResultsItemModelsOneOf2, jsonOpts)
+		variant, tag = v.ListThreadsResultsItemModelsOneOf2, "pinned"
+	default:
+		return fmt.Errorf("ListThreadsResultsItemModels: no variant set")
 	}
 
-	return fmt.Errorf("ListThreadsResultsItemModels: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListThreadsResultsItemModels: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ListThreadsResultsItemModelsOneOf defines a model
@@ -10826,24 +11147,40 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.User2 != nil:
-		return json.MarshalEncode(enc, v.User2, jsonOpts)
+		variant, tag = v.User2, "user"
 	case v.Date != nil:
-		return json.MarshalEncode(enc, v.Date, jsonOpts)
+		variant, tag = v.Date, "date"
 	case v.Page != nil:
-		return json.MarshalEncode(enc, v.Page, jsonOpts)
+		variant, tag = v.Page, "page"
 	case v.Database != nil:
-		return json.MarshalEncode(enc, v.Database, jsonOpts)
+		variant, tag = v.Database, "database"
 	case v.TemplateMention != nil:
-		return json.MarshalEncode(enc, v.TemplateMention, jsonOpts)
+		variant, tag = v.TemplateMention, "template_mention"
 	case v.CustomEmoji != nil:
-		return json.MarshalEncode(enc, v.CustomEmoji, jsonOpts)
+		variant, tag = v.CustomEmoji, "custom_emoji"
+	default:
+		return fmt.Errorf("MentionRichTextItemRequestMention: no variant set")
 	}
 
-	return fmt.Errorf("MentionRichTextItemRequestMention: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("MentionRichTextItemRequestMention: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -10931,28 +11268,44 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *MentionRichTextItemResponseMention) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.User3 != nil:
-		return json.MarshalEncode(enc, v.User3, jsonOpts)
+		variant, tag = v.User3, "user"
 	case v.Date != nil:
-		return json.MarshalEncode(enc, v.Date, jsonOpts)
+		variant, tag = v.Date, "date"
 	case v.LinkPreview != nil:
-		return json.MarshalEncode(enc, v.LinkPreview, jsonOpts)
+		variant, tag = v.LinkPreview, "link_preview"
 	case v.LinkMention != nil:
-		return json.MarshalEncode(enc, v.LinkMention, jsonOpts)
+		variant, tag = v.LinkMention, "link_mention"
 	case v.Page2 != nil:
-		return json.MarshalEncode(enc, v.Page2, jsonOpts)
+		variant, tag = v.Page2, "page"
 	case v.Database2 != nil:
-		return json.MarshalEncode(enc, v.Database2, jsonOpts)
+		variant, tag = v.Database2, "database"
 	case v.TemplateMention != nil:
-		return json.MarshalEncode(enc, v.TemplateMention, jsonOpts)
+		variant, tag = v.TemplateMention, "template_mention"
 	case v.CustomEmoji4 != nil:
-		return json.MarshalEncode(enc, v.CustomEmoji4, jsonOpts)
+		variant, tag = v.CustomEmoji4, "custom_emoji"
+	default:
+		return fmt.Errorf("MentionRichTextItemResponseMention: no variant set")
 	}
 
-	return fmt.Errorf("MentionRichTextItemResponseMention: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("MentionRichTextItemResponseMention: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Message defines a model
@@ -11075,20 +11428,36 @@ func (v *MovePagesMovePagesNewParent) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *MovePagesMovePagesNewParent) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.CreateDatabaseCreateDatabaseAllOfParent != nil:
-		return json.MarshalEncode(enc, v.CreateDatabaseCreateDatabaseAllOfParent, jsonOpts)
+		variant, tag = v.CreateDatabaseCreateDatabaseAllOfParent, "page_id"
 	case v.CreatePagesCreatePagesParentOneOf != nil:
-		return json.MarshalEncode(enc, v.CreatePagesCreatePagesParentOneOf, jsonOpts)
+		variant, tag = v.CreatePagesCreatePagesParentOneOf, "database_id"
 	case v.CreatePagesCreatePagesParentOneOf2 != nil:
-		return json.MarshalEncode(enc, v.CreatePagesCreatePagesParentOneOf2, jsonOpts)
+		variant, tag = v.CreatePagesCreatePagesParentOneOf2, "data_source_id"
 	case v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf4 != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf4, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemConnectionsItemOneOfPermissionsItemTargetOneOf4, "workspace"
+	default:
+		return fmt.Errorf("MovePagesMovePagesNewParent: no variant set")
 	}
 
-	return fmt.Errorf("MovePagesMovePagesNewParent: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("MovePagesMovePagesNewParent: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // MultiSelectDatabasePropertyConfigMultiSelect defines a model
@@ -11628,16 +11997,32 @@ func (v *PersonFilterValueOneOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *PersonFilterValueOneOf) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DateFilterOneOfValueOneOf != nil:
-		return json.MarshalEncode(enc, v.DateFilterOneOfValueOneOf, jsonOpts)
+		variant, tag = v.DateFilterOneOfValueOneOf, "exact"
 	case v.PersonFilterValueOneOfOneOf != nil:
-		return json.MarshalEncode(enc, v.PersonFilterValueOneOfOneOf, jsonOpts)
+		variant, tag = v.PersonFilterValueOneOfOneOf, "relative"
+	default:
+		return fmt.Errorf("PersonFilterValueOneOf: no variant set")
 	}
 
-	return fmt.Errorf("PersonFilterValueOneOf: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("PersonFilterValueOneOf: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // PersonFilterValueOneOfOneOf defines a model
@@ -11816,22 +12201,38 @@ func (v *PrivateUpdatePagePermissionsPermissionsItem) UnmarshalJSONFrom(dec *jso
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *PrivateUpdatePagePermissionsPermissionsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.PrivateUpdatePagePermissionsPermissionsItemAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PrivateUpdatePagePermissionsPermissionsItemAnyOf0, jsonOpts)
+		variant, tag = v.PrivateUpdatePagePermissionsPermissionsItemAnyOf0, "user_permission"
 	case v.PrivateUpdatePagePermissionsPermissionsItemAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.PrivateUpdatePagePermissionsPermissionsItemAnyOf1, jsonOpts)
+		variant, tag = v.PrivateUpdatePagePermissionsPermissionsItemAnyOf1, "group_permission"
 	case v.PrivateUpdatePagePermissionsPermissionsItemAnyOf2 != nil:
-		return json.MarshalEncode(enc, v.PrivateUpdatePagePermissionsPermissionsItemAnyOf2, jsonOpts)
+		variant, tag = v.PrivateUpdatePagePermissionsPermissionsItemAnyOf2, "teamspace_owner"
 	case v.PrivateUpdatePagePermissionsPermissionsItemAnyOf3 != nil:
-		return json.MarshalEncode(enc, v.PrivateUpdatePagePermissionsPermissionsItemAnyOf3, jsonOpts)
+		variant, tag = v.PrivateUpdatePagePermissionsPermissionsItemAnyOf3, "teamspace_members"
 	case v.PrivateUpdatePagePermissionsPermissionsItemAnyOf4 != nil:
-		return json.MarshalEncode(enc, v.PrivateUpdatePagePermissionsPermissionsItemAnyOf4, jsonOpts)
+		variant, tag = v.PrivateUpdatePagePermissionsPermissionsItemAnyOf4, "workspace_permission"
+	default:
+		return fmt.Errorf("PrivateUpdatePagePermissionsPermissionsItem: no variant set")
 	}
 
-	return fmt.Errorf("PrivateUpdatePagePermissionsPermissionsItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("PrivateUpdatePagePermissionsPermissionsItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // PrivateUpdatePagePermissionsPermissionsItemAnyOf0 defines a model
@@ -12173,22 +12574,38 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) UnmarshalJSONFrom(dec
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *PropertyItemPropertyItemListResponsePropertyItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.Title != nil:
-		return json.MarshalEncode(enc, v.Title, jsonOpts)
+		variant, tag = v.Title, "title"
 	case v.RichText != nil:
-		return json.MarshalEncode(enc, v.RichText, jsonOpts)
+		variant, tag = v.RichText, "rich_text"
 	case v.People != nil:
-		return json.MarshalEncode(enc, v.People, jsonOpts)
+		variant, tag = v.People, "people"
 	case v.Relation != nil:
-		return json.MarshalEncode(enc, v.Relation, jsonOpts)
+		variant, tag = v.Relation, "relation"
 	case v.Rollup != nil:
-		return json.MarshalEncode(enc, v.Rollup, jsonOpts)
+		variant, tag = v.Rollup, "rollup"
+	default:
+		return fmt.Errorf("PropertyItemPropertyItemListResponsePropertyItem: no variant set")
 	}
 
-	return fmt.Errorf("PropertyItemPropertyItemListResponsePropertyItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("PropertyItemPropertyItemListResponsePropertyItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // QueryDataSources defines a model
@@ -12477,18 +12894,34 @@ func (v *QueryDataSourcesQueryDataSourcesData) UnmarshalJSONFrom(dec *jsontext.D
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with mode first, as decoding wants it, and set to the variant's value.
 func (v *QueryDataSourcesQueryDataSourcesData) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.SQL != nil:
-		return json.MarshalEncode(enc, v.SQL, jsonOpts)
+		variant, tag = v.SQL, "sql"
 	case v.QueryDatabaseViewQueryDatabaseView != nil:
-		return json.MarshalEncode(enc, v.QueryDatabaseViewQueryDatabaseView, jsonOpts)
+		variant, tag = v.QueryDatabaseViewQueryDatabaseView, "view"
 	case v.Rows != nil:
-		return json.MarshalEncode(enc, v.Rows, jsonOpts)
+		variant, tag = v.Rows, "rows"
+	default:
+		return fmt.Errorf("QueryDataSourcesQueryDataSourcesData: no variant set")
 	}
 
-	return fmt.Errorf("QueryDataSourcesQueryDataSourcesData: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "mode", tag); err != nil {
+		return fmt.Errorf("QueryDataSourcesQueryDataSourcesData: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // QueryDatabaseView defines a model
@@ -13291,16 +13724,32 @@ func (v *QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValu
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DateFilterOneOfValueOneOf2 != nil:
-		return json.MarshalEncode(enc, v.DateFilterOneOfValueOneOf2, jsonOpts)
+		variant, tag = v.DateFilterOneOfValueOneOf2, "relative"
 	case v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf, jsonOpts)
+		variant, tag = v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf, "exact"
+	default:
+		return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue: no variant set")
 	}
 
-	return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // The range to compare against.
@@ -13413,16 +13862,32 @@ func (v *QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValu
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf, jsonOpts)
+		variant, tag = v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf, "exact"
 	case v.PersonFilterValueOneOfOneOf != nil:
-		return json.MarshalEncode(enc, v.PersonFilterValueOneOfOneOf, jsonOpts)
+		variant, tag = v.PersonFilterValueOneOfOneOf, "relative"
+	default:
+		return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem: no variant set")
 	}
 
-	return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf defines a model
@@ -13518,16 +13983,32 @@ func (v *QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValu
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf, jsonOpts)
+		variant, tag = v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf, "date"
 	case v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2, jsonOpts)
+		variant, tag = v.QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2, "datetime"
+	default:
+		return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue: no variant set")
 	}
 
-	return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Use the is_empty operator to match an unset date.
@@ -14751,22 +15232,38 @@ func (v *RollupPropertyItemObjectRollup) UnmarshalJSONFrom(dec *jsontext.Decoder
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RollupPropertyItemObjectRollup) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.Number != nil:
-		return json.MarshalEncode(enc, v.Number, jsonOpts)
+		variant, tag = v.Number, "number"
 	case v.Date2 != nil:
-		return json.MarshalEncode(enc, v.Date2, jsonOpts)
+		variant, tag = v.Date2, "date"
 	case v.Array != nil:
-		return json.MarshalEncode(enc, v.Array, jsonOpts)
+		variant, tag = v.Array, "array"
 	case v.Unsupported != nil:
-		return json.MarshalEncode(enc, v.Unsupported, jsonOpts)
+		variant, tag = v.Unsupported, "unsupported"
 	case v.Incomplete != nil:
-		return json.MarshalEncode(enc, v.Incomplete, jsonOpts)
+		variant, tag = v.Incomplete, "incomplete"
+	default:
+		return fmt.Errorf("RollupPropertyItemObjectRollup: no variant set")
 	}
 
-	return fmt.Errorf("RollupPropertyItemObjectRollup: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RollupPropertyItemObjectRollup: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // The parameters for the get_rollup_value tool. Resolve a rollup-result reference into its complete, permission-aware computed value.
@@ -14877,16 +15374,32 @@ func (v *RunMinimalRollout) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with kind first, as decoding wants it, and set to the variant's value.
 func (v *RunMinimalRollout) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunMinimalRolloutOneOf0 != nil:
-		return json.MarshalEncode(enc, v.RunMinimalRolloutOneOf0, jsonOpts)
+		variant, tag = v.RunMinimalRolloutOneOf0, "user-input"
 	case v.RunMinimalRolloutOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RunMinimalRolloutOneOf1, jsonOpts)
+		variant, tag = v.RunMinimalRolloutOneOf1, "agent-trigger"
+	default:
+		return fmt.Errorf("RunMinimalRollout: no variant set")
 	}
 
-	return fmt.Errorf("RunMinimalRollout: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "kind", tag); err != nil {
+		return fmt.Errorf("RunMinimalRollout: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // The agent execution harness that ran this request.
@@ -15793,180 +16306,196 @@ func (v *RunTool) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunTool) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.Search != nil:
-		return json.MarshalEncode(enc, v.Search, jsonOpts)
+		variant, tag = v.Search, "search"
 	case v.AiSearch != nil:
-		return json.MarshalEncode(enc, v.AiSearch, jsonOpts)
+		variant, tag = v.AiSearch, "ai_search"
 	case v.MemorySearch != nil:
-		return json.MarshalEncode(enc, v.MemorySearch, jsonOpts)
+		variant, tag = v.MemorySearch, "memory_search"
 	case v.ToolAccess != nil:
-		return json.MarshalEncode(enc, v.ToolAccess, jsonOpts)
+		variant, tag = v.ToolAccess, "get_tool_access"
 	case v.Fetch != nil:
-		return json.MarshalEncode(enc, v.Fetch, jsonOpts)
+		variant, tag = v.Fetch, "fetch"
 	case v.McpBusinessPlanEducation != nil:
-		return json.MarshalEncode(enc, v.McpBusinessPlanEducation, jsonOpts)
+		variant, tag = v.McpBusinessPlanEducation, "mcp_business_plan_education"
 	case v.CreateAttachment != nil:
-		return json.MarshalEncode(enc, v.CreateAttachment, jsonOpts)
+		variant, tag = v.CreateAttachment, "create_attachment"
 	case v.CreateFileUpload != nil:
-		return json.MarshalEncode(enc, v.CreateFileUpload, jsonOpts)
+		variant, tag = v.CreateFileUpload, "create_file_upload"
 	case v.DownloadAttachment != nil:
-		return json.MarshalEncode(enc, v.DownloadAttachment, jsonOpts)
+		variant, tag = v.DownloadAttachment, "download_attachment"
 	case v.CreatePages != nil:
-		return json.MarshalEncode(enc, v.CreatePages, jsonOpts)
+		variant, tag = v.CreatePages, "create_pages"
 	case v.UpdatePage != nil:
-		return json.MarshalEncode(enc, v.UpdatePage, jsonOpts)
+		variant, tag = v.UpdatePage, "update_page"
 	case v.DeletePage != nil:
-		return json.MarshalEncode(enc, v.DeletePage, jsonOpts)
+		variant, tag = v.DeletePage, "delete_page"
 	case v.ConvertPageToSkill != nil:
-		return json.MarshalEncode(enc, v.ConvertPageToSkill, jsonOpts)
+		variant, tag = v.ConvertPageToSkill, "convert_page_to_skill"
 	case v.UploadSkill != nil:
-		return json.MarshalEncode(enc, v.UploadSkill, jsonOpts)
+		variant, tag = v.UploadSkill, "upload_skill"
 	case v.DownloadSkill != nil:
-		return json.MarshalEncode(enc, v.DownloadSkill, jsonOpts)
+		variant, tag = v.DownloadSkill, "download_skill"
 	case v.SearchSkills != nil:
-		return json.MarshalEncode(enc, v.SearchSkills, jsonOpts)
+		variant, tag = v.SearchSkills, "search_skills"
 	case v.MovePages != nil:
-		return json.MarshalEncode(enc, v.MovePages, jsonOpts)
+		variant, tag = v.MovePages, "move_pages"
 	case v.DuplicatePage != nil:
-		return json.MarshalEncode(enc, v.DuplicatePage, jsonOpts)
+		variant, tag = v.DuplicatePage, "duplicate_page"
 	case v.CreateDatabase != nil:
-		return json.MarshalEncode(enc, v.CreateDatabase, jsonOpts)
+		variant, tag = v.CreateDatabase, "create_database"
 	case v.CreateFolder != nil:
-		return json.MarshalEncode(enc, v.CreateFolder, jsonOpts)
+		variant, tag = v.CreateFolder, "create_folder"
 	case v.UpdateFolder != nil:
-		return json.MarshalEncode(enc, v.UpdateFolder, jsonOpts)
+		variant, tag = v.UpdateFolder, "update_folder"
 	case v.UpdateDataSource != nil:
-		return json.MarshalEncode(enc, v.UpdateDataSource, jsonOpts)
+		variant, tag = v.UpdateDataSource, "update_data_source"
 	case v.CreateComment != nil:
-		return json.MarshalEncode(enc, v.CreateComment, jsonOpts)
+		variant, tag = v.CreateComment, "create_comment"
 	case v.Comments != nil:
-		return json.MarshalEncode(enc, v.Comments, jsonOpts)
+		variant, tag = v.Comments, "get_comments"
 	case v.UpdateComment != nil:
-		return json.MarshalEncode(enc, v.UpdateComment, jsonOpts)
+		variant, tag = v.UpdateComment, "update_comment"
 	case v.DeleteComment != nil:
-		return json.MarshalEncode(enc, v.DeleteComment, jsonOpts)
+		variant, tag = v.DeleteComment, "delete_comment"
 	case v.SetDiscussionResolved != nil:
-		return json.MarshalEncode(enc, v.SetDiscussionResolved, jsonOpts)
+		variant, tag = v.SetDiscussionResolved, "set_discussion_resolved"
 	case v.SetCommentReaction != nil:
-		return json.MarshalEncode(enc, v.SetCommentReaction, jsonOpts)
+		variant, tag = v.SetCommentReaction, "set_comment_reaction"
 	case v.CreateSuggestedEdit != nil:
-		return json.MarshalEncode(enc, v.CreateSuggestedEdit, jsonOpts)
+		variant, tag = v.CreateSuggestedEdit, "create_suggested_edit"
 	case v.SuggestedEdit != nil:
-		return json.MarshalEncode(enc, v.SuggestedEdit, jsonOpts)
+		variant, tag = v.SuggestedEdit, "get_suggested_edit"
 	case v.ResolveSuggestedEdit != nil:
-		return json.MarshalEncode(enc, v.ResolveSuggestedEdit, jsonOpts)
+		variant, tag = v.ResolveSuggestedEdit, "resolve_suggested_edit"
 	case v.GetFormulaValue != nil:
-		return json.MarshalEncode(enc, v.GetFormulaValue, jsonOpts)
+		variant, tag = v.GetFormulaValue, "get_formula_value"
 	case v.GetRollupValue != nil:
-		return json.MarshalEncode(enc, v.GetRollupValue, jsonOpts)
+		variant, tag = v.GetRollupValue, "get_rollup_value"
 	case v.GetNotifications != nil:
-		return json.MarshalEncode(enc, v.GetNotifications, jsonOpts)
+		variant, tag = v.GetNotifications, "get_notifications"
 	case v.UpdateNotifications != nil:
-		return json.MarshalEncode(enc, v.UpdateNotifications, jsonOpts)
+		variant, tag = v.UpdateNotifications, "update_notifications"
 	case v.AsyncTask != nil:
-		return json.MarshalEncode(enc, v.AsyncTask, jsonOpts)
+		variant, tag = v.AsyncTask, "get_async_task"
 	case v.Teams != nil:
-		return json.MarshalEncode(enc, v.Teams, jsonOpts)
+		variant, tag = v.Teams, "get_teams"
 	case v.Users != nil:
-		return json.MarshalEncode(enc, v.Users, jsonOpts)
+		variant, tag = v.Users, "get_users"
 	case v.ReplyToSlackThread != nil:
-		return json.MarshalEncode(enc, v.ReplyToSlackThread, jsonOpts)
+		variant, tag = v.ReplyToSlackThread, "reply_to_slack_thread"
 	case v.AnswerQuestion != nil:
-		return json.MarshalEncode(enc, v.AnswerQuestion, jsonOpts)
+		variant, tag = v.AnswerQuestion, "answer_question"
 	case v.QueryDataSources != nil:
-		return json.MarshalEncode(enc, v.QueryDataSources, jsonOpts)
+		variant, tag = v.QueryDataSources, "query_data_sources"
 	case v.QueryMultipleDataSources != nil:
-		return json.MarshalEncode(enc, v.QueryMultipleDataSources, jsonOpts)
+		variant, tag = v.QueryMultipleDataSources, "query_multiple_data_sources"
 	case v.QueryDatabaseView != nil:
-		return json.MarshalEncode(enc, v.QueryDatabaseView, jsonOpts)
+		variant, tag = v.QueryDatabaseView, "query_database_view"
 	case v.QueryMeetingNotes != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotes, jsonOpts)
+		variant, tag = v.QueryMeetingNotes, "query_meeting_notes"
 	case v.ListAgents != nil:
-		return json.MarshalEncode(enc, v.ListAgents, jsonOpts)
+		variant, tag = v.ListAgents, "list_agents"
 	case v.ListPrivatePages != nil:
-		return json.MarshalEncode(enc, v.ListPrivatePages, jsonOpts)
+		variant, tag = v.ListPrivatePages, "list_private_pages"
 	case v.ListSharedPages != nil:
-		return json.MarshalEncode(enc, v.ListSharedPages, jsonOpts)
+		variant, tag = v.ListSharedPages, "list_shared_pages"
 	case v.ListFavoritePages != nil:
-		return json.MarshalEncode(enc, v.ListFavoritePages, jsonOpts)
+		variant, tag = v.ListFavoritePages, "list_favorite_pages"
 	case v.ListRecentPages != nil:
-		return json.MarshalEncode(enc, v.ListRecentPages, jsonOpts)
+		variant, tag = v.ListRecentPages, "list_recent_pages"
 	case v.SearchAgents != nil:
-		return json.MarshalEncode(enc, v.SearchAgents, jsonOpts)
+		variant, tag = v.SearchAgents, "search_agents"
 	case v.SearchSessions != nil:
-		return json.MarshalEncode(enc, v.SearchSessions, jsonOpts)
+		variant, tag = v.SearchSessions, "search_sessions"
 	case v.QuerySessions != nil:
-		return json.MarshalEncode(enc, v.QuerySessions, jsonOpts)
+		variant, tag = v.QuerySessions, "query_sessions"
 	case v.SpawnSession != nil:
-		return json.MarshalEncode(enc, v.SpawnSession, jsonOpts)
+		variant, tag = v.SpawnSession, "spawn_session"
 	case v.GetSessionStatus != nil:
-		return json.MarshalEncode(enc, v.GetSessionStatus, jsonOpts)
+		variant, tag = v.GetSessionStatus, "get_session_status"
 	case v.WaitSession != nil:
-		return json.MarshalEncode(enc, v.WaitSession, jsonOpts)
+		variant, tag = v.WaitSession, "wait_session"
 	case v.StopSession != nil:
-		return json.MarshalEncode(enc, v.StopSession, jsonOpts)
+		variant, tag = v.StopSession, "stop_session"
 	case v.SendMessageToSession != nil:
-		return json.MarshalEncode(enc, v.SendMessageToSession, jsonOpts)
+		variant, tag = v.SendMessageToSession, "send_message_to_session"
 	case v.ListSessionEvents != nil:
-		return json.MarshalEncode(enc, v.ListSessionEvents, jsonOpts)
+		variant, tag = v.ListSessionEvents, "list_session_events"
 	case v.ReadSessionEvent != nil:
-		return json.MarshalEncode(enc, v.ReadSessionEvent, jsonOpts)
+		variant, tag = v.ReadSessionEvent, "read_session_event"
 	case v.CreateView != nil:
-		return json.MarshalEncode(enc, v.CreateView, jsonOpts)
+		variant, tag = v.CreateView, "create_view"
 	case v.UpdateView != nil:
-		return json.MarshalEncode(enc, v.UpdateView, jsonOpts)
+		variant, tag = v.UpdateView, "update_view"
 	case v.SearchEmails != nil:
-		return json.MarshalEncode(enc, v.SearchEmails, jsonOpts)
+		variant, tag = v.SearchEmails, "search_emails"
 	case v.ViewThreadContent != nil:
-		return json.MarshalEncode(enc, v.ViewThreadContent, jsonOpts)
+		variant, tag = v.ViewThreadContent, "view_thread_content"
 	case v.ViewVersionHistory != nil:
-		return json.MarshalEncode(enc, v.ViewVersionHistory, jsonOpts)
+		variant, tag = v.ViewVersionHistory, "view_version_history"
 	case v.GetPageVersion != nil:
-		return json.MarshalEncode(enc, v.GetPageVersion, jsonOpts)
+		variant, tag = v.GetPageVersion, "get_page_version"
 	case v.ComparePageVersions != nil:
-		return json.MarshalEncode(enc, v.ComparePageVersions, jsonOpts)
+		variant, tag = v.ComparePageVersions, "compare_page_versions"
 	case v.CreateWorkspaceBookmark != nil:
-		return json.MarshalEncode(enc, v.CreateWorkspaceBookmark, jsonOpts)
+		variant, tag = v.CreateWorkspaceBookmark, "create_workspace_bookmark"
 	case v.ListWorkspaceBookmarks != nil:
-		return json.MarshalEncode(enc, v.ListWorkspaceBookmarks, jsonOpts)
+		variant, tag = v.ListWorkspaceBookmarks, "list_workspace_bookmarks"
 	case v.WorkspaceBookmark != nil:
-		return json.MarshalEncode(enc, v.WorkspaceBookmark, jsonOpts)
+		variant, tag = v.WorkspaceBookmark, "delete_workspace_bookmark"
 	case v.SetPageNotificationLevel != nil:
-		return json.MarshalEncode(enc, v.SetPageNotificationLevel, jsonOpts)
+		variant, tag = v.SetPageNotificationLevel, "set_page_notification_level"
 	case v.CalendarListCalendars != nil:
-		return json.MarshalEncode(enc, v.CalendarListCalendars, jsonOpts)
+		variant, tag = v.CalendarListCalendars, "calendar_list_calendars"
 	case v.CalendarListEvents != nil:
-		return json.MarshalEncode(enc, v.CalendarListEvents, jsonOpts)
+		variant, tag = v.CalendarListEvents, "calendar_list_events"
 	case v.CalendarSuggestMeetingTimes != nil:
-		return json.MarshalEncode(enc, v.CalendarSuggestMeetingTimes, jsonOpts)
+		variant, tag = v.CalendarSuggestMeetingTimes, "calendar_suggest_meeting_times"
 	case v.CalendarListCoworkersEvents != nil:
-		return json.MarshalEncode(enc, v.CalendarListCoworkersEvents, jsonOpts)
+		variant, tag = v.CalendarListCoworkersEvents, "calendar_list_coworkers_events"
 	case v.CalendarListCalendarResources != nil:
-		return json.MarshalEncode(enc, v.CalendarListCalendarResources, jsonOpts)
+		variant, tag = v.CalendarListCalendarResources, "calendar_list_calendar_resources"
 	case v.CalendarListContacts != nil:
-		return json.MarshalEncode(enc, v.CalendarListContacts, jsonOpts)
+		variant, tag = v.CalendarListContacts, "calendar_list_contacts"
 	case v.CalendarListSchedulingLinks != nil:
-		return json.MarshalEncode(enc, v.CalendarListSchedulingLinks, jsonOpts)
+		variant, tag = v.CalendarListSchedulingLinks, "calendar_list_scheduling_links"
 	case v.CalendarCreateEvents != nil:
-		return json.MarshalEncode(enc, v.CalendarCreateEvents, jsonOpts)
+		variant, tag = v.CalendarCreateEvents, "calendar_create_events"
 	case v.CalendarUpdateEvents != nil:
-		return json.MarshalEncode(enc, v.CalendarUpdateEvents, jsonOpts)
+		variant, tag = v.CalendarUpdateEvents, "calendar_update_events"
 	case v.CalendarCancelEvents != nil:
-		return json.MarshalEncode(enc, v.CalendarCancelEvents, jsonOpts)
+		variant, tag = v.CalendarCancelEvents, "calendar_cancel_events"
 	case v.CalendarCreateSchedulingLink != nil:
-		return json.MarshalEncode(enc, v.CalendarCreateSchedulingLink, jsonOpts)
+		variant, tag = v.CalendarCreateSchedulingLink, "calendar_create_scheduling_link"
 	case v.CalendarUpdateSchedulingLink != nil:
-		return json.MarshalEncode(enc, v.CalendarUpdateSchedulingLink, jsonOpts)
+		variant, tag = v.CalendarUpdateSchedulingLink, "calendar_update_scheduling_link"
 	case v.CalendarDeleteSchedulingLinks != nil:
-		return json.MarshalEncode(enc, v.CalendarDeleteSchedulingLinks, jsonOpts)
+		variant, tag = v.CalendarDeleteSchedulingLinks, "calendar_delete_scheduling_links"
 	case v.GetForm != nil:
-		return json.MarshalEncode(enc, v.GetForm, jsonOpts)
+		variant, tag = v.GetForm, "get_form"
+	default:
+		return fmt.Errorf("RunTool: no variant set")
 	}
 
-	return fmt.Errorf("RunTool: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunTool: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolAccepted defines a model
@@ -16050,7 +16579,7 @@ type fieldsOfRunToolEval RunToolEval
 // membersOfRunToolEval are the members RunToolEval declares outside its union.
 var membersOfRunToolEval = map[string]bool{"eval_run_id": true, "eval_session_id": true}
 
-// variantsOfRunToolEval are the alternatives of its union, in order.
+// variantsOfRunToolEval are the alternatives its union is decoded as, in order.
 var variantsOfRunToolEval = []jsonVariant{
 	{
 		value:    "search",
@@ -16726,7 +17255,11 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	var set int
 
+	var tag string
+
 	if v.RunToolEvalAllOf1.Search != nil {
+		tag = "search"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.Search, jsonOpts)
 		if err != nil {
 			return err
@@ -16740,6 +17273,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.AiSearch != nil {
+		tag = "ai_search"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.AiSearch, jsonOpts)
 		if err != nil {
 			return err
@@ -16753,6 +17288,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.MemorySearch != nil {
+		tag = "memory_search"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.MemorySearch, jsonOpts)
 		if err != nil {
 			return err
@@ -16766,6 +17303,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ToolAccess != nil {
+		tag = "get_tool_access"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ToolAccess, jsonOpts)
 		if err != nil {
 			return err
@@ -16779,6 +17318,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.Fetch != nil {
+		tag = "fetch"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.Fetch, jsonOpts)
 		if err != nil {
 			return err
@@ -16792,6 +17333,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.McpBusinessPlanEducation != nil {
+		tag = "mcp_business_plan_education"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.McpBusinessPlanEducation, jsonOpts)
 		if err != nil {
 			return err
@@ -16805,6 +17348,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreatePages != nil {
+		tag = "create_pages"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreatePages, jsonOpts)
 		if err != nil {
 			return err
@@ -16818,6 +17363,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.UpdatePage != nil {
+		tag = "update_page"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.UpdatePage, jsonOpts)
 		if err != nil {
 			return err
@@ -16831,6 +17378,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ConvertPageToSkill != nil {
+		tag = "convert_page_to_skill"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ConvertPageToSkill, jsonOpts)
 		if err != nil {
 			return err
@@ -16844,6 +17393,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.SearchSkills != nil {
+		tag = "search_skills"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.SearchSkills, jsonOpts)
 		if err != nil {
 			return err
@@ -16857,6 +17408,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.MovePages != nil {
+		tag = "move_pages"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.MovePages, jsonOpts)
 		if err != nil {
 			return err
@@ -16870,6 +17423,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.DuplicatePage != nil {
+		tag = "duplicate_page"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.DuplicatePage, jsonOpts)
 		if err != nil {
 			return err
@@ -16883,6 +17438,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreateDatabase != nil {
+		tag = "create_database"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreateDatabase, jsonOpts)
 		if err != nil {
 			return err
@@ -16896,6 +17453,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreateFolder != nil {
+		tag = "create_folder"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreateFolder, jsonOpts)
 		if err != nil {
 			return err
@@ -16909,6 +17468,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.UpdateFolder != nil {
+		tag = "update_folder"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.UpdateFolder, jsonOpts)
 		if err != nil {
 			return err
@@ -16922,6 +17483,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.UpdateDataSource != nil {
+		tag = "update_data_source"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.UpdateDataSource, jsonOpts)
 		if err != nil {
 			return err
@@ -16935,6 +17498,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreateComment != nil {
+		tag = "create_comment"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreateComment, jsonOpts)
 		if err != nil {
 			return err
@@ -16948,6 +17513,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.Comments != nil {
+		tag = "get_comments"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.Comments, jsonOpts)
 		if err != nil {
 			return err
@@ -16961,6 +17528,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreateSuggestedEdit != nil {
+		tag = "create_suggested_edit"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreateSuggestedEdit, jsonOpts)
 		if err != nil {
 			return err
@@ -16974,6 +17543,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.SuggestedEdit != nil {
+		tag = "get_suggested_edit"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.SuggestedEdit, jsonOpts)
 		if err != nil {
 			return err
@@ -16987,6 +17558,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ResolveSuggestedEdit != nil {
+		tag = "resolve_suggested_edit"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ResolveSuggestedEdit, jsonOpts)
 		if err != nil {
 			return err
@@ -17000,6 +17573,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.AsyncTask != nil {
+		tag = "get_async_task"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.AsyncTask, jsonOpts)
 		if err != nil {
 			return err
@@ -17013,6 +17588,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.Teams != nil {
+		tag = "get_teams"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.Teams, jsonOpts)
 		if err != nil {
 			return err
@@ -17026,6 +17603,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.Users != nil {
+		tag = "get_users"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.Users, jsonOpts)
 		if err != nil {
 			return err
@@ -17039,6 +17618,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ReplyToSlackThread != nil {
+		tag = "reply_to_slack_thread"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ReplyToSlackThread, jsonOpts)
 		if err != nil {
 			return err
@@ -17052,6 +17633,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.AnswerQuestion != nil {
+		tag = "answer_question"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.AnswerQuestion, jsonOpts)
 		if err != nil {
 			return err
@@ -17065,6 +17648,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.QueryDataSources != nil {
+		tag = "query_data_sources"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.QueryDataSources, jsonOpts)
 		if err != nil {
 			return err
@@ -17078,6 +17663,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.QueryMultipleDataSources != nil {
+		tag = "query_multiple_data_sources"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.QueryMultipleDataSources, jsonOpts)
 		if err != nil {
 			return err
@@ -17091,6 +17678,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.QueryDatabaseView != nil {
+		tag = "query_database_view"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.QueryDatabaseView, jsonOpts)
 		if err != nil {
 			return err
@@ -17104,6 +17693,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.QueryMeetingNotes != nil {
+		tag = "query_meeting_notes"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.QueryMeetingNotes, jsonOpts)
 		if err != nil {
 			return err
@@ -17117,6 +17708,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ListAgents != nil {
+		tag = "list_agents"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ListAgents, jsonOpts)
 		if err != nil {
 			return err
@@ -17130,6 +17723,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ListPrivatePages != nil {
+		tag = "list_private_pages"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ListPrivatePages, jsonOpts)
 		if err != nil {
 			return err
@@ -17143,6 +17738,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ListSharedPages != nil {
+		tag = "list_shared_pages"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ListSharedPages, jsonOpts)
 		if err != nil {
 			return err
@@ -17156,6 +17753,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ListFavoritePages != nil {
+		tag = "list_favorite_pages"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ListFavoritePages, jsonOpts)
 		if err != nil {
 			return err
@@ -17169,6 +17768,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ListRecentPages != nil {
+		tag = "list_recent_pages"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ListRecentPages, jsonOpts)
 		if err != nil {
 			return err
@@ -17182,6 +17783,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.SearchAgents != nil {
+		tag = "search_agents"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.SearchAgents, jsonOpts)
 		if err != nil {
 			return err
@@ -17195,6 +17798,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreateView != nil {
+		tag = "create_view"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreateView, jsonOpts)
 		if err != nil {
 			return err
@@ -17208,6 +17813,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.UpdateView != nil {
+		tag = "update_view"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.UpdateView, jsonOpts)
 		if err != nil {
 			return err
@@ -17221,6 +17828,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.SearchEmails != nil {
+		tag = "search_emails"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.SearchEmails, jsonOpts)
 		if err != nil {
 			return err
@@ -17234,6 +17843,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ViewThreadContent != nil {
+		tag = "view_thread_content"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ViewThreadContent, jsonOpts)
 		if err != nil {
 			return err
@@ -17247,6 +17858,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.CreateWorkspaceBookmark != nil {
+		tag = "create_workspace_bookmark"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.CreateWorkspaceBookmark, jsonOpts)
 		if err != nil {
 			return err
@@ -17260,6 +17873,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.ListWorkspaceBookmarks != nil {
+		tag = "list_workspace_bookmarks"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.ListWorkspaceBookmarks, jsonOpts)
 		if err != nil {
 			return err
@@ -17273,6 +17888,8 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.RunToolEvalAllOf1.WorkspaceBookmark != nil {
+		tag = "delete_workspace_bookmark"
+
 		variant, err := json.Marshal(v.RunToolEvalAllOf1.WorkspaceBookmark, jsonOpts)
 		if err != nil {
 			return err
@@ -17287,6 +17904,11 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if set != 1 {
 		return fmt.Errorf("RunToolEval: want exactly one alternative of RunToolEvalAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolEval: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -17657,98 +18279,114 @@ func (v *RunToolEvalAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolEvalAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.Search != nil:
-		return json.MarshalEncode(enc, v.Search, jsonOpts)
+		variant, tag = v.Search, "search"
 	case v.AiSearch != nil:
-		return json.MarshalEncode(enc, v.AiSearch, jsonOpts)
+		variant, tag = v.AiSearch, "ai_search"
 	case v.MemorySearch != nil:
-		return json.MarshalEncode(enc, v.MemorySearch, jsonOpts)
+		variant, tag = v.MemorySearch, "memory_search"
 	case v.ToolAccess != nil:
-		return json.MarshalEncode(enc, v.ToolAccess, jsonOpts)
+		variant, tag = v.ToolAccess, "get_tool_access"
 	case v.Fetch != nil:
-		return json.MarshalEncode(enc, v.Fetch, jsonOpts)
+		variant, tag = v.Fetch, "fetch"
 	case v.McpBusinessPlanEducation != nil:
-		return json.MarshalEncode(enc, v.McpBusinessPlanEducation, jsonOpts)
+		variant, tag = v.McpBusinessPlanEducation, "mcp_business_plan_education"
 	case v.CreatePages != nil:
-		return json.MarshalEncode(enc, v.CreatePages, jsonOpts)
+		variant, tag = v.CreatePages, "create_pages"
 	case v.UpdatePage != nil:
-		return json.MarshalEncode(enc, v.UpdatePage, jsonOpts)
+		variant, tag = v.UpdatePage, "update_page"
 	case v.ConvertPageToSkill != nil:
-		return json.MarshalEncode(enc, v.ConvertPageToSkill, jsonOpts)
+		variant, tag = v.ConvertPageToSkill, "convert_page_to_skill"
 	case v.SearchSkills != nil:
-		return json.MarshalEncode(enc, v.SearchSkills, jsonOpts)
+		variant, tag = v.SearchSkills, "search_skills"
 	case v.MovePages != nil:
-		return json.MarshalEncode(enc, v.MovePages, jsonOpts)
+		variant, tag = v.MovePages, "move_pages"
 	case v.DuplicatePage != nil:
-		return json.MarshalEncode(enc, v.DuplicatePage, jsonOpts)
+		variant, tag = v.DuplicatePage, "duplicate_page"
 	case v.CreateDatabase != nil:
-		return json.MarshalEncode(enc, v.CreateDatabase, jsonOpts)
+		variant, tag = v.CreateDatabase, "create_database"
 	case v.CreateFolder != nil:
-		return json.MarshalEncode(enc, v.CreateFolder, jsonOpts)
+		variant, tag = v.CreateFolder, "create_folder"
 	case v.UpdateFolder != nil:
-		return json.MarshalEncode(enc, v.UpdateFolder, jsonOpts)
+		variant, tag = v.UpdateFolder, "update_folder"
 	case v.UpdateDataSource != nil:
-		return json.MarshalEncode(enc, v.UpdateDataSource, jsonOpts)
+		variant, tag = v.UpdateDataSource, "update_data_source"
 	case v.CreateComment != nil:
-		return json.MarshalEncode(enc, v.CreateComment, jsonOpts)
+		variant, tag = v.CreateComment, "create_comment"
 	case v.Comments != nil:
-		return json.MarshalEncode(enc, v.Comments, jsonOpts)
+		variant, tag = v.Comments, "get_comments"
 	case v.CreateSuggestedEdit != nil:
-		return json.MarshalEncode(enc, v.CreateSuggestedEdit, jsonOpts)
+		variant, tag = v.CreateSuggestedEdit, "create_suggested_edit"
 	case v.SuggestedEdit != nil:
-		return json.MarshalEncode(enc, v.SuggestedEdit, jsonOpts)
+		variant, tag = v.SuggestedEdit, "get_suggested_edit"
 	case v.ResolveSuggestedEdit != nil:
-		return json.MarshalEncode(enc, v.ResolveSuggestedEdit, jsonOpts)
+		variant, tag = v.ResolveSuggestedEdit, "resolve_suggested_edit"
 	case v.AsyncTask != nil:
-		return json.MarshalEncode(enc, v.AsyncTask, jsonOpts)
+		variant, tag = v.AsyncTask, "get_async_task"
 	case v.Teams != nil:
-		return json.MarshalEncode(enc, v.Teams, jsonOpts)
+		variant, tag = v.Teams, "get_teams"
 	case v.Users != nil:
-		return json.MarshalEncode(enc, v.Users, jsonOpts)
+		variant, tag = v.Users, "get_users"
 	case v.ReplyToSlackThread != nil:
-		return json.MarshalEncode(enc, v.ReplyToSlackThread, jsonOpts)
+		variant, tag = v.ReplyToSlackThread, "reply_to_slack_thread"
 	case v.AnswerQuestion != nil:
-		return json.MarshalEncode(enc, v.AnswerQuestion, jsonOpts)
+		variant, tag = v.AnswerQuestion, "answer_question"
 	case v.QueryDataSources != nil:
-		return json.MarshalEncode(enc, v.QueryDataSources, jsonOpts)
+		variant, tag = v.QueryDataSources, "query_data_sources"
 	case v.QueryMultipleDataSources != nil:
-		return json.MarshalEncode(enc, v.QueryMultipleDataSources, jsonOpts)
+		variant, tag = v.QueryMultipleDataSources, "query_multiple_data_sources"
 	case v.QueryDatabaseView != nil:
-		return json.MarshalEncode(enc, v.QueryDatabaseView, jsonOpts)
+		variant, tag = v.QueryDatabaseView, "query_database_view"
 	case v.QueryMeetingNotes != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotes, jsonOpts)
+		variant, tag = v.QueryMeetingNotes, "query_meeting_notes"
 	case v.ListAgents != nil:
-		return json.MarshalEncode(enc, v.ListAgents, jsonOpts)
+		variant, tag = v.ListAgents, "list_agents"
 	case v.ListPrivatePages != nil:
-		return json.MarshalEncode(enc, v.ListPrivatePages, jsonOpts)
+		variant, tag = v.ListPrivatePages, "list_private_pages"
 	case v.ListSharedPages != nil:
-		return json.MarshalEncode(enc, v.ListSharedPages, jsonOpts)
+		variant, tag = v.ListSharedPages, "list_shared_pages"
 	case v.ListFavoritePages != nil:
-		return json.MarshalEncode(enc, v.ListFavoritePages, jsonOpts)
+		variant, tag = v.ListFavoritePages, "list_favorite_pages"
 	case v.ListRecentPages != nil:
-		return json.MarshalEncode(enc, v.ListRecentPages, jsonOpts)
+		variant, tag = v.ListRecentPages, "list_recent_pages"
 	case v.SearchAgents != nil:
-		return json.MarshalEncode(enc, v.SearchAgents, jsonOpts)
+		variant, tag = v.SearchAgents, "search_agents"
 	case v.CreateView != nil:
-		return json.MarshalEncode(enc, v.CreateView, jsonOpts)
+		variant, tag = v.CreateView, "create_view"
 	case v.UpdateView != nil:
-		return json.MarshalEncode(enc, v.UpdateView, jsonOpts)
+		variant, tag = v.UpdateView, "update_view"
 	case v.SearchEmails != nil:
-		return json.MarshalEncode(enc, v.SearchEmails, jsonOpts)
+		variant, tag = v.SearchEmails, "search_emails"
 	case v.ViewThreadContent != nil:
-		return json.MarshalEncode(enc, v.ViewThreadContent, jsonOpts)
+		variant, tag = v.ViewThreadContent, "view_thread_content"
 	case v.CreateWorkspaceBookmark != nil:
-		return json.MarshalEncode(enc, v.CreateWorkspaceBookmark, jsonOpts)
+		variant, tag = v.CreateWorkspaceBookmark, "create_workspace_bookmark"
 	case v.ListWorkspaceBookmarks != nil:
-		return json.MarshalEncode(enc, v.ListWorkspaceBookmarks, jsonOpts)
+		variant, tag = v.ListWorkspaceBookmarks, "list_workspace_bookmarks"
 	case v.WorkspaceBookmark != nil:
-		return json.MarshalEncode(enc, v.WorkspaceBookmark, jsonOpts)
+		variant, tag = v.WorkspaceBookmark, "delete_workspace_bookmark"
+	default:
+		return fmt.Errorf("RunToolEvalAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("RunToolEvalAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolEvalAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolOneOfAccounts defines a model
@@ -18339,18 +18977,34 @@ func (v *RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalG
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhen) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf, jsonOpts)
+		variant, tag = v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf, "checkbox"
 	case v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf2, jsonOpts)
+		variant, tag = v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf2, "select"
 	case v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf3 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf3, jsonOpts)
+		variant, tag = v.RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf3, "multi_select"
+	default:
+		return fmt.Errorf("RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhen: no variant set")
 	}
 
-	return fmt.Errorf("RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhen: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhen: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemWhenOneOf defines a model
@@ -18508,16 +19162,32 @@ func (v *RunToolOneOfResultsItem3) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolOneOfResultsItem3) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunToolOneOfResultsItemOneOf != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOfResultsItemOneOf, jsonOpts)
+		variant, tag = v.RunToolOneOfResultsItemOneOf, "page"
 	case v.RunToolOneOfResultsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RunToolOneOfResultsItemOneOf2, jsonOpts)
+		variant, tag = v.RunToolOneOfResultsItemOneOf2, "database"
+	default:
+		return fmt.Errorf("RunToolOneOfResultsItem3: no variant set")
 	}
 
-	return fmt.Errorf("RunToolOneOfResultsItem3: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolOneOfResultsItem3: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolOneOfResultsItemOneOf defines a model
@@ -19225,20 +19895,36 @@ func (v *RunToolResponseOneOf40Result) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolResponseOneOf40Result) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunToolResponseOneOf40ResultOneOf0 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf0, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf0, "text"
 	case v.RunToolResponseOneOf40ResultOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf1, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf1, "number"
 	case v.RunToolResponseOneOf40ResultOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf2, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf2, "date"
 	case v.RunToolResponseOneOf40ResultOneOf3 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3, "array"
+	default:
+		return fmt.Errorf("RunToolResponseOneOf40Result: no variant set")
 	}
 
-	return fmt.Errorf("RunToolResponseOneOf40Result: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolResponseOneOf40Result: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolResponseOneOf40ResultOneOf0 defines a model
@@ -19402,26 +20088,42 @@ func (v *RunToolResponseOneOf40ResultOneOf3ValuesItem) UnmarshalJSONFrom(dec *js
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf0 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf0, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf0, "text"
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf1, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf1, "number"
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf2, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf2, "checkbox"
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf3 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf3, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf3, "date"
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf4 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf4, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf4, "person"
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf5 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf5, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf5, "page"
 	case v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf6 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf6, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf6, "empty"
+	default:
+		return fmt.Errorf("RunToolResponseOneOf40ResultOneOf3ValuesItem: no variant set")
 	}
 
-	return fmt.Errorf("RunToolResponseOneOf40ResultOneOf3ValuesItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolResponseOneOf40ResultOneOf3ValuesItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf0 defines a model
@@ -19800,18 +20502,34 @@ func (v *RunToolResponseOneOf43SettingsFormSubmissionTemplate) UnmarshalJSONFrom
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolResponseOneOf43SettingsFormSubmissionTemplate) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf0 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf0, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf0, "inherit_database_default"
 	case v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf1, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf1, "empty"
 	case v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf2, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf2, "page"
+	default:
+		return fmt.Errorf("RunToolResponseOneOf43SettingsFormSubmissionTemplate: no variant set")
 	}
 
-	return fmt.Errorf("RunToolResponseOneOf43SettingsFormSubmissionTemplate: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolResponseOneOf43SettingsFormSubmissionTemplate: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf0 defines a model
@@ -20099,58 +20817,74 @@ func (v *RunToolResponseOneOf46Error) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with code first, as decoding wants it, and set to the variant's value.
 func (v *RunToolResponseOneOf46Error) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RunToolResponseOneOf46ErrorOneOf0 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf0, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf0, "invalid_json"
 	case v.RunToolResponseOneOf46ErrorOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf1, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf1, "invalid_request_url"
 	case v.RunToolResponseOneOf46ErrorOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf2, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf2, "invalid_request"
 	case v.RunToolResponseOneOf46ErrorOneOf3 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf3, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf3, "missing_version"
 	case v.RunToolResponseOneOf46ErrorOneOf4 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf4, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf4, "invalid_beta"
 	case v.RunToolResponseOneOf46ErrorOneOf5 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf5, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf5, "validation_error"
 	case v.RunToolResponseOneOf46ErrorOneOf6 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf6, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf6, "unauthorized"
 	case v.RunToolResponseOneOf46ErrorOneOf7 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf7, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf7, "restricted_resource"
 	case v.RunToolResponseOneOf46ErrorOneOf8 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf8, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf8, "object_not_found"
 	case v.RunToolResponseOneOf46ErrorOneOf9 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf9, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf9, "directory_not_found"
 	case v.RunToolResponseOneOf46ErrorOneOf10 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf10, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf10, "rate_limited"
 	case v.RunToolResponseOneOf46ErrorOneOf11 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf11, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf11, "service_overload"
 	case v.RunToolResponseOneOf46ErrorOneOf12 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf12, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf12, "internal_server_error"
 	case v.RunToolResponseOneOf46ErrorOneOf13 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf13, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf13, "service_unavailable"
 	case v.RunToolResponseOneOf46ErrorOneOf14 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf14, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf14, "gateway_timeout"
 	case v.RunToolResponseOneOf46ErrorOneOf15 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf15, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf15, "conflict_error"
 	case v.RunToolResponseOneOf46ErrorOneOf16 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf16, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf16, "idempotency_key_reused"
 	case v.RunToolResponseOneOf46ErrorOneOf17 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf17, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf17, "row_limit_exceeded"
 	case v.RunToolResponseOneOf46ErrorOneOf18 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf18, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf18, "status_change_not_allowed"
 	case v.RunToolResponseOneOf46ErrorOneOf19 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf19, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf19, "agent_deleted"
 	case v.RunToolResponseOneOf46ErrorOneOf20 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf20, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf20, "invalid_credit_limit"
 	case v.RunToolResponseOneOf46ErrorOneOf21 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf21, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf21, "workspace_credits_exhausted"
 	case v.RunToolResponseOneOf46ErrorOneOf22 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf46ErrorOneOf22, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf46ErrorOneOf22, "agent_credit_limit_reached"
+	default:
+		return fmt.Errorf("RunToolResponseOneOf46Error: no variant set")
 	}
 
-	return fmt.Errorf("RunToolResponseOneOf46Error: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "code", tag); err != nil {
+		return fmt.Errorf("RunToolResponseOneOf46Error: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolResponseOneOf46ErrorOneOf0 defines a model
@@ -20910,16 +21644,32 @@ func (v *RunToolResponseOneOf52ResultsItemModels) UnmarshalJSONFrom(dec *jsontex
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RunToolResponseOneOf52ResultsItemModels) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListThreadsResultsItemModelsOneOf != nil:
-		return json.MarshalEncode(enc, v.ListThreadsResultsItemModelsOneOf, jsonOpts)
+		variant, tag = v.ListThreadsResultsItemModelsOneOf, "auto"
 	case v.RunToolResponseOneOf52ResultsItemModelsOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RunToolResponseOneOf52ResultsItemModelsOneOf1, jsonOpts)
+		variant, tag = v.RunToolResponseOneOf52ResultsItemModelsOneOf1, "pinned"
+	default:
+		return fmt.Errorf("RunToolResponseOneOf52ResultsItemModels: no variant set")
 	}
 
-	return fmt.Errorf("RunToolResponseOneOf52ResultsItemModels: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RunToolResponseOneOf52ResultsItemModels: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RunToolResponseOneOf52ResultsItemModelsOneOf1 defines a model
@@ -22414,16 +23164,32 @@ func (v *StartExternalAgentStubSessionConfigsMcpServersItemCredential) Unmarshal
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *StartExternalAgentStubSessionConfigsMcpServersItemCredential) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf0 != nil:
-		return json.MarshalEncode(enc, v.StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf0, jsonOpts)
+		variant, tag = v.StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf0, "vault"
 	case v.StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf1 != nil:
-		return json.MarshalEncode(enc, v.StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf1, jsonOpts)
+		variant, tag = v.StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf1, "none"
+	default:
+		return fmt.Errorf("StartExternalAgentStubSessionConfigsMcpServersItemCredential: no variant set")
 	}
 
-	return fmt.Errorf("StartExternalAgentStubSessionConfigsMcpServersItemCredential: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("StartExternalAgentStubSessionConfigsMcpServersItemCredential: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf0 defines a model
@@ -24061,16 +24827,32 @@ func (v *ToolInputAnyOfPosition) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ToolInputAnyOfPosition) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ToolInputAnyOfPositionOneOf != nil:
-		return json.MarshalEncode(enc, v.ToolInputAnyOfPositionOneOf, jsonOpts)
+		variant, tag = v.ToolInputAnyOfPositionOneOf, "start"
 	case v.ToolInputAnyOfPositionOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ToolInputAnyOfPositionOneOf2, jsonOpts)
+		variant, tag = v.ToolInputAnyOfPositionOneOf2, "end"
+	default:
+		return fmt.Errorf("ToolInputAnyOfPosition: no variant set")
 	}
 
-	return fmt.Errorf("ToolInputAnyOfPosition: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ToolInputAnyOfPosition: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // ToolInputAnyOfPositionOneOf defines a model
@@ -24568,16 +25350,32 @@ func (v *UpdateAgentModel) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with mode first, as decoding wants it, and set to the variant's value.
 func (v *UpdateAgentModel) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ListAgentsResultsItemModelOneOf != nil:
-		return json.MarshalEncode(enc, v.ListAgentsResultsItemModelOneOf, jsonOpts)
+		variant, tag = v.ListAgentsResultsItemModelOneOf, "auto"
 	case v.UpdateAgentModelOneOf1 != nil:
-		return json.MarshalEncode(enc, v.UpdateAgentModelOneOf1, jsonOpts)
+		variant, tag = v.UpdateAgentModelOneOf1, "pinned"
+	default:
+		return fmt.Errorf("UpdateAgentModel: no variant set")
 	}
 
-	return fmt.Errorf("UpdateAgentModel: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "mode", tag); err != nil {
+		return fmt.Errorf("UpdateAgentModel: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // UpdateAgentModelOneOf1 defines a model
@@ -24852,16 +25650,32 @@ func (v *UpdateAgentOkTriggersItemScheduleEnd) UnmarshalJSONFrom(dec *jsontext.D
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *UpdateAgentOkTriggersItemScheduleEnd) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.UpdateAgentOkTriggersItemScheduleEndOneOf0 != nil:
-		return json.MarshalEncode(enc, v.UpdateAgentOkTriggersItemScheduleEndOneOf0, jsonOpts)
+		variant, tag = v.UpdateAgentOkTriggersItemScheduleEndOneOf0, "date"
 	case v.UpdateAgentOkTriggersItemScheduleEndOneOf1 != nil:
-		return json.MarshalEncode(enc, v.UpdateAgentOkTriggersItemScheduleEndOneOf1, jsonOpts)
+		variant, tag = v.UpdateAgentOkTriggersItemScheduleEndOneOf1, "count"
+	default:
+		return fmt.Errorf("UpdateAgentOkTriggersItemScheduleEnd: no variant set")
 	}
 
-	return fmt.Errorf("UpdateAgentOkTriggersItemScheduleEnd: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("UpdateAgentOkTriggersItemScheduleEnd: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // UpdateAgentOkTriggersItemScheduleEndOneOf0 defines a model
@@ -25082,18 +25896,34 @@ func (v *UpdateTeamMembershipOperationsItem) UnmarshalJSONFrom(dec *jsontext.Dec
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with op first, as decoding wants it, and set to the variant's value.
 func (v *UpdateTeamMembershipOperationsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.UpdateTeamMembershipOperationsItemOneOf0 != nil:
-		return json.MarshalEncode(enc, v.UpdateTeamMembershipOperationsItemOneOf0, jsonOpts)
+		variant, tag = v.UpdateTeamMembershipOperationsItemOneOf0, "add"
 	case v.UpdateTeamMembershipOperationsItemOneOf1 != nil:
-		return json.MarshalEncode(enc, v.UpdateTeamMembershipOperationsItemOneOf1, jsonOpts)
+		variant, tag = v.UpdateTeamMembershipOperationsItemOneOf1, "replace"
 	case v.UpdateTeamMembershipOperationsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.UpdateTeamMembershipOperationsItemOneOf2, jsonOpts)
+		variant, tag = v.UpdateTeamMembershipOperationsItemOneOf2, "remove"
+	default:
+		return fmt.Errorf("UpdateTeamMembershipOperationsItem: no variant set")
 	}
 
-	return fmt.Errorf("UpdateTeamMembershipOperationsItem: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "op", tag); err != nil {
+		return fmt.Errorf("UpdateTeamMembershipOperationsItem: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // UpdateTeamMembershipOperationsItemOneOf0 defines a model
@@ -25983,20 +26813,36 @@ func (v *arrayBasedPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decode
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *arrayBasedPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.TitleArrayBasedPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.TitleArrayBasedPropertyValueResponse, jsonOpts)
+		variant, tag = v.TitleArrayBasedPropertyValueResponse, "title"
 	case v.RichTextArrayBasedPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.RichTextArrayBasedPropertyValueResponse, jsonOpts)
+		variant, tag = v.RichTextArrayBasedPropertyValueResponse, "rich_text"
 	case v.PeopleArrayBasedPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.PeopleArrayBasedPropertyValueResponse, jsonOpts)
+		variant, tag = v.PeopleArrayBasedPropertyValueResponse, "people"
 	case v.RelationArrayBasedPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.RelationArrayBasedPropertyValueResponse, jsonOpts)
+		variant, tag = v.RelationArrayBasedPropertyValueResponse, "relation"
+	default:
+		return fmt.Errorf("arrayBasedPropertyValueResponse: no variant set")
 	}
 
-	return fmt.Errorf("arrayBasedPropertyValueResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("arrayBasedPropertyValueResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // arrayPartialRollupValueResponse defines a model
@@ -26392,84 +27238,100 @@ func (v *blockObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *blockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ParagraphBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ParagraphBlockObjectResponse, jsonOpts)
+		variant, tag = v.ParagraphBlockObjectResponse, "paragraph"
 	case v.Heading1BlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.Heading1BlockObjectResponse, jsonOpts)
+		variant, tag = v.Heading1BlockObjectResponse, "heading_1"
 	case v.Heading2BlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.Heading2BlockObjectResponse, jsonOpts)
+		variant, tag = v.Heading2BlockObjectResponse, "heading_2"
 	case v.Heading3BlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.Heading3BlockObjectResponse, jsonOpts)
+		variant, tag = v.Heading3BlockObjectResponse, "heading_3"
 	case v.Heading4BlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.Heading4BlockObjectResponse, jsonOpts)
+		variant, tag = v.Heading4BlockObjectResponse, "heading_4"
 	case v.BulletedListItemBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BulletedListItemBlockObjectResponse, jsonOpts)
+		variant, tag = v.BulletedListItemBlockObjectResponse, "bulleted_list_item"
 	case v.NumberedListItemBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.NumberedListItemBlockObjectResponse, jsonOpts)
+		variant, tag = v.NumberedListItemBlockObjectResponse, "numbered_list_item"
 	case v.QuoteBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.QuoteBlockObjectResponse, jsonOpts)
+		variant, tag = v.QuoteBlockObjectResponse, "quote"
 	case v.ToDoBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ToDoBlockObjectResponse, jsonOpts)
+		variant, tag = v.ToDoBlockObjectResponse, "to_do"
 	case v.ToggleBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ToggleBlockObjectResponse, jsonOpts)
+		variant, tag = v.ToggleBlockObjectResponse, "toggle"
 	case v.TemplateBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.TemplateBlockObjectResponse, jsonOpts)
+		variant, tag = v.TemplateBlockObjectResponse, "template"
 	case v.SyncedBlockBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.SyncedBlockBlockObjectResponse, jsonOpts)
+		variant, tag = v.SyncedBlockBlockObjectResponse, "synced_block"
 	case v.ChildPageBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ChildPageBlockObjectResponse, jsonOpts)
+		variant, tag = v.ChildPageBlockObjectResponse, "child_page"
 	case v.ChildDatabaseBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ChildDatabaseBlockObjectResponse, jsonOpts)
+		variant, tag = v.ChildDatabaseBlockObjectResponse, "child_database"
 	case v.EquationBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.EquationBlockObjectResponse, jsonOpts)
+		variant, tag = v.EquationBlockObjectResponse, "equation"
 	case v.CodeBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.CodeBlockObjectResponse, jsonOpts)
+		variant, tag = v.CodeBlockObjectResponse, "code"
 	case v.CalloutBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.CalloutBlockObjectResponse, jsonOpts)
+		variant, tag = v.CalloutBlockObjectResponse, "callout"
 	case v.DividerBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.DividerBlockObjectResponse, jsonOpts)
+		variant, tag = v.DividerBlockObjectResponse, "divider"
 	case v.BreadcrumbBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BreadcrumbBlockObjectResponse, jsonOpts)
+		variant, tag = v.BreadcrumbBlockObjectResponse, "breadcrumb"
 	case v.TableOfContentsBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.TableOfContentsBlockObjectResponse, jsonOpts)
+		variant, tag = v.TableOfContentsBlockObjectResponse, "table_of_contents"
 	case v.TabBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.TabBlockObjectResponse, jsonOpts)
+		variant, tag = v.TabBlockObjectResponse, "tab"
 	case v.ColumnListBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ColumnListBlockObjectResponse, jsonOpts)
+		variant, tag = v.ColumnListBlockObjectResponse, "column_list"
 	case v.ColumnBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ColumnBlockObjectResponse, jsonOpts)
+		variant, tag = v.ColumnBlockObjectResponse, "column"
 	case v.LinkToPageBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.LinkToPageBlockObjectResponse, jsonOpts)
+		variant, tag = v.LinkToPageBlockObjectResponse, "link_to_page"
 	case v.TableBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.TableBlockObjectResponse, jsonOpts)
+		variant, tag = v.TableBlockObjectResponse, "table"
 	case v.TableRowBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.TableRowBlockObjectResponse, jsonOpts)
+		variant, tag = v.TableRowBlockObjectResponse, "table_row"
 	case v.MeetingNotesBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.MeetingNotesBlockObjectResponse, jsonOpts)
+		variant, tag = v.MeetingNotesBlockObjectResponse, "meeting_notes"
 	case v.EmbedBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.EmbedBlockObjectResponse, jsonOpts)
+		variant, tag = v.EmbedBlockObjectResponse, "embed"
 	case v.BookmarkBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BookmarkBlockObjectResponse, jsonOpts)
+		variant, tag = v.BookmarkBlockObjectResponse, "bookmark"
 	case v.ImageBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ImageBlockObjectResponse, jsonOpts)
+		variant, tag = v.ImageBlockObjectResponse, "image"
 	case v.VideoBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.VideoBlockObjectResponse, jsonOpts)
+		variant, tag = v.VideoBlockObjectResponse, "video"
 	case v.PdfBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PdfBlockObjectResponse, jsonOpts)
+		variant, tag = v.PdfBlockObjectResponse, "pdf"
 	case v.FileBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.FileBlockObjectResponse, jsonOpts)
+		variant, tag = v.FileBlockObjectResponse, "file"
 	case v.AudioBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.AudioBlockObjectResponse, jsonOpts)
+		variant, tag = v.AudioBlockObjectResponse, "audio"
 	case v.LinkPreviewBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.LinkPreviewBlockObjectResponse, jsonOpts)
+		variant, tag = v.LinkPreviewBlockObjectResponse, "link_preview"
 	case v.UnsupportedBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.UnsupportedBlockObjectResponse, jsonOpts)
+		variant, tag = v.UnsupportedBlockObjectResponse, "unsupported"
+	default:
+		return fmt.Errorf("blockObjectResponse: no variant set")
 	}
 
-	return fmt.Errorf("blockObjectResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("blockObjectResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // bookmarkBlockObjectResponse defines a model
@@ -27311,7 +28173,7 @@ type databasePropertyConfigResponse struct {
 	Name string `json:"name,omitzero"`
 	// The description of the property.
 	Description                          *propertyDescriptionRequest          `json:"description"`
-	databasePropertyConfigResponseAllOf1 databasePropertyConfigResponseAllOf1 `json:"-"`
+	DatabasePropertyConfigResponseAllOf1 databasePropertyConfigResponseAllOf1 `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether databasePropertyConfigResponse declares it.
@@ -27334,7 +28196,7 @@ type fieldsOfdatabasePropertyConfigResponse databasePropertyConfigResponse
 // membersOfdatabasePropertyConfigResponse are the members databasePropertyConfigResponse declares outside its union.
 var membersOfdatabasePropertyConfigResponse = map[string]bool{"description": true, "id": true, "name": true}
 
-// variantsOfdatabasePropertyConfigResponse are the alternatives of its union, in order.
+// variantsOfdatabasePropertyConfigResponse are the alternatives its union is decoded as, in order.
 var variantsOfdatabasePropertyConfigResponse = []jsonVariant{
 	{
 		value:    "number",
@@ -27444,7 +28306,7 @@ var variantsOfdatabasePropertyConfigResponse = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of databasePropertyConfigResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// alternative of DatabasePropertyConfigResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -27462,7 +28324,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.NumberDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.NumberDatabasePropertyConfigResponse = &vv
 	case "formula":
 		var vv formulaDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27472,7 +28334,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.FormulaDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.FormulaDatabasePropertyConfigResponse = &vv
 	case "select":
 		var vv selectDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27482,7 +28344,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse = &vv
 	case "multi_select":
 		var vv multiSelectDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27492,7 +28354,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse = &vv
 	case "status":
 		var vv statusDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27502,7 +28364,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse = &vv
 	case "relation":
 		var vv relationDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27512,7 +28374,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse = &vv
 	case "rollup":
 		var vv rollupDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27522,7 +28384,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse = &vv
 	case "unique_id":
 		var vv uniqueIdDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27532,7 +28394,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.UniqueIDDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.UniqueIDDatabasePropertyConfigResponse = &vv
 	case "title":
 		var vv titleDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27542,7 +28404,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.TitleDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.TitleDatabasePropertyConfigResponse = &vv
 	case "rich_text":
 		var vv richTextDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27552,7 +28414,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.RichTextDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.RichTextDatabasePropertyConfigResponse = &vv
 	case "url":
 		var vv urlDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27562,7 +28424,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.URLDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.URLDatabasePropertyConfigResponse = &vv
 	case "people":
 		var vv peopleDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27572,7 +28434,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.PeopleDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.PeopleDatabasePropertyConfigResponse = &vv
 	case "files":
 		var vv filesDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27582,7 +28444,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.FilesDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.FilesDatabasePropertyConfigResponse = &vv
 	case "email":
 		var vv emailDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27592,7 +28454,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.EmailDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.EmailDatabasePropertyConfigResponse = &vv
 	case "phone_number":
 		var vv phoneNumberDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27602,7 +28464,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.PhoneNumberDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.PhoneNumberDatabasePropertyConfigResponse = &vv
 	case "date":
 		var vv dateDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27612,7 +28474,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.DateDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.DateDatabasePropertyConfigResponse = &vv
 	case "checkbox":
 		var vv checkboxDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27622,7 +28484,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.CheckboxDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.CheckboxDatabasePropertyConfigResponse = &vv
 	case "created_by":
 		var vv createdByDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27632,7 +28494,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.CreatedByDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.CreatedByDatabasePropertyConfigResponse = &vv
 	case "created_time":
 		var vv createdTimeDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27642,7 +28504,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.CreatedTimeDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.CreatedTimeDatabasePropertyConfigResponse = &vv
 	case "last_edited_by":
 		var vv lastEditedByDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27652,7 +28514,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.LastEditedByDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.LastEditedByDatabasePropertyConfigResponse = &vv
 	case "last_edited_time":
 		var vv lastEditedTimeDatabasePropertyConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -27662,7 +28524,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 			return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 		}
 
-		v.databasePropertyConfigResponseAllOf1.LastEditedTimeDatabasePropertyConfigResponse = &vv
+		v.DatabasePropertyConfigResponseAllOf1.LastEditedTimeDatabasePropertyConfigResponse = &vv
 	default:
 		return fmt.Errorf("databasePropertyConfigResponse: unknown type %q", tag)
 	}
@@ -27670,7 +28532,7 @@ func (v *databasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of databasePropertyConfigResponseAllOf1 that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of DatabasePropertyConfigResponseAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfdatabasePropertyConfigResponse)(v), jsonOpts)
@@ -27680,8 +28542,12 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 
 	var set int
 
-	if v.databasePropertyConfigResponseAllOf1.NumberDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.NumberDatabasePropertyConfigResponse, jsonOpts)
+	var tag string
+
+	if v.DatabasePropertyConfigResponseAllOf1.NumberDatabasePropertyConfigResponse != nil {
+		tag = "number"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.NumberDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27693,8 +28559,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.FormulaDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.FormulaDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.FormulaDatabasePropertyConfigResponse != nil {
+		tag = "formula"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.FormulaDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27706,8 +28574,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse != nil {
+		tag = "select"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.SelectDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27719,8 +28589,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse != nil {
+		tag = "multi_select"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.MultiSelectDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27732,8 +28604,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse != nil {
+		tag = "status"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.StatusDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27745,8 +28619,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse != nil {
+		tag = "relation"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.RelationDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27758,8 +28634,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse != nil {
+		tag = "rollup"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.RollupDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27771,8 +28649,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.UniqueIDDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.UniqueIDDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.UniqueIDDatabasePropertyConfigResponse != nil {
+		tag = "unique_id"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.UniqueIDDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27784,8 +28664,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.TitleDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.TitleDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.TitleDatabasePropertyConfigResponse != nil {
+		tag = "title"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.TitleDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27797,8 +28679,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.RichTextDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.RichTextDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.RichTextDatabasePropertyConfigResponse != nil {
+		tag = "rich_text"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.RichTextDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27810,8 +28694,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.URLDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.URLDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.URLDatabasePropertyConfigResponse != nil {
+		tag = "url"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.URLDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27823,8 +28709,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.PeopleDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.PeopleDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.PeopleDatabasePropertyConfigResponse != nil {
+		tag = "people"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.PeopleDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27836,8 +28724,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.FilesDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.FilesDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.FilesDatabasePropertyConfigResponse != nil {
+		tag = "files"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.FilesDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27849,8 +28739,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.EmailDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.EmailDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.EmailDatabasePropertyConfigResponse != nil {
+		tag = "email"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.EmailDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27862,8 +28754,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.PhoneNumberDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.PhoneNumberDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.PhoneNumberDatabasePropertyConfigResponse != nil {
+		tag = "phone_number"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.PhoneNumberDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27875,8 +28769,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.DateDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.DateDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.DateDatabasePropertyConfigResponse != nil {
+		tag = "date"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.DateDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27888,8 +28784,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.CheckboxDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.CheckboxDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.CheckboxDatabasePropertyConfigResponse != nil {
+		tag = "checkbox"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.CheckboxDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27901,8 +28799,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.CreatedByDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.CreatedByDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.CreatedByDatabasePropertyConfigResponse != nil {
+		tag = "created_by"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.CreatedByDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27914,8 +28814,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.CreatedTimeDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.CreatedTimeDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.CreatedTimeDatabasePropertyConfigResponse != nil {
+		tag = "created_time"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.CreatedTimeDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27927,8 +28829,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.LastEditedByDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.LastEditedByDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.LastEditedByDatabasePropertyConfigResponse != nil {
+		tag = "last_edited_by"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.LastEditedByDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27940,8 +28844,10 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		set++
 	}
 
-	if v.databasePropertyConfigResponseAllOf1.LastEditedTimeDatabasePropertyConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyConfigResponseAllOf1.LastEditedTimeDatabasePropertyConfigResponse, jsonOpts)
+	if v.DatabasePropertyConfigResponseAllOf1.LastEditedTimeDatabasePropertyConfigResponse != nil {
+		tag = "last_edited_time"
+
+		variant, err := json.Marshal(v.DatabasePropertyConfigResponseAllOf1.LastEditedTimeDatabasePropertyConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -27954,7 +28860,12 @@ func (v *databasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 	}
 
 	if set != 1 {
-		return fmt.Errorf("databasePropertyConfigResponse: want exactly one alternative of databasePropertyConfigResponseAllOf1 set, got %d", set)
+		return fmt.Errorf("databasePropertyConfigResponse: want exactly one alternative of DatabasePropertyConfigResponseAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("databasePropertyConfigResponse: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -28149,61 +29060,77 @@ func (v *databasePropertyConfigResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.D
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *databasePropertyConfigResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.NumberDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.NumberDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.NumberDatabasePropertyConfigResponse, "number"
 	case v.FormulaDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.FormulaDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.FormulaDatabasePropertyConfigResponse, "formula"
 	case v.SelectDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.SelectDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.SelectDatabasePropertyConfigResponse, "select"
 	case v.MultiSelectDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.MultiSelectDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.MultiSelectDatabasePropertyConfigResponse, "multi_select"
 	case v.StatusDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.StatusDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.StatusDatabasePropertyConfigResponse, "status"
 	case v.RelationDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.RelationDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.RelationDatabasePropertyConfigResponse, "relation"
 	case v.RollupDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.RollupDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.RollupDatabasePropertyConfigResponse, "rollup"
 	case v.UniqueIDDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.UniqueIDDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.UniqueIDDatabasePropertyConfigResponse, "unique_id"
 	case v.TitleDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.TitleDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.TitleDatabasePropertyConfigResponse, "title"
 	case v.RichTextDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.RichTextDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.RichTextDatabasePropertyConfigResponse, "rich_text"
 	case v.URLDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.URLDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.URLDatabasePropertyConfigResponse, "url"
 	case v.PeopleDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.PeopleDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.PeopleDatabasePropertyConfigResponse, "people"
 	case v.FilesDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.FilesDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.FilesDatabasePropertyConfigResponse, "files"
 	case v.EmailDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.EmailDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.EmailDatabasePropertyConfigResponse, "email"
 	case v.PhoneNumberDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.PhoneNumberDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.PhoneNumberDatabasePropertyConfigResponse, "phone_number"
 	case v.DateDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.DateDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.DateDatabasePropertyConfigResponse, "date"
 	case v.CheckboxDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.CheckboxDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.CheckboxDatabasePropertyConfigResponse, "checkbox"
 	case v.CreatedByDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.CreatedByDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.CreatedByDatabasePropertyConfigResponse, "created_by"
 	case v.CreatedTimeDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.CreatedTimeDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.CreatedTimeDatabasePropertyConfigResponse, "created_time"
 	case v.LastEditedByDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.LastEditedByDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.LastEditedByDatabasePropertyConfigResponse, "last_edited_by"
 	case v.LastEditedTimeDatabasePropertyConfigResponse != nil:
-		return json.MarshalEncode(enc, v.LastEditedTimeDatabasePropertyConfigResponse, jsonOpts)
+		variant, tag = v.LastEditedTimeDatabasePropertyConfigResponse, "last_edited_time"
+	default:
+		return fmt.Errorf("databasePropertyConfigResponseAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("databasePropertyConfigResponseAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("databasePropertyConfigResponseAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // databasePropertyRelationConfigResponse defines a model
 type databasePropertyRelationConfigResponse struct {
 	DatabaseID                                   idResponse                                   `json:"database_id,omitzero"`
 	DataSourceID                                 idResponse                                   `json:"data_source_id,omitzero"`
-	databasePropertyRelationConfigResponseAllOf1 databasePropertyRelationConfigResponseAllOf1 `json:"-"`
+	DatabasePropertyRelationConfigResponseAllOf1 databasePropertyRelationConfigResponseAllOf1 `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether databasePropertyRelationConfigResponse declares it.
@@ -28224,7 +29151,7 @@ type fieldsOfdatabasePropertyRelationConfigResponse databasePropertyRelationConf
 // membersOfdatabasePropertyRelationConfigResponse are the members databasePropertyRelationConfigResponse declares outside its union.
 var membersOfdatabasePropertyRelationConfigResponse = map[string]bool{"data_source_id": true, "database_id": true}
 
-// variantsOfdatabasePropertyRelationConfigResponse are the alternatives of its union, in order.
+// variantsOfdatabasePropertyRelationConfigResponse are the alternatives its union is decoded as, in order.
 var variantsOfdatabasePropertyRelationConfigResponse = []jsonVariant{
 	{
 		value:    "single_property",
@@ -28239,7 +29166,7 @@ var variantsOfdatabasePropertyRelationConfigResponse = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of databasePropertyRelationConfigResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// alternative of DatabasePropertyRelationConfigResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *databasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -28257,7 +29184,7 @@ func (v *databasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 			return fmt.Errorf("databasePropertyRelationConfigResponse: %w", err)
 		}
 
-		v.databasePropertyRelationConfigResponseAllOf1.SinglePropertyDatabasePropertyRelationConfigResponse = &vv
+		v.DatabasePropertyRelationConfigResponseAllOf1.SinglePropertyDatabasePropertyRelationConfigResponse = &vv
 	case "dual_property":
 		var vv dualPropertyDatabasePropertyRelationConfigResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -28267,7 +29194,7 @@ func (v *databasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 			return fmt.Errorf("databasePropertyRelationConfigResponse: %w", err)
 		}
 
-		v.databasePropertyRelationConfigResponseAllOf1.DualPropertyDatabasePropertyRelationConfigResponse = &vv
+		v.DatabasePropertyRelationConfigResponseAllOf1.DualPropertyDatabasePropertyRelationConfigResponse = &vv
 	default:
 		return fmt.Errorf("databasePropertyRelationConfigResponse: unknown type %q", tag)
 	}
@@ -28275,7 +29202,7 @@ func (v *databasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of databasePropertyRelationConfigResponseAllOf1 that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of DatabasePropertyRelationConfigResponseAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *databasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfdatabasePropertyRelationConfigResponse)(v), jsonOpts)
@@ -28285,8 +29212,12 @@ func (v *databasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 
 	var set int
 
-	if v.databasePropertyRelationConfigResponseAllOf1.SinglePropertyDatabasePropertyRelationConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyRelationConfigResponseAllOf1.SinglePropertyDatabasePropertyRelationConfigResponse, jsonOpts)
+	var tag string
+
+	if v.DatabasePropertyRelationConfigResponseAllOf1.SinglePropertyDatabasePropertyRelationConfigResponse != nil {
+		tag = "single_property"
+
+		variant, err := json.Marshal(v.DatabasePropertyRelationConfigResponseAllOf1.SinglePropertyDatabasePropertyRelationConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -28298,8 +29229,10 @@ func (v *databasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 		set++
 	}
 
-	if v.databasePropertyRelationConfigResponseAllOf1.DualPropertyDatabasePropertyRelationConfigResponse != nil {
-		variant, err := json.Marshal(v.databasePropertyRelationConfigResponseAllOf1.DualPropertyDatabasePropertyRelationConfigResponse, jsonOpts)
+	if v.DatabasePropertyRelationConfigResponseAllOf1.DualPropertyDatabasePropertyRelationConfigResponse != nil {
+		tag = "dual_property"
+
+		variant, err := json.Marshal(v.DatabasePropertyRelationConfigResponseAllOf1.DualPropertyDatabasePropertyRelationConfigResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -28312,7 +29245,12 @@ func (v *databasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 	}
 
 	if set != 1 {
-		return fmt.Errorf("databasePropertyRelationConfigResponse: want exactly one alternative of databasePropertyRelationConfigResponseAllOf1 set, got %d", set)
+		return fmt.Errorf("databasePropertyRelationConfigResponse: want exactly one alternative of DatabasePropertyRelationConfigResponseAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("databasePropertyRelationConfigResponse: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -28355,16 +29293,32 @@ func (v *databasePropertyRelationConfigResponseAllOf1) UnmarshalJSONFrom(dec *js
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *databasePropertyRelationConfigResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.SinglePropertyDatabasePropertyRelationConfigResponse != nil:
-		return json.MarshalEncode(enc, v.SinglePropertyDatabasePropertyRelationConfigResponse, jsonOpts)
+		variant, tag = v.SinglePropertyDatabasePropertyRelationConfigResponse, "single_property"
 	case v.DualPropertyDatabasePropertyRelationConfigResponse != nil:
-		return json.MarshalEncode(enc, v.DualPropertyDatabasePropertyRelationConfigResponse, jsonOpts)
+		variant, tag = v.DualPropertyDatabasePropertyRelationConfigResponse, "dual_property"
+	default:
+		return fmt.Errorf("databasePropertyRelationConfigResponseAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("databasePropertyRelationConfigResponseAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("databasePropertyRelationConfigResponseAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // date defines a model
@@ -29196,22 +30150,38 @@ func (v *formulaPropertyResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *formulaPropertyResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.StringFormulaPropertyResponse != nil:
-		return json.MarshalEncode(enc, v.StringFormulaPropertyResponse, jsonOpts)
+		variant, tag = v.StringFormulaPropertyResponse, "string"
 	case v.DateFormulaPropertyResponse != nil:
-		return json.MarshalEncode(enc, v.DateFormulaPropertyResponse, jsonOpts)
+		variant, tag = v.DateFormulaPropertyResponse, "date"
 	case v.NumberFormulaPropertyResponse != nil:
-		return json.MarshalEncode(enc, v.NumberFormulaPropertyResponse, jsonOpts)
+		variant, tag = v.NumberFormulaPropertyResponse, "number"
 	case v.BooleanFormulaPropertyResponse != nil:
-		return json.MarshalEncode(enc, v.BooleanFormulaPropertyResponse, jsonOpts)
+		variant, tag = v.BooleanFormulaPropertyResponse, "boolean"
 	case v.UnsupportedFormulaProperty != nil:
-		return json.MarshalEncode(enc, v.UnsupportedFormulaProperty, jsonOpts)
+		variant, tag = v.UnsupportedFormulaProperty, "unsupported"
+	default:
+		return fmt.Errorf("formulaPropertyResponse: no variant set")
 	}
 
-	return fmt.Errorf("formulaPropertyResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("formulaPropertyResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // formulaPropertyValueResponse defines a model
@@ -29275,22 +30245,38 @@ func (v *formulaPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *formulaPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.BooleanFormulaPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.BooleanFormulaPropertyValueResponse, jsonOpts)
+		variant, tag = v.BooleanFormulaPropertyValueResponse, "boolean"
 	case v.DateFormulaPropertyValue != nil:
-		return json.MarshalEncode(enc, v.DateFormulaPropertyValue, jsonOpts)
+		variant, tag = v.DateFormulaPropertyValue, "date"
 	case v.NumberFormulaPropertyValue != nil:
-		return json.MarshalEncode(enc, v.NumberFormulaPropertyValue, jsonOpts)
+		variant, tag = v.NumberFormulaPropertyValue, "number"
 	case v.StringFormulaPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.StringFormulaPropertyValueResponse, jsonOpts)
+		variant, tag = v.StringFormulaPropertyValueResponse, "string"
 	case v.UnsupportedFormulaProperty != nil:
-		return json.MarshalEncode(enc, v.UnsupportedFormulaProperty, jsonOpts)
+		variant, tag = v.UnsupportedFormulaProperty, "unsupported"
+	default:
+		return fmt.Errorf("formulaPropertyValueResponse: no variant set")
 	}
 
-	return fmt.Errorf("formulaPropertyValueResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("formulaPropertyValueResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // formulaSimplePropertyValueResponse defines a model
@@ -29627,23 +30613,39 @@ func (v *internalOrExternalFileWithNameAllOf) UnmarshalJSONFrom(dec *jsontext.De
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *internalOrExternalFileWithNameAllOf) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.File != nil:
-		return json.MarshalEncode(enc, v.File, jsonOpts)
+		variant, tag = v.File, "file"
 	case v.External != nil:
-		return json.MarshalEncode(enc, v.External, jsonOpts)
+		variant, tag = v.External, "external"
+	default:
+		return fmt.Errorf("internalOrExternalFileWithNameAllOf: no variant set")
 	}
 
-	return fmt.Errorf("internalOrExternalFileWithNameAllOf: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("internalOrExternalFileWithNameAllOf: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // internalOrExternalFileWithNameResponse defines a model
 type internalOrExternalFileWithNameResponse struct {
 	// The name of the file.
 	Name                                string                              `json:"name,omitzero"`
-	internalOrExternalFileWithNameAllOf internalOrExternalFileWithNameAllOf `json:"-"`
+	InternalOrExternalFileWithNameAllOf internalOrExternalFileWithNameAllOf `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether internalOrExternalFileWithNameResponse declares it.
@@ -29662,7 +30664,7 @@ type fieldsOfinternalOrExternalFileWithNameResponse internalOrExternalFileWithNa
 // membersOfinternalOrExternalFileWithNameResponse are the members internalOrExternalFileWithNameResponse declares outside its union.
 var membersOfinternalOrExternalFileWithNameResponse = map[string]bool{"name": true}
 
-// variantsOfinternalOrExternalFileWithNameResponse are the alternatives of its union, in order.
+// variantsOfinternalOrExternalFileWithNameResponse are the alternatives its union is decoded as, in order.
 var variantsOfinternalOrExternalFileWithNameResponse = []jsonVariant{
 	{
 		value:    "file",
@@ -29677,7 +30679,7 @@ var variantsOfinternalOrExternalFileWithNameResponse = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of internalOrExternalFileWithNameAllOf; each further member then decodes as it is read, into the fields or the alternative
+// alternative of InternalOrExternalFileWithNameAllOf; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *internalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -29695,7 +30697,7 @@ func (v *internalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext
 			return fmt.Errorf("internalOrExternalFileWithNameResponse: %w", err)
 		}
 
-		v.internalOrExternalFileWithNameAllOf.File = &vv
+		v.InternalOrExternalFileWithNameAllOf.File = &vv
 	case "external":
 		var vv External
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -29705,7 +30707,7 @@ func (v *internalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext
 			return fmt.Errorf("internalOrExternalFileWithNameResponse: %w", err)
 		}
 
-		v.internalOrExternalFileWithNameAllOf.External = &vv
+		v.InternalOrExternalFileWithNameAllOf.External = &vv
 	default:
 		return fmt.Errorf("internalOrExternalFileWithNameResponse: unknown type %q", tag)
 	}
@@ -29713,7 +30715,7 @@ func (v *internalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of internalOrExternalFileWithNameAllOf that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of InternalOrExternalFileWithNameAllOf that is set;
 // a member both write must have the same value in each.
 func (v *internalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfinternalOrExternalFileWithNameResponse)(v), jsonOpts)
@@ -29723,8 +30725,12 @@ func (v *internalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 
 	var set int
 
-	if v.internalOrExternalFileWithNameAllOf.File != nil {
-		variant, err := json.Marshal(v.internalOrExternalFileWithNameAllOf.File, jsonOpts)
+	var tag string
+
+	if v.InternalOrExternalFileWithNameAllOf.File != nil {
+		tag = "file"
+
+		variant, err := json.Marshal(v.InternalOrExternalFileWithNameAllOf.File, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -29736,8 +30742,10 @@ func (v *internalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 		set++
 	}
 
-	if v.internalOrExternalFileWithNameAllOf.External != nil {
-		variant, err := json.Marshal(v.internalOrExternalFileWithNameAllOf.External, jsonOpts)
+	if v.InternalOrExternalFileWithNameAllOf.External != nil {
+		tag = "external"
+
+		variant, err := json.Marshal(v.InternalOrExternalFileWithNameAllOf.External, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -29750,7 +30758,12 @@ func (v *internalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 	}
 
 	if set != 1 {
-		return fmt.Errorf("internalOrExternalFileWithNameResponse: want exactly one alternative of internalOrExternalFileWithNameAllOf set, got %d", set)
+		return fmt.Errorf("internalOrExternalFileWithNameResponse: want exactly one alternative of InternalOrExternalFileWithNameAllOf set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("internalOrExternalFileWithNameResponse: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -30139,16 +31152,32 @@ func (v *mediaContentWithFileAndCaptionResponse) UnmarshalJSONFrom(dec *jsontext
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *mediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ExternalMediaContentWithFileAndCaptionResponse != nil:
-		return json.MarshalEncode(enc, v.ExternalMediaContentWithFileAndCaptionResponse, jsonOpts)
+		variant, tag = v.ExternalMediaContentWithFileAndCaptionResponse, "external"
 	case v.FileMediaContentWithFileAndCaptionResponse != nil:
-		return json.MarshalEncode(enc, v.FileMediaContentWithFileAndCaptionResponse, jsonOpts)
+		variant, tag = v.FileMediaContentWithFileAndCaptionResponse, "file"
+	default:
+		return fmt.Errorf("mediaContentWithFileAndCaptionResponse: no variant set")
 	}
 
-	return fmt.Errorf("mediaContentWithFileAndCaptionResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("mediaContentWithFileAndCaptionResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // mediaContentWithFileNameAndCaptionResponse defines a model
@@ -30188,16 +31217,32 @@ func (v *mediaContentWithFileNameAndCaptionResponse) UnmarshalJSONFrom(dec *json
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *mediaContentWithFileNameAndCaptionResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ExternalMediaContentWithFileNameAndCaptionResponse != nil:
-		return json.MarshalEncode(enc, v.ExternalMediaContentWithFileNameAndCaptionResponse, jsonOpts)
+		variant, tag = v.ExternalMediaContentWithFileNameAndCaptionResponse, "external"
 	case v.FileMediaContentWithFileNameAndCaptionResponse != nil:
-		return json.MarshalEncode(enc, v.FileMediaContentWithFileNameAndCaptionResponse, jsonOpts)
+		variant, tag = v.FileMediaContentWithFileNameAndCaptionResponse, "file"
+	default:
+		return fmt.Errorf("mediaContentWithFileNameAndCaptionResponse: no variant set")
 	}
 
-	return fmt.Errorf("mediaContentWithFileNameAndCaptionResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("mediaContentWithFileNameAndCaptionResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // mediaContentWithUrlAndCaptionResponse defines a model
@@ -30559,22 +31604,38 @@ func (v *pageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *pageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.ToolInputAnyOfPropertiesValueOneOfItemOneOf != nil:
-		return json.MarshalEncode(enc, v.ToolInputAnyOfPropertiesValueOneOfItemOneOf, jsonOpts)
+		variant, tag = v.ToolInputAnyOfPropertiesValueOneOfItemOneOf, "file_upload"
 	case v.EmojiPageIcon != nil:
-		return json.MarshalEncode(enc, v.EmojiPageIcon, jsonOpts)
+		variant, tag = v.EmojiPageIcon, "emoji"
 	case v.External != nil:
-		return json.MarshalEncode(enc, v.External, jsonOpts)
+		variant, tag = v.External, "external"
 	case v.CustomEmoji != nil:
-		return json.MarshalEncode(enc, v.CustomEmoji, jsonOpts)
+		variant, tag = v.CustomEmoji, "custom_emoji"
 	case v.IconPageIcon != nil:
-		return json.MarshalEncode(enc, v.IconPageIcon, jsonOpts)
+		variant, tag = v.IconPageIcon, "icon"
+	default:
+		return fmt.Errorf("pageIconRequest: no variant set")
 	}
 
-	return fmt.Errorf("pageIconRequest: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("pageIconRequest: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // pageIconResponse defines a model
@@ -30638,22 +31699,38 @@ func (v *pageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *pageIconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.EmojiPageIcon != nil:
-		return json.MarshalEncode(enc, v.EmojiPageIcon, jsonOpts)
+		variant, tag = v.EmojiPageIcon, "emoji"
 	case v.File != nil:
-		return json.MarshalEncode(enc, v.File, jsonOpts)
+		variant, tag = v.File, "file"
 	case v.External != nil:
-		return json.MarshalEncode(enc, v.External, jsonOpts)
+		variant, tag = v.External, "external"
 	case v.CustomEmoji4 != nil:
-		return json.MarshalEncode(enc, v.CustomEmoji4, jsonOpts)
+		variant, tag = v.CustomEmoji4, "custom_emoji"
 	case v.IconPageIcon != nil:
-		return json.MarshalEncode(enc, v.IconPageIcon, jsonOpts)
+		variant, tag = v.IconPageIcon, "icon"
+	default:
+		return fmt.Errorf("pageIconResponse: no variant set")
 	}
 
-	return fmt.Errorf("pageIconResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("pageIconResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // pageIdParentForBlockBasedObjectResponse defines a model
@@ -30713,17 +31790,460 @@ type pageObjectResponse struct {
 // pagePropertyValueWithIdResponse defines a model
 type pagePropertyValueWithIdResponse struct {
 	ChatWithAgentAttachmentsItemFileUpload
-	pagePropertyValueWithIdResponseAllOf1 pagePropertyValueWithIdResponseAllOf1 `json:"-"`
+	PagePropertyValueWithIdResponseAllOf1 pagePropertyValueWithIdResponseAllOf1 `json:"-"`
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It is not supported yet.
-func (v *pagePropertyValueWithIdResponse) UnmarshalJSONFrom(*jsontext.Decoder) error {
-	return fmt.Errorf("pagePropertyValueWithIdResponse: %w: an allOf whose union has an alternative that is not a plain object", errors.ErrUnsupported)
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether pagePropertyValueWithIdResponse declares it.
+func (v *pagePropertyValueWithIdResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	}
+
+	if ok, err := v.ChatWithAgentAttachmentsItemFileUpload.unmarshalJSONMember(dec, name); ok || err != nil {
+		return ok, err
+	}
+
+	return false, nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It is not supported yet.
-func (v *pagePropertyValueWithIdResponse) MarshalJSONTo(*jsontext.Encoder) error {
-	return fmt.Errorf("pagePropertyValueWithIdResponse: %w: an allOf whose union has an alternative that is not a plain object", errors.ErrUnsupported)
+// fieldsOfpagePropertyValueWithIdResponse is pagePropertyValueWithIdResponse without its methods, to encode the fields outside its union.
+type fieldsOfpagePropertyValueWithIdResponse pagePropertyValueWithIdResponse
+
+// membersOfpagePropertyValueWithIdResponse are the members pagePropertyValueWithIdResponse declares outside its union.
+var membersOfpagePropertyValueWithIdResponse = map[string]bool{"id": true}
+
+// variantsOfpagePropertyValueWithIdResponse are the alternatives its union is decoded as, in order.
+var variantsOfpagePropertyValueWithIdResponse = []jsonVariant{
+	{
+		value:    "number",
+		members:  map[string]bool{"number": true, "type": true},
+		required: []string{"number", "type"},
+	},
+	{
+		value:    "url",
+		members:  map[string]bool{"type": true, "url": true},
+		required: []string{"type", "url"},
+	},
+	{
+		value:    "select",
+		members:  map[string]bool{"select": true, "type": true},
+		required: []string{"select", "type"},
+	},
+	{
+		value:    "multi_select",
+		members:  map[string]bool{"multi_select": true, "type": true},
+		required: []string{"multi_select", "type"},
+	},
+	{
+		value:    "status",
+		members:  map[string]bool{"status": true, "type": true},
+		required: []string{"status", "type"},
+	},
+	{
+		value:    "date",
+		members:  map[string]bool{"date": true, "type": true},
+		required: []string{"date", "type"},
+	},
+	{
+		value:    "email",
+		members:  map[string]bool{"email": true, "type": true},
+		required: []string{"email", "type"},
+	},
+	{
+		value:    "phone_number",
+		members:  map[string]bool{"phone_number": true, "type": true},
+		required: []string{"phone_number", "type"},
+	},
+	{
+		value:    "checkbox",
+		members:  map[string]bool{"checkbox": true, "type": true},
+		required: []string{"checkbox", "type"},
+	},
+	{
+		value:    "files",
+		members:  map[string]bool{"files": true, "type": true},
+		required: []string{"files", "type"},
+	},
+	{
+		value:    "created_by",
+		members:  map[string]bool{"created_by": true, "type": true},
+		required: []string{"created_by", "type"},
+	},
+	{
+		value:    "created_time",
+		members:  map[string]bool{"created_time": true, "type": true},
+		required: []string{"created_time", "type"},
+	},
+	{
+		value:    "last_edited_by",
+		members:  map[string]bool{"last_edited_by": true, "type": true},
+		required: []string{"last_edited_by", "type"},
+	},
+	{
+		value:    "last_edited_time",
+		members:  map[string]bool{"last_edited_time": true, "type": true},
+		required: []string{"last_edited_time", "type"},
+	},
+	{
+		value:    "formula",
+		members:  map[string]bool{"formula": true, "type": true},
+		required: []string{"formula", "type"},
+	},
+	{
+		value:    "button",
+		members:  map[string]bool{"button": true, "type": true},
+		required: []string{"button", "type"},
+	},
+	{
+		value:    "unique_id",
+		members:  map[string]bool{"type": true, "unique_id": true},
+		required: []string{"type", "unique_id"},
+	},
+	{
+		value:    "verification",
+		members:  map[string]bool{"type": true, "verification": true},
+		required: []string{"type", "verification"},
+	},
+	{
+		value:    "place",
+		members:  map[string]bool{"place": true, "type": true},
+		required: []string{"place", "type"},
+	},
+	{
+		value:    "title",
+		members:  map[string]bool{"title": true, "type": true},
+		required: []string{"title", "type"},
+	},
+	{
+		value:    "rich_text",
+		members:  map[string]bool{"rich_text": true, "type": true},
+		required: []string{"rich_text", "type"},
+	},
+	{
+		value:    "people",
+		members:  map[string]bool{"people": true, "type": true},
+		required: []string{"people", "type"},
+	},
+	{
+		value:    "relation",
+		members:  map[string]bool{"relation": true, "type": true},
+		required: []string{"relation", "type"},
+	},
+	{
+		value:    "rollup",
+		members:  map[string]bool{"rollup": true, "type": true},
+		required: []string{"rollup", "type"},
+	},
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative of PagePropertyValueWithIdResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// that declares it, and a member neither declares is an error.
+func (v *pagePropertyValueWithIdResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	tag, first, err := jsonFirstMember(dec, "type")
+	if err != nil {
+		return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+	}
+
+	switch tag {
+	case "number":
+		var vv numberFormulaPropertyValue
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[0].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{NumberFormulaPropertyValue: &vv}}
+	case "url":
+		var vv urlSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[1].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{URLSimplePropertyValueResponse: &vv}}
+	case "select":
+		var vv selectSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[2].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{SelectSimplePropertyValueResponse: &vv}}
+	case "multi_select":
+		var vv multiSelectSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[3].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{MultiSelectSimplePropertyValueResponse: &vv}}
+	case "status":
+		var vv statusSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[4].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{StatusSimplePropertyValueResponse: &vv}}
+	case "date":
+		var vv dateFormulaPropertyValue
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[5].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{DateFormulaPropertyValue: &vv}}
+	case "email":
+		var vv emailSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[6].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{EmailSimplePropertyValueResponse: &vv}}
+	case "phone_number":
+		var vv phoneNumberSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[7].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{PhoneNumberSimplePropertyValueResponse: &vv}}
+	case "checkbox":
+		var vv checkboxSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[8].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{CheckboxSimplePropertyValueResponse: &vv}}
+	case "files":
+		var vv filesSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[9].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{FilesSimplePropertyValueResponse: &vv}}
+	case "created_by":
+		var vv createdBySimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[10].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{CreatedBySimplePropertyValueResponse: &vv}}
+	case "created_time":
+		var vv createdTimeSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[11].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{CreatedTimeSimplePropertyValueResponse: &vv}}
+	case "last_edited_by":
+		var vv lastEditedBySimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[12].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{LastEditedBySimplePropertyValueResponse: &vv}}
+	case "last_edited_time":
+		var vv lastEditedTimeSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[13].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{LastEditedTimeSimplePropertyValueResponse: &vv}}
+	case "formula":
+		var vv formulaSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[14].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{FormulaSimplePropertyValueResponse: &vv}}
+	case "button":
+		var vv buttonSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[15].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{ButtonSimplePropertyValueResponse: &vv}}
+	case "unique_id":
+		var vv uniqueIdSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[16].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{UniqueIDSimplePropertyValueResponse: &vv}}
+	case "verification":
+		var vv verificationSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[17].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{VerificationSimplePropertyValueResponse: &vv}}
+	case "place":
+		var vv placeSimplePropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[18].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{PlaceSimplePropertyValueResponse: &vv}}
+	case "title":
+		var vv titleArrayBasedPropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[19].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{TitleArrayBasedPropertyValueResponse: &vv}}
+	case "rich_text":
+		var vv richTextArrayBasedPropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[20].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{RichTextArrayBasedPropertyValueResponse: &vv}}
+	case "people":
+		var vv peopleArrayBasedPropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[21].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{PeopleArrayBasedPropertyValueResponse: &vv}}
+	case "relation":
+		var vv relationArrayBasedPropertyValueResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[22].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{RelationArrayBasedPropertyValueResponse: &vv}}
+	case "rollup":
+		var vv partialRollupPropertyResponse
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfpagePropertyValueWithIdResponse, v.unmarshalJSONMember},
+			{variantsOfpagePropertyValueWithIdResponse[23].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		v.PagePropertyValueWithIdResponseAllOf1.PartialRollupPropertyResponse = &vv
+	default:
+		return fmt.Errorf("pagePropertyValueWithIdResponse: unknown type %q", tag)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of PagePropertyValueWithIdResponseAllOf1 that is set;
+// a member both write must have the same value in each.
+func (v *pagePropertyValueWithIdResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	out, err := json.Marshal((*fieldsOfpagePropertyValueWithIdResponse)(v), jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	var set int
+
+	var tag string
+
+	if v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse != nil {
+		tag = ""
+
+		variant, err := json.Marshal(v.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if v.PagePropertyValueWithIdResponseAllOf1.PartialRollupPropertyResponse != nil {
+		tag = ""
+
+		variant, err := json.Marshal(v.PagePropertyValueWithIdResponseAllOf1.PartialRollupPropertyResponse, jsonOpts)
+		if err != nil {
+			return err
+		}
+
+		if out, err = jsonMerge(out, variant); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+		}
+
+		set++
+	}
+
+	if set != 1 {
+		return fmt.Errorf("pagePropertyValueWithIdResponse: want exactly one alternative of PagePropertyValueWithIdResponseAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("pagePropertyValueWithIdResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // pagePropertyValueWithIdResponseAllOf1 defines a model
@@ -30733,48 +32253,216 @@ type pagePropertyValueWithIdResponseAllOf1 struct {
 	PartialRollupPropertyResponse      *partialRollupPropertyResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *pagePropertyValueWithIdResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return err
+		return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
 	}
 
-	var matched int
-
-	{
-		var vv simpleOrArrayPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SimpleOrArrayPropertyValueResponse = &vv
-			matched++
+	switch tag {
+	case "number":
+		var vv numberFormulaPropertyValue
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
 		}
-	}
 
-	{
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{NumberFormulaPropertyValue: &vv}}
+	case "url":
+		var vv urlSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{URLSimplePropertyValueResponse: &vv}}
+	case "select":
+		var vv selectSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{SelectSimplePropertyValueResponse: &vv}}
+	case "multi_select":
+		var vv multiSelectSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{MultiSelectSimplePropertyValueResponse: &vv}}
+	case "status":
+		var vv statusSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{StatusSimplePropertyValueResponse: &vv}}
+	case "date":
+		var vv dateFormulaPropertyValue
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{DateFormulaPropertyValue: &vv}}
+	case "email":
+		var vv emailSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{EmailSimplePropertyValueResponse: &vv}}
+	case "phone_number":
+		var vv phoneNumberSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{PhoneNumberSimplePropertyValueResponse: &vv}}
+	case "checkbox":
+		var vv checkboxSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{CheckboxSimplePropertyValueResponse: &vv}}
+	case "files":
+		var vv filesSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{FilesSimplePropertyValueResponse: &vv}}
+	case "created_by":
+		var vv createdBySimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{CreatedBySimplePropertyValueResponse: &vv}}
+	case "created_time":
+		var vv createdTimeSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{CreatedTimeSimplePropertyValueResponse: &vv}}
+	case "last_edited_by":
+		var vv lastEditedBySimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{LastEditedBySimplePropertyValueResponse: &vv}}
+	case "last_edited_time":
+		var vv lastEditedTimeSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{LastEditedTimeSimplePropertyValueResponse: &vv}}
+	case "formula":
+		var vv formulaSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{FormulaSimplePropertyValueResponse: &vv}}
+	case "button":
+		var vv buttonSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{ButtonSimplePropertyValueResponse: &vv}}
+	case "unique_id":
+		var vv uniqueIdSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{UniqueIDSimplePropertyValueResponse: &vv}}
+	case "verification":
+		var vv verificationSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{VerificationSimplePropertyValueResponse: &vv}}
+	case "place":
+		var vv placeSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{SimplePropertyValueResponse: &simplePropertyValueResponse{PlaceSimplePropertyValueResponse: &vv}}
+	case "title":
+		var vv titleArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{TitleArrayBasedPropertyValueResponse: &vv}}
+	case "rich_text":
+		var vv richTextArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{RichTextArrayBasedPropertyValueResponse: &vv}}
+	case "people":
+		var vv peopleArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{PeopleArrayBasedPropertyValueResponse: &vv}}
+	case "relation":
+		var vv relationArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+		}
+
+		v.SimpleOrArrayPropertyValueResponse = &simpleOrArrayPropertyValueResponse{ArrayBasedPropertyValueResponse: &arrayBasedPropertyValueResponse{RelationArrayBasedPropertyValueResponse: &vv}}
+	case "rollup":
 		var vv partialRollupPropertyResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.PartialRollupPropertyResponse = &vv
-			matched++
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: expected exactly one matching variant, got %d", matched)
+		v.PartialRollupPropertyResponse = &vv
+	default:
+		return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: unknown type %q", tag)
 	}
 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *pagePropertyValueWithIdResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.SimpleOrArrayPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.SimpleOrArrayPropertyValueResponse, jsonOpts)
+		variant, tag = v.SimpleOrArrayPropertyValueResponse, ""
 	case v.PartialRollupPropertyResponse != nil:
-		return json.MarshalEncode(enc, v.PartialRollupPropertyResponse, jsonOpts)
+		variant, tag = v.PartialRollupPropertyResponse, ""
+	default:
+		return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("pagePropertyValueWithIdResponseAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // paragraphBlockObjectResponse defines a model
@@ -30891,24 +32579,40 @@ func (v *parentForBlockBasedObjectResponse) UnmarshalJSONFrom(dec *jsontext.Deco
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *parentForBlockBasedObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DatabaseParentResponse != nil:
-		return json.MarshalEncode(enc, v.DatabaseParentResponse, jsonOpts)
+		variant, tag = v.DatabaseParentResponse, "database_id"
 	case v.DataSourceParentResponse != nil:
-		return json.MarshalEncode(enc, v.DataSourceParentResponse, jsonOpts)
+		variant, tag = v.DataSourceParentResponse, "data_source_id"
 	case v.PageIDParentForBlockBasedObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PageIDParentForBlockBasedObjectResponse, jsonOpts)
+		variant, tag = v.PageIDParentForBlockBasedObjectResponse, "page_id"
 	case v.BlockIDParentForBlockBasedObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BlockIDParentForBlockBasedObjectResponse, jsonOpts)
+		variant, tag = v.BlockIDParentForBlockBasedObjectResponse, "block_id"
 	case v.AgentIDParentForBlockBasedObjectResponse != nil:
-		return json.MarshalEncode(enc, v.AgentIDParentForBlockBasedObjectResponse, jsonOpts)
+		variant, tag = v.AgentIDParentForBlockBasedObjectResponse, "agent_id"
 	case v.Workspace != nil:
-		return json.MarshalEncode(enc, v.Workspace, jsonOpts)
+		variant, tag = v.Workspace, "workspace"
+	default:
+		return fmt.Errorf("parentForBlockBasedObjectResponse: no variant set")
 	}
 
-	return fmt.Errorf("parentForBlockBasedObjectResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("parentForBlockBasedObjectResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // The parent of the data source. This is typically a database (`database_id`), but for externally synced data sources, can be another data source (`data_source_id`).
@@ -30948,16 +32652,32 @@ func (v *parentOfDataSourceResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *parentOfDataSourceResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.DatabaseParentResponse != nil:
-		return json.MarshalEncode(enc, v.DatabaseParentResponse, jsonOpts)
+		variant, tag = v.DatabaseParentResponse, "database_id"
 	case v.DataSourceParentResponse != nil:
-		return json.MarshalEncode(enc, v.DataSourceParentResponse, jsonOpts)
+		variant, tag = v.DataSourceParentResponse, "data_source_id"
+	default:
+		return fmt.Errorf("parentOfDataSourceResponse: no variant set")
 	}
 
-	return fmt.Errorf("parentOfDataSourceResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("parentOfDataSourceResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // parentOfDatabaseResponse defines a model
@@ -31013,20 +32733,36 @@ func (v *parentOfDatabaseResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *parentOfDatabaseResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.PageIDParentForBlockBasedObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PageIDParentForBlockBasedObjectResponse, jsonOpts)
+		variant, tag = v.PageIDParentForBlockBasedObjectResponse, "page_id"
 	case v.Workspace != nil:
-		return json.MarshalEncode(enc, v.Workspace, jsonOpts)
+		variant, tag = v.Workspace, "workspace"
 	case v.DatabaseParentResponse != nil:
-		return json.MarshalEncode(enc, v.DatabaseParentResponse, jsonOpts)
+		variant, tag = v.DatabaseParentResponse, "database_id"
 	case v.BlockIDParentForBlockBasedObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BlockIDParentForBlockBasedObjectResponse, jsonOpts)
+		variant, tag = v.BlockIDParentForBlockBasedObjectResponse, "block_id"
+	default:
+		return fmt.Errorf("parentOfDatabaseResponse: no variant set")
 	}
 
-	return fmt.Errorf("parentOfDatabaseResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("parentOfDatabaseResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // partialBlockObjectResponse defines a model
@@ -31060,11 +32796,23 @@ type partialRollupPropertyResponse struct {
 	Rollup partialRollupValueResponse `json:"rollup"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether partialRollupPropertyResponse declares it.
+func (v *partialRollupPropertyResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "rollup":
+		return true, json.UnmarshalDecode(dec, &v.Rollup, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // partialRollupValueResponse defines a model
 type partialRollupValueResponse struct {
 	// The function used for the rollup, e.g. count, count_values, percent_not_empty, max.
 	Function                         rollupFunction                   `json:"function,omitzero"`
-	partialRollupValueResponseAllOf1 partialRollupValueResponseAllOf1 `json:"-"`
+	PartialRollupValueResponseAllOf1 partialRollupValueResponseAllOf1 `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether partialRollupValueResponse declares it.
@@ -31083,7 +32831,7 @@ type fieldsOfpartialRollupValueResponse partialRollupValueResponse
 // membersOfpartialRollupValueResponse are the members partialRollupValueResponse declares outside its union.
 var membersOfpartialRollupValueResponse = map[string]bool{"function": true}
 
-// variantsOfpartialRollupValueResponse are the alternatives of its union, in order.
+// variantsOfpartialRollupValueResponse are the alternatives its union is decoded as, in order.
 var variantsOfpartialRollupValueResponse = []jsonVariant{
 	{
 		value:    "number",
@@ -31108,7 +32856,7 @@ var variantsOfpartialRollupValueResponse = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of partialRollupValueResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// alternative of PartialRollupValueResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -31126,7 +32874,7 @@ func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 			return fmt.Errorf("partialRollupValueResponse: %w", err)
 		}
 
-		v.partialRollupValueResponseAllOf1.NumberFormulaPropertyValue = &vv
+		v.PartialRollupValueResponseAllOf1.NumberFormulaPropertyValue = &vv
 	case "date":
 		var vv dateFormulaPropertyValue
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -31136,7 +32884,7 @@ func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 			return fmt.Errorf("partialRollupValueResponse: %w", err)
 		}
 
-		v.partialRollupValueResponseAllOf1.DateFormulaPropertyValue = &vv
+		v.PartialRollupValueResponseAllOf1.DateFormulaPropertyValue = &vv
 	case "array":
 		var vv arrayPartialRollupValueResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -31146,7 +32894,7 @@ func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 			return fmt.Errorf("partialRollupValueResponse: %w", err)
 		}
 
-		v.partialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse = &vv
+		v.PartialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse = &vv
 	case "unsupported":
 		var vv unsupportedFormulaProperty
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -31156,7 +32904,7 @@ func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 			return fmt.Errorf("partialRollupValueResponse: %w", err)
 		}
 
-		v.partialRollupValueResponseAllOf1.UnsupportedFormulaProperty = &vv
+		v.PartialRollupValueResponseAllOf1.UnsupportedFormulaProperty = &vv
 	default:
 		return fmt.Errorf("partialRollupValueResponse: unknown type %q", tag)
 	}
@@ -31164,7 +32912,7 @@ func (v *partialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of partialRollupValueResponseAllOf1 that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of PartialRollupValueResponseAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfpartialRollupValueResponse)(v), jsonOpts)
@@ -31174,8 +32922,12 @@ func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 
 	var set int
 
-	if v.partialRollupValueResponseAllOf1.NumberFormulaPropertyValue != nil {
-		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.NumberFormulaPropertyValue, jsonOpts)
+	var tag string
+
+	if v.PartialRollupValueResponseAllOf1.NumberFormulaPropertyValue != nil {
+		tag = "number"
+
+		variant, err := json.Marshal(v.PartialRollupValueResponseAllOf1.NumberFormulaPropertyValue, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -31187,8 +32939,10 @@ func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		set++
 	}
 
-	if v.partialRollupValueResponseAllOf1.DateFormulaPropertyValue != nil {
-		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.DateFormulaPropertyValue, jsonOpts)
+	if v.PartialRollupValueResponseAllOf1.DateFormulaPropertyValue != nil {
+		tag = "date"
+
+		variant, err := json.Marshal(v.PartialRollupValueResponseAllOf1.DateFormulaPropertyValue, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -31200,8 +32954,10 @@ func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		set++
 	}
 
-	if v.partialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse != nil {
-		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse, jsonOpts)
+	if v.PartialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse != nil {
+		tag = "array"
+
+		variant, err := json.Marshal(v.PartialRollupValueResponseAllOf1.ArrayPartialRollupValueResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -31213,8 +32969,10 @@ func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		set++
 	}
 
-	if v.partialRollupValueResponseAllOf1.UnsupportedFormulaProperty != nil {
-		variant, err := json.Marshal(v.partialRollupValueResponseAllOf1.UnsupportedFormulaProperty, jsonOpts)
+	if v.PartialRollupValueResponseAllOf1.UnsupportedFormulaProperty != nil {
+		tag = "unsupported"
+
+		variant, err := json.Marshal(v.PartialRollupValueResponseAllOf1.UnsupportedFormulaProperty, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -31227,7 +32985,12 @@ func (v *partialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 	}
 
 	if set != 1 {
-		return fmt.Errorf("partialRollupValueResponse: want exactly one alternative of partialRollupValueResponseAllOf1 set, got %d", set)
+		return fmt.Errorf("partialRollupValueResponse: want exactly one alternative of PartialRollupValueResponseAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("partialRollupValueResponse: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -31286,20 +33049,36 @@ func (v *partialRollupValueResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decod
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *partialRollupValueResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.NumberFormulaPropertyValue != nil:
-		return json.MarshalEncode(enc, v.NumberFormulaPropertyValue, jsonOpts)
+		variant, tag = v.NumberFormulaPropertyValue, "number"
 	case v.DateFormulaPropertyValue != nil:
-		return json.MarshalEncode(enc, v.DateFormulaPropertyValue, jsonOpts)
+		variant, tag = v.DateFormulaPropertyValue, "date"
 	case v.ArrayPartialRollupValueResponse != nil:
-		return json.MarshalEncode(enc, v.ArrayPartialRollupValueResponse, jsonOpts)
+		variant, tag = v.ArrayPartialRollupValueResponse, "array"
 	case v.UnsupportedFormulaProperty != nil:
-		return json.MarshalEncode(enc, v.UnsupportedFormulaProperty, jsonOpts)
+		variant, tag = v.UnsupportedFormulaProperty, "unsupported"
+	default:
+		return fmt.Errorf("partialRollupValueResponseAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("partialRollupValueResponseAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("partialRollupValueResponseAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // partialSelectPropertyValue defines a model
@@ -31798,60 +33577,76 @@ func (v *propertyItemObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *propertyItemObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.NumberPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.NumberPropertyItemObjectResponse, "number"
 	case v.URLPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.URLPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.URLPropertyItemObjectResponse, "url"
 	case v.SelectPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.SelectPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.SelectPropertyItemObjectResponse, "select"
 	case v.MultiSelectPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.MultiSelectPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.MultiSelectPropertyItemObjectResponse, "multi_select"
 	case v.StatusPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.StatusPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.StatusPropertyItemObjectResponse, "status"
 	case v.DatePropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.DatePropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.DatePropertyItemObjectResponse, "date"
 	case v.EmailPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.EmailPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.EmailPropertyItemObjectResponse, "email"
 	case v.PhoneNumberPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PhoneNumberPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.PhoneNumberPropertyItemObjectResponse, "phone_number"
 	case v.CheckboxPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.CheckboxPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.CheckboxPropertyItemObjectResponse, "checkbox"
 	case v.FilesPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.FilesPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.FilesPropertyItemObjectResponse, "files"
 	case v.CreatedByPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.CreatedByPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.CreatedByPropertyItemObjectResponse, "created_by"
 	case v.CreatedTimePropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.CreatedTimePropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.CreatedTimePropertyItemObjectResponse, "created_time"
 	case v.LastEditedByPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.LastEditedByPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.LastEditedByPropertyItemObjectResponse, "last_edited_by"
 	case v.LastEditedTimePropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.LastEditedTimePropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.LastEditedTimePropertyItemObjectResponse, "last_edited_time"
 	case v.FormulaPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.FormulaPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.FormulaPropertyItemObjectResponse, "formula"
 	case v.ButtonPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.ButtonPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.ButtonPropertyItemObjectResponse, "button"
 	case v.UniqueIDPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.UniqueIDPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.UniqueIDPropertyItemObjectResponse, "unique_id"
 	case v.VerificationPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.VerificationPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.VerificationPropertyItemObjectResponse, "verification"
 	case v.PlacePropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PlacePropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.PlacePropertyItemObjectResponse, "place"
 	case v.TitlePropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.TitlePropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.TitlePropertyItemObjectResponse, "title"
 	case v.RichTextPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.RichTextPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.RichTextPropertyItemObjectResponse, "rich_text"
 	case v.PeoplePropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PeoplePropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.PeoplePropertyItemObjectResponse, "people"
 	case v.RelationPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.RelationPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.RelationPropertyItemObjectResponse, "relation"
 	case v.RollupPropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyItemObjectResponse, jsonOpts)
+		variant, tag = v.RollupPropertyItemObjectResponse, "rollup"
+	default:
+		return fmt.Errorf("propertyItemObjectResponse: no variant set")
 	}
 
-	return fmt.Errorf("propertyItemObjectResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("propertyItemObjectResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // propertyItemPropertyItemListResponse defines a model
@@ -32028,7 +33823,7 @@ func (v *richTextDatabasePropertyConfigResponse) unmarshalJSONMember(dec *jsonte
 type richTextItemRequest struct {
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
 	Annotations               *annotation               `json:"annotations,omitempty"`
-	richTextItemRequestAllOf1 richTextItemRequestAllOf1 `json:"-"`
+	RichTextItemRequestAllOf1 richTextItemRequestAllOf1 `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether richTextItemRequest declares it.
@@ -32047,7 +33842,7 @@ type fieldsOfrichTextItemRequest richTextItemRequest
 // membersOfrichTextItemRequest are the members richTextItemRequest declares outside its union.
 var membersOfrichTextItemRequest = map[string]bool{"annotations": true}
 
-// variantsOfrichTextItemRequest are the alternatives of its union, in order.
+// variantsOfrichTextItemRequest are the alternatives its union is decoded as, in order.
 var variantsOfrichTextItemRequest = []jsonVariant{
 	{
 		value:    "text",
@@ -32067,7 +33862,7 @@ var variantsOfrichTextItemRequest = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of richTextItemRequestAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// alternative of RichTextItemRequestAllOf1; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *richTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -32085,7 +33880,7 @@ func (v *richTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("richTextItemRequest: %w", err)
 		}
 
-		v.richTextItemRequestAllOf1.TextRichTextItem = &vv
+		v.RichTextItemRequestAllOf1.TextRichTextItem = &vv
 	case "mention":
 		var vv mentionRichTextItemRequest
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -32095,7 +33890,7 @@ func (v *richTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("richTextItemRequest: %w", err)
 		}
 
-		v.richTextItemRequestAllOf1.MentionRichTextItemRequest = &vv
+		v.RichTextItemRequestAllOf1.MentionRichTextItemRequest = &vv
 	case "equation":
 		var vv equationRichTextItem
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -32105,7 +33900,7 @@ func (v *richTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("richTextItemRequest: %w", err)
 		}
 
-		v.richTextItemRequestAllOf1.EquationRichTextItem = &vv
+		v.RichTextItemRequestAllOf1.EquationRichTextItem = &vv
 	default:
 		return fmt.Errorf("richTextItemRequest: unknown type %q", tag)
 	}
@@ -32113,7 +33908,7 @@ func (v *richTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of richTextItemRequestAllOf1 that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of RichTextItemRequestAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *richTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfrichTextItemRequest)(v), jsonOpts)
@@ -32123,8 +33918,12 @@ func (v *richTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	var set int
 
-	if v.richTextItemRequestAllOf1.TextRichTextItem != nil {
-		variant, err := json.Marshal(v.richTextItemRequestAllOf1.TextRichTextItem, jsonOpts)
+	var tag string
+
+	if v.RichTextItemRequestAllOf1.TextRichTextItem != nil {
+		tag = "text"
+
+		variant, err := json.Marshal(v.RichTextItemRequestAllOf1.TextRichTextItem, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -32136,8 +33935,10 @@ func (v *richTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		set++
 	}
 
-	if v.richTextItemRequestAllOf1.MentionRichTextItemRequest != nil {
-		variant, err := json.Marshal(v.richTextItemRequestAllOf1.MentionRichTextItemRequest, jsonOpts)
+	if v.RichTextItemRequestAllOf1.MentionRichTextItemRequest != nil {
+		tag = "mention"
+
+		variant, err := json.Marshal(v.RichTextItemRequestAllOf1.MentionRichTextItemRequest, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -32149,8 +33950,10 @@ func (v *richTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		set++
 	}
 
-	if v.richTextItemRequestAllOf1.EquationRichTextItem != nil {
-		variant, err := json.Marshal(v.richTextItemRequestAllOf1.EquationRichTextItem, jsonOpts)
+	if v.RichTextItemRequestAllOf1.EquationRichTextItem != nil {
+		tag = "equation"
+
+		variant, err := json.Marshal(v.RichTextItemRequestAllOf1.EquationRichTextItem, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -32163,7 +33966,12 @@ func (v *richTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if set != 1 {
-		return fmt.Errorf("richTextItemRequest: want exactly one alternative of richTextItemRequestAllOf1 set, got %d", set)
+		return fmt.Errorf("richTextItemRequest: want exactly one alternative of RichTextItemRequestAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("richTextItemRequest: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -32214,18 +34022,34 @@ func (v *richTextItemRequestAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *richTextItemRequestAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.TextRichTextItem != nil:
-		return json.MarshalEncode(enc, v.TextRichTextItem, jsonOpts)
+		variant, tag = v.TextRichTextItem, "text"
 	case v.MentionRichTextItemRequest != nil:
-		return json.MarshalEncode(enc, v.MentionRichTextItemRequest, jsonOpts)
+		variant, tag = v.MentionRichTextItemRequest, "mention"
 	case v.EquationRichTextItem != nil:
-		return json.MarshalEncode(enc, v.EquationRichTextItem, jsonOpts)
+		variant, tag = v.EquationRichTextItem, "equation"
+	default:
+		return fmt.Errorf("richTextItemRequestAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("richTextItemRequestAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("richTextItemRequestAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // richTextItemResponse defines a model
@@ -32236,7 +34060,7 @@ type richTextItemResponse struct {
 	Href *string `json:"href"`
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
 	Annotations                annotation                 `json:"annotations"`
-	richTextItemResponseAllOf1 richTextItemResponseAllOf1 `json:"-"`
+	RichTextItemResponseAllOf1 richTextItemResponseAllOf1 `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether richTextItemResponse declares it.
@@ -32259,7 +34083,7 @@ type fieldsOfrichTextItemResponse richTextItemResponse
 // membersOfrichTextItemResponse are the members richTextItemResponse declares outside its union.
 var membersOfrichTextItemResponse = map[string]bool{"annotations": true, "href": true, "plain_text": true}
 
-// variantsOfrichTextItemResponse are the alternatives of its union, in order.
+// variantsOfrichTextItemResponse are the alternatives its union is decoded as, in order.
 var variantsOfrichTextItemResponse = []jsonVariant{
 	{
 		value:    "text",
@@ -32279,7 +34103,7 @@ var variantsOfrichTextItemResponse = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of richTextItemResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// alternative of RichTextItemResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *richTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -32297,7 +34121,7 @@ func (v *richTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("richTextItemResponse: %w", err)
 		}
 
-		v.richTextItemResponseAllOf1.TextRichTextItem = &vv
+		v.RichTextItemResponseAllOf1.TextRichTextItem = &vv
 	case "mention":
 		var vv mentionRichTextItemResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -32307,7 +34131,7 @@ func (v *richTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("richTextItemResponse: %w", err)
 		}
 
-		v.richTextItemResponseAllOf1.MentionRichTextItemResponse = &vv
+		v.RichTextItemResponseAllOf1.MentionRichTextItemResponse = &vv
 	case "equation":
 		var vv equationRichTextItem
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -32317,7 +34141,7 @@ func (v *richTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("richTextItemResponse: %w", err)
 		}
 
-		v.richTextItemResponseAllOf1.EquationRichTextItem = &vv
+		v.RichTextItemResponseAllOf1.EquationRichTextItem = &vv
 	default:
 		return fmt.Errorf("richTextItemResponse: unknown type %q", tag)
 	}
@@ -32325,7 +34149,7 @@ func (v *richTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of richTextItemResponseAllOf1 that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of RichTextItemResponseAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *richTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfrichTextItemResponse)(v), jsonOpts)
@@ -32335,8 +34159,12 @@ func (v *richTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	var set int
 
-	if v.richTextItemResponseAllOf1.TextRichTextItem != nil {
-		variant, err := json.Marshal(v.richTextItemResponseAllOf1.TextRichTextItem, jsonOpts)
+	var tag string
+
+	if v.RichTextItemResponseAllOf1.TextRichTextItem != nil {
+		tag = "text"
+
+		variant, err := json.Marshal(v.RichTextItemResponseAllOf1.TextRichTextItem, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -32348,8 +34176,10 @@ func (v *richTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		set++
 	}
 
-	if v.richTextItemResponseAllOf1.MentionRichTextItemResponse != nil {
-		variant, err := json.Marshal(v.richTextItemResponseAllOf1.MentionRichTextItemResponse, jsonOpts)
+	if v.RichTextItemResponseAllOf1.MentionRichTextItemResponse != nil {
+		tag = "mention"
+
+		variant, err := json.Marshal(v.RichTextItemResponseAllOf1.MentionRichTextItemResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -32361,8 +34191,10 @@ func (v *richTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		set++
 	}
 
-	if v.richTextItemResponseAllOf1.EquationRichTextItem != nil {
-		variant, err := json.Marshal(v.richTextItemResponseAllOf1.EquationRichTextItem, jsonOpts)
+	if v.RichTextItemResponseAllOf1.EquationRichTextItem != nil {
+		tag = "equation"
+
+		variant, err := json.Marshal(v.RichTextItemResponseAllOf1.EquationRichTextItem, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -32375,7 +34207,12 @@ func (v *richTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if set != 1 {
-		return fmt.Errorf("richTextItemResponse: want exactly one alternative of richTextItemResponseAllOf1 set, got %d", set)
+		return fmt.Errorf("richTextItemResponse: want exactly one alternative of RichTextItemResponseAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("richTextItemResponse: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -32426,18 +34263,34 @@ func (v *richTextItemResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *richTextItemResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.TextRichTextItem != nil:
-		return json.MarshalEncode(enc, v.TextRichTextItem, jsonOpts)
+		variant, tag = v.TextRichTextItem, "text"
 	case v.MentionRichTextItemResponse != nil:
-		return json.MarshalEncode(enc, v.MentionRichTextItemResponse, jsonOpts)
+		variant, tag = v.MentionRichTextItemResponse, "mention"
 	case v.EquationRichTextItem != nil:
-		return json.MarshalEncode(enc, v.EquationRichTextItem, jsonOpts)
+		variant, tag = v.EquationRichTextItem, "equation"
+	default:
+		return fmt.Errorf("richTextItemResponseAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("richTextItemResponseAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("richTextItemResponseAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // richTextPropertyItemObjectResponse defines a model
@@ -34143,48 +35996,209 @@ type simpleOrArrayPropertyValueResponse struct {
 	ArrayBasedPropertyValueResponse *arrayBasedPropertyValueResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *simpleOrArrayPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return err
+		return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
 	}
 
-	var matched int
-
-	{
-		var vv simplePropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.SimplePropertyValueResponse = &vv
-			matched++
+	switch tag {
+	case "number":
+		var vv numberFormulaPropertyValue
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
 		}
-	}
 
-	{
-		var vv arrayBasedPropertyValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ArrayBasedPropertyValueResponse = &vv
-			matched++
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{NumberFormulaPropertyValue: &vv}
+	case "url":
+		var vv urlSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
 		}
-	}
 
-	if matched != 1 {
-		return fmt.Errorf("simpleOrArrayPropertyValueResponse: expected exactly one matching variant, got %d", matched)
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{URLSimplePropertyValueResponse: &vv}
+	case "select":
+		var vv selectSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{SelectSimplePropertyValueResponse: &vv}
+	case "multi_select":
+		var vv multiSelectSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{MultiSelectSimplePropertyValueResponse: &vv}
+	case "status":
+		var vv statusSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{StatusSimplePropertyValueResponse: &vv}
+	case "date":
+		var vv dateFormulaPropertyValue
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{DateFormulaPropertyValue: &vv}
+	case "email":
+		var vv emailSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{EmailSimplePropertyValueResponse: &vv}
+	case "phone_number":
+		var vv phoneNumberSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{PhoneNumberSimplePropertyValueResponse: &vv}
+	case "checkbox":
+		var vv checkboxSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{CheckboxSimplePropertyValueResponse: &vv}
+	case "files":
+		var vv filesSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{FilesSimplePropertyValueResponse: &vv}
+	case "created_by":
+		var vv createdBySimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{CreatedBySimplePropertyValueResponse: &vv}
+	case "created_time":
+		var vv createdTimeSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{CreatedTimeSimplePropertyValueResponse: &vv}
+	case "last_edited_by":
+		var vv lastEditedBySimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{LastEditedBySimplePropertyValueResponse: &vv}
+	case "last_edited_time":
+		var vv lastEditedTimeSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{LastEditedTimeSimplePropertyValueResponse: &vv}
+	case "formula":
+		var vv formulaSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{FormulaSimplePropertyValueResponse: &vv}
+	case "button":
+		var vv buttonSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{ButtonSimplePropertyValueResponse: &vv}
+	case "unique_id":
+		var vv uniqueIdSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{UniqueIDSimplePropertyValueResponse: &vv}
+	case "verification":
+		var vv verificationSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{VerificationSimplePropertyValueResponse: &vv}
+	case "place":
+		var vv placeSimplePropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.SimplePropertyValueResponse = &simplePropertyValueResponse{PlaceSimplePropertyValueResponse: &vv}
+	case "title":
+		var vv titleArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.ArrayBasedPropertyValueResponse = &arrayBasedPropertyValueResponse{TitleArrayBasedPropertyValueResponse: &vv}
+	case "rich_text":
+		var vv richTextArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.ArrayBasedPropertyValueResponse = &arrayBasedPropertyValueResponse{RichTextArrayBasedPropertyValueResponse: &vv}
+	case "people":
+		var vv peopleArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.ArrayBasedPropertyValueResponse = &arrayBasedPropertyValueResponse{PeopleArrayBasedPropertyValueResponse: &vv}
+	case "relation":
+		var vv relationArrayBasedPropertyValueResponse
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+		}
+
+		v.ArrayBasedPropertyValueResponse = &arrayBasedPropertyValueResponse{RelationArrayBasedPropertyValueResponse: &vv}
+	default:
+		return fmt.Errorf("simpleOrArrayPropertyValueResponse: unknown type %q", tag)
 	}
 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *simpleOrArrayPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.SimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.SimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.SimplePropertyValueResponse, ""
 	case v.ArrayBasedPropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.ArrayBasedPropertyValueResponse, jsonOpts)
+		variant, tag = v.ArrayBasedPropertyValueResponse, ""
+	default:
+		return fmt.Errorf("simpleOrArrayPropertyValueResponse: no variant set")
 	}
 
-	return fmt.Errorf("simpleOrArrayPropertyValueResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("simpleOrArrayPropertyValueResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // simplePropertyValueResponse defines a model
@@ -34360,50 +36374,66 @@ func (v *simplePropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *simplePropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.NumberFormulaPropertyValue != nil:
-		return json.MarshalEncode(enc, v.NumberFormulaPropertyValue, jsonOpts)
+		variant, tag = v.NumberFormulaPropertyValue, "number"
 	case v.URLSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.URLSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.URLSimplePropertyValueResponse, "url"
 	case v.SelectSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.SelectSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.SelectSimplePropertyValueResponse, "select"
 	case v.MultiSelectSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.MultiSelectSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.MultiSelectSimplePropertyValueResponse, "multi_select"
 	case v.StatusSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.StatusSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.StatusSimplePropertyValueResponse, "status"
 	case v.DateFormulaPropertyValue != nil:
-		return json.MarshalEncode(enc, v.DateFormulaPropertyValue, jsonOpts)
+		variant, tag = v.DateFormulaPropertyValue, "date"
 	case v.EmailSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.EmailSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.EmailSimplePropertyValueResponse, "email"
 	case v.PhoneNumberSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.PhoneNumberSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.PhoneNumberSimplePropertyValueResponse, "phone_number"
 	case v.CheckboxSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.CheckboxSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.CheckboxSimplePropertyValueResponse, "checkbox"
 	case v.FilesSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.FilesSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.FilesSimplePropertyValueResponse, "files"
 	case v.CreatedBySimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.CreatedBySimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.CreatedBySimplePropertyValueResponse, "created_by"
 	case v.CreatedTimeSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.CreatedTimeSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.CreatedTimeSimplePropertyValueResponse, "created_time"
 	case v.LastEditedBySimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.LastEditedBySimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.LastEditedBySimplePropertyValueResponse, "last_edited_by"
 	case v.LastEditedTimeSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.LastEditedTimeSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.LastEditedTimeSimplePropertyValueResponse, "last_edited_time"
 	case v.FormulaSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.FormulaSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.FormulaSimplePropertyValueResponse, "formula"
 	case v.ButtonSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.ButtonSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.ButtonSimplePropertyValueResponse, "button"
 	case v.UniqueIDSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.UniqueIDSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.UniqueIDSimplePropertyValueResponse, "unique_id"
 	case v.VerificationSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.VerificationSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.VerificationSimplePropertyValueResponse, "verification"
 	case v.PlaceSimplePropertyValueResponse != nil:
-		return json.MarshalEncode(enc, v.PlaceSimplePropertyValueResponse, jsonOpts)
+		variant, tag = v.PlaceSimplePropertyValueResponse, "place"
+	default:
+		return fmt.Errorf("simplePropertyValueResponse: no variant set")
 	}
 
-	return fmt.Errorf("simplePropertyValueResponse: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("simplePropertyValueResponse: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // singlePropertyDatabasePropertyRelationConfigResponse defines a model
@@ -34835,16 +36865,32 @@ func (v *templateMention) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *templateMention) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.TemplateMentionDateTemplateMention != nil:
-		return json.MarshalEncode(enc, v.TemplateMentionDateTemplateMention, jsonOpts)
+		variant, tag = v.TemplateMentionDateTemplateMention, "template_mention_date"
 	case v.TemplateMentionUserTemplateMention != nil:
-		return json.MarshalEncode(enc, v.TemplateMentionUserTemplateMention, jsonOpts)
+		variant, tag = v.TemplateMentionUserTemplateMention, "template_mention_user"
+	default:
+		return fmt.Errorf("templateMention: no variant set")
 	}
 
-	return fmt.Errorf("templateMention: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("templateMention: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // templateMentionDateTemplateMention defines a model
@@ -35300,7 +37346,7 @@ type userObjectResponse struct {
 	Name *string `json:"name"`
 	// The name of the bot's workspace.
 	AvatarURL                *string                  `json:"avatar_url"`
-	userObjectResponseAllOf1 userObjectResponseAllOf1 `json:"-"`
+	UserObjectResponseAllOf1 userObjectResponseAllOf1 `json:"-"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether userObjectResponse declares it.
@@ -35325,7 +37371,7 @@ type fieldsOfuserObjectResponse userObjectResponse
 // membersOfuserObjectResponse are the members userObjectResponse declares outside its union.
 var membersOfuserObjectResponse = map[string]bool{"avatar_url": true, "id": true, "name": true, "object": true}
 
-// variantsOfuserObjectResponse are the alternatives of its union, in order.
+// variantsOfuserObjectResponse are the alternatives its union is decoded as, in order.
 var variantsOfuserObjectResponse = []jsonVariant{
 	{
 		value:    "person",
@@ -35340,7 +37386,7 @@ var variantsOfuserObjectResponse = []jsonVariant{
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of userObjectResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// alternative of UserObjectResponseAllOf1; each further member then decodes as it is read, into the fields or the alternative
 // that declares it, and a member neither declares is an error.
 func (v *userObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
@@ -35358,7 +37404,7 @@ func (v *userObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("userObjectResponse: %w", err)
 		}
 
-		v.userObjectResponseAllOf1.PersonUserObjectResponse = &vv
+		v.UserObjectResponseAllOf1.PersonUserObjectResponse = &vv
 	case "bot":
 		var vv botUserObjectResponse
 		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
@@ -35368,7 +37414,7 @@ func (v *userObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("userObjectResponse: %w", err)
 		}
 
-		v.userObjectResponseAllOf1.BotUserObjectResponse = &vv
+		v.UserObjectResponseAllOf1.BotUserObjectResponse = &vv
 	default:
 		return fmt.Errorf("userObjectResponse: unknown type %q", tag)
 	}
@@ -35376,7 +37422,7 @@ func (v *userObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of userObjectResponseAllOf1 that is set;
+// MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of UserObjectResponseAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *userObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	out, err := json.Marshal((*fieldsOfuserObjectResponse)(v), jsonOpts)
@@ -35386,8 +37432,12 @@ func (v *userObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	var set int
 
-	if v.userObjectResponseAllOf1.PersonUserObjectResponse != nil {
-		variant, err := json.Marshal(v.userObjectResponseAllOf1.PersonUserObjectResponse, jsonOpts)
+	var tag string
+
+	if v.UserObjectResponseAllOf1.PersonUserObjectResponse != nil {
+		tag = "person"
+
+		variant, err := json.Marshal(v.UserObjectResponseAllOf1.PersonUserObjectResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -35399,8 +37449,10 @@ func (v *userObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		set++
 	}
 
-	if v.userObjectResponseAllOf1.BotUserObjectResponse != nil {
-		variant, err := json.Marshal(v.userObjectResponseAllOf1.BotUserObjectResponse, jsonOpts)
+	if v.UserObjectResponseAllOf1.BotUserObjectResponse != nil {
+		tag = "bot"
+
+		variant, err := json.Marshal(v.UserObjectResponseAllOf1.BotUserObjectResponse, jsonOpts)
 		if err != nil {
 			return err
 		}
@@ -35413,7 +37465,12 @@ func (v *userObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if set != 1 {
-		return fmt.Errorf("userObjectResponse: want exactly one alternative of userObjectResponseAllOf1 set, got %d", set)
+		return fmt.Errorf("userObjectResponse: want exactly one alternative of UserObjectResponseAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("userObjectResponse: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -35456,16 +37513,32 @@ func (v *userObjectResponseAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *userObjectResponseAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.PersonUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PersonUserObjectResponse, jsonOpts)
+		variant, tag = v.PersonUserObjectResponse, "person"
 	case v.BotUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BotUserObjectResponse, jsonOpts)
+		variant, tag = v.BotUserObjectResponse, "bot"
+	default:
+		return fmt.Errorf("userObjectResponseAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("userObjectResponseAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("userObjectResponseAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // userValueResponse defines a model
@@ -35818,6 +37891,69 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 
 	_, err := dec.ReadToken()
 	return err
+}
+
+// jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
+// is known, the member must have it, and is written in if raw lacks it. raw is returned as it is if all is in order.
+func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	if dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		if tok.String() == name {
+			if value != "" {
+				val, err := dec.ReadToken()
+				if err != nil {
+					return nil, err
+				}
+
+				if got := val.String(); got != value {
+					return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+				}
+			}
+
+			return raw, nil
+		}
+	}
+
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	var first jsontext.Value
+	switch {
+	case slices.Contains(names, name):
+		if first, err = jsonSelect(raw, map[string]bool{name: true}); err != nil {
+			return nil, err
+		}
+
+		if value != "" {
+			if got, err := jsonMemberString(first, name); err != nil {
+				return nil, err
+			} else if got != value {
+				return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+			}
+		}
+	case value != "":
+		member, err := json.Marshal(map[string]string{name: value})
+		if err != nil {
+			return nil, err
+		}
+
+		first = member
+	default:
+		return nil, fmt.Errorf("missing member %q", name)
+	}
+
+	return jsonMerge(first, raw)
 }
 
 // jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.

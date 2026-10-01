@@ -8153,7 +8153,23 @@
 					"required": [
 						"height",
 						"width"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "ProFlashImageSize",
+					"type": "ProFlashImageSize",
+					"members": [
+						"height",
+						"width"
+					],
+					"required": [
+						"height",
+						"width"
+					],
+					"object": true
 				}
 			]
 		},
@@ -8735,7 +8751,8 @@
 					"members": [
 						"name",
 						"type"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "CharacterProportions",
@@ -8748,7 +8765,34 @@
 						"legs_length",
 						"shoulder_width",
 						"type"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "CharacterProportionsPreset",
+					"type": "CharacterProportionsPreset",
+					"value": "preset",
+					"members": [
+						"name",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "CharacterProportions",
+					"type": "CharacterProportions",
+					"value": "custom",
+					"members": [
+						"arms_length",
+						"head_size",
+						"hip_width",
+						"legs_length",
+						"shoulder_width",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"isOneOf": true,
@@ -9681,7 +9725,8 @@
 					],
 					"required": [
 						"mask_image"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "OvalInpainting",
@@ -9689,7 +9734,8 @@
 					"members": [
 						"fraction",
 						"type"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "RectangleInpainting",
@@ -9697,7 +9743,40 @@
 					"members": [
 						"fraction",
 						"type"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "MaskInpainting",
+					"type": "MaskInpainting",
+					"members": [
+						"mask_image",
+						"type"
+					],
+					"required": [
+						"mask_image"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "OvalInpainting",
+					"type": "OvalInpainting",
+					"members": [
+						"fraction",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "RectangleInpainting",
+					"type": "RectangleInpainting",
+					"members": [
+						"fraction",
+						"type"
+					],
+					"object": true
 				}
 			]
 		},
@@ -10646,7 +10725,8 @@
 						"w",
 						"x",
 						"y"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "UIPieceCircle",
@@ -10666,7 +10746,8 @@
 						"r",
 						"x",
 						"y"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "UIPiecePolygon",
@@ -10689,7 +10770,79 @@
 						"sides",
 						"x",
 						"y"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "UIPieceRect",
+					"type": "UiPieceRect",
+					"value": "rounded_rect",
+					"members": [
+						"h",
+						"id",
+						"kind",
+						"label",
+						"radius",
+						"w",
+						"x",
+						"y"
+					],
+					"required": [
+						"h",
+						"id",
+						"kind",
+						"w",
+						"x",
+						"y"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "UIPieceCircle",
+					"type": "UiPieceCircle",
+					"value": "circle",
+					"members": [
+						"id",
+						"kind",
+						"label",
+						"r",
+						"x",
+						"y"
+					],
+					"required": [
+						"id",
+						"kind",
+						"r",
+						"x",
+						"y"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "UIPiecePolygon",
+					"type": "UiPiecePolygon",
+					"value": "polygon",
+					"members": [
+						"id",
+						"kind",
+						"label",
+						"phase",
+						"r",
+						"sides",
+						"x",
+						"y"
+					],
+					"required": [
+						"id",
+						"kind",
+						"r",
+						"sides",
+						"x",
+						"y"
+					],
+					"object": true
 				}
 			],
 			"discriminator": "kind",
@@ -16007,6 +16160,16 @@
 			"description": "ValidationErrorLocItem defines a model",
 			"kind": 5,
 			"unionVariants": [
+				{
+					"fieldName": "String",
+					"type": "string"
+				},
+				{
+					"fieldName": "Int",
+					"type": "int"
+				}
+			],
+			"choices": [
 				{
 					"fieldName": "String",
 					"type": "string"

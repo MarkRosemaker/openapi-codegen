@@ -5485,6 +5485,16 @@
 					"type": "[]string"
 				}
 			],
+			"choices": [
+				{
+					"fieldName": "String",
+					"type": "string"
+				},
+				{
+					"fieldName": "String2",
+					"type": "[]string"
+				}
+			],
 			"isOneOf": true
 		},
 		{
@@ -5788,7 +5798,8 @@
 					"required": [
 						"group_id",
 						"type"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
@@ -5801,7 +5812,8 @@
 					"required": [
 						"type",
 						"user_id"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "AgentPermissionsItemPrincipalOneOf2",
@@ -5812,7 +5824,50 @@
 					],
 					"required": [
 						"type"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "AgentPermissionsItemPrincipalOneOf",
+					"type": "AgentPermissionsItemPrincipalOneOf",
+					"value": "group",
+					"members": [
+						"group_id",
+						"type"
+					],
+					"required": [
+						"group_id",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
+					"type": "CreateCreditLimitPolicySelectorOneOf2",
+					"value": "user",
+					"members": [
+						"type",
+						"user_id"
+					],
+					"required": [
+						"type",
+						"user_id"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "AgentPermissionsItemPrincipalOneOf2",
+					"type": "AgentPermissionsItemPrincipalOneOf2",
+					"value": "workspace",
+					"members": [
+						"type"
+					],
+					"required": [
+						"type"
+					],
+					"object": true
 				}
 			],
 			"isOneOf": true,
@@ -6065,7 +6120,8 @@
 					],
 					"required": [
 						"type"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
@@ -6078,7 +6134,36 @@
 					"required": [
 						"type",
 						"user_id"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
+					"type": "CreateCreditLimitPolicySelectorOneOf",
+					"value": "all_space_members",
+					"members": [
+						"type"
+					],
+					"required": [
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
+					"type": "CreateCreditLimitPolicySelectorOneOf2",
+					"value": "user",
+					"members": [
+						"type",
+						"user_id"
+					],
+					"required": [
+						"type",
+						"user_id"
+					],
+					"object": true
 				}
 			],
 			"isOneOf": true,
@@ -6224,6 +6309,16 @@
 			"description": "IDs of members who created the tokens. Use bracket encoding for multiple values.",
 			"kind": 5,
 			"unionVariants": [
+				{
+					"fieldName": "UUID",
+					"type": "[]uuid.UUID"
+				},
+				{
+					"fieldName": "UUID2",
+					"type": "uuid.UUID"
+				}
+			],
+			"choices": [
 				{
 					"fieldName": "UUID",
 					"type": "[]uuid.UUID"
@@ -6430,7 +6525,8 @@
 					"required": [
 						"legal_hold_export_id",
 						"requesting_user_id"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "ExportLegalHoldAnyOf1",
@@ -6442,7 +6538,36 @@
 					"required": [
 						"requesting_user_id",
 						"space_id"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "ExportLegalHoldAnyOf0",
+					"type": "ExportLegalHoldAnyOf0",
+					"members": [
+						"legal_hold_export_id",
+						"requesting_user_id"
+					],
+					"required": [
+						"legal_hold_export_id",
+						"requesting_user_id"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "ExportLegalHoldAnyOf1",
+					"type": "ExportLegalHoldAnyOf1",
+					"members": [
+						"requesting_user_id",
+						"space_id"
+					],
+					"required": [
+						"requesting_user_id",
+						"space_id"
+					],
+					"object": true
 				}
 			]
 		},
@@ -7827,7 +7952,8 @@
 							"membership_type",
 							"person",
 							"type"
-						]
+						],
+						"object": true
 					},
 					{
 						"fieldName": "Bot",
@@ -7840,7 +7966,40 @@
 						"required": [
 							"bot",
 							"type"
-						]
+						],
+						"object": true
+					}
+				],
+				"choices": [
+					{
+						"fieldName": "Person",
+						"type": "Person",
+						"value": "person",
+						"members": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"required": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"object": true
+					},
+					{
+						"fieldName": "Bot",
+						"type": "Bot",
+						"value": "bot",
+						"members": [
+							"bot",
+							"type"
+						],
+						"required": [
+							"bot",
+							"type"
+						],
+						"object": true
 					}
 				]
 			},
@@ -7871,7 +8030,8 @@
 						"membership_type",
 						"person",
 						"type"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "Bot",
@@ -7884,7 +8044,40 @@
 					"required": [
 						"bot",
 						"type"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Person",
+					"type": "Person",
+					"value": "person",
+					"members": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"required": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Bot",
+					"type": "Bot",
+					"value": "bot",
+					"members": [
+						"bot",
+						"type"
+					],
+					"required": [
+						"bot",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"isOneOf": true,
@@ -8072,7 +8265,8 @@
 					"required": [
 						"email",
 						"type"
-					]
+					],
+					"object": true
 				},
 				{
 					"fieldName": "RevokeUserSessionUserOneOf1",
@@ -8085,7 +8279,38 @@
 					"required": [
 						"id",
 						"type"
-					]
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "RevokeUserSessionUserOneOf0",
+					"type": "RevokeUserSessionUserOneOf0",
+					"value": "email",
+					"members": [
+						"email",
+						"type"
+					],
+					"required": [
+						"email",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "RevokeUserSessionUserOneOf1",
+					"type": "RevokeUserSessionUserOneOf1",
+					"value": "id",
+					"members": [
+						"id",
+						"type"
+					],
+					"required": [
+						"id",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"isOneOf": true,
@@ -8143,6 +8368,24 @@
 			"description": "Token statuses to include. Use bracket encoding for multiple values.",
 			"kind": 5,
 			"unionVariants": [
+				{
+					"fieldName": "StatusOneOf0",
+					"type": "StatusOneOf0"
+				},
+				{
+					"fieldName": "String",
+					"type": "string"
+				},
+				{
+					"fieldName": "String2",
+					"type": "string"
+				},
+				{
+					"fieldName": "String3",
+					"type": "string"
+				}
+			],
+			"choices": [
 				{
 					"fieldName": "StatusOneOf0",
 					"type": "StatusOneOf0"
@@ -8873,6 +9116,16 @@
 			"description": "Member IDs to include. Use bracket encoding for multiple values.",
 			"kind": 5,
 			"unionVariants": [
+				{
+					"fieldName": "UUID",
+					"type": "[]uuid.UUID"
+				},
+				{
+					"fieldName": "UUID2",
+					"type": "uuid.UUID"
+				}
+			],
+			"choices": [
 				{
 					"fieldName": "UUID",
 					"type": "[]uuid.UUID"

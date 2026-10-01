@@ -9,6 +9,7 @@ import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
+	"slices"
 	"uuid"
 )
 
@@ -632,18 +633,34 @@ func (v *AgentPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder)
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *AgentPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.AgentPermissionsItemPrincipalOneOf != nil:
-		return json.MarshalEncode(enc, v.AgentPermissionsItemPrincipalOneOf, jsonOpts)
+		variant, tag = v.AgentPermissionsItemPrincipalOneOf, "group"
 	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		return json.MarshalEncode(enc, v.CreateCreditLimitPolicySelectorOneOf2, jsonOpts)
+		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
 	case v.AgentPermissionsItemPrincipalOneOf2 != nil:
-		return json.MarshalEncode(enc, v.AgentPermissionsItemPrincipalOneOf2, jsonOpts)
+		variant, tag = v.AgentPermissionsItemPrincipalOneOf2, "workspace"
+	default:
+		return fmt.Errorf("AgentPermissionsItemPrincipal: no variant set")
 	}
 
-	return fmt.Errorf("AgentPermissionsItemPrincipal: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // AgentPermissionsItemPrincipalOneOf defines a model
@@ -810,16 +827,32 @@ func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decode
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *CreateCreditLimitPolicySelector) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.CreateCreditLimitPolicySelectorOneOf != nil:
-		return json.MarshalEncode(enc, v.CreateCreditLimitPolicySelectorOneOf, jsonOpts)
+		variant, tag = v.CreateCreditLimitPolicySelectorOneOf, "all_space_members"
 	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		return json.MarshalEncode(enc, v.CreateCreditLimitPolicySelectorOneOf2, jsonOpts)
+		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
+	default:
+		return fmt.Errorf("CreateCreditLimitPolicySelector: no variant set")
 	}
 
-	return fmt.Errorf("CreateCreditLimitPolicySelector: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // CreateCreditLimitPolicySelectorOneOf defines a model
@@ -1602,7 +1635,7 @@ type fieldsOfListUsersOkResultsItem ListUsersOkResultsItem
 // membersOfListUsersOkResultsItem are the members ListUsersOkResultsItem declares outside its union.
 var membersOfListUsersOkResultsItem = map[string]bool{"avatar_url": true, "id": true, "name": true, "object": true}
 
-// variantsOfListUsersOkResultsItem are the alternatives of its union, in order.
+// variantsOfListUsersOkResultsItem are the alternatives its union is decoded as, in order.
 var variantsOfListUsersOkResultsItem = []jsonVariant{
 	{
 		value:    "person",
@@ -1663,7 +1696,11 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	var set int
 
+	var tag string
+
 	if v.ListUsersOkResultsItemAllOf1.Person != nil {
+		tag = "person"
+
 		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Person, jsonOpts)
 		if err != nil {
 			return err
@@ -1677,6 +1714,8 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if v.ListUsersOkResultsItemAllOf1.Bot != nil {
+		tag = "bot"
+
 		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Bot, jsonOpts)
 		if err != nil {
 			return err
@@ -1691,6 +1730,11 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if set != 1 {
 		return fmt.Errorf("ListUsersOkResultsItem: want exactly one alternative of ListUsersOkResultsItemAllOf1 set, got %d", set)
+	}
+
+	// decoding wants type first
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListUsersOkResultsItem: %w", err)
 	}
 
 	return enc.WriteValue(out)
@@ -1733,16 +1777,32 @@ func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *ListUsersOkResultsItemAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.Person != nil:
-		return json.MarshalEncode(enc, v.Person, jsonOpts)
+		variant, tag = v.Person, "person"
 	case v.Bot != nil:
-		return json.MarshalEncode(enc, v.Bot, jsonOpts)
+		variant, tag = v.Bot, "bot"
+	default:
+		return fmt.Errorf("ListUsersOkResultsItemAllOf1: no variant set")
 	}
 
-	return fmt.Errorf("ListUsersOkResultsItemAllOf1: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // NotionVersion defines a model
@@ -1877,16 +1937,32 @@ func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
 func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.RevokeUserSessionUserOneOf0 != nil:
-		return json.MarshalEncode(enc, v.RevokeUserSessionUserOneOf0, jsonOpts)
+		variant, tag = v.RevokeUserSessionUserOneOf0, "email"
 	case v.RevokeUserSessionUserOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RevokeUserSessionUserOneOf1, jsonOpts)
+		variant, tag = v.RevokeUserSessionUserOneOf1, "id"
+	default:
+		return fmt.Errorf("RevokeUserSessionUser: no variant set")
 	}
 
-	return fmt.Errorf("RevokeUserSessionUser: no variant set")
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return fmt.Errorf("RevokeUserSessionUser: %w", err)
+	}
+
+	return enc.WriteValue(out)
 }
 
 // RevokeUserSessionUserOneOf0 defines a model
@@ -2623,6 +2699,69 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 
 	_, err := dec.ReadToken()
 	return err
+}
+
+// jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
+// is known, the member must have it, and is written in if raw lacks it. raw is returned as it is if all is in order.
+func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	if dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		if tok.String() == name {
+			if value != "" {
+				val, err := dec.ReadToken()
+				if err != nil {
+					return nil, err
+				}
+
+				if got := val.String(); got != value {
+					return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+				}
+			}
+
+			return raw, nil
+		}
+	}
+
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	var first jsontext.Value
+	switch {
+	case slices.Contains(names, name):
+		if first, err = jsonSelect(raw, map[string]bool{name: true}); err != nil {
+			return nil, err
+		}
+
+		if value != "" {
+			if got, err := jsonMemberString(first, name); err != nil {
+				return nil, err
+			} else if got != value {
+				return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+			}
+		}
+	case value != "":
+		member, err := json.Marshal(map[string]string{name: value})
+		if err != nil {
+			return nil, err
+		}
+
+		first = member
+	default:
+		return nil, fmt.Errorf("missing member %q", name)
+	}
+
+	return jsonMerge(first, raw)
 }
 
 // jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
