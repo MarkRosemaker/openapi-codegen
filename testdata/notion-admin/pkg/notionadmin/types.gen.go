@@ -8,8 +8,10 @@ import (
 	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
+	"errors"
 	"fmt"
 	"slices"
+	"strconv"
 	"uuid"
 )
 
@@ -465,7 +467,7 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext
 	}
 
 	if matched != 1 {
-		return fmt.Errorf("AdminAPIPublicErrorAdditionalDataValue: expected exactly one matching variant, got %d", matched)
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
 	}
 
 	return nil
@@ -480,7 +482,7 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) MarshalJSONTo(enc *jsontext.Enc
 		return json.MarshalEncode(enc, v.String2, jsonOpts)
 	}
 
-	return fmt.Errorf("AdminAPIPublicErrorAdditionalDataValue: no variant set")
+	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // Agent defines a model
@@ -601,33 +603,33 @@ type AgentPermissionsItemPrincipal struct {
 func (v *AgentPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+		return err
 	}
 
 	switch tag {
 	case "group":
 		var vv AgentPermissionsItemPrincipalOneOf
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+			return err
 		}
 
 		v.AgentPermissionsItemPrincipalOneOf = &vv
 	case "user":
 		var vv CreateCreditLimitPolicySelectorOneOf2
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+			return err
 		}
 
 		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
 	case "workspace":
 		var vv AgentPermissionsItemPrincipalOneOf2
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+			return err
 		}
 
 		v.AgentPermissionsItemPrincipalOneOf2 = &vv
 	default:
-		return fmt.Errorf("AgentPermissionsItemPrincipal: unknown type %q", tag)
+		return jsonUnknownValue("type", tag)
 	}
 
 	return nil
@@ -648,7 +650,7 @@ func (v *AgentPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) err
 	case v.AgentPermissionsItemPrincipalOneOf2 != nil:
 		variant, tag = v.AgentPermissionsItemPrincipalOneOf2, "workspace"
 	default:
-		return fmt.Errorf("AgentPermissionsItemPrincipal: no variant set")
+		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
 	out, err := json.Marshal(variant, jsonOpts)
@@ -657,7 +659,7 @@ func (v *AgentPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) err
 	}
 
 	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
+		return err
 	}
 
 	return enc.WriteValue(out)
@@ -802,26 +804,26 @@ type CreateCreditLimitPolicySelector struct {
 func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
+		return err
 	}
 
 	switch tag {
 	case "all_space_members":
 		var vv CreateCreditLimitPolicySelectorOneOf
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
+			return err
 		}
 
 		v.CreateCreditLimitPolicySelectorOneOf = &vv
 	case "user":
 		var vv CreateCreditLimitPolicySelectorOneOf2
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
+			return err
 		}
 
 		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
 	default:
-		return fmt.Errorf("CreateCreditLimitPolicySelector: unknown type %q", tag)
+		return jsonUnknownValue("type", tag)
 	}
 
 	return nil
@@ -840,7 +842,7 @@ func (v *CreateCreditLimitPolicySelector) MarshalJSONTo(enc *jsontext.Encoder) e
 	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
 		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
 	default:
-		return fmt.Errorf("CreateCreditLimitPolicySelector: no variant set")
+		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
 	out, err := json.Marshal(variant, jsonOpts)
@@ -849,7 +851,7 @@ func (v *CreateCreditLimitPolicySelector) MarshalJSONTo(enc *jsontext.Encoder) e
 	}
 
 	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
+		return err
 	}
 
 	return enc.WriteValue(out)
@@ -951,7 +953,7 @@ func (v *CreatorIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	if matched != 1 {
-		return fmt.Errorf("CreatorIds: expected exactly one matching variant, got %d", matched)
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
 	}
 
 	return nil
@@ -966,7 +968,7 @@ func (v *CreatorIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.UUID2, jsonOpts)
 	}
 
-	return fmt.Errorf("CreatorIds: no variant set")
+	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // EnqueueSpaceExport defines a model
@@ -1098,7 +1100,7 @@ func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	if matched == 0 {
-		return fmt.Errorf("ExportLegalHold: expected at least one matching variant, got 0")
+		return &json.SemanticError{Err: errors.New("matches none of its alternatives")}
 	}
 
 	return nil
@@ -1113,7 +1115,7 @@ func (v *ExportLegalHold) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.ExportLegalHoldAnyOf1, jsonOpts)
 	}
 
-	return fmt.Errorf("ExportLegalHold: no variant set")
+	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // ExportLegalHoldAnyOf0 defines a model
@@ -1655,7 +1657,7 @@ var variantsOfListUsersOkResultsItem = []jsonVariant{
 func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+		return err
 	}
 
 	switch tag {
@@ -1665,7 +1667,7 @@ func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 			{membersOfListUsersOkResultsItem, v.unmarshalJSONMember},
 			{variantsOfListUsersOkResultsItem[0].members, vv.unmarshalJSONMember},
 		}); err != nil {
-			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+			return err
 		}
 
 		v.ListUsersOkResultsItemAllOf1.Person = &vv
@@ -1675,12 +1677,12 @@ func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 			{membersOfListUsersOkResultsItem, v.unmarshalJSONMember},
 			{variantsOfListUsersOkResultsItem[1].members, vv.unmarshalJSONMember},
 		}); err != nil {
-			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+			return err
 		}
 
 		v.ListUsersOkResultsItemAllOf1.Bot = &vv
 	default:
-		return fmt.Errorf("ListUsersOkResultsItem: unknown type %q", tag)
+		return jsonUnknownValue("type", tag)
 	}
 
 	return nil
@@ -1707,7 +1709,7 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 		}
 
 		if out, err = jsonMerge(out, variant); err != nil {
-			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+			return err
 		}
 
 		set++
@@ -1722,19 +1724,19 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 		}
 
 		if out, err = jsonMerge(out, variant); err != nil {
-			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+			return err
 		}
 
 		set++
 	}
 
 	if set != 1 {
-		return fmt.Errorf("ListUsersOkResultsItem: want exactly one alternative of ListUsersOkResultsItemAllOf1 set, got %d", set)
+		return &json.SemanticError{Err: fmt.Errorf("want exactly one alternative of ListUsersOkResultsItemAllOf1 set, got %d", set)}
 	}
 
 	// decoding wants type first
 	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return fmt.Errorf("ListUsersOkResultsItem: %w", err)
+		return err
 	}
 
 	return enc.WriteValue(out)
@@ -1752,26 +1754,26 @@ type ListUsersOkResultsItemAllOf1 struct {
 func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
+		return err
 	}
 
 	switch tag {
 	case "person":
 		var vv Person
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
+			return err
 		}
 
 		v.Person = &vv
 	case "bot":
 		var vv Bot
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
+			return err
 		}
 
 		v.Bot = &vv
 	default:
-		return fmt.Errorf("ListUsersOkResultsItemAllOf1: unknown type %q", tag)
+		return jsonUnknownValue("type", tag)
 	}
 
 	return nil
@@ -1790,7 +1792,7 @@ func (v *ListUsersOkResultsItemAllOf1) MarshalJSONTo(enc *jsontext.Encoder) erro
 	case v.Bot != nil:
 		variant, tag = v.Bot, "bot"
 	default:
-		return fmt.Errorf("ListUsersOkResultsItemAllOf1: no variant set")
+		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
 	out, err := json.Marshal(variant, jsonOpts)
@@ -1799,7 +1801,7 @@ func (v *ListUsersOkResultsItemAllOf1) MarshalJSONTo(enc *jsontext.Encoder) erro
 	}
 
 	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
+		return err
 	}
 
 	return enc.WriteValue(out)
@@ -1912,26 +1914,26 @@ type RevokeUserSessionUser struct {
 func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
-		return fmt.Errorf("RevokeUserSessionUser: %w", err)
+		return err
 	}
 
 	switch tag {
 	case "email":
 		var vv RevokeUserSessionUserOneOf0
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("RevokeUserSessionUser: %w", err)
+			return err
 		}
 
 		v.RevokeUserSessionUserOneOf0 = &vv
 	case "id":
 		var vv RevokeUserSessionUserOneOf1
 		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return fmt.Errorf("RevokeUserSessionUser: %w", err)
+			return err
 		}
 
 		v.RevokeUserSessionUserOneOf1 = &vv
 	default:
-		return fmt.Errorf("RevokeUserSessionUser: unknown type %q", tag)
+		return jsonUnknownValue("type", tag)
 	}
 
 	return nil
@@ -1950,7 +1952,7 @@ func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 	case v.RevokeUserSessionUserOneOf1 != nil:
 		variant, tag = v.RevokeUserSessionUserOneOf1, "id"
 	default:
-		return fmt.Errorf("RevokeUserSessionUser: no variant set")
+		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
 	out, err := json.Marshal(variant, jsonOpts)
@@ -1959,7 +1961,7 @@ func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return fmt.Errorf("RevokeUserSessionUser: %w", err)
+		return err
 	}
 
 	return enc.WriteValue(out)
@@ -2056,7 +2058,7 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	if matched != 1 {
-		return fmt.Errorf("Status: expected exactly one matching variant, got %d", matched)
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
 	}
 
 	return nil
@@ -2075,7 +2077,7 @@ func (v *Status) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.String3, jsonOpts)
 	}
 
-	return fmt.Errorf("Status: no variant set")
+	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // Status filter. Accepts every response status value, plus the "disabled" convenience bucket for admin-disabled agents.
@@ -2412,7 +2414,7 @@ func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	if matched == 0 {
-		return fmt.Errorf("UserIds: expected at least one matching variant, got 0")
+		return &json.SemanticError{Err: errors.New("matches none of its alternatives")}
 	}
 
 	return nil
@@ -2427,7 +2429,7 @@ func (v *UserIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.UUID2, jsonOpts)
 	}
 
-	return fmt.Errorf("UserIds: no variant set")
+	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // The actor table of the agent's creator, such as "notion_user".
@@ -2575,17 +2577,32 @@ type emptyObject struct{}
 // idRequest defines a model
 type idRequest string
 
+// jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
+func jsonUnknownName(name string) error {
+	return &json.SemanticError{JSONKind: jsontext.KindString, Err: fmt.Errorf("%w %q", json.ErrUnknownName, name)}
+}
+
+// jsonMissing reports a member the type needs and the object lacks.
+func jsonMissing(name string) error {
+	return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("missing object member name %q", name)}
+}
+
+// jsonUnknownValue reports a value of the discriminator that names no alternative.
+func jsonUnknownValue(name, value string) error {
+	return &json.SemanticError{JSONKind: jsontext.KindString, JSONValue: jsontext.Value(strconv.Quote(value)), Err: fmt.Errorf("unknown value of %q", name)}
+}
+
 // jsonFirstMember reads the opening of a JSON object and its first member, which must be name with a string value.
 // It returns the string and the value as written.
 func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value, error) {
 	if tok, err := dec.ReadToken(); err != nil {
 		return "", nil, err
 	} else if tok.Kind() != jsontext.KindBeginObject {
-		return "", nil, fmt.Errorf("want an object, got %v", tok.Kind())
+		return "", nil, &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
 	}
 
 	if dec.PeekKind() == jsontext.KindEndObject {
-		return "", nil, fmt.Errorf("missing member %q", name)
+		return "", nil, jsonMissing(name)
 	}
 
 	tok, err := dec.ReadToken()
@@ -2594,7 +2611,7 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 	}
 
 	if got := tok.String(); got != name {
-		return "", nil, fmt.Errorf("first member is %q, want %q", got, name)
+		return "", nil, &json.SemanticError{Err: fmt.Errorf("first member is %q, want %q", got, name)}
 	}
 
 	val, err := dec.ReadValue()
@@ -2604,7 +2621,7 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 
 	var tag string
 	if err := json.Unmarshal(val, &tag); err != nil {
-		return "", nil, fmt.Errorf("member %q: %w", name, err)
+		return "", nil, &json.SemanticError{JSONKind: val.Kind(), Err: fmt.Errorf("member %q is not a string", name)}
 	}
 
 	return tag, val.Clone(), nil
@@ -2616,7 +2633,7 @@ func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Val
 	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first)), firstName); err != nil {
 		return err
 	} else if !ok {
-		return fmt.Errorf("unknown member %q", firstName)
+		return jsonUnknownName(firstName)
 	}
 
 	for dec.PeekKind() != jsontext.KindEndObject {
@@ -2630,7 +2647,7 @@ func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Val
 		if ok, err := decode(dec, name); err != nil {
 			return err
 		} else if !ok {
-			return fmt.Errorf("unknown member %q", name)
+			return jsonUnknownName(name)
 		}
 	}
 
@@ -2656,7 +2673,7 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 		}
 
 		if len(declaring) == 0 {
-			return fmt.Errorf("unknown member %q", name)
+			return jsonUnknownName(name)
 		}
 
 		if val == nil && len(declaring) == 1 {
@@ -2723,7 +2740,7 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 				}
 
 				if got := val.String(); got != value {
-					return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+					return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
 				}
 			}
 
@@ -2747,7 +2764,7 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 			if got, err := jsonMemberString(first, name); err != nil {
 				return nil, err
 			} else if got != value {
-				return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+				return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
 			}
 		}
 	case value != "":
@@ -2758,7 +2775,7 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 
 		first = member
 	default:
-		return nil, fmt.Errorf("missing member %q", name)
+		return nil, jsonMissing(name)
 	}
 
 	return jsonMerge(first, raw)
@@ -2770,7 +2787,7 @@ func jsonMemberString(raw jsontext.Value, name string) (string, error) {
 	if tok, err := dec.ReadToken(); err != nil {
 		return "", err
 	} else if tok.Kind() != jsontext.KindBeginObject {
-		return "", fmt.Errorf("want an object, got %v", tok.Kind())
+		return "", &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
 	}
 
 	for dec.PeekKind() != jsontext.KindEndObject {
@@ -2793,13 +2810,13 @@ func jsonMemberString(raw jsontext.Value, name string) (string, error) {
 		}
 
 		if val.Kind() != jsontext.KindString {
-			return "", fmt.Errorf("member %q is %v, not a string", name, val.Kind())
+			return "", &json.SemanticError{JSONKind: val.Kind(), Err: fmt.Errorf("member %q is not a string", name)}
 		}
 
 		return val.String(), nil
 	}
 
-	return "", fmt.Errorf("missing member %q", name)
+	return "", jsonMissing(name)
 }
 
 // jsonMembers returns the names of the members of the JSON object raw, in order.
@@ -2808,7 +2825,7 @@ func jsonMembers(raw jsontext.Value) ([]string, error) {
 	if tok, err := dec.ReadToken(); err != nil {
 		return nil, err
 	} else if tok.Kind() != jsontext.KindBeginObject {
-		return nil, fmt.Errorf("want an object, got %v", tok.Kind())
+		return nil, &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
 	}
 
 	var names []string
@@ -2913,7 +2930,7 @@ func jsonMerge(a, b jsontext.Value) (jsontext.Value, error) {
 				}
 
 				if !bytes.Equal(prev, cur) {
-					return nil, fmt.Errorf("member %q is %s in one part and %s in another", name, prev, cur)
+					return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %s in one part and %s in another", name, prev, cur)}
 				}
 
 				continue
@@ -2974,7 +2991,7 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 		}
 
 		if len(chosen) == 0 {
-			return nil, fmt.Errorf("unknown %s %q", discriminator, tag)
+			return nil, jsonUnknownValue(discriminator, tag)
 		}
 	} else {
 	variants:
@@ -2996,9 +3013,9 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 
 		switch {
 		case len(chosen) == 0:
-			return nil, fmt.Errorf("matches none of its alternatives")
+			return nil, &json.SemanticError{Err: errors.New("matches none of its alternatives")}
 		case oneOf && len(chosen) > 1:
-			return nil, fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))
+			return nil, &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))}
 		}
 	}
 
@@ -3013,7 +3030,7 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 		}
 
 		if !known {
-			return nil, fmt.Errorf("unknown member %q", n)
+			return nil, jsonUnknownName(n)
 		}
 	}
 
