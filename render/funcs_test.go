@@ -106,3 +106,15 @@ func TestTemplateFuncs(t *testing.T) {
 		t.Errorf("lower result: %q", got[:3])
 	}
 }
+
+func TestToGoComment_Docstring(t *testing.T) {
+	t.Parallel()
+
+	// a docstring indents the lines after the first; they are prose, not code
+	in := "Returns an index.\n\n    It links to the docs.\n\n    ## Usage\n\n    - one\n      continued"
+	want := "// Returns an index.\n// \n// It links to the docs.\n// \n// ## Usage\n// \n// - one\n//   continued"
+
+	if got := toGoComment(in); got != want {
+		t.Errorf("got:\n%s\nwant:\n%s", got, want)
+	}
+}
