@@ -2,15 +2,14 @@
 
 Work not yet done. An entry is deleted once it is.
 
-## An allOf with a oneOf or anyOf inside it
+## A union nested in the union of an allOf
 
-`allOf: [X, {oneOf: [A, B]}]` loses its union: only the `$ref` entries are
-embedded, so 32 schemas in the Notion test data (such as
-`pagePropertyValueWithIdResponse`) decode none of their alternatives. A struct
-cannot embed a union and still decode each alternative exactly, since each
-rejects the others' members. The proposed fix is in openapi-flatten: rewrite it
-as `oneOf: [{allOf: [X, A]}, {allOf: [X, B]}]` and name each alternative, which
-codegen already handles.
+`pagePropertyValueWithIdResponse`, in notion-official and notion-undocumented,
+is an `allOf` whose union has a union among its alternatives
+(`simpleOrArrayPropertyValueResponse`). Its methods return an "unimplemented"
+error. Every leaf of the nested union fixes `type` to a value of its own, so the
+leaves could be chosen by `type` like the other alternatives, setting the field of
+the nested union as well.
 
 ## Exported names for lowercase components
 

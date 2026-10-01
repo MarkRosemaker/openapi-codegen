@@ -56,7 +56,20 @@ How the specification maps onto Go:
 
 - **Unions** — a `oneOf` or `anyOf` becomes a struct with one pointer field per
   alternative, exactly one (`oneOf`) or at least one (`anyOf`) of them set after
-  decoding. An alternative that is only `null` needs no field.
+  decoding. An alternative that is only `null` needs no field. Where a member tells
+  the alternatives apart (the `discriminator`'s `propertyName`, or a member each
+  alternative fixes to a string of its own, such as Notion's `type`), decoding reads
+  only that member and decodes the one alternative it names; an unknown value is an
+  error. Otherwise each alternative is tried in turn.
+- **allOf** — each part referenced by this schema alone is folded into its fields;
+  a part other schemas share stays an embedded type. A union among the parts is a
+  field of its own, decoded by the struct's methods: the fields and the chosen
+  alternative each take the members they declare, chosen by the discriminator or by
+  which members are present, and a member none of them declares is an error.
+- **Strictness** — decoding fails as soon as the input differs from what the
+  specification allows, so that an incomplete specification shows itself. A case
+  that could be supported but has no real example yet, such as an `allOf` of two
+  unions, is generated with methods that return an "unimplemented" error.
 - **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null"
   is `*X`, or plain `X` where `X` is already nilable (a slice, a map, `any`).
 - **Query parameters** — an array is sent as one value per element (form style,

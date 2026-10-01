@@ -126,13 +126,13 @@ func compareBytes(t *testing.T, expected, actual []byte, path string) {
 // the generator does not produce. An error response type is passed to
 // api.NewErrCustom, which takes an error, so the package author writes its
 // Error method; what a good message reads like depends on the API, so the
-// generator does not guess.
+// generator does not guess. A test the generator did not write is one too.
 func handWritten(path string) bool {
-	switch filepath.Base(path) {
-	case "error.go", "errors.go":
+	switch base := filepath.Base(path); {
+	case base == "error.go", base == "errors.go":
 		return true
 	default:
-		return false
+		return strings.HasSuffix(base, "_test.go") && !strings.HasSuffix(base, ".gen_test.go")
 	}
 }
 

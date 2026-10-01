@@ -45,7 +45,12 @@ func FromDocument(doc *openapi.Document, packageName, userAgent string, producti
 		userAgent = doc.Info.Title
 	}
 
-	schemas, err := FromComponentSchemas(doc.Components.Schemas)
+	uses, err := countSchemaUses(doc)
+	if err != nil {
+		return nil, err
+	}
+
+	schemas, err := fromComponentSchemas(doc.Components.Schemas, uses)
 	if err != nil {
 		return nil, fmt.Errorf("components.schemas: %w", err)
 	}

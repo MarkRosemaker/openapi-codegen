@@ -289,26 +289,46 @@ func mapValues(s *openapi.Schema) *openapi.Schema {
 	}
 }
 
+// schemaRefPrefix starts every reference to a component schema.
+const schemaRefPrefix = "#/components/schemas/"
+
 // FromComponentSchemas converts a set of named component schemas to IR schemas.
 func FromComponentSchemas(schemas openapi.Schemas) ([]Schema, error) {
-	result := make([]Schema, 0, len(schemas))
-	for name, s := range schemas.ByIndex() {
-		name = componentGoName(name, s)
+	return fromComponentSchemas(schemas, nil)
+}
 
-		irSchema, err := fromSchema(name, s)
+// fromComponentSchemas converts the component schemas; uses counts the references to each, so that an allOf part
+// only one schema refers to can be folded into that schema and need no type of its own.
+func fromComponentSchemas(schemas openapi.Schemas, uses map[string]int) ([]Schema, error) {
+	folded := map[string]bool{}
+	keys := make([]string, 0, len(schemas))
+	result := make([]Schema, 0, len(schemas))
+
+	for key, s := range schemas.ByIndex() {
+		name := componentGoName(key, s)
+
+		irSchema, err := fromSchema(name, s, uses, folded)
 		if err != nil {
 			return nil, fmt.Errorf("schema %q: %w", name, err)
 		}
 
 		if irSchema != nil {
+			keys = append(keys, key)
 			result = append(result, *irSchema)
 		}
 	}
 
-	return result, nil
+	kept := result[:0]
+	for i, s := range result {
+		if !folded[schemaRefPrefix+keys[i]] {
+			kept = append(kept, s)
+		}
+	}
+
+	return kept, nil
 }
 
-func fromSchema(name string, s *openapi.Schema) (*Schema, error) {
+func fromSchema(name string, s *openapi.Schema, uses map[string]int, folded map[string]bool) (*Schema, error) {
 	switch s.Type {
 	case openapi.TypeObject:
 		if values := mapValues(s); values != nil {
@@ -352,7 +372,7 @@ func fromSchema(name string, s *openapi.Schema) (*Schema, error) {
 		}
 
 		if len(s.AllOf) > 0 {
-			return fromAllOfSchema(name, s)
+			return fromAllOfSchema(name, s, uses, folded)
 		}
 
 		if len(s.OneOf) > 0 {
@@ -379,32 +399,9 @@ func fromUnionSchema(name string, s *openapi.Schema, isOneOf bool) (*Schema, err
 		variants = s.OneOf
 	}
 
-	used := make(map[string]bool, len(variants))
-	unionVariants := make([]UnionVariant, 0, len(variants))
-	for i, v := range variants {
-		// every field nil already means null, so a null variant needs no field
-		if isNull(v) {
-			continue
-		}
-
-		tp, err := SchemaGoType(v)
-		if err != nil {
-			return nil, fmt.Errorf("variant %d: %w", i, err)
-		}
-
-		base := unionVariantFieldName(tp, i)
-
-		fieldName := base
-		for n := 2; used[fieldName]; n++ {
-			fieldName = fmt.Sprintf("%s%d", base, n)
-		}
-
-		used[fieldName] = true
-
-		unionVariants = append(unionVariants, UnionVariant{
-			FieldName: fieldName,
-			Type:      tp.String(),
-		})
+	unionVariants, discriminator, err := unionVariants(s, variants)
+	if err != nil {
+		return nil, err
 	}
 
 	return &Schema{
@@ -413,6 +410,7 @@ func fromUnionSchema(name string, s *openapi.Schema, isOneOf bool) (*Schema, err
 		Kind:          SchemaKindUnion,
 		UnionVariants: unionVariants,
 		IsOneOf:       isOneOf,
+		Discriminator: discriminator,
 	}, nil
 }
 
@@ -486,52 +484,6 @@ func enumNameOverrides(s *openapi.Schema) []string {
 	}
 
 	return ext.Names
-}
-
-func fromAllOfSchema(name string, s *openapi.Schema) (*Schema, error) {
-	requiredSet := make(map[string]bool)
-	for _, r := range s.Required {
-		requiredSet[r] = true
-	}
-
-	var fields []Field
-	for _, entry := range s.AllOf {
-		if entry.Ref != nil {
-			// $ref entry → embedded struct
-			typeName, err := SchemaGoType(entry)
-			if err != nil {
-				return nil, err
-			}
-
-			fields = append(fields, Field{
-				Type:     typeName.String(),
-				Embedded: true,
-			})
-
-			continue
-		}
-
-		// inline object entry → merge its properties as regular fields
-		for _, r := range entry.Required {
-			requiredSet[r] = true
-		}
-
-		for jsonName, propRef := range entry.Properties.ByIndex() {
-			field, err := getField(jsonName, propRef, requiredSet)
-			if err != nil {
-				return nil, fmt.Errorf("allOf property %q: %w", jsonName, err)
-			}
-
-			fields = append(fields, field)
-		}
-	}
-
-	return &Schema{
-		Name:        name,
-		Description: getDescription(s, name),
-		Kind:        SchemaKindAllOf,
-		Fields:      fields,
-	}, nil
 }
 
 func getField(jsonName string, propRef *openapi.Schema, requiredSet map[string]bool) (Field, error) {

@@ -166,6 +166,26 @@ type Schema struct {
 	IsOneOf       bool           `json:"isOneOf,omitzero"`
 	// IsTypeAlias declares the type as an alias of Type rather than a new type.
 	IsTypeAlias bool `json:"isTypeAlias,omitzero"`
+	// Discriminator is the member a union's variants are told apart by, if one is: the generated decoder reads it and
+	// decodes the one variant it names.
+	Discriminator string `json:"discriminator,omitzero"`
+	// AllOfUnion is the union among the parts of an allOf, held as a field of its own rather than embedded, since its
+	// methods would otherwise encode the whole struct.
+	AllOfUnion *AllOfUnion `json:"allOfUnion,omitzero"`
+	// Members are the JSON members an allOf's fields and embedded parts declare, outside its union.
+	Members []string `json:"members,omitempty"`
+	// Unimplemented says why encoding this type is not supported yet; its methods return an error saying so.
+	Unimplemented string `json:"unimplemented,omitzero"`
+}
+
+// AllOfUnion is the union part of an allOf.
+type AllOfUnion struct {
+	// FieldName is the field holding the union, named after its type.
+	FieldName string `json:"fieldName,omitzero"`
+	IsOneOf   bool   `json:"isOneOf,omitzero"`
+	// Discriminator is the member the variants are told apart by, if one is; otherwise by the members present.
+	Discriminator string         `json:"discriminator,omitzero"`
+	Variants      []UnionVariant `json:"variants,omitempty"`
 }
 
 // SchemaKind categorizes a schema into struct, enum, or array alias.
@@ -188,6 +208,11 @@ type UnionVariant struct {
 	FieldName string `json:"fieldName,omitzero"`
 	// Type is the variant's own Go type, without the pointer the field adds.
 	Type string `json:"type,omitzero"`
+	// Value is the variant's value of the union's discriminator.
+	Value string `json:"value,omitzero"`
+	// Members and Required are the JSON members the variant declares and requires, if it is a plain object.
+	Members  []string `json:"members,omitempty"`
+	Required []string `json:"required,omitempty"`
 }
 
 // Field is a named field within a struct schema.
@@ -417,4 +442,11 @@ func (op Operation) BaseURLExpr() string {
 
 	return fmt.Sprintf("c.serverURL(&url.URL{Scheme: %q, Host: %q, Path: %q})",
 		op.BaseURL.Scheme, op.BaseURL.Host, cmp.Or(op.BaseURL.Path, "/"))
+}
+
+// NeedsJSONHelpers reports whether a generated type decodes its alternatives itself, needing the JSON helpers.
+func (doc Document) NeedsJSONHelpers() bool {
+	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool {
+		return s.Discriminator != "" || s.AllOfUnion != nil && s.Unimplemented == ""
+	})
 }
