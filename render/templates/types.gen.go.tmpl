@@ -141,9 +141,9 @@ type fieldsOf{{$typeName}} {{$typeName}}
 // membersOf{{$typeName}} are the members {{$typeName}} declares outside its union.
 var membersOf{{$typeName}} = map[string]bool{ {{- range $s.Members }}{{ printf "%q" . }}: true, {{ end -}} }
 
-// variantsOf{{$typeName}} are the alternatives of its union, in order.
+// variantsOf{{$typeName}} are the alternatives its union is decoded as, in order.
 var variantsOf{{$typeName}} = []jsonVariant{
-	{{- range .Variants }}
+	{{- range .Choices }}
 	{
 		value:    {{ printf "%q" .Value }},
 		members:  map[string]bool{ {{- range .Members }}{{ printf "%q" . }}: true, {{ end -}} },
@@ -163,7 +163,7 @@ func (v *{{$typeName}}) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	switch tag {
-	{{- range $i, $v := .Variants }}
+	{{- range $i, $v := .Choices }}
 	case {{ printf "%q" $v.Value }}:
 		var vv {{ $v.Type }}
 		if err := jsonPartsFrom(dec, {{ printf "%q" $u.Discriminator }}, first, []jsonPart{
@@ -173,7 +173,7 @@ func (v *{{$typeName}}) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 			return fmt.Errorf("{{$typeName}}: %w", err)
 		}
 
-		v.{{ $u.FieldName }}.{{ $v.FieldName }} = &vv
+		{{ $v.Assign (printf "v.%s" $u.FieldName) }}
 	{{- end }}
 	default:
 		return fmt.Errorf("{{$typeName}}: unknown {{ .Discriminator }} %q", tag)
@@ -211,14 +211,14 @@ func (v *{{$typeName}}) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		}
 
 		switch i {
-		{{- range $i, $v := .Variants }}
+		{{- range $i, $v := .Choices }}
 		case {{ $i }}:
 			var vv {{ $v.Type }}
 			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
 				return err
 			}
 
-			v.{{ $u.FieldName }}.{{ $v.FieldName }} = &vv
+			{{ $v.Assign (printf "v.%s" $u.FieldName) }}
 		{{- end }}
 		}
 	}
@@ -236,9 +236,17 @@ func (v *{{$typeName}}) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	var set int
+	{{- if .Discriminator }}
+
+	var tag string
+	{{- end }}
 	{{- range .Variants }}
 
 	if v.{{ $u.FieldName }}.{{ .FieldName }} != nil {
+		{{- if $u.Discriminator }}
+		tag = {{ printf "%q" .Value }}
+		{{- end }}
+
 		variant, err := json.Marshal(v.{{ $u.FieldName }}.{{ .FieldName }}, jsonOpts)
 		if err != nil {
 			return err
@@ -262,6 +270,14 @@ func (v *{{$typeName}}) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 	{{- end }}
 
+	{{- with .Discriminator }}
+
+	// decoding wants {{ . }} first
+	if out, err = jsonFirst(out, {{ printf "%q" . }}, tag); err != nil {
+		return fmt.Errorf("{{$typeName}}: %w", err)
+	}
+	{{- end }}
+
 	return enc.WriteValue(out)
 }
 {{- end }}{{ end }}
@@ -271,6 +287,7 @@ type {{ .Name }} map[{{ .MapKey }}]{{ .MapValue }}
 {{- $typeName := .Name}}
 {{- $isOneOf := .IsOneOf}}
 {{- $variants := .UnionVariants}}
+{{- $choices := .Choices}}
 {{- $disc := .Discriminator}}
 // {{.Name}} is an untagged {{if .IsOneOf}}oneOf{{else}}anyOf{{end}} union: {{if .IsOneOf}}exactly one{{else}}at least one{{end}} field is set after unmarshaling.
 type {{.Name}} struct {
@@ -289,14 +306,14 @@ func (v *{{$typeName}}) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	switch tag {
-	{{- range $variants }}
+	{{- range $choices }}
 	case {{ printf "%q" .Value }}:
 		var vv {{.Type}}
 		if err := jsonMembersFrom(dec, {{ printf "%q" $disc }}, first, vv.unmarshalJSONMember); err != nil {
 			return fmt.Errorf("{{$typeName}}: %w", err)
 		}
 
-		v.{{.FieldName}} = &vv
+		{{ .Assign "v" }}
 	{{- end }}
 	default:
 		return fmt.Errorf("{{$typeName}}: unknown {{ $disc }} %q", tag)
@@ -319,14 +336,14 @@ func (v *{{$typeName}}) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	switch tag {
-	{{- range $variants }}
+	{{- range $choices }}
 	case {{ printf "%q" .Value }}:
 		var vv {{.Type}}
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
 			return err
 		}
 
-		v.{{.FieldName}} = &vv
+		{{ .Assign "v" }}
 	{{- end }}
 	default:
 		return fmt.Errorf("{{$typeName}}: unknown {{ . }} %q", tag)
@@ -363,8 +380,35 @@ func (v *{{$typeName}}) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{{- end }}
 {{- end }}
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant
+{{- if .Streamed }}, with {{ $disc }} first, as decoding wants it, and set to the variant's value{{ end }}.
 func (v *{{$typeName}}) MarshalJSONTo(enc *jsontext.Encoder) error {
+	{{- if .Streamed }}
+	var (
+		variant any
+		tag     string
+	)
+
+	switch {
+	{{- range .UnionVariants}}
+	case v.{{.FieldName}} != nil:
+		variant, tag = v.{{.FieldName}}, {{ printf "%q" .Value }}
+	{{- end}}
+	default:
+		return fmt.Errorf("{{$typeName}}: no variant set")
+	}
+
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, {{ printf "%q" $disc }}, tag); err != nil {
+		return fmt.Errorf("{{$typeName}}: %w", err)
+	}
+
+	return enc.WriteValue(out)
+	{{- else }}
 	switch {
 	{{- range .UnionVariants}}
 	case v.{{.FieldName}} != nil:
@@ -373,6 +417,7 @@ func (v *{{$typeName}}) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	return fmt.Errorf("{{$typeName}}: no variant set")
+	{{- end }}
 }
 {{- else if eq .Kind 6}}{{/* SchemaKindTuple */}}
 {{- $typeName := .Name}}
@@ -570,6 +615,69 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 
 	_, err := dec.ReadToken()
 	return err
+}
+
+// jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
+// is known, the member must have it, and is written in if raw lacks it. raw is returned as it is if all is in order.
+func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return nil, err
+	}
+
+	if dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return nil, err
+		}
+
+		if tok.String() == name {
+			if value != "" {
+				val, err := dec.ReadToken()
+				if err != nil {
+					return nil, err
+				}
+
+				if got := val.String(); got != value {
+					return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+				}
+			}
+
+			return raw, nil
+		}
+	}
+
+	names, err := jsonMembers(raw)
+	if err != nil {
+		return nil, err
+	}
+
+	var first jsontext.Value
+	switch {
+	case slices.Contains(names, name):
+		if first, err = jsonSelect(raw, map[string]bool{name: true}); err != nil {
+			return nil, err
+		}
+
+		if value != "" {
+			if got, err := jsonMemberString(first, name); err != nil {
+				return nil, err
+			} else if got != value {
+				return nil, fmt.Errorf("member %q is %q, want %q", name, got, value)
+			}
+		}
+	case value != "":
+		member, err := json.Marshal(map[string]string{name: value})
+		if err != nil {
+			return nil, err
+		}
+
+		first = member
+	default:
+		return nil, fmt.Errorf("missing member %q", name)
+	}
+
+	return jsonMerge(first, raw)
 }
 
 // jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
@@ -849,3 +957,4 @@ func (v *{{.Name}}) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 	return false, nil
 }
 {{- end }}
+

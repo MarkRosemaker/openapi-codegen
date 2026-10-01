@@ -2,15 +2,6 @@
 
 Work not yet done. An entry is deleted once it is.
 
-## A union nested in the union of an allOf
-
-`pagePropertyValueWithIdResponse`, in notion-official and notion-undocumented,
-is an `allOf` whose union has a union among its alternatives
-(`simpleOrArrayPropertyValueResponse`). Its methods return an "unimplemented"
-error. Every leaf of the nested union fixes `type` to a value of its own, so the
-leaves could be chosen by `type` like the other alternatives, setting the field of
-the nested union as well.
-
 ## Exported names for lowercase components
 
 A component named `error_api_400` or `idResponse` becomes an unexported Go

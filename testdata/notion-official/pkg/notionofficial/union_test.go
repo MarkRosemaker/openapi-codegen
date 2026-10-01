@@ -68,3 +68,47 @@ func TestAllOf_Union(t *testing.T) {
 		}
 	}
 }
+
+func TestAllOf_NestedUnion(t *testing.T) {
+	// the alternative is a leaf two unions deep, chosen by its type like any other
+	const number = `{"type":"number","id":"abc","number":3}`
+
+	var p pagePropertyValueWithIdResponse
+	if err := json.Unmarshal([]byte(number), &p, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	value := p.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse
+	if p.ID != "abc" || value == nil || value.SimplePropertyValueResponse == nil ||
+		value.SimplePropertyValueResponse.NumberFormulaPropertyValue == nil ||
+		*value.SimplePropertyValueResponse.NumberFormulaPropertyValue.Number != 3 {
+		t.Fatalf("got %+v, want id abc and the number 3 two unions deep", p)
+	}
+
+	out, err := json.Marshal(&p, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// the discriminator comes first again, so the result decodes as well
+	if string(out) != `{"type":"number","id":"abc","number":3}` {
+		t.Errorf("got %s", out)
+	}
+}
+
+func TestUnion_EncodesDiscriminatorFirst(t *testing.T) {
+	// the alternative set decides the discriminator, so encoding writes it in first
+	out, err := json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{ID: new("gpt")}}, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(out) != `{"mode":"pinned","id":"gpt"}` {
+		t.Errorf("got %s", out)
+	}
+
+	_, err = json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{Mode: "auto", ID: new("gpt")}}, jsonOpts)
+	if err == nil || !strings.Contains(err.Error(), `member "mode" is "auto", want "pinned"`) {
+		t.Errorf("got %v, want the wrong mode refused", err)
+	}
+}

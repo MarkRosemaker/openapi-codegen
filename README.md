@@ -61,8 +61,10 @@ How the specification maps onto Go:
   alternative fixes to a string of its own, such as Notion's `type`), that member
   must come first: decoding reads it, and the alternative it names decodes each
   further member as it is read, without reading the whole value first. An unknown
-  value, or a different first member, is an error. Otherwise each alternative is
-  tried in turn.
+  value, or a different first member, is an error. An alternative that is a union of
+  its own counts by its alternatives, however deep, so its leaves are chosen the same
+  way. Encoding writes the discriminator first, with the value of the alternative
+  set, and refuses a different one. Otherwise each alternative is tried in turn.
 - **allOf** — each part referenced by this schema alone is folded into its fields;
   a part other schemas share stays an embedded type. A union among the parts is a
   field of its own, decoded by the struct's methods: the fields and the chosen

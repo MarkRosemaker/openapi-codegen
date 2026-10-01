@@ -401,7 +401,7 @@ func fromUnionSchema(name string, s *openapi.Schema, isOneOf bool) (*Schema, err
 		variants = s.OneOf
 	}
 
-	unionVariants, discriminator, err := unionVariants(s, variants)
+	unionVariants, choices, discriminator, err := unionVariants(s, variants)
 	if err != nil {
 		return nil, err
 	}
@@ -411,6 +411,7 @@ func fromUnionSchema(name string, s *openapi.Schema, isOneOf bool) (*Schema, err
 		Description:   getDescription(s, name),
 		Kind:          SchemaKindUnion,
 		UnionVariants: unionVariants,
+		Choices:       choices,
 		IsOneOf:       isOneOf,
 		Discriminator: discriminator,
 	}, nil

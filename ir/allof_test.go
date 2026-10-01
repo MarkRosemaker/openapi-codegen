@@ -126,3 +126,26 @@ func TestFromDocument_AllOfParts(t *testing.T) {
 		t.Error("Twice: an allOf of two unions is not marked unimplemented")
 	}
 }
+
+func TestUnionVariant_Assign(t *testing.T) {
+	t.Parallel()
+
+	for want, c := range map[string]ir.UnionVariant{
+		"v.Cat = &vv": {FieldName: "Cat"},
+		"v.U.Pet = &Pet{Cat: &vv}": {
+			FieldName: "Cat", Path: []ir.UnionStep{{Field: "Pet", Type: "Pet"}},
+		},
+		"v.U.Value = &Value{Simple: &Simple{Number: &vv}}": {
+			FieldName: "Number", Path: []ir.UnionStep{{Field: "Value", Type: "Value"}, {Field: "Simple", Type: "Simple"}},
+		},
+	} {
+		v := "v"
+		if len(c.Path) > 0 {
+			v = "v.U"
+		}
+
+		if got := c.Assign(v); got != want {
+			t.Errorf("got %s, want %s", got, want)
+		}
+	}
+}

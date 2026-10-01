@@ -204,12 +204,30 @@ func countSchemaUses(doc *openapi.Document) (map[string]int, error) {
 	return uses, nil
 }
 
-// unionVariants builds the variants of the union u: one pointer field per alternative but null.
-func unionVariants(u *openapi.Schema, variants openapi.SchemaList) ([]UnionVariant, string, error) {
-	member, values, discriminated := discriminate(u, variants)
+// isUnion reports whether s is a union with a type of its own: a oneOf or anyOf, not one collapsed to time.Time or to
+// a pointer.
+func isUnion(s *openapi.Schema) bool {
+	s = deref(s)
 
+	return s != nil && s.Type == "" && (len(s.OneOf) > 0 || len(s.AnyOf) > 0) &&
+		!isDateTimeOrIntegerOneOf(s) && nullableVariant(s) == nil
+}
+
+// alternatives returns the alternatives of the union s.
+func alternatives(s *openapi.Schema) openapi.SchemaList {
+	s = deref(s)
+	if len(s.OneOf) > 0 {
+		return s.OneOf
+	}
+
+	return s.AnyOf
+}
+
+// fieldVariants returns one pointer field per alternative of a union but null.
+func fieldVariants(variants openapi.SchemaList) ([]UnionVariant, []*openapi.Schema, error) {
 	used := make(map[string]bool, len(variants))
 	out := make([]UnionVariant, 0, len(variants))
+	schemas := make([]*openapi.Schema, 0, len(variants))
 
 	for i, v := range variants {
 		// every field nil already means null, so a null variant needs no field
@@ -219,7 +237,7 @@ func unionVariants(u *openapi.Schema, variants openapi.SchemaList) ([]UnionVaria
 
 		tp, err := SchemaGoType(v)
 		if err != nil {
-			return nil, "", fmt.Errorf("variant %d: %w", i, err)
+			return nil, nil, fmt.Errorf("variant %d: %w", i, err)
 		}
 
 		base := unionVariantFieldName(tp, i)
@@ -232,19 +250,96 @@ func unionVariants(u *openapi.Schema, variants openapi.SchemaList) ([]UnionVaria
 		used[fieldName] = true
 
 		uv := UnionVariant{FieldName: fieldName, Type: tp.String()}
-		if discriminated {
-			uv.Value = values[i]
+		uv.Members, uv.Required, uv.Object = objectShape(v)
+		out = append(out, uv)
+		schemas = append(schemas, v)
+	}
+
+	return out, schemas, nil
+}
+
+// unionVariants builds the fields of the union u, one per alternative but null, and the choices decoding picks from:
+// the fields themselves, or, for an alternative that is a union of its own, each of its alternatives, setting the
+// field to that union with the one alternative set. member is what tells the choices apart, if anything does.
+func unionVariants(u *openapi.Schema, variants openapi.SchemaList) (fields, choices []UnionVariant, member string, err error) {
+	fields, schemas, err := fieldVariants(variants)
+	if err != nil {
+		return nil, nil, "", err
+	}
+
+	nested := false
+	leaves := make([]*openapi.Schema, 0, len(schemas))
+
+	// expand adds the choices of an alternative: itself, or the choices of its own alternatives if it is a union
+	var expand func(field UnionVariant, v *openapi.Schema, path []UnionStep, depth int) error
+
+	expand = func(field UnionVariant, v *openapi.Schema, path []UnionStep, depth int) error {
+		if !isUnion(v) || v.Ref == nil || depth > 8 {
+			field.Path = path
+			choices = append(choices, field)
+			leaves = append(leaves, v)
+
+			return nil
 		}
 
-		uv.Members, uv.Required, _ = objectShape(v)
-		out = append(out, uv)
+		inner, innerSchemas, err := fieldVariants(alternatives(v))
+		if err != nil {
+			return err
+		}
+
+		nested = true
+
+		path = append(slices.Clone(path), UnionStep{Field: field.FieldName, Type: field.Type})
+
+		for j := range inner {
+			if err := expand(inner[j], innerSchemas[j], path, depth+1); err != nil {
+				return err
+			}
+		}
+
+		return nil
 	}
 
-	if !discriminated {
-		member = ""
+	for i, v := range schemas {
+		if err := expand(fields[i], v, nil, 0); err != nil {
+			return nil, nil, "", fmt.Errorf("variant %d: %w", i, err)
+		}
 	}
 
-	return out, member, nil
+	// a discriminator's mapping names the alternatives, not their leaves
+	decider := u
+	if nested {
+		decider = &openapi.Schema{}
+	}
+
+	// a union that can be null cannot have a discriminator come first
+	member, values, ok := discriminate(decider, leaves)
+	if !ok || countNull(variants) > 0 {
+		return fields, choices, "", nil
+	}
+
+	for i := range choices {
+		choices[i].Value = values[i]
+	}
+
+	if !nested {
+		for i := range fields {
+			fields[i].Value = values[i]
+		}
+	}
+
+	return fields, choices, member, nil
+}
+
+func countNull(l openapi.SchemaList) int {
+	n := 0
+	for _, s := range l {
+		if isNull(s) {
+			n++
+		}
+	}
+
+	return n
 }
 
 // fromAllOfSchema builds the struct of an allOf. A part that only this schema uses is folded into its fields, any
@@ -347,7 +442,7 @@ func fromAllOfSchema(name string, s *openapi.Schema, uses map[string]int, folded
 		return nil, err
 	}
 
-	variants, member, err := unionVariants(u, alts)
+	variants, choices, member, err := unionVariants(u, alts)
 	if err != nil {
 		return nil, err
 	}
@@ -356,21 +451,24 @@ func fromAllOfSchema(name string, s *openapi.Schema, uses map[string]int, folded
 		out.Unimplemented = "an allOf whose union can be null"
 	}
 
-	for _, v := range alts {
-		if _, _, ok := objectShape(v); !ok && !isNull(v) {
-			out.Unimplemented = "an allOf whose union has an alternative that is not a plain object"
-		}
+	// an alternative that is a union of its own counts by its alternatives
+	if slices.ContainsFunc(choices, func(c UnionVariant) bool { return !c.Object }) {
+		out.Unimplemented = "an allOf whose union has an alternative that is not a plain object"
 	}
 
 	slices.Sort(out.Members)
 	out.Members = slices.Compact(out.Members)
 
-	out.Fields = append(out.Fields, Field{Name: tp.Name, Type: tp.Name, JSONTag: `json:"-"`, Required: true})
+	// named after its type, but exported even where the type is not, so a caller can reach it
+	field := strings.ToUpper(tp.Name[:1]) + tp.Name[1:]
+
+	out.Fields = append(out.Fields, Field{Name: field, Type: tp.Name, JSONTag: `json:"-"`, Required: true})
 	out.AllOfUnion = &AllOfUnion{
-		FieldName:     tp.Name,
+		FieldName:     field,
 		IsOneOf:       isOneOf,
 		Discriminator: member,
 		Variants:      variants,
+		Choices:       choices,
 	}
 
 	return out, nil
@@ -442,19 +540,19 @@ func markStreaming(schemas []Schema) {
 		s := &schemas[i]
 
 		switch {
-		case s.Kind == SchemaKindUnion && s.Discriminator != "" && streamable(s.UnionVariants):
+		case s.Kind == SchemaKindUnion && s.Discriminator != "" && streamable(s.Choices):
 			s.Streamed = true
 
-			for _, v := range s.UnionVariants {
+			for _, v := range s.Choices {
 				mark(v.Type)
 			}
 		case s.AllOfUnion != nil && s.Unimplemented == "" && s.AllOfUnion.Discriminator != "" &&
-			streamable(s.AllOfUnion.Variants) && memberDecodable(s.Name, map[string]bool{}):
+			streamable(s.AllOfUnion.Choices) && memberDecodable(s.Name, map[string]bool{}):
 			s.Streamed = true
 
 			mark(s.Name)
 
-			for _, v := range s.AllOfUnion.Variants {
+			for _, v := range s.AllOfUnion.Choices {
 				mark(v.Type)
 			}
 		}

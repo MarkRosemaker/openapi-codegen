@@ -163,7 +163,10 @@ type Schema struct {
 	// the generated UnmarshalJSONFrom: exactly one variant must match for
 	// oneOf, at least one for anyOf.
 	UnionVariants []UnionVariant `json:"unionVariants,omitempty"`
-	IsOneOf       bool           `json:"isOneOf,omitzero"`
+	// Choices are what decoding a union picks from: its variants, or, for a variant that is a union of its own,
+	// each of that union's alternatives.
+	Choices []UnionVariant `json:"choices,omitempty"`
+	IsOneOf bool           `json:"isOneOf,omitzero"`
 	// IsTypeAlias declares the type as an alias of Type rather than a new type.
 	IsTypeAlias bool `json:"isTypeAlias,omitzero"`
 	// Discriminator is the member a union's variants are told apart by, if one is: the generated decoder reads it and
@@ -191,6 +194,8 @@ type AllOfUnion struct {
 	// Discriminator is the member the variants are told apart by, if one is; otherwise by the members present.
 	Discriminator string         `json:"discriminator,omitzero"`
 	Variants      []UnionVariant `json:"variants,omitempty"`
+	// Choices are what decoding picks from, as for a union's Choices.
+	Choices []UnionVariant `json:"choices,omitempty"`
 }
 
 // SchemaKind categorizes a schema into struct, enum, or array alias.
@@ -215,9 +220,38 @@ type UnionVariant struct {
 	Type string `json:"type,omitzero"`
 	// Value is the variant's value of the union's discriminator.
 	Value string `json:"value,omitzero"`
-	// Members and Required are the JSON members the variant declares and requires, if it is a plain object.
+	// Members and Required are the JSON members the variant declares and requires, if it is a plain Object.
 	Members  []string `json:"members,omitempty"`
 	Required []string `json:"required,omitempty"`
+	Object   bool     `json:"object,omitzero"`
+	// Path is set for a choice that is an alternative of a union nested in this one, however deep: the fields of the
+	// unions on the way to it, outermost first, each set to its union with the next one set.
+	Path []UnionStep `json:"path,omitempty"`
+}
+
+// UnionStep is a field holding a nested union, on the way to one of its alternatives.
+type UnionStep struct {
+	Field string `json:"field,omitzero"`
+	Type  string `json:"type,omitzero"`
+}
+
+// Assign returns the statement setting the union v holds to this choice, decoded into vv.
+func (c UnionVariant) Assign(v string) string {
+	if len(c.Path) == 0 {
+		return v + "." + c.FieldName + " = &vv"
+	}
+
+	value := "&vv"
+	for i, v := range slices.Backward(c.Path) {
+		field := c.FieldName
+		if i < len(c.Path)-1 {
+			field = c.Path[i+1].Field
+		}
+
+		value = "&" + v.Type + "{" + field + ": " + value + "}"
+	}
+
+	return v + "." + c.Path[0].Field + " = " + value
 }
 
 // Field is a named field within a struct schema.
