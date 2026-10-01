@@ -9,8 +9,11 @@ import (
 )
 
 func makeNamedRef(name string) *openapi.Schema {
-	ref := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/" + name, Value: &openapi.Schema{Type: openapi.TypeObject}}}
-	return ref
+	// a stand-in for a named object; an empty one would mean a body with nothing in it
+	value := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}}
+	value.Properties.Set("id", &openapi.Schema{Type: openapi.TypeString})
+
+	return &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/" + name, Value: value}}
 }
 
 func makeParam(name string, in openapi.ParameterLocation, required bool, schema *openapi.Schema) *openapi.ParameterRef {

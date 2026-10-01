@@ -112,6 +112,9 @@ type Operation struct {
 	Responses       Responses  `json:"responses,omitempty"`
 	SuccessReturn   *GoType    `json:"successReturn,omitempty"`
 	Deprecated      bool       `json:"deprecated,omitzero"`
+	// EmptySuccess is true when the operation's success body is an empty object: the client decodes it, so anything in
+	// it is an error, and returns no value; the server writes {}.
+	EmptySuccess bool `json:"emptySuccess,omitzero"`
 	// RawBytesSuccess is true when the operation's success response has no
 	// JSON media type, so SuccessReturn is a raw []byte read directly from
 	// the response body rather than a JSON-decoded type. Such operations
@@ -365,10 +368,10 @@ type GoType struct {
 	IsPointer     bool   `json:"isPointer,omitzero"`
 	IsSlice       bool   `json:"isSlice,omitzero"`
 	IsArrayOfSize int    `json:"isArrayOfSize,omitzero"`
-	// IsNilable is true for a $ref to a named component schema that is
-	// itself array-kind (e.g. "type TimeEntries []TimeEntry"): Name is
-	// already a nilable Go type on its own, so Nilable returns it
-	// unchanged instead of adding a pointer.
+	// IsNilable is true for a map, or a $ref to a named component schema
+	// that is itself array- or map-kind (e.g. "type TimeEntries
+	// []TimeEntry"): Name is already a nilable Go type on its own, so
+	// Nilable returns it unchanged instead of adding a pointer.
 	IsNilable bool `json:"isNilable,omitzero"`
 }
 

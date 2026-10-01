@@ -89,7 +89,7 @@ func FromOperation(
 		}
 	}
 
-	responses, successReturn, rawBytesSuccess, err := fromResponses(op.Responses)
+	responses, successReturn, rawBytesSuccess, emptySuccess, err := fromResponses(op.Responses)
 	if err != nil {
 		return nil, fmt.Errorf("responses: %w", err)
 	}
@@ -111,6 +111,7 @@ func FromOperation(
 		SuccessReturn:   successReturn,
 		Deprecated:      op.Deprecated,
 		RawBytesSuccess: rawBytesSuccess,
+		EmptySuccess:    emptySuccess,
 	}, nil
 }
 
@@ -502,11 +503,12 @@ func fromRequestBody(rb *openapi.RequestBody) (*ReqBody, error) {
 	return nil, nil
 }
 
-func fromResponses(responses openapi.OperationResponses) (Responses, *GoType, bool, error) {
+func fromResponses(responses openapi.OperationResponses) (Responses, *GoType, bool, bool, error) {
 	var (
 		result          Responses
 		successReturn   *GoType
 		rawBytesSuccess bool
+		emptySuccess    bool
 	)
 
 	for code, rRef := range responses.ByIndex() {
@@ -550,7 +552,7 @@ func fromResponses(responses openapi.OperationResponses) (Responses, *GoType, bo
 
 				goType, err = SchemaGoType(jsonSchema)
 				if err != nil {
-					return nil, nil, false, fmt.Errorf("response %s: %w", code, err)
+					return nil, nil, false, false, fmt.Errorf("response %s: %w", code, err)
 				}
 			}
 		case firstContentType != "":
@@ -573,13 +575,18 @@ func fromResponses(responses openapi.OperationResponses) (Responses, *GoType, bo
 			IsRawBytes:  isRawBytes,
 		})
 
-		if isSuccess && goType != nil && successReturn == nil {
-			successReturn = goType
-			rawBytesSuccess = isRawBytes
+		// an empty object is still decoded, so anything in it is an error, but there is nothing to return
+		if isSuccess && goType != nil && successReturn == nil && !emptySuccess {
+			if isEmptyObject(jsonSchema) {
+				emptySuccess = true
+			} else {
+				successReturn = goType
+				rawBytesSuccess = isRawBytes
+			}
 		}
 	}
 
-	return result, successReturn, rawBytesSuccess, nil
+	return result, successReturn, rawBytesSuccess, emptySuccess, nil
 }
 
 // statusCodeToConst converts an OpenAPI status code to its net/http constant name.
@@ -613,4 +620,12 @@ func fixedValue(s *openapi.Schema) string {
 	default:
 		return ""
 	}
+}
+
+// isEmptyObject reports whether s is an object that holds no member at all.
+func isEmptyObject(s *openapi.Schema) bool {
+	s = deref(s)
+
+	return s != nil && s.Type == openapi.TypeObject && len(s.Properties) == 0 && mapValues(s) == nil &&
+		len(s.AllOf) == 0 && len(s.OneOf) == 0 && len(s.AnyOf) == 0
 }

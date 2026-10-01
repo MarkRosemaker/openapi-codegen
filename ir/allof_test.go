@@ -149,3 +149,54 @@ func TestUnionVariant_Assign(t *testing.T) {
 		}
 	}
 }
+
+func TestFromDocument_SuccessReturns(t *testing.T) {
+	t.Parallel()
+
+	doc, err := openapi.LoadFromDataJSON([]byte(`{
+  "openapi": "3.1.0",
+  "info": {"title": "t", "version": "1"},
+  "paths": {
+    "/map": {"get": {"operationId": "getMap", "responses": {"200": {"description": "ok", "content": {"application/json": {"schema": {"type": "object", "additionalProperties": true}}}}}}},
+    "/named": {"get": {"operationId": "getNamed", "responses": {"200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Tickers"}}}}}}},
+    "/empty": {"delete": {"operationId": "deleteThing", "responses": {"200": {"description": "ok", "content": {"application/json": {"schema": {"type": "object"}}}}}}},
+    "/emptyRef": {"delete": {"operationId": "deleteOther", "responses": {"200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/emptyObject"}}}}}}}
+  },
+  "components": {"schemas": {
+    "Tickers": {"type": "object", "additionalProperties": {"type": "string"}},
+    "emptyObject": {"type": "object"}
+  }}
+}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	irDoc, err := ir.FromDocument(doc, "t", "", false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, op := range irDoc.Operations {
+		got := "error only"
+		if op.SuccessReturn != nil {
+			got = op.SuccessReturn.Nilable()
+		}
+
+		// a map is returned as it is, nilable on its own; an empty object only decides whether the call failed
+		want := map[string]string{
+			"GetMap":      "map[string]any",
+			"GetNamed":    "Tickers",
+			"DeleteThing": "error only",
+			"DeleteOther": "error only",
+		}[op.Name]
+
+		if got != want {
+			t.Errorf("%s returns %s, want %s", op.Name, got, want)
+		}
+
+		// the server still writes the empty object the specification promises
+		if empty := want == "error only"; op.EmptySuccess != empty {
+			t.Errorf("%s: EmptySuccess is %t, want %t", op.Name, op.EmptySuccess, empty)
+		}
+	}
+}

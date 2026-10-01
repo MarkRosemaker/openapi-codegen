@@ -371,7 +371,7 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "{{ .ContentType }}":
 			{{- if eq .ContentType "application/json" }}
-			var out {{ if .IsSuccess }}R{{ else }}{{ .GoType }}{{ end }}
+			var out {{ if and .IsSuccess $op.SuccessReturn }}R{{ else }}{{ .GoType }}{{ end }}
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				{{ if $.Debug -}}
 				if c.debug {
@@ -384,8 +384,10 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 				return {{if $op.SuccessReturn}}nil, {{end}}api.WrapDecodingError(rsp, err)
 			}
 
-			{{ if .IsSuccess -}}
+			{{ if and .IsSuccess $op.SuccessReturn -}}
 			return &out, nil
+			{{ else if .IsSuccess -}}
+			return nil
 			{{ else -}}
 			return {{if $op.SuccessReturn}}nil, {{end}}api.NewErrCustom(rsp, &out)
 			{{ end -}}

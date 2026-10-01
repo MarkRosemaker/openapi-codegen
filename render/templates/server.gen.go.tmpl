@@ -141,10 +141,17 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			return
 		}
 
-{{ if .SuccessReturn -}}
+{{ if or .SuccessReturn .EmptySuccess -}}
 		w.Header().Set("Content-Type", {{printf "%q" $successContentType}})
 {{- end }}
 		w.WriteHeader({{$successCode}})
+{{- if .EmptySuccess }}
+
+		if _, err := io.WriteString(w, "{}"); err != nil {
+			l.ErrorContext(ctx, "write error", slog.String("error", err.Error()))
+			return
+		}
+{{- end }}
 
 {{ if .RawBytesSuccess }}
 		if _, err := w.Write(res); err != nil {

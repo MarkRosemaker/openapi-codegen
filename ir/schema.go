@@ -42,10 +42,10 @@ func SchemaGoType(s *openapi.Schema) (*GoType, error) {
 		parts := strings.Split(s.Ref.Identifier, "/")
 		name := componentGoName(parts[len(parts)-1], s.Ref.Value)
 
-		// The named type this $ref points at is itself array-kind (e.g.
-		// "type TimeEntries []TimeEntry"), so it's already nilable on its
-		// own -- see [GoType.IsNilable].
-		isNilable := s.Ref.Value != nil && s.Ref.Value.Type == openapi.TypeArray
+		// The named type this $ref points at is itself array- or map-kind
+		// (e.g. "type TimeEntries []TimeEntry"), so it's already nilable on
+		// its own -- see [GoType.IsNilable].
+		isNilable := s.Ref.Value != nil && (s.Ref.Value.Type == openapi.TypeArray || mapValues(s.Ref.Value) != nil)
 
 		return &GoType{Name: name, IsNilable: isNilable}, nil
 	}
@@ -267,7 +267,7 @@ func objectGoType(s *openapi.Schema) (*GoType, error) {
 			return nil, fmt.Errorf("additionalProperties: %w", err)
 		}
 
-		return &GoType{Name: "map[string]" + tp.Name}, nil
+		return &GoType{Name: "map[string]" + tp.Name, IsNilable: true}, nil
 	}
 
 	// Named objects with properties are moved to components by the flatten pass.
