@@ -18,49 +18,49 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetSelf(ctx context.Context) (*userObjectResponse, error)
-	GetUser(ctx context.Context, userID emoji) (*userObjectResponse, error)
+	GetUser(ctx context.Context, userID idRequest) (*userObjectResponse, error)
 	GetUsers(ctx context.Context, params *GetUsersParams) (*User, error)
 	PostPage(ctx context.Context, params *PostPageParams, body PostPage) (*PageOrDataSourceResultsItemAnyOf, error)
-	RetrieveAPage(ctx context.Context, pageID emoji, params *RetrieveAPageParams) (*MovePage2, error)
-	PatchPage(ctx context.Context, pageID emoji, params *PatchPageParams, body PatchPage) (*PageOrDataSourceResultsItemAnyOf, error)
-	MovePage(ctx context.Context, pageID emoji, body MovePage) (*MovePage2, error)
-	RetrieveAPageProperty(ctx context.Context, pageID emoji, propertyID string, params *RetrieveAPagePropertyParams) (*RetrieveAPagePropertyOk, error)
-	RetrievePageMarkdown(ctx context.Context, pageID emoji, params *RetrievePageMarkdownParams) (*pageMarkdownResponse, error)
-	UpdatePageMarkdown(ctx context.Context, pageID emoji, body UpdatePageMarkdown) (*pageMarkdownResponse, error)
+	RetrieveAPage(ctx context.Context, pageID idRequest, params *RetrieveAPageParams) (*MovePage2, error)
+	PatchPage(ctx context.Context, pageID idRequest, params *PatchPageParams, body PatchPage) (*PageOrDataSourceResultsItemAnyOf, error)
+	MovePage(ctx context.Context, pageID idRequest, body MovePage) (*MovePage2, error)
+	RetrieveAPageProperty(ctx context.Context, pageID idRequest, propertyID string, params *RetrieveAPagePropertyParams) (*RetrieveAPagePropertyOk, error)
+	RetrievePageMarkdown(ctx context.Context, pageID idRequest, params *RetrievePageMarkdownParams) (*pageMarkdownResponse, error)
+	UpdatePageMarkdown(ctx context.Context, pageID idRequest, body UpdatePageMarkdown) (*pageMarkdownResponse, error)
 	RetrieveAsyncTask(ctx context.Context, taskID string) (*RetrieveAsyncTaskOk, error)
-	RetrieveABlock(ctx context.Context, blockID emoji) (*BlockResultsItem, error)
-	DeleteABlock(ctx context.Context, blockID emoji) (*BlockResultsItem, error)
-	UpdateABlock(ctx context.Context, blockID emoji, body UpdateABlock) (*BlockResultsItem, error)
-	GetBlockChildren(ctx context.Context, blockID emoji, params *GetBlockChildrenParams) (*Block, error)
-	PatchBlockChildren(ctx context.Context, blockID emoji, body PatchBlockChildren) (*Block, error)
-	RetrieveADataSource(ctx context.Context, dataSourceID emoji) (*CreateADatabase2, error)
-	UpdateADataSource(ctx context.Context, dataSourceID emoji, body UpdateADataSource) (*CreateADatabase2, error)
-	PostDatabaseQuery(ctx context.Context, dataSourceID emoji, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*PageOrDataSource, error)
+	RetrieveABlock(ctx context.Context, blockID idRequest) (*BlockResultsItem, error)
+	DeleteABlock(ctx context.Context, blockID idRequest) (*BlockResultsItem, error)
+	UpdateABlock(ctx context.Context, blockID idRequest, body UpdateABlock) (*BlockResultsItem, error)
+	GetBlockChildren(ctx context.Context, blockID idRequest, params *GetBlockChildrenParams) (*Block, error)
+	PatchBlockChildren(ctx context.Context, blockID idRequest, body PatchBlockChildren) (*Block, error)
+	RetrieveADataSource(ctx context.Context, dataSourceID idRequest) (*CreateADatabase2, error)
+	UpdateADataSource(ctx context.Context, dataSourceID idRequest, body UpdateADataSource) (*CreateADatabase2, error)
+	PostDatabaseQuery(ctx context.Context, dataSourceID idRequest, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*PageOrDataSource, error)
 	CreateADatabase(ctx context.Context, body CreateADatabase) (*CreateADatabase2, error)
-	ListDataSourceTemplates(ctx context.Context, dataSourceID emoji, params *ListDataSourceTemplatesParams) (*ListDataSourceTemplatesOk, error)
-	RetrieveDatabase(ctx context.Context, databaseID emoji) (*CreateDatabase2, error)
-	UpdateDatabase(ctx context.Context, databaseID emoji, body UpdateDatabase) (*CreateDatabase2, error)
+	ListDataSourceTemplates(ctx context.Context, dataSourceID idRequest, params *ListDataSourceTemplatesParams) (*ListDataSourceTemplatesOk, error)
+	RetrieveDatabase(ctx context.Context, databaseID idRequest) (*CreateDatabase2, error)
+	UpdateDatabase(ctx context.Context, databaseID idRequest, body UpdateDatabase) (*CreateDatabase2, error)
 	CreateDatabase(ctx context.Context, body CreateDatabase) (*CreateDatabase2, error)
 	PostSearch(ctx context.Context, body PostSearch) (*PageOrDataSource, error)
 	ListComments(ctx context.Context, params ListCommentsParams) (*ListCommentsOk, error)
 	CreateAComment(ctx context.Context, body CreateAComment) (*CreateAComment2, error)
-	RetrieveComment(ctx context.Context, commentID emoji) (*CreateAComment2, error)
-	DeleteAComment(ctx context.Context, commentID emoji) (*CreateAComment2, error)
-	UpdateAComment(ctx context.Context, commentID emoji, body UpdateAComment) (*CreateAComment2, error)
+	RetrieveComment(ctx context.Context, commentID idRequest) (*CreateAComment2, error)
+	DeleteAComment(ctx context.Context, commentID idRequest) (*CreateAComment2, error)
+	UpdateAComment(ctx context.Context, commentID idRequest, body UpdateAComment) (*CreateAComment2, error)
 	ListFileUploads(ctx context.Context, params *ListFileUploadsParams) (*ListFileUploadsOk, error)
 	CreateFile(ctx context.Context, body CreateFile) (*fileUploadObjectResponse, error)
-	UploadFile(ctx context.Context, fileUploadID emoji, body UploadFile) (*fileUploadObjectResponse, error)
-	CompleteFileUpload(ctx context.Context, fileUploadID emoji) (*fileUploadObjectResponse, error)
-	RetrieveFileUpload(ctx context.Context, fileUploadID emoji) (*fileUploadObjectResponse, error)
+	UploadFile(ctx context.Context, fileUploadID idRequest, body UploadFile) (*fileUploadObjectResponse, error)
+	CompleteFileUpload(ctx context.Context, fileUploadID idRequest) (*fileUploadObjectResponse, error)
+	RetrieveFileUpload(ctx context.Context, fileUploadID idRequest) (*fileUploadObjectResponse, error)
 	ListCustomEmojis(ctx context.Context, params *ListCustomEmojisParams) (*ListCustomEmojisOk, error)
 	ListViews(ctx context.Context, params *ListViewsParams) (*ListViewsOk, error)
 	CreateView(ctx context.Context, body createViewRequest) (*CreateView, error)
-	RetrieveAView(ctx context.Context, viewID emoji) (*CreateView, error)
-	DeleteView(ctx context.Context, viewID emoji) (*partialDataSourceViewObjectResponse, error)
-	UpdateAView(ctx context.Context, viewID emoji, body updateViewRequest) (*CreateView, error)
-	CreateViewQuery(ctx context.Context, viewID emoji, body createViewQueryRequest) (*viewQueryResponse, error)
-	GetViewQueryResults(ctx context.Context, viewID emoji, queryID emoji, params *GetViewQueryResultsParams) (*GetViewQueryResultsOk, error)
-	DeleteViewQuery(ctx context.Context, viewID emoji, queryID emoji) (*deletedViewQueryResponse, error)
+	RetrieveAView(ctx context.Context, viewID idRequest) (*CreateView, error)
+	DeleteView(ctx context.Context, viewID idRequest) (*partialDataSourceViewObjectResponse, error)
+	UpdateAView(ctx context.Context, viewID idRequest, body updateViewRequest) (*CreateView, error)
+	CreateViewQuery(ctx context.Context, viewID idRequest, body createViewQueryRequest) (*viewQueryResponse, error)
+	GetViewQueryResults(ctx context.Context, viewID idRequest, queryID idRequest, params *GetViewQueryResultsParams) (*GetViewQueryResultsOk, error)
+	DeleteViewQuery(ctx context.Context, viewID idRequest, queryID idRequest) (*deletedViewQueryResponse, error)
 	CreateMeetingNote(ctx context.Context, body CreateMeetingNote) (*CreateMeetingNoteOk, error)
 	QueryMeetingNotes(ctx context.Context, body QueryMeetingNotes) (*QueryMeetingNotesOk, error)
 	QueryAgents(ctx context.Context, body QueryAgents) (*QueryAgentsOk, error)
@@ -72,12 +72,12 @@ type Service interface {
 	AgentBatch(ctx context.Context, body AgentBatch) (*AgentBatch2, error)
 	ListSkillsPlugins(ctx context.Context, params *ListSkillsPluginsParams) (*ListSkillsPluginsOk, error)
 	GetPluginDirectory(ctx context.Context, id string) (*GetPluginDirectoryOk, error)
-	GetSkillDirectory(ctx context.Context, id emoji) (*GetSkillDirectoryOk, error)
+	GetSkillDirectory(ctx context.Context, id idRequest) (*GetSkillDirectoryOk, error)
 	UpdateSession(ctx context.Context, body UpdateSessionRequest) (*CancelSession2, error)
-	RetrieveSession(ctx context.Context, sessionID emoji) (*RetrieveSessionOk, error)
+	RetrieveSession(ctx context.Context, sessionID idRequest) (*RetrieveSessionOk, error)
 	QuerySessions(ctx context.Context, body QuerySessions) (*QuerySessionsOk, error)
-	QuerySessionEvents(ctx context.Context, sessionID emoji, body QuerySessionEvents) (*QuerySessionEventsOk, error)
-	CancelSession(ctx context.Context, sessionID emoji, body CancelSession) (*CancelSession2, error)
+	QuerySessionEvents(ctx context.Context, sessionID idRequest, body QuerySessionEvents) (*QuerySessionEventsOk, error)
+	CancelSession(ctx context.Context, sessionID idRequest, body CancelSession) (*CancelSession2, error)
 	CreateAToken(ctx context.Context, body CreateAToken) (*CreateATokenOk, error)
 	RevokeToken(ctx context.Context, body IntrospectToken) (*RevokeTokenOk, error)
 	IntrospectToken(ctx context.Context, body IntrospectToken) (*IntrospectTokenOk, error)
@@ -137,7 +137,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("user_id")
-			userID := emoji(s)
+			userID := idRequest(s)
 
 			res, err := svc.GetUser(ctx, userID)
 			if err != nil {
@@ -295,7 +295,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := emoji(s)
+			pageID := idRequest(s)
 
 			var params RetrieveAPageParams
 			q := r.URL.Query()
@@ -346,7 +346,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := emoji(s)
+			pageID := idRequest(s)
 
 			var params PatchPageParams
 			q := r.URL.Query()
@@ -404,7 +404,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := emoji(s)
+			pageID := idRequest(s)
 			var body MovePage
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -456,7 +456,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := emoji(s)
+			pageID := idRequest(s)
 			propertyID := r.PathValue("property_id")
 
 			var params RetrieveAPagePropertyParams
@@ -518,7 +518,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := emoji(s)
+			pageID := idRequest(s)
 
 			var params RetrievePageMarkdownParams
 			q := r.URL.Query()
@@ -576,7 +576,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("page_id")
-			pageID := emoji(s)
+			pageID := idRequest(s)
 			var body UpdatePageMarkdown
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -672,7 +672,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("block_id")
-			blockID := emoji(s)
+			blockID := idRequest(s)
 
 			res, err := svc.RetrieveABlock(ctx, blockID)
 			if err != nil {
@@ -717,7 +717,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("block_id")
-			blockID := emoji(s)
+			blockID := idRequest(s)
 
 			res, err := svc.DeleteABlock(ctx, blockID)
 			if err != nil {
@@ -762,7 +762,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("block_id")
-			blockID := emoji(s)
+			blockID := idRequest(s)
 			var body UpdateABlock
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -814,7 +814,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("block_id")
-			blockID := emoji(s)
+			blockID := idRequest(s)
 
 			var params GetBlockChildrenParams
 			q := r.URL.Query()
@@ -882,7 +882,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("block_id")
-			blockID := emoji(s)
+			blockID := idRequest(s)
 			var body PatchBlockChildren
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -934,7 +934,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("data_source_id")
-			dataSourceID := emoji(s)
+			dataSourceID := idRequest(s)
 
 			res, err := svc.RetrieveADataSource(ctx, dataSourceID)
 			if err != nil {
@@ -979,7 +979,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("data_source_id")
-			dataSourceID := emoji(s)
+			dataSourceID := idRequest(s)
 			var body UpdateADataSource
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1031,7 +1031,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("data_source_id")
-			dataSourceID := emoji(s)
+			dataSourceID := idRequest(s)
 
 			var params PostDatabaseQueryParams
 			q := r.URL.Query()
@@ -1139,7 +1139,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("data_source_id")
-			dataSourceID := emoji(s)
+			dataSourceID := idRequest(s)
 
 			var params ListDataSourceTemplatesParams
 			q := r.URL.Query()
@@ -1203,7 +1203,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("database_id")
-			databaseID := emoji(s)
+			databaseID := idRequest(s)
 
 			res, err := svc.RetrieveDatabase(ctx, databaseID)
 			if err != nil {
@@ -1248,7 +1248,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("database_id")
-			databaseID := emoji(s)
+			databaseID := idRequest(s)
 			var body UpdateDatabase
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1402,7 +1402,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			var params ListCommentsParams
 			q := r.URL.Query()
 			if s := q.Get("block_id"); s != "" {
-				params.BlockID = emoji(s)
+				params.BlockID = idRequest(s)
 			}
 			if s := q.Get("start_cursor"); s != "" {
 				params.StartCursor = s
@@ -1511,7 +1511,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("comment_id")
-			commentID := emoji(s)
+			commentID := idRequest(s)
 
 			res, err := svc.RetrieveComment(ctx, commentID)
 			if err != nil {
@@ -1556,7 +1556,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("comment_id")
-			commentID := emoji(s)
+			commentID := idRequest(s)
 
 			res, err := svc.DeleteAComment(ctx, commentID)
 			if err != nil {
@@ -1601,7 +1601,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("comment_id")
-			commentID := emoji(s)
+			commentID := idRequest(s)
 			var body UpdateAComment
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1764,7 +1764,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("file_upload_id")
-			fileUploadID := emoji(s)
+			fileUploadID := idRequest(s)
 			var body UploadFile
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -1816,7 +1816,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("file_upload_id")
-			fileUploadID := emoji(s)
+			fileUploadID := idRequest(s)
 
 			res, err := svc.CompleteFileUpload(ctx, fileUploadID)
 			if err != nil {
@@ -1861,7 +1861,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("file_upload_id")
-			fileUploadID := emoji(s)
+			fileUploadID := idRequest(s)
 
 			res, err := svc.RetrieveFileUpload(ctx, fileUploadID)
 			if err != nil {
@@ -1969,10 +1969,10 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			var params ListViewsParams
 			q := r.URL.Query()
 			if s := q.Get("database_id"); s != "" {
-				params.DatabaseID = emoji(s)
+				params.DatabaseID = idRequest(s)
 			}
 			if s := q.Get("data_source_id"); s != "" {
-				params.DataSourceID = emoji(s)
+				params.DataSourceID = idRequest(s)
 			}
 			if s := q.Get("start_cursor"); s != "" {
 				params.StartCursor = s
@@ -2081,7 +2081,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("view_id")
-			viewID := emoji(s)
+			viewID := idRequest(s)
 
 			res, err := svc.RetrieveAView(ctx, viewID)
 			if err != nil {
@@ -2126,7 +2126,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("view_id")
-			viewID := emoji(s)
+			viewID := idRequest(s)
 
 			res, err := svc.DeleteView(ctx, viewID)
 			if err != nil {
@@ -2171,7 +2171,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("view_id")
-			viewID := emoji(s)
+			viewID := idRequest(s)
 			var body updateViewRequest
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -2223,7 +2223,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("view_id")
-			viewID := emoji(s)
+			viewID := idRequest(s)
 			var body createViewQueryRequest
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -2275,9 +2275,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("view_id")
-			viewID := emoji(s)
+			viewID := idRequest(s)
 			s = r.PathValue("query_id")
-			queryID := emoji(s)
+			queryID := idRequest(s)
 
 			var params GetViewQueryResultsParams
 			q := r.URL.Query()
@@ -2338,9 +2338,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("view_id")
-			viewID := emoji(s)
+			viewID := idRequest(s)
 			s = r.PathValue("query_id")
-			queryID := emoji(s)
+			queryID := idRequest(s)
 
 			res, err := svc.DeleteViewQuery(ctx, viewID, queryID)
 			if err != nil {
@@ -2957,7 +2957,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("id")
-			id := emoji(s)
+			id := idRequest(s)
 
 			res, err := svc.GetSkillDirectory(ctx, id)
 			if err != nil {
@@ -3052,7 +3052,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("session_id")
-			sessionID := emoji(s)
+			sessionID := idRequest(s)
 
 			res, err := svc.RetrieveSession(ctx, sessionID)
 			if err != nil {
@@ -3147,7 +3147,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("session_id")
-			sessionID := emoji(s)
+			sessionID := idRequest(s)
 			var body QuerySessionEvents
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -3199,7 +3199,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("session_id")
-			sessionID := emoji(s)
+			sessionID := idRequest(s)
 			var body CancelSession
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()

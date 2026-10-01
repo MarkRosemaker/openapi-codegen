@@ -103,7 +103,7 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // List group members
 //
 //	GET /groups/{group_id}/members
-func (c *Client) ListGroupMembers(ctx context.Context, groupID ExternalDecagonAnyOfProductName, params *ListGroupMembersParams) (*ListGroupMembersOk, error) {
+func (c *Client) ListGroupMembers(ctx context.Context, groupID idRequest, params *ListGroupMembersParams) (*ListGroupMembersOk, error) {
 	return c.ListGroupMembersWithResult[ListGroupMembersOk](ctx, groupID, params)
 }
 
@@ -111,7 +111,7 @@ func (c *Client) ListGroupMembers(ctx context.Context, groupID ExternalDecagonAn
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /groups/{group_id}/members
-func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName, params *ListGroupMembersParams) (*R, error) {
+func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID idRequest, params *ListGroupMembersParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -316,7 +316,7 @@ func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID 
 // Add a group member
 //
 //	POST /groups/{group_id}/members
-func (c *Client) AddGroupMember(ctx context.Context, groupID ExternalDecagonAnyOfProductName, body AddGroupMember) (*groupMembershipObjectResponse, error) {
+func (c *Client) AddGroupMember(ctx context.Context, groupID idRequest, body AddGroupMember) (*groupMembershipObjectResponse, error) {
 	return c.AddGroupMemberWithResult[groupMembershipObjectResponse](ctx, groupID, body)
 }
 
@@ -324,7 +324,7 @@ func (c *Client) AddGroupMember(ctx context.Context, groupID ExternalDecagonAnyO
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /groups/{group_id}/members
-func (c *Client) AddGroupMemberWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName, body AddGroupMember) (*R, error) {
+func (c *Client) AddGroupMemberWithResult[R any](ctx context.Context, groupID idRequest, body AddGroupMember) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -1176,7 +1176,7 @@ func (c *Client) ChatWithAgentStreamWithResult[R any](ctx context.Context, agent
 //	POST /threads/{thread_id}/continue
 //
 // Deprecated.
-func (c *Client) ContinueThread(ctx context.Context, threadID ExternalDecagonAnyOfProductName, body ContinueThreadRequest) (*ChatWithAgent2, error) {
+func (c *Client) ContinueThread(ctx context.Context, threadID idRequest, body ContinueThreadRequest) (*ChatWithAgent2, error) {
 	return c.ContinueThreadWithResult[ChatWithAgent2](ctx, threadID, body)
 }
 
@@ -1186,7 +1186,7 @@ func (c *Client) ContinueThread(ctx context.Context, threadID ExternalDecagonAny
 //	POST /threads/{thread_id}/continue
 //
 // Deprecated.
-func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID ExternalDecagonAnyOfProductName, body ContinueThreadRequest) (*R, error) {
+func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID idRequest, body ContinueThreadRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -2812,7 +2812,7 @@ func (c *Client) UpdateExternalAgentStubVaultWithResult[R any](ctx context.Conte
 // Retrieve a group
 //
 //	GET /groups/{group_id}
-func (c *Client) RetrieveGroup(ctx context.Context, groupID ExternalDecagonAnyOfProductName) (*permissionGroupObjectResponse, error) {
+func (c *Client) RetrieveGroup(ctx context.Context, groupID idRequest) (*permissionGroupObjectResponse, error) {
 	return c.RetrieveGroupWithResult[permissionGroupObjectResponse](ctx, groupID)
 }
 
@@ -2820,7 +2820,7 @@ func (c *Client) RetrieveGroup(ctx context.Context, groupID ExternalDecagonAnyOf
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /groups/{group_id}
-func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName) (*R, error) {
+func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID idRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -3011,7 +3011,7 @@ func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID Ext
 // Delete a group
 //
 //	DELETE /groups/{group_id}
-func (c *Client) DeleteGroup(ctx context.Context, groupID ExternalDecagonAnyOfProductName, body DeleteGroup) (*permissionGroupObjectResponse, error) {
+func (c *Client) DeleteGroup(ctx context.Context, groupID idRequest, body DeleteGroup) (*permissionGroupObjectResponse, error) {
 	return c.DeleteGroupWithResult[permissionGroupObjectResponse](ctx, groupID, body)
 }
 
@@ -3019,7 +3019,7 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID ExternalDecagonAnyOfPr
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /groups/{group_id}
-func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName, body DeleteGroup) (*R, error) {
+func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID idRequest, body DeleteGroup) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -3217,7 +3217,7 @@ func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID Exter
 // Update a group
 //
 //	PATCH /groups/{group_id}
-func (c *Client) UpdateGroup(ctx context.Context, groupID ExternalDecagonAnyOfProductName, body CreateGroup) (*permissionGroupObjectResponse, error) {
+func (c *Client) UpdateGroup(ctx context.Context, groupID idRequest, body CreateGroup) (*permissionGroupObjectResponse, error) {
 	return c.UpdateGroupWithResult[permissionGroupObjectResponse](ctx, groupID, body)
 }
 
@@ -3225,7 +3225,7 @@ func (c *Client) UpdateGroup(ctx context.Context, groupID ExternalDecagonAnyOfPr
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /groups/{group_id}
-func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName, body CreateGroup) (*R, error) {
+func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID idRequest, body CreateGroup) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -3425,7 +3425,7 @@ func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID Exter
 //	GET /export/{id}
 //
 // Deprecated.
-func (c *Client) ExportPage(ctx context.Context, id ExternalDecagonAnyOfProductName) (*ExportPage, error) {
+func (c *Client) ExportPage(ctx context.Context, id idRequest) (*ExportPage, error) {
 	return c.ExportPageWithResult[ExportPage](ctx, id)
 }
 
@@ -3435,7 +3435,7 @@ func (c *Client) ExportPage(ctx context.Context, id ExternalDecagonAnyOfProductN
 //	GET /export/{id}
 //
 // Deprecated.
-func (c *Client) ExportPageWithResult[R any](ctx context.Context, id ExternalDecagonAnyOfProductName) (*R, error) {
+func (c *Client) ExportPageWithResult[R any](ctx context.Context, id idRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -4230,7 +4230,7 @@ func (c *Client) GetSecurityPostureWithResult[R any](ctx context.Context) (*R, e
 // Get teamspace
 //
 //	GET /teamspaces/{team_id}
-func (c *Client) GetTeamspace(ctx context.Context, teamID ExternalDecagonAnyOfProductName) (*CreateTeamspace2, error) {
+func (c *Client) GetTeamspace(ctx context.Context, teamID idRequest) (*CreateTeamspace2, error) {
 	return c.GetTeamspaceWithResult[CreateTeamspace2](ctx, teamID)
 }
 
@@ -4238,7 +4238,7 @@ func (c *Client) GetTeamspace(ctx context.Context, teamID ExternalDecagonAnyOfPr
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /teamspaces/{team_id}
-func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID ExternalDecagonAnyOfProductName) (*R, error) {
+func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID idRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -4429,7 +4429,7 @@ func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID Exter
 // Update teamspace
 //
 //	PATCH /teamspaces/{team_id}
-func (c *Client) UpdateTeamspace(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body CreateTeamspace) (*CreateTeamspace2, error) {
+func (c *Client) UpdateTeamspace(ctx context.Context, teamID idRequest, body CreateTeamspace) (*CreateTeamspace2, error) {
 	return c.UpdateTeamspaceWithResult[CreateTeamspace2](ctx, teamID, body)
 }
 
@@ -4437,7 +4437,7 @@ func (c *Client) UpdateTeamspace(ctx context.Context, teamID ExternalDecagonAnyO
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}
-func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID ExternalDecagonAnyOfProductName, body CreateTeamspace) (*R, error) {
+func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID idRequest, body CreateTeamspace) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -5500,7 +5500,7 @@ func (c *Client) GetDatabasesWithResult[R any](ctx context.Context, params *GetD
 // List external agent stub session events
 //
 //	GET /external_agent_stub/{agent_id}/sessions/{session_id}/events
-func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error) {
+func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID idRequest, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error) {
 	return c.ListExternalAgentStubSessionEventsWithResult[ListExternalAgentStubSessionEventsOk](ctx, agentID, sessionID, params)
 }
 
@@ -5508,7 +5508,7 @@ func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /external_agent_stub/{agent_id}/sessions/{session_id}/events
-func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, params *ListExternalAgentStubSessionEventsParams) (*R, error) {
+func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context.Context, agentID string, sessionID idRequest, params *ListExternalAgentStubSessionEventsParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -5709,7 +5709,7 @@ func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context
 // Lists team membership (users/groups that are owners/members) of a team.
 //
 //	GET /teamspaces/{team_id}/membership
-func (c *Client) ListTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error) {
+func (c *Client) ListTeamMembership(ctx context.Context, teamID idRequest, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error) {
 	return c.ListTeamMembershipWithResult[ListTeamMembershipOk](ctx, teamID, params)
 }
 
@@ -5717,7 +5717,7 @@ func (c *Client) ListTeamMembership(ctx context.Context, teamID ExternalDecagonA
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /teamspaces/{team_id}/membership
-func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID ExternalDecagonAnyOfProductName, params *ListTeamMembershipParams) (*R, error) {
+func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID idRequest, params *ListTeamMembershipParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -5922,7 +5922,7 @@ func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID
 // Updates team membership for a given team.
 //
 //	PATCH /teamspaces/{team_id}/membership
-func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) error {
+func (c *Client) UpdateTeamMembership(ctx context.Context, teamID idRequest, body UpdateTeamMembership) error {
 	if c.bearer == "" {
 		return errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -6110,7 +6110,7 @@ func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ExternalDecago
 // List permission roles for various entities in a teamspace.
 //
 //	GET /teamspaces/{team_id}/permissions
-func (c *Client) ListTeamPermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error) {
+func (c *Client) ListTeamPermissions(ctx context.Context, teamID idRequest, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error) {
 	return c.ListTeamPermissionsWithResult[ListTeamPermissionsOk](ctx, teamID, params)
 }
 
@@ -6118,7 +6118,7 @@ func (c *Client) ListTeamPermissions(ctx context.Context, teamID ExternalDecagon
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /teamspaces/{team_id}/permissions
-func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamID ExternalDecagonAnyOfProductName, params *ListTeamPermissionsParams) (*R, error) {
+func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamID idRequest, params *ListTeamPermissionsParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -6323,7 +6323,7 @@ func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamI
 // Updates permission levels for a given teamspace.
 //
 //	PATCH /teamspaces/{team_id}/permissions
-func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) error {
+func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID idRequest, body UpdateTeamspacePermissions) error {
 	if c.bearer == "" {
 		return errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -6513,7 +6513,7 @@ func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID External
 //	GET /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) ListThreadMessages(ctx context.Context, threadID ExternalDecagonAnyOfProductName, params *ListThreadMessagesParams) (*ListThreadMessages, error) {
+func (c *Client) ListThreadMessages(ctx context.Context, threadID idRequest, params *ListThreadMessagesParams) (*ListThreadMessages, error) {
 	return c.ListThreadMessagesWithResult[ListThreadMessages](ctx, threadID, params)
 }
 
@@ -6523,7 +6523,7 @@ func (c *Client) ListThreadMessages(ctx context.Context, threadID ExternalDecago
 //	GET /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, threadID ExternalDecagonAnyOfProductName, params *ListThreadMessagesParams) (*R, error) {
+func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, threadID idRequest, params *ListThreadMessagesParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -6738,7 +6738,7 @@ func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, thread
 //	POST /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) SendThreadMessage(ctx context.Context, threadID ExternalDecagonAnyOfProductName, body ChatWithAgent) (*ChatWithAgent2, error) {
+func (c *Client) SendThreadMessage(ctx context.Context, threadID idRequest, body ChatWithAgent) (*ChatWithAgent2, error) {
 	return c.SendThreadMessageWithResult[ChatWithAgent2](ctx, threadID, body)
 }
 
@@ -6748,7 +6748,7 @@ func (c *Client) SendThreadMessage(ctx context.Context, threadID ExternalDecagon
 //	POST /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID ExternalDecagonAnyOfProductName, body ChatWithAgent) (*R, error) {
+func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID idRequest, body ChatWithAgent) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -7624,7 +7624,7 @@ func (c *Client) EmaResolveTrustedIssuerWithResult[R any](ctx context.Context, b
 // Query thread messages
 //
 //	POST /threads/{thread_id}/messages/query
-func (c *Client) QueryThreadMessages(ctx context.Context, threadID ExternalDecagonAnyOfProductName, body QueryThreadMessages) (*ListThreadMessages, error) {
+func (c *Client) QueryThreadMessages(ctx context.Context, threadID idRequest, body QueryThreadMessages) (*ListThreadMessages, error) {
 	return c.QueryThreadMessagesWithResult[ListThreadMessages](ctx, threadID, body)
 }
 
@@ -7632,7 +7632,7 @@ func (c *Client) QueryThreadMessages(ctx context.Context, threadID ExternalDecag
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /threads/{thread_id}/messages/query
-func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threadID ExternalDecagonAnyOfProductName, body QueryThreadMessages) (*R, error) {
+func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threadID idRequest, body QueryThreadMessages) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -8036,7 +8036,7 @@ func (c *Client) QueryThreadsWithResult[R any](ctx context.Context, agentID stri
 // Remove a group member
 //
 //	DELETE /groups/{group_id}/members/users/{user_id}
-func (c *Client) RemoveGroupMember(ctx context.Context, groupID ExternalDecagonAnyOfProductName, userID ExternalDecagonAnyOfProductName) (*groupMembershipObjectResponse, error) {
+func (c *Client) RemoveGroupMember(ctx context.Context, groupID idRequest, userID idRequest) (*groupMembershipObjectResponse, error) {
 	return c.RemoveGroupMemberWithResult[groupMembershipObjectResponse](ctx, groupID, userID)
 }
 
@@ -8044,7 +8044,7 @@ func (c *Client) RemoveGroupMember(ctx context.Context, groupID ExternalDecagonA
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /groups/{group_id}/members/users/{user_id}
-func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName, userID ExternalDecagonAnyOfProductName) (*R, error) {
+func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID idRequest, userID idRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -8235,7 +8235,7 @@ func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID
 // Update a group member
 //
 //	PATCH /groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdateGroupMember(ctx context.Context, groupID ExternalDecagonAnyOfProductName, userID ExternalDecagonAnyOfProductName, body UpdateGroupMember) (*groupMembershipObjectResponse, error) {
+func (c *Client) UpdateGroupMember(ctx context.Context, groupID idRequest, userID idRequest, body UpdateGroupMember) (*groupMembershipObjectResponse, error) {
 	return c.UpdateGroupMemberWithResult[groupMembershipObjectResponse](ctx, groupID, userID, body)
 }
 
@@ -8243,7 +8243,7 @@ func (c *Client) UpdateGroupMember(ctx context.Context, groupID ExternalDecagonA
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID ExternalDecagonAnyOfProductName, userID ExternalDecagonAnyOfProductName, body UpdateGroupMember) (*R, error) {
+func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID idRequest, userID idRequest, body UpdateGroupMember) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -8441,7 +8441,7 @@ func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID
 // Remove guests from a page
 //
 //	POST /pages/{page_id}/remove_guests
-func (c *Client) RemovePageGuest(ctx context.Context, pageID ExternalDecagonAnyOfProductName, body struct{}) (*RemovePageGuestOk, error) {
+func (c *Client) RemovePageGuest(ctx context.Context, pageID idRequest, body struct{}) (*RemovePageGuestOk, error) {
 	return c.RemovePageGuestWithResult[RemovePageGuestOk](ctx, pageID, body)
 }
 
@@ -8449,7 +8449,7 @@ func (c *Client) RemovePageGuest(ctx context.Context, pageID ExternalDecagonAnyO
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /pages/{page_id}/remove_guests
-func (c *Client) RemovePageGuestWithResult[R any](ctx context.Context, pageID ExternalDecagonAnyOfProductName, body struct{}) (*R, error) {
+func (c *Client) RemovePageGuestWithResult[R any](ctx context.Context, pageID idRequest, body struct{}) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -10314,7 +10314,7 @@ func (c *Client) RunUnifiedRolloutWithResult[R any](ctx context.Context, body Ru
 // Send external agent stub session message
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages
-func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageOk, error) {
+func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentID string, sessionID idRequest, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageOk, error) {
 	return c.SendExternalAgentStubSessionMessageWithResult[SendExternalAgentStubSessionMessageOk](ctx, agentID, sessionID, body)
 }
 
@@ -10322,7 +10322,7 @@ func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentI
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages
-func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, body SendExternalAgentStubSessionMessage) (*R, error) {
+func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx context.Context, agentID string, sessionID idRequest, body SendExternalAgentStubSessionMessage) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -10520,7 +10520,7 @@ func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx contex
 // Send external agent stub session message (streaming)
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages/stream
-func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageStreamOk, error) {
+func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, agentID string, sessionID idRequest, body SendExternalAgentStubSessionMessage) (*SendExternalAgentStubSessionMessageStreamOk, error) {
 	return c.SendExternalAgentStubSessionMessageStreamWithResult[SendExternalAgentStubSessionMessageStreamOk](ctx, agentID, sessionID, body)
 }
 
@@ -10528,7 +10528,7 @@ func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, 
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages/stream
-func (c *Client) SendExternalAgentStubSessionMessageStreamWithResult[R any](ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, body SendExternalAgentStubSessionMessage) (*R, error) {
+func (c *Client) SendExternalAgentStubSessionMessageStreamWithResult[R any](ctx context.Context, agentID string, sessionID idRequest, body SendExternalAgentStubSessionMessage) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -10995,7 +10995,7 @@ func (c *Client) TransferUserContentWithResult[R any](ctx context.Context, body 
 // Unshare a page from web
 //
 //	POST /pages/{page_id}/unshare_from_web
-func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID ExternalDecagonAnyOfProductName, body struct{}) (*UnsharePageFromWebOk, error) {
+func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID idRequest, body struct{}) (*UnsharePageFromWebOk, error) {
 	return c.UnsharePageFromWebWithResult[UnsharePageFromWebOk](ctx, pageID, body)
 }
 
@@ -11003,7 +11003,7 @@ func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID ExternalDecagonA
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /pages/{page_id}/unshare_from_web
-func (c *Client) UnsharePageFromWebWithResult[R any](ctx context.Context, pageID ExternalDecagonAnyOfProductName, body struct{}) (*R, error) {
+func (c *Client) UnsharePageFromWebWithResult[R any](ctx context.Context, pageID idRequest, body struct{}) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -11407,7 +11407,7 @@ func (c *Client) UpdateAgentWithResult[R any](ctx context.Context, agentID strin
 // Update page permissions
 //
 //	PATCH /_/pages/{page_id}/permissions
-func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID ExternalDecagonAnyOfProductName, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error) {
+func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID idRequest, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error) {
 	return c.PrivateUpdatePagePermissionsWithResult[PrivateUpdatePagePermissions2](ctx, pageID, body)
 }
 
@@ -11415,7 +11415,7 @@ func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID Extern
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /_/pages/{page_id}/permissions
-func (c *Client) PrivateUpdatePagePermissionsWithResult[R any](ctx context.Context, pageID ExternalDecagonAnyOfProductName, body PrivateUpdatePagePermissions) (*R, error) {
+func (c *Client) PrivateUpdatePagePermissionsWithResult[R any](ctx context.Context, pageID idRequest, body PrivateUpdatePagePermissions) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}

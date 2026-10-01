@@ -26,9 +26,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -186,9 +186,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -758,9 +758,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -1321,8 +1321,8 @@
 					"goName": "userID",
 					"fieldName": "UserID",
 					"jsonName": "user_id",
-					"type": "ExternalDecagonAnyOfProductName",
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"type": "idRequest",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -1892,9 +1892,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2031,9 +2031,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2175,9 +2175,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2319,9 +2319,9 @@
 					"goName": "id",
 					"fieldName": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2852,9 +2852,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -2991,9 +2991,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -3762,9 +3762,9 @@
 					"goName": "sessionID",
 					"fieldName": "SessionID",
 					"jsonName": "session_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -3914,9 +3914,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4074,9 +4074,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4217,9 +4217,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4377,9 +4377,9 @@
 					"goName": "teamID",
 					"fieldName": "TeamID",
 					"jsonName": "team_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4520,9 +4520,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4700,9 +4700,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -4858,8 +4858,8 @@
 					"goName": "id",
 					"fieldName": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"type": "idRequest",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				},
@@ -5356,9 +5356,9 @@
 					"goName": "threadID",
 					"fieldName": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -5648,9 +5648,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				},
@@ -5659,9 +5659,9 @@
 					"goName": "userID",
 					"fieldName": "UserID",
 					"jsonName": "user_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -5801,9 +5801,9 @@
 					"goName": "groupID",
 					"fieldName": "GroupID",
 					"jsonName": "group_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				},
@@ -5812,9 +5812,9 @@
 					"goName": "userID",
 					"fieldName": "UserID",
 					"jsonName": "user_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -5957,9 +5957,9 @@
 					"goName": "pageID",
 					"fieldName": "PageID",
 					"jsonName": "page_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7186,9 +7186,9 @@
 					"goName": "sessionID",
 					"fieldName": "SessionID",
 					"jsonName": "session_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7344,9 +7344,9 @@
 					"goName": "sessionID",
 					"fieldName": "SessionID",
 					"jsonName": "session_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7664,9 +7664,9 @@
 					"goName": "pageID",
 					"fieldName": "PageID",
 					"jsonName": "page_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -7953,9 +7953,9 @@
 					"goName": "pageID",
 					"fieldName": "PageID",
 					"jsonName": "page_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"required": true,
-					"parseExpr": "ExternalDecagonAnyOfProductName(s)",
+					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
 				}
@@ -8300,7 +8300,7 @@
 				{
 					"name": "UserID",
 					"jsonName": "user_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"user_id,omitzero\"",
 					"description": "The ID of the user to add.",
 					"required": true
@@ -8755,8 +8755,8 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "ExternalDecagonAnyOfProductName",
-					"type": "ExternalDecagonAnyOfProductName"
+					"fieldName": "IDRequest",
+					"type": "idRequest"
 				},
 				{
 					"fieldName": "AgentIDOneOf",
@@ -8765,8 +8765,8 @@
 			],
 			"choices": [
 				{
-					"fieldName": "ExternalDecagonAnyOfProductName",
-					"type": "ExternalDecagonAnyOfProductName"
+					"fieldName": "IDRequest",
+					"type": "idRequest"
 				},
 				{
 					"fieldName": "AgentIDOneOf",
@@ -8781,8 +8781,8 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "ExternalDecagonAnyOfProductName",
-					"type": "ExternalDecagonAnyOfProductName"
+					"fieldName": "IDRequest",
+					"type": "idRequest"
 				},
 				{
 					"fieldName": "String",
@@ -8791,8 +8791,8 @@
 			],
 			"choices": [
 				{
-					"fieldName": "ExternalDecagonAnyOfProductName",
-					"type": "ExternalDecagonAnyOfProductName"
+					"fieldName": "IDRequest",
+					"type": "idRequest"
 				},
 				{
 					"fieldName": "String",
@@ -8960,14 +8960,14 @@
 				{
 					"name": "CreatedByUserIds",
 					"jsonName": "created_by_user_ids",
-					"type": "[]ExternalDecagonAnyOfProductName",
+					"type": "[]idRequest",
 					"jsonTag": "json:\"created_by_user_ids,omitzero\"",
 					"description": "Optional filter to only produce search results created by the Notion users that have the specified user IDs."
 				},
 				{
 					"name": "EditedByUserIds",
 					"jsonName": "edited_by_user_ids",
-					"type": "[]ExternalDecagonAnyOfProductName",
+					"type": "[]idRequest",
 					"jsonTag": "json:\"edited_by_user_ids,omitzero\"",
 					"description": "Optional filter to only produce search results edited by the Notion users that have the specified user IDs. Available on the Business plan."
 				},
@@ -8981,7 +8981,7 @@
 				{
 					"name": "TeamspaceIds",
 					"jsonName": "teamspace_ids",
-					"type": "[]ExternalDecagonAnyOfProductName",
+					"type": "[]idRequest",
 					"jsonTag": "json:\"teamspace_ids,omitzero\"",
 					"description": "Optional filter to only produce search results inside one of the specified teamspaces. Selecting more than one teamspace is available on the Business plan; use teamspace_id for one teamspace on other plans."
 				},
@@ -11369,7 +11369,7 @@
 				{
 					"name": "ThreadID",
 					"jsonName": "thread_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"thread_id,omitzero\"",
 					"description": "Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created."
 				}
@@ -11608,7 +11608,7 @@
 				{
 					"name": "CommentID",
 					"jsonName": "comment_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"comment_id,omitzero\"",
 					"required": true
 				}
@@ -11855,7 +11855,7 @@
 				{
 					"name": "ActionID",
 					"jsonName": "action_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"action_id,omitzero\"",
 					"required": true
 				},
@@ -11876,7 +11876,7 @@
 				{
 					"name": "ActionID",
 					"jsonName": "action_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"action_id,omitzero\"",
 					"required": true
 				},
@@ -11904,7 +11904,7 @@
 				{
 					"name": "ConnectionID",
 					"jsonName": "connection_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"connection_id,omitzero\"",
 					"required": true
 				}
@@ -14333,8 +14333,8 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "ExternalDecagonAnyOfProductName",
-					"type": "ExternalDecagonAnyOfProductName"
+					"fieldName": "IDRequest",
+					"type": "idRequest"
 				},
 				{
 					"fieldName": "String",
@@ -14343,8 +14343,8 @@
 			],
 			"choices": [
 				{
-					"fieldName": "ExternalDecagonAnyOfProductName",
-					"type": "ExternalDecagonAnyOfProductName"
+					"fieldName": "IDRequest",
+					"type": "idRequest"
 				},
 				{
 					"fieldName": "String",
@@ -14469,7 +14469,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the custom emoji.",
 					"required": true
@@ -14622,7 +14622,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the database in the mention.",
 					"required": true
@@ -14657,7 +14657,7 @@
 				{
 					"name": "DatabaseID",
 					"jsonName": "database_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"database_id,omitzero\"",
 					"required": true
 				}
@@ -15543,7 +15543,7 @@
 				{
 					"name": "TransferToOwnerID",
 					"jsonName": "transfer_to_owner_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"transfer_to_owner_id,omitzero\"",
 					"description": "The ID of an active workspace owner who will receive access that would otherwise be orphaned."
 				}
@@ -16490,7 +16490,7 @@
 				{
 					"name": "FileUploadID",
 					"jsonName": "file_upload_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"file_upload_id,omitzero\"",
 					"description": "The FileUpload ID returned by the create-attachment tool.",
 					"required": true
@@ -21199,7 +21199,7 @@
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "noticonName",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.",
 					"required": true
@@ -21248,7 +21248,7 @@
 				{
 					"name": "BlockID",
 					"jsonName": "blockId",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"blockId,omitzero\"",
 					"description": "The ID of the page or block to export.",
 					"required": true
@@ -26822,7 +26822,7 @@
 				{
 					"name": "Format",
 					"jsonName": "format",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "numberFormat",
 					"jsonTag": "json:\"format,omitzero\"",
 					"description": "The number format for the property.",
 					"required": true
@@ -27012,7 +27012,7 @@
 				{
 					"name": "PageID",
 					"jsonName": "page_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"page_id,omitzero\"",
 					"required": true
 				}
@@ -30903,7 +30903,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "Filter threads by ID (exact match)."
 				},
@@ -47059,7 +47059,7 @@
 				{
 					"name": "BlockID",
 					"jsonName": "block_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"block_id,omitzero\"",
 					"required": true
 				}
@@ -50230,7 +50230,7 @@
 				{
 					"name": "FromUserID",
 					"jsonName": "from_user_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"from_user_id,omitzero\"",
 					"description": "The ID of the source user to transfer content from.",
 					"required": true
@@ -50238,7 +50238,7 @@
 				{
 					"name": "ToUserID",
 					"jsonName": "to_user_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"to_user_id,omitzero\"",
 					"description": "The ID of the destination user to transfer content to.",
 					"required": true
@@ -54500,7 +54500,7 @@
 				{
 					"name": "EntityID",
 					"jsonName": "entity_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"entity_id,omitzero\"",
 					"description": "The ID of the entity (person or group).",
 					"required": true
@@ -54539,7 +54539,7 @@
 				{
 					"name": "EntityID",
 					"jsonName": "entity_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"entity_id,omitzero\"",
 					"description": "The ID of the entity (person or group).",
 					"required": true
@@ -54578,7 +54578,7 @@
 				{
 					"name": "EntityID",
 					"jsonName": "entity_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"entity_id,omitzero\"",
 					"description": "The ID of the entity (person or group).",
 					"required": true
@@ -54629,7 +54629,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the space, teamspace, group, or person.",
 					"required": true
@@ -61774,7 +61774,7 @@
 				{
 					"name": "TimeZone",
 					"jsonName": "time_zone",
-					"type": "*ExternalDecagonAnyOfProductName",
+					"type": "*timeZoneRequest",
 					"jsonTag": "json:\"time_zone,omitempty\"",
 					"description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc."
 				}
@@ -62163,13 +62163,19 @@
 				{
 					"name": "Emoji",
 					"jsonName": "emoji",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "emojiRequest",
 					"jsonTag": "json:\"emoji,omitzero\"",
 					"description": "An emoji character.",
 					"required": true
 				}
 			],
 			"memberDecoder": true
+		},
+		{
+			"name": "emojiRequest",
+			"description": "emojiRequest defines a model",
+			"kind": 2,
+			"type": "string"
 		},
 		{
 			"name": "emptyObject",
@@ -64059,6 +64065,12 @@
 			"memberDecoder": true
 		},
 		{
+			"name": "idRequest",
+			"description": "idRequest defines a model",
+			"kind": 2,
+			"type": "string"
+		},
+		{
 			"name": "idResponse",
 			"description": "idResponse defines a model",
 			"kind": 2,
@@ -65563,6 +65575,12 @@
 			"memberDecoder": true
 		},
 		{
+			"name": "noticonName",
+			"description": "noticonName defines a model",
+			"kind": 2,
+			"type": "string"
+		},
+		{
 			"name": "numberDatabasePropertyConfigResponse",
 			"description": "numberDatabasePropertyConfigResponse defines a model",
 			"fields": [
@@ -65583,6 +65601,12 @@
 				}
 			],
 			"memberDecoder": true
+		},
+		{
+			"name": "numberFormat",
+			"description": "numberFormat defines a model",
+			"kind": 2,
+			"type": "string"
 		},
 		{
 			"name": "numberFormulaPropertyResponse",
@@ -68286,7 +68310,7 @@
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"id,omitzero\"",
 					"description": "The ID of the user.",
 					"required": true
@@ -76752,6 +76776,12 @@
 			"memberDecoder": true
 		},
 		{
+			"name": "timeZoneRequest",
+			"description": "timeZoneRequest defines a model",
+			"kind": 2,
+			"type": "string"
+		},
+		{
 			"name": "titleArrayBasedPropertyValueResponse",
 			"description": "titleArrayBasedPropertyValueResponse defines a model",
 			"fields": [
@@ -77055,7 +77085,7 @@
 				{
 					"name": "Attendees",
 					"jsonName": "attendees",
-					"type": "[]ExternalDecagonAnyOfProductName",
+					"type": "[]idRequest",
 					"jsonTag": "json:\"attendees,omitzero\""
 				}
 			]
@@ -77067,19 +77097,19 @@
 				{
 					"name": "SummaryBlockID",
 					"jsonName": "summary_block_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"summary_block_id,omitzero\""
 				},
 				{
 					"name": "NotesBlockID",
 					"jsonName": "notes_block_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"notes_block_id,omitzero\""
 				},
 				{
 					"name": "TranscriptBlockID",
 					"jsonName": "transcript_block_id",
-					"type": "ExternalDecagonAnyOfProductName",
+					"type": "idRequest",
 					"jsonTag": "json:\"transcript_block_id,omitzero\""
 				}
 			]

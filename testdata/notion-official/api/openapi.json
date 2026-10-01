@@ -5155,7 +5155,7 @@
         "description": "The agent ID (a UUID), or `notion_ai` for the personal agent. Endpoint-specific restrictions still apply.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           {
             "$ref": "#/components/schemas/AgentBatchOperationsItemOneOfAgentIDOneOf"
@@ -7792,7 +7792,7 @@
         "type": "object",
         "properties": {
           "comment_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "type": {
             "type": "string",
@@ -7869,7 +7869,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -8022,7 +8022,7 @@
         "properties": {
           "discussion_id": {
             "description": "The ID of the discussion to comment on.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "rich_text": {
             "description": "An array of rich text objects that represent the content of the comment.",
@@ -8043,7 +8043,7 @@
         "properties": {
           "discussion_id": {
             "description": "The ID of the discussion to comment on.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "markdown": {
             "description": "The content of the comment as a Markdown string. Comment Markdown supports inline formatting only (bold, italic, strikethrough, code, links), inline equations ($expression$), and mentions. Block-level Markdown such as fenced code blocks, headings, lists, tables, and blockquotes does not render as structured blocks in comments.",
@@ -8071,7 +8071,7 @@
         "properties": {
           "page_id": {
             "description": "The ID of the parent page (with or without dashes), for example, 195de9221179449fab8075a27c979105",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "type": {
             "description": "Always `page_id`",
@@ -8088,7 +8088,7 @@
         "properties": {
           "block_id": {
             "description": "The ID of the parent block (with or without dashes), for example, 195de9221179449fab8075a27c979105",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "type": {
             "description": "Always `block_id`",
@@ -8364,7 +8364,7 @@
           },
           "block_id": {
             "description": "The ID of an existing block in the page. The new database will be placed after this block.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -8555,7 +8555,7 @@
           },
           "file_upload_id": {
             "description": "ID of a completed public API file upload.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -8590,7 +8590,7 @@
           },
           "block_id": {
             "description": "ID of an existing audio, video, or file block.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -8957,7 +8957,7 @@
         "properties": {
           "id": {
             "description": "The ID of the custom emoji.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "name": {
             "description": "The name of the custom emoji.",
@@ -9014,7 +9014,7 @@
         "type": "object",
         "properties": {
           "data_source_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "type": {
             "type": "string",
@@ -9262,7 +9262,7 @@
         "type": "object",
         "properties": {
           "database_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "type": {
             "type": "string",
@@ -9487,7 +9487,7 @@
         "description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/timeZoneRequest"
           },
           {
             "type": "null"
@@ -11329,7 +11329,7 @@
         "properties": {
           "name": {
             "description": "The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/noticonName"
           },
           "color": {
             "description": "The color variant of the icon. Defaults to gray if not specified. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.",
@@ -12363,7 +12363,7 @@
         "properties": {
           "format": {
             "description": "The number format for the property.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/numberFormat"
           }
         },
         "required": [
@@ -12693,7 +12693,7 @@
             "const": "default"
           },
           "timezone": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/templateTimezone"
           }
         },
         "required": [
@@ -12708,10 +12708,10 @@
             "const": "template_id"
           },
           "template_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "timezone": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/templateTimezone"
           }
         },
         "required": [
@@ -13290,7 +13290,7 @@
             ]
           },
           "id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "object": {
             "type": "string",
@@ -16878,7 +16878,7 @@
         "type": "object",
         "properties": {
           "data_source_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -20372,7 +20372,7 @@
             "$ref": "#/components/schemas/AgentBatchOperationsItemOneOfAgentID"
           },
           "session_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "attachments": {
             "$ref": "#/components/schemas/UpdateSessionRequestOneOf0Attachments"
@@ -20440,7 +20440,7 @@
         "type": "object",
         "properties": {
           "session_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "actions": {
             "$ref": "#/components/schemas/UpdateSessionRequestOneOf1Actions"
@@ -20473,7 +20473,7 @@
         "type": "object",
         "properties": {
           "action_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "option_id": {
             "$ref": "#/components/schemas/CancelSessionRequiredActionsItemID"
@@ -20489,7 +20489,7 @@
         "type": "object",
         "properties": {
           "session_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "continue_from": {
             "type": "string",
@@ -23348,7 +23348,7 @@
         "properties": {
           "data_source_id": {
             "description": "The ID of the data source this view should be scoped to.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "name": {
             "description": "The name of the view.",
@@ -23360,11 +23360,11 @@
           },
           "database_id": {
             "description": "The ID of the database to create a view in. Mutually exclusive with view_id and create_database.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "view_id": {
             "description": "The ID of a dashboard view to add this view to as a widget. Mutually exclusive with database_id and create_database.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "filter": {
             "description": "Filter to apply to the view. Uses the same format as the data source query filter.",
@@ -24951,17 +24951,6 @@
           "in_trash"
         ]
       },
-      "emoji": {
-        "type": "string",
-        "example": "😀",
-        "examples": [
-          "pizza",
-          "meeting",
-          "home",
-          "star",
-          "robot"
-        ]
-      },
       "emojiPageIcon": {
         "title": "Emoji",
         "type": "object",
@@ -24973,12 +24962,16 @@
           },
           "emoji": {
             "description": "An emoji character.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/emojiRequest"
           }
         },
         "required": [
           "emoji"
         ]
+      },
+      "emojiRequest": {
+        "type": "string",
+        "example": "😀"
       },
       "emptyObject": {
         "type": "object",
@@ -26489,7 +26482,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "name": {
             "type": [
@@ -26859,6 +26852,10 @@
         "required": [
           "icon"
         ]
+      },
+      "idRequest": {
+        "type": "string",
+        "example": "457d00dc-fc3a-4ddb-a42f-fe376530bee0"
       },
       "idResponse": {
         "type": "string",
@@ -27759,6 +27756,20 @@
           "multi_select"
         ],
         "additionalProperties": false
+      },
+      "noticonName": {
+        "type": "string",
+        "examples": [
+          "pizza",
+          "meeting",
+          "home",
+          "star",
+          "robot"
+        ]
+      },
+      "numberFormat": {
+        "type": "string",
+        "example": "number"
       },
       "numberFormulaPropertyValue": {
         "title": "Number",
@@ -28977,7 +28988,7 @@
         "properties": {
           "id": {
             "description": "The ID of the user.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "object": {
             "description": "The user object type name.",
@@ -29187,7 +29198,7 @@
       "personIdOrMe": {
         "anyOf": [
           {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           {
             "type": "string",
@@ -29829,7 +29840,7 @@
         "type": "object",
         "properties": {
           "contains": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -29840,7 +29851,7 @@
         "type": "object",
         "properties": {
           "does_not_contain": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -31304,6 +31315,15 @@
         ],
         "additionalProperties": false
       },
+      "templateTimezone": {
+        "description": "IANA timezone to use when resolving template variables like @now and @today (e.g. 'America/New_York'). Defaults to the authorizing user's timezone for public integrations, or UTC for internal integrations.",
+        "type": "string",
+        "examples": [
+          "America/New_York",
+          "Europe/London",
+          "Asia/Tokyo"
+        ]
+      },
       "textGroupByConfig": {
         "type": "object",
         "properties": {
@@ -31434,6 +31454,10 @@
         "required": [
           "text"
         ]
+      },
+      "timeZoneRequest": {
+        "type": "string",
+        "example": "Africa/Abidjan"
       },
       "timelineArrowsBy": {
         "type": "object",
@@ -31844,7 +31868,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/emoji"
+              "$ref": "#/components/schemas/idRequest"
             }
           }
         },
@@ -31857,13 +31881,13 @@
         "type": "object",
         "properties": {
           "summary_block_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "notes_block_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           },
           "transcript_block_id": {
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         }
       },
@@ -32588,7 +32612,7 @@
           },
           "view_id": {
             "description": "The ID of an existing view in the database. The new view will be placed after this view.",
-            "$ref": "#/components/schemas/emoji"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -40475,7 +40499,7 @@
         "in": "path",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "block_id6": {
@@ -40484,7 +40508,7 @@
         "required": true,
         "schema": {
           "description": "Identifier for a Notion block or page.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "comment_id": {
@@ -40493,7 +40517,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the comment to retrieve.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "comment_id2": {
@@ -40502,7 +40526,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the comment to delete.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "comment_id3": {
@@ -40511,7 +40535,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the comment to update.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "data_source_id": {
@@ -40520,7 +40544,7 @@
         "required": true,
         "schema": {
           "description": "ID of a Notion data source.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "data_source_id3": {
@@ -40528,7 +40552,7 @@
         "in": "path",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "data_source_id5": {
@@ -40536,7 +40560,7 @@
         "in": "query",
         "schema": {
           "description": "ID of a data source (collection) to list all views for, including linked views across the workspace. At least one of database_id or data_source_id is required.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "database_id": {
@@ -40545,7 +40569,7 @@
         "required": true,
         "schema": {
           "description": "ID of a Notion database, a container for one or more data sources.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "database_id3": {
@@ -40553,7 +40577,7 @@
         "in": "query",
         "schema": {
           "description": "ID of a Notion database (collection view block) to list views for. At least one of database_id or data_source_id is required.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "end_time": {
@@ -40571,7 +40595,7 @@
         "required": true,
         "schema": {
           "description": "Identifier for a Notion file upload object.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "filter_properties": {
@@ -40620,7 +40644,7 @@
         "required": true,
         "schema": {
           "description": "Identifier for a Notion skill page.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "include_transcript": {
@@ -40662,7 +40686,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page to retrieve.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_id2": {
@@ -40670,7 +40694,7 @@
         "in": "path",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_id3": {
@@ -40679,7 +40703,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page to move.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_id4": {
@@ -40688,7 +40712,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page containing the property.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_id5": {
@@ -40697,7 +40721,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page (or block) to retrieve as markdown. Non-navigable block IDs from truncated responses can be passed here to fetch their subtrees.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_id6": {
@@ -40706,7 +40730,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page to update.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_size": {
@@ -40768,7 +40792,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the query.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "session_id": {
@@ -40777,7 +40801,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the session to retrieve.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "session_id2": {
@@ -40786,7 +40810,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the session whose events should be queried.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "session_id3": {
@@ -40795,7 +40819,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the session to cancel.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "start_cursor": {
@@ -40875,7 +40899,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the user or bot to retrieve.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "verbose": {
@@ -40892,7 +40916,7 @@
         "required": true,
         "schema": {
           "description": "ID of a Notion view.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "view_id2": {
@@ -40901,7 +40925,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the view to delete.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "view_id4": {
@@ -40910,7 +40934,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the view.",
-          "$ref": "#/components/schemas/emoji"
+          "$ref": "#/components/schemas/idRequest"
         }
       }
     },

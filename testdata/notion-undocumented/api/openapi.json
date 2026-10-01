@@ -3501,7 +3501,7 @@
           },
           "user_id": {
             "description": "The ID of the user to add.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -3566,7 +3566,7 @@
         "description": "The ID of the agent to chat with. Use a UUID for custom agents or `notion_ai` for Notion Agent (personal agent); the reserved UUID `33333333-3333-3333-3333-333333333333` remains supported for backward compatibility.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           {
             "$ref": "#/components/schemas/AgentIDOneOf"
@@ -3577,7 +3577,7 @@
         "description": "The ID of the agent backing this external agent session.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           {
             "description": "Always `33333333-3333-3333-3333-333333333333`",
@@ -3690,7 +3690,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+              "$ref": "#/components/schemas/idRequest"
             }
           },
           "edited_by_user_ids": {
@@ -3698,7 +3698,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+              "$ref": "#/components/schemas/idRequest"
             }
           },
           "last_edited_date_range": {
@@ -3709,7 +3709,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+              "$ref": "#/components/schemas/idRequest"
             }
           },
           "title_only": {
@@ -5269,7 +5269,7 @@
           "thread_id": {
             "description": "Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created.",
             "deprecated": true,
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "additionalProperties": false
@@ -5460,7 +5460,7 @@
             "const": "comment_id"
           },
           "comment_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -5607,7 +5607,7 @@
         "type": "object",
         "properties": {
           "action_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "option_id": {
             "$ref": "#/components/schemas/ContinueThreadOneOfOptionID"
@@ -5623,7 +5623,7 @@
         "type": "object",
         "properties": {
           "action_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "option_id": {
             "description": "Always `use_connection`",
@@ -5645,7 +5645,7 @@
         "type": "object",
         "properties": {
           "connection_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -7020,7 +7020,7 @@
       "CreatedByItem": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           {
             "description": "Always `me`",
@@ -7101,7 +7101,7 @@
         "properties": {
           "id": {
             "description": "The ID of the custom emoji.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "name": {
             "description": "The name of the custom emoji.",
@@ -7217,7 +7217,7 @@
         "properties": {
           "id": {
             "description": "The ID of the database in the mention.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -7247,7 +7247,7 @@
             "const": "database_id"
           },
           "database_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -7687,7 +7687,7 @@
         "description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/timeZoneRequest"
           },
           {
             "type": "null"
@@ -7717,7 +7717,7 @@
         "properties": {
           "transfer_to_owner_id": {
             "description": "The ID of an active workspace owner who will receive access that would otherwise be orphaned.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         }
       },
@@ -8218,7 +8218,7 @@
         "properties": {
           "file_upload_id": {
             "description": "The FileUpload ID returned by the create-attachment tool.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -8916,15 +8916,7 @@
       },
       "ExternalDecagonAnyOfProductName": {
         "type": "string",
-        "enum": [],
-        "example": "😀",
-        "examples": [
-          "pizza",
-          "meeting",
-          "home",
-          "star",
-          "robot"
-        ]
+        "enum": []
       },
       "ExternalDecagonOk": {
         "anyOf": [
@@ -10824,7 +10816,7 @@
         "properties": {
           "name": {
             "description": "The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/noticonName"
           },
           "color": {
             "description": "The color variant of the icon. Defaults to gray if not specified. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.",
@@ -10861,7 +10853,7 @@
         "properties": {
           "blockId": {
             "description": "The ID of the page or block to export.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -13827,7 +13819,7 @@
         "properties": {
           "format": {
             "description": "The number format for the property.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/numberFormat"
           }
         },
         "required": [
@@ -13952,7 +13944,7 @@
             "const": "page_id"
           },
           "page_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -15451,7 +15443,7 @@
         "properties": {
           "id": {
             "description": "Filter threads by ID (exact match).",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "status": {
             "$ref": "#/components/schemas/QueryThreadsFilterStatus"
@@ -22532,7 +22524,7 @@
             "const": "block_id"
           },
           "block_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         },
         "required": [
@@ -23569,11 +23561,11 @@
         "properties": {
           "from_user_id": {
             "description": "The ID of the source user to transfer content from.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "to_user_id": {
             "description": "The ID of the destination user to transfer content to.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "content_types": {
             "$ref": "#/components/schemas/TransferUserContentContentTypes"
@@ -24248,7 +24240,7 @@
         "properties": {
           "entity_id": {
             "description": "The ID of the entity (person or group).",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "entity_type": {
             "$ref": "#/components/schemas/ListTeamMembershipResultsItemType"
@@ -24274,7 +24266,7 @@
         "properties": {
           "entity_id": {
             "description": "The ID of the entity (person or group).",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "entity_type": {
             "$ref": "#/components/schemas/ListTeamMembershipResultsItemType"
@@ -24300,7 +24292,7 @@
         "properties": {
           "entity_id": {
             "description": "The ID of the entity (person or group).",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "entity_type": {
             "$ref": "#/components/schemas/ListTeamMembershipResultsItemType"
@@ -24341,7 +24333,7 @@
         "properties": {
           "id": {
             "description": "The ID of the space, teamspace, group, or person.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "type": {
             "$ref": "#/components/schemas/ListTeamPermissionsResultsItemType"
@@ -26705,12 +26697,16 @@
           },
           "emoji": {
             "description": "An emoji character.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/emojiRequest"
           }
         },
         "required": [
           "emoji"
         ]
+      },
+      "emojiRequest": {
+        "type": "string",
+        "example": "😀"
       },
       "emptyObject": {
         "type": "object",
@@ -27898,6 +27894,9 @@
           "icon"
         ]
       },
+      "idRequest": {
+        "type": "string"
+      },
       "idResponse": {
         "type": "string",
         "format": "uuid"
@@ -28584,6 +28583,16 @@
         ],
         "additionalProperties": false
       },
+      "noticonName": {
+        "type": "string",
+        "examples": [
+          "pizza",
+          "meeting",
+          "home",
+          "star",
+          "robot"
+        ]
+      },
       "numberDatabasePropertyConfigResponse": {
         "title": "Number",
         "type": "object",
@@ -28601,6 +28610,10 @@
           "type",
           "number"
         ]
+      },
+      "numberFormat": {
+        "type": "string",
+        "example": "number"
       },
       "numberFormulaPropertyResponse": {
         "title": "Number",
@@ -29149,7 +29162,7 @@
         "properties": {
           "id": {
             "description": "The ID of the user.",
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "object": {
             "description": "The user object type name.",
@@ -32497,6 +32510,10 @@
           "text"
         ]
       },
+      "timeZoneRequest": {
+        "type": "string",
+        "example": "Africa/Abidjan"
+      },
       "titleArrayBasedPropertyValueResponse": {
         "title": "Title",
         "type": "object",
@@ -32717,7 +32734,7 @@
             "type": "array",
             "maxItems": 100,
             "items": {
-              "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+              "$ref": "#/components/schemas/idRequest"
             }
           }
         },
@@ -32730,13 +32747,13 @@
         "type": "object",
         "properties": {
           "summary_block_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "notes_block_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           },
           "transcript_block_id": {
-            "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+            "$ref": "#/components/schemas/idRequest"
           }
         }
       },
@@ -40003,7 +40020,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the group.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "id": {
@@ -40012,7 +40029,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page or block to export.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "id2": {
@@ -40020,7 +40037,7 @@
         "in": "query",
         "schema": {
           "description": "Filter threads by ID (exact match).",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "include_types": {
@@ -40069,7 +40086,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the page to remove guests from.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_id2": {
@@ -40077,7 +40094,7 @@
         "in": "path",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "page_size": {
@@ -40141,7 +40158,7 @@
         "required": true,
         "schema": {
           "description": "The provider-owned session ID returned when the session was created.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "sort_by": {
@@ -40194,7 +40211,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to retrieve.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "team_id2": {
@@ -40203,7 +40220,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to update.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "team_id3": {
@@ -40212,7 +40229,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to retrieve membership for.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "team_id4": {
@@ -40221,7 +40238,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to update membership for.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "team_id5": {
@@ -40230,7 +40247,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to retrieve permissions for",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "team_id6": {
@@ -40239,7 +40256,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the teamspace to update permissions for.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "thread_id": {
@@ -40248,7 +40265,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the thread.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "title": {
@@ -40272,7 +40289,7 @@
         "in": "query",
         "schema": {
           "description": "If provided, returns the teamspaces that the given user can access.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "user_id2": {
@@ -40281,7 +40298,7 @@
         "required": true,
         "schema": {
           "description": "The ID of the user.",
-          "$ref": "#/components/schemas/ExternalDecagonAnyOfProductName"
+          "$ref": "#/components/schemas/idRequest"
         }
       },
       "vault_id": {

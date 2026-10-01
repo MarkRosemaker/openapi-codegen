@@ -82,7 +82,7 @@ type ListDataSourceTemplatesParams struct {
 
 // ListCommentsParams holds the query parameters for ListComments.
 type ListCommentsParams struct {
-	BlockID     emoji
+	BlockID     idRequest
 	StartCursor string
 	PageSize    int
 }
@@ -103,8 +103,8 @@ type ListCustomEmojisParams struct {
 
 // ListViewsParams holds the query parameters for ListViews.
 type ListViewsParams struct {
-	DatabaseID   emoji
-	DataSourceID emoji
+	DatabaseID   idRequest
+	DataSourceID idRequest
 	StartCursor  string
 	PageSize     int
 }
@@ -319,7 +319,7 @@ func (v *AgentBatchOperationsItemOneOf2) unmarshalJSONMember(dec *jsontext.Decod
 // The agent ID (a UUID), or `notion_ai` for the personal agent. Endpoint-specific restrictions still apply.
 // AgentBatchOperationsItemOneOfAgentID is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AgentBatchOperationsItemOneOfAgentID struct {
-	Emoji                                     *emoji
+	IDRequest                                 *idRequest
 	AgentBatchOperationsItemOneOfAgentIDOneOf *AgentBatchOperationsItemOneOfAgentIDOneOf
 }
 
@@ -333,9 +333,9 @@ func (v *AgentBatchOperationsItemOneOfAgentID) UnmarshalJSONFrom(dec *jsontext.D
 	var matched int
 
 	{
-		var vv emoji
+		var vv idRequest
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Emoji = &vv
+			v.IDRequest = &vv
 			matched++
 		}
 	}
@@ -358,8 +358,8 @@ func (v *AgentBatchOperationsItemOneOfAgentID) UnmarshalJSONFrom(dec *jsontext.D
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *AgentBatchOperationsItemOneOfAgentID) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.Emoji != nil:
-		return json.MarshalEncode(enc, v.Emoji, jsonOpts)
+	case v.IDRequest != nil:
+		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
 	case v.AgentBatchOperationsItemOneOfAgentIDOneOf != nil:
 		return json.MarshalEncode(enc, v.AgentBatchOperationsItemOneOfAgentIDOneOf, jsonOpts)
 	}
@@ -3226,8 +3226,8 @@ type CommentCreatedWebhookPayloadAllOfData struct {
 
 // CommentID defines a model
 type CommentID struct {
-	CommentID emoji  `json:"comment_id,omitzero"`
-	Type      string `json:"type,omitzero"`
+	CommentID idRequest `json:"comment_id,omitzero"`
+	Type      string    `json:"type,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether CommentID declares it.
@@ -3302,7 +3302,7 @@ func (e CommentObjectResponseDisplayNameType) Valid() bool {
 
 // ContentPositionSchemaAnyOfAfterBlock defines a model
 type ContentPositionSchemaAnyOfAfterBlock struct {
-	ID emoji `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 }
 
 // Source of the cover image.
@@ -3748,7 +3748,7 @@ type CreateACommentAllOf1OneOf1 struct {
 // CreateACommentAllOf1OneOf2 defines a model
 type CreateACommentAllOf1OneOf2 struct {
 	// The ID of the discussion to comment on.
-	DiscussionID emoji `json:"discussion_id,omitzero"`
+	DiscussionID idRequest `json:"discussion_id,omitzero"`
 	// An array of rich text objects that represent the content of the comment.
 	RichText []richTextItemRequest `json:"rich_text"`
 }
@@ -3756,7 +3756,7 @@ type CreateACommentAllOf1OneOf2 struct {
 // CreateACommentAllOf1OneOf3 defines a model
 type CreateACommentAllOf1OneOf3 struct {
 	// The ID of the discussion to comment on.
-	DiscussionID emoji `json:"discussion_id,omitzero"`
+	DiscussionID idRequest `json:"discussion_id,omitzero"`
 	// The content of the comment as a Markdown string. Comment Markdown supports inline formatting only (bold, italic, strikethrough, code, links), inline equations ($expression$), and mentions. Block-level Markdown such as fenced code blocks, headings, lists, tables, and blockquotes does not render as structured blocks in comments.
 	Markdown string `json:"markdown,omitzero"`
 }
@@ -3829,7 +3829,7 @@ func (v *CreateACommentAllOfOneOfParent) MarshalJSONTo(enc *jsontext.Encoder) er
 // CreateACommentAllOfOneOfParentOneOf defines a model
 type CreateACommentAllOfOneOfParentOneOf struct {
 	// The ID of the parent page (with or without dashes), for example, 195de9221179449fab8075a27c979105
-	PageID emoji `json:"page_id,omitzero"`
+	PageID idRequest `json:"page_id,omitzero"`
 	// Always `page_id`
 	Type string `json:"type,omitzero"`
 }
@@ -3849,7 +3849,7 @@ func (v *CreateACommentAllOfOneOfParentOneOf) unmarshalJSONMember(dec *jsontext.
 // CreateACommentAllOfOneOfParentOneOf2 defines a model
 type CreateACommentAllOfOneOfParentOneOf2 struct {
 	// The ID of the parent block (with or without dashes), for example, 195de9221179449fab8075a27c979105
-	BlockID emoji `json:"block_id,omitzero"`
+	BlockID idRequest `json:"block_id,omitzero"`
 	// Always `block_id`
 	Type string `json:"type,omitzero"`
 }
@@ -4216,7 +4216,7 @@ type CreateDatabaseForViewRequestPosition struct {
 	// Position type. "after_block" places the new database after the specified block in the page.
 	Type string `json:"type,omitzero"`
 	// The ID of an existing block in the page. The new database will be placed after this block.
-	BlockID emoji `json:"block_id,omitzero"`
+	BlockID idRequest `json:"block_id,omitzero"`
 }
 
 // The parent page or workspace where the database will be created.
@@ -4696,7 +4696,7 @@ type CreateMeetingNoteAllOf1OneOf0Source struct {
 	// Always "file_upload".
 	Type string `json:"type,omitzero"`
 	// ID of a completed public API file upload.
-	FileUploadID emoji `json:"file_upload_id,omitzero"`
+	FileUploadID idRequest `json:"file_upload_id,omitzero"`
 }
 
 // CreateMeetingNoteAllOf1OneOf1 defines a model
@@ -4712,7 +4712,7 @@ type CreateMeetingNoteAllOf1OneOf1Source struct {
 	// Always "block".
 	Type string `json:"type,omitzero"`
 	// ID of an existing audio, video, or file block.
-	BlockID emoji `json:"block_id,omitzero"`
+	BlockID idRequest `json:"block_id,omitzero"`
 }
 
 // CreateMeetingNoteOk defines a model
@@ -5112,7 +5112,7 @@ func (v *CustomEmoji3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (
 // Details of the custom emoji mention.
 type CustomEmojiCustomEmoji struct {
 	// The ID of the custom emoji.
-	ID emoji `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 	// The name of the custom emoji.
 	Name string `json:"name,omitzero"`
 	// The URL of the custom emoji.
@@ -5135,8 +5135,8 @@ type DataSourceCreatedWebhookPayloadAllOfData struct {
 
 // DataSourceID defines a model
 type DataSourceID struct {
-	DataSourceID emoji  `json:"data_source_id,omitzero"`
-	Type         string `json:"type,omitzero"`
+	DataSourceID idRequest `json:"data_source_id,omitzero"`
+	Type         string    `json:"type,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether DataSourceID declares it.
@@ -5289,8 +5289,8 @@ type Database3 struct {
 
 // DatabaseID defines a model
 type DatabaseID struct {
-	DatabaseID emoji  `json:"database_id,omitzero"`
-	Type       string `json:"type,omitzero"`
+	DatabaseID idRequest `json:"database_id,omitzero"`
+	Type       string    `json:"type,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether DatabaseID declares it.
@@ -7794,7 +7794,7 @@ func (v *Heading44) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 // A Notion native icon, specified by name and optional color.
 type IconPageIcon struct {
 	// The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.
-	Name emoji `json:"name,omitzero"`
+	Name noticonName `json:"name,omitzero"`
 	// The color variant of the icon. Defaults to gray if not specified. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.
 	Color ChartReferenceLineColor `json:"color,omitzero"`
 }
@@ -9082,7 +9082,7 @@ func (v *Number4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool,
 // NumberDatabasePropertyConfigNumber defines a model
 type NumberDatabasePropertyConfigNumber struct {
 	// The number format for the property.
-	Format emoji `json:"format,omitzero"`
+	Format numberFormat `json:"format,omitzero"`
 }
 
 // NumberedListItem defines a model
@@ -9628,8 +9628,9 @@ func (v *PagePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // PageTemplateAnyOf defines a model
 type PageTemplateAnyOf struct {
-	Type     string `json:"type,omitzero"`
-	Timezone emoji  `json:"timezone,omitzero"`
+	Type string `json:"type,omitzero"`
+	// IANA timezone to use when resolving template variables like @now and @today (e.g. 'America/New_York'). Defaults to the authorizing user's timezone for public integrations, or UTC for internal integrations.
+	Timezone templateTimezone `json:"timezone,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether PageTemplateAnyOf declares it.
@@ -9646,9 +9647,10 @@ func (v *PageTemplateAnyOf) unmarshalJSONMember(dec *jsontext.Decoder, name stri
 
 // PageTemplateAnyOf2 defines a model
 type PageTemplateAnyOf2 struct {
-	Type       string `json:"type,omitzero"`
-	TemplateID emoji  `json:"template_id,omitzero"`
-	Timezone   emoji  `json:"timezone,omitzero"`
+	Type       string    `json:"type,omitzero"`
+	TemplateID idRequest `json:"template_id,omitzero"`
+	// IANA timezone to use when resolving template variables like @now and @today (e.g. 'America/New_York'). Defaults to the authorizing user's timezone for public integrations, or UTC for internal integrations.
+	Timezone templateTimezone `json:"timezone,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether PageTemplateAnyOf2 declares it.
@@ -10188,12 +10190,12 @@ func (v *PeopleItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // Person defines a model
 type Person struct {
-	Type      string  `json:"type,omitzero"`
-	Person    Person2 `json:"person"`
-	Name      string  `json:"name,omitzero"`
-	AvatarURL string  `json:"avatar_url,omitzero"`
-	ID        emoji   `json:"id,omitzero"`
-	Object    string  `json:"object,omitzero"`
+	Type      string    `json:"type,omitzero"`
+	Person    Person2   `json:"person"`
+	Name      string    `json:"name,omitzero"`
+	AvatarURL string    `json:"avatar_url,omitzero"`
+	ID        idRequest `json:"id,omitzero"`
+	Object    string    `json:"object,omitzero"`
 }
 
 // Person2 defines a model
@@ -14775,7 +14777,7 @@ func (v *Relation5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 
 // RelationPropertyConfigurationRelation defines a model
 type RelationPropertyConfigurationRelation struct {
-	DataSourceID                                emoji                                       `json:"data_source_id,omitzero"`
+	DataSourceID                                idRequest                                   `json:"data_source_id,omitzero"`
 	RelationPropertyConfigurationRelationAllOf2 RelationPropertyConfigurationRelationAllOf2 `json:"-"`
 }
 
@@ -19975,7 +19977,7 @@ type UpdateSessionRequestOneOf0 struct {
 	Message string `json:"message,omitzero"`
 	// The agent ID (a UUID), or `notion_ai` for the personal agent. Endpoint-specific restrictions still apply.
 	AgentID       *AgentBatchOperationsItemOneOfAgentID `json:"agent_id,omitempty"`
-	SessionID     emoji                                 `json:"session_id,omitzero"`
+	SessionID     idRequest                             `json:"session_id,omitzero"`
 	Attachments   UpdateSessionRequestOneOf0Attachments `json:"attachments,omitzero"`
 	Metadata      *map[string]string                    `json:"metadata,omitempty"`
 	PromptContext string                                `json:"prompt_context,omitzero"`
@@ -19999,7 +20001,7 @@ type UpdateSessionRequestOneOf0AttachmentsItemFileUpload struct {
 
 // UpdateSessionRequestOneOf1 defines a model
 type UpdateSessionRequestOneOf1 struct {
-	SessionID emoji                             `json:"session_id,omitzero"`
+	SessionID idRequest                         `json:"session_id,omitzero"`
 	Actions   UpdateSessionRequestOneOf1Actions `json:"actions"`
 	Metadata  *map[string]string                `json:"metadata,omitempty"`
 }
@@ -20009,15 +20011,15 @@ type UpdateSessionRequestOneOf1Actions []UpdateSessionRequestOneOf1ActionsItem
 
 // UpdateSessionRequestOneOf1ActionsItem defines a model
 type UpdateSessionRequestOneOf1ActionsItem struct {
-	ActionID emoji `json:"action_id,omitzero"`
+	ActionID idRequest `json:"action_id,omitzero"`
 	// One of: `approve`, `reject`
 	OptionID CancelSessionRequiredActionsItemID `json:"option_id,omitzero"`
 }
 
 // UpdateSessionRequestOneOf2 defines a model
 type UpdateSessionRequestOneOf2 struct {
-	SessionID    emoji  `json:"session_id,omitzero"`
-	ContinueFrom string `json:"continue_from,omitzero"`
+	SessionID    idRequest `json:"session_id,omitzero"`
+	ContinueFrom string    `json:"continue_from,omitzero"`
 }
 
 // UploadFile defines a model
@@ -23900,15 +23902,15 @@ type createViewQueryRequest struct {
 // createViewRequest defines a model
 type createViewRequest struct {
 	// The ID of the data source this view should be scoped to.
-	DataSourceID emoji `json:"data_source_id,omitzero"`
+	DataSourceID idRequest `json:"data_source_id,omitzero"`
 	// The name of the view.
 	Name string `json:"name,omitzero"`
 	// The type of view to create.
 	Type DataSourceViewObjectType `json:"type,omitzero"`
 	// The ID of the database to create a view in. Mutually exclusive with view_id and create_database.
-	DatabaseID emoji `json:"database_id,omitzero"`
+	DatabaseID idRequest `json:"database_id,omitzero"`
 	// The ID of a dashboard view to add this view to as a widget. Mutually exclusive with database_id and create_database.
-	ViewID emoji `json:"view_id,omitzero"`
+	ViewID idRequest `json:"view_id,omitzero"`
 	// Filter to apply to the view. Uses the same format as the data source query filter.
 	Filter *quickFilterCondition `json:"filter,omitempty"`
 	// Sorts to apply to the view. Uses the same format as the data source query sorts.
@@ -25465,7 +25467,7 @@ type date struct {
 	// The end date of the date object, if any.
 	End *civil.Date `json:"end,omitempty"`
 	// The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.
-	TimeZone *emoji `json:"time_zone,omitempty"`
+	TimeZone *timeZoneRequest `json:"time_zone,omitempty"`
 }
 
 // dateFormulaPropertyValue defines a model
@@ -25996,15 +25998,12 @@ func (v *embedBlockObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, na
 	return false, nil
 }
 
-// emoji defines a model
-type emoji string
-
 // emojiPageIcon defines a model
 type emojiPageIcon struct {
 	// Always `emoji`
 	Type string `json:"type,omitzero"`
 	// An emoji character.
-	Emoji emoji `json:"emoji,omitzero"`
+	Emoji emojiRequest `json:"emoji,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether emojiPageIcon declares it.
@@ -26018,6 +26017,9 @@ func (v *emojiPageIcon) unmarshalJSONMember(dec *jsontext.Decoder, name string) 
 
 	return false, nil
 }
+
+// emojiRequest defines a model
+type emojiRequest string
 
 // emptyObject defines a model
 type emptyObject struct{}
@@ -27460,9 +27462,9 @@ type groupFilterOperatorArrayItemAnyOf1AnyOf1 struct {
 
 // groupObjectRequest defines a model
 type groupObjectRequest struct {
-	ID     emoji  `json:"id,omitzero"`
-	Name   string `json:"name,omitzero"`
-	Object string `json:"object,omitzero"`
+	ID     idRequest `json:"id,omitzero"`
+	Name   string    `json:"name,omitzero"`
+	Object string    `json:"object,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether groupObjectRequest declares it.
@@ -27719,6 +27721,9 @@ func (v *iconPageIcon) unmarshalJSONMember(dec *jsontext.Decoder, name string) (
 
 	return false, nil
 }
+
+// idRequest defines a model
+type idRequest string
 
 // idResponse defines a model
 type idResponse = uuid.UUID
@@ -29034,6 +29039,12 @@ func (v *multiSelectSimplePropertyValueResponse) unmarshalJSONMember(dec *jsonte
 
 	return false, nil
 }
+
+// noticonName defines a model
+type noticonName string
+
+// numberFormat defines a model
+type numberFormat string
 
 // numberFormulaPropertyValue defines a model
 type numberFormulaPropertyValue struct {
@@ -31235,7 +31246,7 @@ type partialSelectPropertyValue struct {
 // partialUserObjectRequest defines a model
 type partialUserObjectRequest struct {
 	// The ID of the user.
-	ID emoji `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 	// The user object type name.
 	Object string `json:"object,omitzero"`
 }
@@ -31476,8 +31487,8 @@ type personGroupByConfig struct {
 // personIdOrMe defines a model
 // personIdOrMe is an untagged anyOf union: at least one field is set after unmarshaling.
 type personIdOrMe struct {
-	Emoji  *emoji
-	String *string
+	IDRequest *idRequest
+	String    *string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -31490,9 +31501,9 @@ func (v *personIdOrMe) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv emoji
+		var vv idRequest
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.Emoji = &vv
+			v.IDRequest = &vv
 			matched++
 		}
 	}
@@ -31515,8 +31526,8 @@ func (v *personIdOrMe) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *personIdOrMe) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.Emoji != nil:
-		return json.MarshalEncode(enc, v.Emoji, jsonOpts)
+	case v.IDRequest != nil:
+		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
 	case v.String != nil:
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	}
@@ -33690,12 +33701,12 @@ func (v *relationPropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) erro
 
 // relationPropertyFilterAnyOf0AnyOf0 defines a model
 type relationPropertyFilterAnyOf0AnyOf0 struct {
-	Contains emoji `json:"contains,omitzero"`
+	Contains idRequest `json:"contains,omitzero"`
 }
 
 // relationPropertyFilterAnyOf0AnyOf1 defines a model
 type relationPropertyFilterAnyOf0AnyOf1 struct {
-	DoesNotContain emoji `json:"does_not_contain,omitzero"`
+	DoesNotContain idRequest `json:"does_not_contain,omitzero"`
 }
 
 // relationPropertyItemObjectResponse defines a model
@@ -36087,6 +36098,9 @@ func (v *templateMentionUserTemplateMention) unmarshalJSONMember(dec *jsontext.D
 	return false, nil
 }
 
+// IANA timezone to use when resolving template variables like @now and @today (e.g. 'America/New_York'). Defaults to the authorizing user's timezone for public integrations, or UTC for internal integrations.
+type templateTimezone string
+
 // textGroupByConfig defines a model
 type textGroupByConfig struct {
 	// The property type for grouping.
@@ -36291,6 +36305,9 @@ func (v *textRichTextItem) unmarshalJSONMember(dec *jsontext.Decoder, name strin
 
 	return false, nil
 }
+
+// timeZoneRequest defines a model
+type timeZoneRequest string
 
 // timelineArrowsBy defines a model
 type timelineArrowsBy struct {
@@ -36673,16 +36690,16 @@ type transcriptionBlockResponse struct {
 
 // transcriptionCalendarEventResponse defines a model
 type transcriptionCalendarEventResponse struct {
-	StartTime time.Time `json:"start_time,omitzero"`
-	EndTime   time.Time `json:"end_time,omitzero"`
-	Attendees []emoji   `json:"attendees,omitzero"`
+	StartTime time.Time   `json:"start_time,omitzero"`
+	EndTime   time.Time   `json:"end_time,omitzero"`
+	Attendees []idRequest `json:"attendees,omitzero"`
 }
 
 // transcriptionChildrenResponse defines a model
 type transcriptionChildrenResponse struct {
-	SummaryBlockID    emoji `json:"summary_block_id,omitzero"`
-	NotesBlockID      emoji `json:"notes_block_id,omitzero"`
-	TranscriptBlockID emoji `json:"transcript_block_id,omitzero"`
+	SummaryBlockID    idRequest `json:"summary_block_id,omitzero"`
+	NotesBlockID      idRequest `json:"notes_block_id,omitzero"`
+	TranscriptBlockID idRequest `json:"transcript_block_id,omitzero"`
 }
 
 // transcriptionRecordingResponse defines a model
@@ -37776,7 +37793,7 @@ type viewPositionRequestOneOf2 struct {
 	// Position type. "after_view" places the new view immediately after the specified view.
 	Type string `json:"type,omitzero"`
 	// The ID of an existing view in the database. The new view will be placed after this view.
-	ViewID emoji `json:"view_id,omitzero"`
+	ViewID idRequest `json:"view_id,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether viewPositionRequestOneOf2 declares it.

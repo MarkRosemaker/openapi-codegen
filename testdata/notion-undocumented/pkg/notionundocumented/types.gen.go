@@ -55,7 +55,7 @@ type ChatWithAgentStreamParams struct {
 type ListTeamspacesParams struct {
 	StartCursor string
 	PageSize    int
-	UserID      ExternalDecagonAnyOfProductName
+	UserID      idRequest
 }
 
 // ListAgentsParams holds the query parameters for ListAgents.
@@ -107,7 +107,7 @@ type ListThreadMessagesParams struct {
 
 // ListThreadsParams holds the query parameters for ListThreads.
 type ListThreadsParams struct {
-	ID            ExternalDecagonAnyOfProductName
+	ID            idRequest
 	Title         string
 	Status        Status
 	Activity      Activity
@@ -153,7 +153,7 @@ type AddGroupMemberMember struct {
 	// The type of member.
 	Type string `json:"type,omitzero"`
 	// The ID of the user to add.
-	UserID ExternalDecagonAnyOfProductName `json:"user_id,omitzero"`
+	UserID idRequest `json:"user_id,omitzero"`
 }
 
 // The user's role in the group.
@@ -256,8 +256,8 @@ func (e AdvancedFilterOperator) Valid() bool {
 // The ID of the agent to chat with. Use a UUID for custom agents or `notion_ai` for Notion Agent (personal agent); the reserved UUID `33333333-3333-3333-3333-333333333333` remains supported for backward compatibility.
 // AgentID is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AgentID struct {
-	ExternalDecagonAnyOfProductName *ExternalDecagonAnyOfProductName
-	AgentIDOneOf                    *AgentIDOneOf
+	IDRequest    *idRequest
+	AgentIDOneOf *AgentIDOneOf
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -270,9 +270,9 @@ func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ExternalDecagonAnyOfProductName
+		var vv idRequest
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalDecagonAnyOfProductName = &vv
+			v.IDRequest = &vv
 			matched++
 		}
 	}
@@ -295,8 +295,8 @@ func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *AgentID) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.ExternalDecagonAnyOfProductName != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOfProductName, jsonOpts)
+	case v.IDRequest != nil:
+		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
 	case v.AgentIDOneOf != nil:
 		return json.MarshalEncode(enc, v.AgentIDOneOf, jsonOpts)
 	}
@@ -307,8 +307,8 @@ func (v *AgentID) MarshalJSONTo(enc *jsontext.Encoder) error {
 // The ID of the agent backing this external agent session.
 // AgentID2 is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AgentID2 struct {
-	ExternalDecagonAnyOfProductName *ExternalDecagonAnyOfProductName
-	String                          *string
+	IDRequest *idRequest
+	String    *string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -321,9 +321,9 @@ func (v *AgentID2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ExternalDecagonAnyOfProductName
+		var vv idRequest
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalDecagonAnyOfProductName = &vv
+			v.IDRequest = &vv
 			matched++
 		}
 	}
@@ -346,8 +346,8 @@ func (v *AgentID2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *AgentID2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.ExternalDecagonAnyOfProductName != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOfProductName, jsonOpts)
+	case v.IDRequest != nil:
+		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
 	case v.String != nil:
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	}
@@ -477,13 +477,13 @@ type AiSearchAiSearchFilters struct {
 	// Optional filter to only produce search results created within the specified date range.
 	CreatedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"created_date_range,omitempty"`
 	// Optional filter to only produce search results created by the Notion users that have the specified user IDs.
-	CreatedByUserIds []ExternalDecagonAnyOfProductName `json:"created_by_user_ids,omitzero"`
+	CreatedByUserIds []idRequest `json:"created_by_user_ids,omitzero"`
 	// Optional filter to only produce search results edited by the Notion users that have the specified user IDs. Available on the Business plan.
-	EditedByUserIds []ExternalDecagonAnyOfProductName `json:"edited_by_user_ids,omitzero"`
+	EditedByUserIds []idRequest `json:"edited_by_user_ids,omitzero"`
 	// Optional filter to only produce search results created within the specified date range.
 	LastEditedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"last_edited_date_range,omitempty"`
 	// Optional filter to only produce search results inside one of the specified teamspaces. Selecting more than one teamspace is available on the Business plan; use teamspace_id for one teamspace on other plans.
-	TeamspaceIds []ExternalDecagonAnyOfProductName `json:"teamspace_ids,omitzero"`
+	TeamspaceIds []idRequest `json:"teamspace_ids,omitzero"`
 	// When true, match the query only against page and database titles instead of page content. Available on the Business plan.
 	TitleOnly bool `json:"title_only,omitempty"`
 	// Which pages to include by status. Omit for the default live pages. Supplying this field, even with the default value, requires Business access.
@@ -1724,7 +1724,7 @@ type ChatWithAgent struct {
 	// Additional caller-provided context for the agent to consider while responding.
 	PromptContext string `json:"prompt_context,omitzero"`
 	// Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created.
-	ThreadID ExternalDecagonAnyOfProductName `json:"thread_id,omitzero"`
+	ThreadID idRequest `json:"thread_id,omitzero"`
 }
 
 // ChatWithAgent2 defines a model
@@ -1822,8 +1822,8 @@ type Comment struct {
 
 // CommentID defines a model
 type CommentID struct {
-	Type      string                          `json:"type,omitzero"`
-	CommentID ExternalDecagonAnyOfProductName `json:"comment_id,omitzero"`
+	Type      string    `json:"type,omitzero"`
+	CommentID idRequest `json:"comment_id,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether CommentID declares it.
@@ -2021,14 +2021,14 @@ func (v *ContinueThreadRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // ContinueThreadRequestOneOf0 defines a model
 type ContinueThreadRequestOneOf0 struct {
-	ActionID ExternalDecagonAnyOfProductName `json:"action_id,omitzero"`
+	ActionID idRequest `json:"action_id,omitzero"`
 	// One of: `approve`, `reject`
 	OptionID ContinueThreadOneOfOptionID `json:"option_id,omitzero"`
 }
 
 // ContinueThreadRequestOneOf1 defines a model
 type ContinueThreadRequestOneOf1 struct {
-	ActionID ExternalDecagonAnyOfProductName `json:"action_id,omitzero"`
+	ActionID idRequest `json:"action_id,omitzero"`
 	// Always `use_connection`
 	OptionID string                           `json:"option_id,omitzero"`
 	Input    ContinueThreadRequestOneOf1Input `json:"input"`
@@ -2036,7 +2036,7 @@ type ContinueThreadRequestOneOf1 struct {
 
 // ContinueThreadRequestOneOf1Input defines a model
 type ContinueThreadRequestOneOf1Input struct {
-	ConnectionID ExternalDecagonAnyOfProductName `json:"connection_id,omitzero"`
+	ConnectionID idRequest `json:"connection_id,omitzero"`
 }
 
 // ConvertPageToSkill defines a model
@@ -4412,8 +4412,8 @@ func (v *CreateWorkspaceBookmarkCreateWorkspaceBookmarkTimestamp) MarshalJSONTo(
 // CreatedByItem defines a model
 // CreatedByItem is an untagged oneOf union: exactly one field is set after unmarshaling.
 type CreatedByItem struct {
-	ExternalDecagonAnyOfProductName *ExternalDecagonAnyOfProductName
-	String                          *string
+	IDRequest *idRequest
+	String    *string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -4426,9 +4426,9 @@ func (v *CreatedByItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ExternalDecagonAnyOfProductName
+		var vv idRequest
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.ExternalDecagonAnyOfProductName = &vv
+			v.IDRequest = &vv
 			matched++
 		}
 	}
@@ -4451,8 +4451,8 @@ func (v *CreatedByItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *CreatedByItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.ExternalDecagonAnyOfProductName != nil:
-		return json.MarshalEncode(enc, v.ExternalDecagonAnyOfProductName, jsonOpts)
+	case v.IDRequest != nil:
+		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
 	case v.String != nil:
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	}
@@ -4561,7 +4561,7 @@ func (v *CustomEmoji4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (
 // Details of the custom emoji mention.
 type CustomEmojiCustomEmoji struct {
 	// The ID of the custom emoji.
-	ID ExternalDecagonAnyOfProductName `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 	// The name of the custom emoji.
 	Name string `json:"name,omitzero"`
 	// The URL of the custom emoji.
@@ -4643,7 +4643,7 @@ func (v *Database2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 // Details of the database mention.
 type Database3 struct {
 	// The ID of the database in the mention.
-	ID ExternalDecagonAnyOfProductName `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 }
 
 // Details of the database mention.
@@ -4654,8 +4654,8 @@ type Database4 struct {
 
 // DatabaseID defines a model
 type DatabaseID struct {
-	Type       string                          `json:"type,omitzero"`
-	DatabaseID ExternalDecagonAnyOfProductName `json:"database_id,omitzero"`
+	Type       string    `json:"type,omitzero"`
+	DatabaseID idRequest `json:"database_id,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether DatabaseID declares it.
@@ -5188,7 +5188,7 @@ func (v *DeleteComment) unmarshalJSONMember(dec *jsontext.Decoder, name string) 
 // DeleteGroup defines a model
 type DeleteGroup struct {
 	// The ID of an active workspace owner who will receive access that would otherwise be orphaned.
-	TransferToOwnerID ExternalDecagonAnyOfProductName `json:"transfer_to_owner_id,omitzero"`
+	TransferToOwnerID idRequest `json:"transfer_to_owner_id,omitzero"`
 }
 
 // DeletePage defines a model
@@ -5850,7 +5850,7 @@ func (v *DownloadAttachment) unmarshalJSONMember(dec *jsontext.Decoder, name str
 // If availability is not already known for this connection, call get_tool_access with {} before using this tool. Reuse the returned access map across tools; check the status and restricted_parameters.
 type DownloadAttachmentDownloadAttachment struct {
 	// The FileUpload ID returned by the create-attachment tool.
-	FileUploadID ExternalDecagonAnyOfProductName `json:"file_upload_id,omitzero"`
+	FileUploadID idRequest `json:"file_upload_id,omitzero"`
 }
 
 // DownloadSkill defines a model
@@ -8356,7 +8356,7 @@ type IconIcon struct {
 // A Notion native icon, specified by name and optional color.
 type IconPageIcon struct {
 	// The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.
-	Name ExternalDecagonAnyOfProductName `json:"name,omitzero"`
+	Name noticonName `json:"name,omitzero"`
 	// The color variant of the icon. Defaults to gray if not specified. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.
 	Color IconColor `json:"color,omitzero"`
 }
@@ -8385,7 +8385,7 @@ func (v *Incomplete) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bo
 // InitiatePageExport defines a model
 type InitiatePageExport struct {
 	// The ID of the page or block to export.
-	BlockID ExternalDecagonAnyOfProductName `json:"blockId,omitzero"`
+	BlockID idRequest `json:"blockId,omitzero"`
 }
 
 // LinkMention defines a model
@@ -11622,7 +11622,7 @@ func (v *Number) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, 
 // NumberDatabasePropertyConfigResponseNumber defines a model
 type NumberDatabasePropertyConfigResponseNumber struct {
 	// The number format for the property.
-	Format ExternalDecagonAnyOfProductName `json:"format,omitzero"`
+	Format numberFormat `json:"format,omitzero"`
 }
 
 // Property filter for number properties.
@@ -11729,8 +11729,8 @@ func (v *Page2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, e
 
 // PageID defines a model
 type PageID struct {
-	Type   string                          `json:"type,omitzero"`
-	PageID ExternalDecagonAnyOfProductName `json:"page_id,omitzero"`
+	Type   string    `json:"type,omitzero"`
+	PageID idRequest `json:"page_id,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether PageID declares it.
@@ -14760,7 +14760,7 @@ type QueryThreads struct {
 // Thread filters.
 type QueryThreadsFilter struct {
 	// Filter threads by ID (exact match).
-	ID ExternalDecagonAnyOfProductName `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 	// Filter by one or more activity statuses. `all` cannot be combined with another status.
 	Status QueryThreadsFilterStatus `json:"status,omitzero"`
 	// Filter by creator IDs or "me".
@@ -23480,8 +23480,8 @@ type SyncedBlockBlockObjectResponseSyncedBlock struct {
 
 // SyncedBlockBlockObjectResponseSyncedBlockSyncedFrom defines a model
 type SyncedBlockBlockObjectResponseSyncedBlockSyncedFrom struct {
-	Type    string                          `json:"type,omitzero"`
-	BlockID ExternalDecagonAnyOfProductName `json:"block_id,omitzero"`
+	Type    string    `json:"type,omitzero"`
+	BlockID idRequest `json:"block_id,omitzero"`
 }
 
 // TableOfContentsBlockObjectResponseTableOfContents defines a model
@@ -25055,9 +25055,9 @@ func (e ToolStatus) Valid() bool {
 // TransferUserContent defines a model
 type TransferUserContent struct {
 	// The ID of the source user to transfer content from.
-	FromUserID ExternalDecagonAnyOfProductName `json:"from_user_id,omitzero"`
+	FromUserID idRequest `json:"from_user_id,omitzero"`
 	// The ID of the destination user to transfer content to.
-	ToUserID ExternalDecagonAnyOfProductName `json:"to_user_id,omitzero"`
+	ToUserID idRequest `json:"to_user_id,omitzero"`
 	// The content to transfer. Defaults to pages when omitted.
 	ContentTypes TransferUserContentContentTypes `json:"content_types,omitzero"`
 }
@@ -25922,7 +25922,7 @@ func (v *UpdateTeamMembershipOperationsItem) MarshalJSONTo(enc *jsontext.Encoder
 // UpdateTeamMembershipOperationsItemOneOf0 defines a model
 type UpdateTeamMembershipOperationsItemOneOf0 struct {
 	// The ID of the entity (person or group).
-	EntityID ExternalDecagonAnyOfProductName `json:"entity_id,omitzero"`
+	EntityID idRequest `json:"entity_id,omitzero"`
 	// Type of the member: person or group.
 	EntityType ListTeamMembershipResultsItemType `json:"entity_type,omitzero"`
 	// Always `add`
@@ -25950,7 +25950,7 @@ func (v *UpdateTeamMembershipOperationsItemOneOf0) unmarshalJSONMember(dec *json
 // UpdateTeamMembershipOperationsItemOneOf1 defines a model
 type UpdateTeamMembershipOperationsItemOneOf1 struct {
 	// The ID of the entity (person or group).
-	EntityID ExternalDecagonAnyOfProductName `json:"entity_id,omitzero"`
+	EntityID idRequest `json:"entity_id,omitzero"`
 	// Type of the member: person or group.
 	EntityType ListTeamMembershipResultsItemType `json:"entity_type,omitzero"`
 	// Always `replace`
@@ -25978,7 +25978,7 @@ func (v *UpdateTeamMembershipOperationsItemOneOf1) unmarshalJSONMember(dec *json
 // UpdateTeamMembershipOperationsItemOneOf2 defines a model
 type UpdateTeamMembershipOperationsItemOneOf2 struct {
 	// The ID of the entity (person or group).
-	EntityID ExternalDecagonAnyOfProductName `json:"entity_id,omitzero"`
+	EntityID idRequest `json:"entity_id,omitzero"`
 	// Type of the member: person or group.
 	EntityType ListTeamMembershipResultsItemType `json:"entity_type,omitzero"`
 	// Always `remove`
@@ -26011,7 +26011,7 @@ type UpdateTeamspacePermissionsOperations []UpdateTeamspacePermissionsOperations
 // UpdateTeamspacePermissionsOperationsItem defines a model
 type UpdateTeamspacePermissionsOperationsItem struct {
 	// The ID of the space, teamspace, group, or person.
-	ID ExternalDecagonAnyOfProductName `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 	// Type of permission: space, team owners, team members, custom group role, or custom person role.
 	Type ListTeamPermissionsResultsItemType `json:"type,omitzero"`
 	// The permission role for the entity in the teamspace.
@@ -29321,7 +29321,7 @@ type date struct {
 	// The end date of the date object, if any.
 	End *civil.Date `json:"end,omitempty"`
 	// The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.
-	TimeZone *ExternalDecagonAnyOfProductName `json:"time_zone,omitempty"`
+	TimeZone *timeZoneRequest `json:"time_zone,omitempty"`
 }
 
 // dateDatabasePropertyConfigResponse defines a model
@@ -29581,7 +29581,7 @@ type emojiPageIcon struct {
 	// Always `emoji`
 	Type string `json:"type,omitzero"`
 	// An emoji character.
-	Emoji ExternalDecagonAnyOfProductName `json:"emoji,omitzero"`
+	Emoji emojiRequest `json:"emoji,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether emojiPageIcon declares it.
@@ -29595,6 +29595,9 @@ func (v *emojiPageIcon) unmarshalJSONMember(dec *jsontext.Decoder, name string) 
 
 	return false, nil
 }
+
+// emojiRequest defines a model
+type emojiRequest string
 
 // emptyObject defines a model
 type emptyObject struct{}
@@ -30521,6 +30524,9 @@ func (v *iconPageIcon) unmarshalJSONMember(dec *jsontext.Decoder, name string) (
 	return false, nil
 }
 
+// idRequest defines a model
+type idRequest string
+
 // idResponse defines a model
 type idResponse = uuid.UUID
 
@@ -31391,6 +31397,9 @@ func (v *multiSelectSimplePropertyValueResponse) unmarshalJSONMember(dec *jsonte
 	return false, nil
 }
 
+// noticonName defines a model
+type noticonName string
+
 // numberDatabasePropertyConfigResponse defines a model
 type numberDatabasePropertyConfigResponse struct {
 	// Always `number`
@@ -31409,6 +31418,9 @@ func (v *numberDatabasePropertyConfigResponse) unmarshalJSONMember(dec *jsontext
 
 	return false, nil
 }
+
+// numberFormat defines a model
+type numberFormat string
 
 // numberFormulaPropertyResponse defines a model
 type numberFormulaPropertyResponse struct {
@@ -33085,7 +33097,7 @@ type partialSelectPropertyValue struct {
 // partialUserObjectRequest defines a model
 type partialUserObjectRequest struct {
 	// The ID of the user.
-	ID ExternalDecagonAnyOfProductName `json:"id,omitzero"`
+	ID idRequest `json:"id,omitzero"`
 	// The user object type name.
 	Object string `json:"object,omitzero"`
 }
@@ -36949,6 +36961,9 @@ func (v *textRichTextItem) unmarshalJSONMember(dec *jsontext.Decoder, name strin
 	return false, nil
 }
 
+// timeZoneRequest defines a model
+type timeZoneRequest string
+
 // titleArrayBasedPropertyValueResponse defines a model
 type titleArrayBasedPropertyValueResponse struct {
 	// Always `title`
@@ -37112,16 +37127,16 @@ type transcriptionBlockResponse struct {
 
 // transcriptionCalendarEventResponse defines a model
 type transcriptionCalendarEventResponse struct {
-	StartTime time.Time                         `json:"start_time,omitzero"`
-	EndTime   time.Time                         `json:"end_time,omitzero"`
-	Attendees []ExternalDecagonAnyOfProductName `json:"attendees,omitzero"`
+	StartTime time.Time   `json:"start_time,omitzero"`
+	EndTime   time.Time   `json:"end_time,omitzero"`
+	Attendees []idRequest `json:"attendees,omitzero"`
 }
 
 // transcriptionChildrenResponse defines a model
 type transcriptionChildrenResponse struct {
-	SummaryBlockID    ExternalDecagonAnyOfProductName `json:"summary_block_id,omitzero"`
-	NotesBlockID      ExternalDecagonAnyOfProductName `json:"notes_block_id,omitzero"`
-	TranscriptBlockID ExternalDecagonAnyOfProductName `json:"transcript_block_id,omitzero"`
+	SummaryBlockID    idRequest `json:"summary_block_id,omitzero"`
+	NotesBlockID      idRequest `json:"notes_block_id,omitzero"`
+	TranscriptBlockID idRequest `json:"transcript_block_id,omitzero"`
 }
 
 // transcriptionRecordingResponse defines a model
