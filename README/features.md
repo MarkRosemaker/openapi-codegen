@@ -14,9 +14,11 @@ How the specification maps onto Go:
   alternative, exactly one (`oneOf`) or at least one (`anyOf`) of them set after
   decoding. An alternative that is only `null` needs no field. Where a member tells
   the alternatives apart (the `discriminator`'s `propertyName`, or a member each
-  alternative fixes to a string of its own, such as Notion's `type`), decoding reads
-  only that member and decodes the one alternative it names; an unknown value is an
-  error. Otherwise each alternative is tried in turn.
+  alternative fixes to a string of its own, such as Notion's `type`), that member
+  must come first: decoding reads it, and the alternative it names decodes each
+  further member as it is read, without reading the whole value first. An unknown
+  value, or a different first member, is an error. Otherwise each alternative is
+  tried in turn.
 - **allOf** — each part referenced by this schema alone is folded into its fields;
   a part other schemas share stays an embedded type. A union among the parts is a
   field of its own, decoded by the struct's methods: the fields and the chosen
@@ -33,7 +35,8 @@ How the specification maps onto Go:
   string, and `null` is dropped, since a query string cannot carry it.
 - **Authentication** — each operation sends the credential its own `security`
   names, else the document's: a bearer token or basic auth, read from the
-  environment. `NewClient` requires only the default one.
+  environment. Where a document uses both, `NewClient` requires at least one, and
+  each operation fails before sending if its own is missing.
 - **Error responses** — an error body's type is returned wrapped in
   `api.Error`, so it needs an `Error() string` method. The generator does not
   write one, since a good message depends on the API: add it by hand beside the

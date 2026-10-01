@@ -325,6 +325,8 @@ func fromComponentSchemas(schemas openapi.Schemas, uses map[string]int) ([]Schem
 		}
 	}
 
+	markStreaming(kept)
+
 	return kept, nil
 }
 

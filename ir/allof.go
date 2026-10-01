@@ -375,3 +375,88 @@ func fromAllOfSchema(name string, s *openapi.Schema, uses map[string]int, folded
 
 	return out, nil
 }
+
+// markStreaming decides which unions decode as they read, by a discriminator that comes first: those whose every
+// alternative is a struct able to decode one member at a time. It marks those structs, and the parts they embed, as
+// needing that method.
+func markStreaming(schemas []Schema) {
+	byName := make(map[string]*Schema, len(schemas))
+	for i := range schemas {
+		byName[schemas[i].Name] = &schemas[i]
+	}
+
+	var memberDecodable func(name string, seen map[string]bool) bool
+
+	memberDecodable = func(name string, seen map[string]bool) bool {
+		s := byName[name]
+		if s == nil || seen[name] {
+			return s != nil
+		}
+
+		seen[name] = true
+
+		switch s.Kind {
+		case SchemaKindStruct:
+			return true
+		case SchemaKindAllOf:
+			if s.Unimplemented != "" {
+				return false
+			}
+
+			for _, f := range s.Fields {
+				if f.Embedded && !memberDecodable(f.Type, seen) {
+					return false
+				}
+			}
+
+			return true
+		default:
+			return false
+		}
+	}
+
+	var mark func(name string)
+
+	mark = func(name string) {
+		s := byName[name]
+		if s == nil || s.MemberDecoder {
+			return
+		}
+
+		s.MemberDecoder = true
+
+		for _, f := range s.Fields {
+			if f.Embedded {
+				mark(f.Type)
+			}
+		}
+	}
+
+	streamable := func(variants []UnionVariant) bool {
+		return len(variants) > 0 && !slices.ContainsFunc(variants, func(v UnionVariant) bool {
+			return !memberDecodable(v.Type, map[string]bool{})
+		})
+	}
+
+	for i := range schemas {
+		s := &schemas[i]
+
+		switch {
+		case s.Kind == SchemaKindUnion && s.Discriminator != "" && streamable(s.UnionVariants):
+			s.Streamed = true
+
+			for _, v := range s.UnionVariants {
+				mark(v.Type)
+			}
+		case s.AllOfUnion != nil && s.Unimplemented == "" && s.AllOfUnion.Discriminator != "" &&
+			streamable(s.AllOfUnion.Variants) && memberDecodable(s.Name, map[string]bool{}):
+			s.Streamed = true
+
+			mark(s.Name)
+
+			for _, v := range s.AllOfUnion.Variants {
+				mark(v.Type)
+			}
+		}
+	}
+}

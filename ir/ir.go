@@ -176,6 +176,11 @@ type Schema struct {
 	Members []string `json:"members,omitempty"`
 	// Unimplemented says why encoding this type is not supported yet; its methods return an error saying so.
 	Unimplemented string `json:"unimplemented,omitzero"`
+	// Streamed is set for a union, or an allOf with a union part, that decodes as it reads: its discriminator comes
+	// first and picks the alternative, which then decodes each further member straight from the decoder.
+	Streamed bool `json:"streamed,omitzero"`
+	// MemberDecoder is set for a struct that decodes one member at a time, as an alternative of a streamed union.
+	MemberDecoder bool `json:"memberDecoder,omitzero"`
 }
 
 // AllOfUnion is the union part of an allOf.
@@ -447,6 +452,6 @@ func (op Operation) BaseURLExpr() string {
 // NeedsJSONHelpers reports whether a generated type decodes its alternatives itself, needing the JSON helpers.
 func (doc Document) NeedsJSONHelpers() bool {
 	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool {
-		return s.Discriminator != "" || s.AllOfUnion != nil && s.Unimplemented == ""
+		return s.Discriminator != "" || s.AllOfUnion != nil && s.Unimplemented == "" || s.MemberDecoder
 	})
 }
