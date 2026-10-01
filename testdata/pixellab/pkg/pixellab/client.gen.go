@@ -12210,19 +12210,18 @@ func (c *Client) GetBalanceBalanceGetWithResult[R any](ctx context.Context) (*R,
 }
 
 // Returns a curated index of the API for Large Language Models (LLMs),
+// following the llms.txt standard (https://llmstxt.org).
 //
-//	    following the llms.txt standard (https://llmstxt.org).
+// It provides a short overview plus links to the OpenAPI spec, interactive
+// docs, SDKs, and guides — where the full endpoint and parameter detail lives.
 //
-//	    It provides a short overview plus links to the OpenAPI spec, interactive
-//	    docs, SDKs, and guides — where the full endpoint and parameter detail lives.
+// ## Usage
 //
-//	    ## Usage
+// You can reference this documentation in AI prompts:
+// - `@api.pixellab.ai/v2/llms.txt` in Claude
+// - Direct URL access for other tools
 //
-//	    You can reference this documentation in AI prompts:
-//	    - `@api.pixellab.ai/v2/llms.txt` in Claude
-//	    - Direct URL access for other tools
-//
-//		GET /llms.txt
+//	GET /llms.txt
 func (c *Client) GetLlmsTxtLlmsTxtGet(ctx context.Context) ([]byte, error) {
 	u := c.baseURL.JoinPath("llms.txt")
 	req := (&http.Request{
