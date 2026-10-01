@@ -7,6 +7,7 @@ import (
 	"encoding/json/v2"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -45,11 +46,11 @@ type Service interface {
 	RemovePermissionGroupMember(ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error)
 	UpdatePermissionGroupMember(ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error)
 	ListPersonalAccessTokens(ctx context.Context, spaceID uuid.UUID, params *ListPersonalAccessTokensParams) (*ListPersonalAccessTokensOk, error)
-	RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) (*struct{}, error)
+	RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) error
 	UpdateAgentCreationPolicy(ctx context.Context, spaceID uuid.UUID, body UpdateAgentCreationPolicy) (*UpdateAgentCreationPolicyOk, error)
 	UpdateWorkspaceCreditLimit(ctx context.Context, spaceID uuid.UUID, body UpdateWorkspaceCreditLimit) (*UpdateWorkspaceCreditLimitOk, error)
 	UpdateAgentStatus(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, body UpdateAgentStatus) (*UpdateAgentStatusOk, error)
-	DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) (*struct{}, error)
+	DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) error
 	GetWorkflowsMetadataForSpace(ctx context.Context, spaceID uuid.UUID, params *GetWorkflowsMetadataForSpaceParams) (*GetWorkflowsMetadataForSpaceOk, error)
 	GetAgentCreditUsage(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, params *GetAgentCreditUsageParams) (*AgentCreditUsage, error)
 	GetAgentPermissions(ctx context.Context, spaceID uuid.UUID, agentID uuid.UUID, params *GetAgentPermissionsParams) (*GetAgentPermissionsOk, error)
@@ -1718,8 +1719,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.RevokePersonalAccessToken(ctx, botID, spaceID)
-			if err != nil {
+			if err := svc.RevokePersonalAccessToken(ctx, botID, spaceID); err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
 					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
@@ -1742,9 +1742,8 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			if _, err := io.WriteString(w, "{}"); err != nil {
+				l.ErrorContext(ctx, "write error", slog.String("error", err.Error()))
 				return
 			}
 
@@ -1959,8 +1958,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.DeleteAgent(ctx, agentID, spaceID)
-			if err != nil {
+			if err := svc.DeleteAgent(ctx, agentID, spaceID); err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
 					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
@@ -1983,9 +1981,8 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			if _, err := io.WriteString(w, "{}"); err != nil {
+				l.ErrorContext(ctx, "write error", slog.String("error", err.Error()))
 				return
 			}
 

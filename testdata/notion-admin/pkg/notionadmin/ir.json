@@ -3250,9 +3250,7 @@
 					}
 				}
 			],
-			"successReturn": {
-				"name": "struct{}"
-			}
+			"emptySuccess": true
 		},
 		{
 			"auth": "bearer",
@@ -3659,9 +3657,7 @@
 					}
 				}
 			],
-			"successReturn": {
-				"name": "struct{}"
-			}
+			"emptySuccess": true
 		},
 		{
 			"auth": "bearer",

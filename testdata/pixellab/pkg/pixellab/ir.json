@@ -5830,13 +5830,15 @@
 					"description": "Successful Response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "map[string]any"
+						"name": "map[string]any",
+						"isNilable": true
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "map[string]any"
+				"name": "map[string]any",
+				"isNilable": true
 			}
 		},
 		{
@@ -5899,7 +5901,8 @@
 					"description": "Successful Response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "map[string]any"
+						"name": "map[string]any",
+						"isNilable": true
 					},
 					"isSuccess": true
 				},
@@ -5914,7 +5917,8 @@
 				}
 			],
 			"successReturn": {
-				"name": "map[string]any"
+				"name": "map[string]any",
+				"isNilable": true
 			}
 		},
 		{

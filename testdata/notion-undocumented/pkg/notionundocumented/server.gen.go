@@ -7,6 +7,7 @@ import (
 	"encoding/json/v2"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -29,7 +30,7 @@ type Service interface {
 	CreateRollout(ctx context.Context, body CreateRollout) (*CreateRolloutOk, error)
 	ListTeamspaces(ctx context.Context, params *ListTeamspacesParams) (*ListTeamspacesOk, error)
 	CreateTeamspace(ctx context.Context, body CreateTeamspace) (*CreateTeamspace2, error)
-	DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) (*emptyObject, error)
+	DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) error
 	UpdateExternalAgentStubVault(ctx context.Context, agentID string, vaultID string, body UpdateExternalAgentStubVault) (*CreateExternalAgentStubVault2, error)
 	RetrieveGroup(ctx context.Context, groupID ExternalDecagonAnyOfProductName) (*permissionGroupObjectResponse, error)
 	DeleteGroup(ctx context.Context, groupID ExternalDecagonAnyOfProductName, body DeleteGroup) (*permissionGroupObjectResponse, error)
@@ -46,9 +47,9 @@ type Service interface {
 	GetDatabases(ctx context.Context, params *GetDatabasesParams) (*GetDatabasesOk, error)
 	ListExternalAgentStubSessionEvents(ctx context.Context, agentID string, sessionID ExternalDecagonAnyOfProductName, params *ListExternalAgentStubSessionEventsParams) (*ListExternalAgentStubSessionEventsOk, error)
 	ListTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, params *ListTeamMembershipParams) (*ListTeamMembershipOk, error)
-	UpdateTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) (*emptyObject, error)
+	UpdateTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) error
 	ListTeamPermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, params *ListTeamPermissionsParams) (*ListTeamPermissionsOk, error)
-	UpdateTeamspacePermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) (*emptyObject, error)
+	UpdateTeamspacePermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) error
 	ListThreadMessages(ctx context.Context, threadID ExternalDecagonAnyOfProductName, params *ListThreadMessagesParams) (*ListThreadMessages, error)
 	SendThreadMessage(ctx context.Context, threadID ExternalDecagonAnyOfProductName, body ChatWithAgent) (*ChatWithAgent2, error)
 	ListThreads(ctx context.Context, agentID string, params *ListThreadsParams) (*ListThreads, error)
@@ -802,8 +803,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			agentID := r.PathValue("agent_id")
 			vaultID := r.PathValue("vault_id")
 
-			res, err := svc.DeleteExternalAgentStubVault(ctx, agentID, vaultID)
-			if err != nil {
+			if err := svc.DeleteExternalAgentStubVault(ctx, agentID, vaultID); err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
 					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
@@ -826,9 +826,8 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			if _, err := io.WriteString(w, "{}"); err != nil {
+				l.ErrorContext(ctx, "write error", slog.String("error", err.Error()))
 				return
 			}
 
@@ -1689,8 +1688,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.UpdateTeamMembership(ctx, teamID, body)
-			if err != nil {
+			if err := svc.UpdateTeamMembership(ctx, teamID, body); err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
 					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
@@ -1713,9 +1711,8 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			if _, err := io.WriteString(w, "{}"); err != nil {
+				l.ErrorContext(ctx, "write error", slog.String("error", err.Error()))
 				return
 			}
 
@@ -1802,8 +1799,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				return
 			}
 
-			res, err := svc.UpdateTeamspacePermissions(ctx, teamID, body)
-			if err != nil {
+			if err := svc.UpdateTeamspacePermissions(ctx, teamID, body); err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
 					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
@@ -1826,9 +1822,8 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
-				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			if _, err := io.WriteString(w, "{}"); err != nil {
+				l.ErrorContext(ctx, "write error", slog.String("error", err.Error()))
 				return
 			}
 

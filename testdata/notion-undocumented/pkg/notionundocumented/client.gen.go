@@ -2423,19 +2423,12 @@ func (c *Client) CreateTeamspaceWithResult[R any](ctx context.Context, body Crea
 }
 
 // Delete external agent stub vault
-//
-//	DELETE /external_agent_stub/{agent_id}/vaults/{vault_id}
-func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) (*emptyObject, error) {
-	return c.DeleteExternalAgentStubVaultWithResult[emptyObject](ctx, agentID, vaultID)
-}
-
-// Delete external agent stub vault
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /external_agent_stub/{agent_id}/vaults/{vault_id}
-func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Context, agentID string, vaultID string) (*R, error) {
+func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) error {
 	if c.bearer == "" {
-		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+		return errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
 
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "vaults", vaultID)
@@ -2455,7 +2448,7 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 
 	rsp, err := c.cli.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer rsp.Body.Close()
 
@@ -2464,14 +2457,14 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		// The deleted external agent stub vault.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
+			var out emptyObject
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return nil
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
@@ -2479,12 +2472,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusUnauthorized:
 		// The request is missing a valid bearer token.
@@ -2492,12 +2485,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusForbidden:
 		// The authenticated bot does not have access to the requested resource or scope.
@@ -2505,12 +2498,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotFound:
 		// The requested resource could not be found.
@@ -2518,12 +2511,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotAcceptable:
 		// The request would exceed a row limit.
@@ -2531,12 +2524,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusConflict:
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
@@ -2544,12 +2537,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusTooManyRequests:
 		// The request was rate limited.
@@ -2557,12 +2550,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusInternalServerError:
 		// An unexpected server error occurred.
@@ -2570,12 +2563,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusServiceUnavailable:
 		// Notion is temporarily unavailable.
@@ -2583,12 +2576,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusGatewayTimeout:
 		// Notion timed out while completing the request.
@@ -2596,12 +2589,12 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case 529:
 		// Notion is overloaded; retry the request later.
@@ -2609,15 +2602,15 @@ func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		case "application/json":
 			var out error_api_529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	default:
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return api.NewErrUnknownStatusCode(rsp)
 	}
 }
 
@@ -5938,19 +5931,12 @@ func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID
 }
 
 // Updates team membership for a given team.
-//
-//	PATCH /teamspaces/{team_id}/membership
-func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) (*emptyObject, error) {
-	return c.UpdateTeamMembershipWithResult[emptyObject](ctx, teamID, body)
-}
-
-// Updates team membership for a given team.
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}/membership
-func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) (*R, error) {
+func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamMembership) error {
 	if c.bearer == "" {
-		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+		return errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
 
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "membership")
@@ -5977,7 +5963,7 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 
 	rsp, err := c.cli.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer rsp.Body.Close()
 
@@ -5986,14 +5972,14 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		// The updated team membership for a given team.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
+			var out emptyObject
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return nil
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
@@ -6001,12 +5987,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusUnauthorized:
 		// The request is missing a valid bearer token.
@@ -6014,12 +6000,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusForbidden:
 		// The authenticated bot does not have access to the requested resource or scope.
@@ -6027,12 +6013,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotFound:
 		// The requested resource could not be found.
@@ -6040,12 +6026,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotAcceptable:
 		// The request would exceed a row limit.
@@ -6053,12 +6039,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusConflict:
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
@@ -6066,12 +6052,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusTooManyRequests:
 		// The request was rate limited.
@@ -6079,12 +6065,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusInternalServerError:
 		// An unexpected server error occurred.
@@ -6092,12 +6078,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusServiceUnavailable:
 		// Notion is temporarily unavailable.
@@ -6105,12 +6091,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusGatewayTimeout:
 		// Notion timed out while completing the request.
@@ -6118,12 +6104,12 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case 529:
 		// Notion is overloaded; retry the request later.
@@ -6131,15 +6117,15 @@ func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, team
 		case "application/json":
 			var out error_api_529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	default:
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return api.NewErrUnknownStatusCode(rsp)
 	}
 }
 
@@ -6357,19 +6343,12 @@ func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamI
 }
 
 // Updates permission levels for a given teamspace.
-//
-//	PATCH /teamspaces/{team_id}/permissions
-func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) (*emptyObject, error) {
-	return c.UpdateTeamspacePermissionsWithResult[emptyObject](ctx, teamID, body)
-}
-
-// Updates permission levels for a given teamspace.
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}/permissions
-func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) (*R, error) {
+func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ExternalDecagonAnyOfProductName, body UpdateTeamspacePermissions) error {
 	if c.bearer == "" {
-		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+		return errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
 
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "permissions")
@@ -6396,7 +6375,7 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 
 	rsp, err := c.cli.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer rsp.Body.Close()
 
@@ -6405,14 +6384,14 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		// The updated permission levels for a given teamspace.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
+			var out emptyObject
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return nil
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
@@ -6420,12 +6399,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusUnauthorized:
 		// The request is missing a valid bearer token.
@@ -6433,12 +6412,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusForbidden:
 		// The authenticated bot does not have access to the requested resource or scope.
@@ -6446,12 +6425,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotFound:
 		// The requested resource could not be found.
@@ -6459,12 +6438,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotAcceptable:
 		// The request would exceed a row limit.
@@ -6472,12 +6451,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusConflict:
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
@@ -6485,12 +6464,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusTooManyRequests:
 		// The request was rate limited.
@@ -6498,12 +6477,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusInternalServerError:
 		// An unexpected server error occurred.
@@ -6511,12 +6490,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusServiceUnavailable:
 		// Notion is temporarily unavailable.
@@ -6524,12 +6503,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusGatewayTimeout:
 		// Notion timed out while completing the request.
@@ -6537,12 +6516,12 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case 529:
 		// Notion is overloaded; retry the request later.
@@ -6550,15 +6529,15 @@ func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context
 		case "application/json":
 			var out error_api_529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	default:
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return api.NewErrUnknownStatusCode(rsp)
 	}
 }
 

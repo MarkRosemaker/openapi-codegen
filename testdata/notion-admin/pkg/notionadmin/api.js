@@ -37,11 +37,11 @@
  *   const result = await window.API.removePermissionGroupMember(groupID, userID, spaceID);
  *   const result = await window.API.updatePermissionGroupMember(groupID, userID, spaceID);
  *   const result = await window.API.listPersonalAccessTokens(spaceID);
- *   const result = await window.API.revokePersonalAccessToken(botID, spaceID);
+ *   window.API.revokePersonalAccessToken(botID, spaceID);
  *   const result = await window.API.updateAgentCreationPolicy(spaceID);
  *   const result = await window.API.updateWorkspaceCreditLimit(spaceID);
  *   const result = await window.API.updateAgentStatus(agentID, spaceID);
- *   const result = await window.API.deleteAgent(agentID, spaceID);
+ *   window.API.deleteAgent(agentID, spaceID);
  *   const result = await window.API.getWorkflowsMetadataForSpace(spaceID);
  *   const result = await window.API.getAgentCreditUsage(agentID, spaceID);
  *   const result = await window.API.getAgentPermissions(spaceID, agentID);

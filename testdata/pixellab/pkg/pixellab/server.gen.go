@@ -118,8 +118,8 @@ type Service interface {
 	InpaintImageProFlash(ctx context.Context, body InpaintImageProFlashRequest) (*ProFlashImageResponse, error)
 	CreateCharacterProFlash(ctx context.Context, body CreateCharacterProFlashRequest) (*CreateCharacterProFlashResponse, error)
 	CreateObjectProFlash(ctx context.Context, body CreateObjectProFlashRequest) (*CreateObjectProFlashResponse, error)
-	GetProFlashCapabilities(ctx context.Context) (*map[string]any, error)
-	GetProFlashCost(ctx context.Context, params GetProFlashCostParams) (*map[string]any, error)
+	GetProFlashCapabilities(ctx context.Context) (map[string]any, error)
+	GetProFlashCost(ctx context.Context, params GetProFlashCostParams) (map[string]any, error)
 	GetBalanceBalanceGet(ctx context.Context) (*BalanceResponse, error)
 	GetLlmsTxtLlmsTxtGet(ctx context.Context) ([]byte, error)
 }

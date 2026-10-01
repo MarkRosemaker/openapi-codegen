@@ -22,7 +22,7 @@
  *   const result = await window.API.createRollout();
  *   const result = await window.API.listTeamspaces();
  *   const result = await window.API.createTeamspace();
- *   const result = await window.API.deleteExternalAgentStubVault(agentID, vaultID);
+ *   window.API.deleteExternalAgentStubVault(agentID, vaultID);
  *   const result = await window.API.updateExternalAgentStubVault(agentID, vaultID);
  *   const result = await window.API.retrieveGroup(groupID);
  *   const result = await window.API.deleteGroup(groupID);
@@ -39,9 +39,9 @@
  *   const result = await window.API.getDatabases();
  *   const result = await window.API.listExternalAgentStubSessionEvents(agentID, sessionID);
  *   const result = await window.API.listTeamMembership(teamID);
- *   const result = await window.API.updateTeamMembership(teamID);
+ *   window.API.updateTeamMembership(teamID);
  *   const result = await window.API.listTeamPermissions(teamID);
- *   const result = await window.API.updateTeamspacePermissions(teamID);
+ *   window.API.updateTeamspacePermissions(teamID);
  *   const result = await window.API.listThreadMessages(threadID);
  *   const result = await window.API.sendThreadMessage(threadID);
  *   const result = await window.API.listThreads(agentID);

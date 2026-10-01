@@ -77,13 +77,15 @@
 					"description": "OK",
 					"contentType": "application/json",
 					"goType": {
-						"name": "map[string]ListFilesCompanyTickersJSONOkValue"
+						"name": "map[string]ListFilesCompanyTickersJSONOkValue",
+						"isNilable": true
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "map[string]ListFilesCompanyTickersJSONOkValue"
+				"name": "map[string]ListFilesCompanyTickersJSONOkValue",
+				"isNilable": true
 			}
 		}
 	],

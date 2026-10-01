@@ -4216,17 +4216,10 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 }
 
 // Revoke a personal access token in a workspace
-//
-//	DELETE /spaces/{space_id}/personal_access_tokens/{bot_id}
-func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) (*struct{}, error) {
-	return c.RevokePersonalAccessTokenWithResult[struct{}](ctx, botID, spaceID)
-}
-
-// Revoke a personal access token in a workspace
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /spaces/{space_id}/personal_access_tokens/{bot_id}
-func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) (*R, error) {
+func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) error {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "personal_access_tokens", botID.String())
 	req := (&http.Request{
 		Header: http.Header{
@@ -4244,7 +4237,7 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 
 	rsp, err := c.cli.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer rsp.Body.Close()
 
@@ -4253,14 +4246,14 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		// The revoked personal access token in a workspace.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
+			var out struct{}
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return nil
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
@@ -4268,12 +4261,12 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		case "application/json":
 			var out adminApiError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusUnauthorized:
 		// The request is missing a valid bearer token.
@@ -4281,12 +4274,12 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		case "application/json":
 			var out adminApiError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusForbidden:
 		// The authenticated bot does not have access to the requested resource or scope.
@@ -4294,12 +4287,12 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		case "application/json":
 			var out adminApiError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotFound:
 		// The requested resource could not be found.
@@ -4307,12 +4300,12 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		case "application/json":
 			var out adminApiError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusTooManyRequests:
 		// The request was rate limited.
@@ -4320,12 +4313,12 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		case "application/json":
 			var out adminApiError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusInternalServerError:
 		// An unexpected server error occurred.
@@ -4333,15 +4326,15 @@ func (c *Client) RevokePersonalAccessTokenWithResult[R any](ctx context.Context,
 		case "application/json":
 			var out adminApiError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	default:
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return api.NewErrUnknownStatusCode(rsp)
 	}
 }
 
@@ -4757,17 +4750,10 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 }
 
 // Delete an agent in a space
-//
-//	DELETE /spaces/{space_id}/agents/{agent_id}
-func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) (*struct{}, error) {
-	return c.DeleteAgentWithResult[struct{}](ctx, agentID, spaceID)
-}
-
-// Delete an agent in a space
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /spaces/{space_id}/agents/{agent_id}
-func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) (*R, error) {
+func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) error {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "agents", agentID.String())
 	req := (&http.Request{
 		Header: http.Header{
@@ -4785,7 +4771,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 
 	rsp, err := c.cli.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer rsp.Body.Close()
 
@@ -4794,14 +4780,14 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		// The deleted agent in a space.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
+			var out struct{}
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return nil
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusBadRequest:
 		// The request body, path parameters, or query parameters are invalid.
@@ -4809,12 +4795,12 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		case "application/json":
 			var out adminApiError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusUnauthorized:
 		// The request is missing a valid bearer token.
@@ -4822,12 +4808,12 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		case "application/json":
 			var out adminApiError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusForbidden:
 		// The authenticated bot does not have access to the requested resource or scope.
@@ -4835,12 +4821,12 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		case "application/json":
 			var out adminApiError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusNotFound:
 		// The requested resource could not be found.
@@ -4848,12 +4834,12 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		case "application/json":
 			var out adminApiError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusTooManyRequests:
 		// The request was rate limited.
@@ -4861,12 +4847,12 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		case "application/json":
 			var out adminApiError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	case http.StatusInternalServerError:
 		// An unexpected server error occurred.
@@ -4874,15 +4860,15 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID uuid.
 		case "application/json":
 			var out adminApiError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+				return api.WrapDecodingError(rsp, err)
 			}
 
-			return nil, api.NewErrCustom(rsp, &out)
+			return api.NewErrCustom(rsp, &out)
 		default:
-			return nil, api.NewErrUnknownContentType(rsp)
+			return api.NewErrUnknownContentType(rsp)
 		}
 	default:
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return api.NewErrUnknownStatusCode(rsp)
 	}
 }
 

@@ -136,8 +136,13 @@ func (c *Client) ListAPIXbrlCompanyfactsCikCikJSONWithResult[R any](ctx context.
 }
 
 // GET /files/company_tickers.json
-func (c *Client) ListFilesCompanyTickersJSON(ctx context.Context) (*map[string]ListFilesCompanyTickersJSONOkValue, error) {
-	return c.ListFilesCompanyTickersJSONWithResult[map[string]ListFilesCompanyTickersJSONOkValue](ctx)
+func (c *Client) ListFilesCompanyTickersJSON(ctx context.Context) (map[string]ListFilesCompanyTickersJSONOkValue, error) {
+	out, err := c.ListFilesCompanyTickersJSONWithResult[map[string]ListFilesCompanyTickersJSONOkValue](ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return *out, nil
 }
 
 // GET /files/company_tickers.json

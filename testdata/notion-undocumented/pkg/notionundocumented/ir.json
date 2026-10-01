@@ -1719,9 +1719,7 @@
 					}
 				}
 			],
-			"successReturn": {
-				"name": "emptyObject"
-			}
+			"emptySuccess": true
 		},
 		{
 			"auth": "bearer",
@@ -4200,9 +4198,7 @@
 					}
 				}
 			],
-			"successReturn": {
-				"name": "emptyObject"
-			}
+			"emptySuccess": true
 		},
 		{
 			"auth": "bearer",
@@ -4505,9 +4501,7 @@
 					}
 				}
 			],
-			"successReturn": {
-				"name": "emptyObject"
-			}
+			"emptySuccess": true
 		},
 		{
 			"auth": "bearer",
