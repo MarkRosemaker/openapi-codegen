@@ -224,7 +224,7 @@
 				{
 					"name": "AssignedUsers",
 					"jsonName": "assignedUsers",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"assignedUsers\"",
 					"required": true
 				},
@@ -285,7 +285,7 @@
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"notifications\"",
 					"required": true
 				}
@@ -340,7 +340,7 @@
 				{
 					"name": "Tags",
 					"jsonName": "tags",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"tags\"",
 					"required": true
 				},
@@ -382,7 +382,7 @@
 				{
 					"name": "Reminders",
 					"jsonName": "reminders",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"reminders\"",
 					"required": true
 				},
@@ -497,7 +497,7 @@
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"notifications\"",
 					"required": true
 				}
@@ -551,7 +551,7 @@
 				{
 					"name": "Tags",
 					"jsonName": "tags",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"tags\"",
 					"required": true
 				},
@@ -627,7 +627,7 @@
 				{
 					"name": "Checklist",
 					"jsonName": "checklist",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"checklist,omitzero\""
 				},
 				{
@@ -645,7 +645,7 @@
 				{
 					"name": "History",
 					"jsonName": "history",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"history,omitzero\""
 				},
 				{
@@ -694,19 +694,22 @@
 					"name": "Time",
 					"jsonName": "time",
 					"type": "time.Time",
-					"jsonTag": "json:\"time,omitempty\""
+					"jsonTag": "json:\"time,omitzero\"",
+					"required": true
 				},
 				{
 					"name": "StartDate",
 					"jsonName": "startDate",
 					"type": "time.Time",
-					"jsonTag": "json:\"startDate,omitempty\""
+					"jsonTag": "json:\"startDate,omitzero\"",
+					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
-					"type": "*uuid.UUID",
-					"jsonTag": "json:\"id,omitempty\""
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id,omitzero\"",
+					"required": true
 				}
 			]
 		},
@@ -786,7 +789,7 @@
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"notifications\"",
 					"required": true
 				},
@@ -946,7 +949,7 @@
 				{
 					"name": "Webhooks",
 					"jsonName": "webhooks",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"webhooks\"",
 					"required": true
 				},
@@ -974,7 +977,7 @@
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"notifications\"",
 					"required": true
 				},
@@ -1037,7 +1040,7 @@
 				{
 					"name": "UnpinnedItems",
 					"jsonName": "unpinnedItems",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"unpinnedItems\"",
 					"required": true
 				},
@@ -1051,7 +1054,7 @@
 				{
 					"name": "PinnedItemsOrder",
 					"jsonName": "pinnedItemsOrder",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"pinnedItemsOrder\"",
 					"required": true
 				},
@@ -1106,7 +1109,7 @@
 				{
 					"name": "Challenges",
 					"jsonName": "challenges",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"challenges\"",
 					"required": true
 				},
@@ -2070,7 +2073,7 @@
 				{
 					"name": "Blocks",
 					"jsonName": "blocks",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"blocks\"",
 					"required": true
 				},
@@ -2138,14 +2141,14 @@
 				{
 					"name": "Guilds",
 					"jsonName": "guilds",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"guilds\"",
 					"required": true
 				},
 				{
 					"name": "Parties",
 					"jsonName": "parties",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"parties\"",
 					"required": true
 				}
@@ -5149,7 +5152,7 @@
 				{
 					"name": "BirthdayReceived",
 					"jsonName": "birthdayReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"birthdayReceived\"",
 					"required": true
 				},
@@ -5163,7 +5166,7 @@
 				{
 					"name": "ThankyouReceived",
 					"jsonName": "thankyouReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"thankyouReceived\"",
 					"required": true
 				},
@@ -5177,7 +5180,7 @@
 				{
 					"name": "GreetingReceived",
 					"jsonName": "greetingReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"greetingReceived\"",
 					"required": true
 				},
@@ -5191,7 +5194,7 @@
 				{
 					"name": "NyeReceived",
 					"jsonName": "nyeReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"nyeReceived\"",
 					"required": true
 				},
@@ -5205,7 +5208,7 @@
 				{
 					"name": "ValentineReceived",
 					"jsonName": "valentineReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"valentineReceived\"",
 					"required": true
 				},
@@ -5247,21 +5250,21 @@
 				{
 					"name": "CongratsReceived",
 					"jsonName": "congratsReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"congratsReceived\"",
 					"required": true
 				},
 				{
 					"name": "GetwellReceived",
 					"jsonName": "getwellReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"getwellReceived\"",
 					"required": true
 				},
 				{
 					"name": "GoodluckReceived",
 					"jsonName": "goodluckReceived",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"goodluckReceived\"",
 					"required": true
 				},
@@ -5598,7 +5601,7 @@
 				{
 					"name": "ImprovementCategories",
 					"jsonName": "improvementCategories",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"improvementCategories\"",
 					"required": true
 				},
@@ -5985,7 +5988,7 @@
 				{
 					"name": "MirrorGroupTasks",
 					"jsonName": "mirrorGroupTasks",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"mirrorGroupTasks\"",
 					"required": true
 				}
@@ -6162,7 +6165,7 @@
 				{
 					"name": "MysteryItems",
 					"jsonName": "mysteryItems",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"mysteryItems\"",
 					"required": true
 				},
@@ -6750,7 +6753,7 @@
 				{
 					"name": "Notifications",
 					"jsonName": "notifications",
-					"type": "[]struct{}",
+					"type": "[]any",
 					"jsonTag": "json:\"notifications\"",
 					"required": true
 				},

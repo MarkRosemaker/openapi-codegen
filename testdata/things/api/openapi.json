@@ -20,7 +20,7 @@
         "operationId": "GetThing",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetThingOkResponse"
+            "$ref": "#/components/responses/GetThingOk"
           }
         }
       }
@@ -35,7 +35,7 @@
         "operationId": "StartThing",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/StartThingOkResponse"
+            "$ref": "#/components/responses/StartThingOk"
           }
         }
       }
@@ -45,7 +45,7 @@
         "operationId": "ListRunningThings",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListRunningThingsOkResponse"
+            "$ref": "#/components/responses/ListRunningThingsOk"
           }
         }
       }
@@ -79,10 +79,10 @@
       }
     },
     "responses": {
-      "GetThingOkResponse": {
+      "GetThingOk": {
         "description": "OK"
       },
-      "ListRunningThingsOkResponse": {
+      "ListRunningThingsOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -92,7 +92,7 @@
           }
         }
       },
-      "StartThingOkResponse": {
+      "StartThingOk": {
         "description": "OK",
         "content": {
           "application/json": {

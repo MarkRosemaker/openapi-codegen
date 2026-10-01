@@ -10,6 +10,7 @@
 	"userAgent": "Notion API",
 	"operations": [
 		{
+			"auth": "bearer",
 			"name": "GetPage",
 			"description": "Retrieves a Page object using the ID in the request path. This endpoint exposes page properties, not page content.",
 			"summary": "Retrieve a Page",
@@ -49,6 +50,7 @@
 			}
 		},
 		{
+			"auth": "bearer",
 			"name": "GetBlocks",
 			"description": "Returns a paginated array of child [block objects](https://developers.notion.com/reference/block) contained in the block using the ID specified. In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.",
 			"summary": "Retrieve block children",
@@ -433,7 +435,7 @@
 					"jsonName": "link_preview",
 					"type": "*ExternalFile",
 					"jsonTag": "json:\"link_preview,omitempty\"",
-					"description": "Link Preview block objects return the originally pasted url.\n\nNOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API."
+					"description": "An external file is any URL that isn't hosted by Notion."
 				},
 				{
 					"name": "SyncedBlock",
@@ -654,8 +656,28 @@
 			"kind": 3,
 			"fields": [
 				{
-					"type": "List",
-					"embedded": true
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object,omitzero\"",
+					"description": "Always `list`.",
+					"required": true
+				},
+				{
+					"name": "NextCursor",
+					"jsonName": "next_cursor",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
+					"required": true
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "bool",
+					"jsonTag": "json:\"has_more\"",
+					"description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
+					"required": true
 				},
 				{
 					"name": "Results",
@@ -687,6 +709,15 @@
 					"jsonTag": "json:\"request_id,omitzero\"",
 					"required": true
 				}
+			],
+			"members": [
+				"object",
+				"next_cursor",
+				"has_more",
+				"results",
+				"type",
+				"block",
+				"request_id"
 			]
 		},
 		{
@@ -1375,6 +1406,13 @@
 					"type": "File",
 					"embedded": true
 				}
+			],
+			"members": [
+				"caption",
+				"external",
+				"file",
+				"name",
+				"type"
 			]
 		},
 		{
@@ -1532,36 +1570,6 @@
 					"goName": "LinkToPageTypePageID",
 					"value": "page_id",
 					"literal": "\"page_id\""
-				}
-			]
-		},
-		{
-			"name": "List",
-			"description": "List defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
-					"description": "Always `list`.",
-					"required": true
-				},
-				{
-					"name": "NextCursor",
-					"jsonName": "next_cursor",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"next_cursor,omitzero\"",
-					"description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
-					"required": true
-				},
-				{
-					"name": "HasMore",
-					"jsonName": "has_more",
-					"type": "bool",
-					"jsonTag": "json:\"has_more\"",
-					"description": "When the response includes the end of the list, `false`. Otherwise, `true`.",
-					"required": true
 				}
 			]
 		},
@@ -2275,6 +2283,14 @@
 					"description": "User objects that represent people have the `type` property set to `person`. These objects also have these properties.",
 					"required": true
 				}
+			],
+			"members": [
+				"id",
+				"object",
+				"name",
+				"avatar_url",
+				"type",
+				"person"
 			]
 		},
 		{
@@ -2320,7 +2336,8 @@
 	"security": {
 		"bearer": {
 			"name": "NOTION_API_KEY"
-		}
+		},
+		"default": "bearer"
 	},
 	"hasURLFields": true
 }

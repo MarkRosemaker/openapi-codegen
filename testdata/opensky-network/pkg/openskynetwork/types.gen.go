@@ -34,7 +34,7 @@ type ListAPIStatesAllOkStatesItem struct {
 	Item09 float64
 	Item10 float64
 	Item11 float64
-	Item12 struct{}
+	Item12 *struct{}
 	Item13 float64
 	Item14 string
 	Item15 bool

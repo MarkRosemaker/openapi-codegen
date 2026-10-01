@@ -210,7 +210,7 @@ func TestFiles_UnionSchema(t *testing.T) {
 		t.Errorf("missing MarshalJSONTo method; content:\n%s", content)
 	}
 
-	if !contains(content, "expected exactly one matching variant") {
+	if !contains(content, "of its alternatives, want exactly one\", matched)") {
 		t.Errorf("oneOf union should enforce exactly one match; content:\n%s", content)
 	}
 }
@@ -244,11 +244,11 @@ func TestFiles_UnionSchema_AnyOf(t *testing.T) {
 		}
 	}
 
-	if !contains(content, "expected at least one matching variant") {
+	if !contains(content, "matches none of its alternatives") {
 		t.Errorf("anyOf union should enforce at least one match; content:\n%s", content)
 	}
 
-	if contains(content, "expected exactly one matching variant") {
+	if contains(content, "of its alternatives, want exactly one\", matched)") {
 		t.Errorf("anyOf union must not enforce exactly one match; content:\n%s", content)
 	}
 }

@@ -37,7 +37,7 @@
         "operationId": "getImported-by",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetImportedByOkResponse"
+            "$ref": "#/components/responses/GetImportedByOk"
           }
         }
       }
@@ -62,7 +62,7 @@
         "operationId": "getModule",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetModuleOkResponse"
+            "$ref": "#/components/responses/GetModuleOk"
           }
         }
       }
@@ -102,7 +102,7 @@
         "operationId": "getPackage",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetPackageOkResponse"
+            "$ref": "#/components/responses/GetPackageOk"
           }
         }
       }
@@ -130,7 +130,7 @@
         "operationId": "getPackages",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetPackagesOkResponse"
+            "$ref": "#/components/responses/GetPackagesOk"
           }
         }
       }
@@ -158,7 +158,7 @@
         "operationId": "getSearch",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetSearchOkResponse"
+            "$ref": "#/components/responses/GetSearchOk"
           }
         }
       }
@@ -195,7 +195,7 @@
         "operationId": "getSymbols",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetSymbolsOkResponse"
+            "$ref": "#/components/responses/GetSymbolsOk"
           }
         }
       }
@@ -220,7 +220,7 @@
         "operationId": "getVersions",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetVersionsOkResponse"
+            "$ref": "#/components/responses/GetVersionsOk"
           }
         }
       }
@@ -251,7 +251,7 @@
         "operationId": "getVulns",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetVulnsOkResponse"
+            "$ref": "#/components/responses/GetVulnsOk"
           }
         }
       }
@@ -274,15 +274,18 @@
         "type": "object",
         "properties": {
           "candidates": {
-            "$ref": "#/components/schemas/ErrorCandidates"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Candidate"
+            }
           },
           "code": {
             "description": "HTTP status code",
             "type": "integer"
           },
           "err": {
-            "$ref": "#/components/schemas/Error",
-            "description": "Unexported field for internal tracking"
+            "description": "Unexported field for internal tracking",
+            "$ref": "#/components/schemas/Error"
           },
           "fixes": {
             "description": "suggestions for how to fix",
@@ -294,12 +297,6 @@
           "message": {
             "type": "string"
           }
-        }
-      },
-      "ErrorCandidates": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Candidate"
         }
       },
       "License": {
@@ -343,7 +340,10 @@
             "type": "boolean"
           },
           "licenses": {
-            "$ref": "#/components/schemas/ModuleLicenses"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/License"
+            }
           },
           "path": {
             "type": "string"
@@ -359,24 +359,20 @@
           }
         }
       },
-      "ModuleLicenses": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/License"
-        }
-      },
       "ModuleVersion": {
         "type": "object",
         "properties": {
           "commitTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2026-02-11T19:14:29Z"
           },
           "deprecated": {
             "type": "boolean"
           },
           "deprecationReason": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "hasGoMod": {
             "description": "Whether the module has a go.mod file.",
@@ -388,19 +384,23 @@
           },
           "latestVersion": {
             "description": "latest unretracted version",
-            "type": "string"
+            "type": "string",
+            "example": "v0.15.0"
           },
           "modulePath": {
-            "type": "string"
+            "type": "string",
+            "example": "golang.org/x/time"
           },
           "retracted": {
             "type": "boolean"
           },
           "retractionReason": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "version": {
-            "type": "string"
+            "type": "string",
+            "example": "v0.15.0"
           }
         }
       },
@@ -431,7 +431,10 @@
             "type": "boolean"
           },
           "licenses": {
-            "$ref": "#/components/schemas/ModuleLicenses"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/License"
+            }
           },
           "modulePath": {
             "type": "string",
@@ -462,7 +465,7 @@
         "type": "object",
         "properties": {
           "importedBy": {
-            "$ref": "#/components/schemas/PaginatedResponse"
+            "$ref": "#/components/schemas/PaginatedString"
           },
           "modulePath": {
             "type": "string"
@@ -497,7 +500,7 @@
             "type": "string"
           },
           "symbols": {
-            "$ref": "#/components/schemas/PaginatedResponse"
+            "$ref": "#/components/schemas/PaginatedSymbol"
           },
           "version": {
             "type": "string"
@@ -514,7 +517,7 @@
             "type": "string"
           },
           "packages": {
-            "$ref": "#/components/schemas/PaginatedResponse"
+            "$ref": "#/components/schemas/PaginatedPackageInfo"
           },
           "version": {
             "type": "string"
@@ -536,11 +539,14 @@
           }
         }
       },
-      "PaginatedResponse": {
+      "PaginatedModuleVersion": {
         "type": "object",
         "properties": {
           "items": {
-            "$ref": "#/components/schemas/PaginatedResponseItems"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModuleVersion"
+            }
           },
           "nextPageToken": {
             "type": "string",
@@ -552,10 +558,89 @@
           }
         }
       },
-      "PaginatedResponseItems": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ModuleVersion"
+      "PaginatedPackageInfo": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageInfo"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "PaginatedSearchResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchResult"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "PaginatedString": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "PaginatedSymbol": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Symbol"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "PaginatedVulnerability": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vulnerability"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
         }
       },
       "Readme": {
@@ -622,7 +707,7 @@
       }
     },
     "responses": {
-      "GetImportedByOkResponse": {
+      "GetImportedByOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
@@ -632,7 +717,7 @@
           }
         }
       },
-      "GetModuleOkResponse": {
+      "GetModuleOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
@@ -642,7 +727,7 @@
           }
         }
       },
-      "GetPackageOkResponse": {
+      "GetPackageOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
@@ -652,7 +737,7 @@
           }
         }
       },
-      "GetPackagesOkResponse": {
+      "GetPackagesOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
@@ -662,17 +747,17 @@
           }
         }
       },
-      "GetSearchOkResponse": {
+      "GetSearchOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PaginatedResponse"
+              "$ref": "#/components/schemas/PaginatedSearchResult"
             }
           }
         }
       },
-      "GetSymbolsOkResponse": {
+      "GetSymbolsOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
@@ -682,22 +767,22 @@
           }
         }
       },
-      "GetVersionsOkResponse": {
+      "GetVersionsOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PaginatedResponse"
+              "$ref": "#/components/schemas/PaginatedModuleVersion"
             }
           }
         }
       },
-      "GetVulnsOkResponse": {
+      "GetVulnsOk": {
         "description": "Successful response",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PaginatedResponse"
+              "$ref": "#/components/schemas/PaginatedVulnerability"
             }
           }
         }

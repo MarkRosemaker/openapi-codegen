@@ -1,6 +1,11 @@
 package edit
 
-import "github.com/MarkRosemaker/openapi"
+import (
+	"encoding/json/v2"
+	"slices"
+
+	"github.com/MarkRosemaker/openapi"
+)
 
 // RedirectSchema repoints every reference to oldName at newName and removes
 // oldName from components.schemas. It does not read or change either
@@ -23,6 +28,10 @@ import "github.com/MarkRosemaker/openapi"
 // oldName is gone; setting description is how that information survives on
 // the references that used it, rather than being lost along with oldName.
 //
+// A oneOf or anyOf that listed both schemas lists newName twice afterwards, so
+// it keeps only the first of those plain references: a value matching one
+// would match the other, and a oneOf could never hold for it.
+//
 // It fails, changing nothing, if oldName or newName is not in
 // components.schemas ([ErrSchemaNotFound]).
 //
@@ -42,21 +51,67 @@ func RedirectSchema(doc *openapi.Document, oldName, newName, description string)
 		return nil
 	}
 
+	keepImplicitMappings(doc, schemas[oldName], oldName, newName)
+
 	old, new := schemaRefPrefix+oldName, schemaRefPrefix+newName
 
-	walkSchemaRefs(doc, func(r *openapi.SchemaRef) {
-		if r.Ref == nil || r.Ref.Identifier != old {
+	target := schemas[newName]
+
+	repointed := map[*openapi.Schema]bool{}
+
+	walkSchemas(doc, func(s *openapi.Schema) {
+		if s.Ref == nil || s.Ref.Identifier != old {
 			return
 		}
 
 		if description != "" {
-			r.Ref.Description = description
+			s.Description = description
 		}
 
-		r.Ref.Identifier = new
+		s.Ref.Identifier, s.Ref.Value = new, target
+		repointed[s] = true
 	})
+
+	walkSchemas(doc, func(s *openapi.Schema) {
+		s.OneOf = dropDuplicateAlternatives(s.OneOf, new, repointed)
+		s.AnyOf = dropDuplicateAlternatives(s.AnyOf, new, repointed)
+	})
+
+	rewriteMappings(doc, oldName, newName)
 
 	delete(schemas, oldName)
 
 	return nil
+}
+
+// dropDuplicateAlternatives keeps only the first of a union's alternatives that refer to ref and nothing else, once
+// redirecting has made more than one of them do so.
+//
+// Two alternatives of the same schema are no alternative at all: a value that matches one matches the other, so a
+// oneOf could never hold for it.
+func dropDuplicateAlternatives(alts openapi.SchemaList, ref string, repointed map[*openapi.Schema]bool) openapi.SchemaList {
+	isRef := func(a *openapi.Schema) bool {
+		if a.Ref == nil || a.Ref.Identifier != ref {
+			return false
+		}
+
+		c := *a
+		c.Ref, c.Title, c.Description = nil, "", ""
+		b, err := json.Marshal(&c)
+
+		return err == nil && string(b) == "{}"
+	}
+
+	if !slices.ContainsFunc(alts, func(a *openapi.Schema) bool { return repointed[a] }) {
+		return alts
+	}
+
+	i := slices.IndexFunc(alts, isRef)
+	if i < 0 {
+		return alts
+	}
+
+	first := alts[i]
+
+	return slices.DeleteFunc(alts, func(a *openapi.Schema) bool { return a != first && isRef(a) })
 }

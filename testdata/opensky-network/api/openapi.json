@@ -15,7 +15,7 @@
         "operationId": "ListAPIStatesAll",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListAPIStatesAllOkResponse"
+            "$ref": "#/components/responses/ListAPIStatesAllOk"
           }
         }
       }
@@ -76,7 +76,10 @@
             "example": 48.7239
           },
           {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "example": 792.48
           },
@@ -94,21 +97,29 @@
             "example": 255.94
           },
           {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "example": 3.9
           },
           {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "example": 868.68
           },
           {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "example": "1000"
           },
           {
@@ -122,7 +133,7 @@
       }
     },
     "responses": {
-      "ListAPIStatesAllOkResponse": {
+      "ListAPIStatesAllOk": {
         "description": "OK",
         "content": {
           "application/json": {

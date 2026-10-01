@@ -2,6 +2,7 @@ package ir_test
 
 import (
 	"encoding/json/jsontext"
+	"strings"
 	"testing"
 
 	"github.com/MarkRosemaker/openapi"
@@ -98,8 +99,7 @@ func TestSchemaGoType(t *testing.T) {
 }
 
 func TestSchemaGoType_Array(t *testing.T) {
-	items := &openapi.SchemaRef{}
-	items.Value = &openapi.Schema{Type: openapi.TypeString}
+	items := &openapi.Schema{Type: openapi.TypeString}
 
 	s := &openapi.Schema{Type: openapi.TypeArray, Items: items}
 
@@ -114,9 +114,7 @@ func TestSchemaGoType_Array(t *testing.T) {
 }
 
 func TestSchemaGoType_ArrayRef(t *testing.T) {
-	items := &openapi.SchemaRef{}
-	items.Value = &openapi.Schema{Type: openapi.TypeObject}
-	items.Ref = &openapi.Reference{Identifier: "#/components/schemas/MyObject"}
+	items := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/MyObject", Value: &openapi.Schema{Type: openapi.TypeObject}}}
 
 	s := &openapi.Schema{Type: openapi.TypeArray, Items: items}
 
@@ -134,13 +132,10 @@ func TestSchemaGoType_ArrayRef(t *testing.T) {
 // schema that is itself array-kind (e.g. "type TimeEntries []TimeEntry"):
 // the resolved GoType is already a nilable Go type on its own, so Nilable
 // must not add a pointer to it.
-func TestSchemaRefGoType_NamedArrayViaRef(t *testing.T) {
-	ref := &openapi.SchemaRef{
-		Ref:   &openapi.Reference{Identifier: "#/components/schemas/TimeEntries"},
-		Value: &openapi.Schema{Type: openapi.TypeArray, Items: &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}}},
-	}
+func TestSchemaGoType_RefNamedArrayViaRef(t *testing.T) {
+	ref := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/TimeEntries", Value: &openapi.Schema{Type: openapi.TypeArray, Items: &openapi.Schema{Type: openapi.TypeString}}}}
 
-	got, err := ir.SchemaRefGoType(ref)
+	got, err := ir.SchemaGoType(ref)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -155,10 +150,9 @@ func TestSchemaRefGoType_NamedArrayViaRef(t *testing.T) {
 }
 
 func TestSchemaGoType_MapAdditional(t *testing.T) {
-	addl := &openapi.SchemaRef{}
-	addl.Value = &openapi.Schema{Type: openapi.TypeString}
+	addl := &openapi.Schema{Type: openapi.TypeString}
 
-	s := &openapi.Schema{Type: openapi.TypeObject, AdditionalProperties: addl}
+	s := &openapi.Schema{Type: openapi.TypeObject, AdditionalProperties: &openapi.AdditionalProperties{Schema: addl}}
 
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
@@ -171,13 +165,11 @@ func TestSchemaGoType_MapAdditional(t *testing.T) {
 }
 
 func TestFromComponentSchemas_Struct(t *testing.T) {
-	props := openapi.SchemaRefs{}
-	idRef := &openapi.SchemaRef{}
-	idRef.Value = &openapi.Schema{Type: openapi.TypeInteger}
+	props := openapi.Schemas{}
+	idRef := &openapi.Schema{Type: openapi.TypeInteger}
 	props.Set("id", idRef)
 
-	nameRef := &openapi.SchemaRef{}
-	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
+	nameRef := &openapi.Schema{Type: openapi.TypeString}
 	props.Set("name", nameRef)
 
 	schemas := openapi.Schemas{}
@@ -434,8 +426,7 @@ func TestFromComponentSchemas_EnumBoolean(t *testing.T) {
 }
 
 func TestFromComponentSchemas_ArrayAlias(t *testing.T) {
-	items := &openapi.SchemaRef{}
-	items.Value = &openapi.Schema{Type: openapi.TypeString}
+	items := &openapi.Schema{Type: openapi.TypeString}
 
 	schemas := openapi.Schemas{}
 	schemas.Set("Tags", &openapi.Schema{
@@ -466,10 +457,10 @@ func TestFromComponentSchemas_Tuple(t *testing.T) {
 	schemas := openapi.Schemas{}
 	schemas.Set("StateVector", &openapi.Schema{
 		Type: openapi.TypeArray,
-		PrefixItems: openapi.SchemaRefList{
-			{Value: &openapi.Schema{Type: openapi.TypeString}},
-			{Value: &openapi.Schema{Type: openapi.TypeInteger}},
-			{Value: &openapi.Schema{Type: openapi.TypeBoolean}},
+		PrefixItems: openapi.SchemaList{
+			&openapi.Schema{Type: openapi.TypeString},
+			&openapi.Schema{Type: openapi.TypeInteger},
+			&openapi.Schema{Type: openapi.TypeBoolean},
 		},
 	})
 
@@ -511,9 +502,9 @@ func TestFromComponentSchemas_TupleFieldDescription(t *testing.T) {
 	schemas := openapi.Schemas{}
 	schemas.Set("StateVector", &openapi.Schema{
 		Type: openapi.TypeArray,
-		PrefixItems: openapi.SchemaRefList{
-			{Value: &openapi.Schema{Type: openapi.TypeString, Description: "The ICAO 24-bit address."}},
-			{Value: &openapi.Schema{Type: openapi.TypeInteger}},
+		PrefixItems: openapi.SchemaList{
+			&openapi.Schema{Type: openapi.TypeString, Description: "The ICAO 24-bit address."},
+			&openapi.Schema{Type: openapi.TypeInteger},
 		},
 	})
 
@@ -541,9 +532,9 @@ func TestFromComponentSchemas_TupleFieldDescription(t *testing.T) {
 // not the lexical-but-wrong Item0, Item1, Item10, Item2 a fixed single digit
 // would produce.
 func TestFromComponentSchemas_TupleWidePadding(t *testing.T) {
-	prefixItems := make(openapi.SchemaRefList, 11)
+	prefixItems := make(openapi.SchemaList, 11)
 	for i := range prefixItems {
-		prefixItems[i] = &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}}
+		prefixItems[i] = &openapi.Schema{Type: openapi.TypeString}
 	}
 
 	schemas := openapi.Schemas{}
@@ -591,11 +582,11 @@ func TestFromComponentSchemas_XGoNameType(t *testing.T) {
 // TestFromComponentSchemas_XGoNameField covers overriding a single property's
 // Go field name via x-go-name, while its JSON tag keeps the wire name.
 func TestFromComponentSchemas_XGoNameField(t *testing.T) {
-	props := openapi.SchemaRefs{}
-	props.Set("id", &openapi.SchemaRef{Value: &openapi.Schema{
+	props := openapi.Schemas{}
+	props.Set("id", &openapi.Schema{
 		Type:       openapi.TypeNumber,
 		Extensions: jsontext.Value(`{"x-go-name":"AccountIdentifier"}`),
-	}})
+	})
 
 	schemas := openapi.Schemas{}
 	schemas.Set("Client", &openapi.Schema{Type: openapi.TypeObject, Properties: props})
@@ -629,11 +620,8 @@ func TestFromComponentSchemas_XGoNameRespectedThroughRef(t *testing.T) {
 		Extensions: jsontext.Value(`{"x-go-name":"Animal"}`),
 	}
 
-	props := openapi.SchemaRefs{}
-	props.Set("pet", &openapi.SchemaRef{
-		Ref:   &openapi.Reference{Identifier: "#/components/schemas/Pet"},
-		Value: petSchema,
-	})
+	props := openapi.Schemas{}
+	props.Set("pet", &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Pet", Value: petSchema}})
 
 	schemas := openapi.Schemas{}
 	schemas.Set("Pet", petSchema)
@@ -666,9 +654,9 @@ func TestFromComponentSchemas_XGoNameTuplePosition(t *testing.T) {
 	schemas := openapi.Schemas{}
 	schemas.Set("StateVector", &openapi.Schema{
 		Type: openapi.TypeArray,
-		PrefixItems: openapi.SchemaRefList{
-			{Value: &openapi.Schema{Type: openapi.TypeString, Extensions: jsontext.Value(`{"x-go-name":"Icao24"}`)}},
-			{Value: &openapi.Schema{Type: openapi.TypeString}},
+		PrefixItems: openapi.SchemaList{
+			&openapi.Schema{Type: openapi.TypeString, Extensions: jsontext.Value(`{"x-go-name":"Icao24"}`)},
+			&openapi.Schema{Type: openapi.TypeString},
 		},
 	})
 
@@ -704,12 +692,9 @@ func TestFromComponentSchemas_XGoNameTuplePositionThroughRef(t *testing.T) {
 	schemas.Set("Icao24Code", icaoSchema)
 	schemas.Set("StateVector", &openapi.Schema{
 		Type: openapi.TypeArray,
-		PrefixItems: openapi.SchemaRefList{
-			{
-				Ref:   &openapi.Reference{Identifier: "#/components/schemas/Icao24Code"},
-				Value: icaoSchema,
-			},
-			{Value: &openapi.Schema{Type: openapi.TypeString}},
+		PrefixItems: openapi.SchemaList{
+			{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Icao24Code", Value: icaoSchema}},
+			&openapi.Schema{Type: openapi.TypeString},
 		},
 	})
 
@@ -771,16 +756,13 @@ func TestFromComponentSchemas_Scalars(t *testing.T) {
 
 func TestFromComponentSchemas_AllOf(t *testing.T) {
 	// Base schema: type object with one property
-	baseRef := &openapi.SchemaRef{}
-	baseRef.Ref = &openapi.Reference{Identifier: "#/components/schemas/Base"}
+	baseRef := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Base"}}
 
-	nameRef := &openapi.SchemaRef{}
-	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
-	inlineProps := openapi.SchemaRefs{}
+	nameRef := &openapi.Schema{Type: openapi.TypeString}
+	inlineProps := openapi.Schemas{}
 	inlineProps.Set("name", nameRef)
 
-	inlineEntry := &openapi.SchemaRef{}
-	inlineEntry.Value = &openapi.Schema{
+	inlineEntry := &openapi.Schema{
 		Type:       openapi.TypeObject,
 		Properties: inlineProps,
 		Required:   []string{"name"},
@@ -788,7 +770,7 @@ func TestFromComponentSchemas_AllOf(t *testing.T) {
 
 	schemas := openapi.Schemas{}
 	schemas.Set("Child", &openapi.Schema{
-		AllOf: openapi.SchemaRefList{baseRef, inlineEntry},
+		AllOf: openapi.SchemaList{baseRef, inlineEntry},
 	})
 
 	got, err := ir.FromComponentSchemas(schemas)
@@ -837,13 +819,12 @@ func TestFromComponentSchemas_MapObject(t *testing.T) {
 	// referencing it resolves to the component's name -- SchemaRefGoType takes
 	// the name straight from the $ref -- so skipping the declaration would
 	// leave that name undefined.
-	valRef := &openapi.SchemaRef{}
-	valRef.Value = &openapi.Schema{Type: openapi.TypeString}
+	valRef := &openapi.Schema{Type: openapi.TypeString}
 
 	schemas := openapi.Schemas{}
 	schemas.Set("StringMap", &openapi.Schema{
 		Type:                 openapi.TypeObject,
-		AdditionalProperties: valRef,
+		AdditionalProperties: &openapi.AdditionalProperties{Schema: valRef},
 	})
 
 	got, err := ir.FromComponentSchemas(schemas)
@@ -871,20 +852,18 @@ func TestFromComponentSchemas_MapObject(t *testing.T) {
 
 func TestFromComponentSchemas_AllOf_OuterRequired(t *testing.T) {
 	// Required field on the outer allOf schema must be respected.
-	nameRef := &openapi.SchemaRef{}
-	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
-	inlineProps := openapi.SchemaRefs{}
+	nameRef := &openapi.Schema{Type: openapi.TypeString}
+	inlineProps := openapi.Schemas{}
 	inlineProps.Set("name", nameRef)
 
-	inlineEntry := &openapi.SchemaRef{}
-	inlineEntry.Value = &openapi.Schema{
+	inlineEntry := &openapi.Schema{
 		Type:       openapi.TypeObject,
 		Properties: inlineProps,
 	}
 
 	schemas := openapi.Schemas{}
 	schemas.Set("Child", &openapi.Schema{
-		AllOf:    openapi.SchemaRefList{inlineEntry},
+		AllOf:    openapi.SchemaList{inlineEntry},
 		Required: []string{"name"},
 	})
 
@@ -918,12 +897,12 @@ func TestFromComponentSchemas_EmptyTypeNoAllOf(t *testing.T) {
 }
 
 func TestFromComponentSchemas_AllOf_NilValueEntry(t *testing.T) {
-	// An allOf entry with Ref==nil and Value==nil should be silently skipped.
-	nilEntry := &openapi.SchemaRef{} // Ref=nil, Value=nil
+	// An empty allOf entry contributes nothing and should be silently skipped.
+	nilEntry := &openapi.Schema{}
 
 	schemas := openapi.Schemas{}
 	schemas.Set("Child", &openapi.Schema{
-		AllOf: openapi.SchemaRefList{nilEntry},
+		AllOf: openapi.SchemaList{nilEntry},
 	})
 
 	got, err := ir.FromComponentSchemas(schemas)
@@ -1005,12 +984,10 @@ func TestSchemaGoType_ObjectNoProps(t *testing.T) {
 }
 
 func TestFromComponentSchemas_StructWithArrayField(t *testing.T) {
-	items := &openapi.SchemaRef{}
-	items.Value = &openapi.Schema{Type: openapi.TypeString}
-	tagsRef := &openapi.SchemaRef{}
-	tagsRef.Value = &openapi.Schema{Type: openapi.TypeArray, Items: items}
+	items := &openapi.Schema{Type: openapi.TypeString}
+	tagsRef := &openapi.Schema{Type: openapi.TypeArray, Items: items}
 
-	props := openapi.SchemaRefs{}
+	props := openapi.Schemas{}
 	props.Set("tags", tagsRef)
 
 	schemas := openapi.Schemas{}
@@ -1039,9 +1016,8 @@ func TestFromComponentSchemas_StructWithArrayField(t *testing.T) {
 }
 
 func TestFromComponentSchemas_StructRequiredNonString(t *testing.T) {
-	countRef := &openapi.SchemaRef{}
-	countRef.Value = &openapi.Schema{Type: openapi.TypeInteger}
-	props := openapi.SchemaRefs{}
+	countRef := &openapi.Schema{Type: openapi.TypeInteger}
+	props := openapi.Schemas{}
 	props.Set("count", countRef)
 
 	schemas := openapi.Schemas{}
@@ -1089,9 +1065,8 @@ func TestFieldGoName(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.in, func(t *testing.T) {
 			schemas := openapi.Schemas{}
-			propRef := &openapi.SchemaRef{}
-			propRef.Value = &openapi.Schema{Type: openapi.TypeString}
-			props := openapi.SchemaRefs{}
+			propRef := &openapi.Schema{Type: openapi.TypeString}
+			props := openapi.Schemas{}
 			props.Set(tc.in, propRef)
 			schemas.Set("Test", &openapi.Schema{
 				Type:       openapi.TypeObject,
@@ -1117,16 +1092,14 @@ func TestFieldGoName(t *testing.T) {
 // dateTimeOrIntSchema returns a schema representing a oneOf of a date-time
 // string and an integer, in the given order (0 = date-time first, 1 = int first).
 func dateTimeOrIntSchema(intFirst bool) *openapi.Schema {
-	dt := &openapi.SchemaRef{}
-	dt.Value = &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
+	dt := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
 
-	num := &openapi.SchemaRef{}
-	num.Value = &openapi.Schema{Type: openapi.TypeInteger}
+	num := &openapi.Schema{Type: openapi.TypeInteger}
 	if intFirst {
-		return &openapi.Schema{OneOf: openapi.SchemaRefList{num, dt}}
+		return &openapi.Schema{OneOf: openapi.SchemaList{num, dt}}
 	}
 
-	return &openapi.Schema{OneOf: openapi.SchemaRefList{dt, num}}
+	return &openapi.Schema{OneOf: openapi.SchemaList{dt, num}}
 }
 
 func TestSchemaGoType_DateTimeOrIntOneOf(t *testing.T) {
@@ -1147,11 +1120,9 @@ func TestSchemaGoType_UnrelatedOneOfFallsBackToAny(t *testing.T) {
 	// has nowhere to generate a named union struct, so it falls back to any.
 	// A named oneOf in this shape instead gets a real pointer-bag type — see
 	// TestFromComponentSchemas_OneOfEmitsUnionType.
-	a := &openapi.SchemaRef{}
-	a.Value = &openapi.Schema{Type: openapi.TypeString}
-	b := &openapi.SchemaRef{}
-	b.Value = &openapi.Schema{Type: openapi.TypeBoolean}
-	s := &openapi.Schema{OneOf: openapi.SchemaRefList{a, b}}
+	a := &openapi.Schema{Type: openapi.TypeString}
+	b := &openapi.Schema{Type: openapi.TypeBoolean}
+	s := &openapi.Schema{OneOf: openapi.SchemaList{a, b}}
 
 	got, err := ir.SchemaGoType(s)
 	if err != nil {
@@ -1164,8 +1135,8 @@ func TestSchemaGoType_UnrelatedOneOfFallsBackToAny(t *testing.T) {
 }
 
 func TestFromComponentSchemas_DateTimeOrIntField(t *testing.T) {
-	prop := &openapi.SchemaRef{Value: dateTimeOrIntSchema(false)}
-	props := openapi.SchemaRefs{}
+	prop := dateTimeOrIntSchema(false)
+	props := openapi.Schemas{}
 	props.Set("timestamp", prop)
 
 	schemas := openapi.Schemas{}
@@ -1194,14 +1165,13 @@ func TestFromComponentSchemas_DateTimeOrIntField(t *testing.T) {
 	}
 }
 
-func TestSchemaRefGoType_DateTimeOrIntOneOfViaRef(t *testing.T) {
+func TestSchemaGoType_RefDateTimeOrIntOneOfViaRef(t *testing.T) {
 	// After flattening, a date-time-or-int oneOf may live in components and be
 	// reached by $ref. It should still resolve to time.Time, not a synthetic name.
-	ref := &openapi.SchemaRef{}
-	ref.Ref = &openapi.Reference{Identifier: "#/components/schemas/SomeDate"}
-	ref.Value = dateTimeOrIntSchema(false)
+	ref := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/SomeDate"}}
+	ref.Ref.Value = dateTimeOrIntSchema(false)
 
-	got, err := ir.SchemaRefGoType(ref)
+	got, err := ir.SchemaGoType(ref)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1220,12 +1190,12 @@ func TestSchemaRefGoType_DateTimeOrIntOneOfViaRef(t *testing.T) {
 // schema reached only via SchemaGoType (no name to give a struct), it falls
 // back to `any`.
 func anyOfUnionSchema() *openapi.Schema {
-	a := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeObject}}
-	a.Ref = &openapi.Reference{Identifier: "#/components/schemas/A"}
-	b := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeObject}}
-	b.Ref = &openapi.Reference{Identifier: "#/components/schemas/B"}
+	a := &openapi.Schema{Type: openapi.TypeObject}
+	a = &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/A", Value: a}}
+	b := &openapi.Schema{Type: openapi.TypeObject}
+	b = &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/B", Value: b}}
 
-	return &openapi.Schema{AnyOf: openapi.SchemaRefList{a, b}}
+	return &openapi.Schema{AnyOf: openapi.SchemaList{a, b}}
 }
 
 func TestSchemaGoType_AnyOfOnly(t *testing.T) {
@@ -1240,14 +1210,13 @@ func TestSchemaGoType_AnyOfOnly(t *testing.T) {
 	}
 }
 
-func TestSchemaRefGoType_AnyOfOnlyViaRef(t *testing.T) {
+func TestSchemaGoType_RefAnyOfOnlyViaRef(t *testing.T) {
 	// A named anyOf union reached via $ref resolves to its own generated
 	// pointer-bag type name, not `any` — see TestFromComponentSchemas_AnyOfEmitsUnionType.
-	ref := &openapi.SchemaRef{}
-	ref.Ref = &openapi.Reference{Identifier: "#/components/schemas/SomeUnion"}
-	ref.Value = anyOfUnionSchema()
+	ref := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/SomeUnion"}}
+	ref.Ref.Value = anyOfUnionSchema()
 
-	got, err := ir.SchemaRefGoType(ref)
+	got, err := ir.SchemaGoType(ref)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1293,13 +1262,13 @@ func TestFromComponentSchemas_AnyOfEmitsUnionType(t *testing.T) {
 }
 
 func TestFromComponentSchemas_OneOfEmitsUnionType(t *testing.T) {
-	a := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeObject}}
-	a.Ref = &openapi.Reference{Identifier: "#/components/schemas/Card"}
-	b := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeObject}}
-	b.Ref = &openapi.Reference{Identifier: "#/components/schemas/Bank"}
+	a := &openapi.Schema{Type: openapi.TypeObject}
+	a = &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Card", Value: a}}
+	b := &openapi.Schema{Type: openapi.TypeObject}
+	b = &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Bank", Value: b}}
 
 	schemas := openapi.Schemas{}
-	schemas.Set("Payment", &openapi.Schema{OneOf: openapi.SchemaRefList{a, b}})
+	schemas.Set("Payment", &openapi.Schema{OneOf: openapi.SchemaList{a, b}})
 
 	got, err := ir.FromComponentSchemas(schemas)
 	if err != nil {
@@ -1334,11 +1303,11 @@ func TestFromComponentSchemas_OneOfEmitsUnionType(t *testing.T) {
 
 func TestFromComponentSchemas_OneOfVariantFieldNameCollision(t *testing.T) {
 	// Two variants that resolve to the same base field name get deduped.
-	a := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatUUID}}
-	b := &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatUUID}}
+	a := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatUUID}
+	b := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatUUID}
 
 	schemas := openapi.Schemas{}
-	schemas.Set("Either", &openapi.Schema{OneOf: openapi.SchemaRefList{a, b}})
+	schemas.Set("Either", &openapi.Schema{OneOf: openapi.SchemaList{a, b}})
 
 	got, err := ir.FromComponentSchemas(schemas)
 	if err != nil {
@@ -1379,7 +1348,7 @@ func TestSchemaGoType_AnyOfWithAllOfIsNotAnyOfOnly(t *testing.T) {
 	// allOf alongside anyOf means this isn't a pure untagged union; the
 	// existing "unsupported schema type" error should still surface.
 	s := anyOfUnionSchema()
-	s.AllOf = openapi.SchemaRefList{&openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeObject}}}
+	s.AllOf = openapi.SchemaList{&openapi.Schema{Type: openapi.TypeObject}}
 	if _, err := ir.SchemaGoType(s); err == nil {
 		t.Fatal("expected error for anyOf combined with allOf")
 	}
@@ -1387,9 +1356,8 @@ func TestSchemaGoType_AnyOfWithAllOfIsNotAnyOfOnly(t *testing.T) {
 
 func TestFromComponentSchemas_PlainDateTimeFieldNotFlagged(t *testing.T) {
 	// A regular string+date-time property must not set IsDateTimeOrInt.
-	prop := &openapi.SchemaRef{}
-	prop.Value = &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
-	props := openapi.SchemaRefs{}
+	prop := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
+	props := openapi.Schemas{}
 	props.Set("createdAt", prop)
 
 	schemas := openapi.Schemas{}
@@ -1413,9 +1381,8 @@ func TestFromComponentSchemas_PlainDateTimeFieldNotFlagged(t *testing.T) {
 }
 
 func TestFromComponentSchemas_UnixTimeField(t *testing.T) {
-	prop := &openapi.SchemaRef{}
-	prop.Value = &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
-	props := openapi.SchemaRefs{}
+	prop := &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
+	props := openapi.Schemas{}
 	props.Set("created_at", prop)
 
 	schemas := openapi.Schemas{}
@@ -1446,9 +1413,8 @@ func TestFromComponentSchemas_UnixTimeField(t *testing.T) {
 
 func TestFromComponentSchemas_PlainDateTimeFieldNotUnixTime(t *testing.T) {
 	// A regular string+date-time property must not set IsUnixTime either.
-	prop := &openapi.SchemaRef{}
-	prop.Value = &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
-	props := openapi.SchemaRefs{}
+	prop := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
+	props := openapi.Schemas{}
 	props.Set("createdAt", prop)
 
 	schemas := openapi.Schemas{}
@@ -1464,5 +1430,130 @@ func TestFromComponentSchemas_PlainDateTimeFieldNotUnixTime(t *testing.T) {
 
 	if got[0].Fields[0].IsUnixTime {
 		t.Error("plain date-time field: IsUnixTime = true, want false")
+	}
+}
+
+func TestFromComponentSchemas_UnionFieldNamesUnique(t *testing.T) {
+	t.Parallel()
+
+	var schemas openapi.Schemas
+	schemas.Set("fooOneOf2", &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}})
+	schemas.Set("fooOneOf", &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}})
+	schemas.Set("Union", &openapi.Schema{OneOf: openapi.SchemaList{
+		makeNamedRef("fooOneOf2"), makeNamedRef("fooOneOf"), makeNamedRef("fooOneOf"),
+	}})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, s := range got {
+		if s.Name != "Union" {
+			continue
+		}
+
+		var names []string
+		for _, v := range s.UnionVariants {
+			names = append(names, v.FieldName)
+		}
+
+		if want := "FooOneOf2 FooOneOf FooOneOf3"; strings.Join(names, " ") != want {
+			t.Errorf("got %v, want %s", names, want)
+		}
+	}
+}
+
+func TestSchemaGoType_RefAlias(t *testing.T) {
+	t.Parallel()
+
+	target := &openapi.Schema{Type: openapi.TypeObject}
+	alias := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Target", Value: target}}
+	s := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Alias", Value: alias}}
+
+	got, err := ir.SchemaGoType(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if got.Name != "Target" {
+		t.Errorf("got %q, want Target", got.Name)
+	}
+}
+
+func TestSchemaGoType_ComponentName(t *testing.T) {
+	t.Parallel()
+
+	for identifier, want := range map[string]string{
+		"#/components/schemas/Keypoint-Input": "KeypointInput",
+		"#/components/schemas/a.b-c":          "aBC",
+		"#/components/schemas/Pet":            "Pet",
+	} {
+		got, err := ir.SchemaGoType(&openapi.Schema{Ref: &openapi.SchemaRef{Identifier: identifier, Value: &openapi.Schema{Type: openapi.TypeObject}}})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if got.Name != want {
+			t.Errorf("%s: got %q, want %q", identifier, got.Name, want)
+		}
+	}
+
+	// a component's x-go-name names it where it is referenced too
+	renamed := &openapi.Schema{Type: openapi.TypeObject, Extensions: jsontext.Value(`{"x-go-name":"Renamed"}`)}
+
+	got, err := ir.SchemaGoType(&openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Original", Value: renamed}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if got.Name != "Renamed" {
+		t.Errorf("got %q, want Renamed", got.Name)
+	}
+}
+
+func TestSchemaGoType_ComponentWithoutType(t *testing.T) {
+	t.Parallel()
+
+	for name, tc := range map[string]struct {
+		target *openapi.Schema
+		want   string
+	}{
+		"empty schema": {&openapi.Schema{}, "any"},
+		"null":         {&openapi.Schema{Type: openapi.TypeNull}, "*struct{}"},
+	} {
+		got, err := ir.SchemaGoType(&openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/X", Value: tc.target}})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if got.String() != tc.want {
+			t.Errorf("%s: got %q, want %q", name, got.String(), tc.want)
+		}
+	}
+}
+
+func TestFromComponentSchemas_EnumConstNames(t *testing.T) {
+	t.Parallel()
+
+	var schemas openapi.Schemas
+	schemas.Set("Method", &openapi.Schema{Type: openapi.TypeString, Enum: []jsontext.Value{
+		jsontext.Value(`"Modify current layer"`),
+		jsontext.Value(`"Modify current layer, only changes"`),
+		jsontext.Value(`"Don't stop!"`),
+	}})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var names []string
+	for _, v := range got[0].EnumValues {
+		names = append(names, v.GoName)
+	}
+
+	if want := "MethodModifyCurrentLayer MethodModifyCurrentLayerOnlyChanges MethodDontStop"; strings.Join(names, " ") != want {
+		t.Errorf("got %v, want %s", names, want)
 	}
 }

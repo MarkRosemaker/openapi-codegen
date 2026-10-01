@@ -23,7 +23,7 @@
         "operationId": "GetV1PageByPageID",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/GetV1PageByPageIDOkResponse"
+            "$ref": "#/components/responses/GetV1PageByPageIDOk"
           }
         }
       }
@@ -44,7 +44,7 @@
         "operationId": "ListV1BlockChildren",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListV1BlockChildrenOkResponse"
+            "$ref": "#/components/responses/ListV1BlockChildrenOk"
           }
         }
       }
@@ -325,8 +325,7 @@
             "$ref": "#/components/schemas/PageByPageIDPropertiesTitle"
           },
           "icon": {
-            "type": "object",
-            "example": null
+            "type": "null"
           },
           "color": {
             "type": "string",
@@ -398,8 +397,7 @@
             "example": "Example Page"
           },
           "href": {
-            "type": "object",
-            "example": null
+            "type": "null"
           }
         },
         "required": [
@@ -450,8 +448,7 @@
             "example": "Example Page"
           },
           "link": {
-            "type": "object",
-            "example": null
+            "type": "null"
           }
         },
         "required": [
@@ -461,7 +458,7 @@
       }
     },
     "responses": {
-      "GetV1PageByPageIDOkResponse": {
+      "GetV1PageByPageIDOk": {
         "description": "OK",
         "content": {
           "application/json": {
@@ -471,7 +468,7 @@
           }
         }
       },
-      "ListV1BlockChildrenOkResponse": {
+      "ListV1BlockChildrenOk": {
         "description": "OK",
         "content": {
           "application/json": {

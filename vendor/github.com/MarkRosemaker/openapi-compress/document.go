@@ -1,8 +1,10 @@
 package compress
 
 import (
+	"encoding/json/v2"
 	"math"
 	"reflect"
+	"slices"
 	"sort"
 	"strings"
 
@@ -52,6 +54,9 @@ func Document(d *openapi.Document, cfg Config) error {
 		threshold = math.Max(cfg.MinSimilarity, threshold-cfg.SimilarityStep)
 	}
 
+	// merging schemas can make parameters that referred to different ones identical
+	deduplicateParameters(d)
+
 	if !cfg.SkipNameShortening {
 		if err := shortenMergedSchemaNames(d, mergedCanonicals); err != nil {
 			return err
@@ -76,7 +81,10 @@ func deduplicateSchemasAtThreshold(d *openapi.Document, threshold float64) (map[
 		return nil, nil
 	}
 
-	names := sortedSchemaNames(schemas)
+	// a bare scalar carries nothing but its name and documentation, which merging would erase
+	names := slices.DeleteFunc(sortedSchemaNames(schemas), func(name string) bool {
+		return isBareScalar(schemas[name])
+	})
 
 	// replacements maps a name-to-remove to its canonical name.
 	replacements := map[string]string{}
@@ -128,6 +136,8 @@ func deduplicateSchemasAtThreshold(d *openapi.Document, threshold float64) (map[
 				mergeSchemas(schemaA, schemaB)
 			}
 
+			fillExamples(schemaA, schemaB)
+
 			replacements[nameB] = nameA
 		}
 	}
@@ -142,11 +152,18 @@ func deduplicateSchemasAtThreshold(d *openapi.Document, threshold float64) (map[
 		canonicals[canonical] = true
 	}
 
+	removed := make([]string, 0, len(replacements))
 	for name := range replacements {
-		delete(d.Components.Schemas, name)
+		removed = append(removed, name)
 	}
 
-	replaceRefsInDocument(d, replacements)
+	sort.Strings(removed)
+
+	for _, name := range removed {
+		if err := edit.RedirectSchema(d, name, replacements[name], ""); err != nil {
+			return nil, err
+		}
+	}
 
 	return canonicals, nil
 }
@@ -263,193 +280,6 @@ func parameterNameFromRef(identifier string) string {
 	return strings.TrimPrefix(identifier, prefix)
 }
 
-// replaceRefsInDocument updates $ref identifiers throughout the entire document.
-func replaceRefsInDocument(d *openapi.Document, replacements map[string]string) {
-	replaceRefsInComponents(&d.Components, replacements)
-
-	for _, p := range d.Paths {
-		replaceRefsInPathItem(p, replacements)
-	}
-
-	for _, piRef := range d.Webhooks {
-		if piRef != nil && piRef.Value != nil {
-			replaceRefsInPathItem(piRef.Value, replacements)
-		}
-	}
-
-	for _, piRef := range d.Components.PathItems {
-		if piRef != nil && piRef.Value != nil {
-			replaceRefsInPathItem(piRef.Value, replacements)
-		}
-	}
-}
-
-func replaceRefsInPathItem(p *openapi.PathItem, replacements map[string]string) {
-	if p == nil {
-		return
-	}
-
-	replaceRefsInParameterList(p.Parameters, replacements)
-
-	for _, op := range p.Operations {
-		replaceRefsInOperation(op, replacements)
-	}
-}
-
-func replaceRefsInOperation(op *openapi.Operation, replacements map[string]string) {
-	if op == nil {
-		return
-	}
-
-	replaceRefsInParameterList(op.Parameters, replacements)
-
-	if op.RequestBody != nil && op.RequestBody.Value != nil {
-		replaceRefsInContent(op.RequestBody.Value.Content, replacements)
-	}
-
-	for _, resp := range op.Responses {
-		replaceRefsInResponseRef(resp, replacements)
-	}
-
-	for _, cb := range op.Callbacks {
-		for _, piRef := range cb {
-			if piRef != nil && piRef.Value != nil {
-				replaceRefsInPathItem(piRef.Value, replacements)
-			}
-		}
-	}
-}
-
-func replaceRefsInParameterList(params openapi.ParameterList, replacements map[string]string) {
-	for _, p := range params {
-		if p != nil && p.Value != nil {
-			replaceSchemaRef(p.Value.Schema, replacements)
-			replaceRefsInContent(p.Value.Content, replacements)
-		}
-	}
-}
-
-func replaceRefsInResponseRef(r *openapi.ResponseRef, replacements map[string]string) {
-	if r == nil || r.Value == nil {
-		return
-	}
-
-	replaceRefsInContent(r.Value.Content, replacements)
-
-	for _, h := range r.Value.Headers {
-		if h != nil && h.Value != nil {
-			replaceRefsInSchema(h.Value.Schema, replacements)
-			replaceRefsInContent(h.Value.Content, replacements)
-		}
-	}
-}
-
-// replaceRefsInComponents updates $ref identifiers throughout all components.
-func replaceRefsInComponents(c *openapi.Components, replacements map[string]string) {
-	replaceRefsInSchemas(c.Schemas, replacements)
-
-	for _, ref := range c.Responses {
-		replaceRefsInResponseRef(ref, replacements)
-	}
-
-	for _, ref := range c.RequestBodies {
-		if ref != nil && ref.Value != nil {
-			replaceRefsInContent(ref.Value.Content, replacements)
-		}
-	}
-
-	for _, ref := range c.Parameters {
-		if ref != nil && ref.Value != nil {
-			replaceSchemaRef(ref.Value.Schema, replacements)
-			replaceRefsInContent(ref.Value.Content, replacements)
-		}
-	}
-
-	for _, ref := range c.Headers {
-		if ref != nil && ref.Value != nil {
-			replaceRefsInSchema(ref.Value.Schema, replacements)
-			replaceRefsInContent(ref.Value.Content, replacements)
-		}
-	}
-}
-
-// replaceRefsInSchemas updates $ref identifiers within component schemas.
-func replaceRefsInSchemas(schemas openapi.Schemas, replacements map[string]string) {
-	for _, s := range schemas {
-		replaceRefsInSchema(s, replacements)
-	}
-}
-
-func replaceRefsInContent(content openapi.Content, replacements map[string]string) {
-	for _, mt := range content {
-		if mt != nil && mt.Schema != nil {
-			replaceSchemaRef(mt.Schema, replacements)
-			replaceRefsInSchema(mt.Schema.Value, replacements)
-		}
-	}
-}
-
-func replaceRefsInSchema(s *openapi.Schema, replacements map[string]string) {
-	replaceRefsInSchemaRec(s, map[*openapi.Schema]bool{}, replacements)
-}
-
-func replaceRefsInSchemaRec(s *openapi.Schema, visited map[*openapi.Schema]bool, replacements map[string]string) {
-	if s == nil || visited[s] {
-		return
-	}
-
-	visited[s] = true
-
-	for _, ref := range s.Properties {
-		replaceSchemaRef(ref, replacements)
-
-		if ref != nil && ref.Ref == nil {
-			replaceRefsInSchemaRec(ref.Value, visited, replacements)
-		}
-	}
-
-	if s.Items != nil {
-		replaceSchemaRef(s.Items, replacements)
-
-		if s.Items.Ref == nil {
-			replaceRefsInSchemaRec(s.Items.Value, visited, replacements)
-		}
-	}
-
-	if s.AdditionalProperties != nil {
-		replaceSchemaRef(s.AdditionalProperties, replacements)
-
-		if s.AdditionalProperties.Ref == nil {
-			replaceRefsInSchemaRec(s.AdditionalProperties.Value, visited, replacements)
-		}
-	}
-
-	for _, ref := range s.AllOf {
-		replaceSchemaRef(ref, replacements)
-
-		if ref != nil && ref.Ref == nil {
-			replaceRefsInSchemaRec(ref.Value, visited, replacements)
-		}
-	}
-}
-
-func replaceSchemaRef(ref *openapi.SchemaRef, replacements map[string]string) {
-	if ref == nil || ref.Ref == nil {
-		return
-	}
-
-	name := schemaNameFromRef(ref.Ref.Identifier)
-	if canonical, ok := replacements[name]; ok {
-		ref.Ref.Identifier = "#/components/schemas/" + canonical
-	}
-}
-
-// schemaNameFromRef extracts the schema name from a $ref like "#/components/schemas/Name".
-func schemaNameFromRef(identifier string) string {
-	const prefix = "#/components/schemas/"
-	return strings.TrimPrefix(identifier, prefix)
-}
-
 func sortedSchemaNames(schemas openapi.Schemas) []string {
 	names := make([]string, 0, len(schemas))
 	for name := range schemas {
@@ -459,4 +289,22 @@ func sortedSchemaNames(schemas openapi.Schemas) []string {
 	sort.Strings(names)
 
 	return names
+}
+
+// isBareScalar reports whether s is a string, number, integer or boolean with no constraint of its own: nothing but a
+// type and documentation, such as a component named idRequest that is only {"type": "string"}.
+func isBareScalar(s *openapi.Schema) bool {
+	switch s.Type {
+	case openapi.TypeString, openapi.TypeNumber, openapi.TypeInteger, openapi.TypeBoolean:
+	default:
+		return false
+	}
+
+	c := *s
+	c.Type, c.Title, c.Description, c.Deprecated = "", "", "", false
+	c.Default, c.Example, c.Examples, c.Extensions = nil, nil, nil, nil
+
+	b, err := json.Marshal(&c)
+
+	return err == nil && string(b) == "{}"
 }

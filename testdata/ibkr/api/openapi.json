@@ -15,7 +15,7 @@
         "operationId": "ListV1APITickle",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/ListV1APITickleOkResponse"
+            "$ref": "#/components/responses/ListV1APITickleOk"
           }
         }
       }
@@ -138,7 +138,7 @@
       }
     },
     "responses": {
-      "ListV1APITickleOkResponse": {
+      "ListV1APITickleOk": {
         "description": "OK",
         "content": {
           "application/json": {

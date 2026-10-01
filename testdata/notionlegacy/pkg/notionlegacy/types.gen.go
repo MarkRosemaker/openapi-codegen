@@ -114,9 +114,7 @@ type Block struct {
 	TableOfContents *TableOfContents `json:"table_of_contents,omitempty"`
 	// Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column.
 	ColumnList *struct{} `json:"column_list,omitempty"`
-	// Link Preview block objects return the originally pasted url.
-	//
-	// NOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API.
+	// An external file is any URL that isn't hosted by Notion.
 	LinkPreview *ExternalFile `json:"link_preview,omitempty"`
 	SyncedBlock *SyncedBlock  `json:"synced_block,omitempty"`
 	LinkToPage  *LinkToPage   `json:"link_to_page,omitempty"`
@@ -181,7 +179,14 @@ type Blocks []Block
 
 // BlocksList defines a model
 type BlocksList struct {
-	List
+	// Always `list`.
+	Object string `json:"object,omitzero"`
+	// Only available when has_more is true.
+	//
+	// Used to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.
+	NextCursor uuid.UUID `json:"next_cursor,omitzero"`
+	// When the response includes the end of the list, `false`. Otherwise, `true`.
+	HasMore bool `json:"has_more"`
 	// The result, an array of block objects.
 	Results Blocks `json:"results"`
 	// Type of the objects in results. Always `block`.
@@ -479,18 +484,6 @@ func (e LinkToPageType) Valid() bool {
 	default:
 		return false
 	}
-}
-
-// List defines a model
-type List struct {
-	// Always `list`.
-	Object string `json:"object,omitzero"`
-	// Only available when has_more is true.
-	//
-	// Used to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.
-	NextCursor uuid.UUID `json:"next_cursor,omitzero"`
-	// When the response includes the end of the list, `false`. Otherwise, `true`.
-	HasMore bool `json:"has_more"`
 }
 
 // Mention defines a model

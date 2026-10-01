@@ -15,15 +15,13 @@ func buildMinimalDoc() *openapi.Document {
 	petSchema := &openapi.Schema{
 		Type:        openapi.TypeObject,
 		Description: "A pet",
-		Properties:  openapi.SchemaRefs{},
+		Properties:  openapi.Schemas{},
 		Required:    []string{"id", "name"},
 	}
-	idRef := &openapi.SchemaRef{}
-	idRef.Value = &openapi.Schema{Type: openapi.TypeInteger}
+	idRef := &openapi.Schema{Type: openapi.TypeInteger}
 	petSchema.Properties.Set("id", idRef)
 
-	nameRef := &openapi.SchemaRef{}
-	nameRef.Value = &openapi.Schema{Type: openapi.TypeString}
+	nameRef := &openapi.Schema{Type: openapi.TypeString}
 	petSchema.Properties.Set("name", nameRef)
 
 	petListRef := makeNamedRef("Pet")
@@ -31,11 +29,10 @@ func buildMinimalDoc() *openapi.Document {
 
 	newPetSchema := &openapi.Schema{
 		Type:       openapi.TypeObject,
-		Properties: openapi.SchemaRefs{},
+		Properties: openapi.Schemas{},
 		Required:   []string{"name"},
 	}
-	newPetNameRef := &openapi.SchemaRef{}
-	newPetNameRef.Value = &openapi.Schema{Type: openapi.TypeString}
+	newPetNameRef := &openapi.Schema{Type: openapi.TypeString}
 	newPetSchema.Properties.Set("name", newPetNameRef)
 
 	doc := &openapi.Document{
@@ -197,9 +194,8 @@ func TestFromDocument_NoServers(t *testing.T) {
 
 func TestFromDocument_SpecialImports(t *testing.T) {
 	// A doc with a url.URL field should set HasURLFields=true.
-	urlSchema := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.SchemaRefs{}, Required: []string{"website"}}
-	wsRef := &openapi.SchemaRef{}
-	wsRef.Value = &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatURI}
+	urlSchema := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}, Required: []string{"website"}}
+	wsRef := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatURI}
 	urlSchema.Properties.Set("website", wsRef)
 
 	doc := &openapi.Document{
@@ -229,9 +225,8 @@ func TestFromDocument_SpecialImports(t *testing.T) {
 
 func TestFromDocument_SpecialImports_UnixTime(t *testing.T) {
 	// A doc with an integer+date-time field should set HasUnixTimeFields=true.
-	eventSchema := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.SchemaRefs{}, Required: []string{"created_at"}}
-	createdAtRef := &openapi.SchemaRef{}
-	createdAtRef.Value = &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
+	eventSchema := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}, Required: []string{"created_at"}}
+	createdAtRef := &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
 	eventSchema.Properties.Set("created_at", createdAtRef)
 
 	doc := &openapi.Document{
@@ -323,7 +318,7 @@ func TestFromDocument_GlobalParamRefDescriptionOverride(t *testing.T) {
 		Name:     "X-Api-Key",
 		In:       openapi.ParameterLocationHeader,
 		Required: true,
-		Schema:   &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}},
+		Schema:   &openapi.Schema{Type: openapi.TypeString},
 	}
 
 	pRef := &openapi.ParameterRef{

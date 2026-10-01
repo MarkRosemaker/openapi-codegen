@@ -8,11 +8,12 @@ import (
 	"github.com/MarkRosemaker/openapi-codegen/ir"
 )
 
-func makeNamedRef(name string) *openapi.SchemaRef {
-	ref := &openapi.SchemaRef{}
-	ref.Value = &openapi.Schema{Type: openapi.TypeObject}
-	ref.Ref = &openapi.Reference{Identifier: "#/components/schemas/" + name}
-	return ref
+func makeNamedRef(name string) *openapi.Schema {
+	// a stand-in for a named object; an empty one would mean a body with nothing in it
+	value := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}}
+	value.Properties.Set("id", &openapi.Schema{Type: openapi.TypeString})
+
+	return &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/" + name, Value: value}}
 }
 
 func makeParam(name string, in openapi.ParameterLocation, required bool, schema *openapi.Schema) *openapi.ParameterRef {
@@ -21,13 +22,13 @@ func makeParam(name string, in openapi.ParameterLocation, required bool, schema 
 		Name:     name,
 		In:       in,
 		Required: required,
-		Schema:   &openapi.SchemaRef{Value: schema},
+		Schema:   schema,
 	}
 
 	return p
 }
 
-func makeResponse(desc, contentType string, schemaRef *openapi.SchemaRef) *openapi.ResponseRef {
+func makeResponse(desc, contentType string, schemaRef *openapi.Schema) *openapi.ResponseRef {
 	r := &openapi.ResponseRef{}
 	r.Value = &openapi.Response{Description: desc}
 	if schemaRef != nil {
@@ -245,12 +246,11 @@ func TestFromOperation_PathParam(t *testing.T) {
 // the generated enum type, not the "string" its underlying schema resolves
 // to when the $ref is ignored.
 func TestFromOperation_PathParamEnumRef(t *testing.T) {
-	statusRef := &openapi.SchemaRef{
-		Ref: &openapi.Reference{Identifier: "#/components/schemas/Status"},
-		Value: &openapi.Schema{
+	statusRef := &openapi.Schema{
+		Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Status", Value: &openapi.Schema{
 			Type: openapi.TypeString,
 			Enum: []jsontext.Value{jsontext.Value(`"active"`), jsontext.Value(`"archived"`)},
-		},
+		}},
 	}
 
 	params := openapi.ParameterList{{
@@ -291,12 +291,11 @@ func TestFromOperation_PathParamEnumRef(t *testing.T) {
 // not fall through to their numeric-zero-value default -- which produces
 // code that fails to compile (`params.Status != 0` for a string-kind type).
 func TestFromOperation_EnumParamNotZeroFormatExpr(t *testing.T) {
-	statusRef := &openapi.SchemaRef{
-		Ref: &openapi.Reference{Identifier: "#/components/schemas/Status"},
-		Value: &openapi.Schema{
+	statusRef := &openapi.Schema{
+		Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/Status", Value: &openapi.Schema{
 			Type: openapi.TypeString,
 			Enum: []jsontext.Value{jsontext.Value(`"active"`), jsontext.Value(`"archived"`)},
-		},
+		}},
 	}
 
 	params := openapi.ParameterList{{
@@ -342,10 +341,7 @@ func TestFromOperation_EnumParamNotZeroFormatExpr(t *testing.T) {
 // the bug was never about enums specifically, but about any generated name
 // standing in for a builtin.
 func TestFromOperation_NamedScalarParamNotZeroFormatExpr(t *testing.T) {
-	trackingIDRef := &openapi.SchemaRef{
-		Ref:   &openapi.Reference{Identifier: "#/components/schemas/TrackingID"},
-		Value: &openapi.Schema{Type: openapi.TypeString},
-	}
+	trackingIDRef := &openapi.Schema{Ref: &openapi.SchemaRef{Identifier: "#/components/schemas/TrackingID", Value: &openapi.Schema{Type: openapi.TypeString}}}
 
 	params := openapi.ParameterList{{
 		Value: &openapi.Parameter{
@@ -441,7 +437,7 @@ func TestFromOperation_QueryParamRefDescriptionOverride(t *testing.T) {
 		Name:        "foo",
 		In:          openapi.ParameterLocationQuery,
 		Description: "the component's own description",
-		Schema:      &openapi.SchemaRef{Value: &openapi.Schema{Type: openapi.TypeString}},
+		Schema:      &openapi.Schema{Type: openapi.TypeString},
 	}
 
 	withOverride := &openapi.ParameterRef{
