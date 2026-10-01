@@ -7410,7 +7410,8 @@
 					"jsonTag": "json:\"hip_width,omitempty\"",
 					"description": "Hip width multiplier"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CharacterProportionsPreset",
@@ -7430,7 +7431,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Pre-defined character proportions"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CharacterProportionsPresetName",
@@ -8750,7 +8752,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "CreateDirectionObject",
@@ -10689,7 +10692,8 @@
 					]
 				}
 			],
-			"discriminator": "kind"
+			"discriminator": "kind",
+			"streamed": true
 		},
 		{
 			"name": "CreateUIAssetResponse",
@@ -15689,7 +15693,8 @@
 					"jsonTag": "json:\"r\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UiPiecePolygon",
@@ -15749,7 +15754,8 @@
 					"type": "*float64",
 					"jsonTag": "json:\"phase,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UiPieceRect",
@@ -15809,7 +15815,8 @@
 					"type": "*float64",
 					"jsonTag": "json:\"radius,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UnzoomRequest",

@@ -5816,7 +5816,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "AgentPermissionsItemPrincipalOneOf",
@@ -5837,7 +5838,8 @@
 					"description": "Always `group`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentPermissionsItemPrincipalOneOf2",
@@ -5851,7 +5853,8 @@
 					"description": "Always `workspace`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentPermissionsItemResolvedRole",
@@ -5896,7 +5899,8 @@
 					"description": "Details about the bot, when the `type` of the user is `bot`.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateCreditLimitPolicy",
@@ -6078,7 +6082,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "CreateCreditLimitPolicySelectorOneOf",
@@ -6092,7 +6097,8 @@
 					"description": "Always `all_space_members`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateCreditLimitPolicySelectorOneOf2",
@@ -6114,7 +6120,8 @@
 					"description": "The ID returned by the workspace users API.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateLegalHold",
@@ -7842,7 +7849,9 @@
 				"id",
 				"name",
 				"object"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "ListUsersOkResultsItemAllOf1",
@@ -7879,7 +7888,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "NotionVersion",
@@ -7922,7 +7932,8 @@
 					"description": "Details about the person, when the `type` of the user is `person`.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PersonMembershipType",
@@ -8078,7 +8089,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "RevokeUserSessionUserOneOf0",
@@ -8100,7 +8112,8 @@
 					"description": "The managed user's primary email address.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RevokeUserSessionUserOneOf1",
@@ -8122,7 +8135,8 @@
 					"description": "The managed user's Notion user UUID.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Status",

@@ -93,8 +93,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 		opt(c)
 	}
 
-	if c.bearer == "" {
-		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	if c.bearer == "" && c.basic == "" {
+		return nil, errors.New("neither bearer token NOTION_API_(UNDOCUMENTED)_TOKEN nor basic auth NOTION_API_(UNDOCUMENTED)_USERNAME / NOTION_API_(UNDOCUMENTED)_PASSWORD provided")
 	}
 
 	return c, nil
@@ -112,6 +112,10 @@ func (c *Client) ListGroupMembers(ctx context.Context, groupID ChatWithAgent3, p
 //
 //	GET /groups/{group_id}/members
 func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID ChatWithAgent3, params *ListGroupMembersParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID), "members")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -321,6 +325,10 @@ func (c *Client) AddGroupMember(ctx context.Context, groupID ChatWithAgent3, bod
 //
 //	POST /groups/{group_id}/members
 func (c *Client) AddGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgent3, body AddGroupMember) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID), "members")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -523,6 +531,10 @@ func (c *Client) ExternalDecagon(ctx context.Context, body ExternalDecagon) (*Ex
 //
 //	POST /external/decagon
 func (c *Client) ExternalDecagonWithResult[R any](ctx context.Context, body ExternalDecagon) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_(UNDOCUMENTED)_USERNAME / NOTION_API_(UNDOCUMENTED)_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("external", "decagon")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -634,6 +646,10 @@ func (c *Client) ExternalRefundEligibility(ctx context.Context, params *External
 //
 //	GET /external/refundEligibility
 func (c *Client) ExternalRefundEligibilityWithResult[R any](ctx context.Context, params *ExternalRefundEligibilityParams, body ExternalRefundEligibility) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_(UNDOCUMENTED)_USERNAME / NOTION_API_(UNDOCUMENTED)_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("external", "refundEligibility")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -755,6 +771,10 @@ func (c *Client) ExternalUserC360Profile(ctx context.Context, body ExternalUserC
 //
 //	POST /external/userC360Profile
 func (c *Client) ExternalUserC360ProfileWithResult[R any](ctx context.Context, body ExternalUserC360Profile) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_(UNDOCUMENTED)_USERNAME / NOTION_API_(UNDOCUMENTED)_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("external", "userC360Profile")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -870,6 +890,10 @@ func (c *Client) ChatWithAgent(ctx context.Context, agentID string, params *Chat
 //
 // Deprecated.
 func (c *Client) ChatWithAgentWithResult[R any](ctx context.Context, agentID string, params *ChatWithAgentParams, body ChatWithAgent) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "chat")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -1086,6 +1110,10 @@ func (c *Client) ChatWithAgentStream(ctx context.Context, agentID string, params
 //
 // Deprecated.
 func (c *Client) ChatWithAgentStreamWithResult[R any](ctx context.Context, agentID string, params *ChatWithAgentStreamParams, body ChatWithAgent) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "chatStream")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -1159,6 +1187,10 @@ func (c *Client) ContinueThread(ctx context.Context, threadID ChatWithAgent3, bo
 //
 // Deprecated.
 func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID ChatWithAgent3, body ContinueThreadRequest) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("threads", string(threadID), "continue")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -1361,6 +1393,10 @@ func (c *Client) CreateExternalAgentStubVault(ctx context.Context, agentID strin
 //
 //	POST /external_agent_stub/{agent_id}/vaults
 func (c *Client) CreateExternalAgentStubVaultWithResult[R any](ctx context.Context, agentID string, body CreateExternalAgentStubVault) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "vaults")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -1563,6 +1599,10 @@ func (c *Client) CreateGroup(ctx context.Context, body CreateGroup) (*permission
 //
 //	POST /groups
 func (c *Client) CreateGroupWithResult[R any](ctx context.Context, body CreateGroup) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -1765,6 +1805,10 @@ func (c *Client) CreateRollout(ctx context.Context, body CreateRollout) (*Create
 //
 //	POST /rollout
 func (c *Client) CreateRolloutWithResult[R any](ctx context.Context, body CreateRollout) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("rollout")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -1967,6 +2011,10 @@ func (c *Client) ListTeamspaces(ctx context.Context, params *ListTeamspacesParam
 //
 //	GET /teamspaces
 func (c *Client) ListTeamspacesWithResult[R any](ctx context.Context, params *ListTeamspacesParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces")
 	if params != nil {
 		q := make(url.Values, 3)
@@ -2180,6 +2228,10 @@ func (c *Client) CreateTeamspace(ctx context.Context, body CreateTeamspace) (*Cr
 //
 //	POST /teamspaces
 func (c *Client) CreateTeamspaceWithResult[R any](ctx context.Context, body CreateTeamspace) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2382,6 +2434,10 @@ func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID strin
 //
 //	DELETE /external_agent_stub/{agent_id}/vaults/{vault_id}
 func (c *Client) DeleteExternalAgentStubVaultWithResult[R any](ctx context.Context, agentID string, vaultID string) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "vaults", vaultID)
 	req := (&http.Request{
 		Header: http.Header{
@@ -2577,6 +2633,10 @@ func (c *Client) UpdateExternalAgentStubVault(ctx context.Context, agentID strin
 //
 //	PATCH /external_agent_stub/{agent_id}/vaults/{vault_id}
 func (c *Client) UpdateExternalAgentStubVaultWithResult[R any](ctx context.Context, agentID string, vaultID string, body UpdateExternalAgentStubVault) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "vaults", vaultID)
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2779,6 +2839,10 @@ func (c *Client) RetrieveGroup(ctx context.Context, groupID ChatWithAgent3) (*pe
 //
 //	GET /groups/{group_id}
 func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID ChatWithAgent3) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -2974,6 +3038,10 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID ChatWithAgent3, body D
 //
 //	DELETE /groups/{group_id}
 func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID ChatWithAgent3, body DeleteGroup) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3176,6 +3244,10 @@ func (c *Client) UpdateGroup(ctx context.Context, groupID ChatWithAgent3, body C
 //
 //	PATCH /groups/{group_id}
 func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID ChatWithAgent3, body CreateGroup) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3382,6 +3454,10 @@ func (c *Client) ExportPage(ctx context.Context, id ChatWithAgent3) (*ExportPage
 //
 // Deprecated.
 func (c *Client) ExportPageWithResult[R any](ctx context.Context, id ChatWithAgent3) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("export", string(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -3577,6 +3653,10 @@ func (c *Client) GenerateTranscript(ctx context.Context, body GenerateTranscript
 //
 //	POST /rollout/generate-transcript
 func (c *Client) GenerateTranscriptWithResult[R any](ctx context.Context, body GenerateTranscript) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("rollout", "generate-transcript")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3779,6 +3859,10 @@ func (c *Client) GetRollout(ctx context.Context, rolloutID string) (*Rollout, er
 //
 //	GET /rollout/{rollout_id}
 func (c *Client) GetRolloutWithResult[R any](ctx context.Context, rolloutID string) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("rollout", rolloutID)
 	req := (&http.Request{
 		Header: http.Header{
@@ -3974,6 +4058,10 @@ func (c *Client) GetSecurityPosture(ctx context.Context) (*GetSecurityPostureOk,
 //
 //	GET /security_center/posture
 func (c *Client) GetSecurityPostureWithResult[R any](ctx context.Context) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("security_center", "posture")
 	req := (&http.Request{
 		Header: http.Header{
@@ -4169,6 +4257,10 @@ func (c *Client) GetTeamspace(ctx context.Context, teamID ChatWithAgent3) (*Crea
 //
 //	GET /teamspaces/{team_id}
 func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID ChatWithAgent3) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces", string(teamID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -4364,6 +4456,10 @@ func (c *Client) UpdateTeamspace(ctx context.Context, teamID ChatWithAgent3, bod
 //
 //	PATCH /teamspaces/{team_id}
 func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID ChatWithAgent3, body CreateTeamspace) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces", string(teamID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -4566,6 +4662,10 @@ func (c *Client) InitiatePageExport(ctx context.Context, body InitiatePageExport
 //
 //	POST /export
 func (c *Client) InitiatePageExportWithResult[R any](ctx context.Context, body InitiatePageExport) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("export")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -4772,6 +4872,10 @@ func (c *Client) ListAgents(ctx context.Context, params *ListAgentsParams) (*Lis
 //
 // Deprecated.
 func (c *Client) ListAgentsWithResult[R any](ctx context.Context, params *ListAgentsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents")
 	if params != nil {
 		q := make(url.Values, 7)
@@ -5001,6 +5105,10 @@ func (c *Client) ListConnections(ctx context.Context, params *ListConnectionsPar
 //
 //	GET /connections
 func (c *Client) ListConnectionsWithResult[R any](ctx context.Context, params *ListConnectionsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("connections")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -5206,6 +5314,10 @@ func (c *Client) GetDatabases(ctx context.Context, params *GetDatabasesParams) (
 //
 //	GET /data_sources
 func (c *Client) GetDatabasesWithResult[R any](ctx context.Context, params *GetDatabasesParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("data_sources")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -5415,6 +5527,10 @@ func (c *Client) ListExternalAgentStubSessionEvents(ctx context.Context, agentID
 //
 //	GET /external_agent_stub/{agent_id}/sessions/{session_id}/events
 func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgent3, params *ListExternalAgentStubSessionEventsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions", string(sessionID), "events")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -5620,6 +5736,10 @@ func (c *Client) ListTeamMembership(ctx context.Context, teamID ChatWithAgent3, 
 //
 //	GET /teamspaces/{team_id}/membership
 func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID ChatWithAgent3, params *ListTeamMembershipParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "membership")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -5829,6 +5949,10 @@ func (c *Client) UpdateTeamMembership(ctx context.Context, teamID ChatWithAgent3
 //
 //	PATCH /teamspaces/{team_id}/membership
 func (c *Client) UpdateTeamMembershipWithResult[R any](ctx context.Context, teamID ChatWithAgent3, body UpdateTeamMembership) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "membership")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6031,6 +6155,10 @@ func (c *Client) ListTeamPermissions(ctx context.Context, teamID ChatWithAgent3,
 //
 //	GET /teamspaces/{team_id}/permissions
 func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamID ChatWithAgent3, params *ListTeamPermissionsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "permissions")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -6240,6 +6368,10 @@ func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID ChatWith
 //
 //	PATCH /teamspaces/{team_id}/permissions
 func (c *Client) UpdateTeamspacePermissionsWithResult[R any](ctx context.Context, teamID ChatWithAgent3, body UpdateTeamspacePermissions) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("teamspaces", string(teamID), "permissions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6446,6 +6578,10 @@ func (c *Client) ListThreadMessages(ctx context.Context, threadID ChatWithAgent3
 //
 // Deprecated.
 func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, threadID ChatWithAgent3, params *ListThreadMessagesParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("threads", string(threadID), "messages")
 	if params != nil {
 		q := make(url.Values, 4)
@@ -6667,6 +6803,10 @@ func (c *Client) SendThreadMessage(ctx context.Context, threadID ChatWithAgent3,
 //
 // Deprecated.
 func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID ChatWithAgent3, body ChatWithAgent) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("threads", string(threadID), "messages")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6873,6 +7013,10 @@ func (c *Client) ListThreads(ctx context.Context, agentID string, params *ListTh
 //
 // Deprecated.
 func (c *Client) ListThreadsWithResult[R any](ctx context.Context, agentID string, params *ListThreadsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "threads")
 	if params != nil {
 		q := make(url.Values, 10)
@@ -7114,6 +7258,10 @@ func (c *Client) ListTools(ctx context.Context) (*ListToolsOk, error) {
 //
 //	GET /tools
 func (c *Client) ListToolsWithResult[R any](ctx context.Context) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("tools")
 	req := (&http.Request{
 		Header: http.Header{
@@ -7309,6 +7457,10 @@ func (c *Client) EmaResolveIdentity(ctx context.Context, body EmaResolveIdentity
 //
 //	POST /oauth/ema/resolve
 func (c *Client) EmaResolveIdentityWithResult[R any](ctx context.Context, body EmaResolveIdentity) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_(UNDOCUMENTED)_USERNAME / NOTION_API_(UNDOCUMENTED)_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("oauth", "ema", "resolve")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7420,6 +7572,10 @@ func (c *Client) EmaResolveTrustedIssuer(ctx context.Context, body EmaResolveTru
 //
 //	POST /oauth/ema/trusted-issuer
 func (c *Client) EmaResolveTrustedIssuerWithResult[R any](ctx context.Context, body EmaResolveTrustedIssuer) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_(UNDOCUMENTED)_USERNAME / NOTION_API_(UNDOCUMENTED)_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("oauth", "ema", "trusted-issuer")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7531,6 +7687,10 @@ func (c *Client) QueryThreadMessages(ctx context.Context, threadID ChatWithAgent
 //
 //	POST /threads/{thread_id}/messages/query
 func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threadID ChatWithAgent3, body QueryThreadMessages) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("threads", string(threadID), "messages", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7733,6 +7893,10 @@ func (c *Client) QueryThreads(ctx context.Context, agentID string, body QueryThr
 //
 //	POST /agents/{agent_id}/threads/query
 func (c *Client) QueryThreadsWithResult[R any](ctx context.Context, agentID string, body QueryThreads) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "threads", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7935,6 +8099,10 @@ func (c *Client) RemoveGroupMember(ctx context.Context, groupID ChatWithAgent3, 
 //
 //	DELETE /groups/{group_id}/members/users/{user_id}
 func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID), "members", "users", string(userID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -8130,6 +8298,10 @@ func (c *Client) UpdateGroupMember(ctx context.Context, groupID ChatWithAgent3, 
 //
 //	PATCH /groups/{group_id}/members/users/{user_id}
 func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID ChatWithAgent3, userID ChatWithAgent3, body UpdateGroupMember) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("groups", string(groupID), "members", "users", string(userID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8332,6 +8504,10 @@ func (c *Client) RemovePageGuest(ctx context.Context, pageID ChatWithAgent3, bod
 //
 //	POST /pages/{page_id}/remove_guests
 func (c *Client) RemovePageGuestWithResult[R any](ctx context.Context, pageID ChatWithAgent3, body struct{}) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID), "remove_guests")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8534,6 +8710,10 @@ func (c *Client) RunInternalTool(ctx context.Context, body RunInternalTool) (*Ru
 //
 //	POST /tools/run/internal
 func (c *Client) RunInternalToolWithResult[R any](ctx context.Context, body RunInternalTool) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("tools", "run", "internal")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8736,6 +8916,10 @@ func (c *Client) RunMinimalRollout(ctx context.Context, body RunMinimalRollout) 
 //
 //	POST /rollout/minimal
 func (c *Client) RunMinimalRolloutWithResult[R any](ctx context.Context, body RunMinimalRollout) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("rollout", "minimal")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8938,6 +9122,10 @@ func (c *Client) RunRollout(ctx context.Context, body CreateRollout) (*RolloutRe
 //
 //	POST /rollout/run
 func (c *Client) RunRolloutWithResult[R any](ctx context.Context, body CreateRollout) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("rollout", "run")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9140,6 +9328,10 @@ func (c *Client) RunTool(ctx context.Context, body RunTool) (*runToolResponse, e
 //
 //	POST /tools/run
 func (c *Client) RunToolWithResult[R any](ctx context.Context, body RunTool) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("tools", "run")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9355,6 +9547,10 @@ func (c *Client) AuthorizeToolsSession(ctx context.Context) (*AuthorizeToolsSess
 //
 //	GET /tools/auth
 func (c *Client) AuthorizeToolsSessionWithResult[R any](ctx context.Context) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("tools", "auth")
 	req := (&http.Request{
 		Header: http.Header{
@@ -9550,6 +9746,10 @@ func (c *Client) RunToolByID(ctx context.Context, toolID ToolID, body ToolInput)
 //
 //	POST /tools/{tool_id}
 func (c *Client) RunToolByIDWithResult[R any](ctx context.Context, toolID ToolID, body ToolInput) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("tools", string(toolID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9765,6 +9965,10 @@ func (c *Client) RunToolEval(ctx context.Context, body RunToolEval) (*runToolRes
 //
 //	POST /tools/run/eval
 func (c *Client) RunToolEvalWithResult[R any](ctx context.Context, body RunToolEval) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("tools", "run", "eval")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9967,6 +10171,10 @@ func (c *Client) RunUnifiedRollout(ctx context.Context, body RunUnifiedRollout) 
 //
 //	POST /rollout/unified
 func (c *Client) RunUnifiedRolloutWithResult[R any](ctx context.Context, body RunUnifiedRollout) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("rollout", "unified")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10169,6 +10377,10 @@ func (c *Client) SendExternalAgentStubSessionMessage(ctx context.Context, agentI
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages
 func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions", string(sessionID), "messages")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10371,6 +10583,10 @@ func (c *Client) SendExternalAgentStubSessionMessageStream(ctx context.Context, 
 //
 //	POST /external_agent_stub/{agent_id}/sessions/{session_id}/messages/stream
 func (c *Client) SendExternalAgentStubSessionMessageStreamWithResult[R any](ctx context.Context, agentID string, sessionID ChatWithAgent3, body SendExternalAgentStubSessionMessage) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions", string(sessionID), "messages", "stream")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10430,6 +10646,10 @@ func (c *Client) StartExternalAgentStubSession(ctx context.Context, agentID stri
 //
 //	POST /external_agent_stub/{agent_id}/sessions
 func (c *Client) StartExternalAgentStubSessionWithResult[R any](ctx context.Context, agentID string, body StartExternalAgentStubSession) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("external_agent_stub", agentID, "sessions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10632,6 +10852,10 @@ func (c *Client) TransferUserContent(ctx context.Context, body TransferUserConte
 //
 //	POST /users/transfer
 func (c *Client) TransferUserContentWithResult[R any](ctx context.Context, body TransferUserContent) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("users", "transfer")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10834,6 +11058,10 @@ func (c *Client) UnsharePageFromWeb(ctx context.Context, pageID ChatWithAgent3, 
 //
 //	POST /pages/{page_id}/unshare_from_web
 func (c *Client) UnsharePageFromWebWithResult[R any](ctx context.Context, pageID ChatWithAgent3, body struct{}) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID), "unshare_from_web")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -11036,6 +11264,10 @@ func (c *Client) UpdateAgent(ctx context.Context, agentID string, body UpdateAge
 //
 //	PATCH /agents/{agent_id}
 func (c *Client) UpdateAgentWithResult[R any](ctx context.Context, agentID string, body UpdateAgent) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID)
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -11238,6 +11470,10 @@ func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID ChatWi
 //
 //	PATCH /_/pages/{page_id}/permissions
 func (c *Client) PrivateUpdatePagePermissionsWithResult[R any](ctx context.Context, pageID ChatWithAgent3, body PrivateUpdatePagePermissions) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("_", "pages", string(pageID), "permissions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -11440,6 +11676,10 @@ func (c *Client) SearchWorkspace(ctx context.Context, body SearchWorkspace) (*Se
 //
 //	POST /workspace/search
 func (c *Client) SearchWorkspaceWithResult[R any](ctx context.Context, body SearchWorkspace) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("workspace", "search")
 	pr, pw := io.Pipe()
 	req := (&http.Request{

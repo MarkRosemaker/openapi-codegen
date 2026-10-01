@@ -94,8 +94,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 		opt(c)
 	}
 
-	if c.bearer == "" {
-		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	if c.bearer == "" && c.basic == "" {
+		return nil, errors.New("neither bearer token NOTION_API_TOKEN nor basic auth NOTION_API_USERNAME / NOTION_API_PASSWORD provided")
 	}
 
 	return c, nil
@@ -113,6 +113,10 @@ func (c *Client) GetSelf(ctx context.Context) (*userObjectResponse, error) {
 //
 //	GET /users/me
 func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("users", "me")
 	req := (&http.Request{
 		Header: http.Header{
@@ -308,6 +312,10 @@ func (c *Client) GetUser(ctx context.Context, userID emoji) (*userObjectResponse
 //
 //	GET /users/{user_id}
 func (c *Client) GetUserWithResult[R any](ctx context.Context, userID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("users", string(userID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -503,6 +511,10 @@ func (c *Client) GetUsers(ctx context.Context, params *GetUsersParams) (*User, e
 //
 //	GET /users
 func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsersParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("users")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -712,6 +724,10 @@ func (c *Client) PostPage(ctx context.Context, params *PostPageParams, body Post
 //
 //	POST /pages
 func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPageParams, body PostPage) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -937,6 +953,10 @@ func (c *Client) RetrieveAPage(ctx context.Context, pageID emoji, params *Retrie
 //
 //	GET /pages/{page_id}
 func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID emoji, params *RetrieveAPageParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID))
 	if params != nil {
 		q := make(url.Values, 1)
@@ -1142,6 +1162,10 @@ func (c *Client) PatchPage(ctx context.Context, pageID emoji, params *PatchPageP
 //
 //	PATCH /pages/{page_id}
 func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID emoji, params *PatchPageParams, body PatchPage) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID))
 	if params != nil {
 		q := make(url.Values, 1)
@@ -1354,6 +1378,10 @@ func (c *Client) MovePage(ctx context.Context, pageID emoji, body MovePage) (*Mo
 //
 //	POST /pages/{page_id}/move
 func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID emoji, body MovePage) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID), "move")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -1556,6 +1584,10 @@ func (c *Client) RetrieveAPageProperty(ctx context.Context, pageID emoji, proper
 //
 //	GET /pages/{page_id}/properties/{property_id}
 func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pageID emoji, propertyID string, params *RetrieveAPagePropertyParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID), "properties", propertyID)
 	if params != nil {
 		q := make(url.Values, 2)
@@ -1765,6 +1797,10 @@ func (c *Client) RetrievePageMarkdown(ctx context.Context, pageID emoji, params 
 //
 //	GET /pages/{page_id}/markdown
 func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, pageID emoji, params *RetrievePageMarkdownParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID), "markdown")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -1970,6 +2006,10 @@ func (c *Client) UpdatePageMarkdown(ctx context.Context, pageID emoji, body Upda
 //
 //	PATCH /pages/{page_id}/markdown
 func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID emoji, body UpdatePageMarkdown) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("pages", string(pageID), "markdown")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2185,6 +2225,10 @@ func (c *Client) RetrieveAsyncTask(ctx context.Context, taskID string) (*Retriev
 //
 //	GET /async_tasks/{task_id}
 func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID string) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("async_tasks", taskID)
 	req := (&http.Request{
 		Header: http.Header{
@@ -2380,6 +2424,10 @@ func (c *Client) RetrieveABlock(ctx context.Context, blockID emoji) (*BlockResul
 //
 //	GET /blocks/{block_id}
 func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", string(blockID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -2575,6 +2623,10 @@ func (c *Client) DeleteABlock(ctx context.Context, blockID emoji) (*BlockResults
 //
 //	DELETE /blocks/{block_id}
 func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", string(blockID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -2770,6 +2822,10 @@ func (c *Client) UpdateABlock(ctx context.Context, blockID emoji, body UpdateABl
 //
 //	PATCH /blocks/{block_id}
 func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID emoji, body UpdateABlock) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", string(blockID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2972,6 +3028,10 @@ func (c *Client) GetBlockChildren(ctx context.Context, blockID emoji, params *Ge
 //
 //	GET /blocks/{block_id}/children
 func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID emoji, params *GetBlockChildrenParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", string(blockID), "children")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -3181,6 +3241,10 @@ func (c *Client) PatchBlockChildren(ctx context.Context, blockID emoji, body Pat
 //
 //	PATCH /blocks/{block_id}/children
 func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockID emoji, body PatchBlockChildren) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", string(blockID), "children")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3383,6 +3447,10 @@ func (c *Client) RetrieveADataSource(ctx context.Context, dataSourceID emoji) (*
 //
 //	GET /data_sources/{data_source_id}
 func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataSourceID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("data_sources", string(dataSourceID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -3578,6 +3646,10 @@ func (c *Client) UpdateADataSource(ctx context.Context, dataSourceID emoji, body
 //
 //	PATCH /data_sources/{data_source_id}
 func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSourceID emoji, body UpdateADataSource) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("data_sources", string(dataSourceID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3780,6 +3852,10 @@ func (c *Client) PostDatabaseQuery(ctx context.Context, dataSourceID emoji, para
 //
 //	POST /data_sources/{data_source_id}/query
 func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSourceID emoji, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("data_sources", string(dataSourceID), "query")
 	if params != nil {
 		q := make(url.Values, 1)
@@ -3992,6 +4068,10 @@ func (c *Client) CreateADatabase(ctx context.Context, body CreateADatabase) (*Cr
 //
 //	POST /data_sources
 func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body CreateADatabase) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("data_sources")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -4194,6 +4274,10 @@ func (c *Client) ListDataSourceTemplates(ctx context.Context, dataSourceID emoji
 //
 //	GET /data_sources/{data_source_id}/templates
 func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, dataSourceID emoji, params *ListDataSourceTemplatesParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("data_sources", string(dataSourceID), "templates")
 	if params != nil {
 		q := make(url.Values, 3)
@@ -4407,6 +4491,10 @@ func (c *Client) RetrieveDatabase(ctx context.Context, databaseID emoji) (*Creat
 //
 //	GET /databases/{database_id}
 func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, databaseID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("databases", string(databaseID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -4602,6 +4690,10 @@ func (c *Client) UpdateDatabase(ctx context.Context, databaseID emoji, body Upda
 //
 //	PATCH /databases/{database_id}
 func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID emoji, body UpdateDatabase) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("databases", string(databaseID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -4804,6 +4896,10 @@ func (c *Client) CreateDatabase(ctx context.Context, body CreateDatabase) (*Crea
 //
 //	POST /databases
 func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body CreateDatabase) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("databases")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -5006,6 +5102,10 @@ func (c *Client) PostSearch(ctx context.Context, body PostSearch) (*PageOrDataSo
 //
 //	POST /search
 func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearch) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("search")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -5208,6 +5308,10 @@ func (c *Client) ListComments(ctx context.Context, params ListCommentsParams) (*
 //
 //	GET /comments
 func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListCommentsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("comments")
 
 	q := make(url.Values, 3)
@@ -5418,6 +5522,10 @@ func (c *Client) CreateAComment(ctx context.Context, body CreateAComment) (*Crea
 //
 //	POST /comments
 func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body CreateAComment) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("comments")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -5620,6 +5728,10 @@ func (c *Client) RetrieveComment(ctx context.Context, commentID emoji) (*CreateA
 //
 //	GET /comments/{comment_id}
 func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("comments", string(commentID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -5815,6 +5927,10 @@ func (c *Client) DeleteAComment(ctx context.Context, commentID emoji) (*CreateAC
 //
 //	DELETE /comments/{comment_id}
 func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("comments", string(commentID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -6010,6 +6126,10 @@ func (c *Client) UpdateAComment(ctx context.Context, commentID emoji, body Updat
 //
 //	PATCH /comments/{comment_id}
 func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID emoji, body UpdateAComment) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("comments", string(commentID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6212,6 +6332,10 @@ func (c *Client) ListFileUploads(ctx context.Context, params *ListFileUploadsPar
 //
 //	GET /file_uploads
 func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *ListFileUploadsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("file_uploads")
 	if params != nil {
 		q := make(url.Values, 3)
@@ -6425,6 +6549,10 @@ func (c *Client) CreateFile(ctx context.Context, body CreateFile) (*fileUploadOb
 //
 //	POST /file_uploads
 func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFile) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("file_uploads")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6627,6 +6755,10 @@ func (c *Client) UploadFile(ctx context.Context, fileUploadID emoji, body Upload
 //
 //	POST /file_uploads/{file_upload_id}/send
 func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID emoji, body UploadFile) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("file_uploads", string(fileUploadID), "send")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -6829,6 +6961,10 @@ func (c *Client) CompleteFileUpload(ctx context.Context, fileUploadID emoji) (*f
 //
 //	POST /file_uploads/{file_upload_id}/complete
 func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUploadID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("file_uploads", string(fileUploadID), "complete")
 	req := (&http.Request{
 		Header: http.Header{
@@ -7024,6 +7160,10 @@ func (c *Client) RetrieveFileUpload(ctx context.Context, fileUploadID emoji) (*f
 //
 //	GET /file_uploads/{file_upload_id}
 func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUploadID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("file_uploads", string(fileUploadID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -7219,6 +7359,10 @@ func (c *Client) ListCustomEmojis(ctx context.Context, params *ListCustomEmojisP
 //
 //	GET /custom_emojis
 func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *ListCustomEmojisParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("custom_emojis")
 	if params != nil {
 		q := make(url.Values, 3)
@@ -7432,6 +7576,10 @@ func (c *Client) ListViews(ctx context.Context, params *ListViewsParams) (*ListV
 //
 //	GET /views
 func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListViewsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views")
 	if params != nil {
 		q := make(url.Values, 4)
@@ -7649,6 +7797,10 @@ func (c *Client) CreateView(ctx context.Context, body createViewRequest) (*Creat
 //
 //	POST /views
 func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createViewRequest) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -7851,6 +8003,10 @@ func (c *Client) RetrieveAView(ctx context.Context, viewID emoji) (*CreateView, 
 //
 //	GET /views/{view_id}
 func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views", string(viewID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -8046,6 +8202,10 @@ func (c *Client) DeleteView(ctx context.Context, viewID emoji) (*partialDataSour
 //
 //	DELETE /views/{view_id}
 func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views", string(viewID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -8241,6 +8401,10 @@ func (c *Client) UpdateAView(ctx context.Context, viewID emoji, body updateViewR
 //
 //	PATCH /views/{view_id}
 func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID emoji, body updateViewRequest) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views", string(viewID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8443,6 +8607,10 @@ func (c *Client) CreateViewQuery(ctx context.Context, viewID emoji, body createV
 //
 //	POST /views/{view_id}/queries
 func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID emoji, body createViewQueryRequest) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views", string(viewID), "queries")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -8645,6 +8813,10 @@ func (c *Client) GetViewQueryResults(ctx context.Context, viewID emoji, queryID 
 //
 //	GET /views/{view_id}/queries/{query_id}
 func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewID emoji, queryID emoji, params *GetViewQueryResultsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views", string(viewID), "queries", string(queryID))
 	if params != nil {
 		q := make(url.Values, 2)
@@ -8854,6 +9026,10 @@ func (c *Client) DeleteViewQuery(ctx context.Context, viewID emoji, queryID emoj
 //
 //	DELETE /views/{view_id}/queries/{query_id}
 func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID emoji, queryID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("views", string(viewID), "queries", string(queryID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -9049,6 +9225,10 @@ func (c *Client) CreateMeetingNote(ctx context.Context, body CreateMeetingNote) 
 //
 //	POST /blocks/meeting_notes
 func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body CreateMeetingNote) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", "meeting_notes")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9251,6 +9431,10 @@ func (c *Client) QueryMeetingNotes(ctx context.Context, body QueryMeetingNotes) 
 //
 //	POST /blocks/meeting_notes/query
 func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body QueryMeetingNotes) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("blocks", "meeting_notes", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9453,6 +9637,10 @@ func (c *Client) QueryAgents(ctx context.Context, body QueryAgents) (*QueryAgent
 //
 //	POST /agents/query
 func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAgents) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -9655,6 +9843,10 @@ func (c *Client) GetAgent(ctx context.Context, agentID string, params *GetAgentP
 //
 //	GET /agents/{agent_id}
 func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, params *GetAgentParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID)
 	if params != nil {
 		q := make(url.Values, 1)
@@ -9860,6 +10052,10 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID string) (*DeleteAgentO
 //
 //	DELETE /agents/{agent_id}
 func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID string) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID)
 	req := (&http.Request{
 		Header: http.Header{
@@ -10055,6 +10251,10 @@ func (c *Client) GetAgentInsights(ctx context.Context, agentID string, params *G
 //
 //	GET /agents/{agent_id}/insights
 func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID string, params *GetAgentInsightsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "insights")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -10264,6 +10464,10 @@ func (c *Client) UpdateAgentStatus(ctx context.Context, agentID string, body Age
 //
 //	PATCH /agents/{agent_id}/status
 func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "status")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10466,6 +10670,10 @@ func (c *Client) UpdateAgentCreditLimit(ctx context.Context, agentID string, bod
 //
 //	PATCH /agents/{agent_id}/credit_limit
 func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields2) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", agentID, "credit_limit")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10668,6 +10876,10 @@ func (c *Client) AgentBatch(ctx context.Context, body AgentBatch) (*AgentBatch2,
 //
 //	POST /agents/batch
 func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatch) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("agents", "batch")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10870,6 +11082,10 @@ func (c *Client) ListSkillsPlugins(ctx context.Context, params *ListSkillsPlugin
 //
 //	GET /ai/plugins
 func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params *ListSkillsPluginsParams) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("ai", "plugins")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -11079,6 +11295,10 @@ func (c *Client) GetPluginDirectory(ctx context.Context, id string) (*GetPluginD
 //
 //	GET /ai/plugins/{id}
 func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id string) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("ai", "plugins", id)
 	req := (&http.Request{
 		Header: http.Header{
@@ -11274,6 +11494,10 @@ func (c *Client) GetSkillDirectory(ctx context.Context, id emoji) (*GetSkillDire
 //
 //	GET /ai/skills/{id}
 func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("ai", "skills", string(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -11469,6 +11693,10 @@ func (c *Client) UpdateSession(ctx context.Context, body UpdateSessionRequest) (
 //
 //	POST /sessions
 func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body UpdateSessionRequest) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("sessions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -11671,6 +11899,10 @@ func (c *Client) RetrieveSession(ctx context.Context, sessionID emoji) (*Retriev
 //
 //	GET /sessions/{session_id}
 func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID emoji) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("sessions", string(sessionID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -11866,6 +12098,10 @@ func (c *Client) QuerySessions(ctx context.Context, body QuerySessions) (*QueryS
 //
 //	POST /sessions/query
 func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QuerySessions) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("sessions", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -12068,6 +12304,10 @@ func (c *Client) QuerySessionEvents(ctx context.Context, sessionID emoji, body Q
 //
 //	POST /sessions/{session_id}/events/query
 func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessionID emoji, body QuerySessionEvents) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("sessions", string(sessionID), "events", "query")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -12270,6 +12510,10 @@ func (c *Client) CancelSession(ctx context.Context, sessionID emoji, body Cancel
 //
 //	POST /sessions/{session_id}/cancel
 func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID emoji, body CancelSession) (*R, error) {
+	if c.bearer == "" {
+		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
+	}
+
 	u := c.baseURL.JoinPath("sessions", string(sessionID), "cancel")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -12472,6 +12716,10 @@ func (c *Client) CreateAToken(ctx context.Context, body CreateAToken) (*CreateAT
 //
 //	POST /oauth/token
 func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateAToken) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_USERNAME / NOTION_API_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("oauth", "token")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -12583,6 +12831,10 @@ func (c *Client) RevokeToken(ctx context.Context, body IntrospectToken) (*Revoke
 //
 //	POST /oauth/revoke
 func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body IntrospectToken) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_USERNAME / NOTION_API_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("oauth", "revoke")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -12694,6 +12946,10 @@ func (c *Client) IntrospectToken(ctx context.Context, body IntrospectToken) (*In
 //
 //	POST /oauth/introspect
 func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body IntrospectToken) (*R, error) {
+	if c.basic == "" {
+		return nil, errors.New("basic auth NOTION_API_USERNAME / NOTION_API_PASSWORD not provided")
+	}
+
 	u := c.baseURL.JoinPath("oauth", "introspect")
 	pr, pw := io.Pipe()
 	req := (&http.Request{

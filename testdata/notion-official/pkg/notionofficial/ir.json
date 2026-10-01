@@ -9159,7 +9159,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "action"
+			"discriminator": "action",
+			"streamed": true
 		},
 		{
 			"name": "AgentBatchOperationsItemOneOf0",
@@ -9189,7 +9190,8 @@
 					"description": "The status to apply to this agent.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentBatchOperationsItemOneOf1",
@@ -9219,7 +9221,8 @@
 					"description": "The credit limit to apply to this agent.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentBatchOperationsItemOneOf2",
@@ -9241,7 +9244,8 @@
 					"description": "The agent ID (a UUID), or `notion_ai` for the personal agent. Endpoint-specific restrictions still apply.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentBatchOperationsItemOneOfAgentID",
@@ -10068,7 +10072,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTarget2",
@@ -10112,7 +10117,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTarget3",
@@ -10145,7 +10151,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTarget4",
@@ -10186,7 +10193,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf10",
@@ -10200,7 +10208,8 @@
 					"description": "Always `slack_all_channels`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf11",
@@ -10221,7 +10230,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf12",
@@ -10235,7 +10245,8 @@
 					"description": "Always `discord_all_channels`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf2",
@@ -10263,7 +10274,8 @@
 					"jsonTag": "json:\"property_id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf3",
@@ -10284,7 +10296,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf4",
@@ -10298,7 +10311,8 @@
 					"description": "Always `workspace`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf5",
@@ -10312,7 +10326,8 @@
 					"description": "Always `owner_private_pages`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf6",
@@ -10334,7 +10349,8 @@
 					"description": "Domains web search is restricted to, or null when unrestricted.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf7",
@@ -10348,7 +10364,8 @@
 					"description": "Always `notion_help_docs_search`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf8",
@@ -10369,7 +10386,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf9",
@@ -10383,7 +10401,8 @@
 					"description": "Always `slack_all_public_channels`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentConnectionsItemOneOfRunToolsAutomatically",
@@ -10909,7 +10928,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "mode"
+			"discriminator": "mode",
+			"streamed": true
 		},
 		{
 			"name": "AgentModelOneOf",
@@ -10923,7 +10943,8 @@
 					"description": "Always `auto`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentModelOneOf2",
@@ -10945,7 +10966,8 @@
 					"description": "The name of the bot's workspace.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentTriggers",
@@ -11100,7 +11122,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "AgentTriggersItemScheduleEndOneOf",
@@ -11122,7 +11145,8 @@
 					"description": "ISO 8601 timestamp when the schedule stops.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentTriggersItemScheduleEndOneOf2",
@@ -11144,7 +11168,8 @@
 					"description": "Number of occurrences after which the schedule stops.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "AgentVersionOneOf",
@@ -11201,7 +11226,8 @@
 					"jsonTag": "json:\"function,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Audio",
@@ -11226,7 +11252,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Audio3",
@@ -11251,7 +11278,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BaseWebhookPayloadAPIVersion",
@@ -11309,7 +11337,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "BaseWebhookPayloadAccessibleByItemOneOf",
@@ -11331,7 +11360,8 @@
 					"description": "Always `person`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BaseWebhookPayloadAccessibleByItemOneOf2",
@@ -11353,7 +11383,8 @@
 					"description": "Always `bot`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Block",
@@ -11508,7 +11539,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Bookmark3",
@@ -11533,7 +11565,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BotInfoResponseOwner",
@@ -11567,7 +11600,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "BotInfoResponseWorkspaceLimits",
@@ -11634,7 +11668,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Breadcrumb3",
@@ -11659,7 +11694,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BulletedListItem",
@@ -11684,7 +11720,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BulletedListItem2",
@@ -11709,7 +11746,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BulletedListItem3",
@@ -11734,7 +11772,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BulletedListItem4",
@@ -11759,7 +11798,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "BulletedListItemBulletedListItem",
@@ -11828,7 +11868,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Callout2",
@@ -11853,7 +11894,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Callout3",
@@ -11878,7 +11920,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Callout4",
@@ -11903,7 +11946,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Callout5",
@@ -12740,7 +12784,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Checkbox2",
@@ -12760,7 +12805,8 @@
 					"jsonTag": "json:\"checkbox\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Checkbox4",
@@ -12786,7 +12832,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Code",
@@ -12811,7 +12858,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Code2",
@@ -12860,7 +12908,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CodeBlockObjectResponseCode",
@@ -12912,7 +12961,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Column3",
@@ -12937,7 +12987,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ColumnColumn",
@@ -12975,7 +13026,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CommentCreatedWebhookPayloadAllOfData",
@@ -13024,7 +13076,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CommentObjectResponseAttachments",
@@ -13400,7 +13453,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "CreateACommentAllOf1",
@@ -13577,7 +13631,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "CreateACommentAllOfOneOfParentOneOf",
@@ -13598,7 +13653,8 @@
 					"jsonTag": "json:\"type,omitzero\"",
 					"description": "Always `page_id`"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateACommentAllOfOneOfParentOneOf2",
@@ -13619,7 +13675,8 @@
 					"jsonTag": "json:\"type,omitzero\"",
 					"description": "Always `block_id`"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateADatabase",
@@ -13757,7 +13814,8 @@
 					]
 				}
 			],
-			"discriminator": "grant_type"
+			"discriminator": "grant_type",
+			"streamed": true
 		},
 		{
 			"name": "CreateATokenAnyOf0",
@@ -13789,7 +13847,8 @@
 					"type": "*CreateATokenAnyOf0ExternalAccount",
 					"jsonTag": "json:\"external_account,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateATokenAnyOf0ExternalAccount",
@@ -13829,7 +13888,8 @@
 					"jsonTag": "json:\"refresh_token,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateATokenOk",
@@ -13937,7 +13997,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "CreateDatabase",
@@ -14174,7 +14235,9 @@
 			},
 			"members": [
 				"type"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "CreateDatabaseParentAllOf2",
@@ -14207,7 +14270,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "CreateDatabaseParentAllOfType",
@@ -14997,7 +15061,8 @@
 					"jsonTag": "json:\"created_by\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreatedBy2",
@@ -15023,7 +15088,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreatedByPropertyItemObjectCreatedBy",
@@ -15066,7 +15132,8 @@
 					"jsonTag": "json:\"created_time\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CreatedTime2",
@@ -15092,7 +15159,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Custom",
@@ -15113,7 +15181,8 @@
 					"jsonTag": "json:\"custom\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CustomCustom",
@@ -15148,7 +15217,8 @@
 					"description": "Details of the custom emoji mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CustomEmoji3",
@@ -15170,7 +15240,8 @@
 					"description": "Details of the custom emoji mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "CustomEmojiCustomEmoji",
@@ -15253,7 +15324,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "DataSourceObjectDatabaseTypeOneOf",
@@ -15464,7 +15536,8 @@
 					"jsonTag": "json:\"database\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Database2",
@@ -15486,7 +15559,8 @@
 					"description": "Details of the database mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Database3",
@@ -15519,7 +15593,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "DatabaseQueryResultType",
@@ -15632,7 +15707,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Date2",
@@ -15652,7 +15728,8 @@
 					"jsonTag": "json:\"date\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Date3",
@@ -15673,7 +15750,8 @@
 					"description": "Details of the date mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Date4",
@@ -15700,7 +15778,8 @@
 					"jsonTag": "json:\"function,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Date6",
@@ -15726,7 +15805,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "DateGroupByConfigGroupBy",
@@ -15836,7 +15916,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Divider3",
@@ -15861,7 +15942,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "DualProperty",
@@ -15881,7 +15963,8 @@
 					"jsonTag": "json:\"dual_property\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "DualPropertyDatabasePropertyRelationConfigDualProperty",
@@ -15920,7 +16003,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Email2",
@@ -15940,7 +16024,8 @@
 					"jsonTag": "json:\"email\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Email4",
@@ -15966,7 +16051,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Embed",
@@ -15991,7 +16077,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Embed2",
@@ -16046,7 +16133,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "EmbedEmbed",
@@ -16101,7 +16189,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Equation3",
@@ -16127,7 +16216,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "EquationRichTextItemEquation",
@@ -16163,7 +16253,8 @@
 					"description": "Details about the error that occurred during file import.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Error2",
@@ -16596,7 +16687,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "External2",
@@ -16621,7 +16713,8 @@
 					"type": "[]richTextItemRequest",
 					"jsonTag": "json:\"caption,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "External3",
@@ -16652,7 +16745,8 @@
 					"type": "stringRequest",
 					"jsonTag": "json:\"name,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ExternalInternalOrExternalFileWithNameExternal",
@@ -16704,7 +16798,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "File3",
@@ -16729,7 +16824,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "File5",
@@ -16755,7 +16851,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "FileUpload",
@@ -16780,7 +16877,8 @@
 					"type": "[]richTextItemRequest",
 					"jsonTag": "json:\"caption,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "FileUpload2",
@@ -16811,7 +16909,8 @@
 					"type": "stringRequest",
 					"jsonTag": "json:\"name,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "FileUploadObjectResponseCreatedBy",
@@ -16912,7 +17011,9 @@
 			},
 			"members": [
 				"imported_time"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "FileUploadObjectResponseFileImportResultAllOf1",
@@ -16947,7 +17048,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "FileUploadObjectResponseNumberOfParts",
@@ -17062,7 +17164,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf0",
@@ -17092,7 +17195,8 @@
 					"description": "Empty object indicating success.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultOneOf1",
@@ -17122,7 +17226,8 @@
 					"description": "Details about the error that occurred during file import.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Files",
@@ -17141,7 +17246,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Files2",
@@ -17161,7 +17267,8 @@
 					"jsonTag": "json:\"files\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Files4",
@@ -17187,7 +17294,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "FilesItem",
@@ -17264,7 +17372,8 @@
 					"description": "Notion supports inline LaTeX equations as rich text objects with a type value of `equation`.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Formula2",
@@ -17290,7 +17399,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "FormulaGroupByConfigGroupBy",
@@ -17359,7 +17469,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "FormulaTextSubGroupByGroupBy",
@@ -17953,7 +18064,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading12",
@@ -17978,7 +18090,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading13",
@@ -18003,7 +18116,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading14",
@@ -18028,7 +18142,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading2",
@@ -18053,7 +18168,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading22",
@@ -18078,7 +18194,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading23",
@@ -18103,7 +18220,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading24",
@@ -18128,7 +18246,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading3",
@@ -18153,7 +18272,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading32",
@@ -18178,7 +18298,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading33",
@@ -18203,7 +18324,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading34",
@@ -18228,7 +18350,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading4",
@@ -18253,7 +18376,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading42",
@@ -18278,7 +18402,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading43",
@@ -18303,7 +18428,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Heading44",
@@ -18328,7 +18454,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "IconPageIcon",
@@ -18374,7 +18501,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Image3",
@@ -18399,7 +18527,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Incomplete",
@@ -18426,7 +18555,8 @@
 					"jsonTag": "json:\"function,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "InsertContent",
@@ -18448,7 +18578,8 @@
 					"description": "Insert new content into the page.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "InsertContentInsertContent",
@@ -18507,7 +18638,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "InsertContentInsertContentPositionOneOf",
@@ -18521,7 +18653,8 @@
 					"description": "Insert the content at the start of the page.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "InsertContentInsertContentPositionOneOf2",
@@ -18535,7 +18668,8 @@
 					"description": "Insert the content at the end of the page.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Integration",
@@ -18549,7 +18683,8 @@
 					"description": "Always `integration`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "IntrospectToken",
@@ -18613,7 +18748,8 @@
 					"jsonTag": "json:\"last_edited_by\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LastEditedBy2",
@@ -18639,7 +18775,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LastEditedTime",
@@ -18659,7 +18796,8 @@
 					"jsonTag": "json:\"last_edited_time\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LastEditedTime2",
@@ -18685,7 +18823,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LinkMention",
@@ -18707,7 +18846,8 @@
 					"description": "Details of the link mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LinkPreview",
@@ -18729,7 +18869,8 @@
 					"description": "Details of the link preview mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LinkToPage",
@@ -18754,7 +18895,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LinkToPage3",
@@ -18779,7 +18921,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "LinkToPageBlockObjectLinkToPage",
@@ -18823,7 +18966,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "ListCommentsOk",
@@ -19273,7 +19417,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "MentionRichTextItemResponseMention",
@@ -19384,7 +19529,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "MovePage",
@@ -19503,7 +19649,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "MultiSelect",
@@ -19522,7 +19669,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "MultiSelect3",
@@ -19542,7 +19690,8 @@
 					"jsonTag": "json:\"multi_select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "MultiSelect4",
@@ -19568,7 +19717,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "MultiSelectDatabasePropertyConfigMultiSelect",
@@ -19808,7 +19958,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Number2",
@@ -19828,7 +19979,8 @@
 					"jsonTag": "json:\"number\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Number3",
@@ -19855,7 +20007,8 @@
 					"jsonTag": "json:\"function,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Number4",
@@ -19881,7 +20034,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "NumberDatabasePropertyConfigNumber",
@@ -19920,7 +20074,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "NumberedListItem2",
@@ -19945,7 +20100,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "NumberedListItem3",
@@ -19970,7 +20126,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "NumberedListItem4",
@@ -19995,7 +20152,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Page",
@@ -20015,7 +20173,8 @@
 					"jsonTag": "json:\"page\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Page2",
@@ -20037,7 +20196,8 @@
 					"description": "Details of the database mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PageOrDataSource",
@@ -20514,7 +20674,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "PageTemplateAnyOf",
@@ -20533,7 +20694,8 @@
 					"type": "emoji",
 					"jsonTag": "json:\"timezone,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PageTemplateAnyOf2",
@@ -20559,7 +20721,8 @@
 					"type": "emoji",
 					"jsonTag": "json:\"timezone,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1Data",
@@ -20606,7 +20769,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Paragraph2",
@@ -20631,7 +20795,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Paragraph3",
@@ -20656,7 +20821,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Paragraph5",
@@ -20681,7 +20847,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PartialDatabaseObjectCover",
@@ -21122,7 +21289,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "Pdf",
@@ -21147,7 +21315,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Pdf3",
@@ -21172,7 +21341,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "People",
@@ -21191,7 +21361,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "People2",
@@ -21211,7 +21382,8 @@
 					"jsonTag": "json:\"people\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "People4",
@@ -21237,7 +21409,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "People5",
@@ -21271,7 +21444,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PeopleArrayBasedPropertyValueResponsePeopleItem",
@@ -21330,7 +21504,8 @@
 					]
 				}
 			],
-			"discriminator": "object"
+			"discriminator": "object",
+			"streamed": true
 		},
 		{
 			"name": "Person",
@@ -21439,7 +21614,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PhoneNumber2",
@@ -21459,7 +21635,8 @@
 					"jsonTag": "json:\"phone_number\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PhoneNumber4",
@@ -21485,7 +21662,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Place",
@@ -21504,7 +21682,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Place2",
@@ -21524,7 +21703,8 @@
 					"jsonTag": "json:\"place\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Place3",
@@ -21872,7 +22052,8 @@
 					]
 				}
 			],
-			"discriminator": "surface"
+			"discriminator": "surface",
+			"streamed": true
 		},
 		{
 			"name": "PostPageAcceptedOperationAnyOf0",
@@ -21892,7 +22073,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PostPageAcceptedOperationAnyOf1",
@@ -21912,7 +22094,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PostPageParent",
@@ -21968,7 +22151,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "PostPageTemplate",
@@ -22013,7 +22197,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "PostPageTemplateAnyOf0",
@@ -22026,7 +22211,8 @@
 					"jsonTag": "json:\"type,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PostSearch",
@@ -22313,7 +22499,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QueryAgents",
@@ -22523,7 +22710,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "property"
+			"discriminator": "property",
+			"streamed": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOf1",
@@ -22597,7 +22785,8 @@
 					"jsonTag": "json:\"id\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf10",
@@ -22617,7 +22806,8 @@
 					"jsonTag": "json:\"date\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf2",
@@ -22637,7 +22827,8 @@
 					"jsonTag": "json:\"string\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf3",
@@ -22657,7 +22848,8 @@
 					"jsonTag": "json:\"people\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf4",
@@ -22677,7 +22869,8 @@
 					"jsonTag": "json:\"date\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf5",
@@ -22697,7 +22890,8 @@
 					"jsonTag": "json:\"checkbox\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf6",
@@ -22717,7 +22911,8 @@
 					"jsonTag": "json:\"mcp_server\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf7",
@@ -22737,7 +22932,8 @@
 					"jsonTag": "json:\"status\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf8",
@@ -22757,7 +22953,8 @@
 					"jsonTag": "json:\"select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOf9",
@@ -22777,7 +22974,8 @@
 					"jsonTag": "json:\"number\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryAgentsFilterOneOfOneOfAndItem",
@@ -24015,7 +24213,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3",
@@ -24114,7 +24313,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf",
@@ -24136,7 +24336,8 @@
 					"description": "Pointer to the Notion user to match.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf2",
@@ -24158,7 +24359,8 @@
 					"description": "Always `me`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOfValue",
@@ -24202,7 +24404,8 @@
 					"description": "One of: `today`, `tomorrow`, `yesterday`, `one_week_ago`, `one_week_from_now`, `one_month_ago`, `one_month_from_now`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf2",
@@ -24224,7 +24427,8 @@
 					"description": "Use the is_empty operator to match an unset date.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf3",
@@ -24472,7 +24676,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue3",
@@ -24565,7 +24770,8 @@
 					"description": "The calendar date as an ISO 8601 date string.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2",
@@ -24603,7 +24809,8 @@
 					"description": "The IANA time zone name the time is interpreted in.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QueryMeetingNotesFilterFiltersItemOneOfOperator",
@@ -24887,7 +25094,8 @@
 					"jsonTag": "json:\"string\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsFilterOneOf2",
@@ -24907,7 +25115,8 @@
 					"jsonTag": "json:\"timestamp\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsFilterOneOf4",
@@ -24953,7 +25162,8 @@
 					"jsonTag": "json:\"event_type\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsFilterOneOf7",
@@ -24973,7 +25183,8 @@
 					"jsonTag": "json:\"number\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsFilterOneOfAndItem",
@@ -25238,7 +25449,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "property"
+			"discriminator": "property",
+			"streamed": true
 		},
 		{
 			"name": "QuerySessionEventsFilterOneOfEventType",
@@ -25630,7 +25842,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf0",
@@ -25701,7 +25914,8 @@
 					"jsonTag": "json:\"metadata\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf1",
@@ -25772,7 +25986,8 @@
 					"jsonTag": "json:\"metadata\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf1MetadataOneOf0",
@@ -25842,7 +26057,8 @@
 					"jsonTag": "json:\"content\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf2Content",
@@ -25905,7 +26121,8 @@
 					"jsonTag": "json:\"tool_name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf4",
@@ -25976,7 +26193,8 @@
 					"jsonTag": "json:\"is_error\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf5",
@@ -26046,7 +26264,8 @@
 					"type": "*CancelSessionError",
 					"jsonTag": "json:\"error,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsOkResultsItemOneOf5Status",
@@ -26119,7 +26338,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QuerySessionEventsResultsItemOneOfContentItemOneOf",
@@ -26140,7 +26360,8 @@
 					"jsonTag": "json:\"text,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsResultsItemOneOfContentItemOneOf2",
@@ -26181,7 +26402,8 @@
 					"type": "string",
 					"jsonTag": "json:\"expiry_time,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionEventsResultsItemOneOfRequiredActions",
@@ -26928,7 +27150,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "QuerySessionsResultsItemModelsOneOf",
@@ -26942,7 +27165,8 @@
 					"description": "Always `auto`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionsResultsItemModelsOneOf2",
@@ -26963,7 +27187,8 @@
 					"jsonTag": "json:\"ids\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "QuerySessionsSorts",
@@ -27015,7 +27240,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Quote2",
@@ -27040,7 +27266,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Quote3",
@@ -27065,7 +27292,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Quote4",
@@ -27090,7 +27318,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Relation",
@@ -27109,7 +27338,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Relation2",
@@ -27129,7 +27359,8 @@
 					"jsonTag": "json:\"relation\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Relation4",
@@ -27155,7 +27386,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Relation5",
@@ -27189,7 +27421,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RelationPropertyConfigurationRelation",
@@ -27243,7 +27476,9 @@
 			},
 			"members": [
 				"data_source_id"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "RelationPropertyConfigurationRelationAllOf2",
@@ -27276,7 +27511,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "RelationPropertyItemObjectResponseRelation",
@@ -27311,7 +27547,8 @@
 					"description": "Replace the entire page content with new markdown.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ReplaceContentRange",
@@ -27333,7 +27570,8 @@
 					"description": "Replace a range of content in the page.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ReplaceContentRangeReplaceContentRange",
@@ -28005,7 +28243,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "code"
+			"discriminator": "code",
+			"streamed": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf0",
@@ -28045,7 +28284,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf1",
@@ -28085,7 +28325,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf10",
@@ -28125,7 +28366,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf11",
@@ -28165,7 +28407,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf12",
@@ -28205,7 +28448,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf13",
@@ -28245,7 +28489,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf14",
@@ -28285,7 +28530,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf15",
@@ -28325,7 +28571,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf16",
@@ -28365,7 +28612,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf17",
@@ -28405,7 +28653,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf18",
@@ -28445,7 +28694,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf19",
@@ -28485,7 +28735,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf2",
@@ -28525,7 +28776,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf20",
@@ -28565,7 +28817,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf21",
@@ -28605,7 +28858,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf22",
@@ -28645,7 +28899,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf3",
@@ -28685,7 +28940,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf4",
@@ -28725,7 +28981,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf5",
@@ -28765,7 +29022,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf6",
@@ -28805,7 +29063,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf7",
@@ -28845,7 +29104,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf8",
@@ -28885,7 +29145,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveAsyncTaskOkOneOf2ErrorOneOf9",
@@ -28925,7 +29186,8 @@
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RetrieveSessionOk",
@@ -29095,7 +29357,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RichText2",
@@ -29115,7 +29378,8 @@
 					"jsonTag": "json:\"rich_text\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RichText4",
@@ -29141,7 +29405,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RichText5",
@@ -29175,7 +29440,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Rollup",
@@ -29195,7 +29461,8 @@
 					"jsonTag": "json:\"rollup\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Rollup2",
@@ -29221,7 +29488,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Rollup3",
@@ -29255,7 +29523,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RollupDatabasePropertyConfigResponseRollup",
@@ -29385,7 +29654,8 @@
 					"description": "The function to use for the rollup, e.g. count, count_values, percent_not_empty, max.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "RollupPropertyConfigurationRollupAllOf2",
@@ -29604,7 +29874,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "SearchFilterAnyOf",
@@ -29636,7 +29907,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Select3",
@@ -29656,7 +29928,8 @@
 					"jsonTag": "json:\"select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Select4",
@@ -29682,7 +29955,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "SelectGroupByConfigType",
@@ -29720,7 +29994,8 @@
 					"jsonTag": "json:\"single_property\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Status",
@@ -29739,7 +30014,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Status3",
@@ -29759,7 +30035,8 @@
 					"jsonTag": "json:\"status\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Status5",
@@ -29785,7 +30062,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "StatusDatabasePropertyConfigResponseStatus",
@@ -29942,7 +30220,8 @@
 					"description": "Empty object for success type.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "SyncedBlock",
@@ -29967,7 +30246,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "SyncedBlock2",
@@ -29992,7 +30272,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "SyncedBlock3",
@@ -30017,7 +30298,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "SyncedBlock4",
@@ -30042,7 +30324,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "SyncedBlockObjectSyncedBlock",
@@ -30118,7 +30401,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Tab2",
@@ -30143,7 +30427,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Tab3",
@@ -30168,7 +30453,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Tab4",
@@ -30193,7 +30479,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Table",
@@ -30218,7 +30505,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Table3",
@@ -30243,7 +30531,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TableOfContents",
@@ -30268,7 +30557,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TableOfContents3",
@@ -30293,7 +30583,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TableOfContentsBlockObjectTableOfContents",
@@ -30332,7 +30623,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TableRow3",
@@ -30357,7 +30649,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TableTable",
@@ -30400,7 +30693,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Template2",
@@ -30425,7 +30719,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Template3",
@@ -30450,7 +30745,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Template4",
@@ -30475,7 +30771,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TemplateBlockObjectResponseTemplate",
@@ -30509,7 +30806,8 @@
 					"description": "Details of the template mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "TemplateMentionDateTemplateMentionTemplateMentionDate",
@@ -30686,7 +30984,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Title2",
@@ -30706,7 +31005,8 @@
 					"jsonTag": "json:\"title\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Title4",
@@ -30732,7 +31032,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Title5",
@@ -30766,7 +31067,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ToDo",
@@ -30791,7 +31093,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ToDo2",
@@ -30816,7 +31119,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ToDo3",
@@ -30841,7 +31145,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ToDo4",
@@ -30866,7 +31171,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ToDoBlockObjectResponseToDo",
@@ -31008,7 +31314,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Toggle2",
@@ -31033,7 +31340,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Toggle3",
@@ -31058,7 +31366,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Toggle4",
@@ -31083,7 +31392,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "URL",
@@ -31102,7 +31412,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "URL2",
@@ -31122,7 +31433,8 @@
 					"jsonTag": "json:\"url\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "URL4",
@@ -31148,7 +31460,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UniqueID",
@@ -31168,7 +31481,8 @@
 					"jsonTag": "json:\"unique_id\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UniqueID2",
@@ -31194,7 +31508,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UniqueIDDatabasePropertyConfigUniqueID",
@@ -31255,7 +31570,8 @@
 					"jsonTag": "json:\"function,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UnsupportedBlockObjectResponseUnsupported",
@@ -31688,7 +32004,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "UpdateAComment",
@@ -31821,7 +32138,8 @@
 					"description": "The new name of the property.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UpdateADataSourcePropertiesValueOneOf0",
@@ -32123,7 +32441,9 @@
 			"members": [
 				"description",
 				"name"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "UpdateADataSourcePropertiesValueOneOf0AllOf1",
@@ -32396,7 +32716,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "UpdateAgentCreditLimitOk",
@@ -32483,7 +32804,8 @@
 					"description": "Update specific content using search-and-replace operations.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UpdateContentUpdateContent",
@@ -32683,7 +33005,9 @@
 			},
 			"members": [
 				"allow_async"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "UpdatePageMarkdownAccepted",
@@ -32786,7 +33110,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "name"
+			"discriminator": "name",
+			"streamed": true
 		},
 		{
 			"name": "UpdatePageMarkdownAcceptedOperationOneOf0",
@@ -32806,7 +33131,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UpdatePageMarkdownAcceptedOperationOneOf0Name",
@@ -32852,7 +33178,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UpdatePageMarkdownAcceptedOperationOneOf1Name",
@@ -32939,7 +33266,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "UpdateSessionRequest",
@@ -33232,7 +33560,8 @@
 					"description": "Always `user`",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "User3",
@@ -33252,7 +33581,8 @@
 					"jsonTag": "json:\"user\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "User4",
@@ -33274,7 +33604,8 @@
 					"description": "Details about the owner of the bot, when the `type` of the owner is `user`. This means the bot is for a integration.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "User5",
@@ -33295,7 +33626,8 @@
 					"description": "Details of the user mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "User6",
@@ -33317,7 +33649,8 @@
 					"description": "Details of the user mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "UserUser",
@@ -33468,7 +33801,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Verification2",
@@ -33499,7 +33833,8 @@
 					]
 				}
 			],
-			"discriminator": "state"
+			"discriminator": "state",
+			"streamed": true
 		},
 		{
 			"name": "Verification3",
@@ -33525,7 +33860,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "VerificationAnyOf",
@@ -33544,7 +33880,8 @@
 					"type": "*date",
 					"jsonTag": "json:\"date,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "VerificationAnyOf2",
@@ -33557,7 +33894,8 @@
 					"jsonTag": "json:\"state,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "VerificationPropertyDoesNotEqualFilterDoesNotEqual",
@@ -33650,7 +33988,8 @@
 					"type": "bool",
 					"jsonTag": "json:\"in_trash,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "Video3",
@@ -33675,7 +34014,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "ViewCreatedWebhookPayloadAllOf1Data",
@@ -34064,7 +34404,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "agentIdParentForBlockBasedObjectResponse",
@@ -34086,7 +34427,8 @@
 					"description": "The ID of the parent agent.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "annotation",
@@ -34302,7 +34644,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "arrayPartialRollupValueResponse",
@@ -34323,7 +34666,8 @@
 					"jsonTag": "json:\"array\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "asyncTaskMcpOperationName",
@@ -34442,7 +34786,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "baseWebhookPayload",
@@ -34548,7 +34893,8 @@
 					"jsonTag": "json:\"block_id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "blockObjectRequest",
@@ -34959,7 +35305,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "blockObjectRequestWithoutChildren",
@@ -35331,7 +35678,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "blockObjectResponse",
@@ -36455,7 +36803,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "blockObjectWithSingleLevelOfChildrenRequest",
@@ -36840,7 +37189,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "boardViewConfigRequest",
@@ -36904,7 +37254,8 @@
 					"jsonTag": "json:\"card_layout,omitempty\"",
 					"description": "Card layout mode. \"list\" shows full cards, \"compact\" shows condensed cards. Pass null to clear."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "boardViewConfigResponse",
@@ -36968,7 +37319,8 @@
 					"jsonTag": "json:\"card_layout,omitzero\"",
 					"description": "One of: `list`, `compact`"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "bookmarkBlockObjectResponse",
@@ -37051,7 +37403,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "booleanFormulaPropertyResponse",
@@ -37071,7 +37424,8 @@
 					"jsonTag": "json:\"boolean\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "booleanFormulaPropertyValueResponse",
@@ -37092,7 +37446,8 @@
 					"jsonTag": "json:\"boolean\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "botInfoResponse",
@@ -37152,7 +37507,8 @@
 					"description": "Details about the bot, when the `type` of the user is `bot`.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "breadcrumbBlockObjectResponse",
@@ -37235,7 +37591,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "bulletedListItemBlockObjectResponse",
@@ -37318,7 +37675,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "buttonPropertyConfiguration",
@@ -37338,7 +37696,8 @@
 					"jsonTag": "json:\"button\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "buttonPropertyItemObjectResponse",
@@ -37372,7 +37731,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "calendarViewConfigRequest",
@@ -37414,7 +37774,8 @@
 					"type": "*bool",
 					"jsonTag": "json:\"show_weekends,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "calendarViewConfigResponse",
@@ -37464,7 +37825,8 @@
 					"jsonTag": "json:\"show_weekends,omitempty\"",
 					"description": "Whether to show weekend days."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "calloutBlockObjectResponse",
@@ -37547,7 +37909,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "chartAggregation",
@@ -37803,7 +38166,8 @@
 					"type": "*bool",
 					"jsonTag": "json:\"color_by_value,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "chartViewConfigResponse",
@@ -38000,7 +38364,8 @@
 					"jsonTag": "json:\"color_by_value,omitempty\"",
 					"description": "Whether chart elements are colored by their numeric value (gradient coloring)."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "checkboxGroupByConfig",
@@ -38118,7 +38483,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "childDatabaseBlockObjectResponse",
@@ -38201,7 +38567,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "childPageBlockObjectResponse",
@@ -38284,7 +38651,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "codeBlockObjectResponse",
@@ -38367,7 +38735,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "columnBlockObjectResponse",
@@ -38450,7 +38819,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "columnListBlockObjectResponse",
@@ -38533,7 +38903,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "columnListRequest",
@@ -38815,7 +39186,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "commentUpdatedWebhookPayload",
@@ -38908,7 +39280,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "contentPositionSchemaAnyOf",
@@ -38928,7 +39301,8 @@
 					"jsonTag": "json:\"after_block\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "contentWithRichTextAndColorAndListResponse",
@@ -39283,7 +39657,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "createdBySimplePropertyValueResponse",
@@ -39304,7 +39679,8 @@
 					"jsonTag": "json:\"created_by\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "createdTimePropertyItemObjectResponse",
@@ -39338,7 +39714,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "createdTimeSimplePropertyValueResponse",
@@ -39359,7 +39736,8 @@
 					"jsonTag": "json:\"created_time,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "customEmojiResponse",
@@ -39440,7 +39818,8 @@
 					"description": "The rows that make up the dashboard layout. Each row contains one or more widget modules.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "dashboardWidgetResponse",
@@ -39856,7 +40235,8 @@
 					"description": "The ID of the data source's parent database.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "dataSourceReferenceResponse",
@@ -40482,7 +40862,8 @@
 					"description": "The ID of the parent database.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "databasePropertyConfigResponse",
@@ -40788,7 +41169,9 @@
 				"description",
 				"id",
 				"name"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "databasePropertyConfigResponseAllOf1",
@@ -41054,7 +41437,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "databasePropertyRelationConfigResponse",
@@ -41116,7 +41500,9 @@
 			"members": [
 				"data_source_id",
 				"database_id"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "databaseSchemaUpdatedWebhookPayload",
@@ -41265,7 +41651,8 @@
 					"jsonTag": "json:\"date\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "dateGroupByConfig",
@@ -41671,7 +42058,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "deletedViewQueryResponse",
@@ -41784,7 +42172,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "emailPropertyItemObjectResponse",
@@ -41818,7 +42207,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "emailSimplePropertyValueResponse",
@@ -41840,7 +42230,8 @@
 					"description": "The name of the bot's workspace.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "embedBlockObjectResponse",
@@ -41923,7 +42314,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "emoji",
@@ -41950,7 +42342,8 @@
 					"description": "An emoji character.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "emptyObject",
@@ -42038,7 +42431,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "equationRichTextItem",
@@ -42059,7 +42453,8 @@
 					"description": "Notion supports inline LaTeX equations as rich text objects with a type value of `equation`.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "error_api_",
@@ -42723,7 +43118,8 @@
 					"description": "The external URL.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "externalMediaContentWithFileAndCaptionResponse",
@@ -42750,7 +43146,8 @@
 					"jsonTag": "json:\"caption\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "externalMediaContentWithFileNameAndCaptionResponse",
@@ -42784,7 +43181,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "fileBlockObjectResponse",
@@ -42867,7 +43265,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "fileInternalOrExternalFileWithName",
@@ -42889,7 +43288,8 @@
 					"description": "The file URL.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "fileMediaContentWithFileAndCaptionResponse",
@@ -42916,7 +43316,8 @@
 					"jsonTag": "json:\"caption\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "fileMediaContentWithFileNameAndCaptionResponse",
@@ -42950,7 +43351,8 @@
 					"jsonTag": "json:\"name,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "fileUploadCompletedWebhookPayload",
@@ -43205,7 +43607,8 @@
 					"description": "The file upload for the cover.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "fileUploadUploadFailedWebhookPayload",
@@ -43314,7 +43717,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "filesSimplePropertyValueResponse",
@@ -43335,7 +43739,8 @@
 					"jsonTag": "json:\"files\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formViewConfigRequest",
@@ -43368,7 +43773,8 @@
 					"jsonTag": "json:\"submission_permissions,omitempty\"",
 					"description": "Permission level granted to the submitter on the created page after form submission. Pass null to clear."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formViewConfigResponse",
@@ -43403,7 +43809,8 @@
 					"jsonTag": "json:\"submission_permissions,omitzero\"",
 					"description": "One of: `none`, `comment_only`, `reader`, `read_and_write`, `editor`"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formulaCheckboxSubGroupBy",
@@ -43425,7 +43832,8 @@
 					"description": "Sort order for groups.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formulaDateSubGroupBy",
@@ -43462,7 +43870,8 @@
 					"jsonTag": "json:\"start_day_of_week,omitempty\"",
 					"description": "Start day of week for week grouping (0 = Sunday, 1 = Monday)."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formulaGroupByConfig",
@@ -43549,7 +43958,8 @@
 					"jsonTag": "json:\"range_size,omitempty\"",
 					"description": "Size of each bucket in number grouping."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formulaPropertyFilter",
@@ -43682,7 +44092,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formulaPropertyResponse",
@@ -43753,7 +44164,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "formulaPropertyValueResponse",
@@ -43827,7 +44239,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "formulaSimplePropertyValueResponse",
@@ -43848,7 +44261,8 @@
 					"jsonTag": "json:\"formula\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "formulaTextSubGroupBy",
@@ -43878,7 +44292,8 @@
 					"description": "Sort order for groups.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "galleryViewConfigRequest",
@@ -43927,7 +44342,8 @@
 					"jsonTag": "json:\"card_layout,omitempty\"",
 					"description": "Card layout mode. \"list\" shows full cards, \"compact\" shows condensed cards. Pass null to clear."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "galleryViewConfigResponse",
@@ -43976,7 +44392,8 @@
 					"jsonTag": "json:\"card_layout,omitzero\"",
 					"description": "One of: `list`, `compact`"
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "groupByConfig",
@@ -44237,7 +44654,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "groupObjectResponse",
@@ -44450,7 +44868,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "heading2BlockObjectResponse",
@@ -44533,7 +44952,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "heading3BlockObjectResponse",
@@ -44616,7 +45036,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "heading4BlockObjectResponse",
@@ -44699,7 +45120,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "iconPageIcon",
@@ -44720,7 +45142,8 @@
 					"description": "A Notion native icon, specified by name and optional color.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "idResponse",
@@ -44810,7 +45233,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "initialDataSourceRequest",
@@ -44877,7 +45301,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "internalOrExternalFileWithNameRequest",
@@ -44913,7 +45338,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "internalOrExternalFileWithNameResponse",
@@ -44966,7 +45392,9 @@
 			},
 			"members": [
 				"name"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "languageRequest",
@@ -45458,7 +45886,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "lastEditedBySimplePropertyValueResponse",
@@ -45479,7 +45908,8 @@
 					"jsonTag": "json:\"last_edited_by\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "lastEditedTimePropertyItemObjectResponse",
@@ -45513,7 +45943,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "lastEditedTimeSimplePropertyValueResponse",
@@ -45534,7 +45965,8 @@
 					"jsonTag": "json:\"last_edited_time,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "lastVisitedTimePropertyConfigurationRequest",
@@ -45554,7 +45986,8 @@
 					"jsonTag": "json:\"last_visited_time\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "linkMentionResponse",
@@ -45721,7 +46154,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "linkToPageBlockObjectResponse",
@@ -45804,7 +46238,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "listViewConfigRequest",
@@ -45825,7 +46260,8 @@
 					"jsonTag": "json:\"properties,omitempty\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "listViewConfigResponse",
@@ -45846,7 +46282,8 @@
 					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Properties to display in list items."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "locationPropertyConfigurationRequest",
@@ -45866,7 +46303,8 @@
 					"jsonTag": "json:\"location\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "mapViewConfigRequest",
@@ -45901,7 +46339,8 @@
 					"jsonTag": "json:\"properties,omitempty\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "mapViewConfigResponse",
@@ -45943,7 +46382,8 @@
 					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Properties to display on map pin cards."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "mediaContentWithFileAndCaptionRequest",
@@ -45977,7 +46417,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "mediaContentWithFileAndCaptionResponse",
@@ -46015,7 +46456,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "mediaContentWithFileNameAndCaptionRequest",
@@ -46051,7 +46493,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "mediaContentWithFileNameAndCaptionResponse",
@@ -46093,7 +46536,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "mediaContentWithUrlAndCaption",
@@ -46215,7 +46659,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "mentionRichTextItemRequest",
@@ -46236,7 +46681,8 @@
 					"description": "Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "mentionRichTextItemResponse",
@@ -46258,7 +46704,8 @@
 					"description": "Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "multiSelectDatabasePropertyConfigResponse",
@@ -46279,7 +46726,8 @@
 					"jsonTag": "json:\"multi_select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "multiSelectPropertyConfigurationRequest",
@@ -46299,7 +46747,8 @@
 					"jsonTag": "json:\"multi_select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "multiSelectPropertyFilter",
@@ -46401,7 +46850,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "multiSelectSimplePropertyValueResponse",
@@ -46422,7 +46872,8 @@
 					"jsonTag": "json:\"multi_select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "numberFormulaPropertyValue",
@@ -46444,7 +46895,8 @@
 					"description": "The per-agent credit limit as a non-negative integer, or null to clear the limit.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "numberGroupByConfig",
@@ -46703,7 +47155,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "numberedListFormat",
@@ -46809,7 +47262,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "pageContentUpdatedWebhookPayload",
@@ -46893,7 +47347,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "pageCreatedWebhookPayload",
@@ -47063,7 +47518,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "pageIconResponse",
@@ -47135,7 +47591,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "pageIdCommentParent",
@@ -47156,7 +47613,8 @@
 					"jsonTag": "json:\"page_id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "pageLockedWebhookPayload",
@@ -47471,7 +47929,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "pagePositionSchemaAnyOf1",
@@ -47484,7 +47943,8 @@
 					"jsonTag": "json:\"type,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "pagePositionSchemaAnyOf2",
@@ -47497,7 +47957,8 @@
 					"jsonTag": "json:\"type,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "pagePropertiesUpdatedWebhookPayload",
@@ -47869,7 +48330,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "parentForBlockBasedObjectResponse",
@@ -47957,7 +48419,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "parentOfDataSourceResponse",
@@ -47994,7 +48457,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "parentOfDatabaseResponse",
@@ -48054,7 +48518,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "partialBlockObjectResponse",
@@ -48476,7 +48941,9 @@
 			},
 			"members": [
 				"function"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "partialRollupValueResponseAllOf1",
@@ -48537,7 +49004,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "partialSelectPropertyValue",
@@ -48586,7 +49054,8 @@
 					"jsonTag": "json:\"object,omitzero\"",
 					"description": "The user object type name."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "partialUserObjectResponse",
@@ -48690,7 +49159,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "peopleArrayBasedPropertyValueResponse",
@@ -48711,7 +49181,8 @@
 					"jsonTag": "json:\"people\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "peoplePropertyFilter",
@@ -48813,7 +49284,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "personGroupByConfig",
@@ -48893,7 +49365,8 @@
 					"jsonTag": "json:\"person\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "phoneNumberPropertyItemObjectResponse",
@@ -48927,7 +49400,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "phoneNumberSimplePropertyValueResponse",
@@ -48949,7 +49423,8 @@
 					"description": "The name of the bot's workspace.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "placePropertyItemObjectResponse",
@@ -48983,7 +49458,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "placePropertyValueResponse",
@@ -49052,7 +49528,8 @@
 					"jsonTag": "json:\"place\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "propertyConfigurationRequest",
@@ -49394,7 +49871,9 @@
 			},
 			"members": [
 				"description"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "propertyConfigurationRequestAllOf1",
@@ -49715,7 +50194,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "propertyDescriptionRequest",
@@ -50037,7 +50517,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "propertyItemObjectResponse",
@@ -50453,7 +50934,8 @@
 					]
 				}
 			],
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "propertyItemPropertyItemListResponse",
@@ -50663,7 +51145,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "relationDatabasePropertyConfigResponse",
@@ -50684,7 +51167,8 @@
 					"jsonTag": "json:\"relation\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "relationGroupByConfig",
@@ -50830,7 +51314,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "requestStatusResponse",
@@ -50871,7 +51356,8 @@
 					"jsonTag": "json:\"rich_text\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "richTextItemRequest",
@@ -50937,7 +51423,9 @@
 			},
 			"members": [
 				"annotations"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "richTextItemRequestAllOf1",
@@ -50982,7 +51470,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "richTextItemResponse",
@@ -51068,7 +51557,9 @@
 				"annotations",
 				"href",
 				"plain_text"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "richTextItemResponseAllOf1",
@@ -51114,7 +51605,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "richTextPropertyItemObjectResponse",
@@ -51148,7 +51640,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "rollupDatabasePropertyConfigResponse",
@@ -51169,7 +51662,8 @@
 					"jsonTag": "json:\"rollup\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "rollupFunction",
@@ -51427,7 +51921,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "rollupSubfilterPropertyFilter",
@@ -51646,7 +52141,8 @@
 					"jsonTag": "json:\"select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "selectGroupByConfig",
@@ -51746,7 +52242,8 @@
 					"jsonTag": "json:\"select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "selectPropertyFilter",
@@ -51848,7 +52345,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "selectSimplePropertyValueResponse",
@@ -51869,7 +52367,8 @@
 					"jsonTag": "json:\"select\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "simpleOrArrayPropertyValueResponse",
@@ -52139,7 +52638,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "statusDatabasePropertyConfigResponse",
@@ -52160,7 +52660,8 @@
 					"jsonTag": "json:\"status\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "statusGroupByConfig",
@@ -52383,7 +52884,8 @@
 					"jsonTag": "json:\"status\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "statusPropertyItemObjectResponse",
@@ -52417,7 +52919,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "statusSimplePropertyValueResponse",
@@ -52438,7 +52941,8 @@
 					"jsonTag": "json:\"status\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "stringFormulaPropertyResponse",
@@ -52458,7 +52962,8 @@
 					"jsonTag": "json:\"string,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "stringFormulaPropertyValueResponse",
@@ -52480,7 +52985,8 @@
 					"description": "The name of the bot's workspace.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "stringOrStringArray",
@@ -52618,7 +53124,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "tabBlockObjectResponse",
@@ -52701,7 +53208,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "tabRequestWithNestedTabItemChildren",
@@ -52810,7 +53318,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "tableOfContentsBlockObjectResponse",
@@ -52893,7 +53402,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "tableRequestWithTableRowChildren",
@@ -53008,7 +53518,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "tableViewConfigRequest",
@@ -53064,7 +53575,8 @@
 					"jsonTag": "json:\"show_vertical_lines,omitempty\"",
 					"description": "Whether to show vertical grid lines between columns."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "tableViewConfigResponse",
@@ -53120,7 +53632,8 @@
 					"jsonTag": "json:\"show_vertical_lines,omitempty\"",
 					"description": "Whether to show vertical lines between columns."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "templateBlockObjectResponse",
@@ -53203,7 +53716,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "templateMention",
@@ -53236,7 +53750,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "templateMentionDateTemplateMention",
@@ -53257,7 +53772,8 @@
 					"description": "The date of the template mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "templateMentionUserTemplateMention",
@@ -53278,7 +53794,8 @@
 					"description": "The user of the template mention.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "textGroupByConfig",
@@ -53491,7 +54008,8 @@
 					"description": "If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "timelineArrowsBy",
@@ -53615,7 +54133,8 @@
 					"type": "*bool",
 					"jsonTag": "json:\"color_by,omitempty\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "timelineViewConfigResponse",
@@ -53700,7 +54219,8 @@
 					"jsonTag": "json:\"color_by,omitempty\"",
 					"description": "Whether to color-code items by property."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "timestampCreatedTimeFilter",
@@ -53726,7 +54246,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "timestampFilter",
@@ -53762,7 +54283,8 @@
 					]
 				}
 			],
-			"discriminator": "timestamp"
+			"discriminator": "timestamp",
+			"streamed": true
 		},
 		{
 			"name": "timestampLastEditedTimeFilter",
@@ -53788,7 +54310,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type,omitzero\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "titleArrayBasedPropertyValueResponse",
@@ -53809,7 +54332,8 @@
 					"jsonTag": "json:\"title\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "titleObjectResponse",
@@ -53856,7 +54380,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "toDoBlockObjectResponse",
@@ -53939,7 +54464,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "toggleBlockObjectResponse",
@@ -54022,7 +54548,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "transcriptionBlockResponse",
@@ -54161,7 +54688,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "uniqueIdPropertyValueResponse",
@@ -54204,7 +54732,8 @@
 					"jsonTag": "json:\"unique_id\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "unsupportedBlockObjectResponse",
@@ -54287,7 +54816,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "unsupportedFormulaProperty",
@@ -54307,7 +54837,8 @@
 					"jsonTag": "json:\"unsupported\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "updateEmbedFileUploadRequest",
@@ -54455,7 +54986,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "urlSimplePropertyValueResponse",
@@ -54477,7 +55009,8 @@
 					"description": "The name of the bot's workspace.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "userObjectResponse",
@@ -54561,7 +55094,9 @@
 				"id",
 				"name",
 				"object"
-			]
+			],
+			"streamed": true,
+			"memberDecoder": true
 		},
 		{
 			"name": "userObjectResponseAllOf1",
@@ -54596,7 +55131,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "userValueResponse",
@@ -54640,7 +55176,8 @@
 					"jsonTag": "json:\"verification\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "verificationPropertyDoesNotEqualFilter",
@@ -54687,7 +55224,8 @@
 					"jsonTag": "json:\"id,omitzero\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "verificationPropertyResponse",
@@ -54813,7 +55351,8 @@
 					"jsonTag": "json:\"verification\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "videoBlockObjectResponse",
@@ -54896,7 +55435,8 @@
 					"jsonTag": "json:\"in_trash\"",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "viewConfigRequest",
@@ -55071,7 +55611,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "viewConfigResponse",
@@ -55263,7 +55804,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "viewCreatedWebhookPayload",
@@ -55463,7 +56005,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "viewPositionRequestOneOf2",
@@ -55485,7 +56028,8 @@
 					"description": "The ID of an existing view in the database. The new view will be placed after this view.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "viewPropertyConfigRequest",
@@ -55983,7 +56527,8 @@
 				}
 			],
 			"isOneOf": true,
-			"discriminator": "type"
+			"discriminator": "type",
+			"streamed": true
 		},
 		{
 			"name": "widgetPlacementRequestOneOf0",
@@ -56004,7 +56549,8 @@
 					"jsonTag": "json:\"row_index,omitempty\"",
 					"description": "The 0-based row position to insert the new row at. If omitted, the new row is appended at the end."
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "widgetPlacementRequestOneOf1",
@@ -56026,7 +56572,8 @@
 					"description": "The 0-based index of the existing row to add the widget to.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		}
 	],
 	"security": {

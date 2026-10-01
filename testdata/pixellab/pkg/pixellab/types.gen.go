@@ -693,12 +693,44 @@ type CharacterProportions struct {
 	HipWidth *float64 `json:"hip_width,omitempty"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether CharacterProportions declares it.
+func (v *CharacterProportions) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "head_size":
+		return true, json.UnmarshalDecode(dec, &v.HeadSize, jsonOpts)
+	case "arms_length":
+		return true, json.UnmarshalDecode(dec, &v.ArmsLength, jsonOpts)
+	case "legs_length":
+		return true, json.UnmarshalDecode(dec, &v.LegsLength, jsonOpts)
+	case "shoulder_width":
+		return true, json.UnmarshalDecode(dec, &v.ShoulderWidth, jsonOpts)
+	case "hip_width":
+		return true, json.UnmarshalDecode(dec, &v.HipWidth, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // Preset character proportions.
 type CharacterProportionsPreset struct {
 	// Proportion type identifier
 	Type string `json:"type,omitzero"`
 	// Pre-defined character proportions
 	Name CharacterProportionsPresetName `json:"name,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether CharacterProportionsPreset declares it.
+func (v *CharacterProportionsPreset) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "name":
+		return true, json.UnmarshalDecode(dec, &v.Name, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // Pre-defined character proportions
@@ -1269,14 +1301,10 @@ type CreateCharacterWithDirectionsProportionsAnyOf struct {
 	CharacterProportions       *CharacterProportions
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *CreateCharacterWithDirectionsProportionsAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	tag, err := jsonMemberString(raw, "type")
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: %w", err)
 	}
@@ -1284,15 +1312,15 @@ func (v *CreateCharacterWithDirectionsProportionsAnyOf) UnmarshalJSONFrom(dec *j
 	switch tag {
 	case "preset":
 		var vv CharacterProportionsPreset
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: %w", err)
 		}
 
 		v.CharacterProportionsPreset = &vv
 	case "custom":
 		var vv CharacterProportions
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateCharacterWithDirectionsProportionsAnyOf: %w", err)
 		}
 
 		v.CharacterProportions = &vv
@@ -2284,14 +2312,10 @@ type CreateUIAssetRequestPiecesAnyOf0Item struct {
 	UIPiecePolygon *UiPiecePolygon
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be kind, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *CreateUIAssetRequestPiecesAnyOf0Item) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	tag, err := jsonMemberString(raw, "kind")
+	tag, first, err := jsonFirstMember(dec, "kind")
 	if err != nil {
 		return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: %w", err)
 	}
@@ -2299,22 +2323,22 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) UnmarshalJSONFrom(dec *jsontext.D
 	switch tag {
 	case "rounded_rect":
 		var vv UiPieceRect
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "kind", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: %w", err)
 		}
 
 		v.UIPieceRect = &vv
 	case "circle":
 		var vv UiPieceCircle
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "kind", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: %w", err)
 		}
 
 		v.UIPieceCircle = &vv
 	case "polygon":
 		var vv UiPiecePolygon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "kind", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateUIAssetRequestPiecesAnyOf0Item: %w", err)
 		}
 
 		v.UIPiecePolygon = &vv
@@ -4313,6 +4337,26 @@ type UiPieceCircle struct {
 	R     float64 `json:"r"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether UiPieceCircle declares it.
+func (v *UiPieceCircle) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+	case "kind":
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+	case "label":
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+	case "x":
+		return true, json.UnmarshalDecode(dec, &v.X, jsonOpts)
+	case "y":
+		return true, json.UnmarshalDecode(dec, &v.Y, jsonOpts)
+	case "r":
+		return true, json.UnmarshalDecode(dec, &v.R, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // Regular polygon — `sides` vertices at distance `r` from (x, y),
 // starting from angle `phase` (radians).
 type UiPiecePolygon struct {
@@ -4326,6 +4370,30 @@ type UiPiecePolygon struct {
 	Phase *float64 `json:"phase,omitempty"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether UiPiecePolygon declares it.
+func (v *UiPiecePolygon) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+	case "kind":
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+	case "label":
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+	case "x":
+		return true, json.UnmarshalDecode(dec, &v.X, jsonOpts)
+	case "y":
+		return true, json.UnmarshalDecode(dec, &v.Y, jsonOpts)
+	case "r":
+		return true, json.UnmarshalDecode(dec, &v.R, jsonOpts)
+	case "sides":
+		return true, json.UnmarshalDecode(dec, &v.Sides, jsonOpts)
+	case "phase":
+		return true, json.UnmarshalDecode(dec, &v.Phase, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // UiPieceRect defines a model
 type UiPieceRect struct {
 	ID     string   `json:"id,omitzero"`
@@ -4336,6 +4404,30 @@ type UiPieceRect struct {
 	W      float64  `json:"w"`
 	H      float64  `json:"h"`
 	Radius *float64 `json:"radius,omitempty"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether UiPieceRect declares it.
+func (v *UiPieceRect) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+	case "kind":
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+	case "label":
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+	case "x":
+		return true, json.UnmarshalDecode(dec, &v.X, jsonOpts)
+	case "y":
+		return true, json.UnmarshalDecode(dec, &v.Y, jsonOpts)
+	case "w":
+		return true, json.UnmarshalDecode(dec, &v.W, jsonOpts)
+	case "h":
+		return true, json.UnmarshalDecode(dec, &v.H, jsonOpts)
+	case "radius":
+		return true, json.UnmarshalDecode(dec, &v.Radius, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // Request model for the unzoom endpoint
@@ -4656,6 +4748,132 @@ type app__endpoints__external__v__generate_image_v__ReferenceImageSize struct {
 	Width int `json:"width"`
 	// Reference image height
 	Height int `json:"height"`
+}
+
+// jsonFirstMember reads the opening of a JSON object and its first member, which must be name with a string value.
+// It returns the string and the value as written.
+func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value, error) {
+	if tok, err := dec.ReadToken(); err != nil {
+		return "", nil, err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return "", nil, fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	if dec.PeekKind() == jsontext.KindEndObject {
+		return "", nil, fmt.Errorf("missing member %q", name)
+	}
+
+	tok, err := dec.ReadToken()
+	if err != nil {
+		return "", nil, err
+	}
+
+	if got := tok.String(); got != name {
+		return "", nil, fmt.Errorf("first member is %q, want %q", got, name)
+	}
+
+	val, err := dec.ReadValue()
+	if err != nil {
+		return "", nil, err
+	}
+
+	var tag string
+	if err := json.Unmarshal(val, &tag); err != nil {
+		return "", nil, fmt.Errorf("member %q: %w", name, err)
+	}
+
+	return tag, val.Clone(), nil
+}
+
+// jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each
+// into the field decode declares for it; a member it does not declare is an error.
+func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, decode func(*jsontext.Decoder, string) (bool, error)) error {
+	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first)), firstName); err != nil {
+		return err
+	} else if !ok {
+		return fmt.Errorf("unknown member %q", firstName)
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return err
+		}
+
+		name := tok.String() // a token is void once the decoder reads on
+
+		if ok, err := decode(dec, name); err != nil {
+			return err
+		} else if !ok {
+			return fmt.Errorf("unknown member %q", name)
+		}
+	}
+
+	_, err := dec.ReadToken()
+	return err
+}
+
+// jsonPart is one of the parts an object decodes into: the members it declares and how it decodes one of them.
+type jsonPart struct {
+	members map[string]bool
+	decode  func(*jsontext.Decoder, string) (bool, error)
+}
+
+// jsonPartsFrom is jsonMembersFrom for an object that several parts declare members of. A member one part declares
+// decodes straight from dec; one several declare is read once and decoded into each.
+func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, parts []jsonPart) error {
+	member := func(name string, val jsontext.Value) error {
+		var declaring []jsonPart
+		for _, p := range parts {
+			if p.members[name] {
+				declaring = append(declaring, p)
+			}
+		}
+
+		if len(declaring) == 0 {
+			return fmt.Errorf("unknown member %q", name)
+		}
+
+		if val == nil && len(declaring) == 1 {
+			_, err := declaring[0].decode(dec, name)
+			return err
+		}
+
+		if val == nil {
+			v, err := dec.ReadValue()
+			if err != nil {
+				return err
+			}
+
+			val = v.Clone()
+		}
+
+		for _, p := range declaring {
+			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val)), name); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}
+
+	if err := member(firstName, first); err != nil {
+		return err
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return err
+		}
+
+		if err := member(tok.String(), nil); err != nil {
+			return err
+		}
+	}
+
+	_, err := dec.ReadToken()
+	return err
 }
 
 // jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.

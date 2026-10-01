@@ -595,14 +595,10 @@ type AgentPermissionsItemPrincipal struct {
 	AgentPermissionsItemPrincipalOneOf2   *AgentPermissionsItemPrincipalOneOf2
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *AgentPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	tag, err := jsonMemberString(raw, "type")
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
 	}
@@ -610,22 +606,22 @@ func (v *AgentPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder)
 	switch tag {
 	case "group":
 		var vv AgentPermissionsItemPrincipalOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
 		}
 
 		v.AgentPermissionsItemPrincipalOneOf = &vv
 	case "user":
 		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
 		}
 
 		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
 	case "workspace":
 		var vv AgentPermissionsItemPrincipalOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("AgentPermissionsItemPrincipal: %w", err)
 		}
 
 		v.AgentPermissionsItemPrincipalOneOf2 = &vv
@@ -657,10 +653,32 @@ type AgentPermissionsItemPrincipalOneOf struct {
 	Type string `json:"type,omitzero"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether AgentPermissionsItemPrincipalOneOf declares it.
+func (v *AgentPermissionsItemPrincipalOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "group_id":
+		return true, json.UnmarshalDecode(dec, &v.GroupID, jsonOpts)
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // AgentPermissionsItemPrincipalOneOf2 defines a model
 type AgentPermissionsItemPrincipalOneOf2 struct {
 	// Always `workspace`
 	Type string `json:"type,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether AgentPermissionsItemPrincipalOneOf2 declares it.
+func (v *AgentPermissionsItemPrincipalOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
@@ -688,6 +706,18 @@ type Bot struct {
 	Type string `json:"type,omitzero"`
 	// Details about the bot, when the `type` of the user is `bot`.
 	Bot emptyObject `json:"bot"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether Bot declares it.
+func (v *Bot) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "bot":
+		return true, json.UnmarshalDecode(dec, &v.Bot, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // CreateCreditLimitPolicy defines a model
@@ -750,14 +780,10 @@ type CreateCreditLimitPolicySelector struct {
 	CreateCreditLimitPolicySelectorOneOf2 *CreateCreditLimitPolicySelectorOneOf2
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	tag, err := jsonMemberString(raw, "type")
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
 	}
@@ -765,15 +791,15 @@ func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decode
 	switch tag {
 	case "all_space_members":
 		var vv CreateCreditLimitPolicySelectorOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
 		}
 
 		v.CreateCreditLimitPolicySelectorOneOf = &vv
 	case "user":
 		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("CreateCreditLimitPolicySelector: %w", err)
 		}
 
 		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
@@ -802,12 +828,34 @@ type CreateCreditLimitPolicySelectorOneOf struct {
 	Type string `json:"type,omitzero"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether CreateCreditLimitPolicySelectorOneOf declares it.
+func (v *CreateCreditLimitPolicySelectorOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // CreateCreditLimitPolicySelectorOneOf2 defines a model
 type CreateCreditLimitPolicySelectorOneOf2 struct {
 	// Always `user`
 	Type string `json:"type,omitzero"`
 	// The ID returned by the workspace users API.
 	UserID uuid.UUID `json:"user_id,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether CreateCreditLimitPolicySelectorOneOf2 declares it.
+func (v *CreateCreditLimitPolicySelectorOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "user_id":
+		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // CreateLegalHold defines a model
@@ -1532,6 +1580,22 @@ type ListUsersOkResultsItem struct {
 	ListUsersOkResultsItemAllOf1 ListUsersOkResultsItemAllOf1 `json:"-"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether ListUsersOkResultsItem declares it.
+func (v *ListUsersOkResultsItem) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "object":
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+	case "name":
+		return true, json.UnmarshalDecode(dec, &v.Name, jsonOpts)
+	case "avatar_url":
+		return true, json.UnmarshalDecode(dec, &v.AvatarURL, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // fieldsOfListUsersOkResultsItem is ListUsersOkResultsItem without its methods, to encode the fields outside its union.
 type fieldsOfListUsersOkResultsItem ListUsersOkResultsItem
 
@@ -1552,50 +1616,38 @@ var variantsOfListUsersOkResultsItem = []jsonVariant{
 	},
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of ListUsersOkResultsItemAllOf1 each
-// decode the members they declare, and a member neither declares is an error.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative of ListUsersOkResultsItemAllOf1; each further member then decodes as it is read, into the fields or the alternative
+// that declares it, and a member neither declares is an error.
 func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	chosen, err := jsonChooseVariants(raw, "type", variantsOfListUsersOkResultsItem, membersOfListUsersOkResultsItem, true)
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return fmt.Errorf("ListUsersOkResultsItem: %w", err)
 	}
 
-	fields, err := jsonSelect(raw, membersOfListUsersOkResultsItem)
-	if err != nil {
-		return err
-	}
-
-	if err := json.Unmarshal(fields, (*fieldsOfListUsersOkResultsItem)(v), jsonOpts); err != nil {
-		return err
-	}
-
-	for _, i := range chosen {
-		variant, err := jsonSelect(raw, variantsOfListUsersOkResultsItem[i].members)
-		if err != nil {
-			return err
+	switch tag {
+	case "person":
+		var vv Person
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfListUsersOkResultsItem, v.unmarshalJSONMember},
+			{variantsOfListUsersOkResultsItem[0].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
 		}
 
-		switch i {
-		case 0:
-			var vv Person
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
-				return err
-			}
-
-			v.ListUsersOkResultsItemAllOf1.Person = &vv
-		case 1:
-			var vv Bot
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
-				return err
-			}
-
-			v.ListUsersOkResultsItemAllOf1.Bot = &vv
+		v.ListUsersOkResultsItemAllOf1.Person = &vv
+	case "bot":
+		var vv Bot
+		if err := jsonPartsFrom(dec, "type", first, []jsonPart{
+			{membersOfListUsersOkResultsItem, v.unmarshalJSONMember},
+			{variantsOfListUsersOkResultsItem[1].members, vv.unmarshalJSONMember},
+		}); err != nil {
+			return fmt.Errorf("ListUsersOkResultsItem: %w", err)
 		}
+
+		v.ListUsersOkResultsItemAllOf1.Bot = &vv
+	default:
+		return fmt.Errorf("ListUsersOkResultsItem: unknown type %q", tag)
 	}
 
 	return nil
@@ -1651,14 +1703,10 @@ type ListUsersOkResultsItemAllOf1 struct {
 	Bot    *Bot
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	tag, err := jsonMemberString(raw, "type")
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
 	}
@@ -1666,15 +1714,15 @@ func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	switch tag {
 	case "person":
 		var vv Person
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
 		}
 
 		v.Person = &vv
 	case "bot":
 		var vv Bot
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("ListUsersOkResultsItemAllOf1: %w", err)
 		}
 
 		v.Bot = &vv
@@ -1722,6 +1770,20 @@ type Person struct {
 	MembershipType PersonMembershipType `json:"membership_type,omitzero"`
 	// Details about the person, when the `type` of the user is `person`.
 	Person PersonPerson `json:"person"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether Person declares it.
+func (v *Person) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "membership_type":
+		return true, json.UnmarshalDecode(dec, &v.MembershipType, jsonOpts)
+	case "person":
+		return true, json.UnmarshalDecode(dec, &v.Person, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // The person's effective workspace membership type.
@@ -1785,14 +1847,10 @@ type RevokeUserSessionUser struct {
 	RevokeUserSessionUserOneOf1 *RevokeUserSessionUserOneOf1
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
+// alternative; the alternative then decodes each further member as it is read.
 func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	tag, err := jsonMemberString(raw, "type")
+	tag, first, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return fmt.Errorf("RevokeUserSessionUser: %w", err)
 	}
@@ -1800,15 +1858,15 @@ func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	switch tag {
 	case "email":
 		var vv RevokeUserSessionUserOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("RevokeUserSessionUser: %w", err)
 		}
 
 		v.RevokeUserSessionUserOneOf0 = &vv
 	case "id":
 		var vv RevokeUserSessionUserOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err != nil {
-			return err
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return fmt.Errorf("RevokeUserSessionUser: %w", err)
 		}
 
 		v.RevokeUserSessionUserOneOf1 = &vv
@@ -1839,12 +1897,36 @@ type RevokeUserSessionUserOneOf0 struct {
 	Email string `json:"email,omitzero"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether RevokeUserSessionUserOneOf0 declares it.
+func (v *RevokeUserSessionUserOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "email":
+		return true, json.UnmarshalDecode(dec, &v.Email, jsonOpts)
+	}
+
+	return false, nil
+}
+
 // RevokeUserSessionUserOneOf1 defines a model
 type RevokeUserSessionUserOneOf1 struct {
 	// Always `id`
 	Type string `json:"type,omitzero"`
 	// The managed user's Notion user UUID.
 	ID string `json:"id,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether RevokeUserSessionUserOneOf1 declares it.
+func (v *RevokeUserSessionUserOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+	}
+
+	return false, nil
 }
 
 // Token statuses to include. Use bracket encoding for multiple values.
@@ -2416,6 +2498,132 @@ type emptyObject struct{}
 
 // idRequest defines a model
 type idRequest string
+
+// jsonFirstMember reads the opening of a JSON object and its first member, which must be name with a string value.
+// It returns the string and the value as written.
+func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value, error) {
+	if tok, err := dec.ReadToken(); err != nil {
+		return "", nil, err
+	} else if tok.Kind() != jsontext.KindBeginObject {
+		return "", nil, fmt.Errorf("want an object, got %v", tok.Kind())
+	}
+
+	if dec.PeekKind() == jsontext.KindEndObject {
+		return "", nil, fmt.Errorf("missing member %q", name)
+	}
+
+	tok, err := dec.ReadToken()
+	if err != nil {
+		return "", nil, err
+	}
+
+	if got := tok.String(); got != name {
+		return "", nil, fmt.Errorf("first member is %q, want %q", got, name)
+	}
+
+	val, err := dec.ReadValue()
+	if err != nil {
+		return "", nil, err
+	}
+
+	var tag string
+	if err := json.Unmarshal(val, &tag); err != nil {
+		return "", nil, fmt.Errorf("member %q: %w", name, err)
+	}
+
+	return tag, val.Clone(), nil
+}
+
+// jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each
+// into the field decode declares for it; a member it does not declare is an error.
+func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, decode func(*jsontext.Decoder, string) (bool, error)) error {
+	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first)), firstName); err != nil {
+		return err
+	} else if !ok {
+		return fmt.Errorf("unknown member %q", firstName)
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return err
+		}
+
+		name := tok.String() // a token is void once the decoder reads on
+
+		if ok, err := decode(dec, name); err != nil {
+			return err
+		} else if !ok {
+			return fmt.Errorf("unknown member %q", name)
+		}
+	}
+
+	_, err := dec.ReadToken()
+	return err
+}
+
+// jsonPart is one of the parts an object decodes into: the members it declares and how it decodes one of them.
+type jsonPart struct {
+	members map[string]bool
+	decode  func(*jsontext.Decoder, string) (bool, error)
+}
+
+// jsonPartsFrom is jsonMembersFrom for an object that several parts declare members of. A member one part declares
+// decodes straight from dec; one several declare is read once and decoded into each.
+func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, parts []jsonPart) error {
+	member := func(name string, val jsontext.Value) error {
+		var declaring []jsonPart
+		for _, p := range parts {
+			if p.members[name] {
+				declaring = append(declaring, p)
+			}
+		}
+
+		if len(declaring) == 0 {
+			return fmt.Errorf("unknown member %q", name)
+		}
+
+		if val == nil && len(declaring) == 1 {
+			_, err := declaring[0].decode(dec, name)
+			return err
+		}
+
+		if val == nil {
+			v, err := dec.ReadValue()
+			if err != nil {
+				return err
+			}
+
+			val = v.Clone()
+		}
+
+		for _, p := range declaring {
+			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val)), name); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}
+
+	if err := member(firstName, first); err != nil {
+		return err
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return err
+		}
+
+		if err := member(tok.String(), nil); err != nil {
+			return err
+		}
+	}
+
+	_, err := dec.ReadToken()
+	return err
+}
 
 // jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
 func jsonMemberString(raw jsontext.Value, name string) (string, error) {
