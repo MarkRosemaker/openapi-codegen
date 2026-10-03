@@ -446,7 +446,7 @@
 					"jsonName": "link_preview",
 					"type": "ExternalFile",
 					"jsonTag": "json:\"link_preview,omitzero\"",
-					"description": "An external file is any URL that isn't hosted by Notion."
+					"description": "Link Preview block objects return the originally pasted url.\n\nNOTE: The link_preview block will only be returned as part of a response. It cannot be created via the API."
 				},
 				{
 					"name": "SyncedBlock",
@@ -1336,7 +1336,7 @@
 		},
 		{
 			"name": "ExternalFile",
-			"description": "An external file is any URL that isn't hosted by Notion.",
+			"description": "ExternalFile defines a model",
 			"fields": [
 				{
 					"name": "URL",
