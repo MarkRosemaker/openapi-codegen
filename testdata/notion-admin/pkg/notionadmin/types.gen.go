@@ -50,7 +50,7 @@ type ListMcpClientConnectionsParams struct {
 
 // DeletePermissionGroupParams holds the query parameters for DeletePermissionGroup.
 type DeletePermissionGroupParams struct {
-	TransferToOwnerID idRequest
+	TransferToOwnerID IDRequest
 }
 
 // ListPermissionGroupsParams holds the query parameters for ListPermissionGroups.
@@ -225,7 +225,7 @@ type AddPermissionGroupMemberMember struct {
 	// Always `user`
 	Type string `json:"type"`
 	// The ID of the user.
-	UserID idRequest `json:"user_id"`
+	UserID IDRequest `json:"user_id"`
 }
 
 // The user's role in the group.
@@ -246,6 +246,30 @@ func (e AddPermissionGroupMemberRole) Valid() bool {
 	}
 }
 
+// AdminAPIError400 defines a model
+type AdminAPIError400 struct {
+	Type    AdminAPIErrorType `json:"type"`
+	Code    AdminAPIErrorCode `json:"code"`
+	Status  int               `json:"status"`
+	Message string            `json:"message"`
+}
+
+// AdminAPIError401 defines a model
+type AdminAPIError401 struct {
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode2 `json:"code"`
+	Status  int                `json:"status"`
+	Message string             `json:"message"`
+}
+
+// AdminAPIError403 defines a model
+type AdminAPIError403 struct {
+	Type    AdminAPIErrorType    `json:"type"`
+	Code    AdminAPIError403Code `json:"code"`
+	Status  int                  `json:"status"`
+	Message string               `json:"message"`
+}
+
 // AdminAPIError403Code defines a model
 type AdminAPIError403Code string
 
@@ -264,6 +288,14 @@ func (e AdminAPIError403Code) Valid() bool {
 	}
 }
 
+// AdminAPIError404 defines a model
+type AdminAPIError404 struct {
+	Type    AdminAPIErrorType    `json:"type"`
+	Code    AdminAPIError404Code `json:"code"`
+	Status  int                  `json:"status"`
+	Message string               `json:"message"`
+}
+
 // AdminAPIError404Code defines a model
 type AdminAPIError404Code string
 
@@ -279,6 +311,22 @@ func (e AdminAPIError404Code) Valid() bool {
 	default:
 		return false
 	}
+}
+
+// AdminAPIError429 defines a model
+type AdminAPIError429 struct {
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode3 `json:"code"`
+	Status  int                `json:"status"`
+	Message string             `json:"message"`
+}
+
+// AdminAPIError500 defines a model
+type AdminAPIError500 struct {
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode4 `json:"code"`
+	Status  int                `json:"status"`
+	Message string             `json:"message"`
 }
 
 // AdminAPIErrorCode defines a model
@@ -366,6 +414,33 @@ func (e AdminAPIErrorType) Valid() bool {
 	}
 }
 
+// AdminAPIPublicError400 defines a model
+type AdminAPIPublicError400 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode                                 `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+}
+
+// AdminAPIPublicError401 defines a model
+type AdminAPIPublicError401 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode2                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+}
+
+// AdminAPIPublicError403 defines a model
+type AdminAPIPublicError403 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError403Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+}
+
 // AdminAPIPublicError403Code defines a model
 type AdminAPIPublicError403Code string
 
@@ -381,6 +456,15 @@ func (e AdminAPIPublicError403Code) Valid() bool {
 	default:
 		return false
 	}
+}
+
+// AdminAPIPublicError404 defines a model
+type AdminAPIPublicError404 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError404Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError404Code defines a model
@@ -400,6 +484,15 @@ func (e AdminAPIPublicError404Code) Valid() bool {
 	}
 }
 
+// AdminAPIPublicError409 defines a model
+type AdminAPIPublicError409 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError409Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+}
+
 // AdminAPIPublicError409Code defines a model
 type AdminAPIPublicError409Code string
 
@@ -415,6 +508,33 @@ func (e AdminAPIPublicError409Code) Valid() bool {
 	default:
 		return false
 	}
+}
+
+// AdminAPIPublicError429 defines a model
+type AdminAPIPublicError429 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode3                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+}
+
+// AdminAPIPublicError500 defines a model
+type AdminAPIPublicError500 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode4                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+}
+
+// AdminAPIPublicError503 defines a model
+type AdminAPIPublicError503 struct {
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError503Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError503Code defines a model
@@ -721,7 +841,7 @@ type Bot struct {
 	// Indicates this user is a bot.
 	Type string `json:"type"`
 	// Details about the bot, when the `type` of the user is `bot`.
-	Bot emptyObject `json:"bot"`
+	Bot EmptyObject `json:"bot"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Bot declares it.
@@ -967,6 +1087,9 @@ func (v *CreatorIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
+
+// EmptyObject defines a model
+type EmptyObject struct{}
 
 // EnqueueSpaceExport defines a model
 type EnqueueSpaceExport struct {
@@ -1312,6 +1435,9 @@ func (e GetWorkflowsMetadataForSpaceOkResultsItemParentTable) Valid() bool {
 		return false
 	}
 }
+
+// IDRequest defines a model
+type IDRequest string
 
 // Set to "true" to include soft-deleted agents and their retained credit usage; included deleted agents have status "deleted". Omit this parameter or set it to "false" to return only live agents. Permanently deleted tombstones are never returned.
 type IncludeDeleted string
@@ -2447,132 +2573,6 @@ func (e WorkflowsMetadataForSpaceResultsItemCreatedByTable) Valid() bool {
 		return false
 	}
 }
-
-// adminApiError400 defines a model
-type adminApiError400 struct {
-	Type    AdminAPIErrorType `json:"type"`
-	Code    AdminAPIErrorCode `json:"code"`
-	Status  int               `json:"status"`
-	Message string            `json:"message"`
-}
-
-// adminApiError401 defines a model
-type adminApiError401 struct {
-	Type    AdminAPIErrorType  `json:"type"`
-	Code    AdminAPIErrorCode2 `json:"code"`
-	Status  int                `json:"status"`
-	Message string             `json:"message"`
-}
-
-// adminApiError403 defines a model
-type adminApiError403 struct {
-	Type    AdminAPIErrorType    `json:"type"`
-	Code    AdminAPIError403Code `json:"code"`
-	Status  int                  `json:"status"`
-	Message string               `json:"message"`
-}
-
-// adminApiError404 defines a model
-type adminApiError404 struct {
-	Type    AdminAPIErrorType    `json:"type"`
-	Code    AdminAPIError404Code `json:"code"`
-	Status  int                  `json:"status"`
-	Message string               `json:"message"`
-}
-
-// adminApiError429 defines a model
-type adminApiError429 struct {
-	Type    AdminAPIErrorType  `json:"type"`
-	Code    AdminAPIErrorCode3 `json:"code"`
-	Status  int                `json:"status"`
-	Message string             `json:"message"`
-}
-
-// adminApiError500 defines a model
-type adminApiError500 struct {
-	Type    AdminAPIErrorType  `json:"type"`
-	Code    AdminAPIErrorCode4 `json:"code"`
-	Status  int                `json:"status"`
-	Message string             `json:"message"`
-}
-
-// adminApiPublicError400 defines a model
-type adminApiPublicError400 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIErrorCode                                 `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError401 defines a model
-type adminApiPublicError401 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIErrorCode2                                `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError403 defines a model
-type adminApiPublicError403 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIPublicError403Code                        `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError404 defines a model
-type adminApiPublicError404 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIPublicError404Code                        `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError409 defines a model
-type adminApiPublicError409 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIPublicError409Code                        `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError429 defines a model
-type adminApiPublicError429 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIErrorCode3                                `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError500 defines a model
-type adminApiPublicError500 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIErrorCode4                                `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// adminApiPublicError503 defines a model
-type adminApiPublicError503 struct {
-	Object         AdminAPIErrorType                                 `json:"object"`
-	Code           AdminAPIPublicError503Code                        `json:"code"`
-	Status         int                                               `json:"status"`
-	Message        string                                            `json:"message"`
-	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// emptyObject defines a model
-type emptyObject struct{}
-
-// idRequest defines a model
-type idRequest string
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
 func jsonUnknownName(name string) error {

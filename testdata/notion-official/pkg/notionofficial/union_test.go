@@ -74,12 +74,12 @@ func TestAllOf_NestedUnion(t *testing.T) {
 	// the alternative is a leaf two unions deep, chosen by its type like any other
 	const number = `{"type":"number","id":"abc","number":3}`
 
-	var p pagePropertyValueWithIdResponse
+	var p PagePropertyValueWithIDResponse
 	if err := json.Unmarshal([]byte(number), &p, jsonOpts); err != nil {
 		t.Fatal(err)
 	}
 
-	value := p.PagePropertyValueWithIdResponseAllOf1.SimpleOrArrayPropertyValueResponse
+	value := p.PagePropertyValueWithIDResponseAllOf1.SimpleOrArrayPropertyValueResponse
 	if p.ID != "abc" || value == nil || value.SimplePropertyValueResponse == nil ||
 		value.SimplePropertyValueResponse.NumberFormulaPropertyValue == nil ||
 		*value.SimplePropertyValueResponse.NumberFormulaPropertyValue.Number != 3 {

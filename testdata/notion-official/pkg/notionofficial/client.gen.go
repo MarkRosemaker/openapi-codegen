@@ -104,8 +104,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // Retrieve your token's bot user
 //
 //	GET /users/me
-func (c *Client) GetSelf(ctx context.Context) (*userObjectResponse, error) {
-	return c.GetSelfWithResult[userObjectResponse](ctx)
+func (c *Client) GetSelf(ctx context.Context) (*UserObjectResponse, error) {
+	return c.GetSelfWithResult[UserObjectResponse](ctx)
 }
 
 // Retrieve your token's bot user
@@ -156,7 +156,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -169,7 +169,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -182,7 +182,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -195,7 +195,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -208,7 +208,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -221,7 +221,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -234,7 +234,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -247,7 +247,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -260,7 +260,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -273,7 +273,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -286,7 +286,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -303,15 +303,15 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 // Retrieve a user
 //
 //	GET /users/{user_id}
-func (c *Client) GetUser(ctx context.Context, userID idRequest) (*userObjectResponse, error) {
-	return c.GetUserWithResult[userObjectResponse](ctx, userID)
+func (c *Client) GetUser(ctx context.Context, userID IDRequest) (*UserObjectResponse, error) {
+	return c.GetUserWithResult[UserObjectResponse](ctx, userID)
 }
 
 // Retrieve a user
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /users/{user_id}
-func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest) (*R, error) {
+func (c *Client) GetUserWithResult[R any](ctx context.Context, userID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -355,7 +355,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -368,7 +368,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -381,7 +381,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -394,7 +394,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -407,7 +407,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -420,7 +420,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -433,7 +433,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -446,7 +446,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -459,7 +459,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -472,7 +472,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -485,7 +485,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID idRequest)
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -568,7 +568,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -581,7 +581,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -594,7 +594,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -607,7 +607,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -620,7 +620,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -633,7 +633,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -646,7 +646,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -659,7 +659,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -672,7 +672,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -685,7 +685,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -698,7 +698,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -797,7 +797,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -810,7 +810,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -823,7 +823,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -836,7 +836,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -849,7 +849,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -862,7 +862,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -875,7 +875,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -888,7 +888,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -901,7 +901,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -914,7 +914,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -927,7 +927,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -944,7 +944,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 // Retrieve a page
 //
 //	GET /pages/{page_id}
-func (c *Client) RetrieveAPage(ctx context.Context, pageID idRequest, params *RetrieveAPageParams) (*MovePage2, error) {
+func (c *Client) RetrieveAPage(ctx context.Context, pageID IDRequest, params *RetrieveAPageParams) (*MovePage2, error) {
 	return c.RetrieveAPageWithResult[MovePage2](ctx, pageID, params)
 }
 
@@ -952,7 +952,7 @@ func (c *Client) RetrieveAPage(ctx context.Context, pageID idRequest, params *Re
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /pages/{page_id}
-func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRequest, params *RetrieveAPageParams) (*R, error) {
+func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID IDRequest, params *RetrieveAPageParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -1006,7 +1006,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1019,7 +1019,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1032,7 +1032,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1045,7 +1045,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1058,7 +1058,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1071,7 +1071,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1084,7 +1084,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1097,7 +1097,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1110,7 +1110,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1123,7 +1123,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1136,7 +1136,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1153,7 +1153,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID idRe
 // Update page
 //
 //	PATCH /pages/{page_id}
-func (c *Client) PatchPage(ctx context.Context, pageID idRequest, params *PatchPageParams, body PatchPage) (*PageOrDataSourceResultsItemAnyOf, error) {
+func (c *Client) PatchPage(ctx context.Context, pageID IDRequest, params *PatchPageParams, body PatchPage) (*PageOrDataSourceResultsItemAnyOf, error) {
 	return c.PatchPageWithResult[PageOrDataSourceResultsItemAnyOf](ctx, pageID, params, body)
 }
 
@@ -1161,7 +1161,7 @@ func (c *Client) PatchPage(ctx context.Context, pageID idRequest, params *PatchP
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /pages/{page_id}
-func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idRequest, params *PatchPageParams, body PatchPage) (*R, error) {
+func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID IDRequest, params *PatchPageParams, body PatchPage) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -1222,7 +1222,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1235,7 +1235,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1248,7 +1248,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1261,7 +1261,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1274,7 +1274,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1287,7 +1287,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1300,7 +1300,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1313,7 +1313,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1326,7 +1326,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1339,7 +1339,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1352,7 +1352,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1369,7 +1369,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID idReques
 // Move a page
 //
 //	POST /pages/{page_id}/move
-func (c *Client) MovePage(ctx context.Context, pageID idRequest, body MovePage) (*MovePage2, error) {
+func (c *Client) MovePage(ctx context.Context, pageID IDRequest, body MovePage) (*MovePage2, error) {
 	return c.MovePageWithResult[MovePage2](ctx, pageID, body)
 }
 
@@ -1377,7 +1377,7 @@ func (c *Client) MovePage(ctx context.Context, pageID idRequest, body MovePage) 
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /pages/{page_id}/move
-func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest, body MovePage) (*R, error) {
+func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID IDRequest, body MovePage) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -1428,7 +1428,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1441,7 +1441,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1454,7 +1454,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1467,7 +1467,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1480,7 +1480,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1493,7 +1493,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1506,7 +1506,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1519,7 +1519,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1532,7 +1532,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1545,7 +1545,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1558,7 +1558,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1575,7 +1575,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID idRequest
 // Retrieve a page property item
 //
 //	GET /pages/{page_id}/properties/{property_id}
-func (c *Client) RetrieveAPageProperty(ctx context.Context, pageID idRequest, propertyID string, params *RetrieveAPagePropertyParams) (*RetrieveAPagePropertyOk, error) {
+func (c *Client) RetrieveAPageProperty(ctx context.Context, pageID IDRequest, propertyID string, params *RetrieveAPagePropertyParams) (*RetrieveAPagePropertyOk, error) {
 	return c.RetrieveAPagePropertyWithResult[RetrieveAPagePropertyOk](ctx, pageID, propertyID, params)
 }
 
@@ -1583,7 +1583,7 @@ func (c *Client) RetrieveAPageProperty(ctx context.Context, pageID idRequest, pr
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /pages/{page_id}/properties/{property_id}
-func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pageID idRequest, propertyID string, params *RetrieveAPagePropertyParams) (*R, error) {
+func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pageID IDRequest, propertyID string, params *RetrieveAPagePropertyParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -1641,7 +1641,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1654,7 +1654,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1667,7 +1667,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1680,7 +1680,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1693,7 +1693,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1706,7 +1706,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1719,7 +1719,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1732,7 +1732,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1745,7 +1745,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1758,7 +1758,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1771,7 +1771,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1788,15 +1788,15 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 // Retrieve a page as markdown
 //
 //	GET /pages/{page_id}/markdown
-func (c *Client) RetrievePageMarkdown(ctx context.Context, pageID idRequest, params *RetrievePageMarkdownParams) (*pageMarkdownResponse, error) {
-	return c.RetrievePageMarkdownWithResult[pageMarkdownResponse](ctx, pageID, params)
+func (c *Client) RetrievePageMarkdown(ctx context.Context, pageID IDRequest, params *RetrievePageMarkdownParams) (*PageMarkdownResponse, error) {
+	return c.RetrievePageMarkdownWithResult[PageMarkdownResponse](ctx, pageID, params)
 }
 
 // Retrieve a page as markdown
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /pages/{page_id}/markdown
-func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, pageID idRequest, params *RetrievePageMarkdownParams) (*R, error) {
+func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, pageID IDRequest, params *RetrievePageMarkdownParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -1850,7 +1850,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1863,7 +1863,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1876,7 +1876,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1889,7 +1889,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1902,7 +1902,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1915,7 +1915,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1928,7 +1928,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1941,7 +1941,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1954,7 +1954,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1967,7 +1967,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1980,7 +1980,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1997,15 +1997,15 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 // Update a page's content as markdown
 //
 //	PATCH /pages/{page_id}/markdown
-func (c *Client) UpdatePageMarkdown(ctx context.Context, pageID idRequest, body UpdatePageMarkdown) (*pageMarkdownResponse, error) {
-	return c.UpdatePageMarkdownWithResult[pageMarkdownResponse](ctx, pageID, body)
+func (c *Client) UpdatePageMarkdown(ctx context.Context, pageID IDRequest, body UpdatePageMarkdown) (*PageMarkdownResponse, error) {
+	return c.UpdatePageMarkdownWithResult[PageMarkdownResponse](ctx, pageID, body)
 }
 
 // Update a page's content as markdown
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /pages/{page_id}/markdown
-func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID idRequest, body UpdatePageMarkdown) (*R, error) {
+func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID IDRequest, body UpdatePageMarkdown) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -2069,7 +2069,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2082,7 +2082,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2095,7 +2095,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2108,7 +2108,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2121,7 +2121,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2134,7 +2134,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2147,7 +2147,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2160,7 +2160,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2173,7 +2173,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2186,7 +2186,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2199,7 +2199,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2268,7 +2268,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2281,7 +2281,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2294,7 +2294,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2307,7 +2307,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2320,7 +2320,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2333,7 +2333,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2346,7 +2346,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2359,7 +2359,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2372,7 +2372,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2385,7 +2385,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2398,7 +2398,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2415,7 +2415,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 // Retrieve a block
 //
 //	GET /blocks/{block_id}
-func (c *Client) RetrieveABlock(ctx context.Context, blockID idRequest) (*BlockResultsItem, error) {
+func (c *Client) RetrieveABlock(ctx context.Context, blockID IDRequest) (*BlockResultsItem, error) {
 	return c.RetrieveABlockWithResult[BlockResultsItem](ctx, blockID)
 }
 
@@ -2423,7 +2423,7 @@ func (c *Client) RetrieveABlock(ctx context.Context, blockID idRequest) (*BlockR
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /blocks/{block_id}
-func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID idRequest) (*R, error) {
+func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -2467,7 +2467,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2480,7 +2480,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2493,7 +2493,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2506,7 +2506,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2519,7 +2519,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2532,7 +2532,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2545,7 +2545,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2558,7 +2558,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2571,7 +2571,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2584,7 +2584,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2597,7 +2597,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2614,7 +2614,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID id
 // Delete a block
 //
 //	DELETE /blocks/{block_id}
-func (c *Client) DeleteABlock(ctx context.Context, blockID idRequest) (*BlockResultsItem, error) {
+func (c *Client) DeleteABlock(ctx context.Context, blockID IDRequest) (*BlockResultsItem, error) {
 	return c.DeleteABlockWithResult[BlockResultsItem](ctx, blockID)
 }
 
@@ -2622,7 +2622,7 @@ func (c *Client) DeleteABlock(ctx context.Context, blockID idRequest) (*BlockRes
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /blocks/{block_id}
-func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRequest) (*R, error) {
+func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -2666,7 +2666,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2679,7 +2679,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2692,7 +2692,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2705,7 +2705,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2718,7 +2718,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2731,7 +2731,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2744,7 +2744,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2757,7 +2757,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2770,7 +2770,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2783,7 +2783,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2796,7 +2796,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2813,7 +2813,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID idRe
 // Update a block
 //
 //	PATCH /blocks/{block_id}
-func (c *Client) UpdateABlock(ctx context.Context, blockID idRequest, body UpdateABlock) (*BlockResultsItem, error) {
+func (c *Client) UpdateABlock(ctx context.Context, blockID IDRequest, body UpdateABlock) (*BlockResultsItem, error) {
 	return c.UpdateABlockWithResult[BlockResultsItem](ctx, blockID, body)
 }
 
@@ -2821,7 +2821,7 @@ func (c *Client) UpdateABlock(ctx context.Context, blockID idRequest, body Updat
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /blocks/{block_id}
-func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRequest, body UpdateABlock) (*R, error) {
+func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID IDRequest, body UpdateABlock) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -2872,7 +2872,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2885,7 +2885,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2898,7 +2898,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2911,7 +2911,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2924,7 +2924,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2937,7 +2937,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2950,7 +2950,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2963,7 +2963,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2976,7 +2976,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2989,7 +2989,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3002,7 +3002,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3019,7 +3019,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID idRe
 // Retrieve block children
 //
 //	GET /blocks/{block_id}/children
-func (c *Client) GetBlockChildren(ctx context.Context, blockID idRequest, params *GetBlockChildrenParams) (*Block, error) {
+func (c *Client) GetBlockChildren(ctx context.Context, blockID IDRequest, params *GetBlockChildrenParams) (*Block, error) {
 	return c.GetBlockChildrenWithResult[Block](ctx, blockID, params)
 }
 
@@ -3027,7 +3027,7 @@ func (c *Client) GetBlockChildren(ctx context.Context, blockID idRequest, params
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /blocks/{block_id}/children
-func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID idRequest, params *GetBlockChildrenParams) (*R, error) {
+func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID IDRequest, params *GetBlockChildrenParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -3085,7 +3085,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3098,7 +3098,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3111,7 +3111,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3124,7 +3124,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3137,7 +3137,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3150,7 +3150,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3163,7 +3163,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3176,7 +3176,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3189,7 +3189,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3202,7 +3202,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3215,7 +3215,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3232,7 +3232,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 // Append block children
 //
 //	PATCH /blocks/{block_id}/children
-func (c *Client) PatchBlockChildren(ctx context.Context, blockID idRequest, body PatchBlockChildren) (*Block, error) {
+func (c *Client) PatchBlockChildren(ctx context.Context, blockID IDRequest, body PatchBlockChildren) (*Block, error) {
 	return c.PatchBlockChildrenWithResult[Block](ctx, blockID, body)
 }
 
@@ -3240,7 +3240,7 @@ func (c *Client) PatchBlockChildren(ctx context.Context, blockID idRequest, body
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /blocks/{block_id}/children
-func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockID idRequest, body PatchBlockChildren) (*R, error) {
+func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockID IDRequest, body PatchBlockChildren) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -3291,7 +3291,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3304,7 +3304,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3317,7 +3317,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3330,7 +3330,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3343,7 +3343,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3356,7 +3356,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3369,7 +3369,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3382,7 +3382,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3395,7 +3395,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3408,7 +3408,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3421,7 +3421,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3438,7 +3438,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 // Retrieve a data source
 //
 //	GET /data_sources/{data_source_id}
-func (c *Client) RetrieveADataSource(ctx context.Context, dataSourceID idRequest) (*CreateADatabase2, error) {
+func (c *Client) RetrieveADataSource(ctx context.Context, dataSourceID IDRequest) (*CreateADatabase2, error) {
 	return c.RetrieveADataSourceWithResult[CreateADatabase2](ctx, dataSourceID)
 }
 
@@ -3446,7 +3446,7 @@ func (c *Client) RetrieveADataSource(ctx context.Context, dataSourceID idRequest
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /data_sources/{data_source_id}
-func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataSourceID idRequest) (*R, error) {
+func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataSourceID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -3490,7 +3490,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3503,7 +3503,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3516,7 +3516,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3529,7 +3529,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3542,7 +3542,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3555,7 +3555,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3568,7 +3568,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3581,7 +3581,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3594,7 +3594,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3607,7 +3607,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3620,7 +3620,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3637,7 +3637,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 // Update a data source
 //
 //	PATCH /data_sources/{data_source_id}
-func (c *Client) UpdateADataSource(ctx context.Context, dataSourceID idRequest, body UpdateADataSource) (*CreateADatabase2, error) {
+func (c *Client) UpdateADataSource(ctx context.Context, dataSourceID IDRequest, body UpdateADataSource) (*CreateADatabase2, error) {
 	return c.UpdateADataSourceWithResult[CreateADatabase2](ctx, dataSourceID, body)
 }
 
@@ -3645,7 +3645,7 @@ func (c *Client) UpdateADataSource(ctx context.Context, dataSourceID idRequest, 
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /data_sources/{data_source_id}
-func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSourceID idRequest, body UpdateADataSource) (*R, error) {
+func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSourceID IDRequest, body UpdateADataSource) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -3696,7 +3696,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3709,7 +3709,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3722,7 +3722,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3735,7 +3735,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3748,7 +3748,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3761,7 +3761,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3774,7 +3774,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3787,7 +3787,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3800,7 +3800,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3813,7 +3813,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3826,7 +3826,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3843,7 +3843,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 // Query a data source
 //
 //	POST /data_sources/{data_source_id}/query
-func (c *Client) PostDatabaseQuery(ctx context.Context, dataSourceID idRequest, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*PageOrDataSource, error) {
+func (c *Client) PostDatabaseQuery(ctx context.Context, dataSourceID IDRequest, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*PageOrDataSource, error) {
 	return c.PostDatabaseQueryWithResult[PageOrDataSource](ctx, dataSourceID, params, body)
 }
 
@@ -3851,7 +3851,7 @@ func (c *Client) PostDatabaseQuery(ctx context.Context, dataSourceID idRequest, 
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /data_sources/{data_source_id}/query
-func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSourceID idRequest, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*R, error) {
+func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSourceID IDRequest, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -3912,7 +3912,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3925,7 +3925,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3938,7 +3938,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3951,7 +3951,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3964,7 +3964,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3977,7 +3977,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3990,7 +3990,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4003,7 +4003,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4016,7 +4016,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4029,7 +4029,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4042,7 +4042,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4118,7 +4118,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4131,7 +4131,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4144,7 +4144,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4157,7 +4157,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4170,7 +4170,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4183,7 +4183,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4196,7 +4196,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4209,7 +4209,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4222,7 +4222,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4235,7 +4235,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4248,7 +4248,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4265,7 +4265,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 // List templates in a data source
 //
 //	GET /data_sources/{data_source_id}/templates
-func (c *Client) ListDataSourceTemplates(ctx context.Context, dataSourceID idRequest, params *ListDataSourceTemplatesParams) (*ListDataSourceTemplatesOk, error) {
+func (c *Client) ListDataSourceTemplates(ctx context.Context, dataSourceID IDRequest, params *ListDataSourceTemplatesParams) (*ListDataSourceTemplatesOk, error) {
 	return c.ListDataSourceTemplatesWithResult[ListDataSourceTemplatesOk](ctx, dataSourceID, params)
 }
 
@@ -4273,7 +4273,7 @@ func (c *Client) ListDataSourceTemplates(ctx context.Context, dataSourceID idReq
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /data_sources/{data_source_id}/templates
-func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, dataSourceID idRequest, params *ListDataSourceTemplatesParams) (*R, error) {
+func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, dataSourceID IDRequest, params *ListDataSourceTemplatesParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -4335,7 +4335,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4348,7 +4348,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4361,7 +4361,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4374,7 +4374,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4387,7 +4387,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4400,7 +4400,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4413,7 +4413,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4426,7 +4426,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4439,7 +4439,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4452,7 +4452,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4465,7 +4465,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4482,7 +4482,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 // Retrieve a database
 //
 //	GET /databases/{database_id}
-func (c *Client) RetrieveDatabase(ctx context.Context, databaseID idRequest) (*CreateDatabase2, error) {
+func (c *Client) RetrieveDatabase(ctx context.Context, databaseID IDRequest) (*CreateDatabase2, error) {
 	return c.RetrieveDatabaseWithResult[CreateDatabase2](ctx, databaseID)
 }
 
@@ -4490,7 +4490,7 @@ func (c *Client) RetrieveDatabase(ctx context.Context, databaseID idRequest) (*C
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /databases/{database_id}
-func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, databaseID idRequest) (*R, error) {
+func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, databaseID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -4534,7 +4534,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4547,7 +4547,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4560,7 +4560,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4573,7 +4573,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4586,7 +4586,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4599,7 +4599,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4612,7 +4612,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4625,7 +4625,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4638,7 +4638,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4651,7 +4651,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4664,7 +4664,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4681,7 +4681,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 // Update a database
 //
 //	PATCH /databases/{database_id}
-func (c *Client) UpdateDatabase(ctx context.Context, databaseID idRequest, body UpdateDatabase) (*CreateDatabase2, error) {
+func (c *Client) UpdateDatabase(ctx context.Context, databaseID IDRequest, body UpdateDatabase) (*CreateDatabase2, error) {
 	return c.UpdateDatabaseWithResult[CreateDatabase2](ctx, databaseID, body)
 }
 
@@ -4689,7 +4689,7 @@ func (c *Client) UpdateDatabase(ctx context.Context, databaseID idRequest, body 
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /databases/{database_id}
-func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID idRequest, body UpdateDatabase) (*R, error) {
+func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID IDRequest, body UpdateDatabase) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -4740,7 +4740,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4753,7 +4753,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4766,7 +4766,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4779,7 +4779,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4792,7 +4792,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4805,7 +4805,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4818,7 +4818,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4831,7 +4831,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4844,7 +4844,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4857,7 +4857,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4870,7 +4870,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4946,7 +4946,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4959,7 +4959,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4972,7 +4972,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4985,7 +4985,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4998,7 +4998,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5011,7 +5011,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5024,7 +5024,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5037,7 +5037,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5050,7 +5050,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5063,7 +5063,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5076,7 +5076,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5152,7 +5152,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5165,7 +5165,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5178,7 +5178,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5191,7 +5191,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5204,7 +5204,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5217,7 +5217,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5230,7 +5230,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5243,7 +5243,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5256,7 +5256,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5269,7 +5269,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5282,7 +5282,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5366,7 +5366,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5379,7 +5379,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5392,7 +5392,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5405,7 +5405,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5418,7 +5418,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5431,7 +5431,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5444,7 +5444,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5457,7 +5457,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5470,7 +5470,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5483,7 +5483,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5496,7 +5496,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5572,7 +5572,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5585,7 +5585,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5598,7 +5598,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5611,7 +5611,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5624,7 +5624,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5637,7 +5637,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5650,7 +5650,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5663,7 +5663,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5676,7 +5676,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5689,7 +5689,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5702,7 +5702,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5719,7 +5719,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 // Retrieve a comment
 //
 //	GET /comments/{comment_id}
-func (c *Client) RetrieveComment(ctx context.Context, commentID idRequest) (*CreateAComment2, error) {
+func (c *Client) RetrieveComment(ctx context.Context, commentID IDRequest) (*CreateAComment2, error) {
 	return c.RetrieveCommentWithResult[CreateAComment2](ctx, commentID)
 }
 
@@ -5727,7 +5727,7 @@ func (c *Client) RetrieveComment(ctx context.Context, commentID idRequest) (*Cre
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /comments/{comment_id}
-func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID idRequest) (*R, error) {
+func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -5771,7 +5771,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5784,7 +5784,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5797,7 +5797,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5810,7 +5810,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5823,7 +5823,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5836,7 +5836,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5849,7 +5849,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5862,7 +5862,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5875,7 +5875,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5888,7 +5888,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5901,7 +5901,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5918,7 +5918,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 // Delete a comment
 //
 //	DELETE /comments/{comment_id}
-func (c *Client) DeleteAComment(ctx context.Context, commentID idRequest) (*CreateAComment2, error) {
+func (c *Client) DeleteAComment(ctx context.Context, commentID IDRequest) (*CreateAComment2, error) {
 	return c.DeleteACommentWithResult[CreateAComment2](ctx, commentID)
 }
 
@@ -5926,7 +5926,7 @@ func (c *Client) DeleteAComment(ctx context.Context, commentID idRequest) (*Crea
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /comments/{comment_id}
-func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID idRequest) (*R, error) {
+func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -5970,7 +5970,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5983,7 +5983,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5996,7 +5996,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6009,7 +6009,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6022,7 +6022,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6035,7 +6035,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6048,7 +6048,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6061,7 +6061,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6074,7 +6074,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6087,7 +6087,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6100,7 +6100,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6117,7 +6117,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 // Update a comment
 //
 //	PATCH /comments/{comment_id}
-func (c *Client) UpdateAComment(ctx context.Context, commentID idRequest, body UpdateAComment) (*CreateAComment2, error) {
+func (c *Client) UpdateAComment(ctx context.Context, commentID IDRequest, body UpdateAComment) (*CreateAComment2, error) {
 	return c.UpdateACommentWithResult[CreateAComment2](ctx, commentID, body)
 }
 
@@ -6125,7 +6125,7 @@ func (c *Client) UpdateAComment(ctx context.Context, commentID idRequest, body U
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /comments/{comment_id}
-func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID idRequest, body UpdateAComment) (*R, error) {
+func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID IDRequest, body UpdateAComment) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -6176,7 +6176,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6189,7 +6189,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6202,7 +6202,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6215,7 +6215,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6228,7 +6228,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6241,7 +6241,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6254,7 +6254,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6267,7 +6267,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6280,7 +6280,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6293,7 +6293,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6306,7 +6306,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6393,7 +6393,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6406,7 +6406,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6419,7 +6419,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6432,7 +6432,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6445,7 +6445,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6458,7 +6458,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6471,7 +6471,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6484,7 +6484,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6497,7 +6497,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6510,7 +6510,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6523,7 +6523,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6540,8 +6540,8 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 // Create a file upload
 //
 //	POST /file_uploads
-func (c *Client) CreateFile(ctx context.Context, body CreateFile) (*fileUploadObjectResponse, error) {
-	return c.CreateFileWithResult[fileUploadObjectResponse](ctx, body)
+func (c *Client) CreateFile(ctx context.Context, body CreateFile) (*FileUploadObjectResponse, error) {
+	return c.CreateFileWithResult[FileUploadObjectResponse](ctx, body)
 }
 
 // Create a file upload
@@ -6599,7 +6599,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6612,7 +6612,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6625,7 +6625,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6638,7 +6638,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6651,7 +6651,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6664,7 +6664,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6677,7 +6677,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6690,7 +6690,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6703,7 +6703,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6716,7 +6716,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6729,7 +6729,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6746,15 +6746,15 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 // Upload a file
 //
 //	POST /file_uploads/{file_upload_id}/send
-func (c *Client) UploadFile(ctx context.Context, fileUploadID idRequest, body UploadFile) (*fileUploadObjectResponse, error) {
-	return c.UploadFileWithResult[fileUploadObjectResponse](ctx, fileUploadID, body)
+func (c *Client) UploadFile(ctx context.Context, fileUploadID IDRequest, body UploadFile) (*FileUploadObjectResponse, error) {
+	return c.UploadFileWithResult[FileUploadObjectResponse](ctx, fileUploadID, body)
 }
 
 // Upload a file
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /file_uploads/{file_upload_id}/send
-func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID idRequest, body UploadFile) (*R, error) {
+func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID IDRequest, body UploadFile) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -6805,7 +6805,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6818,7 +6818,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6831,7 +6831,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6844,7 +6844,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6857,7 +6857,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6870,7 +6870,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6883,7 +6883,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6896,7 +6896,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6909,7 +6909,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6922,7 +6922,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6935,7 +6935,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6952,15 +6952,15 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID i
 // Complete a multi-part file upload
 //
 //	POST /file_uploads/{file_upload_id}/complete
-func (c *Client) CompleteFileUpload(ctx context.Context, fileUploadID idRequest) (*fileUploadObjectResponse, error) {
-	return c.CompleteFileUploadWithResult[fileUploadObjectResponse](ctx, fileUploadID)
+func (c *Client) CompleteFileUpload(ctx context.Context, fileUploadID IDRequest) (*FileUploadObjectResponse, error) {
+	return c.CompleteFileUploadWithResult[FileUploadObjectResponse](ctx, fileUploadID)
 }
 
 // Complete a multi-part file upload
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /file_uploads/{file_upload_id}/complete
-func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUploadID idRequest) (*R, error) {
+func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUploadID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -7004,7 +7004,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7017,7 +7017,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7030,7 +7030,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7043,7 +7043,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7056,7 +7056,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7069,7 +7069,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7082,7 +7082,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7095,7 +7095,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7108,7 +7108,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7121,7 +7121,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7134,7 +7134,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7151,15 +7151,15 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 // Retrieve a file upload
 //
 //	GET /file_uploads/{file_upload_id}
-func (c *Client) RetrieveFileUpload(ctx context.Context, fileUploadID idRequest) (*fileUploadObjectResponse, error) {
-	return c.RetrieveFileUploadWithResult[fileUploadObjectResponse](ctx, fileUploadID)
+func (c *Client) RetrieveFileUpload(ctx context.Context, fileUploadID IDRequest) (*FileUploadObjectResponse, error) {
+	return c.RetrieveFileUploadWithResult[FileUploadObjectResponse](ctx, fileUploadID)
 }
 
 // Retrieve a file upload
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /file_uploads/{file_upload_id}
-func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUploadID idRequest) (*R, error) {
+func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUploadID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -7203,7 +7203,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7216,7 +7216,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7229,7 +7229,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7242,7 +7242,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7255,7 +7255,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7268,7 +7268,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7281,7 +7281,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7294,7 +7294,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7307,7 +7307,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7320,7 +7320,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7333,7 +7333,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7420,7 +7420,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7433,7 +7433,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7446,7 +7446,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7459,7 +7459,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7472,7 +7472,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7485,7 +7485,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7498,7 +7498,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7511,7 +7511,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7524,7 +7524,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7537,7 +7537,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7550,7 +7550,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7641,7 +7641,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7654,7 +7654,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7667,7 +7667,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7680,7 +7680,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7693,7 +7693,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7706,7 +7706,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7719,7 +7719,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7732,7 +7732,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7745,7 +7745,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7758,7 +7758,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7771,7 +7771,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7788,7 +7788,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 // Create a view
 //
 //	POST /views
-func (c *Client) CreateView(ctx context.Context, body createViewRequest) (*CreateView, error) {
+func (c *Client) CreateView(ctx context.Context, body CreateViewRequest) (*CreateView, error) {
 	return c.CreateViewWithResult[CreateView](ctx, body)
 }
 
@@ -7796,7 +7796,7 @@ func (c *Client) CreateView(ctx context.Context, body createViewRequest) (*Creat
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /views
-func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createViewRequest) (*R, error) {
+func (c *Client) CreateViewWithResult[R any](ctx context.Context, body CreateViewRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -7847,7 +7847,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7860,7 +7860,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7873,7 +7873,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7886,7 +7886,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7899,7 +7899,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7912,7 +7912,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7925,7 +7925,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7938,7 +7938,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7951,7 +7951,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7964,7 +7964,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7977,7 +7977,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7994,7 +7994,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body createVie
 // Retrieve a view
 //
 //	GET /views/{view_id}
-func (c *Client) RetrieveAView(ctx context.Context, viewID idRequest) (*CreateView, error) {
+func (c *Client) RetrieveAView(ctx context.Context, viewID IDRequest) (*CreateView, error) {
 	return c.RetrieveAViewWithResult[CreateView](ctx, viewID)
 }
 
@@ -8002,7 +8002,7 @@ func (c *Client) RetrieveAView(ctx context.Context, viewID idRequest) (*CreateVi
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /views/{view_id}
-func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRequest) (*R, error) {
+func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -8046,7 +8046,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8059,7 +8059,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8072,7 +8072,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8085,7 +8085,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8098,7 +8098,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8111,7 +8111,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8124,7 +8124,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8137,7 +8137,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8150,7 +8150,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8163,7 +8163,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8176,7 +8176,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8193,15 +8193,15 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID idRe
 // Delete a view
 //
 //	DELETE /views/{view_id}
-func (c *Client) DeleteView(ctx context.Context, viewID idRequest) (*partialDataSourceViewObjectResponse, error) {
-	return c.DeleteViewWithResult[partialDataSourceViewObjectResponse](ctx, viewID)
+func (c *Client) DeleteView(ctx context.Context, viewID IDRequest) (*PartialDataSourceViewObjectResponse, error) {
+	return c.DeleteViewWithResult[PartialDataSourceViewObjectResponse](ctx, viewID)
 }
 
 // Delete a view
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /views/{view_id}
-func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idRequest) (*R, error) {
+func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -8245,7 +8245,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8258,7 +8258,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8271,7 +8271,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8284,7 +8284,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8297,7 +8297,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8310,7 +8310,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8323,7 +8323,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8336,7 +8336,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8349,7 +8349,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8362,7 +8362,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8375,7 +8375,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8392,7 +8392,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID idReque
 // Update a view
 //
 //	PATCH /views/{view_id}
-func (c *Client) UpdateAView(ctx context.Context, viewID idRequest, body updateViewRequest) (*CreateView, error) {
+func (c *Client) UpdateAView(ctx context.Context, viewID IDRequest, body UpdateViewRequest) (*CreateView, error) {
 	return c.UpdateAViewWithResult[CreateView](ctx, viewID, body)
 }
 
@@ -8400,7 +8400,7 @@ func (c *Client) UpdateAView(ctx context.Context, viewID idRequest, body updateV
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /views/{view_id}
-func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequest, body updateViewRequest) (*R, error) {
+func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID IDRequest, body UpdateViewRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -8451,7 +8451,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8464,7 +8464,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8477,7 +8477,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8490,7 +8490,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8503,7 +8503,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8516,7 +8516,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8529,7 +8529,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8542,7 +8542,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8555,7 +8555,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8568,7 +8568,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8581,7 +8581,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8598,15 +8598,15 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID idRequ
 // Create a view query
 //
 //	POST /views/{view_id}/queries
-func (c *Client) CreateViewQuery(ctx context.Context, viewID idRequest, body createViewQueryRequest) (*viewQueryResponse, error) {
-	return c.CreateViewQueryWithResult[viewQueryResponse](ctx, viewID, body)
+func (c *Client) CreateViewQuery(ctx context.Context, viewID IDRequest, body CreateViewQueryRequest) (*ViewQueryResponse, error) {
+	return c.CreateViewQueryWithResult[ViewQueryResponse](ctx, viewID, body)
 }
 
 // Create a view query
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /views/{view_id}/queries
-func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID idRequest, body createViewQueryRequest) (*R, error) {
+func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID IDRequest, body CreateViewQueryRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -8657,7 +8657,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8670,7 +8670,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8683,7 +8683,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8696,7 +8696,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8709,7 +8709,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8722,7 +8722,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8735,7 +8735,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8748,7 +8748,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8761,7 +8761,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8774,7 +8774,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8787,7 +8787,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8804,7 +8804,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID id
 // Get view query results
 //
 //	GET /views/{view_id}/queries/{query_id}
-func (c *Client) GetViewQueryResults(ctx context.Context, viewID idRequest, queryID idRequest, params *GetViewQueryResultsParams) (*GetViewQueryResultsOk, error) {
+func (c *Client) GetViewQueryResults(ctx context.Context, viewID IDRequest, queryID IDRequest, params *GetViewQueryResultsParams) (*GetViewQueryResultsOk, error) {
 	return c.GetViewQueryResultsWithResult[GetViewQueryResultsOk](ctx, viewID, queryID, params)
 }
 
@@ -8812,7 +8812,7 @@ func (c *Client) GetViewQueryResults(ctx context.Context, viewID idRequest, quer
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /views/{view_id}/queries/{query_id}
-func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewID idRequest, queryID idRequest, params *GetViewQueryResultsParams) (*R, error) {
+func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewID IDRequest, queryID IDRequest, params *GetViewQueryResultsParams) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -8870,7 +8870,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8883,7 +8883,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8896,7 +8896,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8909,7 +8909,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8922,7 +8922,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8935,7 +8935,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8948,7 +8948,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8961,7 +8961,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8974,7 +8974,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8987,7 +8987,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9000,7 +9000,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9017,15 +9017,15 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 // Delete a view query
 //
 //	DELETE /views/{view_id}/queries/{query_id}
-func (c *Client) DeleteViewQuery(ctx context.Context, viewID idRequest, queryID idRequest) (*deletedViewQueryResponse, error) {
-	return c.DeleteViewQueryWithResult[deletedViewQueryResponse](ctx, viewID, queryID)
+func (c *Client) DeleteViewQuery(ctx context.Context, viewID IDRequest, queryID IDRequest) (*DeletedViewQueryResponse, error) {
+	return c.DeleteViewQueryWithResult[DeletedViewQueryResponse](ctx, viewID, queryID)
 }
 
 // Delete a view query
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /views/{view_id}/queries/{query_id}
-func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID idRequest, queryID idRequest) (*R, error) {
+func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID IDRequest, queryID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -9069,7 +9069,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9082,7 +9082,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9095,7 +9095,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9108,7 +9108,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9121,7 +9121,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9134,7 +9134,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9147,7 +9147,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9160,7 +9160,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9173,7 +9173,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9186,7 +9186,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9199,7 +9199,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID id
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9275,7 +9275,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9288,7 +9288,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9301,7 +9301,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9314,7 +9314,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9327,7 +9327,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9340,7 +9340,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9353,7 +9353,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9366,7 +9366,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9379,7 +9379,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9392,7 +9392,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9405,7 +9405,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9481,7 +9481,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9494,7 +9494,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9507,7 +9507,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9520,7 +9520,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9533,7 +9533,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9546,7 +9546,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9559,7 +9559,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9572,7 +9572,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9585,7 +9585,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9598,7 +9598,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9611,7 +9611,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9687,7 +9687,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9700,7 +9700,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9713,7 +9713,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9726,7 +9726,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9739,7 +9739,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9752,7 +9752,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9765,7 +9765,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9778,7 +9778,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9791,7 +9791,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9804,7 +9804,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9817,7 +9817,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9896,7 +9896,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9909,7 +9909,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9922,7 +9922,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9935,7 +9935,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9948,7 +9948,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9961,7 +9961,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9974,7 +9974,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9987,7 +9987,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10000,7 +10000,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10013,7 +10013,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10026,7 +10026,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10095,7 +10095,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10108,7 +10108,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10121,7 +10121,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10134,7 +10134,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10147,7 +10147,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10160,7 +10160,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10173,7 +10173,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10186,7 +10186,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10199,7 +10199,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10212,7 +10212,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10225,7 +10225,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10308,7 +10308,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10321,7 +10321,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10334,7 +10334,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10347,7 +10347,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10360,7 +10360,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10373,7 +10373,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10386,7 +10386,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10399,7 +10399,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10412,7 +10412,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10425,7 +10425,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10438,7 +10438,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10514,7 +10514,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10527,7 +10527,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10540,7 +10540,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10553,7 +10553,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10566,7 +10566,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10579,7 +10579,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10592,7 +10592,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10605,7 +10605,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10618,7 +10618,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10631,7 +10631,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10644,7 +10644,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10720,7 +10720,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10733,7 +10733,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10746,7 +10746,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10759,7 +10759,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10772,7 +10772,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10785,7 +10785,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10798,7 +10798,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10811,7 +10811,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10824,7 +10824,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10837,7 +10837,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10850,7 +10850,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10926,7 +10926,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10939,7 +10939,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10952,7 +10952,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10965,7 +10965,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10978,7 +10978,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10991,7 +10991,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11004,7 +11004,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11017,7 +11017,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11030,7 +11030,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11043,7 +11043,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11056,7 +11056,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11139,7 +11139,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11152,7 +11152,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11165,7 +11165,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11178,7 +11178,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11191,7 +11191,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11204,7 +11204,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11217,7 +11217,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11230,7 +11230,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11243,7 +11243,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11256,7 +11256,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11269,7 +11269,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11338,7 +11338,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11351,7 +11351,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11364,7 +11364,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11377,7 +11377,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11390,7 +11390,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11403,7 +11403,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11416,7 +11416,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11429,7 +11429,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11442,7 +11442,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11455,7 +11455,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11468,7 +11468,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11485,7 +11485,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 // Get a skill directory
 //
 //	GET /ai/skills/{id}
-func (c *Client) GetSkillDirectory(ctx context.Context, id idRequest) (*GetSkillDirectoryOk, error) {
+func (c *Client) GetSkillDirectory(ctx context.Context, id IDRequest) (*GetSkillDirectoryOk, error) {
 	return c.GetSkillDirectoryWithResult[GetSkillDirectoryOk](ctx, id)
 }
 
@@ -11493,7 +11493,7 @@ func (c *Client) GetSkillDirectory(ctx context.Context, id idRequest) (*GetSkill
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /ai/skills/{id}
-func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRequest) (*R, error) {
+func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -11537,7 +11537,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11550,7 +11550,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11563,7 +11563,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11576,7 +11576,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11589,7 +11589,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11602,7 +11602,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11615,7 +11615,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11628,7 +11628,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11641,7 +11641,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11654,7 +11654,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11667,7 +11667,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id idRe
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11743,7 +11743,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11756,7 +11756,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11769,7 +11769,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11782,7 +11782,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11795,7 +11795,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11808,7 +11808,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11821,7 +11821,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11834,7 +11834,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11847,7 +11847,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11860,7 +11860,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11873,7 +11873,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11890,7 +11890,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 // Retrieve a session
 //
 //	GET /sessions/{session_id}
-func (c *Client) RetrieveSession(ctx context.Context, sessionID idRequest) (*RetrieveSessionOk, error) {
+func (c *Client) RetrieveSession(ctx context.Context, sessionID IDRequest) (*RetrieveSessionOk, error) {
 	return c.RetrieveSessionWithResult[RetrieveSessionOk](ctx, sessionID)
 }
 
@@ -11898,7 +11898,7 @@ func (c *Client) RetrieveSession(ctx context.Context, sessionID idRequest) (*Ret
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /sessions/{session_id}
-func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID idRequest) (*R, error) {
+func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID IDRequest) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -11942,7 +11942,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11955,7 +11955,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11968,7 +11968,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11981,7 +11981,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11994,7 +11994,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12007,7 +12007,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12020,7 +12020,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12033,7 +12033,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12046,7 +12046,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12059,7 +12059,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12072,7 +12072,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12148,7 +12148,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12161,7 +12161,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12174,7 +12174,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12187,7 +12187,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12200,7 +12200,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12213,7 +12213,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12226,7 +12226,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12239,7 +12239,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12252,7 +12252,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12265,7 +12265,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12278,7 +12278,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12295,7 +12295,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 // Query session events
 //
 //	POST /sessions/{session_id}/events/query
-func (c *Client) QuerySessionEvents(ctx context.Context, sessionID idRequest, body QuerySessionEvents) (*QuerySessionEventsOk, error) {
+func (c *Client) QuerySessionEvents(ctx context.Context, sessionID IDRequest, body QuerySessionEvents) (*QuerySessionEventsOk, error) {
 	return c.QuerySessionEventsWithResult[QuerySessionEventsOk](ctx, sessionID, body)
 }
 
@@ -12303,7 +12303,7 @@ func (c *Client) QuerySessionEvents(ctx context.Context, sessionID idRequest, bo
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /sessions/{session_id}/events/query
-func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessionID idRequest, body QuerySessionEvents) (*R, error) {
+func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessionID IDRequest, body QuerySessionEvents) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -12354,7 +12354,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12367,7 +12367,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12380,7 +12380,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12393,7 +12393,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12406,7 +12406,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12419,7 +12419,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12432,7 +12432,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12445,7 +12445,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12458,7 +12458,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12471,7 +12471,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12484,7 +12484,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12501,7 +12501,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 // Cancel a session
 //
 //	POST /sessions/{session_id}/cancel
-func (c *Client) CancelSession(ctx context.Context, sessionID idRequest, body CancelSession) (*CancelSession2, error) {
+func (c *Client) CancelSession(ctx context.Context, sessionID IDRequest, body CancelSession) (*CancelSession2, error) {
 	return c.CancelSessionWithResult[CancelSession2](ctx, sessionID, body)
 }
 
@@ -12509,7 +12509,7 @@ func (c *Client) CancelSession(ctx context.Context, sessionID idRequest, body Ca
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /sessions/{session_id}/cancel
-func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID idRequest, body CancelSession) (*R, error) {
+func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID IDRequest, body CancelSession) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -12560,7 +12560,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_400
+			var out ErrorAPI400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12573,7 +12573,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_401
+			var out ErrorAPI401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12586,7 +12586,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_403
+			var out ErrorAPI403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12599,7 +12599,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_404
+			var out ErrorAPI404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12612,7 +12612,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The request would exceed a row limit.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_406
+			var out ErrorAPI406
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12625,7 +12625,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The request conflicts with the current state: a data collision, a reused idempotency key, or a deleted agent.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_409
+			var out ErrorAPI409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12638,7 +12638,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_429
+			var out ErrorAPI429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12651,7 +12651,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12664,7 +12664,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// Notion is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_503
+			var out ErrorAPI503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12677,7 +12677,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// Notion timed out while completing the request.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_504
+			var out ErrorAPI504
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12690,7 +12690,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID i
 		// Notion is overloaded; retry the request later.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_529
+			var out ErrorAPI529
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12766,7 +12766,7 @@ func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateA
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_400
+			var out ErrorOauth400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12779,7 +12779,7 @@ func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateA
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_401
+			var out ErrorOauth401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12792,7 +12792,7 @@ func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateA
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_403
+			var out ErrorOauth403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12805,7 +12805,7 @@ func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateA
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12881,7 +12881,7 @@ func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body Introspe
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_400
+			var out ErrorOauth400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12894,7 +12894,7 @@ func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body Introspe
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_401
+			var out ErrorOauth401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12907,7 +12907,7 @@ func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body Introspe
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_403
+			var out ErrorOauth403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12920,7 +12920,7 @@ func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body Introspe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12996,7 +12996,7 @@ func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body Intr
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_400
+			var out ErrorOauth400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -13009,7 +13009,7 @@ func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body Intr
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_401
+			var out ErrorOauth401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -13022,7 +13022,7 @@ func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body Intr
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_oauth_403
+			var out ErrorOauth403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -13035,7 +13035,7 @@ func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body Intr
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out error_api_
+			var out ErrorAPI
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}

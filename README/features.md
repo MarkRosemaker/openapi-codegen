@@ -75,5 +75,10 @@ How the specification maps onto Go:
   generated code.
 - **Names** — a component's Go name is its `x-go-name`, or its key with any
   character a Go identifier cannot hold removed (`Keypoint-Input` →
-  `KeypointInput`). A component that is only a `$ref`, only `null` or the empty
-  schema declares no type; references to it use what it stands for.
+  `KeypointInput`). Every type is exported: a key that does not begin with an
+  upper-case letter is renamed in Go style first (`idRequest` → `IDRequest`,
+  `error_api_400` → `ErrorAPI400`), with every reference to it. A name another
+  component already holds is numbered (`date` beside `Date` → `Date2`); set
+  `x-go-name` to choose a better one. A component that is only a `$ref`, only
+  `null` or the empty schema declares no type; references to it use what it
+  stands for.

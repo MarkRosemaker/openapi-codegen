@@ -309,7 +309,7 @@ type AnimateWithSkeleton2 struct {
 
 // Request model for animation using skeleton endpoint
 type AnimateWithSkeletonRequest struct {
-	ImageSize app__endpoints__external__v__animate_with_skeleton__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVAnimateWithSkeletonImageSize `json:"image_size"`
 	// How closely to follow the reference image and skeleton keypoints
 	GuidanceScale float64 `json:"guidance_scale,omitzero"`
 	// Camera view angle
@@ -400,7 +400,7 @@ func (e AnimateWithSkeletonV3RequestTemplateID) Valid() bool {
 
 // Request model for animation using text endpoint
 type AnimateWithTextRequest struct {
-	ImageSize app__endpoints__external__v2__animate_with_text__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalV2AnimateWithTextImageSize `json:"image_size"`
 	// Character description
 	Description string `json:"description"`
 	// Negative prompt to guide what not to generate
@@ -557,6 +557,166 @@ type AnimationGroup struct {
 	// Optional name for the animation, shown in the UI and used when exporting.
 	AnimationGroupID string               `json:"animation_group_id,omitzero"`
 	Directions       []AnimationDirection `json:"directions"`
+}
+
+// AppEndpointsExternalV2AnimateWithTextImageSize defines a model
+type AppEndpointsExternalV2AnimateWithTextImageSize struct {
+	// Image width in pixels
+	Width int `json:"width"`
+	// Image height in pixels
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalV2CreateImagePixenImageSize defines a model
+type AppEndpointsExternalV2CreateImagePixenImageSize struct {
+	// Image width in pixels (min 16, max area 512x512, must be divisible by 4; must equal height when either side is below 32)
+	Width int `json:"width"`
+	// Image height in pixels (min 16, max area 512x512, must be divisible by 4; must equal width when either side is below 32)
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalV2CreateIsometricTileImageSize defines a model
+type AppEndpointsExternalV2CreateIsometricTileImageSize struct {
+	// Image width in pixels. Sizes above 24px often give better results.
+	Width int `json:"width"`
+	// Image height in pixels. Sizes above 24px often give better results.
+	Height int `json:"height"`
+}
+
+// Image dimensions for map objects.
+//
+// Supports any aspect ratio:
+// - Both width and height: 32px minimum, 400px maximum
+// - Basic mode (no inpainting): max 400×400 total area (160,000 pixels)
+// - Inpainting mode: max 192×192 total area (36,864 pixels)
+// - Common sizes: 64×64, 128×128, 192×192, 256×128, 384×96
+type AppEndpointsExternalV2CreateMapObjectImageSize struct {
+	// Width in pixels (32-400)
+	Width int `json:"width"`
+	// Height in pixels (32-400)
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalV2CreateUIAssetImageSize defines a model
+type AppEndpointsExternalV2CreateUIAssetImageSize struct {
+	// Output width in pixels (192–688; max per axis depends on aspect — square 512, 16:9 688)
+	Width int `json:"width,omitzero"`
+	// Output height in pixels (192–688; max per axis depends on aspect — square 512, 9:16 688)
+	Height int `json:"height,omitzero"`
+}
+
+// AppEndpointsExternalV2EditImagesV2ImageSize defines a model
+type AppEndpointsExternalV2EditImagesV2ImageSize struct {
+	// Image width in pixels
+	Width int `json:"width"`
+	// Image height in pixels
+	Height int `json:"height"`
+}
+
+// Reference image with dimensions.
+type AppEndpointsExternalV2Generate8RotationsV2ReferenceImage struct {
+	// Reference image as base64 PNG/JPEG
+	Image BaseImage `json:"image"`
+	// Image width (reference max 168, concept max 1024)
+	Width int `json:"width"`
+	// Image height (reference max 168, concept max 1024)
+	Height int `json:"height"`
+}
+
+// Reference image with size and optional description.
+//
+// Images larger than 1024x1024 will be downscaled. Non-square images will be
+// padded to square with transparent pixels before processing.
+type AppEndpointsExternalV2GenerateImageV2ReferenceImage struct {
+	// Reference image as base64 PNG/JPEG
+	Image BaseImage `json:"image"`
+	// Size of the reference image. Images larger than 1024x1024 will be downscaled.
+	Size AppEndpointsExternalVGenerateImageVReferenceImageSize `json:"size"`
+	// Optional description of how this reference should be used
+	UsageDescription string `json:"usage_description,omitzero"`
+}
+
+// Image dimensions
+type AppEndpointsExternalV2ImageToPixelartImageSize struct {
+	// Width in pixels
+	Width int `json:"width"`
+	// Height in pixels
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalV2RemoveBackgroundImageSize defines a model
+type AppEndpointsExternalV2RemoveBackgroundImageSize struct {
+	// Image width in pixels
+	Width int `json:"width"`
+	// Image height in pixels
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalVAnimateWithSkeletonImageSize defines a model
+type AppEndpointsExternalVAnimateWithSkeletonImageSize struct {
+	// Image width in pixels
+	Width int `json:"width"`
+	// Image height in pixels
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalVCreateCharacterWithDirectionsImageSize defines a model
+type AppEndpointsExternalVCreateCharacterWithDirectionsImageSize struct {
+	// Character size in pixels. Canvas will be ~40% larger to make room for animations.
+	Width int `json:"width"`
+	// Character size in pixels. Canvas will be ~40% larger to make room for animations.
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalVCreateImageBitforgeImageSize defines a model
+type AppEndpointsExternalVCreateImageBitforgeImageSize struct {
+	// Image width in pixels
+	Width int `json:"width"`
+	// Image height in pixels
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalVCreateImagePixfluxImageSize defines a model
+type AppEndpointsExternalVCreateImagePixfluxImageSize struct {
+	// Image width in pixels
+	Width int `json:"width"`
+	// Image height in pixels
+	Height int `json:"height"`
+}
+
+// Animation frame image with size.
+//
+// Nested `size` object matches the animation-frame v2 subfamily
+// (transfer-outfit-v2, interpolation-v2), which share this backend family.
+type AppEndpointsExternalVEditAnimationVFrameImage struct {
+	// Frame image as base64 PNG/JPEG
+	Image BaseImage `json:"image"`
+	// Size of the frame image
+	Size AppEndpointsExternalVEditAnimationVFrameImageSize `json:"size"`
+}
+
+// AppEndpointsExternalVEditAnimationVFrameImageSize defines a model
+type AppEndpointsExternalVEditAnimationVFrameImageSize struct {
+	// Frame image width
+	Width int `json:"width"`
+	// Frame image height
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalVGenerateImageVImageSize defines a model
+type AppEndpointsExternalVGenerateImageVImageSize struct {
+	// Image width in pixels (16 to aspect-ratio max)
+	Width int `json:"width"`
+	// Image height in pixels (16 to aspect-ratio max)
+	Height int `json:"height"`
+}
+
+// AppEndpointsExternalVGenerateImageVReferenceImageSize defines a model
+type AppEndpointsExternalVGenerateImageVReferenceImageSize struct {
+	// Reference image width
+	Width int `json:"width"`
+	// Reference image height
+	Height int `json:"height"`
 }
 
 // Response model for background job status
@@ -836,7 +996,7 @@ type ConceptImage struct {
 	// Concept image as base64 PNG/JPEG
 	Image BaseImage `json:"image"`
 	// Size of the concept image
-	Size app__endpoints__external__v__generate_image_v__ReferenceImageSize `json:"size"`
+	Size AppEndpointsExternalVGenerateImageVReferenceImageSize `json:"size"`
 }
 
 // Request model for the pixel art correction endpoint
@@ -1240,7 +1400,7 @@ type CreateCharacterWithDirections struct {
 	// Description of the character or object to generate
 	Description string `json:"description"`
 	// Size of each rotation image
-	ImageSize app__endpoints__external__v__create_character_with__directions__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVCreateCharacterWithDirectionsImageSize `json:"image_size"`
 	// Process in background (always true - no foreground processing yet)
 	AsyncMode bool `json:"async_mode,omitzero"`
 	// How closely to follow the reference image
@@ -1410,8 +1570,8 @@ type CreateImageBitforgeRequest struct {
 	// Text description of the image to generate
 	Description string `json:"description"`
 	// Text description of what to avoid in the generated image
-	NegativeDescription string                                                        `json:"negative_description,omitzero"`
-	ImageSize           app__endpoints__external__v__create_image_bitforge__ImageSize `json:"image_size"`
+	NegativeDescription string                                            `json:"negative_description,omitzero"`
+	ImageSize           AppEndpointsExternalVCreateImageBitforgeImageSize `json:"image_size"`
 	// How closely to follow the text description
 	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// (Deprecated)
@@ -1515,8 +1675,8 @@ func (e CreateImagePixenBackgroundRemovalTask) Valid() bool {
 // Request model for Pixen image generation endpoint
 type CreateImagePixenRequest struct {
 	// Text description of the image to generate
-	Description string                                                      `json:"description"`
-	ImageSize   app__endpoints__external__v2__create_image_pixen__ImageSize `json:"image_size"`
+	Description string                                          `json:"description"`
+	ImageSize   AppEndpointsExternalV2CreateImagePixenImageSize `json:"image_size"`
 	// Outline style reference
 	Outline Outline `json:"outline,omitzero"`
 	// Detail style reference
@@ -1565,8 +1725,8 @@ type CreateImagePixfluxRequest struct {
 	// Text description of the image to generate
 	Description string `json:"description"`
 	// (Deprecated)
-	NegativeDescription string                                                       `json:"negative_description,omitzero"`
-	ImageSize           app__endpoints__external__v__create_image_pixflux__ImageSize `json:"image_size"`
+	NegativeDescription string                                           `json:"negative_description,omitzero"`
+	ImageSize           AppEndpointsExternalVCreateImagePixfluxImageSize `json:"image_size"`
 	// How closely to follow the text description
 	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Outline style reference
@@ -1683,8 +1843,8 @@ func (e CreateIsometricTileOutlineAnyOf) Valid() bool {
 // Request model for pixflux image generation endpoint
 type CreateIsometricTileRequest struct {
 	// Text description of the image to generate
-	Description string                                                         `json:"description"`
-	ImageSize   app__endpoints__external__v2__create_isometric_tile__ImageSize `json:"image_size"`
+	Description string                                             `json:"description"`
+	ImageSize   AppEndpointsExternalV2CreateIsometricTileImageSize `json:"image_size"`
 	// How closely to follow the text description
 	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Outline style for the tile
@@ -1772,7 +1932,7 @@ type CreateMapObjectRequest struct {
 	// Object description (e.g., 'wooden barrel', 'stone fountain')
 	Description string `json:"description"`
 	// Object dimensions
-	ImageSize app__endpoints__external__v2__create_map_object__ImageSize `json:"image_size,omitzero"`
+	ImageSize AppEndpointsExternalV2CreateMapObjectImageSize `json:"image_size,omitzero"`
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Outline style for the tile
@@ -2298,7 +2458,7 @@ type CreateUIAssetRequest struct {
 	// Style description for the UI panel (e.g. 'wooden RPG panel with gold trim')
 	Description string `json:"description"`
 	// Output image size in pixels (192–688; max per axis depends on aspect)
-	ImageSize *app__endpoints__external__v2__create_ui_asset__ImageSize `json:"image_size,omitzero"`
+	ImageSize *AppEndpointsExternalV2CreateUIAssetImageSize `json:"image_size,omitzero"`
 	// Optional shape template (validated). Each piece needs a unique `id`, a `kind`, and an optional `label`. Allowed kinds: rounded_rect {x,y,w,h,radius}, circle {x,y,r}, polygon {x,y,r,sides,phase}. Coords are on a virtual editor canvas: the longer side spans 0–512 and the shorter side scales to the output aspect ratio (a 16:9 panel uses a 512×288 coordinate grid — this is the coordinate space, not the output size). When omitted, a single full-canvas rounded-rect panel is used.
 	Pieces []CreateUIAssetRequestPiecesAnyOf0Item `json:"pieces,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
@@ -2326,9 +2486,9 @@ type CreateUIAssetRequest struct {
 // CreateUIAssetRequestPiecesAnyOf0Item defines a model
 // CreateUIAssetRequestPiecesAnyOf0Item is an untagged anyOf union: at least one field is set after unmarshaling.
 type CreateUIAssetRequestPiecesAnyOf0Item struct {
-	UIPieceRect    *UiPieceRect
-	UIPieceCircle  *UiPieceCircle
-	UIPiecePolygon *UiPiecePolygon
+	UiPieceRect    *UiPieceRect
+	UiPieceCircle  *UiPieceCircle
+	UiPiecePolygon *UiPiecePolygon
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be kind, which names the
@@ -2346,21 +2506,21 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) UnmarshalJSONFrom(dec *jsontext.D
 			return err
 		}
 
-		v.UIPieceRect = &vv
+		v.UiPieceRect = &vv
 	case "circle":
 		var vv UiPieceCircle
 		if err := jsonMembersFrom(dec, "kind", first, vv.unmarshalJSONMember); err != nil {
 			return err
 		}
 
-		v.UIPieceCircle = &vv
+		v.UiPieceCircle = &vv
 	case "polygon":
 		var vv UiPiecePolygon
 		if err := jsonMembersFrom(dec, "kind", first, vv.unmarshalJSONMember); err != nil {
 			return err
 		}
 
-		v.UIPiecePolygon = &vv
+		v.UiPiecePolygon = &vv
 	default:
 		return jsonUnknownValue("kind", tag)
 	}
@@ -2376,12 +2536,12 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) MarshalJSONTo(enc *jsontext.Encod
 	)
 
 	switch {
-	case v.UIPieceRect != nil:
-		variant, tag = v.UIPieceRect, "rounded_rect"
-	case v.UIPieceCircle != nil:
-		variant, tag = v.UIPieceCircle, "circle"
-	case v.UIPiecePolygon != nil:
-		variant, tag = v.UIPiecePolygon, "polygon"
+	case v.UiPieceRect != nil:
+		variant, tag = v.UiPieceRect, "rounded_rect"
+	case v.UiPieceCircle != nil:
+		variant, tag = v.UiPieceCircle, "circle"
+	case v.UiPiecePolygon != nil:
+		variant, tag = v.UiPiecePolygon, "polygon"
 	default:
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
@@ -2550,9 +2710,9 @@ type EditAnimationV2Request struct {
 	// Description of the edit to apply (e.g., 'add a red cape', 'make it glow blue')
 	Description string `json:"description"`
 	// Animation frames to edit (2-16 frames)
-	Frames []app__endpoints__external__v__edit_animation_v__FrameImage `json:"frames"`
+	Frames []AppEndpointsExternalVEditAnimationVFrameImage `json:"frames"`
 	// Size of the output frames
-	ImageSize app__endpoints__external__v__animate_with_skeleton__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVAnimateWithSkeletonImageSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
 	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
@@ -2635,7 +2795,7 @@ type EditImageRequest struct {
 	// Reference image to edit as base64 PNG/JPEG
 	Image BaseImage `json:"image"`
 	// Size of the reference image
-	ImageSize app__endpoints__external__v__create_image_pixflux__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVCreateImagePixfluxImageSize `json:"image_size"`
 	// Text description of the edit to apply
 	Description string `json:"description"`
 	// Target canvas width in pixels (16-400)
@@ -2665,7 +2825,7 @@ type EditImagesV2Request struct {
 	// Images to edit (1-16 images depending on size)
 	EditImages []EditImage `json:"edit_images"`
 	// Size of output images
-	ImageSize app__endpoints__external__v2__edit_images_v2__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalV2EditImagesV2ImageSize `json:"image_size"`
 	// Description of the character or object to animate (uses character's original if not specified)
 	Description string `json:"description,omitzero"`
 	// Reference image (required for edit_with_reference method)
@@ -2762,7 +2922,7 @@ type EnhancePixenPromptRequest struct {
 	// User's image description to enhance.
 	Description string `json:"description"`
 	// Target image size. Prompt complexity scales with size.
-	ImageSize app__endpoints__external__v2__create_image_pixen__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalV2CreateImagePixenImageSize `json:"image_size"`
 	// Outline style reference
 	Outline Outline `json:"outline,omitzero"`
 	// Detail style reference
@@ -2801,9 +2961,9 @@ type Generate8RotationsV2Request struct {
 	// Size of the output images
 	ImageSize ProImageSize `json:"image_size"`
 	// Concept art image (only for create_from_concept method)
-	ReferenceImage app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage `json:"reference_image,omitzero"`
+	ReferenceImage AppEndpointsExternalV2Generate8RotationsV2ReferenceImage `json:"reference_image,omitzero"`
 	// Concept art image (only for create_from_concept method)
-	ConceptImage app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage `json:"concept_image,omitzero"`
+	ConceptImage AppEndpointsExternalV2Generate8RotationsV2ReferenceImage `json:"concept_image,omitzero"`
 	// Free-text style hint to layer on top of the description.
 	Description string `json:"description,omitzero"`
 	// Optional description of how this reference should be used
@@ -2887,15 +3047,15 @@ type GenerateImageV2Request struct {
 	// Description of the image to generate
 	Description string `json:"description"`
 	// Size of the output image
-	ImageSize app__endpoints__external__v__generate_image_v__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVGenerateImageVImageSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
 	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
 	NoBackground *bool `json:"no_background,omitzero"`
 	// Optional reference images for subject guidance (up to 4)
-	ReferenceImages []app__endpoints__external__v2__generate_image_v2__ReferenceImage `json:"reference_images,omitzero"`
+	ReferenceImages []AppEndpointsExternalV2GenerateImageV2ReferenceImage `json:"reference_images,omitzero"`
 	// Optional style image for pixel size and style reference
-	StyleImage app__endpoints__external__v2__generate_image_v2__ReferenceImage `json:"style_image,omitzero"`
+	StyleImage AppEndpointsExternalV2GenerateImageV2ReferenceImage `json:"style_image,omitzero"`
 	// Options for what to copy from the style image
 	StyleOptions *ProFlashStyle `json:"style_options,omitzero"`
 }
@@ -2905,7 +3065,7 @@ type GenerateUIV2Request struct {
 	// Description of the UI element to generate (e.g., 'medieval stone button', 'sci-fi health bar')
 	Description string `json:"description"`
 	// Output image size (16 to aspect-ratio max, e.g. 512x512 square)
-	ImageSize app__endpoints__external__v__generate_image_v__ImageSize `json:"image_size,omitzero"`
+	ImageSize AppEndpointsExternalVGenerateImageVImageSize `json:"image_size,omitzero"`
 	// Seed for reproducible generation (0 = random)
 	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
@@ -3088,7 +3248,7 @@ type ImageToPixelartRequest struct {
 	// Image to convert to pixel art
 	Image BaseImage `json:"image"`
 	// Size of the input image
-	ImageSize app__endpoints__external__v2__image_to_pixelart__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalV2ImageToPixelartImageSize `json:"image_size"`
 	// Desired output size
 	OutputSize OutputSize `json:"output_size"`
 	// How closely to follow the reference image
@@ -3177,8 +3337,8 @@ type InpaintRequest struct {
 	// Text description of the image to generate
 	Description string `json:"description"`
 	// Text description of what to avoid in the generated image
-	NegativeDescription string                                                        `json:"negative_description,omitzero"`
-	ImageSize           app__endpoints__external__v__create_image_bitforge__ImageSize `json:"image_size"`
+	NegativeDescription string                                            `json:"negative_description,omitzero"`
+	ImageSize           AppEndpointsExternalVCreateImageBitforgeImageSize `json:"image_size"`
 	// How closely to follow the text description
 	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// (Deprecated)
@@ -3262,7 +3422,7 @@ type InterpolationV2Request struct {
 	// Description of the transition (e.g., 'morphing', 'transforming', 'powering up')
 	Action string `json:"action"`
 	// Size of the output frames
-	ImageSize app__endpoints__external__v__create_character_with__directions__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVCreateCharacterWithDirectionsImageSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
 	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
@@ -3797,7 +3957,7 @@ type RemoveBackgroundRequest struct {
 	// The image to remove the background from (PNG or JPEG base64)
 	Image BaseImage `json:"image"`
 	// Size of the input image
-	ImageSize app__endpoints__external__v2__remove_background__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalV2RemoveBackgroundImageSize `json:"image_size"`
 	// Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better
 	BackgroundRemovalTask CreateImagePixenBackgroundRemovalTask `json:"background_removal_task,omitzero"`
 	// Optional description of how this reference should be used
@@ -3813,9 +3973,9 @@ type ResizeRequest struct {
 	// Image to resize
 	ReferenceImage BaseImage `json:"reference_image"`
 	// Original size of the reference image
-	ReferenceImageSize app__endpoints__external__v__create_image_bitforge__ImageSize `json:"reference_image_size"`
+	ReferenceImageSize AppEndpointsExternalVCreateImageBitforgeImageSize `json:"reference_image_size"`
 	// Desired output size
-	TargetSize app__endpoints__external__v__create_image_bitforge__ImageSize `json:"target_size"`
+	TargetSize AppEndpointsExternalVCreateImageBitforgeImageSize `json:"target_size"`
 	// Camera view angle
 	View CameraView `json:"view,omitzero"`
 	// Subject direction
@@ -3850,7 +4010,7 @@ type ResizeRequest struct {
 
 // Request model for image generation endpoint
 type RotateRequest struct {
-	ImageSize app__endpoints__external__v__create_image_bitforge__ImageSize `json:"image_size"`
+	ImageSize AppEndpointsExternalVCreateImageBitforgeImageSize `json:"image_size"`
 	// How closely to follow the reference image
 	ImageGuidanceScale float64 `json:"image_guidance_scale,omitzero"`
 	// How many degrees to tilt the subject
@@ -4277,9 +4437,9 @@ type TilesetsListResponse struct {
 // Request model for transfer-outfit-v2 endpoint
 type TransferOutfitV2Request struct {
 	// Reference image containing the outfit/appearance to transfer
-	ReferenceImage app__endpoints__external__v__edit_animation_v__FrameImage `json:"reference_image"`
+	ReferenceImage AppEndpointsExternalVEditAnimationVFrameImage `json:"reference_image"`
 	// Animation frames to apply the outfit to (2-16 frames)
-	Frames []app__endpoints__external__v__edit_animation_v__FrameImage `json:"frames"`
+	Frames []AppEndpointsExternalVEditAnimationVFrameImage `json:"frames"`
 	// Size of the output frames
 	ImageSize FrameSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
@@ -4617,166 +4777,6 @@ type VocalAnimationResponse struct {
 	Status          string `json:"status,omitzero"`
 	Mood            string `json:"mood"`
 	VisemeCount     int    `json:"viseme_count"`
-}
-
-// app__endpoints__external__v2__animate_with_text__ImageSize defines a model
-type app__endpoints__external__v2__animate_with_text__ImageSize struct {
-	// Image width in pixels
-	Width int `json:"width"`
-	// Image height in pixels
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v2__create_image_pixen__ImageSize defines a model
-type app__endpoints__external__v2__create_image_pixen__ImageSize struct {
-	// Image width in pixels (min 16, max area 512x512, must be divisible by 4; must equal height when either side is below 32)
-	Width int `json:"width"`
-	// Image height in pixels (min 16, max area 512x512, must be divisible by 4; must equal width when either side is below 32)
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v2__create_isometric_tile__ImageSize defines a model
-type app__endpoints__external__v2__create_isometric_tile__ImageSize struct {
-	// Image width in pixels. Sizes above 24px often give better results.
-	Width int `json:"width"`
-	// Image height in pixels. Sizes above 24px often give better results.
-	Height int `json:"height"`
-}
-
-// Image dimensions for map objects.
-//
-// Supports any aspect ratio:
-// - Both width and height: 32px minimum, 400px maximum
-// - Basic mode (no inpainting): max 400×400 total area (160,000 pixels)
-// - Inpainting mode: max 192×192 total area (36,864 pixels)
-// - Common sizes: 64×64, 128×128, 192×192, 256×128, 384×96
-type app__endpoints__external__v2__create_map_object__ImageSize struct {
-	// Width in pixels (32-400)
-	Width int `json:"width"`
-	// Height in pixels (32-400)
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v2__create_ui_asset__ImageSize defines a model
-type app__endpoints__external__v2__create_ui_asset__ImageSize struct {
-	// Output width in pixels (192–688; max per axis depends on aspect — square 512, 16:9 688)
-	Width int `json:"width,omitzero"`
-	// Output height in pixels (192–688; max per axis depends on aspect — square 512, 9:16 688)
-	Height int `json:"height,omitzero"`
-}
-
-// app__endpoints__external__v2__edit_images_v2__ImageSize defines a model
-type app__endpoints__external__v2__edit_images_v2__ImageSize struct {
-	// Image width in pixels
-	Width int `json:"width"`
-	// Image height in pixels
-	Height int `json:"height"`
-}
-
-// Reference image with dimensions.
-type app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage struct {
-	// Reference image as base64 PNG/JPEG
-	Image BaseImage `json:"image"`
-	// Image width (reference max 168, concept max 1024)
-	Width int `json:"width"`
-	// Image height (reference max 168, concept max 1024)
-	Height int `json:"height"`
-}
-
-// Reference image with size and optional description.
-//
-// Images larger than 1024x1024 will be downscaled. Non-square images will be
-// padded to square with transparent pixels before processing.
-type app__endpoints__external__v2__generate_image_v2__ReferenceImage struct {
-	// Reference image as base64 PNG/JPEG
-	Image BaseImage `json:"image"`
-	// Size of the reference image. Images larger than 1024x1024 will be downscaled.
-	Size app__endpoints__external__v__generate_image_v__ReferenceImageSize `json:"size"`
-	// Optional description of how this reference should be used
-	UsageDescription string `json:"usage_description,omitzero"`
-}
-
-// Image dimensions
-type app__endpoints__external__v2__image_to_pixelart__ImageSize struct {
-	// Width in pixels
-	Width int `json:"width"`
-	// Height in pixels
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v2__remove_background__ImageSize defines a model
-type app__endpoints__external__v2__remove_background__ImageSize struct {
-	// Image width in pixels
-	Width int `json:"width"`
-	// Image height in pixels
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v__animate_with_skeleton__ImageSize defines a model
-type app__endpoints__external__v__animate_with_skeleton__ImageSize struct {
-	// Image width in pixels
-	Width int `json:"width"`
-	// Image height in pixels
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v__create_character_with__directions__ImageSize defines a model
-type app__endpoints__external__v__create_character_with__directions__ImageSize struct {
-	// Character size in pixels. Canvas will be ~40% larger to make room for animations.
-	Width int `json:"width"`
-	// Character size in pixels. Canvas will be ~40% larger to make room for animations.
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v__create_image_bitforge__ImageSize defines a model
-type app__endpoints__external__v__create_image_bitforge__ImageSize struct {
-	// Image width in pixels
-	Width int `json:"width"`
-	// Image height in pixels
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v__create_image_pixflux__ImageSize defines a model
-type app__endpoints__external__v__create_image_pixflux__ImageSize struct {
-	// Image width in pixels
-	Width int `json:"width"`
-	// Image height in pixels
-	Height int `json:"height"`
-}
-
-// Animation frame image with size.
-//
-// Nested `size` object matches the animation-frame v2 subfamily
-// (transfer-outfit-v2, interpolation-v2), which share this backend family.
-type app__endpoints__external__v__edit_animation_v__FrameImage struct {
-	// Frame image as base64 PNG/JPEG
-	Image BaseImage `json:"image"`
-	// Size of the frame image
-	Size app__endpoints__external__v__edit_animation_v__FrameImageSize `json:"size"`
-}
-
-// app__endpoints__external__v__edit_animation_v__FrameImageSize defines a model
-type app__endpoints__external__v__edit_animation_v__FrameImageSize struct {
-	// Frame image width
-	Width int `json:"width"`
-	// Frame image height
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v__generate_image_v__ImageSize defines a model
-type app__endpoints__external__v__generate_image_v__ImageSize struct {
-	// Image width in pixels (16 to aspect-ratio max)
-	Width int `json:"width"`
-	// Image height in pixels (16 to aspect-ratio max)
-	Height int `json:"height"`
-}
-
-// app__endpoints__external__v__generate_image_v__ReferenceImageSize defines a model
-type app__endpoints__external__v__generate_image_v__ReferenceImageSize struct {
-	// Reference image width
-	Width int `json:"width"`
-	// Reference image height
-	Height int `json:"height"`
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.

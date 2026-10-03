@@ -35,16 +35,16 @@ type Service interface {
 	ListMcpClientConnections(ctx context.Context, params *ListMcpClientConnectionsParams) (*ListMcpClientConnectionsOk, error)
 	UpdateMcpClientConnectionEnterpriseManagedAccess(ctx context.Context, body UpdateMcpClientConnectionEnterpriseManagedAccess) (*UpdateMcpClientConnectionEnterpriseManagedAccessOk, error)
 	RevokeMcpClientConnection(ctx context.Context, body RevokeMcpClientConnection) (*RevokeMcpClientConnectionOk, error)
-	RetrievePermissionGroup(ctx context.Context, groupID idRequest, spaceID uuid.UUID) (*CreatePermissionGroup2, error)
-	DeletePermissionGroup(ctx context.Context, groupID idRequest, spaceID uuid.UUID, params *DeletePermissionGroupParams) (*CreatePermissionGroup2, error)
-	UpdatePermissionGroup(ctx context.Context, groupID idRequest, spaceID uuid.UUID, body CreatePermissionGroup) (*CreatePermissionGroup2, error)
+	RetrievePermissionGroup(ctx context.Context, groupID IDRequest, spaceID uuid.UUID) (*CreatePermissionGroup2, error)
+	DeletePermissionGroup(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *DeletePermissionGroupParams) (*CreatePermissionGroup2, error)
+	UpdatePermissionGroup(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body CreatePermissionGroup) (*CreatePermissionGroup2, error)
 	ListPermissionGroups(ctx context.Context, spaceID uuid.UUID, params *ListPermissionGroupsParams) (*ListPermissionGroupsOk, error)
 	CreatePermissionGroup(ctx context.Context, spaceID uuid.UUID, body CreatePermissionGroup) (*CreatePermissionGroup2, error)
 	ListUsers(ctx context.Context, spaceID uuid.UUID, params *ListUsersParams) (*ListUsersOk, error)
-	ListPermissionGroupMembers(ctx context.Context, groupID idRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*ListPermissionGroupMembersOk, error)
-	AddPermissionGroupMember(ctx context.Context, groupID idRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMember2, error)
-	RemovePermissionGroupMember(ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error)
-	UpdatePermissionGroupMember(ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error)
+	ListPermissionGroupMembers(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*ListPermissionGroupMembersOk, error)
+	AddPermissionGroupMember(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMember2, error)
+	RemovePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error)
+	UpdatePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error)
 	ListPersonalAccessTokens(ctx context.Context, spaceID uuid.UUID, params *ListPersonalAccessTokensParams) (*ListPersonalAccessTokensOk, error)
 	RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) error
 	UpdateAgentCreationPolicy(ctx context.Context, spaceID uuid.UUID, body UpdateAgentCreationPolicy) (*UpdateAgentCreationPolicyOk, error)
@@ -1016,7 +1016,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
@@ -1069,7 +1069,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
@@ -1082,7 +1082,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			var params DeletePermissionGroupParams
 			q := r.URL.Query()
 			if s := q.Get("transfer_to_owner_id"); s != "" {
-				params.TransferToOwnerID = idRequest(s)
+				params.TransferToOwnerID = IDRequest(s)
 			}
 
 			res, err := svc.DeletePermissionGroup(ctx, groupID, spaceID, &params)
@@ -1128,7 +1128,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
@@ -1380,7 +1380,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
@@ -1449,7 +1449,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
@@ -1509,9 +1509,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("user_id")
-			userID := idRequest(s)
+			userID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
@@ -1564,9 +1564,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			s := r.PathValue("group_id")
-			groupID := idRequest(s)
+			groupID := IDRequest(s)
 			s = r.PathValue("user_id")
-			userID := idRequest(s)
+			userID := IDRequest(s)
 			s = r.PathValue("space_id")
 			spaceID, err := uuid.Parse(s)
 			if err != nil {
