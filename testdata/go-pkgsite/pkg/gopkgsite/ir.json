@@ -816,25 +816,25 @@
 				{
 					"name": "HasGoMod",
 					"jsonName": "hasGoMod",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"hasGoMod,omitzero\""
 				},
 				{
 					"name": "IsLatest",
 					"jsonName": "isLatest",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isLatest,omitzero\""
 				},
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isRedistributable,omitzero\""
 				},
 				{
 					"name": "IsStandardLibrary",
 					"jsonName": "isStandardLibrary",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isStandardLibrary,omitzero\""
 				},
 				{
@@ -882,7 +882,7 @@
 				{
 					"name": "Deprecated",
 					"jsonName": "deprecated",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"deprecated,omitzero\""
 				},
 				{
@@ -894,14 +894,14 @@
 				{
 					"name": "HasGoMod",
 					"jsonName": "hasGoMod",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"hasGoMod,omitzero\"",
 					"description": "Whether the module has a go.mod file."
 				},
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isRedistributable,omitzero\"",
 					"description": "Whether the license allows distribution."
 				},
@@ -921,7 +921,7 @@
 				{
 					"name": "Retracted",
 					"jsonName": "retracted",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"retracted,omitzero\""
 				},
 				{
@@ -969,13 +969,13 @@
 				{
 					"name": "IsLatest",
 					"jsonName": "isLatest",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isLatest,omitzero\""
 				},
 				{
 					"name": "IsStandardLibrary",
 					"jsonName": "isStandardLibrary",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isStandardLibrary,omitzero\""
 				},
 				{
@@ -1017,7 +1017,7 @@
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isRedistributable,omitzero\""
 				}
 			]
@@ -1053,7 +1053,7 @@
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isRedistributable,omitzero\"",
 					"description": "Whether the license allows distribution."
 				},
@@ -1108,7 +1108,7 @@
 				{
 					"name": "IsStandardLibrary",
 					"jsonName": "isStandardLibrary",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"isStandardLibrary,omitzero\""
 				},
 				{

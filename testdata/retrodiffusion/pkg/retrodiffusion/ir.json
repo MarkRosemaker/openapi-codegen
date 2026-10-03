@@ -131,28 +131,28 @@
 					"name": "PromptStyle",
 					"jsonName": "prompt_style",
 					"type": "string",
-					"jsonTag": "json:\"prompt_style,omitzero\"",
+					"jsonTag": "json:\"prompt_style\"",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
 					"name": "GroupID",
 					"jsonName": "group_id",
 					"type": "string",
-					"jsonTag": "json:\"group_id,omitzero\"",
+					"jsonTag": "json:\"group_id\"",
 					"required": true
 				},
 				{
@@ -166,7 +166,7 @@
 					"name": "RequiredTab",
 					"jsonName": "required_tab",
 					"type": "string",
-					"jsonTag": "json:\"required_tab,omitzero\"",
+					"jsonTag": "json:\"required_tab\"",
 					"required": true
 				},
 				{
@@ -222,7 +222,7 @@
 					"name": "ExamplePrompt",
 					"jsonName": "example_prompt",
 					"type": "string",
-					"jsonTag": "json:\"example_prompt,omitzero\"",
+					"jsonTag": "json:\"example_prompt\"",
 					"required": true
 				}
 			]
@@ -235,14 +235,14 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"required": true
 				},
 				{
 					"name": "PromptStyle",
 					"jsonName": "prompt_style",
 					"type": "string",
-					"jsonTag": "json:\"prompt_style,omitzero\"",
+					"jsonTag": "json:\"prompt_style\"",
 					"required": true
 				},
 				{
@@ -381,7 +381,7 @@
 					"name": "Model",
 					"jsonName": "model",
 					"type": "string",
-					"jsonTag": "json:\"model,omitzero\"",
+					"jsonTag": "json:\"model\"",
 					"required": true
 				},
 				{

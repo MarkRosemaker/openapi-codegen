@@ -122,28 +122,28 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitzero\"",
+					"jsonTag": "json:\"created_time\"",
 					"required": true
 				},
 				{
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"jsonTag": "json:\"last_edited_time\"",
 					"required": true
 				},
 				{
@@ -213,21 +213,21 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "url.URL",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"required": true
 				},
 				{
 					"name": "PublicURL",
 					"jsonName": "public_url",
 					"type": "url.URL",
-					"jsonTag": "json:\"public_url,omitzero\"",
+					"jsonTag": "json:\"public_url\"",
 					"required": true
 				},
 				{
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"request_id,omitzero\"",
+					"jsonTag": "json:\"request_id\"",
 					"required": true
 				}
 			]
@@ -240,7 +240,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
@@ -260,7 +260,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "url.URL",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"required": true
 				}
 			]
@@ -273,14 +273,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Emoji",
 					"jsonName": "emoji",
 					"type": "string",
-					"jsonTag": "json:\"emoji,omitzero\"",
+					"jsonTag": "json:\"emoji\"",
 					"required": true
 				}
 			]
@@ -306,14 +306,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
@@ -333,7 +333,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
@@ -347,7 +347,7 @@
 					"name": "NextCursor",
 					"jsonName": "next_cursor",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"jsonTag": "json:\"next_cursor\"",
 					"required": true
 				},
 				{
@@ -361,7 +361,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
@@ -375,7 +375,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"request_id,omitzero\"",
+					"jsonTag": "json:\"request_id\"",
 					"required": true
 				}
 			]
@@ -394,14 +394,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -415,14 +415,14 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitzero\"",
+					"jsonTag": "json:\"created_time\"",
 					"required": true
 				},
 				{
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"jsonTag": "json:\"last_edited_time\"",
 					"required": true
 				},
 				{
@@ -457,7 +457,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
@@ -491,7 +491,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "string",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"required": true
 				}
 			]
@@ -504,14 +504,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -524,14 +524,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "PageID",
 					"jsonName": "page_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"page_id,omitzero\"",
+					"jsonTag": "json:\"page_id\"",
 					"required": true
 				}
 			]
@@ -550,7 +550,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
@@ -571,7 +571,7 @@
 					"name": "PlainText",
 					"jsonName": "plain_text",
 					"type": "string",
-					"jsonTag": "json:\"plain_text,omitzero\"",
+					"jsonTag": "json:\"plain_text\"",
 					"required": true
 				},
 				{
@@ -626,7 +626,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "string",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"required": true
 				}
 			]
@@ -639,7 +639,7 @@
 					"name": "Content",
 					"jsonName": "content",
 					"type": "string",
-					"jsonTag": "json:\"content,omitzero\"",
+					"jsonTag": "json:\"content\"",
 					"required": true
 				},
 				{

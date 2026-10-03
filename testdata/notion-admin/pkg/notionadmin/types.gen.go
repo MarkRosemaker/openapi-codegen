@@ -132,11 +132,11 @@ type AddLegalHoldUsers struct {
 
 // AddLegalHoldUsers2 defines a model
 type AddLegalHoldUsers2 struct {
-	CreatedBy           uuid.UUID                            `json:"created_by,omitzero"`
+	CreatedBy           uuid.UUID                            `json:"created_by"`
 	CreatedTime         float64                              `json:"created_time"`
-	ID                  string                               `json:"id,omitzero"`
+	ID                  string                               `json:"id"`
 	StartDate           float64                              `json:"start_date"`
-	Status              AddLegalHoldUsersStatus              `json:"status,omitzero"`
+	Status              AddLegalHoldUsersStatus              `json:"status"`
 	UserInteractionType AddLegalHoldUsersUserInteractionType `json:"user_interaction_type"`
 	Users               AddLegalHoldUsers3                   `json:"users"`
 	Workspaces          AddLegalHoldUsers3                   `json:"workspaces"`
@@ -197,35 +197,35 @@ type AddPermissionGroupMember struct {
 	// The user to add as a direct member.
 	Member AddPermissionGroupMemberMember `json:"member"`
 	// The user's role in the group.
-	Role AddPermissionGroupMemberRole `json:"role,omitzero"`
+	Role AddPermissionGroupMemberRole `json:"role"`
 }
 
 // AddPermissionGroupMember2 defines a model
 type AddPermissionGroupMember2 struct {
 	// Always `group_membership`
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// The ID of the group.
-	GroupID string `json:"group_id,omitzero"`
+	GroupID string `json:"group_id"`
 	// The direct user member.
 	Member AddPermissionGroupMember3 `json:"member"`
 	// The user's role in the group.
-	Role AddPermissionGroupMemberRole `json:"role,omitzero"`
+	Role AddPermissionGroupMemberRole `json:"role"`
 }
 
 // The direct user member.
 type AddPermissionGroupMember3 struct {
 	// Always `user`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The ID of the user.
-	UserID string `json:"user_id,omitzero"`
+	UserID string `json:"user_id"`
 }
 
 // The user to add as a direct member.
 type AddPermissionGroupMemberMember struct {
 	// Always `user`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The ID of the user.
-	UserID idRequest `json:"user_id,omitzero"`
+	UserID idRequest `json:"user_id"`
 }
 
 // The user's role in the group.
@@ -437,8 +437,8 @@ func (e AdminAPIPublicError503Code) Valid() bool {
 // AdminAPIPublicErrorAdditionalDataValue defines a model
 // AdminAPIPublicErrorAdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AdminAPIPublicErrorAdditionalDataValue struct {
-	String  *string
-	String2 *[]string
+	String  string
+	String2 []string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -453,7 +453,7 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext
 	{
 		var vv string
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = &vv
+			v.String = vv
 			matched++
 		}
 	}
@@ -461,7 +461,7 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext
 	{
 		var vv []string
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = &vv
+			v.String2 = vv
 			matched++
 		}
 	}
@@ -476,7 +476,7 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *AdminAPIPublicErrorAdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.String != nil:
+	case v.String != "":
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	case v.String2 != nil:
 		return json.MarshalEncode(enc, v.String2, jsonOpts)
@@ -490,16 +490,16 @@ type AgentCreditUsage struct {
 	CreditPerBillingPeriodList AgentCreditUsageCreditPerBillingPeriodList `json:"credit_per_billing_period_list"`
 	// Whether more billing periods are available.
 	HasMore bool      `json:"has_more"`
-	ID      uuid.UUID `json:"id,omitzero"`
+	ID      uuid.UUID `json:"id"`
 	// All-time count of finished (success or failure) runs for this agent.
 	RunsCompleted float64 `json:"runs_completed"`
 	// Agent status; same values as the list-agents endpoint's status field.
-	Status AgentCreditUsageStatus `json:"status,omitzero"`
+	Status AgentCreditUsageStatus `json:"status"`
 	// All-time premium AI credits consumed by this agent across every period.
 	TotalCreditsUsed float64 `json:"total_credits_used"`
 	// Custom agents vs database (autofill) agents.
-	Type        AgentCreditUsageType `json:"type,omitzero"`
-	CreatedByID *uuid.UUID           `json:"created_by_id,omitzero"`
+	Type        AgentCreditUsageType `json:"type"`
+	CreatedByID uuid.UUID            `json:"created_by_id,omitzero"`
 	// Enforced per-agent credit limit, if one is configured.
 	CreditLimit *float64 `json:"credit_limit,omitzero"`
 	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
@@ -582,9 +582,9 @@ type AgentPermissionsItem struct {
 	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
 	Principal AgentPermissionsItemPrincipal `json:"principal"`
 	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-	ResolvedRole AgentPermissionsItemResolvedRole `json:"resolved_role,omitzero"`
+	ResolvedRole AgentPermissionsItemResolvedRole `json:"resolved_role"`
 	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-	Role AgentPermissionsItemResolvedRole `json:"role,omitzero"`
+	Role AgentPermissionsItemResolvedRole `json:"role"`
 }
 
 // A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
@@ -664,9 +664,9 @@ func (v *AgentPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) err
 
 // AgentPermissionsItemPrincipalOneOf defines a model
 type AgentPermissionsItemPrincipalOneOf struct {
-	GroupID uuid.UUID `json:"group_id,omitzero"`
+	GroupID uuid.UUID `json:"group_id"`
 	// Always `group`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether AgentPermissionsItemPrincipalOneOf declares it.
@@ -684,7 +684,7 @@ func (v *AgentPermissionsItemPrincipalOneOf) unmarshalJSONMember(dec *jsontext.D
 // AgentPermissionsItemPrincipalOneOf2 defines a model
 type AgentPermissionsItemPrincipalOneOf2 struct {
 	// Always `workspace`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether AgentPermissionsItemPrincipalOneOf2 declares it.
@@ -719,7 +719,7 @@ func (e AgentPermissionsItemResolvedRole) Valid() bool {
 // Bot defines a model
 type Bot struct {
 	// Indicates this user is a bot.
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// Details about the bot, when the `type` of the user is `bot`.
 	Bot emptyObject `json:"bot"`
 }
@@ -749,24 +749,24 @@ type CreateCreditLimitPolicy struct {
 // CreateCreditLimitPolicy2 defines a model
 type CreateCreditLimitPolicy2 struct {
 	// Always `credit_limit_policy`
-	Object    string                           `json:"object,omitzero"`
+	Object    string                           `json:"object"`
 	Amount    int                              `json:"amount"`
 	CreatedAt int                              `json:"created_at"`
 	CreatedBy CreateCreditLimitPolicyCreatedBy `json:"created_by"`
 	// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-	CreditTypeUnit CreateCreditLimitPolicyCreditTypeUnit `json:"credit_type_unit,omitzero"`
-	ID             uuid.UUID                             `json:"id,omitzero"`
+	CreditTypeUnit CreateCreditLimitPolicyCreditTypeUnit `json:"credit_type_unit"`
+	ID             uuid.UUID                             `json:"id"`
 	// All workspace members or one workspace member affected by the policy.
 	Selector  CreateCreditLimitPolicySelector `json:"selector"`
-	SpaceID   uuid.UUID                       `json:"space_id,omitzero"`
+	SpaceID   uuid.UUID                       `json:"space_id"`
 	ExpiresAt *int                            `json:"expires_at,omitzero"`
 }
 
 // CreateCreditLimitPolicyCreatedBy defines a model
 type CreateCreditLimitPolicyCreatedBy struct {
 	// Always `user`
-	Object string    `json:"object,omitzero"`
-	ID     uuid.UUID `json:"id,omitzero"`
+	Object string    `json:"object"`
+	ID     uuid.UUID `json:"id"`
 }
 
 // One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
@@ -857,7 +857,7 @@ func (v *CreateCreditLimitPolicySelector) MarshalJSONTo(enc *jsontext.Encoder) e
 // CreateCreditLimitPolicySelectorOneOf defines a model
 type CreateCreditLimitPolicySelectorOneOf struct {
 	// Always `all_space_members`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether CreateCreditLimitPolicySelectorOneOf declares it.
@@ -873,9 +873,9 @@ func (v *CreateCreditLimitPolicySelectorOneOf) unmarshalJSONMember(dec *jsontext
 // CreateCreditLimitPolicySelectorOneOf2 defines a model
 type CreateCreditLimitPolicySelectorOneOf2 struct {
 	// Always `user`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The ID returned by the workspace users API.
-	UserID uuid.UUID `json:"user_id,omitzero"`
+	UserID uuid.UUID `json:"user_id"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether CreateCreditLimitPolicySelectorOneOf2 declares it.
@@ -892,7 +892,7 @@ func (v *CreateCreditLimitPolicySelectorOneOf2) unmarshalJSONMember(dec *jsontex
 
 // CreateLegalHold defines a model
 type CreateLegalHold struct {
-	Name                string                               `json:"name,omitzero"`
+	Name                string                               `json:"name"`
 	StartDate           float64                              `json:"start_date"`
 	UserIds             []uuid.UUID                          `json:"user_ids"`
 	UserInteractionType AddLegalHoldUsersUserInteractionType `json:"user_interaction_type"`
@@ -904,23 +904,23 @@ type CreateLegalHold struct {
 // CreatePermissionGroup defines a model
 type CreatePermissionGroup struct {
 	// The name of the group.
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 }
 
 // CreatePermissionGroup2 defines a model
 type CreatePermissionGroup2 struct {
 	// Always `group`
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// The ID of the group.
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// The name of the group.
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 }
 
 // IDs of members who created the tokens. Use bracket encoding for multiple values.
 // CreatorIds is an untagged oneOf union: exactly one field is set after unmarshaling.
 type CreatorIds struct {
-	UUID  *[]uuid.UUID
+	UUID  []uuid.UUID
 	UUID2 *uuid.UUID
 }
 
@@ -936,7 +936,7 @@ func (v *CreatorIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{
 		var vv []uuid.UUID
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UUID = &vv
+			v.UUID = vv
 			matched++
 		}
 	}
@@ -970,11 +970,11 @@ func (v *CreatorIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // EnqueueSpaceExport defines a model
 type EnqueueSpaceExport struct {
-	ExportType               EnqueueSpaceExportType                     `json:"export_type,omitzero"`
-	OnBehalfOfUserEmail      string                                     `json:"on_behalf_of_user_email,omitzero"`
+	ExportType               EnqueueSpaceExportType                     `json:"export_type"`
+	OnBehalfOfUserEmail      string                                     `json:"on_behalf_of_user_email"`
 	CollectionViewExportType EnqueueSpaceExportCollectionViewExportType `json:"collection_view_export_type,omitzero"`
-	FlattenExportFiletree    bool                                       `json:"flatten_export_filetree,omitzero"`
-	IncludeComments          bool                                       `json:"include_comments,omitzero"`
+	FlattenExportFiletree    *bool                                      `json:"flatten_export_filetree,omitzero"`
+	IncludeComments          *bool                                      `json:"include_comments,omitzero"`
 	IncludeContents          EnqueueSpaceExportIncludeContents          `json:"include_contents,omitzero"`
 	Locale                   string                                     `json:"locale,omitzero"`
 	PdfFormat                EnqueueSpaceExportPdfFormat                `json:"pdf_format,omitzero"`
@@ -1020,8 +1020,8 @@ func (e EnqueueSpaceExportIncludeContents) Valid() bool {
 
 // EnqueueSpaceExportOk defines a model
 type EnqueueSpaceExportOk struct {
-	ExportJobID string `json:"export_job_id,omitzero"`
-	Status      string `json:"status,omitzero"`
+	ExportJobID string `json:"export_job_id"`
+	Status      string `json:"status"`
 }
 
 // EnqueueSpaceExportPdfFormat defines a model
@@ -1117,19 +1117,19 @@ func (v *ExportLegalHold) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // ExportLegalHoldAnyOf0 defines a model
 type ExportLegalHoldAnyOf0 struct {
-	LegalHoldExportID uuid.UUID `json:"legal_hold_export_id,omitzero"`
-	RequestingUserID  uuid.UUID `json:"requesting_user_id,omitzero"`
+	LegalHoldExportID uuid.UUID `json:"legal_hold_export_id"`
+	RequestingUserID  uuid.UUID `json:"requesting_user_id"`
 }
 
 // ExportLegalHoldAnyOf1 defines a model
 type ExportLegalHoldAnyOf1 struct {
-	RequestingUserID uuid.UUID `json:"requesting_user_id,omitzero"`
-	SpaceID          uuid.UUID `json:"space_id,omitzero"`
+	RequestingUserID uuid.UUID `json:"requesting_user_id"`
+	SpaceID          uuid.UUID `json:"space_id"`
 }
 
 // ExportLegalHoldOk defines a model
 type ExportLegalHoldOk struct {
-	LegalHoldExportID uuid.UUID `json:"legal_hold_export_id,omitzero"`
+	LegalHoldExportID uuid.UUID `json:"legal_hold_export_id"`
 }
 
 // GetAgentPermissionsOk defines a model
@@ -1156,15 +1156,15 @@ type GetAgentsCreditUsageOkResults []AgentCreditUsage
 // GetSpaceExportStatusOk defines a model
 type GetSpaceExportStatusOk struct {
 	CreatedTime  float64                `json:"created_time"`
-	ExportFormat EnqueueSpaceExportType `json:"export_format,omitzero"`
+	ExportFormat EnqueueSpaceExportType `json:"export_format"`
 	// Identifier of the export job, as returned by the enqueue endpoint.
-	ExportJobID string `json:"export_job_id,omitzero"`
+	ExportJobID string `json:"export_job_id"`
 	// Whether an entire workspace ('space'), a teamspace, or a single 'page' was exported.
-	ExportType     GetSpaceExportStatusOkExportType `json:"export_type,omitzero"`
+	ExportType     GetSpaceExportStatusOkExportType `json:"export_type"`
 	LastEditedTime float64                          `json:"last_edited_time"`
 	PagesExported  float64                          `json:"pages_exported"`
 	// Current state of the export: - 'in_progress': the export has not finished yet. - 'completed': the export finished and 'download_urls' is available. - 'url_generation_failed': the export finished, but a download URL could   not be generated. - 'failed': the export itself did not finish; see 'error_type' and   'error_message'.
-	Status GetSpaceExportStatusOkStatus `json:"status,omitzero"`
+	Status GetSpaceExportStatusOkStatus `json:"status"`
 	// Short-lived, bot-scoped download URLs for the completed export. Always present when 'status' is 'completed', and absent for every other status.
 	DownloadUrls   []string `json:"download_urls,omitzero"`
 	ErrorMessage   string   `json:"error_message,omitzero"`
@@ -1227,13 +1227,13 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	// Whether the agent is live (not soft-deleted). "false" for deleted agents, which are returned only when the "deleted" status filter is set.
 	Alive bool `json:"alive"`
 	// The agent's unique identifier.
-	ID      string    `json:"id,omitzero"`
-	SpaceID uuid.UUID `json:"space_id,omitzero"`
+	ID      string    `json:"id"`
+	SpaceID uuid.UUID `json:"space_id"`
 	// Agent status; same values as the list-agents endpoint's status field.
-	Status AgentCreditUsageStatus `json:"status,omitzero"`
+	Status AgentCreditUsageStatus `json:"status"`
 	// Custom agents vs database (autofill) agents.
-	Type        AgentCreditUsageType `json:"type,omitzero"`
-	CreatedByID *uuid.UUID           `json:"created_by_id,omitzero"`
+	Type        AgentCreditUsageType `json:"type"`
+	CreatedByID uuid.UUID            `json:"created_by_id,omitzero"`
 	// The actor table of the agent's creator, such as "notion_user".
 	CreatedByTable WorkflowsMetadataForSpaceResultsItemCreatedByTable `json:"created_by_table,omitzero"`
 	// Epoch ms when the agent was created.
@@ -1243,8 +1243,8 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	// The agent's icon.
 	Icon string `json:"icon,omitzero"`
 	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
-	LastCreditUsageTime *float64   `json:"last_credit_usage_time,omitzero"`
-	LastEditedByID      *uuid.UUID `json:"last_edited_by_id,omitzero"`
+	LastCreditUsageTime *float64  `json:"last_credit_usage_time,omitzero"`
+	LastEditedByID      uuid.UUID `json:"last_edited_by_id,omitzero"`
 	// The actor table of the agent's creator, such as "notion_user".
 	LastEditedByTable WorkflowsMetadataForSpaceResultsItemCreatedByTable `json:"last_edited_by_table,omitzero"`
 	// Epoch ms when the agent was last edited.
@@ -1258,8 +1258,8 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	// Epoch ms when the agent was deleted; only present for deleted agents.
 	MovedToTrashTime *float64 `json:"moved_to_trash_time,omitzero"`
 	// The agent's name.
-	Name     string     `json:"name,omitzero"`
-	ParentID *uuid.UUID `json:"parent_id,omitzero"`
+	Name     string    `json:"name,omitzero"`
+	ParentID uuid.UUID `json:"parent_id,omitzero"`
 	// The table the agent is parented to: custom agents belong to the workspace ("space"); database (autofill) agents belong to their database's block ("block").
 	ParentTable GetWorkflowsMetadataForSpaceOkResultsItemParentTable `json:"parent_table,omitzero"`
 	// The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.
@@ -1271,8 +1271,8 @@ type GetWorkflowsMetadataForSpaceOkResultsItemModules []GetWorkflowsMetadataForS
 
 // Summary of a module attached to an agent (which integration + its reach).
 type GetWorkflowsMetadataForSpaceOkResultsItemModulesItem struct {
-	ID   string `json:"id,omitzero"`
-	Type string `json:"type,omitzero"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 	Name string `json:"name,omitzero"`
 	// Per-resource access this module grants the agent, such as channels, pages, repositories, files, or MCP resources, and the actions allowed on each.
 	Resources GetWorkflowsMetadataForSpaceOkResultsItemModulesItemResources `json:"resources,omitzero"`
@@ -1334,15 +1334,15 @@ func (e IncludeDeleted) Valid() bool {
 // ListCreditLimitPoliciesOk defines a model
 type ListCreditLimitPoliciesOk struct {
 	// Always `list`
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// Always `credit_limit_policy`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The active credit limit policies in the workspace.
 	Results ListCreditLimitPoliciesOkResults `json:"results"`
 	// Whether another page is available.
 	HasMore bool `json:"has_more"`
 	// Cursor for the next page, or null on the last page.
-	NextCursor *string `json:"next_cursor"`
+	NextCursor string `json:"next_cursor"`
 }
 
 // The active credit limit policies in the workspace.
@@ -1409,11 +1409,11 @@ type ListMcpClientConnectionsOkResultsItem struct {
 // Details that identify the MCP client.
 type ListMcpClientConnectionsOkResultsItemClient struct {
 	// Stable client key required by the revoke endpoint.
-	Key string `json:"key,omitzero"`
+	Key string `json:"key"`
 	// Name provided by Notion or reported by a custom client.
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 	// Client category, or 'other' for a custom or unregistered client.
-	Type ListMcpClientConnectionsOkResultsItemClientType `json:"type,omitzero"`
+	Type ListMcpClientConnectionsOkResultsItemClientType `json:"type"`
 }
 
 // Client category, or 'other' for a custom or unregistered client.
@@ -1463,21 +1463,21 @@ type ListMcpClientConnectionsOkResultsItemWorkspaces []ListMcpClientConnectionsR
 
 // The member connected to the client.
 type ListMcpClientConnectionsResultsItemUser struct {
-	ID uuid.UUID `json:"id,omitzero"`
+	ID uuid.UUID `json:"id"`
 }
 
 // ListPermissionGroupMembersOk defines a model
 type ListPermissionGroupMembersOk struct {
 	// Always `list`
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// Always `group_membership`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The direct user memberships in the group.
 	Results ListPermissionGroupMembersOkResults `json:"results"`
 	// Whether another page is available.
 	HasMore bool `json:"has_more"`
 	// Cursor for the next page, or null on the last page.
-	NextCursor *string `json:"next_cursor"`
+	NextCursor string `json:"next_cursor"`
 }
 
 // The direct user memberships in the group.
@@ -1486,15 +1486,15 @@ type ListPermissionGroupMembersOkResults []AddPermissionGroupMember2
 // ListPermissionGroupsOk defines a model
 type ListPermissionGroupsOk struct {
 	// Always `list`
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// Always `group`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The permission groups in the workspace.
 	Results ListPermissionGroupsOkResults `json:"results"`
 	// Whether another page is available.
 	HasMore bool `json:"has_more"`
 	// Cursor for the next page, or null on the last page.
-	NextCursor *string `json:"next_cursor"`
+	NextCursor string `json:"next_cursor"`
 }
 
 // The permission groups in the workspace.
@@ -1515,13 +1515,13 @@ type ListPersonalAccessTokensOkResults []ListPersonalAccessTokensOkResultsItem
 
 // ListPersonalAccessTokensOkResultsItem defines a model
 type ListPersonalAccessTokensOkResultsItem struct {
-	ID uuid.UUID `json:"id,omitzero"`
+	ID uuid.UUID `json:"id"`
 	// Member who created the token.
 	Creator ListPersonalAccessTokensResultsItemCreator `json:"creator"`
 	// Time the token was created, in epoch milliseconds.
 	CreatedAt float64 `json:"created_at"`
 	// Current token status.
-	Status ListPersonalAccessTokensResultsItemStatus `json:"status,omitzero"`
+	Status ListPersonalAccessTokensResultsItemStatus `json:"status"`
 	// Token name, when available.
 	Name string `json:"name,omitzero"`
 	// Time the token expires, in epoch milliseconds.
@@ -1531,7 +1531,7 @@ type ListPersonalAccessTokensOkResultsItem struct {
 	// Time the token was revoked, in epoch milliseconds.
 	RevokedAt *float64 `json:"revoked_at,omitzero"`
 	// Member who created the token.
-	RevokedBy *ListPersonalAccessTokensResultsItemCreator `json:"revoked_by,omitzero"`
+	RevokedBy ListPersonalAccessTokensResultsItemCreator `json:"revoked_by,omitzero"`
 }
 
 // Type of user or bot that revoked the token.
@@ -1555,7 +1555,7 @@ func (e ListPersonalAccessTokensOkResultsItemRevokedByType) Valid() bool {
 
 // Member who created the token.
 type ListPersonalAccessTokensResultsItemCreator struct {
-	ID uuid.UUID `json:"id,omitzero"`
+	ID uuid.UUID `json:"id"`
 	// Member's name, when available.
 	Name string `json:"name,omitzero"`
 	// Member's email address, when available.
@@ -1588,27 +1588,27 @@ func (e ListPersonalAccessTokensResultsItemStatus) Valid() bool {
 // ListUsersOk defines a model
 type ListUsersOk struct {
 	// The standard list response discriminator.
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// The resource type returned in results.
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// Workspace people and bots on this page.
 	Results []ListUsersOkResultsItem `json:"results"`
 	// Whether another page is available; equivalent to next_cursor presence.
 	HasMore bool `json:"has_more"`
 	// Cursor for the next page, or null on the last page.
-	NextCursor *string `json:"next_cursor"`
+	NextCursor string `json:"next_cursor"`
 }
 
 // ListUsersOkResultsItem defines a model
 type ListUsersOkResultsItem struct {
 	// The user object type name.
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// The ID of the user.
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Cursor for the next page, or null on the last page.
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// Cursor for the next page, or null on the last page.
-	AvatarURL                    *string                      `json:"avatar_url"`
+	AvatarURL                    string                       `json:"avatar_url"`
 	ListUsersOkResultsItemAllOf1 ListUsersOkResultsItemAllOf1 `json:"-"`
 }
 
@@ -1824,9 +1824,9 @@ func (e NotionVersion) Valid() bool {
 // Person defines a model
 type Person struct {
 	// Indicates this user is a person.
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The person's effective workspace membership type.
-	MembershipType PersonMembershipType `json:"membership_type,omitzero"`
+	MembershipType PersonMembershipType `json:"membership_type"`
 	// Details about the person, when the `type` of the user is `person`.
 	Person PersonPerson `json:"person"`
 }
@@ -1876,9 +1876,9 @@ type PersonPerson struct {
 // RevokeMcpClientConnection defines a model
 type RevokeMcpClientConnection struct {
 	// Stable client key returned by the list endpoint.
-	ClientKey   string    `json:"client_key,omitzero"`
-	UserID      uuid.UUID `json:"user_id,omitzero"`
-	WorkspaceID uuid.UUID `json:"workspace_id,omitzero"`
+	ClientKey   string    `json:"client_key"`
+	UserID      uuid.UUID `json:"user_id"`
+	WorkspaceID uuid.UUID `json:"workspace_id"`
 }
 
 // RevokeMcpClientConnectionOk defines a model
@@ -1896,7 +1896,7 @@ type RevokeUserSession struct {
 // RevokeUserSessionOk defines a model
 type RevokeUserSessionOk struct {
 	// Confirms that the user's active sessions were revoked.
-	Status string `json:"status,omitzero"`
+	Status string `json:"status"`
 }
 
 // The managed user whose active sessions should be revoked.
@@ -1967,9 +1967,9 @@ func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 // RevokeUserSessionUserOneOf0 defines a model
 type RevokeUserSessionUserOneOf0 struct {
 	// Always `email`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The managed user's primary email address.
-	Email string `json:"email,omitzero"`
+	Email string `json:"email"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RevokeUserSessionUserOneOf0 declares it.
@@ -1987,9 +1987,9 @@ func (v *RevokeUserSessionUserOneOf0) unmarshalJSONMember(dec *jsontext.Decoder,
 // RevokeUserSessionUserOneOf1 defines a model
 type RevokeUserSessionUserOneOf1 struct {
 	// Always `id`
-	Type string `json:"type,omitzero"`
+	Type string `json:"type"`
 	// The managed user's Notion user UUID.
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RevokeUserSessionUserOneOf1 declares it.
@@ -2007,10 +2007,10 @@ func (v *RevokeUserSessionUserOneOf1) unmarshalJSONMember(dec *jsontext.Decoder,
 // Token statuses to include. Use bracket encoding for multiple values.
 // Status is an untagged oneOf union: exactly one field is set after unmarshaling.
 type Status struct {
-	StatusOneOf0 *StatusOneOf0
-	String       *string
-	String2      *string
-	String3      *string
+	StatusOneOf0 StatusOneOf0
+	String       string
+	String2      string
+	String3      string
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
@@ -2025,7 +2025,7 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{
 		var vv StatusOneOf0
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.StatusOneOf0 = &vv
+			v.StatusOneOf0 = vv
 			matched++
 		}
 	}
@@ -2033,7 +2033,7 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{
 		var vv string
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = &vv
+			v.String = vv
 			matched++
 		}
 	}
@@ -2041,7 +2041,7 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{
 		var vv string
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = &vv
+			v.String2 = vv
 			matched++
 		}
 	}
@@ -2049,7 +2049,7 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{
 		var vv string
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String3 = &vv
+			v.String3 = vv
 			matched++
 		}
 	}
@@ -2066,11 +2066,11 @@ func (v *Status) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.StatusOneOf0 != nil:
 		return json.MarshalEncode(enc, v.StatusOneOf0, jsonOpts)
-	case v.String != nil:
+	case v.String != "":
 		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
+	case v.String2 != "":
 		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	case v.String3 != nil:
+	case v.String3 != "":
 		return json.MarshalEncode(enc, v.String3, jsonOpts)
 	}
 
@@ -2121,19 +2121,19 @@ type StatusOneOf0 []ListPersonalAccessTokensResultsItemStatus
 // UpdateAgentCreationPolicy defines a model
 type UpdateAgentCreationPolicy struct {
 	// One of: `all_workspace_members`, `disabled`, `workspace_owners_only`
-	Policy UpdateAgentCreationPolicyPolicy `json:"policy,omitzero"`
+	Policy UpdateAgentCreationPolicyPolicy `json:"policy"`
 	// When true, also disable all existing custom agents in the workspace. Only takes effect when policy is "disabled".
-	DisableExistingAgents bool `json:"disable_existing_agents,omitzero"`
+	DisableExistingAgents *bool `json:"disable_existing_agents,omitzero"`
 }
 
 // UpdateAgentCreationPolicyOk defines a model
 type UpdateAgentCreationPolicyOk struct {
 	AgentCounts UpdateAgentCreationPolicyOkAgentCounts `json:"agent_counts"`
 	// The policy now in effect, or null when no explicit policy has ever been set for the workspace (which behaves as the "all_workspace_members" default).
-	CurrentPolicy            *UpdateAgentCreationPolicyOkCurrentPolicyOneOf0 `json:"current_policy"`
-	CurrentPolicyDescription string                                          `json:"current_policy_description,omitzero"`
-	SpaceID                  uuid.UUID                                       `json:"space_id,omitzero"`
-	SpaceName                string                                          `json:"space_name,omitzero"`
+	CurrentPolicy            UpdateAgentCreationPolicyOkCurrentPolicyOneOf0 `json:"current_policy"`
+	CurrentPolicyDescription string                                         `json:"current_policy_description"`
+	SpaceID                  uuid.UUID                                      `json:"space_id"`
+	SpaceName                string                                         `json:"space_name"`
 }
 
 // UpdateAgentCreationPolicyOkAgentCounts defines a model
@@ -2224,13 +2224,13 @@ type UpdateAgentPermissionsSetItem struct {
 	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
 	Principal AgentPermissionsItemPrincipal `json:"principal"`
 	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-	Role AgentPermissionsItemResolvedRole `json:"role,omitzero"`
+	Role AgentPermissionsItemResolvedRole `json:"role"`
 }
 
 // UpdateAgentStatus defines a model
 type UpdateAgentStatus struct {
 	// Set to "active" to re-enable an agent that was disabled through this API, or "disabled" to turn off a running agent.
-	AdminStatus UpdateAgentStatusAdminStatus `json:"admin_status,omitzero"`
+	AdminStatus UpdateAgentStatusAdminStatus `json:"admin_status"`
 }
 
 // Set to "active" to re-enable an agent that was disabled through this API, or "disabled" to turn off a running agent.
@@ -2254,9 +2254,9 @@ func (e UpdateAgentStatusAdminStatus) Valid() bool {
 // UpdateAgentStatusOk defines a model
 type UpdateAgentStatusOk struct {
 	// Set to "active" to re-enable an agent that was disabled through this API, or "disabled" to turn off a running agent.
-	AdminStatus UpdateAgentStatusAdminStatus `json:"admin_status,omitzero"`
+	AdminStatus UpdateAgentStatusAdminStatus `json:"admin_status"`
 	// Whether the agent will actually run right now, independent of the admin-disable toggle. It reflects the agent's current state, including usage-based pauses such as a credit limit or workspace credit limit. It is "active" only when the agent has no paused reason and will actually run, and "paused" whenever a paused_reason is present, whether admin-set or not. Refer to paused_reason for why the agent is paused.
-	RunStatus UpdateAgentStatusOkRunStatus `json:"run_status,omitzero"`
+	RunStatus UpdateAgentStatusOkRunStatus `json:"run_status"`
 	// The authoritative explanation for why an agent is paused (for example, "disabled_from_workspace_settings" or "workspace_credit_limit"). It is present only when run_status is "paused", and it is the field you must inspect to derive the agent's true state.
 	PausedReason UpdateAgentStatusOkPausedReason `json:"paused_reason,omitzero"`
 }
@@ -2328,9 +2328,9 @@ type UpdateLegalHold struct {
 // UpdateMcpClientConnectionEnterpriseManagedAccess defines a model
 type UpdateMcpClientConnectionEnterpriseManagedAccess struct {
 	// 'denied' blocks access; 'allowed' restores access.
-	Access      UpdateMcpClientConnectionEnterpriseManagedAccess2 `json:"access,omitzero"`
-	UserID      uuid.UUID                                         `json:"user_id,omitzero"`
-	WorkspaceID uuid.UUID                                         `json:"workspace_id,omitzero"`
+	Access      UpdateMcpClientConnectionEnterpriseManagedAccess2 `json:"access"`
+	UserID      uuid.UUID                                         `json:"user_id"`
+	WorkspaceID uuid.UUID                                         `json:"workspace_id"`
 }
 
 // 'denied' blocks access; 'allowed' restores access.
@@ -2354,7 +2354,7 @@ func (e UpdateMcpClientConnectionEnterpriseManagedAccess2) Valid() bool {
 // UpdateMcpClientConnectionEnterpriseManagedAccessOk defines a model
 type UpdateMcpClientConnectionEnterpriseManagedAccessOk struct {
 	// 'denied' blocks access; 'allowed' restores access.
-	Access UpdateMcpClientConnectionEnterpriseManagedAccess2 `json:"access,omitzero"`
+	Access UpdateMcpClientConnectionEnterpriseManagedAccess2 `json:"access"`
 	// Number of active tokens revoked. Always zero when restoring access.
 	RevokedTokenCount float64 `json:"revoked_token_count"`
 }
@@ -2362,7 +2362,7 @@ type UpdateMcpClientConnectionEnterpriseManagedAccessOk struct {
 // UpdatePermissionGroupMember defines a model
 type UpdatePermissionGroupMember struct {
 	// The user's role in the group.
-	Role AddPermissionGroupMemberRole `json:"role,omitzero"`
+	Role AddPermissionGroupMemberRole `json:"role"`
 }
 
 // UpdateWorkspaceCreditLimit defines a model
@@ -2373,7 +2373,7 @@ type UpdateWorkspaceCreditLimit struct {
 
 // UpdateWorkspaceCreditLimitOk defines a model
 type UpdateWorkspaceCreditLimitOk struct {
-	SpaceID uuid.UUID `json:"space_id,omitzero"`
+	SpaceID uuid.UUID `json:"space_id"`
 	// The per-agent credit limit as a non-negative integer, or null to clear the limit.
 	DefaultAgentCreditLimit *float64 `json:"default_agent_credit_limit"`
 }
@@ -2381,7 +2381,7 @@ type UpdateWorkspaceCreditLimitOk struct {
 // Member IDs to include. Use bracket encoding for multiple values.
 // UserIds is an untagged anyOf union: at least one field is set after unmarshaling.
 type UserIds struct {
-	UUID  *[]uuid.UUID
+	UUID  []uuid.UUID
 	UUID2 *uuid.UUID
 }
 
@@ -2397,7 +2397,7 @@ func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	{
 		var vv []uuid.UUID
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UUID = &vv
+			v.UUID = vv
 			matched++
 		}
 	}
@@ -2450,122 +2450,122 @@ func (e WorkflowsMetadataForSpaceResultsItemCreatedByTable) Valid() bool {
 
 // adminApiError400 defines a model
 type adminApiError400 struct {
-	Type    AdminAPIErrorType `json:"type,omitzero"`
-	Code    AdminAPIErrorCode `json:"code,omitzero"`
+	Type    AdminAPIErrorType `json:"type"`
+	Code    AdminAPIErrorCode `json:"code"`
 	Status  int               `json:"status"`
-	Message string            `json:"message,omitzero"`
+	Message string            `json:"message"`
 }
 
 // adminApiError401 defines a model
 type adminApiError401 struct {
-	Type    AdminAPIErrorType  `json:"type,omitzero"`
-	Code    AdminAPIErrorCode2 `json:"code,omitzero"`
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode2 `json:"code"`
 	Status  int                `json:"status"`
-	Message string             `json:"message,omitzero"`
+	Message string             `json:"message"`
 }
 
 // adminApiError403 defines a model
 type adminApiError403 struct {
-	Type    AdminAPIErrorType    `json:"type,omitzero"`
-	Code    AdminAPIError403Code `json:"code,omitzero"`
+	Type    AdminAPIErrorType    `json:"type"`
+	Code    AdminAPIError403Code `json:"code"`
 	Status  int                  `json:"status"`
-	Message string               `json:"message,omitzero"`
+	Message string               `json:"message"`
 }
 
 // adminApiError404 defines a model
 type adminApiError404 struct {
-	Type    AdminAPIErrorType    `json:"type,omitzero"`
-	Code    AdminAPIError404Code `json:"code,omitzero"`
+	Type    AdminAPIErrorType    `json:"type"`
+	Code    AdminAPIError404Code `json:"code"`
 	Status  int                  `json:"status"`
-	Message string               `json:"message,omitzero"`
+	Message string               `json:"message"`
 }
 
 // adminApiError429 defines a model
 type adminApiError429 struct {
-	Type    AdminAPIErrorType  `json:"type,omitzero"`
-	Code    AdminAPIErrorCode3 `json:"code,omitzero"`
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode3 `json:"code"`
 	Status  int                `json:"status"`
-	Message string             `json:"message,omitzero"`
+	Message string             `json:"message"`
 }
 
 // adminApiError500 defines a model
 type adminApiError500 struct {
-	Type    AdminAPIErrorType  `json:"type,omitzero"`
-	Code    AdminAPIErrorCode4 `json:"code,omitzero"`
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode4 `json:"code"`
 	Status  int                `json:"status"`
-	Message string             `json:"message,omitzero"`
+	Message string             `json:"message"`
 }
 
 // adminApiPublicError400 defines a model
 type adminApiPublicError400 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIErrorCode                                  `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode                                 `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError401 defines a model
 type adminApiPublicError401 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIErrorCode2                                 `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode2                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError403 defines a model
 type adminApiPublicError403 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIPublicError403Code                         `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError403Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError404 defines a model
 type adminApiPublicError404 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIPublicError404Code                         `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError404Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError409 defines a model
 type adminApiPublicError409 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIPublicError409Code                         `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError409Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError429 defines a model
 type adminApiPublicError429 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIErrorCode3                                 `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode3                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError500 defines a model
 type adminApiPublicError500 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIErrorCode4                                 `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode4                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError503 defines a model
 type adminApiPublicError503 struct {
-	Object         AdminAPIErrorType                                  `json:"object,omitzero"`
-	Code           AdminAPIPublicError503Code                         `json:"code,omitzero"`
-	Status         int                                                `json:"status"`
-	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError503Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // emptyObject defines a model
@@ -2716,7 +2716,8 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 }
 
 // jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
-// is known, the member must have it, and is written in if raw lacks it. raw is returned as it is if all is in order.
+// is known, the member must have it, and is written in if raw lacks it or leaves it empty. raw is returned as it is if
+// all is in order.
 func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 	dec := jsontext.NewDecoder(bytes.NewReader(raw))
 	if _, err := dec.ReadToken(); err != nil {
@@ -2730,18 +2731,22 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 		}
 
 		if tok.String() == name {
-			if value != "" {
-				val, err := dec.ReadToken()
-				if err != nil {
-					return nil, err
-				}
-
-				if got := val.String(); got != value {
-					return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
-				}
+			if value == "" {
+				return raw, nil
 			}
 
-			return raw, nil
+			val, err := dec.ReadToken()
+			if err != nil {
+				return nil, err
+			}
+
+			switch got := val.String(); got {
+			case value:
+				return raw, nil
+			case "": // left for the union to fill in, below
+			default:
+				return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
+			}
 		}
 	}
 
@@ -2757,12 +2762,29 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 			return nil, err
 		}
 
-		if value != "" {
-			if got, err := jsonMemberString(first, name); err != nil {
-				return nil, err
-			} else if got != value {
-				return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
+		if value == "" {
+			break
+		}
+
+		got, err := jsonMemberString(first, name)
+		switch {
+		case err != nil:
+			return nil, err
+		case got == "": // left empty: the union knows what it holds
+			rest := make(map[string]bool, len(names))
+			for _, n := range names {
+				rest[n] = n != name
 			}
+
+			if raw, err = jsonSelect(raw, rest); err != nil {
+				return nil, err
+			}
+
+			if first, err = json.Marshal(map[string]string{name: value}); err != nil {
+				return nil, err
+			}
+		case got != value:
+			return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
 		}
 	case value != "":
 		member, err := json.Marshal(map[string]string{name: value})

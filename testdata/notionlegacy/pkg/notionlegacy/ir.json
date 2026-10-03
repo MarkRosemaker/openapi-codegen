@@ -177,7 +177,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "Color",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "The color of the block.",
 					"required": true
 				}
@@ -191,7 +191,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always \"block\".",
 					"required": true
 				},
@@ -199,7 +199,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -214,7 +214,7 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitzero\"",
+					"jsonTag": "json:\"created_time\"",
 					"description": "Date and time when this block was created. Formatted as an ISO 8601 date time string.",
 					"required": true
 				},
@@ -222,7 +222,7 @@
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"jsonTag": "json:\"last_edited_time\"",
 					"description": "Date and time when this block was last updated. Formatted as an ISO 8601 date time string.",
 					"required": true
 				},
@@ -267,145 +267,145 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "BlockType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of block.",
 					"required": true
 				},
 				{
 					"name": "Paragraph",
 					"jsonName": "paragraph",
-					"type": "*Paragraph",
+					"type": "Paragraph",
 					"jsonTag": "json:\"paragraph,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "Heading1",
 					"jsonName": "heading_1",
-					"type": "*Heading",
+					"type": "Heading",
 					"jsonTag": "json:\"heading_1,omitzero\"",
 					"description": "Heading block objects contain this information within their respective property."
 				},
 				{
 					"name": "Heading2",
 					"jsonName": "heading_2",
-					"type": "*Heading",
+					"type": "Heading",
 					"jsonTag": "json:\"heading_2,omitzero\"",
 					"description": "Heading block objects contain this information within their respective property."
 				},
 				{
 					"name": "Heading3",
 					"jsonName": "heading_3",
-					"type": "*Heading",
+					"type": "Heading",
 					"jsonTag": "json:\"heading_3,omitzero\"",
 					"description": "Heading block objects contain this information within their respective property."
 				},
 				{
 					"name": "BulletedListItem",
 					"jsonName": "bulleted_list_item",
-					"type": "*Paragraph",
+					"type": "Paragraph",
 					"jsonTag": "json:\"bulleted_list_item,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "NumberedListItem",
 					"jsonName": "numbered_list_item",
-					"type": "*Paragraph",
+					"type": "Paragraph",
 					"jsonTag": "json:\"numbered_list_item,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "ToDo",
 					"jsonName": "to_do",
-					"type": "*ToDo",
+					"type": "ToDo",
 					"jsonTag": "json:\"to_do,omitzero\"",
 					"description": "To do block objects contain this information within the `to_do` property."
 				},
 				{
 					"name": "Toggle",
 					"jsonName": "toggle",
-					"type": "*Paragraph",
+					"type": "Paragraph",
 					"jsonTag": "json:\"toggle,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "*Code",
+					"type": "Code",
 					"jsonTag": "json:\"code,omitzero\"",
 					"description": "Code block objects contain this information within the `code` property."
 				},
 				{
 					"name": "ChildPage",
 					"jsonName": "child_page",
-					"type": "*Child",
+					"type": "Child",
 					"jsonTag": "json:\"child_page,omitzero\""
 				},
 				{
 					"name": "ChildDatabase",
 					"jsonName": "child_database",
-					"type": "*Child",
+					"type": "Child",
 					"jsonTag": "json:\"child_database,omitzero\""
 				},
 				{
 					"name": "Embed",
 					"jsonName": "embed",
-					"type": "*Embed",
+					"type": "Embed",
 					"jsonTag": "json:\"embed,omitzero\"",
 					"description": "Embed blocks include block types that allow displaying another website within Notion."
 				},
 				{
 					"name": "Video",
 					"jsonName": "video",
-					"type": "*FileWithCaption",
+					"type": "FileWithCaption",
 					"jsonTag": "json:\"video,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "Audio",
 					"jsonName": "audio",
-					"type": "*FileWithCaption",
+					"type": "FileWithCaption",
 					"jsonTag": "json:\"audio,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "File",
 					"jsonName": "file",
-					"type": "*FileWithCaption",
+					"type": "FileWithCaption",
 					"jsonTag": "json:\"file,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "PDF",
 					"jsonName": "pdf",
-					"type": "*FileWithCaption",
+					"type": "FileWithCaption",
 					"jsonTag": "json:\"pdf,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "Bookmark",
 					"jsonName": "bookmark",
-					"type": "*Embed",
+					"type": "Embed",
 					"jsonTag": "json:\"bookmark,omitzero\"",
 					"description": "Embed blocks include block types that allow displaying another website within Notion."
 				},
 				{
 					"name": "Callout",
 					"jsonName": "callout",
-					"type": "*Callout",
+					"type": "Callout",
 					"jsonTag": "json:\"callout,omitzero\"",
 					"description": "Callout block objects contain the following information within the callout field."
 				},
 				{
 					"name": "Quote",
 					"jsonName": "quote",
-					"type": "*Paragraph",
+					"type": "Paragraph",
 					"jsonTag": "json:\"quote,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "Equation",
 					"jsonName": "equation",
-					"type": "*Equation",
+					"type": "Equation",
 					"jsonTag": "json:\"equation,omitzero\"",
 					"description": "Equation block objects contain this information within the `equation` property"
 				},
@@ -419,7 +419,7 @@
 				{
 					"name": "TableOfContents",
 					"jsonName": "table_of_contents",
-					"type": "*TableOfContents",
+					"type": "TableOfContents",
 					"jsonTag": "json:\"table_of_contents,omitzero\"",
 					"description": "Table of contents block objects contain the following information within the `table_of_contents` property."
 				},
@@ -433,26 +433,26 @@
 				{
 					"name": "LinkPreview",
 					"jsonName": "link_preview",
-					"type": "*ExternalFile",
+					"type": "ExternalFile",
 					"jsonTag": "json:\"link_preview,omitzero\"",
 					"description": "An external file is any URL that isn't hosted by Notion."
 				},
 				{
 					"name": "SyncedBlock",
 					"jsonName": "synced_block",
-					"type": "*SyncedBlock",
+					"type": "SyncedBlock",
 					"jsonTag": "json:\"synced_block,omitzero\""
 				},
 				{
 					"name": "LinkToPage",
 					"jsonName": "link_to_page",
-					"type": "*LinkToPage",
+					"type": "LinkToPage",
 					"jsonTag": "json:\"link_to_page,omitzero\""
 				},
 				{
 					"name": "Table",
 					"jsonName": "table",
-					"type": "*Table",
+					"type": "Table",
 					"jsonTag": "json:\"table,omitzero\""
 				},
 				{
@@ -659,7 +659,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `list`.",
 					"required": true
 				},
@@ -667,7 +667,7 @@
 					"name": "NextCursor",
 					"jsonName": "next_cursor",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"jsonTag": "json:\"next_cursor\"",
 					"description": "Only available when has_more is true.\n\nUsed to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.",
 					"required": true
 				},
@@ -691,7 +691,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of the objects in results. Always `block`.",
 					"required": true
 				},
@@ -706,7 +706,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"request_id,omitzero\"",
+					"jsonTag": "json:\"request_id\"",
 					"required": true
 				}
 			],
@@ -743,7 +743,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "Color",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "The color of the block.",
 					"required": true
 				}
@@ -757,7 +757,7 @@
 					"name": "Title",
 					"jsonName": "title",
 					"type": "string",
-					"jsonTag": "json:\"title,omitzero\"",
+					"jsonTag": "json:\"title\"",
 					"required": true
 				}
 			]
@@ -783,7 +783,7 @@
 					"name": "Language",
 					"jsonName": "language",
 					"type": "CodeLanguage",
-					"jsonTag": "json:\"language,omitzero\"",
+					"jsonTag": "json:\"language\"",
 					"description": "Coding language in code block",
 					"required": true
 				}
@@ -1268,7 +1268,7 @@
 					"name": "Start",
 					"jsonName": "start",
 					"type": "string",
-					"jsonTag": "json:\"start,omitzero\"",
+					"jsonTag": "json:\"start\"",
 					"description": "An ISO 8601 format date, with optional time.",
 					"required": true
 				},
@@ -1303,7 +1303,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "url.URL",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"description": "Embedded link.",
 					"required": true
 				}
@@ -1317,7 +1317,7 @@
 					"name": "Expression",
 					"jsonName": "expression",
 					"type": "string",
-					"jsonTag": "json:\"expression,omitzero\"",
+					"jsonTag": "json:\"expression\"",
 					"description": "A KaTeX compatible string",
 					"required": true
 				}
@@ -1331,7 +1331,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "url.URL",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"description": "Link to the externally hosted content.",
 					"required": true
 				}
@@ -1345,21 +1345,21 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "FileType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of this file object.",
 					"required": true
 				},
 				{
 					"name": "File",
 					"jsonName": "file",
-					"type": "*NotionFile",
+					"type": "NotionFile",
 					"jsonTag": "json:\"file,omitzero\"",
 					"description": "File objects contain this information within the `file` property."
 				},
 				{
 					"name": "External",
 					"jsonName": "external",
-					"type": "*ExternalFile",
+					"type": "ExternalFile",
 					"jsonTag": "json:\"external,omitzero\"",
 					"description": "An external file is any URL that isn't hosted by Notion."
 				},
@@ -1437,7 +1437,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "Color",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "The color of the block.",
 					"required": true
 				}
@@ -1451,7 +1451,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "IconType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of icon.",
 					"required": true
 				},
@@ -1465,14 +1465,14 @@
 				{
 					"name": "File",
 					"jsonName": "file",
-					"type": "*NotionFile",
+					"type": "NotionFile",
 					"jsonTag": "json:\"file,omitzero\"",
 					"description": "File objects contain this information within the `file` property."
 				},
 				{
 					"name": "External",
 					"jsonName": "external",
-					"type": "*ExternalFile",
+					"type": "ExternalFile",
 					"jsonTag": "json:\"external,omitzero\"",
 					"description": "An external file is any URL that isn't hosted by Notion."
 				}
@@ -1508,7 +1508,7 @@
 				{
 					"name": "URL",
 					"jsonName": "url",
-					"type": "*url.URL",
+					"type": "url.URL",
 					"jsonTag": "json:\"url,omitzero\""
 				}
 			]
@@ -1521,21 +1521,21 @@
 					"name": "Href",
 					"jsonName": "href",
 					"type": "url.URL",
-					"jsonTag": "json:\"href,omitzero\"",
+					"jsonTag": "json:\"href\"",
 					"required": true
 				},
 				{
 					"name": "Title",
 					"jsonName": "title",
 					"type": "string",
-					"jsonTag": "json:\"title,omitzero\"",
+					"jsonTag": "json:\"title\"",
 					"required": true
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				}
 			]
@@ -1548,14 +1548,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "LinkToPageType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of this link to page object.",
 					"required": true
 				},
 				{
 					"name": "PageID",
 					"jsonName": "page_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"page_id,omitzero\""
 				}
 			]
@@ -1581,38 +1581,38 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "MentionType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of the inline mention.",
 					"required": true
 				},
 				{
 					"name": "LinkMention",
 					"jsonName": "link_mention",
-					"type": "*LinkMention",
+					"type": "LinkMention",
 					"jsonTag": "json:\"link_mention,omitzero\""
 				},
 				{
 					"name": "User",
 					"jsonName": "user",
-					"type": "*User",
+					"type": "User",
 					"jsonTag": "json:\"user,omitzero\""
 				},
 				{
 					"name": "Page",
 					"jsonName": "page",
-					"type": "*Reference",
+					"type": "Reference",
 					"jsonTag": "json:\"page,omitzero\""
 				},
 				{
 					"name": "Database",
 					"jsonName": "database",
-					"type": "*Reference",
+					"type": "Reference",
 					"jsonTag": "json:\"database,omitzero\""
 				},
 				{
 					"name": "Date",
 					"jsonName": "date",
-					"type": "*Date",
+					"type": "Date",
 					"jsonTag": "json:\"date,omitzero\""
 				}
 			]
@@ -1638,7 +1638,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "url.URL",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"description": "Authenticated S3 URL to the file. The file URL will be valid for 1 hour but updated links can be requested if required.",
 					"required": true
 				},
@@ -1646,7 +1646,7 @@
 					"name": "ExpiryTime",
 					"jsonName": "expiry_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"expiry_time,omitzero\"",
+					"jsonTag": "json:\"expiry_time\"",
 					"description": "Date and time when the URL will expire.",
 					"required": true
 				}
@@ -1660,7 +1660,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always \"page\".",
 					"required": true
 				},
@@ -1668,14 +1668,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitzero\"",
+					"jsonTag": "json:\"created_time\"",
 					"description": "Date and time when this page was created. Formatted as an ISO 8601 date time string.",
 					"required": true
 				},
@@ -1683,7 +1683,7 @@
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitzero\"",
+					"jsonTag": "json:\"last_edited_time\"",
 					"description": "Date and time when this page was updated. Formatted as an ISO 8601 date time string.",
 					"required": true
 				},
@@ -1752,7 +1752,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "url.URL",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"description": "The URL of the Notion page.",
 					"required": true
 				},
@@ -1760,14 +1760,14 @@
 					"name": "PublicURL",
 					"jsonName": "public_url",
 					"type": "url.URL",
-					"jsonTag": "json:\"public_url,omitzero\"",
+					"jsonTag": "json:\"public_url\"",
 					"required": true
 				},
 				{
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"request_id,omitzero\"",
+					"jsonTag": "json:\"request_id\"",
 					"required": true
 				}
 			]
@@ -1787,7 +1787,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "Color",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "The color of the block.",
 					"required": true
 				}
@@ -1801,14 +1801,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "ParentType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "The type of the parent.",
 					"required": true
 				},
 				{
 					"name": "PageID",
 					"jsonName": "page_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"page_id,omitzero\""
 				}
 			]
@@ -1849,7 +1849,7 @@
 					"name": "Email",
 					"jsonName": "email",
 					"type": "types.Email",
-					"jsonTag": "json:\"email,omitzero\"",
+					"jsonTag": "json:\"email\"",
 					"description": "Email address of the person. This is only present if an integration has user capabilities that allow access to email addresses.",
 					"required": true
 				}
@@ -1976,7 +1976,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Underlying identifier for the property. This identifier is guaranteed to remain constant when the property name changes. It may be a UUID, but is often a short random string.\n\nThe id may be used in place of name when creating or updating pages.",
 					"required": true
 				},
@@ -1984,7 +1984,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "PropertyType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of the property.",
 					"required": true
 				},
@@ -2011,7 +2011,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -2024,7 +2024,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "RichTextType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of this rich text object.",
 					"required": true
 				},
@@ -2039,13 +2039,13 @@
 				{
 					"name": "Mention",
 					"jsonName": "mention",
-					"type": "*Mention",
+					"type": "Mention",
 					"jsonTag": "json:\"mention,omitzero\""
 				},
 				{
 					"name": "Equation",
 					"jsonName": "equation",
-					"type": "*Equation",
+					"type": "Equation",
 					"jsonTag": "json:\"equation,omitzero\"",
 					"description": "Equation block objects contain this information within the `equation` property"
 				},
@@ -2061,14 +2061,14 @@
 					"name": "PlainText",
 					"jsonName": "plain_text",
 					"type": "string",
-					"jsonTag": "json:\"plain_text,omitzero\"",
+					"jsonTag": "json:\"plain_text\"",
 					"description": "The plain text without annotations.",
 					"required": true
 				},
 				{
 					"name": "Href",
 					"jsonName": "href",
-					"type": "*url.URL",
+					"type": "url.URL",
 					"jsonTag": "json:\"href,omitzero\"",
 					"description": "The URL of any link or internal Notion mention in this text, if any."
 				}
@@ -2124,13 +2124,13 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "SyncedFromType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "BlockID",
 					"jsonName": "block_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"block_id,omitzero\""
 				}
 			]
@@ -2186,7 +2186,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "Color",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "The color of the block.",
 					"required": true
 				}
@@ -2200,7 +2200,7 @@
 					"name": "Content",
 					"jsonName": "content",
 					"type": "string",
-					"jsonTag": "json:\"content,omitzero\"",
+					"jsonTag": "json:\"content\"",
 					"description": "Text content. This field contains the actual content of your text and is probably the field you'll use most often.",
 					"required": true
 				},
@@ -2236,7 +2236,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "Color",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "The color of the block.",
 					"required": true
 				}
@@ -2255,7 +2255,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "User's name, as displayed in Notion.",
 					"required": true
 				},
@@ -2263,7 +2263,7 @@
 					"name": "AvatarURL",
 					"jsonName": "avatar_url",
 					"type": "url.URL",
-					"jsonTag": "json:\"avatar_url,omitzero\"",
+					"jsonTag": "json:\"avatar_url\"",
 					"description": "Chosen avatar image.",
 					"required": true
 				},
@@ -2271,7 +2271,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "UserType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Type of the user.",
 					"required": true
 				},
@@ -2301,7 +2301,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always \"user\"",
 					"required": true
 				},
@@ -2309,7 +2309,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]

@@ -106,7 +106,7 @@ func TestFromDocument_AllOfParts(t *testing.T) {
 		fields = append(fields, f.Name+"|"+f.Type+"|"+f.JSONTag)
 	}
 
-	want := []string{`ID|string|json:"id,omitzero"`, "|Named|", `PetAllOf2|PetAllOf2|json:"-"`}
+	want := []string{`ID|string|json:"id"`, "|Named|", `PetAllOf2|PetAllOf2|json:"-"`}
 	if !slices.Equal(fields, want) {
 		t.Errorf("Pet fields: got %q, want %q", fields, want)
 	}

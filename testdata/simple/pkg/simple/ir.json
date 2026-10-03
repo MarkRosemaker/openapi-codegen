@@ -97,7 +97,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "This is a multiline\ndescription.\n\nFoo.",
 					"required": true
 				}

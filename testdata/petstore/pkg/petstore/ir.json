@@ -135,28 +135,28 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
 					"name": "Species",
 					"jsonName": "species",
 					"type": "string",
-					"jsonTag": "json:\"species,omitzero\"",
+					"jsonTag": "json:\"species\"",
 					"required": true
 				},
 				{
 					"name": "Breed",
 					"jsonName": "breed",
 					"type": "string",
-					"jsonTag": "json:\"breed,omitzero\"",
+					"jsonTag": "json:\"breed\"",
 					"required": true
 				},
 				{
@@ -170,28 +170,28 @@
 					"name": "Size",
 					"jsonName": "size",
 					"type": "string",
-					"jsonTag": "json:\"size,omitzero\"",
+					"jsonTag": "json:\"size\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
 					"name": "Price",
 					"jsonName": "price",
 					"type": "string",
-					"jsonTag": "json:\"price,omitzero\"",
+					"jsonTag": "json:\"price\"",
 					"required": true
 				},
 				{
 					"name": "Currency",
 					"jsonName": "currency",
 					"type": "string",
-					"jsonTag": "json:\"currency,omitzero\"",
+					"jsonTag": "json:\"currency\"",
 					"required": true
 				},
 				{
@@ -205,14 +205,14 @@
 					"name": "CreatedAt",
 					"jsonName": "createdAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"createdAt,omitzero\"",
+					"jsonTag": "json:\"createdAt\"",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updatedAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"jsonTag": "json:\"updatedAt\"",
 					"required": true
 				},
 				{
@@ -260,7 +260,7 @@
 					"name": "HealthNotes",
 					"jsonName": "healthNotes",
 					"type": "string",
-					"jsonTag": "json:\"healthNotes,omitzero\"",
+					"jsonTag": "json:\"healthNotes\"",
 					"required": true
 				}
 			]

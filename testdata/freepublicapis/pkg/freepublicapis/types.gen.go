@@ -24,11 +24,11 @@ var jsonOpts = json.JoinOptions(
 // GetApiapiByApiidOk defines a model
 type GetApiapiByApiidOk struct {
 	ID            int     `json:"id"`
-	Emoji         string  `json:"emoji,omitzero"`
-	Title         string  `json:"title,omitzero"`
-	Description   string  `json:"description,omitzero"`
-	Documentation url.URL `json:"documentation,omitzero"`
+	Emoji         string  `json:"emoji"`
+	Title         string  `json:"title"`
+	Description   string  `json:"description"`
+	Documentation url.URL `json:"documentation"`
 	Methods       int     `json:"methods"`
 	Health        int     `json:"health"`
-	Source        url.URL `json:"source,omitzero"`
+	Source        url.URL `json:"source"`
 }

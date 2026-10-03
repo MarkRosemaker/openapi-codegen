@@ -24,7 +24,7 @@ type Item struct {
 	// description.
 	//
 	// Foo.
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 }
 
 // ItemList defines a model

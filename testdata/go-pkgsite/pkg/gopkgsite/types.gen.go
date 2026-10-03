@@ -164,10 +164,10 @@ type Module struct {
 	// representing the time the version was created.
 	CommitTime        time.Time `json:"commitTime,omitzero"`
 	GoModContents     string    `json:"goModContents,omitzero"`
-	HasGoMod          bool      `json:"hasGoMod,omitzero"`
-	IsLatest          bool      `json:"isLatest,omitzero"`
-	IsRedistributable bool      `json:"isRedistributable,omitzero"`
-	IsStandardLibrary bool      `json:"isStandardLibrary,omitzero"`
+	HasGoMod          *bool     `json:"hasGoMod,omitzero"`
+	IsLatest          *bool     `json:"isLatest,omitzero"`
+	IsRedistributable *bool     `json:"isRedistributable,omitzero"`
+	IsStandardLibrary *bool     `json:"isStandardLibrary,omitzero"`
 	Licenses          []License `json:"licenses,omitzero"`
 	Path              string    `json:"path,omitzero"`
 	Readme            *Readme   `json:"readme,omitzero"`
@@ -178,16 +178,16 @@ type Module struct {
 // ModuleVersion defines a model
 type ModuleVersion struct {
 	CommitTime        time.Time `json:"commitTime,omitzero"`
-	Deprecated        bool      `json:"deprecated,omitzero"`
+	Deprecated        *bool     `json:"deprecated,omitzero"`
 	DeprecationReason string    `json:"deprecationReason,omitzero"`
 	// Whether the module has a go.mod file.
-	HasGoMod bool `json:"hasGoMod,omitzero"`
+	HasGoMod *bool `json:"hasGoMod,omitzero"`
 	// Whether the license allows distribution.
-	IsRedistributable bool `json:"isRedistributable,omitzero"`
+	IsRedistributable *bool `json:"isRedistributable,omitzero"`
 	// latest unretracted version
 	LatestVersion    string `json:"latestVersion,omitzero"`
 	ModulePath       string `json:"modulePath,omitzero"`
-	Retracted        bool   `json:"retracted,omitzero"`
+	Retracted        *bool  `json:"retracted,omitzero"`
 	RetractionReason string `json:"retractionReason,omitzero"`
 	Version          string `json:"version,omitzero"`
 }
@@ -198,15 +198,15 @@ type Package struct {
 	Goarch            string    `json:"goarch,omitzero"`
 	Goos              string    `json:"goos,omitzero"`
 	Imports           []string  `json:"imports,omitzero"`
-	IsLatest          bool      `json:"isLatest,omitzero"`
-	IsStandardLibrary bool      `json:"isStandardLibrary,omitzero"`
+	IsLatest          *bool     `json:"isLatest,omitzero"`
+	IsStandardLibrary *bool     `json:"isStandardLibrary,omitzero"`
 	Licenses          []License `json:"licenses,omitzero"`
 	ModulePath        string    `json:"modulePath,omitzero"`
 	Version           string    `json:"version,omitzero"`
 	Path              string    `json:"path,omitzero"`
 	Name              string    `json:"name,omitzero"`
 	Synopsis          string    `json:"synopsis,omitzero"`
-	IsRedistributable bool      `json:"isRedistributable,omitzero"`
+	IsRedistributable *bool     `json:"isRedistributable,omitzero"`
 }
 
 // PackageImportedBy defines a model
@@ -219,7 +219,7 @@ type PackageImportedBy struct {
 // PackageInfo defines a model
 type PackageInfo struct {
 	// Whether the license allows distribution.
-	IsRedistributable bool   `json:"isRedistributable,omitzero"`
+	IsRedistributable *bool  `json:"isRedistributable,omitzero"`
 	Name              string `json:"name,omitzero"`
 	Path              string `json:"path,omitzero"`
 	Synopsis          string `json:"synopsis,omitzero"`
@@ -234,7 +234,7 @@ type PackageSymbols struct {
 
 // PackagesResponse defines a model
 type PackagesResponse struct {
-	IsStandardLibrary bool                  `json:"isStandardLibrary,omitzero"`
+	IsStandardLibrary *bool                 `json:"isStandardLibrary,omitzero"`
 	ModulePath        string                `json:"modulePath,omitzero"`
 	Packages          *PaginatedPackageInfo `json:"packages,omitzero"`
 	Version           string                `json:"version,omitzero"`

@@ -299,42 +299,42 @@
 					"name": "UnderscoreID",
 					"jsonName": "_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"_id,omitzero\"",
+					"jsonTag": "json:\"_id\"",
 					"required": true
 				},
 				{
 					"name": "UserID",
 					"jsonName": "userId",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"userId,omitzero\"",
+					"jsonTag": "json:\"userId\"",
 					"required": true
 				},
 				{
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"required": true
 				},
 				{
 					"name": "Alias",
 					"jsonName": "alias",
 					"type": "string",
-					"jsonTag": "json:\"alias,omitzero\"",
+					"jsonTag": "json:\"alias\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Notes",
 					"jsonName": "notes",
 					"type": "string",
-					"jsonTag": "json:\"notes,omitzero\"",
+					"jsonTag": "json:\"notes\"",
 					"required": true
 				},
 				{
@@ -362,7 +362,7 @@
 					"name": "Attribute",
 					"jsonName": "attribute",
 					"type": "string",
-					"jsonTag": "json:\"attribute,omitzero\"",
+					"jsonTag": "json:\"attribute\"",
 					"required": true
 				},
 				{
@@ -390,14 +390,14 @@
 					"name": "CreatedAt",
 					"jsonName": "createdAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"createdAt,omitzero\"",
+					"jsonTag": "json:\"createdAt\"",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updatedAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"jsonTag": "json:\"updatedAt\"",
 					"required": true
 				},
 				{
@@ -425,7 +425,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -438,14 +438,14 @@
 					"name": "TaskID",
 					"jsonName": "taskId",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"taskId,omitzero\"",
+					"jsonTag": "json:\"taskId\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -517,35 +517,35 @@
 					"name": "UnderscoreID",
 					"jsonName": "_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"_id,omitzero\"",
+					"jsonTag": "json:\"_id\"",
 					"required": true
 				},
 				{
 					"name": "UserID",
 					"jsonName": "userId",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"userId,omitzero\"",
+					"jsonTag": "json:\"userId\"",
 					"required": true
 				},
 				{
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Notes",
 					"jsonName": "notes",
 					"type": "string",
-					"jsonTag": "json:\"notes,omitzero\"",
+					"jsonTag": "json:\"notes\"",
 					"required": true
 				},
 				{
@@ -573,7 +573,7 @@
 					"name": "Attribute",
 					"jsonName": "attribute",
 					"type": "string",
-					"jsonTag": "json:\"attribute,omitzero\"",
+					"jsonTag": "json:\"attribute\"",
 					"required": true
 				},
 				{
@@ -601,21 +601,21 @@
 					"name": "CreatedAt",
 					"jsonName": "createdAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"createdAt,omitzero\"",
+					"jsonTag": "json:\"createdAt\"",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updatedAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"jsonTag": "json:\"updatedAt\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -633,13 +633,13 @@
 				{
 					"name": "CollapseChecklist",
 					"jsonName": "collapseChecklist",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"collapseChecklist,omitzero\""
 				},
 				{
 					"name": "Completed",
 					"jsonName": "completed",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"completed,omitzero\""
 				},
 				{
@@ -657,7 +657,7 @@
 				{
 					"name": "Repeat",
 					"jsonName": "repeat",
-					"type": "*ListApiv3TasksUserOkDataItemRepeat",
+					"type": "ListApiv3TasksUserOkDataItemRepeat",
 					"jsonTag": "json:\"repeat,omitzero\""
 				},
 				{
@@ -694,21 +694,21 @@
 					"name": "Time",
 					"jsonName": "time",
 					"type": "time.Time",
-					"jsonTag": "json:\"time,omitzero\"",
+					"jsonTag": "json:\"time\"",
 					"required": true
 				},
 				{
 					"name": "StartDate",
 					"jsonName": "startDate",
 					"type": "time.Time",
-					"jsonTag": "json:\"startDate,omitzero\"",
+					"jsonTag": "json:\"startDate\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -804,7 +804,7 @@
 					"name": "AppVersion",
 					"jsonName": "appVersion",
 					"type": "string",
-					"jsonTag": "json:\"appVersion,omitzero\"",
+					"jsonTag": "json:\"appVersion\"",
 					"required": true
 				}
 			]
@@ -929,14 +929,14 @@
 					"name": "UnderscoreID",
 					"jsonName": "_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"_id,omitzero\"",
+					"jsonTag": "json:\"_id\"",
 					"required": true
 				},
 				{
 					"name": "UnderscoreABtest",
 					"jsonName": "_ABtest",
 					"type": "string",
-					"jsonTag": "json:\"_ABtest,omitzero\"",
+					"jsonTag": "json:\"_ABtest\"",
 					"required": true
 				},
 				{
@@ -1006,7 +1006,7 @@
 					"name": "LastCron",
 					"jsonName": "lastCron",
 					"type": "time.Time",
-					"jsonTag": "json:\"lastCron,omitzero\"",
+					"jsonTag": "json:\"lastCron\"",
 					"required": true
 				},
 				{
@@ -1027,7 +1027,7 @@
 					"name": "Migration",
 					"jsonName": "migration",
 					"type": "string",
-					"jsonTag": "json:\"migration,omitzero\"",
+					"jsonTag": "json:\"migration\"",
 					"required": true
 				},
 				{
@@ -1062,14 +1062,14 @@
 					"name": "UnderscoreSubSignature",
 					"jsonName": "_subSignature",
 					"type": "string",
-					"jsonTag": "json:\"_subSignature,omitzero\"",
+					"jsonTag": "json:\"_subSignature\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -1428,7 +1428,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -1454,7 +1454,7 @@
 					"name": "Value",
 					"jsonName": "value",
 					"type": "types.Email",
-					"jsonTag": "json:\"value,omitzero\"",
+					"jsonTag": "json:\"value\"",
 					"required": true
 				},
 				{
@@ -1474,21 +1474,21 @@
 					"name": "Username",
 					"jsonName": "username",
 					"type": "string",
-					"jsonTag": "json:\"username,omitzero\"",
+					"jsonTag": "json:\"username\"",
 					"required": true
 				},
 				{
 					"name": "LowerCaseUsername",
 					"jsonName": "lowerCaseUsername",
 					"type": "string",
-					"jsonTag": "json:\"lowerCaseUsername,omitzero\"",
+					"jsonTag": "json:\"lowerCaseUsername\"",
 					"required": true
 				},
 				{
 					"name": "Email",
 					"jsonName": "email",
 					"type": "types.Email",
-					"jsonTag": "json:\"email,omitzero\"",
+					"jsonTag": "json:\"email\"",
 					"required": true
 				},
 				{
@@ -1508,21 +1508,21 @@
 					"name": "Loggedin",
 					"jsonName": "loggedin",
 					"type": "time.Time",
-					"jsonTag": "json:\"loggedin,omitzero\"",
+					"jsonTag": "json:\"loggedin\"",
 					"required": true
 				},
 				{
 					"name": "Created",
 					"jsonName": "created",
 					"type": "time.Time",
-					"jsonTag": "json:\"created,omitzero\"",
+					"jsonTag": "json:\"created\"",
 					"required": true
 				},
 				{
 					"name": "Updated",
 					"jsonName": "updated",
 					"type": "time.Time",
-					"jsonTag": "json:\"updated,omitzero\"",
+					"jsonTag": "json:\"updated\"",
 					"required": true
 				}
 			]
@@ -1577,7 +1577,7 @@
 					"name": "LastNewStuffRead",
 					"jsonName": "lastNewStuffRead",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"lastNewStuffRead,omitzero\"",
+					"jsonTag": "json:\"lastNewStuffRead\"",
 					"required": true
 				},
 				{
@@ -1689,7 +1689,7 @@
 					"name": "LastWeeklyRecap",
 					"jsonName": "lastWeeklyRecap",
 					"type": "time.Time",
-					"jsonTag": "json:\"lastWeeklyRecap,omitzero\"",
+					"jsonTag": "json:\"lastWeeklyRecap\"",
 					"required": true
 				},
 				{
@@ -1703,7 +1703,7 @@
 					"name": "ThirdPartyTools",
 					"jsonName": "thirdPartyTools",
 					"type": "time.Time",
-					"jsonTag": "json:\"thirdPartyTools,omitzero\"",
+					"jsonTag": "json:\"thirdPartyTools\"",
 					"required": true
 				},
 				{
@@ -2225,14 +2225,14 @@
 					"name": "CurrentPet",
 					"jsonName": "currentPet",
 					"type": "string",
-					"jsonTag": "json:\"currentPet,omitzero\"",
+					"jsonTag": "json:\"currentPet\"",
 					"required": true
 				},
 				{
 					"name": "CurrentMount",
 					"jsonName": "currentMount",
 					"type": "string",
-					"jsonTag": "json:\"currentMount,omitzero\"",
+					"jsonTag": "json:\"currentMount\"",
 					"required": true
 				}
 			]
@@ -2634,21 +2634,21 @@
 					"name": "Shield",
 					"jsonName": "shield",
 					"type": "string",
-					"jsonTag": "json:\"shield,omitzero\"",
+					"jsonTag": "json:\"shield\"",
 					"required": true
 				},
 				{
 					"name": "Head",
 					"jsonName": "head",
 					"type": "string",
-					"jsonTag": "json:\"head,omitzero\"",
+					"jsonTag": "json:\"head\"",
 					"required": true
 				},
 				{
 					"name": "Armor",
 					"jsonName": "armor",
 					"type": "string",
-					"jsonTag": "json:\"armor,omitzero\"",
+					"jsonTag": "json:\"armor\"",
 					"required": true
 				}
 			]
@@ -2661,49 +2661,49 @@
 					"name": "Weapon",
 					"jsonName": "weapon",
 					"type": "string",
-					"jsonTag": "json:\"weapon,omitzero\"",
+					"jsonTag": "json:\"weapon\"",
 					"required": true
 				},
 				{
 					"name": "Armor",
 					"jsonName": "armor",
 					"type": "string",
-					"jsonTag": "json:\"armor,omitzero\"",
+					"jsonTag": "json:\"armor\"",
 					"required": true
 				},
 				{
 					"name": "Head",
 					"jsonName": "head",
 					"type": "string",
-					"jsonTag": "json:\"head,omitzero\"",
+					"jsonTag": "json:\"head\"",
 					"required": true
 				},
 				{
 					"name": "Shield",
 					"jsonName": "shield",
 					"type": "string",
-					"jsonTag": "json:\"shield,omitzero\"",
+					"jsonTag": "json:\"shield\"",
 					"required": true
 				},
 				{
 					"name": "Back",
 					"jsonName": "back",
 					"type": "string",
-					"jsonTag": "json:\"back,omitzero\"",
+					"jsonTag": "json:\"back\"",
 					"required": true
 				},
 				{
 					"name": "Eyewear",
 					"jsonName": "eyewear",
 					"type": "string",
-					"jsonTag": "json:\"eyewear,omitzero\"",
+					"jsonTag": "json:\"eyewear\"",
 					"required": true
 				},
 				{
 					"name": "Body",
 					"jsonName": "body",
 					"type": "string",
-					"jsonTag": "json:\"body,omitzero\"",
+					"jsonTag": "json:\"body\"",
 					"required": true
 				}
 			]
@@ -3701,7 +3701,7 @@
 					"name": "Date",
 					"jsonName": "date",
 					"type": "time.Time",
-					"jsonTag": "json:\"date,omitzero\"",
+					"jsonTag": "json:\"date\"",
 					"required": true
 				}
 			]
@@ -5306,21 +5306,21 @@
 					"name": "UnderscoreID",
 					"jsonName": "_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"_id,omitzero\"",
+					"jsonTag": "json:\"_id\"",
 					"required": true
 				},
 				{
 					"name": "Order",
 					"jsonName": "order",
 					"type": "string",
-					"jsonTag": "json:\"order,omitzero\"",
+					"jsonTag": "json:\"order\"",
 					"required": true
 				},
 				{
 					"name": "OrderAscending",
 					"jsonName": "orderAscending",
 					"type": "string",
-					"jsonTag": "json:\"orderAscending,omitzero\"",
+					"jsonTag": "json:\"orderAscending\"",
 					"required": true
 				}
 			]
@@ -5393,14 +5393,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Path",
 					"jsonName": "path",
 					"type": "string",
-					"jsonTag": "json:\"path,omitzero\"",
+					"jsonTag": "json:\"path\"",
 					"required": true
 				}
 			]
@@ -5455,7 +5455,7 @@
 					"name": "Size",
 					"jsonName": "size",
 					"type": "string",
-					"jsonTag": "json:\"size,omitzero\"",
+					"jsonTag": "json:\"size\"",
 					"required": true
 				},
 				{
@@ -5469,14 +5469,14 @@
 					"name": "Skin",
 					"jsonName": "skin",
 					"type": "string",
-					"jsonTag": "json:\"skin,omitzero\"",
+					"jsonTag": "json:\"skin\"",
 					"required": true
 				},
 				{
 					"name": "Shirt",
 					"jsonName": "shirt",
 					"type": "string",
-					"jsonTag": "json:\"shirt,omitzero\"",
+					"jsonTag": "json:\"shirt\"",
 					"required": true
 				},
 				{
@@ -5490,21 +5490,21 @@
 					"name": "Sound",
 					"jsonName": "sound",
 					"type": "string",
-					"jsonTag": "json:\"sound,omitzero\"",
+					"jsonTag": "json:\"sound\"",
 					"required": true
 				},
 				{
 					"name": "Chair",
 					"jsonName": "chair",
 					"type": "string",
-					"jsonTag": "json:\"chair,omitzero\"",
+					"jsonTag": "json:\"chair\"",
 					"required": true
 				},
 				{
 					"name": "AllocationMode",
 					"jsonName": "allocationMode",
 					"type": "string",
-					"jsonTag": "json:\"allocationMode,omitzero\"",
+					"jsonTag": "json:\"allocationMode\"",
 					"required": true
 				},
 				{
@@ -5525,7 +5525,7 @@
 					"name": "DateFormat",
 					"jsonName": "dateFormat",
 					"type": "string",
-					"jsonTag": "json:\"dateFormat,omitzero\"",
+					"jsonTag": "json:\"dateFormat\"",
 					"required": true
 				},
 				{
@@ -5623,7 +5623,7 @@
 					"name": "Language",
 					"jsonName": "language",
 					"type": "string",
-					"jsonTag": "json:\"language,omitzero\"",
+					"jsonTag": "json:\"language\"",
 					"required": true
 				},
 				{
@@ -5644,7 +5644,7 @@
 					"name": "Background",
 					"jsonName": "background",
 					"type": "string",
-					"jsonTag": "json:\"background,omitzero\"",
+					"jsonTag": "json:\"background\"",
 					"required": true
 				}
 			]
@@ -5775,7 +5775,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "string",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"required": true
 				},
 				{
@@ -6002,28 +6002,28 @@
 					"name": "Habit",
 					"jsonName": "habit",
 					"type": "string",
-					"jsonTag": "json:\"habit,omitzero\"",
+					"jsonTag": "json:\"habit\"",
 					"required": true
 				},
 				{
 					"name": "Daily",
 					"jsonName": "daily",
 					"type": "string",
-					"jsonTag": "json:\"daily,omitzero\"",
+					"jsonTag": "json:\"daily\"",
 					"required": true
 				},
 				{
 					"name": "Todo",
 					"jsonName": "todo",
 					"type": "string",
-					"jsonTag": "json:\"todo,omitzero\"",
+					"jsonTag": "json:\"todo\"",
 					"required": true
 				},
 				{
 					"name": "Reward",
 					"jsonName": "reward",
 					"type": "string",
-					"jsonTag": "json:\"reward,omitzero\"",
+					"jsonTag": "json:\"reward\"",
 					"required": true
 				}
 			]
@@ -6036,7 +6036,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				}
 			]
@@ -6194,7 +6194,7 @@
 					"name": "DateUpdated",
 					"jsonName": "dateUpdated",
 					"type": "time.Time",
-					"jsonTag": "json:\"dateUpdated,omitzero\"",
+					"jsonTag": "json:\"dateUpdated\"",
 					"required": true
 				},
 				{
@@ -6261,28 +6261,28 @@
 					"name": "RegID",
 					"jsonName": "regId",
 					"type": "string",
-					"jsonTag": "json:\"regId,omitzero\"",
+					"jsonTag": "json:\"regId\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updatedAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"updatedAt,omitzero\"",
+					"jsonTag": "json:\"updatedAt\"",
 					"required": true
 				},
 				{
 					"name": "CreatedAt",
 					"jsonName": "createdAt",
 					"type": "time.Time",
-					"jsonTag": "json:\"createdAt,omitzero\"",
+					"jsonTag": "json:\"createdAt\"",
 					"required": true
 				}
 			]
@@ -6344,7 +6344,7 @@
 					"name": "Class",
 					"jsonName": "class",
 					"type": "string",
-					"jsonTag": "json:\"class,omitzero\"",
+					"jsonTag": "json:\"class\"",
 					"required": true
 				},
 				{
@@ -6419,20 +6419,20 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Challenge",
 					"jsonName": "challenge",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"challenge,omitzero\""
 				}
 			]
@@ -6506,7 +6506,7 @@
 					"name": "UnderscoreID",
 					"jsonName": "_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"_id,omitzero\"",
+					"jsonTag": "json:\"_id\"",
 					"required": true
 				},
 				{
@@ -6527,7 +6527,7 @@
 					"name": "User",
 					"jsonName": "user",
 					"type": "string",
-					"jsonTag": "json:\"user,omitzero\"",
+					"jsonTag": "json:\"user\"",
 					"required": true
 				},
 				{
@@ -6548,7 +6548,7 @@
 					"name": "UUID",
 					"jsonName": "uuid",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"uuid,omitzero\"",
+					"jsonTag": "json:\"uuid\"",
 					"required": true
 				},
 				{
@@ -6569,28 +6569,28 @@
 					"name": "Timestamp",
 					"jsonName": "timestamp",
 					"type": "time.Time",
-					"jsonTag": "json:\"timestamp,omitzero\"",
+					"jsonTag": "json:\"timestamp\"",
 					"required": true
 				},
 				{
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"required": true
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "OwnerID",
 					"jsonName": "ownerId",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"ownerId,omitzero\"",
+					"jsonTag": "json:\"ownerId\"",
 					"required": true
 				}
 			]
@@ -6720,14 +6720,14 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "string",
-					"jsonTag": "json:\"error,omitzero\"",
+					"jsonTag": "json:\"error\"",
 					"required": true
 				},
 				{
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -6828,7 +6828,7 @@
 					"name": "Class",
 					"jsonName": "class",
 					"type": "string",
-					"jsonTag": "json:\"class,omitzero\"",
+					"jsonTag": "json:\"class\"",
 					"required": true
 				},
 				{
@@ -6916,7 +6916,7 @@
 					"name": "Target",
 					"jsonName": "target",
 					"type": "string",
-					"jsonTag": "json:\"target,omitzero\"",
+					"jsonTag": "json:\"target\"",
 					"required": true
 				},
 				{
@@ -6937,21 +6937,21 @@
 					"name": "Key",
 					"jsonName": "key",
 					"type": "string",
-					"jsonTag": "json:\"key,omitzero\"",
+					"jsonTag": "json:\"key\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Dialog",
 					"jsonName": "dialog",
 					"type": "string",
-					"jsonTag": "json:\"dialog,omitzero\"",
+					"jsonTag": "json:\"dialog\"",
 					"required": true
 				}
 			]

@@ -43,7 +43,7 @@
 					"name": "Session",
 					"jsonName": "session",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"session,omitzero\"",
+					"jsonTag": "json:\"session\"",
 					"required": true
 				},
 				{
@@ -91,7 +91,7 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "string",
-					"jsonTag": "json:\"error,omitzero\"",
+					"jsonTag": "json:\"error\"",
 					"required": true
 				}
 			]
@@ -145,14 +145,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "Mac",
 					"jsonName": "MAC",
 					"type": "string",
-					"jsonTag": "json:\"MAC,omitzero\"",
+					"jsonTag": "json:\"MAC\"",
 					"required": true
 				},
 				{
@@ -166,7 +166,7 @@
 					"name": "HardwareInfo",
 					"jsonName": "hardware_info",
 					"type": "string",
-					"jsonTag": "json:\"hardware_info,omitzero\"",
+					"jsonTag": "json:\"hardware_info\"",
 					"required": true
 				}
 			]
@@ -179,14 +179,14 @@
 					"name": "ServerName",
 					"jsonName": "serverName",
 					"type": "string",
-					"jsonTag": "json:\"serverName,omitzero\"",
+					"jsonTag": "json:\"serverName\"",
 					"required": true
 				},
 				{
 					"name": "ServerVersion",
 					"jsonName": "serverVersion",
 					"type": "string",
-					"jsonTag": "json:\"serverVersion,omitzero\"",
+					"jsonTag": "json:\"serverVersion\"",
 					"required": true
 				}
 			]

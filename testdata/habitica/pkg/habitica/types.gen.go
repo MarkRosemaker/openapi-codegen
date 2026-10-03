@@ -62,31 +62,31 @@ type GetApiv3TaskByTaskIDOk struct {
 
 // GetApiv3TaskByTaskIDOkData defines a model
 type GetApiv3TaskByTaskIDOkData struct {
-	UnderscoreID uuid.UUID                           `json:"_id,omitzero"`
-	UserID       uuid.UUID                           `json:"userId,omitzero"`
-	Text         string                              `json:"text,omitzero"`
-	Alias        string                              `json:"alias,omitzero"`
-	Type         string                              `json:"type,omitzero"`
-	Notes        string                              `json:"notes,omitzero"`
+	UnderscoreID uuid.UUID                           `json:"_id"`
+	UserID       uuid.UUID                           `json:"userId"`
+	Text         string                              `json:"text"`
+	Alias        string                              `json:"alias"`
+	Type         string                              `json:"type"`
+	Notes        string                              `json:"notes"`
 	Tags         []any                               `json:"tags"`
 	Value        float64                             `json:"value"`
 	Priority     float64                             `json:"priority"`
-	Attribute    string                              `json:"attribute,omitzero"`
+	Attribute    string                              `json:"attribute"`
 	Challenge    GetApiv3TaskByTaskIDOkDataChallenge `json:"challenge"`
 	Group        ApivTaskByTaskIDDataGroup           `json:"group"`
 	Reminders    []any                               `json:"reminders"`
-	CreatedAt    time.Time                           `json:"createdAt,omitzero"`
-	UpdatedAt    time.Time                           `json:"updatedAt,omitzero"`
+	CreatedAt    time.Time                           `json:"createdAt"`
+	UpdatedAt    time.Time                           `json:"updatedAt"`
 	History      GetApiv3TaskByTaskIDOkDataHistory   `json:"history"`
 	Down         bool                                `json:"down"`
 	Up           bool                                `json:"up"`
-	ID           uuid.UUID                           `json:"id,omitzero"`
+	ID           uuid.UUID                           `json:"id"`
 }
 
 // GetApiv3TaskByTaskIDOkDataChallenge defines a model
 type GetApiv3TaskByTaskIDOkDataChallenge struct {
-	TaskID uuid.UUID `json:"taskId,omitzero"`
-	ID     uuid.UUID `json:"id,omitzero"`
+	TaskID uuid.UUID `json:"taskId"`
+	ID     uuid.UUID `json:"id"`
 }
 
 // GetApiv3TaskByTaskIDOkDataHistory defines a model
@@ -110,28 +110,28 @@ type ListApiv3TasksUserOkData []ListApiv3TasksUserOkDataItem
 
 // ListApiv3TasksUserOkDataItem defines a model
 type ListApiv3TasksUserOkDataItem struct {
-	UnderscoreID      uuid.UUID                             `json:"_id,omitzero"`
-	UserID            uuid.UUID                             `json:"userId,omitzero"`
-	Text              string                                `json:"text,omitzero"`
-	Type              string                                `json:"type,omitzero"`
-	Notes             string                                `json:"notes,omitzero"`
+	UnderscoreID      uuid.UUID                             `json:"_id"`
+	UserID            uuid.UUID                             `json:"userId"`
+	Text              string                                `json:"text"`
+	Type              string                                `json:"type"`
+	Notes             string                                `json:"notes"`
 	Tags              []any                                 `json:"tags"`
 	Value             int                                   `json:"value"`
 	Priority          int                                   `json:"priority"`
-	Attribute         string                                `json:"attribute,omitzero"`
+	Attribute         string                                `json:"attribute"`
 	Challenge         struct{}                              `json:"challenge"`
 	Group             ApivTaskByTaskIDDataGroup             `json:"group"`
 	Reminders         ListApiv3TasksUserOkDataItemReminders `json:"reminders"`
-	CreatedAt         time.Time                             `json:"createdAt,omitzero"`
-	UpdatedAt         time.Time                             `json:"updatedAt,omitzero"`
-	ID                uuid.UUID                             `json:"id,omitzero"`
+	CreatedAt         time.Time                             `json:"createdAt"`
+	UpdatedAt         time.Time                             `json:"updatedAt"`
+	ID                uuid.UUID                             `json:"id"`
 	Alias             string                                `json:"alias,omitzero"`
 	Checklist         []any                                 `json:"checklist,omitzero"`
-	CollapseChecklist bool                                  `json:"collapseChecklist,omitzero"`
-	Completed         bool                                  `json:"completed,omitzero"`
+	CollapseChecklist *bool                                 `json:"collapseChecklist,omitzero"`
+	Completed         *bool                                 `json:"completed,omitzero"`
 	History           []any                                 `json:"history,omitzero"`
 	Streak            *int                                  `json:"streak,omitzero"`
-	Repeat            *ListApiv3TasksUserOkDataItemRepeat   `json:"repeat,omitzero"`
+	Repeat            ListApiv3TasksUserOkDataItemRepeat    `json:"repeat,omitzero"`
 	StartDate         time.Time                             `json:"startDate,omitzero"`
 	EveryX            *int                                  `json:"everyX,omitzero"`
 	Frequency         string                                `json:"frequency,omitzero"`
@@ -142,9 +142,9 @@ type ListApiv3TasksUserOkDataItemReminders []ListApiv3TasksUserOkDataItemReminde
 
 // ListApiv3TasksUserOkDataItemRemindersItem defines a model
 type ListApiv3TasksUserOkDataItemRemindersItem struct {
-	Time      time.Time `json:"time,omitzero"`
-	StartDate time.Time `json:"startDate,omitzero"`
-	ID        uuid.UUID `json:"id,omitzero"`
+	Time      time.Time `json:"time"`
+	StartDate time.Time `json:"startDate"`
+	ID        uuid.UUID `json:"id"`
 }
 
 // ListApiv3TasksUserOkDataItemRepeat defines a model
@@ -164,7 +164,7 @@ type ListApiv3UserOk struct {
 	Data          ListApiv3UserOkData `json:"data"`
 	Notifications []any               `json:"notifications"`
 	UserV         int                 `json:"userV"`
-	AppVersion    string              `json:"appVersion,omitzero"`
+	AppVersion    string              `json:"appVersion"`
 }
 
 // ListApiv3UserOkData defines a model
@@ -185,8 +185,8 @@ type ListApiv3UserOkData struct {
 	Stats                  ListApiv3UserOkDataStats        `json:"stats"`
 	Inbox                  ListApiv3UserOkDataInbox        `json:"inbox"`
 	TasksOrder             ListApiv3UserOkDataTasksOrder   `json:"tasksOrder"`
-	UnderscoreID           uuid.UUID                       `json:"_id,omitzero"`
-	UnderscoreABtest       string                          `json:"_ABtest,omitzero"`
+	UnderscoreID           uuid.UUID                       `json:"_id"`
+	UnderscoreABtest       string                          `json:"_ABtest"`
 	LoginIncentives        int                             `json:"loginIncentives"`
 	Webhooks               []any                           `json:"webhooks"`
 	PushDevices            ListApiv3UserOkDataPushDevices  `json:"pushDevices"`
@@ -196,16 +196,16 @@ type ListApiv3UserOkData struct {
 	Guilds                 []uuid.UUID                     `json:"guilds"`
 	Challenges             []uuid.UUID                     `json:"challenges"`
 	NewMessages            struct{}                        `json:"newMessages"`
-	LastCron               time.Time                       `json:"lastCron,omitzero"`
+	LastCron               time.Time                       `json:"lastCron"`
 	Balance                int                             `json:"balance"`
 	UnderscoreV            int                             `json:"_v"`
-	Migration              string                          `json:"migration,omitzero"`
+	Migration              string                          `json:"migration"`
 	PinnedItems            ListApiv3UserOkDataPinnedItems  `json:"pinnedItems"`
 	UnpinnedItems          []any                           `json:"unpinnedItems"`
 	InvitesSent            int                             `json:"invitesSent"`
 	PinnedItemsOrder       []any                           `json:"pinnedItemsOrder"`
-	UnderscoreSubSignature string                          `json:"_subSignature,omitzero"`
-	ID                     uuid.UUID                       `json:"id,omitzero"`
+	UnderscoreSubSignature string                          `json:"_subSignature"`
+	ID                     uuid.UUID                       `json:"id"`
 	NeedsCron              bool                            `json:"needsCron"`
 }
 
@@ -272,7 +272,7 @@ type ListApiv3UserOkDataAuth struct {
 
 // ListApiv3UserOkDataAuthGoogle defines a model
 type ListApiv3UserOkDataAuthGoogle struct {
-	ID     string                              `json:"id,omitzero"`
+	ID     string                              `json:"id"`
 	Emails ListApiv3UserOkDataAuthGoogleEmails `json:"emails"`
 }
 
@@ -281,23 +281,23 @@ type ListApiv3UserOkDataAuthGoogleEmails []ListApiv3UserOkDataAuthGoogleEmailsIt
 
 // ListApiv3UserOkDataAuthGoogleEmailsItem defines a model
 type ListApiv3UserOkDataAuthGoogleEmailsItem struct {
-	Value    types.Email `json:"value,omitzero"`
+	Value    types.Email `json:"value"`
 	Verified bool        `json:"verified"`
 }
 
 // ListApiv3UserOkDataAuthLocal defines a model
 type ListApiv3UserOkDataAuthLocal struct {
-	Username          string      `json:"username,omitzero"`
-	LowerCaseUsername string      `json:"lowerCaseUsername,omitzero"`
-	Email             types.Email `json:"email,omitzero"`
+	Username          string      `json:"username"`
+	LowerCaseUsername string      `json:"lowerCaseUsername"`
+	Email             types.Email `json:"email"`
 	HasPassword       bool        `json:"has_password"`
 }
 
 // ListApiv3UserOkDataAuthTimestamps defines a model
 type ListApiv3UserOkDataAuthTimestamps struct {
-	Loggedin time.Time `json:"loggedin,omitzero"`
-	Created  time.Time `json:"created,omitzero"`
-	Updated  time.Time `json:"updated,omitzero"`
+	Loggedin time.Time `json:"loggedin"`
+	Created  time.Time `json:"created"`
+	Updated  time.Time `json:"updated"`
 }
 
 // ListApiv3UserOkDataFlags defines a model
@@ -308,7 +308,7 @@ type ListApiv3UserOkDataFlags struct {
 	ShowTour                    bool                               `json:"showTour"`
 	DropsEnabled                bool                               `json:"dropsEnabled"`
 	ItemsEnabled                bool                               `json:"itemsEnabled"`
-	LastNewStuffRead            uuid.UUID                          `json:"lastNewStuffRead,omitzero"`
+	LastNewStuffRead            uuid.UUID                          `json:"lastNewStuffRead"`
 	Rewrite                     bool                               `json:"rewrite"`
 	ClassSelected               bool                               `json:"classSelected"`
 	RebirthEnabled              bool                               `json:"rebirthEnabled"`
@@ -324,9 +324,9 @@ type ListApiv3UserOkDataFlags struct {
 	WarnedLowHealth             bool                               `json:"warnedLowHealth"`
 	VerifiedUsername            bool                               `json:"verifiedUsername"`
 	LevelDrops                  ListApiv3UserOkDataFlagsLevelDrops `json:"levelDrops"`
-	LastWeeklyRecap             time.Time                          `json:"lastWeeklyRecap,omitzero"`
+	LastWeeklyRecap             time.Time                          `json:"lastWeeklyRecap"`
 	InitializedUserHistory      bool                               `json:"initializedUserHistory"`
-	ThirdPartyTools             time.Time                          `json:"thirdPartyTools,omitzero"`
+	ThirdPartyTools             time.Time                          `json:"thirdPartyTools"`
 	NewStuff                    bool                               `json:"newStuff"`
 }
 
@@ -432,8 +432,8 @@ type ListApiv3UserOkDataItems struct {
 	HatchingPotions ListApiv3UserOkDataItemsHatchingPotions `json:"hatchingPotions"`
 	Eggs            ListApiv3UserOkDataItemsEggs            `json:"eggs"`
 	Pets            ListApiv3UserOkDataItemsPets            `json:"pets"`
-	CurrentPet      string                                  `json:"currentPet,omitzero"`
-	CurrentMount    string                                  `json:"currentMount,omitzero"`
+	CurrentPet      string                                  `json:"currentPet"`
+	CurrentMount    string                                  `json:"currentMount"`
 }
 
 // ListApiv3UserOkDataItemsEggs defines a model
@@ -503,20 +503,20 @@ type ListApiv3UserOkDataItemsGear struct {
 
 // ListApiv3UserOkDataItemsGearCostume defines a model
 type ListApiv3UserOkDataItemsGearCostume struct {
-	Shield string `json:"shield,omitzero"`
-	Head   string `json:"head,omitzero"`
-	Armor  string `json:"armor,omitzero"`
+	Shield string `json:"shield"`
+	Head   string `json:"head"`
+	Armor  string `json:"armor"`
 }
 
 // ListApiv3UserOkDataItemsGearEquipped defines a model
 type ListApiv3UserOkDataItemsGearEquipped struct {
-	Weapon  string `json:"weapon,omitzero"`
-	Armor   string `json:"armor,omitzero"`
-	Head    string `json:"head,omitzero"`
-	Shield  string `json:"shield,omitzero"`
-	Back    string `json:"back,omitzero"`
-	Eyewear string `json:"eyewear,omitzero"`
-	Body    string `json:"body,omitzero"`
+	Weapon  string `json:"weapon"`
+	Armor   string `json:"armor"`
+	Head    string `json:"head"`
+	Shield  string `json:"shield"`
+	Back    string `json:"back"`
+	Eyewear string `json:"eyewear"`
+	Body    string `json:"body"`
 }
 
 // ListApiv3UserOkDataItemsGearOwned defines a model
@@ -668,7 +668,7 @@ type ListApiv3UserOkDataItemsHatchingPotions struct {
 // ListApiv3UserOkDataItemsLastDrop defines a model
 type ListApiv3UserOkDataItemsLastDrop struct {
 	Count int       `json:"count"`
-	Date  time.Time `json:"date,omitzero"`
+	Date  time.Time `json:"date"`
 }
 
 // ListApiv3UserOkDataItemsMounts defines a model
@@ -913,9 +913,9 @@ type ListApiv3UserOkDataItemsSpecial struct {
 // ListApiv3UserOkDataParty defines a model
 type ListApiv3UserOkDataParty struct {
 	Quest          ListApiv3UserOkDataPartyQuest `json:"quest"`
-	UnderscoreID   uuid.UUID                     `json:"_id,omitzero"`
-	Order          string                        `json:"order,omitzero"`
-	OrderAscending string                        `json:"orderAscending,omitzero"`
+	UnderscoreID   uuid.UUID                     `json:"_id"`
+	Order          string                        `json:"order"`
+	OrderAscending string                        `json:"orderAscending"`
 }
 
 // ListApiv3UserOkDataPartyQuest defines a model
@@ -937,8 +937,8 @@ type ListApiv3UserOkDataPinnedItems []ListApiv3UserOkDataPinnedItemsItem
 
 // ListApiv3UserOkDataPinnedItemsItem defines a model
 type ListApiv3UserOkDataPinnedItemsItem struct {
-	Type string `json:"type,omitzero"`
-	Path string `json:"path,omitzero"`
+	Type string `json:"type"`
+	Path string `json:"path"`
 }
 
 // ListApiv3UserOkDataPreferences defines a model
@@ -949,17 +949,17 @@ type ListApiv3UserOkDataPreferences struct {
 	SuppressModals                   ListApiv3UserOkDataPreferencesSuppressModals     `json:"suppressModals"`
 	Tasks                            ListApiv3UserOkDataPreferencesTasks              `json:"tasks"`
 	DayStart                         int                                              `json:"dayStart"`
-	Size                             string                                           `json:"size,omitzero"`
+	Size                             string                                           `json:"size"`
 	HideHeader                       bool                                             `json:"hideHeader"`
-	Skin                             string                                           `json:"skin,omitzero"`
-	Shirt                            string                                           `json:"shirt,omitzero"`
+	Skin                             string                                           `json:"skin"`
+	Shirt                            string                                           `json:"shirt"`
 	TimezoneOffset                   int                                              `json:"timezoneOffset"`
-	Sound                            string                                           `json:"sound,omitzero"`
-	Chair                            string                                           `json:"chair,omitzero"`
-	AllocationMode                   string                                           `json:"allocationMode,omitzero"`
+	Sound                            string                                           `json:"sound"`
+	Chair                            string                                           `json:"chair"`
+	AllocationMode                   string                                           `json:"allocationMode"`
 	AutoEquip                        bool                                             `json:"autoEquip"`
 	Costume                          bool                                             `json:"costume"`
-	DateFormat                       string                                           `json:"dateFormat,omitzero"`
+	DateFormat                       string                                           `json:"dateFormat"`
 	Sleep                            bool                                             `json:"sleep"`
 	StickyHeader                     bool                                             `json:"stickyHeader"`
 	DisableClasses                   bool                                             `json:"disableClasses"`
@@ -973,10 +973,10 @@ type ListApiv3UserOkDataPreferences struct {
 	ImprovementCategories            []any                                            `json:"improvementCategories"`
 	AutomaticAllocation              bool                                             `json:"automaticAllocation"`
 	TimezoneOffsetAtLastCron         int                                              `json:"timezoneOffsetAtLastCron"`
-	Language                         string                                           `json:"language,omitzero"`
+	Language                         string                                           `json:"language"`
 	Webhooks                         struct{}                                         `json:"webhooks"`
 	AnalyticsConsent                 bool                                             `json:"analyticsConsent"`
-	Background                       string                                           `json:"background,omitzero"`
+	Background                       string                                           `json:"background"`
 }
 
 // ListApiv3UserOkDataPreferencesEmailNotifications defines a model
@@ -1001,7 +1001,7 @@ type ListApiv3UserOkDataPreferencesEmailNotifications struct {
 
 // ListApiv3UserOkDataPreferencesHair defines a model
 type ListApiv3UserOkDataPreferencesHair struct {
-	Color    string `json:"color,omitzero"`
+	Color    string `json:"color"`
 	Base     int    `json:"base"`
 	Bangs    int    `json:"bangs"`
 	Beard    int    `json:"beard"`
@@ -1046,15 +1046,15 @@ type ListApiv3UserOkDataPreferencesTasks struct {
 
 // ListApiv3UserOkDataPreferencesTasksActiveFilter defines a model
 type ListApiv3UserOkDataPreferencesTasksActiveFilter struct {
-	Habit  string `json:"habit,omitzero"`
-	Daily  string `json:"daily,omitzero"`
-	Todo   string `json:"todo,omitzero"`
-	Reward string `json:"reward,omitzero"`
+	Habit  string `json:"habit"`
+	Daily  string `json:"daily"`
+	Todo   string `json:"todo"`
+	Reward string `json:"reward"`
 }
 
 // ListApiv3UserOkDataProfile defines a model
 type ListApiv3UserOkDataProfile struct {
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 }
 
 // ListApiv3UserOkDataPurchased defines a model
@@ -1086,7 +1086,7 @@ type ListApiv3UserOkDataPurchasedPlan struct {
 	GemsBought      int                                         `json:"gemsBought"`
 	ExtraMonths     int                                         `json:"extraMonths"`
 	Quantity        int                                         `json:"quantity"`
-	DateUpdated     time.Time                                   `json:"dateUpdated,omitzero"`
+	DateUpdated     time.Time                                   `json:"dateUpdated"`
 	PerkMonthCount  int                                         `json:"perkMonthCount"`
 	CumulativeCount int                                         `json:"cumulativeCount"`
 }
@@ -1104,10 +1104,10 @@ type ListApiv3UserOkDataPushDevices []ListApiv3UserOkDataPushDevicesItem
 
 // ListApiv3UserOkDataPushDevicesItem defines a model
 type ListApiv3UserOkDataPushDevicesItem struct {
-	RegID     string    `json:"regId,omitzero"`
-	Type      string    `json:"type,omitzero"`
-	UpdatedAt time.Time `json:"updatedAt,omitzero"`
-	CreatedAt time.Time `json:"createdAt,omitzero"`
+	RegID     string    `json:"regId"`
+	Type      string    `json:"type"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	CreatedAt time.Time `json:"createdAt"`
 }
 
 // ListApiv3UserOkDataStats defines a model
@@ -1119,7 +1119,7 @@ type ListApiv3UserOkDataStats struct {
 	Con         int                           `json:"con"`
 	Str         int                           `json:"str"`
 	Points      int                           `json:"points"`
-	Class       string                        `json:"class,omitzero"`
+	Class       string                        `json:"class"`
 	Lvl         int                           `json:"lvl"`
 	Gp          float64                       `json:"gp"`
 	Exp         int                           `json:"exp"`
@@ -1135,9 +1135,9 @@ type ListApiv3UserOkDataTags []ListApiv3UserOkDataTagsItem
 
 // ListApiv3UserOkDataTagsItem defines a model
 type ListApiv3UserOkDataTagsItem struct {
-	Name      string    `json:"name,omitzero"`
-	ID        uuid.UUID `json:"id,omitzero"`
-	Challenge bool      `json:"challenge,omitzero"`
+	Name      string    `json:"name"`
+	ID        uuid.UUID `json:"id"`
+	Challenge *bool     `json:"challenge,omitzero"`
 }
 
 // ListApiv3UserOkDataTasksOrder defines a model
@@ -1159,19 +1159,19 @@ type ListApivUserDataHistoryExpItem struct {
 
 // ListApivUserDataInboxMessagesfeffAcddbf defines a model
 type ListApivUserDataInboxMessagesfeffAcddbf struct {
-	UnderscoreID uuid.UUID `json:"_id,omitzero"`
+	UnderscoreID uuid.UUID `json:"_id"`
 	Sent         bool      `json:"sent"`
 	FlagCount    int       `json:"flagCount"`
-	User         string    `json:"user,omitzero"`
+	User         string    `json:"user"`
 	Backer       struct{}  `json:"backer"`
 	Contributor  struct{}  `json:"contributor"`
-	UUID         uuid.UUID `json:"uuid,omitzero"`
+	UUID         uuid.UUID `json:"uuid"`
 	Flags        struct{}  `json:"flags"`
 	Likes        struct{}  `json:"likes"`
-	Timestamp    time.Time `json:"timestamp,omitzero"`
-	Text         string    `json:"text,omitzero"`
-	ID           uuid.UUID `json:"id,omitzero"`
-	OwnerID      uuid.UUID `json:"ownerId,omitzero"`
+	Timestamp    time.Time `json:"timestamp"`
+	Text         string    `json:"text"`
+	ID           uuid.UUID `json:"id"`
+	OwnerID      uuid.UUID `json:"ownerId"`
 }
 
 // ListApivUserDataStatsBuffs defines a model
@@ -1199,8 +1199,8 @@ type ListApivUserDataStatsTraining struct {
 // PostApiv3TaskScoreUpNotFound defines a model
 type PostApiv3TaskScoreUpNotFound struct {
 	Success bool   `json:"success"`
-	Err     string `json:"error,omitzero"`
-	Message string `json:"message,omitzero"`
+	Err     string `json:"error"`
+	Message string `json:"message"`
 }
 
 // PostApiv3TaskScoreUpOk defines a model
@@ -1221,7 +1221,7 @@ type PostApiv3TaskScoreUpOkData struct {
 	Exp           float64                       `json:"exp"`
 	Gp            float64                       `json:"gp"`
 	Lvl           int                           `json:"lvl"`
-	Class         string                        `json:"class,omitzero"`
+	Class         string                        `json:"class"`
 	Points        int                           `json:"points"`
 	Str           int                           `json:"str"`
 	Con           int                           `json:"con"`
@@ -1240,12 +1240,12 @@ type PostApiv3TaskScoreUpOkDataTmp struct {
 
 // PostApiv3TaskScoreUpOkDataTmpDrop defines a model
 type PostApiv3TaskScoreUpOkDataTmpDrop struct {
-	Target  string `json:"target,omitzero"`
+	Target  string `json:"target"`
 	CanDrop bool   `json:"canDrop"`
 	Value   int    `json:"value"`
-	Key     string `json:"key,omitzero"`
-	Type    string `json:"type,omitzero"`
-	Dialog  string `json:"dialog,omitzero"`
+	Key     string `json:"key"`
+	Type    string `json:"type"`
+	Dialog  string `json:"dialog"`
 }
 
 // PostApiv3TaskScoreUpOkDataTmpQuest defines a model

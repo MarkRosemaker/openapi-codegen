@@ -442,7 +442,7 @@
 					"name": "AccountID",
 					"jsonName": "account_id",
 					"type": "string",
-					"jsonTag": "json:\"account_id,omitzero\"",
+					"jsonTag": "json:\"account_id\"",
 					"description": "IBKR account identifier",
 					"required": true
 				},
@@ -450,21 +450,21 @@
 					"name": "DisplayName",
 					"jsonName": "display_name",
 					"type": "string",
-					"jsonTag": "json:\"display_name,omitzero\"",
+					"jsonTag": "json:\"display_name\"",
 					"required": true
 				},
 				{
 					"name": "AccountType",
 					"jsonName": "account_type",
 					"type": "AccountAccountType",
-					"jsonTag": "json:\"account_type,omitzero\"",
+					"jsonTag": "json:\"account_type\"",
 					"required": true
 				},
 				{
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"required": true
 				}
 			]
@@ -595,7 +595,7 @@
 					"name": "Formatted",
 					"jsonName": "formatted",
 					"type": "string",
-					"jsonTag": "json:\"formatted,omitzero\"",
+					"jsonTag": "json:\"formatted\"",
 					"description": "Human-readable value (e.g. '23.5%', '1.82')",
 					"required": true
 				},
@@ -603,7 +603,7 @@
 					"name": "Label",
 					"jsonName": "label",
 					"type": "string",
-					"jsonTag": "json:\"label,omitzero\"",
+					"jsonTag": "json:\"label\"",
 					"description": "Band label (e.g. 'OK', 'red flag', 'solid', 'very strong')",
 					"required": true
 				},
@@ -625,7 +625,7 @@
 					"name": "Currency",
 					"jsonName": "currency",
 					"type": "Currency",
-					"jsonTag": "json:\"currency,omitzero\"",
+					"jsonTag": "json:\"currency\"",
 					"required": true
 				},
 				{
@@ -646,7 +646,7 @@
 					"name": "Label",
 					"jsonName": "label",
 					"type": "string",
-					"jsonTag": "json:\"label,omitzero\"",
+					"jsonTag": "json:\"label\"",
 					"required": true
 				},
 				{
@@ -680,7 +680,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "The name of the company",
 					"required": true
 				},
@@ -688,7 +688,7 @@
 					"name": "Summary",
 					"jsonName": "summary",
 					"type": "string",
-					"jsonTag": "json:\"summary,omitzero\"",
+					"jsonTag": "json:\"summary\"",
 					"description": "A long summary of the company",
 					"required": true
 				},
@@ -696,21 +696,21 @@
 					"name": "Sector",
 					"jsonName": "sector",
 					"type": "string",
-					"jsonTag": "json:\"sector,omitzero\"",
+					"jsonTag": "json:\"sector\"",
 					"required": true
 				},
 				{
 					"name": "Industry",
 					"jsonName": "industry",
 					"type": "string",
-					"jsonTag": "json:\"industry,omitzero\"",
+					"jsonTag": "json:\"industry\"",
 					"required": true
 				},
 				{
 					"name": "Website",
 					"jsonName": "website",
 					"type": "url.URL",
-					"jsonTag": "json:\"website,omitzero\"",
+					"jsonTag": "json:\"website\"",
 					"required": true
 				},
 				{
@@ -768,7 +768,7 @@
 					"name": "Date",
 					"jsonName": "date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"date,omitzero\"",
+					"jsonTag": "json:\"date\"",
 					"description": "X-axis value (date)",
 					"required": true
 				},
@@ -797,7 +797,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -851,7 +851,7 @@
 					"name": "AsOf",
 					"jsonName": "as_of",
 					"type": "time.Time",
-					"jsonTag": "json:\"as_of,omitzero\"",
+					"jsonTag": "json:\"as_of\"",
 					"required": true
 				}
 			]
@@ -953,7 +953,7 @@
 					"name": "AsOf",
 					"jsonName": "as_of",
 					"type": "time.Time",
-					"jsonTag": "json:\"as_of,omitzero\"",
+					"jsonTag": "json:\"as_of\"",
 					"description": "When the cached data was last refreshed from the broker",
 					"required": true
 				}
@@ -967,7 +967,7 @@
 					"name": "Today",
 					"jsonName": "today",
 					"type": "civil.Date",
-					"jsonTag": "json:\"today,omitzero\"",
+					"jsonTag": "json:\"today\"",
 					"description": "Current NYSE-local date",
 					"required": true
 				},
@@ -983,7 +983,7 @@
 					"name": "NextFriday",
 					"jsonName": "next_friday",
 					"type": "civil.Date",
-					"jsonTag": "json:\"next_friday,omitzero\"",
+					"jsonTag": "json:\"next_friday\"",
 					"description": "Next Friday for weekly options expiry",
 					"required": true
 				}
@@ -997,7 +997,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "OptionType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Put or Call",
 					"required": true
 				},
@@ -1005,7 +1005,7 @@
 					"name": "Underlying",
 					"jsonName": "underlying",
 					"type": "string",
-					"jsonTag": "json:\"underlying,omitzero\"",
+					"jsonTag": "json:\"underlying\"",
 					"description": "Underlying stock ticker",
 					"required": true
 				},
@@ -1013,7 +1013,7 @@
 					"name": "Expiry",
 					"jsonName": "expiry",
 					"type": "civil.Date",
-					"jsonTag": "json:\"expiry,omitzero\"",
+					"jsonTag": "json:\"expiry\"",
 					"description": "Option expiration date",
 					"required": true
 				},
@@ -1089,7 +1089,7 @@
 					"name": "AsOf",
 					"jsonName": "as_of",
 					"type": "time.Time",
-					"jsonTag": "json:\"as_of,omitzero\"",
+					"jsonTag": "json:\"as_of\"",
 					"required": true
 				}
 			]
@@ -1102,14 +1102,14 @@
 					"name": "Symbol",
 					"jsonName": "symbol",
 					"type": "string",
-					"jsonTag": "json:\"symbol,omitzero\"",
+					"jsonTag": "json:\"symbol\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "SecurityType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "The type of security (e.g. EQUITY, ETF)",
 					"required": true
 				},
@@ -1117,7 +1117,7 @@
 					"name": "FirstTradeDate",
 					"jsonName": "first_trade_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"first_trade_date,omitzero\"",
+					"jsonTag": "json:\"first_trade_date\"",
 					"required": true
 				}
 			]
@@ -1148,7 +1148,7 @@
 					"name": "Symbol",
 					"jsonName": "symbol",
 					"type": "string",
-					"jsonTag": "json:\"symbol,omitzero\"",
+					"jsonTag": "json:\"symbol\"",
 					"required": true
 				},
 				{

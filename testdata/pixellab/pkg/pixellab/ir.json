@@ -6016,28 +6016,28 @@
 				{
 					"name": "AnimationDescription",
 					"jsonName": "animation_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"animation_description,omitzero\"",
 					"description": "Describe the animation, e.g. 'walking cheerfully'. Required when creating a new animation; can be omitted when adding directions to an existing animation via animation_group_id (the existing description is inherited)."
 				},
 				{
 					"name": "Directions",
 					"jsonName": "directions",
-					"type": "*AnimateObjectRequestDirectionsAnyOf0",
+					"type": "AnimateObjectRequestDirectionsAnyOf0",
 					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "Which directions to animate.\n\n- **Do not pass `directions` for 1-direction objects.** They always animate the single internal direction; passing this returns 400.\n- For 8-direction objects:\n  - **New animation**: omit `directions` to animate all 8 cardinals.\n  - **Extending an existing animation** (via `animation_group_id`): omit `directions` to fill in only the cardinals not yet generated. You usually don't need to compute the missing set yourself — pass `animation_group_id` alone and the server figures it out.\n  - If you do pass it explicitly, values must be a subset of the 8 cardinals."
 				},
 				{
 					"name": "AnimationGroupID",
 					"jsonName": "animation_group_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"animation_group_id,omitzero\"",
 					"description": "Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it."
 				},
 				{
 					"name": "DisplayName",
 					"jsonName": "display_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"display_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -6058,21 +6058,21 @@
 				{
 					"name": "CustomStartFrame",
 					"jsonName": "custom_start_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"custom_start_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "EndFrame",
 					"jsonName": "end_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"end_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "KeepFirstFrame",
 					"jsonName": "keep_first_frame",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"keep_first_frame,omitzero\"",
 					"description": "Keep the input reference frame as frame 0 of the stored animation (`mode='v3'` only). Set `false` to store exactly `frame_count` generated frames — the reference start frame is stripped, so `frame_count=8` stores 8 frames instead of 9. Not compatible with `mode='pro'`."
 				},
@@ -6154,14 +6154,14 @@
 					"name": "AnimationGroupID",
 					"jsonName": "animation_group_id",
 					"type": "string",
-					"jsonTag": "json:\"animation_group_id,omitzero\"",
+					"jsonTag": "json:\"animation_group_id\"",
 					"required": true
 				},
 				{
 					"name": "Mode",
 					"jsonName": "mode",
 					"type": "AnimateObjectMode",
-					"jsonTag": "json:\"mode,omitzero\"",
+					"jsonTag": "json:\"mode\"",
 					"description": "Which animation mode to use. Prefer `'v3'` (default) — it usually produces higher quality results than `'pro'`, and is cheaper. Use `'pro'` only when its different stylistic output is specifically needed.\n\n**Cost warning**: when generating on a subscription, `'pro'` mode costs 20-40 generations per direction (160-320 for a full 8-direction animation).",
 					"required": true
 				},
@@ -6175,7 +6175,7 @@
 				{
 					"name": "DisplayName",
 					"jsonName": "display_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"display_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -6183,14 +6183,14 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
 					"name": "ObjectID",
 					"jsonName": "object_id",
 					"type": "string",
-					"jsonTag": "json:\"object_id,omitzero\"",
+					"jsonTag": "json:\"object_id\"",
 					"required": true
 				},
 				{
@@ -6203,7 +6203,7 @@
 				{
 					"name": "EnhancedPrompt",
 					"jsonName": "enhanced_prompt",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -6231,7 +6231,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Background job ID for polling generation progress",
 					"required": true
 				},
@@ -6245,7 +6245,7 @@
 				{
 					"name": "EnhancedPrompt",
 					"jsonName": "enhanced_prompt",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -6328,7 +6328,7 @@
 				{
 					"name": "LastFrame",
 					"jsonName": "last_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"last_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -6336,7 +6336,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "The motion to generate (e.g. 'walking forward', 'sword slash', 'flame flickering'). Describe movement, not appearance.",
 					"required": true
 				},
@@ -6357,7 +6357,7 @@
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "True returns the frames on transparency; an opaque input is cut out of its first frame before animating. False keeps an opaque backdrop."
 				},
@@ -6378,7 +6378,7 @@
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*AnimatePixminimaxDirectionAnyOf",
+					"type": "AnimatePixminimaxDirectionAnyOf",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Facing direction of the sprite (south = towards the camera). Used only with enhance_prompt: the prompt holds that facing and aims attacks that way on screen. Omit to let the enhancer read the facing from the image."
 				}
@@ -6419,7 +6419,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Background job ID for polling generation progress",
 					"required": true
 				},
@@ -6446,7 +6446,7 @@
 				{
 					"name": "GuidanceScale",
 					"jsonName": "guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image and skeleton keypoints"
 				},
@@ -6481,14 +6481,14 @@
 				{
 					"name": "InitImages",
 					"jsonName": "init_images",
-					"type": "*BaseImage",
+					"type": "[]BaseImage",
 					"jsonTag": "json:\"init_images,omitzero\"",
 					"description": "Initial images to start the generation from"
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
@@ -6510,21 +6510,21 @@
 				{
 					"name": "InpaintingImages",
 					"jsonName": "inpainting_images",
-					"type": "*BaseImage",
+					"type": "[]BaseImage",
 					"jsonTag": "json:\"inpainting_images,omitzero\"",
 					"description": "Images used for showing the model with connected skeleton"
 				},
 				{
 					"name": "MaskImages",
 					"jsonName": "mask_images",
-					"type": "*BaseImage",
+					"type": "[]BaseImage",
 					"jsonTag": "json:\"mask_images,omitzero\"",
 					"description": "Inpainting / mask image (black and white image, where the white is where the model should inpaint)"
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -6545,7 +6545,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "What the character LOOKS like, as a noun phrase: 'blonde vampire with a red cape'. Colours, clothing, held items. Not the pose, motion, style or background -- those belong in `action` or in the skeletons.",
 					"required": true
 				},
@@ -6553,7 +6553,7 @@
 					"name": "Action",
 					"jsonName": "action",
 					"type": "string",
-					"jsonTag": "json:\"action,omitzero\"",
+					"jsonTag": "json:\"action\"",
 					"description": "The motion's short label: 'walk', 'run', 'attack'.",
 					"required": true
 				},
@@ -6561,7 +6561,7 @@
 					"name": "Direction",
 					"jsonName": "direction",
 					"type": "Direction",
-					"jsonTag": "json:\"direction,omitzero\"",
+					"jsonTag": "json:\"direction\"",
 					"description": "The direction the character faces.",
 					"required": true
 				},
@@ -6606,14 +6606,14 @@
 				{
 					"name": "Seed",
 					"jsonName": "seed",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "0 for a random seed."
 				},
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "Return frames with a transparent background."
 				}
@@ -6672,7 +6672,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Character description",
 					"required": true
 				},
@@ -6687,28 +6687,28 @@
 					"name": "Action",
 					"jsonName": "action",
 					"type": "string",
-					"jsonTag": "json:\"action,omitzero\"",
+					"jsonTag": "json:\"action\"",
 					"description": "Action description",
 					"required": true
 				},
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image"
 				},
 				{
 					"name": "ImageGuidanceScale",
 					"jsonName": "image_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"image_guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image"
 				},
 				{
 					"name": "NFrames",
 					"jsonName": "n_frames",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"n_frames,omitzero\"",
 					"description": "Length of full animation (the model will always generate 4 frames)"
 				},
@@ -6736,14 +6736,14 @@
 				{
 					"name": "InitImages",
 					"jsonName": "init_images",
-					"type": "*BaseImage",
+					"type": "[]BaseImage",
 					"jsonTag": "json:\"init_images,omitzero\"",
 					"description": "Initial images to start the generation from"
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
@@ -6758,21 +6758,21 @@
 				{
 					"name": "InpaintingImages",
 					"jsonName": "inpainting_images",
-					"type": "*BaseImage",
+					"type": "[]BaseImage",
 					"jsonTag": "json:\"inpainting_images,omitzero\"",
 					"description": "Existing animation frames to guide the generation"
 				},
 				{
 					"name": "MaskImages",
 					"jsonName": "mask_images",
-					"type": "*BaseImage",
+					"type": "[]BaseImage",
 					"jsonTag": "json:\"mask_images,omitzero\"",
 					"description": "Inpainting / mask image (black and white image, where the white is where the model should inpaint)"
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -6809,7 +6809,7 @@
 					"name": "Action",
 					"jsonName": "action",
 					"type": "string",
-					"jsonTag": "json:\"action,omitzero\"",
+					"jsonTag": "json:\"action\"",
 					"description": "Action description (e.g., 'walk', 'jump', 'attack')",
 					"required": true
 				},
@@ -6947,7 +6947,7 @@
 				{
 					"name": "LastFrame",
 					"jsonName": "last_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"last_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -6955,14 +6955,14 @@
 					"name": "Action",
 					"jsonName": "action",
 					"type": "string",
-					"jsonTag": "json:\"action,omitzero\"",
+					"jsonTag": "json:\"action\"",
 					"description": "Action description (e.g., 'walking', 'jumping', 'attacking')",
 					"required": true
 				},
 				{
 					"name": "FrameCount",
 					"jsonName": "frame_count",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"frame_count,omitzero\"",
 					"description": "Number of animation frames (4-16, must be even)"
 				},
@@ -7004,7 +7004,7 @@
 					"name": "Direction",
 					"jsonName": "direction",
 					"type": "string",
-					"jsonTag": "json:\"direction,omitzero\"",
+					"jsonTag": "json:\"direction\"",
 					"required": true
 				},
 				{
@@ -7032,21 +7032,21 @@
 					"name": "AnimationType",
 					"jsonName": "animation_type",
 					"type": "string",
-					"jsonTag": "json:\"animation_type,omitzero\"",
+					"jsonTag": "json:\"animation_type\"",
 					"description": "Template animation ID (e.g. 'walk', 'run')",
 					"required": true
 				},
 				{
 					"name": "DisplayName",
 					"jsonName": "display_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"display_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "AnimationGroupID",
 					"jsonName": "animation_group_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"animation_group_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7074,7 +7074,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Background job ID",
 					"required": true
 				},
@@ -7082,7 +7082,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Current job status (processing, completed, failed)",
 					"required": true
 				},
@@ -7090,14 +7090,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp when job was created",
 					"required": true
 				},
 				{
 					"name": "LastResponse",
 					"jsonName": "last_response",
-					"type": "*map[string]any",
+					"type": "map[string]any",
 					"jsonTag": "json:\"last_response,omitzero\"",
 					"description": "Latest response data from the job"
 				}
@@ -7140,7 +7140,7 @@
 					"name": "Base64",
 					"jsonName": "base64",
 					"type": "string",
-					"jsonTag": "json:\"base64,omitzero\"",
+					"jsonTag": "json:\"base64\"",
 					"description": "Base64 encoded image data",
 					"required": true
 				},
@@ -7222,7 +7222,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique character identifier",
 					"required": true
 				},
@@ -7230,14 +7230,14 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Character name (shared by all sibling states in the group)",
 					"required": true
 				},
 				{
 					"name": "StateName",
 					"jsonName": "state_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"state_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7245,7 +7245,7 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"description": "Character creation prompt",
 					"required": true
 				},
@@ -7269,14 +7269,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp of character creation",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updated_at",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"updated_at,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7292,14 +7292,14 @@
 					"name": "TemplateID",
 					"jsonName": "template_id",
 					"type": "string",
-					"jsonTag": "json:\"template_id,omitzero\"",
+					"jsonTag": "json:\"template_id\"",
 					"description": "Template used for character creation",
 					"required": true
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7313,14 +7313,14 @@
 				{
 					"name": "RotationUrls",
 					"jsonName": "rotation_urls",
-					"type": "*CharacterRotationUrls",
+					"type": "CharacterRotationUrls",
 					"jsonTag": "json:\"rotation_urls,omitzero\"",
 					"description": "URLs for all rotation images (null unless status == 'completed')"
 				},
 				{
 					"name": "StyleSettings",
 					"jsonName": "style_settings",
-					"type": "*map[string]any",
+					"type": "map[string]any",
 					"jsonTag": "json:\"style_settings,omitzero\"",
 					"description": "Latest response data from the job"
 				},
@@ -7348,14 +7348,14 @@
 				{
 					"name": "GroupID",
 					"jsonName": "group_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"group_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Skeletons",
 					"jsonName": "skeletons",
-					"type": "*map[string]any",
+					"type": "map[string]any",
 					"jsonTag": "json:\"skeletons,omitzero\"",
 					"description": "Latest response data from the job"
 				},
@@ -7382,35 +7382,35 @@
 				{
 					"name": "HeadSize",
 					"jsonName": "head_size",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"head_size,omitzero\"",
 					"description": "Head size multiplier (recommended max: 1.7)"
 				},
 				{
 					"name": "ArmsLength",
 					"jsonName": "arms_length",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"arms_length,omitzero\"",
 					"description": "Arm length multiplier"
 				},
 				{
 					"name": "LegsLength",
 					"jsonName": "legs_length",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"legs_length,omitzero\"",
 					"description": "Leg length multiplier"
 				},
 				{
 					"name": "ShoulderWidth",
 					"jsonName": "shoulder_width",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"shoulder_width,omitzero\"",
 					"description": "Shoulder width multiplier"
 				},
 				{
 					"name": "HipWidth",
 					"jsonName": "hip_width",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"hip_width,omitzero\"",
 					"description": "Hip width multiplier"
 				}
@@ -7489,7 +7489,7 @@
 					"name": "South",
 					"jsonName": "south",
 					"type": "string",
-					"jsonTag": "json:\"south,omitzero\"",
+					"jsonTag": "json:\"south\"",
 					"description": "URL for south-facing rotation",
 					"required": true
 				},
@@ -7497,7 +7497,7 @@
 					"name": "West",
 					"jsonName": "west",
 					"type": "string",
-					"jsonTag": "json:\"west,omitzero\"",
+					"jsonTag": "json:\"west\"",
 					"description": "URL for west-facing rotation",
 					"required": true
 				},
@@ -7505,7 +7505,7 @@
 					"name": "East",
 					"jsonName": "east",
 					"type": "string",
-					"jsonTag": "json:\"east,omitzero\"",
+					"jsonTag": "json:\"east\"",
 					"description": "URL for east-facing rotation",
 					"required": true
 				},
@@ -7513,35 +7513,35 @@
 					"name": "North",
 					"jsonName": "north",
 					"type": "string",
-					"jsonTag": "json:\"north,omitzero\"",
+					"jsonTag": "json:\"north\"",
 					"description": "URL for north-facing rotation",
 					"required": true
 				},
 				{
 					"name": "SouthEast",
 					"jsonName": "south-east",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"south-east,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "NorthEast",
 					"jsonName": "north-east",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"north-east,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "NorthWest",
 					"jsonName": "north-west",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"north-west,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "SouthWest",
 					"jsonName": "south-west",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"south-west,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -7577,7 +7577,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique character identifier",
 					"required": true
 				},
@@ -7585,14 +7585,14 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Character name (shared by all sibling states in the group)",
 					"required": true
 				},
 				{
 					"name": "StateName",
 					"jsonName": "state_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"state_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7600,7 +7600,7 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"description": "Character creation prompt",
 					"required": true
 				},
@@ -7624,14 +7624,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp of character creation",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updated_at",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"updated_at,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7647,14 +7647,14 @@
 					"name": "TemplateID",
 					"jsonName": "template_id",
 					"type": "string",
-					"jsonTag": "json:\"template_id,omitzero\"",
+					"jsonTag": "json:\"template_id\"",
 					"description": "Template used for character creation",
 					"required": true
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7668,7 +7668,7 @@
 				{
 					"name": "PreviewURL",
 					"jsonName": "preview_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"preview_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -7682,7 +7682,7 @@
 				{
 					"name": "GroupID",
 					"jsonName": "group_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"group_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -7768,13 +7768,13 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
 					"name": "Size",
 					"jsonName": "size",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"size,omitzero\"",
 					"description": "Square image size in pixels (16-256). Defaults to 64 when omitted. Cannot be set together with `style_images` — when style_images are provided, the largest style image determines the output size. The effective size also determines how many candidate objects the generator produces in one shot (≤42→64, ≤85→16, ≤170→4, else 1). When >1, the resulting object enters 'review' status — call POST /v2/objects/{id}/select-frames (or use the review UI) to pick which to keep."
 				},
@@ -7795,7 +7795,7 @@
 				{
 					"name": "ItemDescriptions",
 					"jsonName": "item_descriptions",
-					"type": "*string",
+					"type": "[]string",
 					"jsonTag": "json:\"item_descriptions,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed."
 				}
@@ -7827,13 +7827,13 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
 					"name": "Size",
 					"jsonName": "size",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"size,omitzero\"",
 					"description": "Square image size in pixels (24-168 — below 24 the eight angles stop being distinguishable, above 168 the pipeline rejects it; use the 1-direction endpoint for 16px). Defaults to 64 when omitted. Cannot be set together with `reference_image` or `style_image` — in those cases the image dimensions determine the output size."
 				},
@@ -7847,21 +7847,21 @@
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"style_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "StyleObjectID",
 					"jsonName": "style_object_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"style_object_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -7875,119 +7875,119 @@
 					"name": "CharacterID",
 					"jsonName": "character_id",
 					"type": "string",
-					"jsonTag": "json:\"character_id,omitzero\"",
+					"jsonTag": "json:\"character_id\"",
 					"description": "ID of existing character to animate",
 					"required": true
 				},
 				{
 					"name": "AnimationGroupID",
 					"jsonName": "animation_group_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"animation_group_id,omitzero\"",
 					"description": "Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it."
 				},
 				{
 					"name": "AnimationName",
 					"jsonName": "animation_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"animation_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Description of the character or object to animate (uses character's original if not specified)"
 				},
 				{
 					"name": "ActionDescription",
 					"jsonName": "action_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"action_description,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "AsyncMode",
 					"jsonName": "async_mode",
-					"type": "*bool",
+					"type": "bool",
 					"jsonTag": "json:\"async_mode,omitzero\"",
 					"description": "Process in background (always true - no foreground processing yet)"
 				},
 				{
 					"name": "Mode",
 					"jsonName": "mode",
-					"type": "*CreateCharacterAnimationRequestModeAnyOf0",
+					"type": "CreateCharacterAnimationRequestModeAnyOf0",
 					"jsonTag": "json:\"mode,omitzero\"",
 					"description": "Animation mode. \"template\": skeleton-based from template_animation_id (1 gen/direction). \"skeleton-v3\": the same template_animation_id posed onto the character by the skeleton video model, which moves the character instead of redrawing it each frame — steadier identity and colours, 2-4 generations and ~3-5 min per direction, beta, requires a tier 1 subscription. \"v3\": custom animation from action_description with frame_count control. \"pro\": custom animation that generates directions sequentially, using completed sides as reference (20-40 gen/direction). Auto-detected: template if template_animation_id is provided, v3 otherwise."
 				},
 				{
 					"name": "TemplateAnimationID",
 					"jsonName": "template_animation_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"template_animation_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "FrameCount",
 					"jsonName": "frame_count",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"frame_count,omitzero\"",
 					"description": "Number of animation frames (4-16, must be even). Only used in v3 mode."
 				},
 				{
 					"name": "CustomStartFrame",
 					"jsonName": "custom_start_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"custom_start_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "EndFrame",
 					"jsonName": "end_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"end_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "KeepFirstFrame",
 					"jsonName": "keep_first_frame",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"keep_first_frame,omitzero\"",
 					"description": "Keep the reference frame as frame 0 of the stored animation (`mode='v3'` only). Set `false` to store exactly `frame_count` generated frames — the reference start frame is stripped, so `frame_count=8` stores 8 frames instead of 9. Not compatible with `mode='template'` or `mode='pro'`."
 				},
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Directions",
 					"jsonName": "directions",
-					"type": "*string",
+					"type": "[]string",
 					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed."
 				},
@@ -8001,7 +8001,7 @@
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -8079,7 +8079,7 @@
 				{
 					"name": "AnimationGroupID",
 					"jsonName": "animation_group_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"animation_group_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -8093,7 +8093,7 @@
 				{
 					"name": "EnhancedPrompt",
 					"jsonName": "enhanced_prompt",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -8121,7 +8121,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Background job ID for tracking generation progress.",
 					"required": true
 				},
@@ -8129,7 +8129,7 @@
 					"name": "CharacterID",
 					"jsonName": "character_id",
 					"type": "string",
-					"jsonTag": "json:\"character_id,omitzero\"",
+					"jsonTag": "json:\"character_id\"",
 					"description": "Character ID — available immediately, but rotations land asynchronously. The character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded to storage, and the 3D skeleton is reconstructed.",
 					"required": true
 				},
@@ -8184,14 +8184,14 @@
 				{
 					"name": "SourceImageID",
 					"jsonName": "source_image_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"source_image_id,omitzero\"",
 					"description": "Optional owned south-facing image ID. Reuses its pixels without another image charge."
 				},
 				{
 					"name": "FirstFrame",
 					"jsonName": "first_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"first_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -8199,7 +8199,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
@@ -8224,20 +8224,20 @@
 				{
 					"name": "Seed",
 					"jsonName": "seed",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"seed,omitzero\""
 				},
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*CreateCharacterProFlashImageSize",
+					"type": "CreateCharacterProFlashImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing."
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*ProFlashReferenceImage",
+					"type": "ProFlashReferenceImage",
 					"jsonTag": "json:\"style_image,omitzero\""
 				},
 				{
@@ -8249,7 +8249,7 @@
 				{
 					"name": "NDirections",
 					"jsonName": "n_directions",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"n_directions,omitzero\""
 				},
 				{
@@ -8318,21 +8318,21 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"required": true
 				},
 				{
 					"name": "CharacterID",
 					"jsonName": "character_id",
 					"type": "string",
-					"jsonTag": "json:\"character_id,omitzero\"",
+					"jsonTag": "json:\"character_id\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
@@ -8359,7 +8359,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of the character or object to generate.",
 					"required": true
 				},
@@ -8395,28 +8395,28 @@
 				{
 					"name": "ConceptImage",
 					"jsonName": "concept_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"concept_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "StyleCharacterID",
 					"jsonName": "style_character_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"style_character_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "StyleDescription",
 					"jsonName": "style_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"style_description,omitzero\"",
 					"description": "Free-text style hint to layer on top of the description."
 				},
@@ -8467,7 +8467,7 @@
 					"name": "CharacterID",
 					"jsonName": "character_id",
 					"type": "string",
-					"jsonTag": "json:\"character_id,omitzero\"",
+					"jsonTag": "json:\"character_id\"",
 					"description": "ID of the source character",
 					"required": true
 				},
@@ -8475,13 +8475,13 @@
 					"name": "EditDescription",
 					"jsonName": "edit_description",
 					"type": "string",
-					"jsonTag": "json:\"edit_description,omitzero\"",
+					"jsonTag": "json:\"edit_description\"",
 					"required": true
 				},
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\""
 				},
 				{
@@ -8494,14 +8494,14 @@
 				{
 					"name": "OverrideFrameSize",
 					"jsonName": "override_frame_size",
-					"type": "*FrameSize",
+					"type": "FrameSize",
 					"jsonTag": "json:\"override_frame_size,omitzero\"",
 					"description": "Optional larger canvas for the state, for edits that add something big (a weapon, wings) needing room beyond the character's tight canvas. Width/height must be multiples of 4 and no smaller than the source character's size. Omit to keep the source size."
 				},
 				{
 					"name": "StateName",
 					"jsonName": "state_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"state_name,omitzero\"",
 					"description": "Name for the new state. Defaults to the edit description truncated to 20 characters."
 				},
@@ -8522,21 +8522,21 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of the character (used as prompt + display name).",
 					"required": true
 				},
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*FrameSize",
+					"type": "FrameSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Optional larger canvas for the state, for edits that add something big (a weapon, wings) needing room beyond the character's tight canvas. Width/height must be multiples of 4 and no smaller than the source character's size. Omit to keep the source size."
 				},
@@ -8557,7 +8557,7 @@
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -8578,14 +8578,14 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -8606,7 +8606,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of the character or object to generate",
 					"required": true
 				},
@@ -8621,42 +8621,42 @@
 				{
 					"name": "AsyncMode",
 					"jsonName": "async_mode",
-					"type": "*bool",
+					"type": "bool",
 					"jsonTag": "json:\"async_mode,omitzero\"",
 					"description": "Process in background (always true - no foreground processing yet)"
 				},
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -8670,7 +8670,7 @@
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -8684,14 +8684,14 @@
 				{
 					"name": "Proportions",
 					"jsonName": "proportions",
-					"type": "*CreateCharacterWithDirectionsProportionsAnyOf",
+					"type": "CreateCharacterWithDirectionsProportionsAnyOf",
 					"jsonTag": "json:\"proportions,omitzero\"",
 					"description": "Character body proportions (preset or custom values). Only applies to humanoid characters."
 				},
 				{
 					"name": "TemplateID",
 					"jsonName": "template_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"template_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -8705,21 +8705,21 @@
 				{
 					"name": "Directions",
 					"jsonName": "directions",
-					"type": "*map[string]BaseImage",
+					"type": "map[string]BaseImage",
 					"jsonTag": "json:\"directions,omitzero\"",
 					"description": "Optional reference images per direction. Allowed keys: 'south', 'east', 'north', 'west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'; oblique view requires all 4 cardinals."
 				},
 				{
 					"name": "OutputType",
 					"jsonName": "output_type",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"output_type,omitzero\"",
 					"description": "Output format (always dict for external API)"
 				},
 				{
 					"name": "Mode",
 					"jsonName": "mode",
-					"type": "*CreateCharacterWithDirectionsModeAnyOf",
+					"type": "CreateCharacterWithDirectionsModeAnyOf",
 					"jsonTag": "json:\"mode,omitzero\"",
 					"description": "Generation mode. \"standard\" uses template-based skeleton generation (1 generation). \"pro\" uses AI reference-based generation for higher quality (costs 20-40 generations depending on size). Pro mode ignores outline, shading, detail, proportions, and text_guidance_scale."
 				}
@@ -8818,14 +8818,14 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"required": true
 				},
 				{
 					"name": "ObjectID",
 					"jsonName": "object_id",
 					"type": "string",
-					"jsonTag": "json:\"object_id,omitzero\"",
+					"jsonTag": "json:\"object_id\"",
 					"required": true
 				},
 				{
@@ -8895,7 +8895,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the image to generate",
 					"required": true
 				},
@@ -8916,7 +8916,7 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text description"
 				},
@@ -8930,42 +8930,42 @@
 				{
 					"name": "StyleStrength",
 					"jsonName": "style_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"style_strength,omitzero\"",
 					"description": "Strength of the style transfer (0-100). 50 = balanced."
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateIsometricTileShadingAnyOf",
+					"type": "CreateIsometricTileShadingAnyOf",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -9000,42 +9000,42 @@
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"style_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InpaintingImage",
 					"jsonName": "inpainting_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"inpainting_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "MaskImage",
 					"jsonName": "mask_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"mask_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -9049,7 +9049,7 @@
 				{
 					"name": "SkeletonKeypoints",
 					"jsonName": "skeleton_keypoints",
-					"type": "*Point",
+					"type": "[]Point",
 					"jsonTag": "json:\"skeleton_keypoints,omitzero\"",
 					"description": "Skeleton points. Warning! Sizes that are not 16x16, 32x32 and 64x64 can cause the generations to be lower quality"
 				},
@@ -9088,7 +9088,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the image to generate",
 					"required": true
 				},
@@ -9102,28 +9102,28 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -9179,7 +9179,7 @@
 				{
 					"name": "EnhancedPrompt",
 					"jsonName": "enhanced_prompt",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -9200,7 +9200,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the image to generate",
 					"required": true
 				},
@@ -9221,42 +9221,42 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text description"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateIsometricTileShadingAnyOf",
+					"type": "CreateIsometricTileShadingAnyOf",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -9284,21 +9284,21 @@
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -9319,7 +9319,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
@@ -9333,13 +9333,13 @@
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\""
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*ProFlashReferenceImage",
+					"type": "ProFlashReferenceImage",
 					"jsonTag": "json:\"style_image,omitzero\""
 				},
 				{
@@ -9352,14 +9352,14 @@
 				{
 					"name": "Seed",
 					"jsonName": "seed",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Recorded seed; the image provider does not promise deterministic output."
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"project_id,omitzero\"",
 					"description": "Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it."
 				}
@@ -9380,7 +9380,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Background job ID for tracking generation progress",
 					"required": true
 				},
@@ -9388,7 +9388,7 @@
 					"name": "TileID",
 					"jsonName": "tile_id",
 					"type": "string",
-					"jsonTag": "json:\"tile_id,omitzero\"",
+					"jsonTag": "json:\"tile_id\"",
 					"description": "Tile ID that will be created (available immediately)",
 					"required": true
 				},
@@ -9455,7 +9455,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the image to generate",
 					"required": true
 				},
@@ -9469,49 +9469,49 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text description"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*CreateIsometricTileOutlineAnyOf",
+					"type": "CreateIsometricTileOutlineAnyOf",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style for the tile"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateIsometricTileShadingAnyOf",
+					"type": "CreateIsometricTileShadingAnyOf",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
 				{
 					"name": "IsometricTileSize",
 					"jsonName": "isometric_tile_size",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"isometric_tile_size,omitzero\"",
 					"description": "Size of the isometric tile. Recommended sizes: 16, 32. Can be omitted for default."
 				},
@@ -9525,7 +9525,7 @@
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -9602,14 +9602,14 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Object description (e.g., 'wooden barrel', 'stone fountain')",
 					"required": true
 				},
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*app__endpoints__external__v2__create_map_object__ImageSize",
+					"type": "app__endpoints__external__v2__create_map_object__ImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Object dimensions"
 				},
@@ -9623,63 +9623,63 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*CreateIsometricTileOutlineAnyOf",
+					"type": "CreateIsometricTileOutlineAnyOf",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style for the tile"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateMapObjectRequestShadingAnyOf0",
+					"type": "CreateMapObjectRequestShadingAnyOf0",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading complexity"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateMapObjectRequestDetailAnyOf0",
+					"type": "CreateMapObjectRequestDetailAnyOf0",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Level of detail"
 				},
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the description"
 				},
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of initial image influence"
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "BackgroundImage",
 					"jsonName": "background_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"background_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "Inpainting",
 					"jsonName": "inpainting",
-					"type": "*CreateMapObjectRequestInpainting",
+					"type": "CreateMapObjectRequestInpainting",
 					"jsonTag": "json:\"inpainting,omitzero\"",
 					"description": "Inpainting configuration for style matching. Options: mask (custom), oval (auto-generated), rectangle (auto-generated)"
 				},
@@ -9819,14 +9819,14 @@
 				{
 					"name": "SourceImageID",
 					"jsonName": "source_image_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"source_image_id,omitzero\"",
 					"description": "Optional owned south-facing image ID. Reuses its pixels without another image charge."
 				},
 				{
 					"name": "FirstFrame",
 					"jsonName": "first_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"first_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -9834,7 +9834,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
@@ -9859,20 +9859,20 @@
 				{
 					"name": "Seed",
 					"jsonName": "seed",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"seed,omitzero\""
 				},
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*CreateCharacterProFlashImageSize",
+					"type": "CreateCharacterProFlashImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing."
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*ProFlashReferenceImage",
+					"type": "ProFlashReferenceImage",
 					"jsonTag": "json:\"style_image,omitzero\""
 				},
 				{
@@ -9884,7 +9884,7 @@
 				{
 					"name": "NDirections",
 					"jsonName": "n_directions",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"n_directions,omitzero\""
 				}
 			]
@@ -9904,21 +9904,21 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"required": true
 				},
 				{
 					"name": "ObjectID",
 					"jsonName": "object_id",
 					"type": "string",
-					"jsonTag": "json:\"object_id,omitzero\"",
+					"jsonTag": "json:\"object_id\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
@@ -9945,7 +9945,7 @@
 					"name": "EditDescription",
 					"jsonName": "edit_description",
 					"type": "string",
-					"jsonTag": "json:\"edit_description,omitzero\"",
+					"jsonTag": "json:\"edit_description\"",
 					"required": true
 				},
 				{
@@ -9958,7 +9958,7 @@
 				{
 					"name": "StateName",
 					"jsonName": "state_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"state_name,omitzero\"",
 					"description": "Name for the new state. Defaults to the edit description truncated to 20 characters."
 				}
@@ -9972,7 +9972,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the tiles. For best control, number each tile variation: '1). grass tile 2). stone tile 3). lava tile'.",
 					"required": true
 				},
@@ -9986,14 +9986,14 @@
 				{
 					"name": "TileSize",
 					"jsonName": "tile_size",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"tile_size,omitzero\"",
 					"description": "Tile size in pixels (16-128). 32px is recommended for most use cases. Connectable sets (tile_feature) have tighter per-shape ranges; square top-down roads are exactly 32."
 				},
 				{
 					"name": "TileHeight",
 					"jsonName": "tile_height",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"tile_height,omitzero\"",
 					"description": "Square image size in pixels (16-256). Defaults to 64 when omitted. Cannot be set together with `style_images` — when style_images are provided, the largest style image determines the output size. The effective size also determines how many candidate objects the generator produces in one shot (≤42→64, ≤85→16, ≤170→4, else 1). When >1, the resulting object enters 'review' status — call POST /v2/objects/{id}/select-frames (or use the review UI) to pick which to keep."
 				},
@@ -10021,7 +10021,7 @@
 				{
 					"name": "TileFlatTopPx",
 					"jsonName": "tile_flat_top_px",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"tile_flat_top_px,omitzero\"",
 					"description": "Isometric top/bottom cap width: 2px classic or 4px modern. Only used when tile_type='isometric'."
 				},
@@ -10035,49 +10035,49 @@
 				{
 					"name": "TileFeature",
 					"jsonName": "tile_feature",
-					"type": "*CreateTilesProRequestTileFeatureAnyOf0",
+					"type": "CreateTilesProRequestTileFeatureAnyOf0",
 					"jsonTag": "json:\"tile_feature,omitzero\"",
 					"description": "Generate a connectable set instead of independent tiles. roads: 18-config path autotiles (square_topdown, isometric). tileset: terrain transition — a 16-tile corner set for square_topdown/isometric/oblique, or a 32-tile coastline for hex/hex_pointy; describe it as a transition (\"grass to water\"), first terrain is the main one. building: construction kit — floor, connectable walls, doorways, pillar and staircase (square_topdown, isometric, oblique). Connectable sets return per-tile placement rules; see GET /tiles-pro/{tile_id}. Cannot be combined with style_images. Note: for square top-down terrain transitions, /create-tileset is the dedicated tileset model and offers transition width, per-terrain reference images and style matching."
 				},
 				{
 					"name": "BuildingWallTiles",
 					"jsonName": "building_wall_tiles",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"building_wall_tiles,omitzero\"",
 					"description": "Building kits: wall height in tiles (1-3). Defaults to 2."
 				},
 				{
 					"name": "BuildingLayout",
 					"jsonName": "building_layout",
-					"type": "*CreateTilesProRequestBuildingLayoutAnyOf0",
+					"type": "CreateTilesProRequestBuildingLayoutAnyOf0",
 					"jsonTag": "json:\"building_layout,omitzero\"",
 					"description": "Building kits: grid paints each shaped piece individually (richer, isometric default); materials paints flat swatches and renders pieces from them (more consistent, default for square_topdown/oblique)."
 				},
 				{
 					"name": "BuildingWallDescription",
 					"jsonName": "building_wall_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"building_wall_description,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				},
 				{
 					"name": "BuildingFloorDescription",
 					"jsonName": "building_floor_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"building_floor_description,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				},
 				{
 					"name": "BuildingFloor2Description",
 					"jsonName": "building_floor2_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"building_floor2_description,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				},
 				{
 					"name": "BuildingWallAngle",
 					"jsonName": "building_wall_angle",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"building_wall_angle,omitzero\"",
 					"description": "Building kits, square_topdown only: wall storey height as its own camera angle, decoupled from the ground pitch."
 				},
@@ -10098,7 +10098,7 @@
 				{
 					"name": "StyleImages",
 					"jsonName": "style_images",
-					"type": "*TilesProStyleImage",
+					"type": "[]TilesProStyleImage",
 					"jsonTag": "json:\"style_images,omitzero\"",
 					"description": "Style reference tiles. When provided, generated tiles will match these tiles' style and dimensions. The tile_type, tile_size, tile_view, tile_view_angle, and tile_depth_ratio are ignored — the style tiles define the shape."
 				},
@@ -10250,7 +10250,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Background job ID for tracking generation progress",
 					"required": true
 				},
@@ -10258,7 +10258,7 @@
 					"name": "TilesetID",
 					"jsonName": "tileset_id",
 					"type": "string",
-					"jsonTag": "json:\"tileset_id,omitzero\"",
+					"jsonTag": "json:\"tileset_id\"",
 					"description": "Tileset ID that will be created (available immediately)",
 					"required": true
 				},
@@ -10279,7 +10279,7 @@
 					"name": "LowerDescription",
 					"jsonName": "lower_description",
 					"type": "string",
-					"jsonTag": "json:\"lower_description,omitzero\"",
+					"jsonTag": "json:\"lower_description\"",
 					"description": "Description of the lower/base terrain level (e.g., 'ocean', 'grass', 'lava')",
 					"required": true
 				},
@@ -10287,7 +10287,7 @@
 					"name": "UpperDescription",
 					"jsonName": "upper_description",
 					"type": "string",
-					"jsonTag": "json:\"upper_description,omitzero\"",
+					"jsonTag": "json:\"upper_description\"",
 					"description": "Description of the upper/elevated terrain level (e.g., 'sand', 'stone', 'snow')",
 					"required": true
 				},
@@ -10301,14 +10301,14 @@
 				{
 					"name": "LowerBaseTileID",
 					"jsonName": "lower_base_tile_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"lower_base_tile_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "UpperBaseTileID",
 					"jsonName": "upper_base_tile_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"upper_base_tile_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -10328,14 +10328,14 @@
 				{
 					"name": "ShapeStyle",
 					"jsonName": "shape_style",
-					"type": "*CreateTilesetRequestShapeStyleAnyOf0",
+					"type": "CreateTilesetRequestShapeStyleAnyOf0",
 					"jsonTag": "json:\"shape_style,omitzero\"",
 					"description": "Optional procedural boundary geometry, mode='standard' ONLY — passing it with mode='pro' is rejected (pro's own shape controls are spread_x/slope_size/raggedness). Set 'square' or 'round' to generate with that exact tileset layout. Supports square 16px or 32px tiles."
 				},
 				{
 					"name": "Enhance",
 					"jsonName": "enhance",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"enhance,omitzero\"",
 					"description": "shape_style tilesets only (ignored otherwise). AI-enhances the terrain descriptions at the chosen detail/shading levels and picks matching base colours before generation. The stored tileset keeps the enhanced text (so chained tilesets reuse the prompt that made the pixels); your original prompts are kept in its metadata."
 				},
@@ -10349,42 +10349,42 @@
 				{
 					"name": "SlopeSize",
 					"jsonName": "slope_size",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"slope_size,omitzero\"",
 					"description": "Pro only. Slope on N/W/E sides as a fraction of wall height."
 				},
 				{
 					"name": "Raggedness",
 					"jsonName": "raggedness",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"raggedness,omitzero\"",
 					"description": "Pro only. Terrain boundary noise (0=smooth, 1=rough)."
 				},
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text descriptions (default: 8.0)"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateIsometricTileShadingAnyOf",
+					"type": "CreateIsometricTileShadingAnyOf",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
@@ -10398,7 +10398,7 @@
 				{
 					"name": "TileStrength",
 					"jsonName": "tile_strength",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"tile_strength,omitzero\"",
 					"description": "Strength of tile pattern adherence"
 				},
@@ -10419,35 +10419,35 @@
 				{
 					"name": "TransitionSize",
 					"jsonName": "transition_size",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"transition_size,omitzero\"",
 					"description": "Size of transition area. Standard/pro accept 0, 0.25, 0.5, or 1.0. A request with shape_style accepts any value from 0 to 1; values above 0.5 use the extended 4x8 layout."
 				},
 				{
 					"name": "LowerReferenceImage",
 					"jsonName": "lower_reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"lower_reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "UpperReferenceImage",
 					"jsonName": "upper_reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"upper_reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "TransitionReferenceImage",
 					"jsonName": "transition_reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"transition_reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -10515,7 +10515,7 @@
 					"name": "LowerDescription",
 					"jsonName": "lower_description",
 					"type": "string",
-					"jsonTag": "json:\"lower_description,omitzero\"",
+					"jsonTag": "json:\"lower_description\"",
 					"description": "Description of the main terrain/platform material (e.g., 'stone bricks', 'grass ground', 'metal grating')",
 					"required": true
 				},
@@ -10529,7 +10529,7 @@
 				{
 					"name": "LowerBaseTileID",
 					"jsonName": "lower_base_tile_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"lower_base_tile_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -10543,35 +10543,35 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text descriptions (default: 8.0)"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateIsometricTileShadingAnyOf",
+					"type": "CreateIsometricTileShadingAnyOf",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "TileStrength",
 					"jsonName": "tile_strength",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"tile_strength,omitzero\"",
 					"description": "Strength of tile pattern adherence"
 				},
@@ -10592,28 +10592,28 @@
 				{
 					"name": "TransitionSize",
 					"jsonName": "transition_size",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"transition_size,omitzero\"",
 					"description": "Size of transition area (0 = no transition, 0.25 = quarter tile, 0.5 = half tile, 1.0 = full tile)"
 				},
 				{
 					"name": "LowerReferenceImage",
 					"jsonName": "lower_reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"lower_reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "TransitionReferenceImage",
 					"jsonName": "transition_reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"transition_reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -10634,7 +10634,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Style description for the UI panel (e.g. 'wooden RPG panel with gold trim')",
 					"required": true
 				},
@@ -10648,35 +10648,35 @@
 				{
 					"name": "Pieces",
 					"jsonName": "pieces",
-					"type": "*CreateUIAssetRequestPiecesAnyOf0Item",
+					"type": "[]CreateUIAssetRequestPiecesAnyOf0Item",
 					"jsonTag": "json:\"pieces,omitzero\"",
 					"description": "Optional shape template (validated). Each piece needs a unique `id`, a `kind`, and an optional `label`. Allowed kinds: rounded_rect {x,y,w,h,radius}, circle {x,y,r}, polygon {x,y,r,sides,phase}. Coords are on a virtual editor canvas: the longer side spans 0–512 and the shorter side scales to the output aspect ratio (a 16:9 panel uses a 512×288 coordinate grid — this is the coordinate space, not the output size). When omitted, a single full-canvas rounded-rect panel is used."
 				},
 				{
 					"name": "Elements",
 					"jsonName": "elements",
-					"type": "*string",
+					"type": "[]string",
 					"jsonTag": "json:\"elements,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed."
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"style_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "ColorPalette",
 					"jsonName": "color_palette",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"color_palette,omitzero\"",
 					"description": "Optional palette specification (e.g. 'brown and gold')"
 				},
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "Remove background after generation"
 				},
@@ -10690,14 +10690,14 @@
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"project_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -10867,7 +10867,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Background job ID for polling status",
 					"required": true
 				},
@@ -10875,7 +10875,7 @@
 					"name": "UIAssetID",
 					"jsonName": "ui_asset_id",
 					"type": "string",
-					"jsonTag": "json:\"ui_asset_id,omitzero\"",
+					"jsonTag": "json:\"ui_asset_id\"",
 					"description": "UI asset ID (available immediately; poll until ready)",
 					"required": true
 				},
@@ -10930,21 +10930,21 @@
 				{
 					"name": "DeletedCount",
 					"jsonName": "deleted_count",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"deleted_count,omitzero\"",
 					"description": "Number of animation rows removed"
 				},
 				{
 					"name": "Label",
 					"jsonName": "label",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"label,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Err",
 					"jsonName": "error",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"error,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -10972,7 +10972,7 @@
 				{
 					"name": "CharacterID",
 					"jsonName": "character_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"character_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -10993,21 +10993,21 @@
 				{
 					"name": "GroupID",
 					"jsonName": "group_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"group_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "NextStateID",
 					"jsonName": "next_state_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"next_state_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Err",
 					"jsonName": "error",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"error,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -11035,14 +11035,14 @@
 				{
 					"name": "ObjectID",
 					"jsonName": "object_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"object_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Err",
 					"jsonName": "error",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"error,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -11125,27 +11125,27 @@
 					"name": "Direction",
 					"jsonName": "direction",
 					"type": "string",
-					"jsonTag": "json:\"direction,omitzero\"",
+					"jsonTag": "json:\"direction\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "DirectionSubmissionStatus",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"background_job_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "AnimationID",
 					"jsonName": "animation_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"animation_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -11190,7 +11190,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of the edit to apply (e.g., 'add a red cape', 'make it glow blue')",
 					"required": true
 				},
@@ -11272,21 +11272,21 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "What to change (e.g. 'give him a red cape', 'make the armor gold')",
 					"required": true
 				},
 				{
 					"name": "Width",
 					"jsonName": "width",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Target canvas height, a multiple of 4. Defaults to the source image's height."
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Target canvas height, a multiple of 4. Defaults to the source image's height."
 				},
@@ -11300,7 +11300,7 @@
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "Return the result on a transparent background"
 				}
@@ -11327,14 +11327,14 @@
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Free-text style hint to layer on top of the description."
 				},
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -11353,13 +11353,13 @@
 				{
 					"name": "Seed",
 					"jsonName": "seed",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"seed,omitzero\""
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"project_id,omitzero\"",
 					"description": "Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it."
 				}
@@ -11407,7 +11407,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the edit to apply",
 					"required": true
 				},
@@ -11444,14 +11444,14 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text description (1.0-10.0)"
 				},
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				}
@@ -11487,14 +11487,14 @@
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Description of the character or object to animate (uses character's original if not specified)"
 				},
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "*EditImage",
+					"type": "EditImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Reference image (required for edit_with_reference method)"
 				},
@@ -11547,7 +11547,7 @@
 					"name": "EnhancedPrompt",
 					"jsonName": "enhanced_prompt",
 					"type": "string",
-					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
+					"jsonTag": "json:\"enhanced_prompt\"",
 					"description": "Enhanced motion description.",
 					"required": true
 				}
@@ -11568,7 +11568,7 @@
 				{
 					"name": "LastFrame",
 					"jsonName": "last_frame",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"last_frame,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -11576,7 +11576,7 @@
 					"name": "Action",
 					"jsonName": "action",
 					"type": "string",
-					"jsonTag": "json:\"action,omitzero\"",
+					"jsonTag": "json:\"action\"",
 					"description": "User's action description (e.g., 'walking', 'jumping', 'sword swing').",
 					"required": true
 				},
@@ -11590,14 +11590,14 @@
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*AnimatePixminimaxDirectionAnyOf",
+					"type": "AnimatePixminimaxDirectionAnyOf",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Facing direction of the sprite (south = towards the camera). Used only with enhance_prompt: the prompt holds that facing and aims attacks that way on screen. Omit to let the enhancer read the facing from the image."
 				},
 				{
 					"name": "FrameCount",
 					"jsonName": "frame_count",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"frame_count,omitzero\"",
 					"description": "Frames the animation will have. Used by pixminimax prompts: a walk, run or sway is written as exactly one cycle in that many frames, so it loops."
 				}
@@ -11634,7 +11634,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "User's character description to enhance.",
 					"required": true
 				},
@@ -11656,14 +11656,14 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -11677,7 +11677,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "User's image description to enhance.",
 					"required": true
 				},
@@ -11692,28 +11692,28 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -11733,7 +11733,7 @@
 				{
 					"name": "Image",
 					"jsonName": "image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"image,omitzero\"",
 					"description": "Image for which to estimate the skeleton"
 				}
@@ -11801,28 +11801,28 @@
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "*app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
+					"type": "app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Concept art image (only for create_from_concept method)"
 				},
 				{
 					"name": "ConceptImage",
 					"jsonName": "concept_image",
-					"type": "*app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
+					"type": "app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
 					"jsonTag": "json:\"concept_image,omitzero\"",
 					"description": "Concept art image (only for create_from_concept method)"
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Free-text style hint to layer on top of the description."
 				},
 				{
 					"name": "StyleDescription",
 					"jsonName": "style_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"style_description,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				},
@@ -11887,7 +11887,7 @@
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Free-text style hint to layer on top of the description."
 				},
@@ -11915,7 +11915,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Style description, e.g. 'warm orange arcade font'.",
 					"required": true
 				},
@@ -11923,14 +11923,14 @@
 					"name": "Weight",
 					"jsonName": "weight",
 					"type": "GenerateFontProRequestWeight",
-					"jsonTag": "json:\"weight,omitzero\"",
+					"jsonTag": "json:\"weight\"",
 					"description": "Stroke weight. Guides glyph thickness.",
 					"required": true
 				},
 				{
 					"name": "GlyphPx",
 					"jsonName": "glyph_px",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"glyph_px,omitzero\"",
 					"description": "Native glyph resolution in pixels (the real bitmap size per glyph in the output atlas/TTF)."
 				},
@@ -11944,7 +11944,7 @@
 				{
 					"name": "FontName",
 					"jsonName": "font_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"font_name,omitzero\"",
 					"description": "Optional palette specification (e.g. 'brown and gold')"
 				}
@@ -11976,7 +11976,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of the image to generate",
 					"required": true
 				},
@@ -12005,14 +12005,14 @@
 				{
 					"name": "ReferenceImages",
 					"jsonName": "reference_images",
-					"type": "*app__endpoints__external__v2__generate_image_v2__ReferenceImage",
+					"type": "[]app__endpoints__external__v2__generate_image_v2__ReferenceImage",
 					"jsonTag": "json:\"reference_images,omitzero\"",
 					"description": "Optional reference images for subject guidance (up to 4)"
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "*app__endpoints__external__v2__generate_image_v2__ReferenceImage",
+					"type": "app__endpoints__external__v2__generate_image_v2__ReferenceImage",
 					"jsonTag": "json:\"style_image,omitzero\"",
 					"description": "Optional style image for pixel size and style reference"
 				},
@@ -12033,14 +12033,14 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of the UI element to generate (e.g., 'medieval stone button', 'sci-fi health bar')",
 					"required": true
 				},
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*app__endpoints__external__v__generate_image_v__ImageSize",
+					"type": "app__endpoints__external__v__generate_image_v__ImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Output image size (16 to aspect-ratio max, e.g. 512x512 square)"
 				},
@@ -12061,14 +12061,14 @@
 				{
 					"name": "ConceptImage",
 					"jsonName": "concept_image",
-					"type": "*ConceptImage",
+					"type": "ConceptImage",
 					"jsonTag": "json:\"concept_image,omitzero\"",
 					"description": "Optional concept image to guide the UI design"
 				},
 				{
 					"name": "ColorPalette",
 					"jsonName": "color_palette",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"color_palette,omitzero\"",
 					"description": "Optional palette specification (e.g. 'brown and gold')"
 				}
@@ -12090,14 +12090,14 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of what to generate",
 					"required": true
 				},
 				{
 					"name": "StyleDescription",
 					"jsonName": "style_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"style_description,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				},
@@ -12118,7 +12118,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*map[string]int",
+					"type": "map[string]int",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "REMOVED. Output size is deduced from the style images."
 				}
@@ -12139,7 +12139,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Job status: processing, stalled, finalizing, failed, completed",
 					"required": true
 				},
@@ -12147,7 +12147,7 @@
 					"name": "JobID",
 					"jsonName": "job_id",
 					"type": "string",
-					"jsonTag": "json:\"job_id,omitzero\"",
+					"jsonTag": "json:\"job_id\"",
 					"required": true
 				},
 				{
@@ -12160,14 +12160,14 @@
 				{
 					"name": "DownloadAtlasURL",
 					"jsonName": "download_atlas_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"download_atlas_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "DownloadTtfURL",
 					"jsonName": "download_ttf_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"download_ttf_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -12188,7 +12188,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Job status: processing, failed, completed",
 					"required": true
 				},
@@ -12196,13 +12196,13 @@
 					"name": "ObjectID",
 					"jsonName": "object_id",
 					"type": "string",
-					"jsonTag": "json:\"object_id,omitzero\"",
+					"jsonTag": "json:\"object_id\"",
 					"required": true
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -12223,21 +12223,21 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "CreatedAt",
 					"jsonName": "created_at",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"created_at,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "DownloadURL",
 					"jsonName": "download_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"download_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -12258,7 +12258,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Job status: processing, stalled, finalizing, failed, completed",
 					"required": true
 				},
@@ -12266,7 +12266,7 @@
 					"name": "JobID",
 					"jsonName": "job_id",
 					"type": "string",
-					"jsonTag": "json:\"job_id,omitzero\"",
+					"jsonTag": "json:\"job_id\"",
 					"required": true
 				},
 				{
@@ -12293,7 +12293,7 @@
 				{
 					"name": "DownloadURL",
 					"jsonName": "download_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"download_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -12328,7 +12328,7 @@
 				{
 					"name": "TileRules",
 					"jsonName": "tile_rules",
-					"type": "*map[string]any",
+					"type": "map[string]any",
 					"jsonTag": "json:\"tile_rules,omitzero\"",
 					"description": "Latest response data from the job"
 				}
@@ -12349,7 +12349,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "processing, completed or failed",
 					"required": true
 				},
@@ -12357,14 +12357,14 @@
 					"name": "JobID",
 					"jsonName": "job_id",
 					"type": "string",
-					"jsonTag": "json:\"job_id,omitzero\"",
+					"jsonTag": "json:\"job_id\"",
 					"required": true
 				},
 				{
 					"name": "Mood",
 					"jsonName": "mood",
 					"type": "string",
-					"jsonTag": "json:\"mood,omitzero\"",
+					"jsonTag": "json:\"mood\"",
 					"required": true
 				},
 				{
@@ -12377,7 +12377,7 @@
 				{
 					"name": "CharacterID",
 					"jsonName": "character_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"character_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -12391,28 +12391,28 @@
 				{
 					"name": "Visemes",
 					"jsonName": "visemes",
-					"type": "*map[string]BaseImage",
+					"type": "map[string]BaseImage",
 					"jsonTag": "json:\"visemes,omitzero\"",
 					"description": "The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead."
 				},
 				{
 					"name": "MoodsOnCharacter",
 					"jsonName": "moods_on_character",
-					"type": "*string",
+					"type": "[]string",
 					"jsonTag": "json:\"moods_on_character,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed."
 				},
 				{
 					"name": "GridURL",
 					"jsonName": "grid_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"grid_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "VisemeOrder",
 					"jsonName": "viseme_order",
-					"type": "*string",
+					"type": "[]string",
 					"jsonTag": "json:\"viseme_order,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed."
 				}
@@ -12445,7 +12445,7 @@
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Description of the character or object to animate (uses character's original if not specified)"
 				},
@@ -12489,14 +12489,14 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image"
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "How strongly to start from the source image (img2img). 0 redraws from scratch using the source only as guidance; higher values keep more of the source. 100-300 is the useful range. Beyond that the model barely transforms the input at all — measured on the same mechanism, mean per-pixel change falls from 50 at strength 100 to 14 at 500, so a high value returns your source image rather than pixel art."
 				},
@@ -12531,7 +12531,7 @@
 				{
 					"name": "Prompt",
 					"jsonName": "prompt",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"prompt,omitzero\"",
 					"description": "Description of the character or object to animate (uses character's original if not specified)"
 				}
@@ -12552,7 +12552,7 @@
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"description": "The model's answer about the image.",
 					"required": true
 				}
@@ -12582,20 +12582,20 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
 					"name": "ContextImage",
 					"jsonName": "context_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"context_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "BoundingBox",
 					"jsonName": "bounding_box",
-					"type": "*ProFlashBoundingBox",
+					"type": "ProFlashBoundingBox",
 					"jsonTag": "json:\"bounding_box,omitzero\""
 				},
 				{
@@ -12626,13 +12626,13 @@
 				{
 					"name": "Seed",
 					"jsonName": "seed",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"seed,omitzero\""
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
-					"type": "*uuid.UUID",
+					"type": "uuid.UUID",
 					"jsonTag": "json:\"project_id,omitzero\"",
 					"description": "Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it."
 				}
@@ -12669,7 +12669,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Text description of the image to generate",
 					"required": true
 				},
@@ -12690,7 +12690,7 @@
 				{
 					"name": "TextGuidanceScale",
 					"jsonName": "text_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
 					"description": "How closely to follow the text description"
 				},
@@ -12704,35 +12704,35 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "*Outline",
+					"type": "Outline",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style reference"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "*CreateIsometricTileShadingAnyOf",
+					"type": "CreateIsometricTileShadingAnyOf",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading style reference"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "*CreateIsometricTileDetailAnyOf",
+					"type": "CreateIsometricTileDetailAnyOf",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Detail style reference"
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -12760,14 +12760,14 @@
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
@@ -12790,7 +12790,7 @@
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -12811,7 +12811,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of what to generate in the masked area",
 					"required": true
 				},
@@ -12834,14 +12834,14 @@
 				{
 					"name": "ContextImage",
 					"jsonName": "context_image",
-					"type": "*ConceptImage",
+					"type": "ConceptImage",
 					"jsonTag": "json:\"context_image,omitzero\"",
 					"description": "Optional concept image to guide the UI design"
 				},
 				{
 					"name": "BoundingBox",
 					"jsonName": "bounding_box",
-					"type": "*BoundingBox",
+					"type": "BoundingBox",
 					"jsonTag": "json:\"bounding_box,omitzero\"",
 					"description": "Bounding box (deprecated)"
 				},
@@ -12892,7 +12892,7 @@
 					"name": "Action",
 					"jsonName": "action",
 					"type": "string",
-					"jsonTag": "json:\"action,omitzero\"",
+					"jsonTag": "json:\"action\"",
 					"description": "Description of the transition (e.g., 'morphing', 'transforming', 'powering up')",
 					"required": true
 				},
@@ -12942,14 +12942,14 @@
 				{
 					"name": "TileID",
 					"jsonName": "tile_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"tile_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Err",
 					"jsonName": "error",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"error,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -12963,14 +12963,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique tile identifier",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -12978,7 +12978,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Tile description",
 					"required": true
 				},
@@ -12992,7 +12992,7 @@
 				{
 					"name": "TileShape",
 					"jsonName": "tile_shape",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"tile_shape,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13000,7 +13000,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp of tile creation",
 					"required": true
 				},
@@ -13008,7 +13008,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Generation status: completed, processing, or failed",
 					"required": true
 				}
@@ -13067,13 +13067,13 @@
 					"name": "Label",
 					"jsonName": "label",
 					"type": "SkeletonLabel",
-					"jsonTag": "json:\"label,omitzero\"",
+					"jsonTag": "json:\"label\"",
 					"required": true
 				},
 				{
 					"name": "ZIndex",
 					"jsonName": "z_index",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"z_index,omitzero\"",
 					"description": "Draw order; higher draws on top"
 				},
@@ -13108,7 +13108,7 @@
 					"name": "Label",
 					"jsonName": "label",
 					"type": "string",
-					"jsonTag": "json:\"label,omitzero\"",
+					"jsonTag": "json:\"label\"",
 					"required": true
 				},
 				{
@@ -13128,7 +13128,7 @@
 					"name": "Viseme",
 					"jsonName": "viseme",
 					"type": "string",
-					"jsonTag": "json:\"viseme,omitzero\"",
+					"jsonTag": "json:\"viseme\"",
 					"description": "Mouth position id.",
 					"required": true
 				},
@@ -13199,35 +13199,35 @@
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"description": "The line of dialogue to lip-sync.",
 					"required": true
 				},
 				{
 					"name": "CharacterID",
 					"jsonName": "character_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"character_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "*LipSyncMoodAnyOf",
+					"type": "LipSyncMoodAnyOf",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Which stored expression to use. Defaults to the character's first. Only valid with `character_id`."
 				},
 				{
 					"name": "VisemeCount",
 					"jsonName": "viseme_count",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"viseme_count,omitzero\"",
 					"description": "Plan against a preset without touching a character — useful if you hold the frames yourself. Mutually exclusive with `character_id`."
 				},
 				{
 					"name": "FrameMs",
 					"jsonName": "frame_ms",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"frame_ms,omitzero\"",
 					"description": "Milliseconds to hold each mouth position."
 				},
@@ -13255,7 +13255,7 @@
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"required": true
 				},
 				{
@@ -13283,14 +13283,14 @@
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "GridURL",
 					"jsonName": "grid_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"grid_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13338,14 +13338,14 @@
 					"name": "Direction",
 					"jsonName": "direction",
 					"type": "string",
-					"jsonTag": "json:\"direction,omitzero\"",
+					"jsonTag": "json:\"direction\"",
 					"description": "Direction name (south, west, ..., unknown)",
 					"required": true
 				},
 				{
 					"name": "StorageUrls",
 					"jsonName": "storage_urls",
-					"type": "*map[string]any",
+					"type": "map[string]any",
 					"jsonTag": "json:\"storage_urls,omitzero\"",
 					"description": "Frame URLs for this direction, e.g. {\"frames\": [\"...\", ...]}"
 				},
@@ -13353,7 +13353,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp",
 					"required": true
 				}
@@ -13367,14 +13367,14 @@
 					"name": "AnimationGroupID",
 					"jsonName": "animation_group_id",
 					"type": "string",
-					"jsonTag": "json:\"animation_group_id,omitzero\"",
+					"jsonTag": "json:\"animation_group_id\"",
 					"description": "UUID of the animation group — pass back to extend via POST /v2/objects/{id}/animations",
 					"required": true
 				},
 				{
 					"name": "DisplayName",
 					"jsonName": "display_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"display_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13382,7 +13382,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Animation prompt from the latest row in the group",
 					"required": true
 				},
@@ -13412,21 +13412,21 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique object identifier",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "StateName",
 					"jsonName": "state_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"state_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13434,7 +13434,7 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"description": "Object creation prompt",
 					"required": true
 				},
@@ -13458,14 +13458,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp of object creation",
 					"required": true
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13480,21 +13480,21 @@
 				{
 					"name": "StorageUrls",
 					"jsonName": "storage_urls",
-					"type": "*map[string]string",
+					"type": "map[string]string",
 					"jsonTag": "json:\"storage_urls,omitzero\"",
 					"description": "Raw storage_urls map (frame_N keys when status='review')"
 				},
 				{
 					"name": "FrameUrls",
 					"jsonName": "frame_urls",
-					"type": "*string",
+					"type": "[]string",
 					"jsonTag": "json:\"frame_urls,omitzero\"",
 					"description": "Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed."
 				},
 				{
 					"name": "StyleSettings",
 					"jsonName": "style_settings",
-					"type": "*map[string]any",
+					"type": "map[string]any",
 					"jsonTag": "json:\"style_settings,omitzero\"",
 					"description": "Latest response data from the job"
 				},
@@ -13508,14 +13508,14 @@
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"status,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "GroupID",
 					"jsonName": "group_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"group_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13549,56 +13549,56 @@
 				{
 					"name": "South",
 					"jsonName": "south",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"south,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "West",
 					"jsonName": "west",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"west,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "East",
 					"jsonName": "east",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"east,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "North",
 					"jsonName": "north",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"north,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "SouthEast",
 					"jsonName": "south-east",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"south-east,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "SouthWest",
 					"jsonName": "south-west",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"south-west,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "NorthEast",
 					"jsonName": "north-east",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"north-east,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "NorthWest",
 					"jsonName": "north-west",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"north-west,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -13612,21 +13612,21 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique object identifier",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "StateName",
 					"jsonName": "state_name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"state_name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13634,7 +13634,7 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"description": "Object creation prompt",
 					"required": true
 				},
@@ -13658,21 +13658,21 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp of object creation",
 					"required": true
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "PreviewURL",
 					"jsonName": "preview_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"preview_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -13686,7 +13686,7 @@
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"status,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -13839,7 +13839,7 @@
 				{
 					"name": "Fraction",
 					"jsonName": "fraction",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"fraction,omitzero\"",
 					"description": "Size of oval as fraction of background (0.05-0.95). E.g., 0.3 = oval covers 30% of background"
 				}
@@ -13867,13 +13867,13 @@
 					"name": "Label",
 					"jsonName": "label",
 					"type": "SkeletonLabel",
-					"jsonTag": "json:\"label,omitzero\"",
+					"jsonTag": "json:\"label\"",
 					"required": true
 				},
 				{
 					"name": "ZIndex",
 					"jsonName": "z_index",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"z_index,omitzero\""
 				}
 			]
@@ -13907,7 +13907,7 @@
 				{
 					"name": "ResultSize",
 					"jsonName": "result_size",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"result_size,omitzero\"",
 					"description": "Output sprite size in pixels. 128/160 render at 2K for extra detail (and cost more generations)."
 				},
@@ -13987,28 +13987,28 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"required": true
 				},
 				{
 					"name": "ImageID",
 					"jsonName": "image_id",
 					"type": "string",
-					"jsonTag": "json:\"image_id,omitzero\"",
+					"jsonTag": "json:\"image_id\"",
 					"required": true
 				},
 				{
 					"name": "SourceImageID",
 					"jsonName": "source_image_id",
 					"type": "string",
-					"jsonTag": "json:\"source_image_id,omitzero\"",
+					"jsonTag": "json:\"source_image_id\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
@@ -14035,7 +14035,7 @@
 				{
 					"name": "PricingProvisional",
 					"jsonName": "pricing_provisional",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"pricing_provisional,omitzero\""
 				}
 			]
@@ -14083,7 +14083,7 @@
 				{
 					"name": "UsageDescription",
 					"jsonName": "usage_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"usage_description,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -14096,25 +14096,25 @@
 				{
 					"name": "ColorPalette",
 					"jsonName": "color_palette",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"color_palette,omitzero\""
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"outline,omitzero\""
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"detail,omitzero\""
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"shading,omitzero\""
 				}
 			]
@@ -14154,7 +14154,7 @@
 				{
 					"name": "Fraction",
 					"jsonName": "fraction",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"fraction,omitzero\"",
 					"description": "Size of rectangle as fraction of background (0.05-0.95). E.g., 0.5 = rectangle covers 50% of background"
 				}
@@ -14175,14 +14175,14 @@
 				{
 					"name": "NumColors",
 					"jsonName": "num_colors",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"num_colors,omitzero\"",
 					"description": "Target number of colors. Omit to auto-detect a good palette size from the image itself. Mutually exclusive with palette_image."
 				},
 				{
 					"name": "PaletteImage",
 					"jsonName": "palette_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"palette_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -14296,7 +14296,7 @@
 				{
 					"name": "Text",
 					"jsonName": "text",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"text,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				},
@@ -14317,7 +14317,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Description of your character",
 					"required": true
 				},
@@ -14348,14 +14348,14 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -14383,14 +14383,14 @@
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -14424,7 +14424,7 @@
 				{
 					"name": "ImageGuidanceScale",
 					"jsonName": "image_guidance_scale",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"image_guidance_scale,omitzero\"",
 					"description": "How closely to follow the reference image"
 				},
@@ -14445,28 +14445,28 @@
 				{
 					"name": "FromView",
 					"jsonName": "from_view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"from_view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "ToView",
 					"jsonName": "to_view",
-					"type": "*CameraView",
+					"type": "CameraView",
 					"jsonTag": "json:\"to_view,omitzero\"",
 					"description": "Camera view angle"
 				},
 				{
 					"name": "FromDirection",
 					"jsonName": "from_direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"from_direction,omitzero\"",
 					"description": "Subject direction"
 				},
 				{
 					"name": "ToDirection",
 					"jsonName": "to_direction",
-					"type": "*Direction",
+					"type": "Direction",
 					"jsonTag": "json:\"to_direction,omitzero\"",
 					"description": "Subject direction"
 				},
@@ -14487,21 +14487,21 @@
 				{
 					"name": "InitImage",
 					"jsonName": "init_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"init_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
 				{
 					"name": "InitImageStrength",
 					"jsonName": "init_image_strength",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"init_image_strength,omitzero\"",
 					"description": "Strength of the initial image influence"
 				},
 				{
 					"name": "MaskImage",
 					"jsonName": "mask_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"mask_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -14516,7 +14516,7 @@
 				{
 					"name": "ColorImage",
 					"jsonName": "color_image",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"color_image,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -14544,7 +14544,7 @@
 				{
 					"name": "CommonTag",
 					"jsonName": "common_tag",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"common_tag,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -14585,7 +14585,7 @@
 					"name": "CharacterID",
 					"jsonName": "character_id",
 					"type": "string",
-					"jsonTag": "json:\"character_id,omitzero\"",
+					"jsonTag": "json:\"character_id\"",
 					"required": true
 				},
 				{
@@ -14600,7 +14600,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "string",
-					"jsonTag": "json:\"url,omitzero\"",
+					"jsonTag": "json:\"url\"",
 					"description": "URL of the stored portrait image.",
 					"required": true
 				}
@@ -14613,14 +14613,14 @@
 				{
 					"name": "Width",
 					"jsonName": "width",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Individual tile width in pixels (16 or 32)"
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Individual tile height in pixels (16 or 32)"
 				}
@@ -14648,14 +14648,14 @@
 				{
 					"name": "TilesetID",
 					"jsonName": "tileset_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"tileset_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Err",
 					"jsonName": "error",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"error,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -14669,13 +14669,13 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting.",
 					"required": true
@@ -14683,7 +14683,7 @@
 				{
 					"name": "LowerDescription",
 					"jsonName": "lower_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"lower_description\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting.",
 					"required": true
@@ -14691,7 +14691,7 @@
 				{
 					"name": "TransitionDescription",
 					"jsonName": "transition_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"transition_description\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting.",
 					"required": true
@@ -14707,14 +14707,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				}
 			]
@@ -14859,14 +14859,14 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Subscription status: active, trial, expired, or none",
 					"required": true
 				},
 				{
 					"name": "Plan",
 					"jsonName": "plan",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"plan,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -14896,35 +14896,35 @@
 					"name": "Text",
 					"jsonName": "text",
 					"type": "string",
-					"jsonTag": "json:\"text,omitzero\"",
+					"jsonTag": "json:\"text\"",
 					"description": "The line of dialogue to lip-sync. Mouth shapes are derived from the letters, so any language using the latin alphabet works.",
 					"required": true
 				},
 				{
 					"name": "CharacterID",
 					"jsonName": "character_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"character_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "*LipSyncMoodAnyOf",
+					"type": "LipSyncMoodAnyOf",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Which stored expression to use. Defaults to the character's first. Only valid with `character_id`."
 				},
 				{
 					"name": "Visemes",
 					"jsonName": "visemes",
-					"type": "*map[string]BaseImage",
+					"type": "map[string]BaseImage",
 					"jsonTag": "json:\"visemes,omitzero\"",
 					"description": "The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead."
 				},
 				{
 					"name": "FrameMs",
 					"jsonName": "frame_ms",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"frame_ms,omitzero\"",
 					"description": "Milliseconds per mouth position."
 				},
@@ -14952,7 +14952,7 @@
 					"name": "GifBase64",
 					"jsonName": "gif_base64",
 					"type": "string",
-					"jsonTag": "json:\"gif_base64,omitzero\"",
+					"jsonTag": "json:\"gif_base64\"",
 					"description": "The animated GIF, base64 encoded.",
 					"required": true
 				},
@@ -15004,7 +15004,7 @@
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				}
@@ -15018,7 +15018,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique identifier for this tile",
 					"required": true
 				},
@@ -15026,7 +15026,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Corner-based name (e.g., 'NW+SE', 'none')",
 					"required": true
 				},
@@ -15065,14 +15065,14 @@
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Connections",
 					"jsonName": "connections",
-					"type": "*TileConnections",
+					"type": "TileConnections",
 					"jsonTag": "json:\"connections,omitzero\"",
 					"description": "Deprecated. Null on newly generated top-down tilesets; some older tilesets still carry it. Use pattern_4x4 (or corners) to decide tile placement."
 				}
@@ -15124,7 +15124,7 @@
 					"name": "Nw",
 					"jsonName": "NW",
 					"type": "TileCornersNe",
-					"jsonTag": "json:\"NW,omitzero\"",
+					"jsonTag": "json:\"NW\"",
 					"description": "Northeast corner terrain type",
 					"required": true
 				},
@@ -15132,7 +15132,7 @@
 					"name": "Ne",
 					"jsonName": "NE",
 					"type": "TileCornersNe",
-					"jsonTag": "json:\"NE,omitzero\"",
+					"jsonTag": "json:\"NE\"",
 					"description": "Northeast corner terrain type",
 					"required": true
 				},
@@ -15140,7 +15140,7 @@
 					"name": "Sw",
 					"jsonName": "SW",
 					"type": "TileCornersNe",
-					"jsonTag": "json:\"SW,omitzero\"",
+					"jsonTag": "json:\"SW\"",
 					"description": "Northeast corner terrain type",
 					"required": true
 				},
@@ -15148,7 +15148,7 @@
 					"name": "Se",
 					"jsonName": "SE",
 					"type": "TileCornersNe",
-					"jsonTag": "json:\"SE,omitzero\"",
+					"jsonTag": "json:\"SE\"",
 					"description": "Northeast corner terrain type",
 					"required": true
 				}
@@ -15222,14 +15222,14 @@
 				{
 					"name": "Width",
 					"jsonName": "width",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Individual tile width in pixels. 16 or 32 for standard; 64 requires mode='pro'."
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Individual tile height in pixels. 16 or 32 for standard; 64 requires mode='pro'."
 				}
@@ -15271,7 +15271,7 @@
 					"name": "Base64",
 					"jsonName": "base64",
 					"type": "string",
-					"jsonTag": "json:\"base64,omitzero\"",
+					"jsonTag": "json:\"base64\"",
 					"description": "Base64-encoded RGBA image data",
 					"required": true
 				},
@@ -15301,13 +15301,13 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting.",
 					"required": true
@@ -15315,7 +15315,7 @@
 				{
 					"name": "Description",
 					"jsonName": "description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"description\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting.",
 					"required": true
@@ -15324,7 +15324,7 @@
 					"name": "TileType",
 					"jsonName": "tile_type",
 					"type": "string",
-					"jsonTag": "json:\"tile_type,omitzero\"",
+					"jsonTag": "json:\"tile_type\"",
 					"required": true
 				},
 				{
@@ -15346,7 +15346,7 @@
 				{
 					"name": "TileView",
 					"jsonName": "tile_view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"tile_view\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting.",
 					"required": true
@@ -15355,14 +15355,14 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				}
 			]
@@ -15446,7 +15446,7 @@
 				{
 					"name": "TerrainIds",
 					"jsonName": "terrain_ids",
-					"type": "*map[string]string",
+					"type": "map[string]string",
 					"jsonTag": "json:\"terrain_ids,omitzero\"",
 					"description": "Optional IDs for terrain types"
 				},
@@ -15462,7 +15462,7 @@
 					"name": "View",
 					"jsonName": "view",
 					"type": "string",
-					"jsonTag": "json:\"view,omitzero\"",
+					"jsonTag": "json:\"view\"",
 					"description": "Camera view angle used for tileset",
 					"required": true
 				},
@@ -15478,7 +15478,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp when tileset was created",
 					"required": true
 				}
@@ -15492,14 +15492,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "Unique tileset identifier",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -15507,7 +15507,7 @@
 					"name": "LowerDescription",
 					"jsonName": "lower_description",
 					"type": "string",
-					"jsonTag": "json:\"lower_description,omitzero\"",
+					"jsonTag": "json:\"lower_description\"",
 					"description": "Lower/base terrain description",
 					"required": true
 				},
@@ -15515,21 +15515,21 @@
 					"name": "UpperDescription",
 					"jsonName": "upper_description",
 					"type": "string",
-					"jsonTag": "json:\"upper_description,omitzero\"",
+					"jsonTag": "json:\"upper_description\"",
 					"description": "Upper/elevated terrain description",
 					"required": true
 				},
 				{
 					"name": "TileSize",
 					"jsonName": "tile_size",
-					"type": "*map[string]int",
+					"type": "map[string]int",
 					"jsonTag": "json:\"tile_size,omitzero\"",
 					"description": "REMOVED. Output size is deduced from the style images."
 				},
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -15537,7 +15537,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp of tileset creation",
 					"required": true
 				},
@@ -15545,7 +15545,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Generation status: completed, processing, or failed",
 					"required": true
 				}
@@ -15625,7 +15625,7 @@
 				{
 					"name": "AdditionalInstructions",
 					"jsonName": "additional_instructions",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"additional_instructions,omitzero\"",
 					"description": "Free-text style hint to layer on top of the description."
 				}
@@ -15639,14 +15639,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "UI asset UUID",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -15654,7 +15654,7 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"description": "Style description used to generate the panel",
 					"required": true
 				},
@@ -15669,14 +15669,14 @@
 				{
 					"name": "ImageURL",
 					"jsonName": "image_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"image_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"status,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -15684,7 +15684,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp",
 					"required": true
 				},
@@ -15712,14 +15712,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "UI asset UUID",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -15727,7 +15727,7 @@
 					"name": "Prompt",
 					"jsonName": "prompt",
 					"type": "string",
-					"jsonTag": "json:\"prompt,omitzero\"",
+					"jsonTag": "json:\"prompt\"",
 					"description": "Style description used to generate the panel",
 					"required": true
 				},
@@ -15742,14 +15742,14 @@
 				{
 					"name": "ImageURL",
 					"jsonName": "image_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"image_url,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"status,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
@@ -15757,7 +15757,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "string",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "ISO timestamp",
 					"required": true
 				}
@@ -15800,14 +15800,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Kind",
 					"jsonName": "kind",
 					"type": "string",
-					"jsonTag": "json:\"kind,omitzero\"",
+					"jsonTag": "json:\"kind\"",
 					"required": true
 				},
 				{
@@ -15848,14 +15848,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Kind",
 					"jsonName": "kind",
 					"type": "string",
-					"jsonTag": "json:\"kind,omitzero\"",
+					"jsonTag": "json:\"kind\"",
 					"required": true
 				},
 				{
@@ -15895,7 +15895,7 @@
 				{
 					"name": "Phase",
 					"jsonName": "phase",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"phase,omitzero\""
 				}
 			],
@@ -15909,14 +15909,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Kind",
 					"jsonName": "kind",
 					"type": "string",
-					"jsonTag": "json:\"kind,omitzero\"",
+					"jsonTag": "json:\"kind\"",
 					"required": true
 				},
 				{
@@ -15956,7 +15956,7 @@
 				{
 					"name": "Radius",
 					"jsonName": "radius",
-					"type": "*float64",
+					"type": "float64",
 					"jsonTag": "json:\"radius,omitzero\""
 				}
 			],
@@ -15977,7 +15977,7 @@
 				{
 					"name": "Quantize",
 					"jsonName": "quantize",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"quantize,omitzero\"",
 					"description": "Palette handling for the result. 0 auto-detects a palette, -1 keeps every color the downsample produces, and 2-256 quantizes to exactly that many colors."
 				}
@@ -16122,20 +16122,20 @@
 					"name": "Msg",
 					"jsonName": "msg",
 					"type": "string",
-					"jsonTag": "json:\"msg,omitzero\"",
+					"jsonTag": "json:\"msg\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Input",
 					"jsonName": "input",
-					"type": "*any",
+					"type": "any",
 					"jsonTag": "json:\"input,omitzero\""
 				},
 				{
@@ -16153,7 +16153,8 @@
 			"unionVariants": [
 				{
 					"fieldName": "String",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "Int",
@@ -16163,7 +16164,8 @@
 			"choices": [
 				{
 					"fieldName": "String",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "Int",
@@ -16178,14 +16180,14 @@
 				{
 					"name": "CharacterID",
 					"jsonName": "character_id",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"character_id,omitzero\"",
 					"description": "Optional name for the animation, shown in the UI and used when exporting."
 				},
 				{
 					"name": "Portrait",
 					"jsonName": "portrait",
-					"type": "*BaseImage",
+					"type": "BaseImage",
 					"jsonTag": "json:\"portrait,omitzero\"",
 					"description": "Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).\n\n**Requires exactly one direction.**\n- 8-direction objects: the caller must specify which direction the animation is for. The eight options are south, south-west, west, north-west, north, north-east, east, south-east. Pass that one direction as `directions=[<that direction>]`. For AI agents calling this endpoint: ASK the user which direction they want; do not pick one yourself or default to south.\n- 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.\n\nNot compatible with `mode='pro'`."
 				},
@@ -16198,14 +16200,14 @@
 				{
 					"name": "VisemeCount",
 					"jsonName": "viseme_count",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"viseme_count,omitzero\"",
 					"description": "How many mouth positions to generate. 3 for tiny portraits, 7 recommended, 12 for large close-ups. Must be the same for every expression on one character."
 				},
 				{
 					"name": "NoBackground",
 					"jsonName": "no_background",
-					"type": "bool",
+					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "Return frames with a transparent background."
 				},
@@ -16233,7 +16235,7 @@
 					"name": "BackgroundJobID",
 					"jsonName": "background_job_id",
 					"type": "string",
-					"jsonTag": "json:\"background_job_id,omitzero\"",
+					"jsonTag": "json:\"background_job_id\"",
 					"description": "Poll GET /v2/vocal-animation/{id}",
 					"required": true
 				},
@@ -16247,7 +16249,7 @@
 					"name": "Mood",
 					"jsonName": "mood",
 					"type": "string",
-					"jsonTag": "json:\"mood,omitzero\"",
+					"jsonTag": "json:\"mood\"",
 					"required": true
 				},
 				{
@@ -16354,14 +16356,14 @@
 				{
 					"name": "Width",
 					"jsonName": "width",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Output width in pixels (192–688; max per axis depends on aspect — square 512, 16:9 688)"
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Output height in pixels (192–688; max per axis depends on aspect — square 512, 9:16 688)"
 				}
@@ -16442,7 +16444,7 @@
 				{
 					"name": "UsageDescription",
 					"jsonName": "usage_description",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"usage_description,omitzero\"",
 					"description": "Optional description of how this reference should be used"
 				}
