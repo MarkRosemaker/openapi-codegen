@@ -14,30 +14,30 @@ func errorMessage[C ~string](code C, message string) string {
 	return string(code) + ": " + message
 }
 
-func (e *adminApiError400) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIError400) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiError401) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIError401) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiError403) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIError403) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiError404) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIError404) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiError429) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIError429) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiError500) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIError500) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError400) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError400) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError401) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError401) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError403) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError403) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError404) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError404) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError409) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError409) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError429) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError429) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError500) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError500) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *adminApiPublicError503) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *AdminAPIPublicError503) Error() string { return errorMessage(e.Code, e.Message) }

@@ -14,13 +14,13 @@ func errorMessage[C ~string](code C, message string) string {
 	return string(code) + ": " + message
 }
 
-func (e *error_api_) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_400) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI400) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_401) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI401) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_403) Error() string {
+func (e *ErrorAPI403) Error() string {
 	switch {
 	case e.ErrorAPI403OneOf0 != nil:
 		return errorMessage(e.ErrorAPI403OneOf0.Code, e.ErrorAPI403OneOf0.Message)
@@ -33,22 +33,22 @@ func (e *error_api_403) Error() string {
 	}
 }
 
-func (e *error_api_404) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI404) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_406) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI406) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_409) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI409) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_429) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI429) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_503) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI503) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_504) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI504) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_api_529) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorAPI529) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_oauth_400) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorOauth400) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_oauth_401) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorOauth401) Error() string { return errorMessage(e.Code, e.Message) }
 
-func (e *error_oauth_403) Error() string { return errorMessage(e.Code, e.Message) }
+func (e *ErrorOauth403) Error() string { return errorMessage(e.Code, e.Message) }

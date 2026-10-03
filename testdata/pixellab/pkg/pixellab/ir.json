@@ -6439,7 +6439,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__animate_with_skeleton__ImageSize",
+					"type": "AppEndpointsExternalVAnimateWithSkeletonImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -6664,7 +6664,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__animate_with_text__ImageSize",
+					"type": "AppEndpointsExternalV2AnimateWithTextImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -7055,6 +7055,415 @@
 					"jsonName": "directions",
 					"type": "[]AnimationDirection",
 					"jsonTag": "json:\"directions\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2AnimateWithTextImageSize",
+			"description": "AppEndpointsExternalV2AnimateWithTextImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2CreateImagePixenImageSize",
+			"description": "AppEndpointsExternalV2CreateImagePixenImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels (min 16, max area 512x512, must be divisible by 4; must equal height when either side is below 32)",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels (min 16, max area 512x512, must be divisible by 4; must equal width when either side is below 32)",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2CreateIsometricTileImageSize",
+			"description": "AppEndpointsExternalV2CreateIsometricTileImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels. Sizes above 24px often give better results.",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels. Sizes above 24px often give better results.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2CreateMapObjectImageSize",
+			"description": "Image dimensions for map objects.\n\nSupports any aspect ratio:\n- Both width and height: 32px minimum, 400px maximum\n- Basic mode (no inpainting): max 400×400 total area (160,000 pixels)\n- Inpainting mode: max 192×192 total area (36,864 pixels)\n- Common sizes: 64×64, 128×128, 192×192, 256×128, 384×96",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Width in pixels (32-400)",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Height in pixels (32-400)",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2CreateUIAssetImageSize",
+			"description": "AppEndpointsExternalV2CreateUIAssetImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width,omitzero\"",
+					"description": "Output width in pixels (192–688; max per axis depends on aspect — square 512, 16:9 688)"
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height,omitzero\"",
+					"description": "Output height in pixels (192–688; max per axis depends on aspect — square 512, 9:16 688)"
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2EditImagesV2ImageSize",
+			"description": "AppEndpointsExternalV2EditImagesV2ImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2Generate8RotationsV2ReferenceImage",
+			"description": "Reference image with dimensions.",
+			"fields": [
+				{
+					"name": "Image",
+					"jsonName": "image",
+					"type": "BaseImage",
+					"jsonTag": "json:\"image\"",
+					"description": "Reference image as base64 PNG/JPEG",
+					"required": true
+				},
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width (reference max 168, concept max 1024)",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height (reference max 168, concept max 1024)",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2GenerateImageV2ReferenceImage",
+			"description": "Reference image with size and optional description.\n\nImages larger than 1024x1024 will be downscaled. Non-square images will be\npadded to square with transparent pixels before processing.",
+			"fields": [
+				{
+					"name": "Image",
+					"jsonName": "image",
+					"type": "BaseImage",
+					"jsonTag": "json:\"image\"",
+					"description": "Reference image as base64 PNG/JPEG",
+					"required": true
+				},
+				{
+					"name": "Size",
+					"jsonName": "size",
+					"type": "AppEndpointsExternalVGenerateImageVReferenceImageSize",
+					"jsonTag": "json:\"size\"",
+					"description": "Size of the reference image. Images larger than 1024x1024 will be downscaled.",
+					"required": true
+				},
+				{
+					"name": "UsageDescription",
+					"jsonName": "usage_description",
+					"type": "string",
+					"jsonTag": "json:\"usage_description,omitzero\"",
+					"description": "Optional description of how this reference should be used"
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2ImageToPixelartImageSize",
+			"description": "Image dimensions",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalV2RemoveBackgroundImageSize",
+			"description": "AppEndpointsExternalV2RemoveBackgroundImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVAnimateWithSkeletonImageSize",
+			"description": "AppEndpointsExternalVAnimateWithSkeletonImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVCreateCharacterWithDirectionsImageSize",
+			"description": "AppEndpointsExternalVCreateCharacterWithDirectionsImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Character size in pixels. Canvas will be ~40% larger to make room for animations.",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Character size in pixels. Canvas will be ~40% larger to make room for animations.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVCreateImageBitforgeImageSize",
+			"description": "AppEndpointsExternalVCreateImageBitforgeImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVCreateImagePixfluxImageSize",
+			"description": "AppEndpointsExternalVCreateImagePixfluxImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVEditAnimationVFrameImage",
+			"description": "Animation frame image with size.\n\nNested `size` object matches the animation-frame v2 subfamily\n(transfer-outfit-v2, interpolation-v2), which share this backend family.",
+			"fields": [
+				{
+					"name": "Image",
+					"jsonName": "image",
+					"type": "BaseImage",
+					"jsonTag": "json:\"image\"",
+					"description": "Frame image as base64 PNG/JPEG",
+					"required": true
+				},
+				{
+					"name": "Size",
+					"jsonName": "size",
+					"type": "AppEndpointsExternalVEditAnimationVFrameImageSize",
+					"jsonTag": "json:\"size\"",
+					"description": "Size of the frame image",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVEditAnimationVFrameImageSize",
+			"description": "AppEndpointsExternalVEditAnimationVFrameImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Frame image width",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Frame image height",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVGenerateImageVImageSize",
+			"description": "AppEndpointsExternalVGenerateImageVImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Image width in pixels (16 to aspect-ratio max)",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Image height in pixels (16 to aspect-ratio max)",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AppEndpointsExternalVGenerateImageVReferenceImageSize",
+			"description": "AppEndpointsExternalVGenerateImageVReferenceImageSize defines a model",
+			"fields": [
+				{
+					"name": "Width",
+					"jsonName": "width",
+					"type": "int",
+					"jsonTag": "json:\"width\"",
+					"description": "Reference image width",
+					"required": true
+				},
+				{
+					"name": "Height",
+					"jsonName": "height",
+					"type": "int",
+					"jsonTag": "json:\"height\"",
+					"description": "Reference image height",
 					"required": true
 				}
 			]
@@ -7732,7 +8141,7 @@
 				{
 					"name": "Size",
 					"jsonName": "size",
-					"type": "app__endpoints__external__v__generate_image_v__ReferenceImageSize",
+					"type": "AppEndpointsExternalVGenerateImageVReferenceImageSize",
 					"jsonTag": "json:\"size\"",
 					"description": "Size of the concept image",
 					"required": true
@@ -8613,7 +9022,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_character_with__directions__ImageSize",
+					"type": "AppEndpointsExternalVCreateCharacterWithDirectionsImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of each rotation image",
 					"required": true
@@ -8909,7 +9318,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_image_bitforge__ImageSize",
+					"type": "AppEndpointsExternalVCreateImageBitforgeImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -9095,7 +9504,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__create_image_pixen__ImageSize",
+					"type": "AppEndpointsExternalV2CreateImagePixenImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -9214,7 +9623,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_image_pixflux__ImageSize",
+					"type": "AppEndpointsExternalVCreateImagePixfluxImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -9462,7 +9871,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__create_isometric_tile__ImageSize",
+					"type": "AppEndpointsExternalV2CreateIsometricTileImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -9609,7 +10018,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__create_map_object__ImageSize",
+					"type": "AppEndpointsExternalV2CreateMapObjectImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Object dimensions"
 				},
@@ -10641,7 +11050,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "*app__endpoints__external__v2__create_ui_asset__ImageSize",
+					"type": "*AppEndpointsExternalV2CreateUIAssetImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Output image size in pixels (192–688; max per axis depends on aspect)"
 				},
@@ -10709,7 +11118,7 @@
 			"kind": 5,
 			"unionVariants": [
 				{
-					"fieldName": "UIPieceRect",
+					"fieldName": "UiPieceRect",
 					"type": "UiPieceRect",
 					"value": "rounded_rect",
 					"members": [
@@ -10733,7 +11142,7 @@
 					"object": true
 				},
 				{
-					"fieldName": "UIPieceCircle",
+					"fieldName": "UiPieceCircle",
 					"type": "UiPieceCircle",
 					"value": "circle",
 					"members": [
@@ -10754,7 +11163,7 @@
 					"object": true
 				},
 				{
-					"fieldName": "UIPiecePolygon",
+					"fieldName": "UiPiecePolygon",
 					"type": "UiPiecePolygon",
 					"value": "polygon",
 					"members": [
@@ -10780,7 +11189,7 @@
 			],
 			"choices": [
 				{
-					"fieldName": "UIPieceRect",
+					"fieldName": "UiPieceRect",
 					"type": "UiPieceRect",
 					"value": "rounded_rect",
 					"members": [
@@ -10804,7 +11213,7 @@
 					"object": true
 				},
 				{
-					"fieldName": "UIPieceCircle",
+					"fieldName": "UiPieceCircle",
 					"type": "UiPieceCircle",
 					"value": "circle",
 					"members": [
@@ -10825,7 +11234,7 @@
 					"object": true
 				},
 				{
-					"fieldName": "UIPiecePolygon",
+					"fieldName": "UiPiecePolygon",
 					"type": "UiPiecePolygon",
 					"value": "polygon",
 					"members": [
@@ -11197,7 +11606,7 @@
 				{
 					"name": "Frames",
 					"jsonName": "frames",
-					"type": "[]app__endpoints__external__v__edit_animation_v__FrameImage",
+					"type": "[]AppEndpointsExternalVEditAnimationVFrameImage",
 					"jsonTag": "json:\"frames\"",
 					"description": "Animation frames to edit (2-16 frames)",
 					"required": true
@@ -11205,7 +11614,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__animate_with_skeleton__ImageSize",
+					"type": "AppEndpointsExternalVAnimateWithSkeletonImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of the output frames",
 					"required": true
@@ -11398,7 +11807,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_image_pixflux__ImageSize",
+					"type": "AppEndpointsExternalVCreateImagePixfluxImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of the reference image",
 					"required": true
@@ -11479,7 +11888,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__edit_images_v2__ImageSize",
+					"type": "AppEndpointsExternalV2EditImagesV2ImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of output images",
 					"required": true
@@ -11684,7 +12093,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__create_image_pixen__ImageSize",
+					"type": "AppEndpointsExternalV2CreateImagePixenImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Target image size. Prompt complexity scales with size.",
 					"required": true
@@ -11801,14 +12210,14 @@
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
+					"type": "AppEndpointsExternalV2Generate8RotationsV2ReferenceImage",
 					"jsonTag": "json:\"reference_image,omitzero\"",
 					"description": "Concept art image (only for create_from_concept method)"
 				},
 				{
 					"name": "ConceptImage",
 					"jsonName": "concept_image",
-					"type": "app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
+					"type": "AppEndpointsExternalV2Generate8RotationsV2ReferenceImage",
 					"jsonTag": "json:\"concept_image,omitzero\"",
 					"description": "Concept art image (only for create_from_concept method)"
 				},
@@ -11983,7 +12392,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__generate_image_v__ImageSize",
+					"type": "AppEndpointsExternalVGenerateImageVImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of the output image",
 					"required": true
@@ -12005,14 +12414,14 @@
 				{
 					"name": "ReferenceImages",
 					"jsonName": "reference_images",
-					"type": "[]app__endpoints__external__v2__generate_image_v2__ReferenceImage",
+					"type": "[]AppEndpointsExternalV2GenerateImageV2ReferenceImage",
 					"jsonTag": "json:\"reference_images,omitzero\"",
 					"description": "Optional reference images for subject guidance (up to 4)"
 				},
 				{
 					"name": "StyleImage",
 					"jsonName": "style_image",
-					"type": "app__endpoints__external__v2__generate_image_v2__ReferenceImage",
+					"type": "AppEndpointsExternalV2GenerateImageV2ReferenceImage",
 					"jsonTag": "json:\"style_image,omitzero\"",
 					"description": "Optional style image for pixel size and style reference"
 				},
@@ -12040,7 +12449,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__generate_image_v__ImageSize",
+					"type": "AppEndpointsExternalVGenerateImageVImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Output image size (16 to aspect-ratio max, e.g. 512x512 square)"
 				},
@@ -12473,7 +12882,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__image_to_pixelart__ImageSize",
+					"type": "AppEndpointsExternalV2ImageToPixelartImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of the input image",
 					"required": true
@@ -12683,7 +13092,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_image_bitforge__ImageSize",
+					"type": "AppEndpointsExternalVCreateImageBitforgeImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -12899,7 +13308,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_character_with__directions__ImageSize",
+					"type": "AppEndpointsExternalVCreateCharacterWithDirectionsImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of the output frames",
 					"required": true
@@ -14281,7 +14690,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v2__remove_background__ImageSize",
+					"type": "AppEndpointsExternalV2RemoveBackgroundImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"description": "Size of the input image",
 					"required": true
@@ -14332,7 +14741,7 @@
 				{
 					"name": "ReferenceImageSize",
 					"jsonName": "reference_image_size",
-					"type": "app__endpoints__external__v__create_image_bitforge__ImageSize",
+					"type": "AppEndpointsExternalVCreateImageBitforgeImageSize",
 					"jsonTag": "json:\"reference_image_size\"",
 					"description": "Original size of the reference image",
 					"required": true
@@ -14340,7 +14749,7 @@
 				{
 					"name": "TargetSize",
 					"jsonName": "target_size",
-					"type": "app__endpoints__external__v__create_image_bitforge__ImageSize",
+					"type": "AppEndpointsExternalVCreateImageBitforgeImageSize",
 					"jsonTag": "json:\"target_size\"",
 					"description": "Desired output size",
 					"required": true
@@ -14417,7 +14826,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "app__endpoints__external__v__create_image_bitforge__ImageSize",
+					"type": "AppEndpointsExternalVCreateImageBitforgeImageSize",
 					"jsonTag": "json:\"image_size\"",
 					"required": true
 				},
@@ -15587,7 +15996,7 @@
 				{
 					"name": "ReferenceImage",
 					"jsonName": "reference_image",
-					"type": "app__endpoints__external__v__edit_animation_v__FrameImage",
+					"type": "AppEndpointsExternalVEditAnimationVFrameImage",
 					"jsonTag": "json:\"reference_image\"",
 					"description": "Reference image containing the outfit/appearance to transfer",
 					"required": true
@@ -15595,7 +16004,7 @@
 				{
 					"name": "Frames",
 					"jsonName": "frames",
-					"type": "[]app__endpoints__external__v__edit_animation_v__FrameImage",
+					"type": "[]AppEndpointsExternalVEditAnimationVFrameImage",
 					"jsonTag": "json:\"frames\"",
 					"description": "Animation frames to apply the outfit to (2-16 frames)",
 					"required": true
@@ -16257,415 +16666,6 @@
 					"jsonName": "viseme_count",
 					"type": "int",
 					"jsonTag": "json:\"viseme_count\"",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__animate_with_text__ImageSize",
-			"description": "app__endpoints__external__v2__animate_with_text__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__create_image_pixen__ImageSize",
-			"description": "app__endpoints__external__v2__create_image_pixen__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels (min 16, max area 512x512, must be divisible by 4; must equal height when either side is below 32)",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels (min 16, max area 512x512, must be divisible by 4; must equal width when either side is below 32)",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__create_isometric_tile__ImageSize",
-			"description": "app__endpoints__external__v2__create_isometric_tile__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels. Sizes above 24px often give better results.",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels. Sizes above 24px often give better results.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__create_map_object__ImageSize",
-			"description": "Image dimensions for map objects.\n\nSupports any aspect ratio:\n- Both width and height: 32px minimum, 400px maximum\n- Basic mode (no inpainting): max 400×400 total area (160,000 pixels)\n- Inpainting mode: max 192×192 total area (36,864 pixels)\n- Common sizes: 64×64, 128×128, 192×192, 256×128, 384×96",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Width in pixels (32-400)",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Height in pixels (32-400)",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__create_ui_asset__ImageSize",
-			"description": "app__endpoints__external__v2__create_ui_asset__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width,omitzero\"",
-					"description": "Output width in pixels (192–688; max per axis depends on aspect — square 512, 16:9 688)"
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height,omitzero\"",
-					"description": "Output height in pixels (192–688; max per axis depends on aspect — square 512, 9:16 688)"
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__edit_images_v2__ImageSize",
-			"description": "app__endpoints__external__v2__edit_images_v2__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage",
-			"description": "Reference image with dimensions.",
-			"fields": [
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "Reference image as base64 PNG/JPEG",
-					"required": true
-				},
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width (reference max 168, concept max 1024)",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height (reference max 168, concept max 1024)",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__generate_image_v2__ReferenceImage",
-			"description": "Reference image with size and optional description.\n\nImages larger than 1024x1024 will be downscaled. Non-square images will be\npadded to square with transparent pixels before processing.",
-			"fields": [
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "Reference image as base64 PNG/JPEG",
-					"required": true
-				},
-				{
-					"name": "Size",
-					"jsonName": "size",
-					"type": "app__endpoints__external__v__generate_image_v__ReferenceImageSize",
-					"jsonTag": "json:\"size\"",
-					"description": "Size of the reference image. Images larger than 1024x1024 will be downscaled.",
-					"required": true
-				},
-				{
-					"name": "UsageDescription",
-					"jsonName": "usage_description",
-					"type": "string",
-					"jsonTag": "json:\"usage_description,omitzero\"",
-					"description": "Optional description of how this reference should be used"
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__image_to_pixelart__ImageSize",
-			"description": "Image dimensions",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v2__remove_background__ImageSize",
-			"description": "app__endpoints__external__v2__remove_background__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__animate_with_skeleton__ImageSize",
-			"description": "app__endpoints__external__v__animate_with_skeleton__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__create_character_with__directions__ImageSize",
-			"description": "app__endpoints__external__v__create_character_with__directions__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Character size in pixels. Canvas will be ~40% larger to make room for animations.",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Character size in pixels. Canvas will be ~40% larger to make room for animations.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__create_image_bitforge__ImageSize",
-			"description": "app__endpoints__external__v__create_image_bitforge__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__create_image_pixflux__ImageSize",
-			"description": "app__endpoints__external__v__create_image_pixflux__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__edit_animation_v__FrameImage",
-			"description": "Animation frame image with size.\n\nNested `size` object matches the animation-frame v2 subfamily\n(transfer-outfit-v2, interpolation-v2), which share this backend family.",
-			"fields": [
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "Frame image as base64 PNG/JPEG",
-					"required": true
-				},
-				{
-					"name": "Size",
-					"jsonName": "size",
-					"type": "app__endpoints__external__v__edit_animation_v__FrameImageSize",
-					"jsonTag": "json:\"size\"",
-					"description": "Size of the frame image",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__edit_animation_v__FrameImageSize",
-			"description": "app__endpoints__external__v__edit_animation_v__FrameImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Frame image width",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Frame image height",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__generate_image_v__ImageSize",
-			"description": "app__endpoints__external__v__generate_image_v__ImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Image width in pixels (16 to aspect-ratio max)",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Image height in pixels (16 to aspect-ratio max)",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "app__endpoints__external__v__generate_image_v__ReferenceImageSize",
-			"description": "app__endpoints__external__v__generate_image_v__ReferenceImageSize defines a model",
-			"fields": [
-				{
-					"name": "Width",
-					"jsonName": "width",
-					"type": "int",
-					"jsonTag": "json:\"width\"",
-					"description": "Reference image width",
-					"required": true
-				},
-				{
-					"name": "Height",
-					"jsonName": "height",
-					"type": "int",
-					"jsonTag": "json:\"height\"",
-					"description": "Reference image height",
 					"required": true
 				}
 			]

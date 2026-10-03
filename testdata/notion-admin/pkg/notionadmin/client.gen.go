@@ -145,7 +145,7 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -158,7 +158,7 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -171,7 +171,7 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -184,7 +184,7 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -197,7 +197,7 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -210,7 +210,7 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -275,7 +275,7 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -288,7 +288,7 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -301,7 +301,7 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -314,7 +314,7 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -327,7 +327,7 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -340,7 +340,7 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -412,7 +412,7 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -425,7 +425,7 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -438,7 +438,7 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -451,7 +451,7 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -464,7 +464,7 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -477,7 +477,7 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -552,7 +552,7 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -565,7 +565,7 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -578,7 +578,7 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -591,7 +591,7 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -604,7 +604,7 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -617,7 +617,7 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -689,7 +689,7 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -702,7 +702,7 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -715,7 +715,7 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -728,7 +728,7 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -741,7 +741,7 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -754,7 +754,7 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -833,7 +833,7 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -846,7 +846,7 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -859,7 +859,7 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -872,7 +872,7 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -885,7 +885,7 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -898,7 +898,7 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -970,7 +970,7 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -983,7 +983,7 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -996,7 +996,7 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1009,7 +1009,7 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1022,7 +1022,7 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1035,7 +1035,7 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1110,7 +1110,7 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1123,7 +1123,7 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1136,7 +1136,7 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1149,7 +1149,7 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1162,7 +1162,7 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1175,7 +1175,7 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1240,7 +1240,7 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1253,7 +1253,7 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1266,7 +1266,7 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1279,7 +1279,7 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1292,7 +1292,7 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1305,7 +1305,7 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1370,7 +1370,7 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1383,7 +1383,7 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1396,7 +1396,7 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1409,7 +1409,7 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1422,7 +1422,7 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1435,7 +1435,7 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1507,7 +1507,7 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1520,7 +1520,7 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1533,7 +1533,7 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1546,7 +1546,7 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1559,7 +1559,7 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1572,7 +1572,7 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1637,7 +1637,7 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1650,7 +1650,7 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1663,7 +1663,7 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1676,7 +1676,7 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1689,7 +1689,7 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1702,7 +1702,7 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1777,7 +1777,7 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1790,7 +1790,7 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1803,7 +1803,7 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1816,7 +1816,7 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1829,7 +1829,7 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1842,7 +1842,7 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1914,7 +1914,7 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1927,7 +1927,7 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1940,7 +1940,7 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1953,7 +1953,7 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1966,7 +1966,7 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1979,7 +1979,7 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2066,7 +2066,7 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2079,7 +2079,7 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2092,7 +2092,7 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2105,7 +2105,7 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2118,7 +2118,7 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2131,7 +2131,7 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2203,7 +2203,7 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2216,7 +2216,7 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2229,7 +2229,7 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2242,7 +2242,7 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2255,7 +2255,7 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2268,7 +2268,7 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2340,7 +2340,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2353,7 +2353,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2366,7 +2366,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2379,7 +2379,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2392,7 +2392,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2405,7 +2405,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2422,7 +2422,7 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 // Retrieve a group
 //
 //	GET /spaces/{space_id}/groups/{group_id}
-func (c *Client) RetrievePermissionGroup(ctx context.Context, groupID idRequest, spaceID uuid.UUID) (*CreatePermissionGroup2, error) {
+func (c *Client) RetrievePermissionGroup(ctx context.Context, groupID IDRequest, spaceID uuid.UUID) (*CreatePermissionGroup2, error) {
 	return c.RetrievePermissionGroupWithResult[CreatePermissionGroup2](ctx, groupID, spaceID)
 }
 
@@ -2430,7 +2430,7 @@ func (c *Client) RetrievePermissionGroup(ctx context.Context, groupID idRequest,
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /spaces/{space_id}/groups/{group_id}
-func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, groupID idRequest, spaceID uuid.UUID) (*R, error) {
+func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, groupID IDRequest, spaceID uuid.UUID) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -2470,7 +2470,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2483,7 +2483,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2496,7 +2496,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2509,7 +2509,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2522,7 +2522,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2535,7 +2535,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2548,7 +2548,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2561,7 +2561,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2578,7 +2578,7 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 // Delete a group
 //
 //	DELETE /spaces/{space_id}/groups/{group_id}
-func (c *Client) DeletePermissionGroup(ctx context.Context, groupID idRequest, spaceID uuid.UUID, params *DeletePermissionGroupParams) (*CreatePermissionGroup2, error) {
+func (c *Client) DeletePermissionGroup(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *DeletePermissionGroupParams) (*CreatePermissionGroup2, error) {
 	return c.DeletePermissionGroupWithResult[CreatePermissionGroup2](ctx, groupID, spaceID, params)
 }
 
@@ -2586,7 +2586,7 @@ func (c *Client) DeletePermissionGroup(ctx context.Context, groupID idRequest, s
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /spaces/{space_id}/groups/{group_id}
-func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, groupID idRequest, spaceID uuid.UUID, params *DeletePermissionGroupParams) (*R, error) {
+func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *DeletePermissionGroupParams) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID))
 	if params != nil {
 		q := make(url.Values, 1)
@@ -2636,7 +2636,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2649,7 +2649,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2662,7 +2662,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2675,7 +2675,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2688,7 +2688,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2701,7 +2701,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2714,7 +2714,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2727,7 +2727,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2744,7 +2744,7 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 // Update a group
 //
 //	PATCH /spaces/{space_id}/groups/{group_id}
-func (c *Client) UpdatePermissionGroup(ctx context.Context, groupID idRequest, spaceID uuid.UUID, body CreatePermissionGroup) (*CreatePermissionGroup2, error) {
+func (c *Client) UpdatePermissionGroup(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body CreatePermissionGroup) (*CreatePermissionGroup2, error) {
 	return c.UpdatePermissionGroupWithResult[CreatePermissionGroup2](ctx, groupID, spaceID, body)
 }
 
@@ -2752,7 +2752,7 @@ func (c *Client) UpdatePermissionGroup(ctx context.Context, groupID idRequest, s
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /spaces/{space_id}/groups/{group_id}
-func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, groupID idRequest, spaceID uuid.UUID, body CreatePermissionGroup) (*R, error) {
+func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body CreatePermissionGroup) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2799,7 +2799,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2812,7 +2812,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2825,7 +2825,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2838,7 +2838,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2851,7 +2851,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2864,7 +2864,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2877,7 +2877,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2890,7 +2890,7 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2969,7 +2969,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2982,7 +2982,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2995,7 +2995,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3008,7 +3008,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3021,7 +3021,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3034,7 +3034,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3047,7 +3047,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3060,7 +3060,7 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3132,7 +3132,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3145,7 +3145,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3158,7 +3158,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3171,7 +3171,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3184,7 +3184,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3197,7 +3197,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3210,7 +3210,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3223,7 +3223,7 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3302,7 +3302,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3315,7 +3315,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3328,7 +3328,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3341,7 +3341,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3354,7 +3354,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3367,7 +3367,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3380,7 +3380,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3393,7 +3393,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3410,7 +3410,7 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 // List group members
 //
 //	GET /spaces/{space_id}/groups/{group_id}/members
-func (c *Client) ListPermissionGroupMembers(ctx context.Context, groupID idRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*ListPermissionGroupMembersOk, error) {
+func (c *Client) ListPermissionGroupMembers(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*ListPermissionGroupMembersOk, error) {
 	return c.ListPermissionGroupMembersWithResult[ListPermissionGroupMembersOk](ctx, groupID, spaceID, params)
 }
 
@@ -3418,7 +3418,7 @@ func (c *Client) ListPermissionGroupMembers(ctx context.Context, groupID idReque
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /spaces/{space_id}/groups/{group_id}/members
-func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context, groupID idRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*R, error) {
+func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID), "members")
 	if params != nil {
 		q := make(url.Values, 2)
@@ -3472,7 +3472,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3485,7 +3485,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3498,7 +3498,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3511,7 +3511,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3524,7 +3524,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3537,7 +3537,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3550,7 +3550,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3563,7 +3563,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3580,7 +3580,7 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 // Add a group member
 //
 //	POST /spaces/{space_id}/groups/{group_id}/members
-func (c *Client) AddPermissionGroupMember(ctx context.Context, groupID idRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMember2, error) {
+func (c *Client) AddPermissionGroupMember(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMember2, error) {
 	return c.AddPermissionGroupMemberWithResult[AddPermissionGroupMember2](ctx, groupID, spaceID, body)
 }
 
@@ -3588,7 +3588,7 @@ func (c *Client) AddPermissionGroupMember(ctx context.Context, groupID idRequest
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /spaces/{space_id}/groups/{group_id}/members
-func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, groupID idRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*R, error) {
+func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID), "members")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3635,7 +3635,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3648,7 +3648,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3661,7 +3661,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3674,7 +3674,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3687,7 +3687,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3700,7 +3700,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3713,7 +3713,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3726,7 +3726,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3743,7 +3743,7 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 // Remove a group member
 //
 //	DELETE /spaces/{space_id}/groups/{group_id}/members/users/{user_id}
-func (c *Client) RemovePermissionGroupMember(ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error) {
+func (c *Client) RemovePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error) {
 	return c.RemovePermissionGroupMemberWithResult[AddPermissionGroupMember2](ctx, groupID, userID, spaceID)
 }
 
@@ -3751,7 +3751,7 @@ func (c *Client) RemovePermissionGroupMember(ctx context.Context, groupID idRequ
 // You can define a custom result to unmarshal the response into.
 //
 //	DELETE /spaces/{space_id}/groups/{group_id}/members/users/{user_id}
-func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID) (*R, error) {
+func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID), "members", "users", string(userID))
 	req := (&http.Request{
 		Header: http.Header{
@@ -3791,7 +3791,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3804,7 +3804,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3817,7 +3817,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3830,7 +3830,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3843,7 +3843,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3856,7 +3856,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3869,7 +3869,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3882,7 +3882,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3899,7 +3899,7 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 // Update a group member
 //
 //	PATCH /spaces/{space_id}/groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdatePermissionGroupMember(ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error) {
+func (c *Client) UpdatePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error) {
 	return c.UpdatePermissionGroupMemberWithResult[AddPermissionGroupMember2](ctx, groupID, userID, spaceID, body)
 }
 
@@ -3907,7 +3907,7 @@ func (c *Client) UpdatePermissionGroupMember(ctx context.Context, groupID idRequ
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /spaces/{space_id}/groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Context, groupID idRequest, userID idRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*R, error) {
+func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*R, error) {
 	u := c.baseURL.JoinPath("spaces", spaceID.String(), "groups", string(groupID), "members", "users", string(userID))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3954,7 +3954,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3967,7 +3967,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3980,7 +3980,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3993,7 +3993,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4006,7 +4006,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4019,7 +4019,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4032,7 +4032,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4045,7 +4045,7 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4136,7 +4136,7 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4149,7 +4149,7 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4162,7 +4162,7 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4175,7 +4175,7 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4188,7 +4188,7 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4201,7 +4201,7 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4248,7 +4248,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4261,7 +4261,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4274,7 +4274,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4287,7 +4287,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4300,7 +4300,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4313,7 +4313,7 @@ func (c *Client) RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID,
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4385,7 +4385,7 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4398,7 +4398,7 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4411,7 +4411,7 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4424,7 +4424,7 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4437,7 +4437,7 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4450,7 +4450,7 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4522,7 +4522,7 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4535,7 +4535,7 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4548,7 +4548,7 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4561,7 +4561,7 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4574,7 +4574,7 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4587,7 +4587,7 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4659,7 +4659,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4672,7 +4672,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4685,7 +4685,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4698,7 +4698,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4711,7 +4711,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4724,7 +4724,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4771,7 +4771,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4784,7 +4784,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4797,7 +4797,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4810,7 +4810,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4823,7 +4823,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4836,7 +4836,7 @@ func (c *Client) DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uui
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -4971,7 +4971,7 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4984,7 +4984,7 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4997,7 +4997,7 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5010,7 +5010,7 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5023,7 +5023,7 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5036,7 +5036,7 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5111,7 +5111,7 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5124,7 +5124,7 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5137,7 +5137,7 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5150,7 +5150,7 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5163,7 +5163,7 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5176,7 +5176,7 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5251,7 +5251,7 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5264,7 +5264,7 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5277,7 +5277,7 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5290,7 +5290,7 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5303,7 +5303,7 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5316,7 +5316,7 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5388,7 +5388,7 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5401,7 +5401,7 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5414,7 +5414,7 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5427,7 +5427,7 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5440,7 +5440,7 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5453,7 +5453,7 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5544,7 +5544,7 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5557,7 +5557,7 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5570,7 +5570,7 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5583,7 +5583,7 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5596,7 +5596,7 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5609,7 +5609,7 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5681,7 +5681,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError400
+			var out AdminAPIError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5694,7 +5694,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError401
+			var out AdminAPIError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5707,7 +5707,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError403
+			var out AdminAPIError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5720,7 +5720,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError404
+			var out AdminAPIError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5733,7 +5733,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError429
+			var out AdminAPIError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5746,7 +5746,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiError500
+			var out AdminAPIError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5825,7 +5825,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5838,7 +5838,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5851,7 +5851,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5864,7 +5864,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5877,7 +5877,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5890,7 +5890,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5903,7 +5903,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5916,7 +5916,7 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5988,7 +5988,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6001,7 +6001,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6014,7 +6014,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6027,7 +6027,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6040,7 +6040,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6053,7 +6053,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6066,7 +6066,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6079,7 +6079,7 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6144,7 +6144,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6157,7 +6157,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6170,7 +6170,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6183,7 +6183,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6196,7 +6196,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6209,7 +6209,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6222,7 +6222,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6235,7 +6235,7 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6307,7 +6307,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request body, path parameters, or query parameters are invalid.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError400
+			var out AdminAPIPublicError400
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6320,7 +6320,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request is missing a valid bearer token.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError401
+			var out AdminAPIPublicError401
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6333,7 +6333,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The authenticated bot does not have access to the requested resource or scope.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError403
+			var out AdminAPIPublicError403
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6346,7 +6346,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The requested resource could not be found.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError404
+			var out AdminAPIPublicError404
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6359,7 +6359,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request conflicts with the current state of the resource.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError409
+			var out AdminAPIPublicError409
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6372,7 +6372,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// The request was rate limited.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError429
+			var out AdminAPIPublicError429
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6385,7 +6385,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError500
+			var out AdminAPIPublicError500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6398,7 +6398,7 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		// A required service is temporarily unavailable.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out adminApiPublicError503
+			var out AdminAPIPublicError503
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
