@@ -86,17 +86,17 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 }
 
 // GET /pages/{pageId}
-func (c *Client) GetV1PageByPageID(ctx context.Context, pageID string) (*GetV1PageByPageIDOk, error) {
-	return c.GetV1PageByPageIDWithResult[GetV1PageByPageIDOk](ctx, pageID)
+func (c *Client) GetV1PageByPageID(ctx context.Context, pageID string, params GetV1PageByPageIDParams) (*GetV1PageByPageIDOk, error) {
+	return c.GetV1PageByPageIDWithResult[GetV1PageByPageIDOk](ctx, pageID, params)
 }
 
 // GET /pages/{pageId}
-func (c *Client) GetV1PageByPageIDWithResult[R any](ctx context.Context, pageID string) (*R, error) {
+func (c *Client) GetV1PageByPageIDWithResult[R any](ctx context.Context, pageID string, params GetV1PageByPageIDParams) (*R, error) {
 	u := c.baseURL.JoinPath("pages", pageID)
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization":  []string{c.bearer},
-			"Notion-Version": []string{"2026-03-11"},
+			"Notion-Version": []string{params.NotionVersion},
 			"User-Agent":     []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -133,27 +133,26 @@ func (c *Client) GetV1PageByPageIDWithResult[R any](ctx context.Context, pageID 
 }
 
 // GET /blocks/{blockId}/children
-func (c *Client) ListV1BlockChildren(ctx context.Context, blockID string, params *ListV1BlockChildrenParams) (*ListV1BlockChildrenOk, error) {
+func (c *Client) ListV1BlockChildren(ctx context.Context, blockID string, params ListV1BlockChildrenParams) (*ListV1BlockChildrenOk, error) {
 	return c.ListV1BlockChildrenWithResult[ListV1BlockChildrenOk](ctx, blockID, params)
 }
 
 // GET /blocks/{blockId}/children
-func (c *Client) ListV1BlockChildrenWithResult[R any](ctx context.Context, blockID string, params *ListV1BlockChildrenParams) (*R, error) {
+func (c *Client) ListV1BlockChildrenWithResult[R any](ctx context.Context, blockID string, params ListV1BlockChildrenParams) (*R, error) {
 	u := c.baseURL.JoinPath("blocks", blockID, "children")
-	if params != nil {
-		q := make(url.Values, 1)
 
-		if params.PageSize != 0 {
-			q["page_size"] = []string{strconv.Itoa(params.PageSize)}
-		}
+	q := make(url.Values, 1)
 
-		u.RawQuery = q.Encode()
+	if params.PageSize != 0 {
+		q["page_size"] = []string{strconv.Itoa(params.PageSize)}
 	}
+
+	u.RawQuery = q.Encode()
 
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization":  []string{c.bearer},
-			"Notion-Version": []string{"2026-03-11"},
+			"Notion-Version": []string{params.NotionVersion},
 			"User-Agent":     []string{c.userAgent},
 		},
 		Host:       u.Host,

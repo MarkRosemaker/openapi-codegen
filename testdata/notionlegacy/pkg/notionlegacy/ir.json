@@ -32,7 +32,21 @@
 					"description": "Identifier for a block, page, or user."
 				}
 			],
+			"headerParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Specifies the Notion API version"
+				}
+			],
 			"hasParams": true,
+			"paramStructName": "GetPageParams",
 			"responses": [
 				{
 					"statusCode": "200",
@@ -93,6 +107,19 @@
 					"description": "The number of items from the full list desired in the response."
 				}
 			],
+			"headerParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true,
+					"description": "Specifies the Notion API version"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetBlocksParams",
 			"responses": [
@@ -110,22 +137,6 @@
 			"successReturn": {
 				"name": "BlocksList"
 			}
-		}
-	],
-	"globalParams": [
-		{
-			"globalType": "Version",
-			"varName": "params.NotionVersion",
-			"goName": "notionVersion",
-			"fieldName": "NotionVersion",
-			"jsonName": "Notion-Version",
-			"type": "string",
-			"required": true,
-			"parseExpr": "s",
-			"parseErrFree": true,
-			"description": "Specifies the Notion API version",
-			"value": "\"2022-06-28\"",
-			"example": "\"2022-06-28\""
 		}
 	],
 	"schemas": [

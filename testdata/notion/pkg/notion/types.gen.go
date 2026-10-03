@@ -23,9 +23,15 @@ var jsonOpts = json.JoinOptions(
 	)),
 )
 
+// GetV1PageByPageIDParams holds the query parameters for GetV1PageByPageID.
+type GetV1PageByPageIDParams struct {
+	NotionVersion string
+}
+
 // ListV1BlockChildrenParams holds the query parameters for ListV1BlockChildren.
 type ListV1BlockChildrenParams struct {
-	PageSize int
+	PageSize      int
+	NotionVersion string
 }
 
 // GetV1PageByPageIDOk defines a model

@@ -18,7 +18,7 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetPage(ctx context.Context, id uuid.UUID) (*Page, error)
-	GetBlocks(ctx context.Context, id uuid.UUID, params *GetBlocksParams) (*BlocksList, error)
+	GetBlocks(ctx context.Context, id uuid.UUID, params GetBlocksParams) (*BlocksList, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -115,7 +115,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				params.PageSize = rawParam
 			}
 
-			res, err := svc.GetBlocks(ctx, id, &params)
+			res, err := svc.GetBlocks(ctx, id, params)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

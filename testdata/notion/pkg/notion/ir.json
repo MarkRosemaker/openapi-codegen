@@ -30,7 +30,20 @@
 					"parseErrFree": true
 				}
 			],
+			"headerParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
 			"hasParams": true,
+			"paramStructName": "GetV1PageByPageIDParams",
 			"responses": [
 				{
 					"statusCode": "200",
@@ -79,6 +92,18 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"headerParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListV1BlockChildrenParams",
 			"responses": [
@@ -96,21 +121,6 @@
 			"successReturn": {
 				"name": "ListV1BlockChildrenOk"
 			}
-		}
-	],
-	"globalParams": [
-		{
-			"globalType": "Version",
-			"varName": "params.NotionVersion",
-			"goName": "notionVersion",
-			"fieldName": "NotionVersion",
-			"jsonName": "Notion-Version",
-			"type": "string",
-			"required": true,
-			"parseExpr": "s",
-			"parseErrFree": true,
-			"value": "\"2026-03-11\"",
-			"example": "\"2026-03-11\""
 		}
 	],
 	"schemas": [

@@ -50,7 +50,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.GetV1PageByPageID(t.Context(), ""); err == nil {
+			if _, err := c.GetV1PageByPageID(t.Context(), "", GetV1PageByPageIDParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -70,7 +70,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.GetV1PageByPageID(t.Context(), ""); err == nil {
+			if _, err := c.GetV1PageByPageID(t.Context(), "", GetV1PageByPageIDParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -98,7 +98,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.GetV1PageByPageID(t.Context(), ""); err == nil {
+			if _, err := c.GetV1PageByPageID(t.Context(), "", GetV1PageByPageIDParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -123,7 +123,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.GetV1PageByPageID(t.Context(), ""); err == nil {
+			if _, err := c.GetV1PageByPageID(t.Context(), "", GetV1PageByPageIDParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -144,7 +144,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ListV1BlockChildren(t.Context(), "", nil); err == nil {
+			if _, err := c.ListV1BlockChildren(t.Context(), "", ListV1BlockChildrenParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -164,7 +164,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ListV1BlockChildren(t.Context(), "", nil); err == nil {
+			if _, err := c.ListV1BlockChildren(t.Context(), "", ListV1BlockChildrenParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -192,7 +192,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ListV1BlockChildren(t.Context(), "", nil); err == nil {
+			if _, err := c.ListV1BlockChildren(t.Context(), "", ListV1BlockChildrenParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -217,7 +217,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ListV1BlockChildren(t.Context(), "", nil); err == nil {
+			if _, err := c.ListV1BlockChildren(t.Context(), "", ListV1BlockChildrenParams{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -308,12 +308,15 @@ func TestClient_Interactions(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if _, err := c.GetV1PageByPageID(ctx, "96245c8f-1784-44a4-82ad-1941127c3ec3"); err != nil {
+	if _, err := c.GetV1PageByPageID(ctx, "96245c8f-1784-44a4-82ad-1941127c3ec3", GetV1PageByPageIDParams{
+		NotionVersion: "2026-03-11",
+	}); err != nil {
 		t.Fatalf("GetV1PageByPageID: %v", err)
 	}
 
-	if _, err := c.ListV1BlockChildren(ctx, "96245c8f-1784-44a4-82ad-1941127c3ec3", &ListV1BlockChildrenParams{
-		PageSize: 3,
+	if _, err := c.ListV1BlockChildren(ctx, "96245c8f-1784-44a4-82ad-1941127c3ec3", ListV1BlockChildrenParams{
+		PageSize:      3,
+		NotionVersion: "2026-03-11",
 	}); err != nil {
 		t.Fatalf("ListV1BlockChildren: %v", err)
 	}

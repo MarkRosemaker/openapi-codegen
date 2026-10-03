@@ -89,20 +89,20 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // Retrieves a Page object using the ID in the request path. This endpoint exposes page properties, not page content.
 //
 //	GET /pages/{id}
-func (c *Client) GetPage(ctx context.Context, id uuid.UUID) (*Page, error) {
-	return c.GetPageWithResult[Page](ctx, id)
+func (c *Client) GetPage(ctx context.Context, id uuid.UUID, params GetPageParams) (*Page, error) {
+	return c.GetPageWithResult[Page](ctx, id, params)
 }
 
 // Retrieves a Page object using the ID in the request path. This endpoint exposes page properties, not page content.
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /pages/{id}
-func (c *Client) GetPageWithResult[R any](ctx context.Context, id uuid.UUID) (*R, error) {
+func (c *Client) GetPageWithResult[R any](ctx context.Context, id uuid.UUID, params GetPageParams) (*R, error) {
 	u := c.baseURL.JoinPath("pages", id.String())
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization":  []string{c.bearer},
-			"Notion-Version": []string{"2022-06-28"},
+			"Notion-Version": []string{params.NotionVersion},
 			"User-Agent":     []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -141,7 +141,7 @@ func (c *Client) GetPageWithResult[R any](ctx context.Context, id uuid.UUID) (*R
 // Returns a paginated array of child [block objects](https://developers.notion.com/reference/block) contained in the block using the ID specified. In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.
 //
 //	GET /blocks/{id}/children
-func (c *Client) GetBlocks(ctx context.Context, id uuid.UUID, params *GetBlocksParams) (*BlocksList, error) {
+func (c *Client) GetBlocks(ctx context.Context, id uuid.UUID, params GetBlocksParams) (*BlocksList, error) {
 	return c.GetBlocksWithResult[BlocksList](ctx, id, params)
 }
 
@@ -149,26 +149,25 @@ func (c *Client) GetBlocks(ctx context.Context, id uuid.UUID, params *GetBlocksP
 // You can define a custom result to unmarshal the response into.
 //
 //	GET /blocks/{id}/children
-func (c *Client) GetBlocksWithResult[R any](ctx context.Context, id uuid.UUID, params *GetBlocksParams) (*R, error) {
+func (c *Client) GetBlocksWithResult[R any](ctx context.Context, id uuid.UUID, params GetBlocksParams) (*R, error) {
 	u := c.baseURL.JoinPath("blocks", id.String(), "children")
-	if params != nil {
-		q := make(url.Values, 2)
 
-		if params.StartCursor != uuid.Nil() {
-			q["start_cursor"] = []string{params.StartCursor.String()}
-		}
+	q := make(url.Values, 2)
 
-		if params.PageSize != 0 {
-			q["page_size"] = []string{strconv.Itoa(params.PageSize)}
-		}
-
-		u.RawQuery = q.Encode()
+	if params.StartCursor != uuid.Nil() {
+		q["start_cursor"] = []string{params.StartCursor.String()}
 	}
+
+	if params.PageSize != 0 {
+		q["page_size"] = []string{strconv.Itoa(params.PageSize)}
+	}
+
+	u.RawQuery = q.Encode()
 
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization":  []string{c.bearer},
-			"Notion-Version": []string{"2022-06-28"},
+			"Notion-Version": []string{params.NotionVersion},
 			"User-Agent":     []string{c.userAgent},
 		},
 		Host:       u.Host,
