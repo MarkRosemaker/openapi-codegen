@@ -19,6 +19,23 @@
 				"\"users\"",
 				"\"me\""
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"responses": [
 				{
 					"statusCode": "200",
@@ -155,6 +172,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -301,6 +335,23 @@
 					"parseExpr": "strconv.ParseFloat(s, 64)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetUsersParams",
 			"responses": [
@@ -440,6 +491,23 @@
 						"parseExpr": "s",
 						"parseErrFree": true
 					}
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -612,6 +680,23 @@
 					}
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "RetrieveAPageParams",
 			"responses": [
@@ -767,6 +852,23 @@
 					}
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "PatchPageParams",
 			"requestBody": {
@@ -911,6 +1013,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -1088,6 +1207,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "RetrieveAPagePropertyParams",
 			"responses": [
@@ -1239,6 +1375,23 @@
 					"parseExpr": "strconv.ParseBool(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "RetrievePageMarkdownParams",
 			"responses": [
@@ -1378,6 +1531,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -1533,6 +1703,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -1670,6 +1857,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -1811,6 +2015,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -1948,6 +2169,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2113,6 +2351,23 @@
 					"parseExpr": "strconv.ParseFloat(s, 64)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetBlockChildrenParams",
 			"responses": [
@@ -2252,6 +2507,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2398,6 +2670,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -2535,6 +2824,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2697,6 +3003,23 @@
 					}
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "PostDatabaseQueryParams",
 			"requestBody": {
@@ -2827,6 +3150,23 @@
 			"pathTemplate": "/data_sources",
 			"joinPathArgs": [
 				"\"data_sources\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "CreateADatabase",
@@ -3000,6 +3340,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListDataSourceTemplatesParams",
 			"responses": [
@@ -3138,6 +3495,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -3279,6 +3653,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"requestBody": {
 				"typeName": "UpdateDatabase",
@@ -3409,6 +3800,23 @@
 			"joinPathArgs": [
 				"\"databases\""
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"requestBody": {
 				"typeName": "CreateDatabase",
 				"contentType": "application/json",
@@ -3537,6 +3945,23 @@
 			"pathTemplate": "/search",
 			"joinPathArgs": [
 				"\"search\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "PostSearch",
@@ -3697,6 +4122,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListCommentsParams",
 			"responses": [
@@ -3822,6 +4264,23 @@
 			"pathTemplate": "/comments",
 			"joinPathArgs": [
 				"\"comments\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "CreateAComment",
@@ -3966,6 +4425,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -4105,6 +4581,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -4242,6 +4735,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -4404,6 +4914,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListFileUploadsParams",
 			"responses": [
@@ -4529,6 +5056,23 @@
 			"pathTemplate": "/file_uploads",
 			"joinPathArgs": [
 				"\"file_uploads\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "CreateFile",
@@ -4672,6 +5216,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -4819,6 +5380,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -4956,6 +5534,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -5109,6 +5704,23 @@
 					"type": "string",
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -5276,6 +5888,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListViewsParams",
 			"responses": [
@@ -5401,6 +6030,23 @@
 			"pathTemplate": "/views",
 			"joinPathArgs": [
 				"\"views\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "createViewRequest",
@@ -5545,6 +6191,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -5684,6 +6347,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -5821,6 +6501,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -5966,6 +6663,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -6144,6 +6858,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetViewQueryResultsParams",
 			"responses": [
@@ -6297,6 +7028,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -6422,6 +7170,23 @@
 			"joinPathArgs": [
 				"\"blocks\"",
 				"\"meeting_notes\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "CreateMeetingNote",
@@ -6554,6 +7319,23 @@
 				"\"meeting_notes\"",
 				"\"query\""
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"requestBody": {
 				"typeName": "QueryMeetingNotes",
 				"contentType": "application/json",
@@ -6683,6 +7465,23 @@
 			"joinPathArgs": [
 				"\"agents\"",
 				"\"query\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "QueryAgents",
@@ -6836,6 +7635,23 @@
 					"parseExpr": "strconv.ParseBool(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetAgentParams",
 			"responses": [
@@ -6973,6 +7789,23 @@
 					"required": true,
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -7132,6 +7965,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetAgentInsightsParams",
 			"responses": [
@@ -7270,6 +8120,23 @@
 					"required": true,
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -7416,6 +8283,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"requestBody": {
 				"typeName": "AgentBatchOperationsItemOneOfFields2",
@@ -7546,6 +8430,23 @@
 			"joinPathArgs": [
 				"\"agents\"",
 				"\"batch\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "AgentBatch",
@@ -7696,6 +8597,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListSkillsPluginsParams",
 			"responses": [
@@ -7834,6 +8752,23 @@
 					"required": true,
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -7976,6 +8911,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -8100,6 +9052,23 @@
 			"pathTemplate": "/sessions",
 			"joinPathArgs": [
 				"\"sessions\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "UpdateSessionRequest",
@@ -8244,6 +9213,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -8369,6 +9355,23 @@
 			"joinPathArgs": [
 				"\"sessions\"",
 				"\"query\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "QuerySessions",
@@ -8513,6 +9516,23 @@
 					"parseExpr": "idRequest(s)",
 					"parseErrFree": true,
 					"baseType": "string"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -8660,6 +9680,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"requestBody": {
 				"typeName": "CancelSession",
@@ -8791,6 +9828,23 @@
 				"\"oauth\"",
 				"\"token\""
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"requestBody": {
 				"typeName": "CreateAToken",
 				"contentType": "application/json",
@@ -8857,6 +9911,23 @@
 			"joinPathArgs": [
 				"\"oauth\"",
 				"\"revoke\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "IntrospectToken",
@@ -8925,6 +9996,23 @@
 				"\"oauth\"",
 				"\"introspect\""
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
+					"value": "\"2026-03-11\"",
+					"in": "header"
+				}
+			],
 			"requestBody": {
 				"typeName": "IntrospectToken",
 				"contentType": "application/json",
@@ -8981,24 +10069,6 @@
 			"successReturn": {
 				"name": "IntrospectTokenOk"
 			}
-		}
-	],
-	"globalParams": [
-		{
-			"globalType": "Version",
-			"varName": "params.NotionVersion",
-			"goName": "notionVersion",
-			"fieldName": "NotionVersion",
-			"jsonName": "Notion-Version",
-			"type": "NotionVersion",
-			"required": true,
-			"parseExpr": "NotionVersion(s)",
-			"parseErrFree": true,
-			"isEnum": true,
-			"baseType": "string",
-			"description": "The [API version](/reference/versioning) to use for this request. The latest version is `2026-03-11`.",
-			"value": "\"2026-03-11\"",
-			"example": "\"2026-03-11\""
 		}
 	],
 	"schemas": [

@@ -31,6 +31,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"requestBody": {
 				"typeName": "ExportLegalHold",
@@ -128,6 +145,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -218,6 +252,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -329,6 +380,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListLegalHoldUsersParams",
 			"responses": [
@@ -421,6 +489,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -527,6 +612,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListLegalHoldsParams",
 			"responses": [
@@ -607,6 +709,23 @@
 			"pathTemplate": "/legal_holds",
 			"joinPathArgs": [
 				"\"legal_holds\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "CreateLegalHold",
@@ -716,6 +835,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListLegalHoldWorkspacesParams",
 			"responses": [
@@ -808,6 +944,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -913,6 +1066,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -1005,6 +1175,23 @@
 					"required": true,
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -1115,6 +1302,23 @@
 					"required": true,
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -1232,6 +1436,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListLegalHoldPagesParams",
 			"responses": [
@@ -1313,6 +1534,23 @@
 			"joinPathArgs": [
 				"\"managed_users\"",
 				"\"revoke_session\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "RevokeUserSession",
@@ -1442,6 +1680,23 @@
 					}
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListMcpClientConnectionsParams",
 			"responses": [
@@ -1523,6 +1778,23 @@
 			"joinPathArgs": [
 				"\"mcp_client_connections\"",
 				"\"enterprise_managed_access\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "UpdateMcpClientConnectionEnterpriseManagedAccess",
@@ -1608,6 +1880,23 @@
 			"joinPathArgs": [
 				"\"mcp_client_connections\"",
 				"\"revoke\""
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
 			],
 			"requestBody": {
 				"typeName": "RevokeMcpClientConnection",
@@ -1716,6 +2005,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -1853,6 +2159,23 @@
 					"baseType": "string"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "DeletePermissionGroupParams",
 			"responses": [
@@ -1975,6 +2298,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2112,6 +2452,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListPermissionGroupsParams",
 			"responses": [
@@ -2222,6 +2579,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2357,6 +2731,23 @@
 					"jsonName": "page_size",
 					"type": "int",
 					"parseExpr": "strconv.Atoi(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2503,6 +2894,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListPermissionGroupMembersParams",
 			"responses": [
@@ -2626,6 +3034,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -2770,6 +3195,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -2905,6 +3347,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -3079,6 +3538,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListPersonalAccessTokensParams",
 			"responses": [
@@ -3183,6 +3659,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -3273,6 +3766,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -3371,6 +3881,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -3482,6 +4009,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"requestBody": {
 				"typeName": "UpdateAgentStatus",
@@ -3588,6 +4132,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -3853,6 +4414,23 @@
 					"parseExpr": "strconv.Atoi(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetWorkflowsMetadataForSpaceParams",
 			"responses": [
@@ -3967,6 +4545,23 @@
 					"type": "string",
 					"parseExpr": "s",
 					"parseErrFree": true
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -4085,6 +4680,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetAgentPermissionsParams",
 			"responses": [
@@ -4188,6 +4800,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -4337,6 +4966,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "GetAgentsCreditUsageParams",
 			"responses": [
@@ -4440,6 +5086,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -4559,6 +5222,23 @@
 					"parseErrFree": true
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"paramStructName": "ListCreditLimitPoliciesParams",
 			"responses": [
@@ -4669,6 +5349,23 @@
 					"type": "uuid.UUID",
 					"required": true,
 					"parseExpr": "uuid.Parse(s)"
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
 				}
 			],
 			"hasParams": true,
@@ -4797,6 +5494,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"responses": [
 				{
@@ -4918,6 +5632,23 @@
 					"parseExpr": "uuid.Parse(s)"
 				}
 			],
+			"fixedParams": [
+				{
+					"varName": "params.NotionVersion",
+					"goName": "notionVersion",
+					"fieldName": "NotionVersion",
+					"jsonName": "Notion-Version",
+					"type": "NotionVersion",
+					"required": true,
+					"parseExpr": "NotionVersion(s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "The Admin API version to use for this request.",
+					"value": "\"2026-06-01\"",
+					"in": "header"
+				}
+			],
 			"hasParams": true,
 			"requestBody": {
 				"typeName": "UpdateCreditLimitPolicy",
@@ -5011,23 +5742,6 @@
 			"successReturn": {
 				"name": "CreateCreditLimitPolicy2"
 			}
-		}
-	],
-	"globalParams": [
-		{
-			"globalType": "Version",
-			"varName": "params.NotionVersion",
-			"goName": "notionVersion",
-			"fieldName": "NotionVersion",
-			"jsonName": "Notion-Version",
-			"type": "NotionVersion",
-			"required": true,
-			"parseExpr": "NotionVersion(s)",
-			"parseErrFree": true,
-			"isEnum": true,
-			"baseType": "string",
-			"description": "The Admin API version to use for this request.",
-			"value": "\"2026-06-01\""
 		}
 	],
 	"schemas": [

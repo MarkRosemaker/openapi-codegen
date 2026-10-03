@@ -17,7 +17,7 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetV1PageByPageID(ctx context.Context, pageID string) (*GetV1PageByPageIDOk, error)
-	ListV1BlockChildren(ctx context.Context, blockID string, params *ListV1BlockChildrenParams) (*ListV1BlockChildrenOk, error)
+	ListV1BlockChildren(ctx context.Context, blockID string, params ListV1BlockChildrenParams) (*ListV1BlockChildrenOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -90,7 +90,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				params.PageSize = rawParam
 			}
 
-			res, err := svc.ListV1BlockChildren(ctx, blockID, &params)
+			res, err := svc.ListV1BlockChildren(ctx, blockID, params)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

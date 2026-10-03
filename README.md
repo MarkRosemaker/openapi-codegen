@@ -97,6 +97,10 @@ How the specification maps onto Go:
 - **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null"
   is `X`, a pointer to `X` only by the rule for fields above, so that null and
   the zero value can differ.
+- **Fixed parameters** — a required parameter that can take only one value, its
+  `const` or the only value of its `enum`, is sent by the client itself: in the
+  path, the query or the headers, such as Notion's `Notion-Version`. The caller
+  never passes it. An `example` alone does not fix a value.
 - **Query parameters** — an array is sent as one value per element (form style,
   exploded). "X or an array of X" is sent as the array, a union of strings as a
   string, and `null` is dropped, since a query string cannot carry it.

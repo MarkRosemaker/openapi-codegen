@@ -24,12 +24,20 @@ var jsonOpts = json.JoinOptions(
 	)),
 )
 
+// GetPageParams holds the query parameters for GetPage.
+type GetPageParams struct {
+	// Specifies the Notion API version
+	NotionVersion string
+}
+
 // GetBlocksParams holds the query parameters for GetBlocks.
 type GetBlocksParams struct {
 	// If supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results.
 	StartCursor uuid.UUID
 	// The number of items from the full list desired in the response.
 	PageSize int
+	// Specifies the Notion API version
+	NotionVersion string
 }
 
 // Style information which applies to the whole rich text object.
