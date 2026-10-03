@@ -239,6 +239,54 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 	}
 }
 
+func TestFromDocument_JSONTags(t *testing.T) {
+	t.Parallel()
+
+	doc := loadSchemas(t, `{
+		"Filter": {
+			"type": "object",
+			"required": ["count", "on", "id", "when", "tags"],
+			"properties": {
+				"count": {"type": "integer"},
+				"on": {"type": "boolean"},
+				"id": {"type": "string"},
+				"when": {"type": "string", "format": "date-time"},
+				"tags": {"type": "array", "items": {"type": "string"}},
+				"limit": {"type": "integer"},
+				"archived": {"type": "boolean"},
+				"name": {"type": "string"},
+				"before": {"type": "string", "format": "date-time"},
+				"ids": {"type": "array", "items": {"type": "string"}},
+				"ratio": {"type": "number"}
+			}
+		}
+	}`)
+
+	got := map[string]string{}
+	for _, f := range schemaNamed(t, doc, "Filter").Fields {
+		got[f.JSONName] = f.JSONTag
+	}
+
+	// an optional field is omitted when unset; a required one is always sent, unless it is a string
+	for name, want := range map[string]string{
+		"count":    `json:"count"`,
+		"on":       `json:"on"`,
+		"id":       `json:"id,omitzero"`,
+		"when":     `json:"when,omitzero"`,
+		"tags":     `json:"tags"`,
+		"limit":    `json:"limit,omitzero"`,
+		"archived": `json:"archived,omitzero"`,
+		"name":     `json:"name,omitzero"`,
+		"before":   `json:"before,omitzero"`,
+		"ids":      `json:"ids,omitzero"`,
+		"ratio":    `json:"ratio,omitzero"`,
+	} {
+		if got[name] != want {
+			t.Errorf("%s: got %s, want %s", name, got[name], want)
+		}
+	}
+}
+
 func TestFromComponentSchemas_Enum(t *testing.T) {
 	schemas := openapi.Schemas{}
 	schemas.Set("Status", &openapi.Schema{

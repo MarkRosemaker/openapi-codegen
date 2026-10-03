@@ -76,12 +76,12 @@ type NewTimeEntry struct {
 	// Time entry duration. For running entries should be negative, preferable -1
 	Duration time.Duration `json:"duration"`
 	// Deprecated: Used to create a time entry with a duration but without a stop time. This parameter can be ignored.
-	Duronly       bool           `json:"duronly,omitempty"`
-	EventMetadata *EventMetadata `json:"event_metadata,omitempty"`
+	Duronly       bool           `json:"duronly,omitzero"`
+	EventMetadata *EventMetadata `json:"event_metadata,omitzero"`
 	// Project ID, legacy field
-	Pid *int `json:"pid,omitempty"`
+	Pid *int `json:"pid,omitzero"`
 	// Project ID, optional
-	ProjectID *int `json:"project_id,omitempty"`
+	ProjectID *int `json:"project_id,omitzero"`
 	// List of user IDs to share this time entry with
 	SharedWithUserIds []int `json:"shared_with_user_ids,omitzero"`
 	// Start time, required for creation.
@@ -98,15 +98,15 @@ type NewTimeEntry struct {
 	// Names of tags to add/remove. If name does not exist as tag, one will be created automatically
 	Tags []string `json:"tags"`
 	// Task ID, optional
-	TaskID *int `json:"task_id,omitempty"`
+	TaskID *int `json:"task_id,omitzero"`
 	// Task ID, legacy field
-	Tid *int `json:"tid,omitempty"`
+	Tid *int `json:"tid,omitzero"`
 	// Time Entry creator ID, legacy field
-	UID *int `json:"uid,omitempty"`
+	UID *int `json:"uid,omitzero"`
 	// Time Entry creator ID, if omitted will use the requester user ID
-	UserID *int `json:"user_id,omitempty"`
+	UserID *int `json:"user_id,omitzero"`
 	// Workspace ID, legacy field
-	Wid *int `json:"wid,omitempty"`
+	Wid *int `json:"wid,omitzero"`
 	// Workspace ID
 	WorkspaceID int `json:"workspace_id"`
 }
@@ -147,7 +147,7 @@ type Organization struct {
 	// The subscription plan is an enterprise plan
 	PricingPlanEnterprise bool `json:"pricing_plan_enterprise"`
 	// How far back free workspaces in this org can access data.
-	MaxDataRetentionDays *int `json:"max_data_retention_days,omitempty"`
+	MaxDataRetentionDays *int `json:"max_data_retention_days,omitzero"`
 }
 
 // Organizations defines a model
@@ -177,7 +177,7 @@ type Project struct {
 	// Whether estimates are based on task hours, premium feature
 	AutoEstimates bool `json:"auto_estimates"`
 	// RecurringPeriod
-	CurrentPeriod *EventMetadata `json:"current_period,omitempty"`
+	CurrentPeriod *EventMetadata `json:"current_period,omitzero"`
 	// End date
 	EndDate string `json:"end_date,omitzero"`
 	// Estimated hours
@@ -282,10 +282,10 @@ type TimeEntry struct {
 	ClientName      string        `json:"client_name,omitzero"`
 	ProjectName     string        `json:"project_name,omitzero"`
 	ProjectColor    string        `json:"project_color,omitzero"`
-	ProjectActive   bool          `json:"project_active,omitempty"`
-	ProjectBillable bool          `json:"project_billable,omitempty"`
+	ProjectActive   bool          `json:"project_active,omitzero"`
+	ProjectBillable bool          `json:"project_billable,omitzero"`
 	UserName        string        `json:"user_name,omitzero"`
-	UserAvatarURL   *url.URL      `json:"user_avatar_url,omitempty"`
+	UserAvatarURL   *url.URL      `json:"user_avatar_url,omitzero"`
 }
 
 // TrialInfo defines a model
@@ -331,12 +331,12 @@ type UserWithRelated struct {
 	// Clients, null if with_related_data was not set to true or if the user does not have any clients
 	Clients     Clients     `json:"clients,omitzero"`
 	TimeEntries TimeEntries `json:"time_entries,omitzero"`
-	Options     *Options    `json:"options,omitempty"`
+	Options     *Options    `json:"options,omitzero"`
 	// Projects, null if with_related_data was not set to true or if the user does not have any projects
 	Projects      Projects   `json:"projects,omitzero"`
 	Workspaces    Workspaces `json:"workspaces,omitzero"`
-	TwoFaEnabled  bool       `json:"2fa_enabled,omitempty"`
-	UserAccountID *int       `json:"user_account_id,omitempty"`
+	TwoFaEnabled  bool       `json:"2fa_enabled,omitzero"`
+	UserAccountID *int       `json:"user_account_id,omitzero"`
 }
 
 // WorkClient defines a model

@@ -1794,9 +1794,9 @@ type AgentTriggersItem struct {
 	// Whether this trigger is currently enabled.
 	Enabled bool `json:"enabled"`
 	// Structured recurrence cadence. Present only for recurrence triggers.
-	Schedule *AgentTriggersItemSchedule `json:"schedule,omitempty"`
+	Schedule *AgentTriggersItemSchedule `json:"schedule,omitzero"`
 	// Remaining per-type trigger configuration (e.g. watched channel ids, reaction config), keys in snake_case. Present only when the trigger carries such state.
-	Config *map[string]any `json:"config,omitempty"`
+	Config *map[string]any `json:"config,omitzero"`
 }
 
 // Structured recurrence cadence. Present only for recurrence triggers.
@@ -1812,15 +1812,15 @@ type AgentTriggersItemSchedule struct {
 	// Week-of-month ordinals for a monthly weekday restriction (e.g. [2, 3] for the 2nd and 3rd occurrence); -1 means the last week.
 	WeekNumbers []int `json:"week_numbers,omitzero"`
 	// Hour of day (0–23) the schedule runs.
-	Hour *int `json:"hour,omitempty"`
+	Hour *int `json:"hour,omitzero"`
 	// Minute of the hour (0–59) the schedule runs.
-	Minute *int `json:"minute,omitempty"`
+	Minute *int `json:"minute,omitzero"`
 	// IANA timezone (e.g. "America/New_York").
 	Timezone string `json:"timezone,omitzero"`
 	// ISO 8601 timestamp the schedule starts from.
 	StartDate string `json:"start_date,omitzero"`
 	// When the schedule stops, when it is bounded.
-	End *AgentTriggersItemScheduleEnd `json:"end,omitempty"`
+	End *AgentTriggersItemScheduleEnd `json:"end,omitzero"`
 }
 
 // When the schedule stops, when it is bounded.
@@ -1963,7 +1963,7 @@ func (v *Array) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, e
 type Audio struct {
 	Audio   updateMediaContentWithFileAndCaptionRequest `json:"audio"`
 	Type    string                                      `json:"type,omitzero"`
-	InTrash bool                                        `json:"in_trash,omitempty"`
+	InTrash bool                                        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Audio declares it.
@@ -2245,7 +2245,7 @@ func (e BoardViewConfigCoverSizeOneOf) Valid() bool {
 type Bookmark struct {
 	Bookmark mediaContentWithUrlAndCaption `json:"bookmark"`
 	Type     string                        `json:"type,omitzero"`
-	InTrash  bool                          `json:"in_trash,omitempty"`
+	InTrash  bool                          `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Bookmark declares it.
@@ -2409,7 +2409,7 @@ func (v *BotUserObjectResponseBot) MarshalJSONTo(enc *jsontext.Encoder) error {
 type Breadcrumb struct {
 	Breadcrumb emptyObject `json:"breadcrumb"`
 	Type       string      `json:"type,omitzero"`
-	InTrash    bool        `json:"in_trash,omitempty"`
+	InTrash    bool        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Breadcrumb declares it.
@@ -2451,7 +2451,7 @@ func (v *Breadcrumb3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (b
 type BulletedListItem struct {
 	BulletedListItem contentWithRichTextAndColorRequest `json:"bulleted_list_item"`
 	Type             string                             `json:"type,omitzero"`
-	InTrash          bool                               `json:"in_trash,omitempty"`
+	InTrash          bool                               `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether BulletedListItem declares it.
@@ -2561,7 +2561,7 @@ func (e CalendarViewConfigViewRangeOneOf) Valid() bool {
 type Callout struct {
 	Callout Callout5 `json:"callout"`
 	Type    string   `json:"type,omitzero"`
-	InTrash bool     `json:"in_trash,omitempty"`
+	InTrash bool     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Callout declares it.
@@ -2644,7 +2644,7 @@ func (v *Callout4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool
 // Callout5 defines a model
 type Callout5 struct {
 	RichText []richTextItemRequest `json:"rich_text,omitzero"`
-	Icon     *pageIconRequest      `json:"icon,omitempty"`
+	Icon     *pageIconRequest      `json:"icon,omitzero"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color apiColor `json:"color,omitzero"`
 }
@@ -2655,7 +2655,7 @@ type Callout6 struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color    apiColor                                      `json:"color,omitzero"`
 	Children []blockObjectWithSingleLevelOfChildrenRequest `json:"children,omitzero"`
-	Icon     *pageIconRequest                              `json:"icon,omitempty"`
+	Icon     *pageIconRequest                              `json:"icon,omitzero"`
 }
 
 // Callout7 defines a model
@@ -2664,7 +2664,7 @@ type Callout7 struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color    apiColor                            `json:"color,omitzero"`
 	Children []blockObjectRequestWithoutChildren `json:"children,omitzero"`
-	Icon     *pageIconRequest                    `json:"icon,omitempty"`
+	Icon     *pageIconRequest                    `json:"icon,omitzero"`
 }
 
 // CalloutBlockObjectCallout defines a model
@@ -2693,7 +2693,7 @@ type CancelSession2 struct {
 	CreatedAt       time.Time                    `json:"created_at,omitzero"`
 	UpdatedAt       time.Time                    `json:"updated_at,omitzero"`
 	RequiredActions CancelSessionRequiredActions `json:"required_actions,omitzero"`
-	Err             *CancelSessionError          `json:"error,omitempty"`
+	Err             *CancelSessionError          `json:"error,omitzero"`
 }
 
 // CancelSessionError defines a model
@@ -3093,7 +3093,7 @@ func (v *Checkbox4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 type Code struct {
 	Code    Code2  `json:"code"`
 	Type    string `json:"type,omitzero"`
-	InTrash bool   `json:"in_trash,omitempty"`
+	InTrash bool   `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Code declares it.
@@ -3149,7 +3149,7 @@ type CodeBlockObjectResponseCode struct {
 type Column struct {
 	Column  ColumnColumn `json:"column"`
 	Type    string       `json:"type,omitzero"`
-	InTrash bool         `json:"in_trash,omitempty"`
+	InTrash bool         `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Column declares it.
@@ -3190,7 +3190,7 @@ func (v *Column3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool,
 // ColumnColumn defines a model
 type ColumnColumn struct {
 	// Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width.
-	WidthRatio *float64 `json:"width_ratio,omitempty"`
+	WidthRatio *float64 `json:"width_ratio,omitzero"`
 }
 
 // ColumnList defines a model
@@ -3349,7 +3349,7 @@ type CreateAComment struct {
 	// An array of files to attach to the comment. Maximum of 3 allowed.
 	Attachments CreateACommentAllOf0Attachments `json:"attachments,omitzero"`
 	// Display name for the comment.
-	DisplayName          *CreateACommentAllOf0DisplayName `json:"display_name,omitempty"`
+	DisplayName          *CreateACommentAllOf0DisplayName `json:"display_name,omitzero"`
 	CreateACommentAllOf1 CreateACommentAllOf1             `json:"-"`
 }
 
@@ -3875,7 +3875,7 @@ type CreateADatabase struct {
 	// Title of data source as it appears in Notion.
 	Title []richTextItemRequest `json:"title,omitzero"`
 	// Page icon.
-	Icon *pageIconRequest `json:"icon,omitempty"`
+	Icon *pageIconRequest `json:"icon,omitzero"`
 }
 
 // CreateADatabase2 defines a model
@@ -3999,7 +3999,7 @@ type CreateATokenAnyOf0 struct {
 	GrantType       string                             `json:"grant_type,omitzero"`
 	Code            string                             `json:"code,omitzero"`
 	RedirectURI     string                             `json:"redirect_uri,omitzero"`
-	ExternalAccount *CreateATokenAnyOf0ExternalAccount `json:"external_account,omitempty"`
+	ExternalAccount *CreateATokenAnyOf0ExternalAccount `json:"external_account,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether CreateATokenAnyOf0 declares it.
@@ -4053,7 +4053,7 @@ type CreateATokenOk struct {
 	WorkspaceID          uuid.UUID           `json:"workspace_id,omitzero"`
 	Owner                CreateATokenOkOwner `json:"owner"`
 	DuplicatedTemplateID uuid.UUID           `json:"duplicated_template_id,omitzero"`
-	RequestID            *uuid.UUID          `json:"request_id,omitempty"`
+	RequestID            *uuid.UUID          `json:"request_id,omitzero"`
 }
 
 // CreateATokenOkOwner defines a model
@@ -4130,15 +4130,15 @@ type CreateDatabase struct {
 	// The description of the database.
 	Description []richTextItemRequest `json:"description,omitzero"`
 	// Whether the database should be displayed inline in the parent page. Defaults to false.
-	IsInline bool `json:"is_inline,omitempty"`
+	IsInline bool `json:"is_inline,omitzero"`
 	// Initial data source configuration for the database.
-	InitialDataSource *initialDataSourceRequest `json:"initial_data_source,omitempty"`
+	InitialDataSource *initialDataSourceRequest `json:"initial_data_source,omitzero"`
 	// Create a typed database with Notion's canonical schema. One of `tasks`, `projects`, or `skills`. Cannot be combined with `initial_data_source`. When `title` is omitted, the database is named after the type.
 	DatabaseType CreateDatabaseDatabaseType `json:"database_type,omitzero"`
 	// The icon for the database.
-	Icon *pageIconRequest `json:"icon,omitempty"`
+	Icon *pageIconRequest `json:"icon,omitzero"`
 	// The cover image for the database.
-	Cover *pageCoverRequest `json:"cover,omitempty"`
+	Cover *pageCoverRequest `json:"cover,omitzero"`
 }
 
 // CreateDatabase2 defines a model
@@ -4439,7 +4439,7 @@ type CreateFile struct {
 	// The MIME type. It must match the uploaded file and any filename extension.
 	ContentType string `json:"content_type,omitzero"`
 	// The number of parts in a multi_part upload. Required only for multi_part uploads. This must match the number of uploaded parts and the final part_number sent.
-	NumberOfParts *int `json:"number_of_parts,omitempty"`
+	NumberOfParts *int `json:"number_of_parts,omitzero"`
 	// A public HTTPS URL to import. Required only for external_url uploads.
 	ExternalURL string `json:"external_url,omitzero"`
 }
@@ -4470,7 +4470,7 @@ type CreateMeetingNote struct {
 	// Language hint for transcription. Defaults to automatic detection.
 	Language CreateMeetingNoteAllOf0Language `json:"language,omitzero"`
 	// Optional processing settings.
-	Options                 *CreateMeetingNoteAllOf0Options `json:"options,omitempty"`
+	Options                 *CreateMeetingNoteAllOf0Options `json:"options,omitzero"`
 	CreateMeetingNoteAllOf1 CreateMeetingNoteAllOf1         `json:"-"`
 }
 
@@ -4630,7 +4630,7 @@ func (e CreateMeetingNoteAllOf0Language) Valid() bool {
 // Optional processing settings.
 type CreateMeetingNoteAllOf0Options struct {
 	// Whether to start summary generation after transcription.
-	KickoffSummary bool `json:"kickoff_summary,omitempty"`
+	KickoffSummary bool `json:"kickoff_summary,omitzero"`
 }
 
 // CreateMeetingNoteAllOf1 defines a model
@@ -4704,7 +4704,7 @@ type CreateMeetingNoteAllOf1OneOf1 struct {
 	// Audio or video source for the meeting note.
 	Source CreateMeetingNoteAllOf1OneOf1Source `json:"source"`
 	// Not accepted for block sources.
-	Parent *any `json:"parent,omitempty"`
+	Parent *any `json:"parent,omitzero"`
 }
 
 // Audio or video source for the meeting note.
@@ -4805,11 +4805,11 @@ type CreateMeetingNoteOneOfMeetingNotes struct {
 	// Current processing status of the meeting note transcription.
 	Status CreateMeetingNoteOneOfMeetingNotesStatus `json:"status,omitzero"`
 	// Block IDs for each tab (summary, notes, transcript).
-	Children *CreateMeetingNoteOneOfMeetingNotesChildren `json:"children,omitempty"`
+	Children *CreateMeetingNoteOneOfMeetingNotesChildren `json:"children,omitzero"`
 	// Calendar event metadata associated with this meeting note.
-	CalendarEvent *CreateMeetingNoteOneOfMeetingNotesCalendarEvent `json:"calendar_event,omitempty"`
+	CalendarEvent *CreateMeetingNoteOneOfMeetingNotesCalendarEvent `json:"calendar_event,omitzero"`
 	// Start and end times of the actual recording.
-	Recording *CreateMeetingNoteOneOfMeetingNotesRecording `json:"recording,omitempty"`
+	Recording *CreateMeetingNoteOneOfMeetingNotesRecording `json:"recording,omitzero"`
 }
 
 // Calendar event metadata associated with this meeting note.
@@ -4825,11 +4825,11 @@ type CreateMeetingNoteOneOfMeetingNotesCalendarEvent struct {
 // Block IDs for each tab (summary, notes, transcript).
 type CreateMeetingNoteOneOfMeetingNotesChildren struct {
 	// Block ID of the AI summary tab.
-	SummaryBlockID *idResponse `json:"summary_block_id,omitempty"`
+	SummaryBlockID *idResponse `json:"summary_block_id,omitzero"`
 	// Block ID of the meeting notes tab.
-	NotesBlockID *idResponse `json:"notes_block_id,omitempty"`
+	NotesBlockID *idResponse `json:"notes_block_id,omitzero"`
 	// Block ID of the transcript tab.
-	TranscriptBlockID *idResponse `json:"transcript_block_id,omitempty"`
+	TranscriptBlockID *idResponse `json:"transcript_block_id,omitzero"`
 }
 
 // Start and end times of the actual recording.
@@ -5523,7 +5523,7 @@ type DeleteAgentOk struct {
 type Divider struct {
 	Divider emptyObject `json:"divider"`
 	Type    string      `json:"type,omitzero"`
-	InTrash bool        `json:"in_trash,omitempty"`
+	InTrash bool        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Divider declares it.
@@ -5648,7 +5648,7 @@ func (v *Email4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, 
 type Embed struct {
 	Embed   EmbedEmbed `json:"embed"`
 	Type    string     `json:"type,omitzero"`
-	InTrash bool       `json:"in_trash,omitempty"`
+	InTrash bool       `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Embed declares it.
@@ -5793,7 +5793,7 @@ type Equation struct {
 	// Notion supports inline LaTeX equations as rich text objects with a type value of `equation`.
 	Equation EquationRichTextItemEquation `json:"equation"`
 	Type     string                       `json:"type,omitzero"`
-	InTrash  bool                         `json:"in_trash,omitempty"`
+	InTrash  bool                         `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Equation declares it.
@@ -6321,7 +6321,7 @@ type ExternalMediaContentWithFileAndCaptionExternal struct {
 type File struct {
 	File    updateMediaContentWithFileNameAndCaptionRequest `json:"file"`
 	Type    string                                          `json:"type,omitzero"`
-	InTrash bool                                            `json:"in_trash,omitempty"`
+	InTrash bool                                            `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether File declares it.
@@ -7256,11 +7256,11 @@ type GetAgentOk struct {
 	Triggers    AgentTriggers `json:"triggers"`
 	IsFavorited *bool         `json:"is_favorited"`
 	// Date and time when this agent was created.
-	CreatedTime time.Time `json:"created_time,omitempty"`
+	CreatedTime time.Time `json:"created_time,omitzero"`
 	// Date and time when this agent was last edited.
-	LastEditedTime time.Time `json:"last_edited_time,omitempty"`
+	LastEditedTime time.Time `json:"last_edited_time,omitzero"`
 	// The name of the bot's workspace.
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions *string `json:"instructions,omitzero"`
 }
 
 // What kind of agent this is: "notion_ai" is the personal agent; "custom_agent" is a standalone agent you chat with; "autofill_custom_agent" fills a database property; "external" runs through an external provider.
@@ -7424,7 +7424,7 @@ type GetViewQueryResultsOk struct {
 	// Always `page`
 	Type          string                 `json:"type,omitzero"`
 	Page          emptyObject            `json:"page"`
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 }
 
 // Sort direction for groups.
@@ -7451,7 +7451,7 @@ type Heading struct {
 	RichText []richTextItemRequest `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color        apiColor                                      `json:"color,omitzero"`
-	IsToggleable bool                                          `json:"is_toggleable,omitempty"`
+	IsToggleable bool                                          `json:"is_toggleable,omitzero"`
 	Children     []blockObjectWithSingleLevelOfChildrenRequest `json:"children,omitzero"`
 }
 
@@ -7459,7 +7459,7 @@ type Heading struct {
 type Heading1 struct {
 	Heading1 headerContentWithRichTextAndColorRequest `json:"heading_1"`
 	Type     string                                   `json:"type,omitzero"`
-	InTrash  bool                                     `json:"in_trash,omitempty"`
+	InTrash  bool                                     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Heading1 declares it.
@@ -7543,7 +7543,7 @@ func (v *Heading14) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 type Heading2 struct {
 	Heading2 headerContentWithRichTextAndColorRequest `json:"heading_2"`
 	Type     string                                   `json:"type,omitzero"`
-	InTrash  bool                                     `json:"in_trash,omitempty"`
+	InTrash  bool                                     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Heading2 declares it.
@@ -7627,7 +7627,7 @@ func (v *Heading24) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 type Heading3 struct {
 	Heading3 headerContentWithRichTextAndColorRequest `json:"heading_3"`
 	Type     string                                   `json:"type,omitzero"`
-	InTrash  bool                                     `json:"in_trash,omitempty"`
+	InTrash  bool                                     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Heading3 declares it.
@@ -7711,7 +7711,7 @@ func (v *Heading34) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 type Heading4 struct {
 	Heading4 headerContentWithRichTextAndColorRequest `json:"heading_4"`
 	Type     string                                   `json:"type,omitzero"`
-	InTrash  bool                                     `json:"in_trash,omitempty"`
+	InTrash  bool                                     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Heading4 declares it.
@@ -7803,7 +7803,7 @@ type IconPageIcon struct {
 type Image struct {
 	Image   updateMediaContentWithFileAndCaptionRequest `json:"image"`
 	Type    string                                      `json:"type,omitzero"`
-	InTrash bool                                        `json:"in_trash,omitempty"`
+	InTrash bool                                        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Image declares it.
@@ -7889,7 +7889,7 @@ type InsertContentInsertContent struct {
 	// Selection of existing content to insert after, using the ellipsis format ("start text...end text"). Omit to append at the end of the page.
 	After string `json:"after,omitzero"`
 	// Explicit position for inserted content. Use {"type":"start"} to prepend or {"type":"end"} to append. Cannot be combined with after.
-	Position *InsertContentInsertContentPosition `json:"position,omitempty"`
+	Position *InsertContentInsertContentPosition `json:"position,omitzero"`
 }
 
 // Explicit position for inserted content. Use {"type":"start"} to prepend or {"type":"end"} to append. Cannot be combined with after.
@@ -8014,8 +8014,8 @@ type IntrospectToken struct {
 type IntrospectTokenOk struct {
 	Active    bool       `json:"active"`
 	Scope     string     `json:"scope,omitzero"`
-	Iat       *int       `json:"iat,omitempty"`
-	RequestID *uuid.UUID `json:"request_id,omitempty"`
+	Iat       *int       `json:"iat,omitzero"`
+	RequestID *uuid.UUID `json:"request_id,omitzero"`
 }
 
 // LastEditedBy defines a model
@@ -8142,7 +8142,7 @@ func (v *LinkPreview) unmarshalJSONMember(dec *jsontext.Decoder, name string) (b
 type LinkToPage struct {
 	LinkToPage LinkToPageBlockObjectLinkToPage `json:"link_to_page"`
 	Type       string                          `json:"type,omitzero"`
-	InTrash    bool                            `json:"in_trash,omitempty"`
+	InTrash    bool                            `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether LinkToPage declares it.
@@ -8265,7 +8265,7 @@ type ListCommentsOk struct {
 	// Always `comment`
 	Type          string                 `json:"type,omitzero"`
 	Comment       emptyObject            `json:"comment"`
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 }
 
 // ListCustomEmojisOk defines a model
@@ -8313,7 +8313,7 @@ type ListFileUploadsOk struct {
 	// Always `file_upload`
 	Type          string                 `json:"type,omitzero"`
 	FileUpload    emptyObject            `json:"file_upload"`
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 }
 
 // ListSkillsPluginsOk defines a model
@@ -8350,8 +8350,8 @@ type ListViewsOk struct {
 	// Always `view`
 	Type          string                 `json:"type,omitzero"`
 	View          emptyObject            `json:"view"`
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
-	RequestID     *uuid.UUID             `json:"request_id,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
+	RequestID     *uuid.UUID             `json:"request_id,omitzero"`
 }
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -8819,7 +8819,7 @@ type MultiSelectMultiSelectItem2 struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color PartialSelectPropertyValueColor `json:"color,omitzero"`
 	// The name of the bot's workspace.
-	Description                      *string                          `json:"description,omitempty"`
+	Description                      *string                          `json:"description,omitzero"`
 	MultiSelectMultiSelectItemAllOf2 MultiSelectMultiSelectItemAllOf2 `json:"-"`
 }
 
@@ -8963,7 +8963,7 @@ type MultiSelectMultiSelectItemAnyOf struct {
 	Name textRequest   `json:"name,omitzero"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color       PartialSelectPropertyValueColor `json:"color,omitzero"`
-	Description *textRequest                    `json:"description,omitempty"`
+	Description *textRequest                    `json:"description,omitzero"`
 }
 
 // MultiSelectPropertyConfigurationMultiSelect defines a model
@@ -8980,7 +8980,7 @@ type MultiSelectPropertyConfigurationMultiSelectItem struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color PartialSelectPropertyValueColor `json:"color,omitzero"`
 	// The name of the bot's workspace.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 }
 
 // NotionVersion defines a model
@@ -9089,7 +9089,7 @@ type NumberDatabasePropertyConfigNumber struct {
 type NumberedListItem struct {
 	NumberedListItem contentWithRichTextAndColorRequest `json:"numbered_list_item"`
 	Type             string                             `json:"type,omitzero"`
-	InTrash          bool                               `json:"in_trash,omitempty"`
+	InTrash          bool                               `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether NumberedListItem declares it.
@@ -9216,7 +9216,7 @@ type PageOrDataSource struct {
 	NextCursor       string                        `json:"next_cursor,omitzero"`
 	HasMore          bool                          `json:"has_more"`
 	Results          []PageOrDataSourceResultsItem `json:"results"`
-	RequestStatus    *PageOrDataSourceStatus       `json:"request_status,omitempty"`
+	RequestStatus    *PageOrDataSourceStatus       `json:"request_status,omitzero"`
 }
 
 // PageOrDataSourceResultsItem defines a model
@@ -9679,7 +9679,7 @@ type PageTranscriptionBlockTranscriptDeletedWebhookPayloadAllOf1Data struct {
 type Paragraph struct {
 	Paragraph Callout5 `json:"paragraph"`
 	Type      string   `json:"type,omitzero"`
-	InTrash   bool     `json:"in_trash,omitempty"`
+	InTrash   bool     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Paragraph declares it.
@@ -9866,21 +9866,21 @@ func (e PartialSelectPropertyValueColor) Valid() bool {
 // PatchBlockChildren defines a model
 type PatchBlockChildren struct {
 	Children []blockObjectRequest   `json:"children"`
-	Position *contentPositionSchema `json:"position,omitempty"`
+	Position *contentPositionSchema `json:"position,omitzero"`
 }
 
 // PatchPage defines a model
 type PatchPage struct {
-	Properties *map[string]PagePropertiesValue `json:"properties,omitempty"`
-	Icon       *pageIconRequest                `json:"icon,omitempty"`
-	Cover      *pageCoverRequest               `json:"cover,omitempty"`
+	Properties *map[string]PagePropertiesValue `json:"properties,omitzero"`
+	Icon       *pageIconRequest                `json:"icon,omitzero"`
+	Cover      *pageCoverRequest               `json:"cover,omitzero"`
 	// Whether the page should be locked from editing in the Notion app UI. If not provided, the locked state will not be updated.
-	IsLocked bool               `json:"is_locked,omitempty"`
-	Template *PatchPageTemplate `json:"template,omitempty"`
+	IsLocked bool               `json:"is_locked,omitzero"`
+	Template *PatchPageTemplate `json:"template,omitzero"`
 	// Whether to erase all existing content from the page. When used with a template, the template content replaces the existing content. When used without a template, simply clears the page content.
-	EraseContent bool `json:"erase_content,omitempty"`
-	InTrash      bool `json:"in_trash,omitempty"`
-	IsArchived   bool `json:"is_archived,omitempty"`
+	EraseContent bool `json:"erase_content,omitzero"`
+	InTrash      bool `json:"in_trash,omitzero"`
+	IsArchived   bool `json:"is_archived,omitzero"`
 }
 
 // PatchPageTemplate defines a model
@@ -9952,7 +9952,7 @@ func (v *PatchPageTemplate) MarshalJSONTo(enc *jsontext.Encoder) error {
 type Pdf struct {
 	PDF     updateMediaContentWithFileAndCaptionRequest `json:"pdf"`
 	Type    string                                      `json:"type,omitzero"`
-	InTrash bool                                        `json:"in_trash,omitempty"`
+	InTrash bool                                        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Pdf declares it.
@@ -10201,7 +10201,7 @@ type Person struct {
 // Person2 defines a model
 type Person2 struct {
 	Email         string `json:"email,omitzero"`
-	EmailVerified bool   `json:"email_verified,omitempty"`
+	EmailVerified bool   `json:"email_verified,omitzero"`
 }
 
 // The property type for grouping.
@@ -10331,11 +10331,11 @@ type Place3 struct {
 // PostDatabaseQuery defines a model
 type PostDatabaseQuery struct {
 	Sorts       []PostDatabaseQuerySortsItem `json:"sorts,omitzero"`
-	Filter      *PostDatabaseQueryFilter     `json:"filter,omitempty"`
+	Filter      *PostDatabaseQueryFilter     `json:"filter,omitzero"`
 	StartCursor string                       `json:"start_cursor,omitzero"`
-	PageSize    *float64                     `json:"page_size,omitempty"`
+	PageSize    *float64                     `json:"page_size,omitzero"`
 	// Whether to return archived pages. When omitted or false, returns non-archived pages. When true, returns archived pages.
-	IsArchived bool `json:"is_archived,omitempty"`
+	IsArchived bool `json:"is_archived,omitzero"`
 	// Optionally filter the results to only include pages or data sources. Regular, non-wiki databases only support page children. The default behavior is no result type filtering, in other words, returning both pages and data sources for wikis.
 	ResultType DatabaseQueryResultType `json:"result_type,omitzero"`
 }
@@ -10516,18 +10516,18 @@ func (v *PostDatabaseQuerySortsItem) MarshalJSONTo(enc *jsontext.Encoder) error 
 
 // PostPage defines a model
 type PostPage struct {
-	Parent     *PostPageParent                 `json:"parent,omitempty"`
-	Properties *map[string]PagePropertiesValue `json:"properties,omitempty"`
-	Icon       *pageIconRequest                `json:"icon,omitempty"`
-	Cover      *pageCoverRequest               `json:"cover,omitempty"`
+	Parent     *PostPageParent                 `json:"parent,omitzero"`
+	Properties *map[string]PagePropertiesValue `json:"properties,omitzero"`
+	Icon       *pageIconRequest                `json:"icon,omitzero"`
+	Cover      *pageCoverRequest               `json:"cover,omitzero"`
 	Content    []blockObjectRequest            `json:"content,omitzero"`
 	Children   []blockObjectRequest            `json:"children,omitzero"`
 	// Page content as Notion-flavored Markdown. Mutually exclusive with content/children.
 	Markdown string `json:"markdown,omitzero"`
 	// Set to true to receive an async_task response for markdown page creation. Only supported when markdown is provided.
-	AllowAsync bool                `json:"allow_async,omitempty"`
-	Template   *PostPageTemplate   `json:"template,omitempty"`
-	Position   *pagePositionSchema `json:"position,omitempty"`
+	AllowAsync bool                `json:"allow_async,omitzero"`
+	Template   *PostPageTemplate   `json:"template,omitzero"`
+	Position   *pagePositionSchema `json:"position,omitzero"`
 }
 
 // PostPageAccepted defines a model
@@ -10819,11 +10819,11 @@ func (v *PostPageTemplateAnyOf0) unmarshalJSONMember(dec *jsontext.Decoder, name
 
 // PostSearch defines a model
 type PostSearch struct {
-	Sort        *PostSearchSort   `json:"sort,omitempty"`
+	Sort        *PostSearchSort   `json:"sort,omitzero"`
 	Query       string            `json:"query,omitzero"`
-	StartCursor *uuid.UUID        `json:"start_cursor,omitempty"`
-	PageSize    *float64          `json:"page_size,omitempty"`
-	Filter      *PostSearchFilter `json:"filter,omitempty"`
+	StartCursor *uuid.UUID        `json:"start_cursor,omitzero"`
+	PageSize    *float64          `json:"page_size,omitzero"`
+	Filter      *PostSearchFilter `json:"filter,omitzero"`
 }
 
 // PostSearchFilter defines a model
@@ -10882,7 +10882,7 @@ type PostSearchFilterAnyOf0 struct {
 	Property PostSearchFilterAnyOf0Property `json:"property,omitzero"`
 	// Optionally filter the results to only include pages or data sources. Regular, non-wiki databases only support page children. The default behavior is no result type filtering, in other words, returning both pages and data sources for wikis.
 	Value   DatabaseQueryResultType `json:"value,omitzero"`
-	InTrash bool                    `json:"in_trash,omitempty"`
+	InTrash bool                    `json:"in_trash,omitzero"`
 }
 
 // PostSearchFilterAnyOf0Property defines a model
@@ -11098,17 +11098,17 @@ type QueryAgents struct {
 	// Search agent names and descriptions using a case-insensitive substring match.
 	Query string `json:"query,omitzero"`
 	// Filter agents by public properties, optionally combined with and/or.
-	Filter *QueryAgentsFilter `json:"filter,omitempty"`
+	Filter *QueryAgentsFilter `json:"filter,omitzero"`
 	// Ordered sort precedence. Defaults to created_time descending.
 	Sorts QueryAgentsSorts `json:"sorts,omitzero"`
 	// Opaque continuation cursor from the previous page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// Number of agents to return. Maximum: 100.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 	// Whether to include inline instructions for each agent. Defaults to false.
-	Verbose bool `json:"verbose,omitempty"`
+	Verbose bool `json:"verbose,omitzero"`
 	// Whether to include soft-deleted agents. Defaults to false.
-	IncludeDeleted bool `json:"include_deleted,omitempty"`
+	IncludeDeleted bool `json:"include_deleted,omitzero"`
 }
 
 // Filter agents by public properties, optionally combined with and/or.
@@ -11667,8 +11667,8 @@ type QueryAgentsFilterOneOfOneOfCheckbox struct {
 
 // QueryAgentsFilterOneOfOneOfDate defines a model
 type QueryAgentsFilterOneOfOneOfDate struct {
-	After  time.Time `json:"after,omitempty"`
-	Before time.Time `json:"before,omitempty"`
+	After  time.Time `json:"after,omitzero"`
+	Before time.Time `json:"before,omitzero"`
 }
 
 // QueryAgentsFilterOneOfOneOfID defines a model
@@ -11818,7 +11818,7 @@ type QueryAgentsOkResultsItemOneOf0 struct {
 	// The agent's configured triggers, each with a machine type, an enabled flag, and (for recurrence triggers) a structured schedule.
 	Triggers AgentTriggers `json:"triggers"`
 	// The name of the bot's workspace.
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions *string `json:"instructions,omitzero"`
 }
 
 // What kind of agent this is: "custom_agent" is a standalone agent you chat with; "autofill_custom_agent" fills a database property.
@@ -11999,11 +11999,11 @@ func (e QueryAgentsSortsItemProperty) Valid() bool {
 // QueryMeetingNotes defines a model
 type QueryMeetingNotes struct {
 	// Optional filter for querying meeting notes. Supports combinator (and/or) and property filters on title, attendees, created_time, created_by, last_edited_time, last_edited_by.
-	Filter *QueryMeetingNotesFilter `json:"filter,omitempty"`
+	Filter *QueryMeetingNotesFilter `json:"filter,omitzero"`
 	// Optional sort order for the results. Each entry specifies a property name and direction.
 	Sort QueryMeetingNotesSort `json:"sort,omitzero"`
 	// Maximum number of results to return. Defaults to 50.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int `json:"limit,omitzero"`
 }
 
 // Optional filter for querying meeting notes. Supports combinator (and/or) and property filters on title, attendees, created_time, created_by, last_edited_time, last_edited_by.
@@ -12191,7 +12191,7 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf3 struct {
 	// The date to compare against.
 	Value QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2 `json:"value"`
 	// Compare against the end of a date range rather than its start.
-	UseEnd bool `json:"use_end,omitempty"`
+	UseEnd bool `json:"use_end,omitzero"`
 }
 
 // QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4 defines a model
@@ -12201,7 +12201,7 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4 struct {
 	// The range to compare against.
 	Value QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3 `json:"value"`
 	// Compare against the end of a date range rather than its start.
-	UseEnd bool `json:"use_end,omitempty"`
+	UseEnd bool `json:"use_end,omitzero"`
 }
 
 // QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf5 defines a model
@@ -12800,9 +12800,9 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue4 struct {
 	// Always `daterange`
 	Type string `json:"type,omitzero"`
 	// Inclusive start of the range as an ISO 8601 date string, if any.
-	StartDate civil.Date `json:"start_date,omitempty"`
+	StartDate civil.Date `json:"start_date,omitzero"`
 	// Inclusive end of the range as an ISO 8601 date string, if any.
-	EndDate civil.Date `json:"end_date,omitempty"`
+	EndDate civil.Date `json:"end_date,omitzero"`
 }
 
 // QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf defines a model
@@ -12940,13 +12940,13 @@ func (e QueryMeetingNotesSortItemProperty) Valid() bool {
 // QuerySessionEvents defines a model
 type QuerySessionEvents struct {
 	// A session event property filter, or an and/or compound filter nested up to three levels deep.
-	Filter *QuerySessionEventsFilter `json:"filter,omitempty"`
+	Filter *QuerySessionEventsFilter `json:"filter,omitzero"`
 	// Ordered sort precedence. Defaults to sequence ascending.
 	Sorts QuerySessionEventsSorts `json:"sorts,omitzero"`
 	// The continuation cursor returned by the previous page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// The number of events to return. Maximum: 100.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // A session event property filter, or an and/or compound filter nested up to three levels deep.
@@ -13454,10 +13454,10 @@ type QuerySessionEventsFilterOneOfEventTypeIn []QuerySessionEventsFilterOneOfEve
 
 // QuerySessionEventsFilterOneOfNumber defines a model
 type QuerySessionEventsFilterOneOfNumber struct {
-	GreaterThan          *float64 `json:"greater_than,omitempty"`
-	GreaterThanOrEqualTo *float64 `json:"greater_than_or_equal_to,omitempty"`
-	LessThan             *float64 `json:"less_than,omitempty"`
-	LessThanOrEqualTo    *float64 `json:"less_than_or_equal_to,omitempty"`
+	GreaterThan          *float64 `json:"greater_than,omitzero"`
+	GreaterThanOrEqualTo *float64 `json:"greater_than_or_equal_to,omitzero"`
+	LessThan             *float64 `json:"less_than,omitzero"`
+	LessThanOrEqualTo    *float64 `json:"less_than_or_equal_to,omitzero"`
 }
 
 // QuerySessionEventsFilterOneOfProperty defines a model
@@ -13530,11 +13530,11 @@ func (e QuerySessionEventsFilterOneOfProperty4) Valid() bool {
 
 // QuerySessionEventsFilterOneOfTimestamp defines a model
 type QuerySessionEventsFilterOneOfTimestamp struct {
-	Equals     time.Time `json:"equals,omitempty"`
-	Before     time.Time `json:"before,omitempty"`
-	After      time.Time `json:"after,omitempty"`
-	OnOrBefore time.Time `json:"on_or_before,omitempty"`
-	OnOrAfter  time.Time `json:"on_or_after,omitempty"`
+	Equals     time.Time `json:"equals,omitzero"`
+	Before     time.Time `json:"before,omitzero"`
+	After      time.Time `json:"after,omitzero"`
+	OnOrBefore time.Time `json:"on_or_before,omitzero"`
+	OnOrAfter  time.Time `json:"on_or_after,omitzero"`
 }
 
 // QuerySessionEventsOk defines a model
@@ -13869,7 +13869,7 @@ type QuerySessionEventsOkResultsItemOneOf5 struct {
 	// One of: `requires_action`, `completed`, `failed`, `canceled`, `terminated`
 	Status          QuerySessionEventsOkResultsItemOneOf5Status       `json:"status,omitzero"`
 	RequiredActions QuerySessionEventsResultsItemOneOfRequiredActions `json:"required_actions,omitzero"`
-	Err             *CancelSessionError                               `json:"error,omitempty"`
+	Err             *CancelSessionError                               `json:"error,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether QuerySessionEventsOkResultsItemOneOf5 declares it.
@@ -14067,13 +14067,13 @@ type QuerySessions struct {
 	// A case-insensitive substring search over session titles.
 	Query string `json:"query,omitzero"`
 	// A session property filter, or an and/or compound filter nested up to two levels deep.
-	Filter *QuerySessionsFilter `json:"filter,omitempty"`
+	Filter *QuerySessionsFilter `json:"filter,omitzero"`
 	// Ordered sort precedence. Defaults to updated_at descending.
 	Sorts QuerySessionsSorts `json:"sorts,omitzero"`
 	// The continuation cursor returned by the previous page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// The number of sessions to return. Maximum: 100.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // A session property filter, or an and/or compound filter nested up to two levels deep.
@@ -14481,15 +14481,15 @@ type QuerySessionsOkResultsItem struct {
 	CreatedAt       time.Time                                         `json:"created_at,omitzero"`
 	UpdatedAt       time.Time                                         `json:"updated_at,omitzero"`
 	RequiredActions QuerySessionEventsResultsItemOneOfRequiredActions `json:"required_actions,omitzero"`
-	Err             *CancelSessionError                               `json:"error,omitempty"`
+	Err             *CancelSessionError                               `json:"error,omitzero"`
 	TriggerType     string                                            `json:"trigger_type,omitzero"`
-	TypeLabels      *string                                           `json:"type_labels,omitempty"`
-	ChatUserEmails  *string                                           `json:"chat_user_emails,omitempty"`
-	ToolTypes       *string                                           `json:"tool_types,omitempty"`
-	ToolCallCount   *int                                              `json:"tool_call_count,omitempty"`
-	CreditsUsed     *float64                                          `json:"credits_used,omitempty"`
-	RunsCompleted   *int                                              `json:"runs_completed,omitempty"`
-	MessageCount    *int                                              `json:"message_count,omitempty"`
+	TypeLabels      *string                                           `json:"type_labels,omitzero"`
+	ChatUserEmails  *string                                           `json:"chat_user_emails,omitzero"`
+	ToolTypes       *string                                           `json:"tool_types,omitzero"`
+	ToolCallCount   *int                                              `json:"tool_call_count,omitzero"`
+	CreditsUsed     *float64                                          `json:"credits_used,omitzero"`
+	RunsCompleted   *int                                              `json:"runs_completed,omitzero"`
+	MessageCount    *int                                              `json:"message_count,omitzero"`
 }
 
 // QuerySessionsResultsItemAgentVersionOneOf defines a model
@@ -14613,7 +14613,7 @@ type QuerySessionsSortsItem struct {
 type Quote struct {
 	Quote   contentWithRichTextAndColorRequest `json:"quote"`
 	Type    string                             `json:"type,omitzero"`
-	InTrash bool                               `json:"in_trash,omitempty"`
+	InTrash bool                               `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Quote declares it.
@@ -15019,7 +15019,7 @@ type ReplaceContentRangeReplaceContentRange struct {
 	// Selection of existing content to replace, using the ellipsis format ("start text...end text").
 	ContentRange string `json:"content_range,omitzero"`
 	// Set to true to allow the operation to delete child pages or databases. Defaults to false.
-	AllowDeletingContent bool `json:"allow_deleting_content,omitempty"`
+	AllowDeletingContent bool `json:"allow_deleting_content,omitzero"`
 }
 
 // Replace the entire page content with new markdown.
@@ -15027,7 +15027,7 @@ type ReplaceContentReplaceContent struct {
 	// The new enhanced markdown content to replace the entire page content.
 	NewStr string `json:"new_str,omitzero"`
 	// Set to true to allow the operation to delete child pages or databases. Defaults to false.
-	AllowDeletingContent bool `json:"allow_deleting_content,omitempty"`
+	AllowDeletingContent bool `json:"allow_deleting_content,omitzero"`
 }
 
 // RetrieveAPagePropertyOk defines a model
@@ -15446,7 +15446,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf0 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf0 declares it.
@@ -15473,7 +15473,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf1 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf1 declares it.
@@ -15500,7 +15500,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf10 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf10 declares it.
@@ -15527,7 +15527,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf11 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf11 declares it.
@@ -15554,7 +15554,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf12 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf12 declares it.
@@ -15581,7 +15581,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf13 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf13 declares it.
@@ -15608,7 +15608,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf14 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf14 declares it.
@@ -15635,7 +15635,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf15 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf15 declares it.
@@ -15662,7 +15662,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf16 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf16 declares it.
@@ -15689,7 +15689,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf17 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf17 declares it.
@@ -15716,7 +15716,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf18 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf18 declares it.
@@ -15743,7 +15743,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf19 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf19 declares it.
@@ -15770,7 +15770,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf2 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf2 declares it.
@@ -15797,7 +15797,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf20 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf20 declares it.
@@ -15824,7 +15824,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf21 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf21 declares it.
@@ -15851,7 +15851,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf22 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf22 declares it.
@@ -15878,7 +15878,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf3 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf3 declares it.
@@ -15905,7 +15905,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf4 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf4 declares it.
@@ -15932,7 +15932,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf5 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf5 declares it.
@@ -15959,7 +15959,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf6 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf6 declares it.
@@ -15986,7 +15986,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf7 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf7 declares it.
@@ -16013,7 +16013,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf8 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf8 declares it.
@@ -16040,7 +16040,7 @@ type RetrieveAsyncTaskOkOneOf2ErrorOneOf9 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RetrieveAsyncTaskOkOneOf2ErrorOneOf9 declares it.
@@ -16076,21 +16076,21 @@ type RetrieveSessionOk struct {
 	AgentVersion    *QuerySessionsResultsItemAgentVersionOneOf        `json:"agent_version"`
 	Models          QuerySessionsResultsItemModels                    `json:"models"`
 	RequiredActions QuerySessionEventsResultsItemOneOfRequiredActions `json:"required_actions,omitzero"`
-	Err             *CancelSessionError                               `json:"error,omitempty"`
+	Err             *CancelSessionError                               `json:"error,omitzero"`
 	TriggerType     string                                            `json:"trigger_type,omitzero"`
-	TypeLabels      *string                                           `json:"type_labels,omitempty"`
-	ChatUserEmails  *string                                           `json:"chat_user_emails,omitempty"`
-	ToolTypes       *string                                           `json:"tool_types,omitempty"`
-	ToolCallCount   *int                                              `json:"tool_call_count,omitempty"`
+	TypeLabels      *string                                           `json:"type_labels,omitzero"`
+	ChatUserEmails  *string                                           `json:"chat_user_emails,omitzero"`
+	ToolTypes       *string                                           `json:"tool_types,omitzero"`
+	ToolCallCount   *int                                              `json:"tool_call_count,omitzero"`
 	// The per-agent credit limit as a non-negative integer, or null to clear the limit.
-	CreditsUsed   *float64 `json:"credits_used,omitempty"`
-	RunsCompleted *int     `json:"runs_completed,omitempty"`
-	MessageCount  *int     `json:"message_count,omitempty"`
+	CreditsUsed   *float64 `json:"credits_used,omitzero"`
+	RunsCompleted *int     `json:"runs_completed,omitzero"`
+	MessageCount  *int     `json:"message_count,omitzero"`
 }
 
 // RevokeTokenOk defines a model
 type RevokeTokenOk struct {
-	RequestID *uuid.UUID `json:"request_id,omitempty"`
+	RequestID *uuid.UUID `json:"request_id,omitzero"`
 }
 
 // RichText defines a model
@@ -16891,7 +16891,7 @@ func (v *Success) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool,
 type SyncedBlock struct {
 	SyncedBlock SyncedBlockObjectSyncedBlock `json:"synced_block"`
 	Type        string                       `json:"type,omitzero"`
-	InTrash     bool                         `json:"in_trash,omitempty"`
+	InTrash     bool                         `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether SyncedBlock declares it.
@@ -16992,7 +16992,7 @@ type SyncedBlockSyncedBlock4 struct {
 type Tab struct {
 	Tab     emptyObject `json:"tab"`
 	Type    string      `json:"type,omitzero"`
-	InTrash bool        `json:"in_trash,omitempty"`
+	InTrash bool        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Tab declares it.
@@ -17076,7 +17076,7 @@ func (v *Tab4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, er
 type Table struct {
 	Table   TableTable `json:"table"`
 	Type    string     `json:"type,omitzero"`
-	InTrash bool       `json:"in_trash,omitempty"`
+	InTrash bool       `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Table declares it.
@@ -17118,7 +17118,7 @@ func (v *Table3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, 
 type TableOfContents struct {
 	TableOfContents TableOfContentsBlockObjectTableOfContents `json:"table_of_contents"`
 	Type            string                                    `json:"type,omitzero"`
-	InTrash         bool                                      `json:"in_trash,omitempty"`
+	InTrash         bool                                      `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether TableOfContents declares it.
@@ -17166,7 +17166,7 @@ type TableOfContentsBlockObjectTableOfContents struct {
 type TableRow struct {
 	TableRow contentWithTableRowRequest `json:"table_row"`
 	Type     string                     `json:"type,omitzero"`
-	InTrash  bool                       `json:"in_trash,omitempty"`
+	InTrash  bool                       `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether TableRow declares it.
@@ -17206,15 +17206,15 @@ func (v *TableRow3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 
 // TableTable defines a model
 type TableTable struct {
-	HasColumnHeader bool `json:"has_column_header,omitempty"`
-	HasRowHeader    bool `json:"has_row_header,omitempty"`
+	HasColumnHeader bool `json:"has_column_header,omitzero"`
+	HasRowHeader    bool `json:"has_row_header,omitzero"`
 }
 
 // Template defines a model
 type Template struct {
 	Template UpdateACommentOneOf `json:"template"`
 	Type     string              `json:"type,omitzero"`
-	InTrash  bool                `json:"in_trash,omitempty"`
+	InTrash  bool                `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Template declares it.
@@ -17375,7 +17375,7 @@ type TextRichTextItemText struct {
 	// The actual text content of the text.
 	Content string `json:"content,omitzero"`
 	// An object with information about any inline link in this text, if included.
-	Link *ExternalInternalOrExternalFileWithNameExternal `json:"link,omitempty"`
+	Link *ExternalInternalOrExternalFileWithNameExternal `json:"link,omitzero"`
 }
 
 // Zoom level for the timeline.
@@ -17488,7 +17488,7 @@ func (v *Title5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, 
 type ToDo struct {
 	ToDo    ToDoToDo `json:"to_do"`
 	Type    string   `json:"type,omitzero"`
-	InTrash bool     `json:"in_trash,omitempty"`
+	InTrash bool     `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether ToDo declares it.
@@ -17579,7 +17579,7 @@ type ToDoBlockObjectResponseToDo struct {
 // ToDoToDo defines a model
 type ToDoToDo struct {
 	RichText []richTextItemRequest `json:"rich_text,omitzero"`
-	Checked  bool                  `json:"checked,omitempty"`
+	Checked  bool                  `json:"checked,omitzero"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color apiColor `json:"color,omitzero"`
 }
@@ -17590,7 +17590,7 @@ type ToDoToDo2 struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color    apiColor                                      `json:"color,omitzero"`
 	Children []blockObjectWithSingleLevelOfChildrenRequest `json:"children,omitzero"`
-	Checked  bool                                          `json:"checked,omitempty"`
+	Checked  bool                                          `json:"checked,omitzero"`
 }
 
 // ToDoToDo4 defines a model
@@ -17599,14 +17599,14 @@ type ToDoToDo4 struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color    apiColor                            `json:"color,omitzero"`
 	Children []blockObjectRequestWithoutChildren `json:"children,omitzero"`
-	Checked  bool                                `json:"checked,omitempty"`
+	Checked  bool                                `json:"checked,omitzero"`
 }
 
 // Toggle defines a model
 type Toggle struct {
 	Toggle  contentWithRichTextAndColorRequest `json:"toggle"`
 	Type    string                             `json:"type,omitzero"`
-	InTrash bool                               `json:"in_trash,omitempty"`
+	InTrash bool                               `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Toggle declares it.
@@ -18287,13 +18287,13 @@ type UpdateADataSource struct {
 	// Title of data source as it appears in Notion.
 	Title []richTextItemRequest `json:"title,omitzero"`
 	// Page icon.
-	Icon *pageIconRequest `json:"icon,omitempty"`
+	Icon *pageIconRequest `json:"icon,omitzero"`
 	// The property schema of the data source. The keys are property names or IDs, and the values are property configuration objects. Properties set to null will be removed.
-	Properties *map[string]UpdateADataSourcePropertiesValue `json:"properties,omitempty"`
+	Properties *map[string]UpdateADataSourcePropertiesValue `json:"properties,omitzero"`
 	// Whether the data source should be moved to or from the trash. If not provided, the trash status will not be updated.
-	InTrash bool `json:"in_trash,omitempty"`
+	InTrash bool `json:"in_trash,omitzero"`
 	// The parent of the data source, when moving it to a different database. If not provided, the parent will not be updated.
-	Parent *DatabaseID `json:"parent,omitempty"`
+	Parent *DatabaseID `json:"parent,omitzero"`
 }
 
 // UpdateADataSourcePropertiesValue defines a model
@@ -18368,7 +18368,7 @@ type UpdateADataSourcePropertiesValueOneOf0 struct {
 	// The name of the property.
 	Name string `json:"name,omitzero"`
 	// The description of the property.
-	Description                                  *propertyDescriptionRequest                  `json:"description,omitempty"`
+	Description                                  *propertyDescriptionRequest                  `json:"description,omitzero"`
 	UpdateADataSourcePropertiesValueOneOf0AllOf1 UpdateADataSourcePropertiesValueOneOf0AllOf1 `json:"-"`
 }
 
@@ -19404,7 +19404,7 @@ type UpdateContentUpdateContent struct {
 	// An array of search-and-replace operations, each with old_str (content to find) and new_str (replacement content).
 	ContentUpdates UpdateContentUpdateContentContentUpdates `json:"content_updates"`
 	// Set to true to allow the operation to delete child pages or databases. Defaults to false.
-	AllowDeletingContent bool `json:"allow_deleting_content,omitempty"`
+	AllowDeletingContent bool `json:"allow_deleting_content,omitzero"`
 }
 
 // An array of search-and-replace operations, each with old_str (content to find) and new_str (replacement content).
@@ -19417,33 +19417,33 @@ type UpdateContentUpdateContentContentUpdatesItem struct {
 	// The new content string to replace old_str with.
 	NewStr string `json:"new_str,omitzero"`
 	// If true, replaces all occurrences of old_str. If false (default), the operation fails if there are multiple matches.
-	ReplaceAllMatches bool `json:"replace_all_matches,omitempty"`
+	ReplaceAllMatches bool `json:"replace_all_matches,omitzero"`
 }
 
 // UpdateDatabase defines a model
 type UpdateDatabase struct {
 	// The parent page or workspace where the database will be created.
-	Parent *CreateDatabaseParent `json:"parent,omitempty"`
+	Parent *CreateDatabaseParent `json:"parent,omitzero"`
 	// The updated title of the database, if any. If not provided, the title will not be updated.
 	Title []richTextItemRequest `json:"title,omitzero"`
 	// The updated description of the database, if any. If not provided, the description will not be updated.
 	Description []richTextItemRequest `json:"description,omitzero"`
 	// Whether the database should be displayed inline in the parent page. If not provided, the inline status will not be updated.
-	IsInline bool `json:"is_inline,omitempty"`
+	IsInline bool `json:"is_inline,omitzero"`
 	// The updated icon for the database, if any. If not provided, the icon will not be updated.
-	Icon *pageIconRequest `json:"icon,omitempty"`
+	Icon *pageIconRequest `json:"icon,omitzero"`
 	// The updated cover image for the database, if any. If not provided, the cover will not be updated.
-	Cover *pageCoverRequest `json:"cover,omitempty"`
+	Cover *pageCoverRequest `json:"cover,omitzero"`
 	// Whether the database should be moved to or from the trash. If not provided, the trash status will not be updated.
-	InTrash bool `json:"in_trash,omitempty"`
+	InTrash bool `json:"in_trash,omitzero"`
 	// Whether the database should be locked from editing in the Notion app UI. If not provided, the locked state will not be updated.
-	IsLocked bool `json:"is_locked,omitempty"`
+	IsLocked bool `json:"is_locked,omitzero"`
 }
 
 // UpdatePageMarkdown defines a model
 type UpdatePageMarkdown struct {
 	// Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape.
-	AllowAsync               bool                     `json:"allow_async,omitempty"`
+	AllowAsync               bool                     `json:"allow_async,omitzero"`
 	UpdatePageMarkdownAllOf1 UpdatePageMarkdownAllOf1 `json:"-"`
 }
 
@@ -19976,10 +19976,10 @@ func (v *UpdateSessionRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 type UpdateSessionRequestOneOf0 struct {
 	Message string `json:"message,omitzero"`
 	// The agent ID (a UUID), or `notion_ai` for the personal agent. Endpoint-specific restrictions still apply.
-	AgentID       *AgentBatchOperationsItemOneOfAgentID `json:"agent_id,omitempty"`
+	AgentID       *AgentBatchOperationsItemOneOfAgentID `json:"agent_id,omitzero"`
 	SessionID     idRequest                             `json:"session_id,omitzero"`
 	Attachments   UpdateSessionRequestOneOf0Attachments `json:"attachments,omitzero"`
-	Metadata      *map[string]string                    `json:"metadata,omitempty"`
+	Metadata      *map[string]string                    `json:"metadata,omitzero"`
 	PromptContext string                                `json:"prompt_context,omitzero"`
 }
 
@@ -20003,7 +20003,7 @@ type UpdateSessionRequestOneOf0AttachmentsItemFileUpload struct {
 type UpdateSessionRequestOneOf1 struct {
 	SessionID idRequest                         `json:"session_id,omitzero"`
 	Actions   UpdateSessionRequestOneOf1Actions `json:"actions"`
-	Metadata  *map[string]string                `json:"metadata,omitempty"`
+	Metadata  *map[string]string                `json:"metadata,omitzero"`
 }
 
 // UpdateSessionRequestOneOf1Actions defines a model
@@ -20358,7 +20358,7 @@ func (v *Verification3) unmarshalJSONMember(dec *jsontext.Decoder, name string) 
 // VerificationAnyOf defines a model
 type VerificationAnyOf struct {
 	State string `json:"state,omitzero"`
-	Date  *date  `json:"date,omitempty"`
+	Date  *date  `json:"date,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether VerificationAnyOf declares it.
@@ -20480,7 +20480,7 @@ func (v *VerificationVerification3) MarshalJSONTo(enc *jsontext.Encoder) error {
 type Video struct {
 	Video   updateMediaContentWithFileAndCaptionRequest `json:"video"`
 	Type    string                                      `json:"type,omitzero"`
-	InTrash bool                                        `json:"in_trash,omitempty"`
+	InTrash bool                                        `json:"in_trash,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Video declares it.
@@ -20867,15 +20867,15 @@ func (v *agentIdParentForBlockBasedObjectResponse) unmarshalJSONMember(dec *json
 // annotation defines a model
 type annotation struct {
 	// Whether the text is formatted as bold.
-	Bold bool `json:"bold,omitempty"`
+	Bold bool `json:"bold,omitzero"`
 	// Whether the text is formatted as italic.
-	Italic bool `json:"italic,omitempty"`
+	Italic bool `json:"italic,omitzero"`
 	// Whether the text is formatted with a strikethrough.
-	Strikethrough bool `json:"strikethrough,omitempty"`
+	Strikethrough bool `json:"strikethrough,omitzero"`
 	// Whether the text is formatted with an underline.
-	Underline bool `json:"underline,omitempty"`
+	Underline bool `json:"underline,omitzero"`
 	// Whether the text is formatted as code.
-	Code bool `json:"code,omitempty"`
+	Code bool `json:"code,omitzero"`
 	// The color of the text.
 	Color apiColor `json:"color,omitzero"`
 }
@@ -22571,17 +22571,17 @@ type boardViewConfigRequest struct {
 	// Group-by configuration for board columns.
 	GroupBy groupByConfig `json:"group_by"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	SubGroupBy *groupByConfig `json:"sub_group_by,omitempty"`
+	SubGroupBy *groupByConfig `json:"sub_group_by,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
 	// Cover image configuration for cards. Pass null to clear.
-	Cover *coverConfigRequest `json:"cover,omitempty"`
+	Cover *coverConfigRequest `json:"cover,omitzero"`
 	// Size of the cover image on cards. Pass null to clear.
-	CoverSize *BoardViewConfigCoverSizeOneOf `json:"cover_size,omitempty"`
+	CoverSize *BoardViewConfigCoverSizeOneOf `json:"cover_size,omitzero"`
 	// Aspect ratio mode for cover images. "contain" fits the image, "cover" fills the area. Pass null to clear.
-	CoverAspect *BoardViewConfigCoverAspectOneOf `json:"cover_aspect,omitempty"`
+	CoverAspect *BoardViewConfigCoverAspectOneOf `json:"cover_aspect,omitzero"`
 	// Card layout mode. "list" shows full cards, "compact" shows condensed cards. Pass null to clear.
-	CardLayout *BoardViewConfigCardLayoutOneOf `json:"card_layout,omitempty"`
+	CardLayout *BoardViewConfigCardLayoutOneOf `json:"card_layout,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether boardViewConfigRequest declares it.
@@ -22615,11 +22615,11 @@ type boardViewConfigResponse struct {
 	// Column (horizontal) grouping - required for board view.
 	GroupBy groupByConfig `json:"group_by"`
 	// Sub-grouping (vertical swimlanes within columns).
-	SubGroupBy *groupByConfig `json:"sub_group_by,omitempty"`
+	SubGroupBy *groupByConfig `json:"sub_group_by,omitzero"`
 	// Properties to display on each card.
 	Properties []viewPropertyConfigResponse `json:"properties,omitzero"`
 	// Card cover/preview image configuration.
-	Cover *coverConfigResponse `json:"cover,omitempty"`
+	Cover *coverConfigResponse `json:"cover,omitzero"`
 	// One of: `small`, `medium`, `large`
 	CoverSize BoardViewConfigCoverSizeOneOf `json:"cover_size,omitzero"`
 	// One of: `contain`, `cover`
@@ -22906,10 +22906,10 @@ type calendarViewConfigRequest struct {
 	// Property ID of the date property used to position items on the calendar.
 	DatePropertyID string `json:"date_property_id,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
 	// Default calendar range. "week" shows a week view, "month" shows a month view. Pass null to clear.
-	ViewRange    *CalendarViewConfigViewRangeOneOf `json:"view_range,omitempty"`
-	ShowWeekends *bool                             `json:"show_weekends,omitempty"`
+	ViewRange    *CalendarViewConfigViewRangeOneOf `json:"view_range,omitzero"`
+	ShowWeekends *bool                             `json:"show_weekends,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether calendarViewConfigRequest declares it.
@@ -22943,7 +22943,7 @@ type calendarViewConfigResponse struct {
 	// One of: `week`, `month`
 	ViewRange CalendarViewConfigViewRangeOneOf `json:"view_range,omitzero"`
 	// Whether to show weekend days.
-	ShowWeekends bool `json:"show_weekends,omitempty"`
+	ShowWeekends bool `json:"show_weekends,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether calendarViewConfigResponse declares it.
@@ -23040,48 +23040,48 @@ type chartViewConfigRequest struct {
 	// The chart type.
 	ChartType ChartViewConfigChartType `json:"chart_type,omitzero"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	XAxis *groupByConfig `json:"x_axis,omitempty"`
+	XAxis *groupByConfig `json:"x_axis,omitzero"`
 	// Aggregation for number charts. Pass null to clear.
-	YAxis *chartAggregation `json:"y_axis,omitempty"`
+	YAxis *chartAggregation `json:"y_axis,omitzero"`
 	// The name of the bot's workspace.
-	XAxisPropertyID *string `json:"x_axis_property_id,omitempty"`
+	XAxisPropertyID *string `json:"x_axis_property_id,omitzero"`
 	// The name of the bot's workspace.
-	YAxisPropertyID *string `json:"y_axis_property_id,omitempty"`
+	YAxisPropertyID *string `json:"y_axis_property_id,omitzero"`
 	// Aggregation for number charts. Pass null to clear.
-	Value *chartAggregation `json:"value,omitempty"`
+	Value *chartAggregation `json:"value,omitzero"`
 	// Sort order for chart data. Pass null to clear.
-	Sort *ChartViewConfigSortOneOf `json:"sort,omitempty"`
+	Sort *ChartViewConfigSortOneOf `json:"sort,omitzero"`
 	// Color theme. Pass null to clear.
-	ColorTheme *ChartViewConfigColorThemeOneOf `json:"color_theme,omitempty"`
+	ColorTheme *ChartViewConfigColorThemeOneOf `json:"color_theme,omitzero"`
 	// Chart height. Pass null to clear.
-	Height          *ChartViewConfigHeightOneOf `json:"height,omitempty"`
-	HideEmptyGroups *bool                       `json:"hide_empty_groups,omitempty"`
+	Height          *ChartViewConfigHeightOneOf `json:"height,omitzero"`
+	HideEmptyGroups *bool                       `json:"hide_empty_groups,omitzero"`
 	// Legend position. Pass null to clear.
-	LegendPosition *ChartViewConfigLegendPositionOneOf `json:"legend_position,omitempty"`
-	ShowDataLabels *bool                               `json:"show_data_labels,omitempty"`
+	LegendPosition *ChartViewConfigLegendPositionOneOf `json:"legend_position,omitzero"`
+	ShowDataLabels *bool                               `json:"show_data_labels,omitzero"`
 	// Which axis labels to show. Pass null to clear.
-	AxisLabels *ChartViewConfigAxisLabelsOneOf `json:"axis_labels,omitempty"`
+	AxisLabels *ChartViewConfigAxisLabelsOneOf `json:"axis_labels,omitzero"`
 	// Which grid lines to show. Pass null to clear.
-	GridLines        *ChartViewConfigGridLinesOneOf `json:"grid_lines,omitempty"`
-	Cumulative       *bool                          `json:"cumulative,omitempty"`
-	SmoothLine       *bool                          `json:"smooth_line,omitempty"`
-	HideLineFillArea *bool                          `json:"hide_line_fill_area,omitempty"`
+	GridLines        *ChartViewConfigGridLinesOneOf `json:"grid_lines,omitzero"`
+	Cumulative       *bool                          `json:"cumulative,omitzero"`
+	SmoothLine       *bool                          `json:"smooth_line,omitzero"`
+	HideLineFillArea *bool                          `json:"hide_line_fill_area,omitzero"`
 	// Grouped/stacked bar display style. Pass null to clear.
-	GroupStyle *ChartViewConfigGroupStyleOneOf `json:"group_style,omitempty"`
+	GroupStyle *ChartViewConfigGroupStyleOneOf `json:"group_style,omitzero"`
 	// The per-agent credit limit as a non-negative integer, or null to clear the limit.
-	YAxisMin *float64 `json:"y_axis_min,omitempty"`
+	YAxisMin *float64 `json:"y_axis_min,omitzero"`
 	// The per-agent credit limit as a non-negative integer, or null to clear the limit.
-	YAxisMax *float64 `json:"y_axis_max,omitempty"`
+	YAxisMax *float64 `json:"y_axis_max,omitzero"`
 	// Donut slice labels. Pass null to clear.
-	DonutLabels *ChartViewConfigDonutLabelsOneOf `json:"donut_labels,omitempty"`
-	HideTitle   *bool                            `json:"hide_title,omitempty"`
+	DonutLabels *ChartViewConfigDonutLabelsOneOf `json:"donut_labels,omitzero"`
+	HideTitle   *bool                            `json:"hide_title,omitzero"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	StackBy *groupByConfig `json:"stack_by,omitempty"`
+	StackBy *groupByConfig `json:"stack_by,omitzero"`
 	// Reference lines on the chart. Pass null to clear.
-	ReferenceLines *chartReferenceLine `json:"reference_lines,omitempty"`
+	ReferenceLines *chartReferenceLine `json:"reference_lines,omitzero"`
 	// The name of the bot's workspace.
-	Caption      *string `json:"caption,omitempty"`
-	ColorByValue *bool   `json:"color_by_value,omitempty"`
+	Caption      *string `json:"caption,omitzero"`
+	ColorByValue *bool   `json:"color_by_value,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether chartViewConfigRequest declares it.
@@ -23153,15 +23153,15 @@ type chartViewConfigResponse struct {
 	// The chart type.
 	ChartType ChartViewConfigChartType `json:"chart_type,omitzero"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	XAxis *groupByConfig `json:"x_axis,omitempty"`
+	XAxis *groupByConfig `json:"x_axis,omitzero"`
 	// Aggregation for number charts. Pass null to clear.
-	YAxis *chartAggregation `json:"y_axis,omitempty"`
+	YAxis *chartAggregation `json:"y_axis,omitzero"`
 	// Property ID for the x-axis name values when using results (raw property values) mode.
 	XAxisPropertyID string `json:"x_axis_property_id,omitzero"`
 	// Property ID for the y-axis numeric values when using results (raw property values) mode.
 	YAxisPropertyID string `json:"y_axis_property_id,omitzero"`
 	// Aggregation configuration for number charts (single value display).
-	Value *chartAggregation `json:"value,omitempty"`
+	Value *chartAggregation `json:"value,omitzero"`
 	// One of: `manual`, `x_ascending`, `x_descending`, `y_ascending`, `y_descending`
 	Sort ChartViewConfigSortOneOf `json:"sort,omitzero"`
 	// One of: `gray`, `blue`, `yellow`, `green`, `purple`, `teal`, `orange`, `pink`, `red`, `auto`, `colorful`
@@ -23169,39 +23169,39 @@ type chartViewConfigResponse struct {
 	// One of: `small`, `medium`, `large`, `extra_large`
 	Height ChartViewConfigHeightOneOf `json:"height,omitzero"`
 	// Whether to hide groups with no data on the x-axis.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// One of: `off`, `bottom`, `side`
 	LegendPosition ChartViewConfigLegendPositionOneOf `json:"legend_position,omitzero"`
 	// Whether to show data value labels on chart elements.
-	ShowDataLabels bool `json:"show_data_labels,omitempty"`
+	ShowDataLabels bool `json:"show_data_labels,omitzero"`
 	// One of: `none`, `x_axis`, `y_axis`, `both`
 	AxisLabels ChartViewConfigAxisLabelsOneOf `json:"axis_labels,omitzero"`
 	// One of: `none`, `horizontal`, `vertical`, `both`
 	GridLines ChartViewConfigGridLinesOneOf `json:"grid_lines,omitzero"`
 	// Whether to show cumulative values (line charts only).
-	Cumulative bool `json:"cumulative,omitempty"`
+	Cumulative bool `json:"cumulative,omitzero"`
 	// Whether to use smooth curves (line charts only).
-	SmoothLine bool `json:"smooth_line,omitempty"`
+	SmoothLine bool `json:"smooth_line,omitzero"`
 	// Whether to hide the shaded area under the line (line charts only).
-	HideLineFillArea bool `json:"hide_line_fill_area,omitempty"`
+	HideLineFillArea bool `json:"hide_line_fill_area,omitzero"`
 	// One of: `normal`, `percent`, `side_by_side`
 	GroupStyle ChartViewConfigGroupStyleOneOf `json:"group_style,omitzero"`
 	// The per-agent credit limit as a non-negative integer, or null to clear the limit.
-	YAxisMin *float64 `json:"y_axis_min,omitempty"`
+	YAxisMin *float64 `json:"y_axis_min,omitzero"`
 	// The per-agent credit limit as a non-negative integer, or null to clear the limit.
-	YAxisMax *float64 `json:"y_axis_max,omitempty"`
+	YAxisMax *float64 `json:"y_axis_max,omitzero"`
 	// One of: `none`, `value`, `name`, `name_and_value`
 	DonutLabels ChartViewConfigDonutLabelsOneOf `json:"donut_labels,omitzero"`
 	// Whether to hide the title label (number charts only).
-	HideTitle bool `json:"hide_title,omitempty"`
+	HideTitle bool `json:"hide_title,omitzero"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	StackBy *groupByConfig `json:"stack_by,omitempty"`
+	StackBy *groupByConfig `json:"stack_by,omitzero"`
 	// Reference lines on the chart. Pass null to clear.
-	ReferenceLines *chartReferenceLine `json:"reference_lines,omitempty"`
+	ReferenceLines *chartReferenceLine `json:"reference_lines,omitzero"`
 	// The name of the bot's workspace.
-	Caption *string `json:"caption,omitempty"`
+	Caption *string `json:"caption,omitzero"`
 	// Whether chart elements are colored by their numeric value (gradient coloring).
-	ColorByValue bool `json:"color_by_value,omitempty"`
+	ColorByValue bool `json:"color_by_value,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether chartViewConfigResponse declares it.
@@ -23275,7 +23275,7 @@ type checkboxGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -23593,14 +23593,14 @@ type columnListRequest struct {
 // columnResponse defines a model
 type columnResponse struct {
 	// Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width.
-	WidthRatio *float64 `json:"width_ratio,omitempty"`
+	WidthRatio *float64 `json:"width_ratio,omitzero"`
 }
 
 // columnWithChildrenRequest defines a model
 type columnWithChildrenRequest struct {
 	Children []blockObjectWithSingleLevelOfChildrenRequest `json:"children"`
 	// Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width.
-	WidthRatio *float64 `json:"width_ratio,omitempty"`
+	WidthRatio *float64 `json:"width_ratio,omitzero"`
 }
 
 // commentCreatedWebhookPayload defines a model
@@ -23827,7 +23827,7 @@ type contentWithRichTextAndColorAndListResponse struct {
 	RichText []richTextItemResponse `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color          apiColor           `json:"color,omitzero"`
-	ListStartIndex *int               `json:"list_start_index,omitempty"`
+	ListStartIndex *int               `json:"list_start_index,omitzero"`
 	ListFormat     numberedListFormat `json:"list_format,omitzero"`
 }
 
@@ -23890,13 +23890,13 @@ type coverConfigResponse struct {
 type createDatabaseForViewRequest struct {
 	Parent CreateACommentAllOfOneOfParentOneOf `json:"parent"`
 	// Where to place the new database block within the parent page. Defaults to appending at the end.
-	Position *CreateDatabaseForViewRequestPosition `json:"position,omitempty"`
+	Position *CreateDatabaseForViewRequestPosition `json:"position,omitzero"`
 }
 
 // createViewQueryRequest defines a model
 type createViewQueryRequest struct {
 	// The number of results to return per page. Maximum: 100
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // createViewRequest defines a model
@@ -23912,19 +23912,19 @@ type createViewRequest struct {
 	// The ID of a dashboard view to add this view to as a widget. Mutually exclusive with database_id and create_database.
 	ViewID idRequest `json:"view_id,omitzero"`
 	// Filter to apply to the view. Uses the same format as the data source query filter.
-	Filter *quickFilterCondition `json:"filter,omitempty"`
+	Filter *quickFilterCondition `json:"filter,omitzero"`
 	// Sorts to apply to the view. Uses the same format as the data source query sorts.
 	Sorts viewSortsRequest `json:"sorts,omitzero"`
 	// Quick filters to pin in the view's filter bar. Keys are property names or IDs. Values are filter conditions (same shape as a property filter but without the property field). Each quick filter appears as a clickable pill above the view, independent of the advanced filter.
-	QuickFilters *map[string]quickFilterCondition `json:"quick_filters,omitempty"`
+	QuickFilters *map[string]quickFilterCondition `json:"quick_filters,omitzero"`
 	// Create a new linked database block on a page and add the view to it. Mutually exclusive with database_id and view_id.
-	CreateDatabase *createDatabaseForViewRequest `json:"create_database,omitempty"`
+	CreateDatabase *createDatabaseForViewRequest `json:"create_database,omitzero"`
 	// View presentation configuration. The type field must match the view type.
-	Configuration *viewConfigRequest `json:"configuration,omitempty"`
+	Configuration *viewConfigRequest `json:"configuration,omitzero"`
 	// Where to place the new view in the database's view tab bar. Only applicable when database_id is provided. Defaults to "end" (append).
-	Position *viewPositionRequest `json:"position,omitempty"`
+	Position *viewPositionRequest `json:"position,omitzero"`
 	// Where to place the new widget in a dashboard view. Only applicable when view_id is provided. Defaults to creating a new row at the end.
-	Placement *widgetPlacementRequest `json:"placement,omitempty"`
+	Placement *widgetPlacementRequest `json:"placement,omitzero"`
 }
 
 // createdByPropertyItemObjectResponse defines a model
@@ -24030,7 +24030,7 @@ type dashboardRowResponse struct {
 	// The widget modules within this row.
 	Widgets []dashboardWidgetResponse `json:"widgets"`
 	// Fixed height of the row in pixels.
-	Height *int `json:"height,omitempty"`
+	Height *int `json:"height,omitzero"`
 }
 
 // dashboardViewConfigResponse defines a model
@@ -24060,9 +24060,9 @@ type dashboardWidgetResponse struct {
 	// The ID of the collection view rendered by this widget.
 	ViewID string `json:"view_id,omitzero"`
 	// Width of the widget in a 12-column grid (1-12). 12 means full width.
-	Width *int `json:"width,omitempty"`
+	Width *int `json:"width,omitzero"`
 	// The 0-based index of the row this widget belongs to. Widgets in the same row share the same row_index.
-	RowIndex *int `json:"row_index,omitempty"`
+	RowIndex *int `json:"row_index,omitzero"`
 }
 
 // dataSourceContentUpdatedWebhookPayload defines a model
@@ -24222,19 +24222,19 @@ type dataSourceViewObjectResponse struct {
 	// Canonical deep link to the view in Notion.
 	URL string `json:"url,omitzero"`
 	// The name of the bot's workspace.
-	DataSourceID *string `json:"data_source_id,omitempty"`
+	DataSourceID *string `json:"data_source_id,omitzero"`
 	// The user who created the view, or null if not available.
-	CreatedBy *partialUserObjectResponse `json:"created_by,omitempty"`
+	CreatedBy *partialUserObjectResponse `json:"created_by,omitzero"`
 	// The user who created the view, or null if not available.
-	LastEditedBy *partialUserObjectResponse `json:"last_edited_by,omitempty"`
+	LastEditedBy *partialUserObjectResponse `json:"last_edited_by,omitzero"`
 	// The filter applied to this view (same shape as data source query filter).
-	Filter *viewFilterResponse `json:"filter,omitempty"`
+	Filter *viewFilterResponse `json:"filter,omitzero"`
 	// The sorts applied to this view (same shape as data source query sorts).
-	Sorts *viewSortResponse `json:"sorts,omitempty"`
+	Sorts *viewSortResponse `json:"sorts,omitzero"`
 	// Quick filters pinned to the view's filter bar. Keys are property IDs. Values are filter conditions (same shape as a property filter without the property field). Null when no quick filters are set.
-	QuickFilters *map[string]quickFilterCondition `json:"quick_filters,omitempty"`
+	QuickFilters *map[string]quickFilterCondition `json:"quick_filters,omitzero"`
 	// View presentation configuration.
-	Configuration *viewConfigResponse `json:"configuration,omitempty"`
+	Configuration *viewConfigResponse `json:"configuration,omitzero"`
 	// For dashboard widget views, the ID of the parent dashboard view. Only present when this view is a widget inside a dashboard.
 	DashboardViewID string `json:"dashboard_view_id,omitzero"`
 }
@@ -25465,9 +25465,9 @@ type date struct {
 	// The start date of the date object.
 	Start civil.Date `json:"start,omitzero"`
 	// The end date of the date object, if any.
-	End *civil.Date `json:"end,omitempty"`
+	End *civil.Date `json:"end,omitzero"`
 	// The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.
-	TimeZone *timeZoneRequest `json:"time_zone,omitempty"`
+	TimeZone *timeZoneRequest `json:"time_zone,omitzero"`
 }
 
 // dateFormulaPropertyValue defines a model
@@ -25500,9 +25500,9 @@ type dateGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Start day of week for week grouping (0 = Sunday, 1 = Monday).
-	StartDayOfWeek *float64 `json:"start_day_of_week,omitempty"`
+	StartDayOfWeek *float64 `json:"start_day_of_week,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -26548,8 +26548,8 @@ type fileUploadObjectResponse struct {
 	ContentLength    *int                                      `json:"content_length"`
 	UploadURL        string                                    `json:"upload_url,omitzero"`
 	CompleteURL      string                                    `json:"complete_url,omitzero"`
-	FileImportResult *FileUploadObjectResponseFileImportResult `json:"file_import_result,omitempty"`
-	NumberOfParts    *FileUploadObjectResponseNumberOfParts    `json:"number_of_parts,omitempty"`
+	FileImportResult *FileUploadObjectResponseFileImportResult `json:"file_import_result,omitzero"`
+	NumberOfParts    *FileUploadObjectResponseNumberOfParts    `json:"number_of_parts,omitzero"`
 }
 
 // fileUploadPageCover defines a model
@@ -26651,10 +26651,10 @@ func (v *filesSimplePropertyValueResponse) unmarshalJSONMember(dec *jsontext.Dec
 type formViewConfigRequest struct {
 	// The view type. Must be "form".
 	Type                 string `json:"type,omitzero"`
-	IsFormClosed         *bool  `json:"is_form_closed,omitempty"`
-	AnonymousSubmissions *bool  `json:"anonymous_submissions,omitempty"`
+	IsFormClosed         *bool  `json:"is_form_closed,omitzero"`
+	AnonymousSubmissions *bool  `json:"anonymous_submissions,omitzero"`
 	// Permission level granted to the submitter on the created page after form submission. Pass null to clear.
-	SubmissionPermissions *FormViewConfigSubmissionPermissionsOneOf `json:"submission_permissions,omitempty"`
+	SubmissionPermissions *FormViewConfigSubmissionPermissionsOneOf `json:"submission_permissions,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether formViewConfigRequest declares it.
@@ -26678,9 +26678,9 @@ type formViewConfigResponse struct {
 	// The view configuration type.
 	Type string `json:"type,omitzero"`
 	// Whether the form is closed for submissions.
-	IsFormClosed bool `json:"is_form_closed,omitempty"`
+	IsFormClosed bool `json:"is_form_closed,omitzero"`
 	// Whether anonymous (non-logged-in) submissions are allowed.
-	AnonymousSubmissions bool `json:"anonymous_submissions,omitempty"`
+	AnonymousSubmissions bool `json:"anonymous_submissions,omitzero"`
 	// One of: `none`, `comment_only`, `reader`, `read_and_write`, `editor`
 	SubmissionPermissions FormViewConfigSubmissionPermissionsOneOf `json:"submission_permissions,omitzero"`
 }
@@ -26730,7 +26730,7 @@ type formulaDateSubGroupBy struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Start day of week for week grouping (0 = Sunday, 1 = Monday).
-	StartDayOfWeek *float64 `json:"start_day_of_week,omitempty"`
+	StartDayOfWeek *float64 `json:"start_day_of_week,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether formulaDateSubGroupBy declares it.
@@ -26758,7 +26758,7 @@ type formulaGroupByConfig struct {
 	// Sub-group-by configuration based on the formula result type.
 	GroupBy FormulaGroupByConfigGroupBy `json:"group_by"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -26770,11 +26770,11 @@ type formulaNumberSubGroupBy struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Start of the range for number grouping buckets.
-	RangeStart *int `json:"range_start,omitempty"`
+	RangeStart *int `json:"range_start,omitzero"`
 	// End of the range for number grouping buckets.
-	RangeEnd *int `json:"range_end,omitempty"`
+	RangeEnd *int `json:"range_end,omitzero"`
 	// Size of each bucket in number grouping.
-	RangeSize *int `json:"range_size,omitempty"`
+	RangeSize *int `json:"range_size,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether formulaNumberSubGroupBy declares it.
@@ -27150,15 +27150,15 @@ type galleryViewConfigRequest struct {
 	// The view type. Must be "gallery".
 	Type string `json:"type,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
 	// Cover image configuration for cards. Pass null to clear.
-	Cover *coverConfigRequest `json:"cover,omitempty"`
+	Cover *coverConfigRequest `json:"cover,omitzero"`
 	// Size of the cover image on cards. Pass null to clear.
-	CoverSize *BoardViewConfigCoverSizeOneOf `json:"cover_size,omitempty"`
+	CoverSize *BoardViewConfigCoverSizeOneOf `json:"cover_size,omitzero"`
 	// Aspect ratio mode for cover images. "contain" fits the image, "cover" fills the area. Pass null to clear.
-	CoverAspect *BoardViewConfigCoverAspectOneOf `json:"cover_aspect,omitempty"`
+	CoverAspect *BoardViewConfigCoverAspectOneOf `json:"cover_aspect,omitzero"`
 	// Card layout mode. "list" shows full cards, "compact" shows condensed cards. Pass null to clear.
-	CardLayout *BoardViewConfigCardLayoutOneOf `json:"card_layout,omitempty"`
+	CardLayout *BoardViewConfigCardLayoutOneOf `json:"card_layout,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether galleryViewConfigRequest declares it.
@@ -27188,7 +27188,7 @@ type galleryViewConfigResponse struct {
 	// Properties to display on gallery cards.
 	Properties []viewPropertyConfigResponse `json:"properties,omitzero"`
 	// Card cover/preview image configuration.
-	Cover *coverConfigResponse `json:"cover,omitempty"`
+	Cover *coverConfigResponse `json:"cover,omitzero"`
 	// One of: `small`, `medium`, `large`
 	CoverSize BoardViewConfigCoverSizeOneOf `json:"cover_size,omitzero"`
 	// One of: `contain`, `cover`
@@ -27502,7 +27502,7 @@ type headerContentWithRichTextAndColorRequest struct {
 	RichText []richTextItemRequest `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color        apiColor `json:"color,omitzero"`
-	IsToggleable bool     `json:"is_toggleable,omitempty"`
+	IsToggleable bool     `json:"is_toggleable,omitzero"`
 }
 
 // headerContentWithRichTextAndColorResponse defines a model
@@ -27518,7 +27518,7 @@ type headerContentWithSingleLevelOfChildrenRequest struct {
 	RichText []richTextItemRequest `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color        apiColor                            `json:"color,omitzero"`
-	IsToggleable bool                                `json:"is_toggleable,omitempty"`
+	IsToggleable bool                                `json:"is_toggleable,omitzero"`
 	Children     []blockObjectRequestWithoutChildren `json:"children,omitzero"`
 }
 
@@ -27776,13 +27776,13 @@ func (v *imageBlockObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, na
 // initialDataSourceRequest defines a model
 type initialDataSourceRequest struct {
 	// Property schema for the initial data source, if you'd like to create one.
-	Properties *map[string]propertyConfigurationRequest `json:"properties,omitempty"`
+	Properties *map[string]propertyConfigurationRequest `json:"properties,omitzero"`
 }
 
 // internalFile defines a model
 type internalFile struct {
 	URL        string    `json:"url,omitzero"`
-	ExpiryTime time.Time `json:"expiry_time,omitempty"`
+	ExpiryTime time.Time `json:"expiry_time,omitzero"`
 }
 
 // internalOrExternalFileWithNameAllOf defines a model
@@ -28274,11 +28274,11 @@ type linkMentionResponse struct {
 	// The iframe URL of the link.
 	IframeURL string `json:"iframe_url,omitzero"`
 	// The height of the link preview iframe.
-	Height *int `json:"height,omitempty"`
+	Height *int `json:"height,omitzero"`
 	// The padding of the link preview iframe.
-	Padding *int `json:"padding,omitempty"`
+	Padding *int `json:"padding,omitzero"`
 	// The top padding of the link preview iframe.
-	PaddingTop *int `json:"padding_top,omitempty"`
+	PaddingTop *int `json:"padding_top,omitzero"`
 }
 
 // linkPreviewBlockObjectResponse defines a model
@@ -28376,7 +28376,7 @@ type listViewConfigRequest struct {
 	// The view type. Must be "list".
 	Type string `json:"type,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether listViewConfigRequest declares it.
@@ -28435,11 +28435,11 @@ type mapViewConfigRequest struct {
 	// The view type. Must be "map".
 	Type string `json:"type,omitzero"`
 	// Chart height. Pass null to clear.
-	Height *ChartViewConfigHeightOneOf `json:"height,omitempty"`
+	Height *ChartViewConfigHeightOneOf `json:"height,omitzero"`
 	// The name of the bot's workspace.
-	MapBy *string `json:"map_by,omitempty"`
+	MapBy *string `json:"map_by,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether mapViewConfigRequest declares it.
@@ -29075,13 +29075,13 @@ type numberGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Start of the range for number grouping buckets.
-	RangeStart *int `json:"range_start,omitempty"`
+	RangeStart *int `json:"range_start,omitzero"`
 	// End of the range for number grouping buckets.
-	RangeEnd *int `json:"range_end,omitempty"`
+	RangeEnd *int `json:"range_end,omitzero"`
 	// Size of each bucket in number grouping.
-	RangeSize *int `json:"range_size,omitempty"`
+	RangeSize *int `json:"range_size,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -30906,18 +30906,18 @@ type partialDatabaseObjectResponse struct {
 	ID             idResponse                               `json:"id,omitzero"`
 	Title          PartialDatabaseObjectDescription         `json:"title,omitzero"`
 	Description    PartialDatabaseObjectDescription         `json:"description,omitzero"`
-	Parent         *PartialDatabaseObjectParent             `json:"parent,omitempty"`
-	IsInline       bool                                     `json:"is_inline,omitempty"`
-	InTrash        bool                                     `json:"in_trash,omitempty"`
-	IsLocked       bool                                     `json:"is_locked,omitempty"`
-	CreatedTime    time.Time                                `json:"created_time,omitempty"`
-	LastEditedTime time.Time                                `json:"last_edited_time,omitempty"`
+	Parent         *PartialDatabaseObjectParent             `json:"parent,omitzero"`
+	IsInline       bool                                     `json:"is_inline,omitzero"`
+	InTrash        bool                                     `json:"in_trash,omitzero"`
+	IsLocked       bool                                     `json:"is_locked,omitzero"`
+	CreatedTime    time.Time                                `json:"created_time,omitzero"`
+	LastEditedTime time.Time                                `json:"last_edited_time,omitzero"`
 	DataSources    PartialDatabaseObjectResponseDataSources `json:"data_sources,omitzero"`
-	Icon           *PartialDatabaseObjectIcon               `json:"icon,omitempty"`
-	Cover          *PartialDatabaseObjectCover              `json:"cover,omitempty"`
-	URL            *url.URL                                 `json:"url,omitempty"`
-	PublicURL      *struct{}                                `json:"public_url,omitempty"`
-	RequestID      *uuid.UUID                               `json:"request_id,omitempty"`
+	Icon           *PartialDatabaseObjectIcon               `json:"icon,omitzero"`
+	Cover          *PartialDatabaseObjectCover              `json:"cover,omitzero"`
+	URL            *url.URL                                 `json:"url,omitzero"`
+	PublicURL      *struct{}                                `json:"public_url,omitzero"`
+	RequestID      *uuid.UUID                               `json:"request_id,omitzero"`
 }
 
 // partialPageObjectResponse defines a model
@@ -30926,20 +30926,20 @@ type partialPageObjectResponse struct {
 	Object string `json:"object,omitzero"`
 	// The ID of the page.
 	ID             idResponse                           `json:"id,omitzero"`
-	CreatedTime    time.Time                            `json:"created_time,omitempty"`
-	LastEditedTime time.Time                            `json:"last_edited_time,omitempty"`
-	CreatedBy      *PartialPageObjectCreatedBy          `json:"created_by,omitempty"`
-	LastEditedBy   *PartialPageObjectCreatedBy          `json:"last_edited_by,omitempty"`
-	Cover          *PartialDatabaseObjectCover          `json:"cover,omitempty"`
-	Icon           *PartialDatabaseObjectIcon           `json:"icon,omitempty"`
-	Parent         *PartialDatabaseObjectParent         `json:"parent,omitempty"`
-	InTrash        bool                                 `json:"in_trash,omitempty"`
-	IsArchived     bool                                 `json:"is_archived,omitempty"`
-	IsLocked       bool                                 `json:"is_locked,omitempty"`
-	Properties     *PartialPageObjectResponseProperties `json:"properties,omitempty"`
-	URL            *url.URL                             `json:"url,omitempty"`
-	PublicURL      *url.URL                             `json:"public_url,omitempty"`
-	RequestID      *uuid.UUID                           `json:"request_id,omitempty"`
+	CreatedTime    time.Time                            `json:"created_time,omitzero"`
+	LastEditedTime time.Time                            `json:"last_edited_time,omitzero"`
+	CreatedBy      *PartialPageObjectCreatedBy          `json:"created_by,omitzero"`
+	LastEditedBy   *PartialPageObjectCreatedBy          `json:"last_edited_by,omitzero"`
+	Cover          *PartialDatabaseObjectCover          `json:"cover,omitzero"`
+	Icon           *PartialDatabaseObjectIcon           `json:"icon,omitzero"`
+	Parent         *PartialDatabaseObjectParent         `json:"parent,omitzero"`
+	InTrash        bool                                 `json:"in_trash,omitzero"`
+	IsArchived     bool                                 `json:"is_archived,omitzero"`
+	IsLocked       bool                                 `json:"is_locked,omitzero"`
+	Properties     *PartialPageObjectResponseProperties `json:"properties,omitzero"`
+	URL            *url.URL                             `json:"url,omitzero"`
+	PublicURL      *url.URL                             `json:"public_url,omitzero"`
+	RequestID      *uuid.UUID                           `json:"request_id,omitzero"`
 }
 
 // partialRollupPropertyResponse defines a model
@@ -31479,7 +31479,7 @@ type personGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -31627,13 +31627,13 @@ type placePropertyValueResponse struct {
 	Lat float64 `json:"lat"`
 	Lon float64 `json:"lon"`
 	// The name of the bot's workspace.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 	// The name of the bot's workspace.
-	Address *string `json:"address,omitempty"`
+	Address *string `json:"address,omitzero"`
 	// The name of the bot's workspace.
-	AwsPlaceID *string `json:"aws_place_id,omitempty"`
+	AwsPlaceID *string `json:"aws_place_id,omitzero"`
 	// The name of the bot's workspace.
-	GooglePlaceID *string `json:"google_place_id,omitempty"`
+	GooglePlaceID *string `json:"google_place_id,omitzero"`
 }
 
 // placeSimplePropertyValueResponse defines a model
@@ -31658,7 +31658,7 @@ func (v *placeSimplePropertyValueResponse) unmarshalJSONMember(dec *jsontext.Dec
 // propertyConfigurationRequest defines a model
 type propertyConfigurationRequest struct {
 	// The description of the property.
-	Description                        *propertyDescriptionRequest        `json:"description,omitempty"`
+	Description                        *propertyDescriptionRequest        `json:"description,omitzero"`
 	PropertyConfigurationRequestAllOf1 propertyConfigurationRequestAllOf1 `json:"-"`
 }
 
@@ -33513,7 +33513,7 @@ func (v *publicApiAsyncTaskStatusResultJsonValue) MarshalJSONTo(enc *jsontext.En
 type publicApiCommonErrorResponse struct {
 	Object         string                                            `json:"object,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // A property filter condition. Same shape as a property filter but without the "property" field (the hashmap key identifies the property). For example: { "select": { "equals": "High" } }.
@@ -33592,7 +33592,7 @@ type relationGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -33762,7 +33762,7 @@ func (v *richTextArrayBasedPropertyValueResponse) unmarshalJSONMember(dec *jsont
 // richTextItemRequest defines a model
 type richTextItemRequest struct {
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations               *annotation               `json:"annotations,omitempty"`
+	Annotations               *annotation               `json:"annotations,omitzero"`
 	RichTextItemRequestAllOf1 richTextItemRequestAllOf1 `json:"-"`
 }
 
@@ -34641,7 +34641,7 @@ type selectGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -35307,7 +35307,7 @@ type statusGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -35337,7 +35337,7 @@ type statusOptionRequest struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color PartialSelectPropertyValueColor `json:"color,omitzero"`
 	// The name of the bot's workspace.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// One of: `To-do`, `In progress`, `Complete`
 	Group statusOptionGroup `json:"group,omitzero"`
 }
@@ -35350,7 +35350,7 @@ type statusOptionUpdateRequest struct {
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`
 	Color PartialSelectPropertyValueColor `json:"color,omitzero"`
 	// The name of the bot's workspace.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description,omitzero"`
 	// One of: `To-do`, `In progress`, `Complete`
 	Group                            statusOptionGroup                `json:"group,omitzero"`
 	MultiSelectMultiSelectItemAllOf2 MultiSelectMultiSelectItemAllOf2 `json:"-"`
@@ -35819,8 +35819,8 @@ func (v *tableOfContentsBlockObjectResponse) unmarshalJSONMember(dec *jsontext.D
 type tableRequestWithTableRowChildren struct {
 	TableWidth      int         `json:"table_width"`
 	Children        []TableRow3 `json:"children"`
-	HasColumnHeader bool        `json:"has_column_header,omitempty"`
-	HasRowHeader    bool        `json:"has_row_header,omitempty"`
+	HasColumnHeader bool        `json:"has_column_header,omitzero"`
+	HasRowHeader    bool        `json:"has_row_header,omitzero"`
 }
 
 // tableRowBlockObjectResponse defines a model
@@ -35873,17 +35873,17 @@ type tableViewConfigRequest struct {
 	// The view type. Must be "table".
 	Type string `json:"type,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	GroupBy *groupByConfig `json:"group_by,omitempty"`
+	GroupBy *groupByConfig `json:"group_by,omitzero"`
 	// Subtask (sub-item) configuration. Pass null to reset subtask config to defaults (which may show subtasks). Use `{ "display_mode": "disabled" }` to explicitly disable subtasks.
-	Subtasks *subtaskConfig `json:"subtasks,omitempty"`
+	Subtasks *subtaskConfig `json:"subtasks,omitzero"`
 	// Whether to wrap cell content in the table.
-	WrapCells bool `json:"wrap_cells,omitempty"`
+	WrapCells bool `json:"wrap_cells,omitzero"`
 	// Number of columns frozen from the left side of the table.
-	FrozenColumnIndex *int `json:"frozen_column_index,omitempty"`
+	FrozenColumnIndex *int `json:"frozen_column_index,omitzero"`
 	// Whether to show vertical grid lines between columns.
-	ShowVerticalLines bool `json:"show_vertical_lines,omitempty"`
+	ShowVerticalLines bool `json:"show_vertical_lines,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether tableViewConfigRequest declares it.
@@ -35915,15 +35915,15 @@ type tableViewConfigResponse struct {
 	// Columns/properties visible in the table view.
 	Properties []viewPropertyConfigResponse `json:"properties,omitzero"`
 	// Vertical (row) grouping configuration.
-	GroupBy *groupByConfig `json:"group_by,omitempty"`
+	GroupBy *groupByConfig `json:"group_by,omitzero"`
 	// Sub-item (subtask) display configuration.
-	Subtasks *subtaskConfig `json:"subtasks,omitempty"`
+	Subtasks *subtaskConfig `json:"subtasks,omitzero"`
 	// Whether to wrap cell content by default.
-	WrapCells bool `json:"wrap_cells,omitempty"`
+	WrapCells bool `json:"wrap_cells,omitzero"`
 	// Index of the last frozen column. Columns up to and including this index are frozen.
-	FrozenColumnIndex *int `json:"frozen_column_index,omitempty"`
+	FrozenColumnIndex *int `json:"frozen_column_index,omitzero"`
 	// Whether to show vertical lines between columns.
-	ShowVerticalLines bool `json:"show_vertical_lines,omitempty"`
+	ShowVerticalLines bool `json:"show_vertical_lines,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether tableViewConfigResponse declares it.
@@ -36112,7 +36112,7 @@ type textGroupByConfig struct {
 	// Sort order for groups.
 	Sort groupSort `json:"sort"`
 	// Whether to hide groups that have no items.
-	HideEmptyGroups bool `json:"hide_empty_groups,omitempty"`
+	HideEmptyGroups bool `json:"hide_empty_groups,omitzero"`
 	// Property name (convenience field).
 	PropertyName string `json:"property_name,omitzero"`
 }
@@ -36312,7 +36312,7 @@ type timeZoneRequest string
 // timelineArrowsBy defines a model
 type timelineArrowsBy struct {
 	// The name of the bot's workspace.
-	PropertyID *string `json:"property_id,omitempty"`
+	PropertyID *string `json:"property_id,omitzero"`
 }
 
 // timelinePreferenceRequest defines a model
@@ -36320,7 +36320,7 @@ type timelinePreferenceRequest struct {
 	// Zoom level for the timeline.
 	ZoomLevel TimelinePreferenceZoomLevel `json:"zoom_level,omitzero"`
 	// Timestamp (ms) to center the timeline view on.
-	CenterTimestamp *int `json:"center_timestamp,omitempty"`
+	CenterTimestamp *int `json:"center_timestamp,omitzero"`
 }
 
 // timelinePreferenceResponse defines a model
@@ -36328,7 +36328,7 @@ type timelinePreferenceResponse struct {
 	// Zoom level for the timeline.
 	ZoomLevel TimelinePreferenceZoomLevel `json:"zoom_level,omitzero"`
 	// Center timestamp for the timeline view (Unix timestamp in ms).
-	CenterTimestamp *int `json:"center_timestamp,omitempty"`
+	CenterTimestamp *int `json:"center_timestamp,omitzero"`
 }
 
 // timelineViewConfigRequest defines a model
@@ -36338,17 +36338,17 @@ type timelineViewConfigRequest struct {
 	// Property ID of the date property used for the start of timeline items.
 	DatePropertyID string `json:"date_property_id,omitzero"`
 	// The name of the bot's workspace.
-	EndDatePropertyID *string `json:"end_date_property_id,omitempty"`
+	EndDatePropertyID *string `json:"end_date_property_id,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	Properties *viewPropertyConfigRequest `json:"properties,omitempty"`
-	ShowTable  *bool                      `json:"show_table,omitempty"`
+	Properties *viewPropertyConfigRequest `json:"properties,omitzero"`
+	ShowTable  *bool                      `json:"show_table,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
-	TableProperties *viewPropertyConfigRequest `json:"table_properties,omitempty"`
+	TableProperties *viewPropertyConfigRequest `json:"table_properties,omitzero"`
 	// Timeline display preferences (zoom level and center position). Pass null to clear.
-	Preference *timelinePreferenceRequest `json:"preference,omitempty"`
+	Preference *timelinePreferenceRequest `json:"preference,omitzero"`
 	// Configuration for dependency arrows between timeline items. Pass null to clear.
-	ArrowsBy *timelineArrowsBy `json:"arrows_by,omitempty"`
-	ColorBy  *bool             `json:"color_by,omitempty"`
+	ArrowsBy *timelineArrowsBy `json:"arrows_by,omitzero"`
+	ColorBy  *bool             `json:"color_by,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether timelineViewConfigRequest declares it.
@@ -36392,15 +36392,15 @@ type timelineViewConfigResponse struct {
 	// Properties to display on timeline items.
 	Properties []viewPropertyConfigResponse `json:"properties,omitzero"`
 	// Whether to show the table panel alongside the timeline.
-	ShowTable bool `json:"show_table,omitempty"`
+	ShowTable bool `json:"show_table,omitzero"`
 	// Properties to display in the table panel (when show_table is true).
 	TableProperties []viewPropertyConfigResponse `json:"table_properties,omitzero"`
 	// Timeline zoom/preference state.
-	Preference *timelinePreferenceResponse `json:"preference,omitempty"`
+	Preference *timelinePreferenceResponse `json:"preference,omitzero"`
 	// Dependency arrows configuration.
-	ArrowsBy *timelineArrowsBy `json:"arrows_by,omitempty"`
+	ArrowsBy *timelineArrowsBy `json:"arrows_by,omitzero"`
 	// Whether to color-code items by property.
-	ColorBy bool `json:"color_by,omitempty"`
+	ColorBy bool `json:"color_by,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether timelineViewConfigResponse declares it.
@@ -36683,9 +36683,9 @@ type transcriptionBlockResponse struct {
 	Title []richTextItemResponse `json:"title,omitzero"`
 	// Current processing status of the meeting note transcription.
 	Status        CreateMeetingNoteOneOfMeetingNotesStatus `json:"status,omitzero"`
-	Children      *transcriptionChildrenResponse           `json:"children,omitempty"`
-	CalendarEvent *transcriptionCalendarEventResponse      `json:"calendar_event,omitempty"`
-	Recording     *transcriptionRecordingResponse          `json:"recording,omitempty"`
+	Children      *transcriptionChildrenResponse           `json:"children,omitzero"`
+	CalendarEvent *transcriptionCalendarEventResponse      `json:"calendar_event,omitzero"`
+	Recording     *transcriptionRecordingResponse          `json:"recording,omitzero"`
 }
 
 // transcriptionCalendarEventResponse defines a model
@@ -36704,8 +36704,8 @@ type transcriptionChildrenResponse struct {
 
 // transcriptionRecordingResponse defines a model
 type transcriptionRecordingResponse struct {
-	StartTime time.Time `json:"start_time,omitempty"`
-	EndTime   time.Time `json:"end_time,omitempty"`
+	StartTime time.Time `json:"start_time,omitzero"`
+	EndTime   time.Time `json:"end_time,omitzero"`
 }
 
 // uniqueIdPropertyItemObjectResponse defines a model
@@ -36831,15 +36831,15 @@ type updateEmbedFileUploadRequest struct {
 // updateMediaContentWithFileAndCaptionRequest defines a model
 type updateMediaContentWithFileAndCaptionRequest struct {
 	Caption    []richTextItemRequest                           `json:"caption,omitzero"`
-	External   *ExternalMediaContentWithFileAndCaptionExternal `json:"external,omitempty"`
-	FileUpload *ContentPositionSchemaAnyOfAfterBlock           `json:"file_upload,omitempty"`
+	External   *ExternalMediaContentWithFileAndCaptionExternal `json:"external,omitzero"`
+	FileUpload *ContentPositionSchemaAnyOfAfterBlock           `json:"file_upload,omitzero"`
 }
 
 // updateMediaContentWithFileNameAndCaptionRequest defines a model
 type updateMediaContentWithFileNameAndCaptionRequest struct {
 	Caption    []richTextItemRequest                           `json:"caption,omitzero"`
-	External   *ExternalMediaContentWithFileAndCaptionExternal `json:"external,omitempty"`
-	FileUpload *ContentPositionSchemaAnyOfAfterBlock           `json:"file_upload,omitempty"`
+	External   *ExternalMediaContentWithFileAndCaptionExternal `json:"external,omitzero"`
+	FileUpload *ContentPositionSchemaAnyOfAfterBlock           `json:"file_upload,omitzero"`
 	Name       stringRequest                                   `json:"name,omitzero"`
 }
 
@@ -36848,13 +36848,13 @@ type updateViewRequest struct {
 	// New name for the view.
 	Name string `json:"name,omitzero"`
 	// Filter to apply to the view. Uses the same format as the data source query filter. Pass null to clear the filter.
-	Filter *quickFilterCondition `json:"filter,omitempty"`
+	Filter *quickFilterCondition `json:"filter,omitzero"`
 	// Property sorts to apply to the view. Only property-based sorts are supported. Pass null to clear the sorts.
-	Sorts *viewPropertySortsRequest `json:"sorts,omitempty"`
+	Sorts *viewPropertySortsRequest `json:"sorts,omitzero"`
 	// Quick filters for the view's filter bar. Keys are property names or IDs. Set a key to a filter condition to add/update that quick filter. Set a key to null to remove it. Pass null for the entire field to clear all quick filters. Unmentioned quick filters are preserved.
-	QuickFilters *map[string]quickFilterCondition `json:"quick_filters,omitempty"`
+	QuickFilters *map[string]quickFilterCondition `json:"quick_filters,omitzero"`
 	// View presentation configuration. The type field must match the view type. Individual nullable fields within the configuration can be set to null to clear them.
-	Configuration *viewConfigRequest `json:"configuration,omitempty"`
+	Configuration *viewConfigRequest `json:"configuration,omitzero"`
 }
 
 // urlPropertyItemObjectResponse defines a model
@@ -37813,11 +37813,11 @@ type viewPropertyConfigRequest struct {
 	// Property ID (stable identifier).
 	PropertyID string `json:"property_id,omitzero"`
 	// Whether this property is visible in the view.
-	Visible bool `json:"visible,omitempty"`
+	Visible bool `json:"visible,omitzero"`
 	// Width of the property column in pixels (table view only).
-	Width *int `json:"width,omitempty"`
+	Width *int `json:"width,omitzero"`
 	// Whether to wrap content in this property cell/card.
-	Wrap bool `json:"wrap,omitempty"`
+	Wrap bool `json:"wrap,omitzero"`
 	// How to display status properties (select dropdown or checkbox).
 	StatusShowAs ViewPropertyConfigStatusShowAs `json:"status_show_as,omitzero"`
 	// Property width mode in compact card layouts (board/gallery).
@@ -37835,11 +37835,11 @@ type viewPropertyConfigResponse struct {
 	// Property name (convenience field, not stable across renames).
 	PropertyName string `json:"property_name,omitzero"`
 	// Whether this property is visible in the view.
-	Visible bool `json:"visible,omitempty"`
+	Visible bool `json:"visible,omitzero"`
 	// Width of the property column in pixels (table view only).
-	Width *int `json:"width,omitempty"`
+	Width *int `json:"width,omitzero"`
 	// Whether to wrap content in this property cell/card.
-	Wrap bool `json:"wrap,omitempty"`
+	Wrap bool `json:"wrap,omitzero"`
 	// How to display status properties (select dropdown or checkbox).
 	StatusShowAs ViewPropertyConfigStatusShowAs `json:"status_show_as,omitzero"`
 	// Property width mode in compact card layouts (board/gallery).
@@ -37871,7 +37871,7 @@ type viewQueryResponse struct {
 	// Whether there are more results.
 	HasMore bool `json:"has_more"`
 	// Set to `{ type: 'incomplete', incomplete_reason: 'query_result_limit_reached' }` when the view's underlying data source has more rows matching this query than the server-side pagination depth limit allows.
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 }
 
 // Sort for the view. Can sort by property or timestamp.
@@ -37986,7 +37986,7 @@ type webhookParentBlock struct {
 	// The type of the parent.
 	Type WebhookParentBlockType `json:"type,omitzero"`
 	// The data source ID of the parent, if applicable.
-	DataSourceID *idResponse `json:"data_source_id,omitempty"`
+	DataSourceID *idResponse `json:"data_source_id,omitzero"`
 }
 
 // webhookViewEntity defines a model
@@ -38067,7 +38067,7 @@ type widgetPlacementRequestOneOf0 struct {
 	// Placement type. "new_row" creates a new row containing the widget.
 	Type string `json:"type,omitzero"`
 	// The 0-based row position to insert the new row at. If omitted, the new row is appended at the end.
-	RowIndex *int `json:"row_index,omitempty"`
+	RowIndex *int `json:"row_index,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether widgetPlacementRequestOneOf0 declares it.

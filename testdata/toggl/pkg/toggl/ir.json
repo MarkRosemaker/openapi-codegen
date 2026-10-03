@@ -465,27 +465,27 @@
 					"name": "Duronly",
 					"jsonName": "duronly",
 					"type": "bool",
-					"jsonTag": "json:\"duronly,omitempty\"",
+					"jsonTag": "json:\"duronly,omitzero\"",
 					"description": "Deprecated: Used to create a time entry with a duration but without a stop time. This parameter can be ignored."
 				},
 				{
 					"name": "EventMetadata",
 					"jsonName": "event_metadata",
 					"type": "*EventMetadata",
-					"jsonTag": "json:\"event_metadata,omitempty\""
+					"jsonTag": "json:\"event_metadata,omitzero\""
 				},
 				{
 					"name": "Pid",
 					"jsonName": "pid",
 					"type": "*int",
-					"jsonTag": "json:\"pid,omitempty\"",
+					"jsonTag": "json:\"pid,omitzero\"",
 					"description": "Project ID, legacy field"
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
 					"type": "*int",
-					"jsonTag": "json:\"project_id,omitempty\"",
+					"jsonTag": "json:\"project_id,omitzero\"",
 					"description": "Project ID, optional"
 				},
 				{
@@ -543,35 +543,35 @@
 					"name": "TaskID",
 					"jsonName": "task_id",
 					"type": "*int",
-					"jsonTag": "json:\"task_id,omitempty\"",
+					"jsonTag": "json:\"task_id,omitzero\"",
 					"description": "Task ID, optional"
 				},
 				{
 					"name": "Tid",
 					"jsonName": "tid",
 					"type": "*int",
-					"jsonTag": "json:\"tid,omitempty\"",
+					"jsonTag": "json:\"tid,omitzero\"",
 					"description": "Task ID, legacy field"
 				},
 				{
 					"name": "UID",
 					"jsonName": "uid",
 					"type": "*int",
-					"jsonTag": "json:\"uid,omitempty\"",
+					"jsonTag": "json:\"uid,omitzero\"",
 					"description": "Time Entry creator ID, legacy field"
 				},
 				{
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "*int",
-					"jsonTag": "json:\"user_id,omitempty\"",
+					"jsonTag": "json:\"user_id,omitzero\"",
 					"description": "Time Entry creator ID, if omitted will use the requester user ID"
 				},
 				{
 					"name": "Wid",
 					"jsonName": "wid",
 					"type": "*int",
-					"jsonTag": "json:\"wid,omitempty\"",
+					"jsonTag": "json:\"wid,omitzero\"",
 					"description": "Workspace ID, legacy field"
 				},
 				{
@@ -731,7 +731,7 @@
 					"name": "MaxDataRetentionDays",
 					"jsonName": "max_data_retention_days",
 					"type": "*int",
-					"jsonTag": "json:\"max_data_retention_days,omitempty\"",
+					"jsonTag": "json:\"max_data_retention_days,omitzero\"",
 					"description": "How far back free workspaces in this org can access data."
 				}
 			]
@@ -849,7 +849,7 @@
 					"name": "CurrentPeriod",
 					"jsonName": "current_period",
 					"type": "*EventMetadata",
-					"jsonTag": "json:\"current_period,omitempty\"",
+					"jsonTag": "json:\"current_period,omitzero\"",
 					"description": "RecurringPeriod"
 				},
 				{
@@ -1291,13 +1291,13 @@
 					"name": "ProjectActive",
 					"jsonName": "project_active",
 					"type": "bool",
-					"jsonTag": "json:\"project_active,omitempty\""
+					"jsonTag": "json:\"project_active,omitzero\""
 				},
 				{
 					"name": "ProjectBillable",
 					"jsonName": "project_billable",
 					"type": "bool",
-					"jsonTag": "json:\"project_billable,omitempty\""
+					"jsonTag": "json:\"project_billable,omitzero\""
 				},
 				{
 					"name": "UserName",
@@ -1309,7 +1309,7 @@
 					"name": "UserAvatarURL",
 					"jsonName": "user_avatar_url",
 					"type": "*url.URL",
-					"jsonTag": "json:\"user_avatar_url,omitempty\""
+					"jsonTag": "json:\"user_avatar_url,omitzero\""
 				}
 			]
 		},
@@ -1535,7 +1535,7 @@
 					"name": "Options",
 					"jsonName": "options",
 					"type": "*Options",
-					"jsonTag": "json:\"options,omitempty\""
+					"jsonTag": "json:\"options,omitzero\""
 				},
 				{
 					"name": "Projects",
@@ -1554,13 +1554,13 @@
 					"name": "TwoFaEnabled",
 					"jsonName": "2fa_enabled",
 					"type": "bool",
-					"jsonTag": "json:\"2fa_enabled,omitempty\""
+					"jsonTag": "json:\"2fa_enabled,omitzero\""
 				},
 				{
 					"name": "UserAccountID",
 					"jsonName": "user_account_id",
 					"type": "*int",
-					"jsonTag": "json:\"user_account_id,omitempty\""
+					"jsonTag": "json:\"user_account_id,omitzero\""
 				}
 			]
 		},

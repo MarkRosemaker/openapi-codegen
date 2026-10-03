@@ -286,9 +286,9 @@ type Stock struct {
 	// Number of shares held
 	Qty int `json:"qty"`
 	// Average cost per share
-	CostBasis *float64 `json:"cost_basis,omitempty"`
+	CostBasis *float64 `json:"cost_basis,omitzero"`
 	// Current market price per share (if available from broker)
-	MarketPrice *float64 `json:"market_price,omitempty"`
+	MarketPrice *float64 `json:"market_price,omitzero"`
 }
 
 // Stocks defines a model

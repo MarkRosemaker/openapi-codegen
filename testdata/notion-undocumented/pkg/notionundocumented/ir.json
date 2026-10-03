@@ -8920,7 +8920,7 @@
 					"name": "Filters",
 					"jsonName": "filters",
 					"type": "*AiSearchAiSearchFilters",
-					"jsonTag": "json:\"filters,omitempty\"",
+					"jsonTag": "json:\"filters,omitzero\"",
 					"description": "Optional exact filters for Notion pages and databases. Supplying an effective filter selects Notion-only workspace search so the filter is enforced exactly. Omit for unified search across Notion and connected sources. Keep filter fields nested here. Some filters require Business access."
 				},
 				{
@@ -8934,14 +8934,14 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Maximum number of results to return (default 10)."
 				},
 				{
 					"name": "MaxHighlightLength",
 					"jsonName": "max_highlight_length",
 					"type": "*int",
-					"jsonTag": "json:\"max_highlight_length,omitempty\"",
+					"jsonTag": "json:\"max_highlight_length,omitzero\"",
 					"description": "Maximum result highlight length (default 200). Set to 0 to omit highlights."
 				}
 			]
@@ -8954,7 +8954,7 @@
 					"name": "CreatedDateRange",
 					"jsonName": "created_date_range",
 					"type": "*AiSearchAiSearchFiltersCreatedDateRange",
-					"jsonTag": "json:\"created_date_range,omitempty\"",
+					"jsonTag": "json:\"created_date_range,omitzero\"",
 					"description": "Optional filter to only produce search results created within the specified date range."
 				},
 				{
@@ -8975,7 +8975,7 @@
 					"name": "LastEditedDateRange",
 					"jsonName": "last_edited_date_range",
 					"type": "*AiSearchAiSearchFiltersCreatedDateRange",
-					"jsonTag": "json:\"last_edited_date_range,omitempty\"",
+					"jsonTag": "json:\"last_edited_date_range,omitzero\"",
 					"description": "Optional filter to only produce search results created within the specified date range."
 				},
 				{
@@ -8989,7 +8989,7 @@
 					"name": "TitleOnly",
 					"jsonName": "title_only",
 					"type": "bool",
-					"jsonTag": "json:\"title_only,omitempty\"",
+					"jsonTag": "json:\"title_only,omitzero\"",
 					"description": "When true, match the query only against page and database titles instead of page content. Available on the Business plan."
 				},
 				{
@@ -9037,14 +9037,14 @@
 					"name": "StartDate",
 					"jsonName": "start_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"start_date,omitempty\"",
+					"jsonTag": "json:\"start_date,omitzero\"",
 					"description": "The start date of the date range as an ISO 8601 date string, if any."
 				},
 				{
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"end_date,omitempty\"",
+					"jsonTag": "json:\"end_date,omitzero\"",
 					"description": "The end date of the date range as an ISO 8601 date string, if any."
 				}
 			]
@@ -9215,7 +9215,7 @@
 					"name": "McpMemoriesEnabled",
 					"jsonName": "mcp_memories_enabled",
 					"type": "bool",
-					"jsonTag": "json:\"mcp_memories_enabled,omitempty\"",
+					"jsonTag": "json:\"mcp_memories_enabled,omitzero\"",
 					"description": "Whether personal memory tools should be registered for this authenticated session."
 				}
 			]
@@ -9560,14 +9560,14 @@
 					"name": "Calendar",
 					"jsonName": "calendar",
 					"type": "*CalendarCancelEventsCalendarCancelEventsItemCalendar",
-					"jsonTag": "json:\"calendar,omitempty\"",
+					"jsonTag": "json:\"calendar,omitzero\"",
 					"description": "Calendar containing the event."
 				},
 				{
 					"name": "DisableConferencing",
 					"jsonName": "disableConferencing",
 					"type": "bool",
-					"jsonTag": "json:\"disableConferencing,omitempty\"",
+					"jsonTag": "json:\"disableConferencing,omitzero\"",
 					"description": "Whether to disable conferencing for this event."
 				}
 			]
@@ -9601,7 +9601,7 @@
 					"name": "IsOptional",
 					"jsonName": "isOptional",
 					"type": "bool",
-					"jsonTag": "json:\"isOptional,omitempty\"",
+					"jsonTag": "json:\"isOptional,omitzero\"",
 					"description": "Set only if the user was explicit about an attendee not being required"
 				}
 			]
@@ -9791,21 +9791,21 @@
 					"name": "UseDefaultConferencing",
 					"jsonName": "useDefaultConferencing",
 					"type": "bool",
-					"jsonTag": "json:\"useDefaultConferencing,omitempty\"",
+					"jsonTag": "json:\"useDefaultConferencing,omitzero\"",
 					"description": "If true (default), uses the user's default video conferencing provider"
 				},
 				{
 					"name": "MinLeadTime",
 					"jsonName": "minLeadTime",
 					"type": "*int",
-					"jsonTag": "json:\"minLeadTime,omitempty\"",
+					"jsonTag": "json:\"minLeadTime,omitzero\"",
 					"description": "Minimum notice period in minutes before a meeting can be booked"
 				},
 				{
 					"name": "MaxLeadTime",
 					"jsonName": "maxLeadTime",
 					"type": "*int",
-					"jsonTag": "json:\"maxLeadTime,omitempty\"",
+					"jsonTag": "json:\"maxLeadTime,omitzero\"",
 					"description": "Maximum advance booking window in minutes (how far into the future meetings can be booked)"
 				},
 				{
@@ -9951,14 +9951,14 @@
 					"name": "MaxCount",
 					"jsonName": "maxCount",
 					"type": "*int",
-					"jsonTag": "json:\"maxCount,omitempty\"",
+					"jsonTag": "json:\"maxCount,omitzero\"",
 					"description": "Maximum number of resources to return per time slot (default: 20, max: 40)"
 				},
 				{
 					"name": "IgnoreWorkingLocation",
 					"jsonName": "ignoreWorkingLocation",
 					"type": "bool",
-					"jsonTag": "json:\"ignoreWorkingLocation,omitempty\"",
+					"jsonTag": "json:\"ignoreWorkingLocation,omitzero\"",
 					"description": "If true, do not narrow rooms to the user's working-location building for this day. Set this when the user is explicitly asking about rooms in a different office (e.g. for a visiting team)."
 				},
 				{
@@ -9973,7 +9973,7 @@
 					"name": "Calendar",
 					"jsonName": "calendar",
 					"type": "*CalendarCancelEventsCalendarCancelEventsItemCalendar",
-					"jsonTag": "json:\"calendar,omitempty\"",
+					"jsonTag": "json:\"calendar,omitzero\"",
 					"description": "Calendar containing the event."
 				}
 			]
@@ -10194,7 +10194,7 @@
 					"name": "IncludeDeclinedInvites",
 					"jsonName": "includeDeclinedInvites",
 					"type": "bool",
-					"jsonTag": "json:\"includeDeclinedInvites,omitempty\"",
+					"jsonTag": "json:\"includeDeclinedInvites,omitzero\"",
 					"description": "Whether to include event invites the user has declined"
 				}
 			]
@@ -10340,7 +10340,7 @@
 					"name": "MaxCount",
 					"jsonName": "maxCount",
 					"type": "*int",
-					"jsonTag": "json:\"maxCount,omitempty\"",
+					"jsonTag": "json:\"maxCount,omitzero\"",
 					"description": "Maximum number of suggestions to return (default: 10)"
 				},
 				{
@@ -10355,7 +10355,7 @@
 					"name": "IncludeParticipantSchedules",
 					"jsonName": "includeParticipantSchedules",
 					"type": "bool",
-					"jsonTag": "json:\"includeParticipantSchedules,omitempty\"",
+					"jsonTag": "json:\"includeParticipantSchedules,omitzero\"",
 					"description": "Whether to include participant event schedules in the response"
 				}
 			]
@@ -10548,7 +10548,7 @@
 					"name": "Period",
 					"jsonName": "period",
 					"type": "*struct{}",
-					"jsonTag": "json:\"period,omitempty\"",
+					"jsonTag": "json:\"period,omitzero\"",
 					"description": "When the event is happening"
 				},
 				{
@@ -10569,7 +10569,7 @@
 					"name": "AddConferencing",
 					"jsonName": "addConferencing",
 					"type": "bool",
-					"jsonTag": "json:\"addConferencing,omitempty\"",
+					"jsonTag": "json:\"addConferencing,omitzero\"",
 					"description": "Whether to add conferencing to this event. Only adds conferencing if the event has attendees and doesn't already have conferencing."
 				}
 			]
@@ -10612,7 +10612,7 @@
 					"name": "Patch",
 					"jsonName": "patch",
 					"type": "*CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink2",
-					"jsonTag": "json:\"patch,omitempty\"",
+					"jsonTag": "json:\"patch,omitzero\"",
 					"description": "Patch of changes to apply to the scheduling link. Omitted fields are left unchanged, and nullable fields can be cleared with null."
 				}
 			]
@@ -10625,7 +10625,7 @@
 					"name": "BookingCalendar",
 					"jsonName": "bookingCalendar",
 					"type": "*CalendarCancelEventsCalendarCancelEventsItemCalendar",
-					"jsonTag": "json:\"bookingCalendar,omitempty\"",
+					"jsonTag": "json:\"bookingCalendar,omitzero\"",
 					"description": "Calendar containing the event."
 				},
 				{
@@ -10653,7 +10653,7 @@
 					"name": "Duration",
 					"jsonName": "duration",
 					"type": "*int",
-					"jsonTag": "json:\"duration,omitempty\"",
+					"jsonTag": "json:\"duration,omitzero\"",
 					"description": "Update the meeting duration in minutes"
 				},
 				{
@@ -10681,21 +10681,21 @@
 					"name": "UseDefaultConferencing",
 					"jsonName": "useDefaultConferencing",
 					"type": "bool",
-					"jsonTag": "json:\"useDefaultConferencing,omitempty\"",
+					"jsonTag": "json:\"useDefaultConferencing,omitzero\"",
 					"description": "If true, apply the default conferencing for the effective booking calendar account. If false, clear conferencing."
 				},
 				{
 					"name": "MinLeadTime",
 					"jsonName": "minLeadTime",
 					"type": "*int",
-					"jsonTag": "json:\"minLeadTime,omitempty\"",
+					"jsonTag": "json:\"minLeadTime,omitzero\"",
 					"description": "Update the minimum lead time in minutes. Must be 0 or greater and less than maxLeadTime when both are set. Use null to clear it."
 				},
 				{
 					"name": "MaxLeadTime",
 					"jsonName": "maxLeadTime",
 					"type": "*int",
-					"jsonTag": "json:\"maxLeadTime,omitempty\"",
+					"jsonTag": "json:\"maxLeadTime,omitzero\"",
 					"description": "Update the maximum lead time in minutes. Must be greater than 0 and greater than minLeadTime when both are set. Use null to clear it."
 				},
 				{
@@ -10849,7 +10849,7 @@
 					"name": "EnforceMaxAggregationLimit",
 					"jsonName": "enforceMaxAggregationLimit",
 					"type": "bool",
-					"jsonTag": "json:\"enforceMaxAggregationLimit,omitempty\""
+					"jsonTag": "json:\"enforceMaxAggregationLimit,omitzero\""
 				}
 			]
 		},
@@ -10876,7 +10876,7 @@
 					"name": "EnforceMaxAggregationLimit",
 					"jsonName": "enforceMaxAggregationLimit",
 					"type": "bool",
-					"jsonTag": "json:\"enforceMaxAggregationLimit,omitempty\""
+					"jsonTag": "json:\"enforceMaxAggregationLimit,omitzero\""
 				}
 			]
 		},
@@ -11011,7 +11011,7 @@
 					"name": "EnforceMaxAggregationLimit",
 					"jsonName": "enforceMaxAggregationLimit",
 					"type": "bool",
-					"jsonTag": "json:\"enforceMaxAggregationLimit,omitempty\""
+					"jsonTag": "json:\"enforceMaxAggregationLimit,omitzero\""
 				}
 			]
 		},
@@ -11356,7 +11356,7 @@
 					"name": "Metadata",
 					"jsonName": "metadata",
 					"type": "*map[string]string",
-					"jsonTag": "json:\"metadata,omitempty\"",
+					"jsonTag": "json:\"metadata,omitzero\"",
 					"description": "Optional caller-provided string metadata persisted with the user message. user_id is used for lifecycle correlation and does not change authorization."
 				},
 				{
@@ -11700,14 +11700,14 @@
 					"name": "IncludeResolved",
 					"jsonName": "include_resolved",
 					"type": "bool",
-					"jsonTag": "json:\"include_resolved,omitempty\"",
+					"jsonTag": "json:\"include_resolved,omitzero\"",
 					"description": "Include resolved discussions in the response. Defaults to false."
 				},
 				{
 					"name": "IncludeAllBlocks",
 					"jsonName": "include_all_blocks",
 					"type": "bool",
-					"jsonTag": "json:\"include_all_blocks,omitempty\"",
+					"jsonTag": "json:\"include_all_blocks,omitzero\"",
 					"description": "Include discussions on child blocks, not just page-level discussions. Defaults to false."
 				},
 				{
@@ -12486,7 +12486,7 @@
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*CreateDatabaseCreateDatabaseAllOfParent",
-					"jsonTag": "json:\"parent,omitempty\"",
+					"jsonTag": "json:\"parent,omitzero\"",
 					"description": "The parent under which to create the new database. If omitted, the database will be created as a private page at the workspace level."
 				},
 				{
@@ -13121,14 +13121,14 @@
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*CreatePagesCreatePagesParent",
-					"jsonTag": "json:\"parent,omitempty\"",
+					"jsonTag": "json:\"parent,omitzero\"",
 					"description": "The parent under which the new pages will be created. Pass \"memory\" to save personal memories for the connected user in this workspace; the memory database is created on the first write and Source is assigned from the creating MCP connection. Otherwise use a page (page_id), database page (database_id), or data source (data_source_id). If omitted, pages are private at the workspace level. When no destination is named, prefer \"creation_mode\": \"draft\". Use data_source_id for a collection:// URL from fetch."
 				},
 				{
 					"name": "AllowAsync",
 					"jsonName": "allow_async",
 					"type": "bool",
-					"jsonTag": "json:\"allow_async,omitempty\"",
+					"jsonTag": "json:\"allow_async,omitzero\"",
 					"description": "Default to true for page creation. Set to false only when the next step needs the created pages immediately, or when async execution rejects the request as too large. When this create operation is accepted for background execution, it returns an async_task result. Use get_async_task to wait for a succeeded status before taking a dependent action on the pages. For pages created with template_id, a succeeded status does not mean template content is ready; fetch and retry until it is ready before changing or relying on that content. If omitted or false, the tool keeps the existing synchronous result shape."
 				}
 			]
@@ -13147,7 +13147,7 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]CreatePagesCreatePagesItemPropertiesValue",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "The properties of the new page, which is a JSON map of property names to SQLite values.\nFor pages in a database, use the SQLite schema definition shown in <database>.\nFor pages outside of a database, the only allowed property is \"title\", which is the title of the page and is automatically shown at the top of the page as a large heading."
 				},
 				{
@@ -13182,14 +13182,14 @@
 					"name": "IsSkill",
 					"jsonName": "is_skill",
 					"type": "bool",
-					"jsonTag": "json:\"is_skill,omitempty\"",
+					"jsonTag": "json:\"is_skill,omitzero\"",
 					"description": "Set to true to create this page as a reusable skill. Before using this field, read the \"notion://docs/skills\" resource for authoring guidance. False has the same effect as omitting the field."
 				},
 				{
 					"name": "PreserveInternalLinks",
 					"jsonName": "preserve_internal_links",
 					"type": "bool",
-					"jsonTag": "json:\"preserve_internal_links,omitempty\"",
+					"jsonTag": "json:\"preserve_internal_links,omitzero\"",
 					"description": "Preserve internal Markdown links instead of converting them to native mentions."
 				}
 			]
@@ -13370,7 +13370,7 @@
 					"name": "JSON",
 					"jsonName": "json",
 					"type": "*any",
-					"jsonTag": "json:\"json,omitempty\"",
+					"jsonTag": "json:\"json,omitzero\"",
 					"description": "Inline rollout JSON payload."
 				},
 				{
@@ -13384,7 +13384,7 @@
 					"name": "Braintrust",
 					"jsonName": "braintrust",
 					"type": "*CreateRolloutBraintrust",
-					"jsonTag": "json:\"braintrust,omitempty\""
+					"jsonTag": "json:\"braintrust,omitzero\""
 				},
 				{
 					"name": "Preprocessors",
@@ -13396,7 +13396,7 @@
 					"name": "Response",
 					"jsonName": "response",
 					"type": "*CreateRollout2",
-					"jsonTag": "json:\"response,omitempty\""
+					"jsonTag": "json:\"response,omitzero\""
 				},
 				{
 					"name": "Execution",
@@ -13415,14 +13415,14 @@
 					"name": "Input",
 					"jsonName": "input",
 					"type": "bool",
-					"jsonTag": "json:\"input,omitempty\"",
+					"jsonTag": "json:\"input,omitzero\"",
 					"description": "Whether to include the original input in the response payload. Defaults to false."
 				},
 				{
 					"name": "OriginalMetadata",
 					"jsonName": "originalMetadata",
 					"type": "bool",
-					"jsonTag": "json:\"originalMetadata,omitempty\"",
+					"jsonTag": "json:\"originalMetadata,omitzero\"",
 					"description": "Whether to include source scenario metadata under metadata.originalMetadata. Defaults to false."
 				}
 			]
@@ -13471,19 +13471,19 @@
 					"name": "AgentRunner",
 					"jsonName": "agentRunner",
 					"type": "*CreateRolloutExecutionAgentRunner",
-					"jsonTag": "json:\"agentRunner,omitempty\""
+					"jsonTag": "json:\"agentRunner,omitzero\""
 				},
 				{
 					"name": "ModelConfig",
 					"jsonName": "modelConfig",
 					"type": "*CreateRolloutExecutionModelConfig",
-					"jsonTag": "json:\"modelConfig,omitempty\""
+					"jsonTag": "json:\"modelConfig,omitzero\""
 				},
 				{
 					"name": "AppEnvironment",
 					"jsonName": "appEnvironment",
 					"type": "*CreateRolloutExecutionAppEnvironment",
-					"jsonTag": "json:\"appEnvironment,omitempty\""
+					"jsonTag": "json:\"appEnvironment,omitzero\""
 				},
 				{
 					"name": "OutputProcessors",
@@ -13531,19 +13531,19 @@
 					"name": "AdditionalDebugOverrides",
 					"jsonName": "additionalDebugOverrides",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"additionalDebugOverrides,omitempty\""
+					"jsonTag": "json:\"additionalDebugOverrides,omitzero\""
 				},
 				{
 					"name": "AgentModelConfig",
 					"jsonName": "agentModelConfig",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"agentModelConfig,omitempty\""
+					"jsonTag": "json:\"agentModelConfig,omitzero\""
 				},
 				{
 					"name": "SubagentModelConfig",
 					"jsonName": "subagentModelConfig",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"subagentModelConfig,omitempty\""
+					"jsonTag": "json:\"subagentModelConfig,omitzero\""
 				}
 			]
 		},
@@ -13602,7 +13602,7 @@
 					"name": "CreateThread",
 					"jsonName": "createThread",
 					"type": "bool",
-					"jsonTag": "json:\"createThread,omitempty\""
+					"jsonTag": "json:\"createThread,omitzero\""
 				},
 				{
 					"name": "AttachmentURLResolver",
@@ -13777,7 +13777,7 @@
 					"name": "RawVendorOverride",
 					"jsonName": "rawVendorOverride",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"rawVendorOverride,omitempty\""
+					"jsonTag": "json:\"rawVendorOverride,omitzero\""
 				}
 			]
 		},
@@ -13955,14 +13955,14 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\"",
+					"jsonTag": "json:\"icon,omitzero\"",
 					"description": "The icon for the teamspace."
 				},
 				{
 					"name": "Settings",
 					"jsonName": "settings",
 					"type": "*CreateTeamspaceSettingsOneOf",
-					"jsonTag": "json:\"settings,omitempty\""
+					"jsonTag": "json:\"settings,omitzero\""
 				}
 			]
 		},
@@ -14296,7 +14296,7 @@
 					"name": "Timestamp",
 					"jsonName": "timestamp",
 					"type": "*CreateWorkspaceBookmarkCreateWorkspaceBookmarkTimestamp",
-					"jsonTag": "json:\"timestamp,omitempty\"",
+					"jsonTag": "json:\"timestamp,omitzero\"",
 					"description": "The point in time where this bookmark sits. Use an ISO 8601 timestamp or epoch milliseconds; defaults to the current time when omitted."
 				}
 			]
@@ -14852,7 +14852,7 @@
 					"name": "UseEnd",
 					"jsonName": "use_end",
 					"type": "bool",
-					"jsonTag": "json:\"use_end,omitempty\"",
+					"jsonTag": "json:\"use_end,omitzero\"",
 					"description": "For a date property, compare its end date instead of its start date."
 				}
 			]
@@ -14973,7 +14973,7 @@
 					"name": "UseEnd",
 					"jsonName": "use_end",
 					"type": "bool",
-					"jsonTag": "json:\"use_end,omitempty\"",
+					"jsonTag": "json:\"use_end,omitzero\"",
 					"description": "For a date property, compare its end date instead of its start date."
 				}
 			]
@@ -15644,7 +15644,7 @@
 					"name": "Metadata",
 					"jsonName": "metadata",
 					"type": "*map[string]string",
-					"jsonTag": "json:\"metadata,omitempty\"",
+					"jsonTag": "json:\"metadata,omitzero\"",
 					"description": "Caller-provided string metadata echoed from the chat request. user_id is the lifecycle correlation key and does not change authorization."
 				},
 				{
@@ -16319,7 +16319,7 @@
 					"name": "MeetingNotesBlockCount",
 					"jsonName": "meeting_notes_block_count",
 					"type": "*int",
-					"jsonTag": "json:\"meeting_notes_block_count,omitempty\""
+					"jsonTag": "json:\"meeting_notes_block_count,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -16419,7 +16419,7 @@
 					"name": "RequiredByWorkspacePolicy",
 					"jsonName": "required_by_workspace_policy",
 					"type": "bool",
-					"jsonTag": "json:\"required_by_workspace_policy,omitempty\""
+					"jsonTag": "json:\"required_by_workspace_policy,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -16644,7 +16644,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -16676,7 +16676,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -16905,7 +16905,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				},
 				{
 					"name": "InvocationID",
@@ -16918,7 +16918,7 @@
 					"name": "Usage",
 					"jsonName": "usage",
 					"type": "*DoneUsage",
-					"jsonTag": "json:\"usage,omitempty\""
+					"jsonTag": "json:\"usage,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -18513,7 +18513,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -18863,14 +18863,14 @@
 					"name": "IncludeTranscript",
 					"jsonName": "include_transcript",
 					"type": "bool",
-					"jsonTag": "json:\"include_transcript,omitempty\"",
+					"jsonTag": "json:\"include_transcript,omitzero\"",
 					"description": "Whether to include meeting note transcripts. Defaults to false. When true, full transcripts are included; when false, a placeholder with the meeting note URL is shown instead."
 				},
 				{
 					"name": "IncludeDiscussions",
 					"jsonName": "include_discussions",
 					"type": "bool",
-					"jsonTag": "json:\"include_discussions,omitempty\"",
+					"jsonTag": "json:\"include_discussions,omitzero\"",
 					"description": "Whether to include discussion/comment indicators in the page output. When true, adds a <page-discussions> summary with discussion count, preview snippets, and discussion:// URLs. Use with the get_comments tool to retrieve full discussion content. Defaults to false."
 				}
 			]
@@ -19292,7 +19292,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				}
 			]
 		},
@@ -20361,13 +20361,13 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -20424,19 +20424,19 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				},
 				{
 					"name": "StartDayOfWeek",
 					"jsonName": "startDayOfWeek",
 					"type": "*float64",
-					"jsonTag": "json:\"startDayOfWeek,omitempty\""
+					"jsonTag": "json:\"startDayOfWeek,omitzero\""
 				}
 			]
 		},
@@ -20638,19 +20638,19 @@
 					"name": "GroupBy",
 					"jsonName": "groupBy",
 					"type": "*GroupByNumberGroupBy",
-					"jsonTag": "json:\"groupBy,omitempty\""
+					"jsonTag": "json:\"groupBy,omitzero\""
 				},
 				{
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -20670,13 +20670,13 @@
 					"name": "Start",
 					"jsonName": "start",
 					"type": "*float64",
-					"jsonTag": "json:\"start,omitempty\""
+					"jsonTag": "json:\"start,omitzero\""
 				},
 				{
 					"name": "End",
 					"jsonName": "end",
 					"type": "*float64",
-					"jsonTag": "json:\"end,omitempty\""
+					"jsonTag": "json:\"end,omitzero\""
 				}
 			]
 		},
@@ -20711,13 +20711,13 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -20752,13 +20752,13 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -20877,13 +20877,13 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -20943,13 +20943,13 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -21009,13 +21009,13 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hideEmptyGroups",
 					"type": "bool",
-					"jsonTag": "json:\"hideEmptyGroups,omitempty\""
+					"jsonTag": "json:\"hideEmptyGroups,omitzero\""
 				},
 				{
 					"name": "DisableBoardColorColumns",
 					"jsonName": "disableBoardColorColumns",
 					"type": "bool",
-					"jsonTag": "json:\"disableBoardColorColumns,omitempty\""
+					"jsonTag": "json:\"disableBoardColorColumns,omitzero\""
 				}
 			]
 		},
@@ -21441,7 +21441,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Number of agents to return per page (default: 50, max: 100)."
 				}
 			]
@@ -21631,7 +21631,7 @@
 					"name": "Instructions",
 					"jsonName": "instructions",
 					"type": "*string",
-					"jsonTag": "json:\"instructions,omitempty\"",
+					"jsonTag": "json:\"instructions,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -23707,7 +23707,7 @@
 					"name": "TypeBundle",
 					"jsonName": "type_bundle",
 					"type": "*ListConnectionsOkTypeBundle",
-					"jsonTag": "json:\"type_bundle,omitempty\"",
+					"jsonTag": "json:\"type_bundle,omitzero\"",
 					"description": "Actor-specific TypeScript declarations requested by the sandbox runtime."
 				}
 			]
@@ -24081,7 +24081,7 @@
 					"name": "Input",
 					"jsonName": "input",
 					"type": "*any",
-					"jsonTag": "json:\"input,omitempty\""
+					"jsonTag": "json:\"input,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -24109,13 +24109,13 @@
 					"name": "Output",
 					"jsonName": "output",
 					"type": "*any",
-					"jsonTag": "json:\"output,omitempty\""
+					"jsonTag": "json:\"output,omitzero\""
 				},
 				{
 					"name": "IsError",
 					"jsonName": "is_error",
 					"type": "bool",
-					"jsonTag": "json:\"is_error,omitempty\""
+					"jsonTag": "json:\"is_error,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -24171,7 +24171,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -24206,7 +24206,7 @@
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "*float64",
-					"jsonTag": "json:\"limit,omitempty\"",
+					"jsonTag": "json:\"limit,omitzero\"",
 					"description": "Maximum results to return (1-200)."
 				},
 				{
@@ -24364,14 +24364,14 @@
 					"name": "BeforeSequence",
 					"jsonName": "before_sequence",
 					"type": "*int",
-					"jsonTag": "json:\"before_sequence,omitempty\"",
+					"jsonTag": "json:\"before_sequence,omitzero\"",
 					"description": "Load the previous page of events ending before this sequence number."
 				},
 				{
 					"name": "AfterSequence",
 					"jsonName": "after_sequence",
 					"type": "*int",
-					"jsonTag": "json:\"after_sequence,omitempty\"",
+					"jsonTag": "json:\"after_sequence,omitzero\"",
 					"description": "Load the next page of events starting after this sequence number."
 				}
 			]
@@ -24724,7 +24724,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				}
 			]
 		},
@@ -24918,7 +24918,7 @@
 					"name": "ExpiryTime",
 					"jsonName": "expiry_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"expiry_time,omitempty\"",
+					"jsonTag": "json:\"expiry_time,omitzero\"",
 					"description": "The time when the attachment URL will expire."
 				}
 			]
@@ -25474,42 +25474,42 @@
 					"name": "TypeLabels",
 					"jsonName": "type_labels",
 					"type": "*string",
-					"jsonTag": "json:\"type_labels,omitempty\"",
+					"jsonTag": "json:\"type_labels,omitzero\"",
 					"description": "Domains web search is restricted to, or null when unrestricted."
 				},
 				{
 					"name": "ChatUserEmails",
 					"jsonName": "chat_user_emails",
 					"type": "*string",
-					"jsonTag": "json:\"chat_user_emails,omitempty\"",
+					"jsonTag": "json:\"chat_user_emails,omitzero\"",
 					"description": "Domains web search is restricted to, or null when unrestricted."
 				},
 				{
 					"name": "ToolTypes",
 					"jsonName": "tool_types",
 					"type": "*string",
-					"jsonTag": "json:\"tool_types,omitempty\"",
+					"jsonTag": "json:\"tool_types,omitzero\"",
 					"description": "Domains web search is restricted to, or null when unrestricted."
 				},
 				{
 					"name": "ToolCallCount",
 					"jsonName": "tool_call_count",
 					"type": "*float64",
-					"jsonTag": "json:\"tool_call_count,omitempty\"",
+					"jsonTag": "json:\"tool_call_count,omitzero\"",
 					"description": "Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent."
 				},
 				{
 					"name": "CreditsUsed",
 					"jsonName": "credits_used",
 					"type": "*float64",
-					"jsonTag": "json:\"credits_used,omitempty\"",
+					"jsonTag": "json:\"credits_used,omitzero\"",
 					"description": "Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent."
 				},
 				{
 					"name": "RunsCompleted",
 					"jsonName": "runs_completed",
 					"type": "*float64",
-					"jsonTag": "json:\"runs_completed,omitempty\"",
+					"jsonTag": "json:\"runs_completed,omitzero\"",
 					"description": "Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent."
 				},
 				{
@@ -25955,7 +25955,7 @@
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "*int",
-					"jsonTag": "json:\"limit,omitempty\"",
+					"jsonTag": "json:\"limit,omitzero\"",
 					"description": "Maximum number of memories to return. Defaults to 10 and cannot exceed 50."
 				}
 			]
@@ -26725,7 +26725,7 @@
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "*float64",
-					"jsonTag": "json:\"limit,omitempty\"",
+					"jsonTag": "json:\"limit,omitzero\"",
 					"description": "Maximum number of notifications to return. Defaults to 20 and is capped at 100."
 				},
 				{
@@ -26739,14 +26739,14 @@
 					"name": "After",
 					"jsonName": "after",
 					"type": "*float64",
-					"jsonTag": "json:\"after,omitempty\"",
+					"jsonTag": "json:\"after,omitzero\"",
 					"description": "Return notifications strictly after this Unix timestamp in milliseconds."
 				},
 				{
 					"name": "Before",
 					"jsonName": "before",
 					"type": "*float64",
-					"jsonTag": "json:\"before,omitempty\"",
+					"jsonTag": "json:\"before,omitzero\"",
 					"description": "Return notifications strictly before this Unix timestamp in milliseconds."
 				}
 			]
@@ -27452,7 +27452,7 @@
 					"name": "EmailVerified",
 					"jsonName": "email_verified",
 					"type": "bool",
-					"jsonTag": "json:\"email_verified,omitempty\"",
+					"jsonTag": "json:\"email_verified,omitzero\"",
 					"description": "Whether the person's email is verified."
 				}
 			]
@@ -27516,7 +27516,7 @@
 					"name": "IsRestricted",
 					"jsonName": "is_restricted",
 					"type": "bool",
-					"jsonTag": "json:\"is_restricted,omitempty\""
+					"jsonTag": "json:\"is_restricted,omitzero\""
 				}
 			]
 		},
@@ -28830,14 +28830,14 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Number of rows to return per page (default: 100, max: 100)."
 				},
 				{
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitempty\"",
+					"jsonTag": "json:\"is_archived,omitzero\"",
 					"description": "Optional archive selector. Omitted or false queries non-archived rows only; true queries archived rows only."
 				},
 				{
@@ -28881,7 +28881,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QueryMeetingNotesQueryMeetingNotesFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Acceptable filter for querying current user's meeting notes data source."
 				}
 			]
@@ -29220,7 +29220,7 @@
 					"name": "UseEnd",
 					"jsonName": "use_end",
 					"type": "bool",
-					"jsonTag": "json:\"use_end,omitempty\"",
+					"jsonTag": "json:\"use_end,omitzero\"",
 					"description": "Compare against the end of a date range rather than its start."
 				}
 			]
@@ -29249,7 +29249,7 @@
 					"name": "UseEnd",
 					"jsonName": "use_end",
 					"type": "bool",
-					"jsonTag": "json:\"use_end,omitempty\"",
+					"jsonTag": "json:\"use_end,omitzero\"",
 					"description": "Compare against the end of a date range rather than its start."
 				}
 			]
@@ -29754,14 +29754,14 @@
 					"name": "StartDate",
 					"jsonName": "start_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"start_date,omitempty\"",
+					"jsonTag": "json:\"start_date,omitzero\"",
 					"description": "Inclusive start of the range as an ISO 8601 date string, if any."
 				},
 				{
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"end_date,omitempty\"",
+					"jsonTag": "json:\"end_date,omitzero\"",
 					"description": "Inclusive end of the range as an ISO 8601 date string, if any."
 				}
 			]
@@ -30008,7 +30008,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QuerySessionsQuerySessionsFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "A session property filter, or an and/or compound filter nested up to two levels deep."
 				},
 				{
@@ -30029,7 +30029,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "The number of sessions to return. Maximum: 100."
 				}
 			]
@@ -30756,28 +30756,28 @@
 					"name": "Before",
 					"jsonName": "before",
 					"type": "time.Time",
-					"jsonTag": "json:\"before,omitempty\"",
+					"jsonTag": "json:\"before,omitzero\"",
 					"description": "Return sessions before this time."
 				},
 				{
 					"name": "After",
 					"jsonName": "after",
 					"type": "time.Time",
-					"jsonTag": "json:\"after,omitempty\"",
+					"jsonTag": "json:\"after,omitzero\"",
 					"description": "Return sessions after this time."
 				},
 				{
 					"name": "OnOrBefore",
 					"jsonName": "on_or_before",
 					"type": "time.Time",
-					"jsonTag": "json:\"on_or_before,omitempty\"",
+					"jsonTag": "json:\"on_or_before,omitzero\"",
 					"description": "Return sessions at or before this time."
 				},
 				{
 					"name": "OnOrAfter",
 					"jsonName": "on_or_after",
 					"type": "time.Time",
-					"jsonTag": "json:\"on_or_after,omitempty\"",
+					"jsonTag": "json:\"on_or_after,omitzero\"",
 					"description": "Return sessions at or after this time."
 				}
 			]
@@ -30836,7 +30836,7 @@
 					"name": "Verbose",
 					"jsonName": "verbose",
 					"type": "bool",
-					"jsonTag": "json:\"verbose,omitempty\"",
+					"jsonTag": "json:\"verbose,omitzero\"",
 					"description": "Whether to include agent thinking and structured message content parts. Defaults to false."
 				},
 				{
@@ -30850,7 +30850,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Number of messages to return. Maximum: 100."
 				}
 			]
@@ -30870,7 +30870,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QueryThreadsFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Thread filters."
 				},
 				{
@@ -30891,7 +30891,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Number of threads to return. Maximum: 100."
 				}
 			]
@@ -30932,7 +30932,7 @@
 					"name": "MessageTime",
 					"jsonName": "message_time",
 					"type": "*QueryThreadsFilterMessageTime",
-					"jsonTag": "json:\"message_time,omitempty\"",
+					"jsonTag": "json:\"message_time,omitzero\"",
 					"description": "Filter to threads containing a public-facing message in the requested time window."
 				}
 			]
@@ -30945,14 +30945,14 @@
 					"name": "Start",
 					"jsonName": "start",
 					"type": "time.Time",
-					"jsonTag": "json:\"start,omitempty\"",
+					"jsonTag": "json:\"start,omitzero\"",
 					"description": "Inclusive start of the message time window. Defaults to the Unix epoch."
 				},
 				{
 					"name": "End",
 					"jsonName": "end",
 					"type": "time.Time",
-					"jsonTag": "json:\"end,omitempty\"",
+					"jsonTag": "json:\"end,omitzero\"",
 					"description": "Exclusive end of the message time window. Defaults to the current time."
 				}
 			]
@@ -31319,7 +31319,7 @@
 					"name": "UnfurlLinks",
 					"jsonName": "unfurl_links",
 					"type": "bool",
-					"jsonTag": "json:\"unfurl_links,omitempty\"",
+					"jsonTag": "json:\"unfurl_links,omitzero\"",
 					"description": "Whether Slack should unfurl links in the reply. Defaults to true."
 				}
 			]
@@ -31464,7 +31464,7 @@
 					"name": "Result",
 					"jsonName": "result",
 					"type": "*RolloutResult",
-					"jsonTag": "json:\"result,omitempty\"",
+					"jsonTag": "json:\"result,omitzero\"",
 					"description": "Rollout result loaded from AI logging S3. Present when status is `complete`."
 				},
 				{
@@ -31478,7 +31478,7 @@
 					"name": "Progress",
 					"jsonName": "progress",
 					"type": "*any",
-					"jsonTag": "json:\"progress,omitempty\"",
+					"jsonTag": "json:\"progress,omitzero\"",
 					"description": "Latest revisioned harness and grader progress. Present while an asynchronous rollout is running and on completion when progress was requested and is available."
 				}
 			]
@@ -31499,21 +31499,21 @@
 					"name": "Input",
 					"jsonName": "input",
 					"type": "*any",
-					"jsonTag": "json:\"input,omitempty\"",
+					"jsonTag": "json:\"input,omitzero\"",
 					"description": "Original rollout input. Omitted unless explicitly requested via `response.input`."
 				},
 				{
 					"name": "Scores",
 					"jsonName": "scores",
 					"type": "*any",
-					"jsonTag": "json:\"scores,omitempty\"",
+					"jsonTag": "json:\"scores,omitzero\"",
 					"description": "Grader results as name-to-score mappings."
 				},
 				{
 					"name": "Metadata",
 					"jsonName": "metadata",
 					"type": "*any",
-					"jsonTag": "json:\"metadata,omitempty\"",
+					"jsonTag": "json:\"metadata,omitzero\"",
 					"description": "Inference metadata. Includes post-processor results, grader debug info, raw inference capture under `metadata.logging.rawInferences`, and `metadata.traceUrl` after a successful opt-in Braintrust logging flush."
 				}
 			]
@@ -31810,7 +31810,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Maximum number of related rows in one result window."
 				},
 				{
@@ -31846,7 +31846,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*workflowViewFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Structured filter using exact property names from the data source schema. Supports an outer Boolean group plus one nested group level."
 				},
 				{
@@ -31860,7 +31860,7 @@
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "*int",
-					"jsonTag": "json:\"limit,omitempty\"",
+					"jsonTag": "json:\"limit,omitzero\"",
 					"description": "Number of rows to return (default: 50, max: 100)."
 				}
 			],
@@ -31918,7 +31918,7 @@
 					"name": "Args",
 					"jsonName": "args",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"args,omitempty\"",
+					"jsonTag": "json:\"args,omitzero\"",
 					"description": "Arguments passed to the selected connection action."
 				}
 			]
@@ -32142,7 +32142,7 @@
 					"name": "Raw",
 					"jsonName": "raw",
 					"type": "*RunMinimalRolloutOkMetadataRaw",
-					"jsonTag": "json:\"raw,omitempty\"",
+					"jsonTag": "json:\"raw,omitzero\"",
 					"description": "Harness-native request/output payloads. Present only when requested via `response.raw`."
 				},
 				{
@@ -32170,7 +32170,7 @@
 					"name": "Output",
 					"jsonName": "output",
 					"type": "*any",
-					"jsonTag": "json:\"output,omitempty\"",
+					"jsonTag": "json:\"output,omitzero\"",
 					"description": "Harness-specific native output; shape varies by harness: merged InferenceTranscriptStep list on the legacy harness, the durable session event log on agentService. Absent when the run produced no native output (e.g. a timeout)."
 				}
 			]
@@ -32206,14 +32206,14 @@
 					"name": "Raw",
 					"jsonName": "raw",
 					"type": "bool",
-					"jsonTag": "json:\"raw,omitempty\"",
+					"jsonTag": "json:\"raw,omitzero\"",
 					"description": "Include `metadata.raw` in the response: the harness-specific generated request (`raw.input`) and native output (`raw.output`) as JSON. Shapes intentionally vary by harness."
 				},
 				{
 					"name": "Operations",
 					"jsonName": "operations",
 					"type": "bool",
-					"jsonTag": "json:\"operations,omitempty\"",
+					"jsonTag": "json:\"operations,omitzero\"",
 					"description": "Include `metadata.operations`: every Notion operation captured in commit order. Requires the `agentService` harness and `execution.harnessOptions.evalSession: true`. Defaults to false."
 				}
 			]
@@ -32277,14 +32277,14 @@
 					"name": "Execution",
 					"jsonName": "execution",
 					"type": "*RunMinimalRolloutOneOfExecution",
-					"jsonTag": "json:\"execution,omitempty\"",
+					"jsonTag": "json:\"execution,omitzero\"",
 					"description": "Execution config with common fields and nested harness-specific options. Fields a harness cannot honor fail with a validation error instead of silently diverging."
 				},
 				{
 					"name": "Response",
 					"jsonName": "response",
 					"type": "*RunMinimalRolloutOneOf",
-					"jsonTag": "json:\"response,omitempty\"",
+					"jsonTag": "json:\"response,omitzero\"",
 					"description": "Response shaping options."
 				}
 			],
@@ -32336,14 +32336,14 @@
 					"name": "Execution",
 					"jsonName": "execution",
 					"type": "*RunMinimalRolloutOneOfExecution",
-					"jsonTag": "json:\"execution,omitempty\"",
+					"jsonTag": "json:\"execution,omitzero\"",
 					"description": "Execution config with common fields and nested harness-specific options. Fields a harness cannot honor fail with a validation error instead of silently diverging."
 				},
 				{
 					"name": "Response",
 					"jsonName": "response",
 					"type": "*RunMinimalRolloutOneOf",
-					"jsonTag": "json:\"response,omitempty\"",
+					"jsonTag": "json:\"response,omitzero\"",
 					"description": "Response shaping options."
 				}
 			],
@@ -32385,14 +32385,14 @@
 					"name": "TimeoutMs",
 					"jsonName": "timeoutMs",
 					"type": "*float64",
-					"jsonTag": "json:\"timeoutMs,omitempty\"",
+					"jsonTag": "json:\"timeoutMs,omitzero\"",
 					"description": "Overall run timeout in milliseconds."
 				},
 				{
 					"name": "HarnessOptions",
 					"jsonName": "harnessOptions",
 					"type": "*RunMinimalRolloutOneOfExecutionHarness",
-					"jsonTag": "json:\"harnessOptions,omitempty\"",
+					"jsonTag": "json:\"harnessOptions,omitzero\"",
 					"description": "Harness-specific execution options."
 				}
 			]
@@ -32405,7 +32405,7 @@
 					"name": "EvalSession",
 					"jsonName": "evalSession",
 					"type": "bool",
-					"jsonTag": "json:\"evalSession,omitempty\"",
+					"jsonTag": "json:\"evalSession,omitzero\"",
 					"description": "Enable a local AgentService internal-MCP eval session. Writes are captured instead of persisted, and later tool calls read prior writes. Supported only for personal-agent runs on the `agentService` harness under `--env local`."
 				}
 			]
@@ -37475,7 +37475,7 @@
 					"name": "Colors",
 					"jsonName": "colors",
 					"type": "*RunToolOneOfAccountsItemCalendarsItemColors",
-					"jsonTag": "json:\"colors,omitempty\""
+					"jsonTag": "json:\"colors,omitzero\""
 				},
 				{
 					"name": "IsPrimary",
@@ -37678,7 +37678,7 @@
 					"name": "ConferencingURL",
 					"jsonName": "conferencingUrl",
 					"type": "*url.URL",
-					"jsonTag": "json:\"conferencingUrl,omitempty\"",
+					"jsonTag": "json:\"conferencingUrl,omitzero\"",
 					"description": "The URL to join the video conference, if available"
 				},
 				{
@@ -37692,13 +37692,13 @@
 					"name": "Creator",
 					"jsonName": "creator",
 					"type": "*RunToolOneOfAccountsItemCalendarsItemEventsItemCreator",
-					"jsonTag": "json:\"creator,omitempty\""
+					"jsonTag": "json:\"creator,omitzero\""
 				},
 				{
 					"name": "Organizer",
 					"jsonName": "organizer",
 					"type": "*RunToolOneOfAccountsItemCalendarsItemEventsItemCreator",
-					"jsonTag": "json:\"organizer,omitempty\""
+					"jsonTag": "json:\"organizer,omitzero\""
 				},
 				{
 					"name": "Attendees",
@@ -37716,7 +37716,7 @@
 					"name": "Colors",
 					"jsonName": "colors",
 					"type": "*RunToolOneOfAccountsItemCalendarsItemColors",
-					"jsonTag": "json:\"colors,omitempty\""
+					"jsonTag": "json:\"colors,omitzero\""
 				},
 				{
 					"name": "Attachments",
@@ -37804,7 +37804,7 @@
 					"name": "IsOrganizer",
 					"jsonName": "isOrganizer",
 					"type": "bool",
-					"jsonTag": "json:\"isOrganizer,omitempty\""
+					"jsonTag": "json:\"isOrganizer,omitzero\""
 				},
 				{
 					"name": "ResponseStatus",
@@ -38259,7 +38259,7 @@
 					"name": "RestrictedParameters",
 					"jsonName": "restricted_parameters",
 					"type": "*map[string]string",
-					"jsonTag": "json:\"restricted_parameters,omitempty\"",
+					"jsonTag": "json:\"restricted_parameters,omitzero\"",
 					"description": "Parameter-specific restrictions that apply even when the tool is available."
 				},
 				{
@@ -38537,7 +38537,7 @@
 					"name": "Recovery",
 					"jsonName": "recovery",
 					"type": "*RunToolOneOfMcpNoticeRecovery",
-					"jsonTag": "json:\"recovery,omitempty\""
+					"jsonTag": "json:\"recovery,omitzero\""
 				}
 			]
 		},
@@ -38602,21 +38602,21 @@
 					"name": "LongAnswer",
 					"jsonName": "long_answer",
 					"type": "bool",
-					"jsonTag": "json:\"long_answer,omitempty\"",
+					"jsonTag": "json:\"long_answer,omitzero\"",
 					"description": "Whether a text question accepts a long-form answer."
 				},
 				{
 					"name": "CheckboxLabel",
 					"jsonName": "checkbox_label",
 					"type": "*string",
-					"jsonTag": "json:\"checkbox_label,omitempty\"",
+					"jsonTag": "json:\"checkbox_label,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "MaxSelectionCount",
 					"jsonName": "max_selection_count",
 					"type": "*int",
-					"jsonTag": "json:\"max_selection_count,omitempty\""
+					"jsonTag": "json:\"max_selection_count,omitzero\""
 				},
 				{
 					"name": "DisplayMode",
@@ -38629,14 +38629,14 @@
 					"name": "IncludeEndDate",
 					"jsonName": "include_end_date",
 					"type": "bool",
-					"jsonTag": "json:\"include_end_date,omitempty\"",
+					"jsonTag": "json:\"include_end_date,omitzero\"",
 					"description": "Whether a date answer can include an end date."
 				},
 				{
 					"name": "IncludeTime",
 					"jsonName": "include_time",
 					"type": "bool",
-					"jsonTag": "json:\"include_time,omitempty\"",
+					"jsonTag": "json:\"include_time,omitzero\"",
 					"description": "Whether a date answer includes a time."
 				}
 			]
@@ -39034,7 +39034,7 @@
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitempty\"",
+					"jsonTag": "json:\"is_archived,omitzero\"",
 					"description": "True when the Notion page or database is archived (directly or via an archived ancestor). Omitted otherwise."
 				},
 				{
@@ -39048,7 +39048,7 @@
 					"name": "Verification",
 					"jsonName": "verification",
 					"type": "*RunToolOneOfResultsItemVerification",
-					"jsonTag": "json:\"verification,omitempty\"",
+					"jsonTag": "json:\"verification,omitzero\"",
 					"description": "Native Notion verification state when available."
 				}
 			]
@@ -39348,7 +39348,7 @@
 					"name": "Duration",
 					"jsonName": "duration",
 					"type": "*float64",
-					"jsonTag": "json:\"duration,omitempty\""
+					"jsonTag": "json:\"duration,omitzero\""
 				},
 				{
 					"name": "SchedulingLinkURL",
@@ -39930,7 +39930,7 @@
 					"name": "CurrentToolAccess",
 					"jsonName": "current_tool_access",
 					"type": "*map[string]RunToolOneOfCurrentToolAccessValue",
-					"jsonTag": "json:\"current_tool_access,omitempty\"",
+					"jsonTag": "json:\"current_tool_access,omitzero\"",
 					"description": "Map of tools visible to this MCP caller and their access state for the workspace. When ai_search is available, legacy search is omitted: use ai_search for every content search. User lookup uses ai_search with query_type=\"user\". Otherwise use search for content."
 				}
 			]
@@ -42571,7 +42571,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42612,7 +42612,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42653,7 +42653,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42694,7 +42694,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42735,7 +42735,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42776,7 +42776,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42817,7 +42817,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42858,7 +42858,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42899,7 +42899,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42940,7 +42940,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -42981,7 +42981,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43022,7 +43022,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43063,7 +43063,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43104,7 +43104,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43145,7 +43145,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43186,7 +43186,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43227,7 +43227,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43268,7 +43268,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43309,7 +43309,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43350,7 +43350,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43391,7 +43391,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43432,7 +43432,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43473,7 +43473,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -43714,7 +43714,7 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "*RunToolResponseOneOf52ResultsItemError",
-					"jsonTag": "json:\"error,omitempty\""
+					"jsonTag": "json:\"error,omitzero\""
 				},
 				{
 					"name": "TriggerType",
@@ -43726,43 +43726,43 @@
 					"name": "TypeLabels",
 					"jsonName": "type_labels",
 					"type": "*string",
-					"jsonTag": "json:\"type_labels,omitempty\""
+					"jsonTag": "json:\"type_labels,omitzero\""
 				},
 				{
 					"name": "ChatUserEmails",
 					"jsonName": "chat_user_emails",
 					"type": "*string",
-					"jsonTag": "json:\"chat_user_emails,omitempty\""
+					"jsonTag": "json:\"chat_user_emails,omitzero\""
 				},
 				{
 					"name": "ToolTypes",
 					"jsonName": "tool_types",
 					"type": "*string",
-					"jsonTag": "json:\"tool_types,omitempty\""
+					"jsonTag": "json:\"tool_types,omitzero\""
 				},
 				{
 					"name": "ToolCallCount",
 					"jsonName": "tool_call_count",
 					"type": "*int",
-					"jsonTag": "json:\"tool_call_count,omitempty\""
+					"jsonTag": "json:\"tool_call_count,omitzero\""
 				},
 				{
 					"name": "CreditsUsed",
 					"jsonName": "credits_used",
 					"type": "*float64",
-					"jsonTag": "json:\"credits_used,omitempty\""
+					"jsonTag": "json:\"credits_used,omitzero\""
 				},
 				{
 					"name": "RunsCompleted",
 					"jsonName": "runs_completed",
 					"type": "*int",
-					"jsonTag": "json:\"runs_completed,omitempty\""
+					"jsonTag": "json:\"runs_completed,omitzero\""
 				},
 				{
 					"name": "MessageCount",
 					"jsonName": "message_count",
 					"type": "*int",
-					"jsonTag": "json:\"message_count,omitempty\""
+					"jsonTag": "json:\"message_count,omitzero\""
 				}
 			]
 		},
@@ -44358,7 +44358,7 @@
 					"name": "Profile",
 					"jsonName": "profile",
 					"type": "*RunToolOneOfParticipantSchedulesItemProfile",
-					"jsonTag": "json:\"profile,omitempty\""
+					"jsonTag": "json:\"profile,omitzero\""
 				},
 				{
 					"name": "Events",
@@ -44426,7 +44426,7 @@
 					"name": "Colors",
 					"jsonName": "colors",
 					"type": "*RunToolOneOfAccountsItemCalendarsItemColors",
-					"jsonTag": "json:\"colors,omitempty\""
+					"jsonTag": "json:\"colors,omitzero\""
 				},
 				{
 					"name": "IsTransparent",
@@ -44630,7 +44630,7 @@
 					"name": "Profile",
 					"jsonName": "profile",
 					"type": "*RunToolOneOfParticipantSchedulesItemProfile",
-					"jsonTag": "json:\"profile,omitempty\""
+					"jsonTag": "json:\"profile,omitzero\""
 				},
 				{
 					"name": "Events",
@@ -44698,14 +44698,14 @@
 					"name": "Building",
 					"jsonName": "building",
 					"type": "*RunToolResponseOneOf81ResultsBySlotItemAvailableResourcesItemBuilding",
-					"jsonTag": "json:\"building,omitempty\"",
+					"jsonTag": "json:\"building,omitzero\"",
 					"description": "Building information"
 				},
 				{
 					"name": "Capacity",
 					"jsonName": "capacity",
 					"type": "*float64",
-					"jsonTag": "json:\"capacity,omitempty\"",
+					"jsonTag": "json:\"capacity,omitzero\"",
 					"description": "Maximum number of people the room can accommodate"
 				},
 				{
@@ -44926,7 +44926,7 @@
 					"name": "Async",
 					"jsonName": "async",
 					"type": "bool",
-					"jsonTag": "json:\"async,omitempty\"",
+					"jsonTag": "json:\"async,omitzero\"",
 					"description": "Return immediately with a rollout ID. Defaults to false, which waits up to 45 seconds for a terminal result before returning the current rollout status."
 				},
 				{
@@ -44955,14 +44955,14 @@
 					"name": "ActorID",
 					"jsonName": "actorId",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"actorId,omitempty\"",
+					"jsonTag": "json:\"actorId,omitzero\"",
 					"description": "Workspace member to run as. Required for content-shaped agentCall inputs."
 				},
 				{
 					"name": "Execution",
 					"jsonName": "execution",
 					"type": "*RunUnifiedRolloutExecution",
-					"jsonTag": "json:\"execution,omitempty\""
+					"jsonTag": "json:\"execution,omitzero\""
 				},
 				{
 					"name": "Preprocessors",
@@ -44974,20 +44974,20 @@
 					"name": "Graders",
 					"jsonName": "graders",
 					"type": "*RunUnifiedRolloutGraders",
-					"jsonTag": "json:\"graders,omitempty\"",
+					"jsonTag": "json:\"graders,omitzero\"",
 					"description": "Grader configuration keyed by grader name. Each value is one argument object or an array of argument objects for repeated grader runs."
 				},
 				{
 					"name": "Braintrust",
 					"jsonName": "braintrust",
 					"type": "*RunUnifiedRolloutBraintrust",
-					"jsonTag": "json:\"braintrust,omitempty\""
+					"jsonTag": "json:\"braintrust,omitzero\""
 				},
 				{
 					"name": "Response",
 					"jsonName": "response",
 					"type": "*RunUnifiedRolloutResponse",
-					"jsonTag": "json:\"response,omitempty\""
+					"jsonTag": "json:\"response,omitzero\""
 				}
 			]
 		},
@@ -45116,7 +45116,7 @@
 					"name": "RawVendorOverride",
 					"jsonName": "rawVendorOverride",
 					"type": "*any",
-					"jsonTag": "json:\"rawVendorOverride,omitempty\""
+					"jsonTag": "json:\"rawVendorOverride,omitzero\""
 				},
 				{
 					"name": "ReasoningEffort",
@@ -45136,7 +45136,7 @@
 					"name": "HarnessOptions",
 					"jsonName": "harnessOptions",
 					"type": "*RunUnifiedRolloutExecutionHarnessOptions",
-					"jsonTag": "json:\"harnessOptions,omitempty\"",
+					"jsonTag": "json:\"harnessOptions,omitzero\"",
 					"description": "Options specific to the selected harness. AgentService supports local-only `evalSession`; inferenceTranscript has its own options."
 				}
 			]
@@ -45149,14 +45149,14 @@
 					"name": "EvalSession",
 					"jsonName": "evalSession",
 					"type": "bool",
-					"jsonTag": "json:\"evalSession,omitempty\"",
+					"jsonTag": "json:\"evalSession,omitzero\"",
 					"description": "For local AgentService agentCall requests, execute against isolated eval-session state."
 				},
 				{
 					"name": "PromptInjectionScanningEnabled",
 					"jsonName": "promptInjectionScanningEnabled",
 					"type": "bool",
-					"jsonTag": "json:\"promptInjectionScanningEnabled,omitempty\"",
+					"jsonTag": "json:\"promptInjectionScanningEnabled,omitzero\"",
 					"description": "For AgentService native (non-agentCall) requests, disable the production prompt-injection scan callback. Defaults to true."
 				}
 			]
@@ -45169,25 +45169,25 @@
 					"name": "ToolCallPresence",
 					"jsonName": "toolCallPresence",
 					"type": "*RunUnifiedRolloutGradersMustacheJudgePrompt",
-					"jsonTag": "json:\"toolCallPresence,omitempty\""
+					"jsonTag": "json:\"toolCallPresence,omitzero\""
 				},
 				{
 					"name": "RegexMatch",
 					"jsonName": "regexMatch",
 					"type": "*RunUnifiedRolloutGradersMustacheJudgePrompt",
-					"jsonTag": "json:\"regexMatch,omitempty\""
+					"jsonTag": "json:\"regexMatch,omitzero\""
 				},
 				{
 					"name": "MustacheJudgePrompt",
 					"jsonName": "mustacheJudgePrompt",
 					"type": "*RunUnifiedRolloutGradersMustacheJudgePrompt",
-					"jsonTag": "json:\"mustacheJudgePrompt,omitempty\""
+					"jsonTag": "json:\"mustacheJudgePrompt,omitzero\""
 				},
 				{
 					"name": "WeightedAssertions",
 					"jsonName": "weightedAssertions",
 					"type": "*RunUnifiedRolloutGradersMustacheJudgePrompt",
-					"jsonTag": "json:\"weightedAssertions,omitempty\""
+					"jsonTag": "json:\"weightedAssertions,omitzero\""
 				}
 			]
 		},
@@ -45263,27 +45263,27 @@
 					"name": "Raw",
 					"jsonName": "raw",
 					"type": "bool",
-					"jsonTag": "json:\"raw,omitempty\""
+					"jsonTag": "json:\"raw,omitzero\""
 				},
 				{
 					"name": "Progress",
 					"jsonName": "progress",
 					"type": "bool",
-					"jsonTag": "json:\"progress,omitempty\"",
+					"jsonTag": "json:\"progress,omitzero\"",
 					"description": "Include revisioned harness and grader progress in asynchronous polling responses, including the completed response."
 				},
 				{
 					"name": "Input",
 					"jsonName": "input",
 					"type": "bool",
-					"jsonTag": "json:\"input,omitempty\"",
+					"jsonTag": "json:\"input,omitzero\"",
 					"description": "Include the executed harness-native input. For inferenceTranscript sources, this is the record's input field rather than the full record."
 				},
 				{
 					"name": "Operations",
 					"jsonName": "operations",
 					"type": "bool",
-					"jsonTag": "json:\"operations,omitempty\"",
+					"jsonTag": "json:\"operations,omitzero\"",
 					"description": "For AgentService eval sessions, include captured record operations in response metadata."
 				}
 			]
@@ -45394,7 +45394,7 @@
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "*float64",
-					"jsonTag": "json:\"limit,omitempty\"",
+					"jsonTag": "json:\"limit,omitzero\"",
 					"description": "Maximum results to return (1-200)."
 				},
 				{
@@ -45470,7 +45470,7 @@
 					"name": "Count",
 					"jsonName": "count",
 					"type": "*int",
-					"jsonTag": "json:\"count,omitempty\"",
+					"jsonTag": "json:\"count,omitzero\"",
 					"description": "Number of results to return (default: 20, max: 500)."
 				},
 				{
@@ -45484,7 +45484,7 @@
 					"name": "IncludeSpamTrash",
 					"jsonName": "include_spam_trash",
 					"type": "bool",
-					"jsonTag": "json:\"include_spam_trash,omitempty\"",
+					"jsonTag": "json:\"include_spam_trash,omitzero\"",
 					"description": "Whether to include spam and trash in results. Defaults to false."
 				}
 			]
@@ -45760,7 +45760,7 @@
 					"name": "Keyword",
 					"jsonName": "keyword",
 					"type": "*SearchWorkspaceKeyword",
-					"jsonTag": "json:\"keyword,omitempty\""
+					"jsonTag": "json:\"keyword,omitzero\""
 				},
 				{
 					"name": "SharedWithIds",
@@ -45772,31 +45772,31 @@
 					"name": "Location",
 					"jsonName": "location",
 					"type": "*struct{}",
-					"jsonTag": "json:\"location,omitempty\""
+					"jsonTag": "json:\"location,omitzero\""
 				},
 				{
 					"name": "DateRangeFilter",
 					"jsonName": "date_range_filter",
 					"type": "*struct{}",
-					"jsonTag": "json:\"date_range_filter,omitempty\""
+					"jsonTag": "json:\"date_range_filter,omitzero\""
 				},
 				{
 					"name": "Options",
 					"jsonName": "options",
 					"type": "*struct{}",
-					"jsonTag": "json:\"options,omitempty\""
+					"jsonTag": "json:\"options,omitzero\""
 				},
 				{
 					"name": "StartCursor",
 					"jsonName": "start_cursor",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"start_cursor,omitempty\""
+					"jsonTag": "json:\"start_cursor,omitzero\""
 				},
 				{
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*float64",
-					"jsonTag": "json:\"page_size,omitempty\""
+					"jsonTag": "json:\"page_size,omitzero\""
 				},
 				{
 					"name": "ResultType",
@@ -46438,7 +46438,7 @@
 					"name": "Configs",
 					"jsonName": "configs",
 					"type": "*StartExternalAgentStubSessionConfigs",
-					"jsonTag": "json:\"configs,omitempty\"",
+					"jsonTag": "json:\"configs,omitzero\"",
 					"description": "Vault-backed session configuration."
 				},
 				{
@@ -46713,7 +46713,7 @@
 					"name": "Metadata",
 					"jsonName": "metadata",
 					"type": "*map[string]string",
-					"jsonTag": "json:\"metadata,omitempty\"",
+					"jsonTag": "json:\"metadata,omitzero\"",
 					"description": "Caller-provided string metadata echoed from the chat request. user_id is the lifecycle correlation key and does not change authorization."
 				}
 			],
@@ -47229,7 +47229,7 @@
 					"name": "Link",
 					"jsonName": "link",
 					"type": "*External2",
-					"jsonTag": "json:\"link,omitempty\"",
+					"jsonTag": "json:\"link,omitzero\"",
 					"description": "An object with information about any inline link in this text, if included."
 				}
 			]
@@ -47343,13 +47343,13 @@
 					"name": "AgentStepID",
 					"jsonName": "agent_step_id",
 					"type": "*idResponse",
-					"jsonTag": "json:\"agent_step_id,omitempty\""
+					"jsonTag": "json:\"agent_step_id,omitzero\""
 				},
 				{
 					"name": "ToolCallID",
 					"jsonName": "tool_call_id",
 					"type": "*string",
-					"jsonTag": "json:\"tool_call_id,omitempty\"",
+					"jsonTag": "json:\"tool_call_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
@@ -49501,7 +49501,7 @@
 					"name": "ContentLength",
 					"jsonName": "content_length",
 					"type": "*int",
-					"jsonTag": "json:\"content_length,omitempty\"",
+					"jsonTag": "json:\"content_length,omitzero\"",
 					"description": "Required for prepare. Exact compressed archive size in bytes (maximum 20 MiB)."
 				},
 				{
@@ -49544,7 +49544,7 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]ToolInputAnyOfPropertiesValue",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Required for \"update_properties\" command. A JSON object that updates the page's properties.\nFor pages in a database, use the SQLite schema definition shown in <database>.\nFor pages outside of a database, the only allowed property is \"title\", which is the title of the page in inline markdown format.\nFor a Files property, an uploaded file can be provided as {\"type\":\"file_upload\",\"file_upload\":{\"id\":\"<file-upload-id>\"}} inside the property's array.\nUse null to remove a property's value."
 				},
 				{
@@ -49572,14 +49572,14 @@
 					"name": "Position",
 					"jsonName": "position",
 					"type": "*ToolInputAnyOfPosition",
-					"jsonTag": "json:\"position,omitempty\"",
+					"jsonTag": "json:\"position,omitzero\"",
 					"description": "Optional for \"insert_content\" command. Use {\"type\":\"start\"} to prepend content or {\"type\":\"end\"} to append content. Omit to append."
 				},
 				{
 					"name": "AllowDeletingContent",
 					"jsonName": "allow_deleting_content",
 					"type": "bool",
-					"jsonTag": "json:\"allow_deleting_content,omitempty\"",
+					"jsonTag": "json:\"allow_deleting_content,omitzero\"",
 					"description": "Optional for \"replace_content\" and \"update_content\" commands. Set to true to allow deletion of child pages and databases that are not referenced in the new content. If false or omitted, the operation will fail with an error listing the pages/databases that would be deleted."
 				},
 				{
@@ -49600,7 +49600,7 @@
 					"name": "VerificationExpiryDays",
 					"jsonName": "verification_expiry_days",
 					"type": "*int",
-					"jsonTag": "json:\"verification_expiry_days,omitempty\"",
+					"jsonTag": "json:\"verification_expiry_days,omitzero\"",
 					"description": "Optional for \"update_verification\" command when verification_status is \"verified\". Number of days until verification expires (e.g. 7, 30, 90). Omit for indefinite verification."
 				},
 				{
@@ -49621,14 +49621,14 @@
 					"name": "IsSkill",
 					"jsonName": "is_skill",
 					"type": "bool",
-					"jsonTag": "json:\"is_skill,omitempty\"",
+					"jsonTag": "json:\"is_skill,omitzero\"",
 					"description": "Set to true to mark this page as a skill, or false to remove the skill designation. Can be set alongside any command."
 				},
 				{
 					"name": "AllowAsync",
 					"jsonName": "allow_async",
 					"type": "bool",
-					"jsonTag": "json:\"allow_async,omitempty\"",
+					"jsonTag": "json:\"allow_async,omitzero\"",
 					"description": "Default to true for page updates. Set to false only when the next step needs the updated page immediately, or when async execution rejects the request as too large. When this update operation is accepted for background execution, it returns an async_task result. Use get_async_task to wait for a succeeded status before taking a dependent action on the page. For apply_template, a succeeded status does not mean template content is ready; fetch and retry until it is ready before changing or relying on that content. If omitted or false, the tool waits for a synchronous result when possible, but may still return a pollable async_task response if queued execution exceeds the synchronous wait deadline."
 				}
 			]
@@ -49713,14 +49713,14 @@
 					"name": "IsInline",
 					"jsonName": "is_inline",
 					"type": "bool",
-					"jsonTag": "json:\"is_inline,omitempty\"",
+					"jsonTag": "json:\"is_inline,omitzero\"",
 					"description": "Whether the database should display inline (true) or as full page (false). Only applicable for single-source databases."
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\"",
+					"jsonTag": "json:\"in_trash,omitzero\"",
 					"description": "Move data source to trash. Cannot be undone without Notion UI."
 				}
 			]
@@ -49976,7 +49976,7 @@
 					"name": "ReplaceAllMatches",
 					"jsonName": "replace_all_matches",
 					"type": "bool",
-					"jsonTag": "json:\"replace_all_matches,omitempty\"",
+					"jsonTag": "json:\"replace_all_matches,omitzero\"",
 					"description": "If true, replaces all occurrences of old_str. If false (default), the operation fails if there are multiple matches."
 				}
 			]
@@ -53533,7 +53533,7 @@
 					"name": "CreditLimit",
 					"jsonName": "credit_limit",
 					"type": "*float64",
-					"jsonTag": "json:\"credit_limit,omitempty\"",
+					"jsonTag": "json:\"credit_limit,omitzero\"",
 					"description": "Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent."
 				},
 				{
@@ -53547,14 +53547,14 @@
 					"name": "IsFavorited",
 					"jsonName": "is_favorited",
 					"type": "bool",
-					"jsonTag": "json:\"is_favorited,omitempty\"",
+					"jsonTag": "json:\"is_favorited,omitzero\"",
 					"description": "Whether the personal-access-token owner has this agent in their favorites."
 				},
 				{
 					"name": "Model",
 					"jsonName": "model",
 					"type": "*UpdateAgentModel",
-					"jsonTag": "json:\"model,omitempty\"",
+					"jsonTag": "json:\"model,omitzero\"",
 					"description": "The model selection. Use auto to let Notion choose, or pinned with an available public model ID."
 				}
 			]
@@ -53806,21 +53806,21 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitempty\"",
+					"jsonTag": "json:\"created_time,omitzero\"",
 					"description": "Date and time when this agent was created."
 				},
 				{
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitempty\"",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
 					"description": "Date and time when this agent was last edited."
 				},
 				{
 					"name": "Instructions",
 					"jsonName": "instructions",
 					"type": "*string",
-					"jsonTag": "json:\"instructions,omitempty\"",
+					"jsonTag": "json:\"instructions,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -53995,14 +53995,14 @@
 					"name": "Schedule",
 					"jsonName": "schedule",
 					"type": "*UpdateAgentOkTriggersItemSchedule",
-					"jsonTag": "json:\"schedule,omitempty\"",
+					"jsonTag": "json:\"schedule,omitzero\"",
 					"description": "Structured recurrence cadence. Present only for recurrence triggers."
 				},
 				{
 					"name": "Config",
 					"jsonName": "config",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"config,omitempty\"",
+					"jsonTag": "json:\"config,omitzero\"",
 					"description": "Remaining per-type trigger configuration (e.g. watched channel ids, reaction config), keys in snake_case. Present only when the trigger carries such state."
 				}
 			]
@@ -54052,14 +54052,14 @@
 					"name": "Hour",
 					"jsonName": "hour",
 					"type": "*int",
-					"jsonTag": "json:\"hour,omitempty\"",
+					"jsonTag": "json:\"hour,omitzero\"",
 					"description": "Hour of day (0–23) the schedule runs."
 				},
 				{
 					"name": "Minute",
 					"jsonName": "minute",
 					"type": "*int",
-					"jsonTag": "json:\"minute,omitempty\"",
+					"jsonTag": "json:\"minute,omitzero\"",
 					"description": "Minute of the hour (0–59) the schedule runs."
 				},
 				{
@@ -54080,7 +54080,7 @@
 					"name": "End",
 					"jsonName": "end",
 					"type": "*UpdateAgentOkTriggersItemScheduleEnd",
-					"jsonTag": "json:\"end,omitempty\"",
+					"jsonTag": "json:\"end,omitzero\"",
 					"description": "When the schedule stops, when it is bounded."
 				}
 			]
@@ -54974,7 +54974,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Number of users to return per page (1–100; default 100)."
 				},
 				{
@@ -55209,7 +55209,7 @@
 					"name": "MostRecentMessageOnly",
 					"jsonName": "most_recent_message_only",
 					"type": "bool",
-					"jsonTag": "json:\"most_recent_message_only,omitempty\"",
+					"jsonTag": "json:\"most_recent_message_only,omitzero\"",
 					"description": "If true (the default), returns only the most recent message. Set false to return all messages in the thread."
 				}
 			]
@@ -56100,35 +56100,35 @@
 					"name": "Bold",
 					"jsonName": "bold",
 					"type": "bool",
-					"jsonTag": "json:\"bold,omitempty\"",
+					"jsonTag": "json:\"bold,omitzero\"",
 					"description": "Whether the text is formatted as bold."
 				},
 				{
 					"name": "Italic",
 					"jsonName": "italic",
 					"type": "bool",
-					"jsonTag": "json:\"italic,omitempty\"",
+					"jsonTag": "json:\"italic,omitzero\"",
 					"description": "Whether the text is formatted as italic."
 				},
 				{
 					"name": "Strikethrough",
 					"jsonName": "strikethrough",
 					"type": "bool",
-					"jsonTag": "json:\"strikethrough,omitempty\"",
+					"jsonTag": "json:\"strikethrough,omitzero\"",
 					"description": "Whether the text is formatted with a strikethrough."
 				},
 				{
 					"name": "Underline",
 					"jsonName": "underline",
 					"type": "bool",
-					"jsonTag": "json:\"underline,omitempty\"",
+					"jsonTag": "json:\"underline,omitzero\"",
 					"description": "Whether the text is formatted with an underline."
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "bool",
-					"jsonTag": "json:\"code,omitempty\"",
+					"jsonTag": "json:\"code,omitzero\"",
 					"description": "Whether the text is formatted as code."
 				},
 				{
@@ -59858,7 +59858,7 @@
 					"name": "WidthRatio",
 					"jsonName": "width_ratio",
 					"type": "*float64",
-					"jsonTag": "json:\"width_ratio,omitempty\"",
+					"jsonTag": "json:\"width_ratio,omitzero\"",
 					"description": "Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width."
 				}
 			]
@@ -59886,7 +59886,7 @@
 					"name": "ListStartIndex",
 					"jsonName": "list_start_index",
 					"type": "*int",
-					"jsonTag": "json:\"list_start_index,omitempty\""
+					"jsonTag": "json:\"list_start_index,omitzero\""
 				},
 				{
 					"name": "ListFormat",
@@ -61768,14 +61768,14 @@
 					"name": "End",
 					"jsonName": "end",
 					"type": "*civil.Date",
-					"jsonTag": "json:\"end,omitempty\"",
+					"jsonTag": "json:\"end,omitzero\"",
 					"description": "The end date of the date object, if any."
 				},
 				{
 					"name": "TimeZone",
 					"jsonName": "time_zone",
 					"type": "*timeZoneRequest",
-					"jsonTag": "json:\"time_zone,omitempty\"",
+					"jsonTag": "json:\"time_zone,omitzero\"",
 					"description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc."
 				}
 			]
@@ -65001,21 +65001,21 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "*int",
-					"jsonTag": "json:\"height,omitempty\"",
+					"jsonTag": "json:\"height,omitzero\"",
 					"description": "The height of the link preview iframe."
 				},
 				{
 					"name": "Padding",
 					"jsonName": "padding",
 					"type": "*int",
-					"jsonTag": "json:\"padding,omitempty\"",
+					"jsonTag": "json:\"padding,omitzero\"",
 					"description": "The padding of the link preview iframe."
 				},
 				{
 					"name": "PaddingTop",
 					"jsonName": "padding_top",
 					"type": "*int",
-					"jsonTag": "json:\"padding_top,omitempty\"",
+					"jsonTag": "json:\"padding_top,omitzero\"",
 					"description": "The top padding of the link preview iframe."
 				}
 			]
@@ -68698,28 +68698,28 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "*string",
-					"jsonTag": "json:\"name,omitempty\"",
+					"jsonTag": "json:\"name,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "Address",
 					"jsonName": "address",
 					"type": "*string",
-					"jsonTag": "json:\"address,omitempty\"",
+					"jsonTag": "json:\"address,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "AwsPlaceID",
 					"jsonName": "aws_place_id",
 					"type": "*string",
-					"jsonTag": "json:\"aws_place_id,omitempty\"",
+					"jsonTag": "json:\"aws_place_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "GooglePlaceID",
 					"jsonName": "google_place_id",
 					"type": "*string",
-					"jsonTag": "json:\"google_place_id,omitempty\"",
+					"jsonTag": "json:\"google_place_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -69697,7 +69697,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -69938,7 +69938,7 @@
 					"name": "Annotations",
 					"jsonName": "annotations",
 					"type": "*annotation",
-					"jsonTag": "json:\"annotations,omitempty\"",
+					"jsonTag": "json:\"annotations,omitzero\"",
 					"description": "All rich text objects contain an annotations object that sets the styling for the rich text."
 				},
 				{
@@ -70650,7 +70650,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\"",
+					"jsonTag": "json:\"request_status,omitzero\"",
 					"description": "Set when the result set is incomplete due to a server-side query limit."
 				},
 				{
@@ -70725,7 +70725,7 @@
 					"name": "SchedulingLink",
 					"jsonName": "schedulingLink",
 					"type": "*RunToolOneOfSchedulingLinksItem",
-					"jsonTag": "json:\"schedulingLink,omitempty\""
+					"jsonTag": "json:\"schedulingLink,omitzero\""
 				},
 				{
 					"name": "Errors",
@@ -72938,7 +72938,7 @@
 					"name": "McpNotice",
 					"jsonName": "mcp_notice",
 					"type": "*RunToolOneOfMcpNotice",
-					"jsonTag": "json:\"mcp_notice,omitempty\""
+					"jsonTag": "json:\"mcp_notice,omitzero\""
 				}
 			]
 		},
@@ -72957,7 +72957,7 @@
 					"name": "McpNotice",
 					"jsonName": "mcp_notice",
 					"type": "*RunToolOneOfMcpNotice",
-					"jsonTag": "json:\"mcp_notice,omitempty\""
+					"jsonTag": "json:\"mcp_notice,omitzero\""
 				}
 			]
 		},
@@ -73053,32 +73053,32 @@
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*RunToolResponseOneOf15Cover",
-					"jsonTag": "json:\"cover,omitempty\""
+					"jsonTag": "json:\"cover,omitzero\""
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*RunToolResponseOneOf15Icon",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				},
 				{
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitempty\""
+					"jsonTag": "json:\"is_archived,omitzero\""
 				},
 				{
 					"name": "Self",
 					"jsonName": "self",
 					"type": "*RunToolResponseOneOf15Self",
-					"jsonTag": "json:\"self,omitempty\"",
+					"jsonTag": "json:\"self,omitzero\"",
 					"description": "Present only when fetching id \"self\": the connected workspace and user identity."
 				},
 				{
 					"name": "Truncated",
 					"jsonName": "truncated",
 					"type": "bool",
-					"jsonTag": "json:\"truncated,omitempty\""
+					"jsonTag": "json:\"truncated,omitzero\""
 				},
 				{
 					"name": "UnknownBlockIds",
@@ -73090,7 +73090,7 @@
 					"name": "UnknownBlockCount",
 					"jsonName": "unknown_block_count",
 					"type": "*int",
-					"jsonTag": "json:\"unknown_block_count,omitempty\""
+					"jsonTag": "json:\"unknown_block_count,omitzero\""
 				},
 				{
 					"name": "Path",
@@ -73110,7 +73110,7 @@
 					"name": "Verification",
 					"jsonName": "verification",
 					"type": "*RunToolOneOfResultsItemVerification",
-					"jsonTag": "json:\"verification,omitempty\"",
+					"jsonTag": "json:\"verification,omitzero\"",
 					"description": "Native Notion verification state when available."
 				}
 			]
@@ -73375,7 +73375,7 @@
 					"name": "McpNotice",
 					"jsonName": "mcp_notice",
 					"type": "*RunToolOneOfMcpNotice",
-					"jsonTag": "json:\"mcp_notice,omitempty\""
+					"jsonTag": "json:\"mcp_notice,omitzero\""
 				}
 			]
 		},
@@ -73411,7 +73411,7 @@
 					"name": "McpNotice",
 					"jsonName": "mcp_notice",
 					"type": "*RunToolOneOfMcpNotice",
-					"jsonTag": "json:\"mcp_notice,omitempty\""
+					"jsonTag": "json:\"mcp_notice,omitzero\""
 				}
 			]
 		},
@@ -74389,7 +74389,7 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]RunToolResponseOneOf71PropertiesValue",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Historical page properties keyed by canonical property name."
 				},
 				{
@@ -74403,7 +74403,7 @@
 					"name": "Truncated",
 					"jsonName": "truncated",
 					"type": "bool",
-					"jsonTag": "json:\"truncated,omitempty\"",
+					"jsonTag": "json:\"truncated,omitzero\"",
 					"description": "True when content reached the tool's output limit and was shortened."
 				},
 				{
@@ -74474,7 +74474,7 @@
 					"name": "HasChanges",
 					"jsonName": "has_changes",
 					"type": "bool",
-					"jsonTag": "json:\"has_changes,omitempty\"",
+					"jsonTag": "json:\"has_changes,omitzero\"",
 					"description": "Whether the two rendered versions differ."
 				},
 				{
@@ -74488,7 +74488,7 @@
 					"name": "Truncated",
 					"jsonName": "truncated",
 					"type": "bool",
-					"jsonTag": "json:\"truncated,omitempty\"",
+					"jsonTag": "json:\"truncated,omitzero\"",
 					"description": "True when the comparison is partial because an input or output limit was reached."
 				},
 				{
@@ -74675,7 +74675,7 @@
 					"name": "McpNotice",
 					"jsonName": "mcp_notice",
 					"type": "*RunToolOneOfMcpNotice",
-					"jsonTag": "json:\"mcp_notice,omitempty\""
+					"jsonTag": "json:\"mcp_notice,omitzero\""
 				}
 			]
 		},
@@ -77048,19 +77048,19 @@
 					"name": "Children",
 					"jsonName": "children",
 					"type": "*transcriptionChildrenResponse",
-					"jsonTag": "json:\"children,omitempty\""
+					"jsonTag": "json:\"children,omitzero\""
 				},
 				{
 					"name": "CalendarEvent",
 					"jsonName": "calendar_event",
 					"type": "*transcriptionCalendarEventResponse",
-					"jsonTag": "json:\"calendar_event,omitempty\""
+					"jsonTag": "json:\"calendar_event,omitzero\""
 				},
 				{
 					"name": "Recording",
 					"jsonName": "recording",
 					"type": "*transcriptionRecordingResponse",
-					"jsonTag": "json:\"recording,omitempty\""
+					"jsonTag": "json:\"recording,omitzero\""
 				}
 			]
 		},
@@ -77122,13 +77122,13 @@
 					"name": "StartTime",
 					"jsonName": "start_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"start_time,omitempty\""
+					"jsonTag": "json:\"start_time,omitzero\""
 				},
 				{
 					"name": "EndTime",
 					"jsonName": "end_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"end_time,omitempty\""
+					"jsonTag": "json:\"end_time,omitzero\""
 				}
 			]
 		},

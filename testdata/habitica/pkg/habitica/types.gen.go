@@ -127,13 +127,13 @@ type ListApiv3TasksUserOkDataItem struct {
 	ID                uuid.UUID                             `json:"id,omitzero"`
 	Alias             string                                `json:"alias,omitzero"`
 	Checklist         []any                                 `json:"checklist,omitzero"`
-	CollapseChecklist bool                                  `json:"collapseChecklist,omitempty"`
-	Completed         bool                                  `json:"completed,omitempty"`
+	CollapseChecklist bool                                  `json:"collapseChecklist,omitzero"`
+	Completed         bool                                  `json:"completed,omitzero"`
 	History           []any                                 `json:"history,omitzero"`
-	Streak            *int                                  `json:"streak,omitempty"`
-	Repeat            *ListApiv3TasksUserOkDataItemRepeat   `json:"repeat,omitempty"`
-	StartDate         time.Time                             `json:"startDate,omitempty"`
-	EveryX            *int                                  `json:"everyX,omitempty"`
+	Streak            *int                                  `json:"streak,omitzero"`
+	Repeat            *ListApiv3TasksUserOkDataItemRepeat   `json:"repeat,omitzero"`
+	StartDate         time.Time                             `json:"startDate,omitzero"`
+	EveryX            *int                                  `json:"everyX,omitzero"`
 	Frequency         string                                `json:"frequency,omitzero"`
 }
 
@@ -1137,7 +1137,7 @@ type ListApiv3UserOkDataTags []ListApiv3UserOkDataTagsItem
 type ListApiv3UserOkDataTagsItem struct {
 	Name      string    `json:"name,omitzero"`
 	ID        uuid.UUID `json:"id,omitzero"`
-	Challenge bool      `json:"challenge,omitempty"`
+	Challenge bool      `json:"challenge,omitzero"`
 }
 
 // ListApiv3UserOkDataTasksOrder defines a model
@@ -1208,7 +1208,7 @@ type PostApiv3TaskScoreUpOk struct {
 	Success       bool                       `json:"success"`
 	Data          PostApiv3TaskScoreUpOkData `json:"data"`
 	Notifications []any                      `json:"notifications"`
-	UserV         *int                       `json:"userV,omitempty"`
+	UserV         *int                       `json:"userV,omitzero"`
 	AppVersion    string                     `json:"appVersion,omitzero"`
 }
 
@@ -1235,7 +1235,7 @@ type PostApiv3TaskScoreUpOkData struct {
 type PostApiv3TaskScoreUpOkDataTmp struct {
 	Quest       PostApiv3TaskScoreUpOkDataTmpQuest `json:"quest"`
 	Drop        PostApiv3TaskScoreUpOkDataTmpDrop  `json:"drop"`
-	StreakBonus *float64                           `json:"streakBonus,omitempty"`
+	StreakBonus *float64                           `json:"streakBonus,omitzero"`
 }
 
 // PostApiv3TaskScoreUpOkDataTmpDrop defines a model

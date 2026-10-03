@@ -634,13 +634,13 @@
 					"name": "CollapseChecklist",
 					"jsonName": "collapseChecklist",
 					"type": "bool",
-					"jsonTag": "json:\"collapseChecklist,omitempty\""
+					"jsonTag": "json:\"collapseChecklist,omitzero\""
 				},
 				{
 					"name": "Completed",
 					"jsonName": "completed",
 					"type": "bool",
-					"jsonTag": "json:\"completed,omitempty\""
+					"jsonTag": "json:\"completed,omitzero\""
 				},
 				{
 					"name": "History",
@@ -652,25 +652,25 @@
 					"name": "Streak",
 					"jsonName": "streak",
 					"type": "*int",
-					"jsonTag": "json:\"streak,omitempty\""
+					"jsonTag": "json:\"streak,omitzero\""
 				},
 				{
 					"name": "Repeat",
 					"jsonName": "repeat",
 					"type": "*ListApiv3TasksUserOkDataItemRepeat",
-					"jsonTag": "json:\"repeat,omitempty\""
+					"jsonTag": "json:\"repeat,omitzero\""
 				},
 				{
 					"name": "StartDate",
 					"jsonName": "startDate",
 					"type": "time.Time",
-					"jsonTag": "json:\"startDate,omitempty\""
+					"jsonTag": "json:\"startDate,omitzero\""
 				},
 				{
 					"name": "EveryX",
 					"jsonName": "everyX",
 					"type": "*int",
-					"jsonTag": "json:\"everyX,omitempty\""
+					"jsonTag": "json:\"everyX,omitzero\""
 				},
 				{
 					"name": "Frequency",
@@ -6433,7 +6433,7 @@
 					"name": "Challenge",
 					"jsonName": "challenge",
 					"type": "bool",
-					"jsonTag": "json:\"challenge,omitempty\""
+					"jsonTag": "json:\"challenge,omitzero\""
 				}
 			]
 		},
@@ -6761,7 +6761,7 @@
 					"name": "UserV",
 					"jsonName": "userV",
 					"type": "*int",
-					"jsonTag": "json:\"userV,omitempty\""
+					"jsonTag": "json:\"userV,omitzero\""
 				},
 				{
 					"name": "AppVersion",
@@ -6904,7 +6904,7 @@
 					"name": "StreakBonus",
 					"jsonName": "streakBonus",
 					"type": "*float64",
-					"jsonTag": "json:\"streakBonus,omitempty\""
+					"jsonTag": "json:\"streakBonus,omitzero\""
 				}
 			]
 		},

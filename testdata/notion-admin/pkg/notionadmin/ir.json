@@ -5114,7 +5114,7 @@
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitempty\""
+					"jsonTag": "json:\"end_date,omitzero\""
 				},
 				{
 					"name": "Icon",
@@ -5555,20 +5555,20 @@
 					"name": "CreatedByID",
 					"jsonName": "created_by_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"created_by_id,omitempty\""
+					"jsonTag": "json:\"created_by_id,omitzero\""
 				},
 				{
 					"name": "CreditLimit",
 					"jsonName": "credit_limit",
 					"type": "*float64",
-					"jsonTag": "json:\"credit_limit,omitempty\"",
+					"jsonTag": "json:\"credit_limit,omitzero\"",
 					"description": "Enforced per-agent credit limit, if one is configured."
 				},
 				{
 					"name": "LastCreditUsageTime",
 					"jsonName": "last_credit_usage_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_credit_usage_time,omitempty\"",
+					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
 					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
 				},
 				{
@@ -5973,7 +5973,7 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitempty\"",
+					"jsonTag": "json:\"expires_at,omitzero\"",
 					"description": "Unix time in milliseconds. Only individual workspace-member policies may expire."
 				}
 			]
@@ -6045,7 +6045,7 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitempty\""
+					"jsonTag": "json:\"expires_at,omitzero\""
 				}
 			]
 		},
@@ -6242,7 +6242,7 @@
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitempty\""
+					"jsonTag": "json:\"end_date,omitzero\""
 				},
 				{
 					"name": "Icon",
@@ -6350,13 +6350,13 @@
 					"name": "FlattenExportFiletree",
 					"jsonName": "flatten_export_filetree",
 					"type": "bool",
-					"jsonTag": "json:\"flatten_export_filetree,omitempty\""
+					"jsonTag": "json:\"flatten_export_filetree,omitzero\""
 				},
 				{
 					"name": "IncludeComments",
 					"jsonName": "include_comments",
 					"type": "bool",
-					"jsonTag": "json:\"include_comments,omitempty\""
+					"jsonTag": "json:\"include_comments,omitzero\""
 				},
 				{
 					"name": "IncludeContents",
@@ -6751,7 +6751,7 @@
 					"name": "URLExpiresTime",
 					"jsonName": "url_expires_time",
 					"type": "*float64",
-					"jsonTag": "json:\"url_expires_time,omitempty\""
+					"jsonTag": "json:\"url_expires_time,omitzero\""
 				}
 			]
 		},
@@ -6886,7 +6886,7 @@
 					"name": "CreatedByID",
 					"jsonName": "created_by_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"created_by_id,omitempty\""
+					"jsonTag": "json:\"created_by_id,omitzero\""
 				},
 				{
 					"name": "CreatedByTable",
@@ -6899,7 +6899,7 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "*float64",
-					"jsonTag": "json:\"created_time,omitempty\"",
+					"jsonTag": "json:\"created_time,omitzero\"",
 					"description": "Epoch ms when the agent was created."
 				},
 				{
@@ -6920,14 +6920,14 @@
 					"name": "LastCreditUsageTime",
 					"jsonName": "last_credit_usage_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_credit_usage_time,omitempty\"",
+					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
 					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
 				},
 				{
 					"name": "LastEditedByID",
 					"jsonName": "last_edited_by_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"last_edited_by_id,omitempty\""
+					"jsonTag": "json:\"last_edited_by_id,omitzero\""
 				},
 				{
 					"name": "LastEditedByTable",
@@ -6940,14 +6940,14 @@
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_edited_time,omitempty\"",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
 					"description": "Epoch ms when the agent was last edited."
 				},
 				{
 					"name": "LastRunTime",
 					"jsonName": "last_run_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_run_time,omitempty\"",
+					"jsonTag": "json:\"last_run_time,omitzero\"",
 					"description": "Epoch ms of the agent's most recent run; omitted if the agent has never run."
 				},
 				{
@@ -6968,7 +6968,7 @@
 					"name": "MovedToTrashTime",
 					"jsonName": "moved_to_trash_time",
 					"type": "*float64",
-					"jsonTag": "json:\"moved_to_trash_time,omitempty\"",
+					"jsonTag": "json:\"moved_to_trash_time,omitzero\"",
 					"description": "Epoch ms when the agent was deleted; only present for deleted agents."
 				},
 				{
@@ -6982,7 +6982,7 @@
 					"name": "ParentID",
 					"jsonName": "parent_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"parent_id,omitempty\""
+					"jsonTag": "json:\"parent_id,omitzero\""
 				},
 				{
 					"name": "ParentTable",
@@ -7346,7 +7346,7 @@
 					"name": "LastActiveAt",
 					"jsonName": "last_active_at",
 					"type": "*float64",
-					"jsonTag": "json:\"last_active_at,omitempty\"",
+					"jsonTag": "json:\"last_active_at,omitzero\"",
 					"description": "Most recent time the member used the connection, in epoch milliseconds."
 				}
 			]
@@ -7723,28 +7723,28 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*float64",
-					"jsonTag": "json:\"expires_at,omitempty\"",
+					"jsonTag": "json:\"expires_at,omitzero\"",
 					"description": "Time the token expires, in epoch milliseconds."
 				},
 				{
 					"name": "LastUsedAt",
 					"jsonName": "last_used_at",
 					"type": "*float64",
-					"jsonTag": "json:\"last_used_at,omitempty\"",
+					"jsonTag": "json:\"last_used_at,omitzero\"",
 					"description": "Most recent recorded time the token authenticated a request, in epoch milliseconds. Updated at most once per hour."
 				},
 				{
 					"name": "RevokedAt",
 					"jsonName": "revoked_at",
 					"type": "*float64",
-					"jsonTag": "json:\"revoked_at,omitempty\"",
+					"jsonTag": "json:\"revoked_at,omitzero\"",
 					"description": "Time the token was revoked, in epoch milliseconds."
 				},
 				{
 					"name": "RevokedBy",
 					"jsonName": "revoked_by",
 					"type": "*ListPersonalAccessTokensResultsItemCreator",
-					"jsonTag": "json:\"revoked_by,omitempty\"",
+					"jsonTag": "json:\"revoked_by,omitzero\"",
 					"description": "Member who created the token."
 				}
 			]
@@ -8528,7 +8528,7 @@
 					"name": "DisableExistingAgents",
 					"jsonName": "disable_existing_agents",
 					"type": "bool",
-					"jsonTag": "json:\"disable_existing_agents,omitempty\"",
+					"jsonTag": "json:\"disable_existing_agents,omitzero\"",
 					"description": "When true, also disable all existing custom agents in the workspace. Only takes effect when policy is \"disabled\"."
 				}
 			]
@@ -8958,7 +8958,7 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitempty\""
+					"jsonTag": "json:\"expires_at,omitzero\""
 				}
 			]
 		},
@@ -9391,7 +9391,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9431,7 +9431,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9471,7 +9471,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9511,7 +9511,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9551,7 +9551,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9591,7 +9591,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9631,7 +9631,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9671,7 +9671,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},

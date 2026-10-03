@@ -71,58 +71,58 @@ type Block struct {
 	// Type of block.
 	Type BlockType `json:"type,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	Paragraph *Paragraph `json:"paragraph,omitempty"`
+	Paragraph *Paragraph `json:"paragraph,omitzero"`
 	// Heading block objects contain this information within their respective property.
-	Heading1 *Heading `json:"heading_1,omitempty"`
+	Heading1 *Heading `json:"heading_1,omitzero"`
 	// Heading block objects contain this information within their respective property.
-	Heading2 *Heading `json:"heading_2,omitempty"`
+	Heading2 *Heading `json:"heading_2,omitzero"`
 	// Heading block objects contain this information within their respective property.
-	Heading3 *Heading `json:"heading_3,omitempty"`
+	Heading3 *Heading `json:"heading_3,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	BulletedListItem *Paragraph `json:"bulleted_list_item,omitempty"`
+	BulletedListItem *Paragraph `json:"bulleted_list_item,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	NumberedListItem *Paragraph `json:"numbered_list_item,omitempty"`
+	NumberedListItem *Paragraph `json:"numbered_list_item,omitzero"`
 	// To do block objects contain this information within the `to_do` property.
-	ToDo *ToDo `json:"to_do,omitempty"`
+	ToDo *ToDo `json:"to_do,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	Toggle *Paragraph `json:"toggle,omitempty"`
+	Toggle *Paragraph `json:"toggle,omitzero"`
 	// Code block objects contain this information within the `code` property.
-	Code          *Code  `json:"code,omitempty"`
-	ChildPage     *Child `json:"child_page,omitempty"`
-	ChildDatabase *Child `json:"child_database,omitempty"`
+	Code          *Code  `json:"code,omitzero"`
+	ChildPage     *Child `json:"child_page,omitzero"`
+	ChildDatabase *Child `json:"child_database,omitzero"`
 	// Embed blocks include block types that allow displaying another website within Notion.
-	Embed *Embed `json:"embed,omitempty"`
+	Embed *Embed `json:"embed,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	Video *FileWithCaption `json:"video,omitempty"`
+	Video *FileWithCaption `json:"video,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	Audio *FileWithCaption `json:"audio,omitempty"`
+	Audio *FileWithCaption `json:"audio,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	File *FileWithCaption `json:"file,omitempty"`
+	File *FileWithCaption `json:"file,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	PDF *FileWithCaption `json:"pdf,omitempty"`
+	PDF *FileWithCaption `json:"pdf,omitzero"`
 	// Embed blocks include block types that allow displaying another website within Notion.
-	Bookmark *Embed `json:"bookmark,omitempty"`
+	Bookmark *Embed `json:"bookmark,omitzero"`
 	// Callout block objects contain the following information within the callout field.
-	Callout *Callout `json:"callout,omitempty"`
+	Callout *Callout `json:"callout,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	Quote *Paragraph `json:"quote,omitempty"`
+	Quote *Paragraph `json:"quote,omitzero"`
 	// Equation block objects contain this information within the `equation` property
-	Equation *Equation `json:"equation,omitempty"`
+	Equation *Equation `json:"equation,omitzero"`
 	// Divider block objects do not contain any information within the divider property
-	Divider *struct{} `json:"divider,omitempty"`
+	Divider *struct{} `json:"divider,omitzero"`
 	// Table of contents block objects contain the following information within the `table_of_contents` property.
-	TableOfContents *TableOfContents `json:"table_of_contents,omitempty"`
+	TableOfContents *TableOfContents `json:"table_of_contents,omitzero"`
 	// Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column.
-	ColumnList *struct{} `json:"column_list,omitempty"`
+	ColumnList *struct{} `json:"column_list,omitzero"`
 	// An external file is any URL that isn't hosted by Notion.
-	LinkPreview *ExternalFile `json:"link_preview,omitempty"`
-	SyncedBlock *SyncedBlock  `json:"synced_block,omitempty"`
-	LinkToPage  *LinkToPage   `json:"link_to_page,omitempty"`
-	Table       *Table        `json:"table,omitempty"`
+	LinkPreview *ExternalFile `json:"link_preview,omitzero"`
+	SyncedBlock *SyncedBlock  `json:"synced_block,omitzero"`
+	LinkToPage  *LinkToPage   `json:"link_to_page,omitzero"`
+	Table       *Table        `json:"table,omitzero"`
 	// Breadcrumb block objects do not contain any information within the breadcrumb property
-	Breadcrumb *struct{} `json:"breadcrumb,omitempty"`
+	Breadcrumb *struct{} `json:"breadcrumb,omitzero"`
 	// Some block types aren't available yet
-	Unsupported *struct{} `json:"unsupported,omitempty"`
+	Unsupported *struct{} `json:"unsupported,omitzero"`
 }
 
 // Type of block.
@@ -347,13 +347,13 @@ type Date struct {
 	// An ISO 8601 formatted date, with optional time. Represents the end of a date range.
 	//
 	// If `null`, this property's date value is not a range.
-	End *struct{} `json:"end,omitempty"`
+	End *struct{} `json:"end,omitzero"`
 	// Time zone information for start and end. Possible values are extracted from the IANA database and they are based on the time zones from Moment.js.
 	//
 	// When time zone is provided, start and end should not have any UTC offset. In addition, when time zone is provided, start and end cannot be dates without time information.
 	//
 	// If null, time zone information will be contained in UTC offsets in start and end.
-	TimeZone *struct{} `json:"time_zone,omitempty"`
+	TimeZone *struct{} `json:"time_zone,omitzero"`
 }
 
 // Embed blocks include block types that allow displaying another website within Notion.
@@ -380,9 +380,9 @@ type File struct {
 	// Type of this file object.
 	Type FileType `json:"type,omitzero"`
 	// File objects contain this information within the `file` property.
-	File *NotionFile `json:"file,omitempty"`
+	File *NotionFile `json:"file,omitzero"`
 	// An external file is any URL that isn't hosted by Notion.
-	External *ExternalFile `json:"external,omitempty"`
+	External *ExternalFile `json:"external,omitzero"`
 	// A string value corresponding to a filename of the original file upload
 	Name string `json:"name,omitzero"`
 }
@@ -426,9 +426,9 @@ type Icon struct {
 	// Emoji character.
 	Emoji string `json:"emoji,omitzero"`
 	// File objects contain this information within the `file` property.
-	File *NotionFile `json:"file,omitempty"`
+	File *NotionFile `json:"file,omitzero"`
 	// An external file is any URL that isn't hosted by Notion.
-	External *ExternalFile `json:"external,omitempty"`
+	External *ExternalFile `json:"external,omitzero"`
 }
 
 // Type of icon.
@@ -452,7 +452,7 @@ func (e IconType) Valid() bool {
 
 // An inline link in a text.
 type Link struct {
-	URL *url.URL `json:"url,omitempty"`
+	URL *url.URL `json:"url,omitzero"`
 }
 
 // LinkMention defines a model
@@ -466,7 +466,7 @@ type LinkMention struct {
 type LinkToPage struct {
 	// Type of this link to page object.
 	Type   LinkToPageType `json:"type,omitzero"`
-	PageID *uuid.UUID     `json:"page_id,omitempty"`
+	PageID *uuid.UUID     `json:"page_id,omitzero"`
 }
 
 // Type of this link to page object.
@@ -490,11 +490,11 @@ func (e LinkToPageType) Valid() bool {
 type Mention struct {
 	// Type of the inline mention.
 	Type        MentionType  `json:"type,omitzero"`
-	LinkMention *LinkMention `json:"link_mention,omitempty"`
-	User        *User        `json:"user,omitempty"`
-	Page        *Reference   `json:"page,omitempty"`
-	Database    *Reference   `json:"database,omitempty"`
-	Date        *Date        `json:"date,omitempty"`
+	LinkMention *LinkMention `json:"link_mention,omitzero"`
+	User        *User        `json:"user,omitzero"`
+	Page        *Reference   `json:"page,omitzero"`
+	Database    *Reference   `json:"database,omitzero"`
+	Date        *Date        `json:"date,omitzero"`
 }
 
 // Type of the inline mention.
@@ -565,7 +565,7 @@ type Paragraph struct {
 type Parent struct {
 	// The type of the parent.
 	Type   ParentType `json:"type,omitzero"`
-	PageID *uuid.UUID `json:"page_id,omitempty"`
+	PageID *uuid.UUID `json:"page_id,omitzero"`
 }
 
 // The type of the parent.
@@ -656,15 +656,15 @@ type RichText struct {
 	Type RichTextType `json:"type,omitzero"`
 	// Text objects contain this information within the `text` property of a RichText object.
 	Text    Text     `json:"text"`
-	Mention *Mention `json:"mention,omitempty"`
+	Mention *Mention `json:"mention,omitzero"`
 	// Equation block objects contain this information within the `equation` property
-	Equation *Equation `json:"equation,omitempty"`
+	Equation *Equation `json:"equation,omitzero"`
 	// Style information which applies to the whole rich text object.
 	Annotations Annotations `json:"annotations"`
 	// The plain text without annotations.
 	PlainText string `json:"plain_text,omitzero"`
 	// The URL of any link or internal Notion mention in this text, if any.
-	Href *url.URL `json:"href,omitempty"`
+	Href *url.URL `json:"href,omitzero"`
 }
 
 // Type of this rich text object.
@@ -697,7 +697,7 @@ type SyncedBlock struct {
 // SyncedFrom defines a model
 type SyncedFrom struct {
 	Type    SyncedFromType `json:"type,omitzero"`
-	BlockID *uuid.UUID     `json:"block_id,omitempty"`
+	BlockID *uuid.UUID     `json:"block_id,omitzero"`
 }
 
 // SyncedFromType defines a model
@@ -738,7 +738,7 @@ type Text struct {
 	// Text content. This field contains the actual content of your text and is probably the field you'll use most often.
 	Content string `json:"content,omitzero"`
 	// An inline link in a text.
-	Link *Link `json:"link,omitempty"`
+	Link *Link `json:"link,omitzero"`
 }
 
 // To do block objects contain this information within the `to_do` property.

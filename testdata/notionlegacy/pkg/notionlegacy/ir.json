@@ -275,198 +275,198 @@
 					"name": "Paragraph",
 					"jsonName": "paragraph",
 					"type": "*Paragraph",
-					"jsonTag": "json:\"paragraph,omitempty\"",
+					"jsonTag": "json:\"paragraph,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "Heading1",
 					"jsonName": "heading_1",
 					"type": "*Heading",
-					"jsonTag": "json:\"heading_1,omitempty\"",
+					"jsonTag": "json:\"heading_1,omitzero\"",
 					"description": "Heading block objects contain this information within their respective property."
 				},
 				{
 					"name": "Heading2",
 					"jsonName": "heading_2",
 					"type": "*Heading",
-					"jsonTag": "json:\"heading_2,omitempty\"",
+					"jsonTag": "json:\"heading_2,omitzero\"",
 					"description": "Heading block objects contain this information within their respective property."
 				},
 				{
 					"name": "Heading3",
 					"jsonName": "heading_3",
 					"type": "*Heading",
-					"jsonTag": "json:\"heading_3,omitempty\"",
+					"jsonTag": "json:\"heading_3,omitzero\"",
 					"description": "Heading block objects contain this information within their respective property."
 				},
 				{
 					"name": "BulletedListItem",
 					"jsonName": "bulleted_list_item",
 					"type": "*Paragraph",
-					"jsonTag": "json:\"bulleted_list_item,omitempty\"",
+					"jsonTag": "json:\"bulleted_list_item,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "NumberedListItem",
 					"jsonName": "numbered_list_item",
 					"type": "*Paragraph",
-					"jsonTag": "json:\"numbered_list_item,omitempty\"",
+					"jsonTag": "json:\"numbered_list_item,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "ToDo",
 					"jsonName": "to_do",
 					"type": "*ToDo",
-					"jsonTag": "json:\"to_do,omitempty\"",
+					"jsonTag": "json:\"to_do,omitzero\"",
 					"description": "To do block objects contain this information within the `to_do` property."
 				},
 				{
 					"name": "Toggle",
 					"jsonName": "toggle",
 					"type": "*Paragraph",
-					"jsonTag": "json:\"toggle,omitempty\"",
+					"jsonTag": "json:\"toggle,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "*Code",
-					"jsonTag": "json:\"code,omitempty\"",
+					"jsonTag": "json:\"code,omitzero\"",
 					"description": "Code block objects contain this information within the `code` property."
 				},
 				{
 					"name": "ChildPage",
 					"jsonName": "child_page",
 					"type": "*Child",
-					"jsonTag": "json:\"child_page,omitempty\""
+					"jsonTag": "json:\"child_page,omitzero\""
 				},
 				{
 					"name": "ChildDatabase",
 					"jsonName": "child_database",
 					"type": "*Child",
-					"jsonTag": "json:\"child_database,omitempty\""
+					"jsonTag": "json:\"child_database,omitzero\""
 				},
 				{
 					"name": "Embed",
 					"jsonName": "embed",
 					"type": "*Embed",
-					"jsonTag": "json:\"embed,omitempty\"",
+					"jsonTag": "json:\"embed,omitzero\"",
 					"description": "Embed blocks include block types that allow displaying another website within Notion."
 				},
 				{
 					"name": "Video",
 					"jsonName": "video",
 					"type": "*FileWithCaption",
-					"jsonTag": "json:\"video,omitempty\"",
+					"jsonTag": "json:\"video,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "Audio",
 					"jsonName": "audio",
 					"type": "*FileWithCaption",
-					"jsonTag": "json:\"audio,omitempty\"",
+					"jsonTag": "json:\"audio,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "File",
 					"jsonName": "file",
 					"type": "*FileWithCaption",
-					"jsonTag": "json:\"file,omitempty\"",
+					"jsonTag": "json:\"file,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "PDF",
 					"jsonName": "pdf",
 					"type": "*FileWithCaption",
-					"jsonTag": "json:\"pdf,omitempty\"",
+					"jsonTag": "json:\"pdf,omitzero\"",
 					"description": "File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption."
 				},
 				{
 					"name": "Bookmark",
 					"jsonName": "bookmark",
 					"type": "*Embed",
-					"jsonTag": "json:\"bookmark,omitempty\"",
+					"jsonTag": "json:\"bookmark,omitzero\"",
 					"description": "Embed blocks include block types that allow displaying another website within Notion."
 				},
 				{
 					"name": "Callout",
 					"jsonName": "callout",
 					"type": "*Callout",
-					"jsonTag": "json:\"callout,omitempty\"",
+					"jsonTag": "json:\"callout,omitzero\"",
 					"description": "Callout block objects contain the following information within the callout field."
 				},
 				{
 					"name": "Quote",
 					"jsonName": "quote",
 					"type": "*Paragraph",
-					"jsonTag": "json:\"quote,omitempty\"",
+					"jsonTag": "json:\"quote,omitzero\"",
 					"description": "Paragraph, quote, toggle and list item block objects contain this information within their respective property."
 				},
 				{
 					"name": "Equation",
 					"jsonName": "equation",
 					"type": "*Equation",
-					"jsonTag": "json:\"equation,omitempty\"",
+					"jsonTag": "json:\"equation,omitzero\"",
 					"description": "Equation block objects contain this information within the `equation` property"
 				},
 				{
 					"name": "Divider",
 					"jsonName": "divider",
 					"type": "*struct{}",
-					"jsonTag": "json:\"divider,omitempty\"",
+					"jsonTag": "json:\"divider,omitzero\"",
 					"description": "Divider block objects do not contain any information within the divider property"
 				},
 				{
 					"name": "TableOfContents",
 					"jsonName": "table_of_contents",
 					"type": "*TableOfContents",
-					"jsonTag": "json:\"table_of_contents,omitempty\"",
+					"jsonTag": "json:\"table_of_contents,omitzero\"",
 					"description": "Table of contents block objects contain the following information within the `table_of_contents` property."
 				},
 				{
 					"name": "ColumnList",
 					"jsonName": "column_list",
 					"type": "*struct{}",
-					"jsonTag": "json:\"column_list,omitempty\"",
+					"jsonTag": "json:\"column_list,omitzero\"",
 					"description": "Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column."
 				},
 				{
 					"name": "LinkPreview",
 					"jsonName": "link_preview",
 					"type": "*ExternalFile",
-					"jsonTag": "json:\"link_preview,omitempty\"",
+					"jsonTag": "json:\"link_preview,omitzero\"",
 					"description": "An external file is any URL that isn't hosted by Notion."
 				},
 				{
 					"name": "SyncedBlock",
 					"jsonName": "synced_block",
 					"type": "*SyncedBlock",
-					"jsonTag": "json:\"synced_block,omitempty\""
+					"jsonTag": "json:\"synced_block,omitzero\""
 				},
 				{
 					"name": "LinkToPage",
 					"jsonName": "link_to_page",
 					"type": "*LinkToPage",
-					"jsonTag": "json:\"link_to_page,omitempty\""
+					"jsonTag": "json:\"link_to_page,omitzero\""
 				},
 				{
 					"name": "Table",
 					"jsonName": "table",
 					"type": "*Table",
-					"jsonTag": "json:\"table,omitempty\""
+					"jsonTag": "json:\"table,omitzero\""
 				},
 				{
 					"name": "Breadcrumb",
 					"jsonName": "breadcrumb",
 					"type": "*struct{}",
-					"jsonTag": "json:\"breadcrumb,omitempty\"",
+					"jsonTag": "json:\"breadcrumb,omitzero\"",
 					"description": "Breadcrumb block objects do not contain any information within the breadcrumb property"
 				},
 				{
 					"name": "Unsupported",
 					"jsonName": "unsupported",
 					"type": "*struct{}",
-					"jsonTag": "json:\"unsupported,omitempty\"",
+					"jsonTag": "json:\"unsupported,omitzero\"",
 					"description": "Some block types aren't available yet"
 				}
 			]
@@ -1276,14 +1276,14 @@
 					"name": "End",
 					"jsonName": "end",
 					"type": "*struct{}",
-					"jsonTag": "json:\"end,omitempty\"",
+					"jsonTag": "json:\"end,omitzero\"",
 					"description": "An ISO 8601 formatted date, with optional time. Represents the end of a date range.\n\nIf `null`, this property's date value is not a range."
 				},
 				{
 					"name": "TimeZone",
 					"jsonName": "time_zone",
 					"type": "*struct{}",
-					"jsonTag": "json:\"time_zone,omitempty\"",
+					"jsonTag": "json:\"time_zone,omitzero\"",
 					"description": "Time zone information for start and end. Possible values are extracted from the IANA database and they are based on the time zones from Moment.js.\n\nWhen time zone is provided, start and end should not have any UTC offset. In addition, when time zone is provided, start and end cannot be dates without time information.\n\nIf null, time zone information will be contained in UTC offsets in start and end."
 				}
 			]
@@ -1353,14 +1353,14 @@
 					"name": "File",
 					"jsonName": "file",
 					"type": "*NotionFile",
-					"jsonTag": "json:\"file,omitempty\"",
+					"jsonTag": "json:\"file,omitzero\"",
 					"description": "File objects contain this information within the `file` property."
 				},
 				{
 					"name": "External",
 					"jsonName": "external",
 					"type": "*ExternalFile",
-					"jsonTag": "json:\"external,omitempty\"",
+					"jsonTag": "json:\"external,omitzero\"",
 					"description": "An external file is any URL that isn't hosted by Notion."
 				},
 				{
@@ -1466,14 +1466,14 @@
 					"name": "File",
 					"jsonName": "file",
 					"type": "*NotionFile",
-					"jsonTag": "json:\"file,omitempty\"",
+					"jsonTag": "json:\"file,omitzero\"",
 					"description": "File objects contain this information within the `file` property."
 				},
 				{
 					"name": "External",
 					"jsonName": "external",
 					"type": "*ExternalFile",
-					"jsonTag": "json:\"external,omitempty\"",
+					"jsonTag": "json:\"external,omitzero\"",
 					"description": "An external file is any URL that isn't hosted by Notion."
 				}
 			]
@@ -1509,7 +1509,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "*url.URL",
-					"jsonTag": "json:\"url,omitempty\""
+					"jsonTag": "json:\"url,omitzero\""
 				}
 			]
 		},
@@ -1556,7 +1556,7 @@
 					"name": "PageID",
 					"jsonName": "page_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"page_id,omitempty\""
+					"jsonTag": "json:\"page_id,omitzero\""
 				}
 			]
 		},
@@ -1589,31 +1589,31 @@
 					"name": "LinkMention",
 					"jsonName": "link_mention",
 					"type": "*LinkMention",
-					"jsonTag": "json:\"link_mention,omitempty\""
+					"jsonTag": "json:\"link_mention,omitzero\""
 				},
 				{
 					"name": "User",
 					"jsonName": "user",
 					"type": "*User",
-					"jsonTag": "json:\"user,omitempty\""
+					"jsonTag": "json:\"user,omitzero\""
 				},
 				{
 					"name": "Page",
 					"jsonName": "page",
 					"type": "*Reference",
-					"jsonTag": "json:\"page,omitempty\""
+					"jsonTag": "json:\"page,omitzero\""
 				},
 				{
 					"name": "Database",
 					"jsonName": "database",
 					"type": "*Reference",
-					"jsonTag": "json:\"database,omitempty\""
+					"jsonTag": "json:\"database,omitzero\""
 				},
 				{
 					"name": "Date",
 					"jsonName": "date",
 					"type": "*Date",
-					"jsonTag": "json:\"date,omitempty\""
+					"jsonTag": "json:\"date,omitzero\""
 				}
 			]
 		},
@@ -1809,7 +1809,7 @@
 					"name": "PageID",
 					"jsonName": "page_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"page_id,omitempty\""
+					"jsonTag": "json:\"page_id,omitzero\""
 				}
 			]
 		},
@@ -2040,13 +2040,13 @@
 					"name": "Mention",
 					"jsonName": "mention",
 					"type": "*Mention",
-					"jsonTag": "json:\"mention,omitempty\""
+					"jsonTag": "json:\"mention,omitzero\""
 				},
 				{
 					"name": "Equation",
 					"jsonName": "equation",
 					"type": "*Equation",
-					"jsonTag": "json:\"equation,omitempty\"",
+					"jsonTag": "json:\"equation,omitzero\"",
 					"description": "Equation block objects contain this information within the `equation` property"
 				},
 				{
@@ -2069,7 +2069,7 @@
 					"name": "Href",
 					"jsonName": "href",
 					"type": "*url.URL",
-					"jsonTag": "json:\"href,omitempty\"",
+					"jsonTag": "json:\"href,omitzero\"",
 					"description": "The URL of any link or internal Notion mention in this text, if any."
 				}
 			]
@@ -2131,7 +2131,7 @@
 					"name": "BlockID",
 					"jsonName": "block_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"block_id,omitempty\""
+					"jsonTag": "json:\"block_id,omitzero\""
 				}
 			]
 		},
@@ -2208,7 +2208,7 @@
 					"name": "Link",
 					"jsonName": "link",
 					"type": "*Link",
-					"jsonTag": "json:\"link,omitempty\"",
+					"jsonTag": "json:\"link,omitzero\"",
 					"description": "An inline link in a text."
 				}
 			]

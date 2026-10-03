@@ -141,7 +141,7 @@ type AddLegalHoldUsers2 struct {
 	Users               AddLegalHoldUsers3                   `json:"users"`
 	Workspaces          AddLegalHoldUsers3                   `json:"workspaces"`
 	Description         string                               `json:"description,omitzero"`
-	EndDate             *float64                             `json:"end_date,omitempty"`
+	EndDate             *float64                             `json:"end_date,omitzero"`
 	Icon                string                               `json:"icon,omitzero"`
 	Name                string                               `json:"name,omitzero"`
 }
@@ -499,11 +499,11 @@ type AgentCreditUsage struct {
 	TotalCreditsUsed float64 `json:"total_credits_used"`
 	// Custom agents vs database (autofill) agents.
 	Type        AgentCreditUsageType `json:"type,omitzero"`
-	CreatedByID *uuid.UUID           `json:"created_by_id,omitempty"`
+	CreatedByID *uuid.UUID           `json:"created_by_id,omitzero"`
 	// Enforced per-agent credit limit, if one is configured.
-	CreditLimit *float64 `json:"credit_limit,omitempty"`
+	CreditLimit *float64 `json:"credit_limit,omitzero"`
 	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
-	LastCreditUsageTime *float64 `json:"last_credit_usage_time,omitempty"`
+	LastCreditUsageTime *float64 `json:"last_credit_usage_time,omitzero"`
 	Name                string   `json:"name,omitzero"`
 	// Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.
 	NextCursor string `json:"next_cursor,omitzero"`
@@ -743,7 +743,7 @@ type CreateCreditLimitPolicy struct {
 	// All workspace members or one workspace member affected by the policy.
 	Selector CreateCreditLimitPolicySelector `json:"selector"`
 	// Unix time in milliseconds. Only individual workspace-member policies may expire.
-	ExpiresAt *int `json:"expires_at,omitempty"`
+	ExpiresAt *int `json:"expires_at,omitzero"`
 }
 
 // CreateCreditLimitPolicy2 defines a model
@@ -759,7 +759,7 @@ type CreateCreditLimitPolicy2 struct {
 	// All workspace members or one workspace member affected by the policy.
 	Selector  CreateCreditLimitPolicySelector `json:"selector"`
 	SpaceID   uuid.UUID                       `json:"space_id,omitzero"`
-	ExpiresAt *int                            `json:"expires_at,omitempty"`
+	ExpiresAt *int                            `json:"expires_at,omitzero"`
 }
 
 // CreateCreditLimitPolicyCreatedBy defines a model
@@ -897,7 +897,7 @@ type CreateLegalHold struct {
 	UserIds             []uuid.UUID                          `json:"user_ids"`
 	UserInteractionType AddLegalHoldUsersUserInteractionType `json:"user_interaction_type"`
 	Description         string                               `json:"description,omitzero"`
-	EndDate             *float64                             `json:"end_date,omitempty"`
+	EndDate             *float64                             `json:"end_date,omitzero"`
 	Icon                string                               `json:"icon,omitzero"`
 }
 
@@ -973,8 +973,8 @@ type EnqueueSpaceExport struct {
 	ExportType               EnqueueSpaceExportType                     `json:"export_type,omitzero"`
 	OnBehalfOfUserEmail      string                                     `json:"on_behalf_of_user_email,omitzero"`
 	CollectionViewExportType EnqueueSpaceExportCollectionViewExportType `json:"collection_view_export_type,omitzero"`
-	FlattenExportFiletree    bool                                       `json:"flatten_export_filetree,omitempty"`
-	IncludeComments          bool                                       `json:"include_comments,omitempty"`
+	FlattenExportFiletree    bool                                       `json:"flatten_export_filetree,omitzero"`
+	IncludeComments          bool                                       `json:"include_comments,omitzero"`
 	IncludeContents          EnqueueSpaceExportIncludeContents          `json:"include_contents,omitzero"`
 	Locale                   string                                     `json:"locale,omitzero"`
 	PdfFormat                EnqueueSpaceExportPdfFormat                `json:"pdf_format,omitzero"`
@@ -1169,7 +1169,7 @@ type GetSpaceExportStatusOk struct {
 	DownloadUrls   []string `json:"download_urls,omitzero"`
 	ErrorMessage   string   `json:"error_message,omitzero"`
 	ErrorType      string   `json:"error_type,omitzero"`
-	URLExpiresTime *float64 `json:"url_expires_time,omitempty"`
+	URLExpiresTime *float64 `json:"url_expires_time,omitzero"`
 }
 
 // Whether an entire workspace ('space'), a teamspace, or a single 'page' was exported.
@@ -1233,33 +1233,33 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	Status AgentCreditUsageStatus `json:"status,omitzero"`
 	// Custom agents vs database (autofill) agents.
 	Type        AgentCreditUsageType `json:"type,omitzero"`
-	CreatedByID *uuid.UUID           `json:"created_by_id,omitempty"`
+	CreatedByID *uuid.UUID           `json:"created_by_id,omitzero"`
 	// The actor table of the agent's creator, such as "notion_user".
 	CreatedByTable WorkflowsMetadataForSpaceResultsItemCreatedByTable `json:"created_by_table,omitzero"`
 	// Epoch ms when the agent was created.
-	CreatedTime *float64 `json:"created_time,omitempty"`
+	CreatedTime *float64 `json:"created_time,omitzero"`
 	// The agent's description.
 	Description string `json:"description,omitzero"`
 	// The agent's icon.
 	Icon string `json:"icon,omitzero"`
 	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
-	LastCreditUsageTime *float64   `json:"last_credit_usage_time,omitempty"`
-	LastEditedByID      *uuid.UUID `json:"last_edited_by_id,omitempty"`
+	LastCreditUsageTime *float64   `json:"last_credit_usage_time,omitzero"`
+	LastEditedByID      *uuid.UUID `json:"last_edited_by_id,omitzero"`
 	// The actor table of the agent's creator, such as "notion_user".
 	LastEditedByTable WorkflowsMetadataForSpaceResultsItemCreatedByTable `json:"last_edited_by_table,omitzero"`
 	// Epoch ms when the agent was last edited.
-	LastEditedTime *float64 `json:"last_edited_time,omitempty"`
+	LastEditedTime *float64 `json:"last_edited_time,omitzero"`
 	// Epoch ms of the agent's most recent run; omitted if the agent has never run.
-	LastRunTime *float64 `json:"last_run_time,omitempty"`
+	LastRunTime *float64 `json:"last_run_time,omitzero"`
 	// Human-readable model name, such as "Claude 4 Sonnet". Omitted when the agent is set to automatically choose a model, or when no display name is available.
 	Model string `json:"model,omitzero"`
 	// The capabilities and tools the agent is allowed to use — both inside Notion and in connected apps such as Slack, the web, or MCP servers. At most 250 module summaries are returned.
 	Modules GetWorkflowsMetadataForSpaceOkResultsItemModules `json:"modules,omitzero"`
 	// Epoch ms when the agent was deleted; only present for deleted agents.
-	MovedToTrashTime *float64 `json:"moved_to_trash_time,omitempty"`
+	MovedToTrashTime *float64 `json:"moved_to_trash_time,omitzero"`
 	// The agent's name.
 	Name     string     `json:"name,omitzero"`
-	ParentID *uuid.UUID `json:"parent_id,omitempty"`
+	ParentID *uuid.UUID `json:"parent_id,omitzero"`
 	// The table the agent is parented to: custom agents belong to the workspace ("space"); database (autofill) agents belong to their database's block ("block").
 	ParentTable GetWorkflowsMetadataForSpaceOkResultsItemParentTable `json:"parent_table,omitzero"`
 	// The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.
@@ -1403,7 +1403,7 @@ type ListMcpClientConnectionsOkResultsItem struct {
 	// Identity provider issuer URL. Present only for enterprise-managed connections.
 	IdpIssuer string `json:"idp_issuer,omitzero"`
 	// Most recent time the member used the connection, in epoch milliseconds.
-	LastActiveAt *float64 `json:"last_active_at,omitempty"`
+	LastActiveAt *float64 `json:"last_active_at,omitzero"`
 }
 
 // Details that identify the MCP client.
@@ -1525,13 +1525,13 @@ type ListPersonalAccessTokensOkResultsItem struct {
 	// Token name, when available.
 	Name string `json:"name,omitzero"`
 	// Time the token expires, in epoch milliseconds.
-	ExpiresAt *float64 `json:"expires_at,omitempty"`
+	ExpiresAt *float64 `json:"expires_at,omitzero"`
 	// Most recent recorded time the token authenticated a request, in epoch milliseconds. Updated at most once per hour.
-	LastUsedAt *float64 `json:"last_used_at,omitempty"`
+	LastUsedAt *float64 `json:"last_used_at,omitzero"`
 	// Time the token was revoked, in epoch milliseconds.
-	RevokedAt *float64 `json:"revoked_at,omitempty"`
+	RevokedAt *float64 `json:"revoked_at,omitzero"`
 	// Member who created the token.
-	RevokedBy *ListPersonalAccessTokensResultsItemCreator `json:"revoked_by,omitempty"`
+	RevokedBy *ListPersonalAccessTokensResultsItemCreator `json:"revoked_by,omitzero"`
 }
 
 // Type of user or bot that revoked the token.
@@ -2123,7 +2123,7 @@ type UpdateAgentCreationPolicy struct {
 	// One of: `all_workspace_members`, `disabled`, `workspace_owners_only`
 	Policy UpdateAgentCreationPolicyPolicy `json:"policy,omitzero"`
 	// When true, also disable all existing custom agents in the workspace. Only takes effect when policy is "disabled".
-	DisableExistingAgents bool `json:"disable_existing_agents,omitempty"`
+	DisableExistingAgents bool `json:"disable_existing_agents,omitzero"`
 }
 
 // UpdateAgentCreationPolicyOk defines a model
@@ -2315,7 +2315,7 @@ func (e UpdateAgentStatusOkRunStatus) Valid() bool {
 type UpdateCreditLimitPolicy struct {
 	// Replacement monthly premium AI credit limit.
 	Amount    int  `json:"amount"`
-	ExpiresAt *int `json:"expires_at,omitempty"`
+	ExpiresAt *int `json:"expires_at,omitzero"`
 }
 
 // UpdateLegalHold defines a model
@@ -2502,7 +2502,7 @@ type adminApiPublicError400 struct {
 	Code           AdminAPIErrorCode                                  `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError401 defines a model
@@ -2511,7 +2511,7 @@ type adminApiPublicError401 struct {
 	Code           AdminAPIErrorCode2                                 `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError403 defines a model
@@ -2520,7 +2520,7 @@ type adminApiPublicError403 struct {
 	Code           AdminAPIPublicError403Code                         `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError404 defines a model
@@ -2529,7 +2529,7 @@ type adminApiPublicError404 struct {
 	Code           AdminAPIPublicError404Code                         `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError409 defines a model
@@ -2538,7 +2538,7 @@ type adminApiPublicError409 struct {
 	Code           AdminAPIPublicError409Code                         `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError429 defines a model
@@ -2547,7 +2547,7 @@ type adminApiPublicError429 struct {
 	Code           AdminAPIErrorCode3                                 `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError500 defines a model
@@ -2556,7 +2556,7 @@ type adminApiPublicError500 struct {
 	Code           AdminAPIErrorCode4                                 `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // adminApiPublicError503 defines a model
@@ -2565,7 +2565,7 @@ type adminApiPublicError503 struct {
 	Code           AdminAPIPublicError503Code                         `json:"code,omitzero"`
 	Status         int                                                `json:"status"`
 	Message        string                                             `json:"message,omitzero"`
-	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // emptyObject defines a model

@@ -1163,14 +1163,14 @@
 					"name": "CostBasis",
 					"jsonName": "cost_basis",
 					"type": "*float64",
-					"jsonTag": "json:\"cost_basis,omitempty\"",
+					"jsonTag": "json:\"cost_basis,omitzero\"",
 					"description": "Average cost per share"
 				},
 				{
 					"name": "MarketPrice",
 					"jsonName": "market_price",
 					"type": "*float64",
-					"jsonTag": "json:\"market_price,omitempty\"",
+					"jsonTag": "json:\"market_price,omitzero\"",
 					"description": "Current market price per share (if available from broker)"
 				}
 			]

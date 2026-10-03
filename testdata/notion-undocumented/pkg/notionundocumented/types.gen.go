@@ -463,29 +463,29 @@ type AiSearchAiSearch struct {
 	// Optionally restrict search to a teamspace ID.
 	TeamspaceID string `json:"teamspace_id,omitzero"`
 	// Optional exact filters for Notion pages and databases. Supplying an effective filter selects Notion-only workspace search so the filter is enforced exactly. Omit for unified search across Notion and connected sources. Keep filter fields nested here. Some filters require Business access.
-	Filters *AiSearchAiSearchFilters `json:"filters,omitempty"`
+	Filters *AiSearchAiSearchFilters `json:"filters,omitzero"`
 	// Omit for the default "relevance" ordering. "last_edited" and "created" select Notion-only workspace search and require Business access.
 	Sort AiSearchAiSearchSort `json:"sort,omitzero"`
 	// Maximum number of results to return (default 10).
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 	// Maximum result highlight length (default 200). Set to 0 to omit highlights.
-	MaxHighlightLength *int `json:"max_highlight_length,omitempty"`
+	MaxHighlightLength *int `json:"max_highlight_length,omitzero"`
 }
 
 // Optional exact filters for Notion pages and databases. Supplying an effective filter selects Notion-only workspace search so the filter is enforced exactly. Omit for unified search across Notion and connected sources. Keep filter fields nested here. Some filters require Business access.
 type AiSearchAiSearchFilters struct {
 	// Optional filter to only produce search results created within the specified date range.
-	CreatedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"created_date_range,omitempty"`
+	CreatedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"created_date_range,omitzero"`
 	// Optional filter to only produce search results created by the Notion users that have the specified user IDs.
 	CreatedByUserIds []idRequest `json:"created_by_user_ids,omitzero"`
 	// Optional filter to only produce search results edited by the Notion users that have the specified user IDs. Available on the Business plan.
 	EditedByUserIds []idRequest `json:"edited_by_user_ids,omitzero"`
 	// Optional filter to only produce search results created within the specified date range.
-	LastEditedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"last_edited_date_range,omitempty"`
+	LastEditedDateRange *AiSearchAiSearchFiltersCreatedDateRange `json:"last_edited_date_range,omitzero"`
 	// Optional filter to only produce search results inside one of the specified teamspaces. Selecting more than one teamspace is available on the Business plan; use teamspace_id for one teamspace on other plans.
 	TeamspaceIds []idRequest `json:"teamspace_ids,omitzero"`
 	// When true, match the query only against page and database titles instead of page content. Available on the Business plan.
-	TitleOnly bool `json:"title_only,omitempty"`
+	TitleOnly bool `json:"title_only,omitzero"`
 	// Which pages to include by status. Omit for the default live pages. Supplying this field, even with the default value, requires Business access.
 	ContentStatus AiSearchAiSearchFiltersContentStatus `json:"content_status,omitzero"`
 }
@@ -513,9 +513,9 @@ func (e AiSearchAiSearchFiltersContentStatus) Valid() bool {
 // Optional filter to only produce search results created within the specified date range.
 type AiSearchAiSearchFiltersCreatedDateRange struct {
 	// The start date of the date range as an ISO 8601 date string, if any.
-	StartDate civil.Date `json:"start_date,omitempty"`
+	StartDate civil.Date `json:"start_date,omitzero"`
 	// The end date of the date range as an ISO 8601 date string, if any.
-	EndDate civil.Date `json:"end_date,omitempty"`
+	EndDate civil.Date `json:"end_date,omitzero"`
 }
 
 // Omit or use "internal" for content search. Use "user" to look up a workspace user by name or email.
@@ -685,7 +685,7 @@ type AuthorizeToolsSessionOk struct {
 	// The MCP tools that may be registered for this authenticated session.
 	ToolNames []string `json:"tool_names,omitzero"`
 	// Whether personal memory tools should be registered for this authenticated session.
-	McpMemoriesEnabled bool `json:"mcp_memories_enabled,omitempty"`
+	McpMemoriesEnabled bool `json:"mcp_memories_enabled,omitzero"`
 }
 
 // Details about the owner of the bot.
@@ -905,9 +905,9 @@ type CalendarCreateEventsCalendarCreateEventsItem struct {
 	// Attendees to invite to the event
 	Resources CalendarCreateEventsCalendarCreateEventsItemAttendees `json:"resources,omitzero"`
 	// Calendar containing the event.
-	Calendar *CalendarCancelEventsCalendarCancelEventsItemCalendar `json:"calendar,omitempty"`
+	Calendar *CalendarCancelEventsCalendarCancelEventsItemCalendar `json:"calendar,omitzero"`
 	// Whether to disable conferencing for this event.
-	DisableConferencing bool `json:"disableConferencing,omitempty"`
+	DisableConferencing bool `json:"disableConferencing,omitzero"`
 }
 
 // Attendees to invite to the event
@@ -920,7 +920,7 @@ type CalendarCreateEventsCalendarCreateEventsItemAttendeesItem struct {
 	// Totally optional, provide only if you are sure of the attendee's name
 	DisplayName string `json:"displayName,omitzero"`
 	// Set only if the user was explicit about an attendee not being required
-	IsOptional bool `json:"isOptional,omitempty"`
+	IsOptional bool `json:"isOptional,omitzero"`
 }
 
 // A date-only period, denoting an all-day event. Property `type` must be set to the exact string "DATE"
@@ -996,11 +996,11 @@ type CalendarCreateSchedulingLinkCalendarCreateSchedulingLink struct {
 	// Custom URL slug for the scheduling link (letters, numbers, hyphens, underscores only). Must be between 1 and 32 characters. Auto-generated if not provided.
 	Alias string `json:"alias,omitzero"`
 	// If true (default), uses the user's default video conferencing provider
-	UseDefaultConferencing bool `json:"useDefaultConferencing,omitempty"`
+	UseDefaultConferencing bool `json:"useDefaultConferencing,omitzero"`
 	// Minimum notice period in minutes before a meeting can be booked
-	MinLeadTime *int `json:"minLeadTime,omitempty"`
+	MinLeadTime *int `json:"minLeadTime,omitzero"`
 	// Maximum advance booking window in minutes (how far into the future meetings can be booked)
-	MaxLeadTime *int `json:"maxLeadTime,omitempty"`
+	MaxLeadTime *int `json:"maxLeadTime,omitzero"`
 	// ISO 8601 date-time when this scheduling link expires and can no longer accept bookings
 	ExpirationDate string `json:"expirationDate,omitzero"`
 }
@@ -1087,13 +1087,13 @@ type CalendarListCalendarResourcesCalendarListCalendarResources struct {
 	// Minimum room capacity (number of people). MUST include the meeting organizer/user themselves in the count. For a 1-on-1, pass 2. For a meeting with N invitees besides the user, pass N+1.
 	MinCapacity int `json:"minCapacity"`
 	// Maximum number of resources to return per time slot (default: 20, max: 40)
-	MaxCount *int `json:"maxCount,omitempty"`
+	MaxCount *int `json:"maxCount,omitzero"`
 	// If true, do not narrow rooms to the user's working-location building for this day. Set this when the user is explicitly asking about rooms in a different office (e.g. for a visiting team).
-	IgnoreWorkingLocation bool `json:"ignoreWorkingLocation,omitempty"`
+	IgnoreWorkingLocation bool `json:"ignoreWorkingLocation,omitzero"`
 	// Date-times of returned events will be expressed in this time-zone
 	TimeZone string `json:"timeZone,omitzero"`
 	// Calendar containing the event.
-	Calendar *CalendarCancelEventsCalendarCancelEventsItemCalendar `json:"calendar,omitempty"`
+	Calendar *CalendarCancelEventsCalendarCancelEventsItemCalendar `json:"calendar,omitzero"`
 }
 
 // Specific time slots to check. Returns available resources for each time slot independently.
@@ -1220,7 +1220,7 @@ type CalendarListEventsCalendarListEvents struct {
 	// Date-times of returned events will be expressed in this time-zone
 	TimeZone string `json:"timeZone,omitzero"`
 	// Whether to include event invites the user has declined
-	IncludeDeclinedInvites bool `json:"includeDeclinedInvites,omitempty"`
+	IncludeDeclinedInvites bool `json:"includeDeclinedInvites,omitzero"`
 }
 
 // CalendarListSchedulingLinks defines a model
@@ -1297,11 +1297,11 @@ type CalendarSuggestMeetingTimesCalendarSuggestMeetingTimes struct {
 	// End of the time range to consider, as an ISO 8601 date-time.
 	TimeMax time.Time `json:"timeMax,omitzero"`
 	// Maximum number of suggestions to return (default: 10)
-	MaxCount *int `json:"maxCount,omitempty"`
+	MaxCount *int `json:"maxCount,omitzero"`
 	// Date-times of returned events will be expressed in this time-zone
 	TimeZone string `json:"timeZone,omitzero"`
 	// Whether to include participant event schedules in the response
-	IncludeParticipantSchedules bool `json:"includeParticipantSchedules,omitempty"`
+	IncludeParticipantSchedules bool `json:"includeParticipantSchedules,omitzero"`
 }
 
 // CalendarUpdateEvents defines a model
@@ -1389,13 +1389,13 @@ type CalendarUpdateEventsCalendarUpdateEventsUpdatesItemOneOfUpdate struct {
 	// Recurrence rules in RRULE format (e.g., ['RRULE:FREQ=WEEKLY;COUNT=10']). Can also include EXDATE for exception dates (e.g., ['RRULE:FREQ=WEEKLY;COUNT=10', 'EXDATE:2026-03-24T13:00:00']).
 	RecurrenceRules []string `json:"recurrenceRules,omitzero"`
 	// When the event is happening
-	Period *struct{} `json:"period,omitempty"`
+	Period *struct{} `json:"period,omitzero"`
 	// Attendees to invite to the event
 	Attendees CalendarCreateEventsCalendarCreateEventsItemAttendees `json:"attendees,omitzero"`
 	// Attendees to invite to the event
 	Resources CalendarCreateEventsCalendarCreateEventsItemAttendees `json:"resources,omitzero"`
 	// Whether to add conferencing to this event. Only adds conferencing if the event has attendees and doesn't already have conferencing.
-	AddConferencing bool `json:"addConferencing,omitempty"`
+	AddConferencing bool `json:"addConferencing,omitzero"`
 }
 
 // CalendarUpdateSchedulingLink defines a model
@@ -1422,13 +1422,13 @@ func (v *CalendarUpdateSchedulingLink) unmarshalJSONMember(dec *jsontext.Decoder
 type CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink struct {
 	Identity CalendarSchedulingLinksCalendarSchedulingLinksSchedulingLinksItem `json:"identity"`
 	// Patch of changes to apply to the scheduling link. Omitted fields are left unchanged, and nullable fields can be cleared with null.
-	Patch *CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink2 `json:"patch,omitempty"`
+	Patch *CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink2 `json:"patch,omitzero"`
 }
 
 // Patch of changes to apply to the scheduling link. Omitted fields are left unchanged, and nullable fields can be cleared with null.
 type CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink2 struct {
 	// Calendar containing the event.
-	BookingCalendar *CalendarCancelEventsCalendarCancelEventsItemCalendar `json:"bookingCalendar,omitempty"`
+	BookingCalendar *CalendarCancelEventsCalendarCancelEventsItemCalendar `json:"bookingCalendar,omitzero"`
 	// Calendars to check for conflicts when determining available time slots. Events on these calendars will block booking availability.
 	ConflictCalendars CalendarCreateSchedulingLinkCalendarCreateSchedulingLinkConflictCalendars `json:"conflictCalendars,omitzero"`
 	// Update the scheduling link title. Use null to clear it.
@@ -1436,7 +1436,7 @@ type CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink2 struct {
 	// Update the scheduling link description. Use null to clear it.
 	Description string `json:"description,omitzero"`
 	// Update the meeting duration in minutes
-	Duration *int `json:"duration,omitempty"`
+	Duration *int `json:"duration,omitzero"`
 	// Time windows when the user is available for bookings
 	TimeRanges CalendarCreateSchedulingLinkCalendarCreateSchedulingLinkTimeRanges `json:"timeRanges,omitzero"`
 	// Type of scheduling link: 'singleUse' (one booking only), 'multiUse' (multiple bookings), 'recurring' (repeating weekly availability). Inferred from timeRanges if not provided.
@@ -1444,11 +1444,11 @@ type CalendarUpdateSchedulingLinkCalendarUpdateSchedulingLink2 struct {
 	// Update the custom URL slug for the scheduling link. Must be between 1 and 32 characters.
 	Alias string `json:"alias,omitzero"`
 	// If true, apply the default conferencing for the effective booking calendar account. If false, clear conferencing.
-	UseDefaultConferencing bool `json:"useDefaultConferencing,omitempty"`
+	UseDefaultConferencing bool `json:"useDefaultConferencing,omitzero"`
 	// Update the minimum lead time in minutes. Must be 0 or greater and less than maxLeadTime when both are set. Use null to clear it.
-	MinLeadTime *int `json:"minLeadTime,omitempty"`
+	MinLeadTime *int `json:"minLeadTime,omitzero"`
 	// Update the maximum lead time in minutes. Must be greater than 0 and greater than minLeadTime when both are set. Use null to clear it.
-	MaxLeadTime *int `json:"maxLeadTime,omitempty"`
+	MaxLeadTime *int `json:"maxLeadTime,omitzero"`
 	// Update the expiration date for the scheduling link. Must be in the future when provided. Use null to clear it.
 	ExpirationDate string `json:"expirationDate,omitzero"`
 }
@@ -1528,7 +1528,7 @@ type ChartAggregationOneOf0 struct {
 	Aggregator string `json:"aggregator,omitzero"`
 	// Exact data source property name to filter.
 	Property                   string `json:"property,omitzero"`
-	EnforceMaxAggregationLimit bool   `json:"enforceMaxAggregationLimit,omitempty"`
+	EnforceMaxAggregationLimit bool   `json:"enforceMaxAggregationLimit,omitzero"`
 }
 
 // ChartAggregationOneOf1 defines a model
@@ -1536,7 +1536,7 @@ type ChartAggregationOneOf1 struct {
 	Aggregator ChartAggregationOneOf1Aggregator `json:"aggregator,omitzero"`
 	// Exact data source property name to filter.
 	Property                   string `json:"property,omitzero"`
-	EnforceMaxAggregationLimit bool   `json:"enforceMaxAggregationLimit,omitempty"`
+	EnforceMaxAggregationLimit bool   `json:"enforceMaxAggregationLimit,omitzero"`
 }
 
 // ChartAggregationOneOf1Aggregator defines a model
@@ -1580,7 +1580,7 @@ type ChartAggregationOneOf2 struct {
 	Aggregator ChartAggregationOneOf2Aggregator `json:"aggregator"`
 	// Exact data source property name to filter.
 	Property                   string `json:"property,omitzero"`
-	EnforceMaxAggregationLimit bool   `json:"enforceMaxAggregationLimit,omitempty"`
+	EnforceMaxAggregationLimit bool   `json:"enforceMaxAggregationLimit,omitzero"`
 }
 
 // ChartAggregationOneOf2Aggregator defines a model
@@ -1720,7 +1720,7 @@ type ChatWithAgent struct {
 	// An array of file uploads to attach to this chat turn. Use the File Upload APIs to create uploads and pass their IDs here.
 	Attachments ChatWithAgentAttachments `json:"attachments,omitzero"`
 	// Optional caller-provided string metadata persisted with the user message. user_id is used for lifecycle correlation and does not change authorization.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata *map[string]string `json:"metadata,omitzero"`
 	// Additional caller-provided context for the agent to consider while responding.
 	PromptContext string `json:"prompt_context,omitzero"`
 	// Deprecated. Use POST /v1/threads/:thread_id/messages to continue an existing thread. If not provided, a new thread will be created.
@@ -1915,9 +1915,9 @@ type Comments2 struct {
 	// Identifier for a Notion page.
 	PageID string `json:"page_id,omitzero"`
 	// Include resolved discussions in the response. Defaults to false.
-	IncludeResolved bool `json:"include_resolved,omitempty"`
+	IncludeResolved bool `json:"include_resolved,omitzero"`
 	// Include discussions on child blocks, not just page-level discussions. Defaults to false.
-	IncludeAllBlocks bool `json:"include_all_blocks,omitempty"`
+	IncludeAllBlocks bool `json:"include_all_blocks,omitzero"`
 	// Fetch a specific discussion by ID or discussion URL (e.g., discussion://pageId/blockId/discussionId).
 	DiscussionID string `json:"discussion_id,omitzero"`
 }
@@ -2669,7 +2669,7 @@ func (v *CreateDatabase) unmarshalJSONMember(dec *jsontext.Decoder, name string)
 // <example description="Self-relation (two-step: create database first, then use its data source ID with update_data_source to add self-relations)">{"title": "Tasks", "schema": "CREATE TABLE (\"Name\" TITLE, \"Parent\" RELATION('ds_id', DUAL 'Children' 'children'), \"Children\" RELATION('ds_id', DUAL 'Parent' 'parent'))"}</example>
 type CreateDatabaseCreateDatabase struct {
 	// The parent under which to create the new database. If omitted, the database will be created as a private page at the workspace level.
-	Parent *CreateDatabaseCreateDatabaseAllOfParent `json:"parent,omitempty"`
+	Parent *CreateDatabaseCreateDatabaseAllOfParent `json:"parent,omitzero"`
 	// The title of the new database.
 	Title string `json:"title,omitzero"`
 	// The description of the new database.
@@ -3576,9 +3576,9 @@ type CreatePagesCreatePages struct {
 	// If the user explicitly names a private or shared destination, omit "creation_mode" and use that parent. Otherwise, use "draft" when the user clearly wants a durable page but has not named a destination. Create the private workspace-level page without first asking where it should live. After creation, tell the user it is private and offer to move it once they name a destination. Cannot be combined with "parent".
 	CreationMode string `json:"creation_mode,omitzero"`
 	// The parent under which the new pages will be created. Pass "memory" to save personal memories for the connected user in this workspace; the memory database is created on the first write and Source is assigned from the creating MCP connection. Otherwise use a page (page_id), database page (database_id), or data source (data_source_id). If omitted, pages are private at the workspace level. When no destination is named, prefer "creation_mode": "draft". Use data_source_id for a collection:// URL from fetch.
-	Parent *CreatePagesCreatePagesParent `json:"parent,omitempty"`
+	Parent *CreatePagesCreatePagesParent `json:"parent,omitzero"`
 	// Default to true for page creation. Set to false only when the next step needs the created pages immediately, or when async execution rejects the request as too large. When this create operation is accepted for background execution, it returns an async_task result. Use get_async_task to wait for a succeeded status before taking a dependent action on the pages. For pages created with template_id, a succeeded status does not mean template content is ready; fetch and retry until it is ready before changing or relying on that content. If omitted or false, the tool keeps the existing synchronous result shape.
-	AllowAsync bool `json:"allow_async,omitempty"`
+	AllowAsync bool `json:"allow_async,omitzero"`
 }
 
 // The pages to create.
@@ -3589,7 +3589,7 @@ type CreatePagesCreatePagesItem struct {
 	// The properties of the new page, which is a JSON map of property names to SQLite values.
 	// For pages in a database, use the SQLite schema definition shown in <database>.
 	// For pages outside of a database, the only allowed property is "title", which is the title of the page and is automatically shown at the top of the page as a large heading.
-	Properties *map[string]CreatePagesCreatePagesItemPropertiesValue `json:"properties,omitempty"`
+	Properties *map[string]CreatePagesCreatePagesItemPropertiesValue `json:"properties,omitzero"`
 	// The content of the new page, using Notion Markdown.
 	Content string `json:"content,omitzero"`
 	// The ID of a template to apply to this page. When specified, do not provide 'content' as the template will provide it. Properties can still be set alongside the template. Get template IDs from the <templates> section in the fetch tool results.
@@ -3599,9 +3599,9 @@ type CreatePagesCreatePagesItem struct {
 	// An external image URL for the page cover. Use "none" to explicitly set no cover. Omit to leave unchanged.
 	Cover string `json:"cover,omitzero"`
 	// Set to true to create this page as a reusable skill. Before using this field, read the "notion://docs/skills" resource for authoring guidance. False has the same effect as omitting the field.
-	IsSkill bool `json:"is_skill,omitempty"`
+	IsSkill bool `json:"is_skill,omitzero"`
 	// Preserve internal Markdown links instead of converting them to native mentions.
-	PreserveInternalLinks bool `json:"preserve_internal_links,omitempty"`
+	PreserveInternalLinks bool `json:"preserve_internal_links,omitzero"`
 }
 
 // CreatePagesCreatePagesItemPropertiesValue defines a model
@@ -3782,21 +3782,21 @@ func (v *CreatePagesCreatePagesParentOneOf2) unmarshalJSONMember(dec *jsontext.D
 // CreateRollout defines a model
 type CreateRollout struct {
 	// Inline rollout JSON payload.
-	JSON *any `json:"json,omitempty"`
+	JSON *any `json:"json,omitzero"`
 	// Braintrust source in 'project:dataset:rowId' or 'org:project:dataset:rowId' format.
 	BraintrustSlug string                   `json:"braintrustSlug,omitzero"`
-	Braintrust     *CreateRolloutBraintrust `json:"braintrust,omitempty"`
+	Braintrust     *CreateRolloutBraintrust `json:"braintrust,omitzero"`
 	Preprocessors  []map[string]any         `json:"preprocessors,omitzero"`
-	Response       *CreateRollout2          `json:"response,omitempty"`
+	Response       *CreateRollout2          `json:"response,omitzero"`
 	Execution      CreateRolloutExecution   `json:"execution"`
 }
 
 // CreateRollout2 defines a model
 type CreateRollout2 struct {
 	// Whether to include the original input in the response payload. Defaults to false.
-	Input bool `json:"input,omitempty"`
+	Input bool `json:"input,omitzero"`
 	// Whether to include source scenario metadata under metadata.originalMetadata. Defaults to false.
-	OriginalMetadata bool `json:"originalMetadata,omitempty"`
+	OriginalMetadata bool `json:"originalMetadata,omitzero"`
 }
 
 // CreateRolloutBraintrust defines a model
@@ -3810,9 +3810,9 @@ type CreateRolloutBraintrust struct {
 
 // CreateRolloutExecution defines a model
 type CreateRolloutExecution struct {
-	AgentRunner      *CreateRolloutExecutionAgentRunner     `json:"agentRunner,omitempty"`
-	ModelConfig      *CreateRolloutExecutionModelConfig     `json:"modelConfig,omitempty"`
-	AppEnvironment   *CreateRolloutExecutionAppEnvironment  `json:"appEnvironment,omitempty"`
+	AgentRunner      *CreateRolloutExecutionAgentRunner     `json:"agentRunner,omitzero"`
+	ModelConfig      *CreateRolloutExecutionModelConfig     `json:"modelConfig,omitzero"`
+	AppEnvironment   *CreateRolloutExecutionAppEnvironment  `json:"appEnvironment,omitzero"`
 	OutputProcessors CreateRolloutExecutionOutputProcessors `json:"outputProcessors,omitzero"`
 	Logging          []CreateRolloutExecutionLoggingItem    `json:"logging,omitzero"`
 }
@@ -3823,9 +3823,9 @@ type CreateRolloutExecutionAgentRunner struct {
 	WorkflowAgentMode        CreateRolloutExecutionAgentRunnerWorkflowAgentMode `json:"workflowAgentMode,omitzero"`
 	StartFromLastStepOfType  string                                             `json:"startFromLastStepOfType,omitzero"`
 	ContextPageID            string                                             `json:"contextPageId,omitzero"`
-	AdditionalDebugOverrides *map[string]any                                    `json:"additionalDebugOverrides,omitempty"`
-	AgentModelConfig         *map[string]any                                    `json:"agentModelConfig,omitempty"`
-	SubagentModelConfig      *map[string]any                                    `json:"subagentModelConfig,omitempty"`
+	AdditionalDebugOverrides *map[string]any                                    `json:"additionalDebugOverrides,omitzero"`
+	AgentModelConfig         *map[string]any                                    `json:"agentModelConfig,omitzero"`
+	SubagentModelConfig      *map[string]any                                    `json:"subagentModelConfig,omitzero"`
 }
 
 // CreateRolloutExecutionAgentRunnerEvalMode defines a model
@@ -3868,7 +3868,7 @@ func (e CreateRolloutExecutionAgentRunnerWorkflowAgentMode) Valid() bool {
 // CreateRolloutExecutionAppEnvironment defines a model
 type CreateRolloutExecutionAppEnvironment struct {
 	ActorID               string                                                    `json:"actorId,omitzero"`
-	CreateThread          bool                                                      `json:"createThread,omitempty"`
+	CreateThread          bool                                                      `json:"createThread,omitzero"`
 	AttachmentURLResolver CreateRolloutExecutionAppEnvironmentAttachmentURLResolver `json:"attachmentUrlResolver,omitzero"`
 }
 
@@ -4028,7 +4028,7 @@ func (e CreateRolloutExecutionLoggingItemOneOfType2) Valid() bool {
 // CreateRolloutExecutionModelConfig defines a model
 type CreateRolloutExecutionModelConfig struct {
 	NotionModelName   string          `json:"notionModelName,omitzero"`
-	RawVendorOverride *map[string]any `json:"rawVendorOverride,omitempty"`
+	RawVendorOverride *map[string]any `json:"rawVendorOverride,omitzero"`
 }
 
 // CreateRolloutExecutionOutputProcessors defines a model
@@ -4130,8 +4130,8 @@ type CreateTeamspace struct {
 	// The description for the teamspace.
 	Description string `json:"description,omitzero"`
 	// The icon for the teamspace.
-	Icon     *pageIconRequest              `json:"icon,omitempty"`
-	Settings *CreateTeamspaceSettingsOneOf `json:"settings,omitempty"`
+	Icon     *pageIconRequest              `json:"icon,omitzero"`
+	Settings *CreateTeamspaceSettingsOneOf `json:"settings,omitzero"`
 }
 
 // CreateTeamspace2 defines a model
@@ -4355,7 +4355,7 @@ type CreateWorkspaceBookmarkCreateWorkspaceBookmark struct {
 	// A human-readable name for the workspace bookmark.
 	Name string `json:"name,omitzero"`
 	// The point in time where this bookmark sits. Use an ISO 8601 timestamp or epoch milliseconds; defaults to the current time when omitted.
-	Timestamp *CreateWorkspaceBookmarkCreateWorkspaceBookmarkTimestamp `json:"timestamp,omitempty"`
+	Timestamp *CreateWorkspaceBookmarkCreateWorkspaceBookmarkTimestamp `json:"timestamp,omitzero"`
 }
 
 // The point in time where this bookmark sits. Use an ISO 8601 timestamp or epoch milliseconds; defaults to the current time when omitted.
@@ -4775,7 +4775,7 @@ type DateFilterOneOf0 struct {
 	// Literal or relative value used by the filter.
 	Value DateFilterOneOf0Value `json:"value"`
 	// For a date property, compare its end date instead of its start date.
-	UseEnd bool `json:"use_end,omitempty"`
+	UseEnd bool `json:"use_end,omitzero"`
 }
 
 // Literal or relative value used by the filter.
@@ -4856,7 +4856,7 @@ type DateFilterOneOf1 struct {
 	// Literal or relative value used by the filter.
 	Value DateFilterOneOf1Value `json:"value"`
 	// For a date property, compare its end date instead of its start date.
-	UseEnd bool `json:"use_end,omitempty"`
+	UseEnd bool `json:"use_end,omitzero"`
 }
 
 // Literal or relative value used by the filter.
@@ -5224,7 +5224,7 @@ type Done struct {
 	ConnectionsUsed []string            `json:"connections_used"`
 	Artifacts       []DoneArtifactsItem `json:"artifacts"`
 	// Caller-provided string metadata echoed from the chat request. user_id is the lifecycle correlation key and does not change authorization.
-	Metadata           *map[string]string     `json:"metadata,omitempty"`
+	Metadata           *map[string]string     `json:"metadata,omitzero"`
 	PendingUserActions DonePendingUserActions `json:"pending_user_actions,omitzero"`
 }
 
@@ -5682,7 +5682,7 @@ type DonePendingUserActionsItemRequirementsItemOneOf3 struct {
 	Type                   string `json:"type,omitzero"`
 	PageCount              int    `json:"page_count"`
 	DatabaseCount          int    `json:"database_count"`
-	MeetingNotesBlockCount *int   `json:"meeting_notes_block_count,omitempty"`
+	MeetingNotesBlockCount *int   `json:"meeting_notes_block_count,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether DonePendingUserActionsItemRequirementsItemOneOf3 declares it.
@@ -5766,7 +5766,7 @@ type DonePendingUserActionsItemRequirementsItemOneOf8 struct {
 	// Always `url_safety`
 	Type                      string   `json:"type,omitzero"`
 	Urls                      []string `json:"urls"`
-	RequiredByWorkspacePolicy bool     `json:"required_by_workspace_policy,omitempty"`
+	RequiredByWorkspacePolicy bool     `json:"required_by_workspace_policy,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether DonePendingUserActionsItemRequirementsItemOneOf8 declares it.
@@ -5914,7 +5914,7 @@ type EmaResolveIdentityOk struct {
 	UserID      uuid.UUID  `json:"user_id,omitzero"`
 	SpaceID     uuid.UUID  `json:"space_id,omitzero"`
 	AccessToken string     `json:"access_token,omitzero"`
-	RequestID   *uuid.UUID `json:"request_id,omitempty"`
+	RequestID   *uuid.UUID `json:"request_id,omitzero"`
 }
 
 // EmaResolveTrustedIssuer defines a model
@@ -5925,7 +5925,7 @@ type EmaResolveTrustedIssuer struct {
 // EmaResolveTrustedIssuerOk defines a model
 type EmaResolveTrustedIssuerOk struct {
 	Issuer    string     `json:"issuer,omitzero"`
-	RequestID *uuid.UUID `json:"request_id,omitempty"`
+	RequestID *uuid.UUID `json:"request_id,omitzero"`
 }
 
 // Emoji defines a model
@@ -6013,10 +6013,10 @@ type Error struct {
 	// Programmatic error code. Matches the error codes used by non-streaming Public API endpoints.
 	Code           ErrorCode                            `json:"code,omitzero"`
 	Message        string                               `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAdditionalDataValue `json:"additional_data,omitzero"`
 	// Present after the invocation is accepted; absent for pre-acceptance errors.
 	InvocationID string     `json:"invocation_id,omitzero"`
-	Usage        *DoneUsage `json:"usage,omitempty"`
+	Usage        *DoneUsage `json:"usage,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Error declares it.
@@ -6973,7 +6973,7 @@ type ExternalUserC360Profile struct {
 type ExternalUserC360ProfileOk struct {
 	Signals   ExternalUserC360ProfileOkSignals `json:"signals"`
 	Enabled   bool                             `json:"enabled"`
-	RequestID *uuid.UUID                       `json:"request_id,omitempty"`
+	RequestID *uuid.UUID                       `json:"request_id,omitzero"`
 }
 
 // ExternalUserC360ProfileOkSignals defines a model
@@ -7157,9 +7157,9 @@ type Fetch2 struct {
 	// The ID or URL of the Notion page, database, or data source to fetch. Supports notion.so URLs, Notion Sites URLs (*.notion.site), raw UUIDs, and data source URLs (collection://...). Pass "memory" to fetch the connected user's personal memory database in this workspace without creating it. Pass a notion://docs/* URI to read that documentation resource.
 	ID string `json:"id,omitzero"`
 	// Whether to include meeting note transcripts. Defaults to false. When true, full transcripts are included; when false, a placeholder with the meeting note URL is shown instead.
-	IncludeTranscript bool `json:"include_transcript,omitempty"`
+	IncludeTranscript bool `json:"include_transcript,omitzero"`
 	// Whether to include discussion/comment indicators in the page output. When true, adds a <page-discussions> summary with discussion count, preview snippets, and discussion:// URLs. Use with the get_comments tool to retrieve full discussion content. Defaults to false.
-	IncludeDiscussions bool `json:"include_discussions,omitempty"`
+	IncludeDiscussions bool `json:"include_discussions,omitzero"`
 }
 
 // File defines a model
@@ -7425,7 +7425,7 @@ type GetDatabasesOk struct {
 	// Always `data_source`
 	Type          string                 `json:"type,omitzero"`
 	DataSource    emptyObject            `json:"data_source"`
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 }
 
 // GetDatabasesOkResultsItem defines a model
@@ -7905,8 +7905,8 @@ type GroupByCheckbox struct {
 	// Notion property type used to select valid operators and value shapes.
 	PropertyType             string              `json:"propertyType,omitzero"`
 	Sort                     GroupByCheckboxSort `json:"sort"`
-	HideEmptyGroups          bool                `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                `json:"disableBoardColorColumns,omitempty"`
+	HideEmptyGroups          bool                `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                `json:"disableBoardColorColumns,omitzero"`
 }
 
 // GroupByCheckboxSort defines a model
@@ -7933,9 +7933,9 @@ type GroupByDate struct {
 	PropertyType             GroupByDatePropertyType `json:"propertyType,omitzero"`
 	GroupBy                  GroupByDateGroupBy      `json:"groupBy,omitzero"`
 	Sort                     GroupByDateSort         `json:"sort"`
-	HideEmptyGroups          bool                    `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                    `json:"disableBoardColorColumns,omitempty"`
-	StartDayOfWeek           *float64                `json:"startDayOfWeek,omitempty"`
+	HideEmptyGroups          bool                    `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                    `json:"disableBoardColorColumns,omitzero"`
+	StartDayOfWeek           *float64                `json:"startDayOfWeek,omitzero"`
 }
 
 // GroupByDateGroupBy defines a model
@@ -8085,17 +8085,17 @@ type GroupByNumber struct {
 	End                      float64               `json:"end"`
 	Size                     float64               `json:"size"`
 	Sort                     GroupByDateSort       `json:"sort"`
-	GroupBy                  *GroupByNumberGroupBy `json:"groupBy,omitempty"`
-	HideEmptyGroups          bool                  `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                  `json:"disableBoardColorColumns,omitempty"`
+	GroupBy                  *GroupByNumberGroupBy `json:"groupBy,omitzero"`
+	HideEmptyGroups          bool                  `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                  `json:"disableBoardColorColumns,omitzero"`
 }
 
 // GroupByNumberGroupBy defines a model
 type GroupByNumberGroupBy struct {
 	// Selects the filter or filter-value variant.
 	Type  string   `json:"type,omitzero"`
-	Start *float64 `json:"start,omitempty"`
-	End   *float64 `json:"end,omitempty"`
+	Start *float64 `json:"start,omitzero"`
+	End   *float64 `json:"end,omitzero"`
 }
 
 // Group by for person properties.
@@ -8105,8 +8105,8 @@ type GroupByPerson struct {
 	// Notion property type used to select valid operators and value shapes.
 	PropertyType             string              `json:"propertyType,omitzero"`
 	Sort                     GroupByCheckboxSort `json:"sort"`
-	HideEmptyGroups          bool                `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                `json:"disableBoardColorColumns,omitempty"`
+	HideEmptyGroups          bool                `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                `json:"disableBoardColorColumns,omitzero"`
 }
 
 // Group by for relation properties.
@@ -8116,8 +8116,8 @@ type GroupByRelation struct {
 	// Notion property type used to select valid operators and value shapes.
 	PropertyType             string              `json:"propertyType,omitzero"`
 	Sort                     GroupByRelationSort `json:"sort"`
-	HideEmptyGroups          bool                `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                `json:"disableBoardColorColumns,omitempty"`
+	HideEmptyGroups          bool                `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                `json:"disableBoardColorColumns,omitzero"`
 }
 
 // GroupByRelationSort defines a model
@@ -8202,8 +8202,8 @@ type GroupBySelect struct {
 	// Notion property type used to select valid operators and value shapes.
 	PropertyType             GroupBySelectPropertyType `json:"propertyType,omitzero"`
 	Sort                     GroupByRelationSort       `json:"sort"`
-	HideEmptyGroups          bool                      `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                      `json:"disableBoardColorColumns,omitempty"`
+	HideEmptyGroups          bool                      `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                      `json:"disableBoardColorColumns,omitzero"`
 }
 
 // Notion property type used to select valid operators and value shapes.
@@ -8232,8 +8232,8 @@ type GroupByStatus struct {
 	PropertyType             string               `json:"propertyType,omitzero"`
 	GroupBy                  GroupByStatusGroupBy `json:"groupBy,omitzero"`
 	Sort                     GroupByRelationSort  `json:"sort"`
-	HideEmptyGroups          bool                 `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                 `json:"disableBoardColorColumns,omitempty"`
+	HideEmptyGroups          bool                 `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                 `json:"disableBoardColorColumns,omitzero"`
 }
 
 // GroupByStatusGroupBy defines a model
@@ -8262,8 +8262,8 @@ type GroupByTextLike struct {
 	PropertyType             GroupByTextLikePropertyType `json:"propertyType,omitzero"`
 	GroupBy                  GroupByTextLikeGroupBy      `json:"groupBy,omitzero"`
 	Sort                     GroupByRelationSort         `json:"sort"`
-	HideEmptyGroups          bool                        `json:"hideEmptyGroups,omitempty"`
-	DisableBoardColorColumns bool                        `json:"disableBoardColorColumns,omitempty"`
+	HideEmptyGroups          bool                        `json:"hideEmptyGroups,omitzero"`
+	DisableBoardColorColumns bool                        `json:"disableBoardColorColumns,omitzero"`
 }
 
 // GroupByTextLikeGroupBy defines a model
@@ -8574,7 +8574,7 @@ type ListAgentsListAgents struct {
 	// Cursor for pagination. Use the next_cursor value from the previous response to get the next page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// Number of agents to return per page (default: 50, max: 100).
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // ListAgentsOk defines a model
@@ -8620,7 +8620,7 @@ type ListAgentsOkResultsItem struct {
 	// Date and time when this agent was last invoked, null when no invocation is available, or "hidden" when the caller lacks edit access to the agent.
 	LastRunAt ListAgentsResultsItemLastRunAt `json:"last_run_at"`
 	// The name of the bot's workspace.
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions *string `json:"instructions,omitzero"`
 }
 
 // ListAgentsResultsItemAgentVersionOneOf defines a model
@@ -9912,7 +9912,7 @@ type ListConnectionsOk struct {
 	// Connections visible to the authenticated principal.
 	Connections ListConnectionsOkConnections `json:"connections"`
 	// Actor-specific TypeScript declarations requested by the sandbox runtime.
-	TypeBundle *ListConnectionsOkTypeBundle `json:"type_bundle,omitempty"`
+	TypeBundle *ListConnectionsOkTypeBundle `json:"type_bundle,omitzero"`
 }
 
 // Connections visible to the authenticated principal.
@@ -10099,7 +10099,7 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf2 struct {
 	Type       string `json:"type,omitzero"`
 	ToolCallID string `json:"tool_call_id,omitzero"`
 	ToolName   string `json:"tool_name,omitzero"`
-	Input      *any   `json:"input,omitempty"`
+	Input      *any   `json:"input,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether ListExternalAgentStubSessionEventsOkEventsItemOneOf2 declares it.
@@ -10123,8 +10123,8 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf3 struct {
 	// Always `tool.output`
 	Type       string `json:"type,omitzero"`
 	ToolCallID string `json:"tool_call_id,omitzero"`
-	Output     *any   `json:"output,omitempty"`
-	IsError    bool   `json:"is_error,omitempty"`
+	Output     *any   `json:"output,omitzero"`
+	IsError    bool   `json:"is_error,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether ListExternalAgentStubSessionEventsOkEventsItemOneOf3 declares it.
@@ -10167,7 +10167,7 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf4Error struct {
 	Code           string                               `json:"code,omitzero"`
 	Message        string                               `json:"message,omitzero"`
 	Retryable      bool                                 `json:"retryable"`
-	AdditionalData *map[string]ErrorAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // ListFavoritePages defines a model
@@ -10193,7 +10193,7 @@ func (v *ListFavoritePages) unmarshalJSONMember(dec *jsontext.Decoder, name stri
 // The parameters for the list_favorite_pages tool. List the current user's favorite pages and databases in sidebar order. Use this when the user refers to a favorite or pinned workspace item. Follow cursor pagination when the complete list is needed.
 type ListFavoritePagesListFavoritePages struct {
 	// Maximum results to return (1-200).
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Opaque pagination cursor from the previous response.
 	Cursor string `json:"cursor,omitzero"`
 }
@@ -10284,9 +10284,9 @@ type ListSessionEventsListSessionEvents struct {
 	// Maximum number of committed events to return.
 	Count int `json:"count"`
 	// Load the previous page of events ending before this sequence number.
-	BeforeSequence *int `json:"before_sequence,omitempty"`
+	BeforeSequence *int `json:"before_sequence,omitzero"`
 	// Load the next page of events starting after this sequence number.
-	AfterSequence *int `json:"after_sequence,omitempty"`
+	AfterSequence *int `json:"after_sequence,omitzero"`
 }
 
 // ListSharedPages defines a model
@@ -10438,7 +10438,7 @@ type ListTeamspacesOk struct {
 	// Always `teamspace`
 	Type          string                 `json:"type,omitzero"`
 	Teamspace     emptyObject            `json:"teamspace"`
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 }
 
 // ListTeamspacesOkResults defines a model
@@ -10494,7 +10494,7 @@ type ListThreadMessagesResultsItemAttachmentsItem struct {
 	ContentType string `json:"content_type,omitzero"`
 	URL         string `json:"url,omitzero"`
 	// The time when the attachment URL will expire.
-	ExpiryTime time.Time `json:"expiry_time,omitempty"`
+	ExpiryTime time.Time `json:"expiry_time,omitzero"`
 }
 
 // ListThreadMessagesResultsItemContentPartsItem defines a model
@@ -10777,17 +10777,17 @@ type ListThreadsResultsItem struct {
 	// How this thread started: the type of the trigger that ran it, or "chat".
 	TriggerType string `json:"trigger_type,omitzero"`
 	// Domains web search is restricted to, or null when unrestricted.
-	TypeLabels *string `json:"type_labels,omitempty"`
+	TypeLabels *string `json:"type_labels,omitzero"`
 	// Domains web search is restricted to, or null when unrestricted.
-	ChatUserEmails *string `json:"chat_user_emails,omitempty"`
+	ChatUserEmails *string `json:"chat_user_emails,omitzero"`
 	// Domains web search is restricted to, or null when unrestricted.
-	ToolTypes *string `json:"tool_types,omitempty"`
+	ToolTypes *string `json:"tool_types,omitzero"`
 	// Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent.
-	ToolCallCount *float64 `json:"tool_call_count,omitempty"`
+	ToolCallCount *float64 `json:"tool_call_count,omitzero"`
 	// Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent.
-	CreditsUsed *float64 `json:"credits_used,omitempty"`
+	CreditsUsed *float64 `json:"credits_used,omitzero"`
 	// Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent.
-	RunsCompleted      *float64               `json:"runs_completed,omitempty"`
+	RunsCompleted      *float64               `json:"runs_completed,omitzero"`
 	PendingUserActions DonePendingUserActions `json:"pending_user_actions,omitzero"`
 }
 
@@ -11070,7 +11070,7 @@ type MemorySearchMemorySearch struct {
 	// Words or a short phrase to find in personal memories.
 	Query string `json:"query,omitzero"`
 	// Maximum number of memories to return. Defaults to 10 and cannot exceed 50.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int `json:"limit,omitzero"`
 }
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -11553,13 +11553,13 @@ type Notifications struct {
 	// Which notifications to return.
 	Filter NotificationsFilter `json:"filter,omitzero"`
 	// Maximum number of notifications to return. Defaults to 20 and is capped at 100.
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Pagination cursor from a previous response.
 	Cursor string `json:"cursor,omitzero"`
 	// Return notifications strictly after this Unix timestamp in milliseconds.
-	After *float64 `json:"after,omitempty"`
+	After *float64 `json:"after,omitzero"`
 	// Return notifications strictly before this Unix timestamp in milliseconds.
-	Before *float64 `json:"before,omitempty"`
+	Before *float64 `json:"before,omitzero"`
 }
 
 // Which notifications to return.
@@ -12044,7 +12044,7 @@ type PersonUserObjectPerson struct {
 	// The email of the person.
 	Email string `json:"email,omitzero"`
 	// Whether the person's email is verified.
-	EmailVerified bool `json:"email_verified,omitempty"`
+	EmailVerified bool `json:"email_verified,omitzero"`
 }
 
 // PlacePropertyItemObjectResponsePlace defines a model
@@ -12060,7 +12060,7 @@ type PlacePropertyItemObjectResponsePlace struct {
 // PrivateUpdatePagePermissions defines a model
 type PrivateUpdatePagePermissions struct {
 	Permissions  []PrivateUpdatePagePermissionsPermissionsItem `json:"permissions"`
-	IsRestricted bool                                          `json:"is_restricted,omitempty"`
+	IsRestricted bool                                          `json:"is_restricted,omitzero"`
 }
 
 // PrivateUpdatePagePermissions2 defines a model
@@ -12997,9 +12997,9 @@ type QueryDatabaseViewQueryDatabaseView struct {
 	// Cursor for pagination. Use the next_cursor value from the previous response to get the next page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// Number of rows to return per page (default: 100, max: 100).
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 	// Optional archive selector. Omitted or false queries non-archived rows only; true queries archived rows only.
-	IsArchived bool `json:"is_archived,omitempty"`
+	IsArchived bool `json:"is_archived,omitzero"`
 	// Mode for executing a database view's existing query
 	Mode string `json:"mode,omitzero"`
 }
@@ -13456,7 +13456,7 @@ func (v *QueryMeetingNotes) unmarshalJSONMember(dec *jsontext.Decoder, name stri
 // If availability is not already known for this connection, call get_tool_access with {} before using this tool. Reuse the returned access map across tools; check the status and restricted_parameters.
 type QueryMeetingNotesQueryMeetingNotes struct {
 	// Acceptable filter for querying current user's meeting notes data source.
-	Filter *QueryMeetingNotesQueryMeetingNotesFilter `json:"filter,omitempty"`
+	Filter *QueryMeetingNotesQueryMeetingNotesFilter `json:"filter,omitzero"`
 }
 
 // Acceptable filter for querying current user's meeting notes data source.
@@ -13640,7 +13640,7 @@ type QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOf3 struct
 	// The date to compare against.
 	Value QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue `json:"value"`
 	// Compare against the end of a date range rather than its start.
-	UseEnd bool `json:"use_end,omitempty"`
+	UseEnd bool `json:"use_end,omitzero"`
 }
 
 // QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4 defines a model
@@ -13650,7 +13650,7 @@ type QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4 struct
 	// The range to compare against.
 	Value QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2 `json:"value"`
 	// Compare against the end of a date range rather than its start.
-	UseEnd bool `json:"use_end,omitempty"`
+	UseEnd bool `json:"use_end,omitzero"`
 }
 
 // QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOf5 defines a model
@@ -14010,9 +14010,9 @@ type QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOne
 	// Always `daterange`
 	Type string `json:"type,omitzero"`
 	// Inclusive start of the range as an ISO 8601 date string, if any.
-	StartDate civil.Date `json:"start_date,omitempty"`
+	StartDate civil.Date `json:"start_date,omitzero"`
 	// Inclusive end of the range as an ISO 8601 date string, if any.
-	EndDate civil.Date `json:"end_date,omitempty"`
+	EndDate civil.Date `json:"end_date,omitzero"`
 }
 
 // QueryMeetingNotesQueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf defines a model
@@ -14255,13 +14255,13 @@ type QuerySessionsQuerySessions struct {
 	// A case-insensitive substring search over session titles.
 	Query string `json:"query,omitzero"`
 	// A session property filter, or an and/or compound filter nested up to two levels deep.
-	Filter *QuerySessionsQuerySessionsFilter `json:"filter,omitempty"`
+	Filter *QuerySessionsQuerySessionsFilter `json:"filter,omitzero"`
 	// Ordered sort precedence. Defaults to updated_at descending.
 	Sorts QuerySessionsQuerySessionsSorts `json:"sorts,omitzero"`
 	// The continuation cursor returned by the previous page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// The number of sessions to return. Maximum: 100.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // A session property filter, or an and/or compound filter nested up to two levels deep.
@@ -14695,13 +14695,13 @@ type QuerySessionsQuerySessionsFilterOneOfString struct {
 // A timestamp range.
 type QuerySessionsQuerySessionsFilterOneOfTimestamp struct {
 	// Return sessions before this time.
-	Before time.Time `json:"before,omitempty"`
+	Before time.Time `json:"before,omitzero"`
 	// Return sessions after this time.
-	After time.Time `json:"after,omitempty"`
+	After time.Time `json:"after,omitzero"`
 	// Return sessions at or before this time.
-	OnOrBefore time.Time `json:"on_or_before,omitempty"`
+	OnOrBefore time.Time `json:"on_or_before,omitzero"`
 	// Return sessions at or after this time.
-	OnOrAfter time.Time `json:"on_or_after,omitempty"`
+	OnOrAfter time.Time `json:"on_or_after,omitzero"`
 }
 
 // Ordered sort precedence. Defaults to updated_at descending.
@@ -14736,11 +14736,11 @@ func (e QuerySessionsQuerySessionsSortsItemDirection) Valid() bool {
 // QueryThreadMessages defines a model
 type QueryThreadMessages struct {
 	// Whether to include agent thinking and structured message content parts. Defaults to false.
-	Verbose bool `json:"verbose,omitempty"`
+	Verbose bool `json:"verbose,omitzero"`
 	// Opaque continuation cursor from the previous page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// Number of messages to return. Maximum: 100.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // QueryThreads defines a model
@@ -14748,13 +14748,13 @@ type QueryThreads struct {
 	// Search thread titles.
 	Query string `json:"query,omitzero"`
 	// Thread filters.
-	Filter *QueryThreadsFilter `json:"filter,omitempty"`
+	Filter *QueryThreadsFilter `json:"filter,omitzero"`
 	// Ordered sort precedence. Defaults to last_used_time descending.
 	Sorts QueryThreadsSorts `json:"sorts,omitzero"`
 	// Opaque continuation cursor from the previous page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// Number of threads to return. Maximum: 100.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 }
 
 // Thread filters.
@@ -14768,15 +14768,15 @@ type QueryThreadsFilter struct {
 	// Filter by last-used actor IDs or "me".
 	LastUsedBy []CreatedByItem `json:"last_used_by,omitzero"`
 	// Filter to threads containing a public-facing message in the requested time window.
-	MessageTime *QueryThreadsFilterMessageTime `json:"message_time,omitempty"`
+	MessageTime *QueryThreadsFilterMessageTime `json:"message_time,omitzero"`
 }
 
 // Filter to threads containing a public-facing message in the requested time window.
 type QueryThreadsFilterMessageTime struct {
 	// Inclusive start of the message time window. Defaults to the Unix epoch.
-	Start time.Time `json:"start,omitempty"`
+	Start time.Time `json:"start,omitzero"`
 	// Exclusive end of the message time window. Defaults to the current time.
-	End time.Time `json:"end,omitempty"`
+	End time.Time `json:"end,omitzero"`
 }
 
 // Filter by one or more activity statuses. `all` cannot be combined with another status.
@@ -14990,7 +14990,7 @@ type ReplyToSlackThreadReplyToSlackThread struct {
 	// The Slack message to post as a reply in the triggering thread. Use Slack markdown formatting.
 	Message string `json:"message,omitzero"`
 	// Whether Slack should unfurl links in the reply. Defaults to true.
-	UnfurlLinks bool `json:"unfurl_links,omitempty"`
+	UnfurlLinks bool `json:"unfurl_links,omitzero"`
 }
 
 // Whether the result set is complete or incomplete. `incomplete` means the response does not include all rows that match the query parameters (e.g. due to a server-side pagination depth limit).
@@ -15092,11 +15092,11 @@ type Rollout struct {
 	// Current status of the rollout. Rollouts progress through waiting, running, and then complete or failed.
 	Status RolloutStatus `json:"status,omitzero"`
 	// Rollout result loaded from AI logging S3. Present when status is `complete`.
-	Result *RolloutResult `json:"result,omitempty"`
+	Result *RolloutResult `json:"result,omitzero"`
 	// Bounded failure message. Present when status is `failed`, including when the AI logging S3 output payload is no longer readable.
 	Err string `json:"error,omitzero"`
 	// Latest revisioned harness and grader progress. Present while an asynchronous rollout is running and on completion when progress was requested and is available.
-	Progress *any `json:"progress,omitempty"`
+	Progress *any `json:"progress,omitzero"`
 }
 
 // Rollout result loaded from AI logging S3. Present when status is `complete`.
@@ -15104,11 +15104,11 @@ type RolloutResult struct {
 	// Inference output.
 	Output any `json:"output"`
 	// Original rollout input. Omitted unless explicitly requested via `response.input`.
-	Input *any `json:"input,omitempty"`
+	Input *any `json:"input,omitzero"`
 	// Grader results as name-to-score mappings.
-	Scores *any `json:"scores,omitempty"`
+	Scores *any `json:"scores,omitzero"`
 	// Inference metadata. Includes post-processor results, grader debug info, raw inference capture under `metadata.logging.rawInferences`, and `metadata.traceUrl` after a successful opt-in Braintrust logging flush.
-	Metadata *any `json:"metadata,omitempty"`
+	Metadata *any `json:"metadata,omitzero"`
 }
 
 // Current status of the rollout. Rollouts progress through waiting, running, and then complete or failed.
@@ -15267,7 +15267,7 @@ type RollupValueRollupValue struct {
 	// Rollup-result reference returned on a database row page.
 	URL string `json:"url,omitzero"`
 	// Maximum number of related rows in one result window.
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 	// Opaque cursor returned by an earlier call.
 	StartCursor string `json:"start_cursor,omitzero"`
 }
@@ -15279,11 +15279,11 @@ type Rows struct {
 	// One Notion data source URL obtained from a fetch result.
 	DataSourceURL string `json:"data_source_url,omitzero"`
 	// Structured filter using exact property names from the data source schema. Supports an outer Boolean group plus one nested group level.
-	Filter *workflowViewFilter `json:"filter,omitempty"`
+	Filter *workflowViewFilter `json:"filter,omitzero"`
 	// Structured property sorts applied in order.
 	Sort RowsSort `json:"sort,omitzero"`
 	// Number of rows to return (default: 50, max: 100).
-	Limit *int `json:"limit,omitempty"`
+	Limit *int `json:"limit,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Rows declares it.
@@ -15322,7 +15322,7 @@ type RunInternalTool struct {
 	// Action name returned for the selected connection.
 	Action string `json:"action,omitzero"`
 	// Arguments passed to the selected connection action.
-	Args *map[string]any `json:"args,omitempty"`
+	Args *map[string]any `json:"args,omitzero"`
 }
 
 // RunInternalToolOk defines a model
@@ -15441,7 +15441,7 @@ type RunMinimalRolloutOkMetadata struct {
 	// Non-fatal notes from markdown vNext prompt parsing. Present only when the parse produced diagnostics.
 	PromptDiagnostics []string `json:"promptDiagnostics,omitzero"`
 	// Harness-native request/output payloads. Present only when requested via `response.raw`.
-	Raw *RunMinimalRolloutOkMetadataRaw `json:"raw,omitempty"`
+	Raw *RunMinimalRolloutOkMetadataRaw `json:"raw,omitzero"`
 	// Every Notion operation captured in commit order. Present only when requested via `response.operations` for an enabled read-your-writes eval session.
 	Operations []any `json:"operations,omitzero"`
 }
@@ -15451,7 +15451,7 @@ type RunMinimalRolloutOkMetadataRaw struct {
 	// Harness-specific generated request; shape varies by harness.
 	Input any `json:"input"`
 	// Harness-specific native output; shape varies by harness: merged InferenceTranscriptStep list on the legacy harness, the durable session event log on agentService. Absent when the run produced no native output (e.g. a timeout).
-	Output *any `json:"output,omitempty"`
+	Output *any `json:"output,omitzero"`
 }
 
 // Terminal status of the agent run.
@@ -15476,9 +15476,9 @@ func (e RunMinimalRolloutOkMetadataStatus) Valid() bool {
 // Response shaping options.
 type RunMinimalRolloutOneOf struct {
 	// Include `metadata.raw` in the response: the harness-specific generated request (`raw.input`) and native output (`raw.output`) as JSON. Shapes intentionally vary by harness.
-	Raw bool `json:"raw,omitempty"`
+	Raw bool `json:"raw,omitzero"`
 	// Include `metadata.operations`: every Notion operation captured in commit order. Requires the `agentService` harness and `execution.harnessOptions.evalSession: true`. Defaults to false.
-	Operations bool `json:"operations,omitempty"`
+	Operations bool `json:"operations,omitzero"`
 }
 
 // A fresh first-turn user prompt.
@@ -15497,9 +15497,9 @@ type RunMinimalRolloutOneOf0 struct {
 	// The agent execution harness that ran this request.
 	Harness RunMinimalRolloutMetadataHarness `json:"harness,omitzero"`
 	// Execution config with common fields and nested harness-specific options. Fields a harness cannot honor fail with a validation error instead of silently diverging.
-	Execution *RunMinimalRolloutOneOfExecution `json:"execution,omitempty"`
+	Execution *RunMinimalRolloutOneOfExecution `json:"execution,omitzero"`
 	// Response shaping options.
-	Response *RunMinimalRolloutOneOf `json:"response,omitempty"`
+	Response *RunMinimalRolloutOneOf `json:"response,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunMinimalRolloutOneOf0 declares it.
@@ -15540,9 +15540,9 @@ type RunMinimalRolloutOneOf1 struct {
 	// The agent execution harness that ran this request.
 	Harness RunMinimalRolloutMetadataHarness `json:"harness,omitzero"`
 	// Execution config with common fields and nested harness-specific options. Fields a harness cannot honor fail with a validation error instead of silently diverging.
-	Execution *RunMinimalRolloutOneOfExecution `json:"execution,omitempty"`
+	Execution *RunMinimalRolloutOneOfExecution `json:"execution,omitzero"`
 	// Response shaping options.
-	Response *RunMinimalRolloutOneOf `json:"response,omitempty"`
+	Response *RunMinimalRolloutOneOf `json:"response,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunMinimalRolloutOneOf1 declares it.
@@ -15578,15 +15578,15 @@ type RunMinimalRolloutOneOfExecution struct {
 	// `auto` (default) runs tools without pausing for confirmation; `readOnly` disables mutations (legacy harness only today).
 	ToolPolicy RunMinimalRolloutOneOfExecutionToolPolicy `json:"toolPolicy,omitzero"`
 	// Overall run timeout in milliseconds.
-	TimeoutMs *float64 `json:"timeoutMs,omitempty"`
+	TimeoutMs *float64 `json:"timeoutMs,omitzero"`
 	// Harness-specific execution options.
-	HarnessOptions *RunMinimalRolloutOneOfExecutionHarness `json:"harnessOptions,omitempty"`
+	HarnessOptions *RunMinimalRolloutOneOfExecutionHarness `json:"harnessOptions,omitzero"`
 }
 
 // Harness-specific execution options.
 type RunMinimalRolloutOneOfExecutionHarness struct {
 	// Enable a local AgentService internal-MCP eval session. Writes are captured instead of persisted, and later tool calls read prior writes. Supported only for personal-agent runs on the `agentService` harness under `--env local`.
-	EvalSession bool `json:"evalSession,omitempty"`
+	EvalSession bool `json:"evalSession,omitzero"`
 }
 
 // `auto` (default) runs tools without pausing for confirmation; `readOnly` disables mutations (legacy harness only today).
@@ -18410,7 +18410,7 @@ type RunToolOneOfAccountsItemCalendarsItem struct {
 	CalendarID  string                                       `json:"calendarId,omitzero"`
 	Name        string                                       `json:"name,omitzero"`
 	Description string                                       `json:"description,omitzero"`
-	Colors      *RunToolOneOfAccountsItemCalendarsItemColors `json:"colors,omitempty"`
+	Colors      *RunToolOneOfAccountsItemCalendarsItemColors `json:"colors,omitzero"`
 	IsPrimary   bool                                         `json:"isPrimary"`
 	// Is this calendar read-only or can the user create/edit/delete events?
 	IsReadOnly bool `json:"isReadOnly"`
@@ -18466,14 +18466,14 @@ type RunToolOneOfAccountsItemCalendarsItemEventsItem struct {
 	IsMeeting               bool                                                                   `json:"isMeeting"`
 	ConferencingEntryPoints RunToolOneOfAccountsItemCalendarsItemEventsItemConferencingEntryPoints `json:"conferencingEntryPoints,omitzero"`
 	// The URL to join the video conference, if available
-	ConferencingURL *url.URL `json:"conferencingUrl,omitempty"`
+	ConferencingURL *url.URL `json:"conferencingUrl,omitzero"`
 	// The calendar user's RSVP status
 	ResponseStatus CalendarUpdateEventsCalendarUpdateEventsUpdatesItemOneOfRsvpStatus `json:"responseStatus,omitzero"`
-	Creator        *RunToolOneOfAccountsItemCalendarsItemEventsItemCreator            `json:"creator,omitempty"`
-	Organizer      *RunToolOneOfAccountsItemCalendarsItemEventsItemCreator            `json:"organizer,omitempty"`
+	Creator        *RunToolOneOfAccountsItemCalendarsItemEventsItemCreator            `json:"creator,omitzero"`
+	Organizer      *RunToolOneOfAccountsItemCalendarsItemEventsItemCreator            `json:"organizer,omitzero"`
 	Attendees      RunToolOneOfAccountsItemCalendarsItemEventsItemAttendees           `json:"attendees,omitzero"`
 	Resources      RunToolOneOfAccountsItemCalendarsItemEventsItemResources           `json:"resources,omitzero"`
-	Colors         *RunToolOneOfAccountsItemCalendarsItemColors                       `json:"colors,omitempty"`
+	Colors         *RunToolOneOfAccountsItemCalendarsItemColors                       `json:"colors,omitzero"`
 	Attachments    RunToolOneOfAccountsItemCalendarsItemEventsItemAttachments         `json:"attachments,omitzero"`
 }
 
@@ -18498,7 +18498,7 @@ type RunToolOneOfAccountsItemCalendarsItemEventsItemAttendeesItem struct {
 	DisplayName string `json:"displayName,omitzero"`
 	Email       string `json:"email,omitzero"`
 	IsOptional  bool   `json:"isOptional"`
-	IsOrganizer bool   `json:"isOrganizer,omitempty"`
+	IsOrganizer bool   `json:"isOrganizer,omitzero"`
 	// The calendar user's RSVP status
 	ResponseStatus CalendarUpdateEventsCalendarUpdateEventsUpdatesItemOneOfRsvpStatus `json:"responseStatus,omitzero"`
 }
@@ -18700,7 +18700,7 @@ type RunToolOneOfCurrentToolAccessValue struct {
 	// Whether the tool is available without a limit, available up to a plan-specific limit, requires a plan, requires the full version of Notion MCP, requires an upgrade, or is disabled for this workspace.
 	Status RunToolOneOfCurrentToolAccessValueStatus `json:"status,omitzero"`
 	// Parameter-specific restrictions that apply even when the tool is available.
-	RestrictedParameters *map[string]string `json:"restricted_parameters,omitempty"`
+	RestrictedParameters *map[string]string `json:"restricted_parameters,omitzero"`
 	// The next step available from the Notion MCP landing page.
 	LandingPageAction RunToolOneOfCurrentToolAccessValueLandingPageAction `json:"landing_page_action,omitzero"`
 	// Notion MCP landing page that explains how to get full access and the available next steps.
@@ -18844,7 +18844,7 @@ type RunToolOneOfMcpNotice struct {
 	Type              string                         `json:"type,omitzero"`
 	Message           string                         `json:"message,omitzero"`
 	GracePeriodEndsAt string                         `json:"grace_period_ends_at,omitzero"`
-	Recovery          *RunToolOneOfMcpNoticeRecovery `json:"recovery,omitempty"`
+	Recovery          *RunToolOneOfMcpNoticeRecovery `json:"recovery,omitzero"`
 }
 
 // RunToolOneOfMcpNoticeRecovery defines a model
@@ -18866,16 +18866,16 @@ type RunToolOneOfParticipantSchedulesItemProfile struct {
 // Type settings.
 type RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemQuestionsItemConfig struct {
 	// Whether a text question accepts a long-form answer.
-	LongAnswer bool `json:"long_answer,omitempty"`
+	LongAnswer bool `json:"long_answer,omitzero"`
 	// The name of the bot's workspace.
-	CheckboxLabel     *string `json:"checkbox_label,omitempty"`
-	MaxSelectionCount *int    `json:"max_selection_count,omitempty"`
+	CheckboxLabel     *string `json:"checkbox_label,omitzero"`
+	MaxSelectionCount *int    `json:"max_selection_count,omitzero"`
 	// One of: `list`, `dropdown`
 	DisplayMode RunToolOneOfQuestionsItemConditionalGroupsItemQuestionsItemConditionalGroupsItemQuestionsItemConfigDisplayMode `json:"display_mode,omitzero"`
 	// Whether a date answer can include an end date.
-	IncludeEndDate bool `json:"include_end_date,omitempty"`
+	IncludeEndDate bool `json:"include_end_date,omitzero"`
 	// Whether a date answer includes a time.
-	IncludeTime bool `json:"include_time,omitempty"`
+	IncludeTime bool `json:"include_time,omitzero"`
 }
 
 // One of: `list`, `dropdown`
@@ -19112,11 +19112,11 @@ type RunToolOneOfResultsItem2 struct {
 	Highlight string `json:"highlight,omitzero"`
 	Timestamp string `json:"timestamp,omitzero"`
 	// True when the Notion page or database is archived (directly or via an archived ancestor). Omitted otherwise.
-	IsArchived bool `json:"is_archived,omitempty"`
+	IsArchived bool `json:"is_archived,omitzero"`
 	// Compact path showing where this result lives in Notion.
 	Path string `json:"path,omitzero"`
 	// Native Notion verification state when available.
-	Verification *RunToolOneOfResultsItemVerification `json:"verification,omitempty"`
+	Verification *RunToolOneOfResultsItemVerification `json:"verification,omitzero"`
 }
 
 // RunToolOneOfResultsItem3 defines a model
@@ -19349,7 +19349,7 @@ type RunToolOneOfSchedulingLinksItem struct {
 	Status      string   `json:"status,omitzero"`
 	Title       string   `json:"title,omitzero"`
 	Description string   `json:"description,omitzero"`
-	Duration    *float64 `json:"duration,omitempty"`
+	Duration    *float64 `json:"duration,omitzero"`
 	// Full URL where invitees can book a meeting
 	SchedulingLinkURL string                                    `json:"schedulingLinkUrl,omitzero"`
 	TimeRanges        RunToolOneOfSchedulingLinksItemTimeRanges `json:"timeRanges"`
@@ -19703,7 +19703,7 @@ type RunToolResponseOneOf15Self struct {
 	// The authenticated user (or bot) for this connection.
 	User RunToolOneOfSelfUser `json:"user"`
 	// Map of tools visible to this MCP caller and their access state for the workspace. When ai_search is available, legacy search is omitted: use ai_search for every content search. User lookup uses ai_search with query_type="user". Otherwise use search for content.
-	CurrentToolAccess *map[string]RunToolOneOfCurrentToolAccessValue `json:"current_tool_access,omitempty"`
+	CurrentToolAccess *map[string]RunToolOneOfCurrentToolAccessValue `json:"current_tool_access,omitzero"`
 }
 
 // The connected Notion workspace.
@@ -20887,7 +20887,7 @@ type RunToolResponseOneOf46ErrorOneOf0 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf0 declares it.
@@ -20914,7 +20914,7 @@ type RunToolResponseOneOf46ErrorOneOf1 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf1 declares it.
@@ -20941,7 +20941,7 @@ type RunToolResponseOneOf46ErrorOneOf10 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf10 declares it.
@@ -20968,7 +20968,7 @@ type RunToolResponseOneOf46ErrorOneOf11 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf11 declares it.
@@ -20995,7 +20995,7 @@ type RunToolResponseOneOf46ErrorOneOf12 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf12 declares it.
@@ -21022,7 +21022,7 @@ type RunToolResponseOneOf46ErrorOneOf13 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf13 declares it.
@@ -21049,7 +21049,7 @@ type RunToolResponseOneOf46ErrorOneOf14 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf14 declares it.
@@ -21076,7 +21076,7 @@ type RunToolResponseOneOf46ErrorOneOf15 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf15 declares it.
@@ -21103,7 +21103,7 @@ type RunToolResponseOneOf46ErrorOneOf16 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf16 declares it.
@@ -21130,7 +21130,7 @@ type RunToolResponseOneOf46ErrorOneOf17 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf17 declares it.
@@ -21157,7 +21157,7 @@ type RunToolResponseOneOf46ErrorOneOf18 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf18 declares it.
@@ -21184,7 +21184,7 @@ type RunToolResponseOneOf46ErrorOneOf19 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf19 declares it.
@@ -21211,7 +21211,7 @@ type RunToolResponseOneOf46ErrorOneOf2 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf2 declares it.
@@ -21238,7 +21238,7 @@ type RunToolResponseOneOf46ErrorOneOf20 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf20 declares it.
@@ -21265,7 +21265,7 @@ type RunToolResponseOneOf46ErrorOneOf21 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf21 declares it.
@@ -21292,7 +21292,7 @@ type RunToolResponseOneOf46ErrorOneOf22 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf22 declares it.
@@ -21319,7 +21319,7 @@ type RunToolResponseOneOf46ErrorOneOf3 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf3 declares it.
@@ -21346,7 +21346,7 @@ type RunToolResponseOneOf46ErrorOneOf4 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf4 declares it.
@@ -21373,7 +21373,7 @@ type RunToolResponseOneOf46ErrorOneOf5 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf5 declares it.
@@ -21400,7 +21400,7 @@ type RunToolResponseOneOf46ErrorOneOf6 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf6 declares it.
@@ -21427,7 +21427,7 @@ type RunToolResponseOneOf46ErrorOneOf7 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf7 declares it.
@@ -21454,7 +21454,7 @@ type RunToolResponseOneOf46ErrorOneOf8 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf8 declares it.
@@ -21481,7 +21481,7 @@ type RunToolResponseOneOf46ErrorOneOf9 struct {
 	Status         int                                               `json:"status"`
 	Code           string                                            `json:"code,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether RunToolResponseOneOf46ErrorOneOf9 declares it.
@@ -21569,15 +21569,15 @@ type RunToolResponseOneOf52ResultsItem struct {
 	CreatedAt       time.Time                                            `json:"created_at,omitzero"`
 	UpdatedAt       time.Time                                            `json:"updated_at,omitzero"`
 	RequiredActions RunToolResponseOneOf52ResultsItemRequiredActions     `json:"required_actions,omitzero"`
-	Err             *RunToolResponseOneOf52ResultsItemError              `json:"error,omitempty"`
+	Err             *RunToolResponseOneOf52ResultsItemError              `json:"error,omitzero"`
 	TriggerType     string                                               `json:"trigger_type,omitzero"`
-	TypeLabels      *string                                              `json:"type_labels,omitempty"`
-	ChatUserEmails  *string                                              `json:"chat_user_emails,omitempty"`
-	ToolTypes       *string                                              `json:"tool_types,omitempty"`
-	ToolCallCount   *int                                                 `json:"tool_call_count,omitempty"`
-	CreditsUsed     *float64                                             `json:"credits_used,omitempty"`
-	RunsCompleted   *int                                                 `json:"runs_completed,omitempty"`
-	MessageCount    *int                                                 `json:"message_count,omitempty"`
+	TypeLabels      *string                                              `json:"type_labels,omitzero"`
+	ChatUserEmails  *string                                              `json:"chat_user_emails,omitzero"`
+	ToolTypes       *string                                              `json:"tool_types,omitzero"`
+	ToolCallCount   *int                                                 `json:"tool_call_count,omitzero"`
+	CreditsUsed     *float64                                             `json:"credits_used,omitzero"`
+	RunsCompleted   *int                                                 `json:"runs_completed,omitzero"`
+	MessageCount    *int                                                 `json:"message_count,omitzero"`
 }
 
 // RunToolResponseOneOf52ResultsItemAgentVersionOneOf0 defines a model
@@ -21920,7 +21920,7 @@ type RunToolResponseOneOf79ParticipantSchedules []RunToolResponseOneOf79Particip
 type RunToolResponseOneOf79ParticipantSchedulesItem struct {
 	AccountID     string                                               `json:"accountId,omitzero"`
 	CoworkerEmail string                                               `json:"coworkerEmail,omitzero"`
-	Profile       *RunToolOneOfParticipantSchedulesItemProfile         `json:"profile,omitempty"`
+	Profile       *RunToolOneOfParticipantSchedulesItemProfile         `json:"profile,omitzero"`
 	Events        RunToolResponseOneOf79ParticipantSchedulesItemEvents `json:"events"`
 }
 
@@ -21939,7 +21939,7 @@ type RunToolResponseOneOf79ParticipantSchedulesItemEventsItem struct {
 	Period struct{} `json:"period"`
 	// The calendar user's RSVP status
 	ResponseStatus CalendarUpdateEventsCalendarUpdateEventsUpdatesItemOneOfRsvpStatus `json:"responseStatus,omitzero"`
-	Colors         *RunToolOneOfAccountsItemCalendarsItemColors                       `json:"colors,omitempty"`
+	Colors         *RunToolOneOfAccountsItemCalendarsItemColors                       `json:"colors,omitzero"`
 	// If true, the event does not block time on the calendar. This is equivalent to setting `Show me as to Available` in the Calendar UI.
 	IsTransparent bool `json:"isTransparent"`
 	// Whether it's a meeting, aka an event with attendees listed
@@ -22011,7 +22011,7 @@ type RunToolResponseOneOf80Coworkers []RunToolResponseOneOf80CoworkersItem
 type RunToolResponseOneOf80CoworkersItem struct {
 	AccountID     string                                       `json:"accountId,omitzero"`
 	CoworkerEmail string                                       `json:"coworkerEmail,omitzero"`
-	Profile       *RunToolOneOfParticipantSchedulesItemProfile `json:"profile,omitempty"`
+	Profile       *RunToolOneOfParticipantSchedulesItemProfile `json:"profile,omitzero"`
 	Events        RunToolOneOfAccountsItemCalendarsItemEvents  `json:"events"`
 }
 
@@ -22035,9 +22035,9 @@ type RunToolResponseOneOf81ResultsBySlotItemAvailableResourcesItem struct {
 	// Display name of the conference room
 	ResourceName string `json:"resourceName,omitzero"`
 	// Building information
-	Building *RunToolResponseOneOf81ResultsBySlotItemAvailableResourcesItemBuilding `json:"building,omitempty"`
+	Building *RunToolResponseOneOf81ResultsBySlotItemAvailableResourcesItemBuilding `json:"building,omitzero"`
 	// Maximum number of people the room can accommodate
-	Capacity *float64 `json:"capacity,omitempty"`
+	Capacity *float64 `json:"capacity,omitzero"`
 	// Floor location
 	Floor string `json:"floor,omitzero"`
 	// Room description
@@ -22125,20 +22125,20 @@ func (e RunToolResponseOneOf9Type) Valid() bool {
 // A unified rollout request. The harness selects the runner; inputType selects native or agentCall input and defaults to native.
 type RunUnifiedRollout struct {
 	// Return immediately with a rollout ID. Defaults to false, which waits up to 45 seconds for a terminal result before returning the current rollout status.
-	Async   bool                     `json:"async,omitempty"`
+	Async   bool                     `json:"async,omitzero"`
 	Harness RunUnifiedRolloutHarness `json:"harness,omitzero"`
 	// Input representation. `native` uses the selected harness's native payload and is the default; `agentCall` uses the shared shorthand.
 	InputType RunUnifiedRolloutInputType `json:"inputType,omitzero"`
 	// Exactly one inline or Braintrust source: {json}, {[org], project, dataset, id}, {[org], project, logId}, or {braintrustSlug}. Inline JSON contains the harness-native input; inferenceTranscript also accepts a full Braintrust-style record.
 	Input struct{} `json:"input"`
 	// Workspace member to run as. Required for content-shaped agentCall inputs.
-	ActorID       *uuid.UUID                  `json:"actorId,omitempty"`
-	Execution     *RunUnifiedRolloutExecution `json:"execution,omitempty"`
+	ActorID       *uuid.UUID                  `json:"actorId,omitzero"`
+	Execution     *RunUnifiedRolloutExecution `json:"execution,omitzero"`
 	Preprocessors []struct{}                  `json:"preprocessors,omitzero"`
 	// Grader configuration keyed by grader name. Each value is one argument object or an array of argument objects for repeated grader runs.
-	Graders    *RunUnifiedRolloutGraders    `json:"graders,omitempty"`
-	Braintrust *RunUnifiedRolloutBraintrust `json:"braintrust,omitempty"`
-	Response   *RunUnifiedRolloutResponse   `json:"response,omitempty"`
+	Graders    *RunUnifiedRolloutGraders    `json:"graders,omitzero"`
+	Braintrust *RunUnifiedRolloutBraintrust `json:"braintrust,omitzero"`
+	Response   *RunUnifiedRolloutResponse   `json:"response,omitzero"`
 }
 
 // RunUnifiedRolloutBraintrust defines a model
@@ -22212,29 +22212,29 @@ type RunUnifiedRolloutExecution struct {
 	VendorModelName string `json:"vendorModelName,omitzero"`
 	// Exact Notion model name for subagents. Supported only on inferenceTranscript; agentService rejects this option before enqueueing.
 	SubagentModel     string `json:"subagentModel,omitzero"`
-	RawVendorOverride *any   `json:"rawVendorOverride,omitempty"`
+	RawVendorOverride *any   `json:"rawVendorOverride,omitzero"`
 	// Optional reasoning override. Requires `model` or `vendorModelName` and must be supported by the selected Notion preset. Omit to retain that preset's settings.
 	ReasoningEffort string `json:"reasoningEffort,omitzero"`
 	// `auto` (default) runs tools without pausing for confirmation; `readOnly` disables mutations (legacy harness only today).
 	ToolPolicy RunMinimalRolloutOneOfExecutionToolPolicy `json:"toolPolicy,omitzero"`
 	// Options specific to the selected harness. AgentService supports local-only `evalSession`; inferenceTranscript has its own options.
-	HarnessOptions *RunUnifiedRolloutExecutionHarnessOptions `json:"harnessOptions,omitempty"`
+	HarnessOptions *RunUnifiedRolloutExecutionHarnessOptions `json:"harnessOptions,omitzero"`
 }
 
 // Options specific to the selected harness. AgentService supports local-only `evalSession`; inferenceTranscript has its own options.
 type RunUnifiedRolloutExecutionHarnessOptions struct {
 	// For local AgentService agentCall requests, execute against isolated eval-session state.
-	EvalSession bool `json:"evalSession,omitempty"`
+	EvalSession bool `json:"evalSession,omitzero"`
 	// For AgentService native (non-agentCall) requests, disable the production prompt-injection scan callback. Defaults to true.
-	PromptInjectionScanningEnabled bool `json:"promptInjectionScanningEnabled,omitempty"`
+	PromptInjectionScanningEnabled bool `json:"promptInjectionScanningEnabled,omitzero"`
 }
 
 // Grader configuration keyed by grader name. Each value is one argument object or an array of argument objects for repeated grader runs.
 type RunUnifiedRolloutGraders struct {
-	ToolCallPresence    *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"toolCallPresence,omitempty"`
-	RegexMatch          *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"regexMatch,omitempty"`
-	MustacheJudgePrompt *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"mustacheJudgePrompt,omitempty"`
-	WeightedAssertions  *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"weightedAssertions,omitempty"`
+	ToolCallPresence    *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"toolCallPresence,omitzero"`
+	RegexMatch          *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"regexMatch,omitzero"`
+	MustacheJudgePrompt *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"mustacheJudgePrompt,omitzero"`
+	WeightedAssertions  *RunUnifiedRolloutGradersMustacheJudgePrompt `json:"weightedAssertions,omitzero"`
 }
 
 // RunUnifiedRolloutGradersMustacheJudgePrompt defines a model
@@ -22326,13 +22326,13 @@ func (e RunUnifiedRolloutInputType) Valid() bool {
 
 // RunUnifiedRolloutResponse defines a model
 type RunUnifiedRolloutResponse struct {
-	Raw bool `json:"raw,omitempty"`
+	Raw bool `json:"raw,omitzero"`
 	// Include revisioned harness and grader progress in asynchronous polling responses, including the completed response.
-	Progress bool `json:"progress,omitempty"`
+	Progress bool `json:"progress,omitzero"`
 	// Include the executed harness-native input. For inferenceTranscript sources, this is the record's input field rather than the full record.
-	Input bool `json:"input,omitempty"`
+	Input bool `json:"input,omitzero"`
 	// For AgentService eval sessions, include captured record operations in response metadata.
-	Operations bool `json:"operations,omitempty"`
+	Operations bool `json:"operations,omitzero"`
 }
 
 // SQL defines a model
@@ -22442,7 +22442,7 @@ type SearchAgentsSearchAgents struct {
 	// Search text matched against agent names and descriptions. Queries return one page and cannot use a cursor. When omitted, favorites are returned in sidebar order and workspace agents are returned newest first.
 	Query string `json:"query,omitzero"`
 	// Maximum results to return (1-200).
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Opaque pagination cursor from the previous response.
 	Cursor string `json:"cursor,omitzero"`
 }
@@ -22541,11 +22541,11 @@ type SearchEmailsSearchEmails struct {
 	// The email address of the mailbox to search. Omit to use the user's default connected account.
 	UserEmailAddress string `json:"user_email_address,omitzero"`
 	// Number of results to return (default: 20, max: 500).
-	Count *int `json:"count,omitempty"`
+	Count *int `json:"count,omitzero"`
 	// Pagination token from previous search results.
 	PageToken string `json:"page_token,omitzero"`
 	// Whether to include spam and trash in results. Defaults to false.
-	IncludeSpamTrash bool `json:"include_spam_trash,omitempty"`
+	IncludeSpamTrash bool `json:"include_spam_trash,omitzero"`
 }
 
 // SearchResult defines a model
@@ -22678,13 +22678,13 @@ type SearchSkillsSearchSkills struct {
 
 // SearchWorkspace defines a model
 type SearchWorkspace struct {
-	Keyword         *SearchWorkspaceKeyword `json:"keyword,omitempty"`
+	Keyword         *SearchWorkspaceKeyword `json:"keyword,omitzero"`
 	SharedWithIds   []uuid.UUID             `json:"shared_with_ids,omitzero"`
-	Location        *struct{}               `json:"location,omitempty"`
-	DateRangeFilter *struct{}               `json:"date_range_filter,omitempty"`
-	Options         *struct{}               `json:"options,omitempty"`
-	StartCursor     *uuid.UUID              `json:"start_cursor,omitempty"`
-	PageSize        *float64                `json:"page_size,omitempty"`
+	Location        *struct{}               `json:"location,omitzero"`
+	DateRangeFilter *struct{}               `json:"date_range_filter,omitzero"`
+	Options         *struct{}               `json:"options,omitzero"`
+	StartCursor     *uuid.UUID              `json:"start_cursor,omitzero"`
+	PageSize        *float64                `json:"page_size,omitzero"`
 	// The current target type.
 	ResultType RunToolOneOfType `json:"result_type,omitzero"`
 }
@@ -23089,7 +23089,7 @@ type StartExternalAgentStubSession struct {
 	// Idempotency key for one session-creation intent.
 	ClientReferenceID string `json:"client_reference_id,omitzero"`
 	// Vault-backed session configuration.
-	Configs *StartExternalAgentStubSessionConfigs `json:"configs,omitempty"`
+	Configs *StartExternalAgentStubSessionConfigs `json:"configs,omitzero"`
 	// Preferred model hint. The stub echoes it back and may ignore it.
 	Model string `json:"model,omitzero"`
 	// Preferred reasoning effort hint. The stub echoes it back and may ignore it.
@@ -23242,7 +23242,7 @@ type Started struct {
 	// Configured model identifier, or `auto` when model routing has not resolved yet.
 	Model string `json:"model,omitzero"`
 	// Caller-provided string metadata echoed from the chat request. user_id is the lifecycle correlation key and does not change authorization.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata *map[string]string `json:"metadata,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether Started declares it.
@@ -23601,7 +23601,7 @@ type TextRichTextItemText struct {
 	// The actual text content of the text.
 	Content string `json:"content,omitzero"`
 	// An object with information about any inline link in this text, if included.
-	Link *External2 `json:"link,omitempty"`
+	Link *External2 `json:"link,omitzero"`
 }
 
 // Title defines a model
@@ -23646,9 +23646,9 @@ type Tool struct {
 	Category ToolCategory `json:"category,omitzero"`
 	// One of: `pending`, `running`, `waiting_for_user`, `completed`, `failed`
 	Status      ToolStatus  `json:"status,omitzero"`
-	AgentStepID *idResponse `json:"agent_step_id,omitempty"`
+	AgentStepID *idResponse `json:"agent_step_id,omitzero"`
 	// The name of the bot's workspace.
-	ToolCallID *string `json:"tool_call_id,omitempty"`
+	ToolCallID *string `json:"tool_call_id,omitzero"`
 	ToolName   string  `json:"tool_name,omitzero"`
 	ToolType   string  `json:"tool_type,omitzero"`
 }
@@ -24585,7 +24585,7 @@ type ToolInputAnyOf struct {
 	// Target page in a Skills database. Create a new page first to import a new skill.
 	PageID uuid.UUID `json:"page_id,omitzero"`
 	// Required for prepare. Exact compressed archive size in bytes (maximum 20 MiB).
-	ContentLength *int `json:"content_length,omitempty"`
+	ContentLength *int `json:"content_length,omitzero"`
 	// Required for prepare. Base64-encoded big-endian CRC32 of the tar.gz bytes; S3 verifies it on upload.
 	ChecksumCrc32 string `json:"checksum_crc32,omitzero"`
 	// Required for complete. Opaque token from prepare. Bound to the integration, workspace, and page; expires after ten minutes.
@@ -24603,7 +24603,7 @@ type ToolInputAnyOf10 struct {
 	// For pages outside of a database, the only allowed property is "title", which is the title of the page in inline markdown format.
 	// For a Files property, an uploaded file can be provided as {"type":"file_upload","file_upload":{"id":"<file-upload-id>"}} inside the property's array.
 	// Use null to remove a property's value.
-	Properties *map[string]ToolInputAnyOfPropertiesValue `json:"properties,omitempty"`
+	Properties *map[string]ToolInputAnyOfPropertiesValue `json:"properties,omitzero"`
 	// Required for "replace_content" command. The new content string to replace the entire page content with.
 	NewStr string `json:"new_str,omitzero"`
 	// Required for "insert_content" command. The markdown content to insert into the page.
@@ -24611,23 +24611,23 @@ type ToolInputAnyOf10 struct {
 	// Required for "update_content" command. An array of search-and-replace operations, each with old_str (content to find) and new_str (replacement content).
 	ContentUpdates ToolInputAnyOfContentUpdates `json:"content_updates,omitzero"`
 	// Optional for "insert_content" command. Use {"type":"start"} to prepend content or {"type":"end"} to append content. Omit to append.
-	Position *ToolInputAnyOfPosition `json:"position,omitempty"`
+	Position *ToolInputAnyOfPosition `json:"position,omitzero"`
 	// Optional for "replace_content" and "update_content" commands. Set to true to allow deletion of child pages and databases that are not referenced in the new content. If false or omitted, the operation will fail with an error listing the pages/databases that would be deleted.
-	AllowDeletingContent bool `json:"allow_deleting_content,omitempty"`
+	AllowDeletingContent bool `json:"allow_deleting_content,omitzero"`
 	// Required for "apply_template" command. The ID of a template to apply to this page. Template content is appended to any existing page content.
 	TemplateID string `json:"template_id,omitzero"`
 	// Required for "update_verification" command. Set to "verified" to mark the page as verified, or "unverified" to remove verification. When updating verification, the owner will be automatically set to the authenticated actor.
 	VerificationStatus ToolInputAnyOfVerificationStatus `json:"verification_status,omitzero"`
 	// Optional for "update_verification" command when verification_status is "verified". Number of days until verification expires (e.g. 7, 30, 90). Omit for indefinite verification.
-	VerificationExpiryDays *int `json:"verification_expiry_days,omitempty"`
+	VerificationExpiryDays *int `json:"verification_expiry_days,omitzero"`
 	// An emoji character (e.g. "🚀"), a custom emoji by name (e.g. ":rocket_ship:"), a Notion icon identifier as returned by fetch (e.g. "icons/pizza_blue"), or an external image URL. Use "none" to remove the icon. Omit to leave unchanged. Can be set alongside any command.
 	Icon string `json:"icon,omitzero"`
 	// An external image URL for the page cover. Use "none" to remove the cover. Omit to leave unchanged. Can be set alongside any command.
 	Cover string `json:"cover,omitzero"`
 	// Set to true to mark this page as a skill, or false to remove the skill designation. Can be set alongside any command.
-	IsSkill bool `json:"is_skill,omitempty"`
+	IsSkill bool `json:"is_skill,omitzero"`
 	// Default to true for page updates. Set to false only when the next step needs the updated page immediately, or when async execution rejects the request as too large. When this update operation is accepted for background execution, it returns an async_task result. Use get_async_task to wait for a succeeded status before taking a dependent action on the page. For apply_template, a succeeded status does not mean template content is ready; fetch and retry until it is ready before changing or relying on that content. If omitted or false, the tool waits for a synchronous result when possible, but may still return a pollable async_task response if queued execution exceeds the synchronous wait deadline.
-	AllowAsync bool `json:"allow_async,omitempty"`
+	AllowAsync bool `json:"allow_async,omitzero"`
 }
 
 // ToolInputAnyOf2 defines a model
@@ -24655,9 +24655,9 @@ type ToolInputAnyOf3 struct {
 	// The new description of the data source.
 	Description string `json:"description,omitzero"`
 	// Whether the database should display inline (true) or as full page (false). Only applicable for single-source databases.
-	IsInline bool `json:"is_inline,omitempty"`
+	IsInline bool `json:"is_inline,omitzero"`
 	// Move data source to trash. Cannot be undone without Notion UI.
-	InTrash bool `json:"in_trash,omitempty"`
+	InTrash bool `json:"in_trash,omitzero"`
 }
 
 // ToolInputAnyOf4 defines a model
@@ -24780,7 +24780,7 @@ type ToolInputAnyOfContentUpdatesItem struct {
 	// The new content string to replace old_str with.
 	NewStr string `json:"new_str,omitzero"`
 	// If true, replaces all occurrences of old_str. If false (default), the operation fails if there are multiple matches.
-	ReplaceAllMatches bool `json:"replace_all_matches,omitempty"`
+	ReplaceAllMatches bool `json:"replace_all_matches,omitzero"`
 }
 
 // Optional for "insert_content" command. Use {"type":"start"} to prepend content or {"type":"end"} to append content. Omit to append.
@@ -25297,13 +25297,13 @@ type UpdateAgent struct {
 	// Enable or disable the agent. Only editor-origin disables can be cleared.
 	Status UpdateAgentStatus `json:"status,omitzero"`
 	// Premium AI credits this thread consumed. Null when the caller lacks edit access to the agent.
-	CreditLimit *float64 `json:"credit_limit,omitempty"`
+	CreditLimit *float64 `json:"credit_limit,omitzero"`
 	// The agent's display name.
 	Name string `json:"name,omitzero"`
 	// Whether the personal-access-token owner has this agent in their favorites.
-	IsFavorited bool `json:"is_favorited,omitempty"`
+	IsFavorited bool `json:"is_favorited,omitzero"`
 	// The model selection. Use auto to let Notion choose, or pinned with an available public model ID.
-	Model *UpdateAgentModel `json:"model,omitempty"`
+	Model *UpdateAgentModel `json:"model,omitzero"`
 }
 
 // The model selection. Use auto to let Notion choose, or pinned with an available public model ID.
@@ -25426,11 +25426,11 @@ type UpdateAgentOk struct {
 	Triggers    UpdateAgentOkTriggers `json:"triggers"`
 	IsFavorited *bool                 `json:"is_favorited"`
 	// Date and time when this agent was created.
-	CreatedTime time.Time `json:"created_time,omitempty"`
+	CreatedTime time.Time `json:"created_time,omitzero"`
 	// Date and time when this agent was last edited.
-	LastEditedTime time.Time `json:"last_edited_time,omitempty"`
+	LastEditedTime time.Time `json:"last_edited_time,omitzero"`
 	// The name of the bot's workspace.
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions *string `json:"instructions,omitzero"`
 }
 
 // The per-agent credit limit that applies to this agent, null when uncapped, or "hidden" when the caller lacks full access to the agent. This is the effective limit computed at runtime, folding in both the agent's own limit and any workspace-admin default.
@@ -25577,9 +25577,9 @@ type UpdateAgentOkTriggersItem struct {
 	// Whether this trigger is currently enabled.
 	Enabled bool `json:"enabled"`
 	// Structured recurrence cadence. Present only for recurrence triggers.
-	Schedule *UpdateAgentOkTriggersItemSchedule `json:"schedule,omitempty"`
+	Schedule *UpdateAgentOkTriggersItemSchedule `json:"schedule,omitzero"`
 	// Remaining per-type trigger configuration (e.g. watched channel ids, reaction config), keys in snake_case. Present only when the trigger carries such state.
-	Config *map[string]any `json:"config,omitempty"`
+	Config *map[string]any `json:"config,omitzero"`
 }
 
 // Structured recurrence cadence. Present only for recurrence triggers.
@@ -25595,15 +25595,15 @@ type UpdateAgentOkTriggersItemSchedule struct {
 	// Week-of-month ordinals for a monthly weekday restriction (e.g. [2, 3] for the 2nd and 3rd occurrence); -1 means the last week.
 	WeekNumbers []int `json:"week_numbers,omitzero"`
 	// Hour of day (0–23) the schedule runs.
-	Hour *int `json:"hour,omitempty"`
+	Hour *int `json:"hour,omitzero"`
 	// Minute of the hour (0–59) the schedule runs.
-	Minute *int `json:"minute,omitempty"`
+	Minute *int `json:"minute,omitzero"`
 	// IANA timezone (e.g. "America/New_York").
 	Timezone string `json:"timezone,omitzero"`
 	// ISO 8601 timestamp the schedule starts from.
 	StartDate string `json:"start_date,omitzero"`
 	// When the schedule stops, when it is bounded.
-	End *UpdateAgentOkTriggersItemScheduleEnd `json:"end,omitempty"`
+	End *UpdateAgentOkTriggersItemScheduleEnd `json:"end,omitzero"`
 }
 
 // When the schedule stops, when it is bounded.
@@ -26265,7 +26265,7 @@ type Users2 struct {
 	// Cursor for pagination. Use the next_cursor value from the previous response to get the next page.
 	StartCursor string `json:"start_cursor,omitzero"`
 	// Number of users to return per page (1–100; default 100).
-	PageSize *int `json:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitzero"`
 	// Return only the user matching this ID. Pass "self" to fetch the current user.
 	UserID string `json:"user_id,omitzero"`
 }
@@ -26459,7 +26459,7 @@ type ViewThreadContentViewThreadContent struct {
 	// The email address of the mailbox containing the thread. Omit to use the user's default connected account.
 	UserEmailAddress string `json:"user_email_address,omitzero"`
 	// If true (the default), returns only the most recent message. Set false to return all messages in the thread.
-	MostRecentMessageOnly bool `json:"most_recent_message_only,omitempty"`
+	MostRecentMessageOnly bool `json:"most_recent_message_only,omitzero"`
 }
 
 // ViewVersionHistory defines a model
@@ -26682,15 +26682,15 @@ func (v *agentIdParentForBlockBasedObjectResponse) unmarshalJSONMember(dec *json
 // annotation defines a model
 type annotation struct {
 	// Whether the text is formatted as bold.
-	Bold bool `json:"bold,omitempty"`
+	Bold bool `json:"bold,omitzero"`
 	// Whether the text is formatted as italic.
-	Italic bool `json:"italic,omitempty"`
+	Italic bool `json:"italic,omitzero"`
 	// Whether the text is formatted with a strikethrough.
-	Strikethrough bool `json:"strikethrough,omitempty"`
+	Strikethrough bool `json:"strikethrough,omitzero"`
 	// Whether the text is formatted with an underline.
-	Underline bool `json:"underline,omitempty"`
+	Underline bool `json:"underline,omitzero"`
 	// Whether the text is formatted as code.
-	Code bool `json:"code,omitempty"`
+	Code bool `json:"code,omitzero"`
 	// The color of the text.
 	Color apiColor `json:"color,omitzero"`
 }
@@ -27909,7 +27909,7 @@ func (v *columnListBlockObjectResponse) unmarshalJSONMember(dec *jsontext.Decode
 // columnResponse defines a model
 type columnResponse struct {
 	// Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width.
-	WidthRatio *float64 `json:"width_ratio,omitempty"`
+	WidthRatio *float64 `json:"width_ratio,omitzero"`
 }
 
 // contentWithRichTextAndColorAndListResponse defines a model
@@ -27917,7 +27917,7 @@ type contentWithRichTextAndColorAndListResponse struct {
 	RichText []richTextItemResponse `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
 	Color          apiColor           `json:"color,omitzero"`
-	ListStartIndex *int               `json:"list_start_index,omitempty"`
+	ListStartIndex *int               `json:"list_start_index,omitzero"`
 	ListFormat     numberedListFormat `json:"list_format,omitzero"`
 }
 
@@ -29319,9 +29319,9 @@ type date struct {
 	// The start date of the date object.
 	Start civil.Date `json:"start,omitzero"`
 	// The end date of the date object, if any.
-	End *civil.Date `json:"end,omitempty"`
+	End *civil.Date `json:"end,omitzero"`
 	// The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc.
-	TimeZone *timeZoneRequest `json:"time_zone,omitempty"`
+	TimeZone *timeZoneRequest `json:"time_zone,omitzero"`
 }
 
 // dateDatabasePropertyConfigResponse defines a model
@@ -31017,11 +31017,11 @@ type linkMentionResponse struct {
 	// The iframe URL of the link.
 	IframeURL string `json:"iframe_url,omitzero"`
 	// The height of the link preview iframe.
-	Height *int `json:"height,omitempty"`
+	Height *int `json:"height,omitzero"`
 	// The padding of the link preview iframe.
-	Padding *int `json:"padding,omitempty"`
+	Padding *int `json:"padding,omitzero"`
 	// The top padding of the link preview iframe.
-	PaddingTop *int `json:"padding_top,omitempty"`
+	PaddingTop *int `json:"padding_top,omitzero"`
 }
 
 // linkPreviewBlockObjectResponse defines a model
@@ -33338,13 +33338,13 @@ type placePropertyValueResponse struct {
 	Lat float64 `json:"lat"`
 	Lon float64 `json:"lon"`
 	// The name of the bot's workspace.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name,omitzero"`
 	// The name of the bot's workspace.
-	Address *string `json:"address,omitempty"`
+	Address *string `json:"address,omitzero"`
 	// The name of the bot's workspace.
-	AwsPlaceID *string `json:"aws_place_id,omitempty"`
+	AwsPlaceID *string `json:"aws_place_id,omitzero"`
 	// The name of the bot's workspace.
-	GooglePlaceID *string `json:"google_place_id,omitempty"`
+	GooglePlaceID *string `json:"google_place_id,omitzero"`
 }
 
 // placeSimplePropertyValueResponse defines a model
@@ -33668,7 +33668,7 @@ type propertyItemPropertyItemListResponse struct {
 type publicApiCommonErrorResponse struct {
 	Object         string                                            `json:"object,omitzero"`
 	Message        string                                            `json:"message,omitzero"`
-	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitempty"`
+	AdditionalData *map[string]ErrorAPIOneOfAllOfAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // quoteBlockObjectResponse defines a model
@@ -33827,7 +33827,7 @@ func (v *richTextDatabasePropertyConfigResponse) unmarshalJSONMember(dec *jsonte
 // richTextItemRequest defines a model
 type richTextItemRequest struct {
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations               *annotation               `json:"annotations,omitempty"`
+	Annotations               *annotation               `json:"annotations,omitzero"`
 	RichTextItemRequestAllOf1 richTextItemRequestAllOf1 `json:"-"`
 }
 
@@ -34430,7 +34430,7 @@ type runToolOneOf3 struct {
 	// Cursor for the next page of results. Use this value as start_cursor in the next request to get the next page.
 	NextCursor string `json:"next_cursor,omitzero"`
 	// Set when the result set is incomplete due to a server-side query limit.
-	RequestStatus *requestStatusResponse `json:"request_status,omitempty"`
+	RequestStatus *requestStatusResponse `json:"request_status,omitzero"`
 	// Migration guidance for switching to query_data_sources with mode: "view".
 	DeprecationNotice string `json:"deprecation_notice,omitzero"`
 }
@@ -34457,7 +34457,7 @@ type runToolOneOf6 struct {
 
 // runToolOneOf7 defines a model
 type runToolOneOf7 struct {
-	SchedulingLink *RunToolOneOfSchedulingLinksItem `json:"schedulingLink,omitempty"`
+	SchedulingLink *RunToolOneOfSchedulingLinksItem `json:"schedulingLink,omitzero"`
 	Errors         RunToolOneOfErrors               `json:"errors,omitzero"`
 }
 
@@ -35329,13 +35329,13 @@ func (v *runToolResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 // runToolResponseOneOf0 defines a model
 type runToolResponseOneOf0 struct {
 	Pages     RunToolResponseOneOf0Pages `json:"pages"`
-	McpNotice *RunToolOneOfMcpNotice     `json:"mcp_notice,omitempty"`
+	McpNotice *RunToolOneOfMcpNotice     `json:"mcp_notice,omitzero"`
 }
 
 // runToolResponseOneOf1 defines a model
 type runToolResponseOneOf1 struct {
 	PageID    idResponse             `json:"page_id,omitzero"`
-	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitempty"`
+	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitzero"`
 }
 
 // runToolResponseOneOf11 defines a model
@@ -35365,20 +35365,20 @@ type runToolResponseOneOf15 struct {
 	URL        string                         `json:"url,omitzero"`
 	Text       string                         `json:"text,omitzero"`
 	Metadata   RunToolResponseOneOf15Metadata `json:"metadata"`
-	Cover      *RunToolResponseOneOf15Cover   `json:"cover,omitempty"`
-	Icon       *RunToolResponseOneOf15Icon    `json:"icon,omitempty"`
-	IsArchived bool                           `json:"is_archived,omitempty"`
+	Cover      *RunToolResponseOneOf15Cover   `json:"cover,omitzero"`
+	Icon       *RunToolResponseOneOf15Icon    `json:"icon,omitzero"`
+	IsArchived bool                           `json:"is_archived,omitzero"`
 	// Present only when fetching id "self": the connected workspace and user identity.
-	Self              *RunToolResponseOneOf15Self `json:"self,omitempty"`
-	Truncated         bool                        `json:"truncated,omitempty"`
+	Self              *RunToolResponseOneOf15Self `json:"self,omitzero"`
+	Truncated         bool                        `json:"truncated,omitzero"`
 	UnknownBlockIds   []string                    `json:"unknown_block_ids,omitzero"`
-	UnknownBlockCount *int                        `json:"unknown_block_count,omitempty"`
+	UnknownBlockCount *int                        `json:"unknown_block_count,omitzero"`
 	// Compact path showing where this page lives in Notion.
 	Path string `json:"path,omitzero"`
 	// When the page record itself was last edited.
 	PageLastEditedAt string `json:"page_last_edited_at,omitzero"`
 	// Native Notion verification state when available.
-	Verification *RunToolOneOfResultsItemVerification `json:"verification,omitempty"`
+	Verification *RunToolOneOfResultsItemVerification `json:"verification,omitzero"`
 }
 
 // runToolResponseOneOf16 defines a model
@@ -35461,7 +35461,7 @@ type runToolResponseOneOf21 struct {
 type runToolResponseOneOf22 struct {
 	// A rendered Markdown string describing the structure and details of the newly created database.
 	Result    string                 `json:"result,omitzero"`
-	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitempty"`
+	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitzero"`
 }
 
 // runToolResponseOneOf23 defines a model
@@ -35472,7 +35472,7 @@ type runToolResponseOneOf23 struct {
 	Parent RunToolResponseOneOf23Parent `json:"parent"`
 	// The canonical URL of the created Folder.
 	URL       string                 `json:"url,omitzero"`
-	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitempty"`
+	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitzero"`
 }
 
 // runToolResponseOneOf24 defines a model
@@ -35776,11 +35776,11 @@ type runToolResponseOneOf71 struct {
 	// True when the version is outside the workspace's accessible history window.
 	IsLocked bool `json:"is_locked"`
 	// Historical page properties keyed by canonical property name.
-	Properties *map[string]RunToolResponseOneOf71PropertiesValue `json:"properties,omitempty"`
+	Properties *map[string]RunToolResponseOneOf71PropertiesValue `json:"properties,omitzero"`
 	// Markdown page content or JSON database configuration for an accessible version.
 	Content string `json:"content,omitzero"`
 	// True when content reached the tool's output limit and was shortened.
-	Truncated bool `json:"truncated,omitempty"`
+	Truncated bool `json:"truncated,omitzero"`
 	// Why a locked version cannot be read.
 	Message string `json:"message,omitzero"`
 }
@@ -35797,11 +35797,11 @@ type runToolResponseOneOf72 struct {
 	BaseCreatedAt     string           `json:"base_created_at,omitzero"`
 	TargetCreatedAt   string           `json:"target_created_at,omitzero"`
 	// Whether the two rendered versions differ.
-	HasChanges bool `json:"has_changes,omitempty"`
+	HasChanges bool `json:"has_changes,omitzero"`
 	// A unified diff from the baseline version to the comparison version.
 	Diff string `json:"diff,omitzero"`
 	// True when the comparison is partial because an input or output limit was reached.
-	Truncated bool `json:"truncated,omitempty"`
+	Truncated bool `json:"truncated,omitzero"`
 	// Why the versions could not be compared.
 	Message string `json:"message,omitzero"`
 }
@@ -35861,7 +35861,7 @@ type runToolResponseOneOf8 struct {
 	PageID string `json:"page_id,omitzero"`
 	// The Notion URL of the created page.
 	PageURL   string                 `json:"page_url,omitzero"`
-	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitempty"`
+	McpNotice *RunToolOneOfMcpNotice `json:"mcp_notice,omitzero"`
 }
 
 // runToolResponseOneOf80 defines a model
@@ -37120,9 +37120,9 @@ func (v *toggleBlockObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, n
 type transcriptionBlockResponse struct {
 	Title         []richTextItemResponse              `json:"title,omitzero"`
 	Status        apiTranscriptionStatus              `json:"status,omitzero"`
-	Children      *transcriptionChildrenResponse      `json:"children,omitempty"`
-	CalendarEvent *transcriptionCalendarEventResponse `json:"calendar_event,omitempty"`
-	Recording     *transcriptionRecordingResponse     `json:"recording,omitempty"`
+	Children      *transcriptionChildrenResponse      `json:"children,omitzero"`
+	CalendarEvent *transcriptionCalendarEventResponse `json:"calendar_event,omitzero"`
+	Recording     *transcriptionRecordingResponse     `json:"recording,omitzero"`
 }
 
 // transcriptionCalendarEventResponse defines a model
@@ -37141,8 +37141,8 @@ type transcriptionChildrenResponse struct {
 
 // transcriptionRecordingResponse defines a model
 type transcriptionRecordingResponse struct {
-	StartTime time.Time `json:"start_time,omitempty"`
-	EndTime   time.Time `json:"end_time,omitempty"`
+	StartTime time.Time `json:"start_time,omitzero"`
+	EndTime   time.Time `json:"end_time,omitzero"`
 }
 
 // uniqueIdDatabasePropertyConfigResponse defines a model

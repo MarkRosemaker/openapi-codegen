@@ -11580,14 +11580,14 @@
 					"name": "Schedule",
 					"jsonName": "schedule",
 					"type": "*AgentTriggersItemSchedule",
-					"jsonTag": "json:\"schedule,omitempty\"",
+					"jsonTag": "json:\"schedule,omitzero\"",
 					"description": "Structured recurrence cadence. Present only for recurrence triggers."
 				},
 				{
 					"name": "Config",
 					"jsonName": "config",
 					"type": "*map[string]any",
-					"jsonTag": "json:\"config,omitempty\"",
+					"jsonTag": "json:\"config,omitzero\"",
 					"description": "Remaining per-type trigger configuration (e.g. watched channel ids, reaction config), keys in snake_case. Present only when the trigger carries such state."
 				}
 			]
@@ -11637,14 +11637,14 @@
 					"name": "Hour",
 					"jsonName": "hour",
 					"type": "*int",
-					"jsonTag": "json:\"hour,omitempty\"",
+					"jsonTag": "json:\"hour,omitzero\"",
 					"description": "Hour of day (0–23) the schedule runs."
 				},
 				{
 					"name": "Minute",
 					"jsonName": "minute",
 					"type": "*int",
-					"jsonTag": "json:\"minute,omitempty\"",
+					"jsonTag": "json:\"minute,omitzero\"",
 					"description": "Minute of the hour (0–59) the schedule runs."
 				},
 				{
@@ -11665,7 +11665,7 @@
 					"name": "End",
 					"jsonName": "end",
 					"type": "*AgentTriggersItemScheduleEnd",
-					"jsonTag": "json:\"end,omitempty\"",
+					"jsonTag": "json:\"end,omitzero\"",
 					"description": "When the schedule stops, when it is bounded."
 				}
 			]
@@ -11863,7 +11863,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -13530,7 +13530,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -13716,7 +13716,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -13768,7 +13768,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -13916,7 +13916,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -14013,7 +14013,7 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				},
 				{
 					"name": "Color",
@@ -14052,7 +14052,7 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				}
 			]
 		},
@@ -14084,7 +14084,7 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				}
 			]
 		},
@@ -14194,7 +14194,7 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "*CancelSessionError",
-					"jsonTag": "json:\"error,omitempty\""
+					"jsonTag": "json:\"error,omitzero\""
 				}
 			]
 		},
@@ -14906,7 +14906,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -15009,7 +15009,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -15048,7 +15048,7 @@
 					"name": "WidthRatio",
 					"jsonName": "width_ratio",
 					"type": "*float64",
-					"jsonTag": "json:\"width_ratio,omitempty\"",
+					"jsonTag": "json:\"width_ratio,omitzero\"",
 					"description": "Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width."
 				}
 			]
@@ -15314,7 +15314,7 @@
 					"name": "DisplayName",
 					"jsonName": "display_name",
 					"type": "*CreateACommentAllOf0DisplayName",
-					"jsonTag": "json:\"display_name,omitempty\"",
+					"jsonTag": "json:\"display_name,omitzero\"",
 					"description": "Display name for the comment."
 				},
 				{
@@ -15997,7 +15997,7 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\"",
+					"jsonTag": "json:\"icon,omitzero\"",
 					"description": "Page icon."
 				}
 			]
@@ -16231,7 +16231,7 @@
 					"name": "ExternalAccount",
 					"jsonName": "external_account",
 					"type": "*CreateATokenAnyOf0ExternalAccount",
-					"jsonTag": "json:\"external_account,omitempty\""
+					"jsonTag": "json:\"external_account,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -16348,7 +16348,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -16447,14 +16447,14 @@
 					"name": "IsInline",
 					"jsonName": "is_inline",
 					"type": "bool",
-					"jsonTag": "json:\"is_inline,omitempty\"",
+					"jsonTag": "json:\"is_inline,omitzero\"",
 					"description": "Whether the database should be displayed inline in the parent page. Defaults to false."
 				},
 				{
 					"name": "InitialDataSource",
 					"jsonName": "initial_data_source",
 					"type": "*initialDataSourceRequest",
-					"jsonTag": "json:\"initial_data_source,omitempty\"",
+					"jsonTag": "json:\"initial_data_source,omitzero\"",
 					"description": "Initial data source configuration for the database."
 				},
 				{
@@ -16468,14 +16468,14 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\"",
+					"jsonTag": "json:\"icon,omitzero\"",
 					"description": "The icon for the database."
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*pageCoverRequest",
-					"jsonTag": "json:\"cover,omitempty\"",
+					"jsonTag": "json:\"cover,omitzero\"",
 					"description": "The cover image for the database."
 				}
 			]
@@ -16869,7 +16869,7 @@
 					"name": "NumberOfParts",
 					"jsonName": "number_of_parts",
 					"type": "*int",
-					"jsonTag": "json:\"number_of_parts,omitempty\"",
+					"jsonTag": "json:\"number_of_parts,omitzero\"",
 					"description": "The number of parts in a multi_part upload. Required only for multi_part uploads. This must match the number of uploaded parts and the final part_number sent."
 				},
 				{
@@ -16927,7 +16927,7 @@
 					"name": "Options",
 					"jsonName": "options",
 					"type": "*CreateMeetingNoteAllOf0Options",
-					"jsonTag": "json:\"options,omitempty\"",
+					"jsonTag": "json:\"options,omitzero\"",
 					"description": "Optional processing settings."
 				},
 				{
@@ -17132,7 +17132,7 @@
 					"name": "KickoffSummary",
 					"jsonName": "kickoff_summary",
 					"type": "bool",
-					"jsonTag": "json:\"kickoff_summary,omitempty\"",
+					"jsonTag": "json:\"kickoff_summary,omitzero\"",
 					"description": "Whether to start summary generation after transcription."
 				}
 			]
@@ -17256,7 +17256,7 @@
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*any",
-					"jsonTag": "json:\"parent,omitempty\"",
+					"jsonTag": "json:\"parent,omitzero\"",
 					"description": "Not accepted for block sources."
 				}
 			]
@@ -17507,21 +17507,21 @@
 					"name": "Children",
 					"jsonName": "children",
 					"type": "*CreateMeetingNoteOneOfMeetingNotesChildren",
-					"jsonTag": "json:\"children,omitempty\"",
+					"jsonTag": "json:\"children,omitzero\"",
 					"description": "Block IDs for each tab (summary, notes, transcript)."
 				},
 				{
 					"name": "CalendarEvent",
 					"jsonName": "calendar_event",
 					"type": "*CreateMeetingNoteOneOfMeetingNotesCalendarEvent",
-					"jsonTag": "json:\"calendar_event,omitempty\"",
+					"jsonTag": "json:\"calendar_event,omitzero\"",
 					"description": "Calendar event metadata associated with this meeting note."
 				},
 				{
 					"name": "Recording",
 					"jsonName": "recording",
 					"type": "*CreateMeetingNoteOneOfMeetingNotesRecording",
-					"jsonTag": "json:\"recording,omitempty\"",
+					"jsonTag": "json:\"recording,omitzero\"",
 					"description": "Start and end times of the actual recording."
 				}
 			]
@@ -17563,21 +17563,21 @@
 					"name": "SummaryBlockID",
 					"jsonName": "summary_block_id",
 					"type": "*idResponse",
-					"jsonTag": "json:\"summary_block_id,omitempty\"",
+					"jsonTag": "json:\"summary_block_id,omitzero\"",
 					"description": "Block ID of the AI summary tab."
 				},
 				{
 					"name": "NotesBlockID",
 					"jsonName": "notes_block_id",
 					"type": "*idResponse",
-					"jsonTag": "json:\"notes_block_id,omitempty\"",
+					"jsonTag": "json:\"notes_block_id,omitzero\"",
 					"description": "Block ID of the meeting notes tab."
 				},
 				{
 					"name": "TranscriptBlockID",
 					"jsonName": "transcript_block_id",
 					"type": "*idResponse",
-					"jsonTag": "json:\"transcript_block_id,omitempty\"",
+					"jsonTag": "json:\"transcript_block_id,omitzero\"",
 					"description": "Block ID of the transcript tab."
 				}
 			]
@@ -18641,7 +18641,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -18802,7 +18802,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -18971,7 +18971,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -19590,7 +19590,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -20809,21 +20809,21 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitempty\"",
+					"jsonTag": "json:\"created_time,omitzero\"",
 					"description": "Date and time when this agent was created."
 				},
 				{
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitempty\"",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
 					"description": "Date and time when this agent was last edited."
 				},
 				{
 					"name": "Instructions",
 					"jsonName": "instructions",
 					"type": "*string",
-					"jsonTag": "json:\"instructions,omitempty\"",
+					"jsonTag": "json:\"instructions,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -21048,7 +21048,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				}
 			]
 		},
@@ -21097,7 +21097,7 @@
 					"name": "IsToggleable",
 					"jsonName": "is_toggleable",
 					"type": "bool",
-					"jsonTag": "json:\"is_toggleable,omitempty\""
+					"jsonTag": "json:\"is_toggleable,omitzero\""
 				},
 				{
 					"name": "Children",
@@ -21128,7 +21128,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -21232,7 +21232,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -21336,7 +21336,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -21440,7 +21440,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -21565,7 +21565,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -21670,7 +21670,7 @@
 					"name": "Position",
 					"jsonName": "position",
 					"type": "*InsertContentInsertContentPosition",
-					"jsonTag": "json:\"position,omitempty\"",
+					"jsonTag": "json:\"position,omitzero\"",
 					"description": "Explicit position for inserted content. Use {\"type\":\"start\"} to prepend or {\"type\":\"end\"} to append. Cannot be combined with after."
 				}
 			]
@@ -21814,13 +21814,13 @@
 					"name": "Iat",
 					"jsonName": "iat",
 					"type": "*int",
-					"jsonTag": "json:\"iat,omitempty\""
+					"jsonTag": "json:\"iat,omitzero\""
 				},
 				{
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -21987,7 +21987,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -22159,7 +22159,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				}
 			]
 		},
@@ -22325,7 +22325,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				}
 			]
 		},
@@ -22466,13 +22466,13 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				},
 				{
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -23242,7 +23242,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*string",
-					"jsonTag": "json:\"description,omitempty\"",
+					"jsonTag": "json:\"description,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
@@ -23370,7 +23370,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*textRequest",
-					"jsonTag": "json:\"description,omitempty\""
+					"jsonTag": "json:\"description,omitzero\""
 				}
 			]
 		},
@@ -23414,7 +23414,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*string",
-					"jsonTag": "json:\"description,omitempty\"",
+					"jsonTag": "json:\"description,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -23563,7 +23563,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -23740,7 +23740,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*PageOrDataSourceStatus",
-					"jsonTag": "json:\"request_status,omitempty\""
+					"jsonTag": "json:\"request_status,omitzero\""
 				}
 			]
 		},
@@ -24772,7 +24772,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -25202,7 +25202,7 @@
 					"name": "Position",
 					"jsonName": "position",
 					"type": "*contentPositionSchema",
-					"jsonTag": "json:\"position,omitempty\""
+					"jsonTag": "json:\"position,omitzero\""
 				}
 			]
 		},
@@ -25214,51 +25214,51 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]PagePropertiesValue",
-					"jsonTag": "json:\"properties,omitempty\""
+					"jsonTag": "json:\"properties,omitzero\""
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*pageCoverRequest",
-					"jsonTag": "json:\"cover,omitempty\""
+					"jsonTag": "json:\"cover,omitzero\""
 				},
 				{
 					"name": "IsLocked",
 					"jsonName": "is_locked",
 					"type": "bool",
-					"jsonTag": "json:\"is_locked,omitempty\"",
+					"jsonTag": "json:\"is_locked,omitzero\"",
 					"description": "Whether the page should be locked from editing in the Notion app UI. If not provided, the locked state will not be updated."
 				},
 				{
 					"name": "Template",
 					"jsonName": "template",
 					"type": "*PatchPageTemplate",
-					"jsonTag": "json:\"template,omitempty\""
+					"jsonTag": "json:\"template,omitzero\""
 				},
 				{
 					"name": "EraseContent",
 					"jsonName": "erase_content",
 					"type": "bool",
-					"jsonTag": "json:\"erase_content,omitempty\"",
+					"jsonTag": "json:\"erase_content,omitzero\"",
 					"description": "Whether to erase all existing content from the page. When used with a template, the template content replaces the existing content. When used without a template, simply clears the page content."
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				},
 				{
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitempty\""
+					"jsonTag": "json:\"is_archived,omitzero\""
 				}
 			]
 		},
@@ -25350,7 +25350,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -25685,7 +25685,7 @@
 					"name": "EmailVerified",
 					"jsonName": "email_verified",
 					"type": "bool",
-					"jsonTag": "json:\"email_verified,omitempty\""
+					"jsonTag": "json:\"email_verified,omitzero\""
 				}
 			]
 		},
@@ -25879,7 +25879,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*PostDatabaseQueryFilter",
-					"jsonTag": "json:\"filter,omitempty\""
+					"jsonTag": "json:\"filter,omitzero\""
 				},
 				{
 					"name": "StartCursor",
@@ -25891,13 +25891,13 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*float64",
-					"jsonTag": "json:\"page_size,omitempty\""
+					"jsonTag": "json:\"page_size,omitzero\""
 				},
 				{
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitempty\"",
+					"jsonTag": "json:\"is_archived,omitzero\"",
 					"description": "Whether to return archived pages. When omitted or false, returns non-archived pages. When true, returns archived pages."
 				},
 				{
@@ -26592,25 +26592,25 @@
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*PostPageParent",
-					"jsonTag": "json:\"parent,omitempty\""
+					"jsonTag": "json:\"parent,omitzero\""
 				},
 				{
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]PagePropertiesValue",
-					"jsonTag": "json:\"properties,omitempty\""
+					"jsonTag": "json:\"properties,omitzero\""
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*pageCoverRequest",
-					"jsonTag": "json:\"cover,omitempty\""
+					"jsonTag": "json:\"cover,omitzero\""
 				},
 				{
 					"name": "Content",
@@ -26635,20 +26635,20 @@
 					"name": "AllowAsync",
 					"jsonName": "allow_async",
 					"type": "bool",
-					"jsonTag": "json:\"allow_async,omitempty\"",
+					"jsonTag": "json:\"allow_async,omitzero\"",
 					"description": "Set to true to receive an async_task response for markdown page creation. Only supported when markdown is provided."
 				},
 				{
 					"name": "Template",
 					"jsonName": "template",
 					"type": "*PostPageTemplate",
-					"jsonTag": "json:\"template,omitempty\""
+					"jsonTag": "json:\"template,omitzero\""
 				},
 				{
 					"name": "Position",
 					"jsonName": "position",
 					"type": "*pagePositionSchema",
-					"jsonTag": "json:\"position,omitempty\""
+					"jsonTag": "json:\"position,omitzero\""
 				}
 			]
 		},
@@ -27044,7 +27044,7 @@
 					"name": "Sort",
 					"jsonName": "sort",
 					"type": "*PostSearchSort",
-					"jsonTag": "json:\"sort,omitempty\""
+					"jsonTag": "json:\"sort,omitzero\""
 				},
 				{
 					"name": "Query",
@@ -27056,19 +27056,19 @@
 					"name": "StartCursor",
 					"jsonName": "start_cursor",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"start_cursor,omitempty\""
+					"jsonTag": "json:\"start_cursor,omitzero\""
 				},
 				{
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*float64",
-					"jsonTag": "json:\"page_size,omitempty\""
+					"jsonTag": "json:\"page_size,omitzero\""
 				},
 				{
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*PostSearchFilter",
-					"jsonTag": "json:\"filter,omitempty\""
+					"jsonTag": "json:\"filter,omitzero\""
 				}
 			]
 		},
@@ -27154,7 +27154,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			]
 		},
@@ -27493,7 +27493,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QueryAgentsFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Filter agents by public properties, optionally combined with and/or."
 				},
 				{
@@ -27514,21 +27514,21 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "Number of agents to return. Maximum: 100."
 				},
 				{
 					"name": "Verbose",
 					"jsonName": "verbose",
 					"type": "bool",
-					"jsonTag": "json:\"verbose,omitempty\"",
+					"jsonTag": "json:\"verbose,omitzero\"",
 					"description": "Whether to include inline instructions for each agent. Defaults to false."
 				},
 				{
 					"name": "IncludeDeleted",
 					"jsonName": "include_deleted",
 					"type": "bool",
-					"jsonTag": "json:\"include_deleted,omitempty\"",
+					"jsonTag": "json:\"include_deleted,omitzero\"",
 					"description": "Whether to include soft-deleted agents. Defaults to false."
 				}
 			]
@@ -28700,13 +28700,13 @@
 					"name": "After",
 					"jsonName": "after",
 					"type": "time.Time",
-					"jsonTag": "json:\"after,omitempty\""
+					"jsonTag": "json:\"after,omitzero\""
 				},
 				{
 					"name": "Before",
 					"jsonName": "before",
 					"type": "time.Time",
-					"jsonTag": "json:\"before,omitempty\""
+					"jsonTag": "json:\"before,omitzero\""
 				}
 			]
 		},
@@ -29194,7 +29194,7 @@
 					"name": "Instructions",
 					"jsonName": "instructions",
 					"type": "*string",
-					"jsonTag": "json:\"instructions,omitempty\"",
+					"jsonTag": "json:\"instructions,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -29571,7 +29571,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QueryMeetingNotesFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Optional filter for querying meeting notes. Supports combinator (and/or) and property filters on title, attendees, created_time, created_by, last_edited_time, last_edited_by."
 				},
 				{
@@ -29585,7 +29585,7 @@
 					"name": "Limit",
 					"jsonName": "limit",
 					"type": "*int",
-					"jsonTag": "json:\"limit,omitempty\"",
+					"jsonTag": "json:\"limit,omitzero\"",
 					"description": "Maximum number of results to return. Defaults to 50."
 				}
 			]
@@ -29931,7 +29931,7 @@
 					"name": "UseEnd",
 					"jsonName": "use_end",
 					"type": "bool",
-					"jsonTag": "json:\"use_end,omitempty\"",
+					"jsonTag": "json:\"use_end,omitzero\"",
 					"description": "Compare against the end of a date range rather than its start."
 				}
 			]
@@ -29960,7 +29960,7 @@
 					"name": "UseEnd",
 					"jsonName": "use_end",
 					"type": "bool",
-					"jsonTag": "json:\"use_end,omitempty\"",
+					"jsonTag": "json:\"use_end,omitzero\"",
 					"description": "Compare against the end of a date range rather than its start."
 				}
 			]
@@ -30850,14 +30850,14 @@
 					"name": "StartDate",
 					"jsonName": "start_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"start_date,omitempty\"",
+					"jsonTag": "json:\"start_date,omitzero\"",
 					"description": "Inclusive start of the range as an ISO 8601 date string, if any."
 				},
 				{
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "civil.Date",
-					"jsonTag": "json:\"end_date,omitempty\"",
+					"jsonTag": "json:\"end_date,omitzero\"",
 					"description": "Inclusive end of the range as an ISO 8601 date string, if any."
 				}
 			]
@@ -31086,7 +31086,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QuerySessionEventsFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "A session event property filter, or an and/or compound filter nested up to three levels deep."
 				},
 				{
@@ -31107,7 +31107,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "The number of events to return. Maximum: 100."
 				}
 			]
@@ -31942,25 +31942,25 @@
 					"name": "GreaterThan",
 					"jsonName": "greater_than",
 					"type": "*float64",
-					"jsonTag": "json:\"greater_than,omitempty\""
+					"jsonTag": "json:\"greater_than,omitzero\""
 				},
 				{
 					"name": "GreaterThanOrEqualTo",
 					"jsonName": "greater_than_or_equal_to",
 					"type": "*float64",
-					"jsonTag": "json:\"greater_than_or_equal_to,omitempty\""
+					"jsonTag": "json:\"greater_than_or_equal_to,omitzero\""
 				},
 				{
 					"name": "LessThan",
 					"jsonName": "less_than",
 					"type": "*float64",
-					"jsonTag": "json:\"less_than,omitempty\""
+					"jsonTag": "json:\"less_than,omitzero\""
 				},
 				{
 					"name": "LessThanOrEqualTo",
 					"jsonName": "less_than_or_equal_to",
 					"type": "*float64",
-					"jsonTag": "json:\"less_than_or_equal_to,omitempty\""
+					"jsonTag": "json:\"less_than_or_equal_to,omitzero\""
 				}
 			]
 		},
@@ -32024,31 +32024,31 @@
 					"name": "Equals",
 					"jsonName": "equals",
 					"type": "time.Time",
-					"jsonTag": "json:\"equals,omitempty\""
+					"jsonTag": "json:\"equals,omitzero\""
 				},
 				{
 					"name": "Before",
 					"jsonName": "before",
 					"type": "time.Time",
-					"jsonTag": "json:\"before,omitempty\""
+					"jsonTag": "json:\"before,omitzero\""
 				},
 				{
 					"name": "After",
 					"jsonName": "after",
 					"type": "time.Time",
-					"jsonTag": "json:\"after,omitempty\""
+					"jsonTag": "json:\"after,omitzero\""
 				},
 				{
 					"name": "OnOrBefore",
 					"jsonName": "on_or_before",
 					"type": "time.Time",
-					"jsonTag": "json:\"on_or_before,omitempty\""
+					"jsonTag": "json:\"on_or_before,omitzero\""
 				},
 				{
 					"name": "OnOrAfter",
 					"jsonName": "on_or_after",
 					"type": "time.Time",
-					"jsonTag": "json:\"on_or_after,omitempty\""
+					"jsonTag": "json:\"on_or_after,omitzero\""
 				}
 			]
 		},
@@ -32848,7 +32848,7 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "*CancelSessionError",
-					"jsonTag": "json:\"error,omitempty\""
+					"jsonTag": "json:\"error,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -33094,7 +33094,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*QuerySessionsFilter",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "A session property filter, or an and/or compound filter nested up to two levels deep."
 				},
 				{
@@ -33115,7 +33115,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "The number of sessions to return. Maximum: 100."
 				}
 			]
@@ -33885,7 +33885,7 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "*CancelSessionError",
-					"jsonTag": "json:\"error,omitempty\""
+					"jsonTag": "json:\"error,omitzero\""
 				},
 				{
 					"name": "TriggerType",
@@ -33897,43 +33897,43 @@
 					"name": "TypeLabels",
 					"jsonName": "type_labels",
 					"type": "*string",
-					"jsonTag": "json:\"type_labels,omitempty\""
+					"jsonTag": "json:\"type_labels,omitzero\""
 				},
 				{
 					"name": "ChatUserEmails",
 					"jsonName": "chat_user_emails",
 					"type": "*string",
-					"jsonTag": "json:\"chat_user_emails,omitempty\""
+					"jsonTag": "json:\"chat_user_emails,omitzero\""
 				},
 				{
 					"name": "ToolTypes",
 					"jsonName": "tool_types",
 					"type": "*string",
-					"jsonTag": "json:\"tool_types,omitempty\""
+					"jsonTag": "json:\"tool_types,omitzero\""
 				},
 				{
 					"name": "ToolCallCount",
 					"jsonName": "tool_call_count",
 					"type": "*int",
-					"jsonTag": "json:\"tool_call_count,omitempty\""
+					"jsonTag": "json:\"tool_call_count,omitzero\""
 				},
 				{
 					"name": "CreditsUsed",
 					"jsonName": "credits_used",
 					"type": "*float64",
-					"jsonTag": "json:\"credits_used,omitempty\""
+					"jsonTag": "json:\"credits_used,omitzero\""
 				},
 				{
 					"name": "RunsCompleted",
 					"jsonName": "runs_completed",
 					"type": "*int",
-					"jsonTag": "json:\"runs_completed,omitempty\""
+					"jsonTag": "json:\"runs_completed,omitzero\""
 				},
 				{
 					"name": "MessageCount",
 					"jsonName": "message_count",
 					"type": "*int",
-					"jsonTag": "json:\"message_count,omitempty\""
+					"jsonTag": "json:\"message_count,omitzero\""
 				}
 			]
 		},
@@ -34113,7 +34113,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -34532,7 +34532,7 @@
 					"name": "AllowDeletingContent",
 					"jsonName": "allow_deleting_content",
 					"type": "bool",
-					"jsonTag": "json:\"allow_deleting_content,omitempty\"",
+					"jsonTag": "json:\"allow_deleting_content,omitzero\"",
 					"description": "Set to true to allow the operation to delete child pages or databases. Defaults to false."
 				}
 			]
@@ -34553,7 +34553,7 @@
 					"name": "AllowDeletingContent",
 					"jsonName": "allow_deleting_content",
 					"type": "bool",
-					"jsonTag": "json:\"allow_deleting_content,omitempty\"",
+					"jsonTag": "json:\"allow_deleting_content,omitzero\"",
 					"description": "Set to true to allow the operation to delete child pages or databases. Defaults to false."
 				}
 			]
@@ -36313,7 +36313,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36354,7 +36354,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36395,7 +36395,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36436,7 +36436,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36477,7 +36477,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36518,7 +36518,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36559,7 +36559,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36600,7 +36600,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36641,7 +36641,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36682,7 +36682,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36723,7 +36723,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36764,7 +36764,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36805,7 +36805,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36846,7 +36846,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36887,7 +36887,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36928,7 +36928,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -36969,7 +36969,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37010,7 +37010,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37051,7 +37051,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37092,7 +37092,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37133,7 +37133,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37174,7 +37174,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37215,7 +37215,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -37306,7 +37306,7 @@
 					"name": "Err",
 					"jsonName": "error",
 					"type": "*CancelSessionError",
-					"jsonTag": "json:\"error,omitempty\""
+					"jsonTag": "json:\"error,omitzero\""
 				},
 				{
 					"name": "TriggerType",
@@ -37318,44 +37318,44 @@
 					"name": "TypeLabels",
 					"jsonName": "type_labels",
 					"type": "*string",
-					"jsonTag": "json:\"type_labels,omitempty\""
+					"jsonTag": "json:\"type_labels,omitzero\""
 				},
 				{
 					"name": "ChatUserEmails",
 					"jsonName": "chat_user_emails",
 					"type": "*string",
-					"jsonTag": "json:\"chat_user_emails,omitempty\""
+					"jsonTag": "json:\"chat_user_emails,omitzero\""
 				},
 				{
 					"name": "ToolTypes",
 					"jsonName": "tool_types",
 					"type": "*string",
-					"jsonTag": "json:\"tool_types,omitempty\""
+					"jsonTag": "json:\"tool_types,omitzero\""
 				},
 				{
 					"name": "ToolCallCount",
 					"jsonName": "tool_call_count",
 					"type": "*int",
-					"jsonTag": "json:\"tool_call_count,omitempty\""
+					"jsonTag": "json:\"tool_call_count,omitzero\""
 				},
 				{
 					"name": "CreditsUsed",
 					"jsonName": "credits_used",
 					"type": "*float64",
-					"jsonTag": "json:\"credits_used,omitempty\"",
+					"jsonTag": "json:\"credits_used,omitzero\"",
 					"description": "The per-agent credit limit as a non-negative integer, or null to clear the limit."
 				},
 				{
 					"name": "RunsCompleted",
 					"jsonName": "runs_completed",
 					"type": "*int",
-					"jsonTag": "json:\"runs_completed,omitempty\""
+					"jsonTag": "json:\"runs_completed,omitzero\""
 				},
 				{
 					"name": "MessageCount",
 					"jsonName": "message_count",
 					"type": "*int",
-					"jsonTag": "json:\"message_count,omitempty\""
+					"jsonTag": "json:\"message_count,omitzero\""
 				}
 			]
 		},
@@ -37367,7 +37367,7 @@
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -38478,7 +38478,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -38633,7 +38633,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -38737,7 +38737,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -38789,7 +38789,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -38855,7 +38855,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -38894,13 +38894,13 @@
 					"name": "HasColumnHeader",
 					"jsonName": "has_column_header",
 					"type": "bool",
-					"jsonTag": "json:\"has_column_header,omitempty\""
+					"jsonTag": "json:\"has_column_header,omitzero\""
 				},
 				{
 					"name": "HasRowHeader",
 					"jsonName": "has_row_header",
 					"type": "bool",
-					"jsonTag": "json:\"has_row_header,omitempty\""
+					"jsonTag": "json:\"has_row_header,omitzero\""
 				}
 			]
 		},
@@ -38925,7 +38925,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -39148,7 +39148,7 @@
 					"name": "Link",
 					"jsonName": "link",
 					"type": "*ExternalInternalOrExternalFileWithNameExternal",
-					"jsonTag": "json:\"link,omitempty\"",
+					"jsonTag": "json:\"link,omitzero\"",
 					"description": "An object with information about any inline link in this text, if included."
 				}
 			]
@@ -39325,7 +39325,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -39450,7 +39450,7 @@
 					"name": "Checked",
 					"jsonName": "checked",
 					"type": "bool",
-					"jsonTag": "json:\"checked,omitempty\""
+					"jsonTag": "json:\"checked,omitzero\""
 				},
 				{
 					"name": "Color",
@@ -39489,7 +39489,7 @@
 					"name": "Checked",
 					"jsonName": "checked",
 					"type": "bool",
-					"jsonTag": "json:\"checked,omitempty\""
+					"jsonTag": "json:\"checked,omitzero\""
 				}
 			]
 		},
@@ -39521,7 +39521,7 @@
 					"name": "Checked",
 					"jsonName": "checked",
 					"type": "bool",
-					"jsonTag": "json:\"checked,omitempty\""
+					"jsonTag": "json:\"checked,omitzero\""
 				}
 			]
 		},
@@ -39546,7 +39546,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -41374,28 +41374,28 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\"",
+					"jsonTag": "json:\"icon,omitzero\"",
 					"description": "Page icon."
 				},
 				{
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]UpdateADataSourcePropertiesValue",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "The property schema of the data source. The keys are property names or IDs, and the values are property configuration objects. Properties set to null will be removed."
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\"",
+					"jsonTag": "json:\"in_trash,omitzero\"",
 					"description": "Whether the data source should be moved to or from the trash. If not provided, the trash status will not be updated."
 				},
 				{
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*DatabaseID",
-					"jsonTag": "json:\"parent,omitempty\"",
+					"jsonTag": "json:\"parent,omitzero\"",
 					"description": "The parent of the data source, when moving it to a different database. If not provided, the parent will not be updated."
 				}
 			]
@@ -41471,7 +41471,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*propertyDescriptionRequest",
-					"jsonTag": "json:\"description,omitempty\"",
+					"jsonTag": "json:\"description,omitzero\"",
 					"description": "The description of the property."
 				},
 				{
@@ -42757,7 +42757,7 @@
 					"name": "AllowDeletingContent",
 					"jsonName": "allow_deleting_content",
 					"type": "bool",
-					"jsonTag": "json:\"allow_deleting_content,omitempty\"",
+					"jsonTag": "json:\"allow_deleting_content,omitzero\"",
 					"description": "Set to true to allow the operation to delete child pages or databases. Defaults to false."
 				}
 			]
@@ -42792,7 +42792,7 @@
 					"name": "ReplaceAllMatches",
 					"jsonName": "replace_all_matches",
 					"type": "bool",
-					"jsonTag": "json:\"replace_all_matches,omitempty\"",
+					"jsonTag": "json:\"replace_all_matches,omitzero\"",
 					"description": "If true, replaces all occurrences of old_str. If false (default), the operation fails if there are multiple matches."
 				}
 			]
@@ -42805,7 +42805,7 @@
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*CreateDatabaseParent",
-					"jsonTag": "json:\"parent,omitempty\"",
+					"jsonTag": "json:\"parent,omitzero\"",
 					"description": "The parent page or workspace where the database will be created."
 				},
 				{
@@ -42826,35 +42826,35 @@
 					"name": "IsInline",
 					"jsonName": "is_inline",
 					"type": "bool",
-					"jsonTag": "json:\"is_inline,omitempty\"",
+					"jsonTag": "json:\"is_inline,omitzero\"",
 					"description": "Whether the database should be displayed inline in the parent page. If not provided, the inline status will not be updated."
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*pageIconRequest",
-					"jsonTag": "json:\"icon,omitempty\"",
+					"jsonTag": "json:\"icon,omitzero\"",
 					"description": "The updated icon for the database, if any. If not provided, the icon will not be updated."
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*pageCoverRequest",
-					"jsonTag": "json:\"cover,omitempty\"",
+					"jsonTag": "json:\"cover,omitzero\"",
 					"description": "The updated cover image for the database, if any. If not provided, the cover will not be updated."
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\"",
+					"jsonTag": "json:\"in_trash,omitzero\"",
 					"description": "Whether the database should be moved to or from the trash. If not provided, the trash status will not be updated."
 				},
 				{
 					"name": "IsLocked",
 					"jsonName": "is_locked",
 					"type": "bool",
-					"jsonTag": "json:\"is_locked,omitempty\"",
+					"jsonTag": "json:\"is_locked,omitzero\"",
 					"description": "Whether the database should be locked from editing in the Notion app UI. If not provided, the locked state will not be updated."
 				}
 			]
@@ -42868,7 +42868,7 @@
 					"name": "AllowAsync",
 					"jsonName": "allow_async",
 					"type": "bool",
-					"jsonTag": "json:\"allow_async,omitempty\"",
+					"jsonTag": "json:\"allow_async,omitzero\"",
 					"description": "Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape."
 				},
 				{
@@ -43470,7 +43470,7 @@
 					"name": "AgentID",
 					"jsonName": "agent_id",
 					"type": "*AgentBatchOperationsItemOneOfAgentID",
-					"jsonTag": "json:\"agent_id,omitempty\"",
+					"jsonTag": "json:\"agent_id,omitzero\"",
 					"description": "The agent ID (a UUID), or `notion_ai` for the personal agent. Endpoint-specific restrictions still apply."
 				},
 				{
@@ -43489,7 +43489,7 @@
 					"name": "Metadata",
 					"jsonName": "metadata",
 					"type": "*map[string]string",
-					"jsonTag": "json:\"metadata,omitempty\""
+					"jsonTag": "json:\"metadata,omitzero\""
 				},
 				{
 					"name": "PromptContext",
@@ -43566,7 +43566,7 @@
 					"name": "Metadata",
 					"jsonName": "metadata",
 					"type": "*map[string]string",
-					"jsonTag": "json:\"metadata,omitempty\""
+					"jsonTag": "json:\"metadata,omitzero\""
 				}
 			]
 		},
@@ -44121,7 +44121,7 @@
 					"name": "Date",
 					"jsonName": "date",
 					"type": "*date",
-					"jsonTag": "json:\"date,omitempty\""
+					"jsonTag": "json:\"date,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -44255,7 +44255,7 @@
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -44769,35 +44769,35 @@
 					"name": "Bold",
 					"jsonName": "bold",
 					"type": "bool",
-					"jsonTag": "json:\"bold,omitempty\"",
+					"jsonTag": "json:\"bold,omitzero\"",
 					"description": "Whether the text is formatted as bold."
 				},
 				{
 					"name": "Italic",
 					"jsonName": "italic",
 					"type": "bool",
-					"jsonTag": "json:\"italic,omitempty\"",
+					"jsonTag": "json:\"italic,omitzero\"",
 					"description": "Whether the text is formatted as italic."
 				},
 				{
 					"name": "Strikethrough",
 					"jsonName": "strikethrough",
 					"type": "bool",
-					"jsonTag": "json:\"strikethrough,omitempty\"",
+					"jsonTag": "json:\"strikethrough,omitzero\"",
 					"description": "Whether the text is formatted with a strikethrough."
 				},
 				{
 					"name": "Underline",
 					"jsonName": "underline",
 					"type": "bool",
-					"jsonTag": "json:\"underline,omitempty\"",
+					"jsonTag": "json:\"underline,omitzero\"",
 					"description": "Whether the text is formatted with an underline."
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "bool",
-					"jsonTag": "json:\"code,omitempty\"",
+					"jsonTag": "json:\"code,omitzero\"",
 					"description": "Whether the text is formatted as code."
 				},
 				{
@@ -50124,42 +50124,42 @@
 					"name": "SubGroupBy",
 					"jsonName": "sub_group_by",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"sub_group_by,omitempty\"",
+					"jsonTag": "json:\"sub_group_by,omitzero\"",
 					"description": "Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping."
 				},
 				{
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*coverConfigRequest",
-					"jsonTag": "json:\"cover,omitempty\"",
+					"jsonTag": "json:\"cover,omitzero\"",
 					"description": "Cover image configuration for cards. Pass null to clear."
 				},
 				{
 					"name": "CoverSize",
 					"jsonName": "cover_size",
 					"type": "*BoardViewConfigCoverSizeOneOf",
-					"jsonTag": "json:\"cover_size,omitempty\"",
+					"jsonTag": "json:\"cover_size,omitzero\"",
 					"description": "Size of the cover image on cards. Pass null to clear."
 				},
 				{
 					"name": "CoverAspect",
 					"jsonName": "cover_aspect",
 					"type": "*BoardViewConfigCoverAspectOneOf",
-					"jsonTag": "json:\"cover_aspect,omitempty\"",
+					"jsonTag": "json:\"cover_aspect,omitzero\"",
 					"description": "Aspect ratio mode for cover images. \"contain\" fits the image, \"cover\" fills the area. Pass null to clear."
 				},
 				{
 					"name": "CardLayout",
 					"jsonName": "card_layout",
 					"type": "*BoardViewConfigCardLayoutOneOf",
-					"jsonTag": "json:\"card_layout,omitempty\"",
+					"jsonTag": "json:\"card_layout,omitzero\"",
 					"description": "Card layout mode. \"list\" shows full cards, \"compact\" shows condensed cards. Pass null to clear."
 				}
 			],
@@ -50189,7 +50189,7 @@
 					"name": "SubGroupBy",
 					"jsonName": "sub_group_by",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"sub_group_by,omitempty\"",
+					"jsonTag": "json:\"sub_group_by,omitzero\"",
 					"description": "Sub-grouping (vertical swimlanes within columns)."
 				},
 				{
@@ -50203,7 +50203,7 @@
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*coverConfigResponse",
-					"jsonTag": "json:\"cover,omitempty\"",
+					"jsonTag": "json:\"cover,omitzero\"",
 					"description": "Card cover/preview image configuration."
 				},
 				{
@@ -50666,21 +50666,21 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				},
 				{
 					"name": "ViewRange",
 					"jsonName": "view_range",
 					"type": "*CalendarViewConfigViewRangeOneOf",
-					"jsonTag": "json:\"view_range,omitempty\"",
+					"jsonTag": "json:\"view_range,omitzero\"",
 					"description": "Default calendar range. \"week\" shows a week view, \"month\" shows a month view. Pass null to clear."
 				},
 				{
 					"name": "ShowWeekends",
 					"jsonName": "show_weekends",
 					"type": "*bool",
-					"jsonTag": "json:\"show_weekends,omitempty\""
+					"jsonTag": "json:\"show_weekends,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -50730,7 +50730,7 @@
 					"name": "ShowWeekends",
 					"jsonName": "show_weekends",
 					"type": "bool",
-					"jsonTag": "json:\"show_weekends,omitempty\"",
+					"jsonTag": "json:\"show_weekends,omitzero\"",
 					"description": "Whether to show weekend days."
 				}
 			],
@@ -50910,169 +50910,169 @@
 					"name": "XAxis",
 					"jsonName": "x_axis",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"x_axis,omitempty\"",
+					"jsonTag": "json:\"x_axis,omitzero\"",
 					"description": "Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping."
 				},
 				{
 					"name": "YAxis",
 					"jsonName": "y_axis",
 					"type": "*chartAggregation",
-					"jsonTag": "json:\"y_axis,omitempty\"",
+					"jsonTag": "json:\"y_axis,omitzero\"",
 					"description": "Aggregation for number charts. Pass null to clear."
 				},
 				{
 					"name": "XAxisPropertyID",
 					"jsonName": "x_axis_property_id",
 					"type": "*string",
-					"jsonTag": "json:\"x_axis_property_id,omitempty\"",
+					"jsonTag": "json:\"x_axis_property_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "YAxisPropertyID",
 					"jsonName": "y_axis_property_id",
 					"type": "*string",
-					"jsonTag": "json:\"y_axis_property_id,omitempty\"",
+					"jsonTag": "json:\"y_axis_property_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "Value",
 					"jsonName": "value",
 					"type": "*chartAggregation",
-					"jsonTag": "json:\"value,omitempty\"",
+					"jsonTag": "json:\"value,omitzero\"",
 					"description": "Aggregation for number charts. Pass null to clear."
 				},
 				{
 					"name": "Sort",
 					"jsonName": "sort",
 					"type": "*ChartViewConfigSortOneOf",
-					"jsonTag": "json:\"sort,omitempty\"",
+					"jsonTag": "json:\"sort,omitzero\"",
 					"description": "Sort order for chart data. Pass null to clear."
 				},
 				{
 					"name": "ColorTheme",
 					"jsonName": "color_theme",
 					"type": "*ChartViewConfigColorThemeOneOf",
-					"jsonTag": "json:\"color_theme,omitempty\"",
+					"jsonTag": "json:\"color_theme,omitzero\"",
 					"description": "Color theme. Pass null to clear."
 				},
 				{
 					"name": "Height",
 					"jsonName": "height",
 					"type": "*ChartViewConfigHeightOneOf",
-					"jsonTag": "json:\"height,omitempty\"",
+					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Chart height. Pass null to clear."
 				},
 				{
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "*bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\""
+					"jsonTag": "json:\"hide_empty_groups,omitzero\""
 				},
 				{
 					"name": "LegendPosition",
 					"jsonName": "legend_position",
 					"type": "*ChartViewConfigLegendPositionOneOf",
-					"jsonTag": "json:\"legend_position,omitempty\"",
+					"jsonTag": "json:\"legend_position,omitzero\"",
 					"description": "Legend position. Pass null to clear."
 				},
 				{
 					"name": "ShowDataLabels",
 					"jsonName": "show_data_labels",
 					"type": "*bool",
-					"jsonTag": "json:\"show_data_labels,omitempty\""
+					"jsonTag": "json:\"show_data_labels,omitzero\""
 				},
 				{
 					"name": "AxisLabels",
 					"jsonName": "axis_labels",
 					"type": "*ChartViewConfigAxisLabelsOneOf",
-					"jsonTag": "json:\"axis_labels,omitempty\"",
+					"jsonTag": "json:\"axis_labels,omitzero\"",
 					"description": "Which axis labels to show. Pass null to clear."
 				},
 				{
 					"name": "GridLines",
 					"jsonName": "grid_lines",
 					"type": "*ChartViewConfigGridLinesOneOf",
-					"jsonTag": "json:\"grid_lines,omitempty\"",
+					"jsonTag": "json:\"grid_lines,omitzero\"",
 					"description": "Which grid lines to show. Pass null to clear."
 				},
 				{
 					"name": "Cumulative",
 					"jsonName": "cumulative",
 					"type": "*bool",
-					"jsonTag": "json:\"cumulative,omitempty\""
+					"jsonTag": "json:\"cumulative,omitzero\""
 				},
 				{
 					"name": "SmoothLine",
 					"jsonName": "smooth_line",
 					"type": "*bool",
-					"jsonTag": "json:\"smooth_line,omitempty\""
+					"jsonTag": "json:\"smooth_line,omitzero\""
 				},
 				{
 					"name": "HideLineFillArea",
 					"jsonName": "hide_line_fill_area",
 					"type": "*bool",
-					"jsonTag": "json:\"hide_line_fill_area,omitempty\""
+					"jsonTag": "json:\"hide_line_fill_area,omitzero\""
 				},
 				{
 					"name": "GroupStyle",
 					"jsonName": "group_style",
 					"type": "*ChartViewConfigGroupStyleOneOf",
-					"jsonTag": "json:\"group_style,omitempty\"",
+					"jsonTag": "json:\"group_style,omitzero\"",
 					"description": "Grouped/stacked bar display style. Pass null to clear."
 				},
 				{
 					"name": "YAxisMin",
 					"jsonName": "y_axis_min",
 					"type": "*float64",
-					"jsonTag": "json:\"y_axis_min,omitempty\"",
+					"jsonTag": "json:\"y_axis_min,omitzero\"",
 					"description": "The per-agent credit limit as a non-negative integer, or null to clear the limit."
 				},
 				{
 					"name": "YAxisMax",
 					"jsonName": "y_axis_max",
 					"type": "*float64",
-					"jsonTag": "json:\"y_axis_max,omitempty\"",
+					"jsonTag": "json:\"y_axis_max,omitzero\"",
 					"description": "The per-agent credit limit as a non-negative integer, or null to clear the limit."
 				},
 				{
 					"name": "DonutLabels",
 					"jsonName": "donut_labels",
 					"type": "*ChartViewConfigDonutLabelsOneOf",
-					"jsonTag": "json:\"donut_labels,omitempty\"",
+					"jsonTag": "json:\"donut_labels,omitzero\"",
 					"description": "Donut slice labels. Pass null to clear."
 				},
 				{
 					"name": "HideTitle",
 					"jsonName": "hide_title",
 					"type": "*bool",
-					"jsonTag": "json:\"hide_title,omitempty\""
+					"jsonTag": "json:\"hide_title,omitzero\""
 				},
 				{
 					"name": "StackBy",
 					"jsonName": "stack_by",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"stack_by,omitempty\"",
+					"jsonTag": "json:\"stack_by,omitzero\"",
 					"description": "Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping."
 				},
 				{
 					"name": "ReferenceLines",
 					"jsonName": "reference_lines",
 					"type": "*chartReferenceLine",
-					"jsonTag": "json:\"reference_lines,omitempty\"",
+					"jsonTag": "json:\"reference_lines,omitzero\"",
 					"description": "Reference lines on the chart. Pass null to clear."
 				},
 				{
 					"name": "Caption",
 					"jsonName": "caption",
 					"type": "*string",
-					"jsonTag": "json:\"caption,omitempty\"",
+					"jsonTag": "json:\"caption,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "ColorByValue",
 					"jsonName": "color_by_value",
 					"type": "*bool",
-					"jsonTag": "json:\"color_by_value,omitempty\""
+					"jsonTag": "json:\"color_by_value,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -51101,14 +51101,14 @@
 					"name": "XAxis",
 					"jsonName": "x_axis",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"x_axis,omitempty\"",
+					"jsonTag": "json:\"x_axis,omitzero\"",
 					"description": "Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping."
 				},
 				{
 					"name": "YAxis",
 					"jsonName": "y_axis",
 					"type": "*chartAggregation",
-					"jsonTag": "json:\"y_axis,omitempty\"",
+					"jsonTag": "json:\"y_axis,omitzero\"",
 					"description": "Aggregation for number charts. Pass null to clear."
 				},
 				{
@@ -51129,7 +51129,7 @@
 					"name": "Value",
 					"jsonName": "value",
 					"type": "*chartAggregation",
-					"jsonTag": "json:\"value,omitempty\"",
+					"jsonTag": "json:\"value,omitzero\"",
 					"description": "Aggregation configuration for number charts (single value display)."
 				},
 				{
@@ -51157,7 +51157,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups with no data on the x-axis."
 				},
 				{
@@ -51171,7 +51171,7 @@
 					"name": "ShowDataLabels",
 					"jsonName": "show_data_labels",
 					"type": "bool",
-					"jsonTag": "json:\"show_data_labels,omitempty\"",
+					"jsonTag": "json:\"show_data_labels,omitzero\"",
 					"description": "Whether to show data value labels on chart elements."
 				},
 				{
@@ -51192,21 +51192,21 @@
 					"name": "Cumulative",
 					"jsonName": "cumulative",
 					"type": "bool",
-					"jsonTag": "json:\"cumulative,omitempty\"",
+					"jsonTag": "json:\"cumulative,omitzero\"",
 					"description": "Whether to show cumulative values (line charts only)."
 				},
 				{
 					"name": "SmoothLine",
 					"jsonName": "smooth_line",
 					"type": "bool",
-					"jsonTag": "json:\"smooth_line,omitempty\"",
+					"jsonTag": "json:\"smooth_line,omitzero\"",
 					"description": "Whether to use smooth curves (line charts only)."
 				},
 				{
 					"name": "HideLineFillArea",
 					"jsonName": "hide_line_fill_area",
 					"type": "bool",
-					"jsonTag": "json:\"hide_line_fill_area,omitempty\"",
+					"jsonTag": "json:\"hide_line_fill_area,omitzero\"",
 					"description": "Whether to hide the shaded area under the line (line charts only)."
 				},
 				{
@@ -51220,14 +51220,14 @@
 					"name": "YAxisMin",
 					"jsonName": "y_axis_min",
 					"type": "*float64",
-					"jsonTag": "json:\"y_axis_min,omitempty\"",
+					"jsonTag": "json:\"y_axis_min,omitzero\"",
 					"description": "The per-agent credit limit as a non-negative integer, or null to clear the limit."
 				},
 				{
 					"name": "YAxisMax",
 					"jsonName": "y_axis_max",
 					"type": "*float64",
-					"jsonTag": "json:\"y_axis_max,omitempty\"",
+					"jsonTag": "json:\"y_axis_max,omitzero\"",
 					"description": "The per-agent credit limit as a non-negative integer, or null to clear the limit."
 				},
 				{
@@ -51241,35 +51241,35 @@
 					"name": "HideTitle",
 					"jsonName": "hide_title",
 					"type": "bool",
-					"jsonTag": "json:\"hide_title,omitempty\"",
+					"jsonTag": "json:\"hide_title,omitzero\"",
 					"description": "Whether to hide the title label (number charts only)."
 				},
 				{
 					"name": "StackBy",
 					"jsonName": "stack_by",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"stack_by,omitempty\"",
+					"jsonTag": "json:\"stack_by,omitzero\"",
 					"description": "Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping."
 				},
 				{
 					"name": "ReferenceLines",
 					"jsonName": "reference_lines",
 					"type": "*chartReferenceLine",
-					"jsonTag": "json:\"reference_lines,omitempty\"",
+					"jsonTag": "json:\"reference_lines,omitzero\"",
 					"description": "Reference lines on the chart. Pass null to clear."
 				},
 				{
 					"name": "Caption",
 					"jsonName": "caption",
 					"type": "*string",
-					"jsonTag": "json:\"caption,omitempty\"",
+					"jsonTag": "json:\"caption,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "ColorByValue",
 					"jsonName": "color_by_value",
 					"type": "bool",
-					"jsonTag": "json:\"color_by_value,omitempty\"",
+					"jsonTag": "json:\"color_by_value,omitzero\"",
 					"description": "Whether chart elements are colored by their numeric value (gradient coloring)."
 				}
 			],
@@ -51307,7 +51307,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -51861,7 +51861,7 @@
 					"name": "WidthRatio",
 					"jsonName": "width_ratio",
 					"type": "*float64",
-					"jsonTag": "json:\"width_ratio,omitempty\"",
+					"jsonTag": "json:\"width_ratio,omitzero\"",
 					"description": "Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width."
 				}
 			]
@@ -51881,7 +51881,7 @@
 					"name": "WidthRatio",
 					"jsonName": "width_ratio",
 					"type": "*float64",
-					"jsonTag": "json:\"width_ratio,omitempty\"",
+					"jsonTag": "json:\"width_ratio,omitzero\"",
 					"description": "Ratio between 0 and 1 of the width of this column relative to all columns in the list. If not provided, uses an equal width."
 				}
 			]
@@ -52336,7 +52336,7 @@
 					"name": "ListStartIndex",
 					"jsonName": "list_start_index",
 					"type": "*int",
-					"jsonTag": "json:\"list_start_index,omitempty\""
+					"jsonTag": "json:\"list_start_index,omitzero\""
 				},
 				{
 					"name": "ListFormat",
@@ -52523,7 +52523,7 @@
 					"name": "Position",
 					"jsonName": "position",
 					"type": "*CreateDatabaseForViewRequestPosition",
-					"jsonTag": "json:\"position,omitempty\"",
+					"jsonTag": "json:\"position,omitzero\"",
 					"description": "Where to place the new database block within the parent page. Defaults to appending at the end."
 				}
 			]
@@ -52536,7 +52536,7 @@
 					"name": "PageSize",
 					"jsonName": "page_size",
 					"type": "*int",
-					"jsonTag": "json:\"page_size,omitempty\"",
+					"jsonTag": "json:\"page_size,omitzero\"",
 					"description": "The number of results to return per page. Maximum: 100"
 				}
 			]
@@ -52587,7 +52587,7 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*quickFilterCondition",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Filter to apply to the view. Uses the same format as the data source query filter."
 				},
 				{
@@ -52601,35 +52601,35 @@
 					"name": "QuickFilters",
 					"jsonName": "quick_filters",
 					"type": "*map[string]quickFilterCondition",
-					"jsonTag": "json:\"quick_filters,omitempty\"",
+					"jsonTag": "json:\"quick_filters,omitzero\"",
 					"description": "Quick filters to pin in the view's filter bar. Keys are property names or IDs. Values are filter conditions (same shape as a property filter but without the property field). Each quick filter appears as a clickable pill above the view, independent of the advanced filter."
 				},
 				{
 					"name": "CreateDatabase",
 					"jsonName": "create_database",
 					"type": "*createDatabaseForViewRequest",
-					"jsonTag": "json:\"create_database,omitempty\"",
+					"jsonTag": "json:\"create_database,omitzero\"",
 					"description": "Create a new linked database block on a page and add the view to it. Mutually exclusive with database_id and view_id."
 				},
 				{
 					"name": "Configuration",
 					"jsonName": "configuration",
 					"type": "*viewConfigRequest",
-					"jsonTag": "json:\"configuration,omitempty\"",
+					"jsonTag": "json:\"configuration,omitzero\"",
 					"description": "View presentation configuration. The type field must match the view type."
 				},
 				{
 					"name": "Position",
 					"jsonName": "position",
 					"type": "*viewPositionRequest",
-					"jsonTag": "json:\"position,omitempty\"",
+					"jsonTag": "json:\"position,omitzero\"",
 					"description": "Where to place the new view in the database's view tab bar. Only applicable when database_id is provided. Defaults to \"end\" (append)."
 				},
 				{
 					"name": "Placement",
 					"jsonName": "placement",
 					"type": "*widgetPlacementRequest",
-					"jsonTag": "json:\"placement,omitempty\"",
+					"jsonTag": "json:\"placement,omitzero\"",
 					"description": "Where to place the new widget in a dashboard view. Only applicable when view_id is provided. Defaults to creating a new row at the end."
 				}
 			]
@@ -52802,7 +52802,7 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "*int",
-					"jsonTag": "json:\"height,omitempty\"",
+					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Fixed height of the row in pixels."
 				}
 			]
@@ -52854,14 +52854,14 @@
 					"name": "Width",
 					"jsonName": "width",
 					"type": "*int",
-					"jsonTag": "json:\"width,omitempty\"",
+					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Width of the widget in a 12-column grid (1-12). 12 means full width."
 				},
 				{
 					"name": "RowIndex",
 					"jsonName": "row_index",
 					"type": "*int",
-					"jsonTag": "json:\"row_index,omitempty\"",
+					"jsonTag": "json:\"row_index,omitzero\"",
 					"description": "The 0-based index of the row this widget belongs to. Widgets in the same row share the same row_index."
 				}
 			]
@@ -53441,49 +53441,49 @@
 					"name": "DataSourceID",
 					"jsonName": "data_source_id",
 					"type": "*string",
-					"jsonTag": "json:\"data_source_id,omitempty\"",
+					"jsonTag": "json:\"data_source_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "CreatedBy",
 					"jsonName": "created_by",
 					"type": "*partialUserObjectResponse",
-					"jsonTag": "json:\"created_by,omitempty\"",
+					"jsonTag": "json:\"created_by,omitzero\"",
 					"description": "The user who created the view, or null if not available."
 				},
 				{
 					"name": "LastEditedBy",
 					"jsonName": "last_edited_by",
 					"type": "*partialUserObjectResponse",
-					"jsonTag": "json:\"last_edited_by,omitempty\"",
+					"jsonTag": "json:\"last_edited_by,omitzero\"",
 					"description": "The user who created the view, or null if not available."
 				},
 				{
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*viewFilterResponse",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "The filter applied to this view (same shape as data source query filter)."
 				},
 				{
 					"name": "Sorts",
 					"jsonName": "sorts",
 					"type": "*viewSortResponse",
-					"jsonTag": "json:\"sorts,omitempty\"",
+					"jsonTag": "json:\"sorts,omitzero\"",
 					"description": "The sorts applied to this view (same shape as data source query sorts)."
 				},
 				{
 					"name": "QuickFilters",
 					"jsonName": "quick_filters",
 					"type": "*map[string]quickFilterCondition",
-					"jsonTag": "json:\"quick_filters,omitempty\"",
+					"jsonTag": "json:\"quick_filters,omitzero\"",
 					"description": "Quick filters pinned to the view's filter bar. Keys are property IDs. Values are filter conditions (same shape as a property filter without the property field). Null when no quick filters are set."
 				},
 				{
 					"name": "Configuration",
 					"jsonName": "configuration",
 					"type": "*viewConfigResponse",
-					"jsonTag": "json:\"configuration,omitempty\"",
+					"jsonTag": "json:\"configuration,omitzero\"",
 					"description": "View presentation configuration."
 				},
 				{
@@ -55261,14 +55261,14 @@
 					"name": "End",
 					"jsonName": "end",
 					"type": "*civil.Date",
-					"jsonTag": "json:\"end,omitempty\"",
+					"jsonTag": "json:\"end,omitzero\"",
 					"description": "The end date of the date object, if any."
 				},
 				{
 					"name": "TimeZone",
 					"jsonName": "time_zone",
 					"type": "*timeZoneRequest",
-					"jsonTag": "json:\"time_zone,omitempty\"",
+					"jsonTag": "json:\"time_zone,omitzero\"",
 					"description": "The time zone of the date object, if any. E.g. America/Los_Angeles, Europe/London, etc."
 				}
 			]
@@ -55335,14 +55335,14 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
 					"name": "StartDayOfWeek",
 					"jsonName": "start_day_of_week",
 					"type": "*float64",
-					"jsonTag": "json:\"start_day_of_week,omitempty\"",
+					"jsonTag": "json:\"start_day_of_week,omitzero\"",
 					"description": "Start day of week for week grouping (0 = Sunday, 1 = Monday)."
 				},
 				{
@@ -57702,13 +57702,13 @@
 					"name": "FileImportResult",
 					"jsonName": "file_import_result",
 					"type": "*FileUploadObjectResponseFileImportResult",
-					"jsonTag": "json:\"file_import_result,omitempty\""
+					"jsonTag": "json:\"file_import_result,omitzero\""
 				},
 				{
 					"name": "NumberOfParts",
 					"jsonName": "number_of_parts",
 					"type": "*FileUploadObjectResponseNumberOfParts",
-					"jsonTag": "json:\"number_of_parts,omitempty\""
+					"jsonTag": "json:\"number_of_parts,omitzero\""
 				}
 			]
 		},
@@ -57883,19 +57883,19 @@
 					"name": "IsFormClosed",
 					"jsonName": "is_form_closed",
 					"type": "*bool",
-					"jsonTag": "json:\"is_form_closed,omitempty\""
+					"jsonTag": "json:\"is_form_closed,omitzero\""
 				},
 				{
 					"name": "AnonymousSubmissions",
 					"jsonName": "anonymous_submissions",
 					"type": "*bool",
-					"jsonTag": "json:\"anonymous_submissions,omitempty\""
+					"jsonTag": "json:\"anonymous_submissions,omitzero\""
 				},
 				{
 					"name": "SubmissionPermissions",
 					"jsonName": "submission_permissions",
 					"type": "*FormViewConfigSubmissionPermissionsOneOf",
-					"jsonTag": "json:\"submission_permissions,omitempty\"",
+					"jsonTag": "json:\"submission_permissions,omitzero\"",
 					"description": "Permission level granted to the submitter on the created page after form submission. Pass null to clear."
 				}
 			],
@@ -57917,14 +57917,14 @@
 					"name": "IsFormClosed",
 					"jsonName": "is_form_closed",
 					"type": "bool",
-					"jsonTag": "json:\"is_form_closed,omitempty\"",
+					"jsonTag": "json:\"is_form_closed,omitzero\"",
 					"description": "Whether the form is closed for submissions."
 				},
 				{
 					"name": "AnonymousSubmissions",
 					"jsonName": "anonymous_submissions",
 					"type": "bool",
-					"jsonTag": "json:\"anonymous_submissions,omitempty\"",
+					"jsonTag": "json:\"anonymous_submissions,omitzero\"",
 					"description": "Whether anonymous (non-logged-in) submissions are allowed."
 				},
 				{
@@ -57992,7 +57992,7 @@
 					"name": "StartDayOfWeek",
 					"jsonName": "start_day_of_week",
 					"type": "*float64",
-					"jsonTag": "json:\"start_day_of_week,omitempty\"",
+					"jsonTag": "json:\"start_day_of_week,omitzero\"",
 					"description": "Start day of week for week grouping (0 = Sunday, 1 = Monday)."
 				}
 			],
@@ -58030,7 +58030,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -58066,21 +58066,21 @@
 					"name": "RangeStart",
 					"jsonName": "range_start",
 					"type": "*int",
-					"jsonTag": "json:\"range_start,omitempty\"",
+					"jsonTag": "json:\"range_start,omitzero\"",
 					"description": "Start of the range for number grouping buckets."
 				},
 				{
 					"name": "RangeEnd",
 					"jsonName": "range_end",
 					"type": "*int",
-					"jsonTag": "json:\"range_end,omitempty\"",
+					"jsonTag": "json:\"range_end,omitzero\"",
 					"description": "End of the range for number grouping buckets."
 				},
 				{
 					"name": "RangeSize",
 					"jsonName": "range_size",
 					"type": "*int",
-					"jsonTag": "json:\"range_size,omitempty\"",
+					"jsonTag": "json:\"range_size,omitzero\"",
 					"description": "Size of each bucket in number grouping."
 				}
 			],
@@ -58638,35 +58638,35 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*coverConfigRequest",
-					"jsonTag": "json:\"cover,omitempty\"",
+					"jsonTag": "json:\"cover,omitzero\"",
 					"description": "Cover image configuration for cards. Pass null to clear."
 				},
 				{
 					"name": "CoverSize",
 					"jsonName": "cover_size",
 					"type": "*BoardViewConfigCoverSizeOneOf",
-					"jsonTag": "json:\"cover_size,omitempty\"",
+					"jsonTag": "json:\"cover_size,omitzero\"",
 					"description": "Size of the cover image on cards. Pass null to clear."
 				},
 				{
 					"name": "CoverAspect",
 					"jsonName": "cover_aspect",
 					"type": "*BoardViewConfigCoverAspectOneOf",
-					"jsonTag": "json:\"cover_aspect,omitempty\"",
+					"jsonTag": "json:\"cover_aspect,omitzero\"",
 					"description": "Aspect ratio mode for cover images. \"contain\" fits the image, \"cover\" fills the area. Pass null to clear."
 				},
 				{
 					"name": "CardLayout",
 					"jsonName": "card_layout",
 					"type": "*BoardViewConfigCardLayoutOneOf",
-					"jsonTag": "json:\"card_layout,omitempty\"",
+					"jsonTag": "json:\"card_layout,omitzero\"",
 					"description": "Card layout mode. \"list\" shows full cards, \"compact\" shows condensed cards. Pass null to clear."
 				}
 			],
@@ -58695,7 +58695,7 @@
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*coverConfigResponse",
-					"jsonTag": "json:\"cover,omitempty\"",
+					"jsonTag": "json:\"cover,omitzero\"",
 					"description": "Card cover/preview image configuration."
 				},
 				{
@@ -59862,7 +59862,7 @@
 					"name": "IsToggleable",
 					"jsonName": "is_toggleable",
 					"type": "bool",
-					"jsonTag": "json:\"is_toggleable,omitempty\""
+					"jsonTag": "json:\"is_toggleable,omitzero\""
 				}
 			]
 		},
@@ -59916,7 +59916,7 @@
 					"name": "IsToggleable",
 					"jsonName": "is_toggleable",
 					"type": "bool",
-					"jsonTag": "json:\"is_toggleable,omitempty\""
+					"jsonTag": "json:\"is_toggleable,omitzero\""
 				},
 				{
 					"name": "Children",
@@ -60389,7 +60389,7 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*map[string]propertyConfigurationRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property schema for the initial data source, if you'd like to create one."
 				}
 			]
@@ -60409,7 +60409,7 @@
 					"name": "ExpiryTime",
 					"jsonName": "expiry_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"expiry_time,omitempty\""
+					"jsonTag": "json:\"expiry_time,omitzero\""
 				}
 			]
 		},
@@ -61297,21 +61297,21 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "*int",
-					"jsonTag": "json:\"height,omitempty\"",
+					"jsonTag": "json:\"height,omitzero\"",
 					"description": "The height of the link preview iframe."
 				},
 				{
 					"name": "Padding",
 					"jsonName": "padding",
 					"type": "*int",
-					"jsonTag": "json:\"padding,omitempty\"",
+					"jsonTag": "json:\"padding,omitzero\"",
 					"description": "The padding of the link preview iframe."
 				},
 				{
 					"name": "PaddingTop",
 					"jsonName": "padding_top",
 					"type": "*int",
-					"jsonTag": "json:\"padding_top,omitempty\"",
+					"jsonTag": "json:\"padding_top,omitzero\"",
 					"description": "The top padding of the link preview iframe."
 				}
 			]
@@ -61500,7 +61500,7 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				}
 			],
@@ -61565,21 +61565,21 @@
 					"name": "Height",
 					"jsonName": "height",
 					"type": "*ChartViewConfigHeightOneOf",
-					"jsonTag": "json:\"height,omitempty\"",
+					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Chart height. Pass null to clear."
 				},
 				{
 					"name": "MapBy",
 					"jsonName": "map_by",
 					"type": "*string",
-					"jsonTag": "json:\"map_by,omitempty\"",
+					"jsonTag": "json:\"map_by,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				}
 			],
@@ -62423,28 +62423,28 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
 					"name": "RangeStart",
 					"jsonName": "range_start",
 					"type": "*int",
-					"jsonTag": "json:\"range_start,omitempty\"",
+					"jsonTag": "json:\"range_start,omitzero\"",
 					"description": "Start of the range for number grouping buckets."
 				},
 				{
 					"name": "RangeEnd",
 					"jsonName": "range_end",
 					"type": "*int",
-					"jsonTag": "json:\"range_end,omitempty\"",
+					"jsonTag": "json:\"range_end,omitzero\"",
 					"description": "End of the range for number grouping buckets."
 				},
 				{
 					"name": "RangeSize",
 					"jsonName": "range_size",
 					"type": "*int",
-					"jsonTag": "json:\"range_size,omitempty\"",
+					"jsonTag": "json:\"range_size,omitzero\"",
 					"description": "Size of each bucket in number grouping."
 				},
 				{
@@ -65918,37 +65918,37 @@
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*PartialDatabaseObjectParent",
-					"jsonTag": "json:\"parent,omitempty\""
+					"jsonTag": "json:\"parent,omitzero\""
 				},
 				{
 					"name": "IsInline",
 					"jsonName": "is_inline",
 					"type": "bool",
-					"jsonTag": "json:\"is_inline,omitempty\""
+					"jsonTag": "json:\"is_inline,omitzero\""
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				},
 				{
 					"name": "IsLocked",
 					"jsonName": "is_locked",
 					"type": "bool",
-					"jsonTag": "json:\"is_locked,omitempty\""
+					"jsonTag": "json:\"is_locked,omitzero\""
 				},
 				{
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitempty\""
+					"jsonTag": "json:\"created_time,omitzero\""
 				},
 				{
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitempty\""
+					"jsonTag": "json:\"last_edited_time,omitzero\""
 				},
 				{
 					"name": "DataSources",
@@ -65960,31 +65960,31 @@
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*PartialDatabaseObjectIcon",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*PartialDatabaseObjectCover",
-					"jsonTag": "json:\"cover,omitempty\""
+					"jsonTag": "json:\"cover,omitzero\""
 				},
 				{
 					"name": "URL",
 					"jsonName": "url",
 					"type": "*url.URL",
-					"jsonTag": "json:\"url,omitempty\""
+					"jsonTag": "json:\"url,omitzero\""
 				},
 				{
 					"name": "PublicURL",
 					"jsonName": "public_url",
 					"type": "*struct{}",
-					"jsonTag": "json:\"public_url,omitempty\""
+					"jsonTag": "json:\"public_url,omitzero\""
 				},
 				{
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -66012,85 +66012,85 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_time,omitempty\""
+					"jsonTag": "json:\"created_time,omitzero\""
 				},
 				{
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_edited_time,omitempty\""
+					"jsonTag": "json:\"last_edited_time,omitzero\""
 				},
 				{
 					"name": "CreatedBy",
 					"jsonName": "created_by",
 					"type": "*PartialPageObjectCreatedBy",
-					"jsonTag": "json:\"created_by,omitempty\""
+					"jsonTag": "json:\"created_by,omitzero\""
 				},
 				{
 					"name": "LastEditedBy",
 					"jsonName": "last_edited_by",
 					"type": "*PartialPageObjectCreatedBy",
-					"jsonTag": "json:\"last_edited_by,omitempty\""
+					"jsonTag": "json:\"last_edited_by,omitzero\""
 				},
 				{
 					"name": "Cover",
 					"jsonName": "cover",
 					"type": "*PartialDatabaseObjectCover",
-					"jsonTag": "json:\"cover,omitempty\""
+					"jsonTag": "json:\"cover,omitzero\""
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
 					"type": "*PartialDatabaseObjectIcon",
-					"jsonTag": "json:\"icon,omitempty\""
+					"jsonTag": "json:\"icon,omitzero\""
 				},
 				{
 					"name": "Parent",
 					"jsonName": "parent",
 					"type": "*PartialDatabaseObjectParent",
-					"jsonTag": "json:\"parent,omitempty\""
+					"jsonTag": "json:\"parent,omitzero\""
 				},
 				{
 					"name": "InTrash",
 					"jsonName": "in_trash",
 					"type": "bool",
-					"jsonTag": "json:\"in_trash,omitempty\""
+					"jsonTag": "json:\"in_trash,omitzero\""
 				},
 				{
 					"name": "IsArchived",
 					"jsonName": "is_archived",
 					"type": "bool",
-					"jsonTag": "json:\"is_archived,omitempty\""
+					"jsonTag": "json:\"is_archived,omitzero\""
 				},
 				{
 					"name": "IsLocked",
 					"jsonName": "is_locked",
 					"type": "bool",
-					"jsonTag": "json:\"is_locked,omitempty\""
+					"jsonTag": "json:\"is_locked,omitzero\""
 				},
 				{
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*PartialPageObjectResponseProperties",
-					"jsonTag": "json:\"properties,omitempty\""
+					"jsonTag": "json:\"properties,omitzero\""
 				},
 				{
 					"name": "URL",
 					"jsonName": "url",
 					"type": "*url.URL",
-					"jsonTag": "json:\"url,omitempty\""
+					"jsonTag": "json:\"url,omitzero\""
 				},
 				{
 					"name": "PublicURL",
 					"jsonName": "public_url",
 					"type": "*url.URL",
-					"jsonTag": "json:\"public_url,omitempty\""
+					"jsonTag": "json:\"public_url,omitzero\""
 				},
 				{
 					"name": "RequestID",
 					"jsonName": "request_id",
 					"type": "*uuid.UUID",
-					"jsonTag": "json:\"request_id,omitempty\""
+					"jsonTag": "json:\"request_id,omitzero\""
 				}
 			]
 		},
@@ -66791,7 +66791,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -66965,28 +66965,28 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "*string",
-					"jsonTag": "json:\"name,omitempty\"",
+					"jsonTag": "json:\"name,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "Address",
 					"jsonName": "address",
 					"type": "*string",
-					"jsonTag": "json:\"address,omitempty\"",
+					"jsonTag": "json:\"address,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "AwsPlaceID",
 					"jsonName": "aws_place_id",
 					"type": "*string",
-					"jsonTag": "json:\"aws_place_id,omitempty\"",
+					"jsonTag": "json:\"aws_place_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "GooglePlaceID",
 					"jsonName": "google_place_id",
 					"type": "*string",
-					"jsonTag": "json:\"google_place_id,omitempty\"",
+					"jsonTag": "json:\"google_place_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -67022,7 +67022,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*propertyDescriptionRequest",
-					"jsonTag": "json:\"description,omitempty\"",
+					"jsonTag": "json:\"description,omitzero\"",
 					"description": "The description of the property."
 				},
 				{
@@ -70588,7 +70588,7 @@
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
 					"type": "*map[string]ErrorAPIOneOfAllOfAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -70734,7 +70734,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -70996,7 +70996,7 @@
 					"name": "Annotations",
 					"jsonName": "annotations",
 					"type": "*annotation",
-					"jsonTag": "json:\"annotations,omitempty\"",
+					"jsonTag": "json:\"annotations,omitzero\"",
 					"description": "All rich text objects contain an annotations object that sets the styling for the rich text."
 				},
 				{
@@ -72166,7 +72166,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -73535,7 +73535,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -73592,7 +73592,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*string",
-					"jsonTag": "json:\"description,omitempty\"",
+					"jsonTag": "json:\"description,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
@@ -73626,7 +73626,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "*string",
-					"jsonTag": "json:\"description,omitempty\"",
+					"jsonTag": "json:\"description,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
@@ -74284,13 +74284,13 @@
 					"name": "HasColumnHeader",
 					"jsonName": "has_column_header",
 					"type": "bool",
-					"jsonTag": "json:\"has_column_header,omitempty\""
+					"jsonTag": "json:\"has_column_header,omitzero\""
 				},
 				{
 					"name": "HasRowHeader",
 					"jsonName": "has_row_header",
 					"type": "bool",
-					"jsonTag": "json:\"has_row_header,omitempty\""
+					"jsonTag": "json:\"has_row_header,omitzero\""
 				}
 			]
 		},
@@ -74394,42 +74394,42 @@
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				},
 				{
 					"name": "GroupBy",
 					"jsonName": "group_by",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"group_by,omitempty\"",
+					"jsonTag": "json:\"group_by,omitzero\"",
 					"description": "Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping."
 				},
 				{
 					"name": "Subtasks",
 					"jsonName": "subtasks",
 					"type": "*subtaskConfig",
-					"jsonTag": "json:\"subtasks,omitempty\"",
+					"jsonTag": "json:\"subtasks,omitzero\"",
 					"description": "Subtask (sub-item) configuration. Pass null to reset subtask config to defaults (which may show subtasks). Use `{ \"display_mode\": \"disabled\" }` to explicitly disable subtasks."
 				},
 				{
 					"name": "WrapCells",
 					"jsonName": "wrap_cells",
 					"type": "bool",
-					"jsonTag": "json:\"wrap_cells,omitempty\"",
+					"jsonTag": "json:\"wrap_cells,omitzero\"",
 					"description": "Whether to wrap cell content in the table."
 				},
 				{
 					"name": "FrozenColumnIndex",
 					"jsonName": "frozen_column_index",
 					"type": "*int",
-					"jsonTag": "json:\"frozen_column_index,omitempty\"",
+					"jsonTag": "json:\"frozen_column_index,omitzero\"",
 					"description": "Number of columns frozen from the left side of the table."
 				},
 				{
 					"name": "ShowVerticalLines",
 					"jsonName": "show_vertical_lines",
 					"type": "bool",
-					"jsonTag": "json:\"show_vertical_lines,omitempty\"",
+					"jsonTag": "json:\"show_vertical_lines,omitzero\"",
 					"description": "Whether to show vertical grid lines between columns."
 				}
 			],
@@ -74458,35 +74458,35 @@
 					"name": "GroupBy",
 					"jsonName": "group_by",
 					"type": "*groupByConfig",
-					"jsonTag": "json:\"group_by,omitempty\"",
+					"jsonTag": "json:\"group_by,omitzero\"",
 					"description": "Vertical (row) grouping configuration."
 				},
 				{
 					"name": "Subtasks",
 					"jsonName": "subtasks",
 					"type": "*subtaskConfig",
-					"jsonTag": "json:\"subtasks,omitempty\"",
+					"jsonTag": "json:\"subtasks,omitzero\"",
 					"description": "Sub-item (subtask) display configuration."
 				},
 				{
 					"name": "WrapCells",
 					"jsonName": "wrap_cells",
 					"type": "bool",
-					"jsonTag": "json:\"wrap_cells,omitempty\"",
+					"jsonTag": "json:\"wrap_cells,omitzero\"",
 					"description": "Whether to wrap cell content by default."
 				},
 				{
 					"name": "FrozenColumnIndex",
 					"jsonName": "frozen_column_index",
 					"type": "*int",
-					"jsonTag": "json:\"frozen_column_index,omitempty\"",
+					"jsonTag": "json:\"frozen_column_index,omitzero\"",
 					"description": "Index of the last frozen column. Columns up to and including this index are frozen."
 				},
 				{
 					"name": "ShowVerticalLines",
 					"jsonName": "show_vertical_lines",
 					"type": "bool",
-					"jsonTag": "json:\"show_vertical_lines,omitempty\"",
+					"jsonTag": "json:\"show_vertical_lines,omitzero\"",
 					"description": "Whether to show vertical lines between columns."
 				}
 			],
@@ -74730,7 +74730,7 @@
 					"name": "HideEmptyGroups",
 					"jsonName": "hide_empty_groups",
 					"type": "bool",
-					"jsonTag": "json:\"hide_empty_groups,omitempty\"",
+					"jsonTag": "json:\"hide_empty_groups,omitzero\"",
 					"description": "Whether to hide groups that have no items."
 				},
 				{
@@ -75130,7 +75130,7 @@
 					"name": "PropertyID",
 					"jsonName": "property_id",
 					"type": "*string",
-					"jsonTag": "json:\"property_id,omitempty\"",
+					"jsonTag": "json:\"property_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				}
 			]
@@ -75151,7 +75151,7 @@
 					"name": "CenterTimestamp",
 					"jsonName": "center_timestamp",
 					"type": "*int",
-					"jsonTag": "json:\"center_timestamp,omitempty\"",
+					"jsonTag": "json:\"center_timestamp,omitzero\"",
 					"description": "Timestamp (ms) to center the timeline view on."
 				}
 			]
@@ -75172,7 +75172,7 @@
 					"name": "CenterTimestamp",
 					"jsonName": "center_timestamp",
 					"type": "*int",
-					"jsonTag": "json:\"center_timestamp,omitempty\"",
+					"jsonTag": "json:\"center_timestamp,omitzero\"",
 					"description": "Center timestamp for the timeline view (Unix timestamp in ms)."
 				}
 			]
@@ -75201,48 +75201,48 @@
 					"name": "EndDatePropertyID",
 					"jsonName": "end_date_property_id",
 					"type": "*string",
-					"jsonTag": "json:\"end_date_property_id,omitempty\"",
+					"jsonTag": "json:\"end_date_property_id,omitzero\"",
 					"description": "The name of the bot's workspace."
 				},
 				{
 					"name": "Properties",
 					"jsonName": "properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"properties,omitempty\"",
+					"jsonTag": "json:\"properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				},
 				{
 					"name": "ShowTable",
 					"jsonName": "show_table",
 					"type": "*bool",
-					"jsonTag": "json:\"show_table,omitempty\""
+					"jsonTag": "json:\"show_table,omitzero\""
 				},
 				{
 					"name": "TableProperties",
 					"jsonName": "table_properties",
 					"type": "*viewPropertyConfigRequest",
-					"jsonTag": "json:\"table_properties,omitempty\"",
+					"jsonTag": "json:\"table_properties,omitzero\"",
 					"description": "Property visibility and display configuration on cards. Pass null to clear."
 				},
 				{
 					"name": "Preference",
 					"jsonName": "preference",
 					"type": "*timelinePreferenceRequest",
-					"jsonTag": "json:\"preference,omitempty\"",
+					"jsonTag": "json:\"preference,omitzero\"",
 					"description": "Timeline display preferences (zoom level and center position). Pass null to clear."
 				},
 				{
 					"name": "ArrowsBy",
 					"jsonName": "arrows_by",
 					"type": "*timelineArrowsBy",
-					"jsonTag": "json:\"arrows_by,omitempty\"",
+					"jsonTag": "json:\"arrows_by,omitzero\"",
 					"description": "Configuration for dependency arrows between timeline items. Pass null to clear."
 				},
 				{
 					"name": "ColorBy",
 					"jsonName": "color_by",
 					"type": "*bool",
-					"jsonTag": "json:\"color_by,omitempty\""
+					"jsonTag": "json:\"color_by,omitzero\""
 				}
 			],
 			"memberDecoder": true
@@ -75299,7 +75299,7 @@
 					"name": "ShowTable",
 					"jsonName": "show_table",
 					"type": "bool",
-					"jsonTag": "json:\"show_table,omitempty\"",
+					"jsonTag": "json:\"show_table,omitzero\"",
 					"description": "Whether to show the table panel alongside the timeline."
 				},
 				{
@@ -75313,21 +75313,21 @@
 					"name": "Preference",
 					"jsonName": "preference",
 					"type": "*timelinePreferenceResponse",
-					"jsonTag": "json:\"preference,omitempty\"",
+					"jsonTag": "json:\"preference,omitzero\"",
 					"description": "Timeline zoom/preference state."
 				},
 				{
 					"name": "ArrowsBy",
 					"jsonName": "arrows_by",
 					"type": "*timelineArrowsBy",
-					"jsonTag": "json:\"arrows_by,omitempty\"",
+					"jsonTag": "json:\"arrows_by,omitzero\"",
 					"description": "Dependency arrows configuration."
 				},
 				{
 					"name": "ColorBy",
 					"jsonName": "color_by",
 					"type": "bool",
-					"jsonTag": "json:\"color_by,omitempty\"",
+					"jsonTag": "json:\"color_by,omitzero\"",
 					"description": "Whether to color-code items by property."
 				}
 			],
@@ -75717,19 +75717,19 @@
 					"name": "Children",
 					"jsonName": "children",
 					"type": "*transcriptionChildrenResponse",
-					"jsonTag": "json:\"children,omitempty\""
+					"jsonTag": "json:\"children,omitzero\""
 				},
 				{
 					"name": "CalendarEvent",
 					"jsonName": "calendar_event",
 					"type": "*transcriptionCalendarEventResponse",
-					"jsonTag": "json:\"calendar_event,omitempty\""
+					"jsonTag": "json:\"calendar_event,omitzero\""
 				},
 				{
 					"name": "Recording",
 					"jsonName": "recording",
 					"type": "*transcriptionRecordingResponse",
-					"jsonTag": "json:\"recording,omitempty\""
+					"jsonTag": "json:\"recording,omitzero\""
 				}
 			]
 		},
@@ -75791,13 +75791,13 @@
 					"name": "StartTime",
 					"jsonName": "start_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"start_time,omitempty\""
+					"jsonTag": "json:\"start_time,omitzero\""
 				},
 				{
 					"name": "EndTime",
 					"jsonName": "end_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"end_time,omitempty\""
+					"jsonTag": "json:\"end_time,omitzero\""
 				}
 			]
 		},
@@ -76018,13 +76018,13 @@
 					"name": "External",
 					"jsonName": "external",
 					"type": "*ExternalMediaContentWithFileAndCaptionExternal",
-					"jsonTag": "json:\"external,omitempty\""
+					"jsonTag": "json:\"external,omitzero\""
 				},
 				{
 					"name": "FileUpload",
 					"jsonName": "file_upload",
 					"type": "*ContentPositionSchemaAnyOfAfterBlock",
-					"jsonTag": "json:\"file_upload,omitempty\""
+					"jsonTag": "json:\"file_upload,omitzero\""
 				}
 			]
 		},
@@ -76042,13 +76042,13 @@
 					"name": "External",
 					"jsonName": "external",
 					"type": "*ExternalMediaContentWithFileAndCaptionExternal",
-					"jsonTag": "json:\"external,omitempty\""
+					"jsonTag": "json:\"external,omitzero\""
 				},
 				{
 					"name": "FileUpload",
 					"jsonName": "file_upload",
 					"type": "*ContentPositionSchemaAnyOfAfterBlock",
-					"jsonTag": "json:\"file_upload,omitempty\""
+					"jsonTag": "json:\"file_upload,omitzero\""
 				},
 				{
 					"name": "Name",
@@ -76073,28 +76073,28 @@
 					"name": "Filter",
 					"jsonName": "filter",
 					"type": "*quickFilterCondition",
-					"jsonTag": "json:\"filter,omitempty\"",
+					"jsonTag": "json:\"filter,omitzero\"",
 					"description": "Filter to apply to the view. Uses the same format as the data source query filter. Pass null to clear the filter."
 				},
 				{
 					"name": "Sorts",
 					"jsonName": "sorts",
 					"type": "*viewPropertySortsRequest",
-					"jsonTag": "json:\"sorts,omitempty\"",
+					"jsonTag": "json:\"sorts,omitzero\"",
 					"description": "Property sorts to apply to the view. Only property-based sorts are supported. Pass null to clear the sorts."
 				},
 				{
 					"name": "QuickFilters",
 					"jsonName": "quick_filters",
 					"type": "*map[string]quickFilterCondition",
-					"jsonTag": "json:\"quick_filters,omitempty\"",
+					"jsonTag": "json:\"quick_filters,omitzero\"",
 					"description": "Quick filters for the view's filter bar. Keys are property names or IDs. Set a key to a filter condition to add/update that quick filter. Set a key to null to remove it. Pass null for the entire field to clear all quick filters. Unmentioned quick filters are preserved."
 				},
 				{
 					"name": "Configuration",
 					"jsonName": "configuration",
 					"type": "*viewConfigRequest",
-					"jsonTag": "json:\"configuration,omitempty\"",
+					"jsonTag": "json:\"configuration,omitzero\"",
 					"description": "View presentation configuration. The type field must match the view type. Individual nullable fields within the configuration can be set to null to clear them."
 				}
 			]
@@ -77780,21 +77780,21 @@
 					"name": "Visible",
 					"jsonName": "visible",
 					"type": "bool",
-					"jsonTag": "json:\"visible,omitempty\"",
+					"jsonTag": "json:\"visible,omitzero\"",
 					"description": "Whether this property is visible in the view."
 				},
 				{
 					"name": "Width",
 					"jsonName": "width",
 					"type": "*int",
-					"jsonTag": "json:\"width,omitempty\"",
+					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Width of the property column in pixels (table view only)."
 				},
 				{
 					"name": "Wrap",
 					"jsonName": "wrap",
 					"type": "bool",
-					"jsonTag": "json:\"wrap,omitempty\"",
+					"jsonTag": "json:\"wrap,omitzero\"",
 					"description": "Whether to wrap content in this property cell/card."
 				},
 				{
@@ -77850,21 +77850,21 @@
 					"name": "Visible",
 					"jsonName": "visible",
 					"type": "bool",
-					"jsonTag": "json:\"visible,omitempty\"",
+					"jsonTag": "json:\"visible,omitzero\"",
 					"description": "Whether this property is visible in the view."
 				},
 				{
 					"name": "Width",
 					"jsonName": "width",
 					"type": "*int",
-					"jsonTag": "json:\"width,omitempty\"",
+					"jsonTag": "json:\"width,omitzero\"",
 					"description": "Width of the property column in pixels (table view only)."
 				},
 				{
 					"name": "Wrap",
 					"jsonName": "wrap",
 					"type": "bool",
-					"jsonTag": "json:\"wrap,omitempty\"",
+					"jsonTag": "json:\"wrap,omitzero\"",
 					"description": "Whether to wrap content in this property cell/card."
 				},
 				{
@@ -77974,7 +77974,7 @@
 					"name": "RequestStatus",
 					"jsonName": "request_status",
 					"type": "*requestStatusResponse",
-					"jsonTag": "json:\"request_status,omitempty\"",
+					"jsonTag": "json:\"request_status,omitzero\"",
 					"description": "Set to `{ type: 'incomplete', incomplete_reason: 'query_result_limit_reached' }` when the view's underlying data source has more rows matching this query than the server-side pagination depth limit allows."
 				}
 			]
@@ -78231,7 +78231,7 @@
 					"name": "DataSourceID",
 					"jsonName": "data_source_id",
 					"type": "*idResponse",
-					"jsonTag": "json:\"data_source_id,omitempty\"",
+					"jsonTag": "json:\"data_source_id,omitzero\"",
 					"description": "The data source ID of the parent, if applicable."
 				}
 			]
@@ -78340,7 +78340,7 @@
 					"name": "RowIndex",
 					"jsonName": "row_index",
 					"type": "*int",
-					"jsonTag": "json:\"row_index,omitempty\"",
+					"jsonTag": "json:\"row_index,omitzero\"",
 					"description": "The 0-based row position to insert the new row at. If omitted, the new row is appended at the end."
 				}
 			],
