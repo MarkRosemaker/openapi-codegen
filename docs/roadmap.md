@@ -12,9 +12,10 @@ notion-undocumented (`Date` and `date`, `TemplateMention` and
 `templateMention`, `IconPageIcon` and `iconPageIcon`), so it needs a rule for
 collisions, and it is the owner's call.
 
-## Pointers for nullable fields
+## No pointers in types only ever decoded
 
-"X or null" is `*X` today for every X that is not already nilable, strings
-included. Whether a nullable string should rather be a plain `string`, where
-empty and null usually mean the same to a caller, is undecided. One proposal:
-pointers for nullable numbers and booleans only.
+A field is a pointer where its zero value must be told apart from leaving it
+out, so that a client can send `false`, `0` or `{}`. A type that only responses
+use is never sent, and decoding rarely needs to tell an absent field from its
+zero value, so its fields could drop the pointer. That needs to know which types
+a request body can reach; a type both use keeps its pointers.

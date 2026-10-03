@@ -5052,7 +5052,7 @@
 					"name": "CreatedBy",
 					"jsonName": "created_by",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by,omitzero\"",
+					"jsonTag": "json:\"created_by\"",
 					"required": true
 				},
 				{
@@ -5066,7 +5066,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -5080,7 +5080,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "AddLegalHoldUsersStatus",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
@@ -5114,7 +5114,7 @@
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitempty\""
+					"jsonTag": "json:\"end_date,omitzero\""
 				},
 				{
 					"name": "Icon",
@@ -5213,7 +5213,7 @@
 					"name": "Role",
 					"jsonName": "role",
 					"type": "AddPermissionGroupMemberRole",
-					"jsonTag": "json:\"role,omitzero\"",
+					"jsonTag": "json:\"role\"",
 					"description": "The user's role in the group.",
 					"required": true
 				}
@@ -5227,7 +5227,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `group_membership`",
 					"required": true
 				},
@@ -5235,7 +5235,7 @@
 					"name": "GroupID",
 					"jsonName": "group_id",
 					"type": "string",
-					"jsonTag": "json:\"group_id,omitzero\"",
+					"jsonTag": "json:\"group_id\"",
 					"description": "The ID of the group.",
 					"required": true
 				},
@@ -5251,7 +5251,7 @@
 					"name": "Role",
 					"jsonName": "role",
 					"type": "AddPermissionGroupMemberRole",
-					"jsonTag": "json:\"role,omitzero\"",
+					"jsonTag": "json:\"role\"",
 					"description": "The user's role in the group.",
 					"required": true
 				}
@@ -5265,7 +5265,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `user`",
 					"required": true
 				},
@@ -5273,7 +5273,7 @@
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "string",
-					"jsonTag": "json:\"user_id,omitzero\"",
+					"jsonTag": "json:\"user_id\"",
 					"description": "The ID of the user.",
 					"required": true
 				}
@@ -5287,7 +5287,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `user`",
 					"required": true
 				},
@@ -5295,7 +5295,7 @@
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "idRequest",
-					"jsonTag": "json:\"user_id,omitzero\"",
+					"jsonTag": "json:\"user_id\"",
 					"description": "The ID of the user.",
 					"required": true
 				}
@@ -5474,21 +5474,25 @@
 			"unionVariants": [
 				{
 					"fieldName": "String",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "String2",
-					"type": "[]string"
+					"type": "[]string",
+					"zero": "nil"
 				}
 			],
 			"choices": [
 				{
 					"fieldName": "String",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "String2",
-					"type": "[]string"
+					"type": "[]string",
+					"zero": "nil"
 				}
 			],
 			"isOneOf": true
@@ -5516,7 +5520,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -5531,7 +5535,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "AgentCreditUsageStatus",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Agent status; same values as the list-agents endpoint's status field.",
 					"required": true
 				},
@@ -5547,28 +5551,28 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AgentCreditUsageType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Custom agents vs database (autofill) agents.",
 					"required": true
 				},
 				{
 					"name": "CreatedByID",
 					"jsonName": "created_by_id",
-					"type": "*uuid.UUID",
-					"jsonTag": "json:\"created_by_id,omitempty\""
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"created_by_id,omitzero\""
 				},
 				{
 					"name": "CreditLimit",
 					"jsonName": "credit_limit",
 					"type": "*float64",
-					"jsonTag": "json:\"credit_limit,omitempty\"",
+					"jsonTag": "json:\"credit_limit,omitzero\"",
 					"description": "Enforced per-agent credit limit, if one is configured."
 				},
 				{
 					"name": "LastCreditUsageTime",
 					"jsonName": "last_credit_usage_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_credit_usage_time,omitempty\"",
+					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
 					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
 				},
 				{
@@ -5760,7 +5764,7 @@
 					"name": "ResolvedRole",
 					"jsonName": "resolved_role",
 					"type": "AgentPermissionsItemResolvedRole",
-					"jsonTag": "json:\"resolved_role,omitzero\"",
+					"jsonTag": "json:\"resolved_role\"",
 					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
 					"required": true
 				},
@@ -5768,7 +5772,7 @@
 					"name": "Role",
 					"jsonName": "role",
 					"type": "AgentPermissionsItemResolvedRole",
-					"jsonTag": "json:\"role,omitzero\"",
+					"jsonTag": "json:\"role\"",
 					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
 					"required": true
 				}
@@ -5874,14 +5878,14 @@
 					"name": "GroupID",
 					"jsonName": "group_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"group_id,omitzero\"",
+					"jsonTag": "json:\"group_id\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `group`",
 					"required": true
 				}
@@ -5896,7 +5900,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `workspace`",
 					"required": true
 				}
@@ -5934,7 +5938,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Indicates this user is a bot.",
 					"required": true
 				},
@@ -5973,7 +5977,7 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitempty\"",
+					"jsonTag": "json:\"expires_at,omitzero\"",
 					"description": "Unix time in milliseconds. Only individual workspace-member policies may expire."
 				}
 			]
@@ -5986,7 +5990,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `credit_limit_policy`",
 					"required": true
 				},
@@ -6015,7 +6019,7 @@
 					"name": "CreditTypeUnit",
 					"jsonName": "credit_type_unit",
 					"type": "CreateCreditLimitPolicyCreditTypeUnit",
-					"jsonTag": "json:\"credit_type_unit,omitzero\"",
+					"jsonTag": "json:\"credit_type_unit\"",
 					"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
 					"required": true
 				},
@@ -6023,7 +6027,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -6038,14 +6042,14 @@
 					"name": "SpaceID",
 					"jsonName": "space_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id,omitzero\"",
+					"jsonTag": "json:\"space_id\"",
 					"required": true
 				},
 				{
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitempty\""
+					"jsonTag": "json:\"expires_at,omitzero\""
 				}
 			]
 		},
@@ -6057,7 +6061,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `user`",
 					"required": true
 				},
@@ -6065,7 +6069,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -6170,7 +6174,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `all_space_members`",
 					"required": true
 				}
@@ -6185,7 +6189,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `user`",
 					"required": true
 				},
@@ -6193,7 +6197,7 @@
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"user_id,omitzero\"",
+					"jsonTag": "json:\"user_id\"",
 					"description": "The ID returned by the workspace users API.",
 					"required": true
 				}
@@ -6208,7 +6212,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
@@ -6242,7 +6246,7 @@
 					"name": "EndDate",
 					"jsonName": "end_date",
 					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitempty\""
+					"jsonTag": "json:\"end_date,omitzero\""
 				},
 				{
 					"name": "Icon",
@@ -6260,7 +6264,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "The name of the group.",
 					"required": true
 				}
@@ -6274,7 +6278,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `group`",
 					"required": true
 				},
@@ -6282,7 +6286,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "The ID of the group.",
 					"required": true
 				},
@@ -6290,7 +6294,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "The name of the group.",
 					"required": true
 				}
@@ -6303,7 +6307,8 @@
 			"unionVariants": [
 				{
 					"fieldName": "UUID",
-					"type": "[]uuid.UUID"
+					"type": "[]uuid.UUID",
+					"zero": "nil"
 				},
 				{
 					"fieldName": "UUID2",
@@ -6313,7 +6318,8 @@
 			"choices": [
 				{
 					"fieldName": "UUID",
-					"type": "[]uuid.UUID"
+					"type": "[]uuid.UUID",
+					"zero": "nil"
 				},
 				{
 					"fieldName": "UUID2",
@@ -6330,14 +6336,14 @@
 					"name": "ExportType",
 					"jsonName": "export_type",
 					"type": "EnqueueSpaceExportType",
-					"jsonTag": "json:\"export_type,omitzero\"",
+					"jsonTag": "json:\"export_type\"",
 					"required": true
 				},
 				{
 					"name": "OnBehalfOfUserEmail",
 					"jsonName": "on_behalf_of_user_email",
 					"type": "string",
-					"jsonTag": "json:\"on_behalf_of_user_email,omitzero\"",
+					"jsonTag": "json:\"on_behalf_of_user_email\"",
 					"required": true
 				},
 				{
@@ -6349,14 +6355,14 @@
 				{
 					"name": "FlattenExportFiletree",
 					"jsonName": "flatten_export_filetree",
-					"type": "bool",
-					"jsonTag": "json:\"flatten_export_filetree,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"flatten_export_filetree,omitzero\""
 				},
 				{
 					"name": "IncludeComments",
 					"jsonName": "include_comments",
-					"type": "bool",
-					"jsonTag": "json:\"include_comments,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"include_comments,omitzero\""
 				},
 				{
 					"name": "IncludeContents",
@@ -6434,14 +6440,14 @@
 					"name": "ExportJobID",
 					"jsonName": "export_job_id",
 					"type": "string",
-					"jsonTag": "json:\"export_job_id,omitzero\"",
+					"jsonTag": "json:\"export_job_id\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				}
 			]
@@ -6571,14 +6577,14 @@
 					"name": "LegalHoldExportID",
 					"jsonName": "legal_hold_export_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"legal_hold_export_id,omitzero\"",
+					"jsonTag": "json:\"legal_hold_export_id\"",
 					"required": true
 				},
 				{
 					"name": "RequestingUserID",
 					"jsonName": "requesting_user_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"requesting_user_id,omitzero\"",
+					"jsonTag": "json:\"requesting_user_id\"",
 					"required": true
 				}
 			]
@@ -6591,14 +6597,14 @@
 					"name": "RequestingUserID",
 					"jsonName": "requesting_user_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"requesting_user_id,omitzero\"",
+					"jsonTag": "json:\"requesting_user_id\"",
 					"required": true
 				},
 				{
 					"name": "SpaceID",
 					"jsonName": "space_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id,omitzero\"",
+					"jsonTag": "json:\"space_id\"",
 					"required": true
 				}
 			]
@@ -6611,7 +6617,7 @@
 					"name": "LegalHoldExportID",
 					"jsonName": "legal_hold_export_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"legal_hold_export_id,omitzero\"",
+					"jsonTag": "json:\"legal_hold_export_id\"",
 					"required": true
 				}
 			]
@@ -6687,14 +6693,14 @@
 					"name": "ExportFormat",
 					"jsonName": "export_format",
 					"type": "EnqueueSpaceExportType",
-					"jsonTag": "json:\"export_format,omitzero\"",
+					"jsonTag": "json:\"export_format\"",
 					"required": true
 				},
 				{
 					"name": "ExportJobID",
 					"jsonName": "export_job_id",
 					"type": "string",
-					"jsonTag": "json:\"export_job_id,omitzero\"",
+					"jsonTag": "json:\"export_job_id\"",
 					"description": "Identifier of the export job, as returned by the enqueue endpoint.",
 					"required": true
 				},
@@ -6702,7 +6708,7 @@
 					"name": "ExportType",
 					"jsonName": "export_type",
 					"type": "GetSpaceExportStatusOkExportType",
-					"jsonTag": "json:\"export_type,omitzero\"",
+					"jsonTag": "json:\"export_type\"",
 					"description": "Whether an entire workspace ('space'), a teamspace, or a single 'page' was exported.",
 					"required": true
 				},
@@ -6724,7 +6730,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "GetSpaceExportStatusOkStatus",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Current state of the export: - 'in_progress': the export has not finished yet. - 'completed': the export finished and 'download_urls' is available. - 'url_generation_failed': the export finished, but a download URL could   not be generated. - 'failed': the export itself did not finish; see 'error_type' and   'error_message'.",
 					"required": true
 				},
@@ -6751,7 +6757,7 @@
 					"name": "URLExpiresTime",
 					"jsonName": "url_expires_time",
 					"type": "*float64",
-					"jsonTag": "json:\"url_expires_time,omitempty\""
+					"jsonTag": "json:\"url_expires_time,omitzero\""
 				}
 			]
 		},
@@ -6855,7 +6861,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "The agent's unique identifier.",
 					"required": true
 				},
@@ -6863,14 +6869,14 @@
 					"name": "SpaceID",
 					"jsonName": "space_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id,omitzero\"",
+					"jsonTag": "json:\"space_id\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "AgentCreditUsageStatus",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Agent status; same values as the list-agents endpoint's status field.",
 					"required": true
 				},
@@ -6878,15 +6884,15 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AgentCreditUsageType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Custom agents vs database (autofill) agents.",
 					"required": true
 				},
 				{
 					"name": "CreatedByID",
 					"jsonName": "created_by_id",
-					"type": "*uuid.UUID",
-					"jsonTag": "json:\"created_by_id,omitempty\""
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"created_by_id,omitzero\""
 				},
 				{
 					"name": "CreatedByTable",
@@ -6899,7 +6905,7 @@
 					"name": "CreatedTime",
 					"jsonName": "created_time",
 					"type": "*float64",
-					"jsonTag": "json:\"created_time,omitempty\"",
+					"jsonTag": "json:\"created_time,omitzero\"",
 					"description": "Epoch ms when the agent was created."
 				},
 				{
@@ -6920,14 +6926,14 @@
 					"name": "LastCreditUsageTime",
 					"jsonName": "last_credit_usage_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_credit_usage_time,omitempty\"",
+					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
 					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
 				},
 				{
 					"name": "LastEditedByID",
 					"jsonName": "last_edited_by_id",
-					"type": "*uuid.UUID",
-					"jsonTag": "json:\"last_edited_by_id,omitempty\""
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"last_edited_by_id,omitzero\""
 				},
 				{
 					"name": "LastEditedByTable",
@@ -6940,14 +6946,14 @@
 					"name": "LastEditedTime",
 					"jsonName": "last_edited_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_edited_time,omitempty\"",
+					"jsonTag": "json:\"last_edited_time,omitzero\"",
 					"description": "Epoch ms when the agent was last edited."
 				},
 				{
 					"name": "LastRunTime",
 					"jsonName": "last_run_time",
 					"type": "*float64",
-					"jsonTag": "json:\"last_run_time,omitempty\"",
+					"jsonTag": "json:\"last_run_time,omitzero\"",
 					"description": "Epoch ms of the agent's most recent run; omitted if the agent has never run."
 				},
 				{
@@ -6968,7 +6974,7 @@
 					"name": "MovedToTrashTime",
 					"jsonName": "moved_to_trash_time",
 					"type": "*float64",
-					"jsonTag": "json:\"moved_to_trash_time,omitempty\"",
+					"jsonTag": "json:\"moved_to_trash_time,omitzero\"",
 					"description": "Epoch ms when the agent was deleted; only present for deleted agents."
 				},
 				{
@@ -6981,8 +6987,8 @@
 				{
 					"name": "ParentID",
 					"jsonName": "parent_id",
-					"type": "*uuid.UUID",
-					"jsonTag": "json:\"parent_id,omitempty\""
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"parent_id,omitzero\""
 				},
 				{
 					"name": "ParentTable",
@@ -7014,14 +7020,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
@@ -7130,7 +7136,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `list`",
 					"required": true
 				},
@@ -7138,7 +7144,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `credit_limit_policy`",
 					"required": true
 				},
@@ -7161,7 +7167,7 @@
 				{
 					"name": "NextCursor",
 					"jsonName": "next_cursor",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"next_cursor\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
@@ -7346,7 +7352,7 @@
 					"name": "LastActiveAt",
 					"jsonName": "last_active_at",
 					"type": "*float64",
-					"jsonTag": "json:\"last_active_at,omitempty\"",
+					"jsonTag": "json:\"last_active_at,omitzero\"",
 					"description": "Most recent time the member used the connection, in epoch milliseconds."
 				}
 			]
@@ -7359,7 +7365,7 @@
 					"name": "Key",
 					"jsonName": "key",
 					"type": "string",
-					"jsonTag": "json:\"key,omitzero\"",
+					"jsonTag": "json:\"key\"",
 					"description": "Stable client key required by the revoke endpoint.",
 					"required": true
 				},
@@ -7367,7 +7373,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Name provided by Notion or reported by a custom client.",
 					"required": true
 				},
@@ -7375,7 +7381,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "ListMcpClientConnectionsOkResultsItemClientType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Client category, or 'other' for a custom or unregistered client.",
 					"required": true
 				}
@@ -7533,7 +7539,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]
@@ -7546,7 +7552,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `list`",
 					"required": true
 				},
@@ -7554,7 +7560,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `group_membership`",
 					"required": true
 				},
@@ -7577,7 +7583,7 @@
 				{
 					"name": "NextCursor",
 					"jsonName": "next_cursor",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"next_cursor\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
@@ -7598,7 +7604,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "Always `list`",
 					"required": true
 				},
@@ -7606,7 +7612,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `group`",
 					"required": true
 				},
@@ -7629,7 +7635,7 @@
 				{
 					"name": "NextCursor",
 					"jsonName": "next_cursor",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"next_cursor\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
@@ -7685,7 +7691,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -7708,7 +7714,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "ListPersonalAccessTokensResultsItemStatus",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Current token status.",
 					"required": true
 				},
@@ -7723,28 +7729,28 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*float64",
-					"jsonTag": "json:\"expires_at,omitempty\"",
+					"jsonTag": "json:\"expires_at,omitzero\"",
 					"description": "Time the token expires, in epoch milliseconds."
 				},
 				{
 					"name": "LastUsedAt",
 					"jsonName": "last_used_at",
 					"type": "*float64",
-					"jsonTag": "json:\"last_used_at,omitempty\"",
+					"jsonTag": "json:\"last_used_at,omitzero\"",
 					"description": "Most recent recorded time the token authenticated a request, in epoch milliseconds. Updated at most once per hour."
 				},
 				{
 					"name": "RevokedAt",
 					"jsonName": "revoked_at",
 					"type": "*float64",
-					"jsonTag": "json:\"revoked_at,omitempty\"",
+					"jsonTag": "json:\"revoked_at,omitzero\"",
 					"description": "Time the token was revoked, in epoch milliseconds."
 				},
 				{
 					"name": "RevokedBy",
 					"jsonName": "revoked_by",
-					"type": "*ListPersonalAccessTokensResultsItemCreator",
-					"jsonTag": "json:\"revoked_by,omitempty\"",
+					"type": "ListPersonalAccessTokensResultsItemCreator",
+					"jsonTag": "json:\"revoked_by,omitzero\"",
 					"description": "Member who created the token."
 				}
 			]
@@ -7780,7 +7786,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				},
 				{
@@ -7844,7 +7850,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "The standard list response discriminator.",
 					"required": true
 				},
@@ -7852,7 +7858,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "The resource type returned in results.",
 					"required": true
 				},
@@ -7875,7 +7881,7 @@
 				{
 					"name": "NextCursor",
 					"jsonName": "next_cursor",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"next_cursor\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
@@ -7891,7 +7897,7 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "string",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"description": "The user object type name.",
 					"required": true
 				},
@@ -7899,14 +7905,14 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "The ID of the user.",
 					"required": true
 				},
 				{
 					"name": "Name",
 					"jsonName": "name",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"name\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
@@ -7914,7 +7920,7 @@
 				{
 					"name": "AvatarURL",
 					"jsonName": "avatar_url",
-					"type": "*string",
+					"type": "string",
 					"jsonTag": "json:\"avatar_url\"",
 					"description": "Cursor for the next page, or null on the last page.",
 					"required": true
@@ -8097,7 +8103,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Indicates this user is a person.",
 					"required": true
 				},
@@ -8105,7 +8111,7 @@
 					"name": "MembershipType",
 					"jsonName": "membership_type",
 					"type": "PersonMembershipType",
-					"jsonTag": "json:\"membership_type,omitzero\"",
+					"jsonTag": "json:\"membership_type\"",
 					"description": "The person's effective workspace membership type.",
 					"required": true
 				},
@@ -8179,7 +8185,7 @@
 					"name": "ClientKey",
 					"jsonName": "client_key",
 					"type": "string",
-					"jsonTag": "json:\"client_key,omitzero\"",
+					"jsonTag": "json:\"client_key\"",
 					"description": "Stable client key returned by the list endpoint.",
 					"required": true
 				},
@@ -8187,14 +8193,14 @@
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"user_id,omitzero\"",
+					"jsonTag": "json:\"user_id\"",
 					"required": true
 				},
 				{
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"required": true
 				}
 			]
@@ -8235,7 +8241,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"description": "Confirms that the user's active sessions were revoked.",
 					"required": true
 				}
@@ -8317,7 +8323,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `email`",
 					"required": true
 				},
@@ -8325,7 +8331,7 @@
 					"name": "Email",
 					"jsonName": "email",
 					"type": "string",
-					"jsonTag": "json:\"email,omitzero\"",
+					"jsonTag": "json:\"email\"",
 					"description": "The managed user's primary email address.",
 					"required": true
 				}
@@ -8340,7 +8346,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"description": "Always `id`",
 					"required": true
 				},
@@ -8348,7 +8354,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"description": "The managed user's Notion user UUID.",
 					"required": true
 				}
@@ -8362,37 +8368,45 @@
 			"unionVariants": [
 				{
 					"fieldName": "StatusOneOf0",
-					"type": "StatusOneOf0"
+					"type": "StatusOneOf0",
+					"zero": "nil"
 				},
 				{
 					"fieldName": "String",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "String2",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "String3",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				}
 			],
 			"choices": [
 				{
 					"fieldName": "StatusOneOf0",
-					"type": "StatusOneOf0"
+					"type": "StatusOneOf0",
+					"zero": "nil"
 				},
 				{
 					"fieldName": "String",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "String2",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				},
 				{
 					"fieldName": "String3",
-					"type": "string"
+					"type": "string",
+					"zero": "\"\""
 				}
 			],
 			"isOneOf": true
@@ -8520,15 +8534,15 @@
 					"name": "Policy",
 					"jsonName": "policy",
 					"type": "UpdateAgentCreationPolicyPolicy",
-					"jsonTag": "json:\"policy,omitzero\"",
+					"jsonTag": "json:\"policy\"",
 					"description": "One of: `all_workspace_members`, `disabled`, `workspace_owners_only`",
 					"required": true
 				},
 				{
 					"name": "DisableExistingAgents",
 					"jsonName": "disable_existing_agents",
-					"type": "bool",
-					"jsonTag": "json:\"disable_existing_agents,omitempty\"",
+					"type": "*bool",
+					"jsonTag": "json:\"disable_existing_agents,omitzero\"",
 					"description": "When true, also disable all existing custom agents in the workspace. Only takes effect when policy is \"disabled\"."
 				}
 			]
@@ -8547,7 +8561,7 @@
 				{
 					"name": "CurrentPolicy",
 					"jsonName": "current_policy",
-					"type": "*UpdateAgentCreationPolicyOkCurrentPolicyOneOf0",
+					"type": "UpdateAgentCreationPolicyOkCurrentPolicyOneOf0",
 					"jsonTag": "json:\"current_policy\"",
 					"description": "The policy now in effect, or null when no explicit policy has ever been set for the workspace (which behaves as the \"all_workspace_members\" default).",
 					"required": true
@@ -8556,21 +8570,21 @@
 					"name": "CurrentPolicyDescription",
 					"jsonName": "current_policy_description",
 					"type": "string",
-					"jsonTag": "json:\"current_policy_description,omitzero\"",
+					"jsonTag": "json:\"current_policy_description\"",
 					"required": true
 				},
 				{
 					"name": "SpaceID",
 					"jsonName": "space_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id,omitzero\"",
+					"jsonTag": "json:\"space_id\"",
 					"required": true
 				},
 				{
 					"name": "SpaceName",
 					"jsonName": "space_name",
 					"type": "string",
-					"jsonTag": "json:\"space_name,omitzero\"",
+					"jsonTag": "json:\"space_name\"",
 					"required": true
 				}
 			]
@@ -8769,7 +8783,7 @@
 					"name": "Role",
 					"jsonName": "role",
 					"type": "AgentPermissionsItemResolvedRole",
-					"jsonTag": "json:\"role,omitzero\"",
+					"jsonTag": "json:\"role\"",
 					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
 					"required": true
 				}
@@ -8783,7 +8797,7 @@
 					"name": "AdminStatus",
 					"jsonName": "admin_status",
 					"type": "UpdateAgentStatusAdminStatus",
-					"jsonTag": "json:\"admin_status,omitzero\"",
+					"jsonTag": "json:\"admin_status\"",
 					"description": "Set to \"active\" to re-enable an agent that was disabled through this API, or \"disabled\" to turn off a running agent.",
 					"required": true
 				}
@@ -8815,7 +8829,7 @@
 					"name": "AdminStatus",
 					"jsonName": "admin_status",
 					"type": "UpdateAgentStatusAdminStatus",
-					"jsonTag": "json:\"admin_status,omitzero\"",
+					"jsonTag": "json:\"admin_status\"",
 					"description": "Set to \"active\" to re-enable an agent that was disabled through this API, or \"disabled\" to turn off a running agent.",
 					"required": true
 				},
@@ -8823,7 +8837,7 @@
 					"name": "RunStatus",
 					"jsonName": "run_status",
 					"type": "UpdateAgentStatusOkRunStatus",
-					"jsonTag": "json:\"run_status,omitzero\"",
+					"jsonTag": "json:\"run_status\"",
 					"description": "Whether the agent will actually run right now, independent of the admin-disable toggle. It reflects the agent's current state, including usage-based pauses such as a credit limit or workspace credit limit. It is \"active\" only when the agent has no paused reason and will actually run, and \"paused\" whenever a paused_reason is present, whether admin-set or not. Refer to paused_reason for why the agent is paused.",
 					"required": true
 				},
@@ -8958,7 +8972,7 @@
 					"name": "ExpiresAt",
 					"jsonName": "expires_at",
 					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitempty\""
+					"jsonTag": "json:\"expires_at,omitzero\""
 				}
 			]
 		},
@@ -8994,7 +9008,7 @@
 					"name": "Access",
 					"jsonName": "access",
 					"type": "UpdateMcpClientConnectionEnterpriseManagedAccess2",
-					"jsonTag": "json:\"access,omitzero\"",
+					"jsonTag": "json:\"access\"",
 					"description": "'denied' blocks access; 'allowed' restores access.",
 					"required": true
 				},
@@ -9002,14 +9016,14 @@
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"user_id,omitzero\"",
+					"jsonTag": "json:\"user_id\"",
 					"required": true
 				},
 				{
 					"name": "WorkspaceID",
 					"jsonName": "workspace_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"workspace_id,omitzero\"",
+					"jsonTag": "json:\"workspace_id\"",
 					"required": true
 				}
 			]
@@ -9040,7 +9054,7 @@
 					"name": "Access",
 					"jsonName": "access",
 					"type": "UpdateMcpClientConnectionEnterpriseManagedAccess2",
-					"jsonTag": "json:\"access,omitzero\"",
+					"jsonTag": "json:\"access\"",
 					"description": "'denied' blocks access; 'allowed' restores access.",
 					"required": true
 				},
@@ -9062,7 +9076,7 @@
 					"name": "Role",
 					"jsonName": "role",
 					"type": "AddPermissionGroupMemberRole",
-					"jsonTag": "json:\"role,omitzero\"",
+					"jsonTag": "json:\"role\"",
 					"description": "The user's role in the group.",
 					"required": true
 				}
@@ -9090,7 +9104,7 @@
 					"name": "SpaceID",
 					"jsonName": "space_id",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id,omitzero\"",
+					"jsonTag": "json:\"space_id\"",
 					"required": true
 				},
 				{
@@ -9110,7 +9124,8 @@
 			"unionVariants": [
 				{
 					"fieldName": "UUID",
-					"type": "[]uuid.UUID"
+					"type": "[]uuid.UUID",
+					"zero": "nil"
 				},
 				{
 					"fieldName": "UUID2",
@@ -9120,7 +9135,8 @@
 			"choices": [
 				{
 					"fieldName": "UUID",
-					"type": "[]uuid.UUID"
+					"type": "[]uuid.UUID",
+					"zero": "nil"
 				},
 				{
 					"fieldName": "UUID2",
@@ -9159,14 +9175,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9180,7 +9196,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -9193,14 +9209,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode2",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9214,7 +9230,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -9227,14 +9243,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIError403Code",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9248,7 +9264,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -9261,14 +9277,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIError404Code",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9282,7 +9298,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -9295,14 +9311,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode3",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9316,7 +9332,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -9329,14 +9345,14 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"type,omitzero\"",
+					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode4",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9350,7 +9366,7 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				}
 			]
@@ -9363,14 +9379,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9384,14 +9400,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9403,14 +9419,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode2",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9424,14 +9440,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9443,14 +9459,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIPublicError403Code",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9464,14 +9480,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9483,14 +9499,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIPublicError404Code",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9504,14 +9520,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9523,14 +9539,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIPublicError409Code",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9544,14 +9560,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9563,14 +9579,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode3",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9584,14 +9600,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9603,14 +9619,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIErrorCode4",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9624,14 +9640,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
@@ -9643,14 +9659,14 @@
 					"name": "Object",
 					"jsonName": "object",
 					"type": "AdminAPIErrorType",
-					"jsonTag": "json:\"object,omitzero\"",
+					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
 					"type": "AdminAPIPublicError503Code",
-					"jsonTag": "json:\"code,omitzero\"",
+					"jsonTag": "json:\"code\"",
 					"required": true
 				},
 				{
@@ -9664,14 +9680,14 @@
 					"name": "Message",
 					"jsonName": "message",
 					"type": "string",
-					"jsonTag": "json:\"message,omitzero\"",
+					"jsonTag": "json:\"message\"",
 					"required": true
 				},
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "*map[string]AdminAPIPublicErrorAdditionalDataValue",
-					"jsonTag": "json:\"additional_data,omitempty\""
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
+					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},

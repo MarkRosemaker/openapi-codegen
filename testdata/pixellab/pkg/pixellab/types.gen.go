@@ -127,7 +127,7 @@ type AnimateObjectRequest struct {
 	// **Cost warning**: when generating on a subscription, `'pro'` mode costs 20-40 generations per direction (160-320 for a full 8-direction animation).
 	Mode AnimateObjectMode `json:"mode,omitzero"`
 	// Describe the animation, e.g. 'walking cheerfully'. Required when creating a new animation; can be omitted when adding directions to an existing animation via animation_group_id (the existing description is inherited).
-	AnimationDescription *string `json:"animation_description,omitempty"`
+	AnimationDescription string `json:"animation_description,omitzero"`
 	// Which directions to animate.
 	//
 	// - **Do not pass `directions` for 1-direction objects.** They always animate the single internal direction; passing this returns 400.
@@ -135,11 +135,11 @@ type AnimateObjectRequest struct {
 	//   - **New animation**: omit `directions` to animate all 8 cardinals.
 	//   - **Extending an existing animation** (via `animation_group_id`): omit `directions` to fill in only the cardinals not yet generated. You usually don't need to compute the missing set yourself — pass `animation_group_id` alone and the server figures it out.
 	//   - If you do pass it explicitly, values must be a subset of the 8 cardinals.
-	Directions *AnimateObjectRequestDirectionsAnyOf0 `json:"directions,omitempty"`
+	Directions AnimateObjectRequestDirectionsAnyOf0 `json:"directions,omitzero"`
 	// Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it.
-	AnimationGroupID *uuid.UUID `json:"animation_group_id,omitempty"`
+	AnimationGroupID uuid.UUID `json:"animation_group_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DisplayName *string `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -149,9 +149,9 @@ type AnimateObjectRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	FrameCount *int `json:"frame_count,omitempty"`
+	FrameCount *int `json:"frame_count,omitzero"`
 	// Set true to regenerate a direction that has already been animated in this animation. Without this, attempting to re-animate the same direction returns 409.
-	ReplaceExisting bool `json:"replace_existing,omitempty"`
+	ReplaceExisting bool `json:"replace_existing,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -159,7 +159,7 @@ type AnimateObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	CustomStartFrame *BaseImage `json:"custom_start_frame,omitempty"`
+	CustomStartFrame BaseImage `json:"custom_start_frame,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -167,11 +167,11 @@ type AnimateObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	EndFrame *BaseImage `json:"end_frame,omitempty"`
+	EndFrame BaseImage `json:"end_frame,omitzero"`
 	// Keep the input reference frame as frame 0 of the stored animation (`mode='v3'` only). Set `false` to store exactly `frame_count` generated frames — the reference start frame is stripped, so `frame_count=8` stores 8 frames instead of 9. Not compatible with `mode='pro'`.
-	KeepFirstFrame bool `json:"keep_first_frame,omitempty"`
+	KeepFirstFrame *bool `json:"keep_first_frame,omitzero"`
 	// If true, automatically expand `animation_description` into a richer motion description before generating (mode='v3' only) — equivalent to calling /v2/enhance-animation-v3-prompt first. Grounded on `custom_start_frame`/`end_frame` when provided, otherwise on the object's idle frame. The same enhanced description is reused across all requested directions. Requires `animation_description` (cannot enhance an inherited description). Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`.
-	EnhancePrompt bool `json:"enhance_prompt,omitempty"`
+	EnhancePrompt bool `json:"enhance_prompt,omitzero"`
 }
 
 // AnimateObjectRequestDirectionsAnyOf0 defines a model
@@ -204,36 +204,36 @@ func (e AnimateObjectRequestDirectionsAnyOf0Item) Valid() bool {
 // AnimateObjectResponse defines a model
 type AnimateObjectResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage            *Usage `json:"usage,omitempty"`
-	AnimationGroupID string `json:"animation_group_id,omitzero"`
+	Usage            *Usage `json:"usage,omitzero"`
+	AnimationGroupID string `json:"animation_group_id"`
 	// Which animation mode to use. Prefer `'v3'` (default) — it usually produces higher quality results than `'pro'`, and is cheaper. Use `'pro'` only when its different stylistic output is specifically needed.
 	//
 	// **Cost warning**: when generating on a subscription, `'pro'` mode costs 20-40 generations per direction (160-320 for a full 8-direction animation).
-	Mode       AnimateObjectMode `json:"mode,omitzero"`
+	Mode       AnimateObjectMode `json:"mode"`
 	FrameCount int               `json:"frame_count"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DisplayName *string               `json:"display_name,omitempty"`
-	Description string                `json:"description,omitzero"`
-	ObjectID    string                `json:"object_id,omitzero"`
+	DisplayName string                `json:"display_name,omitzero"`
+	Description string                `json:"description"`
+	ObjectID    string                `json:"object_id"`
 	Submissions []DirectionSubmission `json:"submissions"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	EnhancedPrompt *string `json:"enhanced_prompt,omitempty"`
+	EnhancedPrompt string `json:"enhanced_prompt,omitzero"`
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	EnhanceUsage *Usage `json:"enhance_usage,omitempty"`
+	EnhanceUsage *Usage `json:"enhance_usage,omitzero"`
 }
 
 // Background job response. Poll GET /v2/background-jobs/{id} for results.
 type AnimatePixminimax struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID for polling generation progress
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	// Current job status (processing, completed, failed)
 	Status string `json:"status,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	EnhancedPrompt *string `json:"enhanced_prompt,omitempty"`
+	EnhancedPrompt string `json:"enhanced_prompt,omitzero"`
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	EnhanceUsage *Usage `json:"enhance_usage,omitempty"`
+	EnhanceUsage *Usage `json:"enhance_usage,omitzero"`
 	// Character ID — available immediately, but rotations land asynchronously. Character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded, and the 3D skeleton is reconstructed.
 	CharacterID string `json:"character_id,omitzero"`
 }
@@ -273,36 +273,36 @@ type AnimatePixminimaxRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	LastFrame *BaseImage `json:"last_frame,omitempty"`
+	LastFrame BaseImage `json:"last_frame,omitzero"`
 	// The motion to generate (e.g. 'walking forward', 'sword slash', 'flame flickering'). Describe movement, not appearance.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Frames to generate, a multiple of 4 from 4 to 40, at any size up to 256x256.
-	FrameCount *int `json:"frame_count,omitempty"`
+	FrameCount *int `json:"frame_count,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// True returns the frames on transparency; an opaque input is cut out of its first frame before animating. False keeps an opaque backdrop.
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Color de-flicker sensitivity. Frames whose foreground drifts from the first frame beyond this are corrected toward it; 0 corrects every frame, higher values correct fewer. Omit for the default.
-	DriftThreshold *float64 `json:"drift_threshold,omitempty"`
+	DriftThreshold *float64 `json:"drift_threshold,omitzero"`
 	// If true, expand `description` into a detailed motion prompt written for PixMiniMax before generating: motion from the first frame, locomotion on the spot, and anything aimed (arrows, spells, throws) sent the way the sprite faces. Equivalent to calling /v2/enhance-animation-v3-prompt with engine='pixminimax' first. Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`.
-	EnhancePrompt bool `json:"enhance_prompt,omitempty"`
+	EnhancePrompt bool `json:"enhance_prompt,omitzero"`
 	// Facing direction of the sprite (south = towards the camera). Used only with enhance_prompt: the prompt holds that facing and aims attacks that way on screen. Omit to let the enhancer read the facing from the image.
-	Direction *AnimatePixminimaxDirectionAnyOf `json:"direction,omitempty"`
+	Direction AnimatePixminimaxDirectionAnyOf `json:"direction,omitzero"`
 }
 
 // AnimateWithSkeleton defines a model
 type AnimateWithSkeleton struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage  *Usage      `json:"usage,omitempty"`
+	Usage  *Usage      `json:"usage,omitzero"`
 	Images []BaseImage `json:"images"`
 }
 
 // Background job response. Poll GET /v2/background-jobs/{id} for results.
 type AnimateWithSkeleton2 struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID for polling generation progress
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	// Current job status (processing, completed, failed)
 	Status string `json:"status,omitzero"`
 }
@@ -311,27 +311,27 @@ type AnimateWithSkeleton2 struct {
 type AnimateWithSkeletonRequest struct {
 	ImageSize app__endpoints__external__v__animate_with_skeleton__ImageSize `json:"image_size"`
 	// How closely to follow the reference image and skeleton keypoints
-	GuidanceScale *float64 `json:"guidance_scale,omitempty"`
+	GuidanceScale float64 `json:"guidance_scale,omitzero"`
 	// Camera view angle
 	View CameraView `json:"view,omitzero"`
 	// Subject direction
 	Direction Direction `json:"direction,omitzero"`
 	// Generate in isometric view
-	Isometric bool `json:"isometric,omitempty"`
+	Isometric bool `json:"isometric,omitzero"`
 	// Generate in oblique projection
-	ObliqueProjection bool `json:"oblique_projection,omitempty"`
+	ObliqueProjection bool `json:"oblique_projection,omitzero"`
 	// Initial images to start the generation from
-	InitImages *BaseImage `json:"init_images,omitempty"`
+	InitImages []BaseImage `json:"init_images,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Skeleton pose keypoints. Requires EXACTLY 3 frames — the model is a 3-frame window; other counts are rejected with a 422.
 	SkeletonKeypoints []Point `json:"skeleton_keypoints,omitzero"`
 	// Reference image
 	ReferenceImage BaseImage `json:"reference_image"`
 	// Images used for showing the model with connected skeleton
-	InpaintingImages *BaseImage `json:"inpainting_images,omitzero"`
+	InpaintingImages []BaseImage `json:"inpainting_images,omitzero"`
 	// Inpainting / mask image (black and white image, where the white is where the model should inpaint)
-	MaskImages *BaseImage `json:"mask_images,omitzero"`
+	MaskImages []BaseImage `json:"mask_images,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -339,7 +339,7 @@ type AnimateWithSkeletonRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -349,17 +349,17 @@ type AnimateWithSkeletonRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // AnimateWithSkeletonV3Request defines a model
 type AnimateWithSkeletonV3Request struct {
 	// What the character LOOKS like, as a noun phrase: 'blonde vampire with a red cape'. Colours, clothing, held items. Not the pose, motion, style or background -- those belong in `action` or in the skeletons.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// The motion's short label: 'walk', 'run', 'attack'.
-	Action string `json:"action,omitzero"`
+	Action string `json:"action"`
 	// The direction the character faces.
-	Direction Direction `json:"direction,omitzero"`
+	Direction Direction `json:"direction"`
 	// Camera angle.
 	View CameraView `json:"view,omitzero"`
 	// The sprite to animate, PNG base64, up to 256x256. Frames come back at this size.
@@ -371,9 +371,9 @@ type AnimateWithSkeletonV3Request struct {
 	// The body a joint's missing `depth` is taken from: mannequin, bear, cat, dog, horse or lion. A quadruped posed with mannequin depth comes out flat.
 	TemplateID AnimateWithSkeletonV3RequestTemplateID `json:"template_id,omitzero"`
 	// 0 for a random seed.
-	Seed *int `json:"seed,omitempty"`
+	Seed int `json:"seed,omitzero"`
 	// Return frames with a transparent background.
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // The body a joint's missing `depth` is taken from: mannequin, bear, cat, dog, horse or lion. A quadruped posed with mannequin depth comes out flat.
@@ -402,33 +402,33 @@ func (e AnimateWithSkeletonV3RequestTemplateID) Valid() bool {
 type AnimateWithTextRequest struct {
 	ImageSize app__endpoints__external__v2__animate_with_text__ImageSize `json:"image_size"`
 	// Character description
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Negative prompt to guide what not to generate
 	NegativeDescription string `json:"negative_description,omitzero"`
 	// Action description
-	Action string `json:"action,omitzero"`
+	Action string `json:"action"`
 	// How closely to follow the reference image
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// How closely to follow the reference image
-	ImageGuidanceScale *float64 `json:"image_guidance_scale,omitempty"`
+	ImageGuidanceScale float64 `json:"image_guidance_scale,omitzero"`
 	// Length of full animation (the model will always generate 4 frames)
-	NFrames *int `json:"n_frames,omitempty"`
+	NFrames int `json:"n_frames,omitzero"`
 	// Starting frame index of the full animation
-	StartFrameIndex *int `json:"start_frame_index,omitempty"`
+	StartFrameIndex *int `json:"start_frame_index,omitzero"`
 	// Camera view angle
 	View CameraView `json:"view,omitzero"`
 	// Subject direction
 	Direction Direction `json:"direction,omitzero"`
 	// Initial images to start the generation from
-	InitImages *BaseImage `json:"init_images,omitempty"`
+	InitImages []BaseImage `json:"init_images,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Reference image
 	ReferenceImage BaseImage `json:"reference_image"`
 	// Existing animation frames to guide the generation
-	InpaintingImages *BaseImage `json:"inpainting_images,omitzero"`
+	InpaintingImages []BaseImage `json:"inpainting_images,omitzero"`
 	// Inpainting / mask image (black and white image, where the white is where the model should inpaint)
-	MaskImages *BaseImage `json:"mask_images,omitempty"`
+	MaskImages []BaseImage `json:"mask_images,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -436,7 +436,7 @@ type AnimateWithTextRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -446,7 +446,7 @@ type AnimateWithTextRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request model for text-to-animation endpoint
@@ -456,13 +456,13 @@ type AnimateWithTextV2Request struct {
 	// Size of the reference image
 	ReferenceImageSize FrameSize `json:"reference_image_size"`
 	// Action description (e.g., 'walk', 'jump', 'attack')
-	Action string `json:"action,omitzero"`
+	Action string `json:"action"`
 	// Size of each animation frame
 	ImageSize FrameSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Camera perspective angle. ('none', 'low top-down', 'high top-down', 'side')
 	View AnimateWithTextV2RequestView `json:"view,omitzero"`
 	// Direction the character faces during the animation.
@@ -525,24 +525,24 @@ type AnimateWithTextV3Request struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	LastFrame *BaseImage `json:"last_frame,omitempty"`
+	LastFrame BaseImage `json:"last_frame,omitzero"`
 	// Action description (e.g., 'walking', 'jumping', 'attacking')
-	Action string `json:"action,omitzero"`
+	Action string `json:"action"`
 	// Number of animation frames (4-16, must be even)
-	FrameCount *int `json:"frame_count,omitempty"`
+	FrameCount int `json:"frame_count,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Color de-flicker sensitivity. Frames whose foreground drifts from the first frame beyond this are corrected toward it; 0 corrects every frame, higher values correct fewer. Omit for the default.
-	DriftThreshold *float64 `json:"drift_threshold,omitempty"`
+	DriftThreshold *float64 `json:"drift_threshold,omitzero"`
 	// If true, automatically expand `action` into a richer motion description before generating — equivalent to calling /v2/enhance-animation-v3-prompt with these frames first. Uses `first_frame` (and `last_frame` for interpolation) to ground the description. Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`.
-	EnhancePrompt bool `json:"enhance_prompt,omitempty"`
+	EnhancePrompt bool `json:"enhance_prompt,omitzero"`
 }
 
 // AnimationDirection defines a model
 type AnimationDirection struct {
-	Direction  string `json:"direction,omitzero"`
+	Direction  string `json:"direction"`
 	FrameCount int    `json:"frame_count"`
 	// Public URLs for each frame in order
 	Frames []string `json:"frames"`
@@ -551,26 +551,26 @@ type AnimationDirection struct {
 // AnimationGroup defines a model
 type AnimationGroup struct {
 	// Template animation ID (e.g. 'walk', 'run')
-	AnimationType string `json:"animation_type,omitzero"`
+	AnimationType string `json:"animation_type"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DisplayName *string `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	AnimationGroupID *string              `json:"animation_group_id,omitempty"`
+	AnimationGroupID string               `json:"animation_group_id,omitzero"`
 	Directions       []AnimationDirection `json:"directions"`
 }
 
 // Response model for background job status
 type BackgroundJobResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Current job status (processing, completed, failed)
-	Status string `json:"status,omitzero"`
+	Status string `json:"status"`
 	// ISO timestamp when job was created
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Latest response data from the job
-	LastResponse *map[string]any `json:"last_response,omitempty"`
+	LastResponse map[string]any `json:"last_response,omitzero"`
 }
 
 // Response model for balance endpoint
@@ -592,7 +592,7 @@ type BaseImage struct {
 	// Image data type
 	Type string `json:"type,omitzero"`
 	// Base64 encoded image data
-	Base64 string `json:"base64,omitzero"`
+	Base64 string `json:"base64"`
 	// Image format
 	Format string `json:"format,omitzero"`
 }
@@ -631,35 +631,35 @@ func (e CameraView) Valid() bool {
 // Detailed character information including rotation URLs
 type CharacterDetail struct {
 	// Unique character identifier
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Character name (shared by all sibling states in the group)
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	StateName *string `json:"state_name,omitempty"`
+	StateName string `json:"state_name,omitzero"`
 	// Character creation prompt
-	Prompt string `json:"prompt,omitzero"`
+	Prompt string `json:"prompt"`
 	// Character image dimensions
 	Size CharacterSize `json:"size"`
 	// Number of directional rotations (4 or 8)
 	Directions int `json:"directions"`
 	// ISO timestamp of character creation
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at,omitzero"`
 	// Number of animations for this character
 	AnimationCount int `json:"animation_count"`
 	// Template used for character creation
-	TemplateID string `json:"template_id,omitzero"`
+	TemplateID string `json:"template_id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// Generation status: 'completed', 'failed', or 'pending'. rotation_urls is null unless 'completed'.
 	Status string `json:"status,omitzero"`
 	// URLs for all rotation images (null unless status == 'completed')
-	RotationUrls *CharacterRotationUrls `json:"rotation_urls,omitempty"`
+	RotationUrls CharacterRotationUrls `json:"rotation_urls,omitzero"`
 	// Latest response data from the job
-	StyleSettings *map[string]any `json:"style_settings,omitempty"`
+	StyleSettings map[string]any `json:"style_settings,omitzero"`
 	// Text guidance scale used
-	Guidance *float64 `json:"guidance,omitempty"`
+	Guidance *float64 `json:"guidance,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -669,13 +669,13 @@ type CharacterDetail struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	AiFreedom *int `json:"ai_freedom,omitempty"`
+	AiFreedom *int `json:"ai_freedom,omitzero"`
 	// User-defined tags for filtering
 	Tags []string `json:"tags,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	GroupID *string `json:"group_id,omitempty"`
+	GroupID string `json:"group_id,omitzero"`
 	// Latest response data from the job
-	Skeletons *map[string]any `json:"skeletons,omitempty"`
+	Skeletons map[string]any `json:"skeletons,omitzero"`
 	// All animations grouped by type and direction
 	Animations []AnimationGroup `json:"animations,omitzero"`
 }
@@ -685,15 +685,15 @@ type CharacterProportions struct {
 	// Proportion type identifier
 	Type string `json:"type,omitzero"`
 	// Head size multiplier (recommended max: 1.7)
-	HeadSize *float64 `json:"head_size,omitempty"`
+	HeadSize float64 `json:"head_size,omitzero"`
 	// Arm length multiplier
-	ArmsLength *float64 `json:"arms_length,omitempty"`
+	ArmsLength float64 `json:"arms_length,omitzero"`
 	// Leg length multiplier
-	LegsLength *float64 `json:"legs_length,omitempty"`
+	LegsLength float64 `json:"legs_length,omitzero"`
 	// Shoulder width multiplier
-	ShoulderWidth *float64 `json:"shoulder_width,omitempty"`
+	ShoulderWidth float64 `json:"shoulder_width,omitzero"`
 	// Hip width multiplier
-	HipWidth *float64 `json:"hip_width,omitempty"`
+	HipWidth float64 `json:"hip_width,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether CharacterProportions declares it.
@@ -762,21 +762,21 @@ func (e CharacterProportionsPresetName) Valid() bool {
 // URLs for character rotation images
 type CharacterRotationUrls struct {
 	// URL for south-facing rotation
-	South string `json:"south,omitzero"`
+	South string `json:"south"`
 	// URL for west-facing rotation
-	West string `json:"west,omitzero"`
+	West string `json:"west"`
 	// URL for east-facing rotation
-	East string `json:"east,omitzero"`
+	East string `json:"east"`
 	// URL for north-facing rotation
-	North string `json:"north,omitzero"`
+	North string `json:"north"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	SouthEast *string `json:"south-east,omitempty"`
+	SouthEast string `json:"south-east,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	NorthEast *string `json:"north-east,omitempty"`
+	NorthEast string `json:"north-east,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	NorthWest *string `json:"north-west,omitempty"`
+	NorthWest string `json:"north-west,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	SouthWest *string `json:"south-west,omitempty"`
+	SouthWest string `json:"south-west,omitzero"`
 }
 
 // Character sprite dimensions
@@ -790,41 +790,41 @@ type CharacterSize struct {
 // Summary of a character for listing
 type CharacterSummary struct {
 	// Unique character identifier
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Character name (shared by all sibling states in the group)
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	StateName *string `json:"state_name,omitempty"`
+	StateName string `json:"state_name,omitzero"`
 	// Character creation prompt
-	Prompt string `json:"prompt,omitzero"`
+	Prompt string `json:"prompt"`
 	// Character image dimensions
 	Size CharacterSize `json:"size"`
 	// Number of directional rotations (4 or 8)
 	Directions int `json:"directions"`
 	// ISO timestamp of character creation
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at,omitzero"`
 	// Number of animations for this character
 	AnimationCount int `json:"animation_count"`
 	// Template used for character creation
-	TemplateID string `json:"template_id,omitzero"`
+	TemplateID string `json:"template_id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// Generation status: 'completed', 'failed', or 'pending'. Only 'completed' characters have a preview_url.
 	Status string `json:"status,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	PreviewURL *string `json:"preview_url,omitempty"`
+	PreviewURL string `json:"preview_url,omitzero"`
 	// User-defined tags for filtering
 	Tags []string `json:"tags,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	GroupID *string `json:"group_id,omitempty"`
+	GroupID string `json:"group_id,omitzero"`
 }
 
 // Response for character listing
 type CharactersListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// List of user's characters
 	Characters []CharacterSummary `json:"characters"`
 	// Total number of characters (for pagination)
@@ -844,20 +844,20 @@ type CorrectPixelartRequest struct {
 	// Pixel art image(s) to clean up (PNG base64). Several frames are corrected together and must all be the same size — pass an animation's frames or a character's directions in one call so they stay consistent with each other.
 	Images []BaseImage `json:"images"`
 	// How far the model may move from your art. Low values tidy stray pixels and edges; high values redraw more aggressively and can change details.
-	Strength *float64 `json:"strength,omitempty"`
+	Strength *float64 `json:"strength,omitzero"`
 }
 
 // Request to create a 1-direction object.
 type Create1DirectionObjectRequest struct {
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Square image size in pixels (16-256). Defaults to 64 when omitted. Cannot be set together with `style_images` — when style_images are provided, the largest style image determines the output size. The effective size also determines how many candidate objects the generator produces in one shot (≤42→64, ≤85→16, ≤170→4, else 1). When >1, the resulting object enters 'review' status — call POST /v2/objects/{id}/select-frames (or use the review UI) to pick which to keep.
-	Size *int `json:"size,omitempty"`
+	Size int `json:"size,omitzero"`
 	// View.
 	View Create1DirectionObjectRequestView `json:"view,omitzero"`
 	// Style reference images, PNG/JPEG base64 (max 256x256 px each). The output size is derived from the largest of these images and determines the max count: ≤85 → 8, ≤170 → 4, else → 1. When empty, a default style is used based on `view`.
 	StyleImages []BaseImage `json:"style_images,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
-	ItemDescriptions *string `json:"item_descriptions,omitempty"`
+	ItemDescriptions []string `json:"item_descriptions,omitzero"`
 }
 
 // View.
@@ -880,9 +880,9 @@ func (e Create1DirectionObjectRequestView) Valid() bool {
 
 // Request to create an 8-direction object.
 type Create8DirectionObjectRequest struct {
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Square image size in pixels (24-168 — below 24 the eight angles stop being distinguishable, above 168 the pipeline rejects it; use the 1-direction endpoint for 16px). Defaults to 64 when omitted. Cannot be set together with `reference_image` or `style_image` — in those cases the image dimensions determine the output size.
-	Size *int `json:"size,omitempty"`
+	Size int `json:"size,omitzero"`
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
@@ -892,7 +892,7 @@ type Create8DirectionObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ReferenceImage *BaseImage `json:"reference_image,omitempty"`
+	ReferenceImage BaseImage `json:"reference_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -900,31 +900,31 @@ type Create8DirectionObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	StyleImage *BaseImage `json:"style_image,omitempty"`
+	StyleImage BaseImage `json:"style_image,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	StyleObjectID *string `json:"style_object_id,omitempty"`
+	StyleObjectID string `json:"style_object_id,omitzero"`
 }
 
 // Request model for character animation endpoint
 type CreateCharacterAnimationRequest struct {
 	// ID of existing character to animate
-	CharacterID string `json:"character_id,omitzero"`
+	CharacterID string `json:"character_id"`
 	// Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it.
-	AnimationGroupID *uuid.UUID `json:"animation_group_id,omitempty"`
+	AnimationGroupID uuid.UUID `json:"animation_group_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	AnimationName *string `json:"animation_name,omitempty"`
+	AnimationName string `json:"animation_name,omitzero"`
 	// Description of the character or object to animate (uses character's original if not specified)
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	ActionDescription *string `json:"action_description,omitempty"`
+	ActionDescription string `json:"action_description,omitzero"`
 	// Process in background (always true - no foreground processing yet)
-	AsyncMode *bool `json:"async_mode,omitempty"`
+	AsyncMode bool `json:"async_mode,omitzero"`
 	// Animation mode. "template": skeleton-based from template_animation_id (1 gen/direction). "skeleton-v3": the same template_animation_id posed onto the character by the skeleton video model, which moves the character instead of redrawing it each frame — steadier identity and colours, 2-4 generations and ~3-5 min per direction, beta, requires a tier 1 subscription. "v3": custom animation from action_description with frame_count control. "pro": custom animation that generates directions sequentially, using completed sides as reference (20-40 gen/direction). Auto-detected: template if template_animation_id is provided, v3 otherwise.
-	Mode *CreateCharacterAnimationRequestModeAnyOf0 `json:"mode,omitempty"`
+	Mode CreateCharacterAnimationRequestModeAnyOf0 `json:"mode,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TemplateAnimationID *string `json:"template_animation_id,omitempty"`
+	TemplateAnimationID string `json:"template_animation_id,omitzero"`
 	// Number of animation frames (4-16, must be even). Only used in v3 mode.
-	FrameCount *int `json:"frame_count,omitempty"`
+	FrameCount int `json:"frame_count,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -932,7 +932,7 @@ type CreateCharacterAnimationRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	CustomStartFrame *BaseImage `json:"custom_start_frame,omitempty"`
+	CustomStartFrame BaseImage `json:"custom_start_frame,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -940,21 +940,21 @@ type CreateCharacterAnimationRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	EndFrame *BaseImage `json:"end_frame,omitempty"`
+	EndFrame BaseImage `json:"end_frame,omitzero"`
 	// Keep the reference frame as frame 0 of the stored animation (`mode='v3'` only). Set `false` to store exactly `frame_count` generated frames — the reference start frame is stripped, so `frame_count=8` stores 8 frames instead of 9. Not compatible with `mode='template'` or `mode='pro'`.
-	KeepFirstFrame bool `json:"keep_first_frame,omitempty"`
+	KeepFirstFrame *bool `json:"keep_first_frame,omitzero"`
 	// How closely to follow the reference image
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Outline *string `json:"outline,omitempty"`
+	Outline string `json:"outline,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Shading *string `json:"shading,omitempty"`
+	Shading string `json:"shading,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
-	Directions *string `json:"directions,omitempty"`
+	Directions []string `json:"directions,omitzero"`
 	// Remove background from generated frames
-	Isometric *bool `json:"isometric,omitempty"`
+	Isometric *bool `json:"isometric,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -962,13 +962,13 @@ type CreateCharacterAnimationRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Remove background from generated frames
-	ForceColors *bool `json:"force_colors,omitempty"`
+	ForceColors *bool `json:"force_colors,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// If true, automatically expand `action_description` into a richer motion description before generating — equivalent to calling /v2/enhance-animation-v3-prompt with the character's south-facing frame first. The same enhanced description is reused across all requested directions. Only valid for mode='v3' (returns 422 with template/pro). Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`.
-	EnhancePrompt bool `json:"enhance_prompt,omitempty"`
+	EnhancePrompt bool `json:"enhance_prompt,omitzero"`
 }
 
 // CreateCharacterAnimationRequestModeAnyOf0 defines a model
@@ -998,23 +998,23 @@ type CreateCharacterAnimationResponse struct {
 	// List of directions being animated
 	Directions []string `json:"directions"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	AnimationGroupID *string `json:"animation_group_id,omitempty"`
+	AnimationGroupID string `json:"animation_group_id,omitzero"`
 	// Overall status (processing, completed, failed)
 	Status string `json:"status,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	EnhancedPrompt *string `json:"enhanced_prompt,omitempty"`
+	EnhancedPrompt string `json:"enhanced_prompt,omitzero"`
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	EnhanceUsage *Usage `json:"enhance_usage,omitempty"`
+	EnhanceUsage *Usage `json:"enhance_usage,omitzero"`
 }
 
 // Response — async; poll `/v2/background-jobs/{id}` for results.
 type CreateCharacterPro struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID for tracking generation progress.
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	// Character ID — available immediately, but rotations land asynchronously. The character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded to storage, and the 3D skeleton is reconstructed.
-	CharacterID string `json:"character_id,omitzero"`
+	CharacterID string `json:"character_id"`
 	// Job status (processing, completed, failed).
 	Status string `json:"status,omitzero"`
 }
@@ -1062,7 +1062,7 @@ func (v *CreateCharacterProFlashImageSize) MarshalJSONTo(enc *jsontext.Encoder) 
 // Generate an eight-direction character, optionally reusing its first image.
 type CreateCharacterProFlashRequest struct {
 	// Optional owned south-facing image ID. Reuses its pixels without another image charge.
-	SourceImageID *string `json:"source_image_id,omitempty"`
+	SourceImageID string `json:"source_image_id,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1070,18 +1070,18 @@ type CreateCharacterProFlashRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	FirstFrame  *BaseImage `json:"first_frame,omitempty"`
-	Description string     `json:"description,omitzero"`
-	Name        string     `json:"name,omitzero"`
+	FirstFrame  BaseImage `json:"first_frame,omitzero"`
+	Description string    `json:"description"`
+	Name        string    `json:"name,omitzero"`
 	// Camera angle.
 	View                CreateDirectionObjectView `json:"view,omitzero"`
 	FirstFrameDirection string                    `json:"first_frame_direction,omitzero"`
-	Seed                *int                      `json:"seed,omitempty"`
+	Seed                int                       `json:"seed,omitzero"`
 	// Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing.
-	ImageSize    *CreateCharacterProFlashImageSize        `json:"image_size,omitempty"`
-	StyleImage   *ProFlashReferenceImage                  `json:"style_image,omitempty"`
-	StyleOptions *ProFlashStyle                           `json:"style_options,omitempty"`
-	NDirections  *int                                     `json:"n_directions,omitempty"`
+	ImageSize    CreateCharacterProFlashImageSize         `json:"image_size,omitzero"`
+	StyleImage   ProFlashReferenceImage                   `json:"style_image,omitzero"`
+	StyleOptions *ProFlashStyle                           `json:"style_options,omitzero"`
+	NDirections  int                                      `json:"n_directions,omitzero"`
 	TemplateID   CreateCharacterProFlashRequestTemplateID `json:"template_id,omitzero"`
 }
 
@@ -1111,10 +1111,10 @@ func (e CreateCharacterProFlashRequestTemplateID) Valid() bool {
 // CreateCharacterProFlashResponse defines a model
 type CreateCharacterProFlashResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage                   *Usage `json:"usage,omitempty"`
-	BackgroundJobID         string `json:"background_job_id,omitzero"`
-	CharacterID             string `json:"character_id,omitzero"`
-	Status                  string `json:"status,omitzero"`
+	Usage                   *Usage `json:"usage,omitzero"`
+	BackgroundJobID         string `json:"background_job_id"`
+	CharacterID             string `json:"character_id"`
+	Status                  string `json:"status"`
 	EstimatedGenerations    int    `json:"estimated_generations"`
 	FirstDirectionGenerated bool   `json:"first_direction_generated"`
 }
@@ -1122,7 +1122,7 @@ type CreateCharacterProFlashResponse struct {
 // Request model for /v2/create-character-pro.
 type CreateCharacterProRequest struct {
 	// Description of the character or object to generate.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Requested output frame size for each of the 8 rotations. The persisted rotations share a square canvas whose side is at least max(width, height) and may grow up to 256 pixels to fit generated content.
 	ImageSize ProImageSize `json:"image_size"`
 	// How the reference inputs are used:
@@ -1141,7 +1141,7 @@ type CreateCharacterProRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ConceptImage *BaseImage `json:"concept_image,omitempty"`
+	ConceptImage BaseImage `json:"concept_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1149,15 +1149,15 @@ type CreateCharacterProRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ReferenceImage *BaseImage `json:"reference_image,omitempty"`
+	ReferenceImage BaseImage `json:"reference_image,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	StyleCharacterID *string `json:"style_character_id,omitempty"`
+	StyleCharacterID string `json:"style_character_id,omitzero"`
 	// Free-text style hint to layer on top of the description.
-	StyleDescription *string `json:"style_description,omitempty"`
+	StyleDescription string `json:"style_description,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // How the reference inputs are used:
@@ -1185,17 +1185,17 @@ func (e CreateCharacterProRequestMethod) Valid() bool {
 // Request to produce a state (variant) of an existing character.
 type CreateCharacterStateRequest struct {
 	// ID of the source character
-	CharacterID     string `json:"character_id,omitzero"`
-	EditDescription string `json:"edit_description,omitzero"`
-	NoBackground    bool   `json:"no_background,omitempty"`
+	CharacterID     string `json:"character_id"`
+	EditDescription string `json:"edit_description"`
+	NoBackground    *bool  `json:"no_background,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Optional larger canvas for the state, for edits that add something big (a weapon, wings) needing room beyond the character's tight canvas. Width/height must be multiples of 4 and no smaller than the source character's size. Omit to keep the source size.
-	OverrideFrameSize *FrameSize `json:"override_frame_size,omitempty"`
+	OverrideFrameSize FrameSize `json:"override_frame_size,omitzero"`
 	// Name for the new state. Defaults to the edit description truncated to 20 characters.
-	StateName *string `json:"state_name,omitempty"`
+	StateName string `json:"state_name,omitzero"`
 	// Snap the edited rotations to the source character's existing color palette so the new state stays color-consistent with the original.
-	UseColorPaletteFromReference bool `json:"use_color_palette_from_reference,omitempty"`
+	UseColorPaletteFromReference bool `json:"use_color_palette_from_reference,omitzero"`
 }
 
 // Request model for /v2/create-character-v3.
@@ -1206,7 +1206,7 @@ type CreateCharacterStateRequest struct {
 //     `description`, then v3 rotates it. Supports extra style params (`outline`, `detail`).
 type CreateCharacterV3Request struct {
 	// Description of the character (used as prompt + display name).
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1214,47 +1214,47 @@ type CreateCharacterV3Request struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ReferenceImage *BaseImage `json:"reference_image,omitempty"`
+	ReferenceImage BaseImage `json:"reference_image,omitzero"`
 	// Optional larger canvas for the state, for edits that add something big (a weapon, wings) needing room beyond the character's tight canvas. Width/height must be multiples of 4 and no smaller than the source character's size. Omit to keep the source size.
-	ImageSize *FrameSize `json:"image_size,omitempty"`
+	ImageSize FrameSize `json:"image_size,omitzero"`
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Body type for skeleton reconstruction. Picks the 3D template the skeleton estimator fits to the generated frames so the character can be animated. Use `mannequin` for bipedal subjects or one of `bear`/`cat`/`dog`/`horse`/`lion` for quadrupeds. Must match the body type in `reference_image`.
 	TemplateID string `json:"template_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Outline *string `json:"outline,omitempty"`
+	Outline string `json:"outline,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail,omitzero"`
 	// If true, automatically expand `description` into a richer prompt before generating — equivalent to calling /v2/enhance-character-v3-prompt first. Only valid in from-scratch mode (omit `reference_image`); passing both returns 422. Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`.
-	EnhancePrompt bool `json:"enhance_prompt,omitempty"`
+	EnhancePrompt bool `json:"enhance_prompt,omitzero"`
 }
 
 // Request model for 4-directions character creation endpoint
 type CreateCharacterWithDirections struct {
 	// Description of the character or object to generate
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Size of each rotation image
 	ImageSize app__endpoints__external__v__create_character_with__directions__ImageSize `json:"image_size"`
 	// Process in background (always true - no foreground processing yet)
-	AsyncMode *bool `json:"async_mode,omitempty"`
+	AsyncMode bool `json:"async_mode,omitzero"`
 	// How closely to follow the reference image
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Outline *string `json:"outline,omitempty"`
+	Outline string `json:"outline,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Shading *string `json:"shading,omitempty"`
+	Shading string `json:"shading,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// Remove background from generated frames
-	Isometric *bool `json:"isometric,omitempty"`
+	Isometric *bool `json:"isometric,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1262,21 +1262,21 @@ type CreateCharacterWithDirections struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Remove background from generated frames
-	ForceColors *bool `json:"force_colors,omitempty"`
+	ForceColors *bool `json:"force_colors,omitzero"`
 	// Character body proportions (preset or custom values). Only applies to humanoid characters.
-	Proportions *CreateCharacterWithDirectionsProportionsAnyOf `json:"proportions,omitempty"`
+	Proportions CreateCharacterWithDirectionsProportionsAnyOf `json:"proportions,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TemplateID *string `json:"template_id,omitempty"`
+	TemplateID string `json:"template_id,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Optional reference images per direction. Allowed keys: 'south', 'east', 'north', 'west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'; oblique view requires all 4 cardinals.
-	Directions *map[string]BaseImage `json:"directions,omitempty"`
+	Directions map[string]BaseImage `json:"directions,omitzero"`
 	// Output format (always dict for external API)
-	OutputType *string `json:"output_type,omitempty"`
+	OutputType string `json:"output_type,omitzero"`
 	// Generation mode. "standard" uses template-based skeleton generation (1 generation). "pro" uses AI reference-based generation for higher quality (costs 20-40 generations depending on size). Pro mode ignores outline, shading, detail, proportions, and text_guidance_scale.
-	Mode *CreateCharacterWithDirectionsModeAnyOf `json:"mode,omitempty"`
+	Mode CreateCharacterWithDirectionsModeAnyOf `json:"mode,omitzero"`
 }
 
 // CreateCharacterWithDirectionsModeAnyOf defines a model
@@ -1365,12 +1365,12 @@ func (v *CreateCharacterWithDirectionsProportionsAnyOf) MarshalJSONTo(enc *jsont
 // Response model for 1-direction object creation.
 type CreateDirectionObject struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage           *Usage `json:"usage,omitempty"`
-	BackgroundJobID string `json:"background_job_id,omitzero"`
-	ObjectID        string `json:"object_id,omitzero"`
+	Usage           *Usage `json:"usage,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
+	ObjectID        string `json:"object_id"`
 	Status          string `json:"status,omitzero"`
 	// Number of candidate frames produced (derived from `size`).
-	NFrames *int `json:"n_frames,omitempty"`
+	NFrames *int `json:"n_frames,omitzero"`
 }
 
 // Camera angle.
@@ -1395,7 +1395,7 @@ func (e CreateDirectionObjectView) Valid() bool {
 // CreateImageBitforge defines a model
 type CreateImageBitforge struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// A base64 encoded image.
 	//
 	// Attributes:
@@ -1408,34 +1408,34 @@ type CreateImageBitforge struct {
 // Request model for image generation endpoint
 type CreateImageBitforgeRequest struct {
 	// Text description of the image to generate
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Text description of what to avoid in the generated image
 	NegativeDescription string                                                        `json:"negative_description,omitzero"`
 	ImageSize           app__endpoints__external__v__create_image_bitforge__ImageSize `json:"image_size"`
 	// How closely to follow the text description
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// (Deprecated)
-	ExtraGuidanceScale *float64 `json:"extra_guidance_scale,omitempty"`
+	ExtraGuidanceScale *float64 `json:"extra_guidance_scale,omitzero"`
 	// Strength of the style transfer (0-100). 50 = balanced.
-	StyleStrength *int `json:"style_strength,omitempty"`
+	StyleStrength int `json:"style_strength,omitzero"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Shading style reference
-	Shading *CreateIsometricTileShadingAnyOf `json:"shading,omitempty"`
+	Shading CreateIsometricTileShadingAnyOf `json:"shading,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Camera view angle
-	View *CameraView `json:"view,omitempty"`
+	View CameraView `json:"view,omitzero"`
 	// Subject direction
-	Direction *Direction `json:"direction,omitempty"`
+	Direction Direction `json:"direction,omitzero"`
 	// Generate in isometric view
-	Isometric bool `json:"isometric,omitempty"`
+	Isometric bool `json:"isometric,omitzero"`
 	// Generate in oblique projection
-	ObliqueProjection bool `json:"oblique_projection,omitempty"`
+	ObliqueProjection bool `json:"oblique_projection,omitzero"`
 	// Generate with transparent background
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground bool `json:"no_background,omitzero"`
 	// Percentage of the canvas to cover
-	CoveragePercentage *float64 `json:"coverage_percentage,omitempty"`
+	CoveragePercentage *float64 `json:"coverage_percentage,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1443,9 +1443,9 @@ type CreateImageBitforgeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1453,7 +1453,7 @@ type CreateImageBitforgeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	StyleImage *BaseImage `json:"style_image,omitempty"`
+	StyleImage BaseImage `json:"style_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1461,7 +1461,7 @@ type CreateImageBitforgeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InpaintingImage *BaseImage `json:"inpainting_image,omitempty"`
+	InpaintingImage BaseImage `json:"inpainting_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1469,7 +1469,7 @@ type CreateImageBitforgeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	MaskImage *BaseImage `json:"mask_image,omitempty"`
+	MaskImage BaseImage `json:"mask_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1477,11 +1477,11 @@ type CreateImageBitforgeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// How closely to follow the skeleton keypoints
-	SkeletonGuidanceScale *float64 `json:"skeleton_guidance_scale,omitempty"`
+	SkeletonGuidanceScale *float64 `json:"skeleton_guidance_scale,omitzero"`
 	// Skeleton points. Warning! Sizes that are not 16x16, 32x32 and 64x64 can cause the generations to be lower quality
-	SkeletonKeypoints *Point `json:"skeleton_keypoints,omitempty"`
+	SkeletonKeypoints []Point `json:"skeleton_keypoints,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -1491,7 +1491,7 @@ type CreateImageBitforgeRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better
@@ -1515,18 +1515,18 @@ func (e CreateImagePixenBackgroundRemovalTask) Valid() bool {
 // Request model for Pixen image generation endpoint
 type CreateImagePixenRequest struct {
 	// Text description of the image to generate
-	Description string                                                      `json:"description,omitzero"`
+	Description string                                                      `json:"description"`
 	ImageSize   app__endpoints__external__v2__create_image_pixen__ImageSize `json:"image_size"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Camera view angle
-	View *CameraView `json:"view,omitempty"`
+	View CameraView `json:"view,omitzero"`
 	// Subject direction
-	Direction *Direction `json:"direction,omitempty"`
+	Direction Direction `json:"direction,omitzero"`
 	// Generate with transparent background
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground bool `json:"no_background,omitzero"`
 	// Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better
 	BackgroundRemovalTask CreateImagePixenBackgroundRemovalTask `json:"background_removal_task,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
@@ -1538,15 +1538,15 @@ type CreateImagePixenRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// If true, automatically expand your description into a richer, more detailed prompt before generating — equivalent to calling /v2/enhance-pixen-prompt first and passing the result here. Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`.
-	EnhancePrompt bool `json:"enhance_prompt,omitempty"`
+	EnhancePrompt bool `json:"enhance_prompt,omitzero"`
 }
 
 // CreateImagePixenResponse defines a model
 type CreateImagePixenResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// A base64 encoded image.
 	//
 	// Attributes:
@@ -1555,34 +1555,34 @@ type CreateImagePixenResponse struct {
 	//     format (str): The image format (e.g., "png", "jpeg")
 	Image BaseImage `json:"image"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	EnhancedPrompt *string `json:"enhanced_prompt,omitempty"`
+	EnhancedPrompt string `json:"enhanced_prompt,omitzero"`
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	EnhanceUsage *Usage `json:"enhance_usage,omitempty"`
+	EnhanceUsage *Usage `json:"enhance_usage,omitzero"`
 }
 
 // Request model for pixflux image generation endpoint
 type CreateImagePixfluxRequest struct {
 	// Text description of the image to generate
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// (Deprecated)
 	NegativeDescription string                                                       `json:"negative_description,omitzero"`
 	ImageSize           app__endpoints__external__v__create_image_pixflux__ImageSize `json:"image_size"`
 	// How closely to follow the text description
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Shading style reference
-	Shading *CreateIsometricTileShadingAnyOf `json:"shading,omitempty"`
+	Shading CreateIsometricTileShadingAnyOf `json:"shading,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Camera view angle
-	View *CameraView `json:"view,omitempty"`
+	View CameraView `json:"view,omitzero"`
 	// Subject direction
-	Direction *Direction `json:"direction,omitempty"`
+	Direction Direction `json:"direction,omitzero"`
 	// Generate in isometric view (weakly guiding)
-	Isometric bool `json:"isometric,omitempty"`
+	Isometric bool `json:"isometric,omitzero"`
 	// Generate with transparent background, (blank background over 200x200 area)
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground bool `json:"no_background,omitzero"`
 	// Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better
 	BackgroundRemovalTask CreateImagePixenBackgroundRemovalTask `json:"background_removal_task,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
@@ -1592,9 +1592,9 @@ type CreateImagePixfluxRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1602,7 +1602,7 @@ type CreateImagePixfluxRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -1612,32 +1612,32 @@ type CreateImagePixfluxRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Create exactly one image; style art must fit without rescaling.
 type CreateImageProFlashRequest struct {
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing.
-	ImageSize    ProFlashImageSize       `json:"image_size"`
-	NoBackground bool                    `json:"no_background,omitempty"`
-	StyleImage   *ProFlashReferenceImage `json:"style_image,omitempty"`
+	ImageSize    ProFlashImageSize      `json:"image_size"`
+	NoBackground *bool                  `json:"no_background,omitzero"`
+	StyleImage   ProFlashReferenceImage `json:"style_image,omitzero"`
 	// Choose which visual traits to copy from the style image.
-	StyleOptions *ProFlashStyle `json:"style_options,omitempty"`
+	StyleOptions *ProFlashStyle `json:"style_options,omitzero"`
 	// Recorded seed; the image provider does not promise deterministic output.
-	Seed *int `json:"seed,omitempty"`
+	Seed int `json:"seed,omitzero"`
 	// Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it.
-	ProjectID *uuid.UUID `json:"project_id,omitempty"`
+	ProjectID uuid.UUID `json:"project_id,omitzero"`
 }
 
 // Response for background isometric tile generation (async-only)
 type CreateIsometricTileBackground struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID for tracking generation progress
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	// Tile ID that will be created (available immediately)
-	TileID string `json:"tile_id,omitzero"`
+	TileID string `json:"tile_id"`
 	// Always 'processing' - check status with background job ID
 	Status string `json:"status,omitzero"`
 }
@@ -1683,16 +1683,16 @@ func (e CreateIsometricTileOutlineAnyOf) Valid() bool {
 // Request model for pixflux image generation endpoint
 type CreateIsometricTileRequest struct {
 	// Text description of the image to generate
-	Description string                                                         `json:"description,omitzero"`
+	Description string                                                         `json:"description"`
 	ImageSize   app__endpoints__external__v2__create_isometric_tile__ImageSize `json:"image_size"`
 	// How closely to follow the text description
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Outline style for the tile
-	Outline *CreateIsometricTileOutlineAnyOf `json:"outline,omitempty"`
+	Outline CreateIsometricTileOutlineAnyOf `json:"outline,omitzero"`
 	// Shading style reference
-	Shading *CreateIsometricTileShadingAnyOf `json:"shading,omitempty"`
+	Shading CreateIsometricTileShadingAnyOf `json:"shading,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1700,11 +1700,11 @@ type CreateIsometricTileRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Size of the isometric tile. Recommended sizes: 16, 32. Can be omitted for default.
-	IsometricTileSize *int `json:"isometric_tile_size,omitempty"`
+	IsometricTileSize int `json:"isometric_tile_size,omitzero"`
 	// Tile thickness. Thicker tiles allow more height variation in game maps. thin tile: ~15% canvas height, thick tile: ~25% height, block: ~50% height
 	IsometricTileShape CreateIsometricTileRequestIsometricTileShape `json:"isometric_tile_shape,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
@@ -1714,7 +1714,7 @@ type CreateIsometricTileRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -1724,7 +1724,7 @@ type CreateIsometricTileRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Tile thickness. Thicker tiles allow more height variation in game maps. thin tile: ~15% canvas height, thick tile: ~25% height, block: ~50% height
@@ -1770,19 +1770,19 @@ func (e CreateIsometricTileShadingAnyOf) Valid() bool {
 // Request for creating a map object with transparent background
 type CreateMapObjectRequest struct {
 	// Object description (e.g., 'wooden barrel', 'stone fountain')
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Object dimensions
-	ImageSize *app__endpoints__external__v2__create_map_object__ImageSize `json:"image_size,omitempty"`
+	ImageSize app__endpoints__external__v2__create_map_object__ImageSize `json:"image_size,omitzero"`
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Outline style for the tile
-	Outline *CreateIsometricTileOutlineAnyOf `json:"outline,omitempty"`
+	Outline CreateIsometricTileOutlineAnyOf `json:"outline,omitzero"`
 	// Shading complexity
-	Shading *CreateMapObjectRequestShadingAnyOf0 `json:"shading,omitempty"`
+	Shading CreateMapObjectRequestShadingAnyOf0 `json:"shading,omitzero"`
 	// Level of detail
-	Detail *CreateMapObjectRequestDetailAnyOf0 `json:"detail,omitempty"`
+	Detail CreateMapObjectRequestDetailAnyOf0 `json:"detail,omitzero"`
 	// How closely to follow the description
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1790,9 +1790,9 @@ type CreateMapObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1800,7 +1800,7 @@ type CreateMapObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1808,11 +1808,11 @@ type CreateMapObjectRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	BackgroundImage *BaseImage `json:"background_image,omitempty"`
+	BackgroundImage BaseImage `json:"background_image,omitzero"`
 	// Inpainting configuration for style matching. Options: mask (custom), oval (auto-generated), rectangle (auto-generated)
-	Inpainting *CreateMapObjectRequestInpainting `json:"inpainting,omitempty"`
+	Inpainting CreateMapObjectRequestInpainting `json:"inpainting,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // CreateMapObjectRequestDetailAnyOf0 defines a model
@@ -1919,7 +1919,7 @@ func (e CreateMapObjectRequestShadingAnyOf0) Valid() bool {
 // Generate one or eight directions; reusing an existing single image is free.
 type CreateObjectProFlashRequest struct {
 	// Optional owned south-facing image ID. Reuses its pixels without another image charge.
-	SourceImageID *string `json:"source_image_id,omitempty"`
+	SourceImageID string `json:"source_image_id,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -1927,81 +1927,81 @@ type CreateObjectProFlashRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	FirstFrame  *BaseImage `json:"first_frame,omitempty"`
-	Description string     `json:"description,omitzero"`
-	Name        string     `json:"name,omitzero"`
+	FirstFrame  BaseImage `json:"first_frame,omitzero"`
+	Description string    `json:"description"`
+	Name        string    `json:"name,omitzero"`
 	// Camera angle.
 	View                CreateDirectionObjectView `json:"view,omitzero"`
 	FirstFrameDirection string                    `json:"first_frame_direction,omitzero"`
-	Seed                *int                      `json:"seed,omitempty"`
+	Seed                int                       `json:"seed,omitzero"`
 	// Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing.
-	ImageSize    *CreateCharacterProFlashImageSize `json:"image_size,omitempty"`
-	StyleImage   *ProFlashReferenceImage           `json:"style_image,omitempty"`
-	StyleOptions *ProFlashStyle                    `json:"style_options,omitempty"`
-	NDirections  *int                              `json:"n_directions,omitempty"`
+	ImageSize    CreateCharacterProFlashImageSize `json:"image_size,omitzero"`
+	StyleImage   ProFlashReferenceImage           `json:"style_image,omitzero"`
+	StyleOptions *ProFlashStyle                   `json:"style_options,omitzero"`
+	NDirections  int                              `json:"n_directions,omitzero"`
 }
 
 // CreateObjectProFlashResponse defines a model
 type CreateObjectProFlashResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage                   *Usage `json:"usage,omitempty"`
-	BackgroundJobID         string `json:"background_job_id,omitzero"`
-	ObjectID                string `json:"object_id,omitzero"`
-	Status                  string `json:"status,omitzero"`
+	Usage                   *Usage `json:"usage,omitzero"`
+	BackgroundJobID         string `json:"background_job_id"`
+	ObjectID                string `json:"object_id"`
+	Status                  string `json:"status"`
 	EstimatedGenerations    int    `json:"estimated_generations"`
 	FirstDirectionGenerated bool   `json:"first_direction_generated"`
 }
 
 // Request to produce a state (variant) of an existing object.
 type CreateObjectStateRequest struct {
-	EditDescription string `json:"edit_description,omitzero"`
+	EditDescription string `json:"edit_description"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Name for the new state. Defaults to the edit description truncated to 20 characters.
-	StateName *string `json:"state_name,omitempty"`
+	StateName string `json:"state_name,omitzero"`
 }
 
 // Request model for tiles pro generation endpoint
 type CreateTilesProRequest struct {
 	// Text description of the tiles. For best control, number each tile variation: '1). grass tile 2). stone tile 3). lava tile'.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Shape of the tiles. hex: flat-top hexagonal, hex_pointy: pointy-top hexagonal, isometric: diamond/rhombus, oblique: true square top with the depth extruded diagonally down-right at 45 degrees (tileset/building only), octagon: 8-sided polygon, square_topdown: square at angle.
 	TileType CreateTilesProRequestTileType `json:"tile_type,omitzero"`
 	// Tile size in pixels (16-128). 32px is recommended for most use cases. Connectable sets (tile_feature) have tighter per-shape ranges; square top-down roads are exactly 32.
-	TileSize *int `json:"tile_size,omitempty"`
+	TileSize int `json:"tile_size,omitzero"`
 	// Square image size in pixels (16-256). Defaults to 64 when omitted. Cannot be set together with `style_images` — when style_images are provided, the largest style image determines the output size. The effective size also determines how many candidate objects the generator produces in one shot (≤42→64, ≤85→16, ≤170→4, else 1). When >1, the resulting object enters 'review' status — call POST /v2/objects/{id}/select-frames (or use the review UI) to pick which to keep.
-	TileHeight *int `json:"tile_height,omitempty"`
+	TileHeight int `json:"tile_height,omitzero"`
 	// View angle controlling tile depth. top-down: no depth, high top-down: ~15%, low top-down: ~30%, side: ~50%.
 	TileView CreateTilesProRequestTileView `json:"tile_view,omitzero"`
 	// Continuous view angle in degrees (0-90). Overrides tile_view when provided. 0=side, 90=top-down.
-	TileViewAngle *float64 `json:"tile_view_angle,omitempty"`
+	TileViewAngle *float64 `json:"tile_view_angle,omitzero"`
 	// Oblique tilesets and building walls: horizontal shear per pixel of height. 0.5 is classic cabinet (~27 degrees), 1.0 is a full 45 degree diagonal (default for oblique).
-	TileDepthRatio *float64 `json:"tile_depth_ratio,omitempty"`
+	TileDepthRatio *float64 `json:"tile_depth_ratio,omitzero"`
 	// Isometric top/bottom cap width: 2px classic or 4px modern. Only used when tile_type='isometric'.
-	TileFlatTopPx *int `json:"tile_flat_top_px,omitempty"`
+	TileFlatTopPx int `json:"tile_flat_top_px,omitzero"`
 	// Tile guide style. outline: gray shading with outlines. segmentation: color zones without outlines, giving cleaner seamless edges.
 	OutlineMode CreateTilesProRequestOutlineMode `json:"outline_mode,omitzero"`
 	// Generate a connectable set instead of independent tiles. roads: 18-config path autotiles (square_topdown, isometric). tileset: terrain transition — a 16-tile corner set for square_topdown/isometric/oblique, or a 32-tile coastline for hex/hex_pointy; describe it as a transition ("grass to water"), first terrain is the main one. building: construction kit — floor, connectable walls, doorways, pillar and staircase (square_topdown, isometric, oblique). Connectable sets return per-tile placement rules; see GET /tiles-pro/{tile_id}. Cannot be combined with style_images. Note: for square top-down terrain transitions, /create-tileset is the dedicated tileset model and offers transition width, per-terrain reference images and style matching.
-	TileFeature *CreateTilesProRequestTileFeatureAnyOf0 `json:"tile_feature,omitempty"`
+	TileFeature CreateTilesProRequestTileFeatureAnyOf0 `json:"tile_feature,omitzero"`
 	// Building kits: wall height in tiles (1-3). Defaults to 2.
-	BuildingWallTiles *int `json:"building_wall_tiles,omitempty"`
+	BuildingWallTiles int `json:"building_wall_tiles,omitzero"`
 	// Building kits: grid paints each shaped piece individually (richer, isometric default); materials paints flat swatches and renders pieces from them (more consistent, default for square_topdown/oblique).
-	BuildingLayout *CreateTilesProRequestBuildingLayoutAnyOf0 `json:"building_layout,omitempty"`
+	BuildingLayout CreateTilesProRequestBuildingLayoutAnyOf0 `json:"building_layout,omitzero"`
 	// Optional description of how this reference should be used
-	BuildingWallDescription *string `json:"building_wall_description,omitempty"`
+	BuildingWallDescription string `json:"building_wall_description,omitzero"`
 	// Optional description of how this reference should be used
-	BuildingFloorDescription *string `json:"building_floor_description,omitempty"`
+	BuildingFloorDescription string `json:"building_floor_description,omitzero"`
 	// Optional description of how this reference should be used
-	BuildingFloor2Description *string `json:"building_floor2_description,omitempty"`
+	BuildingFloor2Description string `json:"building_floor2_description,omitzero"`
 	// Building kits, square_topdown only: wall storey height as its own camera angle, decoupled from the ground pitch.
-	BuildingWallAngle *float64 `json:"building_wall_angle,omitempty"`
+	BuildingWallAngle float64 `json:"building_wall_angle,omitzero"`
 	// Oblique tilesets and building walls: horizontal shear per pixel of height. 0.5 is classic cabinet (~27 degrees), 1.0 is a full 45 degree diagonal (default for oblique).
-	ObliqueLean *float64 `json:"oblique_lean,omitempty"`
+	ObliqueLean *float64 `json:"oblique_lean,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Style reference tiles. When provided, generated tiles will match these tiles' style and dimensions. The tile_type, tile_size, tile_view, tile_view_angle, and tile_depth_ratio are ignored — the style tiles define the shape.
-	StyleImages  *TilesProStyleImage `json:"style_images,omitempty"`
-	StyleOptions *ProFlashStyle      `json:"style_options,omitempty"`
+	StyleImages  []TilesProStyleImage `json:"style_images,omitzero"`
+	StyleOptions *ProFlashStyle       `json:"style_options,omitzero"`
 }
 
 // CreateTilesProRequestBuildingLayoutAnyOf0 defines a model
@@ -2104,11 +2104,11 @@ func (e CreateTilesProRequestTileView) Valid() bool {
 // Response for background tileset generation (async-only)
 type CreateTilesetBackgroundResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID for tracking generation progress
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	// Tileset ID that will be created (available immediately)
-	TilesetID string `json:"tileset_id,omitzero"`
+	TilesetID string `json:"tileset_id"`
 	// Always 'processing' - check status with background job ID
 	Status string `json:"status,omitzero"`
 }
@@ -2116,46 +2116,46 @@ type CreateTilesetBackgroundResponse struct {
 // Request model for tileset generation endpoint
 type CreateTilesetRequest struct {
 	// Description of the lower/base terrain level (e.g., 'ocean', 'grass', 'lava')
-	LowerDescription string `json:"lower_description,omitzero"`
+	LowerDescription string `json:"lower_description"`
 	// Description of the upper/elevated terrain level (e.g., 'sand', 'stone', 'snow')
-	UpperDescription string `json:"upper_description,omitzero"`
+	UpperDescription string `json:"upper_description"`
 	// Optional description of transition area between lower and upper
 	TransitionDescription string `json:"transition_description,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	LowerBaseTileID *string `json:"lower_base_tile_id,omitempty"`
+	LowerBaseTileID string `json:"lower_base_tile_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	UpperBaseTileID *string `json:"upper_base_tile_id,omitempty"`
+	UpperBaseTileID string `json:"upper_base_tile_id,omitzero"`
 	// Size of individual tiles within the tileset
-	TileSize *TileSize                              `json:"tile_size,omitempty"`
+	TileSize *TileSize                              `json:"tile_size,omitzero"`
 	Mode     CreateCharacterWithDirectionsModeAnyOf `json:"mode,omitzero"`
 	// Optional procedural boundary geometry, mode='standard' ONLY — passing it with mode='pro' is rejected (pro's own shape controls are spread_x/slope_size/raggedness). Set 'square' or 'round' to generate with that exact tileset layout. Supports square 16px or 32px tiles.
-	ShapeStyle *CreateTilesetRequestShapeStyleAnyOf0 `json:"shape_style,omitempty"`
+	ShapeStyle CreateTilesetRequestShapeStyleAnyOf0 `json:"shape_style,omitzero"`
 	// shape_style tilesets only (ignored otherwise). AI-enhances the terrain descriptions at the chosen detail/shading levels and picks matching base colours before generation. The stored tileset keeps the enhanced text (so chained tilesets reuse the prompt that made the pixels); your original prompts are kept in its metadata.
-	Enhance bool `json:"enhance,omitempty"`
+	Enhance *bool `json:"enhance,omitzero"`
 	// Pro only. Boundary spread between terrains (0=steep, 1=gradual).
-	SpreadX *float64 `json:"spread_x,omitempty"`
+	SpreadX *float64 `json:"spread_x,omitzero"`
 	// Pro only. Slope on N/W/E sides as a fraction of wall height.
-	SlopeSize *float64 `json:"slope_size,omitempty"`
+	SlopeSize float64 `json:"slope_size,omitzero"`
 	// Pro only. Terrain boundary noise (0=smooth, 1=rough).
-	Raggedness *float64 `json:"raggedness,omitempty"`
+	Raggedness float64 `json:"raggedness,omitzero"`
 	// How closely to follow the text descriptions (default: 8.0)
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Shading style reference
-	Shading *CreateIsometricTileShadingAnyOf `json:"shading,omitempty"`
+	Shading CreateIsometricTileShadingAnyOf `json:"shading,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Camera view angle for tileset
 	View TilesetCameraView `json:"view,omitzero"`
 	// Strength of tile pattern adherence
-	TileStrength *float64 `json:"tile_strength,omitempty"`
+	TileStrength float64 `json:"tile_strength,omitzero"`
 	// How flexible it will be when following tileset structure, higher values means more flexibility
-	TilesetAdherenceFreedom *float64 `json:"tileset_adherence_freedom,omitempty"`
+	TilesetAdherenceFreedom *float64 `json:"tileset_adherence_freedom,omitzero"`
 	// How much it will follow the reference/texture image and follow tileset structure
-	TilesetAdherence *float64 `json:"tileset_adherence,omitempty"`
+	TilesetAdherence *float64 `json:"tileset_adherence,omitzero"`
 	// Size of transition area. Standard/pro accept 0, 0.25, 0.5, or 1.0. A request with shape_style accepts any value from 0 to 1; values above 0.5 use the extended 4x8 layout.
-	TransitionSize *float64 `json:"transition_size,omitempty"`
+	TransitionSize float64 `json:"transition_size,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2163,7 +2163,7 @@ type CreateTilesetRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	LowerReferenceImage *BaseImage `json:"lower_reference_image,omitempty"`
+	LowerReferenceImage BaseImage `json:"lower_reference_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2171,7 +2171,7 @@ type CreateTilesetRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	UpperReferenceImage *BaseImage `json:"upper_reference_image,omitempty"`
+	UpperReferenceImage BaseImage `json:"upper_reference_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2179,7 +2179,7 @@ type CreateTilesetRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	TransitionReferenceImage *BaseImage `json:"transition_reference_image,omitempty"`
+	TransitionReferenceImage BaseImage `json:"transition_reference_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2187,7 +2187,7 @@ type CreateTilesetRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2197,7 +2197,7 @@ type CreateTilesetRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // CreateTilesetRequestShapeStyleAnyOf0 defines a model
@@ -2221,7 +2221,7 @@ func (e CreateTilesetRequestShapeStyleAnyOf0) Valid() bool {
 // CreateTilesetResponse defines a model
 type CreateTilesetResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Generated tileset with individual tiles
 	Tileset TilesetData `json:"tileset"`
 	// Generation metadata
@@ -2234,29 +2234,29 @@ type CreateTilesetResponse struct {
 // The view is always "side" and background is always transparent.
 type CreateTilesetSidescrollerRequest struct {
 	// Description of the main terrain/platform material (e.g., 'stone bricks', 'grass ground', 'metal grating')
-	LowerDescription string `json:"lower_description,omitzero"`
+	LowerDescription string `json:"lower_description"`
 	// Optional description of decorative layer on top of platform (e.g., 'moss and vines', 'snow cover', 'rust stains')
 	TransitionDescription string `json:"transition_description,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	LowerBaseTileID *string `json:"lower_base_tile_id,omitempty"`
+	LowerBaseTileID string `json:"lower_base_tile_id,omitzero"`
 	// Size of individual tiles within the tileset
-	TileSize *SidescrollerTileSize `json:"tile_size,omitempty"`
+	TileSize *SidescrollerTileSize `json:"tile_size,omitzero"`
 	// How closely to follow the text descriptions (default: 8.0)
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Shading style reference
-	Shading *CreateIsometricTileShadingAnyOf `json:"shading,omitempty"`
+	Shading CreateIsometricTileShadingAnyOf `json:"shading,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Strength of tile pattern adherence
-	TileStrength *float64 `json:"tile_strength,omitempty"`
+	TileStrength float64 `json:"tile_strength,omitzero"`
 	// How flexible it will be when following tileset structure, higher values means more flexibility
-	TilesetAdherenceFreedom *float64 `json:"tileset_adherence_freedom,omitempty"`
+	TilesetAdherenceFreedom *float64 `json:"tileset_adherence_freedom,omitzero"`
 	// How much it will follow the reference/texture image and follow tileset structure
-	TilesetAdherence *float64 `json:"tileset_adherence,omitempty"`
+	TilesetAdherence *float64 `json:"tileset_adherence,omitzero"`
 	// Size of transition area (0 = no transition, 0.25 = quarter tile, 0.5 = half tile, 1.0 = full tile)
-	TransitionSize *float64 `json:"transition_size,omitempty"`
+	TransitionSize float64 `json:"transition_size,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2264,7 +2264,7 @@ type CreateTilesetSidescrollerRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	LowerReferenceImage *BaseImage `json:"lower_reference_image,omitempty"`
+	LowerReferenceImage BaseImage `json:"lower_reference_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2272,7 +2272,7 @@ type CreateTilesetSidescrollerRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	TransitionReferenceImage *BaseImage `json:"transition_reference_image,omitempty"`
+	TransitionReferenceImage BaseImage `json:"transition_reference_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2280,7 +2280,7 @@ type CreateTilesetSidescrollerRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2290,19 +2290,19 @@ type CreateTilesetSidescrollerRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request for POST /v2/ui-assets (shape-based UI panel generation).
 type CreateUIAssetRequest struct {
 	// Style description for the UI panel (e.g. 'wooden RPG panel with gold trim')
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Output image size in pixels (192–688; max per axis depends on aspect)
-	ImageSize *app__endpoints__external__v2__create_ui_asset__ImageSize `json:"image_size,omitempty"`
+	ImageSize *app__endpoints__external__v2__create_ui_asset__ImageSize `json:"image_size,omitzero"`
 	// Optional shape template (validated). Each piece needs a unique `id`, a `kind`, and an optional `label`. Allowed kinds: rounded_rect {x,y,w,h,radius}, circle {x,y,r}, polygon {x,y,r,sides,phase}. Coords are on a virtual editor canvas: the longer side spans 0–512 and the shorter side scales to the output aspect ratio (a 16:9 panel uses a 512×288 coordinate grid — this is the coordinate space, not the output size). When omitted, a single full-canvas rounded-rect panel is used.
-	Pieces *CreateUIAssetRequestPiecesAnyOf0Item `json:"pieces,omitempty"`
+	Pieces []CreateUIAssetRequestPiecesAnyOf0Item `json:"pieces,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
-	Elements *string `json:"elements,omitempty"`
+	Elements []string `json:"elements,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2310,17 +2310,17 @@ type CreateUIAssetRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	StyleImage *BaseImage `json:"style_image,omitempty"`
+	StyleImage BaseImage `json:"style_image,omitzero"`
 	// Optional palette specification (e.g. 'brown and gold')
-	ColorPalette *string `json:"color_palette,omitempty"`
+	ColorPalette string `json:"color_palette,omitzero"`
 	// Remove background after generation
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID string `json:"project_id,omitzero"`
 }
 
 // CreateUIAssetRequestPiecesAnyOf0Item defines a model
@@ -2401,11 +2401,11 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) MarshalJSONTo(enc *jsontext.Encod
 // CreateUIAssetResponse defines a model
 type CreateUIAssetResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Background job ID for polling status
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	// UI asset ID (available immediately; poll until ready)
-	UIAssetID string `json:"ui_asset_id,omitzero"`
+	UIAssetID string `json:"ui_asset_id"`
 	// Job status
 	Status string `json:"status,omitzero"`
 }
@@ -2420,25 +2420,25 @@ type Credits struct {
 // DeleteAnimationResponse defines a model
 type DeleteAnimationResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Whether the deletion succeeded
 	Success bool `json:"success"`
 	// Number of animation rows removed
-	DeletedCount *int `json:"deleted_count,omitempty"`
+	DeletedCount int `json:"deleted_count,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Label *string `json:"label,omitempty"`
+	Label string `json:"label,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Err *string `json:"error,omitempty"`
+	Err string `json:"error,omitzero"`
 }
 
 // Response for v2 API character deletion
 type DeleteCharacterResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Whether the deletion was successful
 	Success bool `json:"success"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CharacterID *string `json:"character_id,omitempty"`
+	CharacterID string `json:"character_id,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2448,7 +2448,7 @@ type DeleteCharacterResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	FilesDeleted *int `json:"files_deleted,omitempty"`
+	FilesDeleted *int `json:"files_deleted,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2458,31 +2458,31 @@ type DeleteCharacterResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	AnimationsDeleted *int `json:"animations_deleted,omitempty"`
+	AnimationsDeleted *int `json:"animations_deleted,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	GroupID *string `json:"group_id,omitempty"`
+	GroupID string `json:"group_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	NextStateID *string `json:"next_state_id,omitempty"`
+	NextStateID string `json:"next_state_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Err *string `json:"error,omitempty"`
+	Err string `json:"error,omitzero"`
 }
 
 // Response for object deletion
 type DeleteObjectResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Whether the deletion was successful
 	Success bool `json:"success"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	ObjectID *string `json:"object_id,omitempty"`
+	ObjectID string `json:"object_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Err *string `json:"error,omitempty"`
+	Err string `json:"error,omitzero"`
 }
 
 // DeleteUIAssetResponse defines a model
 type DeleteUIAssetResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Whether the asset was deleted
 	Success bool `json:"success"`
 }
@@ -2513,12 +2513,12 @@ func (e Direction) Valid() bool {
 
 // DirectionSubmission defines a model
 type DirectionSubmission struct {
-	Direction string                    `json:"direction,omitzero"`
-	Status    DirectionSubmissionStatus `json:"status,omitzero"`
+	Direction string                    `json:"direction"`
+	Status    DirectionSubmissionStatus `json:"status"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	BackgroundJobID *string `json:"background_job_id,omitempty"`
+	BackgroundJobID string `json:"background_job_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	AnimationID *string `json:"animation_id,omitempty"`
+	AnimationID string `json:"animation_id,omitzero"`
 }
 
 // DirectionSubmissionStatus defines a model
@@ -2542,21 +2542,21 @@ func (e DirectionSubmissionStatus) Valid() bool {
 // DismissReviewResponse defines a model
 type DismissReviewResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 }
 
 // Request model for edit-animation-v2 endpoint
 type EditAnimationV2Request struct {
 	// Description of the edit to apply (e.g., 'add a red cape', 'make it glow blue')
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Animation frames to edit (2-16 frames)
 	Frames []app__endpoints__external__v__edit_animation_v__FrameImage `json:"frames"`
 	// Size of the output frames
 	ImageSize app__endpoints__external__v__animate_with_skeleton__ImageSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // An image to edit with its dimensions.
@@ -2574,15 +2574,15 @@ type EditImagePixenRequest struct {
 	// The image to edit, as base64 PNG. Each side must be 256px or smaller and a multiple of 4, and the area at least 16x16. Pad with transparent pixels to align — never rescale pixel art.
 	Image BaseImage `json:"image"`
 	// What to change (e.g. 'give him a red cape', 'make the armor gold')
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Target canvas height, a multiple of 4. Defaults to the source image's height.
-	Width *int `json:"width,omitempty"`
+	Width int `json:"width,omitzero"`
 	// Target canvas height, a multiple of 4. Defaults to the source image's height.
-	Height *int `json:"height,omitempty"`
+	Height int `json:"height,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Return the result on a transparent background
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // Edit one encoded native image, retaining its canvas dimensions.
@@ -2596,7 +2596,7 @@ type EditImageProFlashRequest struct {
 	Image  BaseImage                      `json:"image"`
 	Method EditImageProFlashRequestMethod `json:"method,omitzero"`
 	// Free-text style hint to layer on top of the description.
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2604,12 +2604,12 @@ type EditImageProFlashRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ReferenceImage            *BaseImage `json:"reference_image,omitempty"`
-	NoBackground              bool       `json:"no_background,omitempty"`
-	UseColorPaletteCorrection bool       `json:"use_color_palette_correction,omitempty"`
-	Seed                      *int       `json:"seed,omitempty"`
+	ReferenceImage            BaseImage `json:"reference_image,omitzero"`
+	NoBackground              bool      `json:"no_background,omitzero"`
+	UseColorPaletteCorrection bool      `json:"use_color_palette_correction,omitzero"`
+	Seed                      int       `json:"seed,omitzero"`
 	// Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it.
-	ProjectID *uuid.UUID `json:"project_id,omitempty"`
+	ProjectID uuid.UUID `json:"project_id,omitzero"`
 }
 
 // EditImageProFlashRequestMethod defines a model
@@ -2637,17 +2637,17 @@ type EditImageRequest struct {
 	// Size of the reference image
 	ImageSize app__endpoints__external__v__create_image_pixflux__ImageSize `json:"image_size"`
 	// Text description of the edit to apply
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Target canvas width in pixels (16-400)
 	Width int `json:"width"`
 	// Target canvas height in pixels (16-400)
 	Height int `json:"height"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// How closely to follow the text description (1.0-10.0)
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -2655,7 +2655,7 @@ type EditImageRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 }
 
 // Request model for edit-images endpoint
@@ -2667,13 +2667,13 @@ type EditImagesV2Request struct {
 	// Size of output images
 	ImageSize app__endpoints__external__v2__edit_images_v2__ImageSize `json:"image_size"`
 	// Description of the character or object to animate (uses character's original if not specified)
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Reference image (required for edit_with_reference method)
-	ReferenceImage *EditImage `json:"reference_image,omitempty"`
+	ReferenceImage EditImage `json:"reference_image,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // Edit method: 'edit_with_text' or 'edit_with_reference'
@@ -2697,9 +2697,9 @@ func (e EditImagesV2RequestMethod) Valid() bool {
 // EnhanceAnimationPrompt defines a model
 type EnhanceAnimationPrompt struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Enhanced motion description.
-	EnhancedPrompt string `json:"enhanced_prompt,omitzero"`
+	EnhancedPrompt string `json:"enhanced_prompt"`
 }
 
 // EnhanceAnimationV3PromptRequest defines a model
@@ -2713,15 +2713,15 @@ type EnhanceAnimationV3PromptRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	LastFrame *BaseImage `json:"last_frame,omitempty"`
+	LastFrame BaseImage `json:"last_frame,omitzero"`
 	// User's action description (e.g., 'walking', 'jumping', 'sword swing').
-	Action string `json:"action,omitzero"`
+	Action string `json:"action"`
 	// Which animation model the prompt is written for: 'v3' (animate-with-text-v3, default), 'pixminimax' (animate-pixminimax) or 'skeleton-v3' (animate-with-skeleton-v3). PixMiniMax prompts start the motion on the first frame, keep locomotion on the spot and hold the facing direction. Skeleton prompts name the action in a few words instead of describing motion, because the skeletons already carry it.
 	Engine EnhanceAnimationV3PromptRequestEngine `json:"engine,omitzero"`
 	// Facing direction of the sprite (south = towards the camera). Used only with enhance_prompt: the prompt holds that facing and aims attacks that way on screen. Omit to let the enhancer read the facing from the image.
-	Direction *AnimatePixminimaxDirectionAnyOf `json:"direction,omitempty"`
+	Direction AnimatePixminimaxDirectionAnyOf `json:"direction,omitzero"`
 	// Frames the animation will have. Used by pixminimax prompts: a walk, run or sway is written as exactly one cycle in that many frames, so it loops.
-	FrameCount *int `json:"frame_count,omitempty"`
+	FrameCount int `json:"frame_count,omitzero"`
 }
 
 // Which animation model the prompt is written for: 'v3' (animate-with-text-v3, default), 'pixminimax' (animate-pixminimax) or 'skeleton-v3' (animate-with-skeleton-v3). PixMiniMax prompts start the motion on the first frame, keep locomotion on the spot and hold the facing direction. Skeleton prompts name the action in a few words instead of describing motion, because the skeletons already carry it.
@@ -2746,45 +2746,45 @@ func (e EnhanceAnimationV3PromptRequestEngine) Valid() bool {
 // EnhanceCharacterV3PromptRequest defines a model
 type EnhanceCharacterV3PromptRequest struct {
 	// User's character description to enhance.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Target frame size. Prompt complexity scales with size.
 	ImageSize FrameSize `json:"image_size"`
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Outline *string `json:"outline,omitempty"`
+	Outline string `json:"outline,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail,omitzero"`
 }
 
 // EnhancePixenPromptRequest defines a model
 type EnhancePixenPromptRequest struct {
 	// User's image description to enhance.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Target image size. Prompt complexity scales with size.
 	ImageSize app__endpoints__external__v2__create_image_pixen__ImageSize `json:"image_size"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Camera view angle
-	View *CameraView `json:"view,omitempty"`
+	View CameraView `json:"view,omitzero"`
 	// Subject direction
-	Direction *Direction `json:"direction,omitempty"`
+	Direction Direction `json:"direction,omitzero"`
 	// If true, the enhanced description will describe the subject on a plain background (no scene).
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground bool `json:"no_background,omitzero"`
 }
 
 // Request model for estimate skeleton endpoint
 type EstimateSkeleton struct {
 	// Image for which to estimate the skeleton
-	Image *BaseImage `json:"image,omitempty"`
+	Image BaseImage `json:"image,omitzero"`
 }
 
 // EstimateSkeletonResponse defines a model
 type EstimateSkeletonResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage     *Usage           `json:"usage,omitempty"`
+	Usage     *Usage           `json:"usage,omitzero"`
 	Keypoints []KeypointOutput `json:"keypoints"`
 }
 
@@ -2801,19 +2801,19 @@ type Generate8RotationsV2Request struct {
 	// Size of the output images
 	ImageSize ProImageSize `json:"image_size"`
 	// Concept art image (only for create_from_concept method)
-	ReferenceImage *app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage `json:"reference_image,omitempty"`
+	ReferenceImage app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage `json:"reference_image,omitzero"`
 	// Concept art image (only for create_from_concept method)
-	ConceptImage *app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage `json:"concept_image,omitempty"`
+	ConceptImage app__endpoints__external__v2__generate_8_rotations_v2__ReferenceImage `json:"concept_image,omitzero"`
 	// Free-text style hint to layer on top of the description.
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Optional description of how this reference should be used
-	StyleDescription *string `json:"style_description,omitempty"`
+	StyleDescription string `json:"style_description,omitzero"`
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // Generation method: 'rotate_character' rotates an existing character, 'create_with_style' creates new character matching style, 'create_from_concept' creates from concept art
@@ -2840,11 +2840,11 @@ type Generate8RotationsV3Request struct {
 	// Reference frame to generate 8 rotations from (PNG/JPEG base64, max 256x256 pixels)
 	FirstFrame BaseImage `json:"first_frame"`
 	// Free-text style hint to layer on top of the description.
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request model for the generate-font-pro endpoint.
@@ -2853,15 +2853,15 @@ type Generate8RotationsV3Request struct {
 // reference atlas; “description“ drives the restyle.
 type GenerateFontProRequest struct {
 	// Style description, e.g. 'warm orange arcade font'.
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Stroke weight. Guides glyph thickness.
-	Weight GenerateFontProRequestWeight `json:"weight,omitzero"`
+	Weight GenerateFontProRequestWeight `json:"weight"`
 	// Native glyph resolution in pixels (the real bitmap size per glyph in the output atlas/TTF).
-	GlyphPx *int `json:"glyph_px,omitempty"`
+	GlyphPx int `json:"glyph_px,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Optional palette specification (e.g. 'brown and gold')
-	FontName *string `json:"font_name,omitempty"`
+	FontName string `json:"font_name,omitzero"`
 }
 
 // Stroke weight. Guides glyph thickness.
@@ -2885,35 +2885,35 @@ func (e GenerateFontProRequestWeight) Valid() bool {
 // Request model for generate-image-v2 endpoint
 type GenerateImageV2Request struct {
 	// Description of the image to generate
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Size of the output image
 	ImageSize app__endpoints__external__v__generate_image_v__ImageSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Optional reference images for subject guidance (up to 4)
-	ReferenceImages *app__endpoints__external__v2__generate_image_v2__ReferenceImage `json:"reference_images,omitempty"`
+	ReferenceImages []app__endpoints__external__v2__generate_image_v2__ReferenceImage `json:"reference_images,omitzero"`
 	// Optional style image for pixel size and style reference
-	StyleImage *app__endpoints__external__v2__generate_image_v2__ReferenceImage `json:"style_image,omitempty"`
+	StyleImage app__endpoints__external__v2__generate_image_v2__ReferenceImage `json:"style_image,omitzero"`
 	// Options for what to copy from the style image
-	StyleOptions *ProFlashStyle `json:"style_options,omitempty"`
+	StyleOptions *ProFlashStyle `json:"style_options,omitzero"`
 }
 
 // Request model for generate-ui-v2 endpoint
 type GenerateUIV2Request struct {
 	// Description of the UI element to generate (e.g., 'medieval stone button', 'sci-fi health bar')
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Output image size (16 to aspect-ratio max, e.g. 512x512 square)
-	ImageSize *app__endpoints__external__v__generate_image_v__ImageSize `json:"image_size,omitempty"`
+	ImageSize app__endpoints__external__v__generate_image_v__ImageSize `json:"image_size,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Optional concept image to guide the UI design
-	ConceptImage *ConceptImage `json:"concept_image,omitempty"`
+	ConceptImage ConceptImage `json:"concept_image,omitzero"`
 	// Optional palette specification (e.g. 'brown and gold')
-	ColorPalette *string `json:"color_palette,omitempty"`
+	ColorPalette string `json:"color_palette,omitzero"`
 }
 
 // Request model for generate-with-style-v2 endpoint
@@ -2921,24 +2921,24 @@ type GenerateWithStyleV2Request struct {
 	// Style reference images (1-4 images)
 	StyleImages []EditImage `json:"style_images"`
 	// Description of what to generate
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Optional description of how this reference should be used
-	StyleDescription *string `json:"style_description,omitempty"`
+	StyleDescription string `json:"style_description,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// REMOVED. Output size is deduced from the style images.
-	ImageSize *map[string]int `json:"image_size,omitempty"`
+	ImageSize map[string]int `json:"image_size,omitzero"`
 }
 
 // GetFontResponse defines a model
 type GetFontResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Job status: processing, stalled, finalizing, failed, completed
-	Status string `json:"status,omitzero"`
-	JobID  string `json:"job_id,omitzero"`
+	Status string `json:"status"`
+	JobID  string `json:"job_id"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2948,22 +2948,22 @@ type GetFontResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	GlyphPx *int `json:"glyph_px,omitempty"`
+	GlyphPx *int `json:"glyph_px,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DownloadAtlasURL *string `json:"download_atlas_url,omitempty"`
+	DownloadAtlasURL string `json:"download_atlas_url,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DownloadTtfURL *string `json:"download_ttf_url,omitempty"`
+	DownloadTtfURL string `json:"download_ttf_url,omitzero"`
 }
 
 // GetMapObjectResponse defines a model
 type GetMapObjectResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Job status: processing, failed, completed
-	Status   string `json:"status,omitzero"`
-	ObjectID string `json:"object_id,omitzero"`
+	Status   string `json:"status"`
+	ObjectID string `json:"object_id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2973,7 +2973,7 @@ type GetMapObjectResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Width *int `json:"width,omitempty"`
+	Width *int `json:"width,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -2983,22 +2983,22 @@ type GetMapObjectResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Height *int `json:"height,omitempty"`
+	Height *int `json:"height,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DownloadURL *string `json:"download_url,omitempty"`
+	DownloadURL string `json:"download_url,omitzero"`
 }
 
 // GetPortraitCharacterResponse defines a model
 type GetPortraitCharacterResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Job status: processing, stalled, finalizing, failed, completed
-	Status string `json:"status,omitzero"`
-	JobID  string `json:"job_id,omitzero"`
+	Status string `json:"status"`
+	JobID  string `json:"job_id"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3008,7 +3008,7 @@ type GetPortraitCharacterResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Width *int `json:"width,omitempty"`
+	Width *int `json:"width,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3018,7 +3018,7 @@ type GetPortraitCharacterResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Height *int `json:"height,omitempty"`
+	Height *int `json:"height,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3028,44 +3028,44 @@ type GetPortraitCharacterResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DownloadURL *string `json:"download_url,omitempty"`
+	DownloadURL string `json:"download_url,omitzero"`
 }
 
 // GetTilesProResponse defines a model
 type GetTilesProResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Download URLs for each tile (e.g. {"tile_0": "https://...", "tile_1": "https://..."})
 	StorageUrls map[string]any `json:"storage_urls"`
 	// What this group is: tiles (independent variations), paths (road autotiles), tileset (corner wang terrain transition), coastline (hex edge set), building (construction kit).
 	Kind string `json:"kind,omitzero"`
 	// Latest response data from the job
-	TileRules *map[string]any `json:"tile_rules,omitempty"`
+	TileRules map[string]any `json:"tile_rules,omitzero"`
 }
 
 // GetVocalAnimationResponse defines a model
 type GetVocalAnimationResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// processing, completed or failed
-	Status      string `json:"status,omitzero"`
-	JobID       string `json:"job_id,omitzero"`
-	Mood        string `json:"mood,omitzero"`
+	Status      string `json:"status"`
+	JobID       string `json:"job_id"`
+	Mood        string `json:"mood"`
 	VisemeCount int    `json:"viseme_count"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CharacterID *string `json:"character_id,omitempty"`
+	CharacterID string `json:"character_id,omitzero"`
 	// Mouth positions produced so far.
 	CompletedVisemes []string `json:"completed_visemes,omitzero"`
 	// The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead.
-	Visemes *map[string]BaseImage `json:"visemes,omitempty"`
+	Visemes map[string]BaseImage `json:"visemes,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
-	MoodsOnCharacter *string `json:"moods_on_character,omitempty"`
+	MoodsOnCharacter []string `json:"moods_on_character,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	GridURL *string `json:"grid_url,omitempty"`
+	GridURL string `json:"grid_url,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
-	VisemeOrder *string `json:"viseme_order,omitempty"`
+	VisemeOrder []string `json:"viseme_order,omitzero"`
 }
 
 // HTTPValidationError defines a model
@@ -3078,9 +3078,9 @@ type ImageToPixelartProRequest struct {
 	// Image to convert to pixel art (base64 PNG/JPEG)
 	Image BaseImage `json:"image"`
 	// Description of the character or object to animate (uses character's original if not specified)
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request model for image to pixel art endpoint
@@ -3092,13 +3092,13 @@ type ImageToPixelartRequest struct {
 	// Desired output size
 	OutputSize OutputSize `json:"output_size"`
 	// How closely to follow the reference image
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// How strongly to start from the source image (img2img). 0 redraws from scratch using the source only as guidance; higher values keep more of the source. 100-300 is the useful range. Beyond that the model barely transforms the input at all — measured on the same mechanism, mean per-pixel change falls from 50 at strength 100 to 14 at 500, so a high value returns your source image rather than pixel art.
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Faithful mode. Stays true to the source image instead of re-interpreting it as pixel art. Best combined with a high init_image_strength when converting artwork you want reproduced rather than reimagined.
-	Fixer bool `json:"fixer,omitempty"`
+	Fixer bool `json:"fixer,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // ImageToTextRequest defines a model
@@ -3106,15 +3106,15 @@ type ImageToTextRequest struct {
 	// Image to read, as base64 PNG/JPEG (or a data: URI). Any size up to 4096x4096; small pixel art is fine.
 	Image BaseImage `json:"image"`
 	// Description of the character or object to animate (uses character's original if not specified)
-	Prompt *string `json:"prompt,omitempty"`
+	Prompt string `json:"prompt,omitzero"`
 }
 
 // ImageToTextResponse defines a model
 type ImageToTextResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// The model's answer about the image.
-	Text string `json:"text,omitzero"`
+	Text string `json:"text"`
 }
 
 // White RGB generates; black RGB preserves every original RGBA byte.
@@ -3133,7 +3133,7 @@ type InpaintImageProFlashRequest struct {
 	//     base64 (str): The base64 encoded image data
 	//     format (str): The image format (e.g., "png", "jpeg")
 	MaskImage   BaseImage `json:"mask_image"`
-	Description string    `json:"description,omitzero"`
+	Description string    `json:"description"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3141,16 +3141,16 @@ type InpaintImageProFlashRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ContextImage *BaseImage           `json:"context_image,omitempty"`
-	BoundingBox  *ProFlashBoundingBox `json:"bounding_box,omitempty"`
-	NoBackground bool                 `json:"no_background,omitempty"`
+	ContextImage BaseImage           `json:"context_image,omitzero"`
+	BoundingBox  ProFlashBoundingBox `json:"bounding_box,omitzero"`
+	NoBackground bool                `json:"no_background,omitzero"`
 	// Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better
 	BackgroundRemovalTask CreateImagePixenBackgroundRemovalTask   `json:"background_removal_task,omitzero"`
 	OutputMethod          InpaintImageProFlashRequestOutputMethod `json:"output_method,omitzero"`
-	CropToMask            bool                                    `json:"crop_to_mask,omitempty"`
-	Seed                  *int                                    `json:"seed,omitempty"`
+	CropToMask            bool                                    `json:"crop_to_mask,omitzero"`
+	Seed                  int                                     `json:"seed,omitzero"`
 	// Mostly only relevant for 8-direction objects: pass the animation_group_id of an existing animation on this object to add more directions to it. Omit to create a new animation; the new animation_group_id is returned so subsequent calls can extend it.
-	ProjectID *uuid.UUID `json:"project_id,omitempty"`
+	ProjectID uuid.UUID `json:"project_id,omitzero"`
 }
 
 // InpaintImageProFlashRequestOutputMethod defines a model
@@ -3175,30 +3175,30 @@ func (e InpaintImageProFlashRequestOutputMethod) Valid() bool {
 // Request model for image generation endpoint
 type InpaintRequest struct {
 	// Text description of the image to generate
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Text description of what to avoid in the generated image
 	NegativeDescription string                                                        `json:"negative_description,omitzero"`
 	ImageSize           app__endpoints__external__v__create_image_bitforge__ImageSize `json:"image_size"`
 	// How closely to follow the text description
-	TextGuidanceScale *float64 `json:"text_guidance_scale,omitempty"`
+	TextGuidanceScale float64 `json:"text_guidance_scale,omitzero"`
 	// (Deprecated)
-	ExtraGuidanceScale *float64 `json:"extra_guidance_scale,omitempty"`
+	ExtraGuidanceScale *float64 `json:"extra_guidance_scale,omitzero"`
 	// Outline style reference
-	Outline *Outline `json:"outline,omitempty"`
+	Outline Outline `json:"outline,omitzero"`
 	// Shading style reference
-	Shading *CreateIsometricTileShadingAnyOf `json:"shading,omitempty"`
+	Shading CreateIsometricTileShadingAnyOf `json:"shading,omitzero"`
 	// Detail style reference
-	Detail *CreateIsometricTileDetailAnyOf `json:"detail,omitempty"`
+	Detail CreateIsometricTileDetailAnyOf `json:"detail,omitzero"`
 	// Camera view angle
-	View *CameraView `json:"view,omitempty"`
+	View CameraView `json:"view,omitzero"`
 	// Subject direction
-	Direction *Direction `json:"direction,omitempty"`
+	Direction Direction `json:"direction,omitzero"`
 	// Generate in isometric view
-	Isometric bool `json:"isometric,omitempty"`
+	Isometric bool `json:"isometric,omitzero"`
 	// Generate in oblique projection
-	ObliqueProjection bool `json:"oblique_projection,omitempty"`
+	ObliqueProjection bool `json:"oblique_projection,omitzero"`
 	// Generate with transparent background
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground bool `json:"no_background,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3206,9 +3206,9 @@ type InpaintRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Reference image which is inpainted
 	InpaintingImage BaseImage `json:"inpainting_image"`
 	// Inpainting / mask image. (black and white image, where the white is where the model should inpaint).
@@ -3220,7 +3220,7 @@ type InpaintRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3230,27 +3230,27 @@ type InpaintRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request model for inpaint-v3 endpoint
 type InpaintV3Request struct {
 	// Description of what to generate in the masked area
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Image to inpaint (32x32 to 512x512)
 	InpaintingImage ConceptImage `json:"inpainting_image"`
 	// Mask for the image (same dimensions as inpainting_image). White = generate, Black = preserve
 	MaskImage ConceptImage `json:"mask_image"`
 	// Optional concept image to guide the UI design
-	ContextImage *ConceptImage `json:"context_image,omitempty"`
+	ContextImage ConceptImage `json:"context_image,omitzero"`
 	// Bounding box (deprecated)
-	BoundingBox *BoundingBox `json:"bounding_box,omitempty"`
+	BoundingBox BoundingBox `json:"bounding_box,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Remove background from generated frames
-	CropToMask *bool `json:"crop_to_mask,omitempty"`
+	CropToMask *bool `json:"crop_to_mask,omitzero"`
 }
 
 // Request model for interpolation-v2 endpoint
@@ -3260,35 +3260,35 @@ type InterpolationV2Request struct {
 	// Ending keyframe image
 	EndImage ConceptImage `json:"end_image"`
 	// Description of the transition (e.g., 'morphing', 'transforming', 'powering up')
-	Action string `json:"action,omitzero"`
+	Action string `json:"action"`
 	// Size of the output frames
 	ImageSize app__endpoints__external__v__create_character_with__directions__ImageSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 }
 
 // Response for isometric tile deletion.
 type IsometricTile struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Whether the deletion succeeded
 	Success bool `json:"success"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TileID *string `json:"tile_id,omitempty"`
+	TileID string `json:"tile_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Err *string `json:"error,omitempty"`
+	Err string `json:"error,omitzero"`
 }
 
 // Summary of an isometric tile for listing
 type IsometricTileSummary struct {
 	// Unique tile identifier
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Tile description
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3298,19 +3298,19 @@ type IsometricTileSummary struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Size *int `json:"size,omitempty"`
+	Size *int `json:"size,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TileShape *string `json:"tile_shape,omitempty"`
+	TileShape string `json:"tile_shape,omitzero"`
 	// ISO timestamp of tile creation
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Generation status: completed, processing, or failed
-	Status string `json:"status,omitzero"`
+	Status string `json:"status"`
 }
 
 // Response for isometric tile listing
 type IsometricTilesListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// List of user's isometric tiles
 	Tiles []IsometricTileSummary `json:"tiles"`
 	// Total number of isometric tiles (for pagination)
@@ -3323,25 +3323,25 @@ type KeypointInput struct {
 	X float64 `json:"x"`
 	// Vertical position, 0-1 down the image
 	Y     float64       `json:"y"`
-	Label SkeletonLabel `json:"label,omitzero"`
+	Label SkeletonLabel `json:"label"`
 	// Draw order; higher draws on top
-	ZIndex *int `json:"z_index,omitempty"`
+	ZIndex int `json:"z_index,omitzero"`
 	// How near the camera this joint is, 0-255 (about 128 at the body's centre, higher is nearer). Optional: leave it out and it is taken from the standing pose of `template_id` for this direction, which is usually what you want unless you have real 3D positions.
-	Depth *float64 `json:"depth,omitempty"`
+	Depth *float64 `json:"depth,omitzero"`
 }
 
 // KeypointOutput defines a model
 type KeypointOutput struct {
 	X      float64 `json:"x"`
 	Y      float64 `json:"y"`
-	Label  string  `json:"label,omitzero"`
+	Label  string  `json:"label"`
 	ZIndex float64 `json:"z_index"`
 }
 
 // LipSyncFrameOut defines a model
 type LipSyncFrameOut struct {
 	// Mouth position id.
-	Viseme string `json:"viseme,omitzero"`
+	Viseme string `json:"viseme"`
 	// Column of this mouth position in the spritesheet.
 	Column int `json:"column"`
 	// How long to hold this frame.
@@ -3374,32 +3374,32 @@ func (e LipSyncMoodAnyOf) Valid() bool {
 // LipSyncRequest defines a model
 type LipSyncRequest struct {
 	// The line of dialogue to lip-sync.
-	Text string `json:"text,omitzero"`
+	Text string `json:"text"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CharacterID *string `json:"character_id,omitempty"`
+	CharacterID string `json:"character_id,omitzero"`
 	// Which stored expression to use. Defaults to the character's first. Only valid with `character_id`.
-	Mood *LipSyncMoodAnyOf `json:"mood,omitempty"`
+	Mood LipSyncMoodAnyOf `json:"mood,omitzero"`
 	// Plan against a preset without touching a character — useful if you hold the frames yourself. Mutually exclusive with `character_id`.
-	VisemeCount *int `json:"viseme_count,omitempty"`
+	VisemeCount int `json:"viseme_count,omitzero"`
 	// Milliseconds to hold each mouth position.
-	FrameMs *int `json:"frame_ms,omitempty"`
+	FrameMs int `json:"frame_ms,omitzero"`
 	// Extra time on the final closed mouth.
-	HoldMs *int `json:"hold_ms,omitempty"`
+	HoldMs *int `json:"hold_ms,omitzero"`
 }
 
 // LipSyncResponse defines a model
 type LipSyncResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage   *Usage `json:"usage,omitempty"`
-	Text    string `json:"text,omitzero"`
+	Usage   *Usage `json:"usage,omitzero"`
+	Text    string `json:"text"`
 	TotalMs int    `json:"total_ms"`
 	// Spritesheet column order.
 	VisemeOrder []string          `json:"viseme_order"`
 	Frames      []LipSyncFrameOut `json:"frames"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Mood *string `json:"mood,omitempty"`
+	Mood string `json:"mood,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	GridURL *string `json:"grid_url,omitempty"`
+	GridURL string `json:"grid_url,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3409,7 +3409,7 @@ type LipSyncResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Row *int `json:"row,omitempty"`
+	Row *int `json:"row,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3419,7 +3419,7 @@ type LipSyncResponse struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Rows *int `json:"rows,omitempty"`
+	Rows *int `json:"rows,omitzero"`
 }
 
 // Manual mask image for precise control
@@ -3432,11 +3432,11 @@ type MaskInpainting struct {
 // One direction within an animation group.
 type ObjectAnimationDirection struct {
 	// Direction name (south, west, ..., unknown)
-	Direction string `json:"direction,omitzero"`
+	Direction string `json:"direction"`
 	// Frame URLs for this direction, e.g. {"frames": ["...", ...]}
-	StorageUrls *map[string]any `json:"storage_urls,omitempty"`
+	StorageUrls map[string]any `json:"storage_urls,omitzero"`
 	// ISO timestamp
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 }
 
 // An animation grouped across one or more directions, keyed by animation_group_id.
@@ -3446,11 +3446,11 @@ type ObjectAnimationDirection struct {
 // backfilled UUID after migration 005 runs.
 type ObjectAnimationGroup struct {
 	// UUID of the animation group — pass back to extend via POST /v2/objects/{id}/animations
-	AnimationGroupID string `json:"animation_group_id,omitzero"`
+	AnimationGroupID string `json:"animation_group_id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	DisplayName *string `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitzero"`
 	// Animation prompt from the latest row in the group
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Frame count from the latest row in the group
 	FrameCount int `json:"frame_count"`
 	// One entry per distinct direction (deduped by MAX(created_at))
@@ -3460,35 +3460,35 @@ type ObjectAnimationGroup struct {
 // Detailed object information including rotation URLs
 type ObjectDetail struct {
 	// Unique object identifier
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	StateName *string `json:"state_name,omitempty"`
+	StateName string `json:"state_name,omitzero"`
 	// Object creation prompt
-	Prompt string `json:"prompt,omitzero"`
+	Prompt string `json:"prompt"`
 	// Object image dimensions
 	Size CharacterSize `json:"size"`
 	// Number of directional rotations (1, 4, or 8). Review-status objects are always 1-direction outputs awaiting selection.
 	Directions int `json:"directions"`
 	// ISO timestamp of object creation
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// URLs for all rotation images
 	RotationUrls ObjectRotationUrls `json:"rotation_urls"`
 	// Raw storage_urls map (frame_N keys when status='review')
-	StorageUrls *map[string]string `json:"storage_urls,omitempty"`
+	StorageUrls map[string]string `json:"storage_urls,omitzero"`
 	// Per-object descriptions when the effective size produces multiple objects. Length must not exceed the object count derived from size. Supplying FEWER is allowed and does not shrink the grid: the remaining slots are generated from `description` instead, so they come back as extra objects in the same style rather than as variations of the items you listed.
-	FrameUrls *string `json:"frame_urls,omitempty"`
+	FrameUrls []string `json:"frame_urls,omitzero"`
 	// Latest response data from the job
-	StyleSettings *map[string]any `json:"style_settings,omitempty"`
+	StyleSettings map[string]any `json:"style_settings,omitzero"`
 	// User-defined tags for filtering
 	Tags []string `json:"tags,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Status *string `json:"status,omitempty"`
+	Status string `json:"status,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	GroupID *string `json:"group_id,omitempty"`
+	GroupID string `json:"group_id,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3498,7 +3498,7 @@ type ObjectDetail struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	ProgressPercent *int `json:"progress_percent,omitempty"`
+	ProgressPercent *int `json:"progress_percent,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3508,7 +3508,7 @@ type ObjectDetail struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	EtaSeconds *int `json:"eta_seconds,omitempty"`
+	EtaSeconds *int `json:"eta_seconds,omitzero"`
 	// Animations on this object, grouped by animation_group_id
 	Animations []ObjectAnimationGroup `json:"animations,omitzero"`
 }
@@ -3517,53 +3517,53 @@ type ObjectDetail struct {
 // For 1-direction objects all keys are null — see `storage_urls['unknown']`.
 type ObjectRotationUrls struct {
 	// Optional name for the animation, shown in the UI and used when exporting.
-	South *string `json:"south,omitempty"`
+	South string `json:"south,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	West *string `json:"west,omitempty"`
+	West string `json:"west,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	East *string `json:"east,omitempty"`
+	East string `json:"east,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	North *string `json:"north,omitempty"`
+	North string `json:"north,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	SouthEast *string `json:"south-east,omitempty"`
+	SouthEast string `json:"south-east,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	SouthWest *string `json:"south-west,omitempty"`
+	SouthWest string `json:"south-west,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	NorthEast *string `json:"north-east,omitempty"`
+	NorthEast string `json:"north-east,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	NorthWest *string `json:"north-west,omitempty"`
+	NorthWest string `json:"north-west,omitzero"`
 }
 
 // Summary of an object for listing
 type ObjectSummary struct {
 	// Unique object identifier
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	StateName *string `json:"state_name,omitempty"`
+	StateName string `json:"state_name,omitzero"`
 	// Object creation prompt
-	Prompt string `json:"prompt,omitzero"`
+	Prompt string `json:"prompt"`
 	// Object image dimensions
 	Size CharacterSize `json:"size"`
 	// Number of directional rotations (1, 4, or 8)
 	Directions int `json:"directions"`
 	// ISO timestamp of object creation
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	PreviewURL *string `json:"preview_url,omitempty"`
+	PreviewURL string `json:"preview_url,omitzero"`
 	// User-defined tags for filtering
 	Tags []string `json:"tags,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Status *string `json:"status,omitempty"`
+	Status string `json:"status,omitzero"`
 }
 
 // Response for object listing
 type ObjectsListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// List of user's objects
 	Objects []ObjectSummary `json:"objects"`
 	// Total number of objects (for pagination)
@@ -3631,15 +3631,15 @@ type OutputSize struct {
 type OvalInpainting struct {
 	Type string `json:"type,omitzero"`
 	// Size of oval as fraction of background (0.05-0.95). E.g., 0.3 = oval covers 30% of background
-	Fraction *float64 `json:"fraction,omitempty"`
+	Fraction float64 `json:"fraction,omitzero"`
 }
 
 // Point defines a model
 type Point struct {
 	X      float64       `json:"x"`
 	Y      float64       `json:"y"`
-	Label  SkeletonLabel `json:"label,omitzero"`
-	ZIndex *int          `json:"z_index,omitempty"`
+	Label  SkeletonLabel `json:"label"`
+	ZIndex int           `json:"z_index,omitzero"`
 }
 
 // Request model for portrait-character-pro endpoint.
@@ -3651,9 +3651,9 @@ type PortraitCharacterProRequest struct {
 	// Camera angle.
 	View CreateDirectionObjectView `json:"view,omitzero"`
 	// Output sprite size in pixels. 128/160 render at 2K for extra detail (and cost more generations).
-	ResultSize *int `json:"result_size,omitempty"`
+	ResultSize int `json:"result_size,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // portrait_to_character: input is a bust portrait, output a full-body character sprite. character_to_portrait: input is a full-body character, output a bust portrait.
@@ -3685,16 +3685,16 @@ type ProFlashBoundingBox struct {
 // Queued image identifiers; source_image_id becomes usable on completion.
 type ProFlashImageResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage           *Usage `json:"usage,omitempty"`
-	BackgroundJobID string `json:"background_job_id,omitzero"`
-	ImageID         string `json:"image_id,omitzero"`
-	SourceImageID   string `json:"source_image_id,omitzero"`
-	Status          string `json:"status,omitzero"`
-	OutputCount     *int   `json:"output_count,omitempty"`
+	Usage           *Usage `json:"usage,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
+	ImageID         string `json:"image_id"`
+	SourceImageID   string `json:"source_image_id"`
+	Status          string `json:"status"`
+	OutputCount     *int   `json:"output_count,omitzero"`
 	// Native dimensions checked against the operation's canvas contract.
 	ImageSize            ProFlashImageSize `json:"image_size"`
 	EstimatedGenerations int               `json:"estimated_generations"`
-	PricingProvisional   bool              `json:"pricing_provisional,omitempty"`
+	PricingProvisional   *bool             `json:"pricing_provisional,omitzero"`
 }
 
 // Native dimensions checked against the operation's canvas contract.
@@ -3715,15 +3715,15 @@ type ProFlashReferenceImage struct {
 	// Native dimensions checked against the operation's canvas contract.
 	Size ProFlashImageSize `json:"size"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	UsageDescription *string `json:"usage_description,omitempty"`
+	UsageDescription string `json:"usage_description,omitzero"`
 }
 
 // Choose which visual traits to copy from the style image.
 type ProFlashStyle struct {
-	ColorPalette bool `json:"color_palette,omitempty"`
-	Outline      bool `json:"outline,omitempty"`
-	Detail       bool `json:"detail,omitempty"`
-	Shading      bool `json:"shading,omitempty"`
+	ColorPalette *bool `json:"color_palette,omitzero"`
+	Outline      *bool `json:"outline,omitzero"`
+	Detail       *bool `json:"detail,omitzero"`
+	Shading      *bool `json:"shading,omitzero"`
 }
 
 // ProImageSize defines a model
@@ -3738,7 +3738,7 @@ type ProImageSize struct {
 type RectangleInpainting struct {
 	Type string `json:"type,omitzero"`
 	// Size of rectangle as fraction of background (0.05-0.95). E.g., 0.5 = rectangle covers 50% of background
-	Fraction *float64 `json:"fraction,omitempty"`
+	Fraction float64 `json:"fraction,omitzero"`
 }
 
 // Request model for the reduce-colors endpoint
@@ -3746,7 +3746,7 @@ type ReduceColorsRequest struct {
 	// Image(s) to quantize (PNG base64). Several frames are quantized together onto ONE shared palette and must all be the same size — pass an animation's frames or a character's directions in one call so their colors stay consistent.
 	Images []BaseImage `json:"images"`
 	// Target number of colors. Omit to auto-detect a good palette size from the image itself. Mutually exclusive with palette_image.
-	NumColors *int `json:"num_colors,omitempty"`
+	NumColors int `json:"num_colors,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3754,11 +3754,11 @@ type ReduceColorsRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	PaletteImage *BaseImage `json:"palette_image,omitempty"`
+	PaletteImage BaseImage `json:"palette_image,omitzero"`
 	// Ordered dithering matrix size. Larger matrices give smoother gradients at the cost of a busier look.
 	Dithering ReduceColorsRequestDithering `json:"dithering,omitzero"`
 	// How strongly to dither. Ignored when dithering is 'none'.
-	DitheringStrength *float64 `json:"dithering_strength,omitempty"`
+	DitheringStrength *float64 `json:"dithering_strength,omitzero"`
 }
 
 // Ordered dithering matrix size. Larger matrices give smoother gradients at the cost of a busier look.
@@ -3784,7 +3784,7 @@ func (e ReduceColorsRequestDithering) Valid() bool {
 // Response for a completed quantization
 type ReduceColorsResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage  *Usage      `json:"usage,omitempty"`
+	Usage  *Usage      `json:"usage,omitzero"`
 	Images []BaseImage `json:"images"`
 	// A 1px-tall strip of the resulting palette, most frequent color first. Feed it back as palette_image to lock later frames to it.
 	Palette BaseImage `json:"palette"`
@@ -3801,15 +3801,15 @@ type RemoveBackgroundRequest struct {
 	// Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better
 	BackgroundRemovalTask CreateImagePixenBackgroundRemovalTask `json:"background_removal_task,omitzero"`
 	// Optional description of how this reference should be used
-	Text *string `json:"text,omitempty"`
+	Text string `json:"text,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request model for resize endpoint
 type ResizeRequest struct {
 	// Description of your character
-	Description string `json:"description,omitzero"`
+	Description string `json:"description"`
 	// Image to resize
 	ReferenceImage BaseImage `json:"reference_image"`
 	// Original size of the reference image
@@ -3817,15 +3817,15 @@ type ResizeRequest struct {
 	// Desired output size
 	TargetSize app__endpoints__external__v__create_image_bitforge__ImageSize `json:"target_size"`
 	// Camera view angle
-	View *CameraView `json:"view,omitempty"`
+	View CameraView `json:"view,omitzero"`
 	// Subject direction
-	Direction *Direction `json:"direction,omitempty"`
+	Direction Direction `json:"direction,omitzero"`
 	// Remove background from generated frames
-	Isometric *bool `json:"isometric,omitempty"`
+	Isometric *bool `json:"isometric,omitzero"`
 	// Remove background from generated frames
-	ObliqueProjection *bool `json:"oblique_projection,omitempty"`
+	ObliqueProjection *bool `json:"oblique_projection,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3833,7 +3833,7 @@ type ResizeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3841,34 +3841,34 @@ type ResizeRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of initial image influence
-	InitImageStrength *float64 `json:"init_image_strength,omitempty"`
+	InitImageStrength *float64 `json:"init_image_strength,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // Request model for image generation endpoint
 type RotateRequest struct {
 	ImageSize app__endpoints__external__v__create_image_bitforge__ImageSize `json:"image_size"`
 	// How closely to follow the reference image
-	ImageGuidanceScale *float64 `json:"image_guidance_scale,omitempty"`
+	ImageGuidanceScale float64 `json:"image_guidance_scale,omitzero"`
 	// How many degrees to tilt the subject
-	ViewChange *int `json:"view_change,omitempty"`
+	ViewChange *int `json:"view_change,omitzero"`
 	// How many degrees to rotate the subject
-	DirectionChange *int `json:"direction_change,omitempty"`
+	DirectionChange *int `json:"direction_change,omitzero"`
 	// Camera view angle
-	FromView *CameraView `json:"from_view,omitempty"`
+	FromView CameraView `json:"from_view,omitzero"`
 	// Camera view angle
-	ToView *CameraView `json:"to_view,omitempty"`
+	ToView CameraView `json:"to_view,omitzero"`
 	// Subject direction
-	FromDirection *Direction `json:"from_direction,omitempty"`
+	FromDirection Direction `json:"from_direction,omitzero"`
 	// Subject direction
-	ToDirection *Direction `json:"to_direction,omitempty"`
+	ToDirection Direction `json:"to_direction,omitzero"`
 	// Generate in isometric view
-	Isometric bool `json:"isometric,omitempty"`
+	Isometric bool `json:"isometric,omitzero"`
 	// Generate in oblique projection
-	ObliqueProjection bool `json:"oblique_projection,omitempty"`
+	ObliqueProjection bool `json:"oblique_projection,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3876,9 +3876,9 @@ type RotateRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	InitImage *BaseImage `json:"init_image,omitempty"`
+	InitImage BaseImage `json:"init_image,omitzero"`
 	// Strength of the initial image influence
-	InitImageStrength *int `json:"init_image_strength,omitempty"`
+	InitImageStrength int `json:"init_image_strength,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -3886,7 +3886,7 @@ type RotateRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	MaskImage *BaseImage `json:"mask_image,omitempty"`
+	MaskImage BaseImage `json:"mask_image,omitzero"`
 	// Reference image to rotate
 	FromImage BaseImage `json:"from_image"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
@@ -3896,7 +3896,7 @@ type RotateRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	ColorImage *BaseImage `json:"color_image,omitempty"`
+	ColorImage BaseImage `json:"color_image,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -3906,7 +3906,7 @@ type RotateRequest struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // SelectObjectFramesRequest defines a model
@@ -3914,65 +3914,65 @@ type SelectObjectFramesRequest struct {
 	// Frame indices (0-based) to keep as completed individual objects.
 	Indices []int `json:"indices"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CommonTag *string `json:"common_tag,omitempty"`
+	CommonTag string `json:"common_tag,omitzero"`
 }
 
 // SelectObjectFramesResponse defines a model
 type SelectObjectFramesResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage            *Usage   `json:"usage,omitempty"`
+	Usage            *Usage   `json:"usage,omitzero"`
 	CreatedObjectIds []string `json:"created_object_ids"`
 }
 
 // SetPortraitResponse defines a model
 type SetPortraitResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage       *Usage `json:"usage,omitempty"`
-	CharacterID string `json:"character_id,omitzero"`
+	Usage       *Usage `json:"usage,omitzero"`
+	CharacterID string `json:"character_id"`
 	// Portrait edge length in pixels (always square).
 	Size int `json:"size"`
 	// URL of the stored portrait image.
-	URL string `json:"url,omitzero"`
+	URL string `json:"url"`
 }
 
 // SidescrollerTileSize defines a model
 type SidescrollerTileSize struct {
 	// Individual tile width in pixels (16 or 32)
-	Width *int `json:"width,omitempty"`
+	Width int `json:"width,omitzero"`
 	// Individual tile height in pixels (16 or 32)
-	Height *int `json:"height,omitempty"`
+	Height int `json:"height,omitzero"`
 }
 
 // Response for sidescroller tileset deletion.
 type SidescrollerTileset struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Whether the deletion succeeded
 	Success bool `json:"success"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TilesetID *string `json:"tileset_id,omitempty"`
+	TilesetID string `json:"tileset_id,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Err *string `json:"error,omitempty"`
+	Err string `json:"error,omitzero"`
 }
 
 // SidescrollerTilesetSummary defines a model
 type SidescrollerTilesetSummary struct {
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	LowerDescription *string `json:"lower_description"`
+	LowerDescription string `json:"lower_description"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TransitionDescription *string        `json:"transition_description"`
+	TransitionDescription string         `json:"transition_description"`
 	TileSize              map[string]any `json:"tile_size"`
-	CreatedAt             string         `json:"created_at,omitzero"`
-	Status                string         `json:"status,omitzero"`
+	CreatedAt             string         `json:"created_at"`
+	Status                string         `json:"status"`
 }
 
 // SidescrollerTilesetsListResponse defines a model
 type SidescrollerTilesetsListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage    *Usage                       `json:"usage,omitempty"`
+	Usage    *Usage                       `json:"usage,omitzero"`
 	Tilesets []SidescrollerTilesetSummary `json:"tilesets"`
 	// Total number of sidescroller tilesets the user owns (unpaginated)
 	Total int `json:"total"`
@@ -4016,9 +4016,9 @@ func (e SkeletonLabel) Valid() bool {
 type Subscription struct {
 	Type string `json:"type,omitzero"`
 	// Subscription status: active, trial, expired, or none
-	Status string `json:"status,omitzero"`
+	Status string `json:"status"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Plan *string `json:"plan,omitempty"`
+	Plan string `json:"plan,omitzero"`
 	// Remaining generations this billing period
 	Generations float64 `json:"generations"`
 	// Total generations from subscription
@@ -4028,25 +4028,25 @@ type Subscription struct {
 // TalkingGifRequest defines a model
 type TalkingGifRequest struct {
 	// The line of dialogue to lip-sync. Mouth shapes are derived from the letters, so any language using the latin alphabet works.
-	Text string `json:"text,omitzero"`
+	Text string `json:"text"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CharacterID *string `json:"character_id,omitempty"`
+	CharacterID string `json:"character_id,omitzero"`
 	// Which stored expression to use. Defaults to the character's first. Only valid with `character_id`.
-	Mood *LipSyncMoodAnyOf `json:"mood,omitempty"`
+	Mood LipSyncMoodAnyOf `json:"mood,omitzero"`
 	// The mouth positions, keyed by id. Only returned for the stateless (`portrait`) form — for `character_id` jobs they are saved onto the character instead.
-	Visemes *map[string]BaseImage `json:"visemes,omitempty"`
+	Visemes map[string]BaseImage `json:"visemes,omitzero"`
 	// Milliseconds per mouth position.
-	FrameMs *int `json:"frame_ms,omitempty"`
+	FrameMs int `json:"frame_ms,omitzero"`
 	// Pause held on the closed mouth at the end, so a looping GIF has a beat between takes.
-	HoldMs *int `json:"hold_ms,omitempty"`
+	HoldMs *int `json:"hold_ms,omitzero"`
 }
 
 // TalkingGifResponse defines a model
 type TalkingGifResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// The animated GIF, base64 encoded.
-	GifBase64 string `json:"gif_base64,omitzero"`
+	GifBase64 string `json:"gif_base64"`
 	Frames    int    `json:"frames"`
 	// True playback length of the returned GIF.
 	DurationMs int `json:"duration_ms"`
@@ -4057,15 +4057,15 @@ type TalkingGifResponse struct {
 	Width  int `json:"width"`
 	Height int `json:"height"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Mood *string `json:"mood,omitempty"`
+	Mood string `json:"mood,omitzero"`
 }
 
 // Individual tile with metadata
 type Tile struct {
 	// Unique identifier for this tile
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Corner-based name (e.g., 'NW+SE', 'none')
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 	// Tile image data
 	Image BaseImage `json:"image"`
 	// Terrain type for each corner
@@ -4075,9 +4075,9 @@ type Tile struct {
 	// Position in source grid
 	OriginalPosition OriginalPosition `json:"original_position"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitzero"`
 	// Deprecated. Null on newly generated top-down tilesets; some older tilesets still carry it. Use pattern_4x4 (or corners) to decide tile placement.
-	Connections *TileConnections `json:"connections,omitempty"`
+	Connections TileConnections `json:"connections,omitzero"`
 }
 
 // Deprecated. Valid tile connections in each cardinal direction.
@@ -4095,13 +4095,13 @@ type TileConnections struct {
 // Corner terrain types for a tile
 type TileCorners struct {
 	// Northeast corner terrain type
-	Nw TileCornersNe `json:"NW,omitzero"`
+	Nw TileCornersNe `json:"NW"`
 	// Northeast corner terrain type
-	Ne TileCornersNe `json:"NE,omitzero"`
+	Ne TileCornersNe `json:"NE"`
 	// Northeast corner terrain type
-	Sw TileCornersNe `json:"SW,omitzero"`
+	Sw TileCornersNe `json:"SW"`
 	// Northeast corner terrain type
-	Se TileCornersNe `json:"SE,omitzero"`
+	Se TileCornersNe `json:"SE"`
 }
 
 // Northeast corner terrain type
@@ -4138,15 +4138,15 @@ type TilePattern4x4 struct {
 // TileSize defines a model
 type TileSize struct {
 	// Individual tile width in pixels. 16 or 32 for standard; 64 requires mode='pro'.
-	Width *int `json:"width,omitempty"`
+	Width int `json:"width,omitzero"`
 	// Individual tile height in pixels. 16 or 32 for standard; 64 requires mode='pro'.
-	Height *int `json:"height,omitempty"`
+	Height int `json:"height,omitzero"`
 }
 
 // TilesProListResponse defines a model
 type TilesProListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage            `json:"usage,omitempty"`
+	Usage *Usage            `json:"usage,omitzero"`
 	Tiles []TilesProSummary `json:"tiles"`
 	// Total number of tiles the user owns (unpaginated)
 	Total int `json:"total"`
@@ -4155,7 +4155,7 @@ type TilesProListResponse struct {
 // A style reference image with its dimensions.
 type TilesProStyleImage struct {
 	// Base64-encoded RGBA image data
-	Base64 string `json:"base64,omitzero"`
+	Base64 string `json:"base64"`
 	// Image width in pixels
 	Width int `json:"width"`
 	// Image height in pixels
@@ -4164,12 +4164,12 @@ type TilesProStyleImage struct {
 
 // TilesProSummary defines a model
 type TilesProSummary struct {
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Description *string `json:"description"`
-	TileType    string  `json:"tile_type,omitzero"`
+	Description string `json:"description"`
+	TileType    string `json:"tile_type"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -4191,9 +4191,9 @@ type TilesProSummary struct {
 	//   - default: smallest available count for the canvas size
 	NTiles *int `json:"n_tiles"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	TileView  *string `json:"tile_view"`
-	CreatedAt string  `json:"created_at,omitzero"`
-	Status    string  `json:"status,omitzero"`
+	TileView  string `json:"tile_view"`
+	CreatedAt string `json:"created_at"`
+	Status    string `json:"status"`
 }
 
 // Camera view options supported for tileset generation
@@ -4233,41 +4233,41 @@ type TilesetMetadata struct {
 	// Prompts used for each terrain type
 	TerrainPrompts map[string]string `json:"terrain_prompts"`
 	// Optional IDs for terrain types
-	TerrainIds *map[string]string `json:"terrain_ids,omitempty"`
+	TerrainIds map[string]string `json:"terrain_ids,omitzero"`
 	// Size of transition area between terrains
 	TransitionSize float64 `json:"transition_size"`
 	// Camera view angle used for tileset
-	View string `json:"view,omitzero"`
+	View string `json:"view"`
 	// Parameters used for AI generation
 	GenerationParameters map[string]any `json:"generation_parameters"`
 	// ISO timestamp when tileset was created
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 }
 
 // Summary of a tileset for listing
 type TilesetSummary struct {
 	// Unique tileset identifier
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Lower/base terrain description
-	LowerDescription string `json:"lower_description,omitzero"`
+	LowerDescription string `json:"lower_description"`
 	// Upper/elevated terrain description
-	UpperDescription string `json:"upper_description,omitzero"`
+	UpperDescription string `json:"upper_description"`
 	// REMOVED. Output size is deduced from the style images.
-	TileSize *map[string]int `json:"tile_size,omitempty"`
+	TileSize map[string]int `json:"tile_size,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	View *string `json:"view,omitempty"`
+	View string `json:"view,omitzero"`
 	// ISO timestamp of tileset creation
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Generation status: completed, processing, or failed
-	Status string `json:"status,omitzero"`
+	Status string `json:"status"`
 }
 
 // Response for tileset listing
 type TilesetsListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// List of user's tilesets
 	Tilesets []TilesetSummary `json:"tilesets"`
 	// Total number of tilesets (for pagination)
@@ -4283,29 +4283,29 @@ type TransferOutfitV2Request struct {
 	// Size of the output frames
 	ImageSize FrameSize `json:"image_size"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 	// Remove background from generated frames
-	NoBackground *bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Free-text style hint to layer on top of the description.
-	AdditionalInstructions *string `json:"additional_instructions,omitempty"`
+	AdditionalInstructions string `json:"additional_instructions,omitzero"`
 }
 
 // UIAssetDetail defines a model
 type UIAssetDetail struct {
 	// UI asset UUID
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Style description used to generate the panel
-	Prompt string `json:"prompt,omitzero"`
+	Prompt string `json:"prompt"`
 	// Image dimensions
 	Size CharacterSize `json:"size"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	ImageURL *string `json:"image_url,omitempty"`
+	ImageURL string `json:"image_url,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Status *string `json:"status,omitempty"`
+	Status string `json:"status,omitzero"`
 	// ISO timestamp
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -4315,7 +4315,7 @@ type UIAssetDetail struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	ProgressPercent *int `json:"progress_percent,omitempty"`
+	ProgressPercent *int `json:"progress_percent,omitzero"`
 	// Frames per direction. Each direction in an animation is independent — you do not need to match `frame_count` across directions when extending an existing animation. Just omit it and the per-mode default is used.
 	//
 	// - `mode='v3'`: any even number 4-16 (default 8). Heads-up: v3 stores the input reference frame alongside the generated ones (unless `keep_first_frame=false`), so `frame_count=8` results in **9** frames stored (and reported by `get_object`). When extending a v3 animation whose stored `frame_count` is 9, just omit this field — the default still produces a matching 9-frame output.
@@ -4325,31 +4325,31 @@ type UIAssetDetail struct {
 	//   - canvas ≤ 170px → 9 frames (only)
 	//   - canvas larger than 170px → pro not supported (use `mode='v3'`)
 	//   - default: smallest available count for the canvas size
-	EtaSeconds *int `json:"eta_seconds,omitempty"`
+	EtaSeconds *int `json:"eta_seconds,omitzero"`
 }
 
 // UIAssetSummary defines a model
 type UIAssetSummary struct {
 	// UI asset UUID
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name,omitzero"`
 	// Style description used to generate the panel
-	Prompt string `json:"prompt,omitzero"`
+	Prompt string `json:"prompt"`
 	// Image dimensions
 	Size CharacterSize `json:"size"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	ImageURL *string `json:"image_url,omitempty"`
+	ImageURL string `json:"image_url,omitzero"`
 	// Optional name for the animation, shown in the UI and used when exporting.
-	Status *string `json:"status,omitempty"`
+	Status string `json:"status,omitzero"`
 	// ISO timestamp
-	CreatedAt string `json:"created_at,omitzero"`
+	CreatedAt string `json:"created_at"`
 }
 
 // UIAssetsListResponse defines a model
 type UIAssetsListResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// The user's UI assets (templates), newest first
 	UIAssets []UIAssetSummary `json:"ui_assets"`
 	// Total template assets (for pagination)
@@ -4358,8 +4358,8 @@ type UIAssetsListResponse struct {
 
 // UiPieceCircle defines a model
 type UiPieceCircle struct {
-	ID    string  `json:"id,omitzero"`
-	Kind  string  `json:"kind,omitzero"`
+	ID    string  `json:"id"`
+	Kind  string  `json:"kind"`
 	Label string  `json:"label,omitzero"`
 	X     float64 `json:"x"`
 	Y     float64 `json:"y"`
@@ -4389,14 +4389,14 @@ func (v *UiPieceCircle) unmarshalJSONMember(dec *jsontext.Decoder, name string) 
 // Regular polygon — `sides` vertices at distance `r` from (x, y),
 // starting from angle `phase` (radians).
 type UiPiecePolygon struct {
-	ID    string   `json:"id,omitzero"`
-	Kind  string   `json:"kind,omitzero"`
-	Label string   `json:"label,omitzero"`
-	X     float64  `json:"x"`
-	Y     float64  `json:"y"`
-	R     float64  `json:"r"`
-	Sides int      `json:"sides"`
-	Phase *float64 `json:"phase,omitempty"`
+	ID    string  `json:"id"`
+	Kind  string  `json:"kind"`
+	Label string  `json:"label,omitzero"`
+	X     float64 `json:"x"`
+	Y     float64 `json:"y"`
+	R     float64 `json:"r"`
+	Sides int     `json:"sides"`
+	Phase float64 `json:"phase,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether UiPiecePolygon declares it.
@@ -4425,14 +4425,14 @@ func (v *UiPiecePolygon) unmarshalJSONMember(dec *jsontext.Decoder, name string)
 
 // UiPieceRect defines a model
 type UiPieceRect struct {
-	ID     string   `json:"id,omitzero"`
-	Kind   string   `json:"kind,omitzero"`
-	Label  string   `json:"label,omitzero"`
-	X      float64  `json:"x"`
-	Y      float64  `json:"y"`
-	W      float64  `json:"w"`
-	H      float64  `json:"h"`
-	Radius *float64 `json:"radius,omitempty"`
+	ID     string  `json:"id"`
+	Kind   string  `json:"kind"`
+	Label  string  `json:"label,omitzero"`
+	X      float64 `json:"x"`
+	Y      float64 `json:"y"`
+	W      float64 `json:"w"`
+	H      float64 `json:"h"`
+	Radius float64 `json:"radius,omitzero"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether UiPieceRect declares it.
@@ -4464,13 +4464,13 @@ type UnzoomRequest struct {
 	// The upscaled pixel art image to unzoom (PNG or JPEG base64)
 	Image BaseImage `json:"image"`
 	// Palette handling for the result. 0 auto-detects a palette, -1 keeps every color the downsample produces, and 2-256 quantizes to exactly that many colors.
-	Quantize *int `json:"quantize,omitempty"`
+	Quantize int `json:"quantize,omitzero"`
 }
 
 // Response for a completed unzoom
 type UnzoomResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// A base64 encoded image.
 	//
 	// Attributes:
@@ -4495,7 +4495,7 @@ type UpdateObjectTags struct {
 // Response after updating tags
 type UpdateObjectTags2 struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Updated list of tags
 	Tags []string `json:"tags"`
 }
@@ -4504,9 +4504,9 @@ type UpdateObjectTags2 struct {
 type Usage struct {
 	Type UsageType `json:"type,omitzero"`
 	// Text guidance scale used
-	Usd *float64 `json:"usd,omitempty"`
+	Usd *float64 `json:"usd,omitzero"`
 	// Text guidance scale used
-	Generations *float64 `json:"generations,omitempty"`
+	Generations *float64 `json:"generations,omitzero"`
 }
 
 // UsageType defines a model
@@ -4530,16 +4530,16 @@ func (e UsageType) Valid() bool {
 // ValidationError defines a model
 type ValidationError struct {
 	Loc   []ValidationErrorLocItem `json:"loc"`
-	Msg   string                   `json:"msg,omitzero"`
-	Type  string                   `json:"type,omitzero"`
-	Input *any                     `json:"input,omitempty"`
-	Ctx   *struct{}                `json:"ctx,omitempty"`
+	Msg   string                   `json:"msg"`
+	Type  string                   `json:"type"`
+	Input any                      `json:"input,omitzero"`
+	Ctx   *struct{}                `json:"ctx,omitzero"`
 }
 
 // ValidationErrorLocItem defines a model
 // ValidationErrorLocItem is an untagged anyOf union: at least one field is set after unmarshaling.
 type ValidationErrorLocItem struct {
-	String *string
+	String string
 	Int    *int
 }
 
@@ -4555,7 +4555,7 @@ func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 	{
 		var vv string
 		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = &vv
+			v.String = vv
 			matched++
 		}
 	}
@@ -4578,7 +4578,7 @@ func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 // MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
 func (v *ValidationErrorLocItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
-	case v.String != nil:
+	case v.String != "":
 		return json.MarshalEncode(enc, v.String, jsonOpts)
 	case v.Int != nil:
 		return json.MarshalEncode(enc, v.Int, jsonOpts)
@@ -4590,7 +4590,7 @@ func (v *ValidationErrorLocItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 // VocalAnimationRequest defines a model
 type VocalAnimationRequest struct {
 	// Optional name for the animation, shown in the UI and used when exporting.
-	CharacterID *string `json:"character_id,omitempty"`
+	CharacterID string `json:"character_id,omitzero"`
 	// Optional custom starting pose for the animation (`mode='v3'` only). When omitted, the object's idle frame for the chosen direction is used as the start. When provided, the image's dimensions become the canvas for the animation (subject to v3's 256x256 maximum).
 	//
 	// **Requires exactly one direction.**
@@ -4598,24 +4598,24 @@ type VocalAnimationRequest struct {
 	// - 1-direction objects: do not pass `directions` at all; the single internal direction is auto-resolved.
 	//
 	// Not compatible with `mode='pro'`.
-	Portrait *BaseImage       `json:"portrait,omitempty"`
+	Portrait BaseImage        `json:"portrait,omitzero"`
 	Mood     LipSyncMoodAnyOf `json:"mood,omitzero"`
 	// How many mouth positions to generate. 3 for tiny portraits, 7 recommended, 12 for large close-ups. Must be the same for every expression on one character.
-	VisemeCount *int `json:"viseme_count,omitempty"`
+	VisemeCount int `json:"viseme_count,omitzero"`
 	// Return frames with a transparent background.
-	NoBackground bool `json:"no_background,omitempty"`
+	NoBackground *bool `json:"no_background,omitzero"`
 	// Seed for reproducible generation (0 = random)
-	Seed *int `json:"seed,omitempty"`
+	Seed *int `json:"seed,omitzero"`
 }
 
 // VocalAnimationResponse defines a model
 type VocalAnimationResponse struct {
 	// Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true.
-	Usage *Usage `json:"usage,omitempty"`
+	Usage *Usage `json:"usage,omitzero"`
 	// Poll GET /v2/vocal-animation/{id}
-	BackgroundJobID string `json:"background_job_id,omitzero"`
+	BackgroundJobID string `json:"background_job_id"`
 	Status          string `json:"status,omitzero"`
-	Mood            string `json:"mood,omitzero"`
+	Mood            string `json:"mood"`
 	VisemeCount     int    `json:"viseme_count"`
 }
 
@@ -4660,9 +4660,9 @@ type app__endpoints__external__v2__create_map_object__ImageSize struct {
 // app__endpoints__external__v2__create_ui_asset__ImageSize defines a model
 type app__endpoints__external__v2__create_ui_asset__ImageSize struct {
 	// Output width in pixels (192–688; max per axis depends on aspect — square 512, 16:9 688)
-	Width *int `json:"width,omitempty"`
+	Width int `json:"width,omitzero"`
 	// Output height in pixels (192–688; max per axis depends on aspect — square 512, 9:16 688)
-	Height *int `json:"height,omitempty"`
+	Height int `json:"height,omitzero"`
 }
 
 // app__endpoints__external__v2__edit_images_v2__ImageSize defines a model
@@ -4693,7 +4693,7 @@ type app__endpoints__external__v2__generate_image_v2__ReferenceImage struct {
 	// Size of the reference image. Images larger than 1024x1024 will be downscaled.
 	Size app__endpoints__external__v__generate_image_v__ReferenceImageSize `json:"size"`
 	// Optional description of how this reference should be used
-	UsageDescription *string `json:"usage_description,omitempty"`
+	UsageDescription string `json:"usage_description,omitzero"`
 }
 
 // Image dimensions
@@ -4921,7 +4921,8 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 }
 
 // jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
-// is known, the member must have it, and is written in if raw lacks it. raw is returned as it is if all is in order.
+// is known, the member must have it, and is written in if raw lacks it or leaves it empty. raw is returned as it is if
+// all is in order.
 func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 	dec := jsontext.NewDecoder(bytes.NewReader(raw))
 	if _, err := dec.ReadToken(); err != nil {
@@ -4935,18 +4936,22 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 		}
 
 		if tok.String() == name {
-			if value != "" {
-				val, err := dec.ReadToken()
-				if err != nil {
-					return nil, err
-				}
-
-				if got := val.String(); got != value {
-					return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
-				}
+			if value == "" {
+				return raw, nil
 			}
 
-			return raw, nil
+			val, err := dec.ReadToken()
+			if err != nil {
+				return nil, err
+			}
+
+			switch got := val.String(); got {
+			case value:
+				return raw, nil
+			case "": // left for the union to fill in, below
+			default:
+				return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
+			}
 		}
 	}
 
@@ -4962,12 +4967,29 @@ func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
 			return nil, err
 		}
 
-		if value != "" {
-			if got, err := jsonMemberString(first, name); err != nil {
-				return nil, err
-			} else if got != value {
-				return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
+		if value == "" {
+			break
+		}
+
+		got, err := jsonMemberString(first, name)
+		switch {
+		case err != nil:
+			return nil, err
+		case got == "": // left empty: the union knows what it holds
+			rest := make(map[string]bool, len(names))
+			for _, n := range names {
+				rest[n] = n != name
 			}
+
+			if raw, err = jsonSelect(raw, rest); err != nil {
+				return nil, err
+			}
+
+			if first, err = json.Marshal(map[string]string{name: value}); err != nil {
+				return nil, err
+			}
+		case got != value:
+			return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
 		}
 	case value != "":
 		member, err := json.Marshal(map[string]string{name: value})

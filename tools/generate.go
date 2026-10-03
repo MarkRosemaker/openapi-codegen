@@ -112,12 +112,10 @@ func run(ctx context.Context) error {
 			return err
 		}
 
-		irDoc, err := ir.FromDocument(doc, name, "", production)
+		irDoc, err := ir.FromDocument(doc, name, "", production, debugMode)
 		if err != nil {
 			return fmt.Errorf("build IR: %w", err)
 		}
-
-		irDoc.Debug = debugMode
 
 		// Mirrors the layout the CLI produces -- api/ beside pkg/<package> --
 		// so the generated code is what a real project gets, the hardcoded

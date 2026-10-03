@@ -45,7 +45,7 @@ type Annotations struct {
 	// Whether the text is code `style`.
 	Code bool `json:"code"`
 	// The color of the block.
-	Color Color `json:"color,omitzero"`
+	Color Color `json:"color"`
 }
 
 // A block object represents content within Notion. Blocks can be text, lists, media, and more. A page is a type of block, too!
@@ -53,14 +53,14 @@ type Annotations struct {
 // The optional fields are filled depending on the value of `type`.
 type Block struct {
 	// Always "block".
-	Object string    `json:"object,omitzero"`
-	ID     uuid.UUID `json:"id,omitzero"`
+	Object string    `json:"object"`
+	ID     uuid.UUID `json:"id"`
 	// The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.
 	Parent Parent `json:"parent"`
 	// Date and time when this block was created. Formatted as an ISO 8601 date time string.
-	CreatedTime time.Time `json:"created_time,omitzero"`
+	CreatedTime time.Time `json:"created_time"`
 	// Date and time when this block was last updated. Formatted as an ISO 8601 date time string.
-	LastEditedTime time.Time     `json:"last_edited_time,omitzero"`
+	LastEditedTime time.Time     `json:"last_edited_time"`
 	CreatedBy      UserReference `json:"created_by"`
 	LastEditedBy   UserReference `json:"last_edited_by"`
 	// Whether or not the block has children blocks nested within it.
@@ -69,60 +69,60 @@ type Block struct {
 	Archived bool `json:"archived"`
 	InTrash  bool `json:"in_trash"`
 	// Type of block.
-	Type BlockType `json:"type,omitzero"`
+	Type BlockType `json:"type"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	Paragraph *Paragraph `json:"paragraph,omitempty"`
+	Paragraph Paragraph `json:"paragraph,omitzero"`
 	// Heading block objects contain this information within their respective property.
-	Heading1 *Heading `json:"heading_1,omitempty"`
+	Heading1 Heading `json:"heading_1,omitzero"`
 	// Heading block objects contain this information within their respective property.
-	Heading2 *Heading `json:"heading_2,omitempty"`
+	Heading2 Heading `json:"heading_2,omitzero"`
 	// Heading block objects contain this information within their respective property.
-	Heading3 *Heading `json:"heading_3,omitempty"`
+	Heading3 Heading `json:"heading_3,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	BulletedListItem *Paragraph `json:"bulleted_list_item,omitempty"`
+	BulletedListItem Paragraph `json:"bulleted_list_item,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	NumberedListItem *Paragraph `json:"numbered_list_item,omitempty"`
+	NumberedListItem Paragraph `json:"numbered_list_item,omitzero"`
 	// To do block objects contain this information within the `to_do` property.
-	ToDo *ToDo `json:"to_do,omitempty"`
+	ToDo ToDo `json:"to_do,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	Toggle *Paragraph `json:"toggle,omitempty"`
+	Toggle Paragraph `json:"toggle,omitzero"`
 	// Code block objects contain this information within the `code` property.
-	Code          *Code  `json:"code,omitempty"`
-	ChildPage     *Child `json:"child_page,omitempty"`
-	ChildDatabase *Child `json:"child_database,omitempty"`
+	Code          Code  `json:"code,omitzero"`
+	ChildPage     Child `json:"child_page,omitzero"`
+	ChildDatabase Child `json:"child_database,omitzero"`
 	// Embed blocks include block types that allow displaying another website within Notion.
-	Embed *Embed `json:"embed,omitempty"`
+	Embed Embed `json:"embed,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	Video *FileWithCaption `json:"video,omitempty"`
+	Video FileWithCaption `json:"video,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	Audio *FileWithCaption `json:"audio,omitempty"`
+	Audio FileWithCaption `json:"audio,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	File *FileWithCaption `json:"file,omitempty"`
+	File FileWithCaption `json:"file,omitzero"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion. A PDF can also have a caption.
-	PDF *FileWithCaption `json:"pdf,omitempty"`
+	PDF FileWithCaption `json:"pdf,omitzero"`
 	// Embed blocks include block types that allow displaying another website within Notion.
-	Bookmark *Embed `json:"bookmark,omitempty"`
+	Bookmark Embed `json:"bookmark,omitzero"`
 	// Callout block objects contain the following information within the callout field.
-	Callout *Callout `json:"callout,omitempty"`
+	Callout Callout `json:"callout,omitzero"`
 	// Paragraph, quote, toggle and list item block objects contain this information within their respective property.
-	Quote *Paragraph `json:"quote,omitempty"`
+	Quote Paragraph `json:"quote,omitzero"`
 	// Equation block objects contain this information within the `equation` property
-	Equation *Equation `json:"equation,omitempty"`
+	Equation Equation `json:"equation,omitzero"`
 	// Divider block objects do not contain any information within the divider property
-	Divider *struct{} `json:"divider,omitempty"`
+	Divider *struct{} `json:"divider,omitzero"`
 	// Table of contents block objects contain the following information within the `table_of_contents` property.
-	TableOfContents *TableOfContents `json:"table_of_contents,omitempty"`
+	TableOfContents TableOfContents `json:"table_of_contents,omitzero"`
 	// Column Lists are parent blocks for column children. They do not contain any information within the column_list property and can only contain children of type column.
-	ColumnList *struct{} `json:"column_list,omitempty"`
+	ColumnList *struct{} `json:"column_list,omitzero"`
 	// An external file is any URL that isn't hosted by Notion.
-	LinkPreview *ExternalFile `json:"link_preview,omitempty"`
-	SyncedBlock *SyncedBlock  `json:"synced_block,omitempty"`
-	LinkToPage  *LinkToPage   `json:"link_to_page,omitempty"`
-	Table       *Table        `json:"table,omitempty"`
+	LinkPreview ExternalFile `json:"link_preview,omitzero"`
+	SyncedBlock SyncedBlock  `json:"synced_block,omitzero"`
+	LinkToPage  LinkToPage   `json:"link_to_page,omitzero"`
+	Table       Table        `json:"table,omitzero"`
 	// Breadcrumb block objects do not contain any information within the breadcrumb property
-	Breadcrumb *struct{} `json:"breadcrumb,omitempty"`
+	Breadcrumb *struct{} `json:"breadcrumb,omitzero"`
 	// Some block types aren't available yet
-	Unsupported *struct{} `json:"unsupported,omitempty"`
+	Unsupported *struct{} `json:"unsupported,omitzero"`
 }
 
 // Type of block.
@@ -180,19 +180,19 @@ type Blocks []Block
 // BlocksList defines a model
 type BlocksList struct {
 	// Always `list`.
-	Object string `json:"object,omitzero"`
+	Object string `json:"object"`
 	// Only available when has_more is true.
 	//
 	// Used to retrieve the next page of results by passing the value as the `start_cursor` parameter to the same endpoint.
-	NextCursor uuid.UUID `json:"next_cursor,omitzero"`
+	NextCursor uuid.UUID `json:"next_cursor"`
 	// When the response includes the end of the list, `false`. Otherwise, `true`.
 	HasMore bool `json:"has_more"`
 	// The result, an array of block objects.
 	Results Blocks `json:"results"`
 	// Type of the objects in results. Always `block`.
-	Type      string    `json:"type,omitzero"`
+	Type      string    `json:"type"`
 	Block     struct{}  `json:"block"`
-	RequestID uuid.UUID `json:"request_id,omitzero"`
+	RequestID uuid.UUID `json:"request_id"`
 }
 
 // Callout block objects contain the following information within the callout field.
@@ -201,12 +201,12 @@ type Callout struct {
 	// Page or database icon. It is either an emoji or a file.
 	Icon Icon `json:"icon"`
 	// The color of the block.
-	Color Color `json:"color,omitzero"`
+	Color Color `json:"color"`
 }
 
 // Child defines a model
 type Child struct {
-	Title string `json:"title,omitzero"`
+	Title string `json:"title"`
 }
 
 // Code block objects contain this information within the `code` property.
@@ -214,7 +214,7 @@ type Code struct {
 	Caption  RichTexts `json:"caption,omitzero"`
 	RichText RichTexts `json:"rich_text"`
 	// Coding language in code block
-	Language CodeLanguage `json:"language,omitzero"`
+	Language CodeLanguage `json:"language"`
 }
 
 // Coding language in code block
@@ -343,46 +343,46 @@ func (e Color) Valid() bool {
 // Date defines a model
 type Date struct {
 	// An ISO 8601 format date, with optional time.
-	Start string `json:"start,omitzero"`
+	Start string `json:"start"`
 	// An ISO 8601 formatted date, with optional time. Represents the end of a date range.
 	//
 	// If `null`, this property's date value is not a range.
-	End *struct{} `json:"end,omitempty"`
+	End *struct{} `json:"end,omitzero"`
 	// Time zone information for start and end. Possible values are extracted from the IANA database and they are based on the time zones from Moment.js.
 	//
 	// When time zone is provided, start and end should not have any UTC offset. In addition, when time zone is provided, start and end cannot be dates without time information.
 	//
 	// If null, time zone information will be contained in UTC offsets in start and end.
-	TimeZone *struct{} `json:"time_zone,omitempty"`
+	TimeZone *struct{} `json:"time_zone,omitzero"`
 }
 
 // Embed blocks include block types that allow displaying another website within Notion.
 type Embed struct {
 	Caption RichTexts `json:"caption"`
 	// Embedded link.
-	URL url.URL `json:"url,omitzero"`
+	URL url.URL `json:"url"`
 }
 
 // Equation block objects contain this information within the `equation` property
 type Equation struct {
 	// A KaTeX compatible string
-	Expression string `json:"expression,omitzero"`
+	Expression string `json:"expression"`
 }
 
 // An external file is any URL that isn't hosted by Notion.
 type ExternalFile struct {
 	// Link to the externally hosted content.
-	URL url.URL `json:"url,omitzero"`
+	URL url.URL `json:"url"`
 }
 
 // File objects contain data about files uploaded to Notion as well as external files linked in Notion.
 type File struct {
 	// Type of this file object.
-	Type FileType `json:"type,omitzero"`
+	Type FileType `json:"type"`
 	// File objects contain this information within the `file` property.
-	File *NotionFile `json:"file,omitempty"`
+	File NotionFile `json:"file,omitzero"`
 	// An external file is any URL that isn't hosted by Notion.
-	External *ExternalFile `json:"external,omitempty"`
+	External ExternalFile `json:"external,omitzero"`
 	// A string value corresponding to a filename of the original file upload
 	Name string `json:"name,omitzero"`
 }
@@ -416,19 +416,19 @@ type Heading struct {
 	RichText     RichTexts `json:"rich_text"`
 	IsToggleable bool      `json:"is_toggleable"`
 	// The color of the block.
-	Color Color `json:"color,omitzero"`
+	Color Color `json:"color"`
 }
 
 // Page or database icon. It is either an emoji or a file.
 type Icon struct {
 	// Type of icon.
-	Type IconType `json:"type,omitzero"`
+	Type IconType `json:"type"`
 	// Emoji character.
 	Emoji string `json:"emoji,omitzero"`
 	// File objects contain this information within the `file` property.
-	File *NotionFile `json:"file,omitempty"`
+	File NotionFile `json:"file,omitzero"`
 	// An external file is any URL that isn't hosted by Notion.
-	External *ExternalFile `json:"external,omitempty"`
+	External ExternalFile `json:"external,omitzero"`
 }
 
 // Type of icon.
@@ -452,21 +452,21 @@ func (e IconType) Valid() bool {
 
 // An inline link in a text.
 type Link struct {
-	URL *url.URL `json:"url,omitempty"`
+	URL url.URL `json:"url,omitzero"`
 }
 
 // LinkMention defines a model
 type LinkMention struct {
-	Href        url.URL `json:"href,omitzero"`
-	Title       string  `json:"title,omitzero"`
-	Description string  `json:"description,omitzero"`
+	Href        url.URL `json:"href"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
 }
 
 // LinkToPage defines a model
 type LinkToPage struct {
 	// Type of this link to page object.
-	Type   LinkToPageType `json:"type,omitzero"`
-	PageID *uuid.UUID     `json:"page_id,omitempty"`
+	Type   LinkToPageType `json:"type"`
+	PageID uuid.UUID      `json:"page_id,omitzero"`
 }
 
 // Type of this link to page object.
@@ -489,12 +489,12 @@ func (e LinkToPageType) Valid() bool {
 // Mention defines a model
 type Mention struct {
 	// Type of the inline mention.
-	Type        MentionType  `json:"type,omitzero"`
-	LinkMention *LinkMention `json:"link_mention,omitempty"`
-	User        *User        `json:"user,omitempty"`
-	Page        *Reference   `json:"page,omitempty"`
-	Database    *Reference   `json:"database,omitempty"`
-	Date        *Date        `json:"date,omitempty"`
+	Type        MentionType `json:"type"`
+	LinkMention LinkMention `json:"link_mention,omitzero"`
+	User        User        `json:"user,omitzero"`
+	Page        Reference   `json:"page,omitzero"`
+	Database    Reference   `json:"database,omitzero"`
+	Date        Date        `json:"date,omitzero"`
 }
 
 // Type of the inline mention.
@@ -517,9 +517,9 @@ func (e MentionType) Valid() bool {
 // File objects contain this information within the `file` property.
 type NotionFile struct {
 	// Authenticated S3 URL to the file. The file URL will be valid for 1 hour but updated links can be requested if required.
-	URL url.URL `json:"url,omitzero"`
+	URL url.URL `json:"url"`
 	// Date and time when the URL will expire.
-	ExpiryTime time.Time `json:"expiry_time,omitzero"`
+	ExpiryTime time.Time `json:"expiry_time"`
 }
 
 // The Page object contains the [property values](https://developers.notion.com/reference/property-value-object) of a single Notion page.
@@ -529,12 +529,12 @@ type NotionFile struct {
 // Page content is available as [blocks](https://developers.notion.com/reference/block). The content can be read using [retrieve block children](https://developers.notion.com/reference/get-block-children) and appended using [append block children](https://developers.notion.com/reference/patch-block-children).
 type Page struct {
 	// Always "page".
-	Object string    `json:"object,omitzero"`
-	ID     uuid.UUID `json:"id,omitzero"`
+	Object string    `json:"object"`
+	ID     uuid.UUID `json:"id"`
 	// Date and time when this page was created. Formatted as an ISO 8601 date time string.
-	CreatedTime time.Time `json:"created_time,omitzero"`
+	CreatedTime time.Time `json:"created_time"`
 	// Date and time when this page was updated. Formatted as an ISO 8601 date time string.
-	LastEditedTime time.Time     `json:"last_edited_time,omitzero"`
+	LastEditedTime time.Time     `json:"last_edited_time"`
 	CreatedBy      UserReference `json:"created_by"`
 	LastEditedBy   UserReference `json:"last_edited_by"`
 	// File objects contain data about files uploaded to Notion as well as external files linked in Notion.
@@ -549,23 +549,23 @@ type Page struct {
 	// Properties of a page or database.
 	Properties PropertyValues `json:"properties"`
 	// The URL of the Notion page.
-	URL       url.URL   `json:"url,omitzero"`
-	PublicURL url.URL   `json:"public_url,omitzero"`
-	RequestID uuid.UUID `json:"request_id,omitzero"`
+	URL       url.URL   `json:"url"`
+	PublicURL url.URL   `json:"public_url"`
+	RequestID uuid.UUID `json:"request_id"`
 }
 
 // Paragraph, quote, toggle and list item block objects contain this information within their respective property.
 type Paragraph struct {
 	RichText RichTexts `json:"rich_text"`
 	// The color of the block.
-	Color Color `json:"color,omitzero"`
+	Color Color `json:"color"`
 }
 
 // The `parent` property of a page or database contains these keys. Mandatory when creating, must be missing when updating.
 type Parent struct {
 	// The type of the parent.
-	Type   ParentType `json:"type,omitzero"`
-	PageID *uuid.UUID `json:"page_id,omitempty"`
+	Type   ParentType `json:"type"`
+	PageID uuid.UUID  `json:"page_id,omitzero"`
 }
 
 // The type of the parent.
@@ -591,7 +591,7 @@ func (e ParentType) Valid() bool {
 // User objects that represent people have the `type` property set to `person`. These objects also have these properties.
 type Person struct {
 	// Email address of the person. This is only present if an integration has user capabilities that allow access to email addresses.
-	Email types.Email `json:"email,omitzero"`
+	Email types.Email `json:"email"`
 }
 
 // Type of the property.
@@ -636,9 +636,9 @@ type PropertyValue struct {
 	// Underlying identifier for the property. This identifier is guaranteed to remain constant when the property name changes. It may be a UUID, but is often a short random string.
 	//
 	// The id may be used in place of name when creating or updating pages.
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 	// Type of the property.
-	Type  PropertyType `json:"type,omitzero"`
+	Type  PropertyType `json:"type"`
 	Title RichTexts    `json:"title,omitzero"`
 }
 
@@ -647,24 +647,24 @@ type PropertyValues map[string]PropertyValue
 
 // Reference defines a model
 type Reference struct {
-	ID uuid.UUID `json:"id,omitzero"`
+	ID uuid.UUID `json:"id"`
 }
 
 // Rich text objects contain data for displaying formatted text, mentions, and equations. A rich text object also contains annotations for style information. Arrays of rich text objects are used [within property objects](https://developers.notion.com/reference/database-property) and [property value objects](https://developers.notion.com/reference/page-property-value) to create what a user sees as a single text value in Notion.
 type RichText struct {
 	// Type of this rich text object.
-	Type RichTextType `json:"type,omitzero"`
+	Type RichTextType `json:"type"`
 	// Text objects contain this information within the `text` property of a RichText object.
-	Text    Text     `json:"text"`
-	Mention *Mention `json:"mention,omitempty"`
+	Text    Text    `json:"text"`
+	Mention Mention `json:"mention,omitzero"`
 	// Equation block objects contain this information within the `equation` property
-	Equation *Equation `json:"equation,omitempty"`
+	Equation Equation `json:"equation,omitzero"`
 	// Style information which applies to the whole rich text object.
 	Annotations Annotations `json:"annotations"`
 	// The plain text without annotations.
-	PlainText string `json:"plain_text,omitzero"`
+	PlainText string `json:"plain_text"`
 	// The URL of any link or internal Notion mention in this text, if any.
-	Href *url.URL `json:"href,omitempty"`
+	Href url.URL `json:"href,omitzero"`
 }
 
 // Type of this rich text object.
@@ -696,8 +696,8 @@ type SyncedBlock struct {
 
 // SyncedFrom defines a model
 type SyncedFrom struct {
-	Type    SyncedFromType `json:"type,omitzero"`
-	BlockID *uuid.UUID     `json:"block_id,omitempty"`
+	Type    SyncedFromType `json:"type"`
+	BlockID uuid.UUID      `json:"block_id,omitzero"`
 }
 
 // SyncedFromType defines a model
@@ -730,15 +730,15 @@ type Table struct {
 // Table of contents block objects contain the following information within the `table_of_contents` property.
 type TableOfContents struct {
 	// The color of the block.
-	Color Color `json:"color,omitzero"`
+	Color Color `json:"color"`
 }
 
 // Text objects contain this information within the `text` property of a RichText object.
 type Text struct {
 	// Text content. This field contains the actual content of your text and is probably the field you'll use most often.
-	Content string `json:"content,omitzero"`
+	Content string `json:"content"`
 	// An inline link in a text.
-	Link *Link `json:"link,omitempty"`
+	Link *Link `json:"link,omitzero"`
 }
 
 // To do block objects contain this information within the `to_do` property.
@@ -747,18 +747,18 @@ type ToDo struct {
 	// Whether the to_do is checked or not.
 	Checked bool `json:"checked"`
 	// The color of the block.
-	Color Color `json:"color,omitzero"`
+	Color Color `json:"color"`
 }
 
 // User defines a model
 type User struct {
 	UserReference
 	// User's name, as displayed in Notion.
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 	// Chosen avatar image.
-	AvatarURL url.URL `json:"avatar_url,omitzero"`
+	AvatarURL url.URL `json:"avatar_url"`
 	// Type of the user.
-	Type UserType `json:"type,omitzero"`
+	Type UserType `json:"type"`
 	// User objects that represent people have the `type` property set to `person`. These objects also have these properties.
 	Person Person `json:"person"`
 }
@@ -766,8 +766,8 @@ type User struct {
 // UserReference defines a model
 type UserReference struct {
 	// Always "user"
-	Object string    `json:"object,omitzero"`
-	ID     uuid.UUID `json:"id,omitzero"`
+	Object string    `json:"object"`
+	ID     uuid.UUID `json:"id"`
 }
 
 // Type of the user.

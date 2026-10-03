@@ -26,10 +26,10 @@ var jsonOpts = json.JoinOptions(
 // Account defines a model
 type Account struct {
 	// IBKR account identifier
-	AccountID   string             `json:"account_id,omitzero"`
-	DisplayName string             `json:"display_name,omitzero"`
-	AccountType AccountAccountType `json:"account_type,omitzero"`
-	CreatedAt   time.Time          `json:"created_at,omitzero"`
+	AccountID   string             `json:"account_id"`
+	DisplayName string             `json:"display_name"`
+	AccountType AccountAccountType `json:"account_type"`
+	CreatedAt   time.Time          `json:"created_at"`
 }
 
 // AccountAccountType defines a model
@@ -81,23 +81,23 @@ type Balances []CashBalance
 type BandResult struct {
 	Value float64 `json:"value"`
 	// Human-readable value (e.g. '23.5%', '1.82')
-	Formatted string `json:"formatted,omitzero"`
+	Formatted string `json:"formatted"`
 	// Band label (e.g. 'OK', 'red flag', 'solid', 'very strong')
-	Label string `json:"label,omitzero"`
+	Label string `json:"label"`
 	// Whether the value is within acceptable range
 	Passing bool `json:"passing"`
 }
 
 // CashBalance defines a model
 type CashBalance struct {
-	Currency Currency `json:"currency,omitzero"`
+	Currency Currency `json:"currency"`
 	// Settled cash balance
 	Cash float64 `json:"cash"`
 }
 
 // ChartSeries defines a model
 type ChartSeries struct {
-	Label  string            `json:"label,omitzero"`
+	Label  string            `json:"label"`
 	Points ChartSeriesPoints `json:"points"`
 }
 
@@ -109,12 +109,12 @@ type Company struct {
 	// SEC Central Index Key
 	Cik int `json:"cik"`
 	// The name of the company
-	Name string `json:"name,omitzero"`
+	Name string `json:"name"`
 	// A long summary of the company
-	Summary           string  `json:"summary,omitzero"`
-	Sector            string  `json:"sector,omitzero"`
-	Industry          string  `json:"industry,omitzero"`
-	Website           url.URL `json:"website,omitzero"`
+	Summary           string  `json:"summary"`
+	Sector            string  `json:"sector"`
+	Industry          string  `json:"industry"`
+	Website           url.URL `json:"website"`
 	FullTimeEmployees int     `json:"full_time_employees"`
 }
 
@@ -145,7 +145,7 @@ func (e Currency) Valid() bool {
 // DataPoint defines a model
 type DataPoint struct {
 	// X-axis value (date)
-	Date civil.Date `json:"date,omitzero"`
+	Date civil.Date `json:"date"`
 	// Y-axis value
 	Value float64 `json:"value"`
 }
@@ -153,7 +153,7 @@ type DataPoint struct {
 // Error defines a model
 type Error struct {
 	Code    int    `json:"code"`
-	Message string `json:"message,omitzero"`
+	Message string `json:"message"`
 }
 
 // FundamentalsAnalysis defines a model
@@ -168,7 +168,7 @@ type FundamentalsAnalysis struct {
 // GetCashResult defines a model
 type GetCashResult struct {
 	Balances Balances  `json:"balances"`
-	AsOf     time.Time `json:"as_of,omitzero"`
+	AsOf     time.Time `json:"as_of"`
 }
 
 // Twelve months summary of the income statement
@@ -197,27 +197,27 @@ type IncomeStatementAnalysisSeries struct {
 type ListAccountsResult struct {
 	Accounts Accounts `json:"accounts"`
 	// When the cached data was last refreshed from the broker
-	AsOf time.Time `json:"as_of,omitzero"`
+	AsOf time.Time `json:"as_of"`
 }
 
 // MarketStatus defines a model
 type MarketStatus struct {
 	// Current NYSE-local date
-	Today civil.Date `json:"today,omitzero"`
+	Today civil.Date `json:"today"`
 	// Whether today is a trading day (weekday + not NYSE holiday)
 	IsTradingDay bool `json:"is_trading_day"`
 	// Next Friday for weekly options expiry
-	NextFriday civil.Date `json:"next_friday,omitzero"`
+	NextFriday civil.Date `json:"next_friday"`
 }
 
 // Option defines a model
 type Option struct {
 	// Put or Call
-	Type OptionType `json:"type,omitzero"`
+	Type OptionType `json:"type"`
 	// Underlying stock ticker
-	Underlying string `json:"underlying,omitzero"`
+	Underlying string `json:"underlying"`
 	// Option expiration date
-	Expiry civil.Date `json:"expiry,omitzero"`
+	Expiry civil.Date `json:"expiry"`
 	// Calendar days until expiration
 	DaysToExpiry int `json:"days_to_expiry"`
 	// Strike price
@@ -251,15 +251,15 @@ type Options []Option
 type Positions struct {
 	Stocks  Stocks    `json:"stocks"`
 	Options Options   `json:"options"`
-	AsOf    time.Time `json:"as_of,omitzero"`
+	AsOf    time.Time `json:"as_of"`
 }
 
 // Security defines a model
 type Security struct {
-	Symbol string `json:"symbol,omitzero"`
+	Symbol string `json:"symbol"`
 	// The type of security (e.g. EQUITY, ETF)
-	Type           SecurityType `json:"type,omitzero"`
-	FirstTradeDate civil.Date   `json:"first_trade_date,omitzero"`
+	Type           SecurityType `json:"type"`
+	FirstTradeDate civil.Date   `json:"first_trade_date"`
 }
 
 // The type of security (e.g. EQUITY, ETF)
@@ -282,13 +282,13 @@ func (e SecurityType) Valid() bool {
 
 // Stock defines a model
 type Stock struct {
-	Symbol string `json:"symbol,omitzero"`
+	Symbol string `json:"symbol"`
 	// Number of shares held
 	Qty int `json:"qty"`
 	// Average cost per share
-	CostBasis *float64 `json:"cost_basis,omitempty"`
+	CostBasis *float64 `json:"cost_basis,omitzero"`
 	// Current market price per share (if available from broker)
-	MarketPrice *float64 `json:"market_price,omitempty"`
+	MarketPrice *float64 `json:"market_price,omitzero"`
 }
 
 // Stocks defines a model

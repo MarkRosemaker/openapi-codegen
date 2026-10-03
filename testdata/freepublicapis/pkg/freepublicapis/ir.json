@@ -62,28 +62,28 @@
 					"name": "Emoji",
 					"jsonName": "emoji",
 					"type": "string",
-					"jsonTag": "json:\"emoji,omitzero\"",
+					"jsonTag": "json:\"emoji\"",
 					"required": true
 				},
 				{
 					"name": "Title",
 					"jsonName": "title",
 					"type": "string",
-					"jsonTag": "json:\"title,omitzero\"",
+					"jsonTag": "json:\"title\"",
 					"required": true
 				},
 				{
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
 					"name": "Documentation",
 					"jsonName": "documentation",
 					"type": "url.URL",
-					"jsonTag": "json:\"documentation,omitzero\"",
+					"jsonTag": "json:\"documentation\"",
 					"required": true
 				},
 				{
@@ -104,7 +104,7 @@
 					"name": "Source",
 					"jsonName": "source",
 					"type": "url.URL",
-					"jsonTag": "json:\"source,omitzero\"",
+					"jsonTag": "json:\"source\"",
 					"required": true
 				}
 			]

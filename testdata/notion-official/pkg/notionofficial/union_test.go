@@ -99,7 +99,7 @@ func TestAllOf_NestedUnion(t *testing.T) {
 
 func TestUnion_EncodesDiscriminatorFirst(t *testing.T) {
 	// the alternative set decides the discriminator, so encoding writes it in first
-	out, err := json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{ID: new("gpt")}}, jsonOpts)
+	out, err := json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{ID: "gpt"}}, jsonOpts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -108,7 +108,7 @@ func TestUnion_EncodesDiscriminatorFirst(t *testing.T) {
 		t.Errorf("got %s", out)
 	}
 
-	_, err = json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{Mode: "auto", ID: new("gpt")}}, jsonOpts)
+	_, err = json.Marshal(&AgentModel{AgentModelOneOf2: &AgentModelOneOf2{Mode: "auto", ID: "gpt"}}, jsonOpts)
 	if err == nil || !strings.Contains(err.Error(), `member "mode" is "auto", want "pinned"`) {
 		t.Errorf("got %v, want the wrong mode refused", err)
 	}

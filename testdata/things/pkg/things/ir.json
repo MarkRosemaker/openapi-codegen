@@ -108,7 +108,7 @@
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				}
 			]
@@ -121,7 +121,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id,omitzero\"",
+					"jsonTag": "json:\"id\"",
 					"required": true
 				}
 			]

@@ -29,12 +29,12 @@ type ListV1StylesSelectorOkStyles []ListV1StylesSelectorOkStylesItem
 
 // ListV1StylesSelectorOkStylesItem defines a model
 type ListV1StylesSelectorOkStylesItem struct {
-	PromptStyle             string    `json:"prompt_style,omitzero"`
-	Name                    string    `json:"name,omitzero"`
-	Description             string    `json:"description,omitzero"`
-	GroupID                 string    `json:"group_id,omitzero"`
+	PromptStyle             string    `json:"prompt_style"`
+	Name                    string    `json:"name"`
+	Description             string    `json:"description"`
+	GroupID                 string    `json:"group_id"`
 	RequiredModel           *struct{} `json:"required_model"`
-	RequiredTab             string    `json:"required_tab,omitzero"`
+	RequiredTab             string    `json:"required_tab"`
 	MinWidth                int       `json:"min_width"`
 	MaxWidth                int       `json:"max_width"`
 	MinHeight               int       `json:"min_height"`
@@ -42,13 +42,13 @@ type ListV1StylesSelectorOkStylesItem struct {
 	MaxNumberOfImages       int       `json:"max_number_of_images"`
 	RequireInputImage       *struct{} `json:"require_input_image"`
 	SupportsReferenceImages bool      `json:"supports_reference_images"`
-	ExamplePrompt           string    `json:"example_prompt,omitzero"`
+	ExamplePrompt           string    `json:"example_prompt"`
 }
 
 // PostV1Inferences defines a model
 type PostV1Inferences struct {
-	Prompt                  string `json:"prompt,omitzero"`
-	PromptStyle             string `json:"prompt_style,omitzero"`
+	Prompt                  string `json:"prompt"`
+	PromptStyle             string `json:"prompt_style"`
 	Width                   int    `json:"width"`
 	Height                  int    `json:"height"`
 	NumImages               int    `json:"num_images"`
@@ -71,7 +71,7 @@ type PostV1InferencesOk struct {
 	OutputImages     []any   `json:"output_images"`
 	Base64Images     []any   `json:"base64_images"`
 	OutputUrls       []any   `json:"output_urls"`
-	Model            string  `json:"model,omitzero"`
+	Model            string  `json:"model"`
 	RemainingCredits int     `json:"remaining_credits"`
 	RemainingBalance float64 `json:"remaining_balance"`
 }

@@ -2,6 +2,7 @@ package ir_test
 
 import (
 	"encoding/json/jsontext"
+	"slices"
 	"strings"
 	"testing"
 
@@ -236,6 +237,113 @@ func TestFromComponentSchemas_Struct(t *testing.T) {
 
 	if name.JSONTag != `json:"name,omitzero"` {
 		t.Errorf("Fields[1].JSONTag = %q, want json:\"name\"", name.JSONTag)
+	}
+}
+
+func TestFromDocument_FieldTypesAndTags(t *testing.T) {
+	t.Parallel()
+
+	doc := loadSchemas(t, `{
+		"Filter": {
+			"type": "object",
+			"required": ["count", "on", "id", "when", "tags", "nullCount", "nullName"],
+			"properties": {
+				"count": {"type": "integer"},
+				"on": {"type": "boolean"},
+				"id": {"type": "string"},
+				"when": {"type": "string", "format": "date-time"},
+				"tags": {"type": "array", "items": {"type": "string"}},
+				"nullCount": {"oneOf": [{"type": "integer"}, {"type": "null"}]},
+				"nullName": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+				"limit": {"type": "integer"},
+				"pageSize": {"type": "integer", "minimum": 1},
+				"offset": {"type": "integer", "default": 0},
+				"archived": {"type": "boolean"},
+				"name": {"type": "string"},
+				"site": {"type": "string", "format": "uri"},
+				"before": {"type": "string", "format": "date-time"},
+				"ids": {"type": "array", "items": {"type": "string"}},
+				"labels": {"type": "object", "additionalProperties": {"type": "string"}},
+				"ratio": {"type": "number"},
+				"extra": {},
+				"empty": {"type": "object"},
+				"owner": {"$ref": "#/components/schemas/Owner"},
+				"options": {"$ref": "#/components/schemas/Options"},
+				"next": {"$ref": "#/components/schemas/Filter"}
+			}
+		},
+		"Owner": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"}}},
+		"Options": {"type": "object", "properties": {"verbose": {"type": "boolean"}}}
+	}`)
+
+	got := map[string]string{}
+	for _, f := range schemaNamed(t, doc, "Filter").Fields {
+		got[f.JSONName] = f.Type + " " + f.JSONTag
+	}
+
+	// An optional field is omitted when unset, and a required one is always sent. A pointer is there only where its
+	// zero value is a value of its own, or to keep a struct from containing itself.
+	for name, want := range map[string]string{
+		"count":     `int json:"count"`,
+		"on":        `bool json:"on"`,
+		"id":        `string json:"id"`,
+		"when":      `time.Time json:"when"`,
+		"tags":      `[]string json:"tags"`,
+		"nullCount": `*int json:"nullCount"`,
+		"nullName":  `string json:"nullName"`,
+		"limit":     `*int json:"limit,omitzero"`,
+		"pageSize":  `int json:"pageSize,omitzero"`,
+		"offset":    `int json:"offset,omitzero"`,
+		"archived":  `*bool json:"archived,omitzero"`,
+		"name":      `string json:"name,omitzero"`,
+		"site":      `url.URL json:"site,omitzero"`,
+		"before":    `time.Time json:"before,omitzero"`,
+		"ids":       `[]string json:"ids,omitzero"`,
+		"labels":    `map[string]string json:"labels,omitzero"`,
+		"ratio":     `*float64 json:"ratio,omitzero"`,
+		"extra":     `any json:"extra,omitzero"`,
+		"empty":     `*struct{} json:"empty,omitzero"`,
+		"owner":     `Owner json:"owner,omitzero"`,
+		"options":   `*Options json:"options,omitzero"`,
+		"next":      `*Filter json:"next,omitzero"`,
+	} {
+		if got[name] != want {
+			t.Errorf("%s: got %s, want %s", name, got[name], want)
+		}
+	}
+}
+
+func TestFromDocument_UnionFieldTypes(t *testing.T) {
+	t.Parallel()
+
+	doc := loadSchemas(t, `{
+		"Value": {"oneOf": [
+			{"type": "string"},
+			{"type": "array", "items": {"type": "string"}},
+			{"type": "object", "additionalProperties": {"type": "integer"}},
+			{"type": "integer"},
+			{"type": "string", "format": "date-time"},
+			{"$ref": "#/components/schemas/Owner"}
+		]},
+		"Owner": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"}}}
+	}`)
+
+	var got []string
+	for _, v := range schemaNamed(t, doc, "Value").UnionVariants {
+		got = append(got, v.FieldType()+" "+v.IsSet("x"))
+	}
+
+	// a pointer only where the zero value could be the alternative's own
+	want := []string{
+		`string x != ""`,
+		`[]string x != nil`,
+		`map[string]int x != nil`,
+		`*int x != nil`,
+		`*time.Time x != nil`,
+		`*Owner x != nil`,
+	}
+	if !slices.Equal(got, want) {
+		t.Errorf("got %q, want %q", got, want)
 	}
 }
 

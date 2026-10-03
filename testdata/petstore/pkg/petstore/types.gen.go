@@ -33,18 +33,18 @@ type ListV1PetsOkPagination struct {
 
 // PetByPetID defines a model
 type PetByPetID struct {
-	ID           uuid.UUID             `json:"id,omitzero"`
-	Name         string                `json:"name,omitzero"`
-	Species      string                `json:"species,omitzero"`
-	Breed        string                `json:"breed,omitzero"`
+	ID           uuid.UUID             `json:"id"`
+	Name         string                `json:"name"`
+	Species      string                `json:"species"`
+	Breed        string                `json:"breed"`
 	AgeMonths    int                   `json:"ageMonths"`
-	Size         string                `json:"size,omitzero"`
-	Status       string                `json:"status,omitzero"`
-	Price        string                `json:"price,omitzero"`
-	Currency     string                `json:"currency,omitzero"`
+	Size         string                `json:"size"`
+	Status       string                `json:"status"`
+	Price        string                `json:"price"`
+	Currency     string                `json:"currency"`
 	GoodWithKids bool                  `json:"goodWithKids"`
-	CreatedAt    time.Time             `json:"createdAt,omitzero"`
-	UpdatedAt    time.Time             `json:"updatedAt,omitzero"`
+	CreatedAt    time.Time             `json:"createdAt"`
+	UpdatedAt    time.Time             `json:"updatedAt"`
 	MedicalInfo  PetByPetIDMedicalInfo `json:"medicalInfo"`
 }
 
@@ -54,5 +54,5 @@ type PetByPetIDMedicalInfo struct {
 	SpayedNeutered bool   `json:"spayedNeutered"`
 	Microchipped   bool   `json:"microchipped"`
 	SpecialNeeds   bool   `json:"specialNeeds"`
-	HealthNotes    string `json:"healthNotes,omitzero"`
+	HealthNotes    string `json:"healthNotes"`
 }

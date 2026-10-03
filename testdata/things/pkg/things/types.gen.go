@@ -14,10 +14,10 @@ var jsonOpts = json.JoinOptions(
 
 // ListRunningThingsOk defines a model
 type ListRunningThingsOk struct {
-	Status string `json:"status,omitzero"`
+	Status string `json:"status"`
 }
 
 // StartThingOk defines a model
 type StartThingOk struct {
-	ID string `json:"id,omitzero"`
+	ID string `json:"id"`
 }

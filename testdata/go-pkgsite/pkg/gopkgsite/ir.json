@@ -747,14 +747,14 @@
 					"name": "Code",
 					"jsonName": "code",
 					"type": "*int",
-					"jsonTag": "json:\"code,omitempty\"",
+					"jsonTag": "json:\"code,omitzero\"",
 					"description": "HTTP status code"
 				},
 				{
 					"name": "Err",
 					"jsonName": "err",
 					"type": "*Error",
-					"jsonTag": "json:\"err,omitempty\"",
+					"jsonTag": "json:\"err,omitzero\"",
 					"description": "Unexported field for internal tracking"
 				},
 				{
@@ -804,7 +804,7 @@
 					"name": "CommitTime",
 					"jsonName": "commitTime",
 					"type": "time.Time",
-					"jsonTag": "json:\"commitTime,omitempty\"",
+					"jsonTag": "json:\"commitTime,omitzero\"",
 					"description": "CommitTime is the timestamp returned by the module proxy's .info endpoint,\nrepresenting the time the version was created."
 				},
 				{
@@ -816,26 +816,26 @@
 				{
 					"name": "HasGoMod",
 					"jsonName": "hasGoMod",
-					"type": "bool",
-					"jsonTag": "json:\"hasGoMod,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"hasGoMod,omitzero\""
 				},
 				{
 					"name": "IsLatest",
 					"jsonName": "isLatest",
-					"type": "bool",
-					"jsonTag": "json:\"isLatest,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isLatest,omitzero\""
 				},
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
-					"jsonTag": "json:\"isRedistributable,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isRedistributable,omitzero\""
 				},
 				{
 					"name": "IsStandardLibrary",
 					"jsonName": "isStandardLibrary",
-					"type": "bool",
-					"jsonTag": "json:\"isStandardLibrary,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isStandardLibrary,omitzero\""
 				},
 				{
 					"name": "Licenses",
@@ -853,7 +853,7 @@
 					"name": "Readme",
 					"jsonName": "readme",
 					"type": "*Readme",
-					"jsonTag": "json:\"readme,omitempty\""
+					"jsonTag": "json:\"readme,omitzero\""
 				},
 				{
 					"name": "RepoURL",
@@ -877,13 +877,13 @@
 					"name": "CommitTime",
 					"jsonName": "commitTime",
 					"type": "time.Time",
-					"jsonTag": "json:\"commitTime,omitempty\""
+					"jsonTag": "json:\"commitTime,omitzero\""
 				},
 				{
 					"name": "Deprecated",
 					"jsonName": "deprecated",
-					"type": "bool",
-					"jsonTag": "json:\"deprecated,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"deprecated,omitzero\""
 				},
 				{
 					"name": "DeprecationReason",
@@ -894,15 +894,15 @@
 				{
 					"name": "HasGoMod",
 					"jsonName": "hasGoMod",
-					"type": "bool",
-					"jsonTag": "json:\"hasGoMod,omitempty\"",
+					"type": "*bool",
+					"jsonTag": "json:\"hasGoMod,omitzero\"",
 					"description": "Whether the module has a go.mod file."
 				},
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
-					"jsonTag": "json:\"isRedistributable,omitempty\"",
+					"type": "*bool",
+					"jsonTag": "json:\"isRedistributable,omitzero\"",
 					"description": "Whether the license allows distribution."
 				},
 				{
@@ -921,8 +921,8 @@
 				{
 					"name": "Retracted",
 					"jsonName": "retracted",
-					"type": "bool",
-					"jsonTag": "json:\"retracted,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"retracted,omitzero\""
 				},
 				{
 					"name": "RetractionReason",
@@ -969,14 +969,14 @@
 				{
 					"name": "IsLatest",
 					"jsonName": "isLatest",
-					"type": "bool",
-					"jsonTag": "json:\"isLatest,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isLatest,omitzero\""
 				},
 				{
 					"name": "IsStandardLibrary",
 					"jsonName": "isStandardLibrary",
-					"type": "bool",
-					"jsonTag": "json:\"isStandardLibrary,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isStandardLibrary,omitzero\""
 				},
 				{
 					"name": "Licenses",
@@ -1017,8 +1017,8 @@
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
-					"jsonTag": "json:\"isRedistributable,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isRedistributable,omitzero\""
 				}
 			]
 		},
@@ -1030,7 +1030,7 @@
 					"name": "ImportedBy",
 					"jsonName": "importedBy",
 					"type": "*PaginatedString",
-					"jsonTag": "json:\"importedBy,omitempty\""
+					"jsonTag": "json:\"importedBy,omitzero\""
 				},
 				{
 					"name": "ModulePath",
@@ -1053,8 +1053,8 @@
 				{
 					"name": "IsRedistributable",
 					"jsonName": "isRedistributable",
-					"type": "bool",
-					"jsonTag": "json:\"isRedistributable,omitempty\"",
+					"type": "*bool",
+					"jsonTag": "json:\"isRedistributable,omitzero\"",
 					"description": "Whether the license allows distribution."
 				},
 				{
@@ -1091,7 +1091,7 @@
 					"name": "Symbols",
 					"jsonName": "symbols",
 					"type": "*PaginatedSymbol",
-					"jsonTag": "json:\"symbols,omitempty\""
+					"jsonTag": "json:\"symbols,omitzero\""
 				},
 				{
 					"name": "Version",
@@ -1108,8 +1108,8 @@
 				{
 					"name": "IsStandardLibrary",
 					"jsonName": "isStandardLibrary",
-					"type": "bool",
-					"jsonTag": "json:\"isStandardLibrary,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"isStandardLibrary,omitzero\""
 				},
 				{
 					"name": "ModulePath",
@@ -1121,7 +1121,7 @@
 					"name": "Packages",
 					"jsonName": "packages",
 					"type": "*PaginatedPackageInfo",
-					"jsonTag": "json:\"packages,omitempty\""
+					"jsonTag": "json:\"packages,omitzero\""
 				},
 				{
 					"name": "Version",
@@ -1133,7 +1133,7 @@
 					"name": "Code",
 					"jsonName": "code",
 					"type": "*int",
-					"jsonTag": "json:\"code,omitempty\""
+					"jsonTag": "json:\"code,omitzero\""
 				},
 				{
 					"name": "Message",
@@ -1169,7 +1169,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "*int",
-					"jsonTag": "json:\"total,omitempty\""
+					"jsonTag": "json:\"total,omitzero\""
 				}
 			]
 		},
@@ -1193,7 +1193,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "*int",
-					"jsonTag": "json:\"total,omitempty\""
+					"jsonTag": "json:\"total,omitzero\""
 				}
 			]
 		},
@@ -1217,7 +1217,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "*int",
-					"jsonTag": "json:\"total,omitempty\""
+					"jsonTag": "json:\"total,omitzero\""
 				}
 			]
 		},
@@ -1241,7 +1241,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "*int",
-					"jsonTag": "json:\"total,omitempty\""
+					"jsonTag": "json:\"total,omitzero\""
 				}
 			]
 		},
@@ -1265,7 +1265,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "*int",
-					"jsonTag": "json:\"total,omitempty\""
+					"jsonTag": "json:\"total,omitzero\""
 				}
 			]
 		},
@@ -1289,7 +1289,7 @@
 					"name": "Total",
 					"jsonName": "total",
 					"type": "*int",
-					"jsonTag": "json:\"total,omitempty\""
+					"jsonTag": "json:\"total,omitzero\""
 				}
 			]
 		},

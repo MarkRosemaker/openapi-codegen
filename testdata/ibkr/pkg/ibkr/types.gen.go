@@ -15,7 +15,7 @@ var jsonOpts = json.JoinOptions(
 
 // ListV1APITickleOk defines a model
 type ListV1APITickleOk struct {
-	Session    uuid.UUID                `json:"session,omitzero"`
+	Session    uuid.UUID                `json:"session"`
 	SsoExpires int                      `json:"ssoExpires"`
 	Collission bool                     `json:"collission"`
 	UserID     int                      `json:"userId"`
@@ -25,7 +25,7 @@ type ListV1APITickleOk struct {
 
 // ListV1APITickleOkHmds defines a model
 type ListV1APITickleOkHmds struct {
-	Err string `json:"error,omitzero"`
+	Err string `json:"error"`
 }
 
 // ListV1APITickleOkIserver defines a model
@@ -39,14 +39,14 @@ type ListV1APITickleOkIserverAuthStatus struct {
 	Established   bool                                         `json:"established"`
 	Competing     bool                                         `json:"competing"`
 	Connected     bool                                         `json:"connected"`
-	Message       string                                       `json:"message,omitzero"`
-	Mac           string                                       `json:"MAC,omitzero"`
+	Message       string                                       `json:"message"`
+	Mac           string                                       `json:"MAC"`
 	ServerInfo    ListV1APITickleOkIserverAuthStatusServerInfo `json:"serverInfo"`
-	HardwareInfo  string                                       `json:"hardware_info,omitzero"`
+	HardwareInfo  string                                       `json:"hardware_info"`
 }
 
 // ListV1APITickleOkIserverAuthStatusServerInfo defines a model
 type ListV1APITickleOkIserverAuthStatusServerInfo struct {
-	ServerName    string `json:"serverName,omitzero"`
-	ServerVersion string `json:"serverVersion,omitzero"`
+	ServerName    string `json:"serverName"`
+	ServerVersion string `json:"serverVersion"`
 }

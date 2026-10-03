@@ -411,7 +411,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Name of the organization",
 					"required": true
 				},
@@ -419,7 +419,7 @@
 					"name": "WorkspaceName",
 					"jsonName": "workspace_name",
 					"type": "string",
-					"jsonTag": "json:\"workspace_name,omitzero\"",
+					"jsonTag": "json:\"workspace_name\"",
 					"description": "Name of the workspace",
 					"required": true
 				}
@@ -441,7 +441,7 @@
 					"name": "CreatedWith",
 					"jsonName": "created_with",
 					"type": "string",
-					"jsonTag": "json:\"created_with,omitzero\"",
+					"jsonTag": "json:\"created_with\"",
 					"description": "Must be provided when creating a time entry and should identify the service/application used to create it",
 					"required": true
 				},
@@ -449,7 +449,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"description": "Time entry description, optional",
 					"required": true
 				},
@@ -464,28 +464,28 @@
 				{
 					"name": "Duronly",
 					"jsonName": "duronly",
-					"type": "bool",
-					"jsonTag": "json:\"duronly,omitempty\"",
+					"type": "*bool",
+					"jsonTag": "json:\"duronly,omitzero\"",
 					"description": "Deprecated: Used to create a time entry with a duration but without a stop time. This parameter can be ignored."
 				},
 				{
 					"name": "EventMetadata",
 					"jsonName": "event_metadata",
 					"type": "*EventMetadata",
-					"jsonTag": "json:\"event_metadata,omitempty\""
+					"jsonTag": "json:\"event_metadata,omitzero\""
 				},
 				{
 					"name": "Pid",
 					"jsonName": "pid",
 					"type": "*int",
-					"jsonTag": "json:\"pid,omitempty\"",
+					"jsonTag": "json:\"pid,omitzero\"",
 					"description": "Project ID, legacy field"
 				},
 				{
 					"name": "ProjectID",
 					"jsonName": "project_id",
 					"type": "*int",
-					"jsonTag": "json:\"project_id,omitempty\"",
+					"jsonTag": "json:\"project_id,omitzero\"",
 					"description": "Project ID, optional"
 				},
 				{
@@ -499,7 +499,7 @@
 					"name": "Start",
 					"jsonName": "start",
 					"type": "time.Time",
-					"jsonTag": "json:\"start,omitzero\"",
+					"jsonTag": "json:\"start\"",
 					"description": "Start time, required for creation.",
 					"required": true
 				},
@@ -543,35 +543,35 @@
 					"name": "TaskID",
 					"jsonName": "task_id",
 					"type": "*int",
-					"jsonTag": "json:\"task_id,omitempty\"",
+					"jsonTag": "json:\"task_id,omitzero\"",
 					"description": "Task ID, optional"
 				},
 				{
 					"name": "Tid",
 					"jsonName": "tid",
 					"type": "*int",
-					"jsonTag": "json:\"tid,omitempty\"",
+					"jsonTag": "json:\"tid,omitzero\"",
 					"description": "Task ID, legacy field"
 				},
 				{
 					"name": "UID",
 					"jsonName": "uid",
 					"type": "*int",
-					"jsonTag": "json:\"uid,omitempty\"",
+					"jsonTag": "json:\"uid,omitzero\"",
 					"description": "Time Entry creator ID, legacy field"
 				},
 				{
 					"name": "UserID",
 					"jsonName": "user_id",
 					"type": "*int",
-					"jsonTag": "json:\"user_id,omitempty\"",
+					"jsonTag": "json:\"user_id,omitzero\"",
 					"description": "Time Entry creator ID, if omitted will use the requester user ID"
 				},
 				{
 					"name": "Wid",
 					"jsonName": "wid",
 					"type": "*int",
-					"jsonTag": "json:\"wid,omitempty\"",
+					"jsonTag": "json:\"wid,omitzero\"",
 					"description": "Workspace ID, legacy field"
 				},
 				{
@@ -607,7 +607,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Organization Name",
 					"required": true
 				},
@@ -623,7 +623,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "Organization's creation date",
 					"required": true
 				},
@@ -631,7 +631,7 @@
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"description": "Organization's last modification date",
 					"required": true
 				},
@@ -692,7 +692,7 @@
 					"name": "Permissions",
 					"jsonName": "permissions",
 					"type": "string",
-					"jsonTag": "json:\"permissions,omitzero\"",
+					"jsonTag": "json:\"permissions\"",
 					"required": true
 				},
 				{
@@ -715,7 +715,7 @@
 					"name": "PricingPlanName",
 					"jsonName": "pricing_plan_name",
 					"type": "string",
-					"jsonTag": "json:\"pricing_plan_name,omitzero\"",
+					"jsonTag": "json:\"pricing_plan_name\"",
 					"description": "The subscription plan name the org is currently on. Free or any plan name coming from payment provider",
 					"required": true
 				},
@@ -731,7 +731,7 @@
 					"name": "MaxDataRetentionDays",
 					"jsonName": "max_data_retention_days",
 					"type": "*int",
-					"jsonTag": "json:\"max_data_retention_days,omitempty\"",
+					"jsonTag": "json:\"max_data_retention_days,omitzero\"",
 					"description": "How far back free workspaces in this org can access data."
 				}
 			]
@@ -773,7 +773,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
@@ -795,7 +795,7 @@
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"description": "Last updated date",
 					"required": true
 				},
@@ -803,7 +803,7 @@
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"description": "Creation date",
 					"required": true
 				},
@@ -818,7 +818,7 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "string",
-					"jsonTag": "json:\"color,omitzero\"",
+					"jsonTag": "json:\"color\"",
 					"description": "Color",
 					"required": true
 				},
@@ -849,7 +849,7 @@
 					"name": "CurrentPeriod",
 					"jsonName": "current_period",
 					"type": "*EventMetadata",
-					"jsonTag": "json:\"current_period,omitempty\"",
+					"jsonTag": "json:\"current_period,omitzero\"",
 					"description": "RecurringPeriod"
 				},
 				{
@@ -893,7 +893,7 @@
 					"name": "Currency",
 					"jsonName": "currency",
 					"type": "string",
-					"jsonTag": "json:\"currency,omitzero\"",
+					"jsonTag": "json:\"currency\"",
 					"description": "Currency, premium feature",
 					"required": true
 				},
@@ -960,14 +960,14 @@
 					"name": "StartDate",
 					"jsonName": "start_date",
 					"type": "string",
-					"jsonTag": "json:\"start_date,omitzero\"",
+					"jsonTag": "json:\"start_date\"",
 					"required": true
 				},
 				{
 					"name": "Status",
 					"jsonName": "status",
 					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
+					"jsonTag": "json:\"status\"",
 					"required": true
 				},
 				{
@@ -1043,7 +1043,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
@@ -1063,7 +1063,7 @@
 					"name": "WorkspaceName",
 					"jsonName": "workspace_name",
 					"type": "string",
-					"jsonTag": "json:\"workspace_name,omitzero\"",
+					"jsonTag": "json:\"workspace_name\"",
 					"required": true
 				}
 			]
@@ -1090,14 +1090,14 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"required": true
 				},
 				{
@@ -1182,14 +1182,14 @@
 					"name": "Start",
 					"jsonName": "start",
 					"type": "time.Time",
-					"jsonTag": "json:\"start,omitzero\"",
+					"jsonTag": "json:\"start\"",
 					"required": true
 				},
 				{
 					"name": "Stop",
 					"jsonName": "stop",
 					"type": "time.Time",
-					"jsonTag": "json:\"stop,omitzero\"",
+					"jsonTag": "json:\"stop\"",
 					"required": true
 				},
 				{
@@ -1203,7 +1203,7 @@
 					"name": "Description",
 					"jsonName": "description",
 					"type": "string",
-					"jsonTag": "json:\"description,omitzero\"",
+					"jsonTag": "json:\"description\"",
 					"required": true
 				},
 				{
@@ -1231,14 +1231,14 @@
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"required": true
 				},
 				{
 					"name": "ServerDeletedAt",
 					"jsonName": "server_deleted_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"server_deleted_at,omitzero\"",
+					"jsonTag": "json:\"server_deleted_at\"",
 					"required": true
 				},
 				{
@@ -1290,14 +1290,14 @@
 				{
 					"name": "ProjectActive",
 					"jsonName": "project_active",
-					"type": "bool",
-					"jsonTag": "json:\"project_active,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"project_active,omitzero\""
 				},
 				{
 					"name": "ProjectBillable",
 					"jsonName": "project_billable",
-					"type": "bool",
-					"jsonTag": "json:\"project_billable,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"project_billable,omitzero\""
 				},
 				{
 					"name": "UserName",
@@ -1308,8 +1308,8 @@
 				{
 					"name": "UserAvatarURL",
 					"jsonName": "user_avatar_url",
-					"type": "*url.URL",
-					"jsonTag": "json:\"user_avatar_url,omitempty\""
+					"type": "url.URL",
+					"jsonTag": "json:\"user_avatar_url,omitzero\""
 				}
 			]
 		},
@@ -1337,7 +1337,7 @@
 					"name": "TrialEndDate",
 					"jsonName": "trial_end_date",
 					"type": "string",
-					"jsonTag": "json:\"trial_end_date,omitzero\"",
+					"jsonTag": "json:\"trial_end_date\"",
 					"description": "When the trial ends",
 					"required": true
 				},
@@ -1345,7 +1345,7 @@
 					"name": "NextPaymentDate",
 					"jsonName": "next_payment_date",
 					"type": "string",
-					"jsonTag": "json:\"next_payment_date,omitzero\"",
+					"jsonTag": "json:\"next_payment_date\"",
 					"description": "When the trial payment is due",
 					"required": true
 				},
@@ -1389,35 +1389,35 @@
 					"name": "APIToken",
 					"jsonName": "api_token",
 					"type": "string",
-					"jsonTag": "json:\"api_token,omitzero\"",
+					"jsonTag": "json:\"api_token\"",
 					"required": true
 				},
 				{
 					"name": "Email",
 					"jsonName": "email",
 					"type": "types.Email",
-					"jsonTag": "json:\"email,omitzero\"",
+					"jsonTag": "json:\"email\"",
 					"required": true
 				},
 				{
 					"name": "Fullname",
 					"jsonName": "fullname",
 					"type": "string",
-					"jsonTag": "json:\"fullname,omitzero\"",
+					"jsonTag": "json:\"fullname\"",
 					"required": true
 				},
 				{
 					"name": "Timezone",
 					"jsonName": "timezone",
 					"type": "string",
-					"jsonTag": "json:\"timezone,omitzero\"",
+					"jsonTag": "json:\"timezone\"",
 					"required": true
 				},
 				{
 					"name": "TogglAccountsID",
 					"jsonName": "toggl_accounts_id",
 					"type": "string",
-					"jsonTag": "json:\"toggl_accounts_id,omitzero\"",
+					"jsonTag": "json:\"toggl_accounts_id\"",
 					"required": true
 				},
 				{
@@ -1438,21 +1438,21 @@
 					"name": "ImageURL",
 					"jsonName": "image_url",
 					"type": "url.URL",
-					"jsonTag": "json:\"image_url,omitzero\"",
+					"jsonTag": "json:\"image_url\"",
 					"required": true
 				},
 				{
 					"name": "CreatedAt",
 					"jsonName": "created_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"created_at,omitzero\"",
+					"jsonTag": "json:\"created_at\"",
 					"required": true
 				},
 				{
 					"name": "UpdatedAt",
 					"jsonName": "updated_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"updated_at,omitzero\"",
+					"jsonTag": "json:\"updated_at\"",
 					"required": true
 				},
 				{
@@ -1487,14 +1487,14 @@
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"required": true
 				},
 				{
 					"name": "IntercomHash",
 					"jsonName": "intercom_hash",
 					"type": "string",
-					"jsonTag": "json:\"intercom_hash,omitzero\"",
+					"jsonTag": "json:\"intercom_hash\"",
 					"required": true
 				},
 				{
@@ -1508,7 +1508,7 @@
 					"name": "AuthorizationUpdatedAt",
 					"jsonName": "authorization_updated_at",
 					"type": "time.Time",
-					"jsonTag": "json:\"authorization_updated_at,omitzero\"",
+					"jsonTag": "json:\"authorization_updated_at\"",
 					"description": "A timestamp when the authorization user session object was last updated.",
 					"required": true
 				},
@@ -1534,8 +1534,8 @@
 				{
 					"name": "Options",
 					"jsonName": "options",
-					"type": "*Options",
-					"jsonTag": "json:\"options,omitempty\""
+					"type": "Options",
+					"jsonTag": "json:\"options,omitzero\""
 				},
 				{
 					"name": "Projects",
@@ -1553,14 +1553,14 @@
 				{
 					"name": "TwoFaEnabled",
 					"jsonName": "2fa_enabled",
-					"type": "bool",
-					"jsonTag": "json:\"2fa_enabled,omitempty\""
+					"type": "*bool",
+					"jsonTag": "json:\"2fa_enabled,omitzero\""
 				},
 				{
 					"name": "UserAccountID",
 					"jsonName": "user_account_id",
 					"type": "*int",
-					"jsonTag": "json:\"user_account_id,omitempty\""
+					"jsonTag": "json:\"user_account_id,omitzero\""
 				}
 			]
 		},
@@ -1596,7 +1596,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"description": "Name of the client",
 					"required": true
 				},
@@ -1604,7 +1604,7 @@
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"description": "When was the last update",
 					"required": true
 				},
@@ -1674,7 +1674,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name,omitzero\"",
+					"jsonTag": "json:\"name\"",
 					"required": true
 				},
 				{
@@ -1702,14 +1702,14 @@
 					"name": "Role",
 					"jsonName": "role",
 					"type": "string",
-					"jsonTag": "json:\"role,omitzero\"",
+					"jsonTag": "json:\"role\"",
 					"required": true
 				},
 				{
 					"name": "SuspendedAt",
 					"jsonName": "suspended_at",
 					"type": "string",
-					"jsonTag": "json:\"suspended_at,omitzero\"",
+					"jsonTag": "json:\"suspended_at\"",
 					"required": true
 				},
 				{
@@ -1737,7 +1737,7 @@
 					"name": "DefaultCurrency",
 					"jsonName": "default_currency",
 					"type": "string",
-					"jsonTag": "json:\"default_currency,omitzero\"",
+					"jsonTag": "json:\"default_currency\"",
 					"required": true
 				},
 				{
@@ -1800,7 +1800,7 @@
 					"name": "LastModified",
 					"jsonName": "last_modified",
 					"type": "time.Time",
-					"jsonTag": "json:\"last_modified,omitzero\"",
+					"jsonTag": "json:\"last_modified\"",
 					"required": true
 				},
 				{
@@ -1828,28 +1828,28 @@
 					"name": "APIToken",
 					"jsonName": "api_token",
 					"type": "uuid.UUID",
-					"jsonTag": "json:\"api_token,omitzero\"",
+					"jsonTag": "json:\"api_token\"",
 					"required": true
 				},
 				{
 					"name": "At",
 					"jsonName": "at",
 					"type": "time.Time",
-					"jsonTag": "json:\"at,omitzero\"",
+					"jsonTag": "json:\"at\"",
 					"required": true
 				},
 				{
 					"name": "LogoURL",
 					"jsonName": "logo_url",
 					"type": "url.URL",
-					"jsonTag": "json:\"logo_url,omitzero\"",
+					"jsonTag": "json:\"logo_url\"",
 					"required": true
 				},
 				{
 					"name": "IcalURL",
 					"jsonName": "ical_url",
 					"type": "string",
-					"jsonTag": "json:\"ical_url,omitzero\"",
+					"jsonTag": "json:\"ical_url\"",
 					"required": true
 				},
 				{
