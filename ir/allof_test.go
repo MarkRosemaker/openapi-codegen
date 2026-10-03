@@ -21,7 +21,7 @@ func loadSchemas(t *testing.T, components string) *ir.Document {
 		t.Fatal(err)
 	}
 
-	irDoc, err := ir.FromDocument(doc, "t", "", false)
+	irDoc, err := ir.FromDocument(doc, "t", "", false, false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -171,7 +171,7 @@ func TestFromDocument_SuccessReturns(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	irDoc, err := ir.FromDocument(doc, "t", "", false)
+	irDoc, err := ir.FromDocument(doc, "t", "", false, false)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -33,6 +33,11 @@ How the specification maps onto Go:
   locating it in the input; an unknown member wraps `json.ErrUnknownName`. A case
   that could be supported but has no real example yet, such as an `allOf` of two
   unions, is generated with methods that return an "unimplemented" error.
+- **Debug mode** — with `-debug`, a client given `WithDebug` records each
+  response it fails to decode to `api/interactions.json`, for `openapi-enrich` to
+  learn from. Nothing the specification leaves open decodes into `any` then: the
+  empty schema, an array without `items`, a free-form object and `not` alone
+  become `struct{}`, so any value in them fails and is recorded.
 - **Fields** — a field is a pointer only where its zero value must be told apart
   from something else: from leaving the field out, if it is optional, or from
   null, if it is nullable. That is a boolean, a number that may be 0, or an object

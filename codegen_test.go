@@ -58,12 +58,10 @@ func TestCodegen_TestData(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			irDoc, err := ir.FromDocument(doc, name, "", production)
+			irDoc, err := ir.FromDocument(doc, name, "", production, debugMode)
 			if err != nil {
 				t.Fatalf("build IR: %v", err)
 			}
-
-			irDoc.Debug = debugMode
 
 			iasPath := filepath.Join("testdata", name, "api", "interactions.json")
 

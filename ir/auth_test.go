@@ -30,7 +30,7 @@ func TestFromDocument_AuthPerOperation(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	irDoc, err := ir.FromDocument(doc, "pets", "", false)
+	irDoc, err := ir.FromDocument(doc, "pets", "", false, false)
 	if err != nil {
 		t.Fatal(err)
 	}
