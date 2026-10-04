@@ -227,8 +227,8 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 // Retrieve a legal hold
 //
 //	GET /legal_holds/{legal_hold_id}
-func (c *Client) GetLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*AddLegalHoldUsers2, error) {
-	return c.GetLegalHoldWithResult[AddLegalHoldUsers2](ctx, legalHoldID)
+func (c *Client) GetLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*GetLegalHoldOk, error) {
+	return c.GetLegalHoldWithResult[GetLegalHoldOk](ctx, legalHoldID)
 }
 
 // Retrieve a legal hold
@@ -357,8 +357,8 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 // Update a legal hold
 //
 //	PATCH /legal_holds/{legal_hold_id}
-func (c *Client) UpdateLegalHold(ctx context.Context, legalHoldID uuid.UUID, body UpdateLegalHold) (*AddLegalHoldUsers2, error) {
-	return c.UpdateLegalHoldWithResult[AddLegalHoldUsers2](ctx, legalHoldID, body)
+func (c *Client) UpdateLegalHold(ctx context.Context, legalHoldID uuid.UUID, body UpdateLegalHold) (*UpdateLegalHoldOk, error) {
+	return c.UpdateLegalHoldWithResult[UpdateLegalHoldOk](ctx, legalHoldID, body)
 }
 
 // Update a legal hold
@@ -634,8 +634,8 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 // Add users to a legal hold
 //
 //	POST /legal_holds/{legal_hold_id}/users
-func (c *Client) AddLegalHoldUsers(ctx context.Context, legalHoldID uuid.UUID, body AddLegalHoldUsers) (*AddLegalHoldUsers2, error) {
-	return c.AddLegalHoldUsersWithResult[AddLegalHoldUsers2](ctx, legalHoldID, body)
+func (c *Client) AddLegalHoldUsers(ctx context.Context, legalHoldID uuid.UUID, body AddLegalHoldUsers) (*AddLegalHoldUsersOk, error) {
+	return c.AddLegalHoldUsersWithResult[AddLegalHoldUsersOk](ctx, legalHoldID, body)
 }
 
 // Add users to a legal hold
@@ -915,8 +915,8 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 // Create a legal hold
 //
 //	POST /legal_holds
-func (c *Client) CreateLegalHold(ctx context.Context, body CreateLegalHold) (*AddLegalHoldUsers2, error) {
-	return c.CreateLegalHoldWithResult[AddLegalHoldUsers2](ctx, body)
+func (c *Client) CreateLegalHold(ctx context.Context, body CreateLegalHold) (*CreateLegalHoldOk, error) {
+	return c.CreateLegalHoldWithResult[CreateLegalHoldOk](ctx, body)
 }
 
 // Create a legal hold
@@ -1192,8 +1192,8 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 // Release a legal hold
 //
 //	POST /legal_holds/{legal_hold_id}/release
-func (c *Client) ReleaseLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*AddLegalHoldUsers2, error) {
-	return c.ReleaseLegalHoldWithResult[AddLegalHoldUsers2](ctx, legalHoldID)
+func (c *Client) ReleaseLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*ReleaseLegalHoldOk, error) {
+	return c.ReleaseLegalHoldWithResult[ReleaseLegalHoldOk](ctx, legalHoldID)
 }
 
 // Release a legal hold
@@ -1322,8 +1322,8 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 // Remove a user from a legal hold
 //
 //	DELETE /legal_holds/{legal_hold_id}/users/{user_id}
-func (c *Client) RemoveLegalHoldUser(ctx context.Context, legalHoldID uuid.UUID, userID uuid.UUID) (*AddLegalHoldUsers2, error) {
-	return c.RemoveLegalHoldUserWithResult[AddLegalHoldUsers2](ctx, legalHoldID, userID)
+func (c *Client) RemoveLegalHoldUser(ctx context.Context, legalHoldID uuid.UUID, userID uuid.UUID) (*RemoveLegalHoldUserOk, error) {
+	return c.RemoveLegalHoldUserWithResult[RemoveLegalHoldUserOk](ctx, legalHoldID, userID)
 }
 
 // Remove a user from a legal hold
@@ -3580,8 +3580,8 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 // Add a group member
 //
 //	POST /spaces/{space_id}/groups/{group_id}/members
-func (c *Client) AddPermissionGroupMember(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMember2, error) {
-	return c.AddPermissionGroupMemberWithResult[AddPermissionGroupMember2](ctx, groupID, spaceID, body)
+func (c *Client) AddPermissionGroupMember(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMemberOk, error) {
+	return c.AddPermissionGroupMemberWithResult[AddPermissionGroupMemberOk](ctx, groupID, spaceID, body)
 }
 
 // Add a group member
@@ -3743,8 +3743,8 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 // Remove a group member
 //
 //	DELETE /spaces/{space_id}/groups/{group_id}/members/users/{user_id}
-func (c *Client) RemovePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error) {
-	return c.RemovePermissionGroupMemberWithResult[AddPermissionGroupMember2](ctx, groupID, userID, spaceID)
+func (c *Client) RemovePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*RemovePermissionGroupMemberOk, error) {
+	return c.RemovePermissionGroupMemberWithResult[RemovePermissionGroupMemberOk](ctx, groupID, userID, spaceID)
 }
 
 // Remove a group member
@@ -3899,8 +3899,8 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 // Update a group member
 //
 //	PATCH /spaces/{space_id}/groups/{group_id}/members/users/{user_id}
-func (c *Client) UpdatePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error) {
-	return c.UpdatePermissionGroupMemberWithResult[AddPermissionGroupMember2](ctx, groupID, userID, spaceID, body)
+func (c *Client) UpdatePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*UpdatePermissionGroupMemberOk, error) {
+	return c.UpdatePermissionGroupMemberWithResult[UpdatePermissionGroupMemberOk](ctx, groupID, userID, spaceID, body)
 }
 
 // Update a group member
@@ -5053,8 +5053,8 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 // Get credit usage for an agent in a space
 //
 //	GET /spaces/{space_id}/agents/{agent_id}/credit_usage
-func (c *Client) GetAgentCreditUsage(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, params *GetAgentCreditUsageParams) (*AgentCreditUsage, error) {
-	return c.GetAgentCreditUsageWithResult[AgentCreditUsage](ctx, agentID, spaceID, params)
+func (c *Client) GetAgentCreditUsage(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, params *GetAgentCreditUsageParams) (*GetAgentCreditUsageOk, error) {
+	return c.GetAgentCreditUsageWithResult[GetAgentCreditUsageOk](ctx, agentID, spaceID, params)
 }
 
 // Get credit usage for an agent in a space
@@ -5933,8 +5933,8 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 // Create a credit limit policy
 //
 //	POST /spaces/{space_id}/credit_limit_policies
-func (c *Client) CreateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, body CreateCreditLimitPolicy) (*CreateCreditLimitPolicy2, error) {
-	return c.CreateCreditLimitPolicyWithResult[CreateCreditLimitPolicy2](ctx, spaceID, body)
+func (c *Client) CreateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, body CreateCreditLimitPolicy) (*CreateCreditLimitPolicyOk, error) {
+	return c.CreateCreditLimitPolicyWithResult[CreateCreditLimitPolicyOk](ctx, spaceID, body)
 }
 
 // Create a credit limit policy
@@ -6096,8 +6096,8 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 // Expire a credit limit policy
 //
 //	DELETE /spaces/{space_id}/credit_limit_policies/{policy_id}
-func (c *Client) ExpireCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID) (*CreateCreditLimitPolicy2, error) {
-	return c.ExpireCreditLimitPolicyWithResult[CreateCreditLimitPolicy2](ctx, spaceID, policyID)
+func (c *Client) ExpireCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID) (*ExpireCreditLimitPolicyOk, error) {
+	return c.ExpireCreditLimitPolicyWithResult[ExpireCreditLimitPolicyOk](ctx, spaceID, policyID)
 }
 
 // Expire a credit limit policy
@@ -6252,8 +6252,8 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 // Update a credit limit policy
 //
 //	PATCH /spaces/{space_id}/credit_limit_policies/{policy_id}
-func (c *Client) UpdateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID, body UpdateCreditLimitPolicy) (*CreateCreditLimitPolicy2, error) {
-	return c.UpdateCreditLimitPolicyWithResult[CreateCreditLimitPolicy2](ctx, spaceID, policyID, body)
+func (c *Client) UpdateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID, body UpdateCreditLimitPolicy) (*UpdateCreditLimitPolicyOk, error) {
+	return c.UpdateCreditLimitPolicyWithResult[UpdateCreditLimitPolicyOk](ctx, spaceID, policyID, body)
 }
 
 // Update a credit limit policy

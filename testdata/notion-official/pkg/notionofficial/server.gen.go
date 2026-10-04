@@ -20,33 +20,33 @@ type Service interface {
 	GetSelf(ctx context.Context) (*UserObjectResponse, error)
 	GetUser(ctx context.Context, userID IDRequest) (*UserObjectResponse, error)
 	GetUsers(ctx context.Context, params *GetUsersParams) (*User, error)
-	PostPage(ctx context.Context, params *PostPageParams, body PostPage) (*PageOrDataSourceResultsItemAnyOf, error)
-	RetrieveAPage(ctx context.Context, pageID IDRequest, params *RetrieveAPageParams) (*MovePage2, error)
-	PatchPage(ctx context.Context, pageID IDRequest, params *PatchPageParams, body PatchPage) (*PageOrDataSourceResultsItemAnyOf, error)
-	MovePage(ctx context.Context, pageID IDRequest, body MovePage) (*MovePage2, error)
+	PostPage(ctx context.Context, params *PostPageParams, body PostPage) (*PostPageOk, error)
+	RetrieveAPage(ctx context.Context, pageID IDRequest, params *RetrieveAPageParams) (*RetrieveAPageOk, error)
+	PatchPage(ctx context.Context, pageID IDRequest, params *PatchPageParams, body PatchPage) (*PatchPageOk, error)
+	MovePage(ctx context.Context, pageID IDRequest, body MovePage) (*MovePageOk, error)
 	RetrieveAPageProperty(ctx context.Context, pageID IDRequest, propertyID string, params *RetrieveAPagePropertyParams) (*RetrieveAPagePropertyOk, error)
 	RetrievePageMarkdown(ctx context.Context, pageID IDRequest, params *RetrievePageMarkdownParams) (*PageMarkdownResponse, error)
 	UpdatePageMarkdown(ctx context.Context, pageID IDRequest, body UpdatePageMarkdown) (*PageMarkdownResponse, error)
 	RetrieveAsyncTask(ctx context.Context, taskID string) (*RetrieveAsyncTaskOk, error)
-	RetrieveABlock(ctx context.Context, blockID IDRequest) (*BlockResultsItem, error)
-	DeleteABlock(ctx context.Context, blockID IDRequest) (*BlockResultsItem, error)
-	UpdateABlock(ctx context.Context, blockID IDRequest, body UpdateABlock) (*BlockResultsItem, error)
+	RetrieveABlock(ctx context.Context, blockID IDRequest) (*RetrieveABlockOk, error)
+	DeleteABlock(ctx context.Context, blockID IDRequest) (*DeleteABlockOk, error)
+	UpdateABlock(ctx context.Context, blockID IDRequest, body UpdateABlock) (*UpdateABlockOk, error)
 	GetBlockChildren(ctx context.Context, blockID IDRequest, params *GetBlockChildrenParams) (*Block, error)
-	PatchBlockChildren(ctx context.Context, blockID IDRequest, body PatchBlockChildren) (*Block, error)
-	RetrieveADataSource(ctx context.Context, dataSourceID IDRequest) (*CreateADatabase2, error)
-	UpdateADataSource(ctx context.Context, dataSourceID IDRequest, body UpdateADataSource) (*CreateADatabase2, error)
+	PatchBlockChildren(ctx context.Context, blockID IDRequest, body PatchBlockChildren) (*Block2, error)
+	RetrieveADataSource(ctx context.Context, dataSourceID IDRequest) (*RetrieveADataSourceOk, error)
+	UpdateADataSource(ctx context.Context, dataSourceID IDRequest, body UpdateADataSource) (*UpdateADataSourceOk, error)
 	PostDatabaseQuery(ctx context.Context, dataSourceID IDRequest, params *PostDatabaseQueryParams, body PostDatabaseQuery) (*PageOrDataSource, error)
-	CreateADatabase(ctx context.Context, body CreateADatabase) (*CreateADatabase2, error)
+	CreateADatabase(ctx context.Context, body CreateADatabase) (*CreateADatabaseOk, error)
 	ListDataSourceTemplates(ctx context.Context, dataSourceID IDRequest, params *ListDataSourceTemplatesParams) (*ListDataSourceTemplatesOk, error)
-	RetrieveDatabase(ctx context.Context, databaseID IDRequest) (*CreateDatabase2, error)
-	UpdateDatabase(ctx context.Context, databaseID IDRequest, body UpdateDatabase) (*CreateDatabase2, error)
-	CreateDatabase(ctx context.Context, body CreateDatabase) (*CreateDatabase2, error)
-	PostSearch(ctx context.Context, body PostSearch) (*PageOrDataSource, error)
+	RetrieveDatabase(ctx context.Context, databaseID IDRequest) (*RetrieveDatabaseOk, error)
+	UpdateDatabase(ctx context.Context, databaseID IDRequest, body UpdateDatabase) (*UpdateDatabaseOk, error)
+	CreateDatabase(ctx context.Context, body CreateDatabase) (*CreateDatabaseOk, error)
+	PostSearch(ctx context.Context, body PostSearch) (*PageOrDataSource2, error)
 	ListComments(ctx context.Context, params ListCommentsParams) (*ListCommentsOk, error)
-	CreateAComment(ctx context.Context, body CreateAComment) (*CreateAComment2, error)
-	RetrieveComment(ctx context.Context, commentID IDRequest) (*CreateAComment2, error)
-	DeleteAComment(ctx context.Context, commentID IDRequest) (*CreateAComment2, error)
-	UpdateAComment(ctx context.Context, commentID IDRequest, body UpdateAComment) (*CreateAComment2, error)
+	CreateAComment(ctx context.Context, body CreateAComment) (*CreateACommentOk, error)
+	RetrieveComment(ctx context.Context, commentID IDRequest) (*RetrieveCommentOk, error)
+	DeleteAComment(ctx context.Context, commentID IDRequest) (*DeleteACommentOk, error)
+	UpdateAComment(ctx context.Context, commentID IDRequest, body UpdateAComment) (*UpdateACommentOk, error)
 	ListFileUploads(ctx context.Context, params *ListFileUploadsParams) (*ListFileUploadsOk, error)
 	CreateFile(ctx context.Context, body CreateFile) (*FileUploadObjectResponse, error)
 	UploadFile(ctx context.Context, fileUploadID IDRequest, body UploadFile) (*FileUploadObjectResponse, error)
@@ -54,10 +54,10 @@ type Service interface {
 	RetrieveFileUpload(ctx context.Context, fileUploadID IDRequest) (*FileUploadObjectResponse, error)
 	ListCustomEmojis(ctx context.Context, params *ListCustomEmojisParams) (*ListCustomEmojisOk, error)
 	ListViews(ctx context.Context, params *ListViewsParams) (*ListViewsOk, error)
-	CreateView(ctx context.Context, body CreateViewRequest) (*CreateView, error)
-	RetrieveAView(ctx context.Context, viewID IDRequest) (*CreateView, error)
+	CreateView(ctx context.Context, body CreateViewRequest) (*CreateViewOk, error)
+	RetrieveAView(ctx context.Context, viewID IDRequest) (*RetrieveAViewOk, error)
 	DeleteView(ctx context.Context, viewID IDRequest) (*PartialDataSourceViewObjectResponse, error)
-	UpdateAView(ctx context.Context, viewID IDRequest, body UpdateViewRequest) (*CreateView, error)
+	UpdateAView(ctx context.Context, viewID IDRequest, body UpdateViewRequest) (*UpdateAViewOk, error)
 	CreateViewQuery(ctx context.Context, viewID IDRequest, body CreateViewQueryRequest) (*ViewQueryResponse, error)
 	GetViewQueryResults(ctx context.Context, viewID IDRequest, queryID IDRequest, params *GetViewQueryResultsParams) (*GetViewQueryResultsOk, error)
 	DeleteViewQuery(ctx context.Context, viewID IDRequest, queryID IDRequest) (*DeletedViewQueryResponse, error)
@@ -67,20 +67,20 @@ type Service interface {
 	GetAgent(ctx context.Context, agentID string, params *GetAgentParams) (*GetAgentOk, error)
 	DeleteAgent(ctx context.Context, agentID string) (*DeleteAgentOk, error)
 	GetAgentInsights(ctx context.Context, agentID string, params *GetAgentInsightsParams) (*GetAgentInsightsOk, error)
-	UpdateAgentStatus(ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields) (*UpdateAgentStatusOk, error)
-	UpdateAgentCreditLimit(ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields2) (*UpdateAgentCreditLimitOk, error)
-	AgentBatch(ctx context.Context, body AgentBatch) (*AgentBatch2, error)
+	UpdateAgentStatus(ctx context.Context, agentID string, body UpdateAgentStatus) (*UpdateAgentStatusOk, error)
+	UpdateAgentCreditLimit(ctx context.Context, agentID string, body UpdateAgentCreditLimit) (*UpdateAgentCreditLimitOk, error)
+	AgentBatch(ctx context.Context, body AgentBatch) (*AgentBatchOk, error)
 	ListSkillsPlugins(ctx context.Context, params *ListSkillsPluginsParams) (*ListSkillsPluginsOk, error)
 	GetPluginDirectory(ctx context.Context, id string) (*GetPluginDirectoryOk, error)
 	GetSkillDirectory(ctx context.Context, id IDRequest) (*GetSkillDirectoryOk, error)
-	UpdateSession(ctx context.Context, body UpdateSessionRequest) (*CancelSession2, error)
+	UpdateSession(ctx context.Context, body UpdateSessionRequest) (*UpdateSessionOk, error)
 	RetrieveSession(ctx context.Context, sessionID IDRequest) (*RetrieveSessionOk, error)
 	QuerySessions(ctx context.Context, body QuerySessions) (*QuerySessionsOk, error)
 	QuerySessionEvents(ctx context.Context, sessionID IDRequest, body QuerySessionEvents) (*QuerySessionEventsOk, error)
-	CancelSession(ctx context.Context, sessionID IDRequest, body CancelSession) (*CancelSession2, error)
+	CancelSession(ctx context.Context, sessionID IDRequest, body CancelSession) (*CancelSessionOk, error)
 	CreateAToken(ctx context.Context, body CreateAToken) (*CreateATokenOk, error)
-	RevokeToken(ctx context.Context, body IntrospectToken) (*RevokeTokenOk, error)
-	IntrospectToken(ctx context.Context, body IntrospectToken) (*IntrospectTokenOk, error)
+	RevokeToken(ctx context.Context, body RevokeToken) (*RevokeTokenOk, error)
+	IntrospectToken(ctx context.Context, body RevokeToken) (*IntrospectTokenOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -1655,7 +1655,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			var params ListFileUploadsParams
 			q := r.URL.Query()
 			if s := q.Get("status"); s != "" {
-				params.Status = FileUploadObjectStatus(s)
+				params.Status = Status4(s)
 			}
 			if s := q.Get("start_cursor"); s != "" {
 				params.StartCursor = s
@@ -2703,7 +2703,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			agentID := r.PathValue("agent_id")
-			var body AgentBatchOperationsItemOneOfFields
+			var body UpdateAgentStatus
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
@@ -2754,7 +2754,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			agentID := r.PathValue("agent_id")
-			var body AgentBatchOperationsItemOneOfFields2
+			var body UpdateAgentCreditLimit
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
@@ -3300,7 +3300,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var body IntrospectToken
+			var body RevokeToken
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
@@ -3350,7 +3350,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var body IntrospectToken
+			var body RevokeToken
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
 				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))

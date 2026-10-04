@@ -54,7 +54,8 @@
           "userId",
           "hmds",
           "iserver"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListV1APITickleOk/content/application~1json/schema"
       },
       "ListV1APITickleOkHmds": {
         "type": "object",
@@ -66,7 +67,8 @@
         },
         "required": [
           "error"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListV1APITickleOk/properties/hmds"
       },
       "ListV1APITickleOkIserver": {
         "type": "object",
@@ -77,7 +79,8 @@
         },
         "required": [
           "authStatus"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListV1APITickleOk/properties/iserver"
       },
       "ListV1APITickleOkIserverAuthStatus": {
         "type": "object",
@@ -117,7 +120,8 @@
           "MAC",
           "serverInfo",
           "hardware_info"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListV1APITickleOkIserver/properties/authStatus"
       },
       "ListV1APITickleOkIserverAuthStatusServerInfo": {
         "type": "object",
@@ -134,7 +138,8 @@
         "required": [
           "serverName",
           "serverVersion"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListV1APITickleOkIserverAuthStatus/properties/serverInfo"
       }
     },
     "responses": {

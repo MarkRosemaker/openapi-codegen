@@ -19,15 +19,15 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	ExportLegalHold(ctx context.Context, legalHoldID uuid.UUID, body ExportLegalHold) (*ExportLegalHoldOk, error)
-	GetLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*AddLegalHoldUsers2, error)
-	UpdateLegalHold(ctx context.Context, legalHoldID uuid.UUID, body UpdateLegalHold) (*AddLegalHoldUsers2, error)
+	GetLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*GetLegalHoldOk, error)
+	UpdateLegalHold(ctx context.Context, legalHoldID uuid.UUID, body UpdateLegalHold) (*UpdateLegalHoldOk, error)
 	ListLegalHoldUsers(ctx context.Context, legalHoldID uuid.UUID, params *ListLegalHoldUsersParams) (*ListLegalHoldUsersOk, error)
-	AddLegalHoldUsers(ctx context.Context, legalHoldID uuid.UUID, body AddLegalHoldUsers) (*AddLegalHoldUsers2, error)
+	AddLegalHoldUsers(ctx context.Context, legalHoldID uuid.UUID, body AddLegalHoldUsers) (*AddLegalHoldUsersOk, error)
 	ListLegalHolds(ctx context.Context, params *ListLegalHoldsParams) (*ListLegalHoldsOk, error)
-	CreateLegalHold(ctx context.Context, body CreateLegalHold) (*AddLegalHoldUsers2, error)
+	CreateLegalHold(ctx context.Context, body CreateLegalHold) (*CreateLegalHoldOk, error)
 	ListLegalHoldWorkspaces(ctx context.Context, legalHoldID uuid.UUID, params *ListLegalHoldWorkspacesParams) (*ListLegalHoldWorkspacesOk, error)
-	ReleaseLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*AddLegalHoldUsers2, error)
-	RemoveLegalHoldUser(ctx context.Context, legalHoldID uuid.UUID, userID uuid.UUID) (*AddLegalHoldUsers2, error)
+	ReleaseLegalHold(ctx context.Context, legalHoldID uuid.UUID) (*ReleaseLegalHoldOk, error)
+	RemoveLegalHoldUser(ctx context.Context, legalHoldID uuid.UUID, userID uuid.UUID) (*RemoveLegalHoldUserOk, error)
 	EnqueueSpaceExport(ctx context.Context, spaceID string, body EnqueueSpaceExport) (*EnqueueSpaceExportOk, error)
 	GetSpaceExportStatus(ctx context.Context, exportJobID string, spaceID string) (*GetSpaceExportStatusOk, error)
 	ListLegalHoldPages(ctx context.Context, legalHoldID uuid.UUID, spaceID uuid.UUID, params *ListLegalHoldPagesParams) (*ListLegalHoldPagesOk, error)
@@ -42,9 +42,9 @@ type Service interface {
 	CreatePermissionGroup(ctx context.Context, spaceID uuid.UUID, body CreatePermissionGroup) (*CreatePermissionGroup2, error)
 	ListUsers(ctx context.Context, spaceID uuid.UUID, params *ListUsersParams) (*ListUsersOk, error)
 	ListPermissionGroupMembers(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, params *ListPermissionGroupMembersParams) (*ListPermissionGroupMembersOk, error)
-	AddPermissionGroupMember(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMember2, error)
-	RemovePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*AddPermissionGroupMember2, error)
-	UpdatePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*AddPermissionGroupMember2, error)
+	AddPermissionGroupMember(ctx context.Context, groupID IDRequest, spaceID uuid.UUID, body AddPermissionGroupMember) (*AddPermissionGroupMemberOk, error)
+	RemovePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID) (*RemovePermissionGroupMemberOk, error)
+	UpdatePermissionGroupMember(ctx context.Context, groupID IDRequest, userID IDRequest, spaceID uuid.UUID, body UpdatePermissionGroupMember) (*UpdatePermissionGroupMemberOk, error)
 	ListPersonalAccessTokens(ctx context.Context, spaceID uuid.UUID, params *ListPersonalAccessTokensParams) (*ListPersonalAccessTokensOk, error)
 	RevokePersonalAccessToken(ctx context.Context, botID uuid.UUID, spaceID uuid.UUID) error
 	UpdateAgentCreationPolicy(ctx context.Context, spaceID uuid.UUID, body UpdateAgentCreationPolicy) (*UpdateAgentCreationPolicyOk, error)
@@ -52,15 +52,15 @@ type Service interface {
 	UpdateAgentStatus(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, body UpdateAgentStatus) (*UpdateAgentStatusOk, error)
 	DeleteAgent(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID) error
 	GetWorkflowsMetadataForSpace(ctx context.Context, spaceID uuid.UUID, params *GetWorkflowsMetadataForSpaceParams) (*GetWorkflowsMetadataForSpaceOk, error)
-	GetAgentCreditUsage(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, params *GetAgentCreditUsageParams) (*AgentCreditUsage, error)
+	GetAgentCreditUsage(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, params *GetAgentCreditUsageParams) (*GetAgentCreditUsageOk, error)
 	GetAgentPermissions(ctx context.Context, spaceID uuid.UUID, agentID uuid.UUID, params *GetAgentPermissionsParams) (*GetAgentPermissionsOk, error)
 	UpdateAgentPermissions(ctx context.Context, spaceID uuid.UUID, agentID uuid.UUID, body UpdateAgentPermissions) (*UpdateAgentPermissionsOk, error)
 	GetAgentsCreditUsage(ctx context.Context, spaceID uuid.UUID, params *GetAgentsCreditUsageParams) (*GetAgentsCreditUsageOk, error)
 	UpdateAgentCreditLimit(ctx context.Context, agentID uuid.UUID, spaceID uuid.UUID, body UpdateAgentCreditLimit) (*UpdateAgentCreditLimitOk, error)
 	ListCreditLimitPolicies(ctx context.Context, spaceID uuid.UUID, params *ListCreditLimitPoliciesParams) (*ListCreditLimitPoliciesOk, error)
-	CreateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, body CreateCreditLimitPolicy) (*CreateCreditLimitPolicy2, error)
-	ExpireCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID) (*CreateCreditLimitPolicy2, error)
-	UpdateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID, body UpdateCreditLimitPolicy) (*CreateCreditLimitPolicy2, error)
+	CreateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, body CreateCreditLimitPolicy) (*CreateCreditLimitPolicyOk, error)
+	ExpireCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID) (*ExpireCreditLimitPolicyOk, error)
+	UpdateCreditLimitPolicy(ctx context.Context, spaceID uuid.UUID, policyID uuid.UUID, body UpdateCreditLimitPolicy) (*UpdateCreditLimitPolicyOk, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -1643,7 +1643,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 				params.PageSize = s
 			}
 			for _, s := range q["status"] {
-				params.Status = append(params.Status, ListPersonalAccessTokensResultsItemStatus(s))
+				params.Status = append(params.Status, StatusOneOf0Item(s))
 			}
 			for _, s := range q["creator_ids"] {
 				rawParam, err := uuid.Parse(s)

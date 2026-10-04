@@ -2163,9 +2163,10 @@
         },
         "required": [
           "user_ids"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/AddLegalHoldUsers/content/application~1json/schema"
       },
-      "AddLegalHoldUsers2": {
+      "AddLegalHoldUsersOk": {
         "type": "object",
         "properties": {
           "created_by": {
@@ -2182,16 +2183,16 @@
             "type": "number"
           },
           "status": {
-            "$ref": "#/components/schemas/AddLegalHoldUsersStatus"
+            "$ref": "#/components/schemas/AddLegalHoldUsersOkStatus"
           },
           "user_interaction_type": {
-            "$ref": "#/components/schemas/AddLegalHoldUsersUserInteractionType"
+            "$ref": "#/components/schemas/AddLegalHoldUsersOkUserInteractionType"
           },
           "users": {
-            "$ref": "#/components/schemas/AddLegalHoldUsers3"
+            "$ref": "#/components/schemas/LegalHoldUsers"
           },
           "workspaces": {
-            "$ref": "#/components/schemas/AddLegalHoldUsers3"
+            "$ref": "#/components/schemas/LegalHoldUsers"
           },
           "description": {
             "type": "string"
@@ -2215,47 +2216,32 @@
           "user_interaction_type",
           "users",
           "workspaces"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/AddLegalHoldUsersOk/content/application~1json/schema"
       },
-      "AddLegalHoldUsers3": {
-        "type": "object",
-        "properties": {
-          "ids": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          "total": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "ids",
-          "total"
-        ]
-      },
-      "AddLegalHoldUsersStatus": {
+      "AddLegalHoldUsersOkStatus": {
         "type": "string",
         "enum": [
           "active",
           "released"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/AddLegalHoldUsersOk/properties/status"
       },
-      "AddLegalHoldUsersUserInteractionType": {
+      "AddLegalHoldUsersOkUserInteractionType": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/AddLegalHoldUsersUserInteractionTypeItem"
-        }
+          "$ref": "#/components/schemas/AddLegalHoldUsersOkUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/AddLegalHoldUsersOk/properties/user_interaction_type"
       },
-      "AddLegalHoldUsersUserInteractionTypeItem": {
+      "AddLegalHoldUsersOkUserInteractionTypeItem": {
         "type": "string",
         "enum": [
           "page.created",
           "page.edited",
           "page.viewed"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/AddLegalHoldUsersOkUserInteractionType/items"
       },
       "AddPermissionGroupMember": {
         "type": "object",
@@ -2270,35 +2256,10 @@
         "required": [
           "member",
           "role"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/AddPermissionGroupMember/content/application~1json/schema"
       },
       "AddPermissionGroupMember2": {
-        "type": "object",
-        "properties": {
-          "object": {
-            "description": "Always `group_membership`",
-            "type": "string",
-            "const": "group_membership"
-          },
-          "group_id": {
-            "description": "The ID of the group.",
-            "type": "string"
-          },
-          "member": {
-            "$ref": "#/components/schemas/AddPermissionGroupMember3"
-          },
-          "role": {
-            "$ref": "#/components/schemas/AddPermissionGroupMemberRole"
-          }
-        },
-        "required": [
-          "object",
-          "group_id",
-          "member",
-          "role"
-        ]
-      },
-      "AddPermissionGroupMember3": {
         "description": "The direct user member.",
         "type": "object",
         "properties": {
@@ -2315,7 +2276,8 @@
         "required": [
           "type",
           "user_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/AddPermissionGroupMemberOk/properties/member"
       },
       "AddPermissionGroupMemberMember": {
         "description": "The user to add as a direct member.",
@@ -2334,7 +2296,44 @@
         "required": [
           "type",
           "user_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/AddPermissionGroupMember/properties/member"
+      },
+      "AddPermissionGroupMemberOk": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `group_membership`",
+            "type": "string",
+            "const": "group_membership"
+          },
+          "group_id": {
+            "description": "The ID of the group.",
+            "type": "string"
+          },
+          "member": {
+            "$ref": "#/components/schemas/AddPermissionGroupMember2"
+          },
+          "role": {
+            "$ref": "#/components/schemas/AddPermissionGroupMemberOkRole"
+          }
+        },
+        "required": [
+          "object",
+          "group_id",
+          "member",
+          "role"
+        ],
+        "x-flattened-from": "#/components/responses/AddPermissionGroupMemberOk/content/application~1json/schema"
+      },
+      "AddPermissionGroupMemberOkRole": {
+        "description": "The user's role in the group.",
+        "type": "string",
+        "enum": [
+          "owner",
+          "member"
+        ],
+        "x-flattened-from": "#/components/schemas/AddPermissionGroupMemberOk/properties/role"
       },
       "AddPermissionGroupMemberRole": {
         "description": "The user's role in the group.",
@@ -2342,76 +2341,95 @@
         "enum": [
           "owner",
           "member"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/AddPermissionGroupMember/properties/role"
+      },
+      "AdminAPIError400Code": {
+        "type": "string",
+        "enum": [
+          "validation_error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError400/properties/code"
+      },
+      "AdminAPIError400Type": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError400/properties/type"
+      },
+      "AdminAPIError401Code": {
+        "type": "string",
+        "enum": [
+          "unauthorized"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError401/properties/code"
+      },
+      "AdminAPIError401Type": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError401/properties/type"
       },
       "AdminAPIError403Code": {
         "type": "string",
         "enum": [
           "missing_scope",
           "forbidden"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError403/properties/code"
+      },
+      "AdminAPIError403Type": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError403/properties/type"
       },
       "AdminAPIError404Code": {
         "type": "string",
         "enum": [
           "not_found"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError404/properties/code"
       },
-      "AdminAPIErrorCode": {
-        "type": "string",
-        "enum": [
-          "validation_error"
-        ]
-      },
-      "AdminAPIErrorCode2": {
-        "type": "string",
-        "enum": [
-          "unauthorized"
-        ]
-      },
-      "AdminAPIErrorCode3": {
-        "type": "string",
-        "enum": [
-          "rate_limited"
-        ]
-      },
-      "AdminAPIErrorCode4": {
-        "type": "string",
-        "enum": [
-          "internal_server_error"
-        ]
-      },
-      "AdminAPIErrorType": {
+      "AdminAPIError404Type": {
         "type": "string",
         "enum": [
           "error"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError404/properties/type"
       },
-      "AdminAPIPublicError403Code": {
+      "AdminAPIError429Code": {
         "type": "string",
         "enum": [
-          "restricted_resource"
-        ]
+          "rate_limited"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError429/properties/code"
       },
-      "AdminAPIPublicError404Code": {
+      "AdminAPIError429Type": {
         "type": "string",
         "enum": [
-          "object_not_found"
-        ]
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError429/properties/type"
       },
-      "AdminAPIPublicError409Code": {
+      "AdminAPIError500Code": {
         "type": "string",
         "enum": [
-          "conflict_error"
-        ]
+          "internal_server_error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError500/properties/code"
       },
-      "AdminAPIPublicError503Code": {
+      "AdminAPIError500Type": {
         "type": "string",
         "enum": [
-          "service_unavailable"
-        ]
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiError500/properties/type"
       },
-      "AdminAPIPublicErrorAdditionalDataValue": {
+      "AdminAPIPublicError400AdditionalDataValue": {
         "oneOf": [
           {
             "type": "string"
@@ -2422,72 +2440,218 @@
               "type": "string"
             }
           }
-        ]
-      },
-      "AgentCreditUsage": {
-        "type": "object",
-        "properties": {
-          "credit_per_billing_period_list": {
-            "$ref": "#/components/schemas/AgentCreditUsageCreditPerBillingPeriodList"
-          },
-          "has_more": {
-            "description": "Whether more billing periods are available.",
-            "type": "boolean"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "runs_completed": {
-            "description": "All-time count of finished (success or failure) runs for this agent.",
-            "type": "number"
-          },
-          "status": {
-            "$ref": "#/components/schemas/AgentCreditUsageStatus"
-          },
-          "total_credits_used": {
-            "description": "All-time premium AI credits consumed by this agent across every period.",
-            "type": "number"
-          },
-          "type": {
-            "$ref": "#/components/schemas/AgentCreditUsageType"
-          },
-          "created_by_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "credit_limit": {
-            "description": "Enforced per-agent credit limit, if one is configured.",
-            "type": "number"
-          },
-          "last_credit_usage_time": {
-            "description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.",
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "next_cursor": {
-            "description": "Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "credit_per_billing_period_list",
-          "has_more",
-          "id",
-          "runs_completed",
-          "status",
-          "total_credits_used",
-          "type"
         ],
-        "additionalProperties": false
+        "x-flattened-from": "#/components/schemas/adminApiPublicError400/properties/additional_data/additionalProperties"
       },
-      "AgentCreditUsageCreditPerBillingPeriodList": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/AgentCreditUsageCreditPerBillingPeriodListItem"
-        }
+      "AdminAPIPublicError400Code": {
+        "type": "string",
+        "enum": [
+          "validation_error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError400/properties/code"
+      },
+      "AdminAPIPublicError400Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError400/properties/object"
+      },
+      "AdminAPIPublicError401AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError401/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError401Code": {
+        "type": "string",
+        "enum": [
+          "unauthorized"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError401/properties/code"
+      },
+      "AdminAPIPublicError401Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError401/properties/object"
+      },
+      "AdminAPIPublicError403AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError403/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError403Code": {
+        "type": "string",
+        "enum": [
+          "restricted_resource"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError403/properties/code"
+      },
+      "AdminAPIPublicError403Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError403/properties/object"
+      },
+      "AdminAPIPublicError404AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError404/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError404Code": {
+        "type": "string",
+        "enum": [
+          "object_not_found"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError404/properties/code"
+      },
+      "AdminAPIPublicError404Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError404/properties/object"
+      },
+      "AdminAPIPublicError409AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError409/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError409Code": {
+        "type": "string",
+        "enum": [
+          "conflict_error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError409/properties/code"
+      },
+      "AdminAPIPublicError409Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError409/properties/object"
+      },
+      "AdminAPIPublicError429AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError429/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError429Code": {
+        "type": "string",
+        "enum": [
+          "rate_limited"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError429/properties/code"
+      },
+      "AdminAPIPublicError429Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError429/properties/object"
+      },
+      "AdminAPIPublicError500AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError500/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError500Code": {
+        "type": "string",
+        "enum": [
+          "internal_server_error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError500/properties/code"
+      },
+      "AdminAPIPublicError500Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError500/properties/object"
+      },
+      "AdminAPIPublicError503AdditionalDataValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError503/properties/additional_data/additionalProperties"
+      },
+      "AdminAPIPublicError503Code": {
+        "type": "string",
+        "enum": [
+          "service_unavailable"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError503/properties/code"
+      },
+      "AdminAPIPublicError503Object": {
+        "type": "string",
+        "enum": [
+          "error"
+        ],
+        "x-flattened-from": "#/components/schemas/adminApiPublicError503/properties/object"
       },
       "AgentCreditUsageCreditPerBillingPeriodListItem": {
         "description": "Premium AI credits consumed by an agent in one monthly billing period.",
@@ -2511,123 +2675,8 @@
           "metrics_period_end_ms",
           "metrics_period_start_ms"
         ],
-        "additionalProperties": false
-      },
-      "AgentCreditUsageStatus": {
-        "description": "Agent status; same values as the list-agents endpoint's status field.",
-        "type": "string",
-        "enum": [
-          "active",
-          "credit_limit",
-          "deleted",
-          "disabled_by_notion",
-          "disabled_due_to_lack_of_editors",
-          "disabled_due_to_lack_of_full_access_members",
-          "disabled_from_agent_settings",
-          "disabled_from_api",
-          "disabled_from_workspace_settings",
-          "disabled_from_workspace_settings_but_resumable",
-          "failure_limit",
-          "internal_error",
-          "mark_session_failed_autopause",
-          "needs_review",
-          "run_limit",
-          "runaway_credit_usage",
-          "tool_unavailable",
-          "workspace_credit_limit"
-        ]
-      },
-      "AgentCreditUsageType": {
-        "description": "Custom agents vs database (autofill) agents.",
-        "type": "string",
-        "enum": [
-          "custom",
-          "database_autofill"
-        ]
-      },
-      "AgentPermissions": {
-        "description": "The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/AgentPermissionsItem"
-        }
-      },
-      "AgentPermissionsItem": {
-        "description": "A principal with its stored and workspace-resolved roles.",
-        "type": "object",
-        "properties": {
-          "principal": {
-            "$ref": "#/components/schemas/AgentPermissionsItemPrincipal"
-          },
-          "resolved_role": {
-            "$ref": "#/components/schemas/AgentPermissionsItemResolvedRole"
-          },
-          "role": {
-            "$ref": "#/components/schemas/AgentPermissionsItemResolvedRole"
-          }
-        },
-        "required": [
-          "principal",
-          "resolved_role",
-          "role"
-        ],
-        "additionalProperties": false
-      },
-      "AgentPermissionsItemPrincipal": {
-        "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/AgentPermissionsItemPrincipalOneOf"
-          },
-          {
-            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
-          },
-          {
-            "$ref": "#/components/schemas/AgentPermissionsItemPrincipalOneOf2"
-          }
-        ]
-      },
-      "AgentPermissionsItemPrincipalOneOf": {
-        "type": "object",
-        "properties": {
-          "group_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "type": {
-            "description": "Always `group`",
-            "type": "string",
-            "const": "group"
-          }
-        },
-        "required": [
-          "group_id",
-          "type"
-        ],
-        "additionalProperties": false
-      },
-      "AgentPermissionsItemPrincipalOneOf2": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "description": "Always `workspace`",
-            "type": "string",
-            "const": "workspace"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "additionalProperties": false
-      },
-      "AgentPermissionsItemResolvedRole": {
-        "description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-        "type": "string",
-        "enum": [
-          "edit",
-          "full_access",
-          "view_and_interact"
-        ]
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetAgentCreditUsageOkCreditPerBillingPeriodList/items"
       },
       "Bot": {
         "title": "Bot",
@@ -2646,7 +2695,8 @@
         "required": [
           "type",
           "bot"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOkResultsItemAllOf1/oneOf/1"
       },
       "CreateCreditLimitPolicy": {
         "type": "object",
@@ -2669,9 +2719,30 @@
           "amount",
           "selector"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/requestBodies/CreateCreditLimitPolicy/content/application~1json/schema"
       },
-      "CreateCreditLimitPolicy2": {
+      "CreateCreditLimitPolicyCreatedBy": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `user`",
+            "type": "string",
+            "const": "user"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "object",
+          "id"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/CreateCreditLimitPolicyOk/properties/created_by"
+      },
+      "CreateCreditLimitPolicyOk": {
         "type": "object",
         "properties": {
           "object": {
@@ -2689,14 +2760,14 @@
             "$ref": "#/components/schemas/CreateCreditLimitPolicyCreatedBy"
           },
           "credit_type_unit": {
-            "$ref": "#/components/schemas/CreateCreditLimitPolicyCreditTypeUnit"
+            "$ref": "#/components/schemas/CreateCreditLimitPolicyOkCreditTypeUnit"
           },
           "id": {
             "type": "string",
             "format": "uuid"
           },
           "selector": {
-            "$ref": "#/components/schemas/CreateCreditLimitPolicySelector"
+            "$ref": "#/components/schemas/CreateCreditLimitPolicyOkSelector"
           },
           "space_id": {
             "type": "string",
@@ -2716,28 +2787,10 @@
           "selector",
           "space_id"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/CreateCreditLimitPolicyOk/content/application~1json/schema"
       },
-      "CreateCreditLimitPolicyCreatedBy": {
-        "type": "object",
-        "properties": {
-          "object": {
-            "description": "Always `user`",
-            "type": "string",
-            "const": "user"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          }
-        },
-        "required": [
-          "object",
-          "id"
-        ],
-        "additionalProperties": false
-      },
-      "CreateCreditLimitPolicyCreditTypeUnit": {
+      "CreateCreditLimitPolicyOkCreditTypeUnit": {
         "description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
         "type": "string",
         "enum": [
@@ -2745,7 +2798,20 @@
           "exempt_ai_credits",
           "premium_ai_credits",
           "preview_ai_credits"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/CreateCreditLimitPolicyOk/properties/credit_type_unit"
+      },
+      "CreateCreditLimitPolicyOkSelector": {
+        "description": "All workspace members or one workspace member affected by the policy.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/CreateCreditLimitPolicyOk/properties/selector"
       },
       "CreateCreditLimitPolicySelector": {
         "description": "All workspace members or one workspace member affected by the policy.",
@@ -2756,7 +2822,8 @@
           {
             "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/CreateCreditLimitPolicy/properties/selector"
       },
       "CreateCreditLimitPolicySelectorOneOf": {
         "type": "object",
@@ -2770,7 +2837,8 @@
         "required": [
           "type"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/CreateCreditLimitPolicySelector/oneOf/0"
       },
       "CreateCreditLimitPolicySelectorOneOf2": {
         "type": "object",
@@ -2790,7 +2858,8 @@
           "type",
           "user_id"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/CreateCreditLimitPolicySelector/oneOf/1"
       },
       "CreateLegalHold": {
         "type": "object",
@@ -2809,7 +2878,7 @@
             }
           },
           "user_interaction_type": {
-            "$ref": "#/components/schemas/AddLegalHoldUsersUserInteractionType"
+            "$ref": "#/components/schemas/CreateLegalHoldUserInteractionType"
           },
           "description": {
             "type": "string"
@@ -2826,7 +2895,101 @@
           "start_date",
           "user_ids",
           "user_interaction_type"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/CreateLegalHold/content/application~1json/schema"
+      },
+      "CreateLegalHoldOk": {
+        "type": "object",
+        "properties": {
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_time": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CreateLegalHoldOkStatus"
+          },
+          "user_interaction_type": {
+            "$ref": "#/components/schemas/CreateLegalHoldOkUserInteractionType"
+          },
+          "users": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "description": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "number"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_by",
+          "created_time",
+          "id",
+          "start_date",
+          "status",
+          "user_interaction_type",
+          "users",
+          "workspaces"
+        ],
+        "x-flattened-from": "#/components/responses/CreateLegalHoldOk/content/application~1json/schema"
+      },
+      "CreateLegalHoldOkStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "released"
+        ],
+        "x-flattened-from": "#/components/schemas/CreateLegalHoldOk/properties/status"
+      },
+      "CreateLegalHoldOkUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CreateLegalHoldOkUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/CreateLegalHoldOk/properties/user_interaction_type"
+      },
+      "CreateLegalHoldOkUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/CreateLegalHoldOkUserInteractionType/items"
+      },
+      "CreateLegalHoldUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CreateLegalHoldUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/CreateLegalHold/properties/user_interaction_type"
+      },
+      "CreateLegalHoldUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/CreateLegalHoldUserInteractionType/items"
       },
       "CreatePermissionGroup": {
         "type": "object",
@@ -2841,7 +3004,8 @@
         },
         "required": [
           "name"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/CreatePermissionGroup/content/application~1json/schema"
       },
       "CreatePermissionGroup2": {
         "type": "object",
@@ -2864,7 +3028,8 @@
           "object",
           "id",
           "name"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/CreatePermissionGroupOk/content/application~1json/schema"
       },
       "CreatorIds": {
         "description": "IDs of members who created the tokens. Use bracket encoding for multiple values.",
@@ -2880,13 +3045,14 @@
             "type": "string",
             "format": "uuid"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/parameters/creator_ids/schema"
       },
       "EnqueueSpaceExport": {
         "type": "object",
         "properties": {
           "export_type": {
-            "$ref": "#/components/schemas/EnqueueSpaceExportType"
+            "$ref": "#/components/schemas/EnqueueSpaceExportExportType"
           },
           "on_behalf_of_user_email": {
             "type": "string"
@@ -2922,21 +3088,33 @@
         "required": [
           "export_type",
           "on_behalf_of_user_email"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/EnqueueSpaceExport/content/application~1json/schema"
       },
       "EnqueueSpaceExportCollectionViewExportType": {
         "type": "string",
         "enum": [
           "all",
           "currentView"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/EnqueueSpaceExport/properties/collection_view_export_type"
+      },
+      "EnqueueSpaceExportExportType": {
+        "type": "string",
+        "enum": [
+          "html",
+          "markdown",
+          "pdf"
+        ],
+        "x-flattened-from": "#/components/schemas/EnqueueSpaceExport/properties/export_type"
       },
       "EnqueueSpaceExportIncludeContents": {
         "type": "string",
         "enum": [
           "everything",
           "no_files"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/EnqueueSpaceExport/properties/include_contents"
       },
       "EnqueueSpaceExportOk": {
         "type": "object",
@@ -2951,7 +3129,8 @@
         "required": [
           "export_job_id",
           "status"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/EnqueueSpaceExportOk/content/application~1json/schema"
       },
       "EnqueueSpaceExportPdfFormat": {
         "type": "string",
@@ -2961,15 +3140,79 @@
           "Legal",
           "Letter",
           "Tabloid"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/EnqueueSpaceExport/properties/pdf_format"
       },
-      "EnqueueSpaceExportType": {
+      "ExpireCreditLimitPolicyOk": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `credit_limit_policy`",
+            "type": "string",
+            "const": "credit_limit_policy"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "integer"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicyCreatedBy"
+          },
+          "credit_type_unit": {
+            "$ref": "#/components/schemas/ExpireCreditLimitPolicyOkCreditTypeUnit"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "selector": {
+            "$ref": "#/components/schemas/ExpireCreditLimitPolicyOkSelector"
+          },
+          "space_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expires_at": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "object",
+          "amount",
+          "created_at",
+          "created_by",
+          "credit_type_unit",
+          "id",
+          "selector",
+          "space_id"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/ExpireCreditLimitPolicyOk/content/application~1json/schema"
+      },
+      "ExpireCreditLimitPolicyOkCreditTypeUnit": {
+        "description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
         "type": "string",
         "enum": [
-          "html",
-          "markdown",
-          "pdf"
-        ]
+          "basic_ai_credits",
+          "exempt_ai_credits",
+          "premium_ai_credits",
+          "preview_ai_credits"
+        ],
+        "x-flattened-from": "#/components/schemas/ExpireCreditLimitPolicyOk/properties/credit_type_unit"
+      },
+      "ExpireCreditLimitPolicyOkSelector": {
+        "description": "All workspace members or one workspace member affected by the policy.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ExpireCreditLimitPolicyOk/properties/selector"
       },
       "ExportLegalHold": {
         "anyOf": [
@@ -2979,7 +3222,8 @@
           {
             "$ref": "#/components/schemas/ExportLegalHoldAnyOf1"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/ExportLegalHold/content/application~1json/schema"
       },
       "ExportLegalHoldAnyOf0": {
         "type": "object",
@@ -2996,7 +3240,8 @@
         "required": [
           "legal_hold_export_id",
           "requesting_user_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ExportLegalHold/anyOf/0"
       },
       "ExportLegalHoldAnyOf1": {
         "type": "object",
@@ -3013,7 +3258,8 @@
         "required": [
           "requesting_user_id",
           "space_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ExportLegalHold/anyOf/1"
       },
       "ExportLegalHoldOk": {
         "type": "object",
@@ -3025,13 +3271,115 @@
         },
         "required": [
           "legal_hold_export_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ExportLegalHoldOk/content/application~1json/schema"
+      },
+      "GetAgentCreditUsageOk": {
+        "type": "object",
+        "properties": {
+          "credit_per_billing_period_list": {
+            "$ref": "#/components/schemas/GetAgentCreditUsageOkCreditPerBillingPeriodList"
+          },
+          "has_more": {
+            "description": "Whether more billing periods are available.",
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "runs_completed": {
+            "description": "All-time count of finished (success or failure) runs for this agent.",
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/GetAgentCreditUsageOkStatus"
+          },
+          "total_credits_used": {
+            "description": "All-time premium AI credits consumed by this agent across every period.",
+            "type": "number"
+          },
+          "type": {
+            "$ref": "#/components/schemas/GetAgentCreditUsageOkType"
+          },
+          "created_by_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "credit_limit": {
+            "description": "Enforced per-agent credit limit, if one is configured.",
+            "type": "number"
+          },
+          "last_credit_usage_time": {
+            "description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.",
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "next_cursor": {
+            "description": "Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "credit_per_billing_period_list",
+          "has_more",
+          "id",
+          "runs_completed",
+          "status",
+          "total_credits_used",
+          "type"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/GetAgentCreditUsageOk/content/application~1json/schema"
+      },
+      "GetAgentCreditUsageOkCreditPerBillingPeriodList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AgentCreditUsageCreditPerBillingPeriodListItem"
+        },
+        "x-flattened-from": "#/components/schemas/GetAgentCreditUsageOk/properties/credit_per_billing_period_list"
+      },
+      "GetAgentCreditUsageOkStatus": {
+        "description": "Agent status; same values as the list-agents endpoint's status field.",
+        "type": "string",
+        "enum": [
+          "active",
+          "credit_limit",
+          "deleted",
+          "disabled_by_notion",
+          "disabled_due_to_lack_of_editors",
+          "disabled_due_to_lack_of_full_access_members",
+          "disabled_from_agent_settings",
+          "disabled_from_api",
+          "disabled_from_workspace_settings",
+          "disabled_from_workspace_settings_but_resumable",
+          "failure_limit",
+          "internal_error",
+          "mark_session_failed_autopause",
+          "needs_review",
+          "run_limit",
+          "runaway_credit_usage",
+          "tool_unavailable",
+          "workspace_credit_limit"
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentCreditUsageOk/properties/status"
+      },
+      "GetAgentCreditUsageOkType": {
+        "description": "Custom agents vs database (autofill) agents.",
+        "type": "string",
+        "enum": [
+          "custom",
+          "database_autofill"
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentCreditUsageOk/properties/type"
       },
       "GetAgentPermissionsOk": {
         "type": "object",
         "properties": {
           "permissions": {
-            "$ref": "#/components/schemas/AgentPermissions"
+            "$ref": "#/components/schemas/GetAgentPermissionsOkPermissions"
           },
           "next_cursor": {
             "description": "Cursor to pass as cursor to fetch the next page; omitted on the last.",
@@ -3041,7 +3389,73 @@
         "required": [
           "permissions"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/GetAgentPermissionsOk/content/application~1json/schema"
+      },
+      "GetAgentPermissionsOkPermissions": {
+        "description": "The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GetAgentPermissionsOkPermissionsItem"
+        },
+        "x-flattened-from": "#/components/schemas/GetAgentPermissionsOk/properties/permissions"
+      },
+      "GetAgentPermissionsOkPermissionsItem": {
+        "description": "A principal with its stored and workspace-resolved roles.",
+        "type": "object",
+        "properties": {
+          "principal": {
+            "$ref": "#/components/schemas/GetAgentPermissionsOkPermissionsItemPrincipal"
+          },
+          "resolved_role": {
+            "$ref": "#/components/schemas/GetAgentPermissionsOkPermissionsItemResolvedRole"
+          },
+          "role": {
+            "$ref": "#/components/schemas/GetAgentPermissionsOkPermissionsItemRole"
+          }
+        },
+        "required": [
+          "principal",
+          "resolved_role",
+          "role"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetAgentPermissionsOkPermissions/items"
+      },
+      "GetAgentPermissionsOkPermissionsItemPrincipal": {
+        "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf3"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentPermissionsOkPermissionsItem/properties/principal"
+      },
+      "GetAgentPermissionsOkPermissionsItemResolvedRole": {
+        "description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentPermissionsOkPermissionsItem/properties/resolved_role"
+      },
+      "GetAgentPermissionsOkPermissionsItemRole": {
+        "description": "The role stored on this principal's agent permission item.",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentPermissionsOkPermissionsItem/properties/role"
       },
       "GetAgentsCreditUsageOk": {
         "type": "object",
@@ -3062,14 +3476,194 @@
           "has_more",
           "results"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/GetAgentsCreditUsageOk/content/application~1json/schema"
       },
       "GetAgentsCreditUsageOkResults": {
         "description": "The page of agents with their credit usage, up to 100 agents per request. Every agent starts at its most recent billing period; a nested result's next_cursor paginates that agent's billing periods through the single-agent credit-usage endpoint.",
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/AgentCreditUsage"
-        }
+          "$ref": "#/components/schemas/GetAgentsCreditUsageOkResultsItem"
+        },
+        "x-flattened-from": "#/components/schemas/GetAgentsCreditUsageOk/properties/results"
+      },
+      "GetAgentsCreditUsageOkResultsItem": {
+        "type": "object",
+        "properties": {
+          "credit_per_billing_period_list": {
+            "$ref": "#/components/schemas/GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList"
+          },
+          "has_more": {
+            "description": "Whether more billing periods are available.",
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "runs_completed": {
+            "description": "All-time count of finished (success or failure) runs for this agent.",
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/GetAgentsCreditUsageOkResultsItemStatus"
+          },
+          "total_credits_used": {
+            "description": "All-time premium AI credits consumed by this agent across every period.",
+            "type": "number"
+          },
+          "type": {
+            "$ref": "#/components/schemas/GetAgentsCreditUsageOkResultsItemType"
+          },
+          "created_by_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "credit_limit": {
+            "description": "Enforced per-agent credit limit, if one is configured.",
+            "type": "number"
+          },
+          "last_credit_usage_time": {
+            "description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.",
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "next_cursor": {
+            "description": "Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "credit_per_billing_period_list",
+          "has_more",
+          "id",
+          "runs_completed",
+          "status",
+          "total_credits_used",
+          "type"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetAgentsCreditUsageOkResults/items"
+      },
+      "GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AgentCreditUsageCreditPerBillingPeriodListItem"
+        },
+        "x-flattened-from": "#/components/schemas/GetAgentsCreditUsageOkResultsItem/properties/credit_per_billing_period_list"
+      },
+      "GetAgentsCreditUsageOkResultsItemStatus": {
+        "description": "Agent status; same values as the list-agents endpoint's status field.",
+        "type": "string",
+        "enum": [
+          "active",
+          "credit_limit",
+          "deleted",
+          "disabled_by_notion",
+          "disabled_due_to_lack_of_editors",
+          "disabled_due_to_lack_of_full_access_members",
+          "disabled_from_agent_settings",
+          "disabled_from_api",
+          "disabled_from_workspace_settings",
+          "disabled_from_workspace_settings_but_resumable",
+          "failure_limit",
+          "internal_error",
+          "mark_session_failed_autopause",
+          "needs_review",
+          "run_limit",
+          "runaway_credit_usage",
+          "tool_unavailable",
+          "workspace_credit_limit"
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentsCreditUsageOkResultsItem/properties/status"
+      },
+      "GetAgentsCreditUsageOkResultsItemType": {
+        "description": "Custom agents vs database (autofill) agents.",
+        "type": "string",
+        "enum": [
+          "custom",
+          "database_autofill"
+        ],
+        "x-flattened-from": "#/components/schemas/GetAgentsCreditUsageOkResultsItem/properties/type"
+      },
+      "GetLegalHoldOk": {
+        "type": "object",
+        "properties": {
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_time": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/GetLegalHoldOkStatus"
+          },
+          "user_interaction_type": {
+            "$ref": "#/components/schemas/GetLegalHoldOkUserInteractionType"
+          },
+          "users": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "description": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "number"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_by",
+          "created_time",
+          "id",
+          "start_date",
+          "status",
+          "user_interaction_type",
+          "users",
+          "workspaces"
+        ],
+        "x-flattened-from": "#/components/responses/GetLegalHoldOk/content/application~1json/schema"
+      },
+      "GetLegalHoldOkStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "released"
+        ],
+        "x-flattened-from": "#/components/schemas/GetLegalHoldOk/properties/status"
+      },
+      "GetLegalHoldOkUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GetLegalHoldOkUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/GetLegalHoldOk/properties/user_interaction_type"
+      },
+      "GetLegalHoldOkUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/GetLegalHoldOkUserInteractionType/items"
       },
       "GetSpaceExportStatusOk": {
         "type": "object",
@@ -3078,7 +3672,7 @@
             "type": "number"
           },
           "export_format": {
-            "$ref": "#/components/schemas/EnqueueSpaceExportType"
+            "$ref": "#/components/schemas/GetSpaceExportStatusOkExportFormat"
           },
           "export_job_id": {
             "description": "Identifier of the export job, as returned by the enqueue endpoint.",
@@ -3121,7 +3715,17 @@
           "last_edited_time",
           "pages_exported",
           "status"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/GetSpaceExportStatusOk/content/application~1json/schema"
+      },
+      "GetSpaceExportStatusOkExportFormat": {
+        "type": "string",
+        "enum": [
+          "html",
+          "markdown",
+          "pdf"
+        ],
+        "x-flattened-from": "#/components/schemas/GetSpaceExportStatusOk/properties/export_format"
       },
       "GetSpaceExportStatusOkExportType": {
         "description": "Whether an entire workspace ('space'), a teamspace, or a single 'page' was exported.",
@@ -3130,7 +3734,8 @@
           "page",
           "space",
           "teamspace"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/GetSpaceExportStatusOk/properties/export_type"
       },
       "GetSpaceExportStatusOkStatus": {
         "description": "Current state of the export: - 'in_progress': the export has not finished yet. - 'completed': the export finished and 'download_urls' is available. - 'url_generation_failed': the export finished, but a download URL could   not be generated. - 'failed': the export itself did not finish; see 'error_type' and   'error_message'.",
@@ -3140,7 +3745,8 @@
           "failed",
           "in_progress",
           "url_generation_failed"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/GetSpaceExportStatusOk/properties/status"
       },
       "GetWorkflowsMetadataForSpaceOk": {
         "type": "object",
@@ -3159,14 +3765,16 @@
           "has_more",
           "results"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/GetWorkflowsMetadataForSpaceOk/content/application~1json/schema"
       },
       "GetWorkflowsMetadataForSpaceOkResults": {
         "description": "The page of agents matching the filters, up to 100. Permanently deleted tombstones are excluded.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOk/properties/results"
       },
       "GetWorkflowsMetadataForSpaceOkResultsItem": {
         "type": "object",
@@ -3184,17 +3792,17 @@
             "format": "uuid"
           },
           "status": {
-            "$ref": "#/components/schemas/AgentCreditUsageStatus"
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemStatus"
           },
           "type": {
-            "$ref": "#/components/schemas/AgentCreditUsageType"
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemType"
           },
           "created_by_id": {
             "type": "string",
             "format": "uuid"
           },
           "created_by_table": {
-            "$ref": "#/components/schemas/WorkflowsMetadataForSpaceResultsItemCreatedByTable"
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable"
           },
           "created_time": {
             "description": "Epoch ms when the agent was created.",
@@ -3217,7 +3825,7 @@
             "format": "uuid"
           },
           "last_edited_by_table": {
-            "$ref": "#/components/schemas/WorkflowsMetadataForSpaceResultsItemCreatedByTable"
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable"
           },
           "last_edited_time": {
             "description": "Epoch ms when the agent was last edited.",
@@ -3250,7 +3858,7 @@
             "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemParentTable"
           },
           "permissions": {
-            "$ref": "#/components/schemas/AgentPermissions"
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissions"
           }
         },
         "required": [
@@ -3260,14 +3868,36 @@
           "status",
           "type"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResults/items"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable": {
+        "description": "The actor table of the agent's creator, such as \"notion_user\".",
+        "type": "string",
+        "enum": [
+          "bot",
+          "notion_user",
+          "organization_bot"
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/created_by_table"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable": {
+        "description": "The actor table of the agent's last editor, such as \"notion_user\".",
+        "type": "string",
+        "enum": [
+          "bot",
+          "notion_user",
+          "organization_bot"
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/last_edited_by_table"
       },
       "GetWorkflowsMetadataForSpaceOkResultsItemModules": {
         "description": "The capabilities and tools the agent is allowed to use — both inside Notion and in connected apps such as Slack, the web, or MCP servers. At most 250 module summaries are returned.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemModulesItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/modules"
       },
       "GetWorkflowsMetadataForSpaceOkResultsItemModulesItem": {
         "description": "Summary of a module attached to an agent (which integration + its reach).",
@@ -3301,14 +3931,16 @@
           "id",
           "type"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemModules/items"
       },
       "GetWorkflowsMetadataForSpaceOkResultsItemModulesItemResources": {
         "description": "Per-resource access this module grants the agent, such as channels, pages, repositories, files, or MCP resources, and the actions allowed on each.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemModulesItemResourcesItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemModulesItem/properties/resources"
       },
       "GetWorkflowsMetadataForSpaceOkResultsItemModulesItemResourcesItem": {
         "description": "A resource, or set of resources, that a module grants the agent access to. This includes the resource kind when available, resource identifiers, and granted actions.",
@@ -3333,7 +3965,8 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemModulesItemResources/items"
       },
       "GetWorkflowsMetadataForSpaceOkResultsItemParentTable": {
         "description": "The table the agent is parented to: custom agents belong to the workspace (\"space\"); database (autofill) agents belong to their database's block (\"block\").",
@@ -3341,7 +3974,107 @@
         "enum": [
           "block",
           "space"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/parent_table"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemPermissions": {
+        "description": "Who the agent is shared with: each principal's stored and resolved roles, workspace grant first, at most 250 entries. Omitted for database (autofill) agents, whose sharing state is not exposed.",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem"
+        },
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/permissions"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem": {
+        "description": "A principal with its stored and workspace-resolved roles.",
+        "type": "object",
+        "properties": {
+          "principal": {
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal"
+          },
+          "resolved_role": {
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole"
+          },
+          "role": {
+            "$ref": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole"
+          }
+        },
+        "required": [
+          "principal",
+          "resolved_role",
+          "role"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissions/items"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal": {
+        "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf3"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem/properties/principal"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole": {
+        "description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem/properties/resolved_role"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole": {
+        "description": "The role stored on this principal's agent permission item.",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem/properties/role"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemStatus": {
+        "description": "The agent's current status: \"active\", \"deleted\", or a snake_case paused reason. Uses the same values as the status query filter.",
+        "type": "string",
+        "enum": [
+          "active",
+          "credit_limit",
+          "deleted",
+          "disabled_by_notion",
+          "disabled_due_to_lack_of_editors",
+          "disabled_due_to_lack_of_full_access_members",
+          "disabled_from_agent_settings",
+          "disabled_from_api",
+          "disabled_from_workspace_settings",
+          "disabled_from_workspace_settings_but_resumable",
+          "failure_limit",
+          "internal_error",
+          "mark_session_failed_autopause",
+          "needs_review",
+          "run_limit",
+          "runaway_credit_usage",
+          "tool_unavailable",
+          "workspace_credit_limit"
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/status"
+      },
+      "GetWorkflowsMetadataForSpaceOkResultsItemType": {
+        "description": "Custom agents vs database (autofill) agents.",
+        "type": "string",
+        "enum": [
+          "custom",
+          "database_autofill"
+        ],
+        "x-flattened-from": "#/components/schemas/GetWorkflowsMetadataForSpaceOkResultsItem/properties/type"
       },
       "IncludeDeleted": {
         "description": "Set to \"true\" to include soft-deleted agents and their retained credit usage; included deleted agents have status \"deleted\". Omit this parameter or set it to \"false\" to return only live agents. Permanently deleted tombstones are never returned.",
@@ -3349,18 +4082,28 @@
         "enum": [
           "false",
           "true"
-        ]
+        ],
+        "x-flattened-from": "#/components/parameters/include_deleted/schema"
       },
-      "ListCreditLimitPoliciesNextCursor": {
-        "description": "Cursor for the next page, or null on the last page.",
-        "oneOf": [
-          {
-            "type": "string"
+      "LegalHoldUsers": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           },
-          {
-            "type": "null"
+          "total": {
+            "type": "number"
           }
-        ]
+        },
+        "required": [
+          "ids",
+          "total"
+        ],
+        "x-flattened-from": "#/components/schemas/GetLegalHoldOk/properties/users"
       },
       "ListCreditLimitPoliciesOk": {
         "type": "object",
@@ -3383,7 +4126,7 @@
             "type": "boolean"
           },
           "next_cursor": {
-            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+            "$ref": "#/components/schemas/ListCreditLimitPoliciesOkNextCursor"
           }
         },
         "required": [
@@ -3393,15 +4136,100 @@
           "has_more",
           "next_cursor"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/ListCreditLimitPoliciesOk/content/application~1json/schema"
+      },
+      "ListCreditLimitPoliciesOkNextCursor": {
+        "description": "Cursor for the next page, or null on the last page.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListCreditLimitPoliciesOk/properties/next_cursor"
       },
       "ListCreditLimitPoliciesOkResults": {
         "description": "The active credit limit policies in the workspace.",
         "type": "array",
         "maxItems": 100,
         "items": {
-          "$ref": "#/components/schemas/CreateCreditLimitPolicy2"
-        }
+          "$ref": "#/components/schemas/ListCreditLimitPoliciesOkResultsItem"
+        },
+        "x-flattened-from": "#/components/schemas/ListCreditLimitPoliciesOk/properties/results"
+      },
+      "ListCreditLimitPoliciesOkResultsItem": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `credit_limit_policy`",
+            "type": "string",
+            "const": "credit_limit_policy"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "integer"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicyCreatedBy"
+          },
+          "credit_type_unit": {
+            "$ref": "#/components/schemas/ListCreditLimitPoliciesOkResultsItemCreditTypeUnit"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "selector": {
+            "$ref": "#/components/schemas/ListCreditLimitPoliciesOkResultsItemSelector"
+          },
+          "space_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expires_at": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "object",
+          "amount",
+          "created_at",
+          "created_by",
+          "credit_type_unit",
+          "id",
+          "selector",
+          "space_id"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/ListCreditLimitPoliciesOkResults/items"
+      },
+      "ListCreditLimitPoliciesOkResultsItemCreditTypeUnit": {
+        "description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
+        "type": "string",
+        "enum": [
+          "basic_ai_credits",
+          "exempt_ai_credits",
+          "premium_ai_credits",
+          "preview_ai_credits"
+        ],
+        "x-flattened-from": "#/components/schemas/ListCreditLimitPoliciesOkResultsItem/properties/credit_type_unit"
+      },
+      "ListCreditLimitPoliciesOkResultsItemSelector": {
+        "description": "All workspace members or one workspace member affected by the policy.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListCreditLimitPoliciesOkResultsItem/properties/selector"
       },
       "ListLegalHoldPagesOk": {
         "type": "object",
@@ -3418,7 +4246,8 @@
         },
         "required": [
           "page_ids"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListLegalHoldPagesOk/content/application~1json/schema"
       },
       "ListLegalHoldUsersOk": {
         "type": "object",
@@ -3436,7 +4265,8 @@
         },
         "required": [
           "user_ids"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListLegalHoldUsersOk/content/application~1json/schema"
       },
       "ListLegalHoldWorkspacesOk": {
         "type": "object",
@@ -3453,7 +4283,8 @@
         },
         "required": [
           "workspace_ids"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListLegalHoldWorkspacesOk/content/application~1json/schema"
       },
       "ListLegalHoldsOk": {
         "type": "object",
@@ -3467,13 +4298,92 @@
         },
         "required": [
           "legal_holds"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListLegalHoldsOk/content/application~1json/schema"
       },
       "ListLegalHoldsOkLegalHolds": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/AddLegalHoldUsers2"
-        }
+          "$ref": "#/components/schemas/ListLegalHoldsOkLegalHoldsItem"
+        },
+        "x-flattened-from": "#/components/schemas/ListLegalHoldsOk/properties/legal_holds"
+      },
+      "ListLegalHoldsOkLegalHoldsItem": {
+        "type": "object",
+        "properties": {
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_time": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ListLegalHoldsOkLegalHoldsItemStatus"
+          },
+          "user_interaction_type": {
+            "$ref": "#/components/schemas/ListLegalHoldsOkLegalHoldsItemUserInteractionType"
+          },
+          "users": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "description": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "number"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_by",
+          "created_time",
+          "id",
+          "start_date",
+          "status",
+          "user_interaction_type",
+          "users",
+          "workspaces"
+        ],
+        "x-flattened-from": "#/components/schemas/ListLegalHoldsOkLegalHolds/items"
+      },
+      "ListLegalHoldsOkLegalHoldsItemStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "released"
+        ],
+        "x-flattened-from": "#/components/schemas/ListLegalHoldsOkLegalHoldsItem/properties/status"
+      },
+      "ListLegalHoldsOkLegalHoldsItemUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/ListLegalHoldsOkLegalHoldsItem/properties/user_interaction_type"
+      },
+      "ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/ListLegalHoldsOkLegalHoldsItemUserInteractionType/items"
       },
       "ListMcpClientConnectionsOk": {
         "type": "object",
@@ -3493,14 +4403,16 @@
         "required": [
           "has_more",
           "results"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListMcpClientConnectionsOk/content/application~1json/schema"
       },
       "ListMcpClientConnectionsOkResults": {
         "description": "MCP client connections grouped by member, client, and connection settings.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListMcpClientConnectionsOkResultsItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/ListMcpClientConnectionsOk/properties/results"
       },
       "ListMcpClientConnectionsOkResultsItem": {
         "type": "object",
@@ -3517,6 +4429,7 @@
             "type": "boolean"
           },
           "user": {
+            "description": "The member connected to the client.",
             "$ref": "#/components/schemas/ListMcpClientConnectionsResultsItemUser"
           },
           "workspaces": {
@@ -3537,7 +4450,8 @@
           "is_enterprise_managed",
           "user",
           "workspaces"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListMcpClientConnectionsOkResults/items"
       },
       "ListMcpClientConnectionsOkResultsItemClient": {
         "description": "Details that identify the MCP client.",
@@ -3559,7 +4473,8 @@
           "key",
           "name",
           "type"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListMcpClientConnectionsOkResultsItem/properties/client"
       },
       "ListMcpClientConnectionsOkResultsItemClientType": {
         "description": "Client category, or 'other' for a custom or unregistered client.",
@@ -3591,17 +4506,18 @@
           "slack",
           "vscode",
           "zapier"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListMcpClientConnectionsOkResultsItemClient/properties/type"
       },
       "ListMcpClientConnectionsOkResultsItemWorkspaces": {
         "description": "Workspaces where the member and client have matching connection settings.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListMcpClientConnectionsResultsItemUser"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/ListMcpClientConnectionsOkResultsItem/properties/workspaces"
       },
       "ListMcpClientConnectionsResultsItemUser": {
-        "description": "The member connected to the client.",
         "type": "object",
         "properties": {
           "id": {
@@ -3611,7 +4527,8 @@
         },
         "required": [
           "id"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListMcpClientConnectionsOkResultsItem/properties/user"
       },
       "ListPermissionGroupMembersOk": {
         "type": "object",
@@ -3634,7 +4551,7 @@
             "type": "boolean"
           },
           "next_cursor": {
-            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+            "$ref": "#/components/schemas/ListPermissionGroupMembersOkNextCursor"
           }
         },
         "required": [
@@ -3643,15 +4560,65 @@
           "results",
           "has_more",
           "next_cursor"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListPermissionGroupMembersOk/content/application~1json/schema"
+      },
+      "ListPermissionGroupMembersOkNextCursor": {
+        "description": "Cursor for the next page, or null on the last page.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListPermissionGroupMembersOk/properties/next_cursor"
       },
       "ListPermissionGroupMembersOkResults": {
         "description": "The direct user memberships in the group.",
         "type": "array",
         "maxItems": 100,
         "items": {
-          "$ref": "#/components/schemas/AddPermissionGroupMember2"
-        }
+          "$ref": "#/components/schemas/ListPermissionGroupMembersOkResultsItem"
+        },
+        "x-flattened-from": "#/components/schemas/ListPermissionGroupMembersOk/properties/results"
+      },
+      "ListPermissionGroupMembersOkResultsItem": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `group_membership`",
+            "type": "string",
+            "const": "group_membership"
+          },
+          "group_id": {
+            "description": "The ID of the group.",
+            "type": "string"
+          },
+          "member": {
+            "$ref": "#/components/schemas/AddPermissionGroupMember2"
+          },
+          "role": {
+            "$ref": "#/components/schemas/ListPermissionGroupMembersOkResultsItemRole"
+          }
+        },
+        "required": [
+          "object",
+          "group_id",
+          "member",
+          "role"
+        ],
+        "x-flattened-from": "#/components/schemas/ListPermissionGroupMembersOkResults/items"
+      },
+      "ListPermissionGroupMembersOkResultsItemRole": {
+        "description": "The user's role in the group.",
+        "type": "string",
+        "enum": [
+          "owner",
+          "member"
+        ],
+        "x-flattened-from": "#/components/schemas/ListPermissionGroupMembersOkResultsItem/properties/role"
       },
       "ListPermissionGroupsOk": {
         "type": "object",
@@ -3674,7 +4641,7 @@
             "type": "boolean"
           },
           "next_cursor": {
-            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+            "$ref": "#/components/schemas/ListPermissionGroupsOkNextCursor"
           }
         },
         "required": [
@@ -3683,7 +4650,20 @@
           "results",
           "has_more",
           "next_cursor"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListPermissionGroupsOk/content/application~1json/schema"
+      },
+      "ListPermissionGroupsOkNextCursor": {
+        "description": "Cursor for the next page, or null on the last page.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListPermissionGroupsOk/properties/next_cursor"
       },
       "ListPermissionGroupsOkResults": {
         "description": "The permission groups in the workspace.",
@@ -3691,7 +4671,8 @@
         "maxItems": 100,
         "items": {
           "$ref": "#/components/schemas/CreatePermissionGroup2"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/ListPermissionGroupsOk/properties/results"
       },
       "ListPersonalAccessTokensOk": {
         "type": "object",
@@ -3712,14 +4693,16 @@
           "results",
           "has_more"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/ListPersonalAccessTokensOk/content/application~1json/schema"
       },
       "ListPersonalAccessTokensOkResults": {
         "description": "Personal access tokens in the workspace. Token values are never returned.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListPersonalAccessTokensOkResultsItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/ListPersonalAccessTokensOk/properties/results"
       },
       "ListPersonalAccessTokensOkResultsItem": {
         "type": "object",
@@ -3729,6 +4712,7 @@
             "format": "uuid"
           },
           "creator": {
+            "description": "Member who created the token.",
             "$ref": "#/components/schemas/ListPersonalAccessTokensResultsItemCreator"
           },
           "created_at": {
@@ -3736,7 +4720,7 @@
             "type": "number"
           },
           "status": {
-            "$ref": "#/components/schemas/ListPersonalAccessTokensResultsItemStatus"
+            "$ref": "#/components/schemas/ListPersonalAccessTokensOkResultsItemStatus"
           },
           "name": {
             "description": "Token name, when available.",
@@ -3755,6 +4739,7 @@
             "type": "number"
           },
           "revoked_by": {
+            "description": "User or bot that revoked the token.",
             "$ref": "#/components/schemas/ListPersonalAccessTokensResultsItemCreator"
           }
         },
@@ -3764,7 +4749,8 @@
           "created_at",
           "status"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/ListPersonalAccessTokensOkResults/items"
       },
       "ListPersonalAccessTokensOkResultsItemRevokedByType": {
         "description": "Type of user or bot that revoked the token.",
@@ -3773,10 +4759,20 @@
           "bot",
           "organization_bot",
           "user"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListPersonalAccessTokensOkResultsItemRevokedBy/properties/type"
+      },
+      "ListPersonalAccessTokensOkResultsItemStatus": {
+        "description": "Current token status.",
+        "type": "string",
+        "enum": [
+          "active",
+          "expired",
+          "revoked"
+        ],
+        "x-flattened-from": "#/components/schemas/ListPersonalAccessTokensOkResultsItem/properties/status"
       },
       "ListPersonalAccessTokensResultsItemCreator": {
-        "description": "Member who created the token.",
         "type": "object",
         "properties": {
           "id": {
@@ -3802,16 +4798,8 @@
         "required": [
           "id"
         ],
-        "additionalProperties": false
-      },
-      "ListPersonalAccessTokensResultsItemStatus": {
-        "description": "Current token status.",
-        "type": "string",
-        "enum": [
-          "active",
-          "expired",
-          "revoked"
-        ]
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/ListPersonalAccessTokensOkResultsItem/properties/creator"
       },
       "ListUsersOk": {
         "type": "object",
@@ -3839,7 +4827,7 @@
             "type": "boolean"
           },
           "next_cursor": {
-            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+            "$ref": "#/components/schemas/ListUsersOkNextCursor"
           }
         },
         "required": [
@@ -3849,7 +4837,20 @@
           "has_more",
           "next_cursor"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/ListUsersOk/content/application~1json/schema"
+      },
+      "ListUsersOkNextCursor": {
+        "description": "Opaque continuation cursor for the next page.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOk/properties/next_cursor"
       },
       "ListUsersOkResultsItem": {
         "allOf": [
@@ -3859,7 +4860,8 @@
           {
             "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf1"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOk/properties/results/items"
       },
       "ListUsersOkResultsItemAllOf0": {
         "type": "object",
@@ -3874,10 +4876,10 @@
             "type": "string"
           },
           "name": {
-            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+            "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf0Name"
           },
           "avatar_url": {
-            "$ref": "#/components/schemas/ListCreditLimitPoliciesNextCursor"
+            "$ref": "#/components/schemas/ListUsersOkResultsItemAllOf0AvatarURL"
           }
         },
         "required": [
@@ -3886,7 +4888,32 @@
           "name",
           "avatar_url"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/ListUsersOkResultsItem/allOf/0"
+      },
+      "ListUsersOkResultsItemAllOf0AvatarURL": {
+        "description": "The avatar URL of the user.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOkResultsItemAllOf0/properties/avatar_url"
+      },
+      "ListUsersOkResultsItemAllOf0Name": {
+        "description": "The name of the user.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOkResultsItemAllOf0/properties/name"
       },
       "ListUsersOkResultsItemAllOf1": {
         "oneOf": [
@@ -3896,13 +4923,15 @@
           {
             "$ref": "#/components/schemas/Bot"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOkResultsItem/allOf/1"
       },
       "NotionVersion": {
         "type": "string",
         "enum": [
           "2026-06-01"
-        ]
+        ],
+        "x-flattened-from": "#/components/parameters/notionVersion/schema"
       },
       "Person": {
         "title": "Person",
@@ -3924,7 +4953,8 @@
           "type",
           "membership_type",
           "person"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListUsersOkResultsItemAllOf1/oneOf/0"
       },
       "PersonMembershipType": {
         "description": "The person's effective workspace membership type.",
@@ -3936,7 +4966,8 @@
           "member",
           "membership_admin",
           "owner"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/Person/properties/membership_type"
       },
       "PersonPerson": {
         "description": "Details about the person, when the `type` of the user is `person`.",
@@ -3947,7 +4978,198 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/Person/properties/person"
+      },
+      "ReleaseLegalHoldOk": {
+        "type": "object",
+        "properties": {
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_time": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ReleaseLegalHoldOkStatus"
+          },
+          "user_interaction_type": {
+            "$ref": "#/components/schemas/ReleaseLegalHoldOkUserInteractionType"
+          },
+          "users": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "description": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "number"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_by",
+          "created_time",
+          "id",
+          "start_date",
+          "status",
+          "user_interaction_type",
+          "users",
+          "workspaces"
+        ],
+        "x-flattened-from": "#/components/responses/ReleaseLegalHoldOk/content/application~1json/schema"
+      },
+      "ReleaseLegalHoldOkStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "released"
+        ],
+        "x-flattened-from": "#/components/schemas/ReleaseLegalHoldOk/properties/status"
+      },
+      "ReleaseLegalHoldOkUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ReleaseLegalHoldOkUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/ReleaseLegalHoldOk/properties/user_interaction_type"
+      },
+      "ReleaseLegalHoldOkUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/ReleaseLegalHoldOkUserInteractionType/items"
+      },
+      "RemoveLegalHoldUserOk": {
+        "type": "object",
+        "properties": {
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_time": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RemoveLegalHoldUserOkStatus"
+          },
+          "user_interaction_type": {
+            "$ref": "#/components/schemas/RemoveLegalHoldUserOkUserInteractionType"
+          },
+          "users": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "description": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "number"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_by",
+          "created_time",
+          "id",
+          "start_date",
+          "status",
+          "user_interaction_type",
+          "users",
+          "workspaces"
+        ],
+        "x-flattened-from": "#/components/responses/RemoveLegalHoldUserOk/content/application~1json/schema"
+      },
+      "RemoveLegalHoldUserOkStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "released"
+        ],
+        "x-flattened-from": "#/components/schemas/RemoveLegalHoldUserOk/properties/status"
+      },
+      "RemoveLegalHoldUserOkUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RemoveLegalHoldUserOkUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/RemoveLegalHoldUserOk/properties/user_interaction_type"
+      },
+      "RemoveLegalHoldUserOkUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/RemoveLegalHoldUserOkUserInteractionType/items"
+      },
+      "RemovePermissionGroupMemberOk": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `group_membership`",
+            "type": "string",
+            "const": "group_membership"
+          },
+          "group_id": {
+            "description": "The ID of the group.",
+            "type": "string"
+          },
+          "member": {
+            "$ref": "#/components/schemas/AddPermissionGroupMember2"
+          },
+          "role": {
+            "$ref": "#/components/schemas/RemovePermissionGroupMemberOkRole"
+          }
+        },
+        "required": [
+          "object",
+          "group_id",
+          "member",
+          "role"
+        ],
+        "x-flattened-from": "#/components/responses/RemovePermissionGroupMemberOk/content/application~1json/schema"
+      },
+      "RemovePermissionGroupMemberOkRole": {
+        "description": "The user's role in the group.",
+        "type": "string",
+        "enum": [
+          "owner",
+          "member"
+        ],
+        "x-flattened-from": "#/components/schemas/RemovePermissionGroupMemberOk/properties/role"
       },
       "RevokeMcpClientConnection": {
         "type": "object",
@@ -3969,7 +5191,8 @@
           "client_key",
           "user_id",
           "workspace_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/RevokeMcpClientConnection/content/application~1json/schema"
       },
       "RevokeMcpClientConnectionOk": {
         "type": "object",
@@ -3981,7 +5204,8 @@
         },
         "required": [
           "revoked_token_count"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/RevokeMcpClientConnectionOk/content/application~1json/schema"
       },
       "RevokeUserSession": {
         "type": "object",
@@ -3992,7 +5216,8 @@
         },
         "required": [
           "user"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/RevokeUserSession/content/application~1json/schema"
       },
       "RevokeUserSessionOk": {
         "type": "object",
@@ -4005,7 +5230,8 @@
         },
         "required": [
           "status"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/RevokeUserSessionOk/content/application~1json/schema"
       },
       "RevokeUserSessionUser": {
         "description": "The managed user whose active sessions should be revoked.",
@@ -4016,7 +5242,8 @@
           {
             "$ref": "#/components/schemas/RevokeUserSessionUserOneOf1"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/RevokeUserSession/properties/user"
       },
       "RevokeUserSessionUserOneOf0": {
         "type": "object",
@@ -4035,7 +5262,8 @@
           "type",
           "email"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/RevokeUserSessionUser/oneOf/0"
       },
       "RevokeUserSessionUserOneOf1": {
         "type": "object",
@@ -4054,7 +5282,8 @@
           "type",
           "id"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/RevokeUserSessionUser/oneOf/1"
       },
       "Status": {
         "description": "Token statuses to include. Use bracket encoding for multiple values.",
@@ -4077,14 +5306,16 @@
             "type": "string",
             "const": "revoked"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/parameters/status/schema"
       },
       "Status2": {
         "description": "Status filter. Accepts every response status value, plus the \"disabled\" convenience bucket for admin-disabled agents.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/StatusItem"
-        }
+        },
+        "x-flattened-from": "#/components/parameters/status2/schema"
       },
       "StatusItem": {
         "description": "One of: `active`, `credit_limit`, `deleted`, `disabled`, `disabled_by_notion`, `disabled_due_to_lack_of_editors`, `disabled_due_to_lack_of_full_access_members`, `disabled_from_agent_settings`, `disabled_from_api`, `disabled_from_workspace_settings`, `disabled_from_workspace_settings_but_resumable`, `failure_limit`, `internal_error`, `mark_session_failed_autopause`, `needs_review`, `run_limit`, `runaway_credit_usage`, `tool_unavailable`, `workspace_credit_limit`",
@@ -4109,13 +5340,25 @@
           "runaway_credit_usage",
           "tool_unavailable",
           "workspace_credit_limit"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/Status2/items"
       },
       "StatusOneOf0": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ListPersonalAccessTokensResultsItemStatus"
-        }
+          "$ref": "#/components/schemas/StatusOneOf0Item"
+        },
+        "x-flattened-from": "#/components/schemas/Status/oneOf/0"
+      },
+      "StatusOneOf0Item": {
+        "description": "One of: `active`, `expired`, `revoked`",
+        "type": "string",
+        "enum": [
+          "active",
+          "expired",
+          "revoked"
+        ],
+        "x-flattened-from": "#/components/schemas/StatusOneOf0/items"
       },
       "UpdateAgentCreationPolicy": {
         "type": "object",
@@ -4130,7 +5373,8 @@
         },
         "required": [
           "policy"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/UpdateAgentCreationPolicy/content/application~1json/schema"
       },
       "UpdateAgentCreationPolicyOk": {
         "type": "object",
@@ -4159,7 +5403,8 @@
           "space_id",
           "space_name"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/UpdateAgentCreationPolicyOk/content/application~1json/schema"
       },
       "UpdateAgentCreationPolicyOkAgentCounts": {
         "type": "object",
@@ -4179,7 +5424,8 @@
           "deleted",
           "disabled"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreationPolicyOk/properties/agent_counts"
       },
       "UpdateAgentCreationPolicyOkCurrentPolicy": {
         "description": "The policy now in effect, or null when no explicit policy has ever been set for the workspace (which behaves as the \"all_workspace_members\" default).",
@@ -4190,7 +5436,8 @@
           {
             "type": "null"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreationPolicyOk/properties/current_policy"
       },
       "UpdateAgentCreationPolicyOkCurrentPolicyOneOf0": {
         "description": "One of: `all_workspace_members`, `custom`, `disabled`, `workspace_owners_only`",
@@ -4200,7 +5447,8 @@
           "custom",
           "disabled",
           "workspace_owners_only"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreationPolicyOkCurrentPolicy/oneOf/0"
       },
       "UpdateAgentCreationPolicyPolicy": {
         "description": "One of: `all_workspace_members`, `disabled`, `workspace_owners_only`",
@@ -4209,7 +5457,8 @@
           "all_workspace_members",
           "disabled",
           "workspace_owners_only"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreationPolicy/properties/policy"
       },
       "UpdateAgentCreditLimit": {
         "type": "object",
@@ -4220,7 +5469,8 @@
         },
         "required": [
           "credit_limit"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/UpdateAgentCreditLimit/content/application~1json/schema"
       },
       "UpdateAgentCreditLimitCreditLimit": {
         "description": "The per-agent credit limit as a non-negative integer, or null to clear the limit.",
@@ -4231,19 +5481,20 @@
           {
             "type": "null"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreditLimit/properties/credit_limit"
       },
       "UpdateAgentCreditLimitOk": {
         "type": "object",
         "properties": {
           "credit_limit_by_workspace_admin": {
-            "$ref": "#/components/schemas/UpdateAgentCreditLimitCreditLimit"
+            "$ref": "#/components/schemas/UpdateAgentCreditLimitOkCreditLimitByWorkspaceAdmin"
           },
           "enforced_credit_limit": {
-            "$ref": "#/components/schemas/UpdateAgentCreditLimitCreditLimit"
+            "$ref": "#/components/schemas/UpdateAgentCreditLimitOkEnforcedCreditLimit"
           },
           "current_credit_usage": {
-            "$ref": "#/components/schemas/UpdateAgentCreditLimitCreditLimit"
+            "$ref": "#/components/schemas/UpdateAgentCreditLimitOkCurrentCreditUsage"
           },
           "did_clear_paused_state": {
             "description": "Whether this change resumed the agent after a credit-limit or runaway-credit-usage pause.",
@@ -4261,7 +5512,44 @@
           "did_clear_paused_state",
           "is_active"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/UpdateAgentCreditLimitOk/content/application~1json/schema"
+      },
+      "UpdateAgentCreditLimitOkCreditLimitByWorkspaceAdmin": {
+        "description": "The workspace admin credit limit after the change, or `null` if no workspace admin limit applies.",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreditLimitOk/properties/credit_limit_by_workspace_admin"
+      },
+      "UpdateAgentCreditLimitOkCurrentCreditUsage": {
+        "description": "The agent's credit usage in the current billing period, or `null` if the billing period is unknown.",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreditLimitOk/properties/current_credit_usage"
+      },
+      "UpdateAgentCreditLimitOkEnforcedCreditLimit": {
+        "description": "The credit limit that applies to the agent after the change. This is the lower of the workspace admin limit and the limit set by the agent creator. The workspace default applies if neither limit is set. `null` means no limit applies.",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentCreditLimitOk/properties/enforced_credit_limit"
       },
       "UpdateAgentPermissions": {
         "type": "object",
@@ -4273,47 +5561,191 @@
             "description": "Principals to revoke permissions for.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AgentPermissionsItemPrincipal"
+              "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItem"
             }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/requestBodies/UpdateAgentPermissions/content/application~1json/schema"
       },
       "UpdateAgentPermissionsOk": {
         "type": "object",
         "properties": {
           "permissions": {
-            "$ref": "#/components/schemas/AgentPermissions"
+            "$ref": "#/components/schemas/UpdateAgentPermissionsOkPermissions"
           }
         },
         "required": [
           "permissions"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/UpdateAgentPermissionsOk/content/application~1json/schema"
+      },
+      "UpdateAgentPermissionsOkPermissions": {
+        "description": "The updated permission list, in the same shape as the read endpoint. This is a pre-commit projection truncated at 250 entries with no cursor; treat the paginated read endpoint as the source of truth.",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItem"
+        },
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsOk/properties/permissions"
+      },
+      "UpdateAgentPermissionsOkPermissionsItem": {
+        "description": "A principal with its stored and workspace-resolved roles.",
+        "type": "object",
+        "properties": {
+          "principal": {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItemPrincipal"
+          },
+          "resolved_role": {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItemResolvedRole"
+          },
+          "role": {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItemRole"
+          }
+        },
+        "required": [
+          "principal",
+          "resolved_role",
+          "role"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsOkPermissions/items"
+      },
+      "UpdateAgentPermissionsOkPermissionsItemPrincipal": {
+        "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf3"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItem/properties/principal"
+      },
+      "UpdateAgentPermissionsOkPermissionsItemResolvedRole": {
+        "description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItem/properties/resolved_role"
+      },
+      "UpdateAgentPermissionsOkPermissionsItemRole": {
+        "description": "The role stored on this principal's agent permission item.",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsOkPermissionsItem/properties/role"
+      },
+      "UpdateAgentPermissionsRemoveItem": {
+        "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf3"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissions/properties/remove/items"
+      },
+      "UpdateAgentPermissionsRemoveItemOneOf": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "description": "Always `group`",
+            "type": "string",
+            "const": "group"
+          }
+        },
+        "required": [
+          "group_id",
+          "type"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsRemoveItem/oneOf/0"
+      },
+      "UpdateAgentPermissionsRemoveItemOneOf3": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `workspace`",
+            "type": "string",
+            "const": "workspace"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsRemoveItem/oneOf/2"
       },
       "UpdateAgentPermissionsSet": {
         "description": "Principals to grant permissions to, or update the level for.",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/UpdateAgentPermissionsSetItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissions/properties/set"
       },
       "UpdateAgentPermissionsSetItem": {
         "description": "A single upsert: grant principal the given role (creating or updating it).",
         "type": "object",
         "properties": {
           "principal": {
-            "$ref": "#/components/schemas/AgentPermissionsItemPrincipal"
+            "$ref": "#/components/schemas/UpdateAgentPermissionsSetItemPrincipal"
           },
           "role": {
-            "$ref": "#/components/schemas/AgentPermissionsItemResolvedRole"
+            "$ref": "#/components/schemas/UpdateAgentPermissionsSetItemRole"
           }
         },
         "required": [
           "principal",
           "role"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsSet/items"
+      },
+      "UpdateAgentPermissionsSetItemPrincipal": {
+        "description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          },
+          {
+            "$ref": "#/components/schemas/UpdateAgentPermissionsRemoveItemOneOf3"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsSetItem/properties/principal"
+      },
+      "UpdateAgentPermissionsSetItemRole": {
+        "description": "One of: `edit`, `full_access`, `view_and_interact`",
+        "type": "string",
+        "enum": [
+          "edit",
+          "full_access",
+          "view_and_interact"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentPermissionsSetItem/properties/role"
       },
       "UpdateAgentStatus": {
         "type": "object",
@@ -4324,7 +5756,8 @@
         },
         "required": [
           "admin_status"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/UpdateAgentStatus/content/application~1json/schema"
       },
       "UpdateAgentStatusAdminStatus": {
         "description": "Set to \"active\" to re-enable an agent that was disabled through this API, or \"disabled\" to turn off a running agent.",
@@ -4332,13 +5765,14 @@
         "enum": [
           "active",
           "disabled"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentStatus/properties/admin_status"
       },
       "UpdateAgentStatusOk": {
         "type": "object",
         "properties": {
           "admin_status": {
-            "$ref": "#/components/schemas/UpdateAgentStatusAdminStatus"
+            "$ref": "#/components/schemas/UpdateAgentStatusOkAdminStatus"
           },
           "run_status": {
             "$ref": "#/components/schemas/UpdateAgentStatusOkRunStatus"
@@ -4350,7 +5784,17 @@
         "required": [
           "admin_status",
           "run_status"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/UpdateAgentStatusOk/content/application~1json/schema"
+      },
+      "UpdateAgentStatusOkAdminStatus": {
+        "description": "The administrative status you set (\"active\" or \"disabled\"). This is the admin-disable toggle only; it does not tell you whether the agent will actually run.",
+        "type": "string",
+        "enum": [
+          "active",
+          "disabled"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentStatusOk/properties/admin_status"
       },
       "UpdateAgentStatusOkPausedReason": {
         "description": "The authoritative explanation for why an agent is paused (for example, \"disabled_from_workspace_settings\" or \"workspace_credit_limit\"). It is present only when run_status is \"paused\", and it is the field you must inspect to derive the agent's true state.",
@@ -4372,7 +5816,8 @@
           "internal_error",
           "needs_review",
           "tool_unavailable"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentStatusOk/properties/paused_reason"
       },
       "UpdateAgentStatusOkRunStatus": {
         "description": "Whether the agent will actually run right now, independent of the admin-disable toggle. It reflects the agent's current state, including usage-based pauses such as a credit limit or workspace credit limit. It is \"active\" only when the agent has no paused reason and will actually run, and \"paused\" whenever a paused_reason is present, whether admin-set or not. Refer to paused_reason for why the agent is paused.",
@@ -4380,7 +5825,8 @@
         "enum": [
           "active",
           "paused"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateAgentStatusOk/properties/run_status"
       },
       "UpdateCreditLimitPolicy": {
         "type": "object",
@@ -4398,7 +5844,79 @@
         "required": [
           "amount"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/requestBodies/UpdateCreditLimitPolicy/content/application~1json/schema"
+      },
+      "UpdateCreditLimitPolicyOk": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `credit_limit_policy`",
+            "type": "string",
+            "const": "credit_limit_policy"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "integer"
+          },
+          "created_by": {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicyCreatedBy"
+          },
+          "credit_type_unit": {
+            "$ref": "#/components/schemas/UpdateCreditLimitPolicyOkCreditTypeUnit"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "selector": {
+            "$ref": "#/components/schemas/UpdateCreditLimitPolicyOkSelector"
+          },
+          "space_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expires_at": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "object",
+          "amount",
+          "created_at",
+          "created_by",
+          "credit_type_unit",
+          "id",
+          "selector",
+          "space_id"
+        ],
+        "additionalProperties": false,
+        "x-flattened-from": "#/components/responses/UpdateCreditLimitPolicyOk/content/application~1json/schema"
+      },
+      "UpdateCreditLimitPolicyOkCreditTypeUnit": {
+        "description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
+        "type": "string",
+        "enum": [
+          "basic_ai_credits",
+          "exempt_ai_credits",
+          "premium_ai_credits",
+          "preview_ai_credits"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateCreditLimitPolicyOk/properties/credit_type_unit"
+      },
+      "UpdateCreditLimitPolicyOkSelector": {
+        "description": "All workspace members or one workspace member affected by the policy.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateCreditLimitPolicySelectorOneOf2"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateCreditLimitPolicyOk/properties/selector"
       },
       "UpdateLegalHold": {
         "type": "object",
@@ -4412,13 +5930,91 @@
           "name": {
             "type": "string"
           }
-        }
+        },
+        "x-flattened-from": "#/components/requestBodies/UpdateLegalHold/content/application~1json/schema"
+      },
+      "UpdateLegalHoldOk": {
+        "type": "object",
+        "properties": {
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_time": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/UpdateLegalHoldOkStatus"
+          },
+          "user_interaction_type": {
+            "$ref": "#/components/schemas/UpdateLegalHoldOkUserInteractionType"
+          },
+          "users": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "workspaces": {
+            "$ref": "#/components/schemas/LegalHoldUsers"
+          },
+          "description": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "number"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_by",
+          "created_time",
+          "id",
+          "start_date",
+          "status",
+          "user_interaction_type",
+          "users",
+          "workspaces"
+        ],
+        "x-flattened-from": "#/components/responses/UpdateLegalHoldOk/content/application~1json/schema"
+      },
+      "UpdateLegalHoldOkStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "released"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateLegalHoldOk/properties/status"
+      },
+      "UpdateLegalHoldOkUserInteractionType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/UpdateLegalHoldOkUserInteractionTypeItem"
+        },
+        "x-flattened-from": "#/components/schemas/UpdateLegalHoldOk/properties/user_interaction_type"
+      },
+      "UpdateLegalHoldOkUserInteractionTypeItem": {
+        "type": "string",
+        "enum": [
+          "page.created",
+          "page.edited",
+          "page.viewed"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateLegalHoldOkUserInteractionType/items"
       },
       "UpdateMcpClientConnectionEnterpriseManagedAccess": {
         "type": "object",
         "properties": {
           "access": {
-            "$ref": "#/components/schemas/UpdateMcpClientConnectionEnterpriseManagedAccess2"
+            "$ref": "#/components/schemas/UpdateMcpClientConnectionEnterpriseManagedAccessAccess"
           },
           "user_id": {
             "type": "string",
@@ -4433,21 +6029,23 @@
           "access",
           "user_id",
           "workspace_id"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/UpdateMcpClientConnectionEnterpriseManagedAccess/content/application~1json/schema"
       },
-      "UpdateMcpClientConnectionEnterpriseManagedAccess2": {
+      "UpdateMcpClientConnectionEnterpriseManagedAccessAccess": {
         "description": "'denied' blocks access; 'allowed' restores access.",
         "type": "string",
         "enum": [
           "allowed",
           "denied"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateMcpClientConnectionEnterpriseManagedAccess/properties/access"
       },
       "UpdateMcpClientConnectionEnterpriseManagedAccessOk": {
         "type": "object",
         "properties": {
           "access": {
-            "$ref": "#/components/schemas/UpdateMcpClientConnectionEnterpriseManagedAccess2"
+            "$ref": "#/components/schemas/UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess"
           },
           "revoked_token_count": {
             "description": "Number of active tokens revoked. Always zero when restoring access.",
@@ -4457,29 +6055,98 @@
         "required": [
           "access",
           "revoked_token_count"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/UpdateMcpClientConnectionEnterpriseManagedAccessOk/content/application~1json/schema"
+      },
+      "UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess": {
+        "description": "Access state applied to the member.",
+        "type": "string",
+        "enum": [
+          "allowed",
+          "denied"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateMcpClientConnectionEnterpriseManagedAccessOk/properties/access"
       },
       "UpdatePermissionGroupMember": {
         "type": "object",
         "properties": {
           "role": {
-            "$ref": "#/components/schemas/AddPermissionGroupMemberRole"
+            "$ref": "#/components/schemas/UpdatePermissionGroupMemberRole"
           }
         },
         "required": [
           "role"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/UpdatePermissionGroupMember/content/application~1json/schema"
+      },
+      "UpdatePermissionGroupMemberOk": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "description": "Always `group_membership`",
+            "type": "string",
+            "const": "group_membership"
+          },
+          "group_id": {
+            "description": "The ID of the group.",
+            "type": "string"
+          },
+          "member": {
+            "$ref": "#/components/schemas/AddPermissionGroupMember2"
+          },
+          "role": {
+            "$ref": "#/components/schemas/UpdatePermissionGroupMemberOkRole"
+          }
+        },
+        "required": [
+          "object",
+          "group_id",
+          "member",
+          "role"
+        ],
+        "x-flattened-from": "#/components/responses/UpdatePermissionGroupMemberOk/content/application~1json/schema"
+      },
+      "UpdatePermissionGroupMemberOkRole": {
+        "description": "The user's role in the group.",
+        "type": "string",
+        "enum": [
+          "owner",
+          "member"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdatePermissionGroupMemberOk/properties/role"
+      },
+      "UpdatePermissionGroupMemberRole": {
+        "description": "The user's new role in the group.",
+        "type": "string",
+        "enum": [
+          "owner",
+          "member"
+        ],
+        "x-flattened-from": "#/components/schemas/UpdatePermissionGroupMember/properties/role"
       },
       "UpdateWorkspaceCreditLimit": {
         "type": "object",
         "properties": {
           "default_agent_credit_limit": {
-            "$ref": "#/components/schemas/UpdateAgentCreditLimitCreditLimit"
+            "$ref": "#/components/schemas/UpdateWorkspaceCreditLimitDefaultAgentCreditLimit"
           }
         },
         "required": [
           "default_agent_credit_limit"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/UpdateWorkspaceCreditLimit/content/application~1json/schema"
+      },
+      "UpdateWorkspaceCreditLimitDefaultAgentCreditLimit": {
+        "description": "Workspace-wide default agent credit limit, applied to agents going forward. Must be a non-negative whole number of credits; other values are rejected with a validation error. Use null to remove the workspace-wide default cap.",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateWorkspaceCreditLimit/properties/default_agent_credit_limit"
       },
       "UpdateWorkspaceCreditLimitOk": {
         "type": "object",
@@ -4489,13 +6156,26 @@
             "format": "uuid"
           },
           "default_agent_credit_limit": {
-            "$ref": "#/components/schemas/UpdateAgentCreditLimitCreditLimit"
+            "$ref": "#/components/schemas/UpdateWorkspaceCreditLimitOkDefaultAgentCreditLimit"
           }
         },
         "required": [
           "space_id",
           "default_agent_credit_limit"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/UpdateWorkspaceCreditLimitOk/content/application~1json/schema"
+      },
+      "UpdateWorkspaceCreditLimitOkDefaultAgentCreditLimit": {
+        "description": "The workspace-wide default agent credit limit now in effect, or null when no default cap is set.",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "x-flattened-from": "#/components/schemas/UpdateWorkspaceCreditLimitOk/properties/default_agent_credit_limit"
       },
       "UserIds": {
         "description": "Member IDs to include. Use bracket encoding for multiple values.",
@@ -4511,25 +6191,34 @@
             "type": "string",
             "format": "uuid"
           }
-        ]
+        ],
+        "x-flattened-from": "#/components/parameters/user_ids/schema"
       },
-      "WorkflowsMetadataForSpaceResultsItemCreatedByTable": {
-        "description": "The actor table of the agent's creator, such as \"notion_user\".",
-        "type": "string",
-        "enum": [
-          "bot",
-          "notion_user",
-          "organization_bot"
-        ]
+      "WorkspaceIds": {
+        "description": "Workspace IDs to include. Use bracket encoding for multiple values.",
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "x-flattened-from": "#/components/parameters/workspace_ids/schema"
       },
       "adminApiError400": {
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIError400Type"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode"
+            "$ref": "#/components/schemas/AdminAPIError400Code"
           },
           "status": {
             "type": "integer",
@@ -4553,10 +6242,10 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIError401Type"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode2"
+            "$ref": "#/components/schemas/AdminAPIError401Code"
           },
           "status": {
             "type": "integer",
@@ -4580,7 +6269,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIError403Type"
           },
           "code": {
             "$ref": "#/components/schemas/AdminAPIError403Code"
@@ -4607,7 +6296,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIError404Type"
           },
           "code": {
             "$ref": "#/components/schemas/AdminAPIError404Code"
@@ -4634,10 +6323,10 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIError429Type"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode3"
+            "$ref": "#/components/schemas/AdminAPIError429Code"
           },
           "status": {
             "type": "integer",
@@ -4661,10 +6350,10 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIError500Type"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode4"
+            "$ref": "#/components/schemas/AdminAPIError500Code"
           },
           "status": {
             "type": "integer",
@@ -4688,10 +6377,10 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError400Object"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode"
+            "$ref": "#/components/schemas/AdminAPIPublicError400Code"
           },
           "status": {
             "type": "integer",
@@ -4705,7 +6394,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError400AdditionalDataValue"
             }
           }
         },
@@ -4721,10 +6410,10 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError401Object"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode2"
+            "$ref": "#/components/schemas/AdminAPIPublicError401Code"
           },
           "status": {
             "type": "integer",
@@ -4738,7 +6427,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError401AdditionalDataValue"
             }
           }
         },
@@ -4754,7 +6443,7 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError403Object"
           },
           "code": {
             "$ref": "#/components/schemas/AdminAPIPublicError403Code"
@@ -4771,7 +6460,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError403AdditionalDataValue"
             }
           }
         },
@@ -4787,7 +6476,7 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError404Object"
           },
           "code": {
             "$ref": "#/components/schemas/AdminAPIPublicError404Code"
@@ -4804,7 +6493,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError404AdditionalDataValue"
             }
           }
         },
@@ -4820,7 +6509,7 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError409Object"
           },
           "code": {
             "$ref": "#/components/schemas/AdminAPIPublicError409Code"
@@ -4837,7 +6526,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError409AdditionalDataValue"
             }
           }
         },
@@ -4853,10 +6542,10 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError429Object"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode3"
+            "$ref": "#/components/schemas/AdminAPIPublicError429Code"
           },
           "status": {
             "type": "integer",
@@ -4870,7 +6559,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError429AdditionalDataValue"
             }
           }
         },
@@ -4886,10 +6575,10 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError500Object"
           },
           "code": {
-            "$ref": "#/components/schemas/AdminAPIErrorCode4"
+            "$ref": "#/components/schemas/AdminAPIPublicError500Code"
           },
           "status": {
             "type": "integer",
@@ -4903,7 +6592,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError500AdditionalDataValue"
             }
           }
         },
@@ -4919,7 +6608,7 @@
         "type": "object",
         "properties": {
           "object": {
-            "$ref": "#/components/schemas/AdminAPIErrorType"
+            "$ref": "#/components/schemas/AdminAPIPublicError503Object"
           },
           "code": {
             "$ref": "#/components/schemas/AdminAPIPublicError503Code"
@@ -4936,7 +6625,7 @@
           "additional_data": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/AdminAPIPublicErrorAdditionalDataValue"
+              "$ref": "#/components/schemas/AdminAPIPublicError503AdditionalDataValue"
             }
           }
         },
@@ -5026,7 +6715,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddLegalHoldUsers2"
+              "$ref": "#/components/schemas/AddLegalHoldUsersOk"
             }
           }
         }
@@ -5156,7 +6845,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddPermissionGroupMember2"
+              "$ref": "#/components/schemas/AddPermissionGroupMemberOk"
             }
           }
         }
@@ -5302,7 +6991,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/CreateCreditLimitPolicy2"
+              "$ref": "#/components/schemas/CreateCreditLimitPolicyOk"
             }
           }
         }
@@ -5432,7 +7121,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddLegalHoldUsers2"
+              "$ref": "#/components/schemas/CreateLegalHoldOk"
             }
           }
         }
@@ -6082,7 +7771,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/CreateCreditLimitPolicy2"
+              "$ref": "#/components/schemas/ExpireCreditLimitPolicyOk"
             }
           }
         }
@@ -6326,7 +8015,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AgentCreditUsage"
+              "$ref": "#/components/schemas/GetAgentCreditUsageOk"
             }
           }
         }
@@ -6668,7 +8357,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddLegalHoldUsers2"
+              "$ref": "#/components/schemas/GetLegalHoldOk"
             }
           }
         }
@@ -8278,7 +9967,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddLegalHoldUsers2"
+              "$ref": "#/components/schemas/ReleaseLegalHoldOk"
             }
           }
         }
@@ -8392,7 +10081,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddLegalHoldUsers2"
+              "$ref": "#/components/schemas/RemoveLegalHoldUserOk"
             }
           }
         }
@@ -8522,7 +10211,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddPermissionGroupMember2"
+              "$ref": "#/components/schemas/RemovePermissionGroupMemberOk"
             }
           }
         }
@@ -9617,7 +11306,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/CreateCreditLimitPolicy2"
+              "$ref": "#/components/schemas/UpdateCreditLimitPolicyOk"
             }
           }
         }
@@ -9747,7 +11436,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddLegalHoldUsers2"
+              "$ref": "#/components/schemas/UpdateLegalHoldOk"
             }
           }
         }
@@ -10055,7 +11744,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/AddPermissionGroupMember2"
+              "$ref": "#/components/schemas/UpdatePermissionGroupMemberOk"
             }
           }
         }
@@ -10805,7 +12494,7 @@
         "name": "workspace_ids",
         "in": "query",
         "schema": {
-          "$ref": "#/components/schemas/UserIds"
+          "$ref": "#/components/schemas/WorkspaceIds"
         }
       }
     },

@@ -247,7 +247,7 @@ func (c *Client) GetSelfWithResult[R any](ctx context.Context) (*R, error) {
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -446,7 +446,7 @@ func (c *Client) GetUserWithResult[R any](ctx context.Context, userID IDRequest)
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -659,7 +659,7 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -715,8 +715,8 @@ func (c *Client) GetUsersWithResult[R any](ctx context.Context, params *GetUsers
 // Create a page
 //
 //	POST /pages
-func (c *Client) PostPage(ctx context.Context, params *PostPageParams, body PostPage) (*PageOrDataSourceResultsItemAnyOf, error) {
-	return c.PostPageWithResult[PageOrDataSourceResultsItemAnyOf](ctx, params, body)
+func (c *Client) PostPage(ctx context.Context, params *PostPageParams, body PostPage) (*PostPageOk, error) {
+	return c.PostPageWithResult[PostPageOk](ctx, params, body)
 }
 
 // Create a page
@@ -888,7 +888,7 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -944,8 +944,8 @@ func (c *Client) PostPageWithResult[R any](ctx context.Context, params *PostPage
 // Retrieve a page
 //
 //	GET /pages/{page_id}
-func (c *Client) RetrieveAPage(ctx context.Context, pageID IDRequest, params *RetrieveAPageParams) (*MovePage2, error) {
-	return c.RetrieveAPageWithResult[MovePage2](ctx, pageID, params)
+func (c *Client) RetrieveAPage(ctx context.Context, pageID IDRequest, params *RetrieveAPageParams) (*RetrieveAPageOk, error) {
+	return c.RetrieveAPageWithResult[RetrieveAPageOk](ctx, pageID, params)
 }
 
 // Retrieve a page
@@ -1097,7 +1097,7 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID IDRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1153,8 +1153,8 @@ func (c *Client) RetrieveAPageWithResult[R any](ctx context.Context, pageID IDRe
 // Update page
 //
 //	PATCH /pages/{page_id}
-func (c *Client) PatchPage(ctx context.Context, pageID IDRequest, params *PatchPageParams, body PatchPage) (*PageOrDataSourceResultsItemAnyOf, error) {
-	return c.PatchPageWithResult[PageOrDataSourceResultsItemAnyOf](ctx, pageID, params, body)
+func (c *Client) PatchPage(ctx context.Context, pageID IDRequest, params *PatchPageParams, body PatchPage) (*PatchPageOk, error) {
+	return c.PatchPageWithResult[PatchPageOk](ctx, pageID, params, body)
 }
 
 // Update page
@@ -1313,7 +1313,7 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID IDReques
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1369,8 +1369,8 @@ func (c *Client) PatchPageWithResult[R any](ctx context.Context, pageID IDReques
 // Move a page
 //
 //	POST /pages/{page_id}/move
-func (c *Client) MovePage(ctx context.Context, pageID IDRequest, body MovePage) (*MovePage2, error) {
-	return c.MovePageWithResult[MovePage2](ctx, pageID, body)
+func (c *Client) MovePage(ctx context.Context, pageID IDRequest, body MovePage) (*MovePageOk, error) {
+	return c.MovePageWithResult[MovePageOk](ctx, pageID, body)
 }
 
 // Move a page
@@ -1519,7 +1519,7 @@ func (c *Client) MovePageWithResult[R any](ctx context.Context, pageID IDRequest
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1732,7 +1732,7 @@ func (c *Client) RetrieveAPagePropertyWithResult[R any](ctx context.Context, pag
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1941,7 +1941,7 @@ func (c *Client) RetrievePageMarkdownWithResult[R any](ctx context.Context, page
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2160,7 +2160,7 @@ func (c *Client) UpdatePageMarkdownWithResult[R any](ctx context.Context, pageID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2359,7 +2359,7 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2415,8 +2415,8 @@ func (c *Client) RetrieveAsyncTaskWithResult[R any](ctx context.Context, taskID 
 // Retrieve a block
 //
 //	GET /blocks/{block_id}
-func (c *Client) RetrieveABlock(ctx context.Context, blockID IDRequest) (*BlockResultsItem, error) {
-	return c.RetrieveABlockWithResult[BlockResultsItem](ctx, blockID)
+func (c *Client) RetrieveABlock(ctx context.Context, blockID IDRequest) (*RetrieveABlockOk, error) {
+	return c.RetrieveABlockWithResult[RetrieveABlockOk](ctx, blockID)
 }
 
 // Retrieve a block
@@ -2558,7 +2558,7 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID ID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2614,8 +2614,8 @@ func (c *Client) RetrieveABlockWithResult[R any](ctx context.Context, blockID ID
 // Delete a block
 //
 //	DELETE /blocks/{block_id}
-func (c *Client) DeleteABlock(ctx context.Context, blockID IDRequest) (*BlockResultsItem, error) {
-	return c.DeleteABlockWithResult[BlockResultsItem](ctx, blockID)
+func (c *Client) DeleteABlock(ctx context.Context, blockID IDRequest) (*DeleteABlockOk, error) {
+	return c.DeleteABlockWithResult[DeleteABlockOk](ctx, blockID)
 }
 
 // Delete a block
@@ -2757,7 +2757,7 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID IDRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2813,8 +2813,8 @@ func (c *Client) DeleteABlockWithResult[R any](ctx context.Context, blockID IDRe
 // Update a block
 //
 //	PATCH /blocks/{block_id}
-func (c *Client) UpdateABlock(ctx context.Context, blockID IDRequest, body UpdateABlock) (*BlockResultsItem, error) {
-	return c.UpdateABlockWithResult[BlockResultsItem](ctx, blockID, body)
+func (c *Client) UpdateABlock(ctx context.Context, blockID IDRequest, body UpdateABlock) (*UpdateABlockOk, error) {
+	return c.UpdateABlockWithResult[UpdateABlockOk](ctx, blockID, body)
 }
 
 // Update a block
@@ -2963,7 +2963,7 @@ func (c *Client) UpdateABlockWithResult[R any](ctx context.Context, blockID IDRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3176,7 +3176,7 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3232,8 +3232,8 @@ func (c *Client) GetBlockChildrenWithResult[R any](ctx context.Context, blockID 
 // Append block children
 //
 //	PATCH /blocks/{block_id}/children
-func (c *Client) PatchBlockChildren(ctx context.Context, blockID IDRequest, body PatchBlockChildren) (*Block, error) {
-	return c.PatchBlockChildrenWithResult[Block](ctx, blockID, body)
+func (c *Client) PatchBlockChildren(ctx context.Context, blockID IDRequest, body PatchBlockChildren) (*Block2, error) {
+	return c.PatchBlockChildrenWithResult[Block2](ctx, blockID, body)
 }
 
 // Append block children
@@ -3382,7 +3382,7 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3438,8 +3438,8 @@ func (c *Client) PatchBlockChildrenWithResult[R any](ctx context.Context, blockI
 // Retrieve a data source
 //
 //	GET /data_sources/{data_source_id}
-func (c *Client) RetrieveADataSource(ctx context.Context, dataSourceID IDRequest) (*CreateADatabase2, error) {
-	return c.RetrieveADataSourceWithResult[CreateADatabase2](ctx, dataSourceID)
+func (c *Client) RetrieveADataSource(ctx context.Context, dataSourceID IDRequest) (*RetrieveADataSourceOk, error) {
+	return c.RetrieveADataSourceWithResult[RetrieveADataSourceOk](ctx, dataSourceID)
 }
 
 // Retrieve a data source
@@ -3581,7 +3581,7 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3637,8 +3637,8 @@ func (c *Client) RetrieveADataSourceWithResult[R any](ctx context.Context, dataS
 // Update a data source
 //
 //	PATCH /data_sources/{data_source_id}
-func (c *Client) UpdateADataSource(ctx context.Context, dataSourceID IDRequest, body UpdateADataSource) (*CreateADatabase2, error) {
-	return c.UpdateADataSourceWithResult[CreateADatabase2](ctx, dataSourceID, body)
+func (c *Client) UpdateADataSource(ctx context.Context, dataSourceID IDRequest, body UpdateADataSource) (*UpdateADataSourceOk, error) {
+	return c.UpdateADataSourceWithResult[UpdateADataSourceOk](ctx, dataSourceID, body)
 }
 
 // Update a data source
@@ -3787,7 +3787,7 @@ func (c *Client) UpdateADataSourceWithResult[R any](ctx context.Context, dataSou
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4003,7 +4003,7 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4059,8 +4059,8 @@ func (c *Client) PostDatabaseQueryWithResult[R any](ctx context.Context, dataSou
 // Create a data source
 //
 //	POST /data_sources
-func (c *Client) CreateADatabase(ctx context.Context, body CreateADatabase) (*CreateADatabase2, error) {
-	return c.CreateADatabaseWithResult[CreateADatabase2](ctx, body)
+func (c *Client) CreateADatabase(ctx context.Context, body CreateADatabase) (*CreateADatabaseOk, error) {
+	return c.CreateADatabaseWithResult[CreateADatabaseOk](ctx, body)
 }
 
 // Create a data source
@@ -4209,7 +4209,7 @@ func (c *Client) CreateADatabaseWithResult[R any](ctx context.Context, body Crea
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4426,7 +4426,7 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4482,8 +4482,8 @@ func (c *Client) ListDataSourceTemplatesWithResult[R any](ctx context.Context, d
 // Retrieve a database
 //
 //	GET /databases/{database_id}
-func (c *Client) RetrieveDatabase(ctx context.Context, databaseID IDRequest) (*CreateDatabase2, error) {
-	return c.RetrieveDatabaseWithResult[CreateDatabase2](ctx, databaseID)
+func (c *Client) RetrieveDatabase(ctx context.Context, databaseID IDRequest) (*RetrieveDatabaseOk, error) {
+	return c.RetrieveDatabaseWithResult[RetrieveDatabaseOk](ctx, databaseID)
 }
 
 // Retrieve a database
@@ -4625,7 +4625,7 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4681,8 +4681,8 @@ func (c *Client) RetrieveDatabaseWithResult[R any](ctx context.Context, database
 // Update a database
 //
 //	PATCH /databases/{database_id}
-func (c *Client) UpdateDatabase(ctx context.Context, databaseID IDRequest, body UpdateDatabase) (*CreateDatabase2, error) {
-	return c.UpdateDatabaseWithResult[CreateDatabase2](ctx, databaseID, body)
+func (c *Client) UpdateDatabase(ctx context.Context, databaseID IDRequest, body UpdateDatabase) (*UpdateDatabaseOk, error) {
+	return c.UpdateDatabaseWithResult[UpdateDatabaseOk](ctx, databaseID, body)
 }
 
 // Update a database
@@ -4831,7 +4831,7 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4887,8 +4887,8 @@ func (c *Client) UpdateDatabaseWithResult[R any](ctx context.Context, databaseID
 // Create a database
 //
 //	POST /databases
-func (c *Client) CreateDatabase(ctx context.Context, body CreateDatabase) (*CreateDatabase2, error) {
-	return c.CreateDatabaseWithResult[CreateDatabase2](ctx, body)
+func (c *Client) CreateDatabase(ctx context.Context, body CreateDatabase) (*CreateDatabaseOk, error) {
+	return c.CreateDatabaseWithResult[CreateDatabaseOk](ctx, body)
 }
 
 // Create a database
@@ -5037,7 +5037,7 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5093,8 +5093,8 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 // Search by title
 //
 //	POST /search
-func (c *Client) PostSearch(ctx context.Context, body PostSearch) (*PageOrDataSource, error) {
-	return c.PostSearchWithResult[PageOrDataSource](ctx, body)
+func (c *Client) PostSearch(ctx context.Context, body PostSearch) (*PageOrDataSource2, error) {
+	return c.PostSearchWithResult[PageOrDataSource2](ctx, body)
 }
 
 // Search by title
@@ -5243,7 +5243,7 @@ func (c *Client) PostSearchWithResult[R any](ctx context.Context, body PostSearc
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5457,7 +5457,7 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5513,8 +5513,8 @@ func (c *Client) ListCommentsWithResult[R any](ctx context.Context, params ListC
 // Create a comment
 //
 //	POST /comments
-func (c *Client) CreateAComment(ctx context.Context, body CreateAComment) (*CreateAComment2, error) {
-	return c.CreateACommentWithResult[CreateAComment2](ctx, body)
+func (c *Client) CreateAComment(ctx context.Context, body CreateAComment) (*CreateACommentOk, error) {
+	return c.CreateACommentWithResult[CreateACommentOk](ctx, body)
 }
 
 // Create a comment
@@ -5663,7 +5663,7 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5719,8 +5719,8 @@ func (c *Client) CreateACommentWithResult[R any](ctx context.Context, body Creat
 // Retrieve a comment
 //
 //	GET /comments/{comment_id}
-func (c *Client) RetrieveComment(ctx context.Context, commentID IDRequest) (*CreateAComment2, error) {
-	return c.RetrieveCommentWithResult[CreateAComment2](ctx, commentID)
+func (c *Client) RetrieveComment(ctx context.Context, commentID IDRequest) (*RetrieveCommentOk, error) {
+	return c.RetrieveCommentWithResult[RetrieveCommentOk](ctx, commentID)
 }
 
 // Retrieve a comment
@@ -5862,7 +5862,7 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5918,8 +5918,8 @@ func (c *Client) RetrieveCommentWithResult[R any](ctx context.Context, commentID
 // Delete a comment
 //
 //	DELETE /comments/{comment_id}
-func (c *Client) DeleteAComment(ctx context.Context, commentID IDRequest) (*CreateAComment2, error) {
-	return c.DeleteACommentWithResult[CreateAComment2](ctx, commentID)
+func (c *Client) DeleteAComment(ctx context.Context, commentID IDRequest) (*DeleteACommentOk, error) {
+	return c.DeleteACommentWithResult[DeleteACommentOk](ctx, commentID)
 }
 
 // Delete a comment
@@ -6061,7 +6061,7 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6117,8 +6117,8 @@ func (c *Client) DeleteACommentWithResult[R any](ctx context.Context, commentID 
 // Update a comment
 //
 //	PATCH /comments/{comment_id}
-func (c *Client) UpdateAComment(ctx context.Context, commentID IDRequest, body UpdateAComment) (*CreateAComment2, error) {
-	return c.UpdateACommentWithResult[CreateAComment2](ctx, commentID, body)
+func (c *Client) UpdateAComment(ctx context.Context, commentID IDRequest, body UpdateAComment) (*UpdateACommentOk, error) {
+	return c.UpdateACommentWithResult[UpdateACommentOk](ctx, commentID, body)
 }
 
 // Update a comment
@@ -6267,7 +6267,7 @@ func (c *Client) UpdateACommentWithResult[R any](ctx context.Context, commentID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6484,7 +6484,7 @@ func (c *Client) ListFileUploadsWithResult[R any](ctx context.Context, params *L
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6690,7 +6690,7 @@ func (c *Client) CreateFileWithResult[R any](ctx context.Context, body CreateFil
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6896,7 +6896,7 @@ func (c *Client) UploadFileWithResult[R any](ctx context.Context, fileUploadID I
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7095,7 +7095,7 @@ func (c *Client) CompleteFileUploadWithResult[R any](ctx context.Context, fileUp
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7294,7 +7294,7 @@ func (c *Client) RetrieveFileUploadWithResult[R any](ctx context.Context, fileUp
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7511,7 +7511,7 @@ func (c *Client) ListCustomEmojisWithResult[R any](ctx context.Context, params *
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7732,7 +7732,7 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7788,8 +7788,8 @@ func (c *Client) ListViewsWithResult[R any](ctx context.Context, params *ListVie
 // Create a view
 //
 //	POST /views
-func (c *Client) CreateView(ctx context.Context, body CreateViewRequest) (*CreateView, error) {
-	return c.CreateViewWithResult[CreateView](ctx, body)
+func (c *Client) CreateView(ctx context.Context, body CreateViewRequest) (*CreateViewOk, error) {
+	return c.CreateViewWithResult[CreateViewOk](ctx, body)
 }
 
 // Create a view
@@ -7938,7 +7938,7 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body CreateVie
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7994,8 +7994,8 @@ func (c *Client) CreateViewWithResult[R any](ctx context.Context, body CreateVie
 // Retrieve a view
 //
 //	GET /views/{view_id}
-func (c *Client) RetrieveAView(ctx context.Context, viewID IDRequest) (*CreateView, error) {
-	return c.RetrieveAViewWithResult[CreateView](ctx, viewID)
+func (c *Client) RetrieveAView(ctx context.Context, viewID IDRequest) (*RetrieveAViewOk, error) {
+	return c.RetrieveAViewWithResult[RetrieveAViewOk](ctx, viewID)
 }
 
 // Retrieve a view
@@ -8137,7 +8137,7 @@ func (c *Client) RetrieveAViewWithResult[R any](ctx context.Context, viewID IDRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8336,7 +8336,7 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID IDReque
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8392,8 +8392,8 @@ func (c *Client) DeleteViewWithResult[R any](ctx context.Context, viewID IDReque
 // Update a view
 //
 //	PATCH /views/{view_id}
-func (c *Client) UpdateAView(ctx context.Context, viewID IDRequest, body UpdateViewRequest) (*CreateView, error) {
-	return c.UpdateAViewWithResult[CreateView](ctx, viewID, body)
+func (c *Client) UpdateAView(ctx context.Context, viewID IDRequest, body UpdateViewRequest) (*UpdateAViewOk, error) {
+	return c.UpdateAViewWithResult[UpdateAViewOk](ctx, viewID, body)
 }
 
 // Update a view
@@ -8542,7 +8542,7 @@ func (c *Client) UpdateAViewWithResult[R any](ctx context.Context, viewID IDRequ
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8748,7 +8748,7 @@ func (c *Client) CreateViewQueryWithResult[R any](ctx context.Context, viewID ID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8961,7 +8961,7 @@ func (c *Client) GetViewQueryResultsWithResult[R any](ctx context.Context, viewI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9160,7 +9160,7 @@ func (c *Client) DeleteViewQueryWithResult[R any](ctx context.Context, viewID ID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9366,7 +9366,7 @@ func (c *Client) CreateMeetingNoteWithResult[R any](ctx context.Context, body Cr
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9572,7 +9572,7 @@ func (c *Client) QueryMeetingNotesWithResult[R any](ctx context.Context, body Qu
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9778,7 +9778,7 @@ func (c *Client) QueryAgentsWithResult[R any](ctx context.Context, body QueryAge
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9987,7 +9987,7 @@ func (c *Client) GetAgentWithResult[R any](ctx context.Context, agentID string, 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10186,7 +10186,7 @@ func (c *Client) DeleteAgentWithResult[R any](ctx context.Context, agentID strin
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10399,7 +10399,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10455,7 +10455,7 @@ func (c *Client) GetAgentInsightsWithResult[R any](ctx context.Context, agentID 
 // Update agent status
 //
 //	PATCH /agents/{agent_id}/status
-func (c *Client) UpdateAgentStatus(ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields) (*UpdateAgentStatusOk, error) {
+func (c *Client) UpdateAgentStatus(ctx context.Context, agentID string, body UpdateAgentStatus) (*UpdateAgentStatusOk, error) {
 	return c.UpdateAgentStatusWithResult[UpdateAgentStatusOk](ctx, agentID, body)
 }
 
@@ -10463,7 +10463,7 @@ func (c *Client) UpdateAgentStatus(ctx context.Context, agentID string, body Age
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /agents/{agent_id}/status
-func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields) (*R, error) {
+func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID string, body UpdateAgentStatus) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -10605,7 +10605,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10661,7 +10661,7 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 // Update agent credit limit
 //
 //	PATCH /agents/{agent_id}/credit_limit
-func (c *Client) UpdateAgentCreditLimit(ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields2) (*UpdateAgentCreditLimitOk, error) {
+func (c *Client) UpdateAgentCreditLimit(ctx context.Context, agentID string, body UpdateAgentCreditLimit) (*UpdateAgentCreditLimitOk, error) {
 	return c.UpdateAgentCreditLimitWithResult[UpdateAgentCreditLimitOk](ctx, agentID, body)
 }
 
@@ -10669,7 +10669,7 @@ func (c *Client) UpdateAgentCreditLimit(ctx context.Context, agentID string, bod
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /agents/{agent_id}/credit_limit
-func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, agentID string, body AgentBatchOperationsItemOneOfFields2) (*R, error) {
+func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, agentID string, body UpdateAgentCreditLimit) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_TOKEN not provided")
 	}
@@ -10811,7 +10811,7 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10867,8 +10867,8 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 // Apply many agent operations
 //
 //	POST /agents/batch
-func (c *Client) AgentBatch(ctx context.Context, body AgentBatch) (*AgentBatch2, error) {
-	return c.AgentBatchWithResult[AgentBatch2](ctx, body)
+func (c *Client) AgentBatch(ctx context.Context, body AgentBatch) (*AgentBatchOk, error) {
+	return c.AgentBatchWithResult[AgentBatchOk](ctx, body)
 }
 
 // Apply many agent operations
@@ -11017,7 +11017,7 @@ func (c *Client) AgentBatchWithResult[R any](ctx context.Context, body AgentBatc
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11230,7 +11230,7 @@ func (c *Client) ListSkillsPluginsWithResult[R any](ctx context.Context, params 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11429,7 +11429,7 @@ func (c *Client) GetPluginDirectoryWithResult[R any](ctx context.Context, id str
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11628,7 +11628,7 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id IDRe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11684,8 +11684,8 @@ func (c *Client) GetSkillDirectoryWithResult[R any](ctx context.Context, id IDRe
 // Update a session
 //
 //	POST /sessions
-func (c *Client) UpdateSession(ctx context.Context, body UpdateSessionRequest) (*CancelSession2, error) {
-	return c.UpdateSessionWithResult[CancelSession2](ctx, body)
+func (c *Client) UpdateSession(ctx context.Context, body UpdateSessionRequest) (*UpdateSessionOk, error) {
+	return c.UpdateSessionWithResult[UpdateSessionOk](ctx, body)
 }
 
 // Update a session
@@ -11834,7 +11834,7 @@ func (c *Client) UpdateSessionWithResult[R any](ctx context.Context, body Update
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12033,7 +12033,7 @@ func (c *Client) RetrieveSessionWithResult[R any](ctx context.Context, sessionID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12239,7 +12239,7 @@ func (c *Client) QuerySessionsWithResult[R any](ctx context.Context, body QueryS
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12445,7 +12445,7 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12501,8 +12501,8 @@ func (c *Client) QuerySessionEventsWithResult[R any](ctx context.Context, sessio
 // Cancel a session
 //
 //	POST /sessions/{session_id}/cancel
-func (c *Client) CancelSession(ctx context.Context, sessionID IDRequest, body CancelSession) (*CancelSession2, error) {
-	return c.CancelSessionWithResult[CancelSession2](ctx, sessionID, body)
+func (c *Client) CancelSession(ctx context.Context, sessionID IDRequest, body CancelSession) (*CancelSessionOk, error) {
+	return c.CancelSessionWithResult[CancelSessionOk](ctx, sessionID, body)
 }
 
 // Cancel a session
@@ -12651,7 +12651,7 @@ func (c *Client) CancelSessionWithResult[R any](ctx context.Context, sessionID I
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12805,7 +12805,7 @@ func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateA
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12822,7 +12822,7 @@ func (c *Client) CreateATokenWithResult[R any](ctx context.Context, body CreateA
 // Revoke a token
 //
 //	POST /oauth/revoke
-func (c *Client) RevokeToken(ctx context.Context, body IntrospectToken) (*RevokeTokenOk, error) {
+func (c *Client) RevokeToken(ctx context.Context, body RevokeToken) (*RevokeTokenOk, error) {
 	return c.RevokeTokenWithResult[RevokeTokenOk](ctx, body)
 }
 
@@ -12830,7 +12830,7 @@ func (c *Client) RevokeToken(ctx context.Context, body IntrospectToken) (*Revoke
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /oauth/revoke
-func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body IntrospectToken) (*R, error) {
+func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body RevokeToken) (*R, error) {
 	if c.basic == "" {
 		return nil, errors.New("basic auth NOTION_API_USERNAME / NOTION_API_PASSWORD not provided")
 	}
@@ -12920,7 +12920,7 @@ func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body Introspe
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -12937,7 +12937,7 @@ func (c *Client) RevokeTokenWithResult[R any](ctx context.Context, body Introspe
 // Introspect a token
 //
 //	POST /oauth/introspect
-func (c *Client) IntrospectToken(ctx context.Context, body IntrospectToken) (*IntrospectTokenOk, error) {
+func (c *Client) IntrospectToken(ctx context.Context, body RevokeToken) (*IntrospectTokenOk, error) {
 	return c.IntrospectTokenWithResult[IntrospectTokenOk](ctx, body)
 }
 
@@ -12945,7 +12945,7 @@ func (c *Client) IntrospectToken(ctx context.Context, body IntrospectToken) (*In
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /oauth/introspect
-func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body IntrospectToken) (*R, error) {
+func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body RevokeToken) (*R, error) {
 	if c.basic == "" {
 		return nil, errors.New("basic auth NOTION_API_USERNAME / NOTION_API_PASSWORD not provided")
 	}
@@ -13035,7 +13035,7 @@ func (c *Client) IntrospectTokenWithResult[R any](ctx context.Context, body Intr
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}

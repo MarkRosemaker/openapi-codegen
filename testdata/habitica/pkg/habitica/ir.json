@@ -2039,15 +2039,69 @@
 				{
 					"name": "Todos",
 					"jsonName": "todos",
-					"type": "ListApivUserDataHistoryExp",
+					"type": "ListApiv3UserOkDataHistoryTodos",
 					"jsonTag": "json:\"todos\"",
 					"required": true
 				},
 				{
 					"name": "Exp",
 					"jsonName": "exp",
-					"type": "ListApivUserDataHistoryExp",
+					"type": "ListApiv3UserOkDataHistoryExp",
 					"jsonTag": "json:\"exp\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkDataHistoryExp",
+			"description": "ListApiv3UserOkDataHistoryExp defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3UserOkDataHistoryExpItem"
+		},
+		{
+			"name": "ListApiv3UserOkDataHistoryExpItem",
+			"description": "ListApiv3UserOkDataHistoryExpItem defines a model",
+			"fields": [
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "time.Time",
+					"jsonTag": "json:\"date\"",
+					"required": true,
+					"isDateTimeOrInt": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListApiv3UserOkDataHistoryTodos",
+			"description": "ListApiv3UserOkDataHistoryTodos defines a model",
+			"kind": 2,
+			"type": "[]ListApiv3UserOkDataHistoryTodosItem"
+		},
+		{
+			"name": "ListApiv3UserOkDataHistoryTodosItem",
+			"description": "ListApiv3UserOkDataHistoryTodosItem defines a model",
+			"fields": [
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "time.Time",
+					"jsonTag": "json:\"date\"",
+					"required": true,
+					"isDateTimeOrInt": true
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "float64",
+					"jsonTag": "json:\"value\"",
 					"required": true
 				}
 			]
@@ -6467,33 +6521,6 @@
 					"jsonName": "habits",
 					"type": "[]uuid.UUID",
 					"jsonTag": "json:\"habits\"",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "ListApivUserDataHistoryExp",
-			"description": "ListApivUserDataHistoryExp defines a model",
-			"kind": 2,
-			"type": "[]ListApivUserDataHistoryExpItem"
-		},
-		{
-			"name": "ListApivUserDataHistoryExpItem",
-			"description": "ListApivUserDataHistoryExpItem defines a model",
-			"fields": [
-				{
-					"name": "Date",
-					"jsonName": "date",
-					"type": "time.Time",
-					"jsonTag": "json:\"date\"",
-					"required": true,
-					"isDateTimeOrInt": true
-				},
-				{
-					"name": "Value",
-					"jsonName": "value",
-					"type": "float64",
-					"jsonTag": "json:\"value\"",
 					"required": true
 				}
 			]

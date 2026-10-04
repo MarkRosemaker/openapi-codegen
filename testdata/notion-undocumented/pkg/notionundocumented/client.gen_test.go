@@ -629,7 +629,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgent{}); err == nil {
+			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgentStream{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -649,7 +649,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgent{}); err == nil {
+			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgentStream{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -677,7 +677,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgent{}); err == nil {
+			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgentStream{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -702,7 +702,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgent{}); err == nil {
+			if _, err := c.ChatWithAgentStream(t.Context(), "", nil, ChatWithAgentStream{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -2227,7 +2227,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdateTeamspace(t.Context(), "", CreateTeamspace{}); err == nil {
+			if _, err := c.UpdateTeamspace(t.Context(), "", UpdateTeamspace{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -2247,7 +2247,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdateTeamspace(t.Context(), "", CreateTeamspace{}); err == nil {
+			if _, err := c.UpdateTeamspace(t.Context(), "", UpdateTeamspace{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -2275,7 +2275,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdateTeamspace(t.Context(), "", CreateTeamspace{}); err == nil {
+			if _, err := c.UpdateTeamspace(t.Context(), "", UpdateTeamspace{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -2300,7 +2300,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.UpdateTeamspace(t.Context(), "", CreateTeamspace{}); err == nil {
+			if _, err := c.UpdateTeamspace(t.Context(), "", UpdateTeamspace{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -3192,7 +3192,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.SendThreadMessage(t.Context(), "", ChatWithAgent{}); err == nil {
+			if _, err := c.SendThreadMessage(t.Context(), "", SendThreadMessage{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -3212,7 +3212,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.SendThreadMessage(t.Context(), "", ChatWithAgent{}); err == nil {
+			if _, err := c.SendThreadMessage(t.Context(), "", SendThreadMessage{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -3240,7 +3240,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.SendThreadMessage(t.Context(), "", ChatWithAgent{}); err == nil {
+			if _, err := c.SendThreadMessage(t.Context(), "", SendThreadMessage{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -3265,7 +3265,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.SendThreadMessage(t.Context(), "", ChatWithAgent{}); err == nil {
+			if _, err := c.SendThreadMessage(t.Context(), "", SendThreadMessage{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -4356,7 +4356,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunRollout(t.Context(), CreateRollout{}); err == nil {
+			if _, err := c.RunRollout(t.Context(), RunRollout{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -4376,7 +4376,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunRollout(t.Context(), CreateRollout{}); err == nil {
+			if _, err := c.RunRollout(t.Context(), RunRollout{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -4404,7 +4404,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunRollout(t.Context(), CreateRollout{}); err == nil {
+			if _, err := c.RunRollout(t.Context(), RunRollout{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -4429,7 +4429,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunRollout(t.Context(), CreateRollout{}); err == nil {
+			if _, err := c.RunRollout(t.Context(), RunRollout{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -4647,7 +4647,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolByID(t.Context(), "", ToolInput{AiSearchAiSearch: new(AiSearchAiSearch)}); err == nil {
+			if _, err := c.RunToolByID(t.Context(), "", ToolInput{ToolInputAnyOf0: new(ToolInputAnyOf0)}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -4667,7 +4667,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolByID(t.Context(), "", ToolInput{AiSearchAiSearch: new(AiSearchAiSearch)}); err == nil {
+			if _, err := c.RunToolByID(t.Context(), "", ToolInput{ToolInputAnyOf0: new(ToolInputAnyOf0)}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -4695,7 +4695,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolByID(t.Context(), "", ToolInput{AiSearchAiSearch: new(AiSearchAiSearch)}); err == nil {
+			if _, err := c.RunToolByID(t.Context(), "", ToolInput{ToolInputAnyOf0: new(ToolInputAnyOf0)}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -4720,7 +4720,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolByID(t.Context(), "", ToolInput{AiSearchAiSearch: new(AiSearchAiSearch)}); err == nil {
+			if _, err := c.RunToolByID(t.Context(), "", ToolInput{ToolInputAnyOf0: new(ToolInputAnyOf0)}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -4744,7 +4744,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search: new(Search)}}); err == nil {
+			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search2: new(Search2)}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -4764,7 +4764,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search: new(Search)}}); err == nil {
+			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search2: new(Search2)}}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -4792,7 +4792,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search: new(Search)}}); err == nil {
+			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search2: new(Search2)}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -4817,7 +4817,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search: new(Search)}}); err == nil {
+			if _, err := c.RunToolEval(t.Context(), RunToolEval{RunToolEvalAllOf1: RunToolEvalAllOf1{Search2: new(Search2)}}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)

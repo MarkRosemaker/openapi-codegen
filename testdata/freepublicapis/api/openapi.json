@@ -75,7 +75,8 @@
           "methods",
           "health",
           "source"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/GetApiapiByApiidOk/content/application~1json/schema"
       }
     },
     "responses": {

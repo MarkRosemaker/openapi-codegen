@@ -137,8 +137,8 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 // ```
 //
 //	POST /generate-image-v2
-func (c *Client) GenerateImageV2GenerateImageV2Post(ctx context.Context, body GenerateImageV2Request) (*AnimateWithSkeleton2, error) {
-	return c.GenerateImageV2GenerateImageV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) GenerateImageV2GenerateImageV2Post(ctx context.Context, body GenerateImageV2Request) (*GenerateImageV2Response, error) {
+	return c.GenerateImageV2GenerateImageV2PostWithResult[GenerateImageV2Response](ctx, body)
 }
 
 // Generate pixel art images from text description.
@@ -418,8 +418,8 @@ func (c *Client) GenerateImagePixenCreateImagePixenPostWithResult[R any](ctx con
 // ```
 //
 //	POST /generate-with-style-v2
-func (c *Client) GenerateWithStyleV2GenerateWithStyleV2Post(ctx context.Context, body GenerateWithStyleV2Request) (*AnimateWithSkeleton2, error) {
-	return c.GenerateWithStyleV2GenerateWithStyleV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) GenerateWithStyleV2GenerateWithStyleV2Post(ctx context.Context, body GenerateWithStyleV2Request) (*GenerateWithStyleV2Response, error) {
+	return c.GenerateWithStyleV2GenerateWithStyleV2PostWithResult[GenerateWithStyleV2Response](ctx, body)
 }
 
 // Generate new pixel art images that match the style of reference images.
@@ -551,8 +551,8 @@ func (c *Client) GenerateWithStyleV2GenerateWithStyleV2PostWithResult[R any](ctx
 // ```
 //
 //	POST /create-image-pixflux
-func (c *Client) GenerateImagePixfluxCreateImagePixfluxPost(ctx context.Context, body CreateImagePixfluxRequest) (*CreateImageBitforge, error) {
-	return c.GenerateImagePixfluxCreateImagePixfluxPostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) GenerateImagePixfluxCreateImagePixfluxPost(ctx context.Context, body CreateImagePixfluxRequest) (*CreateImagePixfluxResponse, error) {
+	return c.GenerateImagePixfluxCreateImagePixfluxPostWithResult[CreateImagePixfluxResponse](ctx, body)
 }
 
 // Creates a pixel art image based on the provided parameters. Called "Create image (new)" in the plugin.
@@ -663,8 +663,8 @@ func (c *Client) GenerateImagePixfluxCreateImagePixfluxPostWithResult[R any](ctx
 // 3. When `status` is `completed`, the image is in `last_response.image.base64`
 //
 //	POST /create-image-pixflux-background
-func (c *Client) CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPost(ctx context.Context, body CreateImagePixfluxRequest) (*AnimateWithSkeleton2, error) {
-	return c.CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPost(ctx context.Context, body CreateImagePixfluxRequest) (*CreateImagePixfluxBackgroundResponse, error) {
+	return c.CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPostWithResult[CreateImagePixfluxBackgroundResponse](ctx, body)
 }
 
 // Creates a pixel art image based on the provided parameters, as a background job.
@@ -774,8 +774,8 @@ func (c *Client) CreateImagePixfluxBackgroundCreateImagePixfluxBackgroundPostWit
 // ```
 //
 //	POST /create-image-bitforge
-func (c *Client) GenerateImageBitforgeCreateImageBitforgePost(ctx context.Context, body CreateImageBitforgeRequest) (*CreateImageBitforge, error) {
-	return c.GenerateImageBitforgeCreateImageBitforgePostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) GenerateImageBitforgeCreateImageBitforgePost(ctx context.Context, body CreateImageBitforgeRequest) (*CreateImageBitforgeResponse, error) {
+	return c.GenerateImageBitforgeCreateImageBitforgePostWithResult[CreateImageBitforgeResponse](ctx, body)
 }
 
 // Generates a pixel art image based on the provided parameters. Called "Create S-M image" in the plugin.
@@ -904,8 +904,8 @@ func (c *Client) GenerateImageBitforgeCreateImageBitforgePostWithResult[R any](c
 // ```
 //
 //	POST /image-to-pixelart
-func (c *Client) ImageToPixelartImageToPixelartPost(ctx context.Context, body ImageToPixelartRequest) (*CreateImageBitforge, error) {
-	return c.ImageToPixelartImageToPixelartPostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) ImageToPixelartImageToPixelartPost(ctx context.Context, body ImageToPixelartRequest) (*ImageToPixelartResponse, error) {
+	return c.ImageToPixelartImageToPixelartPostWithResult[ImageToPixelartResponse](ctx, body)
 }
 
 // Convert regular images to pixel art style.
@@ -1042,8 +1042,8 @@ func (c *Client) ImageToPixelartImageToPixelartPostWithResult[R any](ctx context
 // ```
 //
 //	POST /image-to-pixelart-pro
-func (c *Client) ImageToPixelartProImageToPixelartProPost(ctx context.Context, body ImageToPixelartProRequest) (*AnimateWithSkeleton2, error) {
-	return c.ImageToPixelartProImageToPixelartProPostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) ImageToPixelartProImageToPixelartProPost(ctx context.Context, body ImageToPixelartProRequest) (*ImageToPixelartProResponse, error) {
+	return c.ImageToPixelartProImageToPixelartProPostWithResult[ImageToPixelartProResponse](ctx, body)
 }
 
 // Convert an arbitrary image into high-quality pixel art.
@@ -1193,8 +1193,8 @@ func (c *Client) ImageToPixelartProImageToPixelartProPostWithResult[R any](ctx c
 // ```
 //
 //	POST /create-character-v3
-func (c *Client) CreateCharacterV3CreateCharacterV3Post(ctx context.Context, body CreateCharacterV3Request) (*AnimatePixminimax, error) {
-	return c.CreateCharacterV3CreateCharacterV3PostWithResult[AnimatePixminimax](ctx, body)
+func (c *Client) CreateCharacterV3CreateCharacterV3Post(ctx context.Context, body CreateCharacterV3Request) (*CreateCharacterV3Response, error) {
+	return c.CreateCharacterV3CreateCharacterV3PostWithResult[CreateCharacterV3Response](ctx, body)
 }
 
 // Create a character with 8 directional rotations using the v3 model.
@@ -1362,8 +1362,8 @@ func (c *Client) CreateCharacterV3CreateCharacterV3PostWithResult[R any](ctx con
 // ```
 //
 //	POST /create-character-pro
-func (c *Client) CreateCharacterProCreateCharacterProPost(ctx context.Context, body CreateCharacterProRequest) (*CreateCharacterPro, error) {
-	return c.CreateCharacterProCreateCharacterProPostWithResult[CreateCharacterPro](ctx, body)
+func (c *Client) CreateCharacterProCreateCharacterProPost(ctx context.Context, body CreateCharacterProRequest) (*CreateCharacterProResponse, error) {
+	return c.CreateCharacterProCreateCharacterProPostWithResult[CreateCharacterProResponse](ctx, body)
 }
 
 // Create a character with 8 directional rotations using Pro mode.
@@ -1752,8 +1752,8 @@ func (c *Client) CreateCharacterAnimationAnimateCharacterPostWithResult[R any](c
 // Queues a generation job that applies a text edit to an existing character's rotations and saves the result as a new character grouped with the source via group_id. The same edit is applied consistently across all 4 or 8 directions.
 //
 //	POST /create-character-state
-func (c *Client) CreateCharacterStateCreateCharacterStatePost(ctx context.Context, body CreateCharacterStateRequest) (*CreateCharacterPro, error) {
-	return c.CreateCharacterStateCreateCharacterStatePostWithResult[CreateCharacterPro](ctx, body)
+func (c *Client) CreateCharacterStateCreateCharacterStatePost(ctx context.Context, body CreateCharacterStateRequest) (*CreateCharacterStateResponse, error) {
+	return c.CreateCharacterStateCreateCharacterStatePostWithResult[CreateCharacterStateResponse](ctx, body)
 }
 
 // Queues a generation job that applies a text edit to an existing character's rotations and saves the result as a new character grouped with the source via group_id. The same edit is applied consistently across all 4 or 8 directions.
@@ -1907,8 +1907,8 @@ func (c *Client) CreateCharacterStateCreateCharacterStatePostWithResult[R any](c
 // ```
 //
 //	POST /create-character-with-4-directions
-func (c *Client) CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost(ctx context.Context, body CreateCharacterWithDirections) (*CreateCharacterPro, error) {
-	return c.CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPostWithResult[CreateCharacterPro](ctx, body)
+func (c *Client) CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPost(ctx context.Context, body CreateCharacterWith4DirectionsRequest) (*CreateCharacterWith4DirectionsResponse, error) {
+	return c.CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPostWithResult[CreateCharacterWith4DirectionsResponse](ctx, body)
 }
 
 // Generate a character or object facing 4 cardinal directions (south, west, east, north).
@@ -1984,7 +1984,7 @@ func (c *Client) CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPos
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /create-character-with-4-directions
-func (c *Client) CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPostWithResult[R any](ctx context.Context, body CreateCharacterWithDirections) (*R, error) {
+func (c *Client) CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPostWithResult[R any](ctx context.Context, body CreateCharacterWith4DirectionsRequest) (*R, error) {
 	u := c.baseURL.JoinPath("create-character-with-4-directions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2129,8 +2129,8 @@ func (c *Client) CreateCharacterWith4DirectionsCreateCharacterWith4DirectionsPos
 // ```
 //
 //	POST /create-character-with-8-directions
-func (c *Client) CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost(ctx context.Context, body CreateCharacterWithDirections) (*CreateCharacterPro, error) {
-	return c.CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPostWithResult[CreateCharacterPro](ctx, body)
+func (c *Client) CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPost(ctx context.Context, body CreateCharacterWith8DirectionsRequest) (*CreateCharacterWith8DirectionsResponse, error) {
+	return c.CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPostWithResult[CreateCharacterWith8DirectionsResponse](ctx, body)
 }
 
 // Generate a character or object facing 8 directions (all cardinal and diagonal directions).
@@ -2220,7 +2220,7 @@ func (c *Client) CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPos
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /create-character-with-8-directions
-func (c *Client) CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPostWithResult[R any](ctx context.Context, body CreateCharacterWithDirections) (*R, error) {
+func (c *Client) CreateCharacterWith8DirectionsCreateCharacterWith8DirectionsPostWithResult[R any](ctx context.Context, body CreateCharacterWith8DirectionsRequest) (*R, error) {
 	u := c.baseURL.JoinPath("create-character-with-8-directions")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -2923,8 +2923,8 @@ func (c *Client) DownloadCharacterSpritesheetCharactersCharacterIDSpritesheetGet
 // Requires a valid API token. You can only update tags for characters you created.
 //
 //	PATCH /characters/{character_id}/tags
-func (c *Client) UpdateCharacterTagsCharactersCharacterIDTagsPatch(ctx context.Context, characterID string, body UpdateObjectTags) (*UpdateObjectTags2, error) {
-	return c.UpdateCharacterTagsCharactersCharacterIDTagsPatchWithResult[UpdateObjectTags2](ctx, characterID, body)
+func (c *Client) UpdateCharacterTagsCharactersCharacterIDTagsPatch(ctx context.Context, characterID string, body UpdateTags) (*UpdateTagsResponse, error) {
+	return c.UpdateCharacterTagsCharactersCharacterIDTagsPatchWithResult[UpdateTagsResponse](ctx, characterID, body)
 }
 
 // Update the tags for a specific character.
@@ -2956,7 +2956,7 @@ func (c *Client) UpdateCharacterTagsCharactersCharacterIDTagsPatch(ctx context.C
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /characters/{character_id}/tags
-func (c *Client) UpdateCharacterTagsCharactersCharacterIDTagsPatchWithResult[R any](ctx context.Context, characterID string, body UpdateObjectTags) (*R, error) {
+func (c *Client) UpdateCharacterTagsCharactersCharacterIDTagsPatchWithResult[R any](ctx context.Context, characterID string, body UpdateTags) (*R, error) {
 	u := c.baseURL.JoinPath("characters", characterID, "tags")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -3040,8 +3040,8 @@ func (c *Client) UpdateCharacterTagsCharactersCharacterIDTagsPatchWithResult[R a
 // For an 8-direction object, use [POST /v2/create-8-direction-object](#api-1/tag/objects/POST/create-8-direction-object). To create a state/variant of an existing object, use [POST /v2/objects/{object_id}/states](#api-1/tag/objects/POST/objects/{object_id}/states). To create an object placed in a specific map, use [POST /v2/map-objects](#api-1/tag/map-objects/POST/map-objects).
 //
 //	POST /create-1-direction-object
-func (c *Client) Create1DirectionObjectCreate1DirectionObjectPost(ctx context.Context, body Create1DirectionObjectRequest) (*CreateDirectionObject, error) {
-	return c.Create1DirectionObjectCreate1DirectionObjectPostWithResult[CreateDirectionObject](ctx, body)
+func (c *Client) Create1DirectionObjectCreate1DirectionObjectPost(ctx context.Context, body Create1DirectionObjectRequest) (*Create1DirectionObjectResponse, error) {
+	return c.Create1DirectionObjectCreate1DirectionObjectPostWithResult[Create1DirectionObjectResponse](ctx, body)
 }
 
 // Queues a 1-direction object generation job. Returns immediately with a `background_job_id` and `object_id`. Poll [GET /v2/objects/{object_id}](#api-1/tag/object-management/GET/objects/{object_id}) for status.
@@ -3122,8 +3122,8 @@ func (c *Client) Create1DirectionObjectCreate1DirectionObjectPostWithResult[R an
 // For a static single-direction object, use [POST /v2/create-1-direction-object](#api-1/tag/objects/POST/create-1-direction-object). To create a state/variant of an existing object, use [POST /v2/objects/{object_id}/states](#api-1/tag/objects/POST/objects/{object_id}/states). To create an object placed in a specific map, use [POST /v2/map-objects](#api-1/tag/map-objects/POST/map-objects).
 //
 //	POST /create-8-direction-object
-func (c *Client) Create8DirectionObjectCreate8DirectionObjectPost(ctx context.Context, body Create8DirectionObjectRequest) (*CreateDirectionObject, error) {
-	return c.Create8DirectionObjectCreate8DirectionObjectPostWithResult[CreateDirectionObject](ctx, body)
+func (c *Client) Create8DirectionObjectCreate8DirectionObjectPost(ctx context.Context, body Create8DirectionObjectRequest) (*Create8DirectionObjectResponse, error) {
+	return c.Create8DirectionObjectCreate8DirectionObjectPostWithResult[Create8DirectionObjectResponse](ctx, body)
 }
 
 // Queues an 8-direction object generation job. Returns immediately with a `background_job_id` and `object_id`. Poll [GET /v2/objects/{object_id}](#api-1/tag/object-management/GET/objects/{object_id}) for status.
@@ -3389,8 +3389,8 @@ func (c *Client) DeleteObjectAnimationsObjectsObjectIDAnimationsDeleteWithResult
 // Queues a generation job that applies a text edit to an existing object's image(s) and saves the result as a new object grouped with the source via group_id.
 //
 //	POST /objects/{object_id}/states
-func (c *Client) CreateObjectStateObjectsObjectIDStatesPost(ctx context.Context, objectID uuid.UUID, body CreateObjectStateRequest) (*CreateDirectionObject, error) {
-	return c.CreateObjectStateObjectsObjectIDStatesPostWithResult[CreateDirectionObject](ctx, objectID, body)
+func (c *Client) CreateObjectStateObjectsObjectIDStatesPost(ctx context.Context, objectID uuid.UUID, body CreateObjectStateRequest) (*CreateObjectStateResponse, error) {
+	return c.CreateObjectStateObjectsObjectIDStatesPostWithResult[CreateObjectStateResponse](ctx, objectID, body)
 }
 
 // Queues a generation job that applies a text edit to an existing object's image(s) and saves the result as a new object grouped with the source via group_id.
@@ -3930,8 +3930,8 @@ func (c *Client) DeleteObjectObjectsObjectIDDeleteWithResult[R any](ctx context.
 // Requires a valid API token. You can only update tags for objects you created.
 //
 //	PATCH /objects/{object_id}/tags
-func (c *Client) UpdateObjectTagsObjectsObjectIDTagsPatch(ctx context.Context, objectID uuid.UUID, body UpdateObjectTags) (*UpdateObjectTags2, error) {
-	return c.UpdateObjectTagsObjectsObjectIDTagsPatchWithResult[UpdateObjectTags2](ctx, objectID, body)
+func (c *Client) UpdateObjectTagsObjectsObjectIDTagsPatch(ctx context.Context, objectID uuid.UUID, body UpdateTags) (*UpdateObjectTagsResponse, error) {
+	return c.UpdateObjectTagsObjectsObjectIDTagsPatchWithResult[UpdateObjectTagsResponse](ctx, objectID, body)
 }
 
 // Update the tags for a specific object.
@@ -3951,7 +3951,7 @@ func (c *Client) UpdateObjectTagsObjectsObjectIDTagsPatch(ctx context.Context, o
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /objects/{object_id}/tags
-func (c *Client) UpdateObjectTagsObjectsObjectIDTagsPatchWithResult[R any](ctx context.Context, objectID uuid.UUID, body UpdateObjectTags) (*R, error) {
+func (c *Client) UpdateObjectTagsObjectsObjectIDTagsPatchWithResult[R any](ctx context.Context, objectID uuid.UUID, body UpdateTags) (*R, error) {
 	u := c.baseURL.JoinPath("objects", objectID.String(), "tags")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -4281,8 +4281,8 @@ func (c *Client) DeleteCharacterAnimationsCharactersCharacterIDAnimationsDeleteW
 // ```
 //
 //	POST /animate-with-text-v3
-func (c *Client) AnimateWithTextV3AnimateWithTextV3Post(ctx context.Context, body AnimateWithTextV3Request) (*AnimatePixminimax, error) {
-	return c.AnimateWithTextV3AnimateWithTextV3PostWithResult[AnimatePixminimax](ctx, body)
+func (c *Client) AnimateWithTextV3AnimateWithTextV3Post(ctx context.Context, body AnimateWithTextV3Request) (*AnimateWithTextV3Response, error) {
+	return c.AnimateWithTextV3AnimateWithTextV3PostWithResult[AnimateWithTextV3Response](ctx, body)
 }
 
 // Generate an animation from a reference frame and a text action description.
@@ -4418,8 +4418,8 @@ func (c *Client) AnimateWithTextV3AnimateWithTextV3PostWithResult[R any](ctx con
 // Typical generation time: 1-5 minutes.
 //
 //	POST /animate-pixminimax
-func (c *Client) AnimatePixminimaxAnimatePixminimaxPost(ctx context.Context, body AnimatePixminimaxRequest) (*AnimatePixminimax, error) {
-	return c.AnimatePixminimaxAnimatePixminimaxPostWithResult[AnimatePixminimax](ctx, body)
+func (c *Client) AnimatePixminimaxAnimatePixminimaxPost(ctx context.Context, body AnimatePixminimaxRequest) (*AnimatePixminimaxResponse, error) {
+	return c.AnimatePixminimaxAnimatePixminimaxPostWithResult[AnimatePixminimaxResponse](ctx, body)
 }
 
 // Beta: requires a tier 1 subscription or higher. Generate an animation from a frame and a text description of the motion. Powered by MiniMax H3.
@@ -4562,8 +4562,8 @@ func (c *Client) AnimatePixminimaxAnimatePixminimaxPostWithResult[R any](ctx con
 // ```
 //
 //	POST /interpolation-v2
-func (c *Client) InterpolationV2InterpolationV2Post(ctx context.Context, body InterpolationV2Request) (*AnimateWithSkeleton2, error) {
-	return c.InterpolationV2InterpolationV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) InterpolationV2InterpolationV2Post(ctx context.Context, body InterpolationV2Request) (*InterpolationV2Response, error) {
+	return c.InterpolationV2InterpolationV2PostWithResult[InterpolationV2Response](ctx, body)
 }
 
 // Generate intermediate animation frames between two keyframe images.
@@ -4742,8 +4742,8 @@ func (c *Client) InterpolationV2InterpolationV2PostWithResult[R any](ctx context
 // ```
 //
 //	POST /edit-animation-v2
-func (c *Client) EditAnimationV2EditAnimationV2Post(ctx context.Context, body EditAnimationV2Request) (*AnimateWithSkeleton2, error) {
-	return c.EditAnimationV2EditAnimationV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) EditAnimationV2EditAnimationV2Post(ctx context.Context, body EditAnimationV2Request) (*EditAnimationV2Response, error) {
+	return c.EditAnimationV2EditAnimationV2PostWithResult[EditAnimationV2Response](ctx, body)
 }
 
 // Edit multiple animation frames with a text description.
@@ -4926,8 +4926,8 @@ func (c *Client) EditAnimationV2EditAnimationV2PostWithResult[R any](ctx context
 // ```
 //
 //	POST /transfer-outfit-v2
-func (c *Client) TransferOutfitV2TransferOutfitV2Post(ctx context.Context, body TransferOutfitV2Request) (*AnimateWithSkeleton2, error) {
-	return c.TransferOutfitV2TransferOutfitV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) TransferOutfitV2TransferOutfitV2Post(ctx context.Context, body TransferOutfitV2Request) (*TransferOutfitV2Response, error) {
+	return c.TransferOutfitV2TransferOutfitV2PostWithResult[TransferOutfitV2Response](ctx, body)
 }
 
 // Transfer an outfit/appearance from a reference image to animation frames.
@@ -5118,8 +5118,8 @@ func (c *Client) TransferOutfitV2TransferOutfitV2PostWithResult[R any](ctx conte
 // ```
 //
 //	POST /animate-with-text-v2
-func (c *Client) AnimateWithTextV2AnimateWithTextV2Post(ctx context.Context, body AnimateWithTextV2Request) (*AnimateWithSkeleton2, error) {
-	return c.AnimateWithTextV2AnimateWithTextV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) AnimateWithTextV2AnimateWithTextV2Post(ctx context.Context, body AnimateWithTextV2Request) (*AnimateWithTextV2Response, error) {
+	return c.AnimateWithTextV2AnimateWithTextV2PostWithResult[AnimateWithTextV2Response](ctx, body)
 }
 
 // Generate pixel art animation from text.
@@ -5284,8 +5284,8 @@ func (c *Client) AnimateWithTextV2AnimateWithTextV2PostWithResult[R any](ctx con
 // ```
 //
 //	POST /animate-with-text
-func (c *Client) AnimateWithTextAnimateWithTextPost(ctx context.Context, body AnimateWithTextRequest) (*AnimateWithSkeleton, error) {
-	return c.AnimateWithTextAnimateWithTextPostWithResult[AnimateWithSkeleton](ctx, body)
+func (c *Client) AnimateWithTextAnimateWithTextPost(ctx context.Context, body AnimateWithTextRequest) (*AnimateWithTextResponse, error) {
+	return c.AnimateWithTextAnimateWithTextPostWithResult[AnimateWithTextResponse](ctx, body)
 }
 
 // Creates a pixel art animation based on text description and parameters.
@@ -5408,7 +5408,7 @@ func (c *Client) AnimateWithTextAnimateWithTextPostWithResult[R any](ctx context
 // ```
 //
 //	POST /estimate-skeleton
-func (c *Client) EstimateSkeletonEstimateSkeletonPost(ctx context.Context, body EstimateSkeleton) (*EstimateSkeletonResponse, error) {
+func (c *Client) EstimateSkeletonEstimateSkeletonPost(ctx context.Context, body SetPortrait) (*EstimateSkeletonResponse, error) {
 	return c.EstimateSkeletonEstimateSkeletonPostWithResult[EstimateSkeletonResponse](ctx, body)
 }
 
@@ -5437,7 +5437,7 @@ func (c *Client) EstimateSkeletonEstimateSkeletonPost(ctx context.Context, body 
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /estimate-skeleton
-func (c *Client) EstimateSkeletonEstimateSkeletonPostWithResult[R any](ctx context.Context, body EstimateSkeleton) (*R, error) {
+func (c *Client) EstimateSkeletonEstimateSkeletonPostWithResult[R any](ctx context.Context, body SetPortrait) (*R, error) {
 	u := c.baseURL.JoinPath("estimate-skeleton")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -5525,8 +5525,8 @@ func (c *Client) EstimateSkeletonEstimateSkeletonPostWithResult[R any](ctx conte
 // Typical generation time: 3-5 minutes.
 //
 //	POST /animate-with-skeleton-v3
-func (c *Client) AnimateWithSkeletonV3AnimateWithSkeletonV3Post(ctx context.Context, body AnimateWithSkeletonV3Request) (*AnimateWithSkeleton2, error) {
-	return c.AnimateWithSkeletonV3AnimateWithSkeletonV3PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) AnimateWithSkeletonV3AnimateWithSkeletonV3Post(ctx context.Context, body AnimateWithSkeletonV3Request) (*AnimateWithSkeletonV3Response, error) {
+	return c.AnimateWithSkeletonV3AnimateWithSkeletonV3PostWithResult[AnimateWithSkeletonV3Response](ctx, body)
 }
 
 // Beta: requires a tier 1 subscription or higher. Animate a sprite by posing it: one skeleton per frame, drawn from a single reference image.
@@ -5653,8 +5653,8 @@ func (c *Client) AnimateWithSkeletonV3AnimateWithSkeletonV3PostWithResult[R any]
 // ```
 //
 //	POST /animate-with-skeleton
-func (c *Client) AnimateWithSkeletonAnimateWithSkeletonPost(ctx context.Context, body AnimateWithSkeletonRequest) (*AnimateWithSkeleton, error) {
-	return c.AnimateWithSkeletonAnimateWithSkeletonPostWithResult[AnimateWithSkeleton](ctx, body)
+func (c *Client) AnimateWithSkeletonAnimateWithSkeletonPost(ctx context.Context, body AnimateWithSkeletonRequest) (*AnimateWithSkeletonResponse, error) {
+	return c.AnimateWithSkeletonAnimateWithSkeletonPostWithResult[AnimateWithSkeletonResponse](ctx, body)
 }
 
 // Creates a pixel art animation based on the provided parameters. Called "Animate with skeleton" in the plugin.
@@ -5795,8 +5795,8 @@ func (c *Client) AnimateWithSkeletonAnimateWithSkeletonPostWithResult[R any](ctx
 // ```
 //
 //	POST /generate-8-rotations-v3
-func (c *Client) Generate8RotationsV3Generate8RotationsV3Post(ctx context.Context, body Generate8RotationsV3Request) (*AnimateWithSkeleton2, error) {
-	return c.Generate8RotationsV3Generate8RotationsV3PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) Generate8RotationsV3Generate8RotationsV3Post(ctx context.Context, body Generate8RotationsV3Request) (*Generate8RotationsV3Response, error) {
+	return c.Generate8RotationsV3Generate8RotationsV3PostWithResult[Generate8RotationsV3Response](ctx, body)
 }
 
 // Generate 8 directional rotations from a reference frame.
@@ -5952,8 +5952,8 @@ func (c *Client) Generate8RotationsV3Generate8RotationsV3PostWithResult[R any](c
 // ```
 //
 //	POST /generate-8-rotations-v2
-func (c *Client) Generate8RotationsV2Generate8RotationsV2Post(ctx context.Context, body Generate8RotationsV2Request) (*AnimateWithSkeleton2, error) {
-	return c.Generate8RotationsV2Generate8RotationsV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) Generate8RotationsV2Generate8RotationsV2Post(ctx context.Context, body Generate8RotationsV2Request) (*Generate8RotationsV2Response, error) {
+	return c.Generate8RotationsV2Generate8RotationsV2PostWithResult[Generate8RotationsV2Response](ctx, body)
 }
 
 // Generate 8 rotational views of a character or object.
@@ -6101,8 +6101,8 @@ func (c *Client) Generate8RotationsV2Generate8RotationsV2PostWithResult[R any](c
 // ```
 //
 //	POST /rotate
-func (c *Client) GenerateRotationRotatePost(ctx context.Context, body RotateRequest) (*CreateImageBitforge, error) {
-	return c.GenerateRotationRotatePostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) GenerateRotationRotatePost(ctx context.Context, body RotateRequest) (*RotateResponse, error) {
+	return c.GenerateRotationRotatePostWithResult[RotateResponse](ctx, body)
 }
 
 // Rotates a pixel art image based on the provided parameters. Called "Rotate" in the plugin.
@@ -6256,8 +6256,8 @@ func (c *Client) GenerateRotationRotatePostWithResult[R any](ctx context.Context
 // ```
 //
 //	POST /edit-images-v2
-func (c *Client) EditImagesV2EditImagesV2Post(ctx context.Context, body EditImagesV2Request) (*AnimateWithSkeleton2, error) {
-	return c.EditImagesV2EditImagesV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) EditImagesV2EditImagesV2Post(ctx context.Context, body EditImagesV2Request) (*EditImagesV2Response, error) {
+	return c.EditImagesV2EditImagesV2PostWithResult[EditImagesV2Response](ctx, body)
 }
 
 // Edit pixel art images using text or reference image.
@@ -6405,8 +6405,8 @@ func (c *Client) EditImagesV2EditImagesV2PostWithResult[R any](ctx context.Conte
 // 3. When `status` is `completed`, the edited image is in `last_response`
 //
 //	POST /edit-image-pixen
-func (c *Client) EditImagePixenEditImagePixenPost(ctx context.Context, body EditImagePixenRequest) (*AnimateWithSkeleton2, error) {
-	return c.EditImagePixenEditImagePixenPostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) EditImagePixenEditImagePixenPost(ctx context.Context, body EditImagePixenRequest) (*EditImagePixenResponse, error) {
+	return c.EditImagePixenEditImagePixenPostWithResult[EditImagePixenResponse](ctx, body)
 }
 
 // Edit an existing pixel art image with a text instruction, on the Pixen model.
@@ -6520,8 +6520,8 @@ func (c *Client) EditImagePixenEditImagePixenPostWithResult[R any](ctx context.C
 // 3. When `status` is `completed`, edited image is in `last_response`
 //
 //	POST /edit-image
-func (c *Client) EditImageEditImagePost(ctx context.Context, body EditImageRequest) (*AnimateWithSkeleton2, error) {
-	return c.EditImageEditImagePostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) EditImageEditImagePost(ctx context.Context, body EditImageRequest) (*EditImageResponse, error) {
+	return c.EditImageEditImagePostWithResult[EditImageResponse](ctx, body)
 }
 
 // Edit an existing pixel art image based on a text description.
@@ -6650,8 +6650,8 @@ func (c *Client) EditImageEditImagePostWithResult[R any](ctx context.Context, bo
 // ```
 //
 //	POST /inpaint-v3
-func (c *Client) InpaintV3InpaintV3Post(ctx context.Context, body InpaintV3Request) (*AnimateWithSkeleton2, error) {
-	return c.InpaintV3InpaintV3PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) InpaintV3InpaintV3Post(ctx context.Context, body InpaintV3Request) (*InpaintV3Response, error) {
+	return c.InpaintV3InpaintV3PostWithResult[InpaintV3Response](ctx, body)
 }
 
 // Inpaint/edit pixel art images using AI.
@@ -6790,8 +6790,8 @@ func (c *Client) InpaintV3InpaintV3PostWithResult[R any](ctx context.Context, bo
 // ```
 //
 //	POST /inpaint
-func (c *Client) GenerateInpaintingInpaintPost(ctx context.Context, body InpaintRequest) (*CreateImageBitforge, error) {
-	return c.GenerateInpaintingInpaintPostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) GenerateInpaintingInpaintPost(ctx context.Context, body InpaintRequest) (*InpaintResponse, error) {
+	return c.GenerateInpaintingInpaintPostWithResult[InpaintResponse](ctx, body)
 }
 
 // Creates a pixel art image based on the provided parameters. Called "Inpaint" in the plugin.
@@ -7452,8 +7452,8 @@ func (c *Client) GetTilesetTilesetsTilesetIDGetWithResult[R any](ctx context.Con
 // Permanently delete a top-down tileset you own, plus any lingering background_jobs rows for it. Cannot be undone.
 //
 //	DELETE /tilesets/{tileset_id}
-func (c *Client) DeleteTopdownTilesetTilesetsTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*SidescrollerTileset, error) {
-	return c.DeleteTopdownTilesetTilesetsTilesetIDDeleteWithResult[SidescrollerTileset](ctx, tilesetID)
+func (c *Client) DeleteTopdownTilesetTilesetsTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*DeleteTilesetResponse, error) {
+	return c.DeleteTopdownTilesetTilesetsTilesetIDDeleteWithResult[DeleteTilesetResponse](ctx, tilesetID)
 }
 
 // Permanently delete a top-down tileset you own, plus any lingering background_jobs rows for it. Cannot be undone.
@@ -7939,8 +7939,8 @@ func (c *Client) GetSidescrollerTilesetTilesetsSidescrollerTilesetIDGetWithResul
 // Permanently delete a sidescroller tileset you own, plus any lingering background_jobs rows scoped to the sidescroller model. Cannot be undone.
 //
 //	DELETE /tilesets-sidescroller/{tileset_id}
-func (c *Client) DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*SidescrollerTileset, error) {
-	return c.DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDeleteWithResult[SidescrollerTileset](ctx, tilesetID)
+func (c *Client) DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDelete(ctx context.Context, tilesetID uuid.UUID) (*DeleteSidescrollerTilesetResponse, error) {
+	return c.DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDeleteWithResult[DeleteSidescrollerTilesetResponse](ctx, tilesetID)
 }
 
 // Permanently delete a sidescroller tileset you own, plus any lingering background_jobs rows scoped to the sidescroller model. Cannot be undone.
@@ -8079,8 +8079,8 @@ func (c *Client) DeleteSidescrollerTilesetTilesetsSidescrollerTilesetIDDeleteWit
 // ```
 //
 //	POST /create-tiles-pro
-func (c *Client) CreateTilesProCreateTilesProPost(ctx context.Context, body CreateTilesProRequest) (*CreateIsometricTileBackground, error) {
-	return c.CreateTilesProCreateTilesProPostWithResult[CreateIsometricTileBackground](ctx, body)
+func (c *Client) CreateTilesProCreateTilesProPost(ctx context.Context, body CreateTilesProRequest) (*CreateTilesProBackgroundResponse, error) {
+	return c.CreateTilesProCreateTilesProPostWithResult[CreateTilesProBackgroundResponse](ctx, body)
 }
 
 // Creates pixel art tiles based on the provided parameters.
@@ -8339,8 +8339,8 @@ func (c *Client) GetTilesProTilesProTileIDGetWithResult[R any](ctx context.Conte
 // Permanently delete a tiles-pro tile you own. Blocked while the tile is still generating (status=pending, created <15 min ago) — wait for completion via GET /v2/tiles-pro/{tile_id} first. Once the job passes the stuck threshold, deletion is allowed.
 //
 //	DELETE /tiles-pro/{tile_id}
-func (c *Client) DeleteTilesProTilesProTileIDDelete(ctx context.Context, tileID uuid.UUID) (*IsometricTile, error) {
-	return c.DeleteTilesProTilesProTileIDDeleteWithResult[IsometricTile](ctx, tileID)
+func (c *Client) DeleteTilesProTilesProTileIDDelete(ctx context.Context, tileID uuid.UUID) (*DeleteTilesProResponse, error) {
+	return c.DeleteTilesProTilesProTileIDDeleteWithResult[DeleteTilesProResponse](ctx, tileID)
 }
 
 // Permanently delete a tiles-pro tile you own. Blocked while the tile is still generating (status=pending, created <15 min ago) — wait for completion via GET /v2/tiles-pro/{tile_id} first. Once the job passes the stuck threshold, deletion is allowed.
@@ -8519,8 +8519,8 @@ func (c *Client) ListTilesProTilesProGetWithResult[R any](ctx context.Context, p
 // ```
 //
 //	POST /create-isometric-tile
-func (c *Client) GenerateIsometricTileCreateIsometricTilePost(ctx context.Context, body CreateIsometricTileRequest) (*CreateIsometricTileBackground, error) {
-	return c.GenerateIsometricTileCreateIsometricTilePostWithResult[CreateIsometricTileBackground](ctx, body)
+func (c *Client) GenerateIsometricTileCreateIsometricTilePost(ctx context.Context, body CreateIsometricTileRequest) (*CreateIsometricTileBackgroundResponse, error) {
+	return c.GenerateIsometricTileCreateIsometricTilePostWithResult[CreateIsometricTileBackgroundResponse](ctx, body)
 }
 
 // Creates a isometric tile based on the provided parameters.
@@ -8651,8 +8651,8 @@ func (c *Client) GenerateIsometricTileCreateIsometricTilePostWithResult[R any](c
 // ```
 //
 //	GET /isometric-tiles/{tile_id}
-func (c *Client) GetIsometricTileIsometricTilesTileIDGet(ctx context.Context, tileID string) (*CreateImageBitforge, error) {
-	return c.GetIsometricTileIsometricTilesTileIDGetWithResult[CreateImageBitforge](ctx, tileID)
+func (c *Client) GetIsometricTileIsometricTilesTileIDGet(ctx context.Context, tileID string) (*CreateIsometricTileResponse, error) {
+	return c.GetIsometricTileIsometricTilesTileIDGetWithResult[CreateIsometricTileResponse](ctx, tileID)
 }
 
 // Retrieve a completed isometric tile by its UUID.
@@ -8747,8 +8747,8 @@ func (c *Client) GetIsometricTileIsometricTilesTileIDGetWithResult[R any](ctx co
 // Permanently delete an isometric tile you own. Cannot be undone.
 //
 //	DELETE /isometric-tiles/{tile_id}
-func (c *Client) DeleteIsometricTileIsometricTilesTileIDDelete(ctx context.Context, tileID uuid.UUID) (*IsometricTile, error) {
-	return c.DeleteIsometricTileIsometricTilesTileIDDeleteWithResult[IsometricTile](ctx, tileID)
+func (c *Client) DeleteIsometricTileIsometricTilesTileIDDelete(ctx context.Context, tileID uuid.UUID) (*DeleteIsometricTileResponse, error) {
+	return c.DeleteIsometricTileIsometricTilesTileIDDeleteWithResult[DeleteIsometricTileResponse](ctx, tileID)
 }
 
 // Permanently delete an isometric tile you own. Cannot be undone.
@@ -8921,8 +8921,8 @@ func (c *Client) ListIsometricTilesIsometricTilesGetWithResult[R any](ctx contex
 // ```
 //
 //	POST /map-objects
-func (c *Client) CreateMapObjectMapObjectsPost(ctx context.Context, body CreateMapObjectRequest) (*CreateDirectionObject, error) {
-	return c.CreateMapObjectMapObjectsPostWithResult[CreateDirectionObject](ctx, body)
+func (c *Client) CreateMapObjectMapObjectsPost(ctx context.Context, body CreateMapObjectRequest) (*CreateMapObjectResponse, error) {
+	return c.CreateMapObjectMapObjectsPostWithResult[CreateMapObjectResponse](ctx, body)
 }
 
 // Creates a pixel art object with transparent background for game maps.
@@ -9223,8 +9223,8 @@ func (c *Client) CreateUIAssetCreateUIAssetPostWithResult[R any](ctx context.Con
 // ```
 //
 //	POST /generate-ui-v2
-func (c *Client) GenerateUIV2GenerateUIV2Post(ctx context.Context, body GenerateUIV2Request) (*AnimateWithSkeleton2, error) {
-	return c.GenerateUIV2GenerateUIV2PostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) GenerateUIV2GenerateUIV2Post(ctx context.Context, body GenerateUIV2Request) (*GenerateUIV2Response, error) {
+	return c.GenerateUIV2GenerateUIV2PostWithResult[GenerateUIV2Response](ctx, body)
 }
 
 // Generate pixel art UI elements from text description.
@@ -9590,8 +9590,8 @@ func (c *Client) DeleteUIAssetUIAssetsUIAssetIDDeleteWithResult[R any](ctx conte
 // ```
 //
 //	POST /portrait-character-pro
-func (c *Client) PortraitCharacterProPortraitCharacterProPost(ctx context.Context, body PortraitCharacterProRequest) (*AnimateWithSkeleton2, error) {
-	return c.PortraitCharacterProPortraitCharacterProPostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) PortraitCharacterProPortraitCharacterProPost(ctx context.Context, body PortraitCharacterProRequest) (*PortraitCharacterProResponse, error) {
+	return c.PortraitCharacterProPortraitCharacterProPostWithResult[PortraitCharacterProResponse](ctx, body)
 }
 
 // Convert between a bust portrait and a full-body character sprite.
@@ -9777,7 +9777,7 @@ func (c *Client) GetPortraitCharacterPortraitCharacterProJobIDGetWithResult[R an
 // `POST /v2/portrait-character-pro` with `direction="character_to_portrait"`.
 //
 //	POST /characters/{character_id}/portrait
-func (c *Client) SetPortraitCharactersCharacterIDPortraitPost(ctx context.Context, characterID string, body EstimateSkeleton) (*SetPortraitResponse, error) {
+func (c *Client) SetPortraitCharactersCharacterIDPortraitPost(ctx context.Context, characterID string, body SetPortrait) (*SetPortraitResponse, error) {
 	return c.SetPortraitCharactersCharacterIDPortraitPostWithResult[SetPortraitResponse](ctx, characterID, body)
 }
 
@@ -9791,7 +9791,7 @@ func (c *Client) SetPortraitCharactersCharacterIDPortraitPost(ctx context.Contex
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /characters/{character_id}/portrait
-func (c *Client) SetPortraitCharactersCharacterIDPortraitPostWithResult[R any](ctx context.Context, characterID string, body EstimateSkeleton) (*R, error) {
+func (c *Client) SetPortraitCharactersCharacterIDPortraitPostWithResult[R any](ctx context.Context, characterID string, body SetPortrait) (*R, error) {
 	u := c.baseURL.JoinPath("characters", characterID, "portrait")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -10269,8 +10269,8 @@ func (c *Client) GetLipSyncLipSyncPostWithResult[R any](ctx context.Context, bod
 // ```
 //
 //	POST /generate-font-pro
-func (c *Client) GenerateFontProGenerateFontProPost(ctx context.Context, body GenerateFontProRequest) (*AnimateWithSkeleton2, error) {
-	return c.GenerateFontProGenerateFontProPostWithResult[AnimateWithSkeleton2](ctx, body)
+func (c *Client) GenerateFontProGenerateFontProPost(ctx context.Context, body GenerateFontProRequest) (*GenerateFontProResponse, error) {
+	return c.GenerateFontProGenerateFontProPostWithResult[GenerateFontProResponse](ctx, body)
 }
 
 // Generate a styled pixel-art font from a text description.
@@ -10593,8 +10593,8 @@ func (c *Client) UnzoomEndpointUnzoomPostWithResult[R any](ctx context.Context, 
 // ```
 //
 //	POST /correct-pixelart
-func (c *Client) CorrectPixelartEndpointCorrectPixelartPost(ctx context.Context, body CorrectPixelartRequest) (*AnimateWithSkeleton, error) {
-	return c.CorrectPixelartEndpointCorrectPixelartPostWithResult[AnimateWithSkeleton](ctx, body)
+func (c *Client) CorrectPixelartEndpointCorrectPixelartPost(ctx context.Context, body CorrectPixelartRequest) (*CorrectPixelartResponse, error) {
+	return c.CorrectPixelartEndpointCorrectPixelartPostWithResult[CorrectPixelartResponse](ctx, body)
 }
 
 // Clean up and refine existing pixel art without changing its size.
@@ -10833,8 +10833,8 @@ func (c *Client) ReduceColorsEndpointReduceColorsPostWithResult[R any](ctx conte
 // ```
 //
 //	POST /remove-background
-func (c *Client) RemoveBackgroundEndpointRemoveBackgroundPost(ctx context.Context, body RemoveBackgroundRequest) (*CreateImageBitforge, error) {
-	return c.RemoveBackgroundEndpointRemoveBackgroundPostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) RemoveBackgroundEndpointRemoveBackgroundPost(ctx context.Context, body RemoveBackgroundRequest) (*RemoveBackgroundResponse, error) {
+	return c.RemoveBackgroundEndpointRemoveBackgroundPostWithResult[RemoveBackgroundResponse](ctx, body)
 }
 
 // Remove the background from a pixel art image, producing a transparent PNG.
@@ -10963,8 +10963,8 @@ func (c *Client) RemoveBackgroundEndpointRemoveBackgroundPostWithResult[R any](c
 // ```
 //
 //	POST /resize
-func (c *Client) ResizeImageResizePost(ctx context.Context, body ResizeRequest) (*CreateImageBitforge, error) {
-	return c.ResizeImageResizePostWithResult[CreateImageBitforge](ctx, body)
+func (c *Client) ResizeImageResizePost(ctx context.Context, body ResizeRequest) (*ResizeResponse, error) {
+	return c.ResizeImageResizePostWithResult[ResizeResponse](ctx, body)
 }
 
 // Intelligently resize pixel art images while maintaining pixel art aesthetics.
@@ -11074,8 +11074,8 @@ func (c *Client) ResizeImageResizePostWithResult[R any](ctx context.Context, bod
 // `outline`, `detail`, `view`, `direction`, and `no_background`.
 //
 //	POST /enhance-pixen-prompt
-func (c *Client) EnhancePixenPromptEnhancePixenPromptPost(ctx context.Context, body EnhancePixenPromptRequest) (*EnhanceAnimationPrompt, error) {
-	return c.EnhancePixenPromptEnhancePixenPromptPostWithResult[EnhanceAnimationPrompt](ctx, body)
+func (c *Client) EnhancePixenPromptEnhancePixenPromptPost(ctx context.Context, body EnhancePixenPromptRequest) (*EnhancePixenPromptResponse, error) {
+	return c.EnhancePixenPromptEnhancePixenPromptPostWithResult[EnhancePixenPromptResponse](ctx, body)
 }
 
 // Enhance a Pixen image description.
@@ -11151,8 +11151,8 @@ func (c *Client) EnhancePixenPromptEnhancePixenPromptPostWithResult[R any](ctx c
 // transparent).
 //
 //	POST /enhance-character-v3-prompt
-func (c *Client) EnhanceCharacterV3PromptEnhanceCharacterV3PromptPost(ctx context.Context, body EnhanceCharacterV3PromptRequest) (*EnhanceAnimationPrompt, error) {
-	return c.EnhanceCharacterV3PromptEnhanceCharacterV3PromptPostWithResult[EnhanceAnimationPrompt](ctx, body)
+func (c *Client) EnhanceCharacterV3PromptEnhanceCharacterV3PromptPost(ctx context.Context, body EnhanceCharacterV3PromptRequest) (*EnhanceCharacterV3PromptResponse, error) {
+	return c.EnhanceCharacterV3PromptEnhanceCharacterV3PromptPostWithResult[EnhanceCharacterV3PromptResponse](ctx, body)
 }
 
 // Enhance a v3 character description.
@@ -11239,8 +11239,8 @@ func (c *Client) EnhanceCharacterV3PromptEnhanceCharacterV3PromptPostWithResult[
 // unless explicitly requested.
 //
 //	POST /enhance-animation-v3-prompt
-func (c *Client) EnhanceAnimationV3PromptEnhanceAnimationV3PromptPost(ctx context.Context, body EnhanceAnimationV3PromptRequest) (*EnhanceAnimationPrompt, error) {
-	return c.EnhanceAnimationV3PromptEnhanceAnimationV3PromptPostWithResult[EnhanceAnimationPrompt](ctx, body)
+func (c *Client) EnhanceAnimationV3PromptEnhanceAnimationV3PromptPost(ctx context.Context, body EnhanceAnimationV3PromptRequest) (*EnhanceAnimationV3PromptResponse, error) {
+	return c.EnhanceAnimationV3PromptEnhanceAnimationV3PromptPostWithResult[EnhanceAnimationV3PromptResponse](ctx, body)
 }
 
 // Enhance an animation action description.

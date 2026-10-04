@@ -74,13 +74,15 @@
           "styles",
           "models",
           "tabs"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListV1StylesSelectorOk/content/application~1json/schema"
       },
       "ListV1StylesSelectorOkStyles": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListV1StylesSelectorOkStylesItem"
-        }
+        },
+        "x-flattened-from": "#/components/schemas/ListV1StylesSelectorOk/properties/styles"
       },
       "ListV1StylesSelectorOkStylesItem": {
         "type": "object",
@@ -157,7 +159,8 @@
           "require_input_image",
           "supports_reference_images",
           "example_prompt"
-        ]
+        ],
+        "x-flattened-from": "#/components/schemas/ListV1StylesSelectorOkStyles/items"
       },
       "PostV1Inferences": {
         "type": "object",
@@ -225,7 +228,8 @@
           "check_cost",
           "async",
           "upload_outputs"
-        ]
+        ],
+        "x-flattened-from": "#/components/requestBodies/PostV1Inferences/content/application~1json/schema"
       },
       "PostV1InferencesOk": {
         "type": "object",
@@ -279,7 +283,8 @@
           "model",
           "remaining_credits",
           "remaining_balance"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/PostV1InferencesOk/content/application~1json/schema"
       }
     },
     "responses": {

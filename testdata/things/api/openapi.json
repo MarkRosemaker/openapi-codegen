@@ -63,7 +63,8 @@
         },
         "required": [
           "status"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/ListRunningThingsOk/content/application~1json/schema"
       },
       "StartThingOk": {
         "type": "object",
@@ -75,7 +76,8 @@
         },
         "required": [
           "id"
-        ]
+        ],
+        "x-flattened-from": "#/components/responses/StartThingOk/content/application~1json/schema"
       }
     },
     "responses": {

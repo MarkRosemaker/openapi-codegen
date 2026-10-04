@@ -260,7 +260,7 @@ func (c *Client) ListGroupMembersWithResult[R any](ctx context.Context, groupID 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -466,7 +466,7 @@ func (c *Client) AddGroupMemberWithResult[R any](ctx context.Context, groupID ID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -620,7 +620,7 @@ func (c *Client) ExternalDecagonWithResult[R any](ctx context.Context, body Exte
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -745,7 +745,7 @@ func (c *Client) ExternalRefundEligibilityWithResult[R any](ctx context.Context,
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -860,7 +860,7 @@ func (c *Client) ExternalUserC360ProfileWithResult[R any](ctx context.Context, b
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1041,7 +1041,7 @@ func (c *Client) ChatWithAgentWithResult[R any](ctx context.Context, agentID str
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1099,7 +1099,7 @@ func (c *Client) ChatWithAgentWithResult[R any](ctx context.Context, agentID str
 //	POST /agents/{agent_id}/chatStream
 //
 // Deprecated.
-func (c *Client) ChatWithAgentStream(ctx context.Context, agentID string, params *ChatWithAgentStreamParams, body ChatWithAgent) (*ChatStreamChunk, error) {
+func (c *Client) ChatWithAgentStream(ctx context.Context, agentID string, params *ChatWithAgentStreamParams, body ChatWithAgentStream) (*ChatStreamChunk, error) {
 	return c.ChatWithAgentStreamWithResult[ChatStreamChunk](ctx, agentID, params, body)
 }
 
@@ -1109,7 +1109,7 @@ func (c *Client) ChatWithAgentStream(ctx context.Context, agentID string, params
 //	POST /agents/{agent_id}/chatStream
 //
 // Deprecated.
-func (c *Client) ChatWithAgentStreamWithResult[R any](ctx context.Context, agentID string, params *ChatWithAgentStreamParams, body ChatWithAgent) (*R, error) {
+func (c *Client) ChatWithAgentStreamWithResult[R any](ctx context.Context, agentID string, params *ChatWithAgentStreamParams, body ChatWithAgentStream) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -1328,7 +1328,7 @@ func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID I
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1384,8 +1384,8 @@ func (c *Client) ContinueThreadWithResult[R any](ctx context.Context, threadID I
 // Create external agent stub vault
 //
 //	POST /external_agent_stub/{agent_id}/vaults
-func (c *Client) CreateExternalAgentStubVault(ctx context.Context, agentID string, body CreateExternalAgentStubVault) (*CreateExternalAgentStubVault2, error) {
-	return c.CreateExternalAgentStubVaultWithResult[CreateExternalAgentStubVault2](ctx, agentID, body)
+func (c *Client) CreateExternalAgentStubVault(ctx context.Context, agentID string, body CreateExternalAgentStubVault) (*CreateExternalAgentStubVaultOk, error) {
+	return c.CreateExternalAgentStubVaultWithResult[CreateExternalAgentStubVaultOk](ctx, agentID, body)
 }
 
 // Create external agent stub vault
@@ -1534,7 +1534,7 @@ func (c *Client) CreateExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1740,7 +1740,7 @@ func (c *Client) CreateGroupWithResult[R any](ctx context.Context, body CreateGr
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -1946,7 +1946,7 @@ func (c *Client) CreateRolloutWithResult[R any](ctx context.Context, body Create
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2163,7 +2163,7 @@ func (c *Client) ListTeamspacesWithResult[R any](ctx context.Context, params *Li
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2219,8 +2219,8 @@ func (c *Client) ListTeamspacesWithResult[R any](ctx context.Context, params *Li
 // Create teamspace
 //
 //	POST /teamspaces
-func (c *Client) CreateTeamspace(ctx context.Context, body CreateTeamspace) (*CreateTeamspace2, error) {
-	return c.CreateTeamspaceWithResult[CreateTeamspace2](ctx, body)
+func (c *Client) CreateTeamspace(ctx context.Context, body CreateTeamspace) (*CreateTeamspaceOk, error) {
+	return c.CreateTeamspaceWithResult[CreateTeamspaceOk](ctx, body)
 }
 
 // Create teamspace
@@ -2369,7 +2369,7 @@ func (c *Client) CreateTeamspaceWithResult[R any](ctx context.Context, body Crea
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2425,7 +2425,7 @@ func (c *Client) CreateTeamspaceWithResult[R any](ctx context.Context, body Crea
 // Delete external agent stub vault
 //
 //	DELETE /external_agent_stub/{agent_id}/vaults/{vault_id}
-func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID string, vaultID string) error {
+func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, vaultID string, agentID string) error {
 	if c.bearer == "" {
 		return errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -2550,7 +2550,7 @@ func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID strin
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -2606,15 +2606,15 @@ func (c *Client) DeleteExternalAgentStubVault(ctx context.Context, agentID strin
 // Update external agent stub vault
 //
 //	PATCH /external_agent_stub/{agent_id}/vaults/{vault_id}
-func (c *Client) UpdateExternalAgentStubVault(ctx context.Context, agentID string, vaultID string, body UpdateExternalAgentStubVault) (*CreateExternalAgentStubVault2, error) {
-	return c.UpdateExternalAgentStubVaultWithResult[CreateExternalAgentStubVault2](ctx, agentID, vaultID, body)
+func (c *Client) UpdateExternalAgentStubVault(ctx context.Context, vaultID string, agentID string, body UpdateExternalAgentStubVault) (*UpdateExternalAgentStubVaultOk, error) {
+	return c.UpdateExternalAgentStubVaultWithResult[UpdateExternalAgentStubVaultOk](ctx, vaultID, agentID, body)
 }
 
 // Update external agent stub vault
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /external_agent_stub/{agent_id}/vaults/{vault_id}
-func (c *Client) UpdateExternalAgentStubVaultWithResult[R any](ctx context.Context, agentID string, vaultID string, body UpdateExternalAgentStubVault) (*R, error) {
+func (c *Client) UpdateExternalAgentStubVaultWithResult[R any](ctx context.Context, vaultID string, agentID string, body UpdateExternalAgentStubVault) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -2756,7 +2756,7 @@ func (c *Client) UpdateExternalAgentStubVaultWithResult[R any](ctx context.Conte
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -2955,7 +2955,7 @@ func (c *Client) RetrieveGroupWithResult[R any](ctx context.Context, groupID IDR
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3161,7 +3161,7 @@ func (c *Client) DeleteGroupWithResult[R any](ctx context.Context, groupID IDReq
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3367,7 +3367,7 @@ func (c *Client) UpdateGroupWithResult[R any](ctx context.Context, groupID IDReq
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3570,7 +3570,7 @@ func (c *Client) ExportPageWithResult[R any](ctx context.Context, id IDRequest) 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3776,7 +3776,7 @@ func (c *Client) GenerateTranscriptWithResult[R any](ctx context.Context, body G
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -3832,8 +3832,8 @@ func (c *Client) GenerateTranscriptWithResult[R any](ctx context.Context, body G
 // Get a rollout
 //
 //	GET /rollout/{rollout_id}
-func (c *Client) GetRollout(ctx context.Context, rolloutID string) (*Rollout, error) {
-	return c.GetRolloutWithResult[Rollout](ctx, rolloutID)
+func (c *Client) GetRollout(ctx context.Context, rolloutID string) (*GetRolloutOk, error) {
+	return c.GetRolloutWithResult[GetRolloutOk](ctx, rolloutID)
 }
 
 // Get a rollout
@@ -3975,7 +3975,7 @@ func (c *Client) GetRolloutWithResult[R any](ctx context.Context, rolloutID stri
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4174,7 +4174,7 @@ func (c *Client) GetSecurityPostureWithResult[R any](ctx context.Context) (*R, e
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4230,8 +4230,8 @@ func (c *Client) GetSecurityPostureWithResult[R any](ctx context.Context) (*R, e
 // Get teamspace
 //
 //	GET /teamspaces/{team_id}
-func (c *Client) GetTeamspace(ctx context.Context, teamID IDRequest) (*CreateTeamspace2, error) {
-	return c.GetTeamspaceWithResult[CreateTeamspace2](ctx, teamID)
+func (c *Client) GetTeamspace(ctx context.Context, teamID IDRequest) (*GetTeamspaceOk, error) {
+	return c.GetTeamspaceWithResult[GetTeamspaceOk](ctx, teamID)
 }
 
 // Get teamspace
@@ -4373,7 +4373,7 @@ func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID IDReq
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4429,15 +4429,15 @@ func (c *Client) GetTeamspaceWithResult[R any](ctx context.Context, teamID IDReq
 // Update teamspace
 //
 //	PATCH /teamspaces/{team_id}
-func (c *Client) UpdateTeamspace(ctx context.Context, teamID IDRequest, body CreateTeamspace) (*CreateTeamspace2, error) {
-	return c.UpdateTeamspaceWithResult[CreateTeamspace2](ctx, teamID, body)
+func (c *Client) UpdateTeamspace(ctx context.Context, teamID IDRequest, body UpdateTeamspace) (*UpdateTeamspaceOk, error) {
+	return c.UpdateTeamspaceWithResult[UpdateTeamspaceOk](ctx, teamID, body)
 }
 
 // Update teamspace
 // You can define a custom result to unmarshal the response into.
 //
 //	PATCH /teamspaces/{team_id}
-func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID IDRequest, body CreateTeamspace) (*R, error) {
+func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID IDRequest, body UpdateTeamspace) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -4579,7 +4579,7 @@ func (c *Client) UpdateTeamspaceWithResult[R any](ctx context.Context, teamID ID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -4785,7 +4785,7 @@ func (c *Client) InitiatePageExportWithResult[R any](ctx context.Context, body I
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5022,7 +5022,7 @@ func (c *Client) ListAgentsWithResult[R any](ctx context.Context, params *ListAg
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5231,7 +5231,7 @@ func (c *Client) ListConnectionsWithResult[R any](ctx context.Context, params *L
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5444,7 +5444,7 @@ func (c *Client) GetDatabasesWithResult[R any](ctx context.Context, params *GetD
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5653,7 +5653,7 @@ func (c *Client) ListExternalAgentStubSessionEventsWithResult[R any](ctx context
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -5866,7 +5866,7 @@ func (c *Client) ListTeamMembershipWithResult[R any](ctx context.Context, teamID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6054,7 +6054,7 @@ func (c *Client) UpdateTeamMembership(ctx context.Context, teamID IDRequest, bod
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -6267,7 +6267,7 @@ func (c *Client) ListTeamPermissionsWithResult[R any](ctx context.Context, teamI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6455,7 +6455,7 @@ func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID IDReques
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return api.WrapDecodingError(rsp, err)
 			}
@@ -6513,8 +6513,8 @@ func (c *Client) UpdateTeamspacePermissions(ctx context.Context, teamID IDReques
 //	GET /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) ListThreadMessages(ctx context.Context, threadID IDRequest, params *ListThreadMessagesParams) (*ListThreadMessages, error) {
-	return c.ListThreadMessagesWithResult[ListThreadMessages](ctx, threadID, params)
+func (c *Client) ListThreadMessages(ctx context.Context, threadID IDRequest, params *ListThreadMessagesParams) (*ListThreadMessagesOk, error) {
+	return c.ListThreadMessagesWithResult[ListThreadMessagesOk](ctx, threadID, params)
 }
 
 // List thread messages
@@ -6680,7 +6680,7 @@ func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, thread
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6738,7 +6738,7 @@ func (c *Client) ListThreadMessagesWithResult[R any](ctx context.Context, thread
 //	POST /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) SendThreadMessage(ctx context.Context, threadID IDRequest, body ChatWithAgent) (*ChatWithAgent2, error) {
+func (c *Client) SendThreadMessage(ctx context.Context, threadID IDRequest, body SendThreadMessage) (*ChatWithAgent2, error) {
 	return c.SendThreadMessageWithResult[ChatWithAgent2](ctx, threadID, body)
 }
 
@@ -6748,7 +6748,7 @@ func (c *Client) SendThreadMessage(ctx context.Context, threadID IDRequest, body
 //	POST /threads/{thread_id}/messages
 //
 // Deprecated.
-func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID IDRequest, body ChatWithAgent) (*R, error) {
+func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadID IDRequest, body SendThreadMessage) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -6890,7 +6890,7 @@ func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -6948,8 +6948,8 @@ func (c *Client) SendThreadMessageWithResult[R any](ctx context.Context, threadI
 //	GET /agents/{agent_id}/threads
 //
 // Deprecated.
-func (c *Client) ListThreads(ctx context.Context, agentID string, params *ListThreadsParams) (*ListThreads, error) {
-	return c.ListThreadsWithResult[ListThreads](ctx, agentID, params)
+func (c *Client) ListThreads(ctx context.Context, agentID string, params *ListThreadsParams) (*ListThreadsOk, error) {
+	return c.ListThreadsWithResult[ListThreadsOk](ctx, agentID, params)
 }
 
 // List threads
@@ -7139,7 +7139,7 @@ func (c *Client) ListThreadsWithResult[R any](ctx context.Context, agentID strin
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7338,7 +7338,7 @@ func (c *Client) ListToolsWithResult[R any](ctx context.Context) (*R, error) {
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7492,7 +7492,7 @@ func (c *Client) EmaResolveIdentityWithResult[R any](ctx context.Context, body E
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7607,7 +7607,7 @@ func (c *Client) EmaResolveTrustedIssuerWithResult[R any](ctx context.Context, b
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorOauth500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7624,8 +7624,8 @@ func (c *Client) EmaResolveTrustedIssuerWithResult[R any](ctx context.Context, b
 // Query thread messages
 //
 //	POST /threads/{thread_id}/messages/query
-func (c *Client) QueryThreadMessages(ctx context.Context, threadID IDRequest, body QueryThreadMessages) (*ListThreadMessages, error) {
-	return c.QueryThreadMessagesWithResult[ListThreadMessages](ctx, threadID, body)
+func (c *Client) QueryThreadMessages(ctx context.Context, threadID IDRequest, body QueryThreadMessages) (*QueryThreadMessagesOk, error) {
+	return c.QueryThreadMessagesWithResult[QueryThreadMessagesOk](ctx, threadID, body)
 }
 
 // Query thread messages
@@ -7774,7 +7774,7 @@ func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threa
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -7830,8 +7830,8 @@ func (c *Client) QueryThreadMessagesWithResult[R any](ctx context.Context, threa
 // Query threads
 //
 //	POST /agents/{agent_id}/threads/query
-func (c *Client) QueryThreads(ctx context.Context, agentID string, body QueryThreads) (*ListThreads, error) {
-	return c.QueryThreadsWithResult[ListThreads](ctx, agentID, body)
+func (c *Client) QueryThreads(ctx context.Context, agentID string, body QueryThreads) (*QueryThreadsOk, error) {
+	return c.QueryThreadsWithResult[QueryThreadsOk](ctx, agentID, body)
 }
 
 // Query threads
@@ -7980,7 +7980,7 @@ func (c *Client) QueryThreadsWithResult[R any](ctx context.Context, agentID stri
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8179,7 +8179,7 @@ func (c *Client) RemoveGroupMemberWithResult[R any](ctx context.Context, groupID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8385,7 +8385,7 @@ func (c *Client) UpdateGroupMemberWithResult[R any](ctx context.Context, groupID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8591,7 +8591,7 @@ func (c *Client) RemovePageGuestWithResult[R any](ctx context.Context, pageID ID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -8797,7 +8797,7 @@ func (c *Client) RunInternalToolWithResult[R any](ctx context.Context, body RunI
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9003,7 +9003,7 @@ func (c *Client) RunMinimalRolloutWithResult[R any](ctx context.Context, body Ru
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9059,15 +9059,15 @@ func (c *Client) RunMinimalRolloutWithResult[R any](ctx context.Context, body Ru
 // Run a rollout
 //
 //	POST /rollout/run
-func (c *Client) RunRollout(ctx context.Context, body CreateRollout) (*RolloutResult, error) {
-	return c.RunRolloutWithResult[RolloutResult](ctx, body)
+func (c *Client) RunRollout(ctx context.Context, body RunRollout) (*RunRollout2, error) {
+	return c.RunRolloutWithResult[RunRollout2](ctx, body)
 }
 
 // Run a rollout
 // You can define a custom result to unmarshal the response into.
 //
 //	POST /rollout/run
-func (c *Client) RunRolloutWithResult[R any](ctx context.Context, body CreateRollout) (*R, error) {
+func (c *Client) RunRolloutWithResult[R any](ctx context.Context, body RunRollout) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token NOTION_API_(UNDOCUMENTED)_TOKEN not provided")
 	}
@@ -9209,7 +9209,7 @@ func (c *Client) RunRolloutWithResult[R any](ctx context.Context, body CreateRol
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9428,7 +9428,7 @@ func (c *Client) RunToolWithResult[R any](ctx context.Context, body RunTool) (*R
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9627,7 +9627,7 @@ func (c *Client) AuthorizeToolsSessionWithResult[R any](ctx context.Context) (*R
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -9846,7 +9846,7 @@ func (c *Client) RunToolByIDWithResult[R any](ctx context.Context, toolID ToolID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10052,7 +10052,7 @@ func (c *Client) RunToolEvalWithResult[R any](ctx context.Context, body RunToolE
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10108,8 +10108,8 @@ func (c *Client) RunToolEvalWithResult[R any](ctx context.Context, body RunToolE
 // Run a unified rollout
 //
 //	POST /rollout/unified
-func (c *Client) RunUnifiedRollout(ctx context.Context, body RunUnifiedRollout) (*Rollout, error) {
-	return c.RunUnifiedRolloutWithResult[Rollout](ctx, body)
+func (c *Client) RunUnifiedRollout(ctx context.Context, body RunUnifiedRollout) (*RunUnifiedRolloutOk, error) {
+	return c.RunUnifiedRolloutWithResult[RunUnifiedRolloutOk](ctx, body)
 }
 
 // Run a unified rollout
@@ -10258,7 +10258,7 @@ func (c *Client) RunUnifiedRolloutWithResult[R any](ctx context.Context, body Ru
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10464,7 +10464,7 @@ func (c *Client) SendExternalAgentStubSessionMessageWithResult[R any](ctx contex
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10733,7 +10733,7 @@ func (c *Client) StartExternalAgentStubSessionWithResult[R any](ctx context.Cont
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -10939,7 +10939,7 @@ func (c *Client) TransferUserContentWithResult[R any](ctx context.Context, body 
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11145,7 +11145,7 @@ func (c *Client) UnsharePageFromWebWithResult[R any](ctx context.Context, pageID
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11351,7 +11351,7 @@ func (c *Client) UpdateAgentWithResult[R any](ctx context.Context, agentID strin
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11407,8 +11407,8 @@ func (c *Client) UpdateAgentWithResult[R any](ctx context.Context, agentID strin
 // Update page permissions
 //
 //	PATCH /_/pages/{page_id}/permissions
-func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID IDRequest, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissions2, error) {
-	return c.PrivateUpdatePagePermissionsWithResult[PrivateUpdatePagePermissions2](ctx, pageID, body)
+func (c *Client) PrivateUpdatePagePermissions(ctx context.Context, pageID IDRequest, body PrivateUpdatePagePermissions) (*PrivateUpdatePagePermissionsOk, error) {
+	return c.PrivateUpdatePagePermissionsWithResult[PrivateUpdatePagePermissionsOk](ctx, pageID, body)
 }
 
 // Update page permissions
@@ -11557,7 +11557,7 @@ func (c *Client) PrivateUpdatePagePermissionsWithResult[R any](ctx context.Conte
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
@@ -11763,7 +11763,7 @@ func (c *Client) SearchWorkspaceWithResult[R any](ctx context.Context, body Sear
 		// An unexpected server error occurred.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ErrorAPI
+			var out ErrorAPI500
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
