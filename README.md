@@ -68,15 +68,22 @@ How the specification maps onto Go:
   way. Encoding writes the discriminator first, with the value of the alternative
   set, and refuses a different one. Otherwise each alternative is tried in turn.
 - **Tagged unions** — a union whose alternatives differ only in a tag, a member
-  each fixes to a string of its own, and in at most one member named after that
-  value, such as Notion's blocks (`{"type": "paragraph", "paragraph": {...}}`),
-  becomes one struct instead: the members all alternatives share, the tag, and
-  one optional field per alternative's member. Its methods check that only the
-  member the tag names is set, and that it is where its alternative requires it,
-  unless it can be `null`. Encoding with the tag left empty sends the value whose
-  member is set. Alternatives that are unions tagged alike count by their own
-  alternatives, and as part of an `allOf` the union's fields join the struct's.
-  Alternatives nothing else refers to get no type of their own.
+  each fixes to a string of its own, and in members of their own, such as
+  Notion's blocks (`{"type": "paragraph", "paragraph": {...}}`), becomes one
+  struct instead: the members all alternatives share, the tag, and one optional
+  field per member of an alternative's own. An alternative's own members are at
+  most one, named after its value, or more beside that one, such as a relation's
+  `has_more`; one that several alternatives have must be the same in each. The
+  tag is an enum type of its values, named after the struct and the tag (such as
+  `BlockType` with `BlockTypeChildDatabase`), unless a part of an `allOf` types it
+  already or a name is taken. The methods check that only members of the
+  alternative the tag names are set, and that those it requires are, unless they
+  can be `null`. Encoding with the tag left empty sends the value whose member is
+  set. Alternatives that are unions tagged alike count by their own alternatives,
+  and as part of an `allOf` the union's fields join the struct's. A tagged struct
+  that is an alternative of another union, there or in an `allOf`, is chosen by
+  the members present, as an object is. Alternatives nothing else refers to get
+  no type of their own.
 - **allOf** — each part referenced by this schema alone is folded into its fields;
   a part other schemas share stays an embedded type. A union among the parts is a
   field of its own, decoded by the struct's methods: the fields and the chosen

@@ -9977,29 +9977,6 @@
 			]
 		},
 		{
-			"name": "AgentIDParentForBlockBasedObjectResponse",
-			"description": "AgentIDParentForBlockBasedObjectResponse defines a model",
-			"fields": [
-				{
-					"name": "Type",
-					"jsonName": "type",
-					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "The parent type.",
-					"required": true
-				},
-				{
-					"name": "AgentID",
-					"jsonName": "agent_id",
-					"type": "IDResponse",
-					"jsonTag": "json:\"agent_id\"",
-					"description": "The ID of the parent agent.",
-					"required": true
-				}
-			],
-			"memberDecoder": true
-		},
-		{
 			"name": "AgentType",
 			"description": "Filter agents by one or more agent types.",
 			"kind": 2,
@@ -10209,8 +10186,7 @@
 					"description": "The ID of the parent block.",
 					"required": true
 				}
-			],
-			"memberDecoder": true
+			]
 		},
 		{
 			"name": "BlockObjectResponse",
@@ -10282,7 +10258,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "BlockObjectResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -10506,223 +10482,695 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "BlockObjectResponseType",
+				"enum": [
+					{
+						"goName": "BlockObjectResponseTypeParagraph",
+						"value": "paragraph",
+						"literal": "\"paragraph\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeHeading1",
+						"value": "heading_1",
+						"literal": "\"heading_1\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeHeading2",
+						"value": "heading_2",
+						"literal": "\"heading_2\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeHeading3",
+						"value": "heading_3",
+						"literal": "\"heading_3\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeHeading4",
+						"value": "heading_4",
+						"literal": "\"heading_4\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeBulletedListItem",
+						"value": "bulleted_list_item",
+						"literal": "\"bulleted_list_item\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeNumberedListItem",
+						"value": "numbered_list_item",
+						"literal": "\"numbered_list_item\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeQuote",
+						"value": "quote",
+						"literal": "\"quote\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeToDo",
+						"value": "to_do",
+						"literal": "\"to_do\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeToggle",
+						"value": "toggle",
+						"literal": "\"toggle\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeTemplate",
+						"value": "template",
+						"literal": "\"template\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeSyncedBlock",
+						"value": "synced_block",
+						"literal": "\"synced_block\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeChildPage",
+						"value": "child_page",
+						"literal": "\"child_page\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeChildDatabase",
+						"value": "child_database",
+						"literal": "\"child_database\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeEquation",
+						"value": "equation",
+						"literal": "\"equation\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeCode",
+						"value": "code",
+						"literal": "\"code\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeCallout",
+						"value": "callout",
+						"literal": "\"callout\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeDivider",
+						"value": "divider",
+						"literal": "\"divider\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeBreadcrumb",
+						"value": "breadcrumb",
+						"literal": "\"breadcrumb\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeTableOfContents",
+						"value": "table_of_contents",
+						"literal": "\"table_of_contents\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeTab",
+						"value": "tab",
+						"literal": "\"tab\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeColumnList",
+						"value": "column_list",
+						"literal": "\"column_list\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeColumn",
+						"value": "column",
+						"literal": "\"column\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeLinkToPage",
+						"value": "link_to_page",
+						"literal": "\"link_to_page\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeTable",
+						"value": "table",
+						"literal": "\"table\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeTableRow",
+						"value": "table_row",
+						"literal": "\"table_row\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeMeetingNotes",
+						"value": "meeting_notes",
+						"literal": "\"meeting_notes\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeEmbed",
+						"value": "embed",
+						"literal": "\"embed\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeBookmark",
+						"value": "bookmark",
+						"literal": "\"bookmark\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeImage",
+						"value": "image",
+						"literal": "\"image\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeVideo",
+						"value": "video",
+						"literal": "\"video\""
+					},
+					{
+						"goName": "BlockObjectResponseTypePdf",
+						"value": "pdf",
+						"literal": "\"pdf\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeAudio",
+						"value": "audio",
+						"literal": "\"audio\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeLinkPreview",
+						"value": "link_preview",
+						"literal": "\"link_preview\""
+					},
+					{
+						"goName": "BlockObjectResponseTypeUnsupported",
+						"value": "unsupported",
+						"literal": "\"unsupported\""
+					}
+				],
 				"values": [
 					{
 						"value": "paragraph",
-						"field": "Paragraph",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "paragraph",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "heading_1",
-						"field": "Heading1",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "heading_1",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "heading_2",
-						"field": "Heading2",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "heading_2",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "heading_3",
-						"field": "Heading3",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "heading_3",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "heading_4",
-						"field": "Heading4",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "heading_4",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "bulleted_list_item",
-						"field": "BulletedListItem",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "bulleted_list_item",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "numbered_list_item",
-						"field": "NumberedListItem",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "numbered_list_item",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "quote",
-						"field": "Quote",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "quote",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "to_do",
-						"field": "ToDo",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "to_do",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "toggle",
-						"field": "Toggle",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "toggle",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "template",
-						"field": "Template",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "template",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "synced_block",
-						"field": "SyncedBlock",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "synced_block",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "child_page",
-						"field": "ChildPage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "child_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "child_database",
-						"field": "ChildDatabase",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "child_database",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "equation",
-						"field": "Equation",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "equation",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "code",
-						"field": "Code",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "code",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "callout",
-						"field": "Callout",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "callout",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "divider",
-						"field": "Divider",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "divider",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "breadcrumb",
-						"field": "Breadcrumb",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "breadcrumb",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "table_of_contents",
-						"field": "TableOfContents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "table_of_contents",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "tab",
-						"field": "Tab",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "tab",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "column_list",
-						"field": "ColumnList",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "column_list",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "column",
-						"field": "Column",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "column",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "link_to_page",
-						"field": "LinkToPage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "link_to_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "table",
-						"field": "Table",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "table",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "table_row",
-						"field": "TableRow",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "table_row",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "meeting_notes",
-						"field": "MeetingNotes",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "meeting_notes",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "embed",
-						"field": "Embed",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "embed",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "bookmark",
-						"field": "Bookmark",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "bookmark",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "image",
-						"field": "Image",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "image",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "video",
-						"field": "Video",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "video",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "pdf",
-						"field": "PDF",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "pdf",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "file",
-						"field": "File",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "audio",
-						"field": "Audio",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "audio",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "link_preview",
-						"field": "LinkPreview",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "link_preview",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "unsupported",
+						"members": [
+							{
+								"name": "unsupported",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "paragraph",
+						"field": "Paragraph",
+						"zero": "nil"
+					},
+					{
+						"name": "heading_1",
+						"field": "Heading1",
+						"zero": "nil"
+					},
+					{
+						"name": "heading_2",
+						"field": "Heading2",
+						"zero": "nil"
+					},
+					{
+						"name": "heading_3",
+						"field": "Heading3",
+						"zero": "nil"
+					},
+					{
+						"name": "heading_4",
+						"field": "Heading4",
+						"zero": "nil"
+					},
+					{
+						"name": "bulleted_list_item",
+						"field": "BulletedListItem",
+						"zero": "nil"
+					},
+					{
+						"name": "numbered_list_item",
+						"field": "NumberedListItem",
+						"zero": "nil"
+					},
+					{
+						"name": "quote",
+						"field": "Quote",
+						"zero": "nil"
+					},
+					{
+						"name": "to_do",
+						"field": "ToDo",
+						"zero": "nil"
+					},
+					{
+						"name": "toggle",
+						"field": "Toggle",
+						"zero": "nil"
+					},
+					{
+						"name": "template",
+						"field": "Template",
+						"zero": "nil"
+					},
+					{
+						"name": "synced_block",
+						"field": "SyncedBlock",
+						"zero": "nil"
+					},
+					{
+						"name": "child_page",
+						"field": "ChildPage",
+						"zero": "nil"
+					},
+					{
+						"name": "child_database",
+						"field": "ChildDatabase",
+						"zero": "nil"
+					},
+					{
+						"name": "equation",
+						"field": "Equation",
+						"zero": "nil"
+					},
+					{
+						"name": "code",
+						"field": "Code",
+						"zero": "nil"
+					},
+					{
+						"name": "callout",
+						"field": "Callout",
+						"zero": "nil"
+					},
+					{
+						"name": "divider",
+						"field": "Divider",
+						"zero": "nil"
+					},
+					{
+						"name": "breadcrumb",
+						"field": "Breadcrumb",
+						"zero": "nil"
+					},
+					{
+						"name": "table_of_contents",
+						"field": "TableOfContents",
+						"zero": "nil"
+					},
+					{
+						"name": "tab",
+						"field": "Tab",
+						"zero": "nil"
+					},
+					{
+						"name": "column_list",
+						"field": "ColumnList",
+						"zero": "nil"
+					},
+					{
+						"name": "column",
+						"field": "Column",
+						"zero": "nil"
+					},
+					{
+						"name": "link_to_page",
+						"field": "LinkToPage",
+						"zero": "nil"
+					},
+					{
+						"name": "table",
+						"field": "Table",
+						"zero": "nil"
+					},
+					{
+						"name": "table_row",
+						"field": "TableRow",
+						"zero": "nil"
+					},
+					{
+						"name": "meeting_notes",
+						"field": "MeetingNotes",
+						"zero": "nil"
+					},
+					{
+						"name": "embed",
+						"field": "Embed",
+						"zero": "nil"
+					},
+					{
+						"name": "bookmark",
+						"field": "Bookmark",
+						"zero": "nil"
+					},
+					{
+						"name": "image",
+						"field": "Image",
+						"zero": "nil"
+					},
+					{
+						"name": "video",
+						"field": "Video",
+						"zero": "nil"
+					},
+					{
+						"name": "pdf",
+						"field": "PDF",
+						"zero": "nil"
+					},
+					{
+						"name": "file",
+						"field": "File",
+						"zero": "nil"
+					},
+					{
+						"name": "audio",
+						"field": "Audio",
+						"zero": "nil"
+					},
+					{
+						"name": "link_preview",
+						"field": "LinkPreview",
+						"zero": "nil"
+					},
+					{
+						"name": "unsupported",
 						"field": "Unsupported",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -10772,7 +11220,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "BotInfoResponseOwnerType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -10794,19 +11242,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "BotInfoResponseOwnerType",
+				"enum": [
+					{
+						"goName": "BotInfoResponseOwnerTypeUser",
+						"value": "user",
+						"literal": "\"user\""
+					},
+					{
+						"goName": "BotInfoResponseOwnerTypeWorkspace",
+						"value": "workspace",
+						"literal": "\"workspace\""
+					}
+				],
 				"values": [
 					{
 						"value": "user",
-						"field": "User",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "user",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "workspace",
+						"members": [
+							{
+								"name": "workspace",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "user",
+						"field": "User",
+						"zero": "nil"
+					},
+					{
+						"name": "workspace",
 						"field": "Workspace",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -13302,8 +13780,7 @@
 					"description": "The ID of the data source's parent database.",
 					"required": true
 				}
-			],
-			"memberDecoder": true
+			]
 		},
 		{
 			"name": "DatabaseParentResponse",
@@ -13325,8 +13802,7 @@
 					"description": "The ID of the parent database.",
 					"required": true
 				}
-			],
-			"memberDecoder": true
+			]
 		},
 		{
 			"name": "DatabasePropertyConfigResponse",
@@ -13360,7 +13836,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "DatabasePropertyConfigResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -13521,133 +13997,410 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "DatabasePropertyConfigResponseType",
+				"enum": [
+					{
+						"goName": "DatabasePropertyConfigResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeFormula",
+						"value": "formula",
+						"literal": "\"formula\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeSelect",
+						"value": "select",
+						"literal": "\"select\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeMultiSelect",
+						"value": "multi_select",
+						"literal": "\"multi_select\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeStatus",
+						"value": "status",
+						"literal": "\"status\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeRollup",
+						"value": "rollup",
+						"literal": "\"rollup\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeUniqueID",
+						"value": "unique_id",
+						"literal": "\"unique_id\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeTitle",
+						"value": "title",
+						"literal": "\"title\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeRichText",
+						"value": "rich_text",
+						"literal": "\"rich_text\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeURL",
+						"value": "url",
+						"literal": "\"url\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypePeople",
+						"value": "people",
+						"literal": "\"people\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeFiles",
+						"value": "files",
+						"literal": "\"files\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeEmail",
+						"value": "email",
+						"literal": "\"email\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypePhoneNumber",
+						"value": "phone_number",
+						"literal": "\"phone_number\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeCheckbox",
+						"value": "checkbox",
+						"literal": "\"checkbox\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeCreatedBy",
+						"value": "created_by",
+						"literal": "\"created_by\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeCreatedTime",
+						"value": "created_time",
+						"literal": "\"created_time\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeLastEditedBy",
+						"value": "last_edited_by",
+						"literal": "\"last_edited_by\""
+					},
+					{
+						"goName": "DatabasePropertyConfigResponseTypeLastEditedTime",
+						"value": "last_edited_time",
+						"literal": "\"last_edited_time\""
+					}
+				],
 				"values": [
 					{
 						"value": "number",
-						"field": "Number",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "formula",
-						"field": "Formula",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "formula",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "select",
-						"field": "Select",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "select",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "multi_select",
-						"field": "MultiSelect",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "multi_select",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "status",
-						"field": "Status",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "status",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "relation",
-						"field": "Relation",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "rollup",
-						"field": "Rollup",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "rollup",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "unique_id",
-						"field": "UniqueID",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "unique_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "title",
-						"field": "Title",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "title",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "rich_text",
-						"field": "RichText",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "rich_text",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "url",
-						"field": "URL",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "url",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "people",
-						"field": "People",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "people",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "files",
-						"field": "Files",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "files",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "email",
-						"field": "Email",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "email",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "phone_number",
-						"field": "PhoneNumber",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "phone_number",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "date",
-						"field": "Date",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "date",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "checkbox",
-						"field": "Checkbox",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "checkbox",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "created_by",
-						"field": "CreatedBy",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "created_by",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "created_time",
-						"field": "CreatedTime",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "created_time",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "last_edited_by",
-						"field": "LastEditedBy",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "last_edited_by",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "last_edited_time",
+						"members": [
+							{
+								"name": "last_edited_time",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					},
+					{
+						"name": "formula",
+						"field": "Formula",
+						"zero": "nil"
+					},
+					{
+						"name": "select",
+						"field": "Select",
+						"zero": "nil"
+					},
+					{
+						"name": "multi_select",
+						"field": "MultiSelect",
+						"zero": "nil"
+					},
+					{
+						"name": "status",
+						"field": "Status",
+						"zero": "nil"
+					},
+					{
+						"name": "relation",
+						"field": "Relation",
+						"zero": "nil"
+					},
+					{
+						"name": "rollup",
+						"field": "Rollup",
+						"zero": "nil"
+					},
+					{
+						"name": "unique_id",
+						"field": "UniqueID",
+						"zero": "nil"
+					},
+					{
+						"name": "title",
+						"field": "Title",
+						"zero": "nil"
+					},
+					{
+						"name": "rich_text",
+						"field": "RichText",
+						"zero": "nil"
+					},
+					{
+						"name": "url",
+						"field": "URL",
+						"zero": "nil"
+					},
+					{
+						"name": "people",
+						"field": "People",
+						"zero": "nil"
+					},
+					{
+						"name": "files",
+						"field": "Files",
+						"zero": "nil"
+					},
+					{
+						"name": "email",
+						"field": "Email",
+						"zero": "nil"
+					},
+					{
+						"name": "phone_number",
+						"field": "PhoneNumber",
+						"zero": "nil"
+					},
+					{
+						"name": "date",
+						"field": "Date",
+						"zero": "nil"
+					},
+					{
+						"name": "checkbox",
+						"field": "Checkbox",
+						"zero": "nil"
+					},
+					{
+						"name": "created_by",
+						"field": "CreatedBy",
+						"zero": "nil"
+					},
+					{
+						"name": "created_time",
+						"field": "CreatedTime",
+						"zero": "nil"
+					},
+					{
+						"name": "last_edited_by",
+						"field": "LastEditedBy",
+						"zero": "nil"
+					},
+					{
+						"name": "last_edited_time",
 						"field": "LastEditedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -13674,7 +14427,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "DatabasePropertyRelationConfigResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -13701,19 +14454,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "DatabasePropertyRelationConfigResponseType",
+				"enum": [
+					{
+						"goName": "DatabasePropertyRelationConfigResponseTypeSingleProperty",
+						"value": "single_property",
+						"literal": "\"single_property\""
+					},
+					{
+						"goName": "DatabasePropertyRelationConfigResponseTypeDualProperty",
+						"value": "dual_property",
+						"literal": "\"dual_property\""
+					}
+				],
 				"values": [
 					{
 						"value": "single_property",
-						"field": "SingleProperty",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "single_property",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "dual_property",
+						"members": [
+							{
+								"name": "dual_property",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "single_property",
+						"field": "SingleProperty",
+						"zero": "nil"
+					},
+					{
+						"name": "dual_property",
 						"field": "DualProperty",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -18622,7 +19405,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "FormulaPropertyResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -18660,36 +19443,105 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "FormulaPropertyResponseType",
+				"enum": [
+					{
+						"goName": "FormulaPropertyResponseTypeString",
+						"value": "string",
+						"literal": "\"string\""
+					},
+					{
+						"goName": "FormulaPropertyResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "FormulaPropertyResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "FormulaPropertyResponseTypeBoolean",
+						"value": "boolean",
+						"literal": "\"boolean\""
+					},
+					{
+						"goName": "FormulaPropertyResponseTypeUnsupported",
+						"value": "unsupported",
+						"literal": "\"unsupported\""
+					}
+				],
 				"values": [
 					{
 						"value": "string",
-						"field": "String",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "string",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "boolean",
+						"members": [
+							{
+								"name": "boolean",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "unsupported",
+						"members": [
+							{
+								"name": "unsupported",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "string",
+						"field": "String",
+						"zero": "\"\""
+					},
+					{
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "number",
+						"name": "number",
 						"field": "Number",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "boolean",
+						"name": "boolean",
 						"field": "Boolean",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "unsupported",
+						"name": "unsupported",
 						"field": "Unsupported",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -18701,7 +19553,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "FormulaPropertyValueResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -18739,33 +19591,102 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "FormulaPropertyValueResponseType",
+				"enum": [
+					{
+						"goName": "FormulaPropertyValueResponseTypeBoolean",
+						"value": "boolean",
+						"literal": "\"boolean\""
+					},
+					{
+						"goName": "FormulaPropertyValueResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "FormulaPropertyValueResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "FormulaPropertyValueResponseTypeString",
+						"value": "string",
+						"literal": "\"string\""
+					},
+					{
+						"goName": "FormulaPropertyValueResponseTypeUnsupported",
+						"value": "unsupported",
+						"literal": "\"unsupported\""
+					}
+				],
 				"values": [
 					{
 						"value": "boolean",
+						"members": [
+							{
+								"name": "boolean"
+							}
+						]
+					},
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number"
+							}
+						]
+					},
+					{
+						"value": "string",
+						"members": [
+							{
+								"name": "string"
+							}
+						]
+					},
+					{
+						"value": "unsupported",
+						"members": [
+							{
+								"name": "unsupported",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "boolean",
 						"field": "Boolean",
 						"zero": "nil"
 					},
 					{
-						"value": "date",
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "number",
+						"name": "number",
 						"field": "Number",
 						"zero": "nil"
 					},
 					{
-						"value": "string",
+						"name": "string",
 						"field": "String",
 						"zero": "nil"
 					},
 					{
-						"value": "unsupported",
+						"name": "unsupported",
 						"field": "Unsupported",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -20070,7 +20991,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "GroupByDateSortType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				}
@@ -20078,7 +20999,19 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "GroupByDateSortType",
+				"enum": [
+					{
+						"goName": "GroupByDateSortTypeAscending",
+						"value": "ascending",
+						"literal": "\"ascending\""
+					},
+					{
+						"goName": "GroupByDateSortTypeDescending",
+						"value": "descending",
+						"literal": "\"descending\""
+					}
+				],
 				"values": [
 					{
 						"value": "ascending"
@@ -20373,7 +21306,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "GroupBySelectSortType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				}
@@ -20381,7 +21314,24 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "GroupBySelectSortType",
+				"enum": [
+					{
+						"goName": "GroupBySelectSortTypeManual",
+						"value": "manual",
+						"literal": "\"manual\""
+					},
+					{
+						"goName": "GroupBySelectSortTypeAscending",
+						"value": "ascending",
+						"literal": "\"ascending\""
+					},
+					{
+						"goName": "GroupBySelectSortTypeDescending",
+						"value": "descending",
+						"literal": "\"descending\""
+					}
+				],
 				"values": [
 					{
 						"value": "manual"
@@ -20786,7 +21736,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "InternalOrExternalFileWithNameResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -20814,19 +21764,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "InternalOrExternalFileWithNameResponseType",
+				"enum": [
+					{
+						"goName": "InternalOrExternalFileWithNameResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					},
+					{
+						"goName": "InternalOrExternalFileWithNameResponseTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					}
+				],
 				"values": [
 					{
 						"value": "file",
-						"field": "File",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "external",
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "file",
+						"field": "File",
+						"zero": "nil"
+					},
+					{
+						"name": "external",
 						"field": "External",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -21394,7 +22374,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "LinkToPageBlockObjectResponseLinkToPageType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -21420,25 +22400,68 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "LinkToPageBlockObjectResponseLinkToPageType",
+				"enum": [
+					{
+						"goName": "LinkToPageBlockObjectResponseLinkToPageTypePageID",
+						"value": "page_id",
+						"literal": "\"page_id\""
+					},
+					{
+						"goName": "LinkToPageBlockObjectResponseLinkToPageTypeDatabaseID",
+						"value": "database_id",
+						"literal": "\"database_id\""
+					},
+					{
+						"goName": "LinkToPageBlockObjectResponseLinkToPageTypeCommentID",
+						"value": "comment_id",
+						"literal": "\"comment_id\""
+					}
+				],
 				"values": [
 					{
 						"value": "page_id",
-						"field": "PageID",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "page_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "database_id",
-						"field": "DatabaseID",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "database_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "comment_id",
+						"members": [
+							{
+								"name": "comment_id",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "page_id",
+						"field": "PageID",
+						"zero": "\"\""
+					},
+					{
+						"name": "database_id",
+						"field": "DatabaseID",
+						"zero": "\"\""
+					},
+					{
+						"name": "comment_id",
 						"field": "CommentID",
-						"zero": "\"\"",
-						"required": true
+						"zero": "\"\""
 					}
 				]
 			}
@@ -23406,7 +24429,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "MediaContentWithFileAndCaptionResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -23426,19 +24449,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "MediaContentWithFileAndCaptionResponseType",
+				"enum": [
+					{
+						"goName": "MediaContentWithFileAndCaptionResponseTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					},
+					{
+						"goName": "MediaContentWithFileAndCaptionResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					}
+				],
 				"values": [
 					{
 						"value": "external",
-						"field": "External",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "file",
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "external",
+						"field": "External",
+						"zero": "nil"
+					},
+					{
+						"name": "file",
 						"field": "File",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -23464,7 +24517,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "MediaContentWithFileNameAndCaptionResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -23484,19 +24537,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "MediaContentWithFileNameAndCaptionResponseType",
+				"enum": [
+					{
+						"goName": "MediaContentWithFileNameAndCaptionResponseTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					},
+					{
+						"goName": "MediaContentWithFileNameAndCaptionResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					}
+				],
 				"values": [
 					{
 						"value": "external",
-						"field": "External",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "file",
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "external",
+						"field": "External",
+						"zero": "nil"
+					},
+					{
+						"name": "file",
 						"field": "File",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -23563,7 +24646,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "MentionRichTextItemRequestMentionType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -23612,43 +24695,125 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "MentionRichTextItemRequestMentionType",
+				"enum": [
+					{
+						"goName": "MentionRichTextItemRequestMentionTypeUser",
+						"value": "user",
+						"literal": "\"user\""
+					},
+					{
+						"goName": "MentionRichTextItemRequestMentionTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "MentionRichTextItemRequestMentionTypePage",
+						"value": "page",
+						"literal": "\"page\""
+					},
+					{
+						"goName": "MentionRichTextItemRequestMentionTypeDatabase",
+						"value": "database",
+						"literal": "\"database\""
+					},
+					{
+						"goName": "MentionRichTextItemRequestMentionTypeTemplateMention",
+						"value": "template_mention",
+						"literal": "\"template_mention\""
+					},
+					{
+						"goName": "MentionRichTextItemRequestMentionTypeCustomEmoji",
+						"value": "custom_emoji",
+						"literal": "\"custom_emoji\""
+					}
+				],
 				"values": [
 					{
 						"value": "user",
-						"field": "User",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "user",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "date",
-						"field": "Date",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "date",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "page",
-						"field": "Page",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "database",
-						"field": "Database",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "database",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "template_mention",
-						"field": "TemplateMention",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "template_mention",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "custom_emoji",
+						"members": [
+							{
+								"name": "custom_emoji",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "user",
+						"field": "User",
+						"zero": "nil"
+					},
+					{
+						"name": "date",
+						"field": "Date",
+						"zero": "nil"
+					},
+					{
+						"name": "page",
+						"field": "Page",
+						"zero": "nil"
+					},
+					{
+						"name": "database",
+						"field": "Database",
+						"zero": "nil"
+					},
+					{
+						"name": "template_mention",
+						"field": "TemplateMention",
+						"zero": "nil"
+					},
+					{
+						"name": "custom_emoji",
 						"field": "CustomEmoji",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -23660,7 +24825,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "MentionRichTextItemResponseMentionType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -23724,55 +24889,163 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "MentionRichTextItemResponseMentionType",
+				"enum": [
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeUser",
+						"value": "user",
+						"literal": "\"user\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeLinkPreview",
+						"value": "link_preview",
+						"literal": "\"link_preview\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeLinkMention",
+						"value": "link_mention",
+						"literal": "\"link_mention\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypePage",
+						"value": "page",
+						"literal": "\"page\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeDatabase",
+						"value": "database",
+						"literal": "\"database\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeTemplateMention",
+						"value": "template_mention",
+						"literal": "\"template_mention\""
+					},
+					{
+						"goName": "MentionRichTextItemResponseMentionTypeCustomEmoji",
+						"value": "custom_emoji",
+						"literal": "\"custom_emoji\""
+					}
+				],
 				"values": [
 					{
 						"value": "user",
-						"field": "User",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "user",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "date",
-						"field": "Date",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "date",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "link_preview",
-						"field": "LinkPreview",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "link_preview",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "link_mention",
-						"field": "LinkMention",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "link_mention",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "page",
-						"field": "Page",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "database",
-						"field": "Database",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "database",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "template_mention",
-						"field": "TemplateMention",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "template_mention",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "custom_emoji",
+						"members": [
+							{
+								"name": "custom_emoji",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "user",
+						"field": "User",
+						"zero": "nil"
+					},
+					{
+						"name": "date",
+						"field": "Date",
+						"zero": "nil"
+					},
+					{
+						"name": "link_preview",
+						"field": "LinkPreview",
+						"zero": "nil"
+					},
+					{
+						"name": "link_mention",
+						"field": "LinkMention",
+						"zero": "nil"
+					},
+					{
+						"name": "page",
+						"field": "Page",
+						"zero": "nil"
+					},
+					{
+						"name": "database",
+						"field": "Database",
+						"zero": "nil"
+					},
+					{
+						"name": "template_mention",
+						"field": "TemplateMention",
+						"zero": "nil"
+					},
+					{
+						"name": "custom_emoji",
 						"field": "CustomEmoji",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -24646,7 +25919,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PageCoverType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -24668,19 +25941,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PageCoverType",
+				"enum": [
+					{
+						"goName": "PageCoverTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					},
+					{
+						"goName": "PageCoverTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					}
+				],
 				"values": [
 					{
 						"value": "file",
-						"field": "File",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "external",
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "file",
+						"field": "File",
+						"zero": "nil"
+					},
+					{
+						"name": "external",
 						"field": "External",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -24705,8 +26008,7 @@
 					"description": "The ID of the parent page.",
 					"required": true
 				}
-			],
-			"memberDecoder": true
+			]
 		},
 		{
 			"name": "PageIconRequest",
@@ -24715,7 +26017,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PageIconRequestType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -24756,37 +26058,106 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PageIconRequestType",
+				"enum": [
+					{
+						"goName": "PageIconRequestTypeFileUpload",
+						"value": "file_upload",
+						"literal": "\"file_upload\""
+					},
+					{
+						"goName": "PageIconRequestTypeEmoji",
+						"value": "emoji",
+						"literal": "\"emoji\""
+					},
+					{
+						"goName": "PageIconRequestTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					},
+					{
+						"goName": "PageIconRequestTypeCustomEmoji",
+						"value": "custom_emoji",
+						"literal": "\"custom_emoji\""
+					},
+					{
+						"goName": "PageIconRequestTypeIcon",
+						"value": "icon",
+						"literal": "\"icon\""
+					}
+				],
 				"values": [
 					{
 						"value": "file_upload",
-						"field": "FileUpload",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "file_upload",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "emoji",
-						"field": "Emoji",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "emoji",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "external",
-						"field": "External",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "custom_emoji",
-						"field": "CustomEmoji",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "custom_emoji",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "icon",
+						"members": [
+							{
+								"name": "icon",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "file_upload",
+						"field": "FileUpload",
+						"zero": "nil"
+					},
+					{
+						"name": "emoji",
+						"field": "Emoji",
+						"zero": "\"\""
+					},
+					{
+						"name": "external",
+						"field": "External",
+						"zero": "nil"
+					},
+					{
+						"name": "custom_emoji",
+						"field": "CustomEmoji",
+						"zero": "nil"
+					},
+					{
+						"name": "icon",
 						"field": "Icon",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -24798,7 +26169,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PageIconResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -24841,37 +26212,106 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PageIconResponseType",
+				"enum": [
+					{
+						"goName": "PageIconResponseTypeEmoji",
+						"value": "emoji",
+						"literal": "\"emoji\""
+					},
+					{
+						"goName": "PageIconResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					},
+					{
+						"goName": "PageIconResponseTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					},
+					{
+						"goName": "PageIconResponseTypeCustomEmoji",
+						"value": "custom_emoji",
+						"literal": "\"custom_emoji\""
+					},
+					{
+						"goName": "PageIconResponseTypeIcon",
+						"value": "icon",
+						"literal": "\"icon\""
+					}
+				],
 				"values": [
 					{
 						"value": "emoji",
-						"field": "Emoji",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "emoji",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "file",
-						"field": "File",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "external",
-						"field": "External",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "custom_emoji",
-						"field": "CustomEmoji",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "custom_emoji",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "icon",
+						"members": [
+							{
+								"name": "icon",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "emoji",
+						"field": "Emoji",
+						"zero": "\"\""
+					},
+					{
+						"name": "file",
+						"field": "File",
+						"zero": "nil"
+					},
+					{
+						"name": "external",
+						"field": "External",
+						"zero": "nil"
+					},
+					{
+						"name": "custom_emoji",
+						"field": "CustomEmoji",
+						"zero": "nil"
+					},
+					{
+						"name": "icon",
 						"field": "Icon",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -25014,7 +26454,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PagePropertyValueWithIDResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -25194,142 +26634,458 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PagePropertyValueWithIDResponseType",
+				"enum": [
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeURL",
+						"value": "url",
+						"literal": "\"url\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeSelect",
+						"value": "select",
+						"literal": "\"select\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeMultiSelect",
+						"value": "multi_select",
+						"literal": "\"multi_select\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeStatus",
+						"value": "status",
+						"literal": "\"status\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeEmail",
+						"value": "email",
+						"literal": "\"email\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypePhoneNumber",
+						"value": "phone_number",
+						"literal": "\"phone_number\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeCheckbox",
+						"value": "checkbox",
+						"literal": "\"checkbox\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeFiles",
+						"value": "files",
+						"literal": "\"files\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeCreatedBy",
+						"value": "created_by",
+						"literal": "\"created_by\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeCreatedTime",
+						"value": "created_time",
+						"literal": "\"created_time\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeLastEditedBy",
+						"value": "last_edited_by",
+						"literal": "\"last_edited_by\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeLastEditedTime",
+						"value": "last_edited_time",
+						"literal": "\"last_edited_time\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeFormula",
+						"value": "formula",
+						"literal": "\"formula\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeButton",
+						"value": "button",
+						"literal": "\"button\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeUniqueID",
+						"value": "unique_id",
+						"literal": "\"unique_id\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeVerification",
+						"value": "verification",
+						"literal": "\"verification\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypePlace",
+						"value": "place",
+						"literal": "\"place\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeTitle",
+						"value": "title",
+						"literal": "\"title\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeRichText",
+						"value": "rich_text",
+						"literal": "\"rich_text\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypePeople",
+						"value": "people",
+						"literal": "\"people\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					},
+					{
+						"goName": "PagePropertyValueWithIDResponseTypeRollup",
+						"value": "rollup",
+						"literal": "\"rollup\""
+					}
+				],
 				"values": [
 					{
 						"value": "number",
+						"members": [
+							{
+								"name": "number"
+							}
+						]
+					},
+					{
+						"value": "url",
+						"members": [
+							{
+								"name": "url"
+							}
+						]
+					},
+					{
+						"value": "select",
+						"members": [
+							{
+								"name": "select"
+							}
+						]
+					},
+					{
+						"value": "multi_select",
+						"members": [
+							{
+								"name": "multi_select",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "status",
+						"members": [
+							{
+								"name": "status"
+							}
+						]
+					},
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "email",
+						"members": [
+							{
+								"name": "email"
+							}
+						]
+					},
+					{
+						"value": "phone_number",
+						"members": [
+							{
+								"name": "phone_number"
+							}
+						]
+					},
+					{
+						"value": "checkbox",
+						"members": [
+							{
+								"name": "checkbox",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "files",
+						"members": [
+							{
+								"name": "files",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "created_by",
+						"members": [
+							{
+								"name": "created_by",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "created_time",
+						"members": [
+							{
+								"name": "created_time",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "last_edited_by",
+						"members": [
+							{
+								"name": "last_edited_by",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "last_edited_time",
+						"members": [
+							{
+								"name": "last_edited_time",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "formula",
+						"members": [
+							{
+								"name": "formula",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "button",
+						"members": [
+							{
+								"name": "button",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "unique_id",
+						"members": [
+							{
+								"name": "unique_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "verification",
+						"members": [
+							{
+								"name": "verification"
+							}
+						]
+					},
+					{
+						"value": "place",
+						"members": [
+							{
+								"name": "place"
+							}
+						]
+					},
+					{
+						"value": "title",
+						"members": [
+							{
+								"name": "title",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "rich_text",
+						"members": [
+							{
+								"name": "rich_text",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "people",
+						"members": [
+							{
+								"name": "people",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "relation",
+						"members": [
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "rollup",
+						"members": [
+							{
+								"name": "rollup",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
 						"field": "Number",
 						"zero": "nil"
 					},
 					{
-						"value": "url",
+						"name": "url",
 						"field": "URL",
 						"zero": "nil"
 					},
 					{
-						"value": "select",
+						"name": "select",
 						"field": "Select",
 						"zero": "nil"
 					},
 					{
-						"value": "multi_select",
+						"name": "multi_select",
 						"field": "MultiSelect",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "status",
+						"name": "status",
 						"field": "Status",
 						"zero": "nil"
 					},
 					{
-						"value": "date",
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "email",
+						"name": "email",
 						"field": "Email",
 						"zero": "nil"
 					},
 					{
-						"value": "phone_number",
+						"name": "phone_number",
 						"field": "PhoneNumber",
 						"zero": "nil"
 					},
 					{
-						"value": "checkbox",
+						"name": "checkbox",
 						"field": "Checkbox",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "files",
+						"name": "files",
 						"field": "Files",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "created_by",
+						"name": "created_by",
 						"field": "CreatedBy",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "created_time",
+						"name": "created_time",
 						"field": "CreatedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "last_edited_by",
+						"name": "last_edited_by",
 						"field": "LastEditedBy",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "last_edited_time",
+						"name": "last_edited_time",
 						"field": "LastEditedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "formula",
+						"name": "formula",
 						"field": "Formula",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "button",
+						"name": "button",
 						"field": "Button",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "unique_id",
+						"name": "unique_id",
 						"field": "UniqueID",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "verification",
+						"name": "verification",
 						"field": "Verification",
 						"zero": "nil"
 					},
 					{
-						"value": "place",
+						"name": "place",
 						"field": "Place",
 						"zero": "nil"
 					},
 					{
-						"value": "title",
+						"name": "title",
 						"field": "Title",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "rich_text",
+						"name": "rich_text",
 						"field": "RichText",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "people",
+						"name": "people",
 						"field": "People",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "relation",
+						"name": "relation",
 						"field": "Relation",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "rollup",
+						"name": "rollup",
 						"field": "Rollup",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -25337,186 +27093,186 @@
 		{
 			"name": "ParentForBlockBasedObjectResponse",
 			"description": "ParentForBlockBasedObjectResponse defines a model",
-			"kind": 5,
-			"unionVariants": [
+			"fields": [
 				{
-					"fieldName": "DatabaseParentResponse",
-					"type": "DatabaseParentResponse",
-					"value": "database_id",
-					"members": [
-						"database_id",
-						"type"
-					],
-					"required": [
-						"database_id",
-						"type"
-					],
-					"object": true
+					"name": "Type",
+					"jsonName": "type",
+					"type": "ParentForBlockBasedObjectResponseType",
+					"jsonTag": "json:\"type\"",
+					"required": true
 				},
 				{
-					"fieldName": "DataSourceParentResponse",
-					"type": "DataSourceParentResponse",
-					"value": "data_source_id",
-					"members": [
-						"data_source_id",
-						"database_id",
-						"type"
-					],
-					"required": [
-						"data_source_id",
-						"database_id",
-						"type"
-					],
-					"object": true
+					"name": "DatabaseID",
+					"jsonName": "database_id",
+					"type": "*IDResponse",
+					"jsonTag": "json:\"database_id,omitzero\"",
+					"description": "The ID of the parent database."
 				},
 				{
-					"fieldName": "PageIDParentForBlockBasedObjectResponse",
-					"type": "PageIDParentForBlockBasedObjectResponse",
-					"value": "page_id",
-					"members": [
-						"page_id",
-						"type"
-					],
-					"required": [
-						"page_id",
-						"type"
-					],
-					"object": true
+					"name": "DataSourceID",
+					"jsonName": "data_source_id",
+					"type": "*IDResponse",
+					"jsonTag": "json:\"data_source_id,omitzero\"",
+					"description": "The ID of the parent data source."
 				},
 				{
-					"fieldName": "BlockIDParentForBlockBasedObjectResponse",
-					"type": "BlockIDParentForBlockBasedObjectResponse",
-					"value": "block_id",
-					"members": [
-						"block_id",
-						"type"
-					],
-					"required": [
-						"block_id",
-						"type"
-					],
-					"object": true
+					"name": "PageID",
+					"jsonName": "page_id",
+					"type": "*IDResponse",
+					"jsonTag": "json:\"page_id,omitzero\"",
+					"description": "The ID of the parent page."
 				},
 				{
-					"fieldName": "AgentIDParentForBlockBasedObjectResponse",
-					"type": "AgentIDParentForBlockBasedObjectResponse",
-					"value": "agent_id",
-					"members": [
-						"agent_id",
-						"type"
-					],
-					"required": [
-						"agent_id",
-						"type"
-					],
-					"object": true
+					"name": "BlockID",
+					"jsonName": "block_id",
+					"type": "*IDResponse",
+					"jsonTag": "json:\"block_id,omitzero\"",
+					"description": "The ID of the parent block."
 				},
 				{
-					"fieldName": "WorkspaceParentForBlockBasedObject",
-					"type": "WorkspaceParentForBlockBasedObject",
-					"value": "workspace",
-					"members": [
-						"type",
-						"workspace"
-					],
-					"required": [
-						"type",
-						"workspace"
-					],
-					"object": true
+					"name": "AgentID",
+					"jsonName": "agent_id",
+					"type": "*IDResponse",
+					"jsonTag": "json:\"agent_id,omitzero\"",
+					"description": "The ID of the parent agent."
+				},
+				{
+					"name": "Workspace",
+					"jsonName": "workspace",
+					"type": "*bool",
+					"jsonTag": "json:\"workspace,omitzero\"",
+					"description": "Always true for workspace parent."
 				}
 			],
-			"choices": [
-				{
-					"fieldName": "DatabaseParentResponse",
-					"type": "DatabaseParentResponse",
-					"value": "database_id",
-					"members": [
-						"database_id",
-						"type"
-					],
-					"required": [
-						"database_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "DataSourceParentResponse",
-					"type": "DataSourceParentResponse",
-					"value": "data_source_id",
-					"members": [
-						"data_source_id",
-						"database_id",
-						"type"
-					],
-					"required": [
-						"data_source_id",
-						"database_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "PageIDParentForBlockBasedObjectResponse",
-					"type": "PageIDParentForBlockBasedObjectResponse",
-					"value": "page_id",
-					"members": [
-						"page_id",
-						"type"
-					],
-					"required": [
-						"page_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "BlockIDParentForBlockBasedObjectResponse",
-					"type": "BlockIDParentForBlockBasedObjectResponse",
-					"value": "block_id",
-					"members": [
-						"block_id",
-						"type"
-					],
-					"required": [
-						"block_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "AgentIDParentForBlockBasedObjectResponse",
-					"type": "AgentIDParentForBlockBasedObjectResponse",
-					"value": "agent_id",
-					"members": [
-						"agent_id",
-						"type"
-					],
-					"required": [
-						"agent_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "WorkspaceParentForBlockBasedObject",
-					"type": "WorkspaceParentForBlockBasedObject",
-					"value": "workspace",
-					"members": [
-						"type",
-						"workspace"
-					],
-					"required": [
-						"type",
-						"workspace"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "ParentForBlockBasedObjectResponseType",
+				"enum": [
+					{
+						"goName": "ParentForBlockBasedObjectResponseTypeDatabaseID",
+						"value": "database_id",
+						"literal": "\"database_id\""
+					},
+					{
+						"goName": "ParentForBlockBasedObjectResponseTypeDataSourceID",
+						"value": "data_source_id",
+						"literal": "\"data_source_id\""
+					},
+					{
+						"goName": "ParentForBlockBasedObjectResponseTypePageID",
+						"value": "page_id",
+						"literal": "\"page_id\""
+					},
+					{
+						"goName": "ParentForBlockBasedObjectResponseTypeBlockID",
+						"value": "block_id",
+						"literal": "\"block_id\""
+					},
+					{
+						"goName": "ParentForBlockBasedObjectResponseTypeAgentID",
+						"value": "agent_id",
+						"literal": "\"agent_id\""
+					},
+					{
+						"goName": "ParentForBlockBasedObjectResponseTypeWorkspace",
+						"value": "workspace",
+						"literal": "\"workspace\""
+					}
+				],
+				"values": [
+					{
+						"value": "database_id",
+						"members": [
+							{
+								"name": "database_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "data_source_id",
+						"members": [
+							{
+								"name": "data_source_id",
+								"required": true
+							},
+							{
+								"name": "database_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "page_id",
+						"members": [
+							{
+								"name": "page_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "block_id",
+						"members": [
+							{
+								"name": "block_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "agent_id",
+						"members": [
+							{
+								"name": "agent_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "workspace",
+						"members": [
+							{
+								"name": "workspace",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "database_id",
+						"field": "DatabaseID",
+						"zero": "nil"
+					},
+					{
+						"name": "data_source_id",
+						"field": "DataSourceID",
+						"zero": "nil"
+					},
+					{
+						"name": "page_id",
+						"field": "PageID",
+						"zero": "nil"
+					},
+					{
+						"name": "block_id",
+						"field": "BlockID",
+						"zero": "nil"
+					},
+					{
+						"name": "agent_id",
+						"field": "AgentID",
+						"zero": "nil"
+					},
+					{
+						"name": "workspace",
+						"field": "Workspace",
+						"zero": "nil"
+					}
+				]
+			}
 		},
 		{
 			"name": "ParentOfDataSourceResponse",
@@ -25533,7 +27289,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "ParentOfDataSourceResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -25548,16 +27304,38 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "ParentOfDataSourceResponseType",
+				"enum": [
+					{
+						"goName": "ParentOfDataSourceResponseTypeDatabaseID",
+						"value": "database_id",
+						"literal": "\"database_id\""
+					},
+					{
+						"goName": "ParentOfDataSourceResponseTypeDataSourceID",
+						"value": "data_source_id",
+						"literal": "\"data_source_id\""
+					}
+				],
 				"values": [
 					{
 						"value": "database_id"
 					},
 					{
 						"value": "data_source_id",
+						"members": [
+							{
+								"name": "data_source_id",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "data_source_id",
 						"field": "DataSourceID",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -25569,7 +27347,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "ParentOfDatabaseResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -25605,31 +27383,87 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "ParentOfDatabaseResponseType",
+				"enum": [
+					{
+						"goName": "ParentOfDatabaseResponseTypePageID",
+						"value": "page_id",
+						"literal": "\"page_id\""
+					},
+					{
+						"goName": "ParentOfDatabaseResponseTypeWorkspace",
+						"value": "workspace",
+						"literal": "\"workspace\""
+					},
+					{
+						"goName": "ParentOfDatabaseResponseTypeDatabaseID",
+						"value": "database_id",
+						"literal": "\"database_id\""
+					},
+					{
+						"goName": "ParentOfDatabaseResponseTypeBlockID",
+						"value": "block_id",
+						"literal": "\"block_id\""
+					}
+				],
 				"values": [
 					{
 						"value": "page_id",
-						"field": "PageID",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "page_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "workspace",
-						"field": "Workspace",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "workspace",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "database_id",
-						"field": "DatabaseID",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "database_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "block_id",
+						"members": [
+							{
+								"name": "block_id",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "page_id",
+						"field": "PageID",
+						"zero": "nil"
+					},
+					{
+						"name": "workspace",
+						"field": "Workspace",
+						"zero": "nil"
+					},
+					{
+						"name": "database_id",
+						"field": "DatabaseID",
+						"zero": "nil"
+					},
+					{
+						"name": "block_id",
 						"field": "BlockID",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -25722,7 +27556,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PartialRollupValueResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -25762,29 +27596,85 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PartialRollupValueResponseType",
+				"enum": [
+					{
+						"goName": "PartialRollupValueResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "PartialRollupValueResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "PartialRollupValueResponseTypeArray",
+						"value": "array",
+						"literal": "\"array\""
+					},
+					{
+						"goName": "PartialRollupValueResponseTypeUnsupported",
+						"value": "unsupported",
+						"literal": "\"unsupported\""
+					}
+				],
 				"values": [
 					{
 						"value": "number",
+						"members": [
+							{
+								"name": "number"
+							}
+						]
+					},
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "array",
+						"members": [
+							{
+								"name": "array",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "unsupported",
+						"members": [
+							{
+								"name": "unsupported",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
 						"field": "Number",
 						"zero": "nil"
 					},
 					{
-						"value": "date",
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "array",
+						"name": "array",
 						"field": "Array",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "unsupported",
+						"name": "unsupported",
 						"field": "Unsupported",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -25907,6 +27797,23 @@
 				{
 					"fieldName": "UserObjectResponse",
 					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true,
 					"path": [
 						{
 							"field": "UserValueResponse",
@@ -26671,7 +28578,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PropertyItemObjectResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -26823,147 +28730,463 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PropertyItemObjectResponseType",
+				"enum": [
+					{
+						"goName": "PropertyItemObjectResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeURL",
+						"value": "url",
+						"literal": "\"url\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeSelect",
+						"value": "select",
+						"literal": "\"select\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeMultiSelect",
+						"value": "multi_select",
+						"literal": "\"multi_select\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeStatus",
+						"value": "status",
+						"literal": "\"status\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeEmail",
+						"value": "email",
+						"literal": "\"email\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypePhoneNumber",
+						"value": "phone_number",
+						"literal": "\"phone_number\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeCheckbox",
+						"value": "checkbox",
+						"literal": "\"checkbox\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeFiles",
+						"value": "files",
+						"literal": "\"files\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeCreatedBy",
+						"value": "created_by",
+						"literal": "\"created_by\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeCreatedTime",
+						"value": "created_time",
+						"literal": "\"created_time\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeLastEditedBy",
+						"value": "last_edited_by",
+						"literal": "\"last_edited_by\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeLastEditedTime",
+						"value": "last_edited_time",
+						"literal": "\"last_edited_time\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeFormula",
+						"value": "formula",
+						"literal": "\"formula\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeButton",
+						"value": "button",
+						"literal": "\"button\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeUniqueID",
+						"value": "unique_id",
+						"literal": "\"unique_id\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeVerification",
+						"value": "verification",
+						"literal": "\"verification\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypePlace",
+						"value": "place",
+						"literal": "\"place\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeTitle",
+						"value": "title",
+						"literal": "\"title\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeRichText",
+						"value": "rich_text",
+						"literal": "\"rich_text\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypePeople",
+						"value": "people",
+						"literal": "\"people\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					},
+					{
+						"goName": "PropertyItemObjectResponseTypeRollup",
+						"value": "rollup",
+						"literal": "\"rollup\""
+					}
+				],
 				"values": [
 					{
 						"value": "number",
-						"field": "Number",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "url",
-						"field": "URL",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "url",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "select",
+						"members": [
+							{
+								"name": "select"
+							}
+						]
+					},
+					{
+						"value": "multi_select",
+						"members": [
+							{
+								"name": "multi_select",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "status",
+						"members": [
+							{
+								"name": "status"
+							}
+						]
+					},
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "email",
+						"members": [
+							{
+								"name": "email",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "phone_number",
+						"members": [
+							{
+								"name": "phone_number",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "checkbox",
+						"members": [
+							{
+								"name": "checkbox",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "files",
+						"members": [
+							{
+								"name": "files",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "created_by",
+						"members": [
+							{
+								"name": "created_by",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "created_time",
+						"members": [
+							{
+								"name": "created_time",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "last_edited_by",
+						"members": [
+							{
+								"name": "last_edited_by",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "last_edited_time",
+						"members": [
+							{
+								"name": "last_edited_time",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "formula",
+						"members": [
+							{
+								"name": "formula",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "button",
+						"members": [
+							{
+								"name": "button",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "unique_id",
+						"members": [
+							{
+								"name": "unique_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "verification",
+						"members": [
+							{
+								"name": "verification"
+							}
+						]
+					},
+					{
+						"value": "place",
+						"members": [
+							{
+								"name": "place",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "title",
+						"members": [
+							{
+								"name": "title",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "rich_text",
+						"members": [
+							{
+								"name": "rich_text",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "people",
+						"members": [
+							{
+								"name": "people",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "relation",
+						"members": [
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "rollup",
+						"members": [
+							{
+								"name": "rollup",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					},
+					{
+						"name": "url",
+						"field": "URL",
+						"zero": "\"\""
+					},
+					{
+						"name": "select",
 						"field": "Select",
 						"zero": "nil"
 					},
 					{
-						"value": "multi_select",
+						"name": "multi_select",
 						"field": "MultiSelect",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "status",
+						"name": "status",
 						"field": "Status",
 						"zero": "nil"
 					},
 					{
-						"value": "date",
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "email",
+						"name": "email",
 						"field": "Email",
-						"zero": "\"\"",
-						"required": true
+						"zero": "\"\""
 					},
 					{
-						"value": "phone_number",
+						"name": "phone_number",
 						"field": "PhoneNumber",
-						"zero": "\"\"",
-						"required": true
+						"zero": "\"\""
 					},
 					{
-						"value": "checkbox",
+						"name": "checkbox",
 						"field": "Checkbox",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "files",
+						"name": "files",
 						"field": "Files",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "created_by",
+						"name": "created_by",
 						"field": "CreatedBy",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "created_time",
+						"name": "created_time",
 						"field": "CreatedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "last_edited_by",
+						"name": "last_edited_by",
 						"field": "LastEditedBy",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "last_edited_time",
+						"name": "last_edited_time",
 						"field": "LastEditedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "formula",
+						"name": "formula",
 						"field": "Formula",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "button",
+						"name": "button",
 						"field": "Button",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "unique_id",
+						"name": "unique_id",
 						"field": "UniqueID",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "verification",
+						"name": "verification",
 						"field": "Verification",
 						"zero": "nil"
 					},
 					{
-						"value": "place",
+						"name": "place",
 						"field": "Place",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "title",
+						"name": "title",
 						"field": "Title",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "rich_text",
+						"name": "rich_text",
 						"field": "RichText",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "people",
+						"name": "people",
 						"field": "People",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "relation",
+						"name": "relation",
 						"field": "Relation",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "rollup",
+						"name": "rollup",
 						"field": "Rollup",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -27037,7 +29260,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "PropertyItemPropertyItemListResponsePropertyItemType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -27075,37 +29298,106 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "PropertyItemPropertyItemListResponsePropertyItemType",
+				"enum": [
+					{
+						"goName": "PropertyItemPropertyItemListResponsePropertyItemTypeTitle",
+						"value": "title",
+						"literal": "\"title\""
+					},
+					{
+						"goName": "PropertyItemPropertyItemListResponsePropertyItemTypeRichText",
+						"value": "rich_text",
+						"literal": "\"rich_text\""
+					},
+					{
+						"goName": "PropertyItemPropertyItemListResponsePropertyItemTypePeople",
+						"value": "people",
+						"literal": "\"people\""
+					},
+					{
+						"goName": "PropertyItemPropertyItemListResponsePropertyItemTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					},
+					{
+						"goName": "PropertyItemPropertyItemListResponsePropertyItemTypeRollup",
+						"value": "rollup",
+						"literal": "\"rollup\""
+					}
+				],
 				"values": [
 					{
 						"value": "title",
-						"field": "Title",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "title",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "rich_text",
-						"field": "RichText",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "rich_text",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "people",
-						"field": "People",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "people",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "relation",
-						"field": "Relation",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "rollup",
+						"members": [
+							{
+								"name": "rollup",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "title",
+						"field": "Title",
+						"zero": "nil"
+					},
+					{
+						"name": "rich_text",
+						"field": "RichText",
+						"zero": "nil"
+					},
+					{
+						"name": "people",
+						"field": "People",
+						"zero": "nil"
+					},
+					{
+						"name": "relation",
+						"field": "Relation",
+						"zero": "nil"
+					},
+					{
+						"name": "rollup",
 						"field": "Rollup",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -27711,7 +30003,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "RichTextItemRequestType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -27747,25 +30039,68 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "RichTextItemRequestType",
+				"enum": [
+					{
+						"goName": "RichTextItemRequestTypeText",
+						"value": "text",
+						"literal": "\"text\""
+					},
+					{
+						"goName": "RichTextItemRequestTypeMention",
+						"value": "mention",
+						"literal": "\"mention\""
+					},
+					{
+						"goName": "RichTextItemRequestTypeEquation",
+						"value": "equation",
+						"literal": "\"equation\""
+					}
+				],
 				"values": [
 					{
 						"value": "text",
-						"field": "Text",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "text",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "mention",
-						"field": "Mention",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "mention",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "equation",
+						"members": [
+							{
+								"name": "equation",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "text",
+						"field": "Text",
+						"zero": "nil"
+					},
+					{
+						"name": "mention",
+						"field": "Mention",
+						"zero": "nil"
+					},
+					{
+						"name": "equation",
 						"field": "Equation",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -27802,7 +30137,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "RichTextItemResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -27840,25 +30175,68 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "RichTextItemResponseType",
+				"enum": [
+					{
+						"goName": "RichTextItemResponseTypeText",
+						"value": "text",
+						"literal": "\"text\""
+					},
+					{
+						"goName": "RichTextItemResponseTypeMention",
+						"value": "mention",
+						"literal": "\"mention\""
+					},
+					{
+						"goName": "RichTextItemResponseTypeEquation",
+						"value": "equation",
+						"literal": "\"equation\""
+					}
+				],
 				"values": [
 					{
 						"value": "text",
-						"field": "Text",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "text",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "mention",
-						"field": "Mention",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "mention",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "equation",
+						"members": [
+							{
+								"name": "equation",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "text",
+						"field": "Text",
+						"zero": "nil"
+					},
+					{
+						"name": "mention",
+						"field": "Mention",
+						"zero": "nil"
+					},
+					{
+						"name": "equation",
 						"field": "Equation",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -27966,7 +30344,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "Rollup2Type",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -28004,36 +30382,105 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "Rollup2Type",
+				"enum": [
+					{
+						"goName": "Rollup2TypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "Rollup2TypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "Rollup2TypeArray",
+						"value": "array",
+						"literal": "\"array\""
+					},
+					{
+						"goName": "Rollup2TypeUnsupported",
+						"value": "unsupported",
+						"literal": "\"unsupported\""
+					},
+					{
+						"goName": "Rollup2TypeIncomplete",
+						"value": "incomplete",
+						"literal": "\"incomplete\""
+					}
+				],
 				"values": [
 					{
 						"value": "number",
-						"field": "Number",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "array",
+						"members": [
+							{
+								"name": "array",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "unsupported",
+						"members": [
+							{
+								"name": "unsupported",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "incomplete",
+						"members": [
+							{
+								"name": "incomplete",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					},
+					{
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "array",
+						"name": "array",
 						"field": "Array",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "unsupported",
+						"name": "unsupported",
 						"field": "Unsupported",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "incomplete",
+						"name": "incomplete",
 						"field": "Incomplete",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -29311,7 +31758,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "RunToolType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -29907,511 +32354,1607 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "RunToolType",
+				"enum": [
+					{
+						"goName": "RunToolTypeSearch",
+						"value": "search",
+						"literal": "\"search\""
+					},
+					{
+						"goName": "RunToolTypeAiSearch",
+						"value": "ai_search",
+						"literal": "\"ai_search\""
+					},
+					{
+						"goName": "RunToolTypeMemorySearch",
+						"value": "memory_search",
+						"literal": "\"memory_search\""
+					},
+					{
+						"goName": "RunToolTypeGetToolAccess",
+						"value": "get_tool_access",
+						"literal": "\"get_tool_access\""
+					},
+					{
+						"goName": "RunToolTypeFetch",
+						"value": "fetch",
+						"literal": "\"fetch\""
+					},
+					{
+						"goName": "RunToolTypeMcpBusinessPlanEducation",
+						"value": "mcp_business_plan_education",
+						"literal": "\"mcp_business_plan_education\""
+					},
+					{
+						"goName": "RunToolTypeCreateAttachment",
+						"value": "create_attachment",
+						"literal": "\"create_attachment\""
+					},
+					{
+						"goName": "RunToolTypeCreateFileUpload",
+						"value": "create_file_upload",
+						"literal": "\"create_file_upload\""
+					},
+					{
+						"goName": "RunToolTypeDownloadAttachment",
+						"value": "download_attachment",
+						"literal": "\"download_attachment\""
+					},
+					{
+						"goName": "RunToolTypeCreatePages",
+						"value": "create_pages",
+						"literal": "\"create_pages\""
+					},
+					{
+						"goName": "RunToolTypeUpdatePage",
+						"value": "update_page",
+						"literal": "\"update_page\""
+					},
+					{
+						"goName": "RunToolTypeDeletePage",
+						"value": "delete_page",
+						"literal": "\"delete_page\""
+					},
+					{
+						"goName": "RunToolTypeConvertPageToSkill",
+						"value": "convert_page_to_skill",
+						"literal": "\"convert_page_to_skill\""
+					},
+					{
+						"goName": "RunToolTypeUploadSkill",
+						"value": "upload_skill",
+						"literal": "\"upload_skill\""
+					},
+					{
+						"goName": "RunToolTypeDownloadSkill",
+						"value": "download_skill",
+						"literal": "\"download_skill\""
+					},
+					{
+						"goName": "RunToolTypeSearchSkills",
+						"value": "search_skills",
+						"literal": "\"search_skills\""
+					},
+					{
+						"goName": "RunToolTypeMovePages",
+						"value": "move_pages",
+						"literal": "\"move_pages\""
+					},
+					{
+						"goName": "RunToolTypeDuplicatePage",
+						"value": "duplicate_page",
+						"literal": "\"duplicate_page\""
+					},
+					{
+						"goName": "RunToolTypeCreateDatabase",
+						"value": "create_database",
+						"literal": "\"create_database\""
+					},
+					{
+						"goName": "RunToolTypeCreateFolder",
+						"value": "create_folder",
+						"literal": "\"create_folder\""
+					},
+					{
+						"goName": "RunToolTypeUpdateFolder",
+						"value": "update_folder",
+						"literal": "\"update_folder\""
+					},
+					{
+						"goName": "RunToolTypeUpdateDataSource",
+						"value": "update_data_source",
+						"literal": "\"update_data_source\""
+					},
+					{
+						"goName": "RunToolTypeCreateComment",
+						"value": "create_comment",
+						"literal": "\"create_comment\""
+					},
+					{
+						"goName": "RunToolTypeGetComments",
+						"value": "get_comments",
+						"literal": "\"get_comments\""
+					},
+					{
+						"goName": "RunToolTypeUpdateComment",
+						"value": "update_comment",
+						"literal": "\"update_comment\""
+					},
+					{
+						"goName": "RunToolTypeDeleteComment",
+						"value": "delete_comment",
+						"literal": "\"delete_comment\""
+					},
+					{
+						"goName": "RunToolTypeSetDiscussionResolved",
+						"value": "set_discussion_resolved",
+						"literal": "\"set_discussion_resolved\""
+					},
+					{
+						"goName": "RunToolTypeSetCommentReaction",
+						"value": "set_comment_reaction",
+						"literal": "\"set_comment_reaction\""
+					},
+					{
+						"goName": "RunToolTypeCreateSuggestedEdit",
+						"value": "create_suggested_edit",
+						"literal": "\"create_suggested_edit\""
+					},
+					{
+						"goName": "RunToolTypeGetSuggestedEdit",
+						"value": "get_suggested_edit",
+						"literal": "\"get_suggested_edit\""
+					},
+					{
+						"goName": "RunToolTypeResolveSuggestedEdit",
+						"value": "resolve_suggested_edit",
+						"literal": "\"resolve_suggested_edit\""
+					},
+					{
+						"goName": "RunToolTypeGetFormulaValue",
+						"value": "get_formula_value",
+						"literal": "\"get_formula_value\""
+					},
+					{
+						"goName": "RunToolTypeGetRollupValue",
+						"value": "get_rollup_value",
+						"literal": "\"get_rollup_value\""
+					},
+					{
+						"goName": "RunToolTypeGetNotifications",
+						"value": "get_notifications",
+						"literal": "\"get_notifications\""
+					},
+					{
+						"goName": "RunToolTypeUpdateNotifications",
+						"value": "update_notifications",
+						"literal": "\"update_notifications\""
+					},
+					{
+						"goName": "RunToolTypeGetAsyncTask",
+						"value": "get_async_task",
+						"literal": "\"get_async_task\""
+					},
+					{
+						"goName": "RunToolTypeGetTeams",
+						"value": "get_teams",
+						"literal": "\"get_teams\""
+					},
+					{
+						"goName": "RunToolTypeGetUsers",
+						"value": "get_users",
+						"literal": "\"get_users\""
+					},
+					{
+						"goName": "RunToolTypeReplyToSlackThread",
+						"value": "reply_to_slack_thread",
+						"literal": "\"reply_to_slack_thread\""
+					},
+					{
+						"goName": "RunToolTypeAnswerQuestion",
+						"value": "answer_question",
+						"literal": "\"answer_question\""
+					},
+					{
+						"goName": "RunToolTypeQueryDataSources",
+						"value": "query_data_sources",
+						"literal": "\"query_data_sources\""
+					},
+					{
+						"goName": "RunToolTypeQueryMultipleDataSources",
+						"value": "query_multiple_data_sources",
+						"literal": "\"query_multiple_data_sources\""
+					},
+					{
+						"goName": "RunToolTypeQueryDatabaseView",
+						"value": "query_database_view",
+						"literal": "\"query_database_view\""
+					},
+					{
+						"goName": "RunToolTypeQueryMeetingNotes",
+						"value": "query_meeting_notes",
+						"literal": "\"query_meeting_notes\""
+					},
+					{
+						"goName": "RunToolTypeListAgents",
+						"value": "list_agents",
+						"literal": "\"list_agents\""
+					},
+					{
+						"goName": "RunToolTypeListPrivatePages",
+						"value": "list_private_pages",
+						"literal": "\"list_private_pages\""
+					},
+					{
+						"goName": "RunToolTypeListSharedPages",
+						"value": "list_shared_pages",
+						"literal": "\"list_shared_pages\""
+					},
+					{
+						"goName": "RunToolTypeListFavoritePages",
+						"value": "list_favorite_pages",
+						"literal": "\"list_favorite_pages\""
+					},
+					{
+						"goName": "RunToolTypeListRecentPages",
+						"value": "list_recent_pages",
+						"literal": "\"list_recent_pages\""
+					},
+					{
+						"goName": "RunToolTypeSearchAgents",
+						"value": "search_agents",
+						"literal": "\"search_agents\""
+					},
+					{
+						"goName": "RunToolTypeSearchSessions",
+						"value": "search_sessions",
+						"literal": "\"search_sessions\""
+					},
+					{
+						"goName": "RunToolTypeQuerySessions",
+						"value": "query_sessions",
+						"literal": "\"query_sessions\""
+					},
+					{
+						"goName": "RunToolTypeSpawnSession",
+						"value": "spawn_session",
+						"literal": "\"spawn_session\""
+					},
+					{
+						"goName": "RunToolTypeGetSessionStatus",
+						"value": "get_session_status",
+						"literal": "\"get_session_status\""
+					},
+					{
+						"goName": "RunToolTypeWaitSession",
+						"value": "wait_session",
+						"literal": "\"wait_session\""
+					},
+					{
+						"goName": "RunToolTypeStopSession",
+						"value": "stop_session",
+						"literal": "\"stop_session\""
+					},
+					{
+						"goName": "RunToolTypeSendMessageToSession",
+						"value": "send_message_to_session",
+						"literal": "\"send_message_to_session\""
+					},
+					{
+						"goName": "RunToolTypeListSessionEvents",
+						"value": "list_session_events",
+						"literal": "\"list_session_events\""
+					},
+					{
+						"goName": "RunToolTypeReadSessionEvent",
+						"value": "read_session_event",
+						"literal": "\"read_session_event\""
+					},
+					{
+						"goName": "RunToolTypeCreateView",
+						"value": "create_view",
+						"literal": "\"create_view\""
+					},
+					{
+						"goName": "RunToolTypeUpdateView",
+						"value": "update_view",
+						"literal": "\"update_view\""
+					},
+					{
+						"goName": "RunToolTypeSearchEmails",
+						"value": "search_emails",
+						"literal": "\"search_emails\""
+					},
+					{
+						"goName": "RunToolTypeViewThreadContent",
+						"value": "view_thread_content",
+						"literal": "\"view_thread_content\""
+					},
+					{
+						"goName": "RunToolTypeViewVersionHistory",
+						"value": "view_version_history",
+						"literal": "\"view_version_history\""
+					},
+					{
+						"goName": "RunToolTypeGetPageVersion",
+						"value": "get_page_version",
+						"literal": "\"get_page_version\""
+					},
+					{
+						"goName": "RunToolTypeComparePageVersions",
+						"value": "compare_page_versions",
+						"literal": "\"compare_page_versions\""
+					},
+					{
+						"goName": "RunToolTypeCreateWorkspaceBookmark",
+						"value": "create_workspace_bookmark",
+						"literal": "\"create_workspace_bookmark\""
+					},
+					{
+						"goName": "RunToolTypeListWorkspaceBookmarks",
+						"value": "list_workspace_bookmarks",
+						"literal": "\"list_workspace_bookmarks\""
+					},
+					{
+						"goName": "RunToolTypeDeleteWorkspaceBookmark",
+						"value": "delete_workspace_bookmark",
+						"literal": "\"delete_workspace_bookmark\""
+					},
+					{
+						"goName": "RunToolTypeSetPageNotificationLevel",
+						"value": "set_page_notification_level",
+						"literal": "\"set_page_notification_level\""
+					},
+					{
+						"goName": "RunToolTypeCalendarListCalendars",
+						"value": "calendar_list_calendars",
+						"literal": "\"calendar_list_calendars\""
+					},
+					{
+						"goName": "RunToolTypeCalendarListEvents",
+						"value": "calendar_list_events",
+						"literal": "\"calendar_list_events\""
+					},
+					{
+						"goName": "RunToolTypeCalendarSuggestMeetingTimes",
+						"value": "calendar_suggest_meeting_times",
+						"literal": "\"calendar_suggest_meeting_times\""
+					},
+					{
+						"goName": "RunToolTypeCalendarListCoworkersEvents",
+						"value": "calendar_list_coworkers_events",
+						"literal": "\"calendar_list_coworkers_events\""
+					},
+					{
+						"goName": "RunToolTypeCalendarListCalendarResources",
+						"value": "calendar_list_calendar_resources",
+						"literal": "\"calendar_list_calendar_resources\""
+					},
+					{
+						"goName": "RunToolTypeCalendarListContacts",
+						"value": "calendar_list_contacts",
+						"literal": "\"calendar_list_contacts\""
+					},
+					{
+						"goName": "RunToolTypeCalendarListSchedulingLinks",
+						"value": "calendar_list_scheduling_links",
+						"literal": "\"calendar_list_scheduling_links\""
+					},
+					{
+						"goName": "RunToolTypeCalendarCreateEvents",
+						"value": "calendar_create_events",
+						"literal": "\"calendar_create_events\""
+					},
+					{
+						"goName": "RunToolTypeCalendarUpdateEvents",
+						"value": "calendar_update_events",
+						"literal": "\"calendar_update_events\""
+					},
+					{
+						"goName": "RunToolTypeCalendarCancelEvents",
+						"value": "calendar_cancel_events",
+						"literal": "\"calendar_cancel_events\""
+					},
+					{
+						"goName": "RunToolTypeCalendarCreateSchedulingLink",
+						"value": "calendar_create_scheduling_link",
+						"literal": "\"calendar_create_scheduling_link\""
+					},
+					{
+						"goName": "RunToolTypeCalendarUpdateSchedulingLink",
+						"value": "calendar_update_scheduling_link",
+						"literal": "\"calendar_update_scheduling_link\""
+					},
+					{
+						"goName": "RunToolTypeCalendarDeleteSchedulingLinks",
+						"value": "calendar_delete_scheduling_links",
+						"literal": "\"calendar_delete_scheduling_links\""
+					},
+					{
+						"goName": "RunToolTypeGetForm",
+						"value": "get_form",
+						"literal": "\"get_form\""
+					}
+				],
 				"values": [
 					{
 						"value": "search",
-						"field": "Search",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "ai_search",
-						"field": "AiSearch",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "ai_search",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "memory_search",
-						"field": "MemorySearch",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "memory_search",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_tool_access",
-						"field": "GetToolAccess",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_tool_access",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "fetch",
-						"field": "Fetch",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "fetch",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "mcp_business_plan_education",
-						"field": "McpBusinessPlanEducation",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "mcp_business_plan_education",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_attachment",
-						"field": "CreateAttachment",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_attachment",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_file_upload",
-						"field": "CreateFileUpload",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_file_upload",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "download_attachment",
-						"field": "DownloadAttachment",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "download_attachment",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_pages",
-						"field": "CreatePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_page",
-						"field": "UpdatePage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "delete_page",
-						"field": "DeletePage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "delete_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "convert_page_to_skill",
-						"field": "ConvertPageToSkill",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "convert_page_to_skill",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "upload_skill",
-						"field": "UploadSkill",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "upload_skill",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "download_skill",
-						"field": "DownloadSkill",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "download_skill",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_skills",
-						"field": "SearchSkills",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_skills",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "move_pages",
-						"field": "MovePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "move_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "duplicate_page",
-						"field": "DuplicatePage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "duplicate_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_database",
-						"field": "CreateDatabase",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_database",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_folder",
-						"field": "CreateFolder",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_folder",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_folder",
-						"field": "UpdateFolder",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_folder",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_data_source",
-						"field": "UpdateDataSource",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_data_source",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_comment",
-						"field": "CreateComment",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_comment",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_comments",
-						"field": "GetComments",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_comments",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_comment",
-						"field": "UpdateComment",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_comment",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "delete_comment",
-						"field": "DeleteComment",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "delete_comment",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "set_discussion_resolved",
-						"field": "SetDiscussionResolved",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "set_discussion_resolved",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "set_comment_reaction",
-						"field": "SetCommentReaction",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "set_comment_reaction",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_suggested_edit",
-						"field": "CreateSuggestedEdit",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_suggested_edit",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_suggested_edit",
-						"field": "GetSuggestedEdit",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_suggested_edit",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "resolve_suggested_edit",
-						"field": "ResolveSuggestedEdit",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "resolve_suggested_edit",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_formula_value",
-						"field": "GetFormulaValue",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_formula_value",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_rollup_value",
-						"field": "GetRollupValue",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_rollup_value",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_notifications",
-						"field": "GetNotifications",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_notifications",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_notifications",
-						"field": "UpdateNotifications",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_notifications",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_async_task",
-						"field": "GetAsyncTask",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_async_task",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_teams",
-						"field": "GetTeams",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_teams",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_users",
-						"field": "GetUsers",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_users",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "reply_to_slack_thread",
-						"field": "ReplyToSlackThread",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "reply_to_slack_thread",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "answer_question",
-						"field": "AnswerQuestion",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "answer_question",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_data_sources",
-						"field": "QueryDataSources",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_data_sources",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_multiple_data_sources",
-						"field": "QueryMultipleDataSources",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_multiple_data_sources",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_database_view",
-						"field": "QueryDatabaseView",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_database_view",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_meeting_notes",
-						"field": "QueryMeetingNotes",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_meeting_notes",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_agents",
-						"field": "ListAgents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_agents",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_private_pages",
-						"field": "ListPrivatePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_private_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_shared_pages",
-						"field": "ListSharedPages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_shared_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_favorite_pages",
-						"field": "ListFavoritePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_favorite_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_recent_pages",
-						"field": "ListRecentPages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_recent_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_agents",
-						"field": "SearchAgents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_agents",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_sessions",
-						"field": "SearchSessions",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_sessions",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_sessions",
-						"field": "QuerySessions",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_sessions",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "spawn_session",
-						"field": "SpawnSession",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "spawn_session",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_session_status",
-						"field": "GetSessionStatus",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_session_status",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "wait_session",
-						"field": "WaitSession",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "wait_session",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "stop_session",
-						"field": "StopSession",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "stop_session",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "send_message_to_session",
-						"field": "SendMessageToSession",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "send_message_to_session",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_session_events",
-						"field": "ListSessionEvents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_session_events",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "read_session_event",
-						"field": "ReadSessionEvent",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "read_session_event",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_view",
-						"field": "CreateView",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_view",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_view",
-						"field": "UpdateView",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_view",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_emails",
-						"field": "SearchEmails",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_emails",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "view_thread_content",
-						"field": "ViewThreadContent",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "view_thread_content",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "view_version_history",
-						"field": "ViewVersionHistory",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "view_version_history",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_page_version",
-						"field": "GetPageVersion",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_page_version",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "compare_page_versions",
-						"field": "ComparePageVersions",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "compare_page_versions",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_workspace_bookmark",
-						"field": "CreateWorkspaceBookmark",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_workspace_bookmark",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_workspace_bookmarks",
-						"field": "ListWorkspaceBookmarks",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_workspace_bookmarks",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "delete_workspace_bookmark",
-						"field": "DeleteWorkspaceBookmark",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "delete_workspace_bookmark",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "set_page_notification_level",
-						"field": "SetPageNotificationLevel",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "set_page_notification_level",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_list_calendars",
-						"field": "CalendarListCalendars",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_list_calendars",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_list_events",
-						"field": "CalendarListEvents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_list_events",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_suggest_meeting_times",
-						"field": "CalendarSuggestMeetingTimes",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_suggest_meeting_times",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_list_coworkers_events",
-						"field": "CalendarListCoworkersEvents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_list_coworkers_events",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_list_calendar_resources",
-						"field": "CalendarListCalendarResources",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_list_calendar_resources",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_list_contacts",
-						"field": "CalendarListContacts",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_list_contacts",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_list_scheduling_links",
-						"field": "CalendarListSchedulingLinks",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_list_scheduling_links",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_create_events",
-						"field": "CalendarCreateEvents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_create_events",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_update_events",
-						"field": "CalendarUpdateEvents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_update_events",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_cancel_events",
-						"field": "CalendarCancelEvents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_cancel_events",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_create_scheduling_link",
-						"field": "CalendarCreateSchedulingLink",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_create_scheduling_link",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_update_scheduling_link",
-						"field": "CalendarUpdateSchedulingLink",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_update_scheduling_link",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "calendar_delete_scheduling_links",
-						"field": "CalendarDeleteSchedulingLinks",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "calendar_delete_scheduling_links",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_form",
+						"members": [
+							{
+								"name": "get_form",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "search",
+						"field": "Search",
+						"zero": "nil"
+					},
+					{
+						"name": "ai_search",
+						"field": "AiSearch",
+						"zero": "nil"
+					},
+					{
+						"name": "memory_search",
+						"field": "MemorySearch",
+						"zero": "nil"
+					},
+					{
+						"name": "get_tool_access",
+						"field": "GetToolAccess",
+						"zero": "nil"
+					},
+					{
+						"name": "fetch",
+						"field": "Fetch",
+						"zero": "nil"
+					},
+					{
+						"name": "mcp_business_plan_education",
+						"field": "McpBusinessPlanEducation",
+						"zero": "nil"
+					},
+					{
+						"name": "create_attachment",
+						"field": "CreateAttachment",
+						"zero": "nil"
+					},
+					{
+						"name": "create_file_upload",
+						"field": "CreateFileUpload",
+						"zero": "nil"
+					},
+					{
+						"name": "download_attachment",
+						"field": "DownloadAttachment",
+						"zero": "nil"
+					},
+					{
+						"name": "create_pages",
+						"field": "CreatePages",
+						"zero": "nil"
+					},
+					{
+						"name": "update_page",
+						"field": "UpdatePage",
+						"zero": "nil"
+					},
+					{
+						"name": "delete_page",
+						"field": "DeletePage",
+						"zero": "nil"
+					},
+					{
+						"name": "convert_page_to_skill",
+						"field": "ConvertPageToSkill",
+						"zero": "nil"
+					},
+					{
+						"name": "upload_skill",
+						"field": "UploadSkill",
+						"zero": "nil"
+					},
+					{
+						"name": "download_skill",
+						"field": "DownloadSkill",
+						"zero": "nil"
+					},
+					{
+						"name": "search_skills",
+						"field": "SearchSkills",
+						"zero": "nil"
+					},
+					{
+						"name": "move_pages",
+						"field": "MovePages",
+						"zero": "nil"
+					},
+					{
+						"name": "duplicate_page",
+						"field": "DuplicatePage",
+						"zero": "nil"
+					},
+					{
+						"name": "create_database",
+						"field": "CreateDatabase",
+						"zero": "nil"
+					},
+					{
+						"name": "create_folder",
+						"field": "CreateFolder",
+						"zero": "nil"
+					},
+					{
+						"name": "update_folder",
+						"field": "UpdateFolder",
+						"zero": "nil"
+					},
+					{
+						"name": "update_data_source",
+						"field": "UpdateDataSource",
+						"zero": "nil"
+					},
+					{
+						"name": "create_comment",
+						"field": "CreateComment",
+						"zero": "nil"
+					},
+					{
+						"name": "get_comments",
+						"field": "GetComments",
+						"zero": "nil"
+					},
+					{
+						"name": "update_comment",
+						"field": "UpdateComment",
+						"zero": "nil"
+					},
+					{
+						"name": "delete_comment",
+						"field": "DeleteComment",
+						"zero": "nil"
+					},
+					{
+						"name": "set_discussion_resolved",
+						"field": "SetDiscussionResolved",
+						"zero": "nil"
+					},
+					{
+						"name": "set_comment_reaction",
+						"field": "SetCommentReaction",
+						"zero": "nil"
+					},
+					{
+						"name": "create_suggested_edit",
+						"field": "CreateSuggestedEdit",
+						"zero": "nil"
+					},
+					{
+						"name": "get_suggested_edit",
+						"field": "GetSuggestedEdit",
+						"zero": "nil"
+					},
+					{
+						"name": "resolve_suggested_edit",
+						"field": "ResolveSuggestedEdit",
+						"zero": "nil"
+					},
+					{
+						"name": "get_formula_value",
+						"field": "GetFormulaValue",
+						"zero": "nil"
+					},
+					{
+						"name": "get_rollup_value",
+						"field": "GetRollupValue",
+						"zero": "nil"
+					},
+					{
+						"name": "get_notifications",
+						"field": "GetNotifications",
+						"zero": "nil"
+					},
+					{
+						"name": "update_notifications",
+						"field": "UpdateNotifications",
+						"zero": "nil"
+					},
+					{
+						"name": "get_async_task",
+						"field": "GetAsyncTask",
+						"zero": "nil"
+					},
+					{
+						"name": "get_teams",
+						"field": "GetTeams",
+						"zero": "nil"
+					},
+					{
+						"name": "get_users",
+						"field": "GetUsers",
+						"zero": "nil"
+					},
+					{
+						"name": "reply_to_slack_thread",
+						"field": "ReplyToSlackThread",
+						"zero": "nil"
+					},
+					{
+						"name": "answer_question",
+						"field": "AnswerQuestion",
+						"zero": "nil"
+					},
+					{
+						"name": "query_data_sources",
+						"field": "QueryDataSources",
+						"zero": "nil"
+					},
+					{
+						"name": "query_multiple_data_sources",
+						"field": "QueryMultipleDataSources",
+						"zero": "nil"
+					},
+					{
+						"name": "query_database_view",
+						"field": "QueryDatabaseView",
+						"zero": "nil"
+					},
+					{
+						"name": "query_meeting_notes",
+						"field": "QueryMeetingNotes",
+						"zero": "nil"
+					},
+					{
+						"name": "list_agents",
+						"field": "ListAgents",
+						"zero": "nil"
+					},
+					{
+						"name": "list_private_pages",
+						"field": "ListPrivatePages",
+						"zero": "nil"
+					},
+					{
+						"name": "list_shared_pages",
+						"field": "ListSharedPages",
+						"zero": "nil"
+					},
+					{
+						"name": "list_favorite_pages",
+						"field": "ListFavoritePages",
+						"zero": "nil"
+					},
+					{
+						"name": "list_recent_pages",
+						"field": "ListRecentPages",
+						"zero": "nil"
+					},
+					{
+						"name": "search_agents",
+						"field": "SearchAgents",
+						"zero": "nil"
+					},
+					{
+						"name": "search_sessions",
+						"field": "SearchSessions",
+						"zero": "nil"
+					},
+					{
+						"name": "query_sessions",
+						"field": "QuerySessions",
+						"zero": "nil"
+					},
+					{
+						"name": "spawn_session",
+						"field": "SpawnSession",
+						"zero": "nil"
+					},
+					{
+						"name": "get_session_status",
+						"field": "GetSessionStatus",
+						"zero": "nil"
+					},
+					{
+						"name": "wait_session",
+						"field": "WaitSession",
+						"zero": "nil"
+					},
+					{
+						"name": "stop_session",
+						"field": "StopSession",
+						"zero": "nil"
+					},
+					{
+						"name": "send_message_to_session",
+						"field": "SendMessageToSession",
+						"zero": "nil"
+					},
+					{
+						"name": "list_session_events",
+						"field": "ListSessionEvents",
+						"zero": "nil"
+					},
+					{
+						"name": "read_session_event",
+						"field": "ReadSessionEvent",
+						"zero": "nil"
+					},
+					{
+						"name": "create_view",
+						"field": "CreateView",
+						"zero": "nil"
+					},
+					{
+						"name": "update_view",
+						"field": "UpdateView",
+						"zero": "nil"
+					},
+					{
+						"name": "search_emails",
+						"field": "SearchEmails",
+						"zero": "nil"
+					},
+					{
+						"name": "view_thread_content",
+						"field": "ViewThreadContent",
+						"zero": "nil"
+					},
+					{
+						"name": "view_version_history",
+						"field": "ViewVersionHistory",
+						"zero": "nil"
+					},
+					{
+						"name": "get_page_version",
+						"field": "GetPageVersion",
+						"zero": "nil"
+					},
+					{
+						"name": "compare_page_versions",
+						"field": "ComparePageVersions",
+						"zero": "nil"
+					},
+					{
+						"name": "create_workspace_bookmark",
+						"field": "CreateWorkspaceBookmark",
+						"zero": "nil"
+					},
+					{
+						"name": "list_workspace_bookmarks",
+						"field": "ListWorkspaceBookmarks",
+						"zero": "nil"
+					},
+					{
+						"name": "delete_workspace_bookmark",
+						"field": "DeleteWorkspaceBookmark",
+						"zero": "nil"
+					},
+					{
+						"name": "set_page_notification_level",
+						"field": "SetPageNotificationLevel",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_list_calendars",
+						"field": "CalendarListCalendars",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_list_events",
+						"field": "CalendarListEvents",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_suggest_meeting_times",
+						"field": "CalendarSuggestMeetingTimes",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_list_coworkers_events",
+						"field": "CalendarListCoworkersEvents",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_list_calendar_resources",
+						"field": "CalendarListCalendarResources",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_list_contacts",
+						"field": "CalendarListContacts",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_list_scheduling_links",
+						"field": "CalendarListSchedulingLinks",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_create_events",
+						"field": "CalendarCreateEvents",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_update_events",
+						"field": "CalendarUpdateEvents",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_cancel_events",
+						"field": "CalendarCancelEvents",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_create_scheduling_link",
+						"field": "CalendarCreateSchedulingLink",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_update_scheduling_link",
+						"field": "CalendarUpdateSchedulingLink",
+						"zero": "nil"
+					},
+					{
+						"name": "calendar_delete_scheduling_links",
+						"field": "CalendarDeleteSchedulingLinks",
+						"zero": "nil"
+					},
+					{
+						"name": "get_form",
 						"field": "GetForm",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -30556,7 +34099,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "RunToolEvalType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -30913,265 +34456,828 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "RunToolEvalType",
+				"enum": [
+					{
+						"goName": "RunToolEvalTypeSearch",
+						"value": "search",
+						"literal": "\"search\""
+					},
+					{
+						"goName": "RunToolEvalTypeAiSearch",
+						"value": "ai_search",
+						"literal": "\"ai_search\""
+					},
+					{
+						"goName": "RunToolEvalTypeMemorySearch",
+						"value": "memory_search",
+						"literal": "\"memory_search\""
+					},
+					{
+						"goName": "RunToolEvalTypeGetToolAccess",
+						"value": "get_tool_access",
+						"literal": "\"get_tool_access\""
+					},
+					{
+						"goName": "RunToolEvalTypeFetch",
+						"value": "fetch",
+						"literal": "\"fetch\""
+					},
+					{
+						"goName": "RunToolEvalTypeMcpBusinessPlanEducation",
+						"value": "mcp_business_plan_education",
+						"literal": "\"mcp_business_plan_education\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreatePages",
+						"value": "create_pages",
+						"literal": "\"create_pages\""
+					},
+					{
+						"goName": "RunToolEvalTypeUpdatePage",
+						"value": "update_page",
+						"literal": "\"update_page\""
+					},
+					{
+						"goName": "RunToolEvalTypeConvertPageToSkill",
+						"value": "convert_page_to_skill",
+						"literal": "\"convert_page_to_skill\""
+					},
+					{
+						"goName": "RunToolEvalTypeSearchSkills",
+						"value": "search_skills",
+						"literal": "\"search_skills\""
+					},
+					{
+						"goName": "RunToolEvalTypeMovePages",
+						"value": "move_pages",
+						"literal": "\"move_pages\""
+					},
+					{
+						"goName": "RunToolEvalTypeDuplicatePage",
+						"value": "duplicate_page",
+						"literal": "\"duplicate_page\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreateDatabase",
+						"value": "create_database",
+						"literal": "\"create_database\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreateFolder",
+						"value": "create_folder",
+						"literal": "\"create_folder\""
+					},
+					{
+						"goName": "RunToolEvalTypeUpdateFolder",
+						"value": "update_folder",
+						"literal": "\"update_folder\""
+					},
+					{
+						"goName": "RunToolEvalTypeUpdateDataSource",
+						"value": "update_data_source",
+						"literal": "\"update_data_source\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreateComment",
+						"value": "create_comment",
+						"literal": "\"create_comment\""
+					},
+					{
+						"goName": "RunToolEvalTypeGetComments",
+						"value": "get_comments",
+						"literal": "\"get_comments\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreateSuggestedEdit",
+						"value": "create_suggested_edit",
+						"literal": "\"create_suggested_edit\""
+					},
+					{
+						"goName": "RunToolEvalTypeGetSuggestedEdit",
+						"value": "get_suggested_edit",
+						"literal": "\"get_suggested_edit\""
+					},
+					{
+						"goName": "RunToolEvalTypeResolveSuggestedEdit",
+						"value": "resolve_suggested_edit",
+						"literal": "\"resolve_suggested_edit\""
+					},
+					{
+						"goName": "RunToolEvalTypeGetAsyncTask",
+						"value": "get_async_task",
+						"literal": "\"get_async_task\""
+					},
+					{
+						"goName": "RunToolEvalTypeGetTeams",
+						"value": "get_teams",
+						"literal": "\"get_teams\""
+					},
+					{
+						"goName": "RunToolEvalTypeGetUsers",
+						"value": "get_users",
+						"literal": "\"get_users\""
+					},
+					{
+						"goName": "RunToolEvalTypeReplyToSlackThread",
+						"value": "reply_to_slack_thread",
+						"literal": "\"reply_to_slack_thread\""
+					},
+					{
+						"goName": "RunToolEvalTypeAnswerQuestion",
+						"value": "answer_question",
+						"literal": "\"answer_question\""
+					},
+					{
+						"goName": "RunToolEvalTypeQueryDataSources",
+						"value": "query_data_sources",
+						"literal": "\"query_data_sources\""
+					},
+					{
+						"goName": "RunToolEvalTypeQueryMultipleDataSources",
+						"value": "query_multiple_data_sources",
+						"literal": "\"query_multiple_data_sources\""
+					},
+					{
+						"goName": "RunToolEvalTypeQueryDatabaseView",
+						"value": "query_database_view",
+						"literal": "\"query_database_view\""
+					},
+					{
+						"goName": "RunToolEvalTypeQueryMeetingNotes",
+						"value": "query_meeting_notes",
+						"literal": "\"query_meeting_notes\""
+					},
+					{
+						"goName": "RunToolEvalTypeListAgents",
+						"value": "list_agents",
+						"literal": "\"list_agents\""
+					},
+					{
+						"goName": "RunToolEvalTypeListPrivatePages",
+						"value": "list_private_pages",
+						"literal": "\"list_private_pages\""
+					},
+					{
+						"goName": "RunToolEvalTypeListSharedPages",
+						"value": "list_shared_pages",
+						"literal": "\"list_shared_pages\""
+					},
+					{
+						"goName": "RunToolEvalTypeListFavoritePages",
+						"value": "list_favorite_pages",
+						"literal": "\"list_favorite_pages\""
+					},
+					{
+						"goName": "RunToolEvalTypeListRecentPages",
+						"value": "list_recent_pages",
+						"literal": "\"list_recent_pages\""
+					},
+					{
+						"goName": "RunToolEvalTypeSearchAgents",
+						"value": "search_agents",
+						"literal": "\"search_agents\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreateView",
+						"value": "create_view",
+						"literal": "\"create_view\""
+					},
+					{
+						"goName": "RunToolEvalTypeUpdateView",
+						"value": "update_view",
+						"literal": "\"update_view\""
+					},
+					{
+						"goName": "RunToolEvalTypeSearchEmails",
+						"value": "search_emails",
+						"literal": "\"search_emails\""
+					},
+					{
+						"goName": "RunToolEvalTypeViewThreadContent",
+						"value": "view_thread_content",
+						"literal": "\"view_thread_content\""
+					},
+					{
+						"goName": "RunToolEvalTypeCreateWorkspaceBookmark",
+						"value": "create_workspace_bookmark",
+						"literal": "\"create_workspace_bookmark\""
+					},
+					{
+						"goName": "RunToolEvalTypeListWorkspaceBookmarks",
+						"value": "list_workspace_bookmarks",
+						"literal": "\"list_workspace_bookmarks\""
+					},
+					{
+						"goName": "RunToolEvalTypeDeleteWorkspaceBookmark",
+						"value": "delete_workspace_bookmark",
+						"literal": "\"delete_workspace_bookmark\""
+					}
+				],
 				"values": [
 					{
 						"value": "search",
-						"field": "Search",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "ai_search",
-						"field": "AiSearch",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "ai_search",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "memory_search",
-						"field": "MemorySearch",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "memory_search",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_tool_access",
-						"field": "GetToolAccess",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_tool_access",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "fetch",
-						"field": "Fetch",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "fetch",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "mcp_business_plan_education",
-						"field": "McpBusinessPlanEducation",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "mcp_business_plan_education",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_pages",
-						"field": "CreatePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_page",
-						"field": "UpdatePage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "convert_page_to_skill",
-						"field": "ConvertPageToSkill",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "convert_page_to_skill",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_skills",
-						"field": "SearchSkills",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_skills",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "move_pages",
-						"field": "MovePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "move_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "duplicate_page",
-						"field": "DuplicatePage",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "duplicate_page",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_database",
-						"field": "CreateDatabase",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_database",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_folder",
-						"field": "CreateFolder",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_folder",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_folder",
-						"field": "UpdateFolder",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_folder",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_data_source",
-						"field": "UpdateDataSource",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_data_source",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_comment",
-						"field": "CreateComment",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_comment",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_comments",
-						"field": "GetComments",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_comments",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_suggested_edit",
-						"field": "CreateSuggestedEdit",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_suggested_edit",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_suggested_edit",
-						"field": "GetSuggestedEdit",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_suggested_edit",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "resolve_suggested_edit",
-						"field": "ResolveSuggestedEdit",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "resolve_suggested_edit",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_async_task",
-						"field": "GetAsyncTask",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_async_task",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_teams",
-						"field": "GetTeams",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_teams",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "get_users",
-						"field": "GetUsers",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "get_users",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "reply_to_slack_thread",
-						"field": "ReplyToSlackThread",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "reply_to_slack_thread",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "answer_question",
-						"field": "AnswerQuestion",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "answer_question",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_data_sources",
-						"field": "QueryDataSources",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_data_sources",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_multiple_data_sources",
-						"field": "QueryMultipleDataSources",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_multiple_data_sources",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_database_view",
-						"field": "QueryDatabaseView",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_database_view",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "query_meeting_notes",
-						"field": "QueryMeetingNotes",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "query_meeting_notes",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_agents",
-						"field": "ListAgents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_agents",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_private_pages",
-						"field": "ListPrivatePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_private_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_shared_pages",
-						"field": "ListSharedPages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_shared_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_favorite_pages",
-						"field": "ListFavoritePages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_favorite_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_recent_pages",
-						"field": "ListRecentPages",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_recent_pages",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_agents",
-						"field": "SearchAgents",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_agents",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_view",
-						"field": "CreateView",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_view",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "update_view",
-						"field": "UpdateView",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "update_view",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "search_emails",
-						"field": "SearchEmails",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "search_emails",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "view_thread_content",
-						"field": "ViewThreadContent",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "view_thread_content",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "create_workspace_bookmark",
-						"field": "CreateWorkspaceBookmark",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "create_workspace_bookmark",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "list_workspace_bookmarks",
-						"field": "ListWorkspaceBookmarks",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "list_workspace_bookmarks",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "delete_workspace_bookmark",
+						"members": [
+							{
+								"name": "delete_workspace_bookmark",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "search",
+						"field": "Search",
+						"zero": "nil"
+					},
+					{
+						"name": "ai_search",
+						"field": "AiSearch",
+						"zero": "nil"
+					},
+					{
+						"name": "memory_search",
+						"field": "MemorySearch",
+						"zero": "nil"
+					},
+					{
+						"name": "get_tool_access",
+						"field": "GetToolAccess",
+						"zero": "nil"
+					},
+					{
+						"name": "fetch",
+						"field": "Fetch",
+						"zero": "nil"
+					},
+					{
+						"name": "mcp_business_plan_education",
+						"field": "McpBusinessPlanEducation",
+						"zero": "nil"
+					},
+					{
+						"name": "create_pages",
+						"field": "CreatePages",
+						"zero": "nil"
+					},
+					{
+						"name": "update_page",
+						"field": "UpdatePage",
+						"zero": "nil"
+					},
+					{
+						"name": "convert_page_to_skill",
+						"field": "ConvertPageToSkill",
+						"zero": "nil"
+					},
+					{
+						"name": "search_skills",
+						"field": "SearchSkills",
+						"zero": "nil"
+					},
+					{
+						"name": "move_pages",
+						"field": "MovePages",
+						"zero": "nil"
+					},
+					{
+						"name": "duplicate_page",
+						"field": "DuplicatePage",
+						"zero": "nil"
+					},
+					{
+						"name": "create_database",
+						"field": "CreateDatabase",
+						"zero": "nil"
+					},
+					{
+						"name": "create_folder",
+						"field": "CreateFolder",
+						"zero": "nil"
+					},
+					{
+						"name": "update_folder",
+						"field": "UpdateFolder",
+						"zero": "nil"
+					},
+					{
+						"name": "update_data_source",
+						"field": "UpdateDataSource",
+						"zero": "nil"
+					},
+					{
+						"name": "create_comment",
+						"field": "CreateComment",
+						"zero": "nil"
+					},
+					{
+						"name": "get_comments",
+						"field": "GetComments",
+						"zero": "nil"
+					},
+					{
+						"name": "create_suggested_edit",
+						"field": "CreateSuggestedEdit",
+						"zero": "nil"
+					},
+					{
+						"name": "get_suggested_edit",
+						"field": "GetSuggestedEdit",
+						"zero": "nil"
+					},
+					{
+						"name": "resolve_suggested_edit",
+						"field": "ResolveSuggestedEdit",
+						"zero": "nil"
+					},
+					{
+						"name": "get_async_task",
+						"field": "GetAsyncTask",
+						"zero": "nil"
+					},
+					{
+						"name": "get_teams",
+						"field": "GetTeams",
+						"zero": "nil"
+					},
+					{
+						"name": "get_users",
+						"field": "GetUsers",
+						"zero": "nil"
+					},
+					{
+						"name": "reply_to_slack_thread",
+						"field": "ReplyToSlackThread",
+						"zero": "nil"
+					},
+					{
+						"name": "answer_question",
+						"field": "AnswerQuestion",
+						"zero": "nil"
+					},
+					{
+						"name": "query_data_sources",
+						"field": "QueryDataSources",
+						"zero": "nil"
+					},
+					{
+						"name": "query_multiple_data_sources",
+						"field": "QueryMultipleDataSources",
+						"zero": "nil"
+					},
+					{
+						"name": "query_database_view",
+						"field": "QueryDatabaseView",
+						"zero": "nil"
+					},
+					{
+						"name": "query_meeting_notes",
+						"field": "QueryMeetingNotes",
+						"zero": "nil"
+					},
+					{
+						"name": "list_agents",
+						"field": "ListAgents",
+						"zero": "nil"
+					},
+					{
+						"name": "list_private_pages",
+						"field": "ListPrivatePages",
+						"zero": "nil"
+					},
+					{
+						"name": "list_shared_pages",
+						"field": "ListSharedPages",
+						"zero": "nil"
+					},
+					{
+						"name": "list_favorite_pages",
+						"field": "ListFavoritePages",
+						"zero": "nil"
+					},
+					{
+						"name": "list_recent_pages",
+						"field": "ListRecentPages",
+						"zero": "nil"
+					},
+					{
+						"name": "search_agents",
+						"field": "SearchAgents",
+						"zero": "nil"
+					},
+					{
+						"name": "create_view",
+						"field": "CreateView",
+						"zero": "nil"
+					},
+					{
+						"name": "update_view",
+						"field": "UpdateView",
+						"zero": "nil"
+					},
+					{
+						"name": "search_emails",
+						"field": "SearchEmails",
+						"zero": "nil"
+					},
+					{
+						"name": "view_thread_content",
+						"field": "ViewThreadContent",
+						"zero": "nil"
+					},
+					{
+						"name": "create_workspace_bookmark",
+						"field": "CreateWorkspaceBookmark",
+						"zero": "nil"
+					},
+					{
+						"name": "list_workspace_bookmarks",
+						"field": "ListWorkspaceBookmarks",
+						"zero": "nil"
+					},
+					{
+						"name": "delete_workspace_bookmark",
 						"field": "DeleteWorkspaceBookmark",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -32333,7 +36439,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "RunToolOneOfResultsItem2Type",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				}
@@ -32341,7 +36447,19 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "RunToolOneOfResultsItem2Type",
+				"enum": [
+					{
+						"goName": "RunToolOneOfResultsItem2TypePage",
+						"value": "page",
+						"literal": "\"page\""
+					},
+					{
+						"goName": "RunToolOneOfResultsItem2TypeDatabase",
+						"value": "database",
+						"literal": "\"database\""
+					}
+				],
 				"values": [
 					{
 						"value": "page"
@@ -43828,7 +47946,24 @@
 				},
 				{
 					"fieldName": "UserObjectResponse",
-					"type": "UserObjectResponse"
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"choices": [
@@ -43847,7 +47982,24 @@
 				},
 				{
 					"fieldName": "UserObjectResponse",
-					"type": "UserObjectResponse"
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true
 				}
 			]
 		},
@@ -44464,7 +48616,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "SimpleOrArrayPropertyValueResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -44610,136 +48762,439 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "SimpleOrArrayPropertyValueResponseType",
+				"enum": [
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeURL",
+						"value": "url",
+						"literal": "\"url\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeSelect",
+						"value": "select",
+						"literal": "\"select\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeMultiSelect",
+						"value": "multi_select",
+						"literal": "\"multi_select\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeStatus",
+						"value": "status",
+						"literal": "\"status\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeEmail",
+						"value": "email",
+						"literal": "\"email\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypePhoneNumber",
+						"value": "phone_number",
+						"literal": "\"phone_number\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeCheckbox",
+						"value": "checkbox",
+						"literal": "\"checkbox\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeFiles",
+						"value": "files",
+						"literal": "\"files\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeCreatedBy",
+						"value": "created_by",
+						"literal": "\"created_by\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeCreatedTime",
+						"value": "created_time",
+						"literal": "\"created_time\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeLastEditedBy",
+						"value": "last_edited_by",
+						"literal": "\"last_edited_by\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeLastEditedTime",
+						"value": "last_edited_time",
+						"literal": "\"last_edited_time\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeFormula",
+						"value": "formula",
+						"literal": "\"formula\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeButton",
+						"value": "button",
+						"literal": "\"button\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeUniqueID",
+						"value": "unique_id",
+						"literal": "\"unique_id\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeVerification",
+						"value": "verification",
+						"literal": "\"verification\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypePlace",
+						"value": "place",
+						"literal": "\"place\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeTitle",
+						"value": "title",
+						"literal": "\"title\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeRichText",
+						"value": "rich_text",
+						"literal": "\"rich_text\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypePeople",
+						"value": "people",
+						"literal": "\"people\""
+					},
+					{
+						"goName": "SimpleOrArrayPropertyValueResponseTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					}
+				],
 				"values": [
 					{
 						"value": "number",
+						"members": [
+							{
+								"name": "number"
+							}
+						]
+					},
+					{
+						"value": "url",
+						"members": [
+							{
+								"name": "url"
+							}
+						]
+					},
+					{
+						"value": "select",
+						"members": [
+							{
+								"name": "select"
+							}
+						]
+					},
+					{
+						"value": "multi_select",
+						"members": [
+							{
+								"name": "multi_select",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "status",
+						"members": [
+							{
+								"name": "status"
+							}
+						]
+					},
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date"
+							}
+						]
+					},
+					{
+						"value": "email",
+						"members": [
+							{
+								"name": "email"
+							}
+						]
+					},
+					{
+						"value": "phone_number",
+						"members": [
+							{
+								"name": "phone_number"
+							}
+						]
+					},
+					{
+						"value": "checkbox",
+						"members": [
+							{
+								"name": "checkbox",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "files",
+						"members": [
+							{
+								"name": "files",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "created_by",
+						"members": [
+							{
+								"name": "created_by",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "created_time",
+						"members": [
+							{
+								"name": "created_time",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "last_edited_by",
+						"members": [
+							{
+								"name": "last_edited_by",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "last_edited_time",
+						"members": [
+							{
+								"name": "last_edited_time",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "formula",
+						"members": [
+							{
+								"name": "formula",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "button",
+						"members": [
+							{
+								"name": "button",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "unique_id",
+						"members": [
+							{
+								"name": "unique_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "verification",
+						"members": [
+							{
+								"name": "verification"
+							}
+						]
+					},
+					{
+						"value": "place",
+						"members": [
+							{
+								"name": "place"
+							}
+						]
+					},
+					{
+						"value": "title",
+						"members": [
+							{
+								"name": "title",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "rich_text",
+						"members": [
+							{
+								"name": "rich_text",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "people",
+						"members": [
+							{
+								"name": "people",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "relation",
+						"members": [
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
 						"field": "Number",
 						"zero": "nil"
 					},
 					{
-						"value": "url",
+						"name": "url",
 						"field": "URL",
 						"zero": "nil"
 					},
 					{
-						"value": "select",
+						"name": "select",
 						"field": "Select",
 						"zero": "nil"
 					},
 					{
-						"value": "multi_select",
+						"name": "multi_select",
 						"field": "MultiSelect",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "status",
+						"name": "status",
 						"field": "Status",
 						"zero": "nil"
 					},
 					{
-						"value": "date",
+						"name": "date",
 						"field": "Date",
 						"zero": "nil"
 					},
 					{
-						"value": "email",
+						"name": "email",
 						"field": "Email",
 						"zero": "nil"
 					},
 					{
-						"value": "phone_number",
+						"name": "phone_number",
 						"field": "PhoneNumber",
 						"zero": "nil"
 					},
 					{
-						"value": "checkbox",
+						"name": "checkbox",
 						"field": "Checkbox",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "files",
+						"name": "files",
 						"field": "Files",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "created_by",
+						"name": "created_by",
 						"field": "CreatedBy",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "created_time",
+						"name": "created_time",
 						"field": "CreatedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "last_edited_by",
+						"name": "last_edited_by",
 						"field": "LastEditedBy",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "last_edited_time",
+						"name": "last_edited_time",
 						"field": "LastEditedTime",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "formula",
+						"name": "formula",
 						"field": "Formula",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "button",
+						"name": "button",
 						"field": "Button",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "unique_id",
+						"name": "unique_id",
 						"field": "UniqueID",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "verification",
+						"name": "verification",
 						"field": "Verification",
 						"zero": "nil"
 					},
 					{
-						"value": "place",
+						"name": "place",
 						"field": "Place",
 						"zero": "nil"
 					},
 					{
-						"value": "title",
+						"name": "title",
 						"field": "Title",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "rich_text",
+						"name": "rich_text",
 						"field": "RichText",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "people",
+						"name": "people",
 						"field": "People",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					},
 					{
-						"value": "relation",
+						"name": "relation",
 						"field": "Relation",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -45622,7 +50077,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "TemplateMention2Type",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -45644,19 +50099,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "TemplateMention2Type",
+				"enum": [
+					{
+						"goName": "TemplateMention2TypeTemplateMentionDate",
+						"value": "template_mention_date",
+						"literal": "\"template_mention_date\""
+					},
+					{
+						"goName": "TemplateMention2TypeTemplateMentionUser",
+						"value": "template_mention_user",
+						"literal": "\"template_mention_user\""
+					}
+				],
 				"values": [
 					{
 						"value": "template_mention_date",
-						"field": "TemplateMentionDate",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "template_mention_date",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "template_mention_user",
+						"members": [
+							{
+								"name": "template_mention_user",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "template_mention_date",
+						"field": "TemplateMentionDate",
+						"zero": "\"\""
+					},
+					{
+						"name": "template_mention_user",
 						"field": "TemplateMentionUser",
-						"zero": "\"\"",
-						"required": true
+						"zero": "\"\""
 					}
 				]
 			}
@@ -52418,7 +56903,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "ToolInputAnyOfNewParentType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -52447,28 +56932,76 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "ToolInputAnyOfNewParentType",
+				"enum": [
+					{
+						"goName": "ToolInputAnyOfNewParentTypePageID",
+						"value": "page_id",
+						"literal": "\"page_id\""
+					},
+					{
+						"goName": "ToolInputAnyOfNewParentTypeDatabaseID",
+						"value": "database_id",
+						"literal": "\"database_id\""
+					},
+					{
+						"goName": "ToolInputAnyOfNewParentTypeDataSourceID",
+						"value": "data_source_id",
+						"literal": "\"data_source_id\""
+					},
+					{
+						"goName": "ToolInputAnyOfNewParentTypeWorkspace",
+						"value": "workspace",
+						"literal": "\"workspace\""
+					}
+				],
 				"values": [
 					{
 						"value": "page_id",
-						"field": "PageID",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "page_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "database_id",
-						"field": "DatabaseID",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "database_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "data_source_id",
-						"field": "DataSourceID",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "data_source_id",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "workspace"
+					}
+				],
+				"members": [
+					{
+						"name": "page_id",
+						"field": "PageID",
+						"zero": "\"\""
+					},
+					{
+						"name": "database_id",
+						"field": "DatabaseID",
+						"zero": "\"\""
+					},
+					{
+						"name": "data_source_id",
+						"field": "DataSourceID",
+						"zero": "\"\""
 					}
 				]
 			}
@@ -52817,7 +57350,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "ToolInputAnyOfPositionType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				}
@@ -52825,7 +57358,19 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "ToolInputAnyOfPositionType",
+				"enum": [
+					{
+						"goName": "ToolInputAnyOfPositionTypeStart",
+						"value": "start",
+						"literal": "\"start\""
+					},
+					{
+						"goName": "ToolInputAnyOfPositionTypeEnd",
+						"value": "end",
+						"literal": "\"end\""
+					}
+				],
 				"values": [
 					{
 						"value": "start"
@@ -53909,6 +58454,67 @@
 				{
 					"fieldName": "BlockObjectResponse",
 					"type": "BlockObjectResponse",
+					"members": [
+						"audio",
+						"bookmark",
+						"breadcrumb",
+						"bulleted_list_item",
+						"callout",
+						"child_database",
+						"child_page",
+						"code",
+						"column",
+						"column_list",
+						"created_by",
+						"created_time",
+						"divider",
+						"embed",
+						"equation",
+						"file",
+						"has_children",
+						"heading_1",
+						"heading_2",
+						"heading_3",
+						"heading_4",
+						"id",
+						"image",
+						"in_trash",
+						"last_edited_by",
+						"last_edited_time",
+						"link_preview",
+						"link_to_page",
+						"meeting_notes",
+						"numbered_list_item",
+						"object",
+						"paragraph",
+						"parent",
+						"pdf",
+						"quote",
+						"synced_block",
+						"tab",
+						"table",
+						"table_of_contents",
+						"table_row",
+						"template",
+						"to_do",
+						"toggle",
+						"type",
+						"unsupported",
+						"video"
+					],
+					"required": [
+						"created_by",
+						"created_time",
+						"has_children",
+						"id",
+						"in_trash",
+						"last_edited_by",
+						"last_edited_time",
+						"object",
+						"parent",
+						"type"
+					],
+					"object": true,
 					"path": [
 						{
 							"field": "UnsharePageFromWebOkAnyOf1",
@@ -54010,7 +58616,68 @@
 				},
 				{
 					"fieldName": "BlockObjectResponse",
-					"type": "BlockObjectResponse"
+					"type": "BlockObjectResponse",
+					"members": [
+						"audio",
+						"bookmark",
+						"breadcrumb",
+						"bulleted_list_item",
+						"callout",
+						"child_database",
+						"child_page",
+						"code",
+						"column",
+						"column_list",
+						"created_by",
+						"created_time",
+						"divider",
+						"embed",
+						"equation",
+						"file",
+						"has_children",
+						"heading_1",
+						"heading_2",
+						"heading_3",
+						"heading_4",
+						"id",
+						"image",
+						"in_trash",
+						"last_edited_by",
+						"last_edited_time",
+						"link_preview",
+						"link_to_page",
+						"meeting_notes",
+						"numbered_list_item",
+						"object",
+						"paragraph",
+						"parent",
+						"pdf",
+						"quote",
+						"synced_block",
+						"tab",
+						"table",
+						"table_of_contents",
+						"table_row",
+						"template",
+						"to_do",
+						"toggle",
+						"type",
+						"unsupported",
+						"video"
+					],
+					"required": [
+						"created_by",
+						"created_time",
+						"has_children",
+						"id",
+						"in_trash",
+						"last_edited_by",
+						"last_edited_time",
+						"object",
+						"parent",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"choices": [
@@ -54029,7 +58696,68 @@
 				},
 				{
 					"fieldName": "BlockObjectResponse",
-					"type": "BlockObjectResponse"
+					"type": "BlockObjectResponse",
+					"members": [
+						"audio",
+						"bookmark",
+						"breadcrumb",
+						"bulleted_list_item",
+						"callout",
+						"child_database",
+						"child_page",
+						"code",
+						"column",
+						"column_list",
+						"created_by",
+						"created_time",
+						"divider",
+						"embed",
+						"equation",
+						"file",
+						"has_children",
+						"heading_1",
+						"heading_2",
+						"heading_3",
+						"heading_4",
+						"id",
+						"image",
+						"in_trash",
+						"last_edited_by",
+						"last_edited_time",
+						"link_preview",
+						"link_to_page",
+						"meeting_notes",
+						"numbered_list_item",
+						"object",
+						"paragraph",
+						"parent",
+						"pdf",
+						"quote",
+						"synced_block",
+						"tab",
+						"table",
+						"table_of_contents",
+						"table_row",
+						"template",
+						"to_do",
+						"toggle",
+						"type",
+						"unsupported",
+						"video"
+					],
+					"required": [
+						"created_by",
+						"created_time",
+						"has_children",
+						"id",
+						"in_trash",
+						"last_edited_by",
+						"last_edited_time",
+						"object",
+						"parent",
+						"type"
+					],
+					"object": true
 				}
 			]
 		},
@@ -55929,7 +60657,19 @@
 			"unionVariants": [
 				{
 					"fieldName": "PageIconResponse",
-					"type": "PageIconResponse"
+					"type": "PageIconResponse",
+					"members": [
+						"custom_emoji",
+						"emoji",
+						"external",
+						"file",
+						"icon",
+						"type"
+					],
+					"required": [
+						"type"
+					],
+					"object": true
 				},
 				{
 					"fieldName": "UpdateAgentIconOneOf",
@@ -55948,7 +60688,19 @@
 			"choices": [
 				{
 					"fieldName": "PageIconResponse",
-					"type": "PageIconResponse"
+					"type": "PageIconResponse",
+					"members": [
+						"custom_emoji",
+						"emoji",
+						"external",
+						"file",
+						"icon",
+						"type"
+					],
+					"required": [
+						"type"
+					],
+					"object": true
 				},
 				{
 					"fieldName": "UpdateAgentIconOneOf",
@@ -57341,7 +62093,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "UserObjectResponseType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -57372,19 +62124,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "UserObjectResponseType",
+				"enum": [
+					{
+						"goName": "UserObjectResponseTypePerson",
+						"value": "person",
+						"literal": "\"person\""
+					},
+					{
+						"goName": "UserObjectResponseTypeBot",
+						"value": "bot",
+						"literal": "\"bot\""
+					}
+				],
 				"values": [
 					{
 						"value": "person",
-						"field": "Person",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "person",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "bot",
+						"members": [
+							{
+								"name": "bot",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "person",
+						"field": "Person",
+						"zero": "nil"
+					},
+					{
+						"name": "bot",
 						"field": "Bot",
-						"zero": "nil",
-						"required": true
+						"zero": "nil"
 					}
 				]
 			}
@@ -57561,7 +62343,24 @@
 				},
 				{
 					"fieldName": "UserObjectResponse",
-					"type": "UserObjectResponse"
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"choices": [
@@ -57580,7 +62379,24 @@
 				},
 				{
 					"fieldName": "UserObjectResponse",
-					"type": "UserObjectResponse"
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true
 				}
 			],
 			"isOneOf": true
@@ -59370,8 +64186,7 @@
 					"description": "Always true for workspace parent.",
 					"required": true
 				}
-			],
-			"memberDecoder": true
+			]
 		}
 	],
 	"security": {
