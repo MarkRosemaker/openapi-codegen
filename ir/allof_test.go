@@ -200,3 +200,42 @@ func TestFromDocument_SuccessReturns(t *testing.T) {
 		}
 	}
 }
+
+func TestFromDocument_AllOfBesideProperties(t *testing.T) {
+	t.Parallel()
+
+	// properties of a schema's own beside its allOf join the parts', with or without "type": "object"
+	doc := loadSchemas(t, `{
+		"Typed": {"type": "object", "required": ["code"], "properties": {"code": {"type": "string"}},
+			"allOf": [{"$ref": "#/components/schemas/Common"}, {"type": "object", "properties": {"detail": {"type": "string"}}}]},
+		"Untyped": {"required": ["code"], "properties": {"code": {"type": "string"}}, "allOf": [{"$ref": "#/components/schemas/Common"}]},
+		"Common": {"type": "object", "required": ["object", "status"], "properties": {"object": {"type": "string"}, "status": {"type": "integer"}}}
+	}`)
+
+	for name, want := range map[string][]string{
+		"Typed":   {"Common", "Detail string", "Code string"},
+		"Untyped": {"Common", "Code string"},
+	} {
+		s := schemaNamed(t, doc, name)
+		if s == nil {
+			t.Fatalf("%s has no type", name)
+		}
+
+		var got []string
+		for _, f := range s.Fields {
+			if f.Embedded {
+				got = append(got, f.Type)
+			} else {
+				got = append(got, f.Name+" "+f.Type)
+			}
+		}
+
+		if !slices.Equal(got, want) {
+			t.Errorf("%s fields: got %q, want %q", name, got, want)
+		}
+
+		if !slices.Contains(s.Members, "code") || !slices.Contains(s.Members, "object") {
+			t.Errorf("%s members: got %q", name, s.Members)
+		}
+	}
+}
