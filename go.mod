@@ -9,7 +9,7 @@ require (
 	github.com/MarkRosemaker/openapi v0.0.0-20261004011306-be02f94d99b2
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20261005040719-faa55c73c086
 	github.com/MarkRosemaker/openapi-edit v0.0.0-20261005040225-2437a6c91347
-	github.com/MarkRosemaker/openapi-enrich v0.0.0-20261005155459-c29f522aa995
+	github.com/MarkRosemaker/openapi-enrich v0.0.0-20261005171824-339a1b95e1c4
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261004203302-2ce9b8b4be0d
 	github.com/MarkRosemaker/ordmap v0.0.0-20261004011225-24f826464615
 	github.com/ettle/strcase v0.2.0
