@@ -7,7 +7,7 @@ require (
 	github.com/MarkRosemaker/fsutil v0.0.0-20261004011212-542873237c74
 	github.com/MarkRosemaker/jsonutil v0.0.0-20261004011215-c1eff28436f6
 	github.com/MarkRosemaker/openapi v0.0.0-20261004011306-be02f94d99b2
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261005010019-ae39a0f0b947
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261005040719-faa55c73c086
 	github.com/MarkRosemaker/openapi-edit v0.0.0-20261005040225-2437a6c91347
 	github.com/MarkRosemaker/openapi-enrich v0.0.0-20261005104202-d23dd530ad01
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261004203302-2ce9b8b4be0d
