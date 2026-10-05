@@ -75,7 +75,7 @@ type ListPermissionGroupMembersParams struct {
 type ListPersonalAccessTokensParams struct {
 	Cursor     string
 	PageSize   string
-	Status     []StatusOneOf0Item
+	Status     []StatusOneOfItem
 	CreatorIds []uuid.UUID
 	Search     string
 }
@@ -130,62 +130,6 @@ type AddLegalHoldUsers struct {
 	UserIds []uuid.UUID `json:"user_ids"`
 }
 
-// AddLegalHoldUsersOk defines a model
-type AddLegalHoldUsersOk struct {
-	CreatedBy           uuid.UUID                              `json:"created_by"`
-	CreatedTime         float64                                `json:"created_time"`
-	ID                  string                                 `json:"id"`
-	StartDate           float64                                `json:"start_date"`
-	Status              AddLegalHoldUsersOkStatus              `json:"status"`
-	UserInteractionType AddLegalHoldUsersOkUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                         `json:"users"`
-	Workspaces          LegalHoldUsers                         `json:"workspaces"`
-	Description         string                                 `json:"description,omitzero"`
-	EndDate             *float64                               `json:"end_date,omitzero"`
-	Icon                string                                 `json:"icon,omitzero"`
-	Name                string                                 `json:"name,omitzero"`
-}
-
-// AddLegalHoldUsersOkStatus defines a model
-type AddLegalHoldUsersOkStatus string
-
-const (
-	AddLegalHoldUsersOkStatusActive   AddLegalHoldUsersOkStatus = "active"
-	AddLegalHoldUsersOkStatusReleased AddLegalHoldUsersOkStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the AddLegalHoldUsersOkStatus enum.
-func (e AddLegalHoldUsersOkStatus) Valid() bool {
-	switch e {
-	case AddLegalHoldUsersOkStatusActive, AddLegalHoldUsersOkStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// AddLegalHoldUsersOkUserInteractionType defines a model
-type AddLegalHoldUsersOkUserInteractionType []AddLegalHoldUsersOkUserInteractionTypeItem
-
-// AddLegalHoldUsersOkUserInteractionTypeItem defines a model
-type AddLegalHoldUsersOkUserInteractionTypeItem string
-
-const (
-	AddLegalHoldUsersOkUserInteractionTypeItemPageDotCreated AddLegalHoldUsersOkUserInteractionTypeItem = "page.created"
-	AddLegalHoldUsersOkUserInteractionTypeItemPageDotEdited  AddLegalHoldUsersOkUserInteractionTypeItem = "page.edited"
-	AddLegalHoldUsersOkUserInteractionTypeItemPageDotViewed  AddLegalHoldUsersOkUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the AddLegalHoldUsersOkUserInteractionTypeItem enum.
-func (e AddLegalHoldUsersOkUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case AddLegalHoldUsersOkUserInteractionTypeItemPageDotCreated, AddLegalHoldUsersOkUserInteractionTypeItemPageDotEdited, AddLegalHoldUsersOkUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
-
 // AddPermissionGroupMember defines a model
 type AddPermissionGroupMember struct {
 	// The user to add as a direct member.
@@ -194,8 +138,20 @@ type AddPermissionGroupMember struct {
 	Role AddPermissionGroupMemberRole `json:"role"`
 }
 
-// The direct user member.
+// AddPermissionGroupMember2 defines a model
 type AddPermissionGroupMember2 struct {
+	// Always `group_membership`
+	Object string `json:"object"`
+	// The ID of the group.
+	GroupID string `json:"group_id"`
+	// The direct user member.
+	Member AddPermissionGroupMember3 `json:"member"`
+	// The user's role in the group.
+	Role AddPermissionGroupMemberRole `json:"role"`
+}
+
+// The direct user member.
+type AddPermissionGroupMember3 struct {
 	// Always `user`
 	Type string `json:"type"`
 	// The ID of the user.
@@ -210,37 +166,7 @@ type AddPermissionGroupMemberMember struct {
 	UserID IDRequest `json:"user_id"`
 }
 
-// AddPermissionGroupMemberOk defines a model
-type AddPermissionGroupMemberOk struct {
-	// Always `group_membership`
-	Object string `json:"object"`
-	// The ID of the group.
-	GroupID string `json:"group_id"`
-	// The direct user member.
-	Member AddPermissionGroupMember2 `json:"member"`
-	// The user's role in the group.
-	Role AddPermissionGroupMemberOkRole `json:"role"`
-}
-
-// The user's role in the group.
-type AddPermissionGroupMemberOkRole string
-
-const (
-	AddPermissionGroupMemberOkRoleOwner  AddPermissionGroupMemberOkRole = "owner"
-	AddPermissionGroupMemberOkRoleMember AddPermissionGroupMemberOkRole = "member"
-)
-
-// Valid indicates whether the value is a known member of the AddPermissionGroupMemberOkRole enum.
-func (e AddPermissionGroupMemberOkRole) Valid() bool {
-	switch e {
-	case AddPermissionGroupMemberOkRoleOwner, AddPermissionGroupMemberOkRoleMember:
-		return true
-	default:
-		return false
-	}
-}
-
-// The user's role in the group.
+// AddPermissionGroupMemberRole defines a model
 type AddPermissionGroupMemberRole string
 
 const (
@@ -260,91 +186,23 @@ func (e AddPermissionGroupMemberRole) Valid() bool {
 
 // AdminAPIError400 defines a model
 type AdminAPIError400 struct {
-	Type    AdminAPIError400Type `json:"type"`
-	Code    AdminAPIError400Code `json:"code"`
-	Status  int                  `json:"status"`
-	Message string               `json:"message"`
-}
-
-// AdminAPIError400Code defines a model
-type AdminAPIError400Code string
-
-const (
-	AdminAPIError400CodeValidationError AdminAPIError400Code = "validation_error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError400Code enum.
-func (e AdminAPIError400Code) Valid() bool {
-	switch e {
-	case AdminAPIError400CodeValidationError:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIError400Type defines a model
-type AdminAPIError400Type string
-
-const (
-	AdminAPIError400TypeError AdminAPIError400Type = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError400Type enum.
-func (e AdminAPIError400Type) Valid() bool {
-	switch e {
-	case AdminAPIError400TypeError:
-		return true
-	default:
-		return false
-	}
+	Type    AdminAPIErrorType `json:"type"`
+	Code    AdminAPIErrorCode `json:"code"`
+	Status  int               `json:"status"`
+	Message string            `json:"message"`
 }
 
 // AdminAPIError401 defines a model
 type AdminAPIError401 struct {
-	Type    AdminAPIError401Type `json:"type"`
-	Code    AdminAPIError401Code `json:"code"`
-	Status  int                  `json:"status"`
-	Message string               `json:"message"`
-}
-
-// AdminAPIError401Code defines a model
-type AdminAPIError401Code string
-
-const (
-	AdminAPIError401CodeUnauthorized AdminAPIError401Code = "unauthorized"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError401Code enum.
-func (e AdminAPIError401Code) Valid() bool {
-	switch e {
-	case AdminAPIError401CodeUnauthorized:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIError401Type defines a model
-type AdminAPIError401Type string
-
-const (
-	AdminAPIError401TypeError AdminAPIError401Type = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError401Type enum.
-func (e AdminAPIError401Type) Valid() bool {
-	switch e {
-	case AdminAPIError401TypeError:
-		return true
-	default:
-		return false
-	}
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode2 `json:"code"`
+	Status  int                `json:"status"`
+	Message string             `json:"message"`
 }
 
 // AdminAPIError403 defines a model
 type AdminAPIError403 struct {
-	Type    AdminAPIError403Type `json:"type"`
+	Type    AdminAPIErrorType    `json:"type"`
 	Code    AdminAPIError403Code `json:"code"`
 	Status  int                  `json:"status"`
 	Message string               `json:"message"`
@@ -368,26 +226,9 @@ func (e AdminAPIError403Code) Valid() bool {
 	}
 }
 
-// AdminAPIError403Type defines a model
-type AdminAPIError403Type string
-
-const (
-	AdminAPIError403TypeError AdminAPIError403Type = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError403Type enum.
-func (e AdminAPIError403Type) Valid() bool {
-	switch e {
-	case AdminAPIError403TypeError:
-		return true
-	default:
-		return false
-	}
-}
-
 // AdminAPIError404 defines a model
 type AdminAPIError404 struct {
-	Type    AdminAPIError404Type `json:"type"`
+	Type    AdminAPIErrorType    `json:"type"`
 	Code    AdminAPIError404Code `json:"code"`
 	Status  int                  `json:"status"`
 	Message string               `json:"message"`
@@ -410,101 +251,101 @@ func (e AdminAPIError404Code) Valid() bool {
 	}
 }
 
-// AdminAPIError404Type defines a model
-type AdminAPIError404Type string
-
-const (
-	AdminAPIError404TypeError AdminAPIError404Type = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError404Type enum.
-func (e AdminAPIError404Type) Valid() bool {
-	switch e {
-	case AdminAPIError404TypeError:
-		return true
-	default:
-		return false
-	}
-}
-
 // AdminAPIError429 defines a model
 type AdminAPIError429 struct {
-	Type    AdminAPIError429Type `json:"type"`
-	Code    AdminAPIError429Code `json:"code"`
-	Status  int                  `json:"status"`
-	Message string               `json:"message"`
-}
-
-// AdminAPIError429Code defines a model
-type AdminAPIError429Code string
-
-const (
-	AdminAPIError429CodeRateLimited AdminAPIError429Code = "rate_limited"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError429Code enum.
-func (e AdminAPIError429Code) Valid() bool {
-	switch e {
-	case AdminAPIError429CodeRateLimited:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIError429Type defines a model
-type AdminAPIError429Type string
-
-const (
-	AdminAPIError429TypeError AdminAPIError429Type = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIError429Type enum.
-func (e AdminAPIError429Type) Valid() bool {
-	switch e {
-	case AdminAPIError429TypeError:
-		return true
-	default:
-		return false
-	}
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode3 `json:"code"`
+	Status  int                `json:"status"`
+	Message string             `json:"message"`
 }
 
 // AdminAPIError500 defines a model
 type AdminAPIError500 struct {
-	Type    AdminAPIError500Type `json:"type"`
-	Code    AdminAPIError500Code `json:"code"`
-	Status  int                  `json:"status"`
-	Message string               `json:"message"`
+	Type    AdminAPIErrorType  `json:"type"`
+	Code    AdminAPIErrorCode4 `json:"code"`
+	Status  int                `json:"status"`
+	Message string             `json:"message"`
 }
 
-// AdminAPIError500Code defines a model
-type AdminAPIError500Code string
+// AdminAPIErrorCode defines a model
+type AdminAPIErrorCode string
 
 const (
-	AdminAPIError500CodeInternalServerError AdminAPIError500Code = "internal_server_error"
+	AdminAPIErrorCodeValidationError AdminAPIErrorCode = "validation_error"
 )
 
-// Valid indicates whether the value is a known member of the AdminAPIError500Code enum.
-func (e AdminAPIError500Code) Valid() bool {
+// Valid indicates whether the value is a known member of the AdminAPIErrorCode enum.
+func (e AdminAPIErrorCode) Valid() bool {
 	switch e {
-	case AdminAPIError500CodeInternalServerError:
+	case AdminAPIErrorCodeValidationError:
 		return true
 	default:
 		return false
 	}
 }
 
-// AdminAPIError500Type defines a model
-type AdminAPIError500Type string
+// AdminAPIErrorCode2 defines a model
+type AdminAPIErrorCode2 string
 
 const (
-	AdminAPIError500TypeError AdminAPIError500Type = "error"
+	AdminAPIErrorCode2Unauthorized AdminAPIErrorCode2 = "unauthorized"
 )
 
-// Valid indicates whether the value is a known member of the AdminAPIError500Type enum.
-func (e AdminAPIError500Type) Valid() bool {
+// Valid indicates whether the value is a known member of the AdminAPIErrorCode2 enum.
+func (e AdminAPIErrorCode2) Valid() bool {
 	switch e {
-	case AdminAPIError500TypeError:
+	case AdminAPIErrorCode2Unauthorized:
+		return true
+	default:
+		return false
+	}
+}
+
+// AdminAPIErrorCode3 defines a model
+type AdminAPIErrorCode3 string
+
+const (
+	AdminAPIErrorCode3RateLimited AdminAPIErrorCode3 = "rate_limited"
+)
+
+// Valid indicates whether the value is a known member of the AdminAPIErrorCode3 enum.
+func (e AdminAPIErrorCode3) Valid() bool {
+	switch e {
+	case AdminAPIErrorCode3RateLimited:
+		return true
+	default:
+		return false
+	}
+}
+
+// AdminAPIErrorCode4 defines a model
+type AdminAPIErrorCode4 string
+
+const (
+	AdminAPIErrorCode4InternalServerError AdminAPIErrorCode4 = "internal_server_error"
+)
+
+// Valid indicates whether the value is a known member of the AdminAPIErrorCode4 enum.
+func (e AdminAPIErrorCode4) Valid() bool {
+	switch e {
+	case AdminAPIErrorCode4InternalServerError:
+		return true
+	default:
+		return false
+	}
+}
+
+// AdminAPIErrorType defines a model
+type AdminAPIErrorType string
+
+const (
+	AdminAPIErrorTypeError AdminAPIErrorType = "error"
+)
+
+// Valid indicates whether the value is a known member of the AdminAPIErrorType enum.
+func (e AdminAPIErrorType) Valid() bool {
+	switch e {
+	case AdminAPIErrorTypeError:
 		return true
 	default:
 		return false
@@ -513,250 +354,29 @@ func (e AdminAPIError500Type) Valid() bool {
 
 // AdminAPIPublicError400 defines a model
 type AdminAPIPublicError400 struct {
-	Object         AdminAPIPublicError400Object                         `json:"object"`
-	Code           AdminAPIPublicError400Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError400AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError400AdditionalDataValue defines a model
-// AdminAPIPublicError400AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError400AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError400AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError400AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
-}
-
-// AdminAPIPublicError400Code defines a model
-type AdminAPIPublicError400Code string
-
-const (
-	AdminAPIPublicError400CodeValidationError AdminAPIPublicError400Code = "validation_error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError400Code enum.
-func (e AdminAPIPublicError400Code) Valid() bool {
-	switch e {
-	case AdminAPIPublicError400CodeValidationError:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIPublicError400Object defines a model
-type AdminAPIPublicError400Object string
-
-const (
-	AdminAPIPublicError400ObjectError AdminAPIPublicError400Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError400Object enum.
-func (e AdminAPIPublicError400Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError400ObjectError:
-		return true
-	default:
-		return false
-	}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode                                 `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError401 defines a model
 type AdminAPIPublicError401 struct {
-	Object         AdminAPIPublicError401Object                         `json:"object"`
-	Code           AdminAPIPublicError401Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError401AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError401AdditionalDataValue defines a model
-// AdminAPIPublicError401AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError401AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError401AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError401AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
-}
-
-// AdminAPIPublicError401Code defines a model
-type AdminAPIPublicError401Code string
-
-const (
-	AdminAPIPublicError401CodeUnauthorized AdminAPIPublicError401Code = "unauthorized"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError401Code enum.
-func (e AdminAPIPublicError401Code) Valid() bool {
-	switch e {
-	case AdminAPIPublicError401CodeUnauthorized:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIPublicError401Object defines a model
-type AdminAPIPublicError401Object string
-
-const (
-	AdminAPIPublicError401ObjectError AdminAPIPublicError401Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError401Object enum.
-func (e AdminAPIPublicError401Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError401ObjectError:
-		return true
-	default:
-		return false
-	}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode2                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError403 defines a model
 type AdminAPIPublicError403 struct {
-	Object         AdminAPIPublicError403Object                         `json:"object"`
-	Code           AdminAPIPublicError403Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError403AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError403AdditionalDataValue defines a model
-// AdminAPIPublicError403AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError403AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError403AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError403AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError403Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError403Code defines a model
@@ -776,81 +396,13 @@ func (e AdminAPIPublicError403Code) Valid() bool {
 	}
 }
 
-// AdminAPIPublicError403Object defines a model
-type AdminAPIPublicError403Object string
-
-const (
-	AdminAPIPublicError403ObjectError AdminAPIPublicError403Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError403Object enum.
-func (e AdminAPIPublicError403Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError403ObjectError:
-		return true
-	default:
-		return false
-	}
-}
-
 // AdminAPIPublicError404 defines a model
 type AdminAPIPublicError404 struct {
-	Object         AdminAPIPublicError404Object                         `json:"object"`
-	Code           AdminAPIPublicError404Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError404AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError404AdditionalDataValue defines a model
-// AdminAPIPublicError404AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError404AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError404AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError404AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError404Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError404Code defines a model
@@ -870,81 +422,13 @@ func (e AdminAPIPublicError404Code) Valid() bool {
 	}
 }
 
-// AdminAPIPublicError404Object defines a model
-type AdminAPIPublicError404Object string
-
-const (
-	AdminAPIPublicError404ObjectError AdminAPIPublicError404Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError404Object enum.
-func (e AdminAPIPublicError404Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError404ObjectError:
-		return true
-	default:
-		return false
-	}
-}
-
 // AdminAPIPublicError409 defines a model
 type AdminAPIPublicError409 struct {
-	Object         AdminAPIPublicError409Object                         `json:"object"`
-	Code           AdminAPIPublicError409Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError409AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError409AdditionalDataValue defines a model
-// AdminAPIPublicError409AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError409AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError409AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError409AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError409Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError409Code defines a model
@@ -964,269 +448,31 @@ func (e AdminAPIPublicError409Code) Valid() bool {
 	}
 }
 
-// AdminAPIPublicError409Object defines a model
-type AdminAPIPublicError409Object string
-
-const (
-	AdminAPIPublicError409ObjectError AdminAPIPublicError409Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError409Object enum.
-func (e AdminAPIPublicError409Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError409ObjectError:
-		return true
-	default:
-		return false
-	}
-}
-
 // AdminAPIPublicError429 defines a model
 type AdminAPIPublicError429 struct {
-	Object         AdminAPIPublicError429Object                         `json:"object"`
-	Code           AdminAPIPublicError429Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError429AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError429AdditionalDataValue defines a model
-// AdminAPIPublicError429AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError429AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError429AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError429AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
-}
-
-// AdminAPIPublicError429Code defines a model
-type AdminAPIPublicError429Code string
-
-const (
-	AdminAPIPublicError429CodeRateLimited AdminAPIPublicError429Code = "rate_limited"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError429Code enum.
-func (e AdminAPIPublicError429Code) Valid() bool {
-	switch e {
-	case AdminAPIPublicError429CodeRateLimited:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIPublicError429Object defines a model
-type AdminAPIPublicError429Object string
-
-const (
-	AdminAPIPublicError429ObjectError AdminAPIPublicError429Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError429Object enum.
-func (e AdminAPIPublicError429Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError429ObjectError:
-		return true
-	default:
-		return false
-	}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode3                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError500 defines a model
 type AdminAPIPublicError500 struct {
-	Object         AdminAPIPublicError500Object                         `json:"object"`
-	Code           AdminAPIPublicError500Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError500AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError500AdditionalDataValue defines a model
-// AdminAPIPublicError500AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError500AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError500AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError500AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
-}
-
-// AdminAPIPublicError500Code defines a model
-type AdminAPIPublicError500Code string
-
-const (
-	AdminAPIPublicError500CodeInternalServerError AdminAPIPublicError500Code = "internal_server_error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError500Code enum.
-func (e AdminAPIPublicError500Code) Valid() bool {
-	switch e {
-	case AdminAPIPublicError500CodeInternalServerError:
-		return true
-	default:
-		return false
-	}
-}
-
-// AdminAPIPublicError500Object defines a model
-type AdminAPIPublicError500Object string
-
-const (
-	AdminAPIPublicError500ObjectError AdminAPIPublicError500Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError500Object enum.
-func (e AdminAPIPublicError500Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError500ObjectError:
-		return true
-	default:
-		return false
-	}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIErrorCode4                                `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError503 defines a model
 type AdminAPIPublicError503 struct {
-	Object         AdminAPIPublicError503Object                         `json:"object"`
-	Code           AdminAPIPublicError503Code                           `json:"code"`
-	Status         int                                                  `json:"status"`
-	Message        string                                               `json:"message"`
-	AdditionalData map[string]AdminAPIPublicError503AdditionalDataValue `json:"additional_data,omitzero"`
-}
-
-// AdminAPIPublicError503AdditionalDataValue defines a model
-// AdminAPIPublicError503AdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
-type AdminAPIPublicError503AdditionalDataValue struct {
-	String  string
-	String2 []string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *AdminAPIPublicError503AdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	{
-		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	{
-		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.String2 = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *AdminAPIPublicError503AdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
-	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	Object         AdminAPIErrorType                                 `json:"object"`
+	Code           AdminAPIPublicError503Code                        `json:"code"`
+	Status         int                                               `json:"status"`
+	Message        string                                            `json:"message"`
+	AdditionalData map[string]AdminAPIPublicErrorAdditionalDataValue `json:"additional_data,omitzero"`
 }
 
 // AdminAPIPublicError503Code defines a model
@@ -1246,22 +492,83 @@ func (e AdminAPIPublicError503Code) Valid() bool {
 	}
 }
 
-// AdminAPIPublicError503Object defines a model
-type AdminAPIPublicError503Object string
-
-const (
-	AdminAPIPublicError503ObjectError AdminAPIPublicError503Object = "error"
-)
-
-// Valid indicates whether the value is a known member of the AdminAPIPublicError503Object enum.
-func (e AdminAPIPublicError503Object) Valid() bool {
-	switch e {
-	case AdminAPIPublicError503ObjectError:
-		return true
-	default:
-		return false
-	}
+// AdminAPIPublicErrorAdditionalDataValue defines a model
+// AdminAPIPublicErrorAdditionalDataValue is an untagged oneOf union: exactly one field is set after unmarshaling.
+type AdminAPIPublicErrorAdditionalDataValue struct {
+	String  string
+	String2 []string
 }
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv string
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.String = vv
+			matched++
+		}
+	}
+
+	{
+		var vv []string
+		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+			v.String2 = vv
+			matched++
+		}
+	}
+
+	if matched != 1 {
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *AdminAPIPublicErrorAdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.String != "":
+		return json.MarshalEncode(enc, v.String, jsonOpts)
+	case v.String2 != nil:
+		return json.MarshalEncode(enc, v.String2, jsonOpts)
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
+// AgentCreditUsage defines a model
+type AgentCreditUsage struct {
+	CreditPerBillingPeriodList AgentCreditUsageCreditPerBillingPeriodList `json:"credit_per_billing_period_list"`
+	// Whether more billing periods are available.
+	HasMore bool      `json:"has_more"`
+	ID      uuid.UUID `json:"id"`
+	// All-time count of finished (success or failure) runs for this agent.
+	RunsCompleted float64 `json:"runs_completed"`
+	// Agent status; same values as the list-agents endpoint's status field.
+	Status AgentCreditUsageStatus `json:"status"`
+	// All-time premium AI credits consumed by this agent across every period.
+	TotalCreditsUsed float64 `json:"total_credits_used"`
+	// Custom agents vs database (autofill) agents.
+	Type        AgentCreditUsageType `json:"type"`
+	CreatedByID uuid.UUID            `json:"created_by_id,omitzero"`
+	// Enforced per-agent credit limit, if one is configured.
+	CreditLimit *float64 `json:"credit_limit,omitzero"`
+	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
+	LastCreditUsageTime *float64 `json:"last_credit_usage_time,omitzero"`
+	Name                string   `json:"name,omitzero"`
+	// Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.
+	NextCursor string `json:"next_cursor,omitzero"`
+}
+
+// AgentCreditUsageCreditPerBillingPeriodList defines a model
+type AgentCreditUsageCreditPerBillingPeriodList []AgentCreditUsageCreditPerBillingPeriodListItem
 
 // Premium AI credits consumed by an agent in one monthly billing period.
 type AgentCreditUsageCreditPerBillingPeriodListItem struct {
@@ -1271,6 +578,71 @@ type AgentCreditUsageCreditPerBillingPeriodListItem struct {
 	MetricsPeriodEndMs float64 `json:"metrics_period_end_ms"`
 	// Start of the billing period (epoch ms, inclusive).
 	MetricsPeriodStartMs float64 `json:"metrics_period_start_ms"`
+}
+
+// AgentCreditUsageStatus defines a model
+type AgentCreditUsageStatus string
+
+const (
+	AgentCreditUsageStatusActive                                    AgentCreditUsageStatus = "active"
+	AgentCreditUsageStatusCreditLimit                               AgentCreditUsageStatus = "credit_limit"
+	AgentCreditUsageStatusDeleted                                   AgentCreditUsageStatus = "deleted"
+	AgentCreditUsageStatusDisabledByNotion                          AgentCreditUsageStatus = "disabled_by_notion"
+	AgentCreditUsageStatusDisabledDueToLackOfEditors                AgentCreditUsageStatus = "disabled_due_to_lack_of_editors"
+	AgentCreditUsageStatusDisabledDueToLackOfFullAccessMembers      AgentCreditUsageStatus = "disabled_due_to_lack_of_full_access_members"
+	AgentCreditUsageStatusDisabledFromAgentSettings                 AgentCreditUsageStatus = "disabled_from_agent_settings"
+	AgentCreditUsageStatusDisabledFromAPI                           AgentCreditUsageStatus = "disabled_from_api"
+	AgentCreditUsageStatusDisabledFromWorkspaceSettings             AgentCreditUsageStatus = "disabled_from_workspace_settings"
+	AgentCreditUsageStatusDisabledFromWorkspaceSettingsButResumable AgentCreditUsageStatus = "disabled_from_workspace_settings_but_resumable"
+	AgentCreditUsageStatusFailureLimit                              AgentCreditUsageStatus = "failure_limit"
+	AgentCreditUsageStatusInternalError                             AgentCreditUsageStatus = "internal_error"
+	AgentCreditUsageStatusMarkSessionFailedAutopause                AgentCreditUsageStatus = "mark_session_failed_autopause"
+	AgentCreditUsageStatusNeedsReview                               AgentCreditUsageStatus = "needs_review"
+	AgentCreditUsageStatusRunLimit                                  AgentCreditUsageStatus = "run_limit"
+	AgentCreditUsageStatusRunawayCreditUsage                        AgentCreditUsageStatus = "runaway_credit_usage"
+	AgentCreditUsageStatusToolUnavailable                           AgentCreditUsageStatus = "tool_unavailable"
+	AgentCreditUsageStatusWorkspaceCreditLimit                      AgentCreditUsageStatus = "workspace_credit_limit"
+)
+
+// Valid indicates whether the value is a known member of the AgentCreditUsageStatus enum.
+func (e AgentCreditUsageStatus) Valid() bool {
+	switch e {
+	case AgentCreditUsageStatusActive, AgentCreditUsageStatusCreditLimit, AgentCreditUsageStatusDeleted, AgentCreditUsageStatusDisabledByNotion, AgentCreditUsageStatusDisabledDueToLackOfEditors, AgentCreditUsageStatusDisabledDueToLackOfFullAccessMembers, AgentCreditUsageStatusDisabledFromAgentSettings, AgentCreditUsageStatusDisabledFromAPI, AgentCreditUsageStatusDisabledFromWorkspaceSettings, AgentCreditUsageStatusDisabledFromWorkspaceSettingsButResumable, AgentCreditUsageStatusFailureLimit, AgentCreditUsageStatusInternalError, AgentCreditUsageStatusMarkSessionFailedAutopause, AgentCreditUsageStatusNeedsReview, AgentCreditUsageStatusRunLimit, AgentCreditUsageStatusRunawayCreditUsage, AgentCreditUsageStatusToolUnavailable, AgentCreditUsageStatusWorkspaceCreditLimit:
+		return true
+	default:
+		return false
+	}
+}
+
+// Custom agents vs database (autofill) agents.
+type AgentCreditUsageType string
+
+const (
+	AgentCreditUsageTypeCustom           AgentCreditUsageType = "custom"
+	AgentCreditUsageTypeDatabaseAutofill AgentCreditUsageType = "database_autofill"
+)
+
+// Valid indicates whether the value is a known member of the AgentCreditUsageType enum.
+func (e AgentCreditUsageType) Valid() bool {
+	switch e {
+	case AgentCreditUsageTypeCustom, AgentCreditUsageTypeDatabaseAutofill:
+		return true
+	default:
+		return false
+	}
+}
+
+// AgentPermissions defines a model
+type AgentPermissions []AgentPermissionsItem
+
+// A principal with its stored and workspace-resolved roles.
+type AgentPermissionsItem struct {
+	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
+	Principal UpdateAgentPermissionsRemoveItem `json:"principal"`
+	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
+	ResolvedRole UpdateAgentPermissionsSetItemRole `json:"resolved_role"`
+	// The role stored on this principal's agent permission item.
+	Role UpdateAgentPermissionsSetItemRole `json:"role"`
 }
 
 // Bot defines a model
@@ -1303,6 +675,22 @@ type CreateCreditLimitPolicy struct {
 	ExpiresAt *int `json:"expires_at,omitzero"`
 }
 
+// CreateCreditLimitPolicy2 defines a model
+type CreateCreditLimitPolicy2 struct {
+	// Always `credit_limit_policy`
+	Object    string                           `json:"object"`
+	Amount    int                              `json:"amount"`
+	CreatedAt int                              `json:"created_at"`
+	CreatedBy CreateCreditLimitPolicyCreatedBy `json:"created_by"`
+	// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
+	CreditTypeUnit CreateCreditLimitPolicyCreditTypeUnit `json:"credit_type_unit"`
+	ID             uuid.UUID                             `json:"id"`
+	// All workspace members or one workspace member affected by the policy.
+	Selector  CreateCreditLimitPolicySelector `json:"selector"`
+	SpaceID   uuid.UUID                       `json:"space_id"`
+	ExpiresAt *int                            `json:"expires_at,omitzero"`
+}
+
 // CreateCreditLimitPolicyCreatedBy defines a model
 type CreateCreditLimitPolicyCreatedBy struct {
 	// Always `user`
@@ -1310,105 +698,24 @@ type CreateCreditLimitPolicyCreatedBy struct {
 	ID     uuid.UUID `json:"id"`
 }
 
-// CreateCreditLimitPolicyOk defines a model
-type CreateCreditLimitPolicyOk struct {
-	// Always `credit_limit_policy`
-	Object    string                           `json:"object"`
-	Amount    int                              `json:"amount"`
-	CreatedAt int                              `json:"created_at"`
-	CreatedBy CreateCreditLimitPolicyCreatedBy `json:"created_by"`
-	// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-	CreditTypeUnit CreateCreditLimitPolicyOkCreditTypeUnit `json:"credit_type_unit"`
-	ID             uuid.UUID                               `json:"id"`
-	// All workspace members or one workspace member affected by the policy.
-	Selector  CreateCreditLimitPolicyOkSelector `json:"selector"`
-	SpaceID   uuid.UUID                         `json:"space_id"`
-	ExpiresAt *int                              `json:"expires_at,omitzero"`
-}
-
 // One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-type CreateCreditLimitPolicyOkCreditTypeUnit string
+type CreateCreditLimitPolicyCreditTypeUnit string
 
 const (
-	CreateCreditLimitPolicyOkCreditTypeUnitBasicAiCredits   CreateCreditLimitPolicyOkCreditTypeUnit = "basic_ai_credits"
-	CreateCreditLimitPolicyOkCreditTypeUnitExemptAiCredits  CreateCreditLimitPolicyOkCreditTypeUnit = "exempt_ai_credits"
-	CreateCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits CreateCreditLimitPolicyOkCreditTypeUnit = "premium_ai_credits"
-	CreateCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits CreateCreditLimitPolicyOkCreditTypeUnit = "preview_ai_credits"
+	CreateCreditLimitPolicyCreditTypeUnitBasicAiCredits   CreateCreditLimitPolicyCreditTypeUnit = "basic_ai_credits"
+	CreateCreditLimitPolicyCreditTypeUnitExemptAiCredits  CreateCreditLimitPolicyCreditTypeUnit = "exempt_ai_credits"
+	CreateCreditLimitPolicyCreditTypeUnitPremiumAiCredits CreateCreditLimitPolicyCreditTypeUnit = "premium_ai_credits"
+	CreateCreditLimitPolicyCreditTypeUnitPreviewAiCredits CreateCreditLimitPolicyCreditTypeUnit = "preview_ai_credits"
 )
 
-// Valid indicates whether the value is a known member of the CreateCreditLimitPolicyOkCreditTypeUnit enum.
-func (e CreateCreditLimitPolicyOkCreditTypeUnit) Valid() bool {
+// Valid indicates whether the value is a known member of the CreateCreditLimitPolicyCreditTypeUnit enum.
+func (e CreateCreditLimitPolicyCreditTypeUnit) Valid() bool {
 	switch e {
-	case CreateCreditLimitPolicyOkCreditTypeUnitBasicAiCredits, CreateCreditLimitPolicyOkCreditTypeUnitExemptAiCredits, CreateCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits, CreateCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits:
+	case CreateCreditLimitPolicyCreditTypeUnitBasicAiCredits, CreateCreditLimitPolicyCreditTypeUnitExemptAiCredits, CreateCreditLimitPolicyCreditTypeUnitPremiumAiCredits, CreateCreditLimitPolicyCreditTypeUnitPreviewAiCredits:
 		return true
 	default:
 		return false
 	}
-}
-
-// All workspace members or one workspace member affected by the policy.
-// CreateCreditLimitPolicyOkSelector is an untagged oneOf union: exactly one field is set after unmarshaling.
-type CreateCreditLimitPolicyOkSelector struct {
-	CreateCreditLimitPolicySelectorOneOf  *CreateCreditLimitPolicySelectorOneOf
-	CreateCreditLimitPolicySelectorOneOf2 *CreateCreditLimitPolicySelectorOneOf2
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *CreateCreditLimitPolicyOkSelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "all_space_members":
-		var vv CreateCreditLimitPolicySelectorOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *CreateCreditLimitPolicyOkSelector) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.CreateCreditLimitPolicySelectorOneOf != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf, "all_space_members"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
 }
 
 // All workspace members or one workspace member affected by the policy.
@@ -1418,10 +725,10 @@ type CreateCreditLimitPolicySelector struct {
 	CreateCreditLimitPolicySelectorOneOf2 *CreateCreditLimitPolicySelectorOneOf2
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
+// decodes each further member as it is read. With type first, nothing is read twice.
 func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
+	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
 	}
@@ -1514,91 +821,13 @@ func (v *CreateCreditLimitPolicySelectorOneOf2) unmarshalJSONMember(dec *jsontex
 
 // CreateLegalHold defines a model
 type CreateLegalHold struct {
-	Name                string                             `json:"name"`
-	StartDate           float64                            `json:"start_date"`
-	UserIds             []uuid.UUID                        `json:"user_ids"`
-	UserInteractionType CreateLegalHoldUserInteractionType `json:"user_interaction_type"`
-	Description         string                             `json:"description,omitzero"`
-	EndDate             *float64                           `json:"end_date,omitzero"`
-	Icon                string                             `json:"icon,omitzero"`
-}
-
-// CreateLegalHoldOk defines a model
-type CreateLegalHoldOk struct {
-	CreatedBy           uuid.UUID                            `json:"created_by"`
-	CreatedTime         float64                              `json:"created_time"`
-	ID                  string                               `json:"id"`
-	StartDate           float64                              `json:"start_date"`
-	Status              CreateLegalHoldOkStatus              `json:"status"`
-	UserInteractionType CreateLegalHoldOkUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                       `json:"users"`
-	Workspaces          LegalHoldUsers                       `json:"workspaces"`
-	Description         string                               `json:"description,omitzero"`
-	EndDate             *float64                             `json:"end_date,omitzero"`
-	Icon                string                               `json:"icon,omitzero"`
-	Name                string                               `json:"name,omitzero"`
-}
-
-// CreateLegalHoldOkStatus defines a model
-type CreateLegalHoldOkStatus string
-
-const (
-	CreateLegalHoldOkStatusActive   CreateLegalHoldOkStatus = "active"
-	CreateLegalHoldOkStatusReleased CreateLegalHoldOkStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the CreateLegalHoldOkStatus enum.
-func (e CreateLegalHoldOkStatus) Valid() bool {
-	switch e {
-	case CreateLegalHoldOkStatusActive, CreateLegalHoldOkStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// CreateLegalHoldOkUserInteractionType defines a model
-type CreateLegalHoldOkUserInteractionType []CreateLegalHoldOkUserInteractionTypeItem
-
-// CreateLegalHoldOkUserInteractionTypeItem defines a model
-type CreateLegalHoldOkUserInteractionTypeItem string
-
-const (
-	CreateLegalHoldOkUserInteractionTypeItemPageDotCreated CreateLegalHoldOkUserInteractionTypeItem = "page.created"
-	CreateLegalHoldOkUserInteractionTypeItemPageDotEdited  CreateLegalHoldOkUserInteractionTypeItem = "page.edited"
-	CreateLegalHoldOkUserInteractionTypeItemPageDotViewed  CreateLegalHoldOkUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the CreateLegalHoldOkUserInteractionTypeItem enum.
-func (e CreateLegalHoldOkUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case CreateLegalHoldOkUserInteractionTypeItemPageDotCreated, CreateLegalHoldOkUserInteractionTypeItemPageDotEdited, CreateLegalHoldOkUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
-
-// CreateLegalHoldUserInteractionType defines a model
-type CreateLegalHoldUserInteractionType []CreateLegalHoldUserInteractionTypeItem
-
-// CreateLegalHoldUserInteractionTypeItem defines a model
-type CreateLegalHoldUserInteractionTypeItem string
-
-const (
-	CreateLegalHoldUserInteractionTypeItemPageDotCreated CreateLegalHoldUserInteractionTypeItem = "page.created"
-	CreateLegalHoldUserInteractionTypeItemPageDotEdited  CreateLegalHoldUserInteractionTypeItem = "page.edited"
-	CreateLegalHoldUserInteractionTypeItemPageDotViewed  CreateLegalHoldUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the CreateLegalHoldUserInteractionTypeItem enum.
-func (e CreateLegalHoldUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case CreateLegalHoldUserInteractionTypeItemPageDotCreated, CreateLegalHoldUserInteractionTypeItemPageDotEdited, CreateLegalHoldUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
+	Name                string                       `json:"name"`
+	StartDate           float64                      `json:"start_date"`
+	UserIds             []uuid.UUID                  `json:"user_ids"`
+	UserInteractionType LegalHoldUserInteractionType `json:"user_interaction_type"`
+	Description         string                       `json:"description,omitzero"`
+	EndDate             *float64                     `json:"end_date,omitzero"`
+	Icon                string                       `json:"icon,omitzero"`
 }
 
 // CreatePermissionGroup defines a model
@@ -1673,7 +902,7 @@ type EmptyObject struct{}
 
 // EnqueueSpaceExport defines a model
 type EnqueueSpaceExport struct {
-	ExportType               EnqueueSpaceExportExportType               `json:"export_type"`
+	ExportType               EnqueueSpaceExportType                     `json:"export_type"`
 	OnBehalfOfUserEmail      string                                     `json:"on_behalf_of_user_email"`
 	CollectionViewExportType EnqueueSpaceExportCollectionViewExportType `json:"collection_view_export_type,omitzero"`
 	FlattenExportFiletree    *bool                                      `json:"flatten_export_filetree,omitzero"`
@@ -1697,25 +926,6 @@ const (
 func (e EnqueueSpaceExportCollectionViewExportType) Valid() bool {
 	switch e {
 	case EnqueueSpaceExportCollectionViewExportTypeAll, EnqueueSpaceExportCollectionViewExportTypeCurrentView:
-		return true
-	default:
-		return false
-	}
-}
-
-// EnqueueSpaceExportExportType defines a model
-type EnqueueSpaceExportExportType string
-
-const (
-	EnqueueSpaceExportExportTypeHTML     EnqueueSpaceExportExportType = "html"
-	EnqueueSpaceExportExportTypeMarkdown EnqueueSpaceExportExportType = "markdown"
-	EnqueueSpaceExportExportTypePdf      EnqueueSpaceExportExportType = "pdf"
-)
-
-// Valid indicates whether the value is a known member of the EnqueueSpaceExportExportType enum.
-func (e EnqueueSpaceExportExportType) Valid() bool {
-	switch e {
-	case EnqueueSpaceExportExportTypeHTML, EnqueueSpaceExportExportTypeMarkdown, EnqueueSpaceExportExportTypePdf:
 		return true
 	default:
 		return false
@@ -1767,105 +977,23 @@ func (e EnqueueSpaceExportPdfFormat) Valid() bool {
 	}
 }
 
-// ExpireCreditLimitPolicyOk defines a model
-type ExpireCreditLimitPolicyOk struct {
-	// Always `credit_limit_policy`
-	Object    string                           `json:"object"`
-	Amount    int                              `json:"amount"`
-	CreatedAt int                              `json:"created_at"`
-	CreatedBy CreateCreditLimitPolicyCreatedBy `json:"created_by"`
-	// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-	CreditTypeUnit ExpireCreditLimitPolicyOkCreditTypeUnit `json:"credit_type_unit"`
-	ID             uuid.UUID                               `json:"id"`
-	// All workspace members or one workspace member affected by the policy.
-	Selector  ExpireCreditLimitPolicyOkSelector `json:"selector"`
-	SpaceID   uuid.UUID                         `json:"space_id"`
-	ExpiresAt *int                              `json:"expires_at,omitzero"`
-}
-
-// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-type ExpireCreditLimitPolicyOkCreditTypeUnit string
+// EnqueueSpaceExportType defines a model
+type EnqueueSpaceExportType string
 
 const (
-	ExpireCreditLimitPolicyOkCreditTypeUnitBasicAiCredits   ExpireCreditLimitPolicyOkCreditTypeUnit = "basic_ai_credits"
-	ExpireCreditLimitPolicyOkCreditTypeUnitExemptAiCredits  ExpireCreditLimitPolicyOkCreditTypeUnit = "exempt_ai_credits"
-	ExpireCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits ExpireCreditLimitPolicyOkCreditTypeUnit = "premium_ai_credits"
-	ExpireCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits ExpireCreditLimitPolicyOkCreditTypeUnit = "preview_ai_credits"
+	EnqueueSpaceExportTypeHTML     EnqueueSpaceExportType = "html"
+	EnqueueSpaceExportTypeMarkdown EnqueueSpaceExportType = "markdown"
+	EnqueueSpaceExportTypePdf      EnqueueSpaceExportType = "pdf"
 )
 
-// Valid indicates whether the value is a known member of the ExpireCreditLimitPolicyOkCreditTypeUnit enum.
-func (e ExpireCreditLimitPolicyOkCreditTypeUnit) Valid() bool {
+// Valid indicates whether the value is a known member of the EnqueueSpaceExportType enum.
+func (e EnqueueSpaceExportType) Valid() bool {
 	switch e {
-	case ExpireCreditLimitPolicyOkCreditTypeUnitBasicAiCredits, ExpireCreditLimitPolicyOkCreditTypeUnitExemptAiCredits, ExpireCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits, ExpireCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits:
+	case EnqueueSpaceExportTypeHTML, EnqueueSpaceExportTypeMarkdown, EnqueueSpaceExportTypePdf:
 		return true
 	default:
 		return false
 	}
-}
-
-// All workspace members or one workspace member affected by the policy.
-// ExpireCreditLimitPolicyOkSelector is an untagged oneOf union: exactly one field is set after unmarshaling.
-type ExpireCreditLimitPolicyOkSelector struct {
-	CreateCreditLimitPolicySelectorOneOf  *CreateCreditLimitPolicySelectorOneOf
-	CreateCreditLimitPolicySelectorOneOf2 *CreateCreditLimitPolicySelectorOneOf2
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *ExpireCreditLimitPolicyOkSelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "all_space_members":
-		var vv CreateCreditLimitPolicySelectorOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *ExpireCreditLimitPolicyOkSelector) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.CreateCreditLimitPolicySelectorOneOf != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf, "all_space_members"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
 }
 
 // ExportLegalHold defines a model
@@ -1936,217 +1064,12 @@ type ExportLegalHoldOk struct {
 	LegalHoldExportID uuid.UUID `json:"legal_hold_export_id"`
 }
 
-// GetAgentCreditUsageOk defines a model
-type GetAgentCreditUsageOk struct {
-	CreditPerBillingPeriodList GetAgentCreditUsageOkCreditPerBillingPeriodList `json:"credit_per_billing_period_list"`
-	// Whether more billing periods are available.
-	HasMore bool      `json:"has_more"`
-	ID      uuid.UUID `json:"id"`
-	// All-time count of finished (success or failure) runs for this agent.
-	RunsCompleted float64 `json:"runs_completed"`
-	// Agent status; same values as the list-agents endpoint's status field.
-	Status GetAgentCreditUsageOkStatus `json:"status"`
-	// All-time premium AI credits consumed by this agent across every period.
-	TotalCreditsUsed float64 `json:"total_credits_used"`
-	// Custom agents vs database (autofill) agents.
-	Type        GetAgentCreditUsageOkType `json:"type"`
-	CreatedByID uuid.UUID                 `json:"created_by_id,omitzero"`
-	// Enforced per-agent credit limit, if one is configured.
-	CreditLimit *float64 `json:"credit_limit,omitzero"`
-	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
-	LastCreditUsageTime *float64 `json:"last_credit_usage_time,omitzero"`
-	Name                string   `json:"name,omitzero"`
-	// Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.
-	NextCursor string `json:"next_cursor,omitzero"`
-}
-
-// GetAgentCreditUsageOkCreditPerBillingPeriodList defines a model
-type GetAgentCreditUsageOkCreditPerBillingPeriodList []AgentCreditUsageCreditPerBillingPeriodListItem
-
-// Agent status; same values as the list-agents endpoint's status field.
-type GetAgentCreditUsageOkStatus string
-
-const (
-	GetAgentCreditUsageOkStatusActive                                    GetAgentCreditUsageOkStatus = "active"
-	GetAgentCreditUsageOkStatusCreditLimit                               GetAgentCreditUsageOkStatus = "credit_limit"
-	GetAgentCreditUsageOkStatusDeleted                                   GetAgentCreditUsageOkStatus = "deleted"
-	GetAgentCreditUsageOkStatusDisabledByNotion                          GetAgentCreditUsageOkStatus = "disabled_by_notion"
-	GetAgentCreditUsageOkStatusDisabledDueToLackOfEditors                GetAgentCreditUsageOkStatus = "disabled_due_to_lack_of_editors"
-	GetAgentCreditUsageOkStatusDisabledDueToLackOfFullAccessMembers      GetAgentCreditUsageOkStatus = "disabled_due_to_lack_of_full_access_members"
-	GetAgentCreditUsageOkStatusDisabledFromAgentSettings                 GetAgentCreditUsageOkStatus = "disabled_from_agent_settings"
-	GetAgentCreditUsageOkStatusDisabledFromAPI                           GetAgentCreditUsageOkStatus = "disabled_from_api"
-	GetAgentCreditUsageOkStatusDisabledFromWorkspaceSettings             GetAgentCreditUsageOkStatus = "disabled_from_workspace_settings"
-	GetAgentCreditUsageOkStatusDisabledFromWorkspaceSettingsButResumable GetAgentCreditUsageOkStatus = "disabled_from_workspace_settings_but_resumable"
-	GetAgentCreditUsageOkStatusFailureLimit                              GetAgentCreditUsageOkStatus = "failure_limit"
-	GetAgentCreditUsageOkStatusInternalError                             GetAgentCreditUsageOkStatus = "internal_error"
-	GetAgentCreditUsageOkStatusMarkSessionFailedAutopause                GetAgentCreditUsageOkStatus = "mark_session_failed_autopause"
-	GetAgentCreditUsageOkStatusNeedsReview                               GetAgentCreditUsageOkStatus = "needs_review"
-	GetAgentCreditUsageOkStatusRunLimit                                  GetAgentCreditUsageOkStatus = "run_limit"
-	GetAgentCreditUsageOkStatusRunawayCreditUsage                        GetAgentCreditUsageOkStatus = "runaway_credit_usage"
-	GetAgentCreditUsageOkStatusToolUnavailable                           GetAgentCreditUsageOkStatus = "tool_unavailable"
-	GetAgentCreditUsageOkStatusWorkspaceCreditLimit                      GetAgentCreditUsageOkStatus = "workspace_credit_limit"
-)
-
-// Valid indicates whether the value is a known member of the GetAgentCreditUsageOkStatus enum.
-func (e GetAgentCreditUsageOkStatus) Valid() bool {
-	switch e {
-	case GetAgentCreditUsageOkStatusActive, GetAgentCreditUsageOkStatusCreditLimit, GetAgentCreditUsageOkStatusDeleted, GetAgentCreditUsageOkStatusDisabledByNotion, GetAgentCreditUsageOkStatusDisabledDueToLackOfEditors, GetAgentCreditUsageOkStatusDisabledDueToLackOfFullAccessMembers, GetAgentCreditUsageOkStatusDisabledFromAgentSettings, GetAgentCreditUsageOkStatusDisabledFromAPI, GetAgentCreditUsageOkStatusDisabledFromWorkspaceSettings, GetAgentCreditUsageOkStatusDisabledFromWorkspaceSettingsButResumable, GetAgentCreditUsageOkStatusFailureLimit, GetAgentCreditUsageOkStatusInternalError, GetAgentCreditUsageOkStatusMarkSessionFailedAutopause, GetAgentCreditUsageOkStatusNeedsReview, GetAgentCreditUsageOkStatusRunLimit, GetAgentCreditUsageOkStatusRunawayCreditUsage, GetAgentCreditUsageOkStatusToolUnavailable, GetAgentCreditUsageOkStatusWorkspaceCreditLimit:
-		return true
-	default:
-		return false
-	}
-}
-
-// Custom agents vs database (autofill) agents.
-type GetAgentCreditUsageOkType string
-
-const (
-	GetAgentCreditUsageOkTypeCustom           GetAgentCreditUsageOkType = "custom"
-	GetAgentCreditUsageOkTypeDatabaseAutofill GetAgentCreditUsageOkType = "database_autofill"
-)
-
-// Valid indicates whether the value is a known member of the GetAgentCreditUsageOkType enum.
-func (e GetAgentCreditUsageOkType) Valid() bool {
-	switch e {
-	case GetAgentCreditUsageOkTypeCustom, GetAgentCreditUsageOkTypeDatabaseAutofill:
-		return true
-	default:
-		return false
-	}
-}
-
 // GetAgentPermissionsOk defines a model
 type GetAgentPermissionsOk struct {
 	// The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.
-	Permissions GetAgentPermissionsOkPermissions `json:"permissions"`
+	Permissions AgentPermissions `json:"permissions"`
 	// Cursor to pass as cursor to fetch the next page; omitted on the last.
 	NextCursor string `json:"next_cursor,omitzero"`
-}
-
-// The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.
-type GetAgentPermissionsOkPermissions []GetAgentPermissionsOkPermissionsItem
-
-// A principal with its stored and workspace-resolved roles.
-type GetAgentPermissionsOkPermissionsItem struct {
-	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-	Principal GetAgentPermissionsOkPermissionsItemPrincipal `json:"principal"`
-	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-	ResolvedRole GetAgentPermissionsOkPermissionsItemResolvedRole `json:"resolved_role"`
-	// The role stored on this principal's agent permission item.
-	Role GetAgentPermissionsOkPermissionsItemRole `json:"role"`
-}
-
-// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-// GetAgentPermissionsOkPermissionsItemPrincipal is an untagged oneOf union: exactly one field is set after unmarshaling.
-type GetAgentPermissionsOkPermissionsItemPrincipal struct {
-	UpdateAgentPermissionsRemoveItemOneOf  *UpdateAgentPermissionsRemoveItemOneOf
-	CreateCreditLimitPolicySelectorOneOf2  *CreateCreditLimitPolicySelectorOneOf2
-	UpdateAgentPermissionsRemoveItemOneOf3 *UpdateAgentPermissionsRemoveItemOneOf3
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *GetAgentPermissionsOkPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "group":
-		var vv UpdateAgentPermissionsRemoveItemOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	case "workspace":
-		var vv UpdateAgentPermissionsRemoveItemOneOf3
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf3 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *GetAgentPermissionsOkPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.UpdateAgentPermissionsRemoveItemOneOf != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf, "group"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	case v.UpdateAgentPermissionsRemoveItemOneOf3 != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf3, "workspace"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
-
-// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-type GetAgentPermissionsOkPermissionsItemResolvedRole string
-
-const (
-	GetAgentPermissionsOkPermissionsItemResolvedRoleEdit            GetAgentPermissionsOkPermissionsItemResolvedRole = "edit"
-	GetAgentPermissionsOkPermissionsItemResolvedRoleFullAccess      GetAgentPermissionsOkPermissionsItemResolvedRole = "full_access"
-	GetAgentPermissionsOkPermissionsItemResolvedRoleViewAndInteract GetAgentPermissionsOkPermissionsItemResolvedRole = "view_and_interact"
-)
-
-// Valid indicates whether the value is a known member of the GetAgentPermissionsOkPermissionsItemResolvedRole enum.
-func (e GetAgentPermissionsOkPermissionsItemResolvedRole) Valid() bool {
-	switch e {
-	case GetAgentPermissionsOkPermissionsItemResolvedRoleEdit, GetAgentPermissionsOkPermissionsItemResolvedRoleFullAccess, GetAgentPermissionsOkPermissionsItemResolvedRoleViewAndInteract:
-		return true
-	default:
-		return false
-	}
-}
-
-// The role stored on this principal's agent permission item.
-type GetAgentPermissionsOkPermissionsItemRole string
-
-const (
-	GetAgentPermissionsOkPermissionsItemRoleEdit            GetAgentPermissionsOkPermissionsItemRole = "edit"
-	GetAgentPermissionsOkPermissionsItemRoleFullAccess      GetAgentPermissionsOkPermissionsItemRole = "full_access"
-	GetAgentPermissionsOkPermissionsItemRoleViewAndInteract GetAgentPermissionsOkPermissionsItemRole = "view_and_interact"
-)
-
-// Valid indicates whether the value is a known member of the GetAgentPermissionsOkPermissionsItemRole enum.
-func (e GetAgentPermissionsOkPermissionsItemRole) Valid() bool {
-	switch e {
-	case GetAgentPermissionsOkPermissionsItemRoleEdit, GetAgentPermissionsOkPermissionsItemRoleFullAccess, GetAgentPermissionsOkPermissionsItemRoleViewAndInteract:
-		return true
-	default:
-		return false
-	}
 }
 
 // GetAgentsCreditUsageOk defines a model
@@ -2160,147 +1083,12 @@ type GetAgentsCreditUsageOk struct {
 }
 
 // The page of agents with their credit usage, up to 100 agents per request. Every agent starts at its most recent billing period; a nested result's next_cursor paginates that agent's billing periods through the single-agent credit-usage endpoint.
-type GetAgentsCreditUsageOkResults []GetAgentsCreditUsageOkResultsItem
-
-// GetAgentsCreditUsageOkResultsItem defines a model
-type GetAgentsCreditUsageOkResultsItem struct {
-	CreditPerBillingPeriodList GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList `json:"credit_per_billing_period_list"`
-	// Whether more billing periods are available.
-	HasMore bool      `json:"has_more"`
-	ID      uuid.UUID `json:"id"`
-	// All-time count of finished (success or failure) runs for this agent.
-	RunsCompleted float64 `json:"runs_completed"`
-	// Agent status; same values as the list-agents endpoint's status field.
-	Status GetAgentsCreditUsageOkResultsItemStatus `json:"status"`
-	// All-time premium AI credits consumed by this agent across every period.
-	TotalCreditsUsed float64 `json:"total_credits_used"`
-	// Custom agents vs database (autofill) agents.
-	Type        GetAgentsCreditUsageOkResultsItemType `json:"type"`
-	CreatedByID uuid.UUID                             `json:"created_by_id,omitzero"`
-	// Enforced per-agent credit limit, if one is configured.
-	CreditLimit *float64 `json:"credit_limit,omitzero"`
-	// Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits.
-	LastCreditUsageTime *float64 `json:"last_credit_usage_time,omitzero"`
-	Name                string   `json:"name,omitzero"`
-	// Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false.
-	NextCursor string `json:"next_cursor,omitzero"`
-}
-
-// GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList defines a model
-type GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList []AgentCreditUsageCreditPerBillingPeriodListItem
-
-// Agent status; same values as the list-agents endpoint's status field.
-type GetAgentsCreditUsageOkResultsItemStatus string
-
-const (
-	GetAgentsCreditUsageOkResultsItemStatusActive                                    GetAgentsCreditUsageOkResultsItemStatus = "active"
-	GetAgentsCreditUsageOkResultsItemStatusCreditLimit                               GetAgentsCreditUsageOkResultsItemStatus = "credit_limit"
-	GetAgentsCreditUsageOkResultsItemStatusDeleted                                   GetAgentsCreditUsageOkResultsItemStatus = "deleted"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledByNotion                          GetAgentsCreditUsageOkResultsItemStatus = "disabled_by_notion"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledDueToLackOfEditors                GetAgentsCreditUsageOkResultsItemStatus = "disabled_due_to_lack_of_editors"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledDueToLackOfFullAccessMembers      GetAgentsCreditUsageOkResultsItemStatus = "disabled_due_to_lack_of_full_access_members"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledFromAgentSettings                 GetAgentsCreditUsageOkResultsItemStatus = "disabled_from_agent_settings"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledFromAPI                           GetAgentsCreditUsageOkResultsItemStatus = "disabled_from_api"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledFromWorkspaceSettings             GetAgentsCreditUsageOkResultsItemStatus = "disabled_from_workspace_settings"
-	GetAgentsCreditUsageOkResultsItemStatusDisabledFromWorkspaceSettingsButResumable GetAgentsCreditUsageOkResultsItemStatus = "disabled_from_workspace_settings_but_resumable"
-	GetAgentsCreditUsageOkResultsItemStatusFailureLimit                              GetAgentsCreditUsageOkResultsItemStatus = "failure_limit"
-	GetAgentsCreditUsageOkResultsItemStatusInternalError                             GetAgentsCreditUsageOkResultsItemStatus = "internal_error"
-	GetAgentsCreditUsageOkResultsItemStatusMarkSessionFailedAutopause                GetAgentsCreditUsageOkResultsItemStatus = "mark_session_failed_autopause"
-	GetAgentsCreditUsageOkResultsItemStatusNeedsReview                               GetAgentsCreditUsageOkResultsItemStatus = "needs_review"
-	GetAgentsCreditUsageOkResultsItemStatusRunLimit                                  GetAgentsCreditUsageOkResultsItemStatus = "run_limit"
-	GetAgentsCreditUsageOkResultsItemStatusRunawayCreditUsage                        GetAgentsCreditUsageOkResultsItemStatus = "runaway_credit_usage"
-	GetAgentsCreditUsageOkResultsItemStatusToolUnavailable                           GetAgentsCreditUsageOkResultsItemStatus = "tool_unavailable"
-	GetAgentsCreditUsageOkResultsItemStatusWorkspaceCreditLimit                      GetAgentsCreditUsageOkResultsItemStatus = "workspace_credit_limit"
-)
-
-// Valid indicates whether the value is a known member of the GetAgentsCreditUsageOkResultsItemStatus enum.
-func (e GetAgentsCreditUsageOkResultsItemStatus) Valid() bool {
-	switch e {
-	case GetAgentsCreditUsageOkResultsItemStatusActive, GetAgentsCreditUsageOkResultsItemStatusCreditLimit, GetAgentsCreditUsageOkResultsItemStatusDeleted, GetAgentsCreditUsageOkResultsItemStatusDisabledByNotion, GetAgentsCreditUsageOkResultsItemStatusDisabledDueToLackOfEditors, GetAgentsCreditUsageOkResultsItemStatusDisabledDueToLackOfFullAccessMembers, GetAgentsCreditUsageOkResultsItemStatusDisabledFromAgentSettings, GetAgentsCreditUsageOkResultsItemStatusDisabledFromAPI, GetAgentsCreditUsageOkResultsItemStatusDisabledFromWorkspaceSettings, GetAgentsCreditUsageOkResultsItemStatusDisabledFromWorkspaceSettingsButResumable, GetAgentsCreditUsageOkResultsItemStatusFailureLimit, GetAgentsCreditUsageOkResultsItemStatusInternalError, GetAgentsCreditUsageOkResultsItemStatusMarkSessionFailedAutopause, GetAgentsCreditUsageOkResultsItemStatusNeedsReview, GetAgentsCreditUsageOkResultsItemStatusRunLimit, GetAgentsCreditUsageOkResultsItemStatusRunawayCreditUsage, GetAgentsCreditUsageOkResultsItemStatusToolUnavailable, GetAgentsCreditUsageOkResultsItemStatusWorkspaceCreditLimit:
-		return true
-	default:
-		return false
-	}
-}
-
-// Custom agents vs database (autofill) agents.
-type GetAgentsCreditUsageOkResultsItemType string
-
-const (
-	GetAgentsCreditUsageOkResultsItemTypeCustom           GetAgentsCreditUsageOkResultsItemType = "custom"
-	GetAgentsCreditUsageOkResultsItemTypeDatabaseAutofill GetAgentsCreditUsageOkResultsItemType = "database_autofill"
-)
-
-// Valid indicates whether the value is a known member of the GetAgentsCreditUsageOkResultsItemType enum.
-func (e GetAgentsCreditUsageOkResultsItemType) Valid() bool {
-	switch e {
-	case GetAgentsCreditUsageOkResultsItemTypeCustom, GetAgentsCreditUsageOkResultsItemTypeDatabaseAutofill:
-		return true
-	default:
-		return false
-	}
-}
-
-// GetLegalHoldOk defines a model
-type GetLegalHoldOk struct {
-	CreatedBy           uuid.UUID                         `json:"created_by"`
-	CreatedTime         float64                           `json:"created_time"`
-	ID                  string                            `json:"id"`
-	StartDate           float64                           `json:"start_date"`
-	Status              GetLegalHoldOkStatus              `json:"status"`
-	UserInteractionType GetLegalHoldOkUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                    `json:"users"`
-	Workspaces          LegalHoldUsers                    `json:"workspaces"`
-	Description         string                            `json:"description,omitzero"`
-	EndDate             *float64                          `json:"end_date,omitzero"`
-	Icon                string                            `json:"icon,omitzero"`
-	Name                string                            `json:"name,omitzero"`
-}
-
-// GetLegalHoldOkStatus defines a model
-type GetLegalHoldOkStatus string
-
-const (
-	GetLegalHoldOkStatusActive   GetLegalHoldOkStatus = "active"
-	GetLegalHoldOkStatusReleased GetLegalHoldOkStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the GetLegalHoldOkStatus enum.
-func (e GetLegalHoldOkStatus) Valid() bool {
-	switch e {
-	case GetLegalHoldOkStatusActive, GetLegalHoldOkStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// GetLegalHoldOkUserInteractionType defines a model
-type GetLegalHoldOkUserInteractionType []GetLegalHoldOkUserInteractionTypeItem
-
-// GetLegalHoldOkUserInteractionTypeItem defines a model
-type GetLegalHoldOkUserInteractionTypeItem string
-
-const (
-	GetLegalHoldOkUserInteractionTypeItemPageDotCreated GetLegalHoldOkUserInteractionTypeItem = "page.created"
-	GetLegalHoldOkUserInteractionTypeItemPageDotEdited  GetLegalHoldOkUserInteractionTypeItem = "page.edited"
-	GetLegalHoldOkUserInteractionTypeItemPageDotViewed  GetLegalHoldOkUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the GetLegalHoldOkUserInteractionTypeItem enum.
-func (e GetLegalHoldOkUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case GetLegalHoldOkUserInteractionTypeItemPageDotCreated, GetLegalHoldOkUserInteractionTypeItemPageDotEdited, GetLegalHoldOkUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
+type GetAgentsCreditUsageOkResults []AgentCreditUsage
 
 // GetSpaceExportStatusOk defines a model
 type GetSpaceExportStatusOk struct {
-	CreatedTime  float64                            `json:"created_time"`
-	ExportFormat GetSpaceExportStatusOkExportFormat `json:"export_format"`
+	CreatedTime  float64                `json:"created_time"`
+	ExportFormat EnqueueSpaceExportType `json:"export_format"`
 	// Identifier of the export job, as returned by the enqueue endpoint.
 	ExportJobID string `json:"export_job_id"`
 	// Whether an entire workspace ('space'), a teamspace, or a single 'page' was exported.
@@ -2314,25 +1102,6 @@ type GetSpaceExportStatusOk struct {
 	ErrorMessage   string   `json:"error_message,omitzero"`
 	ErrorType      string   `json:"error_type,omitzero"`
 	URLExpiresTime *float64 `json:"url_expires_time,omitzero"`
-}
-
-// GetSpaceExportStatusOkExportFormat defines a model
-type GetSpaceExportStatusOkExportFormat string
-
-const (
-	GetSpaceExportStatusOkExportFormatHTML     GetSpaceExportStatusOkExportFormat = "html"
-	GetSpaceExportStatusOkExportFormatMarkdown GetSpaceExportStatusOkExportFormat = "markdown"
-	GetSpaceExportStatusOkExportFormatPdf      GetSpaceExportStatusOkExportFormat = "pdf"
-)
-
-// Valid indicates whether the value is a known member of the GetSpaceExportStatusOkExportFormat enum.
-func (e GetSpaceExportStatusOkExportFormat) Valid() bool {
-	switch e {
-	case GetSpaceExportStatusOkExportFormatHTML, GetSpaceExportStatusOkExportFormatMarkdown, GetSpaceExportStatusOkExportFormatPdf:
-		return true
-	default:
-		return false
-	}
 }
 
 // Whether an entire workspace ('space'), a teamspace, or a single 'page' was exported.
@@ -2393,12 +1162,12 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	ID      string    `json:"id"`
 	SpaceID uuid.UUID `json:"space_id"`
 	// The agent's current status: "active", "deleted", or a snake_case paused reason. Uses the same values as the status query filter.
-	Status GetWorkflowsMetadataForSpaceOkResultsItemStatus `json:"status"`
+	Status AgentCreditUsageStatus `json:"status"`
 	// Custom agents vs database (autofill) agents.
-	Type        GetWorkflowsMetadataForSpaceOkResultsItemType `json:"type"`
-	CreatedByID uuid.UUID                                     `json:"created_by_id,omitzero"`
+	Type        AgentCreditUsageType `json:"type"`
+	CreatedByID uuid.UUID            `json:"created_by_id,omitzero"`
 	// The actor table of the agent's creator, such as "notion_user".
-	CreatedByTable GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable `json:"created_by_table,omitzero"`
+	CreatedByTable WorkflowsMetadataForSpaceResultsItemCreatedByTable `json:"created_by_table,omitzero"`
 	// Epoch ms when the agent was created.
 	CreatedTime *float64 `json:"created_time,omitzero"`
 	// The agent's description.
@@ -2409,7 +1178,7 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	LastCreditUsageTime *float64  `json:"last_credit_usage_time,omitzero"`
 	LastEditedByID      uuid.UUID `json:"last_edited_by_id,omitzero"`
 	// The actor table of the agent's last editor, such as "notion_user".
-	LastEditedByTable GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable `json:"last_edited_by_table,omitzero"`
+	LastEditedByTable WorkflowsMetadataForSpaceResultsItemCreatedByTable `json:"last_edited_by_table,omitzero"`
 	// Epoch ms when the agent was last edited.
 	LastEditedTime *float64 `json:"last_edited_time,omitzero"`
 	// Epoch ms of the agent's most recent run; omitted if the agent has never run.
@@ -2426,45 +1195,7 @@ type GetWorkflowsMetadataForSpaceOkResultsItem struct {
 	// The table the agent is parented to: custom agents belong to the workspace ("space"); database (autofill) agents belong to their database's block ("block").
 	ParentTable GetWorkflowsMetadataForSpaceOkResultsItemParentTable `json:"parent_table,omitzero"`
 	// Who the agent is shared with: each principal's stored and resolved roles, workspace grant first, at most 250 entries. Omitted for database (autofill) agents, whose sharing state is not exposed.
-	Permissions GetWorkflowsMetadataForSpaceOkResultsItemPermissions `json:"permissions,omitzero"`
-}
-
-// The actor table of the agent's creator, such as "notion_user".
-type GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable string
-
-const (
-	GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableBot             GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable = "bot"
-	GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableNotionUser      GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable = "notion_user"
-	GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableOrganizationBot GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable = "organization_bot"
-)
-
-// Valid indicates whether the value is a known member of the GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable enum.
-func (e GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable) Valid() bool {
-	switch e {
-	case GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableBot, GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableNotionUser, GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableOrganizationBot:
-		return true
-	default:
-		return false
-	}
-}
-
-// The actor table of the agent's last editor, such as "notion_user".
-type GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable string
-
-const (
-	GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableBot             GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable = "bot"
-	GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableNotionUser      GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable = "notion_user"
-	GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableOrganizationBot GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable = "organization_bot"
-)
-
-// Valid indicates whether the value is a known member of the GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable enum.
-func (e GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable) Valid() bool {
-	switch e {
-	case GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableBot, GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableNotionUser, GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableOrganizationBot:
-		return true
-	default:
-		return false
-	}
+	Permissions AgentPermissions `json:"permissions,omitzero"`
 }
 
 // The capabilities and tools the agent is allowed to use — both inside Notion and in connected apps such as Slack, the web, or MCP servers. At most 250 module summaries are returned.
@@ -2514,184 +1245,6 @@ func (e GetWorkflowsMetadataForSpaceOkResultsItemParentTable) Valid() bool {
 	}
 }
 
-// Who the agent is shared with: each principal's stored and resolved roles, workspace grant first, at most 250 entries. Omitted for database (autofill) agents, whose sharing state is not exposed.
-type GetWorkflowsMetadataForSpaceOkResultsItemPermissions []GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem
-
-// A principal with its stored and workspace-resolved roles.
-type GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem struct {
-	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-	Principal GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal `json:"principal"`
-	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-	ResolvedRole GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole `json:"resolved_role"`
-	// The role stored on this principal's agent permission item.
-	Role GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole `json:"role"`
-}
-
-// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-// GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal is an untagged oneOf union: exactly one field is set after unmarshaling.
-type GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal struct {
-	UpdateAgentPermissionsRemoveItemOneOf  *UpdateAgentPermissionsRemoveItemOneOf
-	CreateCreditLimitPolicySelectorOneOf2  *CreateCreditLimitPolicySelectorOneOf2
-	UpdateAgentPermissionsRemoveItemOneOf3 *UpdateAgentPermissionsRemoveItemOneOf3
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "group":
-		var vv UpdateAgentPermissionsRemoveItemOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	case "workspace":
-		var vv UpdateAgentPermissionsRemoveItemOneOf3
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf3 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.UpdateAgentPermissionsRemoveItemOneOf != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf, "group"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	case v.UpdateAgentPermissionsRemoveItemOneOf3 != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf3, "workspace"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
-
-// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-type GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole string
-
-const (
-	GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleEdit            GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole = "edit"
-	GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleFullAccess      GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole = "full_access"
-	GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleViewAndInteract GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole = "view_and_interact"
-)
-
-// Valid indicates whether the value is a known member of the GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole enum.
-func (e GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole) Valid() bool {
-	switch e {
-	case GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleEdit, GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleFullAccess, GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleViewAndInteract:
-		return true
-	default:
-		return false
-	}
-}
-
-// The role stored on this principal's agent permission item.
-type GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole string
-
-const (
-	GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleEdit            GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole = "edit"
-	GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleFullAccess      GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole = "full_access"
-	GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleViewAndInteract GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole = "view_and_interact"
-)
-
-// Valid indicates whether the value is a known member of the GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole enum.
-func (e GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole) Valid() bool {
-	switch e {
-	case GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleEdit, GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleFullAccess, GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleViewAndInteract:
-		return true
-	default:
-		return false
-	}
-}
-
-// The agent's current status: "active", "deleted", or a snake_case paused reason. Uses the same values as the status query filter.
-type GetWorkflowsMetadataForSpaceOkResultsItemStatus string
-
-const (
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusActive                                    GetWorkflowsMetadataForSpaceOkResultsItemStatus = "active"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusCreditLimit                               GetWorkflowsMetadataForSpaceOkResultsItemStatus = "credit_limit"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDeleted                                   GetWorkflowsMetadataForSpaceOkResultsItemStatus = "deleted"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledByNotion                          GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_by_notion"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledDueToLackOfEditors                GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_due_to_lack_of_editors"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledDueToLackOfFullAccessMembers      GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_due_to_lack_of_full_access_members"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromAgentSettings                 GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_from_agent_settings"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromAPI                           GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_from_api"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromWorkspaceSettings             GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_from_workspace_settings"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromWorkspaceSettingsButResumable GetWorkflowsMetadataForSpaceOkResultsItemStatus = "disabled_from_workspace_settings_but_resumable"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusFailureLimit                              GetWorkflowsMetadataForSpaceOkResultsItemStatus = "failure_limit"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusInternalError                             GetWorkflowsMetadataForSpaceOkResultsItemStatus = "internal_error"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusMarkSessionFailedAutopause                GetWorkflowsMetadataForSpaceOkResultsItemStatus = "mark_session_failed_autopause"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusNeedsReview                               GetWorkflowsMetadataForSpaceOkResultsItemStatus = "needs_review"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusRunLimit                                  GetWorkflowsMetadataForSpaceOkResultsItemStatus = "run_limit"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusRunawayCreditUsage                        GetWorkflowsMetadataForSpaceOkResultsItemStatus = "runaway_credit_usage"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusToolUnavailable                           GetWorkflowsMetadataForSpaceOkResultsItemStatus = "tool_unavailable"
-	GetWorkflowsMetadataForSpaceOkResultsItemStatusWorkspaceCreditLimit                      GetWorkflowsMetadataForSpaceOkResultsItemStatus = "workspace_credit_limit"
-)
-
-// Valid indicates whether the value is a known member of the GetWorkflowsMetadataForSpaceOkResultsItemStatus enum.
-func (e GetWorkflowsMetadataForSpaceOkResultsItemStatus) Valid() bool {
-	switch e {
-	case GetWorkflowsMetadataForSpaceOkResultsItemStatusActive, GetWorkflowsMetadataForSpaceOkResultsItemStatusCreditLimit, GetWorkflowsMetadataForSpaceOkResultsItemStatusDeleted, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledByNotion, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledDueToLackOfEditors, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledDueToLackOfFullAccessMembers, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromAgentSettings, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromAPI, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromWorkspaceSettings, GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromWorkspaceSettingsButResumable, GetWorkflowsMetadataForSpaceOkResultsItemStatusFailureLimit, GetWorkflowsMetadataForSpaceOkResultsItemStatusInternalError, GetWorkflowsMetadataForSpaceOkResultsItemStatusMarkSessionFailedAutopause, GetWorkflowsMetadataForSpaceOkResultsItemStatusNeedsReview, GetWorkflowsMetadataForSpaceOkResultsItemStatusRunLimit, GetWorkflowsMetadataForSpaceOkResultsItemStatusRunawayCreditUsage, GetWorkflowsMetadataForSpaceOkResultsItemStatusToolUnavailable, GetWorkflowsMetadataForSpaceOkResultsItemStatusWorkspaceCreditLimit:
-		return true
-	default:
-		return false
-	}
-}
-
-// Custom agents vs database (autofill) agents.
-type GetWorkflowsMetadataForSpaceOkResultsItemType string
-
-const (
-	GetWorkflowsMetadataForSpaceOkResultsItemTypeCustom           GetWorkflowsMetadataForSpaceOkResultsItemType = "custom"
-	GetWorkflowsMetadataForSpaceOkResultsItemTypeDatabaseAutofill GetWorkflowsMetadataForSpaceOkResultsItemType = "database_autofill"
-)
-
-// Valid indicates whether the value is a known member of the GetWorkflowsMetadataForSpaceOkResultsItemType enum.
-func (e GetWorkflowsMetadataForSpaceOkResultsItemType) Valid() bool {
-	switch e {
-	case GetWorkflowsMetadataForSpaceOkResultsItemTypeCustom, GetWorkflowsMetadataForSpaceOkResultsItemTypeDatabaseAutofill:
-		return true
-	default:
-		return false
-	}
-}
-
 // IDRequest defines a model
 type IDRequest string
 
@@ -2707,6 +1260,62 @@ const (
 func (e IncludeDeleted) Valid() bool {
 	switch e {
 	case IncludeDeletedFalse, IncludeDeletedTrue:
+		return true
+	default:
+		return false
+	}
+}
+
+// LegalHold defines a model
+type LegalHold struct {
+	CreatedBy           uuid.UUID                    `json:"created_by"`
+	CreatedTime         float64                      `json:"created_time"`
+	ID                  string                       `json:"id"`
+	StartDate           float64                      `json:"start_date"`
+	Status              LegalHoldStatus              `json:"status"`
+	UserInteractionType LegalHoldUserInteractionType `json:"user_interaction_type"`
+	Users               LegalHoldUsers               `json:"users"`
+	Workspaces          LegalHoldUsers               `json:"workspaces"`
+	Description         string                       `json:"description,omitzero"`
+	EndDate             *float64                     `json:"end_date,omitzero"`
+	Icon                string                       `json:"icon,omitzero"`
+	Name                string                       `json:"name,omitzero"`
+}
+
+// LegalHoldStatus defines a model
+type LegalHoldStatus string
+
+const (
+	LegalHoldStatusActive   LegalHoldStatus = "active"
+	LegalHoldStatusReleased LegalHoldStatus = "released"
+)
+
+// Valid indicates whether the value is a known member of the LegalHoldStatus enum.
+func (e LegalHoldStatus) Valid() bool {
+	switch e {
+	case LegalHoldStatusActive, LegalHoldStatusReleased:
+		return true
+	default:
+		return false
+	}
+}
+
+// LegalHoldUserInteractionType defines a model
+type LegalHoldUserInteractionType []LegalHoldUserInteractionTypeItem
+
+// LegalHoldUserInteractionTypeItem defines a model
+type LegalHoldUserInteractionTypeItem string
+
+const (
+	LegalHoldUserInteractionTypeItemPageDotCreated LegalHoldUserInteractionTypeItem = "page.created"
+	LegalHoldUserInteractionTypeItemPageDotEdited  LegalHoldUserInteractionTypeItem = "page.edited"
+	LegalHoldUserInteractionTypeItemPageDotViewed  LegalHoldUserInteractionTypeItem = "page.viewed"
+)
+
+// Valid indicates whether the value is a known member of the LegalHoldUserInteractionTypeItem enum.
+func (e LegalHoldUserInteractionTypeItem) Valid() bool {
+	switch e {
+	case LegalHoldUserInteractionTypeItemPageDotCreated, LegalHoldUserInteractionTypeItemPageDotEdited, LegalHoldUserInteractionTypeItemPageDotViewed:
 		return true
 	default:
 		return false
@@ -2734,108 +1343,7 @@ type ListCreditLimitPoliciesOk struct {
 }
 
 // The active credit limit policies in the workspace.
-type ListCreditLimitPoliciesOkResults []ListCreditLimitPoliciesOkResultsItem
-
-// ListCreditLimitPoliciesOkResultsItem defines a model
-type ListCreditLimitPoliciesOkResultsItem struct {
-	// Always `credit_limit_policy`
-	Object    string                           `json:"object"`
-	Amount    int                              `json:"amount"`
-	CreatedAt int                              `json:"created_at"`
-	CreatedBy CreateCreditLimitPolicyCreatedBy `json:"created_by"`
-	// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-	CreditTypeUnit ListCreditLimitPoliciesOkResultsItemCreditTypeUnit `json:"credit_type_unit"`
-	ID             uuid.UUID                                          `json:"id"`
-	// All workspace members or one workspace member affected by the policy.
-	Selector  ListCreditLimitPoliciesOkResultsItemSelector `json:"selector"`
-	SpaceID   uuid.UUID                                    `json:"space_id"`
-	ExpiresAt *int                                         `json:"expires_at,omitzero"`
-}
-
-// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-type ListCreditLimitPoliciesOkResultsItemCreditTypeUnit string
-
-const (
-	ListCreditLimitPoliciesOkResultsItemCreditTypeUnitBasicAiCredits   ListCreditLimitPoliciesOkResultsItemCreditTypeUnit = "basic_ai_credits"
-	ListCreditLimitPoliciesOkResultsItemCreditTypeUnitExemptAiCredits  ListCreditLimitPoliciesOkResultsItemCreditTypeUnit = "exempt_ai_credits"
-	ListCreditLimitPoliciesOkResultsItemCreditTypeUnitPremiumAiCredits ListCreditLimitPoliciesOkResultsItemCreditTypeUnit = "premium_ai_credits"
-	ListCreditLimitPoliciesOkResultsItemCreditTypeUnitPreviewAiCredits ListCreditLimitPoliciesOkResultsItemCreditTypeUnit = "preview_ai_credits"
-)
-
-// Valid indicates whether the value is a known member of the ListCreditLimitPoliciesOkResultsItemCreditTypeUnit enum.
-func (e ListCreditLimitPoliciesOkResultsItemCreditTypeUnit) Valid() bool {
-	switch e {
-	case ListCreditLimitPoliciesOkResultsItemCreditTypeUnitBasicAiCredits, ListCreditLimitPoliciesOkResultsItemCreditTypeUnitExemptAiCredits, ListCreditLimitPoliciesOkResultsItemCreditTypeUnitPremiumAiCredits, ListCreditLimitPoliciesOkResultsItemCreditTypeUnitPreviewAiCredits:
-		return true
-	default:
-		return false
-	}
-}
-
-// All workspace members or one workspace member affected by the policy.
-// ListCreditLimitPoliciesOkResultsItemSelector is an untagged oneOf union: exactly one field is set after unmarshaling.
-type ListCreditLimitPoliciesOkResultsItemSelector struct {
-	CreateCreditLimitPolicySelectorOneOf  *CreateCreditLimitPolicySelectorOneOf
-	CreateCreditLimitPolicySelectorOneOf2 *CreateCreditLimitPolicySelectorOneOf2
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *ListCreditLimitPoliciesOkResultsItemSelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "all_space_members":
-		var vv CreateCreditLimitPolicySelectorOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *ListCreditLimitPoliciesOkResultsItemSelector) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.CreateCreditLimitPolicySelectorOneOf != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf, "all_space_members"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
+type ListCreditLimitPoliciesOkResults []CreateCreditLimitPolicy2
 
 // ListLegalHoldPagesOk defines a model
 type ListLegalHoldPagesOk struct {
@@ -2862,63 +1370,7 @@ type ListLegalHoldsOk struct {
 }
 
 // ListLegalHoldsOkLegalHolds defines a model
-type ListLegalHoldsOkLegalHolds []ListLegalHoldsOkLegalHoldsItem
-
-// ListLegalHoldsOkLegalHoldsItem defines a model
-type ListLegalHoldsOkLegalHoldsItem struct {
-	CreatedBy           uuid.UUID                                         `json:"created_by"`
-	CreatedTime         float64                                           `json:"created_time"`
-	ID                  string                                            `json:"id"`
-	StartDate           float64                                           `json:"start_date"`
-	Status              ListLegalHoldsOkLegalHoldsItemStatus              `json:"status"`
-	UserInteractionType ListLegalHoldsOkLegalHoldsItemUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                                    `json:"users"`
-	Workspaces          LegalHoldUsers                                    `json:"workspaces"`
-	Description         string                                            `json:"description,omitzero"`
-	EndDate             *float64                                          `json:"end_date,omitzero"`
-	Icon                string                                            `json:"icon,omitzero"`
-	Name                string                                            `json:"name,omitzero"`
-}
-
-// ListLegalHoldsOkLegalHoldsItemStatus defines a model
-type ListLegalHoldsOkLegalHoldsItemStatus string
-
-const (
-	ListLegalHoldsOkLegalHoldsItemStatusActive   ListLegalHoldsOkLegalHoldsItemStatus = "active"
-	ListLegalHoldsOkLegalHoldsItemStatusReleased ListLegalHoldsOkLegalHoldsItemStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the ListLegalHoldsOkLegalHoldsItemStatus enum.
-func (e ListLegalHoldsOkLegalHoldsItemStatus) Valid() bool {
-	switch e {
-	case ListLegalHoldsOkLegalHoldsItemStatusActive, ListLegalHoldsOkLegalHoldsItemStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// ListLegalHoldsOkLegalHoldsItemUserInteractionType defines a model
-type ListLegalHoldsOkLegalHoldsItemUserInteractionType []ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem
-
-// ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem defines a model
-type ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem string
-
-const (
-	ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotCreated ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem = "page.created"
-	ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotEdited  ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem = "page.edited"
-	ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotViewed  ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem enum.
-func (e ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotCreated, ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotEdited, ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
+type ListLegalHoldsOkLegalHolds []LegalHold
 
 // ListMcpClientConnectionsOk defines a model
 type ListMcpClientConnectionsOk struct {
@@ -3026,37 +1478,7 @@ type ListPermissionGroupMembersOk struct {
 }
 
 // The direct user memberships in the group.
-type ListPermissionGroupMembersOkResults []ListPermissionGroupMembersOkResultsItem
-
-// ListPermissionGroupMembersOkResultsItem defines a model
-type ListPermissionGroupMembersOkResultsItem struct {
-	// Always `group_membership`
-	Object string `json:"object"`
-	// The ID of the group.
-	GroupID string `json:"group_id"`
-	// The direct user member.
-	Member AddPermissionGroupMember2 `json:"member"`
-	// The user's role in the group.
-	Role ListPermissionGroupMembersOkResultsItemRole `json:"role"`
-}
-
-// The user's role in the group.
-type ListPermissionGroupMembersOkResultsItemRole string
-
-const (
-	ListPermissionGroupMembersOkResultsItemRoleOwner  ListPermissionGroupMembersOkResultsItemRole = "owner"
-	ListPermissionGroupMembersOkResultsItemRoleMember ListPermissionGroupMembersOkResultsItemRole = "member"
-)
-
-// Valid indicates whether the value is a known member of the ListPermissionGroupMembersOkResultsItemRole enum.
-func (e ListPermissionGroupMembersOkResultsItemRole) Valid() bool {
-	switch e {
-	case ListPermissionGroupMembersOkResultsItemRoleOwner, ListPermissionGroupMembersOkResultsItemRoleMember:
-		return true
-	default:
-		return false
-	}
-}
+type ListPermissionGroupMembersOkResults []AddPermissionGroupMember2
 
 // ListPermissionGroupsOk defines a model
 type ListPermissionGroupsOk struct {
@@ -3096,7 +1518,7 @@ type ListPersonalAccessTokensOkResultsItem struct {
 	// Time the token was created, in epoch milliseconds.
 	CreatedAt float64 `json:"created_at"`
 	// Current token status.
-	Status ListPersonalAccessTokensOkResultsItemStatus `json:"status"`
+	Status StatusOneOfItem `json:"status"`
 	// Token name, when available.
 	Name string `json:"name,omitzero"`
 	// Time the token expires, in epoch milliseconds.
@@ -3122,25 +1544,6 @@ const (
 func (e ListPersonalAccessTokensOkResultsItemRevokedByType) Valid() bool {
 	switch e {
 	case ListPersonalAccessTokensOkResultsItemRevokedByTypeBot, ListPersonalAccessTokensOkResultsItemRevokedByTypeOrganizationBot, ListPersonalAccessTokensOkResultsItemRevokedByTypeUser:
-		return true
-	default:
-		return false
-	}
-}
-
-// Current token status.
-type ListPersonalAccessTokensOkResultsItemStatus string
-
-const (
-	ListPersonalAccessTokensOkResultsItemStatusActive  ListPersonalAccessTokensOkResultsItemStatus = "active"
-	ListPersonalAccessTokensOkResultsItemStatusExpired ListPersonalAccessTokensOkResultsItemStatus = "expired"
-	ListPersonalAccessTokensOkResultsItemStatusRevoked ListPersonalAccessTokensOkResultsItemStatus = "revoked"
-)
-
-// Valid indicates whether the value is a known member of the ListPersonalAccessTokensOkResultsItemStatus enum.
-func (e ListPersonalAccessTokensOkResultsItemStatus) Valid() bool {
-	switch e {
-	case ListPersonalAccessTokensOkResultsItemStatusActive, ListPersonalAccessTokensOkResultsItemStatusExpired, ListPersonalAccessTokensOkResultsItemStatusRevoked:
 		return true
 	default:
 		return false
@@ -3223,11 +1626,11 @@ var variantsOfListUsersOkResultsItem = []jsonVariant{
 	},
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative of ListUsersOkResultsItemAllOf1; each further member then decodes as it is read, into the fields or the alternative
-// that declares it, and a member neither declares is an error.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative of
+// ListUsersOkResultsItemAllOf1; each further member then decodes as it is read, into the fields or the alternative that declares
+// it, and a member neither declares is an error. With type first, nothing is read twice.
 func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
+	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
 	}
@@ -3321,10 +1724,10 @@ type ListUsersOkResultsItemAllOf1 struct {
 	Bot    *Bot
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
+// decodes each further member as it is read. With type first, nothing is read twice.
 func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
+	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
 	}
@@ -3448,148 +1851,6 @@ type PersonPerson struct {
 	Email string `json:"email,omitzero"`
 }
 
-// ReleaseLegalHoldOk defines a model
-type ReleaseLegalHoldOk struct {
-	CreatedBy           uuid.UUID                             `json:"created_by"`
-	CreatedTime         float64                               `json:"created_time"`
-	ID                  string                                `json:"id"`
-	StartDate           float64                               `json:"start_date"`
-	Status              ReleaseLegalHoldOkStatus              `json:"status"`
-	UserInteractionType ReleaseLegalHoldOkUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                        `json:"users"`
-	Workspaces          LegalHoldUsers                        `json:"workspaces"`
-	Description         string                                `json:"description,omitzero"`
-	EndDate             *float64                              `json:"end_date,omitzero"`
-	Icon                string                                `json:"icon,omitzero"`
-	Name                string                                `json:"name,omitzero"`
-}
-
-// ReleaseLegalHoldOkStatus defines a model
-type ReleaseLegalHoldOkStatus string
-
-const (
-	ReleaseLegalHoldOkStatusActive   ReleaseLegalHoldOkStatus = "active"
-	ReleaseLegalHoldOkStatusReleased ReleaseLegalHoldOkStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the ReleaseLegalHoldOkStatus enum.
-func (e ReleaseLegalHoldOkStatus) Valid() bool {
-	switch e {
-	case ReleaseLegalHoldOkStatusActive, ReleaseLegalHoldOkStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// ReleaseLegalHoldOkUserInteractionType defines a model
-type ReleaseLegalHoldOkUserInteractionType []ReleaseLegalHoldOkUserInteractionTypeItem
-
-// ReleaseLegalHoldOkUserInteractionTypeItem defines a model
-type ReleaseLegalHoldOkUserInteractionTypeItem string
-
-const (
-	ReleaseLegalHoldOkUserInteractionTypeItemPageDotCreated ReleaseLegalHoldOkUserInteractionTypeItem = "page.created"
-	ReleaseLegalHoldOkUserInteractionTypeItemPageDotEdited  ReleaseLegalHoldOkUserInteractionTypeItem = "page.edited"
-	ReleaseLegalHoldOkUserInteractionTypeItemPageDotViewed  ReleaseLegalHoldOkUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the ReleaseLegalHoldOkUserInteractionTypeItem enum.
-func (e ReleaseLegalHoldOkUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case ReleaseLegalHoldOkUserInteractionTypeItemPageDotCreated, ReleaseLegalHoldOkUserInteractionTypeItemPageDotEdited, ReleaseLegalHoldOkUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
-
-// RemoveLegalHoldUserOk defines a model
-type RemoveLegalHoldUserOk struct {
-	CreatedBy           uuid.UUID                                `json:"created_by"`
-	CreatedTime         float64                                  `json:"created_time"`
-	ID                  string                                   `json:"id"`
-	StartDate           float64                                  `json:"start_date"`
-	Status              RemoveLegalHoldUserOkStatus              `json:"status"`
-	UserInteractionType RemoveLegalHoldUserOkUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                           `json:"users"`
-	Workspaces          LegalHoldUsers                           `json:"workspaces"`
-	Description         string                                   `json:"description,omitzero"`
-	EndDate             *float64                                 `json:"end_date,omitzero"`
-	Icon                string                                   `json:"icon,omitzero"`
-	Name                string                                   `json:"name,omitzero"`
-}
-
-// RemoveLegalHoldUserOkStatus defines a model
-type RemoveLegalHoldUserOkStatus string
-
-const (
-	RemoveLegalHoldUserOkStatusActive   RemoveLegalHoldUserOkStatus = "active"
-	RemoveLegalHoldUserOkStatusReleased RemoveLegalHoldUserOkStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the RemoveLegalHoldUserOkStatus enum.
-func (e RemoveLegalHoldUserOkStatus) Valid() bool {
-	switch e {
-	case RemoveLegalHoldUserOkStatusActive, RemoveLegalHoldUserOkStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// RemoveLegalHoldUserOkUserInteractionType defines a model
-type RemoveLegalHoldUserOkUserInteractionType []RemoveLegalHoldUserOkUserInteractionTypeItem
-
-// RemoveLegalHoldUserOkUserInteractionTypeItem defines a model
-type RemoveLegalHoldUserOkUserInteractionTypeItem string
-
-const (
-	RemoveLegalHoldUserOkUserInteractionTypeItemPageDotCreated RemoveLegalHoldUserOkUserInteractionTypeItem = "page.created"
-	RemoveLegalHoldUserOkUserInteractionTypeItemPageDotEdited  RemoveLegalHoldUserOkUserInteractionTypeItem = "page.edited"
-	RemoveLegalHoldUserOkUserInteractionTypeItemPageDotViewed  RemoveLegalHoldUserOkUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the RemoveLegalHoldUserOkUserInteractionTypeItem enum.
-func (e RemoveLegalHoldUserOkUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case RemoveLegalHoldUserOkUserInteractionTypeItemPageDotCreated, RemoveLegalHoldUserOkUserInteractionTypeItemPageDotEdited, RemoveLegalHoldUserOkUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
-
-// RemovePermissionGroupMemberOk defines a model
-type RemovePermissionGroupMemberOk struct {
-	// Always `group_membership`
-	Object string `json:"object"`
-	// The ID of the group.
-	GroupID string `json:"group_id"`
-	// The direct user member.
-	Member AddPermissionGroupMember2 `json:"member"`
-	// The user's role in the group.
-	Role RemovePermissionGroupMemberOkRole `json:"role"`
-}
-
-// The user's role in the group.
-type RemovePermissionGroupMemberOkRole string
-
-const (
-	RemovePermissionGroupMemberOkRoleOwner  RemovePermissionGroupMemberOkRole = "owner"
-	RemovePermissionGroupMemberOkRoleMember RemovePermissionGroupMemberOkRole = "member"
-)
-
-// Valid indicates whether the value is a known member of the RemovePermissionGroupMemberOkRole enum.
-func (e RemovePermissionGroupMemberOkRole) Valid() bool {
-	switch e {
-	case RemovePermissionGroupMemberOkRoleOwner, RemovePermissionGroupMemberOkRoleMember:
-		return true
-	default:
-		return false
-	}
-}
-
 // RevokeMcpClientConnection defines a model
 type RevokeMcpClientConnection struct {
 	// Stable client key returned by the list endpoint.
@@ -3623,10 +1884,10 @@ type RevokeUserSessionUser struct {
 	RevokeUserSessionUserOneOf1 *RevokeUserSessionUserOneOf1
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
+// decodes each further member as it is read. With type first, nothing is read twice.
 func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
+	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
 	}
@@ -3833,21 +2094,21 @@ func (e StatusItem) Valid() bool {
 }
 
 // StatusOneOf0 defines a model
-type StatusOneOf0 []StatusOneOf0Item
+type StatusOneOf0 []StatusOneOfItem
 
-// One of: `active`, `expired`, `revoked`
-type StatusOneOf0Item string
+// StatusOneOfItem defines a model
+type StatusOneOfItem string
 
 const (
-	StatusOneOf0ItemActive  StatusOneOf0Item = "active"
-	StatusOneOf0ItemExpired StatusOneOf0Item = "expired"
-	StatusOneOf0ItemRevoked StatusOneOf0Item = "revoked"
+	StatusOneOfItemActive  StatusOneOfItem = "active"
+	StatusOneOfItemExpired StatusOneOfItem = "expired"
+	StatusOneOfItemRevoked StatusOneOfItem = "revoked"
 )
 
-// Valid indicates whether the value is a known member of the StatusOneOf0Item enum.
-func (e StatusOneOf0Item) Valid() bool {
+// Valid indicates whether the value is a known member of the StatusOneOfItem enum.
+func (e StatusOneOfItem) Valid() bool {
 	switch e {
-	case StatusOneOf0ItemActive, StatusOneOf0ItemExpired, StatusOneOf0ItemRevoked:
+	case StatusOneOfItemActive, StatusOneOfItemExpired, StatusOneOfItemRevoked:
 		return true
 	default:
 		return false
@@ -3949,133 +2210,7 @@ type UpdateAgentPermissions struct {
 // UpdateAgentPermissionsOk defines a model
 type UpdateAgentPermissionsOk struct {
 	// The updated permission list, in the same shape as the read endpoint. This is a pre-commit projection truncated at 250 entries with no cursor; treat the paginated read endpoint as the source of truth.
-	Permissions UpdateAgentPermissionsOkPermissions `json:"permissions"`
-}
-
-// The updated permission list, in the same shape as the read endpoint. This is a pre-commit projection truncated at 250 entries with no cursor; treat the paginated read endpoint as the source of truth.
-type UpdateAgentPermissionsOkPermissions []UpdateAgentPermissionsOkPermissionsItem
-
-// A principal with its stored and workspace-resolved roles.
-type UpdateAgentPermissionsOkPermissionsItem struct {
-	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-	Principal UpdateAgentPermissionsOkPermissionsItemPrincipal `json:"principal"`
-	// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-	ResolvedRole UpdateAgentPermissionsOkPermissionsItemResolvedRole `json:"resolved_role"`
-	// The role stored on this principal's agent permission item.
-	Role UpdateAgentPermissionsOkPermissionsItemRole `json:"role"`
-}
-
-// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-// UpdateAgentPermissionsOkPermissionsItemPrincipal is an untagged oneOf union: exactly one field is set after unmarshaling.
-type UpdateAgentPermissionsOkPermissionsItemPrincipal struct {
-	UpdateAgentPermissionsRemoveItemOneOf  *UpdateAgentPermissionsRemoveItemOneOf
-	CreateCreditLimitPolicySelectorOneOf2  *CreateCreditLimitPolicySelectorOneOf2
-	UpdateAgentPermissionsRemoveItemOneOf3 *UpdateAgentPermissionsRemoveItemOneOf3
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *UpdateAgentPermissionsOkPermissionsItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "group":
-		var vv UpdateAgentPermissionsRemoveItemOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	case "workspace":
-		var vv UpdateAgentPermissionsRemoveItemOneOf3
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf3 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *UpdateAgentPermissionsOkPermissionsItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.UpdateAgentPermissionsRemoveItemOneOf != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf, "group"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	case v.UpdateAgentPermissionsRemoveItemOneOf3 != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf3, "workspace"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
-
-// The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank "view_and_interact" < "edit" < "full_access", so a user whose stored role is "edit" resolves to "full_access" when the workspace-wide grant allows "full_access". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).
-type UpdateAgentPermissionsOkPermissionsItemResolvedRole string
-
-const (
-	UpdateAgentPermissionsOkPermissionsItemResolvedRoleEdit            UpdateAgentPermissionsOkPermissionsItemResolvedRole = "edit"
-	UpdateAgentPermissionsOkPermissionsItemResolvedRoleFullAccess      UpdateAgentPermissionsOkPermissionsItemResolvedRole = "full_access"
-	UpdateAgentPermissionsOkPermissionsItemResolvedRoleViewAndInteract UpdateAgentPermissionsOkPermissionsItemResolvedRole = "view_and_interact"
-)
-
-// Valid indicates whether the value is a known member of the UpdateAgentPermissionsOkPermissionsItemResolvedRole enum.
-func (e UpdateAgentPermissionsOkPermissionsItemResolvedRole) Valid() bool {
-	switch e {
-	case UpdateAgentPermissionsOkPermissionsItemResolvedRoleEdit, UpdateAgentPermissionsOkPermissionsItemResolvedRoleFullAccess, UpdateAgentPermissionsOkPermissionsItemResolvedRoleViewAndInteract:
-		return true
-	default:
-		return false
-	}
-}
-
-// The role stored on this principal's agent permission item.
-type UpdateAgentPermissionsOkPermissionsItemRole string
-
-const (
-	UpdateAgentPermissionsOkPermissionsItemRoleEdit            UpdateAgentPermissionsOkPermissionsItemRole = "edit"
-	UpdateAgentPermissionsOkPermissionsItemRoleFullAccess      UpdateAgentPermissionsOkPermissionsItemRole = "full_access"
-	UpdateAgentPermissionsOkPermissionsItemRoleViewAndInteract UpdateAgentPermissionsOkPermissionsItemRole = "view_and_interact"
-)
-
-// Valid indicates whether the value is a known member of the UpdateAgentPermissionsOkPermissionsItemRole enum.
-func (e UpdateAgentPermissionsOkPermissionsItemRole) Valid() bool {
-	switch e {
-	case UpdateAgentPermissionsOkPermissionsItemRoleEdit, UpdateAgentPermissionsOkPermissionsItemRoleFullAccess, UpdateAgentPermissionsOkPermissionsItemRoleViewAndInteract:
-		return true
-	default:
-		return false
-	}
+	Permissions AgentPermissions `json:"permissions"`
 }
 
 // A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
@@ -4086,10 +2221,10 @@ type UpdateAgentPermissionsRemoveItem struct {
 	UpdateAgentPermissionsRemoveItemOneOf3 *UpdateAgentPermissionsRemoveItemOneOf3
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
+// decodes each further member as it is read. With type first, nothing is read twice.
 func (v *UpdateAgentPermissionsRemoveItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
+	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
 	}
@@ -4194,87 +2329,12 @@ type UpdateAgentPermissionsSet []UpdateAgentPermissionsSetItem
 // A single upsert: grant principal the given role (creating or updating it).
 type UpdateAgentPermissionsSetItem struct {
 	// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-	Principal UpdateAgentPermissionsSetItemPrincipal `json:"principal"`
+	Principal UpdateAgentPermissionsRemoveItem `json:"principal"`
 	// One of: `edit`, `full_access`, `view_and_interact`
 	Role UpdateAgentPermissionsSetItemRole `json:"role"`
 }
 
-// A recipient of a permission grant. "workspace" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.
-// UpdateAgentPermissionsSetItemPrincipal is an untagged oneOf union: exactly one field is set after unmarshaling.
-type UpdateAgentPermissionsSetItemPrincipal struct {
-	UpdateAgentPermissionsRemoveItemOneOf  *UpdateAgentPermissionsRemoveItemOneOf
-	CreateCreditLimitPolicySelectorOneOf2  *CreateCreditLimitPolicySelectorOneOf2
-	UpdateAgentPermissionsRemoveItemOneOf3 *UpdateAgentPermissionsRemoveItemOneOf3
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *UpdateAgentPermissionsSetItemPrincipal) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "group":
-		var vv UpdateAgentPermissionsRemoveItemOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	case "workspace":
-		var vv UpdateAgentPermissionsRemoveItemOneOf3
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.UpdateAgentPermissionsRemoveItemOneOf3 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *UpdateAgentPermissionsSetItemPrincipal) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.UpdateAgentPermissionsRemoveItemOneOf != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf, "group"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	case v.UpdateAgentPermissionsRemoveItemOneOf3 != nil:
-		variant, tag = v.UpdateAgentPermissionsRemoveItemOneOf3, "workspace"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
-
-// One of: `edit`, `full_access`, `view_and_interact`
+// UpdateAgentPermissionsSetItemRole defines a model
 type UpdateAgentPermissionsSetItemRole string
 
 const (
@@ -4299,7 +2359,7 @@ type UpdateAgentStatus struct {
 	AdminStatus UpdateAgentStatusAdminStatus `json:"admin_status"`
 }
 
-// Set to "active" to re-enable an agent that was disabled through this API, or "disabled" to turn off a running agent.
+// UpdateAgentStatusAdminStatus defines a model
 type UpdateAgentStatusAdminStatus string
 
 const (
@@ -4320,29 +2380,11 @@ func (e UpdateAgentStatusAdminStatus) Valid() bool {
 // UpdateAgentStatusOk defines a model
 type UpdateAgentStatusOk struct {
 	// The administrative status you set ("active" or "disabled"). This is the admin-disable toggle only; it does not tell you whether the agent will actually run.
-	AdminStatus UpdateAgentStatusOkAdminStatus `json:"admin_status"`
+	AdminStatus UpdateAgentStatusAdminStatus `json:"admin_status"`
 	// Whether the agent will actually run right now, independent of the admin-disable toggle. It reflects the agent's current state, including usage-based pauses such as a credit limit or workspace credit limit. It is "active" only when the agent has no paused reason and will actually run, and "paused" whenever a paused_reason is present, whether admin-set or not. Refer to paused_reason for why the agent is paused.
 	RunStatus UpdateAgentStatusOkRunStatus `json:"run_status"`
 	// The authoritative explanation for why an agent is paused (for example, "disabled_from_workspace_settings" or "workspace_credit_limit"). It is present only when run_status is "paused", and it is the field you must inspect to derive the agent's true state.
 	PausedReason UpdateAgentStatusOkPausedReason `json:"paused_reason,omitzero"`
-}
-
-// The administrative status you set ("active" or "disabled"). This is the admin-disable toggle only; it does not tell you whether the agent will actually run.
-type UpdateAgentStatusOkAdminStatus string
-
-const (
-	UpdateAgentStatusOkAdminStatusActive   UpdateAgentStatusOkAdminStatus = "active"
-	UpdateAgentStatusOkAdminStatusDisabled UpdateAgentStatusOkAdminStatus = "disabled"
-)
-
-// Valid indicates whether the value is a known member of the UpdateAgentStatusOkAdminStatus enum.
-func (e UpdateAgentStatusOkAdminStatus) Valid() bool {
-	switch e {
-	case UpdateAgentStatusOkAdminStatusActive, UpdateAgentStatusOkAdminStatusDisabled:
-		return true
-	default:
-		return false
-	}
 }
 
 // The authoritative explanation for why an agent is paused (for example, "disabled_from_workspace_settings" or "workspace_credit_limit"). It is present only when run_status is "paused", and it is the field you must inspect to derive the agent's true state.
@@ -4402,107 +2444,6 @@ type UpdateCreditLimitPolicy struct {
 	ExpiresAt *int `json:"expires_at,omitzero"`
 }
 
-// UpdateCreditLimitPolicyOk defines a model
-type UpdateCreditLimitPolicyOk struct {
-	// Always `credit_limit_policy`
-	Object    string                           `json:"object"`
-	Amount    int                              `json:"amount"`
-	CreatedAt int                              `json:"created_at"`
-	CreatedBy CreateCreditLimitPolicyCreatedBy `json:"created_by"`
-	// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-	CreditTypeUnit UpdateCreditLimitPolicyOkCreditTypeUnit `json:"credit_type_unit"`
-	ID             uuid.UUID                               `json:"id"`
-	// All workspace members or one workspace member affected by the policy.
-	Selector  UpdateCreditLimitPolicyOkSelector `json:"selector"`
-	SpaceID   uuid.UUID                         `json:"space_id"`
-	ExpiresAt *int                              `json:"expires_at,omitzero"`
-}
-
-// One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`
-type UpdateCreditLimitPolicyOkCreditTypeUnit string
-
-const (
-	UpdateCreditLimitPolicyOkCreditTypeUnitBasicAiCredits   UpdateCreditLimitPolicyOkCreditTypeUnit = "basic_ai_credits"
-	UpdateCreditLimitPolicyOkCreditTypeUnitExemptAiCredits  UpdateCreditLimitPolicyOkCreditTypeUnit = "exempt_ai_credits"
-	UpdateCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits UpdateCreditLimitPolicyOkCreditTypeUnit = "premium_ai_credits"
-	UpdateCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits UpdateCreditLimitPolicyOkCreditTypeUnit = "preview_ai_credits"
-)
-
-// Valid indicates whether the value is a known member of the UpdateCreditLimitPolicyOkCreditTypeUnit enum.
-func (e UpdateCreditLimitPolicyOkCreditTypeUnit) Valid() bool {
-	switch e {
-	case UpdateCreditLimitPolicyOkCreditTypeUnitBasicAiCredits, UpdateCreditLimitPolicyOkCreditTypeUnitExemptAiCredits, UpdateCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits, UpdateCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits:
-		return true
-	default:
-		return false
-	}
-}
-
-// All workspace members or one workspace member affected by the policy.
-// UpdateCreditLimitPolicyOkSelector is an untagged oneOf union: exactly one field is set after unmarshaling.
-type UpdateCreditLimitPolicyOkSelector struct {
-	CreateCreditLimitPolicySelectorOneOf  *CreateCreditLimitPolicySelectorOneOf
-	CreateCreditLimitPolicySelectorOneOf2 *CreateCreditLimitPolicySelectorOneOf2
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its first member must be type, which names the
-// alternative; the alternative then decodes each further member as it is read.
-func (v *UpdateCreditLimitPolicyOkSelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "all_space_members":
-		var vv CreateCreditLimitPolicySelectorOneOf
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf = &vv
-	case "user":
-		var vv CreateCreditLimitPolicySelectorOneOf2
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.CreateCreditLimitPolicySelectorOneOf2 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *UpdateCreditLimitPolicyOkSelector) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.CreateCreditLimitPolicySelectorOneOf != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf, "all_space_members"
-	case v.CreateCreditLimitPolicySelectorOneOf2 != nil:
-		variant, tag = v.CreateCreditLimitPolicySelectorOneOf2, "user"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
-
 // UpdateLegalHold defines a model
 type UpdateLegalHold struct {
 	Description string `json:"description,omitzero"`
@@ -4510,82 +2451,26 @@ type UpdateLegalHold struct {
 	Name        string `json:"name,omitzero"`
 }
 
-// UpdateLegalHoldOk defines a model
-type UpdateLegalHoldOk struct {
-	CreatedBy           uuid.UUID                            `json:"created_by"`
-	CreatedTime         float64                              `json:"created_time"`
-	ID                  string                               `json:"id"`
-	StartDate           float64                              `json:"start_date"`
-	Status              UpdateLegalHoldOkStatus              `json:"status"`
-	UserInteractionType UpdateLegalHoldOkUserInteractionType `json:"user_interaction_type"`
-	Users               LegalHoldUsers                       `json:"users"`
-	Workspaces          LegalHoldUsers                       `json:"workspaces"`
-	Description         string                               `json:"description,omitzero"`
-	EndDate             *float64                             `json:"end_date,omitzero"`
-	Icon                string                               `json:"icon,omitzero"`
-	Name                string                               `json:"name,omitzero"`
-}
-
-// UpdateLegalHoldOkStatus defines a model
-type UpdateLegalHoldOkStatus string
-
-const (
-	UpdateLegalHoldOkStatusActive   UpdateLegalHoldOkStatus = "active"
-	UpdateLegalHoldOkStatusReleased UpdateLegalHoldOkStatus = "released"
-)
-
-// Valid indicates whether the value is a known member of the UpdateLegalHoldOkStatus enum.
-func (e UpdateLegalHoldOkStatus) Valid() bool {
-	switch e {
-	case UpdateLegalHoldOkStatusActive, UpdateLegalHoldOkStatusReleased:
-		return true
-	default:
-		return false
-	}
-}
-
-// UpdateLegalHoldOkUserInteractionType defines a model
-type UpdateLegalHoldOkUserInteractionType []UpdateLegalHoldOkUserInteractionTypeItem
-
-// UpdateLegalHoldOkUserInteractionTypeItem defines a model
-type UpdateLegalHoldOkUserInteractionTypeItem string
-
-const (
-	UpdateLegalHoldOkUserInteractionTypeItemPageDotCreated UpdateLegalHoldOkUserInteractionTypeItem = "page.created"
-	UpdateLegalHoldOkUserInteractionTypeItemPageDotEdited  UpdateLegalHoldOkUserInteractionTypeItem = "page.edited"
-	UpdateLegalHoldOkUserInteractionTypeItemPageDotViewed  UpdateLegalHoldOkUserInteractionTypeItem = "page.viewed"
-)
-
-// Valid indicates whether the value is a known member of the UpdateLegalHoldOkUserInteractionTypeItem enum.
-func (e UpdateLegalHoldOkUserInteractionTypeItem) Valid() bool {
-	switch e {
-	case UpdateLegalHoldOkUserInteractionTypeItemPageDotCreated, UpdateLegalHoldOkUserInteractionTypeItemPageDotEdited, UpdateLegalHoldOkUserInteractionTypeItemPageDotViewed:
-		return true
-	default:
-		return false
-	}
-}
-
 // UpdateMcpClientConnectionEnterpriseManagedAccess defines a model
 type UpdateMcpClientConnectionEnterpriseManagedAccess struct {
 	// 'denied' blocks access; 'allowed' restores access.
-	Access      UpdateMcpClientConnectionEnterpriseManagedAccessAccess `json:"access"`
-	UserID      uuid.UUID                                              `json:"user_id"`
-	WorkspaceID uuid.UUID                                              `json:"workspace_id"`
+	Access      UpdateMcpClientConnectionEnterpriseManagedAccess2 `json:"access"`
+	UserID      uuid.UUID                                         `json:"user_id"`
+	WorkspaceID uuid.UUID                                         `json:"workspace_id"`
 }
 
-// 'denied' blocks access; 'allowed' restores access.
-type UpdateMcpClientConnectionEnterpriseManagedAccessAccess string
+// UpdateMcpClientConnectionEnterpriseManagedAccess2 defines a model
+type UpdateMcpClientConnectionEnterpriseManagedAccess2 string
 
 const (
-	UpdateMcpClientConnectionEnterpriseManagedAccessAccessAllowed UpdateMcpClientConnectionEnterpriseManagedAccessAccess = "allowed"
-	UpdateMcpClientConnectionEnterpriseManagedAccessAccessDenied  UpdateMcpClientConnectionEnterpriseManagedAccessAccess = "denied"
+	UpdateMcpClientConnectionEnterpriseManagedAccess2Allowed UpdateMcpClientConnectionEnterpriseManagedAccess2 = "allowed"
+	UpdateMcpClientConnectionEnterpriseManagedAccess2Denied  UpdateMcpClientConnectionEnterpriseManagedAccess2 = "denied"
 )
 
-// Valid indicates whether the value is a known member of the UpdateMcpClientConnectionEnterpriseManagedAccessAccess enum.
-func (e UpdateMcpClientConnectionEnterpriseManagedAccessAccess) Valid() bool {
+// Valid indicates whether the value is a known member of the UpdateMcpClientConnectionEnterpriseManagedAccess2 enum.
+func (e UpdateMcpClientConnectionEnterpriseManagedAccess2) Valid() bool {
 	switch e {
-	case UpdateMcpClientConnectionEnterpriseManagedAccessAccessAllowed, UpdateMcpClientConnectionEnterpriseManagedAccessAccessDenied:
+	case UpdateMcpClientConnectionEnterpriseManagedAccess2Allowed, UpdateMcpClientConnectionEnterpriseManagedAccess2Denied:
 		return true
 	default:
 		return false
@@ -4595,81 +2480,15 @@ func (e UpdateMcpClientConnectionEnterpriseManagedAccessAccess) Valid() bool {
 // UpdateMcpClientConnectionEnterpriseManagedAccessOk defines a model
 type UpdateMcpClientConnectionEnterpriseManagedAccessOk struct {
 	// Access state applied to the member.
-	Access UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess `json:"access"`
+	Access UpdateMcpClientConnectionEnterpriseManagedAccess2 `json:"access"`
 	// Number of active tokens revoked. Always zero when restoring access.
 	RevokedTokenCount float64 `json:"revoked_token_count"`
-}
-
-// Access state applied to the member.
-type UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess string
-
-const (
-	UpdateMcpClientConnectionEnterpriseManagedAccessOkAccessAllowed UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess = "allowed"
-	UpdateMcpClientConnectionEnterpriseManagedAccessOkAccessDenied  UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess = "denied"
-)
-
-// Valid indicates whether the value is a known member of the UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess enum.
-func (e UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess) Valid() bool {
-	switch e {
-	case UpdateMcpClientConnectionEnterpriseManagedAccessOkAccessAllowed, UpdateMcpClientConnectionEnterpriseManagedAccessOkAccessDenied:
-		return true
-	default:
-		return false
-	}
 }
 
 // UpdatePermissionGroupMember defines a model
 type UpdatePermissionGroupMember struct {
 	// The user's new role in the group.
-	Role UpdatePermissionGroupMemberRole `json:"role"`
-}
-
-// UpdatePermissionGroupMemberOk defines a model
-type UpdatePermissionGroupMemberOk struct {
-	// Always `group_membership`
-	Object string `json:"object"`
-	// The ID of the group.
-	GroupID string `json:"group_id"`
-	// The direct user member.
-	Member AddPermissionGroupMember2 `json:"member"`
-	// The user's role in the group.
-	Role UpdatePermissionGroupMemberOkRole `json:"role"`
-}
-
-// The user's role in the group.
-type UpdatePermissionGroupMemberOkRole string
-
-const (
-	UpdatePermissionGroupMemberOkRoleOwner  UpdatePermissionGroupMemberOkRole = "owner"
-	UpdatePermissionGroupMemberOkRoleMember UpdatePermissionGroupMemberOkRole = "member"
-)
-
-// Valid indicates whether the value is a known member of the UpdatePermissionGroupMemberOkRole enum.
-func (e UpdatePermissionGroupMemberOkRole) Valid() bool {
-	switch e {
-	case UpdatePermissionGroupMemberOkRoleOwner, UpdatePermissionGroupMemberOkRoleMember:
-		return true
-	default:
-		return false
-	}
-}
-
-// The user's new role in the group.
-type UpdatePermissionGroupMemberRole string
-
-const (
-	UpdatePermissionGroupMemberRoleOwner  UpdatePermissionGroupMemberRole = "owner"
-	UpdatePermissionGroupMemberRoleMember UpdatePermissionGroupMemberRole = "member"
-)
-
-// Valid indicates whether the value is a known member of the UpdatePermissionGroupMemberRole enum.
-func (e UpdatePermissionGroupMemberRole) Valid() bool {
-	switch e {
-	case UpdatePermissionGroupMemberRoleOwner, UpdatePermissionGroupMemberRoleMember:
-		return true
-	default:
-		return false
-	}
+	Role AddPermissionGroupMemberRole `json:"role"`
 }
 
 // UpdateWorkspaceCreditLimit defines a model
@@ -4685,7 +2504,7 @@ type UpdateWorkspaceCreditLimitOk struct {
 	DefaultAgentCreditLimit *float64 `json:"default_agent_credit_limit"`
 }
 
-// Member IDs to include. Use bracket encoding for multiple values.
+// UserIds defines a model
 // UserIds is an untagged anyOf union: at least one field is set after unmarshaling.
 type UserIds struct {
 	UUID  []uuid.UUID
@@ -4736,55 +2555,23 @@ func (v *UserIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
-// Workspace IDs to include. Use bracket encoding for multiple values.
-// WorkspaceIds is an untagged anyOf union: at least one field is set after unmarshaling.
-type WorkspaceIds struct {
-	UUID  []uuid.UUID
-	UUID2 *uuid.UUID
-}
+// WorkflowsMetadataForSpaceResultsItemCreatedByTable defines a model
+type WorkflowsMetadataForSpaceResultsItemCreatedByTable string
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *WorkspaceIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
+const (
+	WorkflowsMetadataForSpaceResultsItemCreatedByTableBot             WorkflowsMetadataForSpaceResultsItemCreatedByTable = "bot"
+	WorkflowsMetadataForSpaceResultsItemCreatedByTableNotionUser      WorkflowsMetadataForSpaceResultsItemCreatedByTable = "notion_user"
+	WorkflowsMetadataForSpaceResultsItemCreatedByTableOrganizationBot WorkflowsMetadataForSpaceResultsItemCreatedByTable = "organization_bot"
+)
+
+// Valid indicates whether the value is a known member of the WorkflowsMetadataForSpaceResultsItemCreatedByTable enum.
+func (e WorkflowsMetadataForSpaceResultsItemCreatedByTable) Valid() bool {
+	switch e {
+	case WorkflowsMetadataForSpaceResultsItemCreatedByTableBot, WorkflowsMetadataForSpaceResultsItemCreatedByTableNotionUser, WorkflowsMetadataForSpaceResultsItemCreatedByTableOrganizationBot:
+		return true
+	default:
+		return false
 	}
-
-	var matched int
-
-	{
-		var vv []uuid.UUID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UUID = vv
-			matched++
-		}
-	}
-
-	{
-		var vv uuid.UUID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
-			v.UUID2 = &vv
-			matched++
-		}
-	}
-
-	if matched == 0 {
-		return &json.SemanticError{Err: errors.New("matches none of its alternatives")}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *WorkspaceIds) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.UUID != nil:
-		return json.MarshalEncode(enc, v.UUID, jsonOpts)
-	case v.UUID2 != nil:
-		return json.MarshalEncode(enc, v.UUID2, jsonOpts)
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
@@ -4802,39 +2589,88 @@ func jsonUnknownValue(name, value string) error {
 	return &json.SemanticError{JSONKind: jsontext.KindString, JSONValue: jsontext.Value(strconv.Quote(value)), Err: fmt.Errorf("unknown value of %q", name)}
 }
 
-// jsonFirstMember reads the opening of a JSON object and its first member, which must be name with a string value.
-// It returns the string and the value as written.
-func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value, error) {
+// jsonFirstMember reads the opening of a JSON object and its member name, which must have a string value. It returns
+// the string, the value as written, and the decoder to read the object's further members from: dec itself when name
+// comes first, the fast way, and otherwise one over the object read whole, with name moved to the front.
+func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value, *jsontext.Decoder, error) {
 	if tok, err := dec.ReadToken(); err != nil {
-		return "", nil, err
+		return "", nil, nil, err
 	} else if tok.Kind() != jsontext.KindBeginObject {
-		return "", nil, &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
+		return "", nil, nil, &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
 	}
 
 	if dec.PeekKind() == jsontext.KindEndObject {
-		return "", nil, jsonMissing(name)
+		return "", nil, nil, jsonMissing(name)
 	}
 
 	tok, err := dec.ReadToken()
 	if err != nil {
-		return "", nil, err
+		return "", nil, nil, err
 	}
 
 	if got := tok.String(); got != name {
-		return "", nil, &json.SemanticError{Err: fmt.Errorf("first member is %q, want %q", got, name)}
+		// read the rest of the object, and start again with name first
+		var buf bytes.Buffer
+		enc := jsontext.NewEncoder(&buf)
+		if err := enc.WriteToken(jsontext.BeginObject); err != nil {
+			return "", nil, nil, err
+		}
+
+		if err := enc.WriteToken(jsontext.String(got)); err != nil {
+			return "", nil, nil, err
+		}
+
+		for dec.PeekKind() != jsontext.KindEndObject {
+			val, err := dec.ReadValue()
+			if err != nil {
+				return "", nil, nil, err
+			}
+
+			if err := enc.WriteValue(val); err != nil {
+				return "", nil, nil, err
+			}
+
+			if dec.PeekKind() == jsontext.KindEndObject {
+				break
+			}
+
+			tok, err := dec.ReadToken()
+			if err != nil {
+				return "", nil, nil, err
+			}
+
+			if err := enc.WriteToken(tok); err != nil {
+				return "", nil, nil, err
+			}
+		}
+
+		if _, err := dec.ReadToken(); err != nil { // the end of the object
+			return "", nil, nil, err
+		}
+
+		if err := enc.WriteToken(jsontext.EndObject); err != nil {
+			return "", nil, nil, err
+		}
+
+		ordered, err := jsonFirst(buf.Bytes(), name, "")
+		if err != nil {
+			return "", nil, nil, err
+		}
+
+		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered)), name)
 	}
 
 	val, err := dec.ReadValue()
 	if err != nil {
-		return "", nil, err
+		return "", nil, nil, err
 	}
 
 	var tag string
 	if err := json.Unmarshal(val, &tag); err != nil {
-		return "", nil, &json.SemanticError{JSONKind: val.Kind(), Err: fmt.Errorf("member %q is not a string", name)}
+		return "", nil, nil, &json.SemanticError{JSONKind: val.Kind(), Err: fmt.Errorf("member %q is not a string", name)}
 	}
 
-	return tag, val.Clone(), nil
+	return tag, val.Clone(), dec, nil
 }
 
 // jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each

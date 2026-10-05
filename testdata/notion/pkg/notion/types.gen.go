@@ -78,13 +78,10 @@ type GetV1PageByPageIDOkProperties struct {
 
 // GetV1PageByPageIDOkPropertiesTitle defines a model
 type GetV1PageByPageIDOkPropertiesTitle struct {
-	ID    string                                  `json:"id"`
-	Type  string                                  `json:"type"`
-	Title GetV1PageByPageIDOkPropertiesTitleTitle `json:"title"`
+	ID    string                      `json:"id"`
+	Type  string                      `json:"type"`
+	Title PageByPageIDPropertiesTitle `json:"title"`
 }
-
-// GetV1PageByPageIDOkPropertiesTitleTitle defines a model
-type GetV1PageByPageIDOkPropertiesTitleTitle []PageByPageIDPropertiesTitleItem
 
 // ListV1BlockChildrenOk defines a model
 type ListV1BlockChildrenOk struct {
@@ -117,13 +114,10 @@ type ListV1BlockChildrenOkResultsItem struct {
 
 // ListV1BlockChildrenOkResultsItemParagraph defines a model
 type ListV1BlockChildrenOkResultsItemParagraph struct {
-	RichText ListV1BlockChildrenOkResultsItemParagraphRichText `json:"rich_text"`
-	Icon     *struct{}                                         `json:"icon"`
-	Color    string                                            `json:"color"`
+	RichText PageByPageIDPropertiesTitle `json:"rich_text"`
+	Icon     *struct{}                   `json:"icon"`
+	Color    string                      `json:"color"`
 }
-
-// ListV1BlockChildrenOkResultsItemParagraphRichText defines a model
-type ListV1BlockChildrenOkResultsItemParagraphRichText []PageByPageIDPropertiesTitleItem
 
 // PageByPageIDCreatedBy defines a model
 type PageByPageIDCreatedBy struct {
@@ -136,6 +130,9 @@ type PageByPageIDParent struct {
 	Type   string    `json:"type"`
 	PageID uuid.UUID `json:"page_id"`
 }
+
+// PageByPageIDPropertiesTitle defines a model
+type PageByPageIDPropertiesTitle []PageByPageIDPropertiesTitleItem
 
 // PageByPageIDPropertiesTitleItem defines a model
 type PageByPageIDPropertiesTitleItem struct {

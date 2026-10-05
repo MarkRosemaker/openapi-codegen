@@ -170,7 +170,7 @@
 					"description": "The legal hold.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GetLegalHoldOk"
+						"name": "LegalHold"
 					},
 					"isSuccess": true
 				},
@@ -230,7 +230,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "GetLegalHoldOk"
+				"name": "LegalHold"
 			}
 		},
 		{
@@ -284,7 +284,7 @@
 					"description": "The updated legal hold.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "UpdateLegalHoldOk"
+						"name": "LegalHold"
 					},
 					"isSuccess": true
 				},
@@ -344,7 +344,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "UpdateLegalHoldOk"
+				"name": "LegalHold"
 			}
 		},
 		{
@@ -521,7 +521,7 @@
 					"description": "The result of: Add users to a legal hold.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AddLegalHoldUsersOk"
+						"name": "LegalHold"
 					},
 					"isSuccess": true
 				},
@@ -581,7 +581,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AddLegalHoldUsersOk"
+				"name": "LegalHold"
 			}
 		},
 		{
@@ -739,7 +739,7 @@
 					"description": "The created legal hold.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateLegalHoldOk"
+						"name": "LegalHold"
 					},
 					"isSuccess": true
 				},
@@ -799,7 +799,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateLegalHoldOk"
+				"name": "LegalHold"
 			}
 		},
 		{
@@ -971,7 +971,7 @@
 					"description": "The result of: Release a legal hold.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ReleaseLegalHoldOk"
+						"name": "LegalHold"
 					},
 					"isSuccess": true
 				},
@@ -1031,7 +1031,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ReleaseLegalHoldOk"
+				"name": "LegalHold"
 			}
 		},
 		{
@@ -1091,7 +1091,7 @@
 					"description": "The removed user from a legal hold.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "RemoveLegalHoldUserOk"
+						"name": "LegalHold"
 					},
 					"isSuccess": true
 				},
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "RemoveLegalHoldUserOk"
+				"name": "LegalHold"
 			}
 		},
 		{
@@ -3066,7 +3066,7 @@
 					"description": "The result of: Add a group member.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AddPermissionGroupMemberOk"
+						"name": "AddPermissionGroupMember2"
 					},
 					"isSuccess": true
 				},
@@ -3144,7 +3144,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AddPermissionGroupMemberOk"
+				"name": "AddPermissionGroupMember2"
 			}
 		},
 		{
@@ -3220,7 +3220,7 @@
 					"description": "The removed group member.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "RemovePermissionGroupMemberOk"
+						"name": "AddPermissionGroupMember2"
 					},
 					"isSuccess": true
 				},
@@ -3298,7 +3298,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "RemovePermissionGroupMemberOk"
+				"name": "AddPermissionGroupMember2"
 			}
 		},
 		{
@@ -3379,7 +3379,7 @@
 					"description": "The updated group member.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "UpdatePermissionGroupMemberOk"
+						"name": "AddPermissionGroupMember2"
 					},
 					"isSuccess": true
 				},
@@ -3457,7 +3457,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "UpdatePermissionGroupMemberOk"
+				"name": "AddPermissionGroupMember2"
 			}
 		},
 		{
@@ -3506,11 +3506,11 @@
 					"goName": "status",
 					"fieldName": "Status",
 					"jsonName": "status",
-					"type": "[]StatusOneOf0Item",
+					"type": "[]StatusOneOfItem",
 					"item": {
 						"varName": "v",
-						"type": "StatusOneOf0Item",
-						"parseExpr": "StatusOneOf0Item(s)",
+						"type": "StatusOneOfItem",
+						"parseExpr": "StatusOneOfItem(s)",
 						"parseErrFree": true,
 						"isEnum": true,
 						"baseType": "string"
@@ -4573,7 +4573,7 @@
 					"description": "The credit usage for an agent in a space.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GetAgentCreditUsageOk"
+						"name": "AgentCreditUsage"
 					},
 					"isSuccess": true
 				},
@@ -4633,7 +4633,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "GetAgentCreditUsageOk"
+				"name": "AgentCreditUsage"
 			}
 		},
 		{
@@ -5381,7 +5381,7 @@
 					"description": "The created credit limit policy.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateCreditLimitPolicyOk"
+						"name": "CreateCreditLimitPolicy2"
 					},
 					"isSuccess": true
 				},
@@ -5459,7 +5459,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateCreditLimitPolicyOk"
+				"name": "CreateCreditLimitPolicy2"
 			}
 		},
 		{
@@ -5519,7 +5519,7 @@
 					"description": "The result of: Expire a credit limit policy.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ExpireCreditLimitPolicyOk"
+						"name": "CreateCreditLimitPolicy2"
 					},
 					"isSuccess": true
 				},
@@ -5597,7 +5597,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ExpireCreditLimitPolicyOk"
+				"name": "CreateCreditLimitPolicy2"
 			}
 		},
 		{
@@ -5662,7 +5662,7 @@
 					"description": "The updated credit limit policy.",
 					"contentType": "application/json",
 					"goType": {
-						"name": "UpdateCreditLimitPolicyOk"
+						"name": "CreateCreditLimitPolicy2"
 					},
 					"isSuccess": true
 				},
@@ -5740,7 +5740,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "UpdateCreditLimitPolicyOk"
+				"name": "CreateCreditLimitPolicy2"
 			}
 		}
 	],
@@ -5755,139 +5755,6 @@
 					"type": "[]uuid.UUID",
 					"jsonTag": "json:\"user_ids\"",
 					"required": true
-				}
-			]
-		},
-		{
-			"name": "AddLegalHoldUsersOk",
-			"description": "AddLegalHoldUsersOk defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "AddLegalHoldUsersOkStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "AddLegalHoldUsersOkUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "AddLegalHoldUsersOkStatus",
-			"description": "AddLegalHoldUsersOkStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AddLegalHoldUsersOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "AddLegalHoldUsersOkStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "AddLegalHoldUsersOkUserInteractionType",
-			"description": "AddLegalHoldUsersOkUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]AddLegalHoldUsersOkUserInteractionTypeItem"
-		},
-		{
-			"name": "AddLegalHoldUsersOkUserInteractionTypeItem",
-			"description": "AddLegalHoldUsersOkUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AddLegalHoldUsersOkUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "AddLegalHoldUsersOkUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "AddLegalHoldUsersOkUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
 				}
 			]
 		},
@@ -5915,6 +5782,44 @@
 		},
 		{
 			"name": "AddPermissionGroupMember2",
+			"description": "AddPermissionGroupMember2 defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"description": "Always `group_membership`",
+					"required": true
+				},
+				{
+					"name": "GroupID",
+					"jsonName": "group_id",
+					"type": "string",
+					"jsonTag": "json:\"group_id\"",
+					"description": "The ID of the group.",
+					"required": true
+				},
+				{
+					"name": "Member",
+					"jsonName": "member",
+					"type": "AddPermissionGroupMember3",
+					"jsonTag": "json:\"member\"",
+					"description": "The direct user member.",
+					"required": true
+				},
+				{
+					"name": "Role",
+					"jsonName": "role",
+					"type": "AddPermissionGroupMemberRole",
+					"jsonTag": "json:\"role\"",
+					"description": "The user's role in the group.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AddPermissionGroupMember3",
 			"description": "The direct user member.",
 			"fields": [
 				{
@@ -5958,64 +5863,8 @@
 			]
 		},
 		{
-			"name": "AddPermissionGroupMemberOk",
-			"description": "AddPermissionGroupMemberOk defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `group_membership`",
-					"required": true
-				},
-				{
-					"name": "GroupID",
-					"jsonName": "group_id",
-					"type": "string",
-					"jsonTag": "json:\"group_id\"",
-					"description": "The ID of the group.",
-					"required": true
-				},
-				{
-					"name": "Member",
-					"jsonName": "member",
-					"type": "AddPermissionGroupMember2",
-					"jsonTag": "json:\"member\"",
-					"description": "The direct user member.",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "AddPermissionGroupMemberOkRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The user's role in the group.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "AddPermissionGroupMemberOkRole",
-			"description": "The user's role in the group.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AddPermissionGroupMemberOkRoleOwner",
-					"value": "owner",
-					"literal": "\"owner\""
-				},
-				{
-					"goName": "AddPermissionGroupMemberOkRoleMember",
-					"value": "member",
-					"literal": "\"member\""
-				}
-			]
-		},
-		{
 			"name": "AddPermissionGroupMemberRole",
-			"description": "The user's role in the group.",
+			"description": "AddPermissionGroupMemberRole defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
@@ -6038,14 +5887,14 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "AdminAPIError400Type",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIError400Code",
+					"type": "AdminAPIErrorCode",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6062,32 +5911,6 @@
 					"type": "string",
 					"jsonTag": "json:\"message\"",
 					"required": true
-				}
-			]
-		},
-		{
-			"name": "AdminAPIError400Code",
-			"description": "AdminAPIError400Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError400CodeValidationError",
-					"value": "validation_error",
-					"literal": "\"validation_error\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIError400Type",
-			"description": "AdminAPIError400Type defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError400TypeError",
-					"value": "error",
-					"literal": "\"error\""
 				}
 			]
 		},
@@ -6098,14 +5921,14 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "AdminAPIError401Type",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIError401Code",
+					"type": "AdminAPIErrorCode2",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6126,39 +5949,13 @@
 			]
 		},
 		{
-			"name": "AdminAPIError401Code",
-			"description": "AdminAPIError401Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError401CodeUnauthorized",
-					"value": "unauthorized",
-					"literal": "\"unauthorized\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIError401Type",
-			"description": "AdminAPIError401Type defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError401TypeError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
-		},
-		{
 			"name": "AdminAPIError403",
 			"description": "AdminAPIError403 defines a model",
 			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "AdminAPIError403Type",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -6204,26 +6001,13 @@
 			]
 		},
 		{
-			"name": "AdminAPIError403Type",
-			"description": "AdminAPIError403Type defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError403TypeError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
-		},
-		{
 			"name": "AdminAPIError404",
 			"description": "AdminAPIError404 defines a model",
 			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "AdminAPIError404Type",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -6264,33 +6048,20 @@
 			]
 		},
 		{
-			"name": "AdminAPIError404Type",
-			"description": "AdminAPIError404Type defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError404TypeError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
-		},
-		{
 			"name": "AdminAPIError429",
 			"description": "AdminAPIError429 defines a model",
 			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "AdminAPIError429Type",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIError429Code",
+					"type": "AdminAPIErrorCode3",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6307,32 +6078,6 @@
 					"type": "string",
 					"jsonTag": "json:\"message\"",
 					"required": true
-				}
-			]
-		},
-		{
-			"name": "AdminAPIError429Code",
-			"description": "AdminAPIError429Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError429CodeRateLimited",
-					"value": "rate_limited",
-					"literal": "\"rate_limited\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIError429Type",
-			"description": "AdminAPIError429Type defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIError429TypeError",
-					"value": "error",
-					"literal": "\"error\""
 				}
 			]
 		},
@@ -6343,14 +6088,14 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "AdminAPIError500Type",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIError500Code",
+					"type": "AdminAPIErrorCode4",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6371,26 +6116,65 @@
 			]
 		},
 		{
-			"name": "AdminAPIError500Code",
-			"description": "AdminAPIError500Code defines a model",
+			"name": "AdminAPIErrorCode",
+			"description": "AdminAPIErrorCode defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "AdminAPIError500CodeInternalServerError",
+					"goName": "AdminAPIErrorCodeValidationError",
+					"value": "validation_error",
+					"literal": "\"validation_error\""
+				}
+			]
+		},
+		{
+			"name": "AdminAPIErrorCode2",
+			"description": "AdminAPIErrorCode2 defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AdminAPIErrorCode2Unauthorized",
+					"value": "unauthorized",
+					"literal": "\"unauthorized\""
+				}
+			]
+		},
+		{
+			"name": "AdminAPIErrorCode3",
+			"description": "AdminAPIErrorCode3 defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AdminAPIErrorCode3RateLimited",
+					"value": "rate_limited",
+					"literal": "\"rate_limited\""
+				}
+			]
+		},
+		{
+			"name": "AdminAPIErrorCode4",
+			"description": "AdminAPIErrorCode4 defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AdminAPIErrorCode4InternalServerError",
 					"value": "internal_server_error",
 					"literal": "\"internal_server_error\""
 				}
 			]
 		},
 		{
-			"name": "AdminAPIError500Type",
-			"description": "AdminAPIError500Type defines a model",
+			"name": "AdminAPIErrorType",
+			"description": "AdminAPIErrorType defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "AdminAPIError500TypeError",
+					"goName": "AdminAPIErrorTypeError",
 					"value": "error",
 					"literal": "\"error\""
 				}
@@ -6403,14 +6187,14 @@
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError400Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIPublicError400Code",
+					"type": "AdminAPIErrorCode",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6431,64 +6215,8 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError400AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError400AdditionalDataValue",
-			"description": "AdminAPIPublicError400AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
-		},
-		{
-			"name": "AdminAPIPublicError400Code",
-			"description": "AdminAPIPublicError400Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError400CodeValidationError",
-					"value": "validation_error",
-					"literal": "\"validation_error\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError400Object",
-			"description": "AdminAPIPublicError400Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError400ObjectError",
-					"value": "error",
-					"literal": "\"error\""
 				}
 			]
 		},
@@ -6499,14 +6227,14 @@
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError401Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIPublicError401Code",
+					"type": "AdminAPIErrorCode2",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6527,64 +6255,8 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError401AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError401AdditionalDataValue",
-			"description": "AdminAPIPublicError401AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
-		},
-		{
-			"name": "AdminAPIPublicError401Code",
-			"description": "AdminAPIPublicError401Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError401CodeUnauthorized",
-					"value": "unauthorized",
-					"literal": "\"unauthorized\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError401Object",
-			"description": "AdminAPIPublicError401Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError401ObjectError",
-					"value": "error",
-					"literal": "\"error\""
 				}
 			]
 		},
@@ -6595,7 +6267,7 @@
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError403Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
@@ -6623,40 +6295,10 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError403AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
-		},
-		{
-			"name": "AdminAPIPublicError403AdditionalDataValue",
-			"description": "AdminAPIPublicError403AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
 		},
 		{
 			"name": "AdminAPIPublicError403Code",
@@ -6672,26 +6314,13 @@
 			]
 		},
 		{
-			"name": "AdminAPIPublicError403Object",
-			"description": "AdminAPIPublicError403Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError403ObjectError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
-		},
-		{
 			"name": "AdminAPIPublicError404",
 			"description": "AdminAPIPublicError404 defines a model",
 			"fields": [
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError404Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
@@ -6719,40 +6348,10 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError404AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
-		},
-		{
-			"name": "AdminAPIPublicError404AdditionalDataValue",
-			"description": "AdminAPIPublicError404AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
 		},
 		{
 			"name": "AdminAPIPublicError404Code",
@@ -6768,26 +6367,13 @@
 			]
 		},
 		{
-			"name": "AdminAPIPublicError404Object",
-			"description": "AdminAPIPublicError404Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError404ObjectError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
-		},
-		{
 			"name": "AdminAPIPublicError409",
 			"description": "AdminAPIPublicError409 defines a model",
 			"fields": [
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError409Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
@@ -6815,40 +6401,10 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError409AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
-		},
-		{
-			"name": "AdminAPIPublicError409AdditionalDataValue",
-			"description": "AdminAPIPublicError409AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
 		},
 		{
 			"name": "AdminAPIPublicError409Code",
@@ -6864,33 +6420,20 @@
 			]
 		},
 		{
-			"name": "AdminAPIPublicError409Object",
-			"description": "AdminAPIPublicError409Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError409ObjectError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
-		},
-		{
 			"name": "AdminAPIPublicError429",
 			"description": "AdminAPIPublicError429 defines a model",
 			"fields": [
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError429Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIPublicError429Code",
+					"type": "AdminAPIErrorCode3",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -6911,64 +6454,8 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError429AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError429AdditionalDataValue",
-			"description": "AdminAPIPublicError429AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
-		},
-		{
-			"name": "AdminAPIPublicError429Code",
-			"description": "AdminAPIPublicError429Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError429CodeRateLimited",
-					"value": "rate_limited",
-					"literal": "\"rate_limited\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError429Object",
-			"description": "AdminAPIPublicError429Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError429ObjectError",
-					"value": "error",
-					"literal": "\"error\""
 				}
 			]
 		},
@@ -6979,14 +6466,14 @@
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError500Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
 				{
 					"name": "Code",
 					"jsonName": "code",
-					"type": "AdminAPIPublicError500Code",
+					"type": "AdminAPIErrorCode4",
 					"jsonTag": "json:\"code\"",
 					"required": true
 				},
@@ -7007,64 +6494,8 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError500AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError500AdditionalDataValue",
-			"description": "AdminAPIPublicError500AdditionalDataValue defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				},
-				{
-					"fieldName": "String2",
-					"type": "[]string",
-					"zero": "nil"
-				}
-			],
-			"isOneOf": true
-		},
-		{
-			"name": "AdminAPIPublicError500Code",
-			"description": "AdminAPIPublicError500Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError500CodeInternalServerError",
-					"value": "internal_server_error",
-					"literal": "\"internal_server_error\""
-				}
-			]
-		},
-		{
-			"name": "AdminAPIPublicError500Object",
-			"description": "AdminAPIPublicError500Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError500ObjectError",
-					"value": "error",
-					"literal": "\"error\""
 				}
 			]
 		},
@@ -7075,7 +6506,7 @@
 				{
 					"name": "Object",
 					"jsonName": "object",
-					"type": "AdminAPIPublicError503Object",
+					"type": "AdminAPIErrorType",
 					"jsonTag": "json:\"object\"",
 					"required": true
 				},
@@ -7103,14 +6534,27 @@
 				{
 					"name": "AdditionalData",
 					"jsonName": "additional_data",
-					"type": "map[string]AdminAPIPublicError503AdditionalDataValue",
+					"type": "map[string]AdminAPIPublicErrorAdditionalDataValue",
 					"jsonTag": "json:\"additional_data,omitzero\""
 				}
 			]
 		},
 		{
-			"name": "AdminAPIPublicError503AdditionalDataValue",
-			"description": "AdminAPIPublicError503AdditionalDataValue defines a model",
+			"name": "AdminAPIPublicError503Code",
+			"description": "AdminAPIPublicError503Code defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AdminAPIPublicError503CodeServiceUnavailable",
+					"value": "service_unavailable",
+					"literal": "\"service_unavailable\""
+				}
+			]
+		},
+		{
+			"name": "AdminAPIPublicErrorAdditionalDataValue",
+			"description": "AdminAPIPublicErrorAdditionalDataValue defines a model",
 			"kind": 5,
 			"unionVariants": [
 				{
@@ -7139,30 +6583,103 @@
 			"isOneOf": true
 		},
 		{
-			"name": "AdminAPIPublicError503Code",
-			"description": "AdminAPIPublicError503Code defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
+			"name": "AgentCreditUsage",
+			"description": "AgentCreditUsage defines a model",
+			"fields": [
 				{
-					"goName": "AdminAPIPublicError503CodeServiceUnavailable",
-					"value": "service_unavailable",
-					"literal": "\"service_unavailable\""
+					"name": "CreditPerBillingPeriodList",
+					"jsonName": "credit_per_billing_period_list",
+					"type": "AgentCreditUsageCreditPerBillingPeriodList",
+					"jsonTag": "json:\"credit_per_billing_period_list\"",
+					"required": true
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "bool",
+					"jsonTag": "json:\"has_more\"",
+					"description": "Whether more billing periods are available.",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "RunsCompleted",
+					"jsonName": "runs_completed",
+					"type": "float64",
+					"jsonTag": "json:\"runs_completed\"",
+					"description": "All-time count of finished (success or failure) runs for this agent.",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "AgentCreditUsageStatus",
+					"jsonTag": "json:\"status\"",
+					"description": "Agent status; same values as the list-agents endpoint's status field.",
+					"required": true
+				},
+				{
+					"name": "TotalCreditsUsed",
+					"jsonName": "total_credits_used",
+					"type": "float64",
+					"jsonTag": "json:\"total_credits_used\"",
+					"description": "All-time premium AI credits consumed by this agent across every period.",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "AgentCreditUsageType",
+					"jsonTag": "json:\"type\"",
+					"description": "Custom agents vs database (autofill) agents.",
+					"required": true
+				},
+				{
+					"name": "CreatedByID",
+					"jsonName": "created_by_id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"created_by_id,omitzero\""
+				},
+				{
+					"name": "CreditLimit",
+					"jsonName": "credit_limit",
+					"type": "*float64",
+					"jsonTag": "json:\"credit_limit,omitzero\"",
+					"description": "Enforced per-agent credit limit, if one is configured."
+				},
+				{
+					"name": "LastCreditUsageTime",
+					"jsonName": "last_credit_usage_time",
+					"type": "*float64",
+					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
+					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				},
+				{
+					"name": "NextCursor",
+					"jsonName": "next_cursor",
+					"type": "string",
+					"jsonTag": "json:\"next_cursor,omitzero\"",
+					"description": "Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false."
 				}
 			]
 		},
 		{
-			"name": "AdminAPIPublicError503Object",
-			"description": "AdminAPIPublicError503Object defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AdminAPIPublicError503ObjectError",
-					"value": "error",
-					"literal": "\"error\""
-				}
-			]
+			"name": "AgentCreditUsageCreditPerBillingPeriodList",
+			"description": "AgentCreditUsageCreditPerBillingPeriodList defines a model",
+			"kind": 2,
+			"type": "[]AgentCreditUsageCreditPerBillingPeriodListItem"
 		},
 		{
 			"name": "AgentCreditUsageCreditPerBillingPeriodListItem",
@@ -7190,6 +6707,158 @@
 					"type": "float64",
 					"jsonTag": "json:\"metrics_period_start_ms\"",
 					"description": "Start of the billing period (epoch ms, inclusive).",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "AgentCreditUsageStatus",
+			"description": "AgentCreditUsageStatus defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AgentCreditUsageStatusActive",
+					"value": "active",
+					"literal": "\"active\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusCreditLimit",
+					"value": "credit_limit",
+					"literal": "\"credit_limit\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDeleted",
+					"value": "deleted",
+					"literal": "\"deleted\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledByNotion",
+					"value": "disabled_by_notion",
+					"literal": "\"disabled_by_notion\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledDueToLackOfEditors",
+					"value": "disabled_due_to_lack_of_editors",
+					"literal": "\"disabled_due_to_lack_of_editors\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledDueToLackOfFullAccessMembers",
+					"value": "disabled_due_to_lack_of_full_access_members",
+					"literal": "\"disabled_due_to_lack_of_full_access_members\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledFromAgentSettings",
+					"value": "disabled_from_agent_settings",
+					"literal": "\"disabled_from_agent_settings\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledFromAPI",
+					"value": "disabled_from_api",
+					"literal": "\"disabled_from_api\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledFromWorkspaceSettings",
+					"value": "disabled_from_workspace_settings",
+					"literal": "\"disabled_from_workspace_settings\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusDisabledFromWorkspaceSettingsButResumable",
+					"value": "disabled_from_workspace_settings_but_resumable",
+					"literal": "\"disabled_from_workspace_settings_but_resumable\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusFailureLimit",
+					"value": "failure_limit",
+					"literal": "\"failure_limit\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusInternalError",
+					"value": "internal_error",
+					"literal": "\"internal_error\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusMarkSessionFailedAutopause",
+					"value": "mark_session_failed_autopause",
+					"literal": "\"mark_session_failed_autopause\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusNeedsReview",
+					"value": "needs_review",
+					"literal": "\"needs_review\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusRunLimit",
+					"value": "run_limit",
+					"literal": "\"run_limit\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusRunawayCreditUsage",
+					"value": "runaway_credit_usage",
+					"literal": "\"runaway_credit_usage\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusToolUnavailable",
+					"value": "tool_unavailable",
+					"literal": "\"tool_unavailable\""
+				},
+				{
+					"goName": "AgentCreditUsageStatusWorkspaceCreditLimit",
+					"value": "workspace_credit_limit",
+					"literal": "\"workspace_credit_limit\""
+				}
+			]
+		},
+		{
+			"name": "AgentCreditUsageType",
+			"description": "Custom agents vs database (autofill) agents.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AgentCreditUsageTypeCustom",
+					"value": "custom",
+					"literal": "\"custom\""
+				},
+				{
+					"goName": "AgentCreditUsageTypeDatabaseAutofill",
+					"value": "database_autofill",
+					"literal": "\"database_autofill\""
+				}
+			]
+		},
+		{
+			"name": "AgentPermissions",
+			"description": "AgentPermissions defines a model",
+			"kind": 2,
+			"type": "[]AgentPermissionsItem"
+		},
+		{
+			"name": "AgentPermissionsItem",
+			"description": "A principal with its stored and workspace-resolved roles.",
+			"fields": [
+				{
+					"name": "Principal",
+					"jsonName": "principal",
+					"type": "UpdateAgentPermissionsRemoveItem",
+					"jsonTag": "json:\"principal\"",
+					"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
+					"required": true
+				},
+				{
+					"name": "ResolvedRole",
+					"jsonName": "resolved_role",
+					"type": "UpdateAgentPermissionsSetItemRole",
+					"jsonTag": "json:\"resolved_role\"",
+					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
+					"required": true
+				},
+				{
+					"name": "Role",
+					"jsonName": "role",
+					"type": "UpdateAgentPermissionsSetItemRole",
+					"jsonTag": "json:\"role\"",
+					"description": "The role stored on this principal's agent permission item.",
 					"required": true
 				}
 			]
@@ -7247,29 +6916,8 @@
 			]
 		},
 		{
-			"name": "CreateCreditLimitPolicyCreatedBy",
-			"description": "CreateCreditLimitPolicyCreatedBy defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `user`",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "CreateCreditLimitPolicyOk",
-			"description": "CreateCreditLimitPolicyOk defines a model",
+			"name": "CreateCreditLimitPolicy2",
+			"description": "CreateCreditLimitPolicy2 defines a model",
 			"fields": [
 				{
 					"name": "Object",
@@ -7303,7 +6951,7 @@
 				{
 					"name": "CreditTypeUnit",
 					"jsonName": "credit_type_unit",
-					"type": "CreateCreditLimitPolicyOkCreditTypeUnit",
+					"type": "CreateCreditLimitPolicyCreditTypeUnit",
 					"jsonTag": "json:\"credit_type_unit\"",
 					"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
 					"required": true
@@ -7318,7 +6966,7 @@
 				{
 					"name": "Selector",
 					"jsonName": "selector",
-					"type": "CreateCreditLimitPolicyOkSelector",
+					"type": "CreateCreditLimitPolicySelector",
 					"jsonTag": "json:\"selector\"",
 					"description": "All workspace members or one workspace member affected by the policy.",
 					"required": true
@@ -7339,96 +6987,53 @@
 			]
 		},
 		{
-			"name": "CreateCreditLimitPolicyOkCreditTypeUnit",
+			"name": "CreateCreditLimitPolicyCreatedBy",
+			"description": "CreateCreditLimitPolicyCreatedBy defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"description": "Always `user`",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "CreateCreditLimitPolicyCreditTypeUnit",
 			"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "CreateCreditLimitPolicyOkCreditTypeUnitBasicAiCredits",
+					"goName": "CreateCreditLimitPolicyCreditTypeUnitBasicAiCredits",
 					"value": "basic_ai_credits",
 					"literal": "\"basic_ai_credits\""
 				},
 				{
-					"goName": "CreateCreditLimitPolicyOkCreditTypeUnitExemptAiCredits",
+					"goName": "CreateCreditLimitPolicyCreditTypeUnitExemptAiCredits",
 					"value": "exempt_ai_credits",
 					"literal": "\"exempt_ai_credits\""
 				},
 				{
-					"goName": "CreateCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits",
+					"goName": "CreateCreditLimitPolicyCreditTypeUnitPremiumAiCredits",
 					"value": "premium_ai_credits",
 					"literal": "\"premium_ai_credits\""
 				},
 				{
-					"goName": "CreateCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits",
+					"goName": "CreateCreditLimitPolicyCreditTypeUnitPreviewAiCredits",
 					"value": "preview_ai_credits",
 					"literal": "\"preview_ai_credits\""
 				}
 			]
-		},
-		{
-			"name": "CreateCreditLimitPolicyOkSelector",
-			"description": "All workspace members or one workspace member affected by the policy.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
 		},
 		{
 			"name": "CreateCreditLimitPolicySelector",
@@ -7560,7 +7165,7 @@
 				{
 					"name": "UserInteractionType",
 					"jsonName": "user_interaction_type",
-					"type": "CreateLegalHoldUserInteractionType",
+					"type": "LegalHoldUserInteractionType",
 					"jsonTag": "json:\"user_interaction_type\"",
 					"required": true
 				},
@@ -7581,168 +7186,6 @@
 					"jsonName": "icon",
 					"type": "string",
 					"jsonTag": "json:\"icon,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "CreateLegalHoldOk",
-			"description": "CreateLegalHoldOk defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "CreateLegalHoldOkStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "CreateLegalHoldOkUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "CreateLegalHoldOkStatus",
-			"description": "CreateLegalHoldOkStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateLegalHoldOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "CreateLegalHoldOkStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "CreateLegalHoldOkUserInteractionType",
-			"description": "CreateLegalHoldOkUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]CreateLegalHoldOkUserInteractionTypeItem"
-		},
-		{
-			"name": "CreateLegalHoldOkUserInteractionTypeItem",
-			"description": "CreateLegalHoldOkUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateLegalHoldOkUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "CreateLegalHoldOkUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "CreateLegalHoldOkUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
-				}
-			]
-		},
-		{
-			"name": "CreateLegalHoldUserInteractionType",
-			"description": "CreateLegalHoldUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]CreateLegalHoldUserInteractionTypeItem"
-		},
-		{
-			"name": "CreateLegalHoldUserInteractionTypeItem",
-			"description": "CreateLegalHoldUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateLegalHoldUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "CreateLegalHoldUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "CreateLegalHoldUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
 				}
 			]
 		},
@@ -7829,7 +7272,7 @@
 				{
 					"name": "ExportType",
 					"jsonName": "export_type",
-					"type": "EnqueueSpaceExportExportType",
+					"type": "EnqueueSpaceExportType",
 					"jsonTag": "json:\"export_type\"",
 					"required": true
 				},
@@ -7909,29 +7352,6 @@
 			]
 		},
 		{
-			"name": "EnqueueSpaceExportExportType",
-			"description": "EnqueueSpaceExportExportType defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "EnqueueSpaceExportExportTypeHTML",
-					"value": "html",
-					"literal": "\"html\""
-				},
-				{
-					"goName": "EnqueueSpaceExportExportTypeMarkdown",
-					"value": "markdown",
-					"literal": "\"markdown\""
-				},
-				{
-					"goName": "EnqueueSpaceExportExportTypePdf",
-					"value": "pdf",
-					"literal": "\"pdf\""
-				}
-			]
-		},
-		{
 			"name": "EnqueueSpaceExportIncludeContents",
 			"description": "EnqueueSpaceExportIncludeContents defines a model",
 			"kind": 1,
@@ -8003,167 +7423,27 @@
 			]
 		},
 		{
-			"name": "ExpireCreditLimitPolicyOk",
-			"description": "ExpireCreditLimitPolicyOk defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `credit_limit_policy`",
-					"required": true
-				},
-				{
-					"name": "Amount",
-					"jsonName": "amount",
-					"type": "int",
-					"jsonTag": "json:\"amount\"",
-					"required": true
-				},
-				{
-					"name": "CreatedAt",
-					"jsonName": "created_at",
-					"type": "int",
-					"jsonTag": "json:\"created_at\"",
-					"required": true
-				},
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "CreateCreditLimitPolicyCreatedBy",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreditTypeUnit",
-					"jsonName": "credit_type_unit",
-					"type": "ExpireCreditLimitPolicyOkCreditTypeUnit",
-					"jsonTag": "json:\"credit_type_unit\"",
-					"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "Selector",
-					"jsonName": "selector",
-					"type": "ExpireCreditLimitPolicyOkSelector",
-					"jsonTag": "json:\"selector\"",
-					"description": "All workspace members or one workspace member affected by the policy.",
-					"required": true
-				},
-				{
-					"name": "SpaceID",
-					"jsonName": "space_id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id\"",
-					"required": true
-				},
-				{
-					"name": "ExpiresAt",
-					"jsonName": "expires_at",
-					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "ExpireCreditLimitPolicyOkCreditTypeUnit",
-			"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
+			"name": "EnqueueSpaceExportType",
+			"description": "EnqueueSpaceExportType defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "ExpireCreditLimitPolicyOkCreditTypeUnitBasicAiCredits",
-					"value": "basic_ai_credits",
-					"literal": "\"basic_ai_credits\""
+					"goName": "EnqueueSpaceExportTypeHTML",
+					"value": "html",
+					"literal": "\"html\""
 				},
 				{
-					"goName": "ExpireCreditLimitPolicyOkCreditTypeUnitExemptAiCredits",
-					"value": "exempt_ai_credits",
-					"literal": "\"exempt_ai_credits\""
+					"goName": "EnqueueSpaceExportTypeMarkdown",
+					"value": "markdown",
+					"literal": "\"markdown\""
 				},
 				{
-					"goName": "ExpireCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits",
-					"value": "premium_ai_credits",
-					"literal": "\"premium_ai_credits\""
-				},
-				{
-					"goName": "ExpireCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits",
-					"value": "preview_ai_credits",
-					"literal": "\"preview_ai_credits\""
+					"goName": "EnqueueSpaceExportTypePdf",
+					"value": "pdf",
+					"literal": "\"pdf\""
 				}
 			]
-		},
-		{
-			"name": "ExpireCreditLimitPolicyOkSelector",
-			"description": "All workspace members or one workspace member affected by the policy.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
 		},
 		{
 			"name": "ExportLegalHold",
@@ -8280,228 +7560,13 @@
 			]
 		},
 		{
-			"name": "GetAgentCreditUsageOk",
-			"description": "GetAgentCreditUsageOk defines a model",
-			"fields": [
-				{
-					"name": "CreditPerBillingPeriodList",
-					"jsonName": "credit_per_billing_period_list",
-					"type": "GetAgentCreditUsageOkCreditPerBillingPeriodList",
-					"jsonTag": "json:\"credit_per_billing_period_list\"",
-					"required": true
-				},
-				{
-					"name": "HasMore",
-					"jsonName": "has_more",
-					"type": "bool",
-					"jsonTag": "json:\"has_more\"",
-					"description": "Whether more billing periods are available.",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "RunsCompleted",
-					"jsonName": "runs_completed",
-					"type": "float64",
-					"jsonTag": "json:\"runs_completed\"",
-					"description": "All-time count of finished (success or failure) runs for this agent.",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "GetAgentCreditUsageOkStatus",
-					"jsonTag": "json:\"status\"",
-					"description": "Agent status; same values as the list-agents endpoint's status field.",
-					"required": true
-				},
-				{
-					"name": "TotalCreditsUsed",
-					"jsonName": "total_credits_used",
-					"type": "float64",
-					"jsonTag": "json:\"total_credits_used\"",
-					"description": "All-time premium AI credits consumed by this agent across every period.",
-					"required": true
-				},
-				{
-					"name": "Type",
-					"jsonName": "type",
-					"type": "GetAgentCreditUsageOkType",
-					"jsonTag": "json:\"type\"",
-					"description": "Custom agents vs database (autofill) agents.",
-					"required": true
-				},
-				{
-					"name": "CreatedByID",
-					"jsonName": "created_by_id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by_id,omitzero\""
-				},
-				{
-					"name": "CreditLimit",
-					"jsonName": "credit_limit",
-					"type": "*float64",
-					"jsonTag": "json:\"credit_limit,omitzero\"",
-					"description": "Enforced per-agent credit limit, if one is configured."
-				},
-				{
-					"name": "LastCreditUsageTime",
-					"jsonName": "last_credit_usage_time",
-					"type": "*float64",
-					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
-					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				},
-				{
-					"name": "NextCursor",
-					"jsonName": "next_cursor",
-					"type": "string",
-					"jsonTag": "json:\"next_cursor,omitzero\"",
-					"description": "Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false."
-				}
-			]
-		},
-		{
-			"name": "GetAgentCreditUsageOkCreditPerBillingPeriodList",
-			"description": "GetAgentCreditUsageOkCreditPerBillingPeriodList defines a model",
-			"kind": 2,
-			"type": "[]AgentCreditUsageCreditPerBillingPeriodListItem"
-		},
-		{
-			"name": "GetAgentCreditUsageOkStatus",
-			"description": "Agent status; same values as the list-agents endpoint's status field.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetAgentCreditUsageOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusCreditLimit",
-					"value": "credit_limit",
-					"literal": "\"credit_limit\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDeleted",
-					"value": "deleted",
-					"literal": "\"deleted\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledByNotion",
-					"value": "disabled_by_notion",
-					"literal": "\"disabled_by_notion\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledDueToLackOfEditors",
-					"value": "disabled_due_to_lack_of_editors",
-					"literal": "\"disabled_due_to_lack_of_editors\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledDueToLackOfFullAccessMembers",
-					"value": "disabled_due_to_lack_of_full_access_members",
-					"literal": "\"disabled_due_to_lack_of_full_access_members\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledFromAgentSettings",
-					"value": "disabled_from_agent_settings",
-					"literal": "\"disabled_from_agent_settings\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledFromAPI",
-					"value": "disabled_from_api",
-					"literal": "\"disabled_from_api\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledFromWorkspaceSettings",
-					"value": "disabled_from_workspace_settings",
-					"literal": "\"disabled_from_workspace_settings\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusDisabledFromWorkspaceSettingsButResumable",
-					"value": "disabled_from_workspace_settings_but_resumable",
-					"literal": "\"disabled_from_workspace_settings_but_resumable\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusFailureLimit",
-					"value": "failure_limit",
-					"literal": "\"failure_limit\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusInternalError",
-					"value": "internal_error",
-					"literal": "\"internal_error\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusMarkSessionFailedAutopause",
-					"value": "mark_session_failed_autopause",
-					"literal": "\"mark_session_failed_autopause\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusNeedsReview",
-					"value": "needs_review",
-					"literal": "\"needs_review\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusRunLimit",
-					"value": "run_limit",
-					"literal": "\"run_limit\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusRunawayCreditUsage",
-					"value": "runaway_credit_usage",
-					"literal": "\"runaway_credit_usage\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusToolUnavailable",
-					"value": "tool_unavailable",
-					"literal": "\"tool_unavailable\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkStatusWorkspaceCreditLimit",
-					"value": "workspace_credit_limit",
-					"literal": "\"workspace_credit_limit\""
-				}
-			]
-		},
-		{
-			"name": "GetAgentCreditUsageOkType",
-			"description": "Custom agents vs database (autofill) agents.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetAgentCreditUsageOkTypeCustom",
-					"value": "custom",
-					"literal": "\"custom\""
-				},
-				{
-					"goName": "GetAgentCreditUsageOkTypeDatabaseAutofill",
-					"value": "database_autofill",
-					"literal": "\"database_autofill\""
-				}
-			]
-		},
-		{
 			"name": "GetAgentPermissionsOk",
 			"description": "GetAgentPermissionsOk defines a model",
 			"fields": [
 				{
 					"name": "Permissions",
 					"jsonName": "permissions",
-					"type": "GetAgentPermissionsOkPermissions",
+					"type": "AgentPermissions",
 					"jsonTag": "json:\"permissions\"",
 					"description": "The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.",
 					"required": true
@@ -8512,180 +7577,6 @@
 					"type": "string",
 					"jsonTag": "json:\"next_cursor,omitzero\"",
 					"description": "Cursor to pass as cursor to fetch the next page; omitted on the last."
-				}
-			]
-		},
-		{
-			"name": "GetAgentPermissionsOkPermissions",
-			"description": "The page of permission entries, up to 250 per request. The workspace-wide grant always sorts first, then groups, then users.",
-			"kind": 2,
-			"type": "[]GetAgentPermissionsOkPermissionsItem"
-		},
-		{
-			"name": "GetAgentPermissionsOkPermissionsItem",
-			"description": "A principal with its stored and workspace-resolved roles.",
-			"fields": [
-				{
-					"name": "Principal",
-					"jsonName": "principal",
-					"type": "GetAgentPermissionsOkPermissionsItemPrincipal",
-					"jsonTag": "json:\"principal\"",
-					"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-					"required": true
-				},
-				{
-					"name": "ResolvedRole",
-					"jsonName": "resolved_role",
-					"type": "GetAgentPermissionsOkPermissionsItemResolvedRole",
-					"jsonTag": "json:\"resolved_role\"",
-					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "GetAgentPermissionsOkPermissionsItemRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The role stored on this principal's agent permission item.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "GetAgentPermissionsOkPermissionsItemPrincipal",
-			"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
-			"name": "GetAgentPermissionsOkPermissionsItemResolvedRole",
-			"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetAgentPermissionsOkPermissionsItemResolvedRoleEdit",
-					"value": "edit",
-					"literal": "\"edit\""
-				},
-				{
-					"goName": "GetAgentPermissionsOkPermissionsItemResolvedRoleFullAccess",
-					"value": "full_access",
-					"literal": "\"full_access\""
-				},
-				{
-					"goName": "GetAgentPermissionsOkPermissionsItemResolvedRoleViewAndInteract",
-					"value": "view_and_interact",
-					"literal": "\"view_and_interact\""
-				}
-			]
-		},
-		{
-			"name": "GetAgentPermissionsOkPermissionsItemRole",
-			"description": "The role stored on this principal's agent permission item.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetAgentPermissionsOkPermissionsItemRoleEdit",
-					"value": "edit",
-					"literal": "\"edit\""
-				},
-				{
-					"goName": "GetAgentPermissionsOkPermissionsItemRoleFullAccess",
-					"value": "full_access",
-					"literal": "\"full_access\""
-				},
-				{
-					"goName": "GetAgentPermissionsOkPermissionsItemRoleViewAndInteract",
-					"value": "view_and_interact",
-					"literal": "\"view_and_interact\""
 				}
 			]
 		},
@@ -8722,355 +7613,7 @@
 			"name": "GetAgentsCreditUsageOkResults",
 			"description": "The page of agents with their credit usage, up to 100 agents per request. Every agent starts at its most recent billing period; a nested result's next_cursor paginates that agent's billing periods through the single-agent credit-usage endpoint.",
 			"kind": 2,
-			"type": "[]GetAgentsCreditUsageOkResultsItem"
-		},
-		{
-			"name": "GetAgentsCreditUsageOkResultsItem",
-			"description": "GetAgentsCreditUsageOkResultsItem defines a model",
-			"fields": [
-				{
-					"name": "CreditPerBillingPeriodList",
-					"jsonName": "credit_per_billing_period_list",
-					"type": "GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList",
-					"jsonTag": "json:\"credit_per_billing_period_list\"",
-					"required": true
-				},
-				{
-					"name": "HasMore",
-					"jsonName": "has_more",
-					"type": "bool",
-					"jsonTag": "json:\"has_more\"",
-					"description": "Whether more billing periods are available.",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "RunsCompleted",
-					"jsonName": "runs_completed",
-					"type": "float64",
-					"jsonTag": "json:\"runs_completed\"",
-					"description": "All-time count of finished (success or failure) runs for this agent.",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "GetAgentsCreditUsageOkResultsItemStatus",
-					"jsonTag": "json:\"status\"",
-					"description": "Agent status; same values as the list-agents endpoint's status field.",
-					"required": true
-				},
-				{
-					"name": "TotalCreditsUsed",
-					"jsonName": "total_credits_used",
-					"type": "float64",
-					"jsonTag": "json:\"total_credits_used\"",
-					"description": "All-time premium AI credits consumed by this agent across every period.",
-					"required": true
-				},
-				{
-					"name": "Type",
-					"jsonName": "type",
-					"type": "GetAgentsCreditUsageOkResultsItemType",
-					"jsonTag": "json:\"type\"",
-					"description": "Custom agents vs database (autofill) agents.",
-					"required": true
-				},
-				{
-					"name": "CreatedByID",
-					"jsonName": "created_by_id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by_id,omitzero\""
-				},
-				{
-					"name": "CreditLimit",
-					"jsonName": "credit_limit",
-					"type": "*float64",
-					"jsonTag": "json:\"credit_limit,omitzero\"",
-					"description": "Enforced per-agent credit limit, if one is configured."
-				},
-				{
-					"name": "LastCreditUsageTime",
-					"jsonName": "last_credit_usage_time",
-					"type": "*float64",
-					"jsonTag": "json:\"last_credit_usage_time,omitzero\"",
-					"description": "Epoch ms of the agent's most recent premium-credit usage; omitted if the agent has never consumed credits."
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				},
-				{
-					"name": "NextCursor",
-					"jsonName": "next_cursor",
-					"type": "string",
-					"jsonTag": "json:\"next_cursor,omitzero\"",
-					"description": "Cursor to fetch the next page of credit_per_billing_period_list; omitted when has_more is false."
-				}
-			]
-		},
-		{
-			"name": "GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList",
-			"description": "GetAgentsCreditUsageOkResultsItemCreditPerBillingPeriodList defines a model",
-			"kind": 2,
-			"type": "[]AgentCreditUsageCreditPerBillingPeriodListItem"
-		},
-		{
-			"name": "GetAgentsCreditUsageOkResultsItemStatus",
-			"description": "Agent status; same values as the list-agents endpoint's status field.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusCreditLimit",
-					"value": "credit_limit",
-					"literal": "\"credit_limit\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDeleted",
-					"value": "deleted",
-					"literal": "\"deleted\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledByNotion",
-					"value": "disabled_by_notion",
-					"literal": "\"disabled_by_notion\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledDueToLackOfEditors",
-					"value": "disabled_due_to_lack_of_editors",
-					"literal": "\"disabled_due_to_lack_of_editors\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledDueToLackOfFullAccessMembers",
-					"value": "disabled_due_to_lack_of_full_access_members",
-					"literal": "\"disabled_due_to_lack_of_full_access_members\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledFromAgentSettings",
-					"value": "disabled_from_agent_settings",
-					"literal": "\"disabled_from_agent_settings\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledFromAPI",
-					"value": "disabled_from_api",
-					"literal": "\"disabled_from_api\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledFromWorkspaceSettings",
-					"value": "disabled_from_workspace_settings",
-					"literal": "\"disabled_from_workspace_settings\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusDisabledFromWorkspaceSettingsButResumable",
-					"value": "disabled_from_workspace_settings_but_resumable",
-					"literal": "\"disabled_from_workspace_settings_but_resumable\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusFailureLimit",
-					"value": "failure_limit",
-					"literal": "\"failure_limit\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusInternalError",
-					"value": "internal_error",
-					"literal": "\"internal_error\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusMarkSessionFailedAutopause",
-					"value": "mark_session_failed_autopause",
-					"literal": "\"mark_session_failed_autopause\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusNeedsReview",
-					"value": "needs_review",
-					"literal": "\"needs_review\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusRunLimit",
-					"value": "run_limit",
-					"literal": "\"run_limit\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusRunawayCreditUsage",
-					"value": "runaway_credit_usage",
-					"literal": "\"runaway_credit_usage\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusToolUnavailable",
-					"value": "tool_unavailable",
-					"literal": "\"tool_unavailable\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemStatusWorkspaceCreditLimit",
-					"value": "workspace_credit_limit",
-					"literal": "\"workspace_credit_limit\""
-				}
-			]
-		},
-		{
-			"name": "GetAgentsCreditUsageOkResultsItemType",
-			"description": "Custom agents vs database (autofill) agents.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemTypeCustom",
-					"value": "custom",
-					"literal": "\"custom\""
-				},
-				{
-					"goName": "GetAgentsCreditUsageOkResultsItemTypeDatabaseAutofill",
-					"value": "database_autofill",
-					"literal": "\"database_autofill\""
-				}
-			]
-		},
-		{
-			"name": "GetLegalHoldOk",
-			"description": "GetLegalHoldOk defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "GetLegalHoldOkStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "GetLegalHoldOkUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "GetLegalHoldOkStatus",
-			"description": "GetLegalHoldOkStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetLegalHoldOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "GetLegalHoldOkStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "GetLegalHoldOkUserInteractionType",
-			"description": "GetLegalHoldOkUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]GetLegalHoldOkUserInteractionTypeItem"
-		},
-		{
-			"name": "GetLegalHoldOkUserInteractionTypeItem",
-			"description": "GetLegalHoldOkUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetLegalHoldOkUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "GetLegalHoldOkUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "GetLegalHoldOkUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
-				}
-			]
+			"type": "[]AgentCreditUsage"
 		},
 		{
 			"name": "GetSpaceExportStatusOk",
@@ -9086,7 +7629,7 @@
 				{
 					"name": "ExportFormat",
 					"jsonName": "export_format",
-					"type": "GetSpaceExportStatusOkExportFormat",
+					"type": "EnqueueSpaceExportType",
 					"jsonTag": "json:\"export_format\"",
 					"required": true
 				},
@@ -9152,29 +7695,6 @@
 					"jsonName": "url_expires_time",
 					"type": "*float64",
 					"jsonTag": "json:\"url_expires_time,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "GetSpaceExportStatusOkExportFormat",
-			"description": "GetSpaceExportStatusOkExportFormat defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetSpaceExportStatusOkExportFormatHTML",
-					"value": "html",
-					"literal": "\"html\""
-				},
-				{
-					"goName": "GetSpaceExportStatusOkExportFormatMarkdown",
-					"value": "markdown",
-					"literal": "\"markdown\""
-				},
-				{
-					"goName": "GetSpaceExportStatusOkExportFormatPdf",
-					"value": "pdf",
-					"literal": "\"pdf\""
 				}
 			]
 		},
@@ -9292,7 +7812,7 @@
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemStatus",
+					"type": "AgentCreditUsageStatus",
 					"jsonTag": "json:\"status\"",
 					"description": "The agent's current status: \"active\", \"deleted\", or a snake_case paused reason. Uses the same values as the status query filter.",
 					"required": true
@@ -9300,7 +7820,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemType",
+					"type": "AgentCreditUsageType",
 					"jsonTag": "json:\"type\"",
 					"description": "Custom agents vs database (autofill) agents.",
 					"required": true
@@ -9314,7 +7834,7 @@
 				{
 					"name": "CreatedByTable",
 					"jsonName": "created_by_table",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable",
+					"type": "WorkflowsMetadataForSpaceResultsItemCreatedByTable",
 					"jsonTag": "json:\"created_by_table,omitzero\"",
 					"description": "The actor table of the agent's creator, such as \"notion_user\"."
 				},
@@ -9355,7 +7875,7 @@
 				{
 					"name": "LastEditedByTable",
 					"jsonName": "last_edited_by_table",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable",
+					"type": "WorkflowsMetadataForSpaceResultsItemCreatedByTable",
 					"jsonTag": "json:\"last_edited_by_table,omitzero\"",
 					"description": "The actor table of the agent's last editor, such as \"notion_user\"."
 				},
@@ -9417,55 +7937,9 @@
 				{
 					"name": "Permissions",
 					"jsonName": "permissions",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemPermissions",
+					"type": "AgentPermissions",
 					"jsonTag": "json:\"permissions,omitzero\"",
 					"description": "Who the agent is shared with: each principal's stored and resolved roles, workspace grant first, at most 250 entries. Omitted for database (autofill) agents, whose sharing state is not exposed."
-				}
-			]
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTable",
-			"description": "The actor table of the agent's creator, such as \"notion_user\".",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableBot",
-					"value": "bot",
-					"literal": "\"bot\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableNotionUser",
-					"value": "notion_user",
-					"literal": "\"notion_user\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemCreatedByTableOrganizationBot",
-					"value": "organization_bot",
-					"literal": "\"organization_bot\""
-				}
-			]
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTable",
-			"description": "The actor table of the agent's last editor, such as \"notion_user\".",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableBot",
-					"value": "bot",
-					"literal": "\"bot\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableNotionUser",
-					"value": "notion_user",
-					"literal": "\"notion_user\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemLastEditedByTableOrganizationBot",
-					"value": "organization_bot",
-					"literal": "\"organization_bot\""
 				}
 			]
 		},
@@ -9574,296 +8048,6 @@
 			]
 		},
 		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemPermissions",
-			"description": "Who the agent is shared with: each principal's stored and resolved roles, workspace grant first, at most 250 entries. Omitted for database (autofill) agents, whose sharing state is not exposed.",
-			"kind": 2,
-			"type": "[]GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem"
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItem",
-			"description": "A principal with its stored and workspace-resolved roles.",
-			"fields": [
-				{
-					"name": "Principal",
-					"jsonName": "principal",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal",
-					"jsonTag": "json:\"principal\"",
-					"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-					"required": true
-				},
-				{
-					"name": "ResolvedRole",
-					"jsonName": "resolved_role",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole",
-					"jsonTag": "json:\"resolved_role\"",
-					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The role stored on this principal's agent permission item.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemPrincipal",
-			"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRole",
-			"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleEdit",
-					"value": "edit",
-					"literal": "\"edit\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleFullAccess",
-					"value": "full_access",
-					"literal": "\"full_access\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemResolvedRoleViewAndInteract",
-					"value": "view_and_interact",
-					"literal": "\"view_and_interact\""
-				}
-			]
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRole",
-			"description": "The role stored on this principal's agent permission item.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleEdit",
-					"value": "edit",
-					"literal": "\"edit\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleFullAccess",
-					"value": "full_access",
-					"literal": "\"full_access\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemPermissionsItemRoleViewAndInteract",
-					"value": "view_and_interact",
-					"literal": "\"view_and_interact\""
-				}
-			]
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemStatus",
-			"description": "The agent's current status: \"active\", \"deleted\", or a snake_case paused reason. Uses the same values as the status query filter.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusCreditLimit",
-					"value": "credit_limit",
-					"literal": "\"credit_limit\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDeleted",
-					"value": "deleted",
-					"literal": "\"deleted\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledByNotion",
-					"value": "disabled_by_notion",
-					"literal": "\"disabled_by_notion\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledDueToLackOfEditors",
-					"value": "disabled_due_to_lack_of_editors",
-					"literal": "\"disabled_due_to_lack_of_editors\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledDueToLackOfFullAccessMembers",
-					"value": "disabled_due_to_lack_of_full_access_members",
-					"literal": "\"disabled_due_to_lack_of_full_access_members\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromAgentSettings",
-					"value": "disabled_from_agent_settings",
-					"literal": "\"disabled_from_agent_settings\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromAPI",
-					"value": "disabled_from_api",
-					"literal": "\"disabled_from_api\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromWorkspaceSettings",
-					"value": "disabled_from_workspace_settings",
-					"literal": "\"disabled_from_workspace_settings\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusDisabledFromWorkspaceSettingsButResumable",
-					"value": "disabled_from_workspace_settings_but_resumable",
-					"literal": "\"disabled_from_workspace_settings_but_resumable\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusFailureLimit",
-					"value": "failure_limit",
-					"literal": "\"failure_limit\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusInternalError",
-					"value": "internal_error",
-					"literal": "\"internal_error\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusMarkSessionFailedAutopause",
-					"value": "mark_session_failed_autopause",
-					"literal": "\"mark_session_failed_autopause\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusNeedsReview",
-					"value": "needs_review",
-					"literal": "\"needs_review\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusRunLimit",
-					"value": "run_limit",
-					"literal": "\"run_limit\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusRunawayCreditUsage",
-					"value": "runaway_credit_usage",
-					"literal": "\"runaway_credit_usage\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusToolUnavailable",
-					"value": "tool_unavailable",
-					"literal": "\"tool_unavailable\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemStatusWorkspaceCreditLimit",
-					"value": "workspace_credit_limit",
-					"literal": "\"workspace_credit_limit\""
-				}
-			]
-		},
-		{
-			"name": "GetWorkflowsMetadataForSpaceOkResultsItemType",
-			"description": "Custom agents vs database (autofill) agents.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemTypeCustom",
-					"value": "custom",
-					"literal": "\"custom\""
-				},
-				{
-					"goName": "GetWorkflowsMetadataForSpaceOkResultsItemTypeDatabaseAutofill",
-					"value": "database_autofill",
-					"literal": "\"database_autofill\""
-				}
-			]
-		},
-		{
 			"name": "IDRequest",
 			"description": "IDRequest defines a model",
 			"kind": 2,
@@ -9884,6 +8068,139 @@
 					"goName": "IncludeDeletedTrue",
 					"value": "true",
 					"literal": "\"true\""
+				}
+			]
+		},
+		{
+			"name": "LegalHold",
+			"description": "LegalHold defines a model",
+			"fields": [
+				{
+					"name": "CreatedBy",
+					"jsonName": "created_by",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"created_by\"",
+					"required": true
+				},
+				{
+					"name": "CreatedTime",
+					"jsonName": "created_time",
+					"type": "float64",
+					"jsonTag": "json:\"created_time\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "StartDate",
+					"jsonName": "start_date",
+					"type": "float64",
+					"jsonTag": "json:\"start_date\"",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "LegalHoldStatus",
+					"jsonTag": "json:\"status\"",
+					"required": true
+				},
+				{
+					"name": "UserInteractionType",
+					"jsonName": "user_interaction_type",
+					"type": "LegalHoldUserInteractionType",
+					"jsonTag": "json:\"user_interaction_type\"",
+					"required": true
+				},
+				{
+					"name": "Users",
+					"jsonName": "users",
+					"type": "LegalHoldUsers",
+					"jsonTag": "json:\"users\"",
+					"required": true
+				},
+				{
+					"name": "Workspaces",
+					"jsonName": "workspaces",
+					"type": "LegalHoldUsers",
+					"jsonTag": "json:\"workspaces\"",
+					"required": true
+				},
+				{
+					"name": "Description",
+					"jsonName": "description",
+					"type": "string",
+					"jsonTag": "json:\"description,omitzero\""
+				},
+				{
+					"name": "EndDate",
+					"jsonName": "end_date",
+					"type": "*float64",
+					"jsonTag": "json:\"end_date,omitzero\""
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "string",
+					"jsonTag": "json:\"icon,omitzero\""
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "LegalHoldStatus",
+			"description": "LegalHoldStatus defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "LegalHoldStatusActive",
+					"value": "active",
+					"literal": "\"active\""
+				},
+				{
+					"goName": "LegalHoldStatusReleased",
+					"value": "released",
+					"literal": "\"released\""
+				}
+			]
+		},
+		{
+			"name": "LegalHoldUserInteractionType",
+			"description": "LegalHoldUserInteractionType defines a model",
+			"kind": 2,
+			"type": "[]LegalHoldUserInteractionTypeItem"
+		},
+		{
+			"name": "LegalHoldUserInteractionTypeItem",
+			"description": "LegalHoldUserInteractionTypeItem defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "LegalHoldUserInteractionTypeItemPageDotCreated",
+					"value": "page.created",
+					"literal": "\"page.created\""
+				},
+				{
+					"goName": "LegalHoldUserInteractionTypeItemPageDotEdited",
+					"value": "page.edited",
+					"literal": "\"page.edited\""
+				},
+				{
+					"goName": "LegalHoldUserInteractionTypeItemPageDotViewed",
+					"value": "page.viewed",
+					"literal": "\"page.viewed\""
 				}
 			]
 		},
@@ -9957,170 +8274,7 @@
 			"name": "ListCreditLimitPoliciesOkResults",
 			"description": "The active credit limit policies in the workspace.",
 			"kind": 2,
-			"type": "[]ListCreditLimitPoliciesOkResultsItem"
-		},
-		{
-			"name": "ListCreditLimitPoliciesOkResultsItem",
-			"description": "ListCreditLimitPoliciesOkResultsItem defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `credit_limit_policy`",
-					"required": true
-				},
-				{
-					"name": "Amount",
-					"jsonName": "amount",
-					"type": "int",
-					"jsonTag": "json:\"amount\"",
-					"required": true
-				},
-				{
-					"name": "CreatedAt",
-					"jsonName": "created_at",
-					"type": "int",
-					"jsonTag": "json:\"created_at\"",
-					"required": true
-				},
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "CreateCreditLimitPolicyCreatedBy",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreditTypeUnit",
-					"jsonName": "credit_type_unit",
-					"type": "ListCreditLimitPoliciesOkResultsItemCreditTypeUnit",
-					"jsonTag": "json:\"credit_type_unit\"",
-					"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "Selector",
-					"jsonName": "selector",
-					"type": "ListCreditLimitPoliciesOkResultsItemSelector",
-					"jsonTag": "json:\"selector\"",
-					"description": "All workspace members or one workspace member affected by the policy.",
-					"required": true
-				},
-				{
-					"name": "SpaceID",
-					"jsonName": "space_id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id\"",
-					"required": true
-				},
-				{
-					"name": "ExpiresAt",
-					"jsonName": "expires_at",
-					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "ListCreditLimitPoliciesOkResultsItemCreditTypeUnit",
-			"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ListCreditLimitPoliciesOkResultsItemCreditTypeUnitBasicAiCredits",
-					"value": "basic_ai_credits",
-					"literal": "\"basic_ai_credits\""
-				},
-				{
-					"goName": "ListCreditLimitPoliciesOkResultsItemCreditTypeUnitExemptAiCredits",
-					"value": "exempt_ai_credits",
-					"literal": "\"exempt_ai_credits\""
-				},
-				{
-					"goName": "ListCreditLimitPoliciesOkResultsItemCreditTypeUnitPremiumAiCredits",
-					"value": "premium_ai_credits",
-					"literal": "\"premium_ai_credits\""
-				},
-				{
-					"goName": "ListCreditLimitPoliciesOkResultsItemCreditTypeUnitPreviewAiCredits",
-					"value": "preview_ai_credits",
-					"literal": "\"preview_ai_credits\""
-				}
-			]
-		},
-		{
-			"name": "ListCreditLimitPoliciesOkResultsItemSelector",
-			"description": "All workspace members or one workspace member affected by the policy.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
+			"type": "[]CreateCreditLimitPolicy2"
 		},
 		{
 			"name": "ListLegalHoldPagesOk",
@@ -10202,140 +8356,7 @@
 			"name": "ListLegalHoldsOkLegalHolds",
 			"description": "ListLegalHoldsOkLegalHolds defines a model",
 			"kind": 2,
-			"type": "[]ListLegalHoldsOkLegalHoldsItem"
-		},
-		{
-			"name": "ListLegalHoldsOkLegalHoldsItem",
-			"description": "ListLegalHoldsOkLegalHoldsItem defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "ListLegalHoldsOkLegalHoldsItemStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "ListLegalHoldsOkLegalHoldsItemUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "ListLegalHoldsOkLegalHoldsItemStatus",
-			"description": "ListLegalHoldsOkLegalHoldsItemStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ListLegalHoldsOkLegalHoldsItemStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "ListLegalHoldsOkLegalHoldsItemStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "ListLegalHoldsOkLegalHoldsItemUserInteractionType",
-			"description": "ListLegalHoldsOkLegalHoldsItemUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem"
-		},
-		{
-			"name": "ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem",
-			"description": "ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "ListLegalHoldsOkLegalHoldsItemUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
-				}
-			]
+			"type": "[]LegalHold"
 		},
 		{
 			"name": "ListMcpClientConnectionsOk",
@@ -10669,63 +8690,7 @@
 			"name": "ListPermissionGroupMembersOkResults",
 			"description": "The direct user memberships in the group.",
 			"kind": 2,
-			"type": "[]ListPermissionGroupMembersOkResultsItem"
-		},
-		{
-			"name": "ListPermissionGroupMembersOkResultsItem",
-			"description": "ListPermissionGroupMembersOkResultsItem defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `group_membership`",
-					"required": true
-				},
-				{
-					"name": "GroupID",
-					"jsonName": "group_id",
-					"type": "string",
-					"jsonTag": "json:\"group_id\"",
-					"description": "The ID of the group.",
-					"required": true
-				},
-				{
-					"name": "Member",
-					"jsonName": "member",
-					"type": "AddPermissionGroupMember2",
-					"jsonTag": "json:\"member\"",
-					"description": "The direct user member.",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "ListPermissionGroupMembersOkResultsItemRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The user's role in the group.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "ListPermissionGroupMembersOkResultsItemRole",
-			"description": "The user's role in the group.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ListPermissionGroupMembersOkResultsItemRoleOwner",
-					"value": "owner",
-					"literal": "\"owner\""
-				},
-				{
-					"goName": "ListPermissionGroupMembersOkResultsItemRoleMember",
-					"value": "member",
-					"literal": "\"member\""
-				}
-			]
+			"type": "[]AddPermissionGroupMember2"
 		},
 		{
 			"name": "ListPermissionGroupsOk",
@@ -10844,7 +8809,7 @@
 				{
 					"name": "Status",
 					"jsonName": "status",
-					"type": "ListPersonalAccessTokensOkResultsItemStatus",
+					"type": "StatusOneOfItem",
 					"jsonTag": "json:\"status\"",
 					"description": "Current token status.",
 					"required": true
@@ -10906,29 +8871,6 @@
 					"goName": "ListPersonalAccessTokensOkResultsItemRevokedByTypeUser",
 					"value": "user",
 					"literal": "\"user\""
-				}
-			]
-		},
-		{
-			"name": "ListPersonalAccessTokensOkResultsItemStatus",
-			"description": "Current token status.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ListPersonalAccessTokensOkResultsItemStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "ListPersonalAccessTokensOkResultsItemStatusExpired",
-					"value": "expired",
-					"literal": "\"expired\""
-				},
-				{
-					"goName": "ListPersonalAccessTokensOkResultsItemStatusRevoked",
-					"value": "revoked",
-					"literal": "\"revoked\""
 				}
 			]
 		},
@@ -11309,328 +9251,6 @@
 			]
 		},
 		{
-			"name": "ReleaseLegalHoldOk",
-			"description": "ReleaseLegalHoldOk defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "ReleaseLegalHoldOkStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "ReleaseLegalHoldOkUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "ReleaseLegalHoldOkStatus",
-			"description": "ReleaseLegalHoldOkStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ReleaseLegalHoldOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "ReleaseLegalHoldOkStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "ReleaseLegalHoldOkUserInteractionType",
-			"description": "ReleaseLegalHoldOkUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]ReleaseLegalHoldOkUserInteractionTypeItem"
-		},
-		{
-			"name": "ReleaseLegalHoldOkUserInteractionTypeItem",
-			"description": "ReleaseLegalHoldOkUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "ReleaseLegalHoldOkUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "ReleaseLegalHoldOkUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "ReleaseLegalHoldOkUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
-				}
-			]
-		},
-		{
-			"name": "RemoveLegalHoldUserOk",
-			"description": "RemoveLegalHoldUserOk defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "RemoveLegalHoldUserOkStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "RemoveLegalHoldUserOkUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "RemoveLegalHoldUserOkStatus",
-			"description": "RemoveLegalHoldUserOkStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "RemoveLegalHoldUserOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "RemoveLegalHoldUserOkStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "RemoveLegalHoldUserOkUserInteractionType",
-			"description": "RemoveLegalHoldUserOkUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]RemoveLegalHoldUserOkUserInteractionTypeItem"
-		},
-		{
-			"name": "RemoveLegalHoldUserOkUserInteractionTypeItem",
-			"description": "RemoveLegalHoldUserOkUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "RemoveLegalHoldUserOkUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "RemoveLegalHoldUserOkUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "RemoveLegalHoldUserOkUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
-				}
-			]
-		},
-		{
-			"name": "RemovePermissionGroupMemberOk",
-			"description": "RemovePermissionGroupMemberOk defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `group_membership`",
-					"required": true
-				},
-				{
-					"name": "GroupID",
-					"jsonName": "group_id",
-					"type": "string",
-					"jsonTag": "json:\"group_id\"",
-					"description": "The ID of the group.",
-					"required": true
-				},
-				{
-					"name": "Member",
-					"jsonName": "member",
-					"type": "AddPermissionGroupMember2",
-					"jsonTag": "json:\"member\"",
-					"description": "The direct user member.",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "RemovePermissionGroupMemberOkRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The user's role in the group.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "RemovePermissionGroupMemberOkRole",
-			"description": "The user's role in the group.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "RemovePermissionGroupMemberOkRoleOwner",
-					"value": "owner",
-					"literal": "\"owner\""
-				},
-				{
-					"goName": "RemovePermissionGroupMemberOkRoleMember",
-					"value": "member",
-					"literal": "\"member\""
-				}
-			]
-		},
-		{
 			"name": "RevokeMcpClientConnection",
 			"description": "RevokeMcpClientConnection defines a model",
 			"fields": [
@@ -11977,26 +9597,26 @@
 			"name": "StatusOneOf0",
 			"description": "StatusOneOf0 defines a model",
 			"kind": 2,
-			"type": "[]StatusOneOf0Item"
+			"type": "[]StatusOneOfItem"
 		},
 		{
-			"name": "StatusOneOf0Item",
-			"description": "One of: `active`, `expired`, `revoked`",
+			"name": "StatusOneOfItem",
+			"description": "StatusOneOfItem defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "StatusOneOf0ItemActive",
+					"goName": "StatusOneOfItemActive",
 					"value": "active",
 					"literal": "\"active\""
 				},
 				{
-					"goName": "StatusOneOf0ItemExpired",
+					"goName": "StatusOneOfItemExpired",
 					"value": "expired",
 					"literal": "\"expired\""
 				},
 				{
-					"goName": "StatusOneOf0ItemRevoked",
+					"goName": "StatusOneOfItemRevoked",
 					"value": "revoked",
 					"literal": "\"revoked\""
 				}
@@ -12230,184 +9850,10 @@
 				{
 					"name": "Permissions",
 					"jsonName": "permissions",
-					"type": "UpdateAgentPermissionsOkPermissions",
+					"type": "AgentPermissions",
 					"jsonTag": "json:\"permissions\"",
 					"description": "The updated permission list, in the same shape as the read endpoint. This is a pre-commit projection truncated at 250 entries with no cursor; treat the paginated read endpoint as the source of truth.",
 					"required": true
-				}
-			]
-		},
-		{
-			"name": "UpdateAgentPermissionsOkPermissions",
-			"description": "The updated permission list, in the same shape as the read endpoint. This is a pre-commit projection truncated at 250 entries with no cursor; treat the paginated read endpoint as the source of truth.",
-			"kind": 2,
-			"type": "[]UpdateAgentPermissionsOkPermissionsItem"
-		},
-		{
-			"name": "UpdateAgentPermissionsOkPermissionsItem",
-			"description": "A principal with its stored and workspace-resolved roles.",
-			"fields": [
-				{
-					"name": "Principal",
-					"jsonName": "principal",
-					"type": "UpdateAgentPermissionsOkPermissionsItemPrincipal",
-					"jsonTag": "json:\"principal\"",
-					"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-					"required": true
-				},
-				{
-					"name": "ResolvedRole",
-					"jsonName": "resolved_role",
-					"type": "UpdateAgentPermissionsOkPermissionsItemResolvedRole",
-					"jsonTag": "json:\"resolved_role\"",
-					"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "UpdateAgentPermissionsOkPermissionsItemRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The role stored on this principal's agent permission item.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "UpdateAgentPermissionsOkPermissionsItemPrincipal",
-			"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
-			"name": "UpdateAgentPermissionsOkPermissionsItemResolvedRole",
-			"description": "The effective role for this principal: the most permissive of the stored role and every other grant that reaches the principal — the workspace-wide grant and, for users, any granted group they belong to. Roles rank \"view_and_interact\" < \"edit\" < \"full_access\", so a user whose stored role is \"edit\" resolves to \"full_access\" when the workspace-wide grant allows \"full_access\". Grants that do not reach the principal are excluded: the workspace-wide grant reaches only full workspace members, and group grants reach only workspace members (never page guests or non-members, even if a stale group-member row still exists for them).",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateAgentPermissionsOkPermissionsItemResolvedRoleEdit",
-					"value": "edit",
-					"literal": "\"edit\""
-				},
-				{
-					"goName": "UpdateAgentPermissionsOkPermissionsItemResolvedRoleFullAccess",
-					"value": "full_access",
-					"literal": "\"full_access\""
-				},
-				{
-					"goName": "UpdateAgentPermissionsOkPermissionsItemResolvedRoleViewAndInteract",
-					"value": "view_and_interact",
-					"literal": "\"view_and_interact\""
-				}
-			]
-		},
-		{
-			"name": "UpdateAgentPermissionsOkPermissionsItemRole",
-			"description": "The role stored on this principal's agent permission item.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateAgentPermissionsOkPermissionsItemRoleEdit",
-					"value": "edit",
-					"literal": "\"edit\""
-				},
-				{
-					"goName": "UpdateAgentPermissionsOkPermissionsItemRoleFullAccess",
-					"value": "full_access",
-					"literal": "\"full_access\""
-				},
-				{
-					"goName": "UpdateAgentPermissionsOkPermissionsItemRoleViewAndInteract",
-					"value": "view_and_interact",
-					"literal": "\"view_and_interact\""
 				}
 			]
 		},
@@ -12553,7 +9999,7 @@
 				{
 					"name": "Principal",
 					"jsonName": "principal",
-					"type": "UpdateAgentPermissionsSetItemPrincipal",
+					"type": "UpdateAgentPermissionsRemoveItem",
 					"jsonTag": "json:\"principal\"",
 					"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
 					"required": true
@@ -12569,100 +10015,8 @@
 			]
 		},
 		{
-			"name": "UpdateAgentPermissionsSetItemPrincipal",
-			"description": "A recipient of a permission grant. \"workspace\" maps to a space-wide permission granting all workspace members the given role; guests are never covered by it.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf",
-					"value": "group",
-					"members": [
-						"group_id",
-						"type"
-					],
-					"required": [
-						"group_id",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"type": "UpdateAgentPermissionsRemoveItemOneOf3",
-					"value": "workspace",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
 			"name": "UpdateAgentPermissionsSetItemRole",
-			"description": "One of: `edit`, `full_access`, `view_and_interact`",
+			"description": "UpdateAgentPermissionsSetItemRole defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
@@ -12699,7 +10053,7 @@
 		},
 		{
 			"name": "UpdateAgentStatusAdminStatus",
-			"description": "Set to \"active\" to re-enable an agent that was disabled through this API, or \"disabled\" to turn off a running agent.",
+			"description": "UpdateAgentStatusAdminStatus defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
@@ -12722,7 +10076,7 @@
 				{
 					"name": "AdminStatus",
 					"jsonName": "admin_status",
-					"type": "UpdateAgentStatusOkAdminStatus",
+					"type": "UpdateAgentStatusAdminStatus",
 					"jsonTag": "json:\"admin_status\"",
 					"description": "The administrative status you set (\"active\" or \"disabled\"). This is the admin-disable toggle only; it does not tell you whether the agent will actually run.",
 					"required": true
@@ -12741,24 +10095,6 @@
 					"type": "UpdateAgentStatusOkPausedReason",
 					"jsonTag": "json:\"paused_reason,omitzero\"",
 					"description": "The authoritative explanation for why an agent is paused (for example, \"disabled_from_workspace_settings\" or \"workspace_credit_limit\"). It is present only when run_status is \"paused\", and it is the field you must inspect to derive the agent's true state."
-				}
-			]
-		},
-		{
-			"name": "UpdateAgentStatusOkAdminStatus",
-			"description": "The administrative status you set (\"active\" or \"disabled\"). This is the admin-disable toggle only; it does not tell you whether the agent will actually run.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateAgentStatusOkAdminStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "UpdateAgentStatusOkAdminStatusDisabled",
-					"value": "disabled",
-					"literal": "\"disabled\""
 				}
 			]
 		},
@@ -12889,169 +10225,6 @@
 			]
 		},
 		{
-			"name": "UpdateCreditLimitPolicyOk",
-			"description": "UpdateCreditLimitPolicyOk defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `credit_limit_policy`",
-					"required": true
-				},
-				{
-					"name": "Amount",
-					"jsonName": "amount",
-					"type": "int",
-					"jsonTag": "json:\"amount\"",
-					"required": true
-				},
-				{
-					"name": "CreatedAt",
-					"jsonName": "created_at",
-					"type": "int",
-					"jsonTag": "json:\"created_at\"",
-					"required": true
-				},
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "CreateCreditLimitPolicyCreatedBy",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreditTypeUnit",
-					"jsonName": "credit_type_unit",
-					"type": "UpdateCreditLimitPolicyOkCreditTypeUnit",
-					"jsonTag": "json:\"credit_type_unit\"",
-					"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "Selector",
-					"jsonName": "selector",
-					"type": "UpdateCreditLimitPolicyOkSelector",
-					"jsonTag": "json:\"selector\"",
-					"description": "All workspace members or one workspace member affected by the policy.",
-					"required": true
-				},
-				{
-					"name": "SpaceID",
-					"jsonName": "space_id",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"space_id\"",
-					"required": true
-				},
-				{
-					"name": "ExpiresAt",
-					"jsonName": "expires_at",
-					"type": "*int",
-					"jsonTag": "json:\"expires_at,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "UpdateCreditLimitPolicyOkCreditTypeUnit",
-			"description": "One of: `basic_ai_credits`, `exempt_ai_credits`, `premium_ai_credits`, `preview_ai_credits`",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateCreditLimitPolicyOkCreditTypeUnitBasicAiCredits",
-					"value": "basic_ai_credits",
-					"literal": "\"basic_ai_credits\""
-				},
-				{
-					"goName": "UpdateCreditLimitPolicyOkCreditTypeUnitExemptAiCredits",
-					"value": "exempt_ai_credits",
-					"literal": "\"exempt_ai_credits\""
-				},
-				{
-					"goName": "UpdateCreditLimitPolicyOkCreditTypeUnitPremiumAiCredits",
-					"value": "premium_ai_credits",
-					"literal": "\"premium_ai_credits\""
-				},
-				{
-					"goName": "UpdateCreditLimitPolicyOkCreditTypeUnitPreviewAiCredits",
-					"value": "preview_ai_credits",
-					"literal": "\"preview_ai_credits\""
-				}
-			]
-		},
-		{
-			"name": "UpdateCreditLimitPolicyOkSelector",
-			"description": "All workspace members or one workspace member affected by the policy.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf",
-					"type": "CreateCreditLimitPolicySelectorOneOf",
-					"value": "all_space_members",
-					"members": [
-						"type"
-					],
-					"required": [
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
-					"type": "CreateCreditLimitPolicySelectorOneOf2",
-					"value": "user",
-					"members": [
-						"type",
-						"user_id"
-					],
-					"required": [
-						"type",
-						"user_id"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
 			"name": "UpdateLegalHold",
 			"description": "UpdateLegalHold defines a model",
 			"fields": [
@@ -13076,146 +10249,13 @@
 			]
 		},
 		{
-			"name": "UpdateLegalHoldOk",
-			"description": "UpdateLegalHoldOk defines a model",
-			"fields": [
-				{
-					"name": "CreatedBy",
-					"jsonName": "created_by",
-					"type": "uuid.UUID",
-					"jsonTag": "json:\"created_by\"",
-					"required": true
-				},
-				{
-					"name": "CreatedTime",
-					"jsonName": "created_time",
-					"type": "float64",
-					"jsonTag": "json:\"created_time\"",
-					"required": true
-				},
-				{
-					"name": "ID",
-					"jsonName": "id",
-					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
-				},
-				{
-					"name": "StartDate",
-					"jsonName": "start_date",
-					"type": "float64",
-					"jsonTag": "json:\"start_date\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "UpdateLegalHoldOkStatus",
-					"jsonTag": "json:\"status\"",
-					"required": true
-				},
-				{
-					"name": "UserInteractionType",
-					"jsonName": "user_interaction_type",
-					"type": "UpdateLegalHoldOkUserInteractionType",
-					"jsonTag": "json:\"user_interaction_type\"",
-					"required": true
-				},
-				{
-					"name": "Users",
-					"jsonName": "users",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"users\"",
-					"required": true
-				},
-				{
-					"name": "Workspaces",
-					"jsonName": "workspaces",
-					"type": "LegalHoldUsers",
-					"jsonTag": "json:\"workspaces\"",
-					"required": true
-				},
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description,omitzero\""
-				},
-				{
-					"name": "EndDate",
-					"jsonName": "end_date",
-					"type": "*float64",
-					"jsonTag": "json:\"end_date,omitzero\""
-				},
-				{
-					"name": "Icon",
-					"jsonName": "icon",
-					"type": "string",
-					"jsonTag": "json:\"icon,omitzero\""
-				},
-				{
-					"name": "Name",
-					"jsonName": "name",
-					"type": "string",
-					"jsonTag": "json:\"name,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "UpdateLegalHoldOkStatus",
-			"description": "UpdateLegalHoldOkStatus defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateLegalHoldOkStatusActive",
-					"value": "active",
-					"literal": "\"active\""
-				},
-				{
-					"goName": "UpdateLegalHoldOkStatusReleased",
-					"value": "released",
-					"literal": "\"released\""
-				}
-			]
-		},
-		{
-			"name": "UpdateLegalHoldOkUserInteractionType",
-			"description": "UpdateLegalHoldOkUserInteractionType defines a model",
-			"kind": 2,
-			"type": "[]UpdateLegalHoldOkUserInteractionTypeItem"
-		},
-		{
-			"name": "UpdateLegalHoldOkUserInteractionTypeItem",
-			"description": "UpdateLegalHoldOkUserInteractionTypeItem defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateLegalHoldOkUserInteractionTypeItemPageDotCreated",
-					"value": "page.created",
-					"literal": "\"page.created\""
-				},
-				{
-					"goName": "UpdateLegalHoldOkUserInteractionTypeItemPageDotEdited",
-					"value": "page.edited",
-					"literal": "\"page.edited\""
-				},
-				{
-					"goName": "UpdateLegalHoldOkUserInteractionTypeItemPageDotViewed",
-					"value": "page.viewed",
-					"literal": "\"page.viewed\""
-				}
-			]
-		},
-		{
 			"name": "UpdateMcpClientConnectionEnterpriseManagedAccess",
 			"description": "UpdateMcpClientConnectionEnterpriseManagedAccess defines a model",
 			"fields": [
 				{
 					"name": "Access",
 					"jsonName": "access",
-					"type": "UpdateMcpClientConnectionEnterpriseManagedAccessAccess",
+					"type": "UpdateMcpClientConnectionEnterpriseManagedAccess2",
 					"jsonTag": "json:\"access\"",
 					"description": "'denied' blocks access; 'allowed' restores access.",
 					"required": true
@@ -13237,18 +10277,18 @@
 			]
 		},
 		{
-			"name": "UpdateMcpClientConnectionEnterpriseManagedAccessAccess",
-			"description": "'denied' blocks access; 'allowed' restores access.",
+			"name": "UpdateMcpClientConnectionEnterpriseManagedAccess2",
+			"description": "UpdateMcpClientConnectionEnterpriseManagedAccess2 defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "UpdateMcpClientConnectionEnterpriseManagedAccessAccessAllowed",
+					"goName": "UpdateMcpClientConnectionEnterpriseManagedAccess2Allowed",
 					"value": "allowed",
 					"literal": "\"allowed\""
 				},
 				{
-					"goName": "UpdateMcpClientConnectionEnterpriseManagedAccessAccessDenied",
+					"goName": "UpdateMcpClientConnectionEnterpriseManagedAccess2Denied",
 					"value": "denied",
 					"literal": "\"denied\""
 				}
@@ -13261,7 +10301,7 @@
 				{
 					"name": "Access",
 					"jsonName": "access",
-					"type": "UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess",
+					"type": "UpdateMcpClientConnectionEnterpriseManagedAccess2",
 					"jsonTag": "json:\"access\"",
 					"description": "Access state applied to the member.",
 					"required": true
@@ -13277,108 +10317,16 @@
 			]
 		},
 		{
-			"name": "UpdateMcpClientConnectionEnterpriseManagedAccessOkAccess",
-			"description": "Access state applied to the member.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdateMcpClientConnectionEnterpriseManagedAccessOkAccessAllowed",
-					"value": "allowed",
-					"literal": "\"allowed\""
-				},
-				{
-					"goName": "UpdateMcpClientConnectionEnterpriseManagedAccessOkAccessDenied",
-					"value": "denied",
-					"literal": "\"denied\""
-				}
-			]
-		},
-		{
 			"name": "UpdatePermissionGroupMember",
 			"description": "UpdatePermissionGroupMember defines a model",
 			"fields": [
 				{
 					"name": "Role",
 					"jsonName": "role",
-					"type": "UpdatePermissionGroupMemberRole",
+					"type": "AddPermissionGroupMemberRole",
 					"jsonTag": "json:\"role\"",
 					"description": "The user's new role in the group.",
 					"required": true
-				}
-			]
-		},
-		{
-			"name": "UpdatePermissionGroupMemberOk",
-			"description": "UpdatePermissionGroupMemberOk defines a model",
-			"fields": [
-				{
-					"name": "Object",
-					"jsonName": "object",
-					"type": "string",
-					"jsonTag": "json:\"object\"",
-					"description": "Always `group_membership`",
-					"required": true
-				},
-				{
-					"name": "GroupID",
-					"jsonName": "group_id",
-					"type": "string",
-					"jsonTag": "json:\"group_id\"",
-					"description": "The ID of the group.",
-					"required": true
-				},
-				{
-					"name": "Member",
-					"jsonName": "member",
-					"type": "AddPermissionGroupMember2",
-					"jsonTag": "json:\"member\"",
-					"description": "The direct user member.",
-					"required": true
-				},
-				{
-					"name": "Role",
-					"jsonName": "role",
-					"type": "UpdatePermissionGroupMemberOkRole",
-					"jsonTag": "json:\"role\"",
-					"description": "The user's role in the group.",
-					"required": true
-				}
-			]
-		},
-		{
-			"name": "UpdatePermissionGroupMemberOkRole",
-			"description": "The user's role in the group.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdatePermissionGroupMemberOkRoleOwner",
-					"value": "owner",
-					"literal": "\"owner\""
-				},
-				{
-					"goName": "UpdatePermissionGroupMemberOkRoleMember",
-					"value": "member",
-					"literal": "\"member\""
-				}
-			]
-		},
-		{
-			"name": "UpdatePermissionGroupMemberRole",
-			"description": "The user's new role in the group.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "UpdatePermissionGroupMemberRoleOwner",
-					"value": "owner",
-					"literal": "\"owner\""
-				},
-				{
-					"goName": "UpdatePermissionGroupMemberRoleMember",
-					"value": "member",
-					"literal": "\"member\""
 				}
 			]
 		},
@@ -13419,7 +10367,7 @@
 		},
 		{
 			"name": "UserIds",
-			"description": "Member IDs to include. Use bracket encoding for multiple values.",
+			"description": "UserIds defines a model",
 			"kind": 5,
 			"unionVariants": [
 				{
@@ -13445,29 +10393,25 @@
 			]
 		},
 		{
-			"name": "WorkspaceIds",
-			"description": "Workspace IDs to include. Use bracket encoding for multiple values.",
-			"kind": 5,
-			"unionVariants": [
+			"name": "WorkflowsMetadataForSpaceResultsItemCreatedByTable",
+			"description": "WorkflowsMetadataForSpaceResultsItemCreatedByTable defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
 				{
-					"fieldName": "UUID",
-					"type": "[]uuid.UUID",
-					"zero": "nil"
+					"goName": "WorkflowsMetadataForSpaceResultsItemCreatedByTableBot",
+					"value": "bot",
+					"literal": "\"bot\""
 				},
 				{
-					"fieldName": "UUID2",
-					"type": "uuid.UUID"
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "UUID",
-					"type": "[]uuid.UUID",
-					"zero": "nil"
+					"goName": "WorkflowsMetadataForSpaceResultsItemCreatedByTableNotionUser",
+					"value": "notion_user",
+					"literal": "\"notion_user\""
 				},
 				{
-					"fieldName": "UUID2",
-					"type": "uuid.UUID"
+					"goName": "WorkflowsMetadataForSpaceResultsItemCreatedByTableOrganizationBot",
+					"value": "organization_bot",
+					"literal": "\"organization_bot\""
 				}
 			]
 		}

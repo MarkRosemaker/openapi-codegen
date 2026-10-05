@@ -29,7 +29,7 @@
 					"description": "Image generation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GenerateImageV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -55,7 +55,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "GenerateImageV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -136,7 +136,7 @@
 					"description": "Style generation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GenerateWithStyleV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -162,7 +162,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "GenerateWithStyleV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -187,7 +187,7 @@
 					"description": "Successfully generated image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateImagePixfluxResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -218,7 +218,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateImagePixfluxResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -243,7 +243,7 @@
 					"description": "Image generation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateImagePixfluxBackgroundResponse"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -269,7 +269,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateImagePixfluxBackgroundResponse"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -294,7 +294,7 @@
 					"description": "Successfully generated image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateImageBitforgeResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -325,7 +325,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateImageBitforgeResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -350,7 +350,7 @@
 					"description": "Successfully converted image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ImageToPixelartResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -381,7 +381,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ImageToPixelartResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -406,7 +406,7 @@
 					"description": "Conversion job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ImageToPixelartProResponse"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -432,7 +432,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ImageToPixelartProResponse"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -457,7 +457,7 @@
 					"description": "Generation job submitted",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateCharacterV3Response"
+						"name": "AnimatePixminimax"
 					},
 					"isSuccess": true
 				},
@@ -483,7 +483,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateCharacterV3Response"
+				"name": "AnimatePixminimax"
 			}
 		},
 		{
@@ -508,7 +508,7 @@
 					"description": "Generation job submitted",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateCharacterProResponse"
+						"name": "CreateCharacterPro"
 					},
 					"isSuccess": true
 				},
@@ -534,7 +534,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateCharacterProResponse"
+				"name": "CreateCharacterPro"
 			}
 		},
 		{
@@ -661,7 +661,7 @@
 					"description": "State queued",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateCharacterStateResponse"
+						"name": "CreateCharacterPro"
 					},
 					"isSuccess": true
 				},
@@ -701,7 +701,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateCharacterStateResponse"
+				"name": "CreateCharacterPro"
 			}
 		},
 		{
@@ -715,7 +715,7 @@
 				"\"create-character-with-4-directions\""
 			],
 			"requestBody": {
-				"typeName": "CreateCharacterWith4DirectionsRequest",
+				"typeName": "CreateCharacterWithDirections",
 				"contentType": "application/json",
 				"required": true
 			},
@@ -726,7 +726,7 @@
 					"description": "Successfully generated 4-rotation images",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateCharacterWith4DirectionsResponse"
+						"name": "CreateCharacterPro"
 					},
 					"isSuccess": true
 				},
@@ -752,7 +752,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateCharacterWith4DirectionsResponse"
+				"name": "CreateCharacterPro"
 			}
 		},
 		{
@@ -766,7 +766,7 @@
 				"\"create-character-with-8-directions\""
 			],
 			"requestBody": {
-				"typeName": "CreateCharacterWith8DirectionsRequest",
+				"typeName": "CreateCharacterWithDirections",
 				"contentType": "application/json",
 				"required": true
 			},
@@ -777,7 +777,7 @@
 					"description": "Successfully generated 8-rotation images",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateCharacterWith8DirectionsResponse"
+						"name": "CreateCharacterPro"
 					},
 					"isSuccess": true
 				},
@@ -803,7 +803,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateCharacterWith8DirectionsResponse"
+				"name": "CreateCharacterPro"
 			}
 		},
 		{
@@ -1153,7 +1153,7 @@
 					"description": "Tags updated successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "UpdateTagsResponse"
+						"name": "UpdateTags2"
 					},
 					"isSuccess": true
 				},
@@ -1193,7 +1193,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "UpdateTagsResponse"
+				"name": "UpdateTags2"
 			}
 		},
 		{
@@ -1218,7 +1218,7 @@
 					"description": "Object generation queued",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Create1DirectionObjectResponse"
+						"name": "CreateMapObject"
 					},
 					"isSuccess": true
 				},
@@ -1244,7 +1244,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "Create1DirectionObjectResponse"
+				"name": "CreateMapObject"
 			}
 		},
 		{
@@ -1269,7 +1269,7 @@
 					"description": "Object generation queued",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Create8DirectionObjectResponse"
+						"name": "CreateMapObject"
 					},
 					"isSuccess": true
 				},
@@ -1295,7 +1295,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "Create8DirectionObjectResponse"
+				"name": "CreateMapObject"
 			}
 		},
 		{
@@ -1516,7 +1516,7 @@
 					"description": "State queued",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateObjectStateResponse"
+						"name": "CreateMapObject"
 					},
 					"isSuccess": true
 				},
@@ -1556,7 +1556,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateObjectStateResponse"
+				"name": "CreateMapObject"
 			}
 		},
 		{
@@ -1910,7 +1910,7 @@
 					"description": "Tags updated successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "UpdateObjectTagsResponse"
+						"name": "UpdateTags2"
 					},
 					"isSuccess": true
 				},
@@ -1945,7 +1945,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "UpdateObjectTagsResponse"
+				"name": "UpdateTags2"
 			}
 		},
 		{
@@ -2140,7 +2140,7 @@
 					"description": "Background job accepted",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AnimateWithTextV3Response"
+						"name": "AnimatePixminimax"
 					},
 					"isSuccess": true
 				},
@@ -2166,7 +2166,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AnimateWithTextV3Response"
+				"name": "AnimatePixminimax"
 			}
 		},
 		{
@@ -2191,7 +2191,7 @@
 					"description": "Background job accepted",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AnimatePixminimaxResponse"
+						"name": "AnimatePixminimax"
 					},
 					"isSuccess": true
 				},
@@ -2217,7 +2217,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AnimatePixminimaxResponse"
+				"name": "AnimatePixminimax"
 			}
 		},
 		{
@@ -2242,7 +2242,7 @@
 					"description": "Interpolation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "InterpolationV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2268,7 +2268,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "InterpolationV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2293,7 +2293,7 @@
 					"description": "Animation edit job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EditAnimationV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2319,7 +2319,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EditAnimationV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2344,7 +2344,7 @@
 					"description": "Outfit transfer job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "TransferOutfitV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2370,7 +2370,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "TransferOutfitV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2395,7 +2395,7 @@
 					"description": "Animation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AnimateWithTextV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2421,7 +2421,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AnimateWithTextV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2446,7 +2446,7 @@
 					"description": "Successfully generated animation",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AnimateWithTextResponse"
+						"name": "AnimateWithText"
 					},
 					"isSuccess": true
 				},
@@ -2477,7 +2477,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AnimateWithTextResponse"
+				"name": "AnimateWithText"
 			}
 		},
 		{
@@ -2558,7 +2558,7 @@
 					"description": "Background job accepted",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AnimateWithSkeletonV3Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2589,7 +2589,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AnimateWithSkeletonV3Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2614,7 +2614,7 @@
 					"description": "Successfully generated image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "AnimateWithSkeletonResponse"
+						"name": "AnimateWithText"
 					},
 					"isSuccess": true
 				},
@@ -2645,7 +2645,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "AnimateWithSkeletonResponse"
+				"name": "AnimateWithText"
 			}
 		},
 		{
@@ -2670,7 +2670,7 @@
 					"description": "Background job accepted",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Generate8RotationsV3Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2696,7 +2696,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "Generate8RotationsV3Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2721,7 +2721,7 @@
 					"description": "8 rotations job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Generate8RotationsV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2747,7 +2747,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "Generate8RotationsV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2772,7 +2772,7 @@
 					"description": "Successfully generated image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "RotateResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -2803,7 +2803,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "RotateResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -2828,7 +2828,7 @@
 					"description": "Image edit job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EditImagesV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2854,7 +2854,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EditImagesV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2879,7 +2879,7 @@
 					"description": "Edit job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EditImagePixenResponse"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2910,7 +2910,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EditImagePixenResponse"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2935,7 +2935,7 @@
 					"description": "Edit image job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EditImageResponse"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -2961,7 +2961,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EditImageResponse"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -2986,7 +2986,7 @@
 					"description": "Inpainting job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "InpaintV3Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -3012,7 +3012,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "InpaintV3Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -3037,7 +3037,7 @@
 					"description": "Successfully generated image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "InpaintResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -3068,7 +3068,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "InpaintResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -3342,7 +3342,7 @@
 					"description": "Tileset deleted successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "DeleteTilesetResponse"
+						"name": "Tileset"
 					},
 					"isSuccess": true
 				},
@@ -3372,7 +3372,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "DeleteTilesetResponse"
+				"name": "Tileset"
 			}
 		},
 		{
@@ -3641,7 +3641,7 @@
 					"description": "Tileset deleted successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "DeleteSidescrollerTilesetResponse"
+						"name": "Tileset"
 					},
 					"isSuccess": true
 				},
@@ -3671,7 +3671,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "DeleteSidescrollerTilesetResponse"
+				"name": "Tileset"
 			}
 		},
 		{
@@ -3696,7 +3696,7 @@
 					"description": "Generation started successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateTilesProBackgroundResponse"
+						"name": "CreateTilesProBackground"
 					},
 					"isSuccess": true
 				},
@@ -3722,7 +3722,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateTilesProBackgroundResponse"
+				"name": "CreateTilesProBackground"
 			}
 		},
 		{
@@ -3819,7 +3819,7 @@
 					"description": "Tile deleted successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "DeleteTilesProResponse"
+						"name": "TilesPro"
 					},
 					"isSuccess": true
 				},
@@ -3854,7 +3854,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "DeleteTilesProResponse"
+				"name": "TilesPro"
 			}
 		},
 		{
@@ -3946,7 +3946,7 @@
 					"description": "Successful Response",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateIsometricTileBackgroundResponse"
+						"name": "CreateTilesProBackground"
 					},
 					"isSuccess": true
 				},
@@ -3977,7 +3977,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateIsometricTileBackgroundResponse"
+				"name": "CreateTilesProBackground"
 			}
 		},
 		{
@@ -4011,7 +4011,7 @@
 					"description": "Successfully retrieved tile",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateIsometricTileResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -4041,7 +4041,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateIsometricTileResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -4074,7 +4074,7 @@
 					"description": "Tile deleted successfully",
 					"contentType": "application/json",
 					"goType": {
-						"name": "DeleteIsometricTileResponse"
+						"name": "TilesPro"
 					},
 					"isSuccess": true
 				},
@@ -4104,7 +4104,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "DeleteIsometricTileResponse"
+				"name": "TilesPro"
 			}
 		},
 		{
@@ -4187,7 +4187,7 @@
 					"description": "Object generation queued",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CreateMapObjectResponse"
+						"name": "CreateMapObject"
 					},
 					"isSuccess": true
 				},
@@ -4213,7 +4213,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CreateMapObjectResponse"
+				"name": "CreateMapObject"
 			}
 		},
 		{
@@ -4358,7 +4358,7 @@
 					"description": "UI generation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GenerateUIV2Response"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -4384,7 +4384,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "GenerateUIV2Response"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -4585,7 +4585,7 @@
 					"description": "Portrait ↔ character job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PortraitCharacterProResponse"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -4616,7 +4616,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "PortraitCharacterProResponse"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -5002,7 +5002,7 @@
 					"description": "Font generation job accepted and processing",
 					"contentType": "application/json",
 					"goType": {
-						"name": "GenerateFontProResponse"
+						"name": "EditImage2"
 					},
 					"isSuccess": true
 				},
@@ -5028,7 +5028,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "GenerateFontProResponse"
+				"name": "EditImage2"
 			}
 		},
 		{
@@ -5172,7 +5172,7 @@
 					"description": "Successfully corrected",
 					"contentType": "application/json",
 					"goType": {
-						"name": "CorrectPixelartResponse"
+						"name": "AnimateWithText"
 					},
 					"isSuccess": true
 				},
@@ -5198,7 +5198,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "CorrectPixelartResponse"
+				"name": "AnimateWithText"
 			}
 		},
 		{
@@ -5274,7 +5274,7 @@
 					"description": "Successfully removed background",
 					"contentType": "application/json",
 					"goType": {
-						"name": "RemoveBackgroundResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -5300,7 +5300,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "RemoveBackgroundResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -5325,7 +5325,7 @@
 					"description": "Successfully resized image",
 					"contentType": "application/json",
 					"goType": {
-						"name": "ResizeResponse"
+						"name": "Resize"
 					},
 					"isSuccess": true
 				},
@@ -5356,7 +5356,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "ResizeResponse"
+				"name": "Resize"
 			}
 		},
 		{
@@ -5381,7 +5381,7 @@
 					"description": "Successfully enhanced prompt",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EnhancePixenPromptResponse"
+						"name": "EnhancePixenPrompt"
 					},
 					"isSuccess": true
 				},
@@ -5402,7 +5402,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EnhancePixenPromptResponse"
+				"name": "EnhancePixenPrompt"
 			}
 		},
 		{
@@ -5427,7 +5427,7 @@
 					"description": "Successfully enhanced prompt",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EnhanceCharacterV3PromptResponse"
+						"name": "EnhancePixenPrompt"
 					},
 					"isSuccess": true
 				},
@@ -5448,7 +5448,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EnhanceCharacterV3PromptResponse"
+				"name": "EnhancePixenPrompt"
 			}
 		},
 		{
@@ -5473,7 +5473,7 @@
 					"description": "Successfully enhanced prompt",
 					"contentType": "application/json",
 					"goType": {
-						"name": "EnhanceAnimationV3PromptResponse"
+						"name": "EnhancePixenPrompt"
 					},
 					"isSuccess": true
 				},
@@ -5494,7 +5494,7 @@
 				}
 			],
 			"successReturn": {
-				"name": "EnhanceAnimationV3PromptResponse"
+				"name": "EnhancePixenPrompt"
 			}
 		},
 		{
@@ -5985,13 +5985,31 @@
 	],
 	"schemas": [
 		{
+			"name": "AnimateObjectMode",
+			"description": "AnimateObjectMode defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "AnimateObjectModePro",
+					"value": "pro",
+					"literal": "\"pro\""
+				},
+				{
+					"goName": "AnimateObjectModeV3",
+					"value": "v3",
+					"literal": "\"v3\""
+				}
+			]
+		},
+		{
 			"name": "AnimateObjectRequest",
 			"description": "Request to add an animation to an existing object.",
 			"fields": [
 				{
 					"name": "Mode",
 					"jsonName": "mode",
-					"type": "AnimateObjectRequestMode",
+					"type": "AnimateObjectMode",
 					"jsonTag": "json:\"mode,omitzero\"",
 					"description": "Which animation mode to use. Prefer `'v3'` (default) — it usually produces higher quality results than `'pro'`, and is cheaper. Use `'pro'` only when its different stylistic output is specifically needed.\n\n**Cost warning**: when generating on a subscription, `'pro'` mode costs 20-40 generations per direction (160-320 for a full 8-direction animation)."
 				},
@@ -6122,24 +6140,6 @@
 			]
 		},
 		{
-			"name": "AnimateObjectRequestMode",
-			"description": "Which animation mode to use. Prefer `'v3'` (default) — it usually produces higher quality results than `'pro'`, and is cheaper. Use `'pro'` only when its different stylistic output is specifically needed.\n\n**Cost warning**: when generating on a subscription, `'pro'` mode costs 20-40 generations per direction (160-320 for a full 8-direction animation).",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AnimateObjectRequestModePro",
-					"value": "pro",
-					"literal": "\"pro\""
-				},
-				{
-					"goName": "AnimateObjectRequestModeV3",
-					"value": "v3",
-					"literal": "\"v3\""
-				}
-			]
-		},
-		{
 			"name": "AnimateObjectResponse",
 			"description": "AnimateObjectResponse defines a model",
 			"fields": [
@@ -6159,7 +6159,7 @@
 				{
 					"name": "Mode",
 					"jsonName": "mode",
-					"type": "AnimateObjectResponseMode",
+					"type": "AnimateObjectMode",
 					"jsonTag": "json:\"mode\"",
 					"required": true
 				},
@@ -6214,20 +6214,98 @@
 			]
 		},
 		{
-			"name": "AnimateObjectResponseMode",
-			"description": "AnimateObjectResponseMode defines a model",
+			"name": "AnimatePixminimax",
+			"description": "AnimatePixminimax defines a model",
+			"fields": [
+				{
+					"name": "Usage",
+					"jsonName": "usage",
+					"type": "*Usage",
+					"jsonTag": "json:\"usage,omitzero\""
+				},
+				{
+					"name": "BackgroundJobID",
+					"jsonName": "background_job_id",
+					"type": "string",
+					"jsonTag": "json:\"background_job_id\"",
+					"description": "Background job ID for polling generation progress",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"description": "Current job status (processing, completed, failed)"
+				},
+				{
+					"name": "EnhancedPrompt",
+					"jsonName": "enhanced_prompt",
+					"type": "string",
+					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
+					"description": "The expanded motion description used for generation. Populated only when enhance_prompt=true."
+				},
+				{
+					"name": "EnhanceUsage",
+					"jsonName": "enhance_usage",
+					"type": "*Usage",
+					"jsonTag": "json:\"enhance_usage,omitzero\"",
+					"description": "Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true."
+				},
+				{
+					"name": "CharacterID",
+					"jsonName": "character_id",
+					"type": "string",
+					"jsonTag": "json:\"character_id,omitzero\"",
+					"description": "Character ID — available immediately, but rotations land asynchronously. Character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded, and the 3D skeleton is reconstructed."
+				}
+			]
+		},
+		{
+			"name": "AnimatePixminimaxDirectionAnyOf",
+			"description": "AnimatePixminimaxDirectionAnyOf defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "AnimateObjectResponseModePro",
-					"value": "pro",
-					"literal": "\"pro\""
+					"goName": "AnimatePixminimaxDirectionAnyOfSouth",
+					"value": "south",
+					"literal": "\"south\""
 				},
 				{
-					"goName": "AnimateObjectResponseModeV3",
-					"value": "v3",
-					"literal": "\"v3\""
+					"goName": "AnimatePixminimaxDirectionAnyOfNorth",
+					"value": "north",
+					"literal": "\"north\""
+				},
+				{
+					"goName": "AnimatePixminimaxDirectionAnyOfEast",
+					"value": "east",
+					"literal": "\"east\""
+				},
+				{
+					"goName": "AnimatePixminimaxDirectionAnyOfWest",
+					"value": "west",
+					"literal": "\"west\""
+				},
+				{
+					"goName": "AnimatePixminimaxDirectionAnyOfSouthEast",
+					"value": "south-east",
+					"literal": "\"south-east\""
+				},
+				{
+					"goName": "AnimatePixminimaxDirectionAnyOfSouthWest",
+					"value": "south-west",
+					"literal": "\"south-west\""
+				},
+				{
+					"goName": "AnimatePixminimaxDirectionAnyOfNorthEast",
+					"value": "north-east",
+					"literal": "\"north-east\""
+				},
+				{
+					"goName": "AnimatePixminimaxDirectionAnyOfNorthWest",
+					"value": "north-west",
+					"literal": "\"north-west\""
 				}
 			]
 		},
@@ -6296,98 +6374,9 @@
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "AnimatePixminimaxRequestDirectionAnyOf0",
+					"type": "AnimatePixminimaxDirectionAnyOf",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Facing direction of the sprite (south = towards the camera). Used only with enhance_prompt: the prompt holds that facing and aims attacks that way on screen. Omit to let the enhancer read the facing from the image."
-				}
-			]
-		},
-		{
-			"name": "AnimatePixminimaxRequestDirectionAnyOf0",
-			"description": "AnimatePixminimaxRequestDirectionAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0South",
-					"value": "south",
-					"literal": "\"south\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0North",
-					"value": "north",
-					"literal": "\"north\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0East",
-					"value": "east",
-					"literal": "\"east\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0West",
-					"value": "west",
-					"literal": "\"west\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0SouthEast",
-					"value": "south-east",
-					"literal": "\"south-east\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0SouthWest",
-					"value": "south-west",
-					"literal": "\"south-west\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0NorthEast",
-					"value": "north-east",
-					"literal": "\"north-east\""
-				},
-				{
-					"goName": "AnimatePixminimaxRequestDirectionAnyOf0NorthWest",
-					"value": "north-west",
-					"literal": "\"north-west\""
-				}
-			]
-		},
-		{
-			"name": "AnimatePixminimaxResponse",
-			"description": "Background job response. Poll GET /v2/background-jobs/{id} for results.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling generation progress",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (processing, completed, failed)"
-				},
-				{
-					"name": "EnhancedPrompt",
-					"jsonName": "enhanced_prompt",
-					"type": "string",
-					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
-					"description": "The expanded motion description used for generation. Populated only when enhance_prompt=true."
-				},
-				{
-					"name": "EnhanceUsage",
-					"jsonName": "enhance_usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"enhance_usage,omitzero\"",
-					"description": "Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true."
 				}
 			]
 		},
@@ -6493,25 +6482,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed decides the starting noise"
-				}
-			]
-		},
-		{
-			"name": "AnimateWithSkeletonResponse",
-			"description": "AnimateWithSkeletonResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Images",
-					"jsonName": "images",
-					"type": "[]BaseImage",
-					"jsonTag": "json:\"images\"",
-					"required": true
 				}
 			]
 		},
@@ -6636,8 +6606,8 @@
 			]
 		},
 		{
-			"name": "AnimateWithSkeletonV3Response",
-			"description": "Background job response. Poll GET /v2/background-jobs/{id} for results.",
+			"name": "AnimateWithText",
+			"description": "AnimateWithText defines a model",
 			"fields": [
 				{
 					"name": "Usage",
@@ -6646,19 +6616,11 @@
 					"jsonTag": "json:\"usage,omitzero\""
 				},
 				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling generation progress",
+					"name": "Images",
+					"jsonName": "images",
+					"type": "[]BaseImage",
+					"jsonTag": "json:\"images\"",
 					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (processing, completed, failed)"
 				}
 			]
 		},
@@ -6787,25 +6749,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed for reproducible results (0 for random)"
-				}
-			]
-		},
-		{
-			"name": "AnimateWithTextResponse",
-			"description": "AnimateWithTextResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Images",
-					"jsonName": "images",
-					"type": "[]BaseImage",
-					"jsonTag": "json:\"images\"",
-					"required": true
 				}
 			]
 		},
@@ -6957,33 +6900,6 @@
 			]
 		},
 		{
-			"name": "AnimateWithTextV2Response",
-			"description": "Response model for text-to-animation endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "AnimateWithTextV3Request",
 			"description": "Request model for animate with text v3 endpoint",
 			"fields": [
@@ -7044,47 +6960,6 @@
 					"type": "bool",
 					"jsonTag": "json:\"enhance_prompt,omitzero\"",
 					"description": "If true, automatically expand `action` into a richer motion description before generating — equivalent to calling /v2/enhance-animation-v3-prompt with these frames first. Uses `first_frame` (and `last_frame` for interpolation) to ground the description. Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`."
-				}
-			]
-		},
-		{
-			"name": "AnimateWithTextV3Response",
-			"description": "Background job response. Poll GET /v2/background-jobs/{id} for results.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling generation progress",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (processing, completed, failed)"
-				},
-				{
-					"name": "EnhancedPrompt",
-					"jsonName": "enhanced_prompt",
-					"type": "string",
-					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
-					"description": "The expanded motion description used for generation. Populated when enhance_prompt=true AND the enhancement succeeded. Null with enhance_prompt=true means the enhancer was unavailable and your `action` was used verbatim — the animation still generates, and `enhance_usage` is null because you were not charged for it."
-				},
-				{
-					"name": "EnhanceUsage",
-					"jsonName": "enhance_usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"enhance_usage,omitzero\"",
-					"description": "Cost of the prompt enhancement, separate from generation usage. Populated when enhance_prompt=true AND the enhancement succeeded; null means it was skipped and not charged."
 				}
 			]
 		},
@@ -8214,25 +8089,6 @@
 			]
 		},
 		{
-			"name": "CorrectPixelartResponse",
-			"description": "Response for a completed correction",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Images",
-					"jsonName": "images",
-					"type": "[]BaseImage",
-					"jsonTag": "json:\"images\"",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "Create1DirectionObjectRequest",
 			"description": "Request to create a 1-direction object.",
 			"fields": [
@@ -8292,46 +8148,6 @@
 			]
 		},
 		{
-			"name": "Create1DirectionObjectResponse",
-			"description": "Response model for 1-direction object creation.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"required": true
-				},
-				{
-					"name": "ObjectID",
-					"jsonName": "object_id",
-					"type": "string",
-					"jsonTag": "json:\"object_id\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\""
-				},
-				{
-					"name": "NFrames",
-					"jsonName": "n_frames",
-					"type": "int",
-					"jsonTag": "json:\"n_frames\"",
-					"description": "Number of candidate frames produced (derived from `size`).",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "Create8DirectionObjectRequest",
 			"description": "Request to create an 8-direction object.",
 			"fields": [
@@ -8352,7 +8168,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "Create8DirectionObjectRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera angle."
 				},
@@ -8376,61 +8192,6 @@
 					"type": "string",
 					"jsonTag": "json:\"style_object_id,omitzero\"",
 					"description": "ID of one of your existing 8-direction objects to use as the style reference. Its 8 directional sprites guide the new object's style in every direction; its south sprite becomes the center style reference unless `reference_image` or `style_image` is also provided. The object must be completed with 8 directions, and the output size must be at least its sprite content size (cropped to visible pixels) — the job fails fast with the required size otherwise."
-				}
-			]
-		},
-		{
-			"name": "Create8DirectionObjectRequestView",
-			"description": "Camera angle.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "Create8DirectionObjectRequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "Create8DirectionObjectRequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "Create8DirectionObjectRequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
-				}
-			]
-		},
-		{
-			"name": "Create8DirectionObjectResponse",
-			"description": "Response model for 8-direction object creation.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"required": true
-				},
-				{
-					"name": "ObjectID",
-					"jsonName": "object_id",
-					"type": "string",
-					"jsonTag": "json:\"object_id\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\""
 				}
 			]
 		},
@@ -8674,6 +8435,41 @@
 			]
 		},
 		{
+			"name": "CreateCharacterPro",
+			"description": "CreateCharacterPro defines a model",
+			"fields": [
+				{
+					"name": "Usage",
+					"jsonName": "usage",
+					"type": "*Usage",
+					"jsonTag": "json:\"usage,omitzero\""
+				},
+				{
+					"name": "BackgroundJobID",
+					"jsonName": "background_job_id",
+					"type": "string",
+					"jsonTag": "json:\"background_job_id\"",
+					"description": "Background job ID for tracking generation progress.",
+					"required": true
+				},
+				{
+					"name": "CharacterID",
+					"jsonName": "character_id",
+					"type": "string",
+					"jsonTag": "json:\"character_id\"",
+					"description": "Character ID — available immediately, but rotations land asynchronously. The character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded to storage, and the 3D skeleton is reconstructed.",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"description": "Job status (processing, completed, failed)."
+				}
+			]
+		},
+		{
 			"name": "CreateCharacterProFlashRequest",
 			"description": "Generate an eight-direction character, optionally reusing its first image.",
 			"fields": [
@@ -8707,7 +8503,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "CreateCharacterProFlashRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\""
 				},
 				{
@@ -8725,7 +8521,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "CreateCharacterProFlashRequestImageSize",
+					"type": "CreateObjectProFlashImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing."
 				},
@@ -8752,41 +8548,6 @@
 					"jsonName": "template_id",
 					"type": "CreateCharacterProFlashRequestTemplateID",
 					"jsonTag": "json:\"template_id,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterProFlashRequestImageSize",
-			"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "ProFlashImageSize",
-					"type": "ProFlashImageSize",
-					"members": [
-						"height",
-						"width"
-					],
-					"required": [
-						"height",
-						"width"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "ProFlashImageSize",
-					"type": "ProFlashImageSize",
-					"members": [
-						"height",
-						"width"
-					],
-					"required": [
-						"height",
-						"width"
-					],
-					"object": true
 				}
 			]
 		},
@@ -8830,29 +8591,6 @@
 					"goName": "CreateCharacterProFlashRequestTemplateIDCustom",
 					"value": "custom",
 					"literal": "\"custom\""
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterProFlashRequestView",
-			"description": "CreateCharacterProFlashRequestView defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateCharacterProFlashRequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "CreateCharacterProFlashRequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "CreateCharacterProFlashRequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
 				}
 			]
 		},
@@ -8933,7 +8671,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "CreateCharacterProRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle."
 				},
@@ -9012,64 +8750,6 @@
 			]
 		},
 		{
-			"name": "CreateCharacterProRequestView",
-			"description": "Camera view angle.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateCharacterProRequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "CreateCharacterProRequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "CreateCharacterProRequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterProResponse",
-			"description": "Response — async; poll `/v2/background-jobs/{id}` for results.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for tracking generation progress.",
-					"required": true
-				},
-				{
-					"name": "CharacterID",
-					"jsonName": "character_id",
-					"type": "string",
-					"jsonTag": "json:\"character_id\"",
-					"description": "Character ID — available immediately, but rotations land asynchronously. The character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded to storage, and the 3D skeleton is reconstructed.",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status (processing, completed, failed)."
-				}
-			]
-		},
-		{
 			"name": "CreateCharacterStateRequest",
 			"description": "Request to produce a state (variant) of an existing character.",
 			"fields": [
@@ -9124,38 +8804,6 @@
 			]
 		},
 		{
-			"name": "CreateCharacterStateResponse",
-			"description": "CreateCharacterStateResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"required": true
-				},
-				{
-					"name": "CharacterID",
-					"jsonName": "character_id",
-					"type": "string",
-					"jsonTag": "json:\"character_id\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\""
-				}
-			]
-		},
-		{
 			"name": "CreateCharacterV3Request",
 			"description": "Request model for /v2/create-character-v3.\n\nTwo modes:\n- **Reference image**: provide `reference_image` — v3 rotates it into 8 directions.\n- **From scratch**: omit `reference_image` — pixen generates a sprite from\n  `description`, then v3 rotates it. Supports extra style params (`outline`, `detail`).",
 			"fields": [
@@ -9184,7 +8832,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "CreateCharacterV3RequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view angle. Used by both generation and skeleton reconstruction."
 				},
@@ -9240,80 +8888,8 @@
 			]
 		},
 		{
-			"name": "CreateCharacterV3RequestView",
-			"description": "Camera view angle. Used by both generation and skeleton reconstruction.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateCharacterV3RequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "CreateCharacterV3RequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "CreateCharacterV3RequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterV3Response",
-			"description": "Response — async; poll `/v2/background-jobs/{id}` for results.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for tracking generation progress.",
-					"required": true
-				},
-				{
-					"name": "CharacterID",
-					"jsonName": "character_id",
-					"type": "string",
-					"jsonTag": "json:\"character_id\"",
-					"description": "Character ID — available immediately, but rotations land asynchronously. Character row is created with status='pending' and transitions to 'completed' once frames are generated, uploaded, and the 3D skeleton is reconstructed.",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status (processing, completed, failed)."
-				},
-				{
-					"name": "EnhancedPrompt",
-					"jsonName": "enhanced_prompt",
-					"type": "string",
-					"jsonTag": "json:\"enhanced_prompt,omitzero\"",
-					"description": "The expanded prompt used for generation. Populated only when enhance_prompt=true."
-				},
-				{
-					"name": "EnhanceUsage",
-					"jsonName": "enhance_usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"enhance_usage,omitzero\"",
-					"description": "Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true."
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterWith4DirectionsRequest",
-			"description": "Request model for 4-directions character creation endpoint",
+			"name": "CreateCharacterWithDirections",
+			"description": "CreateCharacterWithDirections defines a model",
 			"fields": [
 				{
 					"name": "Description",
@@ -9397,7 +8973,7 @@
 				{
 					"name": "Proportions",
 					"jsonName": "proportions",
-					"type": "CreateCharacterWith4DirectionsRequestProportionsAnyOf0",
+					"type": "CreateCharacterWithDirectionsProportionsAnyOf",
 					"jsonTag": "json:\"proportions,omitzero\"",
 					"description": "Character body proportions (preset or custom values). Only applies to humanoid characters."
 				},
@@ -9428,252 +9004,19 @@
 					"type": "string",
 					"jsonTag": "json:\"output_type,omitzero\"",
 					"description": "Output format (always dict for external API)"
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterWith4DirectionsRequestProportionsAnyOf0",
-			"description": "CreateCharacterWith4DirectionsRequestProportionsAnyOf0 defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "CharacterProportionsPreset",
-					"type": "CharacterProportionsPreset",
-					"value": "preset",
-					"members": [
-						"name",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CharacterProportions",
-					"type": "CharacterProportions",
-					"value": "custom",
-					"members": [
-						"arms_length",
-						"head_size",
-						"hip_width",
-						"legs_length",
-						"shoulder_width",
-						"type"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "CharacterProportionsPreset",
-					"type": "CharacterProportionsPreset",
-					"value": "preset",
-					"members": [
-						"name",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "CharacterProportions",
-					"type": "CharacterProportions",
-					"value": "custom",
-					"members": [
-						"arms_length",
-						"head_size",
-						"hip_width",
-						"legs_length",
-						"shoulder_width",
-						"type"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
-			"name": "CreateCharacterWith4DirectionsResponse",
-			"description": "Response model for 4-directions character creation (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for tracking generation progress",
-					"required": true
-				},
-				{
-					"name": "CharacterID",
-					"jsonName": "character_id",
-					"type": "string",
-					"jsonTag": "json:\"character_id\"",
-					"description": "Character ID that will be created (available immediately)",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (pending, processing, running, completed, failed)"
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterWith8DirectionsRequest",
-			"description": "Request model for 8-directions character creation endpoint",
-			"fields": [
-				{
-					"name": "Description",
-					"jsonName": "description",
-					"type": "string",
-					"jsonTag": "json:\"description\"",
-					"description": "Description of the character or object to generate",
-					"required": true
-				},
-				{
-					"name": "ImageSize",
-					"jsonName": "image_size",
-					"type": "AppEndpointsExternalVInterpolationVImageSize",
-					"jsonTag": "json:\"image_size\"",
-					"description": "Size of each rotation image",
-					"required": true
 				},
 				{
 					"name": "Mode",
 					"jsonName": "mode",
-					"type": "CreateCharacterWith8DirectionsRequestModeAnyOf0",
+					"type": "CreateTilesetMode",
 					"jsonTag": "json:\"mode,omitzero\"",
 					"description": "Generation mode. \"standard\" uses template-based skeleton generation (1 generation). \"pro\" uses AI reference-based generation for higher quality (costs 20-40 generations depending on size). Pro mode ignores outline, shading, detail, proportions, and text_guidance_scale."
-				},
-				{
-					"name": "AsyncMode",
-					"jsonName": "async_mode",
-					"type": "bool",
-					"jsonTag": "json:\"async_mode,omitzero\"",
-					"description": "Process asynchronously (always true - no synchronous processing yet)"
-				},
-				{
-					"name": "TextGuidanceScale",
-					"jsonName": "text_guidance_scale",
-					"type": "float64",
-					"jsonTag": "json:\"text_guidance_scale,omitzero\"",
-					"description": "How closely to follow the text description (higher = more faithful)"
-				},
-				{
-					"name": "Outline",
-					"jsonName": "outline",
-					"type": "string",
-					"jsonTag": "json:\"outline,omitzero\"",
-					"description": "Outline style hint (soft guidance — the model may not follow exactly). Options: single color black outline, single color outline, selective outline, lineless"
-				},
-				{
-					"name": "Shading",
-					"jsonName": "shading",
-					"type": "string",
-					"jsonTag": "json:\"shading,omitzero\"",
-					"description": "Shading style hint (soft guidance — the model may not follow exactly). Options: flat shading, basic shading, medium shading, detailed shading"
-				},
-				{
-					"name": "Detail",
-					"jsonName": "detail",
-					"type": "string",
-					"jsonTag": "json:\"detail,omitzero\"",
-					"description": "Detail level hint (soft guidance — the model may not follow exactly). Options: low detail, medium detail, high detail"
-				},
-				{
-					"name": "View",
-					"jsonName": "view",
-					"type": "string",
-					"jsonTag": "json:\"view,omitzero\"",
-					"description": "Camera view angle (side, low top-down, high top-down, perspective)"
-				},
-				{
-					"name": "Isometric",
-					"jsonName": "isometric",
-					"type": "*bool",
-					"jsonTag": "json:\"isometric,omitzero\"",
-					"description": "Generate in isometric view"
-				},
-				{
-					"name": "ColorImage",
-					"jsonName": "color_image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"color_image,omitzero\"",
-					"description": "Color palette reference image"
-				},
-				{
-					"name": "ForceColors",
-					"jsonName": "force_colors",
-					"type": "*bool",
-					"jsonTag": "json:\"force_colors,omitzero\"",
-					"description": "Force the use of colors from color_image"
-				},
-				{
-					"name": "Proportions",
-					"jsonName": "proportions",
-					"type": "CreateCharacterWith8DirectionsRequestProportionsAnyOf0",
-					"jsonTag": "json:\"proportions,omitzero\"",
-					"description": "Character body proportions (preset or custom values). Only applies to humanoid characters."
-				},
-				{
-					"name": "TemplateID",
-					"jsonName": "template_id",
-					"type": "string",
-					"jsonTag": "json:\"template_id,omitzero\"",
-					"description": "Template ID to use. Must be one of: 'mannequin' (the only humanoid template), 'bear', 'cat', 'dog', 'horse', 'lion' (quadrupeds). Defaults to 'mannequin'. Note 'humanoid' is NOT a template id — it is only a value for the separate template_types filter, and passing it here fails with \"Template not found\"."
-				},
-				{
-					"name": "Seed",
-					"jsonName": "seed",
-					"type": "*int",
-					"jsonTag": "json:\"seed,omitzero\"",
-					"description": "Seed for reproducible generation"
-				},
-				{
-					"name": "Directions",
-					"jsonName": "directions",
-					"type": "map[string]BaseImage",
-					"jsonTag": "json:\"directions,omitzero\"",
-					"description": "Optional reference images per direction. Allowed keys: 'south', 'south-east', 'east', 'north-east', 'north', 'north-west', 'west', 'south-west'. Missing directions are AI-generated; provided ones are used as-is. Each image's dimensions must match image_size. Bipedal templates require 'south' if any are provided; quadrupeds require both 'south' and 'east'."
-				},
-				{
-					"name": "OutputType",
-					"jsonName": "output_type",
-					"type": "string",
-					"jsonTag": "json:\"output_type,omitzero\"",
-					"description": "Output format (always dict for external API)"
 				}
 			]
 		},
 		{
-			"name": "CreateCharacterWith8DirectionsRequestModeAnyOf0",
-			"description": "CreateCharacterWith8DirectionsRequestModeAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateCharacterWith8DirectionsRequestModeAnyOf0Standard",
-					"value": "standard",
-					"literal": "\"standard\""
-				},
-				{
-					"goName": "CreateCharacterWith8DirectionsRequestModeAnyOf0Pro",
-					"value": "pro",
-					"literal": "\"pro\""
-				}
-			]
-		},
-		{
-			"name": "CreateCharacterWith8DirectionsRequestProportionsAnyOf0",
-			"description": "CreateCharacterWith8DirectionsRequestProportionsAnyOf0 defines a model",
+			"name": "CreateCharacterWithDirectionsProportionsAnyOf",
+			"description": "CreateCharacterWithDirectionsProportionsAnyOf defines a model",
 			"kind": 5,
 			"unionVariants": [
 				{
@@ -9730,41 +9073,6 @@
 			"isOneOf": true,
 			"discriminator": "type",
 			"streamed": true
-		},
-		{
-			"name": "CreateCharacterWith8DirectionsResponse",
-			"description": "Response model for 8-directions character creation (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for tracking generation progress",
-					"required": true
-				},
-				{
-					"name": "CharacterID",
-					"jsonName": "character_id",
-					"type": "string",
-					"jsonTag": "json:\"character_id\"",
-					"description": "Character ID that will be created (available immediately)",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (processing, completed, failed)"
-				}
-			]
 		},
 		{
 			"name": "CreateImageBitforgeRequest",
@@ -9942,22 +9250,20 @@
 			]
 		},
 		{
-			"name": "CreateImageBitforgeResponse",
-			"description": "CreateImageBitforgeResponse defines a model",
-			"fields": [
+			"name": "CreateImagePixenBackgroundRemovalTask",
+			"description": "CreateImagePixenBackgroundRemovalTask defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
 				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
+					"goName": "CreateImagePixenBackgroundRemovalTaskRemoveSimpleBackground",
+					"value": "remove_simple_background",
+					"literal": "\"remove_simple_background\""
 				},
 				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
-					"required": true
+					"goName": "CreateImagePixenBackgroundRemovalTaskRemoveComplexBackground",
+					"value": "remove_complex_background",
+					"literal": "\"remove_complex_background\""
 				}
 			]
 		},
@@ -10018,7 +9324,7 @@
 				{
 					"name": "BackgroundRemovalTask",
 					"jsonName": "background_removal_task",
-					"type": "CreateImagePixenRequestBackgroundRemovalTask",
+					"type": "CreateImagePixenBackgroundRemovalTask",
 					"jsonTag": "json:\"background_removal_task,omitzero\"",
 					"description": "Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better"
 				},
@@ -10035,24 +9341,6 @@
 					"type": "bool",
 					"jsonTag": "json:\"enhance_prompt,omitzero\"",
 					"description": "If true, automatically expand your description into a richer, more detailed prompt before generating — equivalent to calling /v2/enhance-pixen-prompt first and passing the result here. Costs an additional 0.05 generations (or equivalent credits). The expanded text is returned in `enhanced_prompt`."
-				}
-			]
-		},
-		{
-			"name": "CreateImagePixenRequestBackgroundRemovalTask",
-			"description": "Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateImagePixenRequestBackgroundRemovalTaskRemoveSimpleBackground",
-					"value": "remove_simple_background",
-					"literal": "\"remove_simple_background\""
-				},
-				{
-					"goName": "CreateImagePixenRequestBackgroundRemovalTaskRemoveComplexBackground",
-					"value": "remove_complex_background",
-					"literal": "\"remove_complex_background\""
 				}
 			]
 		},
@@ -10087,33 +9375,6 @@
 					"type": "*Usage",
 					"jsonTag": "json:\"enhance_usage,omitzero\"",
 					"description": "Cost of the prompt enhancement, separate from generation usage. Populated only when enhance_prompt=true."
-				}
-			]
-		},
-		{
-			"name": "CreateImagePixfluxBackgroundResponse",
-			"description": "Response model for the background pixflux endpoint",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -10202,7 +9463,7 @@
 				{
 					"name": "BackgroundRemovalTask",
 					"jsonName": "background_removal_task",
-					"type": "CreateImagePixfluxRequestBackgroundRemovalTask",
+					"type": "CreateImagePixenBackgroundRemovalTask",
 					"jsonTag": "json:\"background_removal_task,omitzero\"",
 					"description": "Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better"
 				},
@@ -10233,44 +9494,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed decides the starting noise"
-				}
-			]
-		},
-		{
-			"name": "CreateImagePixfluxRequestBackgroundRemovalTask",
-			"description": "Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateImagePixfluxRequestBackgroundRemovalTaskRemoveSimpleBackground",
-					"value": "remove_simple_background",
-					"literal": "\"remove_simple_background\""
-				},
-				{
-					"goName": "CreateImagePixfluxRequestBackgroundRemovalTaskRemoveComplexBackground",
-					"value": "remove_complex_background",
-					"literal": "\"remove_complex_background\""
-				}
-			]
-		},
-		{
-			"name": "CreateImagePixfluxResponse",
-			"description": "CreateImagePixfluxResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
-					"required": true
 				}
 			]
 		},
@@ -10328,41 +9551,6 @@
 			]
 		},
 		{
-			"name": "CreateIsometricTileBackgroundResponse",
-			"description": "Response for background isometric tile generation (async-only)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for tracking generation progress",
-					"required": true
-				},
-				{
-					"name": "TileID",
-					"jsonName": "tile_id",
-					"type": "string",
-					"jsonTag": "json:\"tile_id\"",
-					"description": "Tile ID that will be created (available immediately)",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Always 'processing' - check status with background job ID"
-				}
-			]
-		},
-		{
 			"name": "CreateIsometricTileRequest",
 			"description": "Request model for pixflux image generation endpoint",
 			"fields": [
@@ -10391,21 +9579,21 @@
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "CreateIsometricTileRequestOutlineAnyOf0",
+					"type": "CreateMapObjectOutlineAnyOf",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style for the tile"
 				},
 				{
 					"name": "Shading",
 					"jsonName": "shading",
-					"type": "CreateIsometricTileRequestShadingAnyOf0",
+					"type": "Shading",
 					"jsonTag": "json:\"shading,omitzero\"",
 					"description": "Shading complexity"
 				},
 				{
 					"name": "Detail",
 					"jsonName": "detail",
-					"type": "CreateIsometricTileRequestDetailAnyOf0",
+					"type": "Detail",
 					"jsonTag": "json:\"detail,omitzero\"",
 					"description": "Level of detail in the tile"
 				},
@@ -10454,29 +9642,6 @@
 			]
 		},
 		{
-			"name": "CreateIsometricTileRequestDetailAnyOf0",
-			"description": "CreateIsometricTileRequestDetailAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateIsometricTileRequestDetailAnyOf0LowDetail",
-					"value": "low detail",
-					"literal": "\"low detail\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestDetailAnyOf0MediumDetail",
-					"value": "medium detail",
-					"literal": "\"medium detail\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestDetailAnyOf0HighlyDetailed",
-					"value": "highly detailed",
-					"literal": "\"highly detailed\""
-				}
-			]
-		},
-		{
 			"name": "CreateIsometricTileRequestIsometricTileShape",
 			"description": "Tile thickness. Thicker tiles allow more height variation in game maps. thin tile: ~15% canvas height, thick tile: ~25% height, block: ~50% height",
 			"kind": 1,
@@ -10500,64 +9665,8 @@
 			]
 		},
 		{
-			"name": "CreateIsometricTileRequestOutlineAnyOf0",
-			"description": "CreateIsometricTileRequestOutlineAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateIsometricTileRequestOutlineAnyOf0SingleColorOutline",
-					"value": "single color outline",
-					"literal": "\"single color outline\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestOutlineAnyOf0SelectiveOutline",
-					"value": "selective outline",
-					"literal": "\"selective outline\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestOutlineAnyOf0Lineless",
-					"value": "lineless",
-					"literal": "\"lineless\""
-				}
-			]
-		},
-		{
-			"name": "CreateIsometricTileRequestShadingAnyOf0",
-			"description": "CreateIsometricTileRequestShadingAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateIsometricTileRequestShadingAnyOf0FlatShading",
-					"value": "flat shading",
-					"literal": "\"flat shading\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestShadingAnyOf0BasicShading",
-					"value": "basic shading",
-					"literal": "\"basic shading\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestShadingAnyOf0MediumShading",
-					"value": "medium shading",
-					"literal": "\"medium shading\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestShadingAnyOf0DetailedShading",
-					"value": "detailed shading",
-					"literal": "\"detailed shading\""
-				},
-				{
-					"goName": "CreateIsometricTileRequestShadingAnyOf0HighlyDetailedShading",
-					"value": "highly detailed shading",
-					"literal": "\"highly detailed shading\""
-				}
-			]
-		},
-		{
-			"name": "CreateIsometricTileResponse",
-			"description": "CreateIsometricTileResponse defines a model",
+			"name": "CreateMapObject",
+			"description": "CreateMapObject defines a model",
 			"fields": [
 				{
 					"name": "Usage",
@@ -10566,12 +9675,57 @@
 					"jsonTag": "json:\"usage,omitzero\""
 				},
 				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
+					"name": "BackgroundJobID",
+					"jsonName": "background_job_id",
+					"type": "string",
+					"jsonTag": "json:\"background_job_id\"",
+					"description": "Background job ID for tracking generation progress",
 					"required": true
+				},
+				{
+					"name": "ObjectID",
+					"jsonName": "object_id",
+					"type": "string",
+					"jsonTag": "json:\"object_id\"",
+					"description": "Object ID that will be created (available immediately)",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"description": "Current job status (pending, processing, running, completed, failed)"
+				},
+				{
+					"name": "NFrames",
+					"jsonName": "n_frames",
+					"type": "*int",
+					"jsonTag": "json:\"n_frames,omitzero\"",
+					"description": "Number of candidate frames produced (derived from `size`)."
+				}
+			]
+		},
+		{
+			"name": "CreateMapObjectOutlineAnyOf",
+			"description": "CreateMapObjectOutlineAnyOf defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "CreateMapObjectOutlineAnyOfSingleColorOutline",
+					"value": "single color outline",
+					"literal": "\"single color outline\""
+				},
+				{
+					"goName": "CreateMapObjectOutlineAnyOfSelectiveOutline",
+					"value": "selective outline",
+					"literal": "\"selective outline\""
+				},
+				{
+					"goName": "CreateMapObjectOutlineAnyOfLineless",
+					"value": "lineless",
+					"literal": "\"lineless\""
 				}
 			]
 		},
@@ -10597,14 +9751,14 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "CreateMapObjectRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera angle"
 				},
 				{
 					"name": "Outline",
 					"jsonName": "outline",
-					"type": "CreateMapObjectRequestOutlineAnyOf0",
+					"type": "CreateMapObjectOutlineAnyOf",
 					"jsonTag": "json:\"outline,omitzero\"",
 					"description": "Outline style"
 				},
@@ -10766,29 +9920,6 @@
 			]
 		},
 		{
-			"name": "CreateMapObjectRequestOutlineAnyOf0",
-			"description": "CreateMapObjectRequestOutlineAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateMapObjectRequestOutlineAnyOf0SingleColorOutline",
-					"value": "single color outline",
-					"literal": "\"single color outline\""
-				},
-				{
-					"goName": "CreateMapObjectRequestOutlineAnyOf0SelectiveOutline",
-					"value": "selective outline",
-					"literal": "\"selective outline\""
-				},
-				{
-					"goName": "CreateMapObjectRequestOutlineAnyOf0Lineless",
-					"value": "lineless",
-					"literal": "\"lineless\""
-				}
-			]
-		},
-		{
 			"name": "CreateMapObjectRequestShadingAnyOf0",
 			"description": "CreateMapObjectRequestShadingAnyOf0 defines a model",
 			"kind": 1,
@@ -10817,60 +9948,60 @@
 			]
 		},
 		{
-			"name": "CreateMapObjectRequestView",
-			"description": "Camera angle",
+			"name": "CreateMapObjectView",
+			"description": "CreateMapObjectView defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "CreateMapObjectRequestViewLowTopDown",
+					"goName": "CreateMapObjectViewLowTopDown",
 					"value": "low top-down",
 					"literal": "\"low top-down\""
 				},
 				{
-					"goName": "CreateMapObjectRequestViewHighTopDown",
+					"goName": "CreateMapObjectViewHighTopDown",
 					"value": "high top-down",
 					"literal": "\"high top-down\""
 				},
 				{
-					"goName": "CreateMapObjectRequestViewSide",
+					"goName": "CreateMapObjectViewSide",
 					"value": "side",
 					"literal": "\"side\""
 				}
 			]
 		},
 		{
-			"name": "CreateMapObjectResponse",
-			"description": "Response model for map object creation (background job)",
-			"fields": [
+			"name": "CreateObjectProFlashImageSize",
+			"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing.",
+			"kind": 5,
+			"unionVariants": [
 				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
+					"fieldName": "ProFlashImageSize",
+					"type": "ProFlashImageSize",
+					"members": [
+						"height",
+						"width"
+					],
+					"required": [
+						"height",
+						"width"
+					],
+					"object": true
+				}
+			],
+			"choices": [
 				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for tracking generation progress",
-					"required": true
-				},
-				{
-					"name": "ObjectID",
-					"jsonName": "object_id",
-					"type": "string",
-					"jsonTag": "json:\"object_id\"",
-					"description": "Object ID that will be created (available immediately)",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (pending, processing, running, completed, failed)"
+					"fieldName": "ProFlashImageSize",
+					"type": "ProFlashImageSize",
+					"members": [
+						"height",
+						"width"
+					],
+					"required": [
+						"height",
+						"width"
+					],
+					"object": true
 				}
 			]
 		},
@@ -10908,7 +10039,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "CreateObjectProFlashRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\""
 				},
 				{
@@ -10926,7 +10057,7 @@
 				{
 					"name": "ImageSize",
 					"jsonName": "image_size",
-					"type": "CreateObjectProFlashRequestImageSize",
+					"type": "CreateObjectProFlashImageSize",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing."
 				},
@@ -10947,64 +10078,6 @@
 					"jsonName": "n_directions",
 					"type": "int",
 					"jsonTag": "json:\"n_directions,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "CreateObjectProFlashRequestImageSize",
-			"description": "Defaults to 64x64 for text creation. Native sizes: 16x16 (experimental), 24x24, 32x32, 32x48, 64x64, 96x64, 96x96. Custom size (Beta): integer width 16–256 and height 16–256. Both dimensions must be multiples of 4 pixels. Pixel-grid recovery uses image-to-pixel-art with fixer when needed. No native image resizing.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "ProFlashImageSize",
-					"type": "ProFlashImageSize",
-					"members": [
-						"height",
-						"width"
-					],
-					"required": [
-						"height",
-						"width"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "ProFlashImageSize",
-					"type": "ProFlashImageSize",
-					"members": [
-						"height",
-						"width"
-					],
-					"required": [
-						"height",
-						"width"
-					],
-					"object": true
-				}
-			]
-		},
-		{
-			"name": "CreateObjectProFlashRequestView",
-			"description": "CreateObjectProFlashRequestView defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateObjectProFlashRequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "CreateObjectProFlashRequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "CreateObjectProFlashRequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
 				}
 			]
 		},
@@ -11082,40 +10155,8 @@
 			]
 		},
 		{
-			"name": "CreateObjectStateResponse",
-			"description": "CreateObjectStateResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"required": true
-				},
-				{
-					"name": "ObjectID",
-					"jsonName": "object_id",
-					"type": "string",
-					"jsonTag": "json:\"object_id\"",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "CreateTilesProBackgroundResponse",
-			"description": "Response for background tiles pro generation (async-only)",
+			"name": "CreateTilesProBackground",
+			"description": "CreateTilesProBackground defines a model",
 			"fields": [
 				{
 					"name": "Usage",
@@ -11456,6 +10497,24 @@
 			]
 		},
 		{
+			"name": "CreateTilesetMode",
+			"description": "CreateTilesetMode defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "CreateTilesetModeStandard",
+					"value": "standard",
+					"literal": "\"standard\""
+				},
+				{
+					"goName": "CreateTilesetModePro",
+					"value": "pro",
+					"literal": "\"pro\""
+				}
+			]
+		},
+		{
 			"name": "CreateTilesetRequest",
 			"description": "Request model for tileset generation endpoint",
 			"fields": [
@@ -11506,7 +10565,7 @@
 				{
 					"name": "Mode",
 					"jsonName": "mode",
-					"type": "CreateTilesetRequestMode",
+					"type": "CreateTilesetMode",
 					"jsonTag": "json:\"mode,omitzero\"",
 					"description": "Generation pipeline. \"standard\": classic Wang tileset (16 or 32px tiles). \"pro\": newer corner-pair pipeline supporting 16/32/64px tiles plus its OWN shape controls (spread_x, slope_size, raggedness) — these are not shape_style, and mode='pro' with shape_style is rejected. Experimental."
 				},
@@ -11642,24 +10701,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed for reproducible generation"
-				}
-			]
-		},
-		{
-			"name": "CreateTilesetRequestMode",
-			"description": "Generation pipeline. \"standard\": classic Wang tileset (16 or 32px tiles). \"pro\": newer corner-pair pipeline supporting 16/32/64px tiles plus its OWN shape controls (spread_x, slope_size, raggedness) — these are not shape_style, and mode='pro' with shape_style is rejected. Experimental.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "CreateTilesetRequestModeStandard",
-					"value": "standard",
-					"literal": "\"standard\""
-				},
-				{
-					"goName": "CreateTilesetRequestModePro",
-					"value": "pro",
-					"literal": "\"pro\""
 				}
 			]
 		},
@@ -12212,40 +11253,6 @@
 			]
 		},
 		{
-			"name": "DeleteIsometricTileResponse",
-			"description": "Response for isometric tile deletion.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Success",
-					"jsonName": "success",
-					"type": "bool",
-					"jsonTag": "json:\"success\"",
-					"description": "Whether the deletion succeeded",
-					"required": true
-				},
-				{
-					"name": "TileID",
-					"jsonName": "tile_id",
-					"type": "string",
-					"jsonTag": "json:\"tile_id,omitzero\"",
-					"description": "ID of the deleted tile"
-				},
-				{
-					"name": "Err",
-					"jsonName": "error",
-					"type": "string",
-					"jsonTag": "json:\"error,omitzero\"",
-					"description": "Error message if deletion failed"
-				}
-			]
-		},
-		{
 			"name": "DeleteObjectResponse",
 			"description": "Response for object deletion",
 			"fields": [
@@ -12269,108 +11276,6 @@
 					"type": "string",
 					"jsonTag": "json:\"object_id,omitzero\"",
 					"description": "ID of the deleted object"
-				},
-				{
-					"name": "Err",
-					"jsonName": "error",
-					"type": "string",
-					"jsonTag": "json:\"error,omitzero\"",
-					"description": "Error message if deletion failed"
-				}
-			]
-		},
-		{
-			"name": "DeleteSidescrollerTilesetResponse",
-			"description": "Response for sidescroller tileset deletion.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Success",
-					"jsonName": "success",
-					"type": "bool",
-					"jsonTag": "json:\"success\"",
-					"description": "Whether the deletion succeeded",
-					"required": true
-				},
-				{
-					"name": "TilesetID",
-					"jsonName": "tileset_id",
-					"type": "string",
-					"jsonTag": "json:\"tileset_id,omitzero\"",
-					"description": "ID of the deleted tileset"
-				},
-				{
-					"name": "Err",
-					"jsonName": "error",
-					"type": "string",
-					"jsonTag": "json:\"error,omitzero\"",
-					"description": "Error message if deletion failed"
-				}
-			]
-		},
-		{
-			"name": "DeleteTilesProResponse",
-			"description": "Response for tiles-pro deletion.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Success",
-					"jsonName": "success",
-					"type": "bool",
-					"jsonTag": "json:\"success\"",
-					"description": "Whether the deletion succeeded",
-					"required": true
-				},
-				{
-					"name": "TileID",
-					"jsonName": "tile_id",
-					"type": "string",
-					"jsonTag": "json:\"tile_id,omitzero\"",
-					"description": "ID of the deleted tile"
-				},
-				{
-					"name": "Err",
-					"jsonName": "error",
-					"type": "string",
-					"jsonTag": "json:\"error,omitzero\"",
-					"description": "Error message if deletion failed"
-				}
-			]
-		},
-		{
-			"name": "DeleteTilesetResponse",
-			"description": "Response for tileset deletion.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Success",
-					"jsonName": "success",
-					"type": "bool",
-					"jsonTag": "json:\"success\"",
-					"description": "Whether the deletion succeeded",
-					"required": true
-				},
-				{
-					"name": "TilesetID",
-					"jsonName": "tileset_id",
-					"type": "string",
-					"jsonTag": "json:\"tileset_id,omitzero\"",
-					"description": "ID of the deleted tileset"
 				},
 				{
 					"name": "Err",
@@ -12579,33 +11484,6 @@
 			]
 		},
 		{
-			"name": "EditAnimationV2Response",
-			"description": "Response model for edit-animation-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "EditImage",
 			"description": "EditImage defines a model",
 			"fields": [
@@ -12632,6 +11510,33 @@
 					"jsonTag": "json:\"height\"",
 					"description": "Image height in pixels",
 					"required": true
+				}
+			]
+		},
+		{
+			"name": "EditImage2",
+			"description": "EditImage2 defines a model",
+			"fields": [
+				{
+					"name": "Usage",
+					"jsonName": "usage",
+					"type": "*Usage",
+					"jsonTag": "json:\"usage,omitzero\""
+				},
+				{
+					"name": "BackgroundJobID",
+					"jsonName": "background_job_id",
+					"type": "string",
+					"jsonTag": "json:\"background_job_id\"",
+					"description": "Background job ID for polling status",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "string",
+					"jsonTag": "json:\"status,omitzero\"",
+					"description": "Job status"
 				}
 			]
 		},
@@ -12682,33 +11587,6 @@
 					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "Return the result on a transparent background"
-				}
-			]
-		},
-		{
-			"name": "EditImagePixenResponse",
-			"description": "Response model for the Pixen image edit endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -12861,33 +11739,6 @@
 			]
 		},
 		{
-			"name": "EditImageResponse",
-			"description": "Response model for image editing endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "EditImagesV2Request",
 			"description": "Request model for edit-images endpoint",
 			"fields": [
@@ -12963,33 +11814,6 @@
 			]
 		},
 		{
-			"name": "EditImagesV2Response",
-			"description": "Response model for edit-images endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "EnhanceAnimationV3PromptRequest",
 			"description": "EnhanceAnimationV3PromptRequest defines a model",
 			"fields": [
@@ -13026,7 +11850,7 @@
 				{
 					"name": "Direction",
 					"jsonName": "direction",
-					"type": "EnhanceAnimationV3PromptRequestDirectionAnyOf0",
+					"type": "AnimatePixminimaxDirectionAnyOf",
 					"jsonTag": "json:\"direction,omitzero\"",
 					"description": "Facing direction of the sprite, used by pixminimax prompts to hold the orientation."
 				},
@@ -13036,54 +11860,6 @@
 					"type": "int",
 					"jsonTag": "json:\"frame_count,omitzero\"",
 					"description": "Frames the animation will have. Used by pixminimax prompts: a walk, run or sway is written as exactly one cycle in that many frames, so it loops."
-				}
-			]
-		},
-		{
-			"name": "EnhanceAnimationV3PromptRequestDirectionAnyOf0",
-			"description": "EnhanceAnimationV3PromptRequestDirectionAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0South",
-					"value": "south",
-					"literal": "\"south\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0North",
-					"value": "north",
-					"literal": "\"north\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0East",
-					"value": "east",
-					"literal": "\"east\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0West",
-					"value": "west",
-					"literal": "\"west\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0SouthEast",
-					"value": "south-east",
-					"literal": "\"south-east\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0SouthWest",
-					"value": "south-west",
-					"literal": "\"south-west\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0NorthEast",
-					"value": "north-east",
-					"literal": "\"north-east\""
-				},
-				{
-					"goName": "EnhanceAnimationV3PromptRequestDirectionAnyOf0NorthWest",
-					"value": "north-west",
-					"literal": "\"north-west\""
 				}
 			]
 		},
@@ -13111,26 +11887,6 @@
 			]
 		},
 		{
-			"name": "EnhanceAnimationV3PromptResponse",
-			"description": "EnhanceAnimationV3PromptResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "EnhancedPrompt",
-					"jsonName": "enhanced_prompt",
-					"type": "string",
-					"jsonTag": "json:\"enhanced_prompt\"",
-					"description": "Enhanced motion description.",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "EnhanceCharacterV3PromptRequest",
 			"description": "EnhanceCharacterV3PromptRequest defines a model",
 			"fields": [
@@ -13153,7 +11909,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "EnhanceCharacterV3PromptRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera view / tilt."
 				},
@@ -13174,31 +11930,8 @@
 			]
 		},
 		{
-			"name": "EnhanceCharacterV3PromptRequestView",
-			"description": "Camera view / tilt.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "EnhanceCharacterV3PromptRequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "EnhanceCharacterV3PromptRequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "EnhanceCharacterV3PromptRequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
-				}
-			]
-		},
-		{
-			"name": "EnhanceCharacterV3PromptResponse",
-			"description": "EnhanceCharacterV3PromptResponse defines a model",
+			"name": "EnhancePixenPrompt",
+			"description": "EnhancePixenPrompt defines a model",
 			"fields": [
 				{
 					"name": "Usage",
@@ -13211,7 +11944,7 @@
 					"jsonName": "enhanced_prompt",
 					"type": "string",
 					"jsonTag": "json:\"enhanced_prompt\"",
-					"description": "Enhanced character description.",
+					"description": "Enhanced image description.",
 					"required": true
 				}
 			]
@@ -13270,26 +12003,6 @@
 					"type": "bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "If true, the enhanced description will describe the subject on a plain background (no scene)."
-				}
-			]
-		},
-		{
-			"name": "EnhancePixenPromptResponse",
-			"description": "EnhancePixenPromptResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "EnhancedPrompt",
-					"jsonName": "enhanced_prompt",
-					"type": "string",
-					"jsonTag": "json:\"enhanced_prompt\"",
-					"description": "Enhanced image description.",
-					"required": true
 				}
 			]
 		},
@@ -13362,7 +12075,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "Generate8RotationsV2RequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera perspective angle"
 				},
@@ -13406,56 +12119,6 @@
 			]
 		},
 		{
-			"name": "Generate8RotationsV2RequestView",
-			"description": "Camera perspective angle",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "Generate8RotationsV2RequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "Generate8RotationsV2RequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "Generate8RotationsV2RequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
-				}
-			]
-		},
-		{
-			"name": "Generate8RotationsV2Response",
-			"description": "Response model for generate-8-rotations-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "Generate8RotationsV3Request",
 			"description": "Request model for generate-8-rotations-v3 endpoint",
 			"fields": [
@@ -13487,33 +12150,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed for reproducible generation (0 for random)"
-				}
-			]
-		},
-		{
-			"name": "Generate8RotationsV3Response",
-			"description": "Background job response. Poll GET /v2/background-jobs/{id} for results.",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling generation progress",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Current job status (processing, completed, failed)"
 				}
 			]
 		},
@@ -13579,33 +12215,6 @@
 			]
 		},
 		{
-			"name": "GenerateFontProResponse",
-			"description": "Response model for the generate-font-pro endpoint (background job).",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "GenerateImageV2Request",
 			"description": "Request model for generate-image-v2 endpoint",
 			"fields": [
@@ -13663,33 +12272,6 @@
 			]
 		},
 		{
-			"name": "GenerateImageV2Response",
-			"description": "Response model for generate-image-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "GenerateUIV2Request",
 			"description": "Request model for generate-ui-v2 endpoint",
 			"fields": [
@@ -13735,33 +12317,6 @@
 					"type": "string",
 					"jsonTag": "json:\"color_palette,omitzero\"",
 					"description": "Optional color palette specification (e.g., 'brown and gold', 'blue and silver')"
-				}
-			]
-		},
-		{
-			"name": "GenerateUIV2Response",
-			"description": "Response model for generate-ui-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -13812,33 +12367,6 @@
 					"type": "map[string]int",
 					"jsonTag": "json:\"image_size,omitzero\"",
 					"description": "REMOVED. Output size is deduced from the style images."
-				}
-			]
-		},
-		{
-			"name": "GenerateWithStyleV2Response",
-			"description": "Response model for generate-with-style-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -14162,33 +12690,6 @@
 			]
 		},
 		{
-			"name": "ImageToPixelartProResponse",
-			"description": "Response model for image to pixel art (pro) endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "ImageToPixelartRequest",
 			"description": "Request model for image to pixel art endpoint",
 			"fields": [
@@ -14243,26 +12744,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed for reproducible generation"
-				}
-			]
-		},
-		{
-			"name": "ImageToPixelartResponse",
-			"description": "Response for completed image to pixel art conversion",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
-					"required": true
 				}
 			]
 		},
@@ -14377,7 +12858,7 @@
 				{
 					"name": "BackgroundRemovalTask",
 					"jsonName": "background_removal_task",
-					"type": "InpaintImageProFlashRequestBackgroundRemovalTask",
+					"type": "CreateImagePixenBackgroundRemovalTask",
 					"jsonTag": "json:\"background_removal_task,omitzero\""
 				},
 				{
@@ -14403,24 +12884,6 @@
 					"jsonName": "project_id",
 					"type": "uuid.UUID",
 					"jsonTag": "json:\"project_id,omitzero\""
-				}
-			]
-		},
-		{
-			"name": "InpaintImageProFlashRequestBackgroundRemovalTask",
-			"description": "InpaintImageProFlashRequestBackgroundRemovalTask defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "InpaintImageProFlashRequestBackgroundRemovalTaskRemoveSimpleBackground",
-					"value": "remove_simple_background",
-					"literal": "\"remove_simple_background\""
-				},
-				{
-					"goName": "InpaintImageProFlashRequestBackgroundRemovalTaskRemoveComplexBackground",
-					"value": "remove_complex_background",
-					"literal": "\"remove_complex_background\""
 				}
 			]
 		},
@@ -14590,26 +13053,6 @@
 			]
 		},
 		{
-			"name": "InpaintResponse",
-			"description": "InpaintResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "InpaintV3Request",
 			"description": "Request model for inpaint-v3 endpoint",
 			"fields": [
@@ -14675,33 +13118,6 @@
 			]
 		},
 		{
-			"name": "InpaintV3Response",
-			"description": "Response model for inpaint-v3 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
-				}
-			]
-		},
-		{
 			"name": "InterpolationV2Request",
 			"description": "Request model for interpolation-v2 endpoint",
 			"fields": [
@@ -14750,33 +13166,6 @@
 					"type": "*bool",
 					"jsonTag": "json:\"no_background,omitzero\"",
 					"description": "Remove background from output frames"
-				}
-			]
-		},
-		{
-			"name": "InterpolationV2Response",
-			"description": "Response model for interpolation-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -14983,6 +13372,39 @@
 			]
 		},
 		{
+			"name": "LipSyncMoodAnyOf",
+			"description": "LipSyncMoodAnyOf defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "LipSyncMoodAnyOfNeutral",
+					"value": "neutral",
+					"literal": "\"neutral\""
+				},
+				{
+					"goName": "LipSyncMoodAnyOfHappy",
+					"value": "happy",
+					"literal": "\"happy\""
+				},
+				{
+					"goName": "LipSyncMoodAnyOfAngry",
+					"value": "angry",
+					"literal": "\"angry\""
+				},
+				{
+					"goName": "LipSyncMoodAnyOfSad",
+					"value": "sad",
+					"literal": "\"sad\""
+				},
+				{
+					"goName": "LipSyncMoodAnyOfSurprised",
+					"value": "surprised",
+					"literal": "\"surprised\""
+				}
+			]
+		},
+		{
 			"name": "LipSyncRequest",
 			"description": "LipSyncRequest defines a model",
 			"fields": [
@@ -15004,7 +13426,7 @@
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "LipSyncRequestMoodAnyOf0",
+					"type": "LipSyncMoodAnyOf",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Which stored expression to use. Defaults to the character's first. Only valid with `character_id`."
 				},
@@ -15028,39 +13450,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"hold_ms,omitzero\"",
 					"description": "Extra time on the final closed mouth."
-				}
-			]
-		},
-		{
-			"name": "LipSyncRequestMoodAnyOf0",
-			"description": "LipSyncRequestMoodAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "LipSyncRequestMoodAnyOf0Neutral",
-					"value": "neutral",
-					"literal": "\"neutral\""
-				},
-				{
-					"goName": "LipSyncRequestMoodAnyOf0Happy",
-					"value": "happy",
-					"literal": "\"happy\""
-				},
-				{
-					"goName": "LipSyncRequestMoodAnyOf0Angry",
-					"value": "angry",
-					"literal": "\"angry\""
-				},
-				{
-					"goName": "LipSyncRequestMoodAnyOf0Sad",
-					"value": "sad",
-					"literal": "\"sad\""
-				},
-				{
-					"goName": "LipSyncRequestMoodAnyOf0Surprised",
-					"value": "surprised",
-					"literal": "\"surprised\""
 				}
 			]
 		},
@@ -15765,7 +14154,7 @@
 				{
 					"name": "View",
 					"jsonName": "view",
-					"type": "PortraitCharacterProRequestView",
+					"type": "CreateMapObjectView",
 					"jsonTag": "json:\"view,omitzero\"",
 					"description": "Camera angle of the character."
 				},
@@ -15800,56 +14189,6 @@
 					"goName": "PortraitCharacterProRequestDirectionCharacterToPortrait",
 					"value": "character_to_portrait",
 					"literal": "\"character_to_portrait\""
-				}
-			]
-		},
-		{
-			"name": "PortraitCharacterProRequestView",
-			"description": "Camera angle of the character.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "PortraitCharacterProRequestViewLowTopDown",
-					"value": "low top-down",
-					"literal": "\"low top-down\""
-				},
-				{
-					"goName": "PortraitCharacterProRequestViewHighTopDown",
-					"value": "high top-down",
-					"literal": "\"high top-down\""
-				},
-				{
-					"goName": "PortraitCharacterProRequestViewSide",
-					"value": "side",
-					"literal": "\"side\""
-				}
-			]
-		},
-		{
-			"name": "PortraitCharacterProResponse",
-			"description": "Response model for portrait-character-pro endpoint (background job).",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -16201,7 +14540,7 @@
 				{
 					"name": "BackgroundRemovalTask",
 					"jsonName": "background_removal_task",
-					"type": "RemoveBackgroundRequestBackgroundRemovalTask",
+					"type": "CreateImagePixenBackgroundRemovalTask",
 					"jsonTag": "json:\"background_removal_task,omitzero\"",
 					"description": "Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better"
 				},
@@ -16222,26 +14561,8 @@
 			]
 		},
 		{
-			"name": "RemoveBackgroundRequestBackgroundRemovalTask",
-			"description": "Background removal complexity. 'remove_simple_background' is faster, 'remove_complex_background' handles complex edges better",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "RemoveBackgroundRequestBackgroundRemovalTaskRemoveSimpleBackground",
-					"value": "remove_simple_background",
-					"literal": "\"remove_simple_background\""
-				},
-				{
-					"goName": "RemoveBackgroundRequestBackgroundRemovalTaskRemoveComplexBackground",
-					"value": "remove_complex_background",
-					"literal": "\"remove_complex_background\""
-				}
-			]
-		},
-		{
-			"name": "RemoveBackgroundResponse",
-			"description": "Response for completed background removal",
+			"name": "Resize",
+			"description": "Resize defines a model",
 			"fields": [
 				{
 					"name": "Usage",
@@ -16361,26 +14682,6 @@
 			]
 		},
 		{
-			"name": "ResizeResponse",
-			"description": "Response for completed resize",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "RotateRequest",
 			"description": "Request model for image generation endpoint",
 			"fields": [
@@ -16496,26 +14797,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed decides the starting noise"
-				}
-			]
-		},
-		{
-			"name": "RotateResponse",
-			"description": "RotateResponse defines a model",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Image",
-					"jsonName": "image",
-					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "A base64 encoded image.\n\nAttributes:\n    type (Literal[\"base64\"]): Always \"base64\" to indicate the image encoding type\n    base64 (str): The base64 encoded image data\n    format (str): The image format (e.g., \"png\", \"jpeg\")",
-					"required": true
 				}
 			]
 		},
@@ -16906,7 +15187,7 @@
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "TalkingGifRequestMoodAnyOf0",
+					"type": "LipSyncMoodAnyOf",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Which stored expression to talk with. Defaults to the character's first. Only valid with `character_id`."
 				},
@@ -16930,39 +15211,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"hold_ms,omitzero\"",
 					"description": "Pause held on the closed mouth at the end, so a looping GIF has a beat between takes."
-				}
-			]
-		},
-		{
-			"name": "TalkingGifRequestMoodAnyOf0",
-			"description": "TalkingGifRequestMoodAnyOf0 defines a model",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "TalkingGifRequestMoodAnyOf0Neutral",
-					"value": "neutral",
-					"literal": "\"neutral\""
-				},
-				{
-					"goName": "TalkingGifRequestMoodAnyOf0Happy",
-					"value": "happy",
-					"literal": "\"happy\""
-				},
-				{
-					"goName": "TalkingGifRequestMoodAnyOf0Angry",
-					"value": "angry",
-					"literal": "\"angry\""
-				},
-				{
-					"goName": "TalkingGifRequestMoodAnyOf0Sad",
-					"value": "sad",
-					"literal": "\"sad\""
-				},
-				{
-					"goName": "TalkingGifRequestMoodAnyOf0Surprised",
-					"value": "surprised",
-					"literal": "\"surprised\""
 				}
 			]
 		},
@@ -17150,7 +15398,7 @@
 				{
 					"name": "Nw",
 					"jsonName": "NW",
-					"type": "TileCornersNw",
+					"type": "TileCornersNe",
 					"jsonTag": "json:\"NW\"",
 					"description": "Northwest corner terrain type",
 					"required": true
@@ -17166,7 +15414,7 @@
 				{
 					"name": "Sw",
 					"jsonName": "SW",
-					"type": "TileCornersSw",
+					"type": "TileCornersNe",
 					"jsonTag": "json:\"SW\"",
 					"description": "Southwest corner terrain type",
 					"required": true
@@ -17174,7 +15422,7 @@
 				{
 					"name": "Se",
 					"jsonName": "SE",
-					"type": "TileCornersSe",
+					"type": "TileCornersNe",
 					"jsonTag": "json:\"SE\"",
 					"description": "Southeast corner terrain type",
 					"required": true
@@ -17183,7 +15431,7 @@
 		},
 		{
 			"name": "TileCornersNe",
-			"description": "Northeast corner terrain type",
+			"description": "TileCornersNe defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
@@ -17199,75 +15447,6 @@
 				},
 				{
 					"goName": "TileCornersNeTransition",
-					"value": "transition",
-					"literal": "\"transition\""
-				}
-			]
-		},
-		{
-			"name": "TileCornersNw",
-			"description": "Northwest corner terrain type",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "TileCornersNwLower",
-					"value": "lower",
-					"literal": "\"lower\""
-				},
-				{
-					"goName": "TileCornersNwUpper",
-					"value": "upper",
-					"literal": "\"upper\""
-				},
-				{
-					"goName": "TileCornersNwTransition",
-					"value": "transition",
-					"literal": "\"transition\""
-				}
-			]
-		},
-		{
-			"name": "TileCornersSe",
-			"description": "Southeast corner terrain type",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "TileCornersSeLower",
-					"value": "lower",
-					"literal": "\"lower\""
-				},
-				{
-					"goName": "TileCornersSeUpper",
-					"value": "upper",
-					"literal": "\"upper\""
-				},
-				{
-					"goName": "TileCornersSeTransition",
-					"value": "transition",
-					"literal": "\"transition\""
-				}
-			]
-		},
-		{
-			"name": "TileCornersSw",
-			"description": "Southwest corner terrain type",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "TileCornersSwLower",
-					"value": "lower",
-					"literal": "\"lower\""
-				},
-				{
-					"goName": "TileCornersSwUpper",
-					"value": "upper",
-					"literal": "\"upper\""
-				},
-				{
-					"goName": "TileCornersSwTransition",
 					"value": "transition",
 					"literal": "\"transition\""
 				}
@@ -17328,6 +15507,40 @@
 					"type": "int",
 					"jsonTag": "json:\"height,omitzero\"",
 					"description": "Individual tile height in pixels. 16 or 32 for standard; 64 requires mode='pro'."
+				}
+			]
+		},
+		{
+			"name": "TilesPro",
+			"description": "TilesPro defines a model",
+			"fields": [
+				{
+					"name": "Usage",
+					"jsonName": "usage",
+					"type": "*Usage",
+					"jsonTag": "json:\"usage,omitzero\""
+				},
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success\"",
+					"description": "Whether the deletion succeeded",
+					"required": true
+				},
+				{
+					"name": "TileID",
+					"jsonName": "tile_id",
+					"type": "string",
+					"jsonTag": "json:\"tile_id,omitzero\"",
+					"description": "ID of the deleted tile"
+				},
+				{
+					"name": "Err",
+					"jsonName": "error",
+					"type": "string",
+					"jsonTag": "json:\"error,omitzero\"",
+					"description": "Error message if deletion failed"
 				}
 			]
 		},
@@ -17454,6 +15667,40 @@
 					"type": "string",
 					"jsonTag": "json:\"status\"",
 					"required": true
+				}
+			]
+		},
+		{
+			"name": "Tileset",
+			"description": "Tileset defines a model",
+			"fields": [
+				{
+					"name": "Usage",
+					"jsonName": "usage",
+					"type": "*Usage",
+					"jsonTag": "json:\"usage,omitzero\""
+				},
+				{
+					"name": "Success",
+					"jsonName": "success",
+					"type": "bool",
+					"jsonTag": "json:\"success\"",
+					"description": "Whether the deletion succeeded",
+					"required": true
+				},
+				{
+					"name": "TilesetID",
+					"jsonName": "tileset_id",
+					"type": "string",
+					"jsonTag": "json:\"tileset_id,omitzero\"",
+					"description": "ID of the deleted tileset"
+				},
+				{
+					"name": "Err",
+					"jsonName": "error",
+					"type": "string",
+					"jsonTag": "json:\"error,omitzero\"",
+					"description": "Error message if deletion failed"
 				}
 			]
 		},
@@ -17717,33 +15964,6 @@
 					"type": "string",
 					"jsonTag": "json:\"additional_instructions,omitzero\"",
 					"description": "Optional free-text instructions to guide the transfer (e.g. view/direction hints like 'frames show the character from behind')"
-				}
-			]
-		},
-		{
-			"name": "TransferOutfitV2Response",
-			"description": "Response model for transfer-outfit-v2 endpoint (background job)",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "BackgroundJobID",
-					"jsonName": "background_job_id",
-					"type": "string",
-					"jsonTag": "json:\"background_job_id\"",
-					"description": "Background job ID for polling status",
-					"required": true
-				},
-				{
-					"name": "Status",
-					"jsonName": "status",
-					"type": "string",
-					"jsonTag": "json:\"status,omitzero\"",
-					"description": "Job status"
 				}
 			]
 		},
@@ -18143,26 +16363,6 @@
 			]
 		},
 		{
-			"name": "UpdateObjectTagsResponse",
-			"description": "Response after updating tags",
-			"fields": [
-				{
-					"name": "Usage",
-					"jsonName": "usage",
-					"type": "*Usage",
-					"jsonTag": "json:\"usage,omitzero\""
-				},
-				{
-					"name": "Tags",
-					"jsonName": "tags",
-					"type": "[]string",
-					"jsonTag": "json:\"tags\"",
-					"description": "Updated list of tags",
-					"required": true
-				}
-			]
-		},
-		{
 			"name": "UpdateTags",
 			"description": "UpdateTags defines a model",
 			"fields": [
@@ -18177,7 +16377,7 @@
 			]
 		},
 		{
-			"name": "UpdateTagsResponse",
+			"name": "UpdateTags2",
 			"description": "Response after updating tags",
 			"fields": [
 				{
@@ -18326,7 +16526,7 @@
 				{
 					"name": "Mood",
 					"jsonName": "mood",
-					"type": "VocalAnimationRequestMood",
+					"type": "LipSyncMoodAnyOf",
 					"jsonTag": "json:\"mood,omitzero\"",
 					"description": "Expression held on the face throughout. The mouth positions are the same across moods; call once per expression you want."
 				},
@@ -18350,39 +16550,6 @@
 					"type": "*int",
 					"jsonTag": "json:\"seed,omitzero\"",
 					"description": "Seed for reproducible generation."
-				}
-			]
-		},
-		{
-			"name": "VocalAnimationRequestMood",
-			"description": "Expression held on the face throughout. The mouth positions are the same across moods; call once per expression you want.",
-			"kind": 1,
-			"type": "string",
-			"enumValues": [
-				{
-					"goName": "VocalAnimationRequestMoodNeutral",
-					"value": "neutral",
-					"literal": "\"neutral\""
-				},
-				{
-					"goName": "VocalAnimationRequestMoodHappy",
-					"value": "happy",
-					"literal": "\"happy\""
-				},
-				{
-					"goName": "VocalAnimationRequestMoodAngry",
-					"value": "angry",
-					"literal": "\"angry\""
-				},
-				{
-					"goName": "VocalAnimationRequestMoodSad",
-					"value": "sad",
-					"literal": "\"sad\""
-				},
-				{
-					"goName": "VocalAnimationRequestMoodSurprised",
-					"value": "surprised",
-					"literal": "\"surprised\""
 				}
 			]
 		},

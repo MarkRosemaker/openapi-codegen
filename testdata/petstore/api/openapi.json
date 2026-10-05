@@ -51,15 +51,13 @@
         "required": [
           "data",
           "pagination"
-        ],
-        "x-flattened-from": "#/components/responses/ListV1PetsOk/content/application~1json/schema"
+        ]
       },
       "ListV1PetsOkData": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/PetByPetID"
-        },
-        "x-flattened-from": "#/components/schemas/ListV1PetsOk/properties/data"
+        }
       },
       "ListV1PetsOkPagination": {
         "type": "object",
@@ -86,8 +84,7 @@
           "limit",
           "totalItems",
           "totalPages"
-        ],
-        "x-flattened-from": "#/components/schemas/ListV1PetsOk/properties/pagination"
+        ]
       },
       "PetByPetID": {
         "type": "object",
@@ -159,8 +156,7 @@
           "createdAt",
           "updatedAt",
           "medicalInfo"
-        ],
-        "x-flattened-from": "#/components/responses/GetV1PetByPetIDOk/content/application~1json/schema"
+        ]
       },
       "PetByPetIDMedicalInfo": {
         "type": "object",
@@ -188,8 +184,7 @@
           "microchipped",
           "specialNeeds",
           "healthNotes"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PetByPetIDOk/properties/medicalInfo"
+        ]
       }
     },
     "responses": {

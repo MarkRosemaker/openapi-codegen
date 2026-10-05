@@ -40,8 +40,7 @@
         "required": [
           "time",
           "states"
-        ],
-        "x-flattened-from": "#/components/responses/ListAPIStatesAllOk/content/application~1json/schema"
+        ]
       },
       "ListAPIStatesAllOkStatesItem": {
         "type": "array",
@@ -130,8 +129,7 @@
             "type": "integer",
             "example": 0
           }
-        ],
-        "x-flattened-from": "#/components/schemas/ListAPIStatesAllOk/properties/states/items"
+        ]
       }
     },
     "responses": {
