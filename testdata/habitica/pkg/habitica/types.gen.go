@@ -393,26 +393,8 @@ type ListApiv3UserOkDataFlagsTutorialIos struct {
 
 // ListApiv3UserOkDataHistory defines a model
 type ListApiv3UserOkDataHistory struct {
-	Todos ListApiv3UserOkDataHistoryTodos `json:"todos"`
-	Exp   ListApiv3UserOkDataHistoryExp   `json:"exp"`
-}
-
-// ListApiv3UserOkDataHistoryExp defines a model
-type ListApiv3UserOkDataHistoryExp []ListApiv3UserOkDataHistoryExpItem
-
-// ListApiv3UserOkDataHistoryExpItem defines a model
-type ListApiv3UserOkDataHistoryExpItem struct {
-	Date  time.Time `json:"date"`
-	Value float64   `json:"value"`
-}
-
-// ListApiv3UserOkDataHistoryTodos defines a model
-type ListApiv3UserOkDataHistoryTodos []ListApiv3UserOkDataHistoryTodosItem
-
-// ListApiv3UserOkDataHistoryTodosItem defines a model
-type ListApiv3UserOkDataHistoryTodosItem struct {
-	Date  time.Time `json:"date"`
-	Value float64   `json:"value"`
+	Todos ListApivUserDataHistoryExp `json:"todos"`
+	Exp   ListApivUserDataHistoryExp `json:"exp"`
 }
 
 // ListApiv3UserOkDataInbox defines a model
@@ -1164,6 +1146,15 @@ type ListApiv3UserOkDataTasksOrder struct {
 	Todos   []uuid.UUID `json:"todos"`
 	Dailys  []uuid.UUID `json:"dailys"`
 	Habits  []uuid.UUID `json:"habits"`
+}
+
+// ListApivUserDataHistoryExp defines a model
+type ListApivUserDataHistoryExp []ListApivUserDataHistoryExpItem
+
+// ListApivUserDataHistoryExpItem defines a model
+type ListApivUserDataHistoryExpItem struct {
+	Date  time.Time `json:"date"`
+	Value float64   `json:"value"`
 }
 
 // ListApivUserDataInboxMessagesfeffAcddbf defines a model

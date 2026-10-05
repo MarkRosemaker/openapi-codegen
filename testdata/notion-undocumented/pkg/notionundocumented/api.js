@@ -22,8 +22,8 @@
  *   const result = await window.API.createRollout();
  *   const result = await window.API.listTeamspaces();
  *   const result = await window.API.createTeamspace();
- *   window.API.deleteExternalAgentStubVault(vaultID, agentID);
- *   const result = await window.API.updateExternalAgentStubVault(vaultID, agentID);
+ *   window.API.deleteExternalAgentStubVault(agentID, vaultID);
+ *   const result = await window.API.updateExternalAgentStubVault(agentID, vaultID);
  *   const result = await window.API.retrieveGroup(groupID);
  *   const result = await window.API.deleteGroup(groupID);
  *   const result = await window.API.updateGroup(groupID);
@@ -249,13 +249,13 @@ window.API = {
     }),
     // DELETE /external_agent_stub/{agent_id}/vaults/{vault_id}
     // Delete external agent stub vault
-    deleteExternalAgentStubVault: (vaultID, agentID) => apiFetch(`/external_agent_stub/${agentID}/vaults/${vaultID}`, {
+    deleteExternalAgentStubVault: (agentID, vaultID) => apiFetch(`/external_agent_stub/${agentID}/vaults/${vaultID}`, {
         method: "DELETE",
         operationId: "DeleteExternalAgentStubVault",
     }),
     // PATCH /external_agent_stub/{agent_id}/vaults/{vault_id}
     // Update external agent stub vault
-    updateExternalAgentStubVault: (vaultID, agentID, body) => apiFetch(`/external_agent_stub/${agentID}/vaults/${vaultID}`, {
+    updateExternalAgentStubVault: (agentID, vaultID, body) => apiFetch(`/external_agent_stub/${agentID}/vaults/${vaultID}`, {
         method: "PATCH",
         body: JSON.stringify(body),
         operationId: "UpdateExternalAgentStubVault",

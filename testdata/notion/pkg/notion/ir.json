@@ -329,17 +329,11 @@
 				{
 					"name": "Title",
 					"jsonName": "title",
-					"type": "GetV1PageByPageIDOkPropertiesTitleTitle",
+					"type": "PageByPageIDPropertiesTitle",
 					"jsonTag": "json:\"title\"",
 					"required": true
 				}
 			]
-		},
-		{
-			"name": "GetV1PageByPageIDOkPropertiesTitleTitle",
-			"description": "GetV1PageByPageIDOkPropertiesTitleTitle defines a model",
-			"kind": 2,
-			"type": "[]PageByPageIDPropertiesTitleItem"
 		},
 		{
 			"name": "ListV1BlockChildrenOk",
@@ -492,7 +486,7 @@
 				{
 					"name": "RichText",
 					"jsonName": "rich_text",
-					"type": "ListV1BlockChildrenOkResultsItemParagraphRichText",
+					"type": "PageByPageIDPropertiesTitle",
 					"jsonTag": "json:\"rich_text\"",
 					"required": true
 				},
@@ -511,12 +505,6 @@
 					"required": true
 				}
 			]
-		},
-		{
-			"name": "ListV1BlockChildrenOkResultsItemParagraphRichText",
-			"description": "ListV1BlockChildrenOkResultsItemParagraphRichText defines a model",
-			"kind": 2,
-			"type": "[]PageByPageIDPropertiesTitleItem"
 		},
 		{
 			"name": "PageByPageIDCreatedBy",
@@ -557,6 +545,12 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "PageByPageIDPropertiesTitle",
+			"description": "PageByPageIDPropertiesTitle defines a model",
+			"kind": 2,
+			"type": "[]PageByPageIDPropertiesTitleItem"
 		},
 		{
 			"name": "PageByPageIDPropertiesTitleItem",

@@ -133,8 +133,7 @@
           "url",
           "public_url",
           "request_id"
-        ],
-        "x-flattened-from": "#/components/responses/GetV1PageByPageIDOk/content/application~1json/schema"
+        ]
       },
       "GetV1PageByPageIDOkCover": {
         "type": "object",
@@ -150,8 +149,7 @@
         "required": [
           "type",
           "external"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOk/properties/cover"
+        ]
       },
       "GetV1PageByPageIDOkCoverExternal": {
         "type": "object",
@@ -164,8 +162,7 @@
         },
         "required": [
           "url"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOkCover/properties/external"
+        ]
       },
       "GetV1PageByPageIDOkIcon": {
         "type": "object",
@@ -182,8 +179,7 @@
         "required": [
           "type",
           "emoji"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOk/properties/icon"
+        ]
       },
       "GetV1PageByPageIDOkProperties": {
         "type": "object",
@@ -194,8 +190,7 @@
         },
         "required": [
           "title"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOk/properties/properties"
+        ]
       },
       "GetV1PageByPageIDOkPropertiesTitle": {
         "type": "object",
@@ -209,22 +204,14 @@
             "example": "title"
           },
           "title": {
-            "$ref": "#/components/schemas/GetV1PageByPageIDOkPropertiesTitleTitle"
+            "$ref": "#/components/schemas/PageByPageIDPropertiesTitle"
           }
         },
         "required": [
           "id",
           "type",
           "title"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOkProperties/properties/title"
-      },
-      "GetV1PageByPageIDOkPropertiesTitleTitle": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/PageByPageIDPropertiesTitleItem"
-        },
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOkPropertiesTitle/properties/title"
+        ]
       },
       "ListV1BlockChildrenOk": {
         "type": "object",
@@ -265,15 +252,13 @@
           "type",
           "block",
           "request_id"
-        ],
-        "x-flattened-from": "#/components/responses/ListV1BlockChildrenOk/content/application~1json/schema"
+        ]
       },
       "ListV1BlockChildrenOkResults": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListV1BlockChildrenOkResultsItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListV1BlockChildrenOk/properties/results"
+        }
       },
       "ListV1BlockChildrenOkResultsItem": {
         "type": "object",
@@ -331,14 +316,13 @@
           "in_trash",
           "type",
           "paragraph"
-        ],
-        "x-flattened-from": "#/components/schemas/ListV1BlockChildrenOkResults/items"
+        ]
       },
       "ListV1BlockChildrenOkResultsItemParagraph": {
         "type": "object",
         "properties": {
           "rich_text": {
-            "$ref": "#/components/schemas/ListV1BlockChildrenOkResultsItemParagraphRichText"
+            "$ref": "#/components/schemas/PageByPageIDPropertiesTitle"
           },
           "icon": {
             "type": "null"
@@ -352,15 +336,7 @@
           "rich_text",
           "icon",
           "color"
-        ],
-        "x-flattened-from": "#/components/schemas/ListV1BlockChildrenOkResultsItem/properties/paragraph"
-      },
-      "ListV1BlockChildrenOkResultsItemParagraphRichText": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/PageByPageIDPropertiesTitleItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListV1BlockChildrenOkResultsItemParagraph/properties/rich_text"
+        ]
       },
       "PageByPageIDCreatedBy": {
         "type": "object",
@@ -377,8 +353,7 @@
         "required": [
           "object",
           "id"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOk/properties/created_by"
+        ]
       },
       "PageByPageIDParent": {
         "type": "object",
@@ -396,8 +371,13 @@
         "required": [
           "type",
           "page_id"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOk/properties/parent"
+        ]
+      },
+      "PageByPageIDPropertiesTitle": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PageByPageIDPropertiesTitleItem"
+        }
       },
       "PageByPageIDPropertiesTitleItem": {
         "type": "object",
@@ -426,8 +406,7 @@
           "annotations",
           "plain_text",
           "href"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOkPropertiesTitleTitle/items"
+        ]
       },
       "PageByPageIDPropertiesTitleItemAnnotations": {
         "type": "object",
@@ -459,8 +438,7 @@
           "underline",
           "code",
           "color"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOkPropertiesTitleTitleItem/properties/annotations"
+        ]
       },
       "PageByPageIDPropertiesTitleItemText": {
         "type": "object",
@@ -476,8 +454,7 @@
         "required": [
           "content",
           "link"
-        ],
-        "x-flattened-from": "#/components/schemas/GetV1PageByPageIDOkPropertiesTitleTitleItem/properties/text"
+        ]
       }
     },
     "responses": {

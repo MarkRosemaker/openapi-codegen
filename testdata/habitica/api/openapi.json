@@ -120,8 +120,7 @@
         "required": [
           "assignedUsers",
           "approval"
-        ],
-        "x-flattened-from": "#/components/schemas/GetApiv3TaskByTaskIDOkData/properties/group"
+        ]
       },
       "ApivTaskByTaskIDDataGroupApproval": {
         "type": "object",
@@ -140,8 +139,7 @@
           "required",
           "approved",
           "requested"
-        ],
-        "x-flattened-from": "#/components/schemas/GetApiv3TaskByTaskIDOkDataGroup/properties/approval"
+        ]
       },
       "GetApiv3TaskByTaskIDOk": {
         "type": "object",
@@ -161,8 +159,7 @@
           "success",
           "data",
           "notifications"
-        ],
-        "x-flattened-from": "#/components/responses/GetApiv3TaskByTaskIDOk/content/application~1json/schema"
+        ]
       },
       "GetApiv3TaskByTaskIDOkData": {
         "type": "object",
@@ -263,8 +260,7 @@
           "down",
           "up",
           "id"
-        ],
-        "x-flattened-from": "#/components/schemas/GetApiv3TaskByTaskIDOk/properties/data"
+        ]
       },
       "GetApiv3TaskByTaskIDOkDataChallenge": {
         "type": "object",
@@ -282,15 +278,13 @@
         "required": [
           "taskId",
           "id"
-        ],
-        "x-flattened-from": "#/components/schemas/GetApiv3TaskByTaskIDOkData/properties/challenge"
+        ]
       },
       "GetApiv3TaskByTaskIDOkDataHistory": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/GetApiv3TaskByTaskIDOkDataHistoryItem"
-        },
-        "x-flattened-from": "#/components/schemas/GetApiv3TaskByTaskIDOkData/properties/history"
+        }
       },
       "GetApiv3TaskByTaskIDOkDataHistoryItem": {
         "type": "object",
@@ -308,8 +302,7 @@
         "required": [
           "value",
           "date"
-        ],
-        "x-flattened-from": "#/components/schemas/GetApiv3TaskByTaskIDOkDataHistory/items"
+        ]
       },
       "ListApiv3TasksUserOk": {
         "type": "object",
@@ -329,15 +322,13 @@
           "success",
           "data",
           "notifications"
-        ],
-        "x-flattened-from": "#/components/responses/ListApiv3TasksUserOk/content/application~1json/schema"
+        ]
       },
       "ListApiv3TasksUserOkData": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListApiv3TasksUserOkDataItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3TasksUserOk/properties/data"
+        }
       },
       "ListApiv3TasksUserOkDataItem": {
         "type": "object",
@@ -456,15 +447,13 @@
           "createdAt",
           "updatedAt",
           "id"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3TasksUserOkData/items"
+        ]
       },
       "ListApiv3TasksUserOkDataItemReminders": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListApiv3TasksUserOkDataItemRemindersItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3TasksUserOkDataItem/properties/reminders"
+        }
       },
       "ListApiv3TasksUserOkDataItemRemindersItem": {
         "type": "object",
@@ -488,8 +477,7 @@
           "time",
           "startDate",
           "id"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3TasksUserOkDataItemReminders/items"
+        ]
       },
       "ListApiv3TasksUserOkDataItemRepeat": {
         "type": "object",
@@ -524,8 +512,7 @@
           "w",
           "t",
           "m"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3TasksUserOkDataItem/properties/repeat"
+        ]
       },
       "ListApiv3UserOk": {
         "type": "object",
@@ -555,8 +542,7 @@
           "notifications",
           "userV",
           "appVersion"
-        ],
-        "x-flattened-from": "#/components/responses/ListApiv3UserOk/content/application~1json/schema"
+        ]
       },
       "ListApiv3UserOkData": {
         "type": "object",
@@ -740,8 +726,7 @@
           "_subSignature",
           "id",
           "needsCron"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOk/properties/data"
+        ]
       },
       "ListApiv3UserOkDataAchievements": {
         "type": "object",
@@ -853,8 +838,7 @@
           "royallyLoyal",
           "allYourBase",
           "pearlyPro"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/achievements"
+        ]
       },
       "ListApiv3UserOkDataAchievementsQuests": {
         "type": "object",
@@ -916,8 +900,7 @@
           "vice3",
           "atom1",
           "atom2"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAchievements/properties/quests"
+        ]
       },
       "ListApiv3UserOkDataAchievementsUltimateGearSets": {
         "type": "object",
@@ -940,8 +923,7 @@
           "rogue",
           "wizard",
           "healer"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAchievements/properties/ultimateGearSets"
+        ]
       },
       "ListApiv3UserOkDataAuth": {
         "type": "object",
@@ -968,8 +950,7 @@
           "google",
           "apple",
           "facebook"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/auth"
+        ]
       },
       "ListApiv3UserOkDataAuthGoogle": {
         "type": "object",
@@ -984,15 +965,13 @@
         "required": [
           "id",
           "emails"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAuth/properties/google"
+        ]
       },
       "ListApiv3UserOkDataAuthGoogleEmails": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListApiv3UserOkDataAuthGoogleEmailsItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAuthGoogle/properties/emails"
+        }
       },
       "ListApiv3UserOkDataAuthGoogleEmailsItem": {
         "type": "object",
@@ -1008,8 +987,7 @@
         "required": [
           "value",
           "verified"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAuthGoogleEmails/items"
+        ]
       },
       "ListApiv3UserOkDataAuthLocal": {
         "type": "object",
@@ -1033,8 +1011,7 @@
           "lowerCaseUsername",
           "email",
           "has_password"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAuth/properties/local"
+        ]
       },
       "ListApiv3UserOkDataAuthTimestamps": {
         "type": "object",
@@ -1059,8 +1036,7 @@
           "loggedin",
           "created",
           "updated"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataAuth/properties/timestamps"
+        ]
       },
       "ListApiv3UserOkDataFlags": {
         "type": "object",
@@ -1180,8 +1156,7 @@
           "initializedUserHistory",
           "thirdPartyTools",
           "newStuff"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/flags"
+        ]
       },
       "ListApiv3UserOkDataFlagsLevelDrops": {
         "type": "object",
@@ -1204,8 +1179,7 @@
           "vice1",
           "goldenknight1",
           "moonstone1"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataFlags/properties/levelDrops"
+        ]
       },
       "ListApiv3UserOkDataFlagsTour": {
         "type": "object",
@@ -1277,8 +1251,7 @@
           "hall",
           "equipment",
           "groupPlans"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataFlags/properties/tour"
+        ]
       },
       "ListApiv3UserOkDataFlagsTutorial": {
         "type": "object",
@@ -1293,8 +1266,7 @@
         "required": [
           "common",
           "ios"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataFlags/properties/tutorial"
+        ]
       },
       "ListApiv3UserOkDataFlagsTutorialCommon": {
         "type": "object",
@@ -1361,8 +1333,7 @@
           "mounts",
           "inbox",
           "stats"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataFlagsTutorial/properties/common"
+        ]
       },
       "ListApiv3UserOkDataFlagsTutorialIos": {
         "type": "object",
@@ -1397,108 +1368,22 @@
           "groupPets",
           "inviteParty",
           "reorderTask"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataFlagsTutorial/properties/ios"
+        ]
       },
       "ListApiv3UserOkDataHistory": {
         "type": "object",
         "properties": {
           "todos": {
-            "$ref": "#/components/schemas/ListApiv3UserOkDataHistoryTodos"
+            "$ref": "#/components/schemas/ListApivUserDataHistoryExp"
           },
           "exp": {
-            "$ref": "#/components/schemas/ListApiv3UserOkDataHistoryExp"
+            "$ref": "#/components/schemas/ListApivUserDataHistoryExp"
           }
         },
         "required": [
           "todos",
           "exp"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/history"
-      },
-      "ListApiv3UserOkDataHistoryExp": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ListApiv3UserOkDataHistoryExpItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataHistory/properties/exp"
-      },
-      "ListApiv3UserOkDataHistoryExpItem": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "$ref": "#/components/schemas/ListApiv3UserOkDataHistoryExpItemDate"
-          },
-          "value": {
-            "type": "number",
-            "format": "double",
-            "example": 4831.31241363118
-          }
-        },
-        "required": [
-          "date",
-          "value"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataHistoryExp/items"
-      },
-      "ListApiv3UserOkDataHistoryExpItemDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time",
-            "example": "2026-05-06T02:26:43.371Z"
-          },
-          {
-            "type": [
-              "integer",
-              "null"
-            ],
-            "example": 1485487350827
-          }
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataHistoryExpItem/properties/date"
-      },
-      "ListApiv3UserOkDataHistoryTodos": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ListApiv3UserOkDataHistoryTodosItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataHistory/properties/todos"
-      },
-      "ListApiv3UserOkDataHistoryTodosItem": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "$ref": "#/components/schemas/ListApiv3UserOkDataHistoryTodosItemDate"
-          },
-          "value": {
-            "type": "number",
-            "format": "double",
-            "example": -2176.2784290345226
-          }
-        },
-        "required": [
-          "date",
-          "value"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataHistoryTodos/items"
-      },
-      "ListApiv3UserOkDataHistoryTodosItemDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time",
-            "example": "2026-05-06T02:26:43.371Z"
-          },
-          {
-            "type": [
-              "integer",
-              "null"
-            ],
-            "example": 1485487350827
-          }
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataHistoryTodosItem/properties/date"
+        ]
       },
       "ListApiv3UserOkDataInbox": {
         "type": "object",
@@ -1523,8 +1408,7 @@
           "messages",
           "blocks",
           "newMessages"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/inbox"
+        ]
       },
       "ListApiv3UserOkDataInboxMessages": {
         "type": "object",
@@ -1551,8 +1435,7 @@
           "da886215-c4f4-4649-8be8-da7535a5e3dc",
           "a891481d-84e6-4bb5-9728-3948867ad46e",
           "068fe676-8854-43ff-a0cd-673d7b766f01"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataInbox/properties/messages"
+        ]
       },
       "ListApiv3UserOkDataInvitations": {
         "type": "object",
@@ -1573,8 +1456,7 @@
           "party",
           "guilds",
           "parties"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/invitations"
+        ]
       },
       "ListApiv3UserOkDataItems": {
         "type": "object",
@@ -1627,8 +1509,7 @@
           "pets",
           "currentPet",
           "currentMount"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/items"
+        ]
       },
       "ListApiv3UserOkDataItemsEggs": {
         "type": "object",
@@ -1680,8 +1561,7 @@
           "LionCub",
           "FlyingPig",
           "TigerCub"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/eggs"
+        ]
       },
       "ListApiv3UserOkDataItemsFood": {
         "type": "object",
@@ -1893,8 +1773,7 @@
           "Pie_Zombie",
           "Pie_Desert",
           "Pie_Red"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/food"
+        ]
       },
       "ListApiv3UserOkDataItemsGear": {
         "type": "object",
@@ -1913,8 +1792,7 @@
           "equipped",
           "costume",
           "owned"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/gear"
+        ]
       },
       "ListApiv3UserOkDataItemsGearCostume": {
         "type": "object",
@@ -1936,8 +1814,7 @@
           "shield",
           "head",
           "armor"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItemsGear/properties/costume"
+        ]
       },
       "ListApiv3UserOkDataItemsGearEquipped": {
         "type": "object",
@@ -1979,8 +1856,7 @@
           "back",
           "eyewear",
           "body"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItemsGear/properties/equipped"
+        ]
       },
       "ListApiv3UserOkDataItemsGearOwned": {
         "type": "object",
@@ -2495,8 +2371,7 @@
           "shield_armoire_baseballGlove",
           "head_special_nye2021",
           "armor_special_birthday2022"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItemsGear/properties/owned"
+        ]
       },
       "ListApiv3UserOkDataItemsHatchingPotions": {
         "type": "object",
@@ -2558,8 +2433,7 @@
           "Shade",
           "Skeleton",
           "Golden"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/hatchingPotions"
+        ]
       },
       "ListApiv3UserOkDataItemsLastDrop": {
         "type": "object",
@@ -2577,8 +2451,7 @@
         "required": [
           "count",
           "date"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/lastDrop"
+        ]
       },
       "ListApiv3UserOkDataItemsMounts": {
         "type": "object",
@@ -2905,8 +2778,7 @@
           "Cactus-Red",
           "Cactus-Shade",
           "Cactus-Skeleton"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/mounts"
+        ]
       },
       "ListApiv3UserOkDataItemsPets": {
         "type": "object",
@@ -3458,8 +3330,7 @@
           "Lion-Veteran",
           "Bear-Veteran",
           "Cactus-Golden"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/pets"
+        ]
       },
       "ListApiv3UserOkDataItemsQuests": {
         "type": "object",
@@ -3536,8 +3407,7 @@
           "atom2",
           "atom3",
           "moonstone1"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/quests"
+        ]
       },
       "ListApiv3UserOkDataItemsSpecial": {
         "type": "object",
@@ -3644,8 +3514,7 @@
           "congrats",
           "getwell",
           "goodluck"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataItems/properties/special"
+        ]
       },
       "ListApiv3UserOkDataParty": {
         "type": "object",
@@ -3671,8 +3540,7 @@
           "_id",
           "order",
           "orderAscending"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/party"
+        ]
       },
       "ListApiv3UserOkDataPartyQuest": {
         "type": "object",
@@ -3687,8 +3555,7 @@
         "required": [
           "progress",
           "RSVPNeeded"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataParty/properties/quest"
+        ]
       },
       "ListApiv3UserOkDataPartyQuestProgress": {
         "type": "object",
@@ -3715,15 +3582,13 @@
           "down",
           "collectedItems",
           "collect"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPartyQuest/properties/progress"
+        ]
       },
       "ListApiv3UserOkDataPinnedItems": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListApiv3UserOkDataPinnedItemsItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/pinnedItems"
+        }
       },
       "ListApiv3UserOkDataPinnedItemsItem": {
         "type": "object",
@@ -3740,8 +3605,7 @@
         "required": [
           "type",
           "path"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPinnedItems/items"
+        ]
       },
       "ListApiv3UserOkDataPreferences": {
         "type": "object",
@@ -3897,8 +3761,7 @@
           "webhooks",
           "analyticsConsent",
           "background"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/preferences"
+        ]
       },
       "ListApiv3UserOkDataPreferencesEmailNotifications": {
         "type": "object",
@@ -3969,8 +3832,7 @@
           "majorUpdates",
           "subscriptionReminders",
           "contentRelease"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPreferences/properties/emailNotifications"
+        ]
       },
       "ListApiv3UserOkDataPreferencesHair": {
         "type": "object",
@@ -4007,8 +3869,7 @@
           "beard",
           "mustache",
           "flower"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPreferences/properties/hair"
+        ]
       },
       "ListApiv3UserOkDataPreferencesPushNotifications": {
         "type": "object",
@@ -4075,8 +3936,7 @@
           "mentionUnjoinedGuild",
           "partyActivity",
           "contentRelease"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPreferences/properties/pushNotifications"
+        ]
       },
       "ListApiv3UserOkDataPreferencesSuppressModals": {
         "type": "object",
@@ -4099,8 +3959,7 @@
           "hatchPet",
           "raisePet",
           "streak"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPreferences/properties/suppressModals"
+        ]
       },
       "ListApiv3UserOkDataPreferencesTasks": {
         "type": "object",
@@ -4124,8 +3983,7 @@
           "groupByChallenge",
           "confirmScoreNotes",
           "mirrorGroupTasks"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPreferences/properties/tasks"
+        ]
       },
       "ListApiv3UserOkDataPreferencesTasksActiveFilter": {
         "type": "object",
@@ -4152,8 +4010,7 @@
           "daily",
           "todo",
           "reward"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPreferencesTasks/properties/activeFilter"
+        ]
       },
       "ListApiv3UserOkDataProfile": {
         "type": "object",
@@ -4165,8 +4022,7 @@
         },
         "required": [
           "name"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/profile"
+        ]
       },
       "ListApiv3UserOkDataPurchased": {
         "type": "object",
@@ -4202,8 +4058,7 @@
           "hair",
           "skin",
           "ads"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/purchased"
+        ]
       },
       "ListApiv3UserOkDataPurchasedBackground": {
         "type": "object",
@@ -4238,8 +4093,7 @@
           "blue",
           "violet",
           "on_a_strange_planet"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPurchased/properties/background"
+        ]
       },
       "ListApiv3UserOkDataPurchasedPlan": {
         "type": "object",
@@ -4286,8 +4140,7 @@
           "dateUpdated",
           "perkMonthCount",
           "cumulativeCount"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPurchased/properties/plan"
+        ]
       },
       "ListApiv3UserOkDataPurchasedPlanConsecutive": {
         "type": "object",
@@ -4314,15 +4167,13 @@
           "gemCapExtra",
           "offset",
           "count"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPurchasedPlan/properties/consecutive"
+        ]
       },
       "ListApiv3UserOkDataPushDevices": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListApiv3UserOkDataPushDevicesItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/pushDevices"
+        }
       },
       "ListApiv3UserOkDataPushDevicesItem": {
         "type": "object",
@@ -4351,8 +4202,7 @@
           "type",
           "updatedAt",
           "createdAt"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataPushDevices/items"
+        ]
       },
       "ListApiv3UserOkDataStats": {
         "type": "object",
@@ -4440,15 +4290,13 @@
           "toNextLevel",
           "maxHealth",
           "maxMP"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/stats"
+        ]
       },
       "ListApiv3UserOkDataTags": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ListApiv3UserOkDataTagsItem"
-        },
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/tags"
+        }
       },
       "ListApiv3UserOkDataTagsItem": {
         "type": "object",
@@ -4468,8 +4316,7 @@
         "required": [
           "name",
           "id"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataTags/items"
+        ]
       },
       "ListApiv3UserOkDataTasksOrder": {
         "type": "object",
@@ -4512,8 +4359,46 @@
           "todos",
           "dailys",
           "habits"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkData/properties/tasksOrder"
+        ]
+      },
+      "ListApivUserDataHistoryExp": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ListApivUserDataHistoryExpItem"
+        }
+      },
+      "ListApivUserDataHistoryExpItem": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "$ref": "#/components/schemas/ListApivUserDataHistoryExpItemDate"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "example": 4831.31241363118
+          }
+        },
+        "required": [
+          "date",
+          "value"
+        ]
+      },
+      "ListApivUserDataHistoryExpItemDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-05-06T02:26:43.371Z"
+          },
+          {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "example": 1485487350827
+          }
+        ]
       },
       "ListApivUserDataInboxMessagesfeffAcddbf": {
         "type": "object",
@@ -4581,8 +4466,7 @@
           "text",
           "id",
           "ownerId"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataInboxMessages/properties/068fe676-8854-43ff-a0cd-673d7b766f01"
+        ]
       },
       "ListApivUserDataStatsBuffs": {
         "type": "object",
@@ -4634,8 +4518,7 @@
           "shinySeed",
           "snowball",
           "spookySparkles"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataStats/properties/buffs"
+        ]
       },
       "ListApivUserDataStatsTraining": {
         "type": "object",
@@ -4663,8 +4546,7 @@
           "str",
           "per",
           "int"
-        ],
-        "x-flattened-from": "#/components/schemas/ListApiv3UserOkDataStats/properties/training"
+        ]
       },
       "PostApiv3TaskScoreUpNotFound": {
         "type": "object",
@@ -4685,8 +4567,7 @@
           "success",
           "error",
           "message"
-        ],
-        "x-flattened-from": "#/components/responses/PostApiv3TaskScoreUpNotFound/content/application~1json/schema"
+        ]
       },
       "PostApiv3TaskScoreUpOk": {
         "type": "object",
@@ -4714,8 +4595,7 @@
           "success",
           "data",
           "notifications"
-        ],
-        "x-flattened-from": "#/components/responses/PostApiv3TaskScoreUpOk/content/application~1json/schema"
+        ]
       },
       "PostApiv3TaskScoreUpOkData": {
         "type": "object",
@@ -4799,8 +4679,7 @@
           "per",
           "buffs",
           "training"
-        ],
-        "x-flattened-from": "#/components/schemas/PostApiv3TaskScoreUpOk/properties/data"
+        ]
       },
       "PostApiv3TaskScoreUpOkDataTmp": {
         "type": "object",
@@ -4820,8 +4699,7 @@
         "required": [
           "quest",
           "drop"
-        ],
-        "x-flattened-from": "#/components/schemas/PostApiv3TaskScoreUpOkData/properties/_tmp"
+        ]
       },
       "PostApiv3TaskScoreUpOkDataTmpDrop": {
         "type": "object",
@@ -4857,8 +4735,7 @@
           "key",
           "type",
           "dialog"
-        ],
-        "x-flattened-from": "#/components/schemas/PostApiv3TaskScoreUpOkDataTmp/properties/drop"
+        ]
       },
       "PostApiv3TaskScoreUpOkDataTmpQuest": {
         "type": "object",
@@ -4876,8 +4753,7 @@
         "required": [
           "progressDelta",
           "collection"
-        ],
-        "x-flattened-from": "#/components/schemas/PostApiv3TaskScoreUpOkDataTmp/properties/quest"
+        ]
       }
     },
     "responses": {
