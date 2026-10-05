@@ -19,6 +19,10 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 )
 
+// jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
+// decoding failed.
+var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
+
 // ListCharactersCharactersGetParams holds the query parameters for ListCharactersCharactersGet.
 type ListCharactersCharactersGetParams struct {
 	// Maximum number of characters to return
@@ -783,17 +787,17 @@ type CharacterProportions struct {
 func (v *CharacterProportions) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "head_size":
-		return true, json.UnmarshalDecode(dec, &v.HeadSize, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.HeadSize, jsonOptsOf(dec))
 	case "arms_length":
-		return true, json.UnmarshalDecode(dec, &v.ArmsLength, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ArmsLength, jsonOptsOf(dec))
 	case "legs_length":
-		return true, json.UnmarshalDecode(dec, &v.LegsLength, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.LegsLength, jsonOptsOf(dec))
 	case "shoulder_width":
-		return true, json.UnmarshalDecode(dec, &v.ShoulderWidth, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ShoulderWidth, jsonOptsOf(dec))
 	case "hip_width":
-		return true, json.UnmarshalDecode(dec, &v.HipWidth, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.HipWidth, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -811,9 +815,9 @@ type CharacterProportionsPreset struct {
 func (v *CharacterProportionsPreset) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "name":
-		return true, json.UnmarshalDecode(dec, &v.Name, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Name, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -1600,6 +1604,8 @@ type CreateMapObjectRequestInpainting struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -1609,7 +1615,7 @@ func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decod
 
 	{
 		var vv MaskInpainting
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.MaskInpainting = &vv
 			matched++
 		}
@@ -1617,7 +1623,7 @@ func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decod
 
 	{
 		var vv OvalInpainting
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.OvalInpainting = &vv
 			matched++
 		}
@@ -1625,7 +1631,7 @@ func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decod
 
 	{
 		var vv RectangleInpainting
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RectangleInpainting = &vv
 			matched++
 		}
@@ -1699,6 +1705,8 @@ type CreateObjectProFlashImageSize struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateObjectProFlashImageSize) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -1708,7 +1716,7 @@ func (v *CreateObjectProFlashImageSize) UnmarshalJSONFrom(dec *jsontext.Decoder)
 
 	{
 		var vv ProFlashImageSize
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ProFlashImageSize = &vv
 			matched++
 		}
@@ -3938,17 +3946,17 @@ type UiPieceCircle struct {
 func (v *UiPieceCircle) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "label":
-		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOptsOf(dec))
 	case "x":
-		return true, json.UnmarshalDecode(dec, &v.X, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.X, jsonOptsOf(dec))
 	case "y":
-		return true, json.UnmarshalDecode(dec, &v.Y, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Y, jsonOptsOf(dec))
 	case "r":
-		return true, json.UnmarshalDecode(dec, &v.R, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.R, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3971,21 +3979,21 @@ type UiPiecePolygon struct {
 func (v *UiPiecePolygon) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "label":
-		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOptsOf(dec))
 	case "x":
-		return true, json.UnmarshalDecode(dec, &v.X, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.X, jsonOptsOf(dec))
 	case "y":
-		return true, json.UnmarshalDecode(dec, &v.Y, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Y, jsonOptsOf(dec))
 	case "r":
-		return true, json.UnmarshalDecode(dec, &v.R, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.R, jsonOptsOf(dec))
 	case "sides":
-		return true, json.UnmarshalDecode(dec, &v.Sides, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Sides, jsonOptsOf(dec))
 	case "phase":
-		return true, json.UnmarshalDecode(dec, &v.Phase, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Phase, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4007,21 +4015,21 @@ type UiPieceRect struct {
 func (v *UiPieceRect) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "label":
-		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOptsOf(dec))
 	case "x":
-		return true, json.UnmarshalDecode(dec, &v.X, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.X, jsonOptsOf(dec))
 	case "y":
-		return true, json.UnmarshalDecode(dec, &v.Y, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Y, jsonOptsOf(dec))
 	case "w":
-		return true, json.UnmarshalDecode(dec, &v.W, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.W, jsonOptsOf(dec))
 	case "h":
-		return true, json.UnmarshalDecode(dec, &v.H, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.H, jsonOptsOf(dec))
 	case "radius":
-		return true, json.UnmarshalDecode(dec, &v.Radius, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Radius, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4110,6 +4118,8 @@ type ValidationErrorLocItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -4119,7 +4129,7 @@ func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	{
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -4127,7 +4137,7 @@ func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	{
 		var vv int
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Int = &vv
 			matched++
 		}
@@ -4176,6 +4186,21 @@ type VocalAnimationResponse struct {
 	Status          string `json:"status,omitzero"`
 	Mood            string `json:"mood"`
 	VisemeCount     int    `json:"viseme_count"`
+}
+
+// jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
+func jsonStrict(dec *jsontext.Decoder) bool {
+	v, ok := json.GetOption(dec.Options(), json.RejectUnknownMembers)
+	return v || !ok
+}
+
+// jsonOptsOf is jsonOpts, or jsonOptsLenient where dec accepts members the specification does not know.
+func jsonOptsOf(dec *jsontext.Decoder) json.Options {
+	if jsonStrict(dec) {
+		return jsonOpts
+	}
+
+	return jsonOptsLenient
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
@@ -4261,7 +4286,7 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 			return "", nil, nil, err
 		}
 
-		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered)), name)
+		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered), dec.Options()), name)
 	}
 
 	val, err := dec.ReadValue()
@@ -4278,11 +4303,13 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 }
 
 // jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each
-// into the field decode declares for it; a member it does not declare is an error.
+// into the field decode declares for it; a member it does not declare is an error, unless dec is lenient.
 func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, decode func(*jsontext.Decoder, string) (bool, error)) error {
-	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first)), firstName); err != nil {
+	strict := jsonStrict(dec)
+
+	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first), dec.Options()), firstName); err != nil {
 		return err
-	} else if !ok {
+	} else if !ok && strict {
 		return jsonUnknownName(firstName)
 	}
 
@@ -4296,8 +4323,12 @@ func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Val
 
 		if ok, err := decode(dec, name); err != nil {
 			return err
-		} else if !ok {
+		} else if !ok && strict {
 			return jsonUnknownName(name)
+		} else if !ok {
+			if err := dec.SkipValue(); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -4322,8 +4353,14 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 			}
 		}
 
-		if len(declaring) == 0 {
+		switch {
+		case len(declaring) > 0:
+		case jsonStrict(dec):
 			return jsonUnknownName(name)
+		case val == nil:
+			return dec.SkipValue()
+		default:
+			return nil
 		}
 
 		if val == nil && len(declaring) == 1 {
@@ -4341,7 +4378,7 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 		}
 
 		for _, p := range declaring {
-			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val)), name); err != nil {
+			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val), dec.Options()), name); err != nil {
 				return err
 			}
 		}
@@ -4637,11 +4674,18 @@ type jsonVariant struct {
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
 // one, else those whose required members it has and whose members it holds, besides those of plain. Every member
-// must belong to plain or to a chosen alternative.
-func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf bool) ([]int, error) {
+// must belong to plain or to a chosen alternative. Not strict, a member nothing declares is left out of the choice,
+// and of several alternatives of a oneOf the first is chosen.
+func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf, strict bool) ([]int, error) {
 	names, err := jsonMembers(raw)
 	if err != nil {
 		return nil, err
+	}
+
+	if !strict {
+		names = slices.DeleteFunc(names, func(n string) bool {
+			return !plain[n] && !slices.ContainsFunc(variants, func(v jsonVariant) bool { return v.members[n] })
+		})
 	}
 
 	present := make(map[string]bool, len(names))
@@ -4686,8 +4730,10 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 		switch {
 		case len(chosen) == 0:
 			return nil, &json.SemanticError{Err: errors.New("matches none of its alternatives")}
-		case oneOf && len(chosen) > 1:
+		case oneOf && len(chosen) > 1 && strict:
 			return nil, &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))}
+		case oneOf:
+			chosen = chosen[:1]
 		}
 	}
 

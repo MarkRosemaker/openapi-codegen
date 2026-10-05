@@ -1,0 +1,27 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title": "Debug", "version": "1"},
+  "servers": [{"url": "https://api.example.com"}],
+  "paths": {
+    "/item": {"get": {"operationId": "getItem", "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Item"}}}}
+    }}},
+    "/block": {"get": {"operationId": "getBlock", "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Block"}}}}
+    }}},
+    "/pet": {"get": {"operationId": "getPet", "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Pet"}}}}
+    }}}
+  },
+  "components": {"schemas": {
+    "Item": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"}}},
+    "Block": {"oneOf": [{"$ref": "#/components/schemas/Paragraph"}, {"$ref": "#/components/schemas/Divider"}]},
+    "Paragraph": {"type": "object", "required": ["type", "paragraph"], "properties": {
+      "type": {"type": "string", "const": "paragraph"}, "paragraph": {"$ref": "#/components/schemas/Text"}}},
+    "Divider": {"type": "object", "required": ["type"], "properties": {"type": {"type": "string", "const": "divider"}}},
+    "Text": {"type": "object", "required": ["text"], "properties": {"text": {"type": "string"}}},
+    "Pet": {"oneOf": [{"$ref": "#/components/schemas/Cat"}, {"$ref": "#/components/schemas/Dog"}]},
+    "Cat": {"type": "object", "required": ["meow"], "properties": {"meow": {"type": "boolean"}}},
+    "Dog": {"type": "object", "required": ["bark"], "properties": {"bark": {"type": "boolean"}}}
+  }}
+}
