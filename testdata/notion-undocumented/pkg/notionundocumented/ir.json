@@ -12298,7 +12298,7 @@
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "PageIconResponse",
+					"type": "*PageIconResponse",
 					"jsonTag": "json:\"icon\"",
 					"required": true
 				}
@@ -13668,7 +13668,7 @@
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "PageIconResponse",
+					"type": "*PageIconResponse",
 					"jsonTag": "json:\"icon\"",
 					"description": "The icon of the data source.",
 					"required": true
@@ -13676,7 +13676,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "PageCover",
+					"type": "*PageCover",
 					"jsonTag": "json:\"cover\"",
 					"description": "The cover of the data source.",
 					"required": true
@@ -14428,8 +14428,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "DatabasePropertyRelationConfigResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "SingleProperty",
@@ -14455,6 +14454,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "DatabasePropertyRelationConfigResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "DatabasePropertyRelationConfigResponseTypeSingleProperty",
@@ -24647,8 +24647,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "MentionRichTextItemRequestMentionType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "User",
@@ -24696,6 +24695,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "MentionRichTextItemRequestMentionType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "MentionRichTextItemRequestMentionTypeUser",
@@ -24826,8 +24826,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "MentionRichTextItemResponseMentionType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "User",
@@ -24890,6 +24889,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "MentionRichTextItemResponseMentionType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "MentionRichTextItemResponseMentionTypeUser",
@@ -26018,8 +26018,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "PageIconRequestType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "FileUpload",
@@ -26059,6 +26058,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "PageIconRequestType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "PageIconRequestTypeFileUpload",
@@ -26170,8 +26170,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "PageIconResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Emoji",
@@ -26213,6 +26212,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "PageIconResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "PageIconResponseTypeEmoji",
@@ -26411,7 +26411,7 @@
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "PageIconResponse",
+					"type": "*PageIconResponse",
 					"jsonTag": "json:\"icon\"",
 					"description": "Page icon.",
 					"required": true
@@ -26419,7 +26419,7 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "PageCover",
+					"type": "*PageCover",
 					"jsonTag": "json:\"cover\"",
 					"description": "Page cover image.",
 					"required": true
@@ -30004,8 +30004,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "RichTextItemRequestType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Text",
@@ -30040,6 +30039,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "RichTextItemRequestType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "RichTextItemRequestTypeText",
@@ -30138,8 +30138,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "RichTextItemResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Text",
@@ -30176,6 +30175,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "RichTextItemResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "RichTextItemResponseTypeText",
@@ -49977,7 +49977,7 @@
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "PageIconResponse",
+					"type": "*PageIconResponse",
 					"jsonTag": "json:\"icon\"",
 					"description": "The icon of the teamspace.",
 					"required": true
@@ -50078,8 +50078,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "TemplateMention2Type",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "TemplateMentionDate",
@@ -50100,6 +50099,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "TemplateMention2Type",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "TemplateMention2TypeTemplateMentionDate",
@@ -56904,8 +56904,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "ToolInputAnyOfNewParentType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "PageID",
@@ -56933,6 +56932,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "ToolInputAnyOfNewParentType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "ToolInputAnyOfNewParentTypePageID",
@@ -62640,7 +62640,7 @@
 				{
 					"name": "VerifiedBy",
 					"jsonName": "verified_by",
-					"type": "UserValueResponse",
+					"type": "*UserValueResponse",
 					"jsonTag": "json:\"verified_by\"",
 					"required": true
 				}

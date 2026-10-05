@@ -20,7 +20,7 @@ var jsonOpts = json.JoinOptions(
 )
 
 // jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
-// decoding failed.
+// decoding failed, and as a caller's own type of a result is decoded.
 var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
 
 // ListCharactersCharactersGetParams holds the query parameters for ListCharactersCharactersGet.
@@ -1232,7 +1232,7 @@ type CreateCharacterWithDirections struct {
 	// Force the use of colors from color_image
 	ForceColors *bool `json:"force_colors,omitzero"`
 	// Character body proportions (preset or custom values). Only applies to humanoid characters.
-	Proportions CreateCharacterWithDirectionsProportionsAnyOf `json:"proportions,omitzero"`
+	Proportions *CreateCharacterWithDirectionsProportionsAnyOf `json:"proportions,omitzero"`
 	// Template ID to use (e.g., 'mannequin' for humanoid, 'bear'/'cat'/'dog'/'horse'/'lion' for quadrupeds). Defaults to 'mannequin'.
 	TemplateID string `json:"template_id,omitzero"`
 	// Seed for reproducible generation

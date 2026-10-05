@@ -32,7 +32,7 @@ var jsonOpts = json.JoinOptions(
 )
 
 // jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
-// decoding failed.
+// decoding failed, and as a caller's own type of a result is decoded.
 var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
 
 // ListGroupMembersParams holds the query parameters for ListGroupMembers.
@@ -1430,8 +1430,8 @@ type ContentWithRichTextAndColorResponse struct {
 type ContentWithRichTextColorAndIcon struct {
 	RichText []RichTextItemResponse `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
-	Color APIColor         `json:"color"`
-	Icon  PageIconResponse `json:"icon"`
+	Color APIColor          `json:"color"`
+	Icon  *PageIconResponse `json:"icon"`
 }
 
 // ContentWithTableResponse defines a model
@@ -2476,9 +2476,9 @@ type DataSourceObjectResponse struct {
 	// The properties schema of the data source.
 	Properties map[string]DatabasePropertyConfigResponse `json:"properties"`
 	// The icon of the data source.
-	Icon PageIconResponse `json:"icon"`
+	Icon *PageIconResponse `json:"icon"`
 	// The cover of the data source.
-	Cover PageCover `json:"cover"`
+	Cover *PageCover `json:"cover"`
 	// The URL of the data source.
 	URL string `json:"url"`
 	// The public URL of the data source if it is publicly accessible.
@@ -2722,7 +2722,7 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 type DatabasePropertyRelationConfigResponse struct {
 	DatabaseID     IDResponse                                                      `json:"database_id"`
 	DataSourceID   IDResponse                                                      `json:"data_source_id"`
-	Type           DatabasePropertyRelationConfigResponseType                      `json:"type"`
+	Type           DatabasePropertyRelationConfigResponseType                      `json:"type,omitzero"`
 	SingleProperty *EmptyObject                                                    `json:"single_property,omitzero"`
 	DualProperty   *DualPropertyDatabasePropertyRelationConfigResponseDualProperty `json:"dual_property,omitzero"`
 }
@@ -2768,6 +2768,11 @@ func (v *DatabasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 	*v = DatabasePropertyRelationConfigResponse{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = DatabasePropertyRelationConfigResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers(), jsonStrict(dec))
@@ -7772,7 +7777,7 @@ type MemorySearch struct {
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
 type MentionRichTextItemRequestMention struct {
-	Type MentionRichTextItemRequestMentionType `json:"type"`
+	Type MentionRichTextItemRequestMentionType `json:"type,omitzero"`
 	// Details of the user mention.
 	User *PartialUserObjectRequest `json:"user,omitzero"`
 	// Details of the date mention.
@@ -7849,6 +7854,11 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMentionRichTextItemRequestMention, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MentionRichTextItemRequestMentionType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemRequestMention, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -7871,7 +7881,7 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
 type MentionRichTextItemResponseMention struct {
-	Type MentionRichTextItemResponseMentionType `json:"type"`
+	Type MentionRichTextItemResponseMentionType `json:"type,omitzero"`
 	// Details of the user mention.
 	User *UserValueResponse `json:"user,omitzero"`
 	// Details of the date mention.
@@ -7961,6 +7971,11 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 	*v = MentionRichTextItemResponseMention{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMentionRichTextItemResponseMention, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MentionRichTextItemResponseMentionType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemResponseMention, v.taggedMembers(), jsonStrict(dec))
@@ -8533,7 +8548,7 @@ type PageIDParentForBlockBasedObjectResponse struct {
 
 // PageIconRequest defines a model
 type PageIconRequest struct {
-	Type       PageIconRequestType `json:"type"`
+	Type       PageIconRequestType `json:"type,omitzero"`
 	FileUpload *IDObject           `json:"file_upload,omitzero"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
@@ -8602,6 +8617,11 @@ func (v *PageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPageIconRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PageIconRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfPageIconRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -8624,7 +8644,7 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // PageIconResponse defines a model
 type PageIconResponse struct {
-	Type PageIconResponseType `json:"type"`
+	Type PageIconResponseType `json:"type,omitzero"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
 	// The file URL for the icon.
@@ -8695,6 +8715,11 @@ func (v *PageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPageIconResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PageIconResponseType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfPageIconResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -8740,9 +8765,9 @@ type PageObjectResponse struct {
 	// Property values of this page.
 	Properties map[string]PagePropertyValueWithIDResponse `json:"properties"`
 	// Page icon.
-	Icon PageIconResponse `json:"icon"`
+	Icon *PageIconResponse `json:"icon"`
 	// Page cover image.
-	Cover PageCover `json:"cover"`
+	Cover *PageCover `json:"cover"`
 	// User who created the page.
 	CreatedBy PartialUserObjectResponse `json:"created_by"`
 	// User who last edited the page.
@@ -10778,7 +10803,7 @@ type ResolveSuggestedEditResolveSuggestedEdit struct {
 type RichTextItemRequest struct {
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
 	Annotations *Annotation             `json:"annotations,omitzero"`
-	Type        RichTextItemRequestType `json:"type"`
+	Type        RichTextItemRequestType `json:"type,omitzero"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
 	// Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -10835,6 +10860,11 @@ func (v *RichTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfRichTextItemRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = RichTextItemRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -10863,7 +10893,7 @@ type RichTextItemResponse struct {
 	Href string `json:"href"`
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
 	Annotations Annotation               `json:"annotations"`
-	Type        RichTextItemResponseType `json:"type"`
+	Type        RichTextItemResponseType `json:"type,omitzero"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
 	// Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -10918,6 +10948,11 @@ func (v *RichTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = RichTextItemResponse{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfRichTextItemResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = RichTextItemResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemResponse, v.taggedMembers(), jsonStrict(dec))
@@ -22353,7 +22388,7 @@ type Teamspace struct {
 	// The description of the teamspace.
 	Description string `json:"description"`
 	// The icon of the teamspace.
-	Icon PageIconResponse `json:"icon"`
+	Icon *PageIconResponse `json:"icon"`
 	// Whether the teamspace is in the trash.
 	InTrash bool `json:"in_trash"`
 	// The teamspace's visibility in the workspace.
@@ -22397,7 +22432,7 @@ type TemplateMention struct {
 
 // TemplateMention2 defines a model
 type TemplateMention2 struct {
-	Type TemplateMention2Type `json:"type"`
+	Type TemplateMention2Type `json:"type,omitzero"`
 	// The date of the template mention.
 	TemplateMentionDate TemplateMentionDateTemplateMentionTemplateMentionDate `json:"template_mention_date,omitzero"`
 	// The user of the template mention.
@@ -22445,6 +22480,11 @@ func (v *TemplateMention2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = TemplateMention2{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfTemplateMention2, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = TemplateMention2Type(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfTemplateMention2, v.taggedMembers(), jsonStrict(dec))
@@ -25950,7 +25990,7 @@ func (e ToolInputAnyOfLevel) Valid() bool {
 
 // The new parent under which the pages will be moved. This can be a page, the workspace, a database, or a specific data source under a database when there are multiple. Moving pages to the workspace level adds them as private pages and should rarely be used.
 type ToolInputAnyOfNewParent struct {
-	Type ToolInputAnyOfNewParentType `json:"type"`
+	Type ToolInputAnyOfNewParentType `json:"type,omitzero"`
 	// The ID of the parent page (with or without dashes), for example, 195de9221179449fab8075a27c979105
 	PageID string `json:"page_id,omitzero"`
 	// The ID of the parent database (with or without dashes), for example, 195de9221179449fab8075a27c979105
@@ -26007,6 +26047,11 @@ func (v *ToolInputAnyOfNewParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 	*v = ToolInputAnyOfNewParent{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfToolInputAnyOfNewParent, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = ToolInputAnyOfNewParentType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfToolInputAnyOfNewParent, v.taggedMembers(), jsonStrict(dec))
@@ -29848,7 +29893,7 @@ type VerificationPropertyResponse struct {
 	// One of: `verified`, `expired`
 	State      VerificationPropertyResponseState `json:"state"`
 	Date       Date4                             `json:"date"`
-	VerifiedBy UserValueResponse                 `json:"verified_by"`
+	VerifiedBy *UserValueResponse                `json:"verified_by"`
 }
 
 // One of: `verified`, `expired`

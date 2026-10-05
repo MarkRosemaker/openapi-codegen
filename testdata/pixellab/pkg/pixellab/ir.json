@@ -8973,7 +8973,7 @@
 				{
 					"name": "Proportions",
 					"jsonName": "proportions",
-					"type": "CreateCharacterWithDirectionsProportionsAnyOf",
+					"type": "*CreateCharacterWithDirectionsProportionsAnyOf",
 					"jsonTag": "json:\"proportions,omitzero\"",
 					"description": "Character body proportions (preset or custom values). Only applies to humanoid characters."
 				},
