@@ -26,6 +26,10 @@ var jsonOpts = json.JoinOptions(
 	)),
 )
 
+// jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
+// decoding failed, and as a caller's own type of a result is decoded.
+var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
+
 // GetMeParams holds the query parameters for GetMe.
 type GetMeParams struct {
 	// Retrieve user related data (clients, projects, tasks, tags, workspaces, time entries, etc.)

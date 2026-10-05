@@ -20,7 +20,7 @@ var jsonOpts = json.JoinOptions(
 )
 
 // jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
-// decoding failed.
+// decoding failed, and as a caller's own type of a result is decoded.
 var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
 
 // Block defines a model

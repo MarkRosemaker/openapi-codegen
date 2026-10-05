@@ -133,7 +133,14 @@ func (c *Client) ExportLegalHoldWithResult[R any](ctx context.Context, legalHold
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ExportLegalHoldOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -263,7 +270,14 @@ func (c *Client) GetLegalHoldWithResult[R any](ctx context.Context, legalHoldID 
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*LegalHold); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -400,7 +414,14 @@ func (c *Client) UpdateLegalHoldWithResult[R any](ctx context.Context, legalHold
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*LegalHold); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -540,7 +561,14 @@ func (c *Client) ListLegalHoldUsersWithResult[R any](ctx context.Context, legalH
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListLegalHoldUsersOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -677,7 +705,14 @@ func (c *Client) AddLegalHoldUsersWithResult[R any](ctx context.Context, legalHo
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*LegalHold); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -821,7 +856,14 @@ func (c *Client) ListLegalHoldsWithResult[R any](ctx context.Context, params *Li
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListLegalHoldsOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -958,7 +1000,14 @@ func (c *Client) CreateLegalHoldWithResult[R any](ctx context.Context, body Crea
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*LegalHold); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1098,7 +1147,14 @@ func (c *Client) ListLegalHoldWorkspacesWithResult[R any](ctx context.Context, l
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListLegalHoldWorkspacesOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1228,7 +1284,14 @@ func (c *Client) ReleaseLegalHoldWithResult[R any](ctx context.Context, legalHol
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*LegalHold); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1358,7 +1421,14 @@ func (c *Client) RemoveLegalHoldUserWithResult[R any](ctx context.Context, legal
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*LegalHold); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1495,7 +1565,14 @@ func (c *Client) EnqueueSpaceExportWithResult[R any](ctx context.Context, spaceI
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*EnqueueSpaceExportOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1625,7 +1702,14 @@ func (c *Client) GetSpaceExportStatusWithResult[R any](ctx context.Context, expo
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*GetSpaceExportStatusOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1765,7 +1849,14 @@ func (c *Client) ListLegalHoldPagesWithResult[R any](ctx context.Context, legalH
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListLegalHoldPagesOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -1902,7 +1993,14 @@ func (c *Client) RevokeUserSessionWithResult[R any](ctx context.Context, body Re
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*RevokeUserSessionOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2054,7 +2152,14 @@ func (c *Client) ListMcpClientConnectionsWithResult[R any](ctx context.Context, 
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListMcpClientConnectionsOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2191,7 +2296,14 @@ func (c *Client) UpdateMcpClientConnectionEnterpriseManagedAccessWithResult[R an
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*UpdateMcpClientConnectionEnterpriseManagedAccessOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2328,7 +2440,14 @@ func (c *Client) RevokeMcpClientConnectionWithResult[R any](ctx context.Context,
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*RevokeMcpClientConnectionOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2458,7 +2577,14 @@ func (c *Client) RetrievePermissionGroupWithResult[R any](ctx context.Context, g
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreatePermissionGroup2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2624,7 +2750,14 @@ func (c *Client) DeletePermissionGroupWithResult[R any](ctx context.Context, gro
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreatePermissionGroup2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2787,7 +2920,14 @@ func (c *Client) UpdatePermissionGroupWithResult[R any](ctx context.Context, gro
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreatePermissionGroup2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -2957,7 +3097,14 @@ func (c *Client) ListPermissionGroupsWithResult[R any](ctx context.Context, spac
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListPermissionGroupsOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -3120,7 +3267,14 @@ func (c *Client) CreatePermissionGroupWithResult[R any](ctx context.Context, spa
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreatePermissionGroup2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -3290,7 +3444,14 @@ func (c *Client) ListUsersWithResult[R any](ctx context.Context, spaceID uuid.UU
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListUsersOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -3460,7 +3621,14 @@ func (c *Client) ListPermissionGroupMembersWithResult[R any](ctx context.Context
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListPermissionGroupMembersOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -3623,7 +3791,14 @@ func (c *Client) AddPermissionGroupMemberWithResult[R any](ctx context.Context, 
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*AddPermissionGroupMember2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -3779,7 +3954,14 @@ func (c *Client) RemovePermissionGroupMemberWithResult[R any](ctx context.Contex
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*AddPermissionGroupMember2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -3942,7 +4124,14 @@ func (c *Client) UpdatePermissionGroupMemberWithResult[R any](ctx context.Contex
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*AddPermissionGroupMember2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -4124,7 +4313,14 @@ func (c *Client) ListPersonalAccessTokensWithResult[R any](ctx context.Context, 
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListPersonalAccessTokensOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -4373,7 +4569,14 @@ func (c *Client) UpdateAgentCreationPolicyWithResult[R any](ctx context.Context,
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*UpdateAgentCreationPolicyOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -4510,7 +4713,14 @@ func (c *Client) UpdateWorkspaceCreditLimitWithResult[R any](ctx context.Context
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*UpdateWorkspaceCreditLimitOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -4647,7 +4857,14 @@ func (c *Client) UpdateAgentStatusWithResult[R any](ctx context.Context, agentID
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*UpdateAgentStatusOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -4959,7 +5176,14 @@ func (c *Client) GetWorkflowsMetadataForSpaceWithResult[R any](ctx context.Conte
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*GetWorkflowsMetadataForSpaceOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5099,7 +5323,14 @@ func (c *Client) GetAgentCreditUsageWithResult[R any](ctx context.Context, agent
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*AgentCreditUsage); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5239,7 +5470,14 @@ func (c *Client) GetAgentPermissionsWithResult[R any](ctx context.Context, space
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*GetAgentPermissionsOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5376,7 +5614,14 @@ func (c *Client) UpdateAgentPermissionsWithResult[R any](ctx context.Context, sp
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*UpdateAgentPermissionsOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5532,7 +5777,14 @@ func (c *Client) GetAgentsCreditUsageWithResult[R any](ctx context.Context, spac
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*GetAgentsCreditUsageOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5669,7 +5921,14 @@ func (c *Client) UpdateAgentCreditLimitWithResult[R any](ctx context.Context, ag
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*UpdateAgentCreditLimitOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5813,7 +6072,14 @@ func (c *Client) ListCreditLimitPoliciesWithResult[R any](ctx context.Context, s
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*ListCreditLimitPoliciesOk); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -5976,7 +6242,14 @@ func (c *Client) CreateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreateCreditLimitPolicy2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -6132,7 +6405,14 @@ func (c *Client) ExpireCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreateCreditLimitPolicy2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -6295,7 +6575,14 @@ func (c *Client) UpdateCreditLimitPolicyWithResult[R any](ctx context.Context, s
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
 			var out R
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*CreateCreditLimitPolicy2); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 

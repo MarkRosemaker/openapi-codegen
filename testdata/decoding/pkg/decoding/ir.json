@@ -1,0 +1,511 @@
+{
+	"title": "Decoding",
+	"production": true,
+	"packageName": "decoding",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com"
+	},
+	"userAgent": "Decoding",
+	"operations": [
+		{
+			"name": "GetPage",
+			"method": "GET",
+			"pathTemplate": "/pages/{id}",
+			"joinPathArgs": [
+				"\"pages\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Page"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Page"
+			}
+		},
+		{
+			"name": "Search",
+			"method": "POST",
+			"pathTemplate": "/search",
+			"joinPathArgs": [
+				"\"search\""
+			],
+			"requestBody": {
+				"typeName": "PropertyFilter",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PageOrPartial",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PageOrPartial",
+				"isSlice": true
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "Condition",
+			"description": "Condition defines a model",
+			"fields": [
+				{
+					"name": "Equals",
+					"jsonName": "equals",
+					"type": "string",
+					"jsonTag": "json:\"equals,omitzero\""
+				},
+				{
+					"name": "DoesNotEqual",
+					"jsonName": "does_not_equal",
+					"type": "string",
+					"jsonTag": "json:\"does_not_equal,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "CoverResponse",
+			"description": "CoverResponse defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "CoverResponseType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "External",
+					"jsonName": "external",
+					"type": "*Link",
+					"jsonTag": "json:\"external,omitzero\""
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "*Link",
+					"jsonTag": "json:\"file,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "CoverResponseType",
+				"enum": [
+					{
+						"goName": "CoverResponseTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					},
+					{
+						"goName": "CoverResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					}
+				],
+				"values": [
+					{
+						"value": "external",
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "file",
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "external",
+						"field": "External",
+						"zero": "nil"
+					},
+					{
+						"name": "file",
+						"field": "File",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "Emoji",
+			"description": "Emoji defines a model",
+			"fields": [
+				{
+					"name": "Emoji",
+					"jsonName": "emoji",
+					"type": "string",
+					"jsonTag": "json:\"emoji\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "IconResponse",
+			"description": "IconResponse defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Emoji",
+					"type": "Emoji",
+					"members": [
+						"emoji"
+					],
+					"required": [
+						"emoji"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Link",
+					"type": "Link",
+					"members": [
+						"url"
+					],
+					"required": [
+						"url"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Emoji",
+					"type": "Emoji",
+					"members": [
+						"emoji"
+					],
+					"required": [
+						"emoji"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Link",
+					"type": "Link",
+					"members": [
+						"url"
+					],
+					"required": [
+						"url"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Link",
+			"description": "Link defines a model",
+			"fields": [
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "string",
+					"jsonTag": "json:\"url\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Page",
+			"description": "Page defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "Cover",
+					"jsonName": "cover",
+					"type": "*CoverResponse",
+					"jsonTag": "json:\"cover\"",
+					"required": true
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "*IconResponse",
+					"jsonTag": "json:\"icon\"",
+					"required": true
+				},
+				{
+					"name": "Position",
+					"jsonName": "position",
+					"type": "Position",
+					"jsonTag": "json:\"position\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageOrPartial",
+			"description": "PageOrPartial defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Page",
+					"type": "Page",
+					"members": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"required": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "PartialPage",
+					"type": "PartialPage",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Page",
+					"type": "Page",
+					"members": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"required": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "PartialPage",
+					"type": "PartialPage",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true
+				}
+			]
+		},
+		{
+			"name": "Pair",
+			"description": "Pair defines a model",
+			"kind": 6,
+			"fields": [
+				{
+					"name": "Item0",
+					"type": "string"
+				},
+				{
+					"name": "Item1",
+					"type": "int"
+				}
+			]
+		},
+		{
+			"name": "PartialPage",
+			"description": "PartialPage defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Position",
+			"description": "Position defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "String",
+					"type": "[]string",
+					"zero": "nil"
+				},
+				{
+					"fieldName": "Pair",
+					"type": "Pair"
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "String",
+					"type": "[]string",
+					"zero": "nil"
+				},
+				{
+					"fieldName": "Pair",
+					"type": "Pair"
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "PropertyFilter",
+			"description": "PropertyFilter defines a model",
+			"fields": [
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "PropertyFilterType",
+					"jsonTag": "json:\"type,omitzero\""
+				},
+				{
+					"name": "Select",
+					"jsonName": "select",
+					"type": "*Condition",
+					"jsonTag": "json:\"select,omitzero\""
+				},
+				{
+					"name": "Number",
+					"jsonName": "number",
+					"type": "*Condition",
+					"jsonTag": "json:\"number,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "PropertyFilterType",
+				"optional": true,
+				"enum": [
+					{
+						"goName": "PropertyFilterTypeSelect",
+						"value": "select",
+						"literal": "\"select\""
+					},
+					{
+						"goName": "PropertyFilterTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					}
+				],
+				"values": [
+					{
+						"value": "select",
+						"members": [
+							{
+								"name": "select",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "select",
+						"field": "Select",
+						"zero": "nil"
+					},
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					}
+				]
+			}
+		}
+	]
+}

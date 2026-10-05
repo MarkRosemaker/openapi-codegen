@@ -24,7 +24,7 @@ var jsonOpts = json.JoinOptions(
 )
 
 // jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
-// decoding failed.
+// decoding failed, and as a caller's own type of a result is decoded.
 var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
 
 // GetUsersParams holds the query parameters for GetUsers.
@@ -2227,7 +2227,7 @@ type BlockIDParentForBlockBasedObject struct {
 // BlockObjectRequest defines a model
 type BlockObjectRequest struct {
 	Object           string                                     `json:"object,omitzero"`
-	Type             BlockObjectRequestType                     `json:"type"`
+	Type             BlockObjectRequestType                     `json:"type,omitzero"`
 	Embed            *Embed2                                    `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption             `json:"bookmark,omitzero"`
 	Image            *MediaContentWithFileAndCaptionRequest     `json:"image,omitzero"`
@@ -2449,6 +2449,11 @@ func (v *BlockObjectRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfBlockObjectRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = BlockObjectRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -2472,7 +2477,7 @@ func (v *BlockObjectRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 // BlockObjectRequestWithoutChildren defines a model
 type BlockObjectRequestWithoutChildren struct {
 	Object           string                                     `json:"object,omitzero"`
-	Type             BlockObjectRequestWithoutChildrenType      `json:"type"`
+	Type             BlockObjectRequestWithoutChildrenType      `json:"type,omitzero"`
 	Embed            *Embed2                                    `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption             `json:"bookmark,omitzero"`
 	Image            *MediaContentWithFileAndCaptionRequest     `json:"image,omitzero"`
@@ -2674,6 +2679,11 @@ func (v *BlockObjectRequestWithoutChildren) UnmarshalJSONFrom(dec *jsontext.Deco
 	*v = BlockObjectRequestWithoutChildren{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfBlockObjectRequestWithoutChildren, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = BlockObjectRequestWithoutChildrenType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectRequestWithoutChildren, v.taggedMembers(), jsonStrict(dec))
@@ -2982,7 +2992,7 @@ func (v *BlockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 // BlockObjectWithSingleLevelOfChildrenRequest defines a model
 type BlockObjectWithSingleLevelOfChildrenRequest struct {
 	Object           string                                          `json:"object,omitzero"`
-	Type             BlockObjectWithSingleLevelOfChildrenRequestType `json:"type"`
+	Type             BlockObjectWithSingleLevelOfChildrenRequestType `json:"type,omitzero"`
 	Embed            *Embed2                                         `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption                  `json:"bookmark,omitzero"`
 	Image            *MediaContentWithFileAndCaptionRequest          `json:"image,omitzero"`
@@ -3192,6 +3202,11 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) UnmarshalJSONFrom(dec *jso
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfBlockObjectWithSingleLevelOfChildrenRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = BlockObjectWithSingleLevelOfChildrenRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectWithSingleLevelOfChildrenRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -3274,7 +3289,7 @@ type BoardViewConfigRequest struct {
 	// Group-by configuration for board columns.
 	GroupBy GroupByConfig `json:"group_by"`
 	// Secondary group-by configuration for sub-grouping within columns. Pass null to remove sub-grouping.
-	SubGroupBy GroupByConfig `json:"sub_group_by,omitzero"`
+	SubGroupBy *GroupByConfig `json:"sub_group_by,omitzero"`
 	// Property visibility and display configuration on cards. Pass null to clear.
 	Properties []ViewPropertyConfigRequest `json:"properties,omitzero"`
 	// Cover image configuration for cards. Pass null to clear.
@@ -3919,7 +3934,7 @@ type ChartViewConfigRequest struct {
 	// The chart type.
 	ChartType ChartViewConfigChartType `json:"chart_type"`
 	// X-axis grouping configuration for grouped data mode. Pass null to clear.
-	XAxis GroupByConfig `json:"x_axis,omitzero"`
+	XAxis *GroupByConfig `json:"x_axis,omitzero"`
 	// Y-axis aggregation for grouped data mode. Pass null to clear.
 	YAxis ChartAggregation `json:"y_axis,omitzero"`
 	// Property ID for x-axis values in results mode. Pass null to clear.
@@ -3961,7 +3976,7 @@ type ChartViewConfigRequest struct {
 	// Hide title (number only). Pass null to clear.
 	HideTitle *bool `json:"hide_title,omitzero"`
 	// Stack-by grouping for stacked/grouped bar charts. Pass null to clear.
-	StackBy GroupByConfig `json:"stack_by,omitzero"`
+	StackBy *GroupByConfig `json:"stack_by,omitzero"`
 	// Reference lines on the chart. Pass null to clear.
 	ReferenceLines []ChartReferenceLine `json:"reference_lines,omitzero"`
 	// Chart caption text. Pass null to clear.
@@ -4039,7 +4054,7 @@ type ChartViewConfigResponse struct {
 	// The chart type: column (vertical bars), bar (horizontal bars), line, donut, or number (single value display).
 	ChartType ChartViewConfigChartType `json:"chart_type"`
 	// X-axis grouping configuration for column/bar/line/donut charts using grouped data. Null when using results (raw property values) mode.
-	XAxis GroupByConfig `json:"x_axis,omitzero"`
+	XAxis *GroupByConfig `json:"x_axis,omitzero"`
 	// Y-axis aggregation for column/bar/line/donut charts using grouped data. Null when using results mode.
 	YAxis ChartAggregation `json:"y_axis,omitzero"`
 	// Property ID for the x-axis name values when using results (raw property values) mode.
@@ -4081,7 +4096,7 @@ type ChartViewConfigResponse struct {
 	// Whether to hide the title label (number charts only).
 	HideTitle *bool `json:"hide_title,omitzero"`
 	// Stack-by grouping configuration for stacked/grouped bar charts (column/bar/line only). Null when not stacked.
-	StackBy GroupByConfig `json:"stack_by,omitzero"`
+	StackBy *GroupByConfig `json:"stack_by,omitzero"`
 	// Reference lines drawn on the chart. Null when no reference lines are configured.
 	ReferenceLines []ChartReferenceLine `json:"reference_lines,omitzero"`
 	// Text caption displayed below the chart. Null when no caption is shown.
@@ -4631,8 +4646,8 @@ type ContentWithRichTextColorAndIcon struct {
 type ContentWithRichTextColorAndIcon2 struct {
 	RichText []RichTextItemResponse `json:"rich_text"`
 	// One of: `default`, `gray`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`, `red`, `default_background`, `gray_background`, `brown_background`, `orange_background`, `yellow_background`, `green_background`, `blue_background`, `purple_background`, `pink_background`, `red_background`
-	Color APIColor         `json:"color"`
-	Icon  PageIconResponse `json:"icon"`
+	Color APIColor          `json:"color"`
+	Icon  *PageIconResponse `json:"icon"`
 }
 
 // ContentWithSingleLevelOfChildrenRequest defines a model
@@ -5147,7 +5162,7 @@ type CreateACommentAllOf1OneOf3 struct {
 
 // The parent of the comment. This can be a page or a block.
 type CreateACommentAllOfOneOfParent struct {
-	Type    CreateACommentAllOfOneOfParentType `json:"type"`
+	Type    CreateACommentAllOfOneOfParentType `json:"type,omitzero"`
 	PageID  IDRequest                          `json:"page_id,omitzero"`
 	BlockID IDRequest                          `json:"block_id,omitzero"`
 }
@@ -5195,6 +5210,11 @@ func (v *CreateACommentAllOfOneOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfCreateACommentAllOfOneOfParent, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = CreateACommentAllOfOneOfParentType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfCreateACommentAllOfOneOfParent, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -5224,7 +5244,7 @@ type CreateADatabase struct {
 	// Title of data source as it appears in Notion.
 	Title []RichTextItemRequest `json:"title,omitzero"`
 	// Page icon.
-	Icon PageIconRequest `json:"icon,omitzero"`
+	Icon *PageIconRequest `json:"icon,omitzero"`
 }
 
 // CreateADatabase2 defines a model
@@ -6373,9 +6393,9 @@ type DataSourceObjectResponse struct {
 	// The properties schema of the data source.
 	Properties map[string]DatabasePropertyConfigResponse `json:"properties"`
 	// The icon of the data source.
-	Icon PageIconResponse `json:"icon"`
+	Icon *PageIconResponse `json:"icon"`
 	// The cover of the data source.
-	Cover PageCover2 `json:"cover"`
+	Cover *PageCover2 `json:"cover"`
 	// The URL of the data source.
 	URL string `json:"url"`
 	// The public URL of the data source if it is publicly accessible.
@@ -6447,13 +6467,13 @@ type DataSourceViewObjectResponse struct {
 	// The user who last edited the view, or null if not available.
 	LastEditedBy PartialUserObjectResponse `json:"last_edited_by,omitzero"`
 	// The filter applied to this view (same shape as data source query filter).
-	Filter ViewFilterResponse `json:"filter,omitzero"`
+	Filter *ViewFilterResponse `json:"filter,omitzero"`
 	// The sorts applied to this view (same shape as data source query sorts).
 	Sorts []ViewSortResponse `json:"sorts,omitzero"`
 	// Quick filters pinned to the view's filter bar. Keys are property IDs. Values are filter conditions (same shape as a property filter without the property field). Null when no quick filters are set.
 	QuickFilters map[string]ViewFilter `json:"quick_filters,omitzero"`
 	// View presentation configuration.
-	Configuration ViewConfigResponse `json:"configuration,omitzero"`
+	Configuration *ViewConfigResponse `json:"configuration,omitzero"`
 	// For dashboard widget views, the ID of the parent dashboard view. Only present when this view is a widget inside a dashboard.
 	DashboardViewID string `json:"dashboard_view_id,omitzero"`
 }
@@ -6562,9 +6582,9 @@ type DatabaseObjectResponse struct {
 	// The data sources of the database.
 	DataSources []DataSourceReferenceResponse `json:"data_sources"`
 	// The icon of the database.
-	Icon PageIconResponse `json:"icon"`
+	Icon *PageIconResponse `json:"icon"`
 	// The cover of the database.
-	Cover PageCover2 `json:"cover"`
+	Cover *PageCover2 `json:"cover"`
 	// The URL of the database.
 	URL string `json:"url"`
 	// The public URL of the database if it is publicly accessible.
@@ -6588,7 +6608,7 @@ type DatabasePropertyConfigResponse struct {
 	Name string `json:"name"`
 	// The description of the property.
 	Description    PropertyDescriptionRequest                  `json:"description"`
-	Type           DatabasePropertyConfigResponseType          `json:"type"`
+	Type           DatabasePropertyConfigResponseType          `json:"type,omitzero"`
 	Number         *Number2                                    `json:"number,omitzero"`
 	Formula        *ContentWithExpression                      `json:"formula,omitzero"`
 	Select         *SelectDatabasePropertyConfigSelect         `json:"select,omitzero"`
@@ -6750,6 +6770,11 @@ func (v *DatabasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfDatabasePropertyConfigResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = DatabasePropertyConfigResponseType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyConfigResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -6774,7 +6799,7 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 type DatabasePropertyRelationConfigResponse struct {
 	DatabaseID     IDResponse                                 `json:"database_id"`
 	DataSourceID   IDResponse                                 `json:"data_source_id"`
-	Type           DatabasePropertyRelationConfigResponseType `json:"type"`
+	Type           DatabasePropertyRelationConfigResponseType `json:"type,omitzero"`
 	SingleProperty *EmptyObject                               `json:"single_property,omitzero"`
 	DualProperty   *DualPropertyDualProperty                  `json:"dual_property,omitzero"`
 }
@@ -6820,6 +6845,11 @@ func (v *DatabasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 	*v = DatabasePropertyRelationConfigResponse{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = DatabasePropertyRelationConfigResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers(), jsonStrict(dec))
@@ -8471,7 +8501,7 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Marshal
 // FilesItem defines a model
 type FilesItem struct {
 	Name       StringRequest `json:"name,omitzero"`
-	Type       FilesItemType `json:"type"`
+	Type       FilesItemType `json:"type,omitzero"`
 	File       *InternalFile `json:"file,omitzero"`
 	External   *ExternalFile `json:"external,omitzero"`
 	FileUpload *FileUploadID `json:"file_upload,omitzero"`
@@ -8523,6 +8553,11 @@ func (v *FilesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = FilesItem{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfFilesItem, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = FilesItemType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfFilesItem, v.taggedMembers(), jsonStrict(dec))
@@ -10244,7 +10279,7 @@ type LinkToPage3 struct {
 
 // LinkToPageLinkToPage defines a model
 type LinkToPageLinkToPage struct {
-	Type   LinkToPageLinkToPageType `json:"type"`
+	Type   LinkToPageLinkToPageType `json:"type,omitzero"`
 	PageID IDRequest                `json:"page_id,omitzero"`
 	// The ID of the parent database (with or without dashes), for example, 195de9221179449fab8075a27c979105
 	DatabaseID IDRequest `json:"database_id,omitzero"`
@@ -10297,6 +10332,11 @@ func (v *LinkToPageLinkToPage) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = LinkToPageLinkToPage{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfLinkToPageLinkToPage, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = LinkToPageLinkToPageType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfLinkToPageLinkToPage, v.taggedMembers(), jsonStrict(dec))
@@ -10542,7 +10582,7 @@ func (v *MapViewConfigResponse) unmarshalJSONMember(dec *jsontext.Decoder, name 
 // MediaContentWithFileAndCaptionRequest defines a model
 type MediaContentWithFileAndCaptionRequest struct {
 	Caption    []RichTextItemRequest                     `json:"caption,omitzero"`
-	Type       MediaContentWithFileAndCaptionRequestType `json:"type"`
+	Type       MediaContentWithFileAndCaptionRequestType `json:"type,omitzero"`
 	External   *ExternalFile                             `json:"external,omitzero"`
 	FileUpload *FileUploadID                             `json:"file_upload,omitzero"`
 }
@@ -10588,6 +10628,11 @@ func (v *MediaContentWithFileAndCaptionRequest) UnmarshalJSONFrom(dec *jsontext.
 	*v = MediaContentWithFileAndCaptionRequest{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMediaContentWithFileAndCaptionRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MediaContentWithFileAndCaptionRequestType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionRequest, v.taggedMembers(), jsonStrict(dec))
@@ -10685,7 +10730,7 @@ func (v *MediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Enc
 type MediaContentWithFileNameAndCaptionRequest struct {
 	Caption    []RichTextItemRequest                         `json:"caption,omitzero"`
 	Name       StringRequest                                 `json:"name,omitzero"`
-	Type       MediaContentWithFileNameAndCaptionRequestType `json:"type"`
+	Type       MediaContentWithFileNameAndCaptionRequestType `json:"type,omitzero"`
 	External   *ExternalFile                                 `json:"external,omitzero"`
 	FileUpload *FileUploadID                                 `json:"file_upload,omitzero"`
 }
@@ -10731,6 +10776,11 @@ func (v *MediaContentWithFileNameAndCaptionRequest) UnmarshalJSONFrom(dec *jsont
 	*v = MediaContentWithFileNameAndCaptionRequest{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMediaContentWithFileNameAndCaptionRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MediaContentWithFileNameAndCaptionRequestType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionRequest, v.taggedMembers(), jsonStrict(dec))
@@ -10839,7 +10889,7 @@ type MediaContentWithURLAndCaptionResponse struct {
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
 type MentionRichTextItemRequestMention struct {
-	Type MentionRichTextItemRequestMentionType `json:"type"`
+	Type MentionRichTextItemRequestMentionType `json:"type,omitzero"`
 	// Details of the user mention.
 	User *PartialUserObjectRequest `json:"user,omitzero"`
 	// Details of the date mention.
@@ -10916,6 +10966,11 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMentionRichTextItemRequestMention, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MentionRichTextItemRequestMentionType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemRequestMention, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -10938,7 +10993,7 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
 type MentionRichTextItemResponseMention struct {
-	Type MentionRichTextItemResponseMentionType `json:"type"`
+	Type MentionRichTextItemResponseMentionType `json:"type,omitzero"`
 	// Details of the user mention.
 	User *UserValueResponse `json:"user,omitzero"`
 	// Details of the date mention.
@@ -11030,6 +11085,11 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMentionRichTextItemResponseMention, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MentionRichTextItemResponseMentionType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemResponseMention, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -11116,7 +11176,7 @@ func (v *MovePage2) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // The new parent of the page.
 type MovePageParent struct {
-	Type         MovePageParentType `json:"type"`
+	Type         MovePageParentType `json:"type,omitzero"`
 	PageID       IDRequest          `json:"page_id,omitzero"`
 	DataSourceID IDRequest          `json:"data_source_id,omitzero"`
 }
@@ -11162,6 +11222,11 @@ func (v *MovePageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = MovePageParent{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfMovePageParent, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = MovePageParentType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfMovePageParent, v.taggedMembers(), jsonStrict(dec))
@@ -11826,7 +11891,7 @@ func (v *PageCover2) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // PageCoverRequest defines a model
 type PageCoverRequest struct {
-	Type       PageCoverRequestType `json:"type"`
+	Type       PageCoverRequestType `json:"type,omitzero"`
 	FileUpload *IDObject            `json:"file_upload,omitzero"`
 	// The external URL for the icon.
 	External *LinkPreviewMention `json:"external,omitzero"`
@@ -11873,6 +11938,11 @@ func (v *PageCoverRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PageCoverRequest{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPageCoverRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PageCoverRequestType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPageCoverRequest, v.taggedMembers(), jsonStrict(dec))
@@ -11934,7 +12004,7 @@ type PageIDParentForBlockBasedObject struct {
 
 // PageIconRequest defines a model
 type PageIconRequest struct {
-	Type       PageIconRequestType `json:"type"`
+	Type       PageIconRequestType `json:"type,omitzero"`
 	FileUpload *IDObject           `json:"file_upload,omitzero"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
@@ -12003,6 +12073,11 @@ func (v *PageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPageIconRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PageIconRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfPageIconRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -12025,7 +12100,7 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // PageIconResponse defines a model
 type PageIconResponse struct {
-	Type PageIconResponseType `json:"type"`
+	Type PageIconResponseType `json:"type,omitzero"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
 	// The file URL for the icon.
@@ -12094,6 +12169,11 @@ func (v *PageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PageIconResponse{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPageIconResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PageIconResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPageIconResponse, v.taggedMembers(), jsonStrict(dec))
@@ -12183,9 +12263,9 @@ type PageObjectResponse struct {
 	// Property values of this page.
 	Properties map[string]PagePropertyValueWithIDResponse `json:"properties"`
 	// Page icon.
-	Icon PageIconResponse `json:"icon"`
+	Icon *PageIconResponse `json:"icon"`
 	// Page cover image.
-	Cover PageCover2 `json:"cover"`
+	Cover *PageCover2 `json:"cover"`
 	// User who created the page.
 	CreatedBy PartialUserObjectResponse `json:"created_by"`
 	// User who last edited the page.
@@ -12432,7 +12512,7 @@ type PagePropertiesUpdatedWebhookPayloadAllOf1Data struct {
 
 // PagePropertiesValue defines a model
 type PagePropertiesValue struct {
-	Type         PagePropertiesValueType      `json:"type"`
+	Type         PagePropertiesValueType      `json:"type,omitzero"`
 	Title        []RichTextItemRequest        `json:"title,omitzero"`
 	RichText     []RichTextItemRequest        `json:"rich_text,omitzero"`
 	Number       *float64                     `json:"number,omitzero"`
@@ -12562,6 +12642,11 @@ func (v *PagePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PagePropertiesValue{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPagePropertiesValue, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PagePropertiesValueType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertiesValue, v.taggedMembers(), jsonStrict(dec))
@@ -13334,8 +13419,8 @@ type PatchBlockChildren struct {
 // PatchPage defines a model
 type PatchPage struct {
 	Properties map[string]PagePropertiesValue `json:"properties,omitzero"`
-	Icon       PageIconRequest                `json:"icon,omitzero"`
-	Cover      PageCoverRequest               `json:"cover,omitzero"`
+	Icon       *PageIconRequest               `json:"icon,omitzero"`
+	Cover      *PageCoverRequest              `json:"cover,omitzero"`
 	// Whether the page should be locked from editing in the Notion app UI. If not provided, the locked state will not be updated.
 	IsLocked *bool             `json:"is_locked,omitzero"`
 	Template PatchPageTemplate `json:"template,omitzero"`
@@ -14061,8 +14146,8 @@ func (v *PostDatabaseQuerySortsItem) MarshalJSONTo(enc *jsontext.Encoder) error 
 type PostPage struct {
 	Parent     PostPageParent                 `json:"parent,omitzero"`
 	Properties map[string]PagePropertiesValue `json:"properties,omitzero"`
-	Icon       PageIconRequest                `json:"icon,omitzero"`
-	Cover      PageCoverRequest               `json:"cover,omitzero"`
+	Icon       *PageIconRequest               `json:"icon,omitzero"`
+	Cover      *PageCoverRequest              `json:"cover,omitzero"`
 	Content    []BlockObjectRequest           `json:"content,omitzero"`
 	Children   []BlockObjectRequest           `json:"children,omitzero"`
 	// Page content as Notion-flavored Markdown. Mutually exclusive with content/children.
@@ -14189,7 +14274,7 @@ func (v *PostPageAcceptedOperationAnyOf1) unmarshalJSONMember(dec *jsontext.Deco
 
 // PostPageParent defines a model
 type PostPageParent struct {
-	Type   PostPageParentType `json:"type"`
+	Type   PostPageParentType `json:"type,omitzero"`
 	PageID IDRequest          `json:"page_id,omitzero"`
 	// The ID of the parent database (with or without dashes), for example, 195de9221179449fab8075a27c979105
 	DatabaseID   IDRequest `json:"database_id,omitzero"`
@@ -14249,6 +14334,11 @@ func (v *PostPageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PostPageParent{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPostPageParent, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PostPageParentType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPostPageParent, v.taggedMembers(), jsonStrict(dec))
@@ -14555,7 +14645,7 @@ func (e PostSearchSortAnyOf1Property) Valid() bool {
 type PropertyConfigurationRequest struct {
 	// The description of the property.
 	Description     PropertyDescriptionRequest         `json:"description,omitzero"`
-	Type            PropertyConfigurationRequestType   `json:"type"`
+	Type            PropertyConfigurationRequestType   `json:"type,omitzero"`
 	Number          *Number2                           `json:"number,omitzero"`
 	Formula         *ContentWithExpression             `json:"formula,omitzero"`
 	Select          *SelectPropertyConfigurationSelect `json:"select,omitzero"`
@@ -14747,6 +14837,11 @@ func (v *PropertyConfigurationRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPropertyConfigurationRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PropertyConfigurationRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfPropertyConfigurationRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -14773,7 +14868,7 @@ type PropertyDescriptionRequest string
 // PropertyFilter defines a model
 type PropertyFilter struct {
 	Property       string                     `json:"property"`
-	Type           PropertyFilterType         `json:"type"`
+	Type           PropertyFilterType         `json:"type,omitzero"`
 	Title          *TextPropertyFilter        `json:"title,omitzero"`
 	RichText       *TextPropertyFilter        `json:"rich_text,omitzero"`
 	Number         *NumberPropertyFilter      `json:"number,omitzero"`
@@ -14939,6 +15034,11 @@ func (v *PropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PropertyFilter{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPropertyFilter, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PropertyFilterType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPropertyFilter, v.taggedMembers(), jsonStrict(dec))
@@ -16236,7 +16336,7 @@ type QueryAgentsOkResultsItemOneOf1 struct {
 
 // QueryAgentsOkResultsItemOneOf1Icon defines a model
 type QueryAgentsOkResultsItemOneOf1Icon struct {
-	Type QueryAgentsOkResultsItemOneOf1IconType `json:"type"`
+	Type QueryAgentsOkResultsItemOneOf1IconType `json:"type,omitzero"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
 	// The file URL for the icon.
@@ -16312,6 +16412,11 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) UnmarshalJSONFrom(dec *jsontext.Dec
 	*v = QueryAgentsOkResultsItemOneOf1Icon{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfQueryAgentsOkResultsItemOneOf1Icon, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = QueryAgentsOkResultsItemOneOf1IconType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfQueryAgentsOkResultsItemOneOf1Icon, v.taggedMembers(), jsonStrict(dec))
@@ -18966,7 +19071,7 @@ type Quote5 struct {
 // Relation defines a model
 type Relation struct {
 	DataSourceID   IDRequest                 `json:"data_source_id"`
-	Type           RelationType              `json:"type"`
+	Type           RelationType              `json:"type,omitzero"`
 	SingleProperty *EmptyObject              `json:"single_property,omitzero"`
 	DualProperty   *DualPropertyDualProperty `json:"dual_property,omitzero"`
 }
@@ -19014,6 +19119,11 @@ func (v *Relation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfRelation, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = RelationType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfRelation, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -19036,7 +19146,7 @@ func (v *Relation) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // RelationAllOf2 defines a model
 type RelationAllOf2 struct {
-	Type           RelationAllOf2Type        `json:"type"`
+	Type           RelationAllOf2Type        `json:"type,omitzero"`
 	SingleProperty *EmptyObject              `json:"single_property,omitzero"`
 	DualProperty   *DualPropertyDualProperty `json:"dual_property,omitzero"`
 }
@@ -19082,6 +19192,11 @@ func (v *RelationAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = RelationAllOf2{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfRelationAllOf2, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = RelationAllOf2Type(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfRelationAllOf2, v.taggedMembers(), jsonStrict(dec))
@@ -20528,7 +20643,7 @@ type RevokeTokenOk struct {
 type RichTextItemRequest struct {
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
 	Annotations *Annotation             `json:"annotations,omitzero"`
-	Type        RichTextItemRequestType `json:"type"`
+	Type        RichTextItemRequestType `json:"type,omitzero"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
 	// Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -20585,6 +20700,11 @@ func (v *RichTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfRichTextItemRequest, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = RichTextItemRequestType(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -20613,7 +20733,7 @@ type RichTextItemResponse struct {
 	Href string `json:"href"`
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
 	Annotations Annotation               `json:"annotations"`
-	Type        RichTextItemResponseType `json:"type"`
+	Type        RichTextItemResponseType `json:"type,omitzero"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
 	// Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -20668,6 +20788,11 @@ func (v *RichTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = RichTextItemResponse{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfRichTextItemResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = RichTextItemResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemResponse, v.taggedMembers(), jsonStrict(dec))
@@ -22452,7 +22577,7 @@ type TableViewConfigRequest struct {
 	// Property visibility and display configuration. Pass null to clear.
 	Properties []ViewPropertyConfigRequest `json:"properties,omitzero"`
 	// Group-by configuration for the table. Pass null to remove grouping.
-	GroupBy GroupByConfig `json:"group_by,omitzero"`
+	GroupBy *GroupByConfig `json:"group_by,omitzero"`
 	// Subtask (sub-item) configuration. Pass null to reset subtask config to defaults (which may show subtasks). Use `{ "display_mode": "disabled" }` to explicitly disable subtasks.
 	Subtasks *SubtaskConfig `json:"subtasks,omitzero"`
 	// Whether to wrap cell content in the table.
@@ -22540,7 +22665,7 @@ type TemplateMention struct {
 
 // TemplateMention2 defines a model
 type TemplateMention2 struct {
-	Type TemplateMention2Type `json:"type"`
+	Type TemplateMention2Type `json:"type,omitzero"`
 	// The date of the template mention.
 	TemplateMentionDate TemplateMentionDateTemplateMentionTemplateMentionDate `json:"template_mention_date,omitzero"`
 	// The user of the template mention.
@@ -22588,6 +22713,11 @@ func (v *TemplateMention2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = TemplateMention2{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfTemplateMention2, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = TemplateMention2Type(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfTemplateMention2, v.taggedMembers(), jsonStrict(dec))
@@ -23360,7 +23490,7 @@ type UpdateABlockAnyOf struct {
 // UpdateABlockAnyOf0 defines a model
 type UpdateABlockAnyOf0 struct {
 	InTrash          *bool                                            `json:"in_trash,omitzero"`
-	Type             UpdateABlockAnyOf0Type                           `json:"type"`
+	Type             UpdateABlockAnyOf0Type                           `json:"type,omitzero"`
 	Embed            *EmbedEmbed                                      `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption                   `json:"bookmark,omitzero"`
 	Image            *UpdateMediaContentWithFileAndCaptionRequest     `json:"image,omitzero"`
@@ -23576,6 +23706,11 @@ func (v *UpdateABlockAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfUpdateABlockAnyOf0, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = UpdateABlockAnyOf0Type(tag)
+	}
+
 	return jsonCheckTag("type", string(v.Type), tagsOfUpdateABlockAnyOf0, v.taggedMembers(), jsonStrict(dec))
 }
 
@@ -23665,7 +23800,7 @@ type UpdateADataSource struct {
 	// Title of data source as it appears in Notion.
 	Title []RichTextItemRequest `json:"title,omitzero"`
 	// Data source icon.
-	Icon PageIconRequest `json:"icon,omitzero"`
+	Icon *PageIconRequest `json:"icon,omitzero"`
 	// The property schema of the data source. The keys are property names or IDs, and the values are property configuration objects. Properties set to null will be removed.
 	Properties map[string]UpdateADataSourcePropertiesValue `json:"properties,omitzero"`
 	// Whether the data source should be moved to or from the trash. If not provided, the trash status will not be updated.
@@ -23738,7 +23873,7 @@ type UpdateADataSourcePropertiesValueOneOf0 struct {
 	Name string `json:"name,omitzero"`
 	// The description of the property.
 	Description    PropertyDescriptionRequest                 `json:"description,omitzero"`
-	Type           UpdateADataSourcePropertiesValueOneOf0Type `json:"type"`
+	Type           UpdateADataSourcePropertiesValueOneOf0Type `json:"type,omitzero"`
 	Number         *Number2                                   `json:"number,omitzero"`
 	Formula        *ContentWithExpression                     `json:"formula,omitzero"`
 	Select         *Select5                                   `json:"select,omitzero"`
@@ -23904,6 +24039,11 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) UnmarshalJSONFrom(dec *jsontext
 	*v = UpdateADataSourcePropertiesValueOneOf0{}
 	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfUpdateADataSourcePropertiesValueOneOf0, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = UpdateADataSourcePropertiesValueOneOf0Type(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfUpdateADataSourcePropertiesValueOneOf0, v.taggedMembers(), jsonStrict(dec))
@@ -24879,7 +25019,7 @@ type VerificationPropertyResponse struct {
 	// One of: `verified`, `expired`
 	State      VerificationPropertyResponseState `json:"state"`
 	Date       Date4                             `json:"date"`
-	VerifiedBy UserValueResponse                 `json:"verified_by"`
+	VerifiedBy *UserValueResponse                `json:"verified_by"`
 }
 
 // One of: `verified`, `expired`

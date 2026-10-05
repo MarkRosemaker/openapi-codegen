@@ -12,6 +12,10 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 )
 
+// jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
+// decoding failed, and as a caller's own type of a result is decoded.
+var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
+
 // ListPetsParams holds the query parameters for ListPets.
 type ListPetsParams struct {
 	Limit int
