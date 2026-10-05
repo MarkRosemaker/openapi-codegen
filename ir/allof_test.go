@@ -51,7 +51,7 @@ func TestFromDocument_UnionDiscriminator(t *testing.T) {
 		},
 		"Undecided": {"oneOf": [{"$ref": "#/components/schemas/Cat"}, {"$ref": "#/components/schemas/Kitten"}]},
 		"Cat": {"type": "object", "properties": {"type": {"type": "string", "const": "cat"}, "kind": {"type": "string"}}},
-		"Dog": {"type": "object", "properties": {"type": {"type": "string", "const": "dog"}, "kind": {"type": "string"}}},
+		"Dog": {"type": "object", "properties": {"type": {"type": "string", "const": "dog"}, "kind": {"type": "string"}, "bark": {"type": "string"}}},
 		"Kitten": {"type": "object", "properties": {"type": {"type": "string", "const": "cat"}}}
 	}`)
 

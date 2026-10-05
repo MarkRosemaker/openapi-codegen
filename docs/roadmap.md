@@ -15,7 +15,8 @@ a request body can reach; a type both use keeps its pointers.
 A request parameter that can take only one value is sent by the client
 itself. A request body's field that can take only one value, its `const` or
 the only value of its `enum`, is still the caller's to set, such as a
-discriminator like Notion's `type`. A constructor, or a method that fills in
+discriminator of a union that is not a tagged struct, which infers its own.
+A constructor, or a method that fills in
 every such field left at its zero value, would spare the caller that, for a
 struct used in a request body, or in one. Filling them in inside the
 operation method instead would override what the caller set.

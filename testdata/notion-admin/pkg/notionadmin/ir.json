@@ -9323,116 +9323,48 @@
 		{
 			"name": "RevokeUserSessionUser",
 			"description": "The managed user whose active sessions should be revoked.",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "RevokeUserSessionUserOneOf0",
-					"type": "RevokeUserSessionUserOneOf0",
-					"value": "email",
-					"members": [
-						"email",
-						"type"
-					],
-					"required": [
-						"email",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "RevokeUserSessionUserOneOf1",
-					"type": "RevokeUserSessionUserOneOf1",
-					"value": "id",
-					"members": [
-						"id",
-						"type"
-					],
-					"required": [
-						"id",
-						"type"
-					],
-					"object": true
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "RevokeUserSessionUserOneOf0",
-					"type": "RevokeUserSessionUserOneOf0",
-					"value": "email",
-					"members": [
-						"email",
-						"type"
-					],
-					"required": [
-						"email",
-						"type"
-					],
-					"object": true
-				},
-				{
-					"fieldName": "RevokeUserSessionUserOneOf1",
-					"type": "RevokeUserSessionUserOneOf1",
-					"value": "id",
-					"members": [
-						"id",
-						"type"
-					],
-					"required": [
-						"id",
-						"type"
-					],
-					"object": true
-				}
-			],
-			"isOneOf": true,
-			"discriminator": "type",
-			"streamed": true
-		},
-		{
-			"name": "RevokeUserSessionUserOneOf0",
-			"description": "RevokeUserSessionUserOneOf0 defines a model",
 			"fields": [
 				{
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
 					"jsonTag": "json:\"type\"",
-					"description": "Always `email`",
 					"required": true
 				},
 				{
 					"name": "Email",
 					"jsonName": "email",
 					"type": "string",
-					"jsonTag": "json:\"email\"",
-					"description": "The managed user's primary email address.",
-					"required": true
-				}
-			],
-			"memberDecoder": true
-		},
-		{
-			"name": "RevokeUserSessionUserOneOf1",
-			"description": "RevokeUserSessionUserOneOf1 defines a model",
-			"fields": [
-				{
-					"name": "Type",
-					"jsonName": "type",
-					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "Always `id`",
-					"required": true
+					"jsonTag": "json:\"email,omitzero\"",
+					"description": "The managed user's primary email address."
 				},
 				{
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"description": "The managed user's Notion user UUID.",
-					"required": true
+					"jsonTag": "json:\"id,omitzero\"",
+					"description": "The managed user's Notion user UUID."
 				}
 			],
-			"memberDecoder": true
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "string",
+				"values": [
+					{
+						"value": "email",
+						"field": "Email",
+						"zero": "\"\"",
+						"required": true
+					},
+					{
+						"value": "id",
+						"field": "ID",
+						"zero": "\"\"",
+						"required": true
+					}
+				]
+			}
 		},
 		{
 			"name": "Status",

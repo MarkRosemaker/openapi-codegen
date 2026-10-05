@@ -1,8 +1,8 @@
 // This file is written by hand, not by the generator.
 //
 // It pins how unions decode: by a discriminating member where one exists,
-// wherever it comes, and, as part of an allOf, each part from the members it
-// declares.
+// wherever it comes, and, for one whose alternatives differ only in their
+// tag and the member named after it, as one struct that checks them.
 
 package notionofficial
 
@@ -44,7 +44,8 @@ func TestUnion_Discriminator(t *testing.T) {
 	}
 }
 
-func TestAllOf_Union(t *testing.T) {
+func TestTagged_AllOf(t *testing.T) {
+	// an allOf whose union differs only in type and the member named after it is one struct
 	const page = `{"type":"page_id","page_id":"59833787-2cf9-4fdf-8782-e53db20768a5"}`
 
 	var p CreateDatabaseParent
@@ -52,9 +53,8 @@ func TestAllOf_Union(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// the field outside the union and the chosen alternative both get the members they declare
-	if p.Type != "page_id" || p.CreateDatabaseParentAllOf2.PageID == nil {
-		t.Errorf("got %+v, want type page_id and the page alternative", p)
+	if p.Type != "page_id" || p.PageID != "59833787-2cf9-4fdf-8782-e53db20768a5" || p.Workspace != nil {
+		t.Errorf("got %+v, want type page_id and only its member", p)
 	}
 
 	out, err := json.Marshal(&p, jsonOpts)
@@ -78,8 +78,10 @@ func TestAllOf_Union(t *testing.T) {
 
 	for in, want := range map[string]string{
 		`{"type":"page_id","page_id":"59833787-2cf9-4fdf-8782-e53db20768a5","extra":1}`: `unknown object member name "extra"`,
-		`{"type":"page_id","workspace":true}`:                                           `unknown object member name "workspace"`,
-		`{"page_id":"59833787-2cf9-4fdf-8782-e53db20768a5"}`:                            `missing object member name "type"`,
+		`{"type":"page_id","page_id":"59833787-2cf9-4fdf-8782-e53db20768a5","workspace":true}`: `type "page_id" does not allow member "workspace"`,
+		`{"type":"page_id"}`: `missing object member name "page_id"`,
+		`{"type":"block_id"}`: `unknown value of "type"`,
+		`{"page_id":"59833787-2cf9-4fdf-8782-e53db20768a5"}`: `missing object member name "type"`,
 		`{}`: `missing object member name "type"`,
 	} {
 		var p CreateDatabaseParent
@@ -89,8 +91,31 @@ func TestAllOf_Union(t *testing.T) {
 	}
 }
 
-func TestAllOf_NestedUnion(t *testing.T) {
-	// the alternative is a leaf two unions deep, chosen by its type like any other
+func TestTagged_Encode(t *testing.T) {
+	// left empty, type is the value whose member is set
+	out, err := json.Marshal(&CreateDatabaseParent{Workspace: new(true)}, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(out) != `{"type":"workspace","workspace":true}` {
+		t.Errorf("got %s", out)
+	}
+
+	// a member type does not name is refused, as is a type whose member is missing
+	for _, p := range []CreateDatabaseParent{
+		{Type: "page_id", PageID: "59833787-2cf9-4fdf-8782-e53db20768a5", Workspace: new(true)},
+		{Type: "workspace"},
+		{},
+	} {
+		if _, err := json.Marshal(&p, jsonOpts); err == nil {
+			t.Errorf("%+v: encoded, want an error", p)
+		}
+	}
+}
+
+func TestTagged_Nested(t *testing.T) {
+	// a union of unions tagged alike is one struct too, its leaves two unions deep
 	const number = `{"type":"number","id":"abc","number":3}`
 
 	var p PagePropertyValueWithIDResponse
@@ -98,11 +123,8 @@ func TestAllOf_NestedUnion(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	value := p.PagePropertyValueWithIDResponseAllOf1.SimpleOrArrayPropertyValueResponse
-	if p.ID != "abc" || value == nil || value.SimplePropertyValueResponse == nil ||
-		value.SimplePropertyValueResponse.NumberSimplePropertyValue == nil ||
-		*value.SimplePropertyValueResponse.NumberSimplePropertyValue.Number != 3 {
-		t.Fatalf("got %+v, want id abc and the number 3 two unions deep", p)
+	if p.ID != "abc" || p.Type != "number" || p.Number == nil || *p.Number != 3 {
+		t.Fatalf("got %+v, want id abc and the number 3", p)
 	}
 
 	out, err := json.Marshal(&p, jsonOpts)
@@ -110,9 +132,18 @@ func TestAllOf_NestedUnion(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// the discriminator comes first again, so the result decodes as well
-	if string(out) != `{"type":"number","id":"abc","number":3}` {
+	if string(out) != `{"id":"abc","type":"number","number":3}` {
 		t.Errorf("got %s", out)
+	}
+
+	// a member that can be null may be, and one of the other union's is no more allowed than any other
+	if err := json.Unmarshal([]byte(`{"type":"url","id":"abc","url":null}`), &p, jsonOpts); err != nil {
+		t.Errorf("null url: %v", err)
+	}
+
+	if err := json.Unmarshal([]byte(`{"type":"number","id":"abc","number":3,"title":[]}`), &p, jsonOpts); err == nil ||
+		!strings.Contains(err.Error(), `type "number" does not allow member "title"`) {
+		t.Errorf("got %v, want title refused", err)
 	}
 }
 
