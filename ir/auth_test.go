@@ -17,7 +17,8 @@ func TestFromDocument_AuthPerOperation(t *testing.T) {
   "paths": {
     "/pets": {"get": {"operationId": "listPets", "responses": {"204": {"description": "ok"}}}},
     "/token": {"post": {"operationId": "createToken", "security": [{"basicAuth": []}], "responses": {"204": {"description": "ok"}}}},
-    "/health": {"get": {"operationId": "health", "security": [], "responses": {"204": {"description": "ok"}}}}
+    "/health": {"get": {"operationId": "health", "security": [], "responses": {"204": {"description": "ok"}}}},
+    "/feed": {"get": {"operationId": "getFeed", "security": [{}, {"bearerAuth": []}], "responses": {"204": {"description": "ok"}}}}
   },
   "components": {
     "securitySchemes": {
@@ -39,10 +40,15 @@ func TestFromDocument_AuthPerOperation(t *testing.T) {
 		t.Errorf("default auth is %q, want bearer", irDoc.Auth.Default)
 	}
 
-	want := map[string]ir.AuthScheme{"ListPets": ir.AuthBearer, "CreateToken": ir.AuthBasic, "Health": ""}
+	want := map[string]ir.AuthScheme{"ListPets": ir.AuthBearer, "CreateToken": ir.AuthBasic, "Health": "", "GetFeed": ir.AuthBearer}
 	for _, op := range irDoc.Operations {
 		if op.Auth != want[op.Name] {
 			t.Errorf("%s sends %q, want %q", op.Name, op.Auth, want[op.Name])
+		}
+
+		// optional credentials are sent all the same, and only GetFeed's are optional
+		if op.AuthOptional != (op.Name == "GetFeed") {
+			t.Errorf("%s: credentials optional is %v", op.Name, op.AuthOptional)
 		}
 	}
 }

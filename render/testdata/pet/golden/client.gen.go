@@ -68,7 +68,12 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 
 // GET /pets
 func (c *Client) ListPets(ctx context.Context, params *ListPetsParams) ([]Pet, error) {
-	return c.ListPetsWithResult[[]Pet](ctx, params)
+	out, err := c.ListPetsWithResult[[]Pet](ctx, params)
+	if err != nil {
+		return nil, err
+	}
+
+	return *out, nil
 }
 
 // GET /pets
