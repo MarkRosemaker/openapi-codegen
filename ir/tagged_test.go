@@ -1,6 +1,7 @@
 package ir_test
 
 import (
+	"reflect"
 	"slices"
 	"testing"
 
@@ -72,17 +73,22 @@ func TestFromDocument_Tagged(t *testing.T) {
 		t.Fatalf("Block is not tagged: %+v", block)
 	}
 
-	if got, want := fields(block), []string{"ID string", "Type string", "Paragraph *Text", "Divider *struct{}"}; !slices.Equal(got, want) {
+	if got, want := fields(block), []string{"ID string", "Type BlockType", "Paragraph *Text", "Divider *struct{}"}; !slices.Equal(got, want) {
 		t.Errorf("Block fields: got %q, want %q", got, want)
 	}
 
 	want := []ir.TaggedValue{
-		{Value: "paragraph", Field: "Paragraph", Zero: "nil", Required: true},
-		{Value: "divider", Field: "Divider", Zero: "nil"},
+		{Value: "paragraph", Members: []ir.TaggedOwn{{Name: "paragraph", Required: true}}},
+		{Value: "divider", Members: []ir.TaggedOwn{{Name: "divider"}}},
 		{Value: "breadcrumb"},
 	}
-	if !slices.Equal(block.Tagged.Values, want) {
+	if !reflect.DeepEqual(block.Tagged.Values, want) {
 		t.Errorf("Block values: got %+v, want %+v", block.Tagged.Values, want)
+	}
+
+	// the tag is an enum of its values
+	if got := block.Tagged.Enum; len(got) != 3 || got[0].GoName != "BlockTypeParagraph" || got[2].Value != "breadcrumb" {
+		t.Errorf("Block enum: got %+v", got)
 	}
 
 	// its alternatives are needed by nothing else, so they get no type; Text is a member's type
@@ -102,7 +108,7 @@ func TestFromDocument_Tagged(t *testing.T) {
 		t.Fatalf("Parent is not tagged: %+v", parent)
 	}
 
-	if got, want := fields(parent), []string{"Note string", "Type string", "PageID string", "Workspace *bool"}; !slices.Equal(got, want) {
+	if got, want := fields(parent), []string{"Note string", "Type ParentType", "PageID string", "Workspace *bool"}; !slices.Equal(got, want) {
 		t.Errorf("Parent fields: got %q, want %q", got, want)
 	}
 

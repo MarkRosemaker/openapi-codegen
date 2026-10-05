@@ -9327,7 +9327,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "RevokeUserSessionUserType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -9349,19 +9349,49 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "RevokeUserSessionUserType",
+				"enum": [
+					{
+						"goName": "RevokeUserSessionUserTypeEmail",
+						"value": "email",
+						"literal": "\"email\""
+					},
+					{
+						"goName": "RevokeUserSessionUserTypeID",
+						"value": "id",
+						"literal": "\"id\""
+					}
+				],
 				"values": [
 					{
 						"value": "email",
-						"field": "Email",
-						"zero": "\"\"",
-						"required": true
+						"members": [
+							{
+								"name": "email",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "id",
+						"members": [
+							{
+								"name": "id",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "email",
+						"field": "Email",
+						"zero": "\"\""
+					},
+					{
+						"name": "id",
 						"field": "ID",
-						"zero": "\"\"",
-						"required": true
+						"zero": "\"\""
 					}
 				]
 			}

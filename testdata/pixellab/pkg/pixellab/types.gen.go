@@ -1255,6 +1255,8 @@ type CreateCharacterWithDirectionsProportionsAnyOf struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *CreateCharacterWithDirectionsProportionsAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateCharacterWithDirectionsProportionsAnyOf{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -1604,6 +1606,8 @@ type CreateMapObjectRequestInpainting struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateMapObjectRequestInpainting{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -1705,6 +1709,8 @@ type CreateObjectProFlashImageSize struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateObjectProFlashImageSize) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateObjectProFlashImageSize{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -2113,6 +2119,8 @@ type CreateUIAssetRequestPiecesAnyOf0Item struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member kind names the alternative, which then
 // decodes each further member as it is read. With kind first, nothing is read twice.
 func (v *CreateUIAssetRequestPiecesAnyOf0Item) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateUIAssetRequestPiecesAnyOf0Item{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "kind")
 	if err != nil {
 		return err
@@ -4118,6 +4126,8 @@ type ValidationErrorLocItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ValidationErrorLocItem{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()

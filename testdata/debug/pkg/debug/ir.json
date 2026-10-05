@@ -87,7 +87,7 @@
 				{
 					"name": "Type",
 					"jsonName": "type",
-					"type": "string",
+					"type": "BlockType",
 					"jsonTag": "json:\"type\"",
 					"required": true
 				},
@@ -101,16 +101,38 @@
 			"tagged": {
 				"tag": "type",
 				"field": "Type",
-				"type": "string",
+				"type": "BlockType",
+				"enum": [
+					{
+						"goName": "BlockTypeParagraph",
+						"value": "paragraph",
+						"literal": "\"paragraph\""
+					},
+					{
+						"goName": "BlockTypeDivider",
+						"value": "divider",
+						"literal": "\"divider\""
+					}
+				],
 				"values": [
 					{
 						"value": "paragraph",
-						"field": "Paragraph",
-						"zero": "nil",
-						"required": true
+						"members": [
+							{
+								"name": "paragraph",
+								"required": true
+							}
+						]
 					},
 					{
 						"value": "divider"
+					}
+				],
+				"members": [
+					{
+						"name": "paragraph",
+						"field": "Paragraph",
+						"zero": "nil"
 					}
 				]
 			}

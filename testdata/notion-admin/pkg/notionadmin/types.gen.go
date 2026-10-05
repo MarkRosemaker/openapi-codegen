@@ -10,6 +10,7 @@ import (
 	"encoding/json/v2"
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 	"strconv"
 	"uuid"
@@ -505,6 +506,8 @@ type AdminAPIPublicErrorAdditionalDataValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AdminAPIPublicErrorAdditionalDataValue{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -737,6 +740,8 @@ type CreateCreditLimitPolicySelector struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *CreateCreditLimitPolicySelector) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateCreditLimitPolicySelector{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -864,6 +869,8 @@ type CreatorIds struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreatorIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreatorIds{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -1019,6 +1026,8 @@ type ExportLegalHold struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ExportLegalHold{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -1646,6 +1655,8 @@ var variantsOfListUsersOkResultsItem = []jsonVariant{
 // ListUsersOkResultsItemAllOf1; each further member then decodes as it is read, into the fields or the alternative that declares
 // it, and a member neither declares is an error. With type first, nothing is read twice.
 func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ListUsersOkResultsItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -1743,6 +1754,8 @@ type ListUsersOkResultsItemAllOf1 struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *ListUsersOkResultsItemAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ListUsersOkResultsItemAllOf1{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -1895,20 +1908,34 @@ type RevokeUserSessionOk struct {
 
 // The managed user whose active sessions should be revoked.
 type RevokeUserSessionUser struct {
-	Type string `json:"type"`
+	Type RevokeUserSessionUserType `json:"type"`
 	// The managed user's primary email address.
 	Email string `json:"email,omitzero"`
 	// The managed user's Notion user UUID.
 	ID string `json:"id,omitzero"`
 }
 
-// tagsOfRevokeUserSessionUser says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfRevokeUserSessionUser = map[string]jsonTagMember{
-	"email": jsonTagRequired,
-	"id":    jsonTagRequired,
+// RevokeUserSessionUserType is a value of RevokeUserSessionUser's type, naming the members it holds.
+type RevokeUserSessionUserType string
+
+const (
+	RevokeUserSessionUserTypeEmail RevokeUserSessionUserType = "email"
+	RevokeUserSessionUserTypeID    RevokeUserSessionUserType = "id"
+)
+
+// Valid indicates whether the value is a known member of the RevokeUserSessionUserType enum.
+func (e RevokeUserSessionUserType) Valid() bool {
+	_, ok := tagsOfRevokeUserSessionUser[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfRevokeUserSessionUser holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfRevokeUserSessionUser = map[string]map[string]bool{
+	"email": {"email": true},
+	"id":    {"id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *RevokeUserSessionUser) taggedMembers() []string {
 	var set []string
 	if v.Email != "" {
@@ -1921,8 +1948,8 @@ func (v *RevokeUserSessionUser) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RevokeUserSessionUser
 
@@ -1940,8 +1967,8 @@ func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain RevokeUserSessionUser
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfRevokeUserSessionUser, set); ok && out.Type == "" {
+		out.Type = RevokeUserSessionUserType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfRevokeUserSessionUser, set, true); err != nil {
@@ -1962,6 +1989,8 @@ type Status struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Status{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -2200,6 +2229,8 @@ type UpdateAgentPermissionsRemoveItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *UpdateAgentPermissionsRemoveItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UpdateAgentPermissionsRemoveItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -2489,6 +2520,8 @@ type UserIds struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UserIds{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -3119,19 +3152,11 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	return chosen, nil
 }
 
-// jsonTagMember says whether a value of a tag needs the member named after it, allows it, or allows none.
-type jsonTagMember int
-
-const (
-	jsonTagNone jsonTagMember = iota
-	jsonTagOptional
-	jsonTagRequired
-)
-
-// jsonCheckTag reports an error unless, of the members named after a value of the tag name, set holds only the one
-// tag names, and holds it if it is required. Not strict, it lets set hold others.
-func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string, strict bool) error {
-	m, ok := members[tag]
+// jsonCheckTag reports an error unless set, the members of an alternative's own that are set, holds only members of
+// the alternative the value tag of the tag name names, and every one of them it requires. Not strict, set may hold
+// others too.
+func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []string, strict bool) error {
+	members, ok := tags[tag]
 	switch {
 	case tag == "":
 		return jsonMissing(name)
@@ -3140,14 +3165,48 @@ func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []stri
 	}
 
 	for _, s := range set {
-		if strict && (s != tag || m == jsonTagNone) {
+		if _, ok := members[s]; strict && !ok {
 			return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("%s %q does not allow member %q", name, tag, s)}
 		}
 	}
 
-	if m == jsonTagRequired && !slices.Contains(set, tag) {
-		return jsonMissing(tag)
+	for _, m := range slices.Sorted(maps.Keys(members)) {
+		if members[m] && !slices.Contains(set, m) {
+			return jsonMissing(m)
+		}
 	}
 
 	return nil
+}
+
+// jsonInferTag returns the value of a tag whose alternative is the one of tags that set, the members of an
+// alternative's own that are set, names: the one set member is a value whose alternative allows all of set.
+func jsonInferTag(tags map[string]map[string]bool, set []string) (string, bool) {
+	tag := ""
+
+	for _, s := range set {
+		members, ok := tags[s]
+		if !ok || !allIn(set, members) {
+			continue
+		}
+
+		if tag != "" {
+			return "", false
+		}
+
+		tag = s
+	}
+
+	return tag, tag != ""
+}
+
+// allIn reports whether every one of names is a key of m.
+func allIn(names []string, m map[string]bool) bool {
+	for _, n := range names {
+		if _, ok := m[n]; !ok {
+			return false
+		}
+	}
+
+	return true
 }

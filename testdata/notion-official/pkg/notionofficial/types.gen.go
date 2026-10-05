@@ -10,6 +10,7 @@ import (
 	"encoding/json/v2"
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 	"strconv"
 	"time"
@@ -137,6 +138,8 @@ type ABlock struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ABlock) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ABlock{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -291,6 +294,8 @@ type AgentBatchOperationsItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member action names the alternative, which then
 // decodes each further member as it is read. With action first, nothing is read twice.
 func (v *AgentBatchOperationsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentBatchOperationsItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "action")
 	if err != nil {
 		return err
@@ -436,6 +441,8 @@ type AgentConnectionsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentConnectionsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -601,6 +608,8 @@ type AgentConnectionsItemOneOfAccount struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentConnectionsItemOneOfAccount) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfAccount{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -657,6 +666,8 @@ type AgentConnectionsItemOneOfAccount2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentConnectionsItemOneOfAccount2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfAccount2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -713,6 +724,8 @@ type AgentConnectionsItemOneOfAccount3 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentConnectionsItemOneOfAccount3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfAccount3{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -791,6 +804,8 @@ type AgentConnectionsItemOneOfEnabledTools struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentConnectionsItemOneOfEnabledTools) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfEnabledTools{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -902,6 +917,8 @@ type AgentConnectionsItemOneOfPermissionsItemTarget struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *AgentConnectionsItemOneOfPermissionsItemTarget) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfPermissionsItemTarget{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -1013,6 +1030,8 @@ type AgentConnectionsItemOneOfPermissionsItemTarget2 struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *AgentConnectionsItemOneOfPermissionsItemTarget2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfPermissionsItemTarget2{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -1087,6 +1106,8 @@ type AgentConnectionsItemOneOfPermissionsItemTarget3 struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *AgentConnectionsItemOneOfPermissionsItemTarget3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentConnectionsItemOneOfPermissionsItemTarget3{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -1433,6 +1454,8 @@ type AgentCreditLimit struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentCreditLimit) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentCreditLimit{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -1489,6 +1512,8 @@ type AgentID struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentID{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -1554,26 +1579,6 @@ func (e AgentIDOneOf) Valid() bool {
 	}
 }
 
-// AgentIDParentForBlockBasedObjectResponse defines a model
-type AgentIDParentForBlockBasedObjectResponse struct {
-	// The parent type.
-	Type string `json:"type"`
-	// The ID of the parent agent.
-	AgentID IDResponse `json:"agent_id"`
-}
-
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether AgentIDParentForBlockBasedObjectResponse declares it.
-func (v *AgentIDParentForBlockBasedObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
-	case "agent_id":
-		return true, json.UnmarshalDecode(dec, &v.AgentID, jsonOptsOf(dec))
-	}
-
-	return false, nil
-}
-
 // AgentIcon defines a model
 // AgentIcon is an untagged oneOf union: exactly one field is set after unmarshaling.
 type AgentIcon struct {
@@ -1583,6 +1588,8 @@ type AgentIcon struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentIcon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentIcon{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -1674,6 +1681,8 @@ type AgentLastRunAt struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentLastRunAt) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentLastRunAt{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -1731,6 +1740,8 @@ type AgentModel struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member mode names the alternative, which then
 // decodes each further member as it is read. With mode first, nothing is read twice.
 func (v *AgentModel) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentModel{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "mode")
 	if err != nil {
 		return err
@@ -1922,6 +1933,8 @@ type AgentTriggersItemScheduleEnd struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *AgentTriggersItemScheduleEnd) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = AgentTriggersItemScheduleEnd{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -2132,25 +2145,39 @@ func (e BaseWebhookPayloadAPIVersion) Valid() bool {
 // BaseWebhookPayloadAuthorsItem defines a model
 type BaseWebhookPayloadAuthorsItem struct {
 	// The ID of the user.
-	ID   IDResponse `json:"id"`
-	Type string     `json:"type"`
+	ID   IDResponse                        `json:"id"`
+	Type BaseWebhookPayloadAuthorsItemType `json:"type"`
 }
 
-// tagsOfBaseWebhookPayloadAuthorsItem says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfBaseWebhookPayloadAuthorsItem = map[string]jsonTagMember{
-	"person": jsonTagNone,
-	"bot":    jsonTagNone,
+// BaseWebhookPayloadAuthorsItemType is a value of BaseWebhookPayloadAuthorsItem's type, naming the members it holds.
+type BaseWebhookPayloadAuthorsItemType string
+
+const (
+	BaseWebhookPayloadAuthorsItemTypePerson BaseWebhookPayloadAuthorsItemType = "person"
+	BaseWebhookPayloadAuthorsItemTypeBot    BaseWebhookPayloadAuthorsItemType = "bot"
+)
+
+// Valid indicates whether the value is a known member of the BaseWebhookPayloadAuthorsItemType enum.
+func (e BaseWebhookPayloadAuthorsItemType) Valid() bool {
+	_, ok := tagsOfBaseWebhookPayloadAuthorsItem[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfBaseWebhookPayloadAuthorsItem holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfBaseWebhookPayloadAuthorsItem = map[string]map[string]bool{
+	"person": {},
+	"bot":    {},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *BaseWebhookPayloadAuthorsItem) taggedMembers() []string {
 	var set []string
 
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *BaseWebhookPayloadAuthorsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BaseWebhookPayloadAuthorsItem
 
@@ -2168,8 +2195,8 @@ func (v *BaseWebhookPayloadAuthorsItem) MarshalJSONTo(enc *jsontext.Encoder) err
 	type plain BaseWebhookPayloadAuthorsItem
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfBaseWebhookPayloadAuthorsItem, set); ok && out.Type == "" {
+		out.Type = BaseWebhookPayloadAuthorsItemType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfBaseWebhookPayloadAuthorsItem, set, true); err != nil {
@@ -2197,22 +2224,10 @@ type BlockIDParentForBlockBasedObject struct {
 	BlockID IDResponse `json:"block_id"`
 }
 
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether BlockIDParentForBlockBasedObject declares it.
-func (v *BlockIDParentForBlockBasedObject) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
-	case "block_id":
-		return true, json.UnmarshalDecode(dec, &v.BlockID, jsonOptsOf(dec))
-	}
-
-	return false, nil
-}
-
 // BlockObjectRequest defines a model
 type BlockObjectRequest struct {
 	Object           string                                     `json:"object,omitzero"`
-	Type             string                                     `json:"type"`
+	Type             BlockObjectRequestType                     `json:"type"`
 	Embed            *Embed2                                    `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption             `json:"bookmark,omitzero"`
 	Image            *MediaContentWithFileAndCaptionRequest     `json:"image,omitzero"`
@@ -2246,42 +2261,85 @@ type BlockObjectRequest struct {
 	SyncedBlock      *SyncedBlockSyncedBlock2                   `json:"synced_block,omitzero"`
 }
 
-// tagsOfBlockObjectRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfBlockObjectRequest = map[string]jsonTagMember{
-	"embed":              jsonTagRequired,
-	"bookmark":           jsonTagRequired,
-	"image":              jsonTagRequired,
-	"video":              jsonTagRequired,
-	"pdf":                jsonTagRequired,
-	"file":               jsonTagRequired,
-	"audio":              jsonTagRequired,
-	"code":               jsonTagRequired,
-	"equation":           jsonTagRequired,
-	"divider":            jsonTagRequired,
-	"breadcrumb":         jsonTagRequired,
-	"tab":                jsonTagRequired,
-	"table_of_contents":  jsonTagRequired,
-	"link_to_page":       jsonTagRequired,
-	"table_row":          jsonTagRequired,
-	"table":              jsonTagRequired,
-	"column_list":        jsonTagRequired,
-	"column":             jsonTagRequired,
-	"heading_1":          jsonTagRequired,
-	"heading_2":          jsonTagRequired,
-	"heading_3":          jsonTagRequired,
-	"heading_4":          jsonTagRequired,
-	"paragraph":          jsonTagRequired,
-	"bulleted_list_item": jsonTagRequired,
-	"numbered_list_item": jsonTagRequired,
-	"quote":              jsonTagRequired,
-	"to_do":              jsonTagRequired,
-	"toggle":             jsonTagRequired,
-	"template":           jsonTagRequired,
-	"callout":            jsonTagRequired,
-	"synced_block":       jsonTagRequired,
+// BlockObjectRequestType is a value of BlockObjectRequest's type, naming the members it holds.
+type BlockObjectRequestType string
+
+const (
+	BlockObjectRequestTypeEmbed            BlockObjectRequestType = "embed"
+	BlockObjectRequestTypeBookmark         BlockObjectRequestType = "bookmark"
+	BlockObjectRequestTypeImage            BlockObjectRequestType = "image"
+	BlockObjectRequestTypeVideo            BlockObjectRequestType = "video"
+	BlockObjectRequestTypePdf              BlockObjectRequestType = "pdf"
+	BlockObjectRequestTypeFile             BlockObjectRequestType = "file"
+	BlockObjectRequestTypeAudio            BlockObjectRequestType = "audio"
+	BlockObjectRequestTypeCode             BlockObjectRequestType = "code"
+	BlockObjectRequestTypeEquation         BlockObjectRequestType = "equation"
+	BlockObjectRequestTypeDivider          BlockObjectRequestType = "divider"
+	BlockObjectRequestTypeBreadcrumb       BlockObjectRequestType = "breadcrumb"
+	BlockObjectRequestTypeTab              BlockObjectRequestType = "tab"
+	BlockObjectRequestTypeTableOfContents  BlockObjectRequestType = "table_of_contents"
+	BlockObjectRequestTypeLinkToPage       BlockObjectRequestType = "link_to_page"
+	BlockObjectRequestTypeTableRow         BlockObjectRequestType = "table_row"
+	BlockObjectRequestTypeTable            BlockObjectRequestType = "table"
+	BlockObjectRequestTypeColumnList       BlockObjectRequestType = "column_list"
+	BlockObjectRequestTypeColumn           BlockObjectRequestType = "column"
+	BlockObjectRequestTypeHeading1         BlockObjectRequestType = "heading_1"
+	BlockObjectRequestTypeHeading2         BlockObjectRequestType = "heading_2"
+	BlockObjectRequestTypeHeading3         BlockObjectRequestType = "heading_3"
+	BlockObjectRequestTypeHeading4         BlockObjectRequestType = "heading_4"
+	BlockObjectRequestTypeParagraph        BlockObjectRequestType = "paragraph"
+	BlockObjectRequestTypeBulletedListItem BlockObjectRequestType = "bulleted_list_item"
+	BlockObjectRequestTypeNumberedListItem BlockObjectRequestType = "numbered_list_item"
+	BlockObjectRequestTypeQuote            BlockObjectRequestType = "quote"
+	BlockObjectRequestTypeToDo             BlockObjectRequestType = "to_do"
+	BlockObjectRequestTypeToggle           BlockObjectRequestType = "toggle"
+	BlockObjectRequestTypeTemplate         BlockObjectRequestType = "template"
+	BlockObjectRequestTypeCallout          BlockObjectRequestType = "callout"
+	BlockObjectRequestTypeSyncedBlock      BlockObjectRequestType = "synced_block"
+)
+
+// Valid indicates whether the value is a known member of the BlockObjectRequestType enum.
+func (e BlockObjectRequestType) Valid() bool {
+	_, ok := tagsOfBlockObjectRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfBlockObjectRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfBlockObjectRequest = map[string]map[string]bool{
+	"embed":              {"embed": true},
+	"bookmark":           {"bookmark": true},
+	"image":              {"image": true},
+	"video":              {"video": true},
+	"pdf":                {"pdf": true},
+	"file":               {"file": true},
+	"audio":              {"audio": true},
+	"code":               {"code": true},
+	"equation":           {"equation": true},
+	"divider":            {"divider": true},
+	"breadcrumb":         {"breadcrumb": true},
+	"tab":                {"tab": true},
+	"table_of_contents":  {"table_of_contents": true},
+	"link_to_page":       {"link_to_page": true},
+	"table_row":          {"table_row": true},
+	"table":              {"table": true},
+	"column_list":        {"column_list": true},
+	"column":             {"column": true},
+	"heading_1":          {"heading_1": true},
+	"heading_2":          {"heading_2": true},
+	"heading_3":          {"heading_3": true},
+	"heading_4":          {"heading_4": true},
+	"paragraph":          {"paragraph": true},
+	"bulleted_list_item": {"bulleted_list_item": true},
+	"numbered_list_item": {"numbered_list_item": true},
+	"quote":              {"quote": true},
+	"to_do":              {"to_do": true},
+	"toggle":             {"toggle": true},
+	"template":           {"template": true},
+	"callout":            {"callout": true},
+	"synced_block":       {"synced_block": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *BlockObjectRequest) taggedMembers() []string {
 	var set []string
 	if v.Embed != nil {
@@ -2381,8 +2439,8 @@ func (v *BlockObjectRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *BlockObjectRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectRequest
 
@@ -2400,8 +2458,8 @@ func (v *BlockObjectRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain BlockObjectRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfBlockObjectRequest, set); ok && out.Type == "" {
+		out.Type = BlockObjectRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectRequest, set, true); err != nil {
@@ -2414,7 +2472,7 @@ func (v *BlockObjectRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 // BlockObjectRequestWithoutChildren defines a model
 type BlockObjectRequestWithoutChildren struct {
 	Object           string                                     `json:"object,omitzero"`
-	Type             string                                     `json:"type"`
+	Type             BlockObjectRequestWithoutChildrenType      `json:"type"`
 	Embed            *Embed2                                    `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption             `json:"bookmark,omitzero"`
 	Image            *MediaContentWithFileAndCaptionRequest     `json:"image,omitzero"`
@@ -2445,39 +2503,79 @@ type BlockObjectRequestWithoutChildren struct {
 	SyncedBlock      *SyncedBlockSyncedBlock                    `json:"synced_block,omitzero"`
 }
 
-// tagsOfBlockObjectRequestWithoutChildren says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfBlockObjectRequestWithoutChildren = map[string]jsonTagMember{
-	"embed":              jsonTagRequired,
-	"bookmark":           jsonTagRequired,
-	"image":              jsonTagRequired,
-	"video":              jsonTagRequired,
-	"pdf":                jsonTagRequired,
-	"file":               jsonTagRequired,
-	"audio":              jsonTagRequired,
-	"code":               jsonTagRequired,
-	"equation":           jsonTagRequired,
-	"divider":            jsonTagRequired,
-	"breadcrumb":         jsonTagRequired,
-	"tab":                jsonTagRequired,
-	"table_of_contents":  jsonTagRequired,
-	"link_to_page":       jsonTagRequired,
-	"table_row":          jsonTagRequired,
-	"heading_1":          jsonTagRequired,
-	"heading_2":          jsonTagRequired,
-	"heading_3":          jsonTagRequired,
-	"heading_4":          jsonTagRequired,
-	"paragraph":          jsonTagRequired,
-	"bulleted_list_item": jsonTagRequired,
-	"numbered_list_item": jsonTagRequired,
-	"quote":              jsonTagRequired,
-	"to_do":              jsonTagRequired,
-	"toggle":             jsonTagRequired,
-	"template":           jsonTagRequired,
-	"callout":            jsonTagRequired,
-	"synced_block":       jsonTagRequired,
+// BlockObjectRequestWithoutChildrenType is a value of BlockObjectRequestWithoutChildren's type, naming the members it holds.
+type BlockObjectRequestWithoutChildrenType string
+
+const (
+	BlockObjectRequestWithoutChildrenTypeEmbed            BlockObjectRequestWithoutChildrenType = "embed"
+	BlockObjectRequestWithoutChildrenTypeBookmark         BlockObjectRequestWithoutChildrenType = "bookmark"
+	BlockObjectRequestWithoutChildrenTypeImage            BlockObjectRequestWithoutChildrenType = "image"
+	BlockObjectRequestWithoutChildrenTypeVideo            BlockObjectRequestWithoutChildrenType = "video"
+	BlockObjectRequestWithoutChildrenTypePdf              BlockObjectRequestWithoutChildrenType = "pdf"
+	BlockObjectRequestWithoutChildrenTypeFile             BlockObjectRequestWithoutChildrenType = "file"
+	BlockObjectRequestWithoutChildrenTypeAudio            BlockObjectRequestWithoutChildrenType = "audio"
+	BlockObjectRequestWithoutChildrenTypeCode             BlockObjectRequestWithoutChildrenType = "code"
+	BlockObjectRequestWithoutChildrenTypeEquation         BlockObjectRequestWithoutChildrenType = "equation"
+	BlockObjectRequestWithoutChildrenTypeDivider          BlockObjectRequestWithoutChildrenType = "divider"
+	BlockObjectRequestWithoutChildrenTypeBreadcrumb       BlockObjectRequestWithoutChildrenType = "breadcrumb"
+	BlockObjectRequestWithoutChildrenTypeTab              BlockObjectRequestWithoutChildrenType = "tab"
+	BlockObjectRequestWithoutChildrenTypeTableOfContents  BlockObjectRequestWithoutChildrenType = "table_of_contents"
+	BlockObjectRequestWithoutChildrenTypeLinkToPage       BlockObjectRequestWithoutChildrenType = "link_to_page"
+	BlockObjectRequestWithoutChildrenTypeTableRow         BlockObjectRequestWithoutChildrenType = "table_row"
+	BlockObjectRequestWithoutChildrenTypeHeading1         BlockObjectRequestWithoutChildrenType = "heading_1"
+	BlockObjectRequestWithoutChildrenTypeHeading2         BlockObjectRequestWithoutChildrenType = "heading_2"
+	BlockObjectRequestWithoutChildrenTypeHeading3         BlockObjectRequestWithoutChildrenType = "heading_3"
+	BlockObjectRequestWithoutChildrenTypeHeading4         BlockObjectRequestWithoutChildrenType = "heading_4"
+	BlockObjectRequestWithoutChildrenTypeParagraph        BlockObjectRequestWithoutChildrenType = "paragraph"
+	BlockObjectRequestWithoutChildrenTypeBulletedListItem BlockObjectRequestWithoutChildrenType = "bulleted_list_item"
+	BlockObjectRequestWithoutChildrenTypeNumberedListItem BlockObjectRequestWithoutChildrenType = "numbered_list_item"
+	BlockObjectRequestWithoutChildrenTypeQuote            BlockObjectRequestWithoutChildrenType = "quote"
+	BlockObjectRequestWithoutChildrenTypeToDo             BlockObjectRequestWithoutChildrenType = "to_do"
+	BlockObjectRequestWithoutChildrenTypeToggle           BlockObjectRequestWithoutChildrenType = "toggle"
+	BlockObjectRequestWithoutChildrenTypeTemplate         BlockObjectRequestWithoutChildrenType = "template"
+	BlockObjectRequestWithoutChildrenTypeCallout          BlockObjectRequestWithoutChildrenType = "callout"
+	BlockObjectRequestWithoutChildrenTypeSyncedBlock      BlockObjectRequestWithoutChildrenType = "synced_block"
+)
+
+// Valid indicates whether the value is a known member of the BlockObjectRequestWithoutChildrenType enum.
+func (e BlockObjectRequestWithoutChildrenType) Valid() bool {
+	_, ok := tagsOfBlockObjectRequestWithoutChildren[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfBlockObjectRequestWithoutChildren holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfBlockObjectRequestWithoutChildren = map[string]map[string]bool{
+	"embed":              {"embed": true},
+	"bookmark":           {"bookmark": true},
+	"image":              {"image": true},
+	"video":              {"video": true},
+	"pdf":                {"pdf": true},
+	"file":               {"file": true},
+	"audio":              {"audio": true},
+	"code":               {"code": true},
+	"equation":           {"equation": true},
+	"divider":            {"divider": true},
+	"breadcrumb":         {"breadcrumb": true},
+	"tab":                {"tab": true},
+	"table_of_contents":  {"table_of_contents": true},
+	"link_to_page":       {"link_to_page": true},
+	"table_row":          {"table_row": true},
+	"heading_1":          {"heading_1": true},
+	"heading_2":          {"heading_2": true},
+	"heading_3":          {"heading_3": true},
+	"heading_4":          {"heading_4": true},
+	"paragraph":          {"paragraph": true},
+	"bulleted_list_item": {"bulleted_list_item": true},
+	"numbered_list_item": {"numbered_list_item": true},
+	"quote":              {"quote": true},
+	"to_do":              {"to_do": true},
+	"toggle":             {"toggle": true},
+	"template":           {"template": true},
+	"callout":            {"callout": true},
+	"synced_block":       {"synced_block": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *BlockObjectRequestWithoutChildren) taggedMembers() []string {
 	var set []string
 	if v.Embed != nil {
@@ -2568,8 +2666,8 @@ func (v *BlockObjectRequestWithoutChildren) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *BlockObjectRequestWithoutChildren) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectRequestWithoutChildren
 
@@ -2587,8 +2685,8 @@ func (v *BlockObjectRequestWithoutChildren) MarshalJSONTo(enc *jsontext.Encoder)
 	type plain BlockObjectRequestWithoutChildren
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfBlockObjectRequestWithoutChildren, set); ok && out.Type == "" {
+		out.Type = BlockObjectRequestWithoutChildrenType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectRequestWithoutChildren, set, true); err != nil {
@@ -2609,7 +2707,7 @@ type BlockObjectResponse struct {
 	LastEditedBy     PartialUserObjectResponse                   `json:"last_edited_by"`
 	HasChildren      bool                                        `json:"has_children"`
 	InTrash          bool                                        `json:"in_trash"`
-	Type             string                                      `json:"type"`
+	Type             BlockObjectResponseType                     `json:"type"`
 	Paragraph        *ContentWithRichTextColorAndIcon2           `json:"paragraph,omitzero"`
 	Heading1         *HeaderContentWithRichTextAndColorResponse  `json:"heading_1,omitzero"`
 	Heading2         *HeaderContentWithRichTextAndColorResponse  `json:"heading_2,omitzero"`
@@ -2648,47 +2746,95 @@ type BlockObjectResponse struct {
 	Unsupported      *UnsupportedBlockObjectResponseUnsupported  `json:"unsupported,omitzero"`
 }
 
-// tagsOfBlockObjectResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfBlockObjectResponse = map[string]jsonTagMember{
-	"paragraph":          jsonTagRequired,
-	"heading_1":          jsonTagRequired,
-	"heading_2":          jsonTagRequired,
-	"heading_3":          jsonTagRequired,
-	"heading_4":          jsonTagRequired,
-	"bulleted_list_item": jsonTagRequired,
-	"numbered_list_item": jsonTagRequired,
-	"quote":              jsonTagRequired,
-	"to_do":              jsonTagRequired,
-	"toggle":             jsonTagRequired,
-	"template":           jsonTagRequired,
-	"synced_block":       jsonTagRequired,
-	"child_page":         jsonTagRequired,
-	"child_database":     jsonTagRequired,
-	"equation":           jsonTagRequired,
-	"code":               jsonTagRequired,
-	"callout":            jsonTagRequired,
-	"divider":            jsonTagRequired,
-	"breadcrumb":         jsonTagRequired,
-	"table_of_contents":  jsonTagRequired,
-	"tab":                jsonTagRequired,
-	"column_list":        jsonTagRequired,
-	"column":             jsonTagRequired,
-	"link_to_page":       jsonTagRequired,
-	"table":              jsonTagRequired,
-	"table_row":          jsonTagRequired,
-	"meeting_notes":      jsonTagRequired,
-	"embed":              jsonTagRequired,
-	"bookmark":           jsonTagRequired,
-	"image":              jsonTagRequired,
-	"video":              jsonTagRequired,
-	"pdf":                jsonTagRequired,
-	"file":               jsonTagRequired,
-	"audio":              jsonTagRequired,
-	"link_preview":       jsonTagRequired,
-	"unsupported":        jsonTagRequired,
+// BlockObjectResponseType is a value of BlockObjectResponse's type, naming the members it holds.
+type BlockObjectResponseType string
+
+const (
+	BlockObjectResponseTypeParagraph        BlockObjectResponseType = "paragraph"
+	BlockObjectResponseTypeHeading1         BlockObjectResponseType = "heading_1"
+	BlockObjectResponseTypeHeading2         BlockObjectResponseType = "heading_2"
+	BlockObjectResponseTypeHeading3         BlockObjectResponseType = "heading_3"
+	BlockObjectResponseTypeHeading4         BlockObjectResponseType = "heading_4"
+	BlockObjectResponseTypeBulletedListItem BlockObjectResponseType = "bulleted_list_item"
+	BlockObjectResponseTypeNumberedListItem BlockObjectResponseType = "numbered_list_item"
+	BlockObjectResponseTypeQuote            BlockObjectResponseType = "quote"
+	BlockObjectResponseTypeToDo             BlockObjectResponseType = "to_do"
+	BlockObjectResponseTypeToggle           BlockObjectResponseType = "toggle"
+	BlockObjectResponseTypeTemplate         BlockObjectResponseType = "template"
+	BlockObjectResponseTypeSyncedBlock      BlockObjectResponseType = "synced_block"
+	BlockObjectResponseTypeChildPage        BlockObjectResponseType = "child_page"
+	BlockObjectResponseTypeChildDatabase    BlockObjectResponseType = "child_database"
+	BlockObjectResponseTypeEquation         BlockObjectResponseType = "equation"
+	BlockObjectResponseTypeCode             BlockObjectResponseType = "code"
+	BlockObjectResponseTypeCallout          BlockObjectResponseType = "callout"
+	BlockObjectResponseTypeDivider          BlockObjectResponseType = "divider"
+	BlockObjectResponseTypeBreadcrumb       BlockObjectResponseType = "breadcrumb"
+	BlockObjectResponseTypeTableOfContents  BlockObjectResponseType = "table_of_contents"
+	BlockObjectResponseTypeTab              BlockObjectResponseType = "tab"
+	BlockObjectResponseTypeColumnList       BlockObjectResponseType = "column_list"
+	BlockObjectResponseTypeColumn           BlockObjectResponseType = "column"
+	BlockObjectResponseTypeLinkToPage       BlockObjectResponseType = "link_to_page"
+	BlockObjectResponseTypeTable            BlockObjectResponseType = "table"
+	BlockObjectResponseTypeTableRow         BlockObjectResponseType = "table_row"
+	BlockObjectResponseTypeMeetingNotes     BlockObjectResponseType = "meeting_notes"
+	BlockObjectResponseTypeEmbed            BlockObjectResponseType = "embed"
+	BlockObjectResponseTypeBookmark         BlockObjectResponseType = "bookmark"
+	BlockObjectResponseTypeImage            BlockObjectResponseType = "image"
+	BlockObjectResponseTypeVideo            BlockObjectResponseType = "video"
+	BlockObjectResponseTypePdf              BlockObjectResponseType = "pdf"
+	BlockObjectResponseTypeFile             BlockObjectResponseType = "file"
+	BlockObjectResponseTypeAudio            BlockObjectResponseType = "audio"
+	BlockObjectResponseTypeLinkPreview      BlockObjectResponseType = "link_preview"
+	BlockObjectResponseTypeUnsupported      BlockObjectResponseType = "unsupported"
+)
+
+// Valid indicates whether the value is a known member of the BlockObjectResponseType enum.
+func (e BlockObjectResponseType) Valid() bool {
+	_, ok := tagsOfBlockObjectResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfBlockObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfBlockObjectResponse = map[string]map[string]bool{
+	"paragraph":          {"paragraph": true},
+	"heading_1":          {"heading_1": true},
+	"heading_2":          {"heading_2": true},
+	"heading_3":          {"heading_3": true},
+	"heading_4":          {"heading_4": true},
+	"bulleted_list_item": {"bulleted_list_item": true},
+	"numbered_list_item": {"numbered_list_item": true},
+	"quote":              {"quote": true},
+	"to_do":              {"to_do": true},
+	"toggle":             {"toggle": true},
+	"template":           {"template": true},
+	"synced_block":       {"synced_block": true},
+	"child_page":         {"child_page": true},
+	"child_database":     {"child_database": true},
+	"equation":           {"equation": true},
+	"code":               {"code": true},
+	"callout":            {"callout": true},
+	"divider":            {"divider": true},
+	"breadcrumb":         {"breadcrumb": true},
+	"table_of_contents":  {"table_of_contents": true},
+	"tab":                {"tab": true},
+	"column_list":        {"column_list": true},
+	"column":             {"column": true},
+	"link_to_page":       {"link_to_page": true},
+	"table":              {"table": true},
+	"table_row":          {"table_row": true},
+	"meeting_notes":      {"meeting_notes": true},
+	"embed":              {"embed": true},
+	"bookmark":           {"bookmark": true},
+	"image":              {"image": true},
+	"video":              {"video": true},
+	"pdf":                {"pdf": true},
+	"file":               {"file": true},
+	"audio":              {"audio": true},
+	"link_preview":       {"link_preview": true},
+	"unsupported":        {"unsupported": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *BlockObjectResponse) taggedMembers() []string {
 	var set []string
 	if v.Paragraph != nil {
@@ -2803,8 +2949,8 @@ func (v *BlockObjectResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *BlockObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectResponse
 
@@ -2822,8 +2968,8 @@ func (v *BlockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain BlockObjectResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfBlockObjectResponse, set); ok && out.Type == "" {
+		out.Type = BlockObjectResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectResponse, set, true); err != nil {
@@ -2835,73 +2981,114 @@ func (v *BlockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // BlockObjectWithSingleLevelOfChildrenRequest defines a model
 type BlockObjectWithSingleLevelOfChildrenRequest struct {
-	Object           string                                         `json:"object,omitzero"`
-	Type             string                                         `json:"type"`
-	Embed            *Embed2                                        `json:"embed,omitzero"`
-	Bookmark         *MediaContentWithURLAndCaption                 `json:"bookmark,omitzero"`
-	Image            *MediaContentWithFileAndCaptionRequest         `json:"image,omitzero"`
-	Video            *MediaContentWithFileAndCaptionRequest         `json:"video,omitzero"`
-	PDF              *MediaContentWithFileAndCaptionRequest         `json:"pdf,omitzero"`
-	File             *MediaContentWithFileNameAndCaptionRequest     `json:"file,omitzero"`
-	Audio            *MediaContentWithFileAndCaptionRequest         `json:"audio,omitzero"`
-	Code             *Code2                                         `json:"code,omitzero"`
-	Equation         *ContentWithExpression                         `json:"equation,omitzero"`
-	Divider          *EmptyObject                                   `json:"divider,omitzero"`
-	Breadcrumb       *EmptyObject                                   `json:"breadcrumb,omitzero"`
-	Tab              *TabRequestWithTabItemChildren                 `json:"tab,omitzero"`
-	TableOfContents  *TableOfContentsTableOfContents                `json:"table_of_contents,omitzero"`
-	LinkToPage       *LinkToPageLinkToPage                          `json:"link_to_page,omitzero"`
-	TableRow         *ContentWithTableRowRequest                    `json:"table_row,omitzero"`
-	Heading1         *HeaderContentWithSingleLevelOfChildrenRequest `json:"heading_1,omitzero"`
-	Heading2         *HeaderContentWithSingleLevelOfChildrenRequest `json:"heading_2,omitzero"`
-	Heading3         *HeaderContentWithSingleLevelOfChildrenRequest `json:"heading_3,omitzero"`
-	Heading4         *HeaderContentWithSingleLevelOfChildrenRequest `json:"heading_4,omitzero"`
-	Paragraph        *ParagraphWithSingleLevelOfChildren            `json:"paragraph,omitzero"`
-	BulletedListItem *ContentWithSingleLevelOfChildrenRequest       `json:"bulleted_list_item,omitzero"`
-	NumberedListItem *ContentWithSingleLevelOfChildrenRequest       `json:"numbered_list_item,omitzero"`
-	Quote            *ContentWithSingleLevelOfChildrenRequest       `json:"quote,omitzero"`
-	Table            *TableRequestWithTableRowChildren              `json:"table,omitzero"`
-	ToDo             *ToDoToDo4                                     `json:"to_do,omitzero"`
-	Toggle           *ContentWithSingleLevelOfChildrenRequest       `json:"toggle,omitzero"`
-	Template         *TemplateTemplate2                             `json:"template,omitzero"`
-	Callout          *ParagraphWithSingleLevelOfChildren            `json:"callout,omitzero"`
-	SyncedBlock      *SyncedBlockSyncedBlock4                       `json:"synced_block,omitzero"`
+	Object           string                                          `json:"object,omitzero"`
+	Type             BlockObjectWithSingleLevelOfChildrenRequestType `json:"type"`
+	Embed            *Embed2                                         `json:"embed,omitzero"`
+	Bookmark         *MediaContentWithURLAndCaption                  `json:"bookmark,omitzero"`
+	Image            *MediaContentWithFileAndCaptionRequest          `json:"image,omitzero"`
+	Video            *MediaContentWithFileAndCaptionRequest          `json:"video,omitzero"`
+	PDF              *MediaContentWithFileAndCaptionRequest          `json:"pdf,omitzero"`
+	File             *MediaContentWithFileNameAndCaptionRequest      `json:"file,omitzero"`
+	Audio            *MediaContentWithFileAndCaptionRequest          `json:"audio,omitzero"`
+	Code             *Code2                                          `json:"code,omitzero"`
+	Equation         *ContentWithExpression                          `json:"equation,omitzero"`
+	Divider          *EmptyObject                                    `json:"divider,omitzero"`
+	Breadcrumb       *EmptyObject                                    `json:"breadcrumb,omitzero"`
+	Tab              *TabRequestWithTabItemChildren                  `json:"tab,omitzero"`
+	TableOfContents  *TableOfContentsTableOfContents                 `json:"table_of_contents,omitzero"`
+	LinkToPage       *LinkToPageLinkToPage                           `json:"link_to_page,omitzero"`
+	TableRow         *ContentWithTableRowRequest                     `json:"table_row,omitzero"`
+	Heading1         *HeaderContentWithSingleLevelOfChildrenRequest  `json:"heading_1,omitzero"`
+	Heading2         *HeaderContentWithSingleLevelOfChildrenRequest  `json:"heading_2,omitzero"`
+	Heading3         *HeaderContentWithSingleLevelOfChildrenRequest  `json:"heading_3,omitzero"`
+	Heading4         *HeaderContentWithSingleLevelOfChildrenRequest  `json:"heading_4,omitzero"`
+	Paragraph        *ParagraphWithSingleLevelOfChildren             `json:"paragraph,omitzero"`
+	BulletedListItem *ContentWithSingleLevelOfChildrenRequest        `json:"bulleted_list_item,omitzero"`
+	NumberedListItem *ContentWithSingleLevelOfChildrenRequest        `json:"numbered_list_item,omitzero"`
+	Quote            *ContentWithSingleLevelOfChildrenRequest        `json:"quote,omitzero"`
+	Table            *TableRequestWithTableRowChildren               `json:"table,omitzero"`
+	ToDo             *ToDoToDo4                                      `json:"to_do,omitzero"`
+	Toggle           *ContentWithSingleLevelOfChildrenRequest        `json:"toggle,omitzero"`
+	Template         *TemplateTemplate2                              `json:"template,omitzero"`
+	Callout          *ParagraphWithSingleLevelOfChildren             `json:"callout,omitzero"`
+	SyncedBlock      *SyncedBlockSyncedBlock4                        `json:"synced_block,omitzero"`
 }
 
-// tagsOfBlockObjectWithSingleLevelOfChildrenRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfBlockObjectWithSingleLevelOfChildrenRequest = map[string]jsonTagMember{
-	"embed":              jsonTagRequired,
-	"bookmark":           jsonTagRequired,
-	"image":              jsonTagRequired,
-	"video":              jsonTagRequired,
-	"pdf":                jsonTagRequired,
-	"file":               jsonTagRequired,
-	"audio":              jsonTagRequired,
-	"code":               jsonTagRequired,
-	"equation":           jsonTagRequired,
-	"divider":            jsonTagRequired,
-	"breadcrumb":         jsonTagRequired,
-	"tab":                jsonTagRequired,
-	"table_of_contents":  jsonTagRequired,
-	"link_to_page":       jsonTagRequired,
-	"table_row":          jsonTagRequired,
-	"heading_1":          jsonTagRequired,
-	"heading_2":          jsonTagRequired,
-	"heading_3":          jsonTagRequired,
-	"heading_4":          jsonTagRequired,
-	"paragraph":          jsonTagRequired,
-	"bulleted_list_item": jsonTagRequired,
-	"numbered_list_item": jsonTagRequired,
-	"quote":              jsonTagRequired,
-	"table":              jsonTagRequired,
-	"to_do":              jsonTagRequired,
-	"toggle":             jsonTagRequired,
-	"template":           jsonTagRequired,
-	"callout":            jsonTagRequired,
-	"synced_block":       jsonTagRequired,
+// BlockObjectWithSingleLevelOfChildrenRequestType is a value of BlockObjectWithSingleLevelOfChildrenRequest's type, naming the members it holds.
+type BlockObjectWithSingleLevelOfChildrenRequestType string
+
+const (
+	BlockObjectWithSingleLevelOfChildrenRequestTypeEmbed            BlockObjectWithSingleLevelOfChildrenRequestType = "embed"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeBookmark         BlockObjectWithSingleLevelOfChildrenRequestType = "bookmark"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeImage            BlockObjectWithSingleLevelOfChildrenRequestType = "image"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeVideo            BlockObjectWithSingleLevelOfChildrenRequestType = "video"
+	BlockObjectWithSingleLevelOfChildrenRequestTypePdf              BlockObjectWithSingleLevelOfChildrenRequestType = "pdf"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeFile             BlockObjectWithSingleLevelOfChildrenRequestType = "file"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeAudio            BlockObjectWithSingleLevelOfChildrenRequestType = "audio"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeCode             BlockObjectWithSingleLevelOfChildrenRequestType = "code"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeEquation         BlockObjectWithSingleLevelOfChildrenRequestType = "equation"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeDivider          BlockObjectWithSingleLevelOfChildrenRequestType = "divider"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeBreadcrumb       BlockObjectWithSingleLevelOfChildrenRequestType = "breadcrumb"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeTab              BlockObjectWithSingleLevelOfChildrenRequestType = "tab"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeTableOfContents  BlockObjectWithSingleLevelOfChildrenRequestType = "table_of_contents"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeLinkToPage       BlockObjectWithSingleLevelOfChildrenRequestType = "link_to_page"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeTableRow         BlockObjectWithSingleLevelOfChildrenRequestType = "table_row"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeHeading1         BlockObjectWithSingleLevelOfChildrenRequestType = "heading_1"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeHeading2         BlockObjectWithSingleLevelOfChildrenRequestType = "heading_2"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeHeading3         BlockObjectWithSingleLevelOfChildrenRequestType = "heading_3"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeHeading4         BlockObjectWithSingleLevelOfChildrenRequestType = "heading_4"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeParagraph        BlockObjectWithSingleLevelOfChildrenRequestType = "paragraph"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeBulletedListItem BlockObjectWithSingleLevelOfChildrenRequestType = "bulleted_list_item"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeNumberedListItem BlockObjectWithSingleLevelOfChildrenRequestType = "numbered_list_item"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeQuote            BlockObjectWithSingleLevelOfChildrenRequestType = "quote"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeTable            BlockObjectWithSingleLevelOfChildrenRequestType = "table"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeToDo             BlockObjectWithSingleLevelOfChildrenRequestType = "to_do"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeToggle           BlockObjectWithSingleLevelOfChildrenRequestType = "toggle"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeTemplate         BlockObjectWithSingleLevelOfChildrenRequestType = "template"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeCallout          BlockObjectWithSingleLevelOfChildrenRequestType = "callout"
+	BlockObjectWithSingleLevelOfChildrenRequestTypeSyncedBlock      BlockObjectWithSingleLevelOfChildrenRequestType = "synced_block"
+)
+
+// Valid indicates whether the value is a known member of the BlockObjectWithSingleLevelOfChildrenRequestType enum.
+func (e BlockObjectWithSingleLevelOfChildrenRequestType) Valid() bool {
+	_, ok := tagsOfBlockObjectWithSingleLevelOfChildrenRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfBlockObjectWithSingleLevelOfChildrenRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfBlockObjectWithSingleLevelOfChildrenRequest = map[string]map[string]bool{
+	"embed":              {"embed": true},
+	"bookmark":           {"bookmark": true},
+	"image":              {"image": true},
+	"video":              {"video": true},
+	"pdf":                {"pdf": true},
+	"file":               {"file": true},
+	"audio":              {"audio": true},
+	"code":               {"code": true},
+	"equation":           {"equation": true},
+	"divider":            {"divider": true},
+	"breadcrumb":         {"breadcrumb": true},
+	"tab":                {"tab": true},
+	"table_of_contents":  {"table_of_contents": true},
+	"link_to_page":       {"link_to_page": true},
+	"table_row":          {"table_row": true},
+	"heading_1":          {"heading_1": true},
+	"heading_2":          {"heading_2": true},
+	"heading_3":          {"heading_3": true},
+	"heading_4":          {"heading_4": true},
+	"paragraph":          {"paragraph": true},
+	"bulleted_list_item": {"bulleted_list_item": true},
+	"numbered_list_item": {"numbered_list_item": true},
+	"quote":              {"quote": true},
+	"table":              {"table": true},
+	"to_do":              {"to_do": true},
+	"toggle":             {"toggle": true},
+	"template":           {"template": true},
+	"callout":            {"callout": true},
+	"synced_block":       {"synced_block": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *BlockObjectWithSingleLevelOfChildrenRequest) taggedMembers() []string {
 	var set []string
 	if v.Embed != nil {
@@ -2995,8 +3182,8 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *BlockObjectWithSingleLevelOfChildrenRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectWithSingleLevelOfChildrenRequest
 
@@ -3014,8 +3201,8 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) MarshalJSONTo(enc *jsontex
 	type plain BlockObjectWithSingleLevelOfChildrenRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfBlockObjectWithSingleLevelOfChildrenRequest, set); ok && out.Type == "" {
+		out.Type = BlockObjectWithSingleLevelOfChildrenRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectWithSingleLevelOfChildrenRequest, set, true); err != nil {
@@ -3189,20 +3376,34 @@ type BotInfoResponse struct {
 
 // Details about the owner of the bot.
 type BotInfoResponseOwner struct {
-	Type string `json:"type"`
+	Type BotInfoResponseOwnerType `json:"type"`
 	// Details about the owner of the bot, when the `type` of the owner is `user`. This means the bot is for a integration.
 	User *UserUser2 `json:"user,omitzero"`
 	// Always true for workspace parent.
 	Workspace *bool `json:"workspace,omitzero"`
 }
 
-// tagsOfBotInfoResponseOwner says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfBotInfoResponseOwner = map[string]jsonTagMember{
-	"user":      jsonTagRequired,
-	"workspace": jsonTagRequired,
+// BotInfoResponseOwnerType is a value of BotInfoResponseOwner's type, naming the members it holds.
+type BotInfoResponseOwnerType string
+
+const (
+	BotInfoResponseOwnerTypeUser      BotInfoResponseOwnerType = "user"
+	BotInfoResponseOwnerTypeWorkspace BotInfoResponseOwnerType = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the BotInfoResponseOwnerType enum.
+func (e BotInfoResponseOwnerType) Valid() bool {
+	_, ok := tagsOfBotInfoResponseOwner[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfBotInfoResponseOwner holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfBotInfoResponseOwner = map[string]map[string]bool{
+	"user":      {"user": true},
+	"workspace": {"workspace": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *BotInfoResponseOwner) taggedMembers() []string {
 	var set []string
 	if v.User != nil {
@@ -3215,8 +3416,8 @@ func (v *BotInfoResponseOwner) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *BotInfoResponseOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BotInfoResponseOwner
 
@@ -3234,8 +3435,8 @@ func (v *BotInfoResponseOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain BotInfoResponseOwner
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfBotInfoResponseOwner, set); ok && out.Type == "" {
+		out.Type = BotInfoResponseOwnerType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfBotInfoResponseOwner, set, true); err != nil {
@@ -3260,6 +3461,8 @@ type BotUserObjectResponseBot struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *BotUserObjectResponseBot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = BotUserObjectResponseBot{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -4000,6 +4203,8 @@ type CheckboxPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CheckboxPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CheckboxPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -4232,20 +4437,34 @@ func (e CommentObjectResponseDisplayNameType) Valid() bool {
 
 // CommentParentResponse defines a model
 type CommentParentResponse struct {
-	Type string `json:"type"`
+	Type CommentParentResponseType `json:"type"`
 	// The ID of the parent page.
 	PageID *IDResponse `json:"page_id,omitzero"`
 	// The ID of the parent block.
 	BlockID *IDResponse `json:"block_id,omitzero"`
 }
 
-// tagsOfCommentParentResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfCommentParentResponse = map[string]jsonTagMember{
-	"page_id":  jsonTagRequired,
-	"block_id": jsonTagRequired,
+// CommentParentResponseType is a value of CommentParentResponse's type, naming the members it holds.
+type CommentParentResponseType string
+
+const (
+	CommentParentResponseTypePageID  CommentParentResponseType = "page_id"
+	CommentParentResponseTypeBlockID CommentParentResponseType = "block_id"
+)
+
+// Valid indicates whether the value is a known member of the CommentParentResponseType enum.
+func (e CommentParentResponseType) Valid() bool {
+	_, ok := tagsOfCommentParentResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfCommentParentResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfCommentParentResponse = map[string]map[string]bool{
+	"page_id":  {"page_id": true},
+	"block_id": {"block_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *CommentParentResponse) taggedMembers() []string {
 	var set []string
 	if v.PageID != nil {
@@ -4258,8 +4477,8 @@ func (v *CommentParentResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *CommentParentResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CommentParentResponse
 
@@ -4277,8 +4496,8 @@ func (v *CommentParentResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain CommentParentResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfCommentParentResponse, set); ok && out.Type == "" {
+		out.Type = CommentParentResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfCommentParentResponse, set, true); err != nil {
@@ -4301,18 +4520,33 @@ type CommentUpdatedWebhookPayload struct {
 
 // ContentPositionSchema defines a model
 type ContentPositionSchema struct {
-	Type       string        `json:"type"`
-	AfterBlock *FileUploadID `json:"after_block,omitzero"`
+	Type       ContentPositionSchemaType `json:"type"`
+	AfterBlock *FileUploadID             `json:"after_block,omitzero"`
 }
 
-// tagsOfContentPositionSchema says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfContentPositionSchema = map[string]jsonTagMember{
-	"after_block": jsonTagRequired,
-	"start":       jsonTagNone,
-	"end":         jsonTagNone,
+// ContentPositionSchemaType is a value of ContentPositionSchema's type, naming the members it holds.
+type ContentPositionSchemaType string
+
+const (
+	ContentPositionSchemaTypeAfterBlock ContentPositionSchemaType = "after_block"
+	ContentPositionSchemaTypeStart      ContentPositionSchemaType = "start"
+	ContentPositionSchemaTypeEnd        ContentPositionSchemaType = "end"
+)
+
+// Valid indicates whether the value is a known member of the ContentPositionSchemaType enum.
+func (e ContentPositionSchemaType) Valid() bool {
+	_, ok := tagsOfContentPositionSchema[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfContentPositionSchema holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfContentPositionSchema = map[string]map[string]bool{
+	"after_block": {"after_block": true},
+	"start":       {},
+	"end":         {},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *ContentPositionSchema) taggedMembers() []string {
 	var set []string
 	if v.AfterBlock != nil {
@@ -4322,8 +4556,8 @@ func (v *ContentPositionSchema) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *ContentPositionSchema) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain ContentPositionSchema
 
@@ -4341,8 +4575,8 @@ func (v *ContentPositionSchema) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain ContentPositionSchema
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfContentPositionSchema, set); ok && out.Type == "" {
+		out.Type = ContentPositionSchemaType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfContentPositionSchema, set, true); err != nil {
@@ -4525,6 +4759,8 @@ var variantsOfCreateAComment = []jsonVariant{
 func (v *CreateAComment) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
 
+	*v = CreateAComment{}
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -4667,6 +4903,8 @@ type CreateAComment2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateAComment2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateAComment2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -4727,18 +4965,33 @@ type CreateACommentAllOf0AttachmentsItem struct {
 
 // Display name for the comment.
 type CreateACommentAllOf0DisplayName struct {
-	Type   string        `json:"type"`
-	Custom *CustomCustom `json:"custom,omitzero"`
+	Type   CreateACommentAllOf0DisplayNameType `json:"type"`
+	Custom *CustomCustom                       `json:"custom,omitzero"`
 }
 
-// tagsOfCreateACommentAllOf0DisplayName says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfCreateACommentAllOf0DisplayName = map[string]jsonTagMember{
-	"integration": jsonTagNone,
-	"user":        jsonTagNone,
-	"custom":      jsonTagRequired,
+// CreateACommentAllOf0DisplayNameType is a value of CreateACommentAllOf0DisplayName's type, naming the members it holds.
+type CreateACommentAllOf0DisplayNameType string
+
+const (
+	CreateACommentAllOf0DisplayNameTypeIntegration CreateACommentAllOf0DisplayNameType = "integration"
+	CreateACommentAllOf0DisplayNameTypeUser        CreateACommentAllOf0DisplayNameType = "user"
+	CreateACommentAllOf0DisplayNameTypeCustom      CreateACommentAllOf0DisplayNameType = "custom"
+)
+
+// Valid indicates whether the value is a known member of the CreateACommentAllOf0DisplayNameType enum.
+func (e CreateACommentAllOf0DisplayNameType) Valid() bool {
+	_, ok := tagsOfCreateACommentAllOf0DisplayName[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfCreateACommentAllOf0DisplayName holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfCreateACommentAllOf0DisplayName = map[string]map[string]bool{
+	"integration": {},
+	"user":        {},
+	"custom":      {"custom": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *CreateACommentAllOf0DisplayName) taggedMembers() []string {
 	var set []string
 	if v.Custom != nil {
@@ -4748,8 +5001,8 @@ func (v *CreateACommentAllOf0DisplayName) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *CreateACommentAllOf0DisplayName) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateACommentAllOf0DisplayName
 
@@ -4767,8 +5020,8 @@ func (v *CreateACommentAllOf0DisplayName) MarshalJSONTo(enc *jsontext.Encoder) e
 	type plain CreateACommentAllOf0DisplayName
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfCreateACommentAllOf0DisplayName, set); ok && out.Type == "" {
+		out.Type = CreateACommentAllOf0DisplayNameType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateACommentAllOf0DisplayName, set, true); err != nil {
@@ -4789,6 +5042,8 @@ type CreateACommentAllOf1 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateACommentAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateACommentAllOf1{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -4892,18 +5147,32 @@ type CreateACommentAllOf1OneOf3 struct {
 
 // The parent of the comment. This can be a page or a block.
 type CreateACommentAllOfOneOfParent struct {
-	Type    string    `json:"type"`
-	PageID  IDRequest `json:"page_id,omitzero"`
-	BlockID IDRequest `json:"block_id,omitzero"`
+	Type    CreateACommentAllOfOneOfParentType `json:"type"`
+	PageID  IDRequest                          `json:"page_id,omitzero"`
+	BlockID IDRequest                          `json:"block_id,omitzero"`
 }
 
-// tagsOfCreateACommentAllOfOneOfParent says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfCreateACommentAllOfOneOfParent = map[string]jsonTagMember{
-	"page_id":  jsonTagRequired,
-	"block_id": jsonTagRequired,
+// CreateACommentAllOfOneOfParentType is a value of CreateACommentAllOfOneOfParent's type, naming the members it holds.
+type CreateACommentAllOfOneOfParentType string
+
+const (
+	CreateACommentAllOfOneOfParentTypePageID  CreateACommentAllOfOneOfParentType = "page_id"
+	CreateACommentAllOfOneOfParentTypeBlockID CreateACommentAllOfOneOfParentType = "block_id"
+)
+
+// Valid indicates whether the value is a known member of the CreateACommentAllOfOneOfParentType enum.
+func (e CreateACommentAllOfOneOfParentType) Valid() bool {
+	_, ok := tagsOfCreateACommentAllOfOneOfParent[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfCreateACommentAllOfOneOfParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfCreateACommentAllOfOneOfParent = map[string]map[string]bool{
+	"page_id":  {"page_id": true},
+	"block_id": {"block_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *CreateACommentAllOfOneOfParent) taggedMembers() []string {
 	var set []string
 	if v.PageID != "" {
@@ -4916,8 +5185,8 @@ func (v *CreateACommentAllOfOneOfParent) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *CreateACommentAllOfOneOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateACommentAllOfOneOfParent
 
@@ -4935,8 +5204,8 @@ func (v *CreateACommentAllOfOneOfParent) MarshalJSONTo(enc *jsontext.Encoder) er
 	type plain CreateACommentAllOfOneOfParent
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfCreateACommentAllOfOneOfParent, set); ok && out.Type == "" {
+		out.Type = CreateACommentAllOfOneOfParentType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateACommentAllOfOneOfParent, set, true); err != nil {
@@ -4967,6 +5236,8 @@ type CreateADatabase2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateADatabase2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateADatabase2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -5024,6 +5295,8 @@ type CreateAToken struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member grant_type names the alternative, which then
 // decodes each further member as it is read. With grant_type first, nothing is read twice.
 func (v *CreateAToken) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateAToken{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "grant_type")
 	if err != nil {
 		return err
@@ -5143,19 +5416,33 @@ type CreateATokenOk struct {
 
 // CreateATokenOkOwner defines a model
 type CreateATokenOkOwner struct {
-	Type string    `json:"type"`
-	User *UserUser `json:"user,omitzero"`
+	Type CreateATokenOkOwnerType `json:"type"`
+	User *UserUser               `json:"user,omitzero"`
 	// Always true for workspace parent.
 	Workspace *bool `json:"workspace,omitzero"`
 }
 
-// tagsOfCreateATokenOkOwner says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfCreateATokenOkOwner = map[string]jsonTagMember{
-	"user":      jsonTagRequired,
-	"workspace": jsonTagRequired,
+// CreateATokenOkOwnerType is a value of CreateATokenOkOwner's type, naming the members it holds.
+type CreateATokenOkOwnerType string
+
+const (
+	CreateATokenOkOwnerTypeUser      CreateATokenOkOwnerType = "user"
+	CreateATokenOkOwnerTypeWorkspace CreateATokenOkOwnerType = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the CreateATokenOkOwnerType enum.
+func (e CreateATokenOkOwnerType) Valid() bool {
+	_, ok := tagsOfCreateATokenOkOwner[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfCreateATokenOkOwner holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfCreateATokenOkOwner = map[string]map[string]bool{
+	"user":      {"user": true},
+	"workspace": {"workspace": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *CreateATokenOkOwner) taggedMembers() []string {
 	var set []string
 	if v.User != nil {
@@ -5168,8 +5455,8 @@ func (v *CreateATokenOkOwner) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *CreateATokenOkOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateATokenOkOwner
 
@@ -5187,8 +5474,8 @@ func (v *CreateATokenOkOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain CreateATokenOkOwner
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfCreateATokenOkOwner, set); ok && out.Type == "" {
+		out.Type = CreateATokenOkOwnerType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateATokenOkOwner, set, true); err != nil {
@@ -5227,6 +5514,8 @@ type CreateDatabase2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateDatabase2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateDatabase2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -5318,13 +5607,13 @@ type CreateDatabaseParent struct {
 	Workspace *bool `json:"workspace,omitzero"`
 }
 
-// tagsOfCreateDatabaseParent says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfCreateDatabaseParent = map[string]jsonTagMember{
-	"page_id":   jsonTagRequired,
-	"workspace": jsonTagRequired,
+// tagsOfCreateDatabaseParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfCreateDatabaseParent = map[string]map[string]bool{
+	"page_id":   {"page_id": true},
+	"workspace": {"workspace": true},
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *CreateDatabaseParent) taggedMembers() []string {
 	var set []string
 	if v.PageID != "" {
@@ -5337,8 +5626,8 @@ func (v *CreateDatabaseParent) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *CreateDatabaseParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateDatabaseParent
 
@@ -5356,8 +5645,8 @@ func (v *CreateDatabaseParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain CreateDatabaseParent
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = CreateDatabaseParentAllOfType(set[0])
+	if tag, ok := jsonInferTag(tagsOfCreateDatabaseParent, set); ok && out.Type == "" {
+		out.Type = CreateDatabaseParentAllOfType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateDatabaseParent, set, true); err != nil {
@@ -5453,6 +5742,8 @@ var variantsOfCreateMeetingNote = []jsonVariant{
 // decode the members they declare, and a member neither declares is an error.
 func (v *CreateMeetingNote) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
+
+	*v = CreateMeetingNote{}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -5599,6 +5890,8 @@ type CreateMeetingNoteAllOf1 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateMeetingNoteAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateMeetingNoteAllOf1{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -5687,6 +5980,8 @@ type CreateMeetingNoteOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateMeetingNoteOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateMeetingNoteOk{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -5817,6 +6112,8 @@ type CreateView struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateView) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = CreateView{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -6095,20 +6392,6 @@ type DataSourceParentResponse struct {
 	DatabaseID IDResponse `json:"database_id"`
 }
 
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether DataSourceParentResponse declares it.
-func (v *DataSourceParentResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
-	case "data_source_id":
-		return true, json.UnmarshalDecode(dec, &v.DataSourceID, jsonOptsOf(dec))
-	case "database_id":
-		return true, json.UnmarshalDecode(dec, &v.DatabaseID, jsonOptsOf(dec))
-	}
-
-	return false, nil
-}
-
 // DataSourceReferenceResponse defines a model
 type DataSourceReferenceResponse struct {
 	// The ID of the data source.
@@ -6297,18 +6580,6 @@ type DatabaseParentResponse struct {
 	DatabaseID IDResponse `json:"database_id"`
 }
 
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether DatabaseParentResponse declares it.
-func (v *DatabaseParentResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
-	case "database_id":
-		return true, json.UnmarshalDecode(dec, &v.DatabaseID, jsonOptsOf(dec))
-	}
-
-	return false, nil
-}
-
 // DatabasePropertyConfigResponse defines a model
 type DatabasePropertyConfigResponse struct {
 	// The ID of the property.
@@ -6317,7 +6588,7 @@ type DatabasePropertyConfigResponse struct {
 	Name string `json:"name"`
 	// The description of the property.
 	Description    PropertyDescriptionRequest                  `json:"description"`
-	Type           string                                      `json:"type"`
+	Type           DatabasePropertyConfigResponseType          `json:"type"`
 	Number         *Number2                                    `json:"number,omitzero"`
 	Formula        *ContentWithExpression                      `json:"formula,omitzero"`
 	Select         *SelectDatabasePropertyConfigSelect         `json:"select,omitzero"`
@@ -6341,32 +6612,65 @@ type DatabasePropertyConfigResponse struct {
 	LastEditedTime *EmptyObject                                `json:"last_edited_time,omitzero"`
 }
 
-// tagsOfDatabasePropertyConfigResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfDatabasePropertyConfigResponse = map[string]jsonTagMember{
-	"number":           jsonTagRequired,
-	"formula":          jsonTagRequired,
-	"select":           jsonTagRequired,
-	"multi_select":     jsonTagRequired,
-	"status":           jsonTagRequired,
-	"relation":         jsonTagRequired,
-	"rollup":           jsonTagRequired,
-	"unique_id":        jsonTagRequired,
-	"title":            jsonTagRequired,
-	"rich_text":        jsonTagRequired,
-	"url":              jsonTagRequired,
-	"people":           jsonTagRequired,
-	"files":            jsonTagRequired,
-	"email":            jsonTagRequired,
-	"phone_number":     jsonTagRequired,
-	"date":             jsonTagRequired,
-	"checkbox":         jsonTagRequired,
-	"created_by":       jsonTagRequired,
-	"created_time":     jsonTagRequired,
-	"last_edited_by":   jsonTagRequired,
-	"last_edited_time": jsonTagRequired,
+// DatabasePropertyConfigResponseType is a value of DatabasePropertyConfigResponse's type, naming the members it holds.
+type DatabasePropertyConfigResponseType string
+
+const (
+	DatabasePropertyConfigResponseTypeNumber         DatabasePropertyConfigResponseType = "number"
+	DatabasePropertyConfigResponseTypeFormula        DatabasePropertyConfigResponseType = "formula"
+	DatabasePropertyConfigResponseTypeSelect         DatabasePropertyConfigResponseType = "select"
+	DatabasePropertyConfigResponseTypeMultiSelect    DatabasePropertyConfigResponseType = "multi_select"
+	DatabasePropertyConfigResponseTypeStatus         DatabasePropertyConfigResponseType = "status"
+	DatabasePropertyConfigResponseTypeRelation       DatabasePropertyConfigResponseType = "relation"
+	DatabasePropertyConfigResponseTypeRollup         DatabasePropertyConfigResponseType = "rollup"
+	DatabasePropertyConfigResponseTypeUniqueID       DatabasePropertyConfigResponseType = "unique_id"
+	DatabasePropertyConfigResponseTypeTitle          DatabasePropertyConfigResponseType = "title"
+	DatabasePropertyConfigResponseTypeRichText       DatabasePropertyConfigResponseType = "rich_text"
+	DatabasePropertyConfigResponseTypeURL            DatabasePropertyConfigResponseType = "url"
+	DatabasePropertyConfigResponseTypePeople         DatabasePropertyConfigResponseType = "people"
+	DatabasePropertyConfigResponseTypeFiles          DatabasePropertyConfigResponseType = "files"
+	DatabasePropertyConfigResponseTypeEmail          DatabasePropertyConfigResponseType = "email"
+	DatabasePropertyConfigResponseTypePhoneNumber    DatabasePropertyConfigResponseType = "phone_number"
+	DatabasePropertyConfigResponseTypeDate           DatabasePropertyConfigResponseType = "date"
+	DatabasePropertyConfigResponseTypeCheckbox       DatabasePropertyConfigResponseType = "checkbox"
+	DatabasePropertyConfigResponseTypeCreatedBy      DatabasePropertyConfigResponseType = "created_by"
+	DatabasePropertyConfigResponseTypeCreatedTime    DatabasePropertyConfigResponseType = "created_time"
+	DatabasePropertyConfigResponseTypeLastEditedBy   DatabasePropertyConfigResponseType = "last_edited_by"
+	DatabasePropertyConfigResponseTypeLastEditedTime DatabasePropertyConfigResponseType = "last_edited_time"
+)
+
+// Valid indicates whether the value is a known member of the DatabasePropertyConfigResponseType enum.
+func (e DatabasePropertyConfigResponseType) Valid() bool {
+	_, ok := tagsOfDatabasePropertyConfigResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfDatabasePropertyConfigResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfDatabasePropertyConfigResponse = map[string]map[string]bool{
+	"number":           {"number": true},
+	"formula":          {"formula": true},
+	"select":           {"select": true},
+	"multi_select":     {"multi_select": true},
+	"status":           {"status": true},
+	"relation":         {"relation": true},
+	"rollup":           {"rollup": true},
+	"unique_id":        {"unique_id": true},
+	"title":            {"title": true},
+	"rich_text":        {"rich_text": true},
+	"url":              {"url": true},
+	"people":           {"people": true},
+	"files":            {"files": true},
+	"email":            {"email": true},
+	"phone_number":     {"phone_number": true},
+	"date":             {"date": true},
+	"checkbox":         {"checkbox": true},
+	"created_by":       {"created_by": true},
+	"created_time":     {"created_time": true},
+	"last_edited_by":   {"last_edited_by": true},
+	"last_edited_time": {"last_edited_time": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *DatabasePropertyConfigResponse) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -6436,8 +6740,8 @@ func (v *DatabasePropertyConfigResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *DatabasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain DatabasePropertyConfigResponse
 
@@ -6455,8 +6759,8 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 	type plain DatabasePropertyConfigResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfDatabasePropertyConfigResponse, set); ok && out.Type == "" {
+		out.Type = DatabasePropertyConfigResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyConfigResponse, set, true); err != nil {
@@ -6468,20 +6772,34 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 
 // DatabasePropertyRelationConfigResponse defines a model
 type DatabasePropertyRelationConfigResponse struct {
-	DatabaseID     IDResponse                `json:"database_id"`
-	DataSourceID   IDResponse                `json:"data_source_id"`
-	Type           string                    `json:"type"`
-	SingleProperty *EmptyObject              `json:"single_property,omitzero"`
-	DualProperty   *DualPropertyDualProperty `json:"dual_property,omitzero"`
+	DatabaseID     IDResponse                                 `json:"database_id"`
+	DataSourceID   IDResponse                                 `json:"data_source_id"`
+	Type           DatabasePropertyRelationConfigResponseType `json:"type"`
+	SingleProperty *EmptyObject                               `json:"single_property,omitzero"`
+	DualProperty   *DualPropertyDualProperty                  `json:"dual_property,omitzero"`
 }
 
-// tagsOfDatabasePropertyRelationConfigResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfDatabasePropertyRelationConfigResponse = map[string]jsonTagMember{
-	"single_property": jsonTagRequired,
-	"dual_property":   jsonTagRequired,
+// DatabasePropertyRelationConfigResponseType is a value of DatabasePropertyRelationConfigResponse's type, naming the members it holds.
+type DatabasePropertyRelationConfigResponseType string
+
+const (
+	DatabasePropertyRelationConfigResponseTypeSingleProperty DatabasePropertyRelationConfigResponseType = "single_property"
+	DatabasePropertyRelationConfigResponseTypeDualProperty   DatabasePropertyRelationConfigResponseType = "dual_property"
+)
+
+// Valid indicates whether the value is a known member of the DatabasePropertyRelationConfigResponseType enum.
+func (e DatabasePropertyRelationConfigResponseType) Valid() bool {
+	_, ok := tagsOfDatabasePropertyRelationConfigResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfDatabasePropertyRelationConfigResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfDatabasePropertyRelationConfigResponse = map[string]map[string]bool{
+	"single_property": {"single_property": true},
+	"dual_property":   {"dual_property": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *DatabasePropertyRelationConfigResponse) taggedMembers() []string {
 	var set []string
 	if v.SingleProperty != nil {
@@ -6494,8 +6812,8 @@ func (v *DatabasePropertyRelationConfigResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *DatabasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain DatabasePropertyRelationConfigResponse
 
@@ -6513,8 +6831,8 @@ func (v *DatabasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 	type plain DatabasePropertyRelationConfigResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfDatabasePropertyRelationConfigResponse, set); ok && out.Type == "" {
+		out.Type = DatabasePropertyRelationConfigResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyRelationConfigResponse, set, true); err != nil {
@@ -6695,6 +7013,8 @@ type DateOrRelativeDate struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *DateOrRelativeDate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = DateOrRelativeDate{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -6755,6 +7075,8 @@ type DatePropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *DatePropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = DatePropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -6818,6 +7140,8 @@ type DatePropertyFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *DatePropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = DatePropertyFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -7077,6 +7401,8 @@ type Embed2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *Embed2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Embed2{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -7137,6 +7463,8 @@ type EmbedEmbed struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *EmbedEmbed) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = EmbedEmbed{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -7302,6 +7630,8 @@ type ErrorAPI403 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ErrorAPI403) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ErrorAPI403{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -7604,6 +7934,8 @@ type ErrorAPIOneOfAllOfAdditionalDataValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ErrorAPIOneOfAllOfAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ErrorAPIOneOfAllOfAdditionalDataValue{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -7795,6 +8127,8 @@ type ExistencePropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ExistencePropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ExistencePropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -7959,21 +8293,35 @@ func (e FileUploadObjectResponseCreatedByType) Valid() bool {
 // FileUploadObjectResponseFileImportResult defines a model
 type FileUploadObjectResponseFileImportResult struct {
 	// The time the file was imported into Notion. ISO 8601 format.
-	ImportedTime time.Time `json:"imported_time"`
-	Type         string    `json:"type"`
+	ImportedTime time.Time                                    `json:"imported_time"`
+	Type         FileUploadObjectResponseFileImportResultType `json:"type"`
 	// Empty object for success type.
 	Success *EmptyObject `json:"success,omitzero"`
 	// Details about the error that occurred during file import.
 	Err *Error2 `json:"error,omitzero"`
 }
 
-// tagsOfFileUploadObjectResponseFileImportResult says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfFileUploadObjectResponseFileImportResult = map[string]jsonTagMember{
-	"success": jsonTagRequired,
-	"error":   jsonTagRequired,
+// FileUploadObjectResponseFileImportResultType is a value of FileUploadObjectResponseFileImportResult's type, naming the members it holds.
+type FileUploadObjectResponseFileImportResultType string
+
+const (
+	FileUploadObjectResponseFileImportResultTypeSuccess FileUploadObjectResponseFileImportResultType = "success"
+	FileUploadObjectResponseFileImportResultTypeError   FileUploadObjectResponseFileImportResultType = "error"
+)
+
+// Valid indicates whether the value is a known member of the FileUploadObjectResponseFileImportResultType enum.
+func (e FileUploadObjectResponseFileImportResultType) Valid() bool {
+	_, ok := tagsOfFileUploadObjectResponseFileImportResult[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfFileUploadObjectResponseFileImportResult holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfFileUploadObjectResponseFileImportResult = map[string]map[string]bool{
+	"success": {"success": true},
+	"error":   {"error": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *FileUploadObjectResponseFileImportResult) taggedMembers() []string {
 	var set []string
 	if v.Success != nil {
@@ -7986,8 +8334,8 @@ func (v *FileUploadObjectResponseFileImportResult) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *FileUploadObjectResponseFileImportResult) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain FileUploadObjectResponseFileImportResult
 
@@ -8005,8 +8353,8 @@ func (v *FileUploadObjectResponseFileImportResult) MarshalJSONTo(enc *jsontext.E
 	type plain FileUploadObjectResponseFileImportResult
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfFileUploadObjectResponseFileImportResult, set); ok && out.Type == "" {
+		out.Type = FileUploadObjectResponseFileImportResultType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfFileUploadObjectResponseFileImportResult, set, true); err != nil {
@@ -8049,21 +8397,35 @@ type FileUploadUploadFailedWebhookPayloadAllOf1Data struct {
 // The result of the file import attempt.
 type FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult struct {
 	// ISO 8601 timestamp of when the file was imported.
-	ImportedTime string `json:"imported_time"`
-	Type         string `json:"type"`
+	ImportedTime string                                                             `json:"imported_time"`
+	Type         FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType `json:"type"`
 	// Empty object indicating success.
 	Success *EmptyObject `json:"success,omitzero"`
 	// Details about the error.
 	Err *Error2 `json:"error,omitzero"`
 }
 
-// tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult = map[string]jsonTagMember{
-	"success": jsonTagRequired,
-	"error":   jsonTagRequired,
+// FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType is a value of FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult's type, naming the members it holds.
+type FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType string
+
+const (
+	FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultTypeSuccess FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType = "success"
+	FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultTypeError   FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType = "error"
+)
+
+// Valid indicates whether the value is a known member of the FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType enum.
+func (e FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType) Valid() bool {
+	_, ok := tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult = map[string]map[string]bool{
+	"success": {"success": true},
+	"error":   {"error": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) taggedMembers() []string {
 	var set []string
 	if v.Success != nil {
@@ -8076,8 +8438,8 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) taggedM
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult
 
@@ -8095,8 +8457,8 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Marshal
 	type plain FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult, set); ok && out.Type == "" {
+		out.Type = FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult, set, true); err != nil {
@@ -8109,20 +8471,35 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Marshal
 // FilesItem defines a model
 type FilesItem struct {
 	Name       StringRequest `json:"name,omitzero"`
-	Type       string        `json:"type"`
+	Type       FilesItemType `json:"type"`
 	File       *InternalFile `json:"file,omitzero"`
 	External   *ExternalFile `json:"external,omitzero"`
 	FileUpload *FileUploadID `json:"file_upload,omitzero"`
 }
 
-// tagsOfFilesItem says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfFilesItem = map[string]jsonTagMember{
-	"file":        jsonTagRequired,
-	"external":    jsonTagRequired,
-	"file_upload": jsonTagRequired,
+// FilesItemType is a value of FilesItem's type, naming the members it holds.
+type FilesItemType string
+
+const (
+	FilesItemTypeFile       FilesItemType = "file"
+	FilesItemTypeExternal   FilesItemType = "external"
+	FilesItemTypeFileUpload FilesItemType = "file_upload"
+)
+
+// Valid indicates whether the value is a known member of the FilesItemType enum.
+func (e FilesItemType) Valid() bool {
+	_, ok := tagsOfFilesItem[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfFilesItem holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfFilesItem = map[string]map[string]bool{
+	"file":        {"file": true},
+	"external":    {"external": true},
+	"file_upload": {"file_upload": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *FilesItem) taggedMembers() []string {
 	var set []string
 	if v.File != nil {
@@ -8138,8 +8515,8 @@ func (v *FilesItem) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *FilesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain FilesItem
 
@@ -8157,8 +8534,8 @@ func (v *FilesItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain FilesItem
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfFilesItem, set); ok && out.Type == "" {
+		out.Type = FilesItemType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfFilesItem, set, true); err != nil {
@@ -8364,6 +8741,8 @@ type FormulaPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *FormulaPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = FormulaPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -8440,24 +8819,41 @@ type FormulaPropertyFilterAnyOf0 struct {
 
 // FormulaPropertyResponse defines a model
 type FormulaPropertyResponse struct {
-	Type        string       `json:"type"`
-	String      string       `json:"string,omitzero"`
-	Date        *Date4       `json:"date,omitzero"`
-	Number      *float64     `json:"number,omitzero"`
-	Boolean     *bool        `json:"boolean,omitzero"`
-	Unsupported *EmptyObject `json:"unsupported,omitzero"`
+	Type        FormulaPropertyResponseType `json:"type"`
+	String      string                      `json:"string,omitzero"`
+	Date        *Date4                      `json:"date,omitzero"`
+	Number      *float64                    `json:"number,omitzero"`
+	Boolean     *bool                       `json:"boolean,omitzero"`
+	Unsupported *EmptyObject                `json:"unsupported,omitzero"`
 }
 
-// tagsOfFormulaPropertyResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfFormulaPropertyResponse = map[string]jsonTagMember{
-	"string":      jsonTagRequired,
-	"date":        jsonTagOptional,
-	"number":      jsonTagRequired,
-	"boolean":     jsonTagRequired,
-	"unsupported": jsonTagRequired,
+// FormulaPropertyResponseType is a value of FormulaPropertyResponse's type, naming the members it holds.
+type FormulaPropertyResponseType string
+
+const (
+	FormulaPropertyResponseTypeString      FormulaPropertyResponseType = "string"
+	FormulaPropertyResponseTypeDate        FormulaPropertyResponseType = "date"
+	FormulaPropertyResponseTypeNumber      FormulaPropertyResponseType = "number"
+	FormulaPropertyResponseTypeBoolean     FormulaPropertyResponseType = "boolean"
+	FormulaPropertyResponseTypeUnsupported FormulaPropertyResponseType = "unsupported"
+)
+
+// Valid indicates whether the value is a known member of the FormulaPropertyResponseType enum.
+func (e FormulaPropertyResponseType) Valid() bool {
+	_, ok := tagsOfFormulaPropertyResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfFormulaPropertyResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfFormulaPropertyResponse = map[string]map[string]bool{
+	"string":      {"string": true},
+	"date":        {"date": false},
+	"number":      {"number": true},
+	"boolean":     {"boolean": true},
+	"unsupported": {"unsupported": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *FormulaPropertyResponse) taggedMembers() []string {
 	var set []string
 	if v.String != "" {
@@ -8479,8 +8875,8 @@ func (v *FormulaPropertyResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *FormulaPropertyResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain FormulaPropertyResponse
 
@@ -8498,8 +8894,8 @@ func (v *FormulaPropertyResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain FormulaPropertyResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfFormulaPropertyResponse, set); ok && out.Type == "" {
+		out.Type = FormulaPropertyResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyResponse, set, true); err != nil {
@@ -8511,24 +8907,41 @@ func (v *FormulaPropertyResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // FormulaPropertyValueResponse defines a model
 type FormulaPropertyValueResponse struct {
-	Type        string       `json:"type"`
-	Boolean     *bool        `json:"boolean,omitzero"`
-	Date        *Date4       `json:"date,omitzero"`
-	Number      *float64     `json:"number,omitzero"`
-	String      *string      `json:"string,omitzero"`
-	Unsupported *EmptyObject `json:"unsupported,omitzero"`
+	Type        FormulaPropertyValueResponseType `json:"type"`
+	Boolean     *bool                            `json:"boolean,omitzero"`
+	Date        *Date4                           `json:"date,omitzero"`
+	Number      *float64                         `json:"number,omitzero"`
+	String      *string                          `json:"string,omitzero"`
+	Unsupported *EmptyObject                     `json:"unsupported,omitzero"`
 }
 
-// tagsOfFormulaPropertyValueResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfFormulaPropertyValueResponse = map[string]jsonTagMember{
-	"boolean":     jsonTagOptional,
-	"date":        jsonTagOptional,
-	"number":      jsonTagOptional,
-	"string":      jsonTagOptional,
-	"unsupported": jsonTagRequired,
+// FormulaPropertyValueResponseType is a value of FormulaPropertyValueResponse's type, naming the members it holds.
+type FormulaPropertyValueResponseType string
+
+const (
+	FormulaPropertyValueResponseTypeBoolean     FormulaPropertyValueResponseType = "boolean"
+	FormulaPropertyValueResponseTypeDate        FormulaPropertyValueResponseType = "date"
+	FormulaPropertyValueResponseTypeNumber      FormulaPropertyValueResponseType = "number"
+	FormulaPropertyValueResponseTypeString      FormulaPropertyValueResponseType = "string"
+	FormulaPropertyValueResponseTypeUnsupported FormulaPropertyValueResponseType = "unsupported"
+)
+
+// Valid indicates whether the value is a known member of the FormulaPropertyValueResponseType enum.
+func (e FormulaPropertyValueResponseType) Valid() bool {
+	_, ok := tagsOfFormulaPropertyValueResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfFormulaPropertyValueResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfFormulaPropertyValueResponse = map[string]map[string]bool{
+	"boolean":     {"boolean": false},
+	"date":        {"date": false},
+	"number":      {"number": false},
+	"string":      {"string": false},
+	"unsupported": {"unsupported": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *FormulaPropertyValueResponse) taggedMembers() []string {
 	var set []string
 	if v.Boolean != nil {
@@ -8550,8 +8963,8 @@ func (v *FormulaPropertyValueResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *FormulaPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain FormulaPropertyValueResponse
 
@@ -8569,8 +8982,8 @@ func (v *FormulaPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) erro
 	type plain FormulaPropertyValueResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfFormulaPropertyValueResponse, set); ok && out.Type == "" {
+		out.Type = FormulaPropertyValueResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyValueResponse, set, true); err != nil {
@@ -8592,6 +9005,8 @@ type FormulaSubGroupBy struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *FormulaSubGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = FormulaSubGroupBy{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -8790,6 +9205,8 @@ type GetAgentInsightsOkCreditLimit struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GetAgentInsightsOkCreditLimit) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GetAgentInsightsOkCreditLimit{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -8846,6 +9263,8 @@ type GetAgentInsightsOkID struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GetAgentInsightsOkID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GetAgentInsightsOkID{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -8974,6 +9393,8 @@ type GetAgentOkHasUnpublishedChanges struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GetAgentOkHasUnpublishedChanges) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GetAgentOkHasUnpublishedChanges{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -9030,6 +9451,8 @@ type GetAgentOkID struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GetAgentOkID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GetAgentOkID{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -9122,6 +9545,8 @@ type GroupByConfig struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GroupByConfig) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GroupByConfig{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -9258,6 +9683,8 @@ type GroupFilterOperatorArrayItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GroupFilterOperatorArrayItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GroupFilterOperatorArrayItem{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -9311,6 +9738,8 @@ type GroupFilterOperatorArrayItemAnyOf1 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GroupFilterOperatorArrayItemAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GroupFilterOperatorArrayItemAnyOf1{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -9499,24 +9928,38 @@ type InsertContentInsertContent struct {
 
 // Explicit position for inserted content. Use {"type":"start"} to prepend or {"type":"end"} to append. Cannot be combined with after.
 type InsertContentInsertContentPosition struct {
-	Type string `json:"type"`
+	Type InsertContentInsertContentPositionType `json:"type"`
 }
 
-// tagsOfInsertContentInsertContentPosition says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfInsertContentInsertContentPosition = map[string]jsonTagMember{
-	"start": jsonTagNone,
-	"end":   jsonTagNone,
+// InsertContentInsertContentPositionType is a value of InsertContentInsertContentPosition's type, naming the members it holds.
+type InsertContentInsertContentPositionType string
+
+const (
+	InsertContentInsertContentPositionTypeStart InsertContentInsertContentPositionType = "start"
+	InsertContentInsertContentPositionTypeEnd   InsertContentInsertContentPositionType = "end"
+)
+
+// Valid indicates whether the value is a known member of the InsertContentInsertContentPositionType enum.
+func (e InsertContentInsertContentPositionType) Valid() bool {
+	_, ok := tagsOfInsertContentInsertContentPosition[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfInsertContentInsertContentPosition holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfInsertContentInsertContentPosition = map[string]map[string]bool{
+	"start": {},
+	"end":   {},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *InsertContentInsertContentPosition) taggedMembers() []string {
 	var set []string
 
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *InsertContentInsertContentPosition) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain InsertContentInsertContentPosition
 
@@ -9534,8 +9977,8 @@ func (v *InsertContentInsertContentPosition) MarshalJSONTo(enc *jsontext.Encoder
 	type plain InsertContentInsertContentPosition
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfInsertContentInsertContentPosition, set); ok && out.Type == "" {
+		out.Type = InsertContentInsertContentPositionType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfInsertContentInsertContentPosition, set, true); err != nil {
@@ -9562,20 +10005,34 @@ type InternalOrExternalFileWithNameCommon struct {
 // InternalOrExternalFileWithNameResponse defines a model
 type InternalOrExternalFileWithNameResponse struct {
 	InternalOrExternalFileWithNameCommon
-	Type string `json:"type"`
+	Type InternalOrExternalFileWithNameResponseType `json:"type"`
 	// The file URL for the icon.
 	File *InternalFile `json:"file,omitzero"`
 	// The external URL for the icon.
 	External *LinkPreviewMention `json:"external,omitzero"`
 }
 
-// tagsOfInternalOrExternalFileWithNameResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfInternalOrExternalFileWithNameResponse = map[string]jsonTagMember{
-	"file":     jsonTagRequired,
-	"external": jsonTagRequired,
+// InternalOrExternalFileWithNameResponseType is a value of InternalOrExternalFileWithNameResponse's type, naming the members it holds.
+type InternalOrExternalFileWithNameResponseType string
+
+const (
+	InternalOrExternalFileWithNameResponseTypeFile     InternalOrExternalFileWithNameResponseType = "file"
+	InternalOrExternalFileWithNameResponseTypeExternal InternalOrExternalFileWithNameResponseType = "external"
+)
+
+// Valid indicates whether the value is a known member of the InternalOrExternalFileWithNameResponseType enum.
+func (e InternalOrExternalFileWithNameResponseType) Valid() bool {
+	_, ok := tagsOfInternalOrExternalFileWithNameResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfInternalOrExternalFileWithNameResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfInternalOrExternalFileWithNameResponse = map[string]map[string]bool{
+	"file":     {"file": true},
+	"external": {"external": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *InternalOrExternalFileWithNameResponse) taggedMembers() []string {
 	var set []string
 	if v.File != nil {
@@ -9588,8 +10045,8 @@ func (v *InternalOrExternalFileWithNameResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *InternalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain InternalOrExternalFileWithNameResponse
 
@@ -9607,8 +10064,8 @@ func (v *InternalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 	type plain InternalOrExternalFileWithNameResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfInternalOrExternalFileWithNameResponse, set); ok && out.Type == "" {
+		out.Type = InternalOrExternalFileWithNameResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfInternalOrExternalFileWithNameResponse, set, true); err != nil {
@@ -9787,21 +10244,36 @@ type LinkToPage3 struct {
 
 // LinkToPageLinkToPage defines a model
 type LinkToPageLinkToPage struct {
-	Type   string    `json:"type"`
-	PageID IDRequest `json:"page_id,omitzero"`
+	Type   LinkToPageLinkToPageType `json:"type"`
+	PageID IDRequest                `json:"page_id,omitzero"`
 	// The ID of the parent database (with or without dashes), for example, 195de9221179449fab8075a27c979105
 	DatabaseID IDRequest `json:"database_id,omitzero"`
 	CommentID  IDRequest `json:"comment_id,omitzero"`
 }
 
-// tagsOfLinkToPageLinkToPage says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfLinkToPageLinkToPage = map[string]jsonTagMember{
-	"page_id":     jsonTagRequired,
-	"database_id": jsonTagRequired,
-	"comment_id":  jsonTagRequired,
+// LinkToPageLinkToPageType is a value of LinkToPageLinkToPage's type, naming the members it holds.
+type LinkToPageLinkToPageType string
+
+const (
+	LinkToPageLinkToPageTypePageID     LinkToPageLinkToPageType = "page_id"
+	LinkToPageLinkToPageTypeDatabaseID LinkToPageLinkToPageType = "database_id"
+	LinkToPageLinkToPageTypeCommentID  LinkToPageLinkToPageType = "comment_id"
+)
+
+// Valid indicates whether the value is a known member of the LinkToPageLinkToPageType enum.
+func (e LinkToPageLinkToPageType) Valid() bool {
+	_, ok := tagsOfLinkToPageLinkToPage[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfLinkToPageLinkToPage holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfLinkToPageLinkToPage = map[string]map[string]bool{
+	"page_id":     {"page_id": true},
+	"database_id": {"database_id": true},
+	"comment_id":  {"comment_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *LinkToPageLinkToPage) taggedMembers() []string {
 	var set []string
 	if v.PageID != "" {
@@ -9817,8 +10289,8 @@ func (v *LinkToPageLinkToPage) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *LinkToPageLinkToPage) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain LinkToPageLinkToPage
 
@@ -9836,8 +10308,8 @@ func (v *LinkToPageLinkToPage) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain LinkToPageLinkToPage
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfLinkToPageLinkToPage, set); ok && out.Type == "" {
+		out.Type = LinkToPageLinkToPageType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfLinkToPageLinkToPage, set, true); err != nil {
@@ -10069,19 +10541,33 @@ func (v *MapViewConfigResponse) unmarshalJSONMember(dec *jsontext.Decoder, name 
 
 // MediaContentWithFileAndCaptionRequest defines a model
 type MediaContentWithFileAndCaptionRequest struct {
-	Caption    []RichTextItemRequest `json:"caption,omitzero"`
-	Type       string                `json:"type"`
-	External   *ExternalFile         `json:"external,omitzero"`
-	FileUpload *FileUploadID         `json:"file_upload,omitzero"`
+	Caption    []RichTextItemRequest                     `json:"caption,omitzero"`
+	Type       MediaContentWithFileAndCaptionRequestType `json:"type"`
+	External   *ExternalFile                             `json:"external,omitzero"`
+	FileUpload *FileUploadID                             `json:"file_upload,omitzero"`
 }
 
-// tagsOfMediaContentWithFileAndCaptionRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMediaContentWithFileAndCaptionRequest = map[string]jsonTagMember{
-	"external":    jsonTagRequired,
-	"file_upload": jsonTagRequired,
+// MediaContentWithFileAndCaptionRequestType is a value of MediaContentWithFileAndCaptionRequest's type, naming the members it holds.
+type MediaContentWithFileAndCaptionRequestType string
+
+const (
+	MediaContentWithFileAndCaptionRequestTypeExternal   MediaContentWithFileAndCaptionRequestType = "external"
+	MediaContentWithFileAndCaptionRequestTypeFileUpload MediaContentWithFileAndCaptionRequestType = "file_upload"
+)
+
+// Valid indicates whether the value is a known member of the MediaContentWithFileAndCaptionRequestType enum.
+func (e MediaContentWithFileAndCaptionRequestType) Valid() bool {
+	_, ok := tagsOfMediaContentWithFileAndCaptionRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMediaContentWithFileAndCaptionRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMediaContentWithFileAndCaptionRequest = map[string]map[string]bool{
+	"external":    {"external": true},
+	"file_upload": {"file_upload": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MediaContentWithFileAndCaptionRequest) taggedMembers() []string {
 	var set []string
 	if v.External != nil {
@@ -10094,8 +10580,8 @@ func (v *MediaContentWithFileAndCaptionRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MediaContentWithFileAndCaptionRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MediaContentWithFileAndCaptionRequest
 
@@ -10113,8 +10599,8 @@ func (v *MediaContentWithFileAndCaptionRequest) MarshalJSONTo(enc *jsontext.Enco
 	type plain MediaContentWithFileAndCaptionRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMediaContentWithFileAndCaptionRequest, set); ok && out.Type == "" {
+		out.Type = MediaContentWithFileAndCaptionRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionRequest, set, true); err != nil {
@@ -10126,19 +10612,33 @@ func (v *MediaContentWithFileAndCaptionRequest) MarshalJSONTo(enc *jsontext.Enco
 
 // MediaContentWithFileAndCaptionResponse defines a model
 type MediaContentWithFileAndCaptionResponse struct {
-	Caption  []RichTextItemResponse `json:"caption"`
-	Type     string                 `json:"type"`
-	External *ExternalFile          `json:"external,omitzero"`
-	File     *InternalFile          `json:"file,omitzero"`
+	Caption  []RichTextItemResponse                     `json:"caption"`
+	Type     MediaContentWithFileAndCaptionResponseType `json:"type"`
+	External *ExternalFile                              `json:"external,omitzero"`
+	File     *InternalFile                              `json:"file,omitzero"`
 }
 
-// tagsOfMediaContentWithFileAndCaptionResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMediaContentWithFileAndCaptionResponse = map[string]jsonTagMember{
-	"external": jsonTagRequired,
-	"file":     jsonTagRequired,
+// MediaContentWithFileAndCaptionResponseType is a value of MediaContentWithFileAndCaptionResponse's type, naming the members it holds.
+type MediaContentWithFileAndCaptionResponseType string
+
+const (
+	MediaContentWithFileAndCaptionResponseTypeExternal MediaContentWithFileAndCaptionResponseType = "external"
+	MediaContentWithFileAndCaptionResponseTypeFile     MediaContentWithFileAndCaptionResponseType = "file"
+)
+
+// Valid indicates whether the value is a known member of the MediaContentWithFileAndCaptionResponseType enum.
+func (e MediaContentWithFileAndCaptionResponseType) Valid() bool {
+	_, ok := tagsOfMediaContentWithFileAndCaptionResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMediaContentWithFileAndCaptionResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMediaContentWithFileAndCaptionResponse = map[string]map[string]bool{
+	"external": {"external": true},
+	"file":     {"file": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MediaContentWithFileAndCaptionResponse) taggedMembers() []string {
 	var set []string
 	if v.External != nil {
@@ -10151,8 +10651,8 @@ func (v *MediaContentWithFileAndCaptionResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MediaContentWithFileAndCaptionResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MediaContentWithFileAndCaptionResponse
 
@@ -10170,8 +10670,8 @@ func (v *MediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Enc
 	type plain MediaContentWithFileAndCaptionResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMediaContentWithFileAndCaptionResponse, set); ok && out.Type == "" {
+		out.Type = MediaContentWithFileAndCaptionResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionResponse, set, true); err != nil {
@@ -10183,20 +10683,34 @@ func (v *MediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Enc
 
 // MediaContentWithFileNameAndCaptionRequest defines a model
 type MediaContentWithFileNameAndCaptionRequest struct {
-	Caption    []RichTextItemRequest `json:"caption,omitzero"`
-	Name       StringRequest         `json:"name,omitzero"`
-	Type       string                `json:"type"`
-	External   *ExternalFile         `json:"external,omitzero"`
-	FileUpload *FileUploadID         `json:"file_upload,omitzero"`
+	Caption    []RichTextItemRequest                         `json:"caption,omitzero"`
+	Name       StringRequest                                 `json:"name,omitzero"`
+	Type       MediaContentWithFileNameAndCaptionRequestType `json:"type"`
+	External   *ExternalFile                                 `json:"external,omitzero"`
+	FileUpload *FileUploadID                                 `json:"file_upload,omitzero"`
 }
 
-// tagsOfMediaContentWithFileNameAndCaptionRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMediaContentWithFileNameAndCaptionRequest = map[string]jsonTagMember{
-	"external":    jsonTagRequired,
-	"file_upload": jsonTagRequired,
+// MediaContentWithFileNameAndCaptionRequestType is a value of MediaContentWithFileNameAndCaptionRequest's type, naming the members it holds.
+type MediaContentWithFileNameAndCaptionRequestType string
+
+const (
+	MediaContentWithFileNameAndCaptionRequestTypeExternal   MediaContentWithFileNameAndCaptionRequestType = "external"
+	MediaContentWithFileNameAndCaptionRequestTypeFileUpload MediaContentWithFileNameAndCaptionRequestType = "file_upload"
+)
+
+// Valid indicates whether the value is a known member of the MediaContentWithFileNameAndCaptionRequestType enum.
+func (e MediaContentWithFileNameAndCaptionRequestType) Valid() bool {
+	_, ok := tagsOfMediaContentWithFileNameAndCaptionRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMediaContentWithFileNameAndCaptionRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMediaContentWithFileNameAndCaptionRequest = map[string]map[string]bool{
+	"external":    {"external": true},
+	"file_upload": {"file_upload": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MediaContentWithFileNameAndCaptionRequest) taggedMembers() []string {
 	var set []string
 	if v.External != nil {
@@ -10209,8 +10723,8 @@ func (v *MediaContentWithFileNameAndCaptionRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MediaContentWithFileNameAndCaptionRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MediaContentWithFileNameAndCaptionRequest
 
@@ -10228,8 +10742,8 @@ func (v *MediaContentWithFileNameAndCaptionRequest) MarshalJSONTo(enc *jsontext.
 	type plain MediaContentWithFileNameAndCaptionRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMediaContentWithFileNameAndCaptionRequest, set); ok && out.Type == "" {
+		out.Type = MediaContentWithFileNameAndCaptionRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionRequest, set, true); err != nil {
@@ -10241,20 +10755,34 @@ func (v *MediaContentWithFileNameAndCaptionRequest) MarshalJSONTo(enc *jsontext.
 
 // MediaContentWithFileNameAndCaptionResponse defines a model
 type MediaContentWithFileNameAndCaptionResponse struct {
-	Caption  []RichTextItemResponse `json:"caption"`
-	Name     string                 `json:"name"`
-	Type     string                 `json:"type"`
-	External *ExternalFile          `json:"external,omitzero"`
-	File     *InternalFile          `json:"file,omitzero"`
+	Caption  []RichTextItemResponse                         `json:"caption"`
+	Name     string                                         `json:"name"`
+	Type     MediaContentWithFileNameAndCaptionResponseType `json:"type"`
+	External *ExternalFile                                  `json:"external,omitzero"`
+	File     *InternalFile                                  `json:"file,omitzero"`
 }
 
-// tagsOfMediaContentWithFileNameAndCaptionResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMediaContentWithFileNameAndCaptionResponse = map[string]jsonTagMember{
-	"external": jsonTagRequired,
-	"file":     jsonTagRequired,
+// MediaContentWithFileNameAndCaptionResponseType is a value of MediaContentWithFileNameAndCaptionResponse's type, naming the members it holds.
+type MediaContentWithFileNameAndCaptionResponseType string
+
+const (
+	MediaContentWithFileNameAndCaptionResponseTypeExternal MediaContentWithFileNameAndCaptionResponseType = "external"
+	MediaContentWithFileNameAndCaptionResponseTypeFile     MediaContentWithFileNameAndCaptionResponseType = "file"
+)
+
+// Valid indicates whether the value is a known member of the MediaContentWithFileNameAndCaptionResponseType enum.
+func (e MediaContentWithFileNameAndCaptionResponseType) Valid() bool {
+	_, ok := tagsOfMediaContentWithFileNameAndCaptionResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMediaContentWithFileNameAndCaptionResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMediaContentWithFileNameAndCaptionResponse = map[string]map[string]bool{
+	"external": {"external": true},
+	"file":     {"file": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MediaContentWithFileNameAndCaptionResponse) taggedMembers() []string {
 	var set []string
 	if v.External != nil {
@@ -10267,8 +10795,8 @@ func (v *MediaContentWithFileNameAndCaptionResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MediaContentWithFileNameAndCaptionResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MediaContentWithFileNameAndCaptionResponse
 
@@ -10286,8 +10814,8 @@ func (v *MediaContentWithFileNameAndCaptionResponse) MarshalJSONTo(enc *jsontext
 	type plain MediaContentWithFileNameAndCaptionResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMediaContentWithFileNameAndCaptionResponse, set); ok && out.Type == "" {
+		out.Type = MediaContentWithFileNameAndCaptionResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, set, true); err != nil {
@@ -10311,7 +10839,7 @@ type MediaContentWithURLAndCaptionResponse struct {
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
 type MentionRichTextItemRequestMention struct {
-	Type string `json:"type"`
+	Type MentionRichTextItemRequestMentionType `json:"type"`
 	// Details of the user mention.
 	User *PartialUserObjectRequest `json:"user,omitzero"`
 	// Details of the date mention.
@@ -10325,17 +10853,35 @@ type MentionRichTextItemRequestMention struct {
 	CustomEmoji     *CustomEmojiCustomEmoji `json:"custom_emoji,omitzero"`
 }
 
-// tagsOfMentionRichTextItemRequestMention says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMentionRichTextItemRequestMention = map[string]jsonTagMember{
-	"user":             jsonTagRequired,
-	"date":             jsonTagRequired,
-	"page":             jsonTagRequired,
-	"database":         jsonTagRequired,
-	"template_mention": jsonTagRequired,
-	"custom_emoji":     jsonTagRequired,
+// MentionRichTextItemRequestMentionType is a value of MentionRichTextItemRequestMention's type, naming the members it holds.
+type MentionRichTextItemRequestMentionType string
+
+const (
+	MentionRichTextItemRequestMentionTypeUser            MentionRichTextItemRequestMentionType = "user"
+	MentionRichTextItemRequestMentionTypeDate            MentionRichTextItemRequestMentionType = "date"
+	MentionRichTextItemRequestMentionTypePage            MentionRichTextItemRequestMentionType = "page"
+	MentionRichTextItemRequestMentionTypeDatabase        MentionRichTextItemRequestMentionType = "database"
+	MentionRichTextItemRequestMentionTypeTemplateMention MentionRichTextItemRequestMentionType = "template_mention"
+	MentionRichTextItemRequestMentionTypeCustomEmoji     MentionRichTextItemRequestMentionType = "custom_emoji"
+)
+
+// Valid indicates whether the value is a known member of the MentionRichTextItemRequestMentionType enum.
+func (e MentionRichTextItemRequestMentionType) Valid() bool {
+	_, ok := tagsOfMentionRichTextItemRequestMention[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMentionRichTextItemRequestMention holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMentionRichTextItemRequestMention = map[string]map[string]bool{
+	"user":             {"user": true},
+	"date":             {"date": true},
+	"page":             {"page": true},
+	"database":         {"database": true},
+	"template_mention": {"template_mention": true},
+	"custom_emoji":     {"custom_emoji": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MentionRichTextItemRequestMention) taggedMembers() []string {
 	var set []string
 	if v.User != nil {
@@ -10360,8 +10906,8 @@ func (v *MentionRichTextItemRequestMention) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MentionRichTextItemRequestMention
 
@@ -10379,8 +10925,8 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 	type plain MentionRichTextItemRequestMention
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMentionRichTextItemRequestMention, set); ok && out.Type == "" {
+		out.Type = MentionRichTextItemRequestMentionType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemRequestMention, set, true); err != nil {
@@ -10392,7 +10938,7 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
 type MentionRichTextItemResponseMention struct {
-	Type string `json:"type"`
+	Type MentionRichTextItemResponseMentionType `json:"type"`
 	// Details of the user mention.
 	User *UserValueResponse `json:"user,omitzero"`
 	// Details of the date mention.
@@ -10411,19 +10957,39 @@ type MentionRichTextItemResponseMention struct {
 	CustomEmoji *CustomEmojiResponse `json:"custom_emoji,omitzero"`
 }
 
-// tagsOfMentionRichTextItemResponseMention says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMentionRichTextItemResponseMention = map[string]jsonTagMember{
-	"user":             jsonTagRequired,
-	"date":             jsonTagRequired,
-	"link_preview":     jsonTagRequired,
-	"link_mention":     jsonTagRequired,
-	"page":             jsonTagRequired,
-	"database":         jsonTagRequired,
-	"template_mention": jsonTagRequired,
-	"custom_emoji":     jsonTagRequired,
+// MentionRichTextItemResponseMentionType is a value of MentionRichTextItemResponseMention's type, naming the members it holds.
+type MentionRichTextItemResponseMentionType string
+
+const (
+	MentionRichTextItemResponseMentionTypeUser            MentionRichTextItemResponseMentionType = "user"
+	MentionRichTextItemResponseMentionTypeDate            MentionRichTextItemResponseMentionType = "date"
+	MentionRichTextItemResponseMentionTypeLinkPreview     MentionRichTextItemResponseMentionType = "link_preview"
+	MentionRichTextItemResponseMentionTypeLinkMention     MentionRichTextItemResponseMentionType = "link_mention"
+	MentionRichTextItemResponseMentionTypePage            MentionRichTextItemResponseMentionType = "page"
+	MentionRichTextItemResponseMentionTypeDatabase        MentionRichTextItemResponseMentionType = "database"
+	MentionRichTextItemResponseMentionTypeTemplateMention MentionRichTextItemResponseMentionType = "template_mention"
+	MentionRichTextItemResponseMentionTypeCustomEmoji     MentionRichTextItemResponseMentionType = "custom_emoji"
+)
+
+// Valid indicates whether the value is a known member of the MentionRichTextItemResponseMentionType enum.
+func (e MentionRichTextItemResponseMentionType) Valid() bool {
+	_, ok := tagsOfMentionRichTextItemResponseMention[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMentionRichTextItemResponseMention holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMentionRichTextItemResponseMention = map[string]map[string]bool{
+	"user":             {"user": true},
+	"date":             {"date": true},
+	"link_preview":     {"link_preview": true},
+	"link_mention":     {"link_mention": true},
+	"page":             {"page": true},
+	"database":         {"database": true},
+	"template_mention": {"template_mention": true},
+	"custom_emoji":     {"custom_emoji": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MentionRichTextItemResponseMention) taggedMembers() []string {
 	var set []string
 	if v.User != nil {
@@ -10454,8 +11020,8 @@ func (v *MentionRichTextItemResponseMention) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MentionRichTextItemResponseMention
 
@@ -10473,8 +11039,8 @@ func (v *MentionRichTextItemResponseMention) MarshalJSONTo(enc *jsontext.Encoder
 	type plain MentionRichTextItemResponseMention
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMentionRichTextItemResponseMention, set); ok && out.Type == "" {
+		out.Type = MentionRichTextItemResponseMentionType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemResponseMention, set, true); err != nil {
@@ -10499,6 +11065,8 @@ type MovePage2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *MovePage2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = MovePage2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -10548,18 +11116,32 @@ func (v *MovePage2) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // The new parent of the page.
 type MovePageParent struct {
-	Type         string    `json:"type"`
-	PageID       IDRequest `json:"page_id,omitzero"`
-	DataSourceID IDRequest `json:"data_source_id,omitzero"`
+	Type         MovePageParentType `json:"type"`
+	PageID       IDRequest          `json:"page_id,omitzero"`
+	DataSourceID IDRequest          `json:"data_source_id,omitzero"`
 }
 
-// tagsOfMovePageParent says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfMovePageParent = map[string]jsonTagMember{
-	"page_id":        jsonTagRequired,
-	"data_source_id": jsonTagRequired,
+// MovePageParentType is a value of MovePageParent's type, naming the members it holds.
+type MovePageParentType string
+
+const (
+	MovePageParentTypePageID       MovePageParentType = "page_id"
+	MovePageParentTypeDataSourceID MovePageParentType = "data_source_id"
+)
+
+// Valid indicates whether the value is a known member of the MovePageParentType enum.
+func (e MovePageParentType) Valid() bool {
+	_, ok := tagsOfMovePageParent[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfMovePageParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfMovePageParent = map[string]map[string]bool{
+	"page_id":        {"page_id": true},
+	"data_source_id": {"data_source_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *MovePageParent) taggedMembers() []string {
 	var set []string
 	if v.PageID != "" {
@@ -10572,8 +11154,8 @@ func (v *MovePageParent) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *MovePageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MovePageParent
 
@@ -10591,8 +11173,8 @@ func (v *MovePageParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain MovePageParent
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfMovePageParent, set); ok && out.Type == "" {
+		out.Type = MovePageParentType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfMovePageParent, set, true); err != nil {
@@ -10610,6 +11192,8 @@ type MultiSelectMultiSelectItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *MultiSelectMultiSelectItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = MultiSelectMultiSelectItem{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -10653,6 +11237,8 @@ type MultiSelectPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *MultiSelectPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = MultiSelectPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -10706,6 +11292,8 @@ type MultiSelectPropertyFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *MultiSelectPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = MultiSelectPropertyFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -10883,6 +11471,8 @@ type NumberPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *NumberPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = NumberPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -10940,6 +11530,8 @@ type NumberPropertyFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *NumberPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = NumberPropertyFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -11095,6 +11687,8 @@ type Page4 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *Page4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Page4{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -11160,20 +11754,34 @@ type PageContentUpdatedWebhookPayloadAllOfData struct {
 
 // PageCover2 defines a model
 type PageCover2 struct {
-	Type string `json:"type"`
+	Type PageCover2Type `json:"type"`
 	// The file URL for the icon.
 	File *InternalFile `json:"file,omitzero"`
 	// The external URL for the icon.
 	External *LinkPreviewMention `json:"external,omitzero"`
 }
 
-// tagsOfPageCover2 says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPageCover2 = map[string]jsonTagMember{
-	"file":     jsonTagRequired,
-	"external": jsonTagRequired,
+// PageCover2Type is a value of PageCover2's type, naming the members it holds.
+type PageCover2Type string
+
+const (
+	PageCover2TypeFile     PageCover2Type = "file"
+	PageCover2TypeExternal PageCover2Type = "external"
+)
+
+// Valid indicates whether the value is a known member of the PageCover2Type enum.
+func (e PageCover2Type) Valid() bool {
+	_, ok := tagsOfPageCover2[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPageCover2 holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPageCover2 = map[string]map[string]bool{
+	"file":     {"file": true},
+	"external": {"external": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PageCover2) taggedMembers() []string {
 	var set []string
 	if v.File != nil {
@@ -11186,8 +11794,8 @@ func (v *PageCover2) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PageCover2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageCover2
 
@@ -11205,8 +11813,8 @@ func (v *PageCover2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PageCover2
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPageCover2, set); ok && out.Type == "" {
+		out.Type = PageCover2Type(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCover2, set, true); err != nil {
@@ -11218,19 +11826,33 @@ func (v *PageCover2) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // PageCoverRequest defines a model
 type PageCoverRequest struct {
-	Type       string    `json:"type"`
-	FileUpload *IDObject `json:"file_upload,omitzero"`
+	Type       PageCoverRequestType `json:"type"`
+	FileUpload *IDObject            `json:"file_upload,omitzero"`
 	// The external URL for the icon.
 	External *LinkPreviewMention `json:"external,omitzero"`
 }
 
-// tagsOfPageCoverRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPageCoverRequest = map[string]jsonTagMember{
-	"file_upload": jsonTagRequired,
-	"external":    jsonTagRequired,
+// PageCoverRequestType is a value of PageCoverRequest's type, naming the members it holds.
+type PageCoverRequestType string
+
+const (
+	PageCoverRequestTypeFileUpload PageCoverRequestType = "file_upload"
+	PageCoverRequestTypeExternal   PageCoverRequestType = "external"
+)
+
+// Valid indicates whether the value is a known member of the PageCoverRequestType enum.
+func (e PageCoverRequestType) Valid() bool {
+	_, ok := tagsOfPageCoverRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPageCoverRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPageCoverRequest = map[string]map[string]bool{
+	"file_upload": {"file_upload": true},
+	"external":    {"external": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PageCoverRequest) taggedMembers() []string {
 	var set []string
 	if v.FileUpload != nil {
@@ -11243,8 +11865,8 @@ func (v *PageCoverRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PageCoverRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageCoverRequest
 
@@ -11262,8 +11884,8 @@ func (v *PageCoverRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PageCoverRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPageCoverRequest, set); ok && out.Type == "" {
+		out.Type = PageCoverRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCoverRequest, set, true); err != nil {
@@ -11310,22 +11932,10 @@ type PageIDParentForBlockBasedObject struct {
 	PageID IDResponse `json:"page_id"`
 }
 
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether PageIDParentForBlockBasedObject declares it.
-func (v *PageIDParentForBlockBasedObject) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
-	case "page_id":
-		return true, json.UnmarshalDecode(dec, &v.PageID, jsonOptsOf(dec))
-	}
-
-	return false, nil
-}
-
 // PageIconRequest defines a model
 type PageIconRequest struct {
-	Type       string    `json:"type"`
-	FileUpload *IDObject `json:"file_upload,omitzero"`
+	Type       PageIconRequestType `json:"type"`
+	FileUpload *IDObject           `json:"file_upload,omitzero"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
 	// The external URL for the icon.
@@ -11335,16 +11945,33 @@ type PageIconRequest struct {
 	Icon *NoticonIcon `json:"icon,omitzero"`
 }
 
-// tagsOfPageIconRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPageIconRequest = map[string]jsonTagMember{
-	"file_upload":  jsonTagRequired,
-	"emoji":        jsonTagRequired,
-	"external":     jsonTagRequired,
-	"custom_emoji": jsonTagRequired,
-	"icon":         jsonTagRequired,
+// PageIconRequestType is a value of PageIconRequest's type, naming the members it holds.
+type PageIconRequestType string
+
+const (
+	PageIconRequestTypeFileUpload  PageIconRequestType = "file_upload"
+	PageIconRequestTypeEmoji       PageIconRequestType = "emoji"
+	PageIconRequestTypeExternal    PageIconRequestType = "external"
+	PageIconRequestTypeCustomEmoji PageIconRequestType = "custom_emoji"
+	PageIconRequestTypeIcon        PageIconRequestType = "icon"
+)
+
+// Valid indicates whether the value is a known member of the PageIconRequestType enum.
+func (e PageIconRequestType) Valid() bool {
+	_, ok := tagsOfPageIconRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPageIconRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPageIconRequest = map[string]map[string]bool{
+	"file_upload":  {"file_upload": true},
+	"emoji":        {"emoji": true},
+	"external":     {"external": true},
+	"custom_emoji": {"custom_emoji": true},
+	"icon":         {"icon": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PageIconRequest) taggedMembers() []string {
 	var set []string
 	if v.FileUpload != nil {
@@ -11366,8 +11993,8 @@ func (v *PageIconRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageIconRequest
 
@@ -11385,8 +12012,8 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PageIconRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPageIconRequest, set); ok && out.Type == "" {
+		out.Type = PageIconRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconRequest, set, true); err != nil {
@@ -11398,7 +12025,7 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // PageIconResponse defines a model
 type PageIconResponse struct {
-	Type string `json:"type"`
+	Type PageIconResponseType `json:"type"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
 	// The file URL for the icon.
@@ -11411,16 +12038,33 @@ type PageIconResponse struct {
 	Icon *NoticonIcon `json:"icon,omitzero"`
 }
 
-// tagsOfPageIconResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPageIconResponse = map[string]jsonTagMember{
-	"emoji":        jsonTagRequired,
-	"file":         jsonTagRequired,
-	"external":     jsonTagRequired,
-	"custom_emoji": jsonTagRequired,
-	"icon":         jsonTagRequired,
+// PageIconResponseType is a value of PageIconResponse's type, naming the members it holds.
+type PageIconResponseType string
+
+const (
+	PageIconResponseTypeEmoji       PageIconResponseType = "emoji"
+	PageIconResponseTypeFile        PageIconResponseType = "file"
+	PageIconResponseTypeExternal    PageIconResponseType = "external"
+	PageIconResponseTypeCustomEmoji PageIconResponseType = "custom_emoji"
+	PageIconResponseTypeIcon        PageIconResponseType = "icon"
+)
+
+// Valid indicates whether the value is a known member of the PageIconResponseType enum.
+func (e PageIconResponseType) Valid() bool {
+	_, ok := tagsOfPageIconResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPageIconResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPageIconResponse = map[string]map[string]bool{
+	"emoji":        {"emoji": true},
+	"file":         {"file": true},
+	"external":     {"external": true},
+	"custom_emoji": {"custom_emoji": true},
+	"icon":         {"icon": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PageIconResponse) taggedMembers() []string {
 	var set []string
 	if v.Emoji != "" {
@@ -11442,8 +12086,8 @@ func (v *PageIconResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageIconResponse
 
@@ -11461,8 +12105,8 @@ func (v *PageIconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PageIconResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPageIconResponse, set); ok && out.Type == "" {
+		out.Type = PageIconResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconResponse, set, true); err != nil {
@@ -11569,6 +12213,8 @@ type PageOrDataSourceResultsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PageOrDataSourceResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PageOrDataSourceResultsItem{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -11622,6 +12268,8 @@ type PageOrDataSourceResultsItemAnyOf struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PageOrDataSourceResultsItemAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PageOrDataSourceResultsItemAnyOf{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -11691,18 +12339,33 @@ func (e PageOrDataSourceStatusIncompleteReason) Valid() bool {
 
 // PagePositionSchema defines a model
 type PagePositionSchema struct {
-	Type       string        `json:"type"`
-	AfterBlock *FileUploadID `json:"after_block,omitzero"`
+	Type       PagePositionSchemaType `json:"type"`
+	AfterBlock *FileUploadID          `json:"after_block,omitzero"`
 }
 
-// tagsOfPagePositionSchema says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPagePositionSchema = map[string]jsonTagMember{
-	"after_block": jsonTagRequired,
-	"page_start":  jsonTagNone,
-	"page_end":    jsonTagNone,
+// PagePositionSchemaType is a value of PagePositionSchema's type, naming the members it holds.
+type PagePositionSchemaType string
+
+const (
+	PagePositionSchemaTypeAfterBlock PagePositionSchemaType = "after_block"
+	PagePositionSchemaTypePageStart  PagePositionSchemaType = "page_start"
+	PagePositionSchemaTypePageEnd    PagePositionSchemaType = "page_end"
+)
+
+// Valid indicates whether the value is a known member of the PagePositionSchemaType enum.
+func (e PagePositionSchemaType) Valid() bool {
+	_, ok := tagsOfPagePositionSchema[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPagePositionSchema holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPagePositionSchema = map[string]map[string]bool{
+	"after_block": {"after_block": true},
+	"page_start":  {},
+	"page_end":    {},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PagePositionSchema) taggedMembers() []string {
 	var set []string
 	if v.AfterBlock != nil {
@@ -11712,8 +12375,8 @@ func (v *PagePositionSchema) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PagePositionSchema) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PagePositionSchema
 
@@ -11731,8 +12394,8 @@ func (v *PagePositionSchema) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PagePositionSchema
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPagePositionSchema, set); ok && out.Type == "" {
+		out.Type = PagePositionSchemaType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePositionSchema, set, true); err != nil {
@@ -11769,7 +12432,7 @@ type PagePropertiesUpdatedWebhookPayloadAllOf1Data struct {
 
 // PagePropertiesValue defines a model
 type PagePropertiesValue struct {
-	Type         string                       `json:"type"`
+	Type         PagePropertiesValueType      `json:"type"`
 	Title        []RichTextItemRequest        `json:"title,omitzero"`
 	RichText     []RichTextItemRequest        `json:"rich_text,omitzero"`
 	Number       *float64                     `json:"number,omitzero"`
@@ -11788,27 +12451,55 @@ type PagePropertiesValue struct {
 	Verification *Verification2               `json:"verification,omitzero"`
 }
 
-// tagsOfPagePropertiesValue says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPagePropertiesValue = map[string]jsonTagMember{
-	"title":        jsonTagRequired,
-	"rich_text":    jsonTagRequired,
-	"number":       jsonTagRequired,
-	"url":          jsonTagOptional,
-	"select":       jsonTagOptional,
-	"multi_select": jsonTagRequired,
-	"people":       jsonTagRequired,
-	"email":        jsonTagOptional,
-	"phone_number": jsonTagOptional,
-	"date":         jsonTagOptional,
-	"checkbox":     jsonTagRequired,
-	"relation":     jsonTagRequired,
-	"files":        jsonTagRequired,
-	"status":       jsonTagOptional,
-	"place":        jsonTagRequired,
-	"verification": jsonTagRequired,
+// PagePropertiesValueType is a value of PagePropertiesValue's type, naming the members it holds.
+type PagePropertiesValueType string
+
+const (
+	PagePropertiesValueTypeTitle        PagePropertiesValueType = "title"
+	PagePropertiesValueTypeRichText     PagePropertiesValueType = "rich_text"
+	PagePropertiesValueTypeNumber       PagePropertiesValueType = "number"
+	PagePropertiesValueTypeURL          PagePropertiesValueType = "url"
+	PagePropertiesValueTypeSelect       PagePropertiesValueType = "select"
+	PagePropertiesValueTypeMultiSelect  PagePropertiesValueType = "multi_select"
+	PagePropertiesValueTypePeople       PagePropertiesValueType = "people"
+	PagePropertiesValueTypeEmail        PagePropertiesValueType = "email"
+	PagePropertiesValueTypePhoneNumber  PagePropertiesValueType = "phone_number"
+	PagePropertiesValueTypeDate         PagePropertiesValueType = "date"
+	PagePropertiesValueTypeCheckbox     PagePropertiesValueType = "checkbox"
+	PagePropertiesValueTypeRelation     PagePropertiesValueType = "relation"
+	PagePropertiesValueTypeFiles        PagePropertiesValueType = "files"
+	PagePropertiesValueTypeStatus       PagePropertiesValueType = "status"
+	PagePropertiesValueTypePlace        PagePropertiesValueType = "place"
+	PagePropertiesValueTypeVerification PagePropertiesValueType = "verification"
+)
+
+// Valid indicates whether the value is a known member of the PagePropertiesValueType enum.
+func (e PagePropertiesValueType) Valid() bool {
+	_, ok := tagsOfPagePropertiesValue[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPagePropertiesValue holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPagePropertiesValue = map[string]map[string]bool{
+	"title":        {"title": true},
+	"rich_text":    {"rich_text": true},
+	"number":       {"number": true},
+	"url":          {"url": false},
+	"select":       {"select": false},
+	"multi_select": {"multi_select": true},
+	"people":       {"people": true},
+	"email":        {"email": false},
+	"phone_number": {"phone_number": false},
+	"date":         {"date": false},
+	"checkbox":     {"checkbox": true},
+	"relation":     {"relation": true},
+	"files":        {"files": true},
+	"status":       {"status": false},
+	"place":        {"place": true},
+	"verification": {"verification": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PagePropertiesValue) taggedMembers() []string {
 	var set []string
 	if v.Title != nil {
@@ -11863,8 +12554,8 @@ func (v *PagePropertiesValue) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PagePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PagePropertiesValue
 
@@ -11882,8 +12573,8 @@ func (v *PagePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PagePropertiesValue
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPagePropertiesValue, set); ok && out.Type == "" {
+		out.Type = PagePropertiesValueType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertiesValue, set, true); err != nil {
@@ -11896,7 +12587,7 @@ func (v *PagePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 // PagePropertyValueWithIDResponse defines a model
 type PagePropertyValueWithIDResponse struct {
 	IDObject
-	Type           string                                            `json:"type"`
+	Type           PagePropertyValueWithIDResponseType               `json:"type"`
 	Number         *float64                                          `json:"number,omitzero"`
 	URL            *string                                           `json:"url,omitzero"`
 	Select         *PartialSelect                                    `json:"select,omitzero"`
@@ -11923,35 +12614,71 @@ type PagePropertyValueWithIDResponse struct {
 	Rollup         *PartialRollupValueResponse                       `json:"rollup,omitzero"`
 }
 
-// tagsOfPagePropertyValueWithIDResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPagePropertyValueWithIDResponse = map[string]jsonTagMember{
-	"number":           jsonTagOptional,
-	"url":              jsonTagOptional,
-	"select":           jsonTagOptional,
-	"multi_select":     jsonTagRequired,
-	"status":           jsonTagOptional,
-	"date":             jsonTagOptional,
-	"email":            jsonTagOptional,
-	"phone_number":     jsonTagOptional,
-	"checkbox":         jsonTagRequired,
-	"files":            jsonTagRequired,
-	"created_by":       jsonTagRequired,
-	"created_time":     jsonTagRequired,
-	"last_edited_by":   jsonTagRequired,
-	"last_edited_time": jsonTagRequired,
-	"formula":          jsonTagRequired,
-	"button":           jsonTagRequired,
-	"unique_id":        jsonTagRequired,
-	"verification":     jsonTagOptional,
-	"place":            jsonTagOptional,
-	"title":            jsonTagRequired,
-	"rich_text":        jsonTagRequired,
-	"people":           jsonTagRequired,
-	"relation":         jsonTagRequired,
-	"rollup":           jsonTagRequired,
+// PagePropertyValueWithIDResponseType is a value of PagePropertyValueWithIDResponse's type, naming the members it holds.
+type PagePropertyValueWithIDResponseType string
+
+const (
+	PagePropertyValueWithIDResponseTypeNumber         PagePropertyValueWithIDResponseType = "number"
+	PagePropertyValueWithIDResponseTypeURL            PagePropertyValueWithIDResponseType = "url"
+	PagePropertyValueWithIDResponseTypeSelect         PagePropertyValueWithIDResponseType = "select"
+	PagePropertyValueWithIDResponseTypeMultiSelect    PagePropertyValueWithIDResponseType = "multi_select"
+	PagePropertyValueWithIDResponseTypeStatus         PagePropertyValueWithIDResponseType = "status"
+	PagePropertyValueWithIDResponseTypeDate           PagePropertyValueWithIDResponseType = "date"
+	PagePropertyValueWithIDResponseTypeEmail          PagePropertyValueWithIDResponseType = "email"
+	PagePropertyValueWithIDResponseTypePhoneNumber    PagePropertyValueWithIDResponseType = "phone_number"
+	PagePropertyValueWithIDResponseTypeCheckbox       PagePropertyValueWithIDResponseType = "checkbox"
+	PagePropertyValueWithIDResponseTypeFiles          PagePropertyValueWithIDResponseType = "files"
+	PagePropertyValueWithIDResponseTypeCreatedBy      PagePropertyValueWithIDResponseType = "created_by"
+	PagePropertyValueWithIDResponseTypeCreatedTime    PagePropertyValueWithIDResponseType = "created_time"
+	PagePropertyValueWithIDResponseTypeLastEditedBy   PagePropertyValueWithIDResponseType = "last_edited_by"
+	PagePropertyValueWithIDResponseTypeLastEditedTime PagePropertyValueWithIDResponseType = "last_edited_time"
+	PagePropertyValueWithIDResponseTypeFormula        PagePropertyValueWithIDResponseType = "formula"
+	PagePropertyValueWithIDResponseTypeButton         PagePropertyValueWithIDResponseType = "button"
+	PagePropertyValueWithIDResponseTypeUniqueID       PagePropertyValueWithIDResponseType = "unique_id"
+	PagePropertyValueWithIDResponseTypeVerification   PagePropertyValueWithIDResponseType = "verification"
+	PagePropertyValueWithIDResponseTypePlace          PagePropertyValueWithIDResponseType = "place"
+	PagePropertyValueWithIDResponseTypeTitle          PagePropertyValueWithIDResponseType = "title"
+	PagePropertyValueWithIDResponseTypeRichText       PagePropertyValueWithIDResponseType = "rich_text"
+	PagePropertyValueWithIDResponseTypePeople         PagePropertyValueWithIDResponseType = "people"
+	PagePropertyValueWithIDResponseTypeRelation       PagePropertyValueWithIDResponseType = "relation"
+	PagePropertyValueWithIDResponseTypeRollup         PagePropertyValueWithIDResponseType = "rollup"
+)
+
+// Valid indicates whether the value is a known member of the PagePropertyValueWithIDResponseType enum.
+func (e PagePropertyValueWithIDResponseType) Valid() bool {
+	_, ok := tagsOfPagePropertyValueWithIDResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPagePropertyValueWithIDResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPagePropertyValueWithIDResponse = map[string]map[string]bool{
+	"number":           {"number": false},
+	"url":              {"url": false},
+	"select":           {"select": false},
+	"multi_select":     {"multi_select": true},
+	"status":           {"status": false},
+	"date":             {"date": false},
+	"email":            {"email": false},
+	"phone_number":     {"phone_number": false},
+	"checkbox":         {"checkbox": true},
+	"files":            {"files": true},
+	"created_by":       {"created_by": true},
+	"created_time":     {"created_time": true},
+	"last_edited_by":   {"last_edited_by": true},
+	"last_edited_time": {"last_edited_time": true},
+	"formula":          {"formula": true},
+	"button":           {"button": true},
+	"unique_id":        {"unique_id": true},
+	"verification":     {"verification": false},
+	"place":            {"place": false},
+	"title":            {"title": true},
+	"rich_text":        {"rich_text": true},
+	"people":           {"people": true},
+	"relation":         {"relation": true},
+	"rollup":           {"rollup": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PagePropertyValueWithIDResponse) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -12030,8 +12757,8 @@ func (v *PagePropertyValueWithIDResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PagePropertyValueWithIDResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PagePropertyValueWithIDResponse
 
@@ -12049,8 +12776,8 @@ func (v *PagePropertyValueWithIDResponse) MarshalJSONTo(enc *jsontext.Encoder) e
 	type plain PagePropertyValueWithIDResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPagePropertyValueWithIDResponse, set); ok && out.Type == "" {
+		out.Type = PagePropertyValueWithIDResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertyValueWithIDResponse, set, true); err != nil {
@@ -12160,108 +12887,103 @@ type ParagraphWithSingleLevelOfChildren struct {
 }
 
 // ParentForBlockBasedObjectResponse defines a model
-// ParentForBlockBasedObjectResponse is an untagged oneOf union: exactly one field is set after unmarshaling.
 type ParentForBlockBasedObjectResponse struct {
-	DatabaseParentResponse                   *DatabaseParentResponse
-	DataSourceParentResponse                 *DataSourceParentResponse
-	PageIDParentForBlockBasedObject          *PageIDParentForBlockBasedObject
-	BlockIDParentForBlockBasedObject         *BlockIDParentForBlockBasedObject
-	AgentIDParentForBlockBasedObjectResponse *AgentIDParentForBlockBasedObjectResponse
-	WorkspaceParentForBlockBasedObject       *WorkspaceParentForBlockBasedObject
+	Type ParentForBlockBasedObjectResponseType `json:"type"`
+	// The ID of the parent database.
+	DatabaseID *IDResponse `json:"database_id,omitzero"`
+	// The ID of the parent data source.
+	DataSourceID *IDResponse `json:"data_source_id,omitzero"`
+	// The ID of the parent page.
+	PageID *IDResponse `json:"page_id,omitzero"`
+	// The ID of the parent block.
+	BlockID *IDResponse `json:"block_id,omitzero"`
+	// The ID of the parent agent.
+	AgentID *IDResponse `json:"agent_id,omitzero"`
+	// Always true for workspace parent.
+	Workspace *bool `json:"workspace,omitzero"`
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
-// decodes each further member as it is read. With type first, nothing is read twice.
+// ParentForBlockBasedObjectResponseType is a value of ParentForBlockBasedObjectResponse's type, naming the members it holds.
+type ParentForBlockBasedObjectResponseType string
+
+const (
+	ParentForBlockBasedObjectResponseTypeDatabaseID   ParentForBlockBasedObjectResponseType = "database_id"
+	ParentForBlockBasedObjectResponseTypeDataSourceID ParentForBlockBasedObjectResponseType = "data_source_id"
+	ParentForBlockBasedObjectResponseTypePageID       ParentForBlockBasedObjectResponseType = "page_id"
+	ParentForBlockBasedObjectResponseTypeBlockID      ParentForBlockBasedObjectResponseType = "block_id"
+	ParentForBlockBasedObjectResponseTypeAgentID      ParentForBlockBasedObjectResponseType = "agent_id"
+	ParentForBlockBasedObjectResponseTypeWorkspace    ParentForBlockBasedObjectResponseType = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the ParentForBlockBasedObjectResponseType enum.
+func (e ParentForBlockBasedObjectResponseType) Valid() bool {
+	_, ok := tagsOfParentForBlockBasedObjectResponse[string(e)]
+	return ok
+}
+
+// tagsOfParentForBlockBasedObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfParentForBlockBasedObjectResponse = map[string]map[string]bool{
+	"database_id":    {"database_id": true},
+	"data_source_id": {"data_source_id": true, "database_id": true},
+	"page_id":        {"page_id": true},
+	"block_id":       {"block_id": true},
+	"agent_id":       {"agent_id": true},
+	"workspace":      {"workspace": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
+func (v *ParentForBlockBasedObjectResponse) taggedMembers() []string {
+	var set []string
+	if v.DatabaseID != nil {
+		set = append(set, "database_id")
+	}
+	if v.DataSourceID != nil {
+		set = append(set, "data_source_id")
+	}
+	if v.PageID != nil {
+		set = append(set, "page_id")
+	}
+	if v.BlockID != nil {
+		set = append(set, "block_id")
+	}
+	if v.AgentID != nil {
+		set = append(set, "agent_id")
+	}
+	if v.Workspace != nil {
+		set = append(set, "workspace")
+	}
+
+	return set
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *ParentForBlockBasedObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, dec, err := jsonFirstMember(dec, "type")
-	if err != nil {
+	type plain ParentForBlockBasedObjectResponse
+
+	*v = ParentForBlockBasedObjectResponse{}
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	switch tag {
-	case "database_id":
-		var vv DatabaseParentResponse
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.DatabaseParentResponse = &vv
-	case "data_source_id":
-		var vv DataSourceParentResponse
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.DataSourceParentResponse = &vv
-	case "page_id":
-		var vv PageIDParentForBlockBasedObject
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.PageIDParentForBlockBasedObject = &vv
-	case "block_id":
-		var vv BlockIDParentForBlockBasedObject
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.BlockIDParentForBlockBasedObject = &vv
-	case "agent_id":
-		var vv AgentIDParentForBlockBasedObjectResponse
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.AgentIDParentForBlockBasedObjectResponse = &vv
-	case "workspace":
-		var vv WorkspaceParentForBlockBasedObject
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.WorkspaceParentForBlockBasedObject = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
+	return jsonCheckTag("type", string(v.Type), tagsOfParentForBlockBasedObjectResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
+// MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
+// the value whose member is set.
 func (v *ParentForBlockBasedObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
+	type plain ParentForBlockBasedObjectResponse
 
-	switch {
-	case v.DatabaseParentResponse != nil:
-		variant, tag = v.DatabaseParentResponse, "database_id"
-	case v.DataSourceParentResponse != nil:
-		variant, tag = v.DataSourceParentResponse, "data_source_id"
-	case v.PageIDParentForBlockBasedObject != nil:
-		variant, tag = v.PageIDParentForBlockBasedObject, "page_id"
-	case v.BlockIDParentForBlockBasedObject != nil:
-		variant, tag = v.BlockIDParentForBlockBasedObject, "block_id"
-	case v.AgentIDParentForBlockBasedObjectResponse != nil:
-		variant, tag = v.AgentIDParentForBlockBasedObjectResponse, "agent_id"
-	case v.WorkspaceParentForBlockBasedObject != nil:
-		variant, tag = v.WorkspaceParentForBlockBasedObject, "workspace"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
+	out, set := *v, v.taggedMembers()
+	if tag, ok := jsonInferTag(tagsOfParentForBlockBasedObjectResponse, set); ok && out.Type == "" {
+		out.Type = ParentForBlockBasedObjectResponseType(tag)
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfParentForBlockBasedObjectResponse, set, true); err != nil {
 		return err
 	}
 
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
 }
 
 // ParentOfDataSource defines a model
@@ -12275,19 +12997,33 @@ type ParentOfDataSource struct {
 // The parent of the data source. This is typically a database (`database_id`), but for externally synced data sources, can be another data source (`data_source_id`).
 type ParentOfDataSourceResponse struct {
 	// The ID of the parent database.
-	DatabaseID IDResponse `json:"database_id"`
-	Type       string     `json:"type"`
+	DatabaseID IDResponse                     `json:"database_id"`
+	Type       ParentOfDataSourceResponseType `json:"type"`
 	// The ID of the parent data source.
 	DataSourceID *IDResponse `json:"data_source_id,omitzero"`
 }
 
-// tagsOfParentOfDataSourceResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfParentOfDataSourceResponse = map[string]jsonTagMember{
-	"database_id":    jsonTagNone,
-	"data_source_id": jsonTagRequired,
+// ParentOfDataSourceResponseType is a value of ParentOfDataSourceResponse's type, naming the members it holds.
+type ParentOfDataSourceResponseType string
+
+const (
+	ParentOfDataSourceResponseTypeDatabaseID   ParentOfDataSourceResponseType = "database_id"
+	ParentOfDataSourceResponseTypeDataSourceID ParentOfDataSourceResponseType = "data_source_id"
+)
+
+// Valid indicates whether the value is a known member of the ParentOfDataSourceResponseType enum.
+func (e ParentOfDataSourceResponseType) Valid() bool {
+	_, ok := tagsOfParentOfDataSourceResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfParentOfDataSourceResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfParentOfDataSourceResponse = map[string]map[string]bool{
+	"database_id":    {},
+	"data_source_id": {"data_source_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *ParentOfDataSourceResponse) taggedMembers() []string {
 	var set []string
 	if v.DataSourceID != nil {
@@ -12297,8 +13033,8 @@ func (v *ParentOfDataSourceResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *ParentOfDataSourceResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain ParentOfDataSourceResponse
 
@@ -12316,8 +13052,8 @@ func (v *ParentOfDataSourceResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 	type plain ParentOfDataSourceResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfParentOfDataSourceResponse, set); ok && out.Type == "" {
+		out.Type = ParentOfDataSourceResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDataSourceResponse, set, true); err != nil {
@@ -12329,7 +13065,7 @@ func (v *ParentOfDataSourceResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 
 // ParentOfDatabaseResponse defines a model
 type ParentOfDatabaseResponse struct {
-	Type string `json:"type"`
+	Type ParentOfDatabaseResponseType `json:"type"`
 	// The ID of the parent page.
 	PageID *IDResponse `json:"page_id,omitzero"`
 	// Always true for workspace parent.
@@ -12340,15 +13076,31 @@ type ParentOfDatabaseResponse struct {
 	BlockID *IDResponse `json:"block_id,omitzero"`
 }
 
-// tagsOfParentOfDatabaseResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfParentOfDatabaseResponse = map[string]jsonTagMember{
-	"page_id":     jsonTagRequired,
-	"workspace":   jsonTagRequired,
-	"database_id": jsonTagRequired,
-	"block_id":    jsonTagRequired,
+// ParentOfDatabaseResponseType is a value of ParentOfDatabaseResponse's type, naming the members it holds.
+type ParentOfDatabaseResponseType string
+
+const (
+	ParentOfDatabaseResponseTypePageID     ParentOfDatabaseResponseType = "page_id"
+	ParentOfDatabaseResponseTypeWorkspace  ParentOfDatabaseResponseType = "workspace"
+	ParentOfDatabaseResponseTypeDatabaseID ParentOfDatabaseResponseType = "database_id"
+	ParentOfDatabaseResponseTypeBlockID    ParentOfDatabaseResponseType = "block_id"
+)
+
+// Valid indicates whether the value is a known member of the ParentOfDatabaseResponseType enum.
+func (e ParentOfDatabaseResponseType) Valid() bool {
+	_, ok := tagsOfParentOfDatabaseResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfParentOfDatabaseResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfParentOfDatabaseResponse = map[string]map[string]bool{
+	"page_id":     {"page_id": true},
+	"workspace":   {"workspace": true},
+	"database_id": {"database_id": true},
+	"block_id":    {"block_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *ParentOfDatabaseResponse) taggedMembers() []string {
 	var set []string
 	if v.PageID != nil {
@@ -12367,8 +13119,8 @@ func (v *ParentOfDatabaseResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *ParentOfDatabaseResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain ParentOfDatabaseResponse
 
@@ -12386,8 +13138,8 @@ func (v *ParentOfDatabaseResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain ParentOfDatabaseResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfParentOfDatabaseResponse, set); ok && out.Type == "" {
+		out.Type = ParentOfDatabaseResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDatabaseResponse, set, true); err != nil {
@@ -12458,22 +13210,38 @@ type PartialRollupValueCommon struct {
 // PartialRollupValueResponse defines a model
 type PartialRollupValueResponse struct {
 	PartialRollupValueCommon
-	Type        string                               `json:"type"`
+	Type        PartialRollupValueResponseType       `json:"type"`
 	Number      *float64                             `json:"number,omitzero"`
 	Date        *Date4                               `json:"date,omitzero"`
 	Array       []SimpleOrArrayPropertyValueResponse `json:"array,omitzero"`
 	Unsupported *EmptyObject                         `json:"unsupported,omitzero"`
 }
 
-// tagsOfPartialRollupValueResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPartialRollupValueResponse = map[string]jsonTagMember{
-	"number":      jsonTagOptional,
-	"date":        jsonTagOptional,
-	"array":       jsonTagRequired,
-	"unsupported": jsonTagRequired,
+// PartialRollupValueResponseType is a value of PartialRollupValueResponse's type, naming the members it holds.
+type PartialRollupValueResponseType string
+
+const (
+	PartialRollupValueResponseTypeNumber      PartialRollupValueResponseType = "number"
+	PartialRollupValueResponseTypeDate        PartialRollupValueResponseType = "date"
+	PartialRollupValueResponseTypeArray       PartialRollupValueResponseType = "array"
+	PartialRollupValueResponseTypeUnsupported PartialRollupValueResponseType = "unsupported"
+)
+
+// Valid indicates whether the value is a known member of the PartialRollupValueResponseType enum.
+func (e PartialRollupValueResponseType) Valid() bool {
+	_, ok := tagsOfPartialRollupValueResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPartialRollupValueResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPartialRollupValueResponse = map[string]map[string]bool{
+	"number":      {"number": false},
+	"date":        {"date": false},
+	"array":       {"array": true},
+	"unsupported": {"unsupported": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PartialRollupValueResponse) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -12492,8 +13260,8 @@ func (v *PartialRollupValueResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PartialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PartialRollupValueResponse
 
@@ -12511,8 +13279,8 @@ func (v *PartialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 	type plain PartialRollupValueResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPartialRollupValueResponse, set); ok && out.Type == "" {
+		out.Type = PartialRollupValueResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPartialRollupValueResponse, set, true); err != nil {
@@ -12580,18 +13348,32 @@ type PatchPage struct {
 // PatchPageTemplate defines a model
 type PatchPageTemplate struct {
 	// IANA timezone to use when resolving template variables like @now and @today (e.g. 'America/New_York'). Defaults to the authorizing user's timezone for public integrations, or UTC for internal integrations.
-	Timezone   TemplateTimezone `json:"timezone,omitzero"`
-	Type       string           `json:"type"`
-	TemplateID IDRequest        `json:"template_id,omitzero"`
+	Timezone   TemplateTimezone      `json:"timezone,omitzero"`
+	Type       PatchPageTemplateType `json:"type"`
+	TemplateID IDRequest             `json:"template_id,omitzero"`
 }
 
-// tagsOfPatchPageTemplate says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPatchPageTemplate = map[string]jsonTagMember{
-	"default":     jsonTagNone,
-	"template_id": jsonTagRequired,
+// PatchPageTemplateType is a value of PatchPageTemplate's type, naming the members it holds.
+type PatchPageTemplateType string
+
+const (
+	PatchPageTemplateTypeDefault    PatchPageTemplateType = "default"
+	PatchPageTemplateTypeTemplateID PatchPageTemplateType = "template_id"
+)
+
+// Valid indicates whether the value is a known member of the PatchPageTemplateType enum.
+func (e PatchPageTemplateType) Valid() bool {
+	_, ok := tagsOfPatchPageTemplate[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPatchPageTemplate holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPatchPageTemplate = map[string]map[string]bool{
+	"default":     {},
+	"template_id": {"template_id": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PatchPageTemplate) taggedMembers() []string {
 	var set []string
 	if v.TemplateID != "" {
@@ -12601,8 +13383,8 @@ func (v *PatchPageTemplate) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PatchPageTemplate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PatchPageTemplate
 
@@ -12620,8 +13402,8 @@ func (v *PatchPageTemplate) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PatchPageTemplate
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPatchPageTemplate, set); ok && out.Type == "" {
+		out.Type = PatchPageTemplateType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPatchPageTemplate, set, true); err != nil {
@@ -12647,6 +13429,8 @@ type PeopleArrayBasedPropertyValueResponsePeopleItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PeopleArrayBasedPropertyValueResponsePeopleItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -12704,6 +13488,8 @@ type PeopleItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member object names the alternative, which then
 // decodes each further member as it is read. With object first, nothing is read twice.
 func (v *PeopleItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PeopleItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "object")
 	if err != nil {
 		return err
@@ -12775,6 +13561,8 @@ type PeoplePropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PeoplePropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PeoplePropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -12828,6 +13616,8 @@ type PeoplePropertyFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PeoplePropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PeoplePropertyFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -12891,6 +13681,8 @@ type PeoplePropertyItemObjectPeople struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PeoplePropertyItemObjectPeople) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PeoplePropertyItemObjectPeople{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -12987,6 +13779,8 @@ type PersonIDOrMe struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PersonIDOrMe) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PersonIDOrMe{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -13087,6 +13881,8 @@ type PostDatabaseQueryFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PostDatabaseQueryFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostDatabaseQueryFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -13150,6 +13946,8 @@ type PostDatabaseQueryFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PostDatabaseQueryFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostDatabaseQueryFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -13213,6 +14011,8 @@ type PostDatabaseQuerySortsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PostDatabaseQuerySortsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostDatabaseQuerySortsItem{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -13294,6 +14094,8 @@ type PostPageAcceptedOperation struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member surface names the alternative, which then
 // decodes each further member as it is read. With surface first, nothing is read twice.
 func (v *PostPageAcceptedOperation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostPageAcceptedOperation{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "surface")
 	if err != nil {
 		return err
@@ -13387,8 +14189,8 @@ func (v *PostPageAcceptedOperationAnyOf1) unmarshalJSONMember(dec *jsontext.Deco
 
 // PostPageParent defines a model
 type PostPageParent struct {
-	Type   string    `json:"type"`
-	PageID IDRequest `json:"page_id,omitzero"`
+	Type   PostPageParentType `json:"type"`
+	PageID IDRequest          `json:"page_id,omitzero"`
 	// The ID of the parent database (with or without dashes), for example, 195de9221179449fab8075a27c979105
 	DatabaseID   IDRequest `json:"database_id,omitzero"`
 	DataSourceID IDRequest `json:"data_source_id,omitzero"`
@@ -13396,15 +14198,31 @@ type PostPageParent struct {
 	Workspace *bool `json:"workspace,omitzero"`
 }
 
-// tagsOfPostPageParent says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPostPageParent = map[string]jsonTagMember{
-	"page_id":        jsonTagRequired,
-	"database_id":    jsonTagRequired,
-	"data_source_id": jsonTagRequired,
-	"workspace":      jsonTagRequired,
+// PostPageParentType is a value of PostPageParent's type, naming the members it holds.
+type PostPageParentType string
+
+const (
+	PostPageParentTypePageID       PostPageParentType = "page_id"
+	PostPageParentTypeDatabaseID   PostPageParentType = "database_id"
+	PostPageParentTypeDataSourceID PostPageParentType = "data_source_id"
+	PostPageParentTypeWorkspace    PostPageParentType = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the PostPageParentType enum.
+func (e PostPageParentType) Valid() bool {
+	_, ok := tagsOfPostPageParent[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPostPageParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPostPageParent = map[string]map[string]bool{
+	"page_id":        {"page_id": true},
+	"database_id":    {"database_id": true},
+	"data_source_id": {"data_source_id": true},
+	"workspace":      {"workspace": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PostPageParent) taggedMembers() []string {
 	var set []string
 	if v.PageID != "" {
@@ -13423,8 +14241,8 @@ func (v *PostPageParent) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PostPageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PostPageParent
 
@@ -13442,8 +14260,8 @@ func (v *PostPageParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PostPageParent
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPostPageParent, set); ok && out.Type == "" {
+		out.Type = PostPageParentType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPostPageParent, set, true); err != nil {
@@ -13464,6 +14282,8 @@ type PostPageTemplate struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *PostPageTemplate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostPageTemplate{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -13561,6 +14381,8 @@ type PostSearchFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PostSearchFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostSearchFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -13638,6 +14460,8 @@ type PostSearchSort struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PostSearchSort) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PostSearchSort{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -13731,7 +14555,7 @@ func (e PostSearchSortAnyOf1Property) Valid() bool {
 type PropertyConfigurationRequest struct {
 	// The description of the property.
 	Description     PropertyDescriptionRequest         `json:"description,omitzero"`
-	Type            string                             `json:"type"`
+	Type            PropertyConfigurationRequestType   `json:"type"`
 	Number          *Number2                           `json:"number,omitzero"`
 	Formula         *ContentWithExpression             `json:"formula,omitzero"`
 	Select          *SelectPropertyConfigurationSelect `json:"select,omitzero"`
@@ -13760,37 +14584,75 @@ type PropertyConfigurationRequest struct {
 	Place           *EmptyObject                       `json:"place,omitzero"`
 }
 
-// tagsOfPropertyConfigurationRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPropertyConfigurationRequest = map[string]jsonTagMember{
-	"number":            jsonTagRequired,
-	"formula":           jsonTagRequired,
-	"select":            jsonTagRequired,
-	"multi_select":      jsonTagRequired,
-	"status":            jsonTagRequired,
-	"relation":          jsonTagRequired,
-	"rollup":            jsonTagRequired,
-	"unique_id":         jsonTagRequired,
-	"title":             jsonTagRequired,
-	"rich_text":         jsonTagRequired,
-	"url":               jsonTagRequired,
-	"people":            jsonTagRequired,
-	"files":             jsonTagRequired,
-	"email":             jsonTagRequired,
-	"phone_number":      jsonTagRequired,
-	"date":              jsonTagRequired,
-	"checkbox":          jsonTagRequired,
-	"created_by":        jsonTagRequired,
-	"created_time":      jsonTagRequired,
-	"last_edited_by":    jsonTagRequired,
-	"last_edited_time":  jsonTagRequired,
-	"button":            jsonTagRequired,
-	"location":          jsonTagRequired,
-	"verification":      jsonTagRequired,
-	"last_visited_time": jsonTagRequired,
-	"place":             jsonTagRequired,
+// PropertyConfigurationRequestType is a value of PropertyConfigurationRequest's type, naming the members it holds.
+type PropertyConfigurationRequestType string
+
+const (
+	PropertyConfigurationRequestTypeNumber          PropertyConfigurationRequestType = "number"
+	PropertyConfigurationRequestTypeFormula         PropertyConfigurationRequestType = "formula"
+	PropertyConfigurationRequestTypeSelect          PropertyConfigurationRequestType = "select"
+	PropertyConfigurationRequestTypeMultiSelect     PropertyConfigurationRequestType = "multi_select"
+	PropertyConfigurationRequestTypeStatus          PropertyConfigurationRequestType = "status"
+	PropertyConfigurationRequestTypeRelation        PropertyConfigurationRequestType = "relation"
+	PropertyConfigurationRequestTypeRollup          PropertyConfigurationRequestType = "rollup"
+	PropertyConfigurationRequestTypeUniqueID        PropertyConfigurationRequestType = "unique_id"
+	PropertyConfigurationRequestTypeTitle           PropertyConfigurationRequestType = "title"
+	PropertyConfigurationRequestTypeRichText        PropertyConfigurationRequestType = "rich_text"
+	PropertyConfigurationRequestTypeURL             PropertyConfigurationRequestType = "url"
+	PropertyConfigurationRequestTypePeople          PropertyConfigurationRequestType = "people"
+	PropertyConfigurationRequestTypeFiles           PropertyConfigurationRequestType = "files"
+	PropertyConfigurationRequestTypeEmail           PropertyConfigurationRequestType = "email"
+	PropertyConfigurationRequestTypePhoneNumber     PropertyConfigurationRequestType = "phone_number"
+	PropertyConfigurationRequestTypeDate            PropertyConfigurationRequestType = "date"
+	PropertyConfigurationRequestTypeCheckbox        PropertyConfigurationRequestType = "checkbox"
+	PropertyConfigurationRequestTypeCreatedBy       PropertyConfigurationRequestType = "created_by"
+	PropertyConfigurationRequestTypeCreatedTime     PropertyConfigurationRequestType = "created_time"
+	PropertyConfigurationRequestTypeLastEditedBy    PropertyConfigurationRequestType = "last_edited_by"
+	PropertyConfigurationRequestTypeLastEditedTime  PropertyConfigurationRequestType = "last_edited_time"
+	PropertyConfigurationRequestTypeButton          PropertyConfigurationRequestType = "button"
+	PropertyConfigurationRequestTypeLocation        PropertyConfigurationRequestType = "location"
+	PropertyConfigurationRequestTypeVerification    PropertyConfigurationRequestType = "verification"
+	PropertyConfigurationRequestTypeLastVisitedTime PropertyConfigurationRequestType = "last_visited_time"
+	PropertyConfigurationRequestTypePlace           PropertyConfigurationRequestType = "place"
+)
+
+// Valid indicates whether the value is a known member of the PropertyConfigurationRequestType enum.
+func (e PropertyConfigurationRequestType) Valid() bool {
+	_, ok := tagsOfPropertyConfigurationRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPropertyConfigurationRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPropertyConfigurationRequest = map[string]map[string]bool{
+	"number":            {"number": true},
+	"formula":           {"formula": true},
+	"select":            {"select": true},
+	"multi_select":      {"multi_select": true},
+	"status":            {"status": true},
+	"relation":          {"relation": true},
+	"rollup":            {"rollup": true},
+	"unique_id":         {"unique_id": true},
+	"title":             {"title": true},
+	"rich_text":         {"rich_text": true},
+	"url":               {"url": true},
+	"people":            {"people": true},
+	"files":             {"files": true},
+	"email":             {"email": true},
+	"phone_number":      {"phone_number": true},
+	"date":              {"date": true},
+	"checkbox":          {"checkbox": true},
+	"created_by":        {"created_by": true},
+	"created_time":      {"created_time": true},
+	"last_edited_by":    {"last_edited_by": true},
+	"last_edited_time":  {"last_edited_time": true},
+	"button":            {"button": true},
+	"location":          {"location": true},
+	"verification":      {"verification": true},
+	"last_visited_time": {"last_visited_time": true},
+	"place":             {"place": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PropertyConfigurationRequest) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -13875,8 +14737,8 @@ func (v *PropertyConfigurationRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PropertyConfigurationRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyConfigurationRequest
 
@@ -13894,8 +14756,8 @@ func (v *PropertyConfigurationRequest) MarshalJSONTo(enc *jsontext.Encoder) erro
 	type plain PropertyConfigurationRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPropertyConfigurationRequest, set); ok && out.Type == "" {
+		out.Type = PropertyConfigurationRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyConfigurationRequest, set, true); err != nil {
@@ -13911,7 +14773,7 @@ type PropertyDescriptionRequest string
 // PropertyFilter defines a model
 type PropertyFilter struct {
 	Property       string                     `json:"property"`
-	Type           string                     `json:"type"`
+	Type           PropertyFilterType         `json:"type"`
 	Title          *TextPropertyFilter        `json:"title,omitzero"`
 	RichText       *TextPropertyFilter        `json:"rich_text,omitzero"`
 	Number         *NumberPropertyFilter      `json:"number,omitzero"`
@@ -13936,33 +14798,67 @@ type PropertyFilter struct {
 	Verification   *VerificationVerification3 `json:"verification,omitzero"`
 }
 
-// tagsOfPropertyFilter says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPropertyFilter = map[string]jsonTagMember{
-	"title":            jsonTagRequired,
-	"rich_text":        jsonTagRequired,
-	"number":           jsonTagRequired,
-	"checkbox":         jsonTagRequired,
-	"select":           jsonTagRequired,
-	"multi_select":     jsonTagRequired,
-	"status":           jsonTagRequired,
-	"date":             jsonTagRequired,
-	"people":           jsonTagRequired,
-	"files":            jsonTagRequired,
-	"url":              jsonTagRequired,
-	"email":            jsonTagRequired,
-	"phone_number":     jsonTagRequired,
-	"relation":         jsonTagRequired,
-	"created_by":       jsonTagRequired,
-	"created_time":     jsonTagRequired,
-	"last_edited_by":   jsonTagRequired,
-	"last_edited_time": jsonTagRequired,
-	"formula":          jsonTagRequired,
-	"unique_id":        jsonTagRequired,
-	"rollup":           jsonTagRequired,
-	"verification":     jsonTagRequired,
+// PropertyFilterType is a value of PropertyFilter's type, naming the members it holds.
+type PropertyFilterType string
+
+const (
+	PropertyFilterTypeTitle          PropertyFilterType = "title"
+	PropertyFilterTypeRichText       PropertyFilterType = "rich_text"
+	PropertyFilterTypeNumber         PropertyFilterType = "number"
+	PropertyFilterTypeCheckbox       PropertyFilterType = "checkbox"
+	PropertyFilterTypeSelect         PropertyFilterType = "select"
+	PropertyFilterTypeMultiSelect    PropertyFilterType = "multi_select"
+	PropertyFilterTypeStatus         PropertyFilterType = "status"
+	PropertyFilterTypeDate           PropertyFilterType = "date"
+	PropertyFilterTypePeople         PropertyFilterType = "people"
+	PropertyFilterTypeFiles          PropertyFilterType = "files"
+	PropertyFilterTypeURL            PropertyFilterType = "url"
+	PropertyFilterTypeEmail          PropertyFilterType = "email"
+	PropertyFilterTypePhoneNumber    PropertyFilterType = "phone_number"
+	PropertyFilterTypeRelation       PropertyFilterType = "relation"
+	PropertyFilterTypeCreatedBy      PropertyFilterType = "created_by"
+	PropertyFilterTypeCreatedTime    PropertyFilterType = "created_time"
+	PropertyFilterTypeLastEditedBy   PropertyFilterType = "last_edited_by"
+	PropertyFilterTypeLastEditedTime PropertyFilterType = "last_edited_time"
+	PropertyFilterTypeFormula        PropertyFilterType = "formula"
+	PropertyFilterTypeUniqueID       PropertyFilterType = "unique_id"
+	PropertyFilterTypeRollup         PropertyFilterType = "rollup"
+	PropertyFilterTypeVerification   PropertyFilterType = "verification"
+)
+
+// Valid indicates whether the value is a known member of the PropertyFilterType enum.
+func (e PropertyFilterType) Valid() bool {
+	_, ok := tagsOfPropertyFilter[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPropertyFilter holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPropertyFilter = map[string]map[string]bool{
+	"title":            {"title": true},
+	"rich_text":        {"rich_text": true},
+	"number":           {"number": true},
+	"checkbox":         {"checkbox": true},
+	"select":           {"select": true},
+	"multi_select":     {"multi_select": true},
+	"status":           {"status": true},
+	"date":             {"date": true},
+	"people":           {"people": true},
+	"files":            {"files": true},
+	"url":              {"url": true},
+	"email":            {"email": true},
+	"phone_number":     {"phone_number": true},
+	"relation":         {"relation": true},
+	"created_by":       {"created_by": true},
+	"created_time":     {"created_time": true},
+	"last_edited_by":   {"last_edited_by": true},
+	"last_edited_time": {"last_edited_time": true},
+	"formula":          {"formula": true},
+	"unique_id":        {"unique_id": true},
+	"rollup":           {"rollup": true},
+	"verification":     {"verification": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PropertyFilter) taggedMembers() []string {
 	var set []string
 	if v.Title != nil {
@@ -14035,8 +14931,8 @@ func (v *PropertyFilter) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyFilter
 
@@ -14054,8 +14950,8 @@ func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PropertyFilter
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPropertyFilter, set); ok && out.Type == "" {
+		out.Type = PropertyFilterType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyFilter, set, true); err != nil {
@@ -14069,7 +14965,7 @@ func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 type PropertyItemObjectResponse struct {
 	Object         string                                      `json:"object"`
 	ID             string                                      `json:"id"`
-	Type           string                                      `json:"type"`
+	Type           PropertyItemObjectResponseType              `json:"type"`
 	Number         *float64                                    `json:"number,omitzero"`
 	URL            string                                      `json:"url,omitzero"`
 	Select         *PartialSelect                              `json:"select,omitzero"`
@@ -14096,35 +14992,71 @@ type PropertyItemObjectResponse struct {
 	Rollup         *Rollup4                                    `json:"rollup,omitzero"`
 }
 
-// tagsOfPropertyItemObjectResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPropertyItemObjectResponse = map[string]jsonTagMember{
-	"number":           jsonTagRequired,
-	"url":              jsonTagRequired,
-	"select":           jsonTagOptional,
-	"multi_select":     jsonTagRequired,
-	"status":           jsonTagOptional,
-	"date":             jsonTagOptional,
-	"email":            jsonTagRequired,
-	"phone_number":     jsonTagRequired,
-	"checkbox":         jsonTagRequired,
-	"files":            jsonTagRequired,
-	"created_by":       jsonTagRequired,
-	"created_time":     jsonTagRequired,
-	"last_edited_by":   jsonTagRequired,
-	"last_edited_time": jsonTagRequired,
-	"formula":          jsonTagRequired,
-	"button":           jsonTagRequired,
-	"unique_id":        jsonTagRequired,
-	"verification":     jsonTagOptional,
-	"place":            jsonTagRequired,
-	"title":            jsonTagRequired,
-	"rich_text":        jsonTagRequired,
-	"people":           jsonTagRequired,
-	"relation":         jsonTagRequired,
-	"rollup":           jsonTagRequired,
+// PropertyItemObjectResponseType is a value of PropertyItemObjectResponse's type, naming the members it holds.
+type PropertyItemObjectResponseType string
+
+const (
+	PropertyItemObjectResponseTypeNumber         PropertyItemObjectResponseType = "number"
+	PropertyItemObjectResponseTypeURL            PropertyItemObjectResponseType = "url"
+	PropertyItemObjectResponseTypeSelect         PropertyItemObjectResponseType = "select"
+	PropertyItemObjectResponseTypeMultiSelect    PropertyItemObjectResponseType = "multi_select"
+	PropertyItemObjectResponseTypeStatus         PropertyItemObjectResponseType = "status"
+	PropertyItemObjectResponseTypeDate           PropertyItemObjectResponseType = "date"
+	PropertyItemObjectResponseTypeEmail          PropertyItemObjectResponseType = "email"
+	PropertyItemObjectResponseTypePhoneNumber    PropertyItemObjectResponseType = "phone_number"
+	PropertyItemObjectResponseTypeCheckbox       PropertyItemObjectResponseType = "checkbox"
+	PropertyItemObjectResponseTypeFiles          PropertyItemObjectResponseType = "files"
+	PropertyItemObjectResponseTypeCreatedBy      PropertyItemObjectResponseType = "created_by"
+	PropertyItemObjectResponseTypeCreatedTime    PropertyItemObjectResponseType = "created_time"
+	PropertyItemObjectResponseTypeLastEditedBy   PropertyItemObjectResponseType = "last_edited_by"
+	PropertyItemObjectResponseTypeLastEditedTime PropertyItemObjectResponseType = "last_edited_time"
+	PropertyItemObjectResponseTypeFormula        PropertyItemObjectResponseType = "formula"
+	PropertyItemObjectResponseTypeButton         PropertyItemObjectResponseType = "button"
+	PropertyItemObjectResponseTypeUniqueID       PropertyItemObjectResponseType = "unique_id"
+	PropertyItemObjectResponseTypeVerification   PropertyItemObjectResponseType = "verification"
+	PropertyItemObjectResponseTypePlace          PropertyItemObjectResponseType = "place"
+	PropertyItemObjectResponseTypeTitle          PropertyItemObjectResponseType = "title"
+	PropertyItemObjectResponseTypeRichText       PropertyItemObjectResponseType = "rich_text"
+	PropertyItemObjectResponseTypePeople         PropertyItemObjectResponseType = "people"
+	PropertyItemObjectResponseTypeRelation       PropertyItemObjectResponseType = "relation"
+	PropertyItemObjectResponseTypeRollup         PropertyItemObjectResponseType = "rollup"
+)
+
+// Valid indicates whether the value is a known member of the PropertyItemObjectResponseType enum.
+func (e PropertyItemObjectResponseType) Valid() bool {
+	_, ok := tagsOfPropertyItemObjectResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPropertyItemObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPropertyItemObjectResponse = map[string]map[string]bool{
+	"number":           {"number": true},
+	"url":              {"url": true},
+	"select":           {"select": false},
+	"multi_select":     {"multi_select": true},
+	"status":           {"status": false},
+	"date":             {"date": false},
+	"email":            {"email": true},
+	"phone_number":     {"phone_number": true},
+	"checkbox":         {"checkbox": true},
+	"files":            {"files": true},
+	"created_by":       {"created_by": true},
+	"created_time":     {"created_time": true},
+	"last_edited_by":   {"last_edited_by": true},
+	"last_edited_time": {"last_edited_time": true},
+	"formula":          {"formula": true},
+	"button":           {"button": true},
+	"unique_id":        {"unique_id": true},
+	"verification":     {"verification": false},
+	"place":            {"place": true},
+	"title":            {"title": true},
+	"rich_text":        {"rich_text": true},
+	"people":           {"people": true},
+	"relation":         {"relation": true},
+	"rollup":           {"rollup": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PropertyItemObjectResponse) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -14203,8 +15135,8 @@ func (v *PropertyItemObjectResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PropertyItemObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyItemObjectResponse
 
@@ -14222,8 +15154,8 @@ func (v *PropertyItemObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 	type plain PropertyItemObjectResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPropertyItemObjectResponse, set); ok && out.Type == "" {
+		out.Type = PropertyItemObjectResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemObjectResponse, set, true); err != nil {
@@ -14245,26 +15177,43 @@ type PropertyItemPropertyItemListResponse struct {
 
 // PropertyItemPropertyItemListResponsePropertyItem defines a model
 type PropertyItemPropertyItemListResponsePropertyItem struct {
-	NextURL  string       `json:"next_url"`
-	ID       string       `json:"id"`
-	Type     string       `json:"type"`
-	Title    *EmptyObject `json:"title,omitzero"`
-	RichText *EmptyObject `json:"rich_text,omitzero"`
-	People   *EmptyObject `json:"people,omitzero"`
-	Relation *EmptyObject `json:"relation,omitzero"`
-	Rollup   *Rollup4     `json:"rollup,omitzero"`
+	NextURL  string                                               `json:"next_url"`
+	ID       string                                               `json:"id"`
+	Type     PropertyItemPropertyItemListResponsePropertyItemType `json:"type"`
+	Title    *EmptyObject                                         `json:"title,omitzero"`
+	RichText *EmptyObject                                         `json:"rich_text,omitzero"`
+	People   *EmptyObject                                         `json:"people,omitzero"`
+	Relation *EmptyObject                                         `json:"relation,omitzero"`
+	Rollup   *Rollup4                                             `json:"rollup,omitzero"`
 }
 
-// tagsOfPropertyItemPropertyItemListResponsePropertyItem says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfPropertyItemPropertyItemListResponsePropertyItem = map[string]jsonTagMember{
-	"title":     jsonTagRequired,
-	"rich_text": jsonTagRequired,
-	"people":    jsonTagRequired,
-	"relation":  jsonTagRequired,
-	"rollup":    jsonTagRequired,
+// PropertyItemPropertyItemListResponsePropertyItemType is a value of PropertyItemPropertyItemListResponsePropertyItem's type, naming the members it holds.
+type PropertyItemPropertyItemListResponsePropertyItemType string
+
+const (
+	PropertyItemPropertyItemListResponsePropertyItemTypeTitle    PropertyItemPropertyItemListResponsePropertyItemType = "title"
+	PropertyItemPropertyItemListResponsePropertyItemTypeRichText PropertyItemPropertyItemListResponsePropertyItemType = "rich_text"
+	PropertyItemPropertyItemListResponsePropertyItemTypePeople   PropertyItemPropertyItemListResponsePropertyItemType = "people"
+	PropertyItemPropertyItemListResponsePropertyItemTypeRelation PropertyItemPropertyItemListResponsePropertyItemType = "relation"
+	PropertyItemPropertyItemListResponsePropertyItemTypeRollup   PropertyItemPropertyItemListResponsePropertyItemType = "rollup"
+)
+
+// Valid indicates whether the value is a known member of the PropertyItemPropertyItemListResponsePropertyItemType enum.
+func (e PropertyItemPropertyItemListResponsePropertyItemType) Valid() bool {
+	_, ok := tagsOfPropertyItemPropertyItemListResponsePropertyItem[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfPropertyItemPropertyItemListResponsePropertyItem holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfPropertyItemPropertyItemListResponsePropertyItem = map[string]map[string]bool{
+	"title":     {"title": true},
+	"rich_text": {"rich_text": true},
+	"people":    {"people": true},
+	"relation":  {"relation": true},
+	"rollup":    {"rollup": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *PropertyItemPropertyItemListResponsePropertyItem) taggedMembers() []string {
 	var set []string
 	if v.Title != nil {
@@ -14286,8 +15235,8 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) taggedMembers() []str
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *PropertyItemPropertyItemListResponsePropertyItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyItemPropertyItemListResponsePropertyItem
 
@@ -14305,8 +15254,8 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) MarshalJSONTo(enc *js
 	type plain PropertyItemPropertyItemListResponsePropertyItem
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfPropertyItemPropertyItemListResponsePropertyItem, set); ok && out.Type == "" {
+		out.Type = PropertyItemPropertyItemListResponsePropertyItemType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, set, true); err != nil {
@@ -14325,6 +15274,8 @@ type PropertyOrTimestampFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PropertyOrTimestampFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PropertyOrTimestampFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -14384,6 +15335,8 @@ type PublicAPIAsyncTaskStatusResultJSONValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PublicAPIAsyncTaskStatusResultJSONValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = PublicAPIAsyncTaskStatusResultJSONValue{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -14498,6 +15451,8 @@ type QueryAgentsFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryAgentsFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryAgentsFilter{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -14563,6 +15518,8 @@ type QueryAgentsFilterOneOf struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member property names the alternative, which then
 // decodes each further member as it is read. With property first, nothing is read twice.
 func (v *QueryAgentsFilterOneOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryAgentsFilterOneOf{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "property")
 	if err != nil {
 		return err
@@ -14699,6 +15656,8 @@ type QueryAgentsFilterOneOf1 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryAgentsFilterOneOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryAgentsFilterOneOf1{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -14961,6 +15920,8 @@ type QueryAgentsFilterOneOfOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryAgentsFilterOneOfOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryAgentsFilterOneOfOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -15017,6 +15978,8 @@ type QueryAgentsFilterOneOfOneOfOrItemOneOf struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryAgentsFilterOneOfOneOfOrItemOneOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryAgentsFilterOneOfOneOfOrItemOneOf{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -15135,6 +16098,8 @@ type QueryAgentsOkResultsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryAgentsOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryAgentsOkResultsItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -15271,7 +16236,7 @@ type QueryAgentsOkResultsItemOneOf1 struct {
 
 // QueryAgentsOkResultsItemOneOf1Icon defines a model
 type QueryAgentsOkResultsItemOneOf1Icon struct {
-	Type string `json:"type"`
+	Type QueryAgentsOkResultsItemOneOf1IconType `json:"type"`
 	// An emoji character.
 	Emoji EmojiRequest `json:"emoji,omitzero"`
 	// The file URL for the icon.
@@ -15286,17 +16251,35 @@ type QueryAgentsOkResultsItemOneOf1Icon struct {
 	CustomAgentAvatar *AgentIconOneOfCustomAgentAvatar `json:"custom_agent_avatar,omitzero"`
 }
 
-// tagsOfQueryAgentsOkResultsItemOneOf1Icon says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfQueryAgentsOkResultsItemOneOf1Icon = map[string]jsonTagMember{
-	"emoji":               jsonTagRequired,
-	"file":                jsonTagRequired,
-	"external":            jsonTagRequired,
-	"custom_emoji":        jsonTagRequired,
-	"icon":                jsonTagRequired,
-	"custom_agent_avatar": jsonTagRequired,
+// QueryAgentsOkResultsItemOneOf1IconType is a value of QueryAgentsOkResultsItemOneOf1Icon's type, naming the members it holds.
+type QueryAgentsOkResultsItemOneOf1IconType string
+
+const (
+	QueryAgentsOkResultsItemOneOf1IconTypeEmoji             QueryAgentsOkResultsItemOneOf1IconType = "emoji"
+	QueryAgentsOkResultsItemOneOf1IconTypeFile              QueryAgentsOkResultsItemOneOf1IconType = "file"
+	QueryAgentsOkResultsItemOneOf1IconTypeExternal          QueryAgentsOkResultsItemOneOf1IconType = "external"
+	QueryAgentsOkResultsItemOneOf1IconTypeCustomEmoji       QueryAgentsOkResultsItemOneOf1IconType = "custom_emoji"
+	QueryAgentsOkResultsItemOneOf1IconTypeIcon              QueryAgentsOkResultsItemOneOf1IconType = "icon"
+	QueryAgentsOkResultsItemOneOf1IconTypeCustomAgentAvatar QueryAgentsOkResultsItemOneOf1IconType = "custom_agent_avatar"
+)
+
+// Valid indicates whether the value is a known member of the QueryAgentsOkResultsItemOneOf1IconType enum.
+func (e QueryAgentsOkResultsItemOneOf1IconType) Valid() bool {
+	_, ok := tagsOfQueryAgentsOkResultsItemOneOf1Icon[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfQueryAgentsOkResultsItemOneOf1Icon holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfQueryAgentsOkResultsItemOneOf1Icon = map[string]map[string]bool{
+	"emoji":               {"emoji": true},
+	"file":                {"file": true},
+	"external":            {"external": true},
+	"custom_emoji":        {"custom_emoji": true},
+	"icon":                {"icon": true},
+	"custom_agent_avatar": {"custom_agent_avatar": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *QueryAgentsOkResultsItemOneOf1Icon) taggedMembers() []string {
 	var set []string
 	if v.Emoji != "" {
@@ -15321,8 +16304,8 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *QueryAgentsOkResultsItemOneOf1Icon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain QueryAgentsOkResultsItemOneOf1Icon
 
@@ -15340,8 +16323,8 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) MarshalJSONTo(enc *jsontext.Encoder
 	type plain QueryAgentsOkResultsItemOneOf1Icon
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfQueryAgentsOkResultsItemOneOf1Icon, set); ok && out.Type == "" {
+		out.Type = QueryAgentsOkResultsItemOneOf1IconType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfQueryAgentsOkResultsItemOneOf1Icon, set, true); err != nil {
@@ -15407,6 +16390,8 @@ type QueryMeetingNotesFilterFiltersItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryMeetingNotesFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryMeetingNotesFilterFiltersItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -15485,6 +16470,8 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryMeetingNotesFilterFiltersItemOneOfFilter{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -15722,6 +16709,8 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2 struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -15788,6 +16777,8 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -15867,6 +16858,8 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -16098,6 +17091,8 @@ type QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -16344,6 +17339,8 @@ type QuerySessionEventsFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QuerySessionEventsFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionEventsFilter{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -16551,6 +17548,8 @@ type QuerySessionEventsFilterOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QuerySessionEventsFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionEventsFilterOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -16665,6 +17664,8 @@ type QuerySessionEventsFilterOneOfOrItemOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QuerySessionEventsFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionEventsFilterOneOfOrItemOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -16778,6 +17779,8 @@ type QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOfOrItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member property names the alternative, which then
 // decodes each further member as it is read. With property first, nothing is read twice.
 func (v *QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOfOrItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "property")
 	if err != nil {
 		return err
@@ -16928,6 +17931,8 @@ type QuerySessionEventsOkResultsItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *QuerySessionEventsOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionEventsOkResultsItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -17293,6 +18298,8 @@ type QuerySessionEventsResultsItemOneOfContentItem struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *QuerySessionEventsResultsItemOneOfContentItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionEventsResultsItemOneOfContentItem{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -17451,6 +18458,8 @@ type QuerySessionsFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QuerySessionsFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionsFilter{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -17611,6 +18620,8 @@ type QuerySessionsFilterOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QuerySessionsFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionsFilterOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -17725,6 +18736,8 @@ type QuerySessionsFilterOneOfOrItemOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *QuerySessionsFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = QuerySessionsFilterOneOfOrItemOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -17953,18 +18966,32 @@ type Quote5 struct {
 // Relation defines a model
 type Relation struct {
 	DataSourceID   IDRequest                 `json:"data_source_id"`
-	Type           string                    `json:"type"`
+	Type           RelationType              `json:"type"`
 	SingleProperty *EmptyObject              `json:"single_property,omitzero"`
 	DualProperty   *DualPropertyDualProperty `json:"dual_property,omitzero"`
 }
 
-// tagsOfRelation says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfRelation = map[string]jsonTagMember{
-	"single_property": jsonTagRequired,
-	"dual_property":   jsonTagRequired,
+// RelationType is a value of Relation's type, naming the members it holds.
+type RelationType string
+
+const (
+	RelationTypeSingleProperty RelationType = "single_property"
+	RelationTypeDualProperty   RelationType = "dual_property"
+)
+
+// Valid indicates whether the value is a known member of the RelationType enum.
+func (e RelationType) Valid() bool {
+	_, ok := tagsOfRelation[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfRelation holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfRelation = map[string]map[string]bool{
+	"single_property": {"single_property": true},
+	"dual_property":   {"dual_property": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *Relation) taggedMembers() []string {
 	var set []string
 	if v.SingleProperty != nil {
@@ -17977,8 +19004,8 @@ func (v *Relation) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *Relation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Relation
 
@@ -17996,8 +19023,8 @@ func (v *Relation) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain Relation
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfRelation, set); ok && out.Type == "" {
+		out.Type = RelationType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfRelation, set, true); err != nil {
@@ -18009,18 +19036,32 @@ func (v *Relation) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // RelationAllOf2 defines a model
 type RelationAllOf2 struct {
-	Type           string                    `json:"type"`
+	Type           RelationAllOf2Type        `json:"type"`
 	SingleProperty *EmptyObject              `json:"single_property,omitzero"`
 	DualProperty   *DualPropertyDualProperty `json:"dual_property,omitzero"`
 }
 
-// tagsOfRelationAllOf2 says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfRelationAllOf2 = map[string]jsonTagMember{
-	"single_property": jsonTagRequired,
-	"dual_property":   jsonTagRequired,
+// RelationAllOf2Type is a value of RelationAllOf2's type, naming the members it holds.
+type RelationAllOf2Type string
+
+const (
+	RelationAllOf2TypeSingleProperty RelationAllOf2Type = "single_property"
+	RelationAllOf2TypeDualProperty   RelationAllOf2Type = "dual_property"
+)
+
+// Valid indicates whether the value is a known member of the RelationAllOf2Type enum.
+func (e RelationAllOf2Type) Valid() bool {
+	_, ok := tagsOfRelationAllOf2[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfRelationAllOf2 holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfRelationAllOf2 = map[string]map[string]bool{
+	"single_property": {"single_property": true},
+	"dual_property":   {"dual_property": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *RelationAllOf2) taggedMembers() []string {
 	var set []string
 	if v.SingleProperty != nil {
@@ -18033,8 +19074,8 @@ func (v *RelationAllOf2) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *RelationAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RelationAllOf2
 
@@ -18052,8 +19093,8 @@ func (v *RelationAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain RelationAllOf2
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfRelationAllOf2, set); ok && out.Type == "" {
+		out.Type = RelationAllOf2Type(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfRelationAllOf2, set, true); err != nil {
@@ -18100,6 +19141,8 @@ type RelationPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RelationPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RelationPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -18153,6 +19196,8 @@ type RelationPropertyFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RelationPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RelationPropertyFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -18270,6 +19315,8 @@ type RetrieveAPagePropertyOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RetrieveAPagePropertyOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RetrieveAPagePropertyOk{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -18324,6 +19371,8 @@ type RetrieveAsyncTaskOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RetrieveAsyncTaskOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RetrieveAsyncTaskOk{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -18435,6 +19484,8 @@ type RetrieveAsyncTaskOkOneOf2Error struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member code names the alternative, which then
 // decodes each further member as it is read. With code first, nothing is read twice.
 func (v *RetrieveAsyncTaskOkOneOf2Error) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RetrieveAsyncTaskOkOneOf2Error{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "code")
 	if err != nil {
 		return err
@@ -19342,6 +20393,8 @@ type RetrieveSessionModels struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *RetrieveSessionModels) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RetrieveSessionModels{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -19474,8 +20527,8 @@ type RevokeTokenOk struct {
 // RichTextItemRequest defines a model
 type RichTextItemRequest struct {
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations *Annotation `json:"annotations,omitzero"`
-	Type        string      `json:"type"`
+	Annotations *Annotation             `json:"annotations,omitzero"`
+	Type        RichTextItemRequestType `json:"type"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
 	// Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -19484,14 +20537,29 @@ type RichTextItemRequest struct {
 	Equation *ContentWithExpression `json:"equation,omitzero"`
 }
 
-// tagsOfRichTextItemRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfRichTextItemRequest = map[string]jsonTagMember{
-	"text":     jsonTagRequired,
-	"mention":  jsonTagRequired,
-	"equation": jsonTagRequired,
+// RichTextItemRequestType is a value of RichTextItemRequest's type, naming the members it holds.
+type RichTextItemRequestType string
+
+const (
+	RichTextItemRequestTypeText     RichTextItemRequestType = "text"
+	RichTextItemRequestTypeMention  RichTextItemRequestType = "mention"
+	RichTextItemRequestTypeEquation RichTextItemRequestType = "equation"
+)
+
+// Valid indicates whether the value is a known member of the RichTextItemRequestType enum.
+func (e RichTextItemRequestType) Valid() bool {
+	_, ok := tagsOfRichTextItemRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfRichTextItemRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfRichTextItemRequest = map[string]map[string]bool{
+	"text":     {"text": true},
+	"mention":  {"mention": true},
+	"equation": {"equation": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *RichTextItemRequest) taggedMembers() []string {
 	var set []string
 	if v.Text != nil {
@@ -19507,8 +20575,8 @@ func (v *RichTextItemRequest) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *RichTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RichTextItemRequest
 
@@ -19526,8 +20594,8 @@ func (v *RichTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain RichTextItemRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfRichTextItemRequest, set); ok && out.Type == "" {
+		out.Type = RichTextItemRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemRequest, set, true); err != nil {
@@ -19544,8 +20612,8 @@ type RichTextItemResponse struct {
 	// A URL that the rich text object links to or mentions.
 	Href string `json:"href"`
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations Annotation `json:"annotations"`
-	Type        string     `json:"type"`
+	Annotations Annotation               `json:"annotations"`
+	Type        RichTextItemResponseType `json:"type"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
 	// Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -19554,14 +20622,29 @@ type RichTextItemResponse struct {
 	Equation *ContentWithExpression `json:"equation,omitzero"`
 }
 
-// tagsOfRichTextItemResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfRichTextItemResponse = map[string]jsonTagMember{
-	"text":     jsonTagRequired,
-	"mention":  jsonTagRequired,
-	"equation": jsonTagRequired,
+// RichTextItemResponseType is a value of RichTextItemResponse's type, naming the members it holds.
+type RichTextItemResponseType string
+
+const (
+	RichTextItemResponseTypeText     RichTextItemResponseType = "text"
+	RichTextItemResponseTypeMention  RichTextItemResponseType = "mention"
+	RichTextItemResponseTypeEquation RichTextItemResponseType = "equation"
+)
+
+// Valid indicates whether the value is a known member of the RichTextItemResponseType enum.
+func (e RichTextItemResponseType) Valid() bool {
+	_, ok := tagsOfRichTextItemResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfRichTextItemResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfRichTextItemResponse = map[string]map[string]bool{
+	"text":     {"text": true},
+	"mention":  {"mention": true},
+	"equation": {"equation": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *RichTextItemResponse) taggedMembers() []string {
 	var set []string
 	if v.Text != nil {
@@ -19577,8 +20660,8 @@ func (v *RichTextItemResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *RichTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RichTextItemResponse
 
@@ -19596,8 +20679,8 @@ func (v *RichTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain RichTextItemResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfRichTextItemResponse, set); ok && out.Type == "" {
+		out.Type = RichTextItemResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemResponse, set, true); err != nil {
@@ -19654,6 +20737,8 @@ var variantsOfRollup = []jsonVariant{
 // decode the members they declare, and a member neither declares is an error.
 func (v *Rollup) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
+
+	*v = Rollup{}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -19791,7 +20876,7 @@ func (v *Rollup) MarshalJSONTo(enc *jsontext.Encoder) error {
 // Rollup4 defines a model
 type Rollup4 struct {
 	Function    RollupFunction `json:"function"`
-	Type        string         `json:"type"`
+	Type        Rollup4Type    `json:"type"`
 	Number      *float64       `json:"number,omitzero"`
 	Date        *Date4         `json:"date,omitzero"`
 	Array       []EmptyObject  `json:"array,omitzero"`
@@ -19799,16 +20884,33 @@ type Rollup4 struct {
 	Incomplete  *EmptyObject   `json:"incomplete,omitzero"`
 }
 
-// tagsOfRollup4 says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfRollup4 = map[string]jsonTagMember{
-	"number":      jsonTagRequired,
-	"date":        jsonTagOptional,
-	"array":       jsonTagRequired,
-	"unsupported": jsonTagRequired,
-	"incomplete":  jsonTagRequired,
+// Rollup4Type is a value of Rollup4's type, naming the members it holds.
+type Rollup4Type string
+
+const (
+	Rollup4TypeNumber      Rollup4Type = "number"
+	Rollup4TypeDate        Rollup4Type = "date"
+	Rollup4TypeArray       Rollup4Type = "array"
+	Rollup4TypeUnsupported Rollup4Type = "unsupported"
+	Rollup4TypeIncomplete  Rollup4Type = "incomplete"
+)
+
+// Valid indicates whether the value is a known member of the Rollup4Type enum.
+func (e Rollup4Type) Valid() bool {
+	_, ok := tagsOfRollup4[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfRollup4 holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfRollup4 = map[string]map[string]bool{
+	"number":      {"number": true},
+	"date":        {"date": false},
+	"array":       {"array": true},
+	"unsupported": {"unsupported": true},
+	"incomplete":  {"incomplete": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *Rollup4) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -19830,8 +20932,8 @@ func (v *Rollup4) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *Rollup4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Rollup4
 
@@ -19849,8 +20951,8 @@ func (v *Rollup4) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain Rollup4
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfRollup4, set); ok && out.Type == "" {
+		out.Type = Rollup4Type(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfRollup4, set, true); err != nil {
@@ -19871,6 +20973,8 @@ type RollupAllOf struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RollupAllOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RollupAllOf{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -20033,6 +21137,8 @@ type RollupPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RollupPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RollupPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -20149,6 +21255,8 @@ type RollupSubfilterPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RollupSubfilterPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = RollupSubfilterPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -20413,6 +21521,8 @@ var variantsOfSelectItem = []jsonVariant{
 func (v *SelectItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
 
+	*v = SelectItem{}
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -20491,6 +21601,8 @@ type SelectItemAllOf2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SelectItemAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = SelectItemAllOf2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -20567,6 +21679,8 @@ type SelectPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SelectPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = SelectPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -20620,6 +21734,8 @@ type SelectPropertyFilterAnyOf struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SelectPropertyFilterAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = SelectPropertyFilterAnyOf{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -20676,7 +21792,7 @@ type SelectPropertyFilterAnyOfAnyOf2 struct {
 
 // SimpleOrArrayPropertyValueResponse defines a model
 type SimpleOrArrayPropertyValueResponse struct {
-	Type           string                                            `json:"type"`
+	Type           SimpleOrArrayPropertyValueResponseType            `json:"type"`
 	Number         *float64                                          `json:"number,omitzero"`
 	URL            *string                                           `json:"url,omitzero"`
 	Select         *PartialSelect                                    `json:"select,omitzero"`
@@ -20702,34 +21818,69 @@ type SimpleOrArrayPropertyValueResponse struct {
 	Relation       []FileUploadID                                    `json:"relation,omitzero"`
 }
 
-// tagsOfSimpleOrArrayPropertyValueResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfSimpleOrArrayPropertyValueResponse = map[string]jsonTagMember{
-	"number":           jsonTagOptional,
-	"url":              jsonTagOptional,
-	"select":           jsonTagOptional,
-	"multi_select":     jsonTagRequired,
-	"status":           jsonTagOptional,
-	"date":             jsonTagOptional,
-	"email":            jsonTagOptional,
-	"phone_number":     jsonTagOptional,
-	"checkbox":         jsonTagRequired,
-	"files":            jsonTagRequired,
-	"created_by":       jsonTagRequired,
-	"created_time":     jsonTagRequired,
-	"last_edited_by":   jsonTagRequired,
-	"last_edited_time": jsonTagRequired,
-	"formula":          jsonTagRequired,
-	"button":           jsonTagRequired,
-	"unique_id":        jsonTagRequired,
-	"verification":     jsonTagOptional,
-	"place":            jsonTagOptional,
-	"title":            jsonTagRequired,
-	"rich_text":        jsonTagRequired,
-	"people":           jsonTagRequired,
-	"relation":         jsonTagRequired,
+// SimpleOrArrayPropertyValueResponseType is a value of SimpleOrArrayPropertyValueResponse's type, naming the members it holds.
+type SimpleOrArrayPropertyValueResponseType string
+
+const (
+	SimpleOrArrayPropertyValueResponseTypeNumber         SimpleOrArrayPropertyValueResponseType = "number"
+	SimpleOrArrayPropertyValueResponseTypeURL            SimpleOrArrayPropertyValueResponseType = "url"
+	SimpleOrArrayPropertyValueResponseTypeSelect         SimpleOrArrayPropertyValueResponseType = "select"
+	SimpleOrArrayPropertyValueResponseTypeMultiSelect    SimpleOrArrayPropertyValueResponseType = "multi_select"
+	SimpleOrArrayPropertyValueResponseTypeStatus         SimpleOrArrayPropertyValueResponseType = "status"
+	SimpleOrArrayPropertyValueResponseTypeDate           SimpleOrArrayPropertyValueResponseType = "date"
+	SimpleOrArrayPropertyValueResponseTypeEmail          SimpleOrArrayPropertyValueResponseType = "email"
+	SimpleOrArrayPropertyValueResponseTypePhoneNumber    SimpleOrArrayPropertyValueResponseType = "phone_number"
+	SimpleOrArrayPropertyValueResponseTypeCheckbox       SimpleOrArrayPropertyValueResponseType = "checkbox"
+	SimpleOrArrayPropertyValueResponseTypeFiles          SimpleOrArrayPropertyValueResponseType = "files"
+	SimpleOrArrayPropertyValueResponseTypeCreatedBy      SimpleOrArrayPropertyValueResponseType = "created_by"
+	SimpleOrArrayPropertyValueResponseTypeCreatedTime    SimpleOrArrayPropertyValueResponseType = "created_time"
+	SimpleOrArrayPropertyValueResponseTypeLastEditedBy   SimpleOrArrayPropertyValueResponseType = "last_edited_by"
+	SimpleOrArrayPropertyValueResponseTypeLastEditedTime SimpleOrArrayPropertyValueResponseType = "last_edited_time"
+	SimpleOrArrayPropertyValueResponseTypeFormula        SimpleOrArrayPropertyValueResponseType = "formula"
+	SimpleOrArrayPropertyValueResponseTypeButton         SimpleOrArrayPropertyValueResponseType = "button"
+	SimpleOrArrayPropertyValueResponseTypeUniqueID       SimpleOrArrayPropertyValueResponseType = "unique_id"
+	SimpleOrArrayPropertyValueResponseTypeVerification   SimpleOrArrayPropertyValueResponseType = "verification"
+	SimpleOrArrayPropertyValueResponseTypePlace          SimpleOrArrayPropertyValueResponseType = "place"
+	SimpleOrArrayPropertyValueResponseTypeTitle          SimpleOrArrayPropertyValueResponseType = "title"
+	SimpleOrArrayPropertyValueResponseTypeRichText       SimpleOrArrayPropertyValueResponseType = "rich_text"
+	SimpleOrArrayPropertyValueResponseTypePeople         SimpleOrArrayPropertyValueResponseType = "people"
+	SimpleOrArrayPropertyValueResponseTypeRelation       SimpleOrArrayPropertyValueResponseType = "relation"
+)
+
+// Valid indicates whether the value is a known member of the SimpleOrArrayPropertyValueResponseType enum.
+func (e SimpleOrArrayPropertyValueResponseType) Valid() bool {
+	_, ok := tagsOfSimpleOrArrayPropertyValueResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfSimpleOrArrayPropertyValueResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfSimpleOrArrayPropertyValueResponse = map[string]map[string]bool{
+	"number":           {"number": false},
+	"url":              {"url": false},
+	"select":           {"select": false},
+	"multi_select":     {"multi_select": true},
+	"status":           {"status": false},
+	"date":             {"date": false},
+	"email":            {"email": false},
+	"phone_number":     {"phone_number": false},
+	"checkbox":         {"checkbox": true},
+	"files":            {"files": true},
+	"created_by":       {"created_by": true},
+	"created_time":     {"created_time": true},
+	"last_edited_by":   {"last_edited_by": true},
+	"last_edited_time": {"last_edited_time": true},
+	"formula":          {"formula": true},
+	"button":           {"button": true},
+	"unique_id":        {"unique_id": true},
+	"verification":     {"verification": false},
+	"place":            {"place": false},
+	"title":            {"title": true},
+	"rich_text":        {"rich_text": true},
+	"people":           {"people": true},
+	"relation":         {"relation": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *SimpleOrArrayPropertyValueResponse) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -20805,8 +21956,8 @@ func (v *SimpleOrArrayPropertyValueResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *SimpleOrArrayPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain SimpleOrArrayPropertyValueResponse
 
@@ -20824,8 +21975,8 @@ func (v *SimpleOrArrayPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder
 	type plain SimpleOrArrayPropertyValueResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfSimpleOrArrayPropertyValueResponse, set); ok && out.Type == "" {
+		out.Type = SimpleOrArrayPropertyValueResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfSimpleOrArrayPropertyValueResponse, set, true); err != nil {
@@ -20992,6 +22143,8 @@ var variantsOfStatusOptionUpdateRequest = []jsonVariant{
 func (v *StatusOptionUpdateRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
 
+	*v = StatusOptionUpdateRequest{}
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -21104,6 +22257,8 @@ type StringOrStringArray struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *StringOrStringArray) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = StringOrStringArray{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -21385,20 +22540,34 @@ type TemplateMention struct {
 
 // TemplateMention2 defines a model
 type TemplateMention2 struct {
-	Type string `json:"type"`
+	Type TemplateMention2Type `json:"type"`
 	// The date of the template mention.
 	TemplateMentionDate TemplateMentionDateTemplateMentionTemplateMentionDate `json:"template_mention_date,omitzero"`
 	// The user of the template mention.
 	TemplateMentionUser string `json:"template_mention_user,omitzero"`
 }
 
-// tagsOfTemplateMention2 says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfTemplateMention2 = map[string]jsonTagMember{
-	"template_mention_date": jsonTagRequired,
-	"template_mention_user": jsonTagRequired,
+// TemplateMention2Type is a value of TemplateMention2's type, naming the members it holds.
+type TemplateMention2Type string
+
+const (
+	TemplateMention2TypeTemplateMentionDate TemplateMention2Type = "template_mention_date"
+	TemplateMention2TypeTemplateMentionUser TemplateMention2Type = "template_mention_user"
+)
+
+// Valid indicates whether the value is a known member of the TemplateMention2Type enum.
+func (e TemplateMention2Type) Valid() bool {
+	_, ok := tagsOfTemplateMention2[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfTemplateMention2 holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfTemplateMention2 = map[string]map[string]bool{
+	"template_mention_date": {"template_mention_date": true},
+	"template_mention_user": {"template_mention_user": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *TemplateMention2) taggedMembers() []string {
 	var set []string
 	if v.TemplateMentionDate != "" {
@@ -21411,8 +22580,8 @@ func (v *TemplateMention2) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *TemplateMention2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain TemplateMention2
 
@@ -21430,8 +22599,8 @@ func (v *TemplateMention2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain TemplateMention2
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfTemplateMention2, set); ok && out.Type == "" {
+		out.Type = TemplateMention2Type(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfTemplateMention2, set, true); err != nil {
@@ -21538,6 +22707,8 @@ type TextPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *TextPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = TextPropertyFilter{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -21595,6 +22766,8 @@ type TextPropertyFilterAnyOf0 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *TextPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = TextPropertyFilterAnyOf0{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -21902,6 +23075,8 @@ type TimestampFilter struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member timestamp names the alternative, which then
 // decodes each further member as it is read. With timestamp first, nothing is read twice.
 func (v *TimestampFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = TimestampFilter{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "timestamp")
 	if err != nil {
 		return err
@@ -22131,6 +23306,8 @@ type UpdateABlock struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateABlock) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UpdateABlock{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -22183,7 +23360,7 @@ type UpdateABlockAnyOf struct {
 // UpdateABlockAnyOf0 defines a model
 type UpdateABlockAnyOf0 struct {
 	InTrash          *bool                                            `json:"in_trash,omitzero"`
-	Type             string                                           `json:"type"`
+	Type             UpdateABlockAnyOf0Type                           `json:"type"`
 	Embed            *EmbedEmbed                                      `json:"embed,omitzero"`
 	Bookmark         *MediaContentWithURLAndCaption                   `json:"bookmark,omitzero"`
 	Image            *UpdateMediaContentWithFileAndCaptionRequest     `json:"image,omitzero"`
@@ -22216,41 +23393,83 @@ type UpdateABlockAnyOf0 struct {
 	Column           *ColumnColumn                                    `json:"column,omitzero"`
 }
 
-// tagsOfUpdateABlockAnyOf0 says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfUpdateABlockAnyOf0 = map[string]jsonTagMember{
-	"embed":              jsonTagRequired,
-	"bookmark":           jsonTagRequired,
-	"image":              jsonTagRequired,
-	"video":              jsonTagRequired,
-	"pdf":                jsonTagRequired,
-	"file":               jsonTagRequired,
-	"audio":              jsonTagRequired,
-	"code":               jsonTagRequired,
-	"equation":           jsonTagRequired,
-	"divider":            jsonTagRequired,
-	"breadcrumb":         jsonTagRequired,
-	"tab":                jsonTagRequired,
-	"table_of_contents":  jsonTagRequired,
-	"link_to_page":       jsonTagRequired,
-	"table_row":          jsonTagRequired,
-	"heading_1":          jsonTagRequired,
-	"heading_2":          jsonTagRequired,
-	"heading_3":          jsonTagRequired,
-	"heading_4":          jsonTagRequired,
-	"paragraph":          jsonTagRequired,
-	"bulleted_list_item": jsonTagRequired,
-	"numbered_list_item": jsonTagRequired,
-	"quote":              jsonTagRequired,
-	"to_do":              jsonTagRequired,
-	"toggle":             jsonTagRequired,
-	"template":           jsonTagRequired,
-	"callout":            jsonTagRequired,
-	"synced_block":       jsonTagRequired,
-	"table":              jsonTagRequired,
-	"column":             jsonTagRequired,
+// UpdateABlockAnyOf0Type is a value of UpdateABlockAnyOf0's type, naming the members it holds.
+type UpdateABlockAnyOf0Type string
+
+const (
+	UpdateABlockAnyOf0TypeEmbed            UpdateABlockAnyOf0Type = "embed"
+	UpdateABlockAnyOf0TypeBookmark         UpdateABlockAnyOf0Type = "bookmark"
+	UpdateABlockAnyOf0TypeImage            UpdateABlockAnyOf0Type = "image"
+	UpdateABlockAnyOf0TypeVideo            UpdateABlockAnyOf0Type = "video"
+	UpdateABlockAnyOf0TypePdf              UpdateABlockAnyOf0Type = "pdf"
+	UpdateABlockAnyOf0TypeFile             UpdateABlockAnyOf0Type = "file"
+	UpdateABlockAnyOf0TypeAudio            UpdateABlockAnyOf0Type = "audio"
+	UpdateABlockAnyOf0TypeCode             UpdateABlockAnyOf0Type = "code"
+	UpdateABlockAnyOf0TypeEquation         UpdateABlockAnyOf0Type = "equation"
+	UpdateABlockAnyOf0TypeDivider          UpdateABlockAnyOf0Type = "divider"
+	UpdateABlockAnyOf0TypeBreadcrumb       UpdateABlockAnyOf0Type = "breadcrumb"
+	UpdateABlockAnyOf0TypeTab              UpdateABlockAnyOf0Type = "tab"
+	UpdateABlockAnyOf0TypeTableOfContents  UpdateABlockAnyOf0Type = "table_of_contents"
+	UpdateABlockAnyOf0TypeLinkToPage       UpdateABlockAnyOf0Type = "link_to_page"
+	UpdateABlockAnyOf0TypeTableRow         UpdateABlockAnyOf0Type = "table_row"
+	UpdateABlockAnyOf0TypeHeading1         UpdateABlockAnyOf0Type = "heading_1"
+	UpdateABlockAnyOf0TypeHeading2         UpdateABlockAnyOf0Type = "heading_2"
+	UpdateABlockAnyOf0TypeHeading3         UpdateABlockAnyOf0Type = "heading_3"
+	UpdateABlockAnyOf0TypeHeading4         UpdateABlockAnyOf0Type = "heading_4"
+	UpdateABlockAnyOf0TypeParagraph        UpdateABlockAnyOf0Type = "paragraph"
+	UpdateABlockAnyOf0TypeBulletedListItem UpdateABlockAnyOf0Type = "bulleted_list_item"
+	UpdateABlockAnyOf0TypeNumberedListItem UpdateABlockAnyOf0Type = "numbered_list_item"
+	UpdateABlockAnyOf0TypeQuote            UpdateABlockAnyOf0Type = "quote"
+	UpdateABlockAnyOf0TypeToDo             UpdateABlockAnyOf0Type = "to_do"
+	UpdateABlockAnyOf0TypeToggle           UpdateABlockAnyOf0Type = "toggle"
+	UpdateABlockAnyOf0TypeTemplate         UpdateABlockAnyOf0Type = "template"
+	UpdateABlockAnyOf0TypeCallout          UpdateABlockAnyOf0Type = "callout"
+	UpdateABlockAnyOf0TypeSyncedBlock      UpdateABlockAnyOf0Type = "synced_block"
+	UpdateABlockAnyOf0TypeTable            UpdateABlockAnyOf0Type = "table"
+	UpdateABlockAnyOf0TypeColumn           UpdateABlockAnyOf0Type = "column"
+)
+
+// Valid indicates whether the value is a known member of the UpdateABlockAnyOf0Type enum.
+func (e UpdateABlockAnyOf0Type) Valid() bool {
+	_, ok := tagsOfUpdateABlockAnyOf0[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfUpdateABlockAnyOf0 holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfUpdateABlockAnyOf0 = map[string]map[string]bool{
+	"embed":              {"embed": true},
+	"bookmark":           {"bookmark": true},
+	"image":              {"image": true},
+	"video":              {"video": true},
+	"pdf":                {"pdf": true},
+	"file":               {"file": true},
+	"audio":              {"audio": true},
+	"code":               {"code": true},
+	"equation":           {"equation": true},
+	"divider":            {"divider": true},
+	"breadcrumb":         {"breadcrumb": true},
+	"tab":                {"tab": true},
+	"table_of_contents":  {"table_of_contents": true},
+	"link_to_page":       {"link_to_page": true},
+	"table_row":          {"table_row": true},
+	"heading_1":          {"heading_1": true},
+	"heading_2":          {"heading_2": true},
+	"heading_3":          {"heading_3": true},
+	"heading_4":          {"heading_4": true},
+	"paragraph":          {"paragraph": true},
+	"bulleted_list_item": {"bulleted_list_item": true},
+	"numbered_list_item": {"numbered_list_item": true},
+	"quote":              {"quote": true},
+	"to_do":              {"to_do": true},
+	"toggle":             {"toggle": true},
+	"template":           {"template": true},
+	"callout":            {"callout": true},
+	"synced_block":       {"synced_block": true},
+	"table":              {"table": true},
+	"column":             {"column": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *UpdateABlockAnyOf0) taggedMembers() []string {
 	var set []string
 	if v.Embed != nil {
@@ -22347,8 +23566,8 @@ func (v *UpdateABlockAnyOf0) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *UpdateABlockAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UpdateABlockAnyOf0
 
@@ -22366,8 +23585,8 @@ func (v *UpdateABlockAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain UpdateABlockAnyOf0
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfUpdateABlockAnyOf0, set); ok && out.Type == "" {
+		out.Type = UpdateABlockAnyOf0Type(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdateABlockAnyOf0, set, true); err != nil {
@@ -22386,6 +23605,8 @@ type UpdateAComment struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAComment) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UpdateAComment{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -22462,6 +23683,8 @@ type UpdateADataSourcePropertiesValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateADataSourcePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UpdateADataSourcePropertiesValue{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -22514,59 +23737,93 @@ type UpdateADataSourcePropertiesValueOneOf0 struct {
 	// The name of the property.
 	Name string `json:"name,omitzero"`
 	// The description of the property.
-	Description    PropertyDescriptionRequest         `json:"description,omitzero"`
-	Type           string                             `json:"type"`
-	Number         *Number2                           `json:"number,omitzero"`
-	Formula        *ContentWithExpression             `json:"formula,omitzero"`
-	Select         *Select5                           `json:"select,omitzero"`
-	MultiSelect    *Select5                           `json:"multi_select,omitzero"`
-	Status         *StatusPropertyConfigUpdateRequest `json:"status,omitzero"`
-	Relation       *Relation                          `json:"relation,omitzero"`
-	Rollup         *Rollup                            `json:"rollup,omitzero"`
-	UniqueID       *UniqueIDUniqueID                  `json:"unique_id,omitzero"`
-	Title          *EmptyObject                       `json:"title,omitzero"`
-	RichText       *EmptyObject                       `json:"rich_text,omitzero"`
-	URL            *EmptyObject                       `json:"url,omitzero"`
-	People         *EmptyObject                       `json:"people,omitzero"`
-	Files          *EmptyObject                       `json:"files,omitzero"`
-	Email          *EmptyObject                       `json:"email,omitzero"`
-	PhoneNumber    *EmptyObject                       `json:"phone_number,omitzero"`
-	Date           *EmptyObject                       `json:"date,omitzero"`
-	Checkbox       *EmptyObject                       `json:"checkbox,omitzero"`
-	CreatedBy      *EmptyObject                       `json:"created_by,omitzero"`
-	CreatedTime    *EmptyObject                       `json:"created_time,omitzero"`
-	LastEditedBy   *EmptyObject                       `json:"last_edited_by,omitzero"`
-	LastEditedTime *EmptyObject                       `json:"last_edited_time,omitzero"`
-	Place          *EmptyObject                       `json:"place,omitzero"`
+	Description    PropertyDescriptionRequest                 `json:"description,omitzero"`
+	Type           UpdateADataSourcePropertiesValueOneOf0Type `json:"type"`
+	Number         *Number2                                   `json:"number,omitzero"`
+	Formula        *ContentWithExpression                     `json:"formula,omitzero"`
+	Select         *Select5                                   `json:"select,omitzero"`
+	MultiSelect    *Select5                                   `json:"multi_select,omitzero"`
+	Status         *StatusPropertyConfigUpdateRequest         `json:"status,omitzero"`
+	Relation       *Relation                                  `json:"relation,omitzero"`
+	Rollup         *Rollup                                    `json:"rollup,omitzero"`
+	UniqueID       *UniqueIDUniqueID                          `json:"unique_id,omitzero"`
+	Title          *EmptyObject                               `json:"title,omitzero"`
+	RichText       *EmptyObject                               `json:"rich_text,omitzero"`
+	URL            *EmptyObject                               `json:"url,omitzero"`
+	People         *EmptyObject                               `json:"people,omitzero"`
+	Files          *EmptyObject                               `json:"files,omitzero"`
+	Email          *EmptyObject                               `json:"email,omitzero"`
+	PhoneNumber    *EmptyObject                               `json:"phone_number,omitzero"`
+	Date           *EmptyObject                               `json:"date,omitzero"`
+	Checkbox       *EmptyObject                               `json:"checkbox,omitzero"`
+	CreatedBy      *EmptyObject                               `json:"created_by,omitzero"`
+	CreatedTime    *EmptyObject                               `json:"created_time,omitzero"`
+	LastEditedBy   *EmptyObject                               `json:"last_edited_by,omitzero"`
+	LastEditedTime *EmptyObject                               `json:"last_edited_time,omitzero"`
+	Place          *EmptyObject                               `json:"place,omitzero"`
 }
 
-// tagsOfUpdateADataSourcePropertiesValueOneOf0 says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfUpdateADataSourcePropertiesValueOneOf0 = map[string]jsonTagMember{
-	"number":           jsonTagRequired,
-	"formula":          jsonTagRequired,
-	"select":           jsonTagRequired,
-	"multi_select":     jsonTagRequired,
-	"status":           jsonTagRequired,
-	"relation":         jsonTagRequired,
-	"rollup":           jsonTagRequired,
-	"unique_id":        jsonTagRequired,
-	"title":            jsonTagRequired,
-	"rich_text":        jsonTagRequired,
-	"url":              jsonTagRequired,
-	"people":           jsonTagRequired,
-	"files":            jsonTagRequired,
-	"email":            jsonTagRequired,
-	"phone_number":     jsonTagRequired,
-	"date":             jsonTagRequired,
-	"checkbox":         jsonTagRequired,
-	"created_by":       jsonTagRequired,
-	"created_time":     jsonTagRequired,
-	"last_edited_by":   jsonTagRequired,
-	"last_edited_time": jsonTagRequired,
-	"place":            jsonTagRequired,
+// UpdateADataSourcePropertiesValueOneOf0Type is a value of UpdateADataSourcePropertiesValueOneOf0's type, naming the members it holds.
+type UpdateADataSourcePropertiesValueOneOf0Type string
+
+const (
+	UpdateADataSourcePropertiesValueOneOf0TypeNumber         UpdateADataSourcePropertiesValueOneOf0Type = "number"
+	UpdateADataSourcePropertiesValueOneOf0TypeFormula        UpdateADataSourcePropertiesValueOneOf0Type = "formula"
+	UpdateADataSourcePropertiesValueOneOf0TypeSelect         UpdateADataSourcePropertiesValueOneOf0Type = "select"
+	UpdateADataSourcePropertiesValueOneOf0TypeMultiSelect    UpdateADataSourcePropertiesValueOneOf0Type = "multi_select"
+	UpdateADataSourcePropertiesValueOneOf0TypeStatus         UpdateADataSourcePropertiesValueOneOf0Type = "status"
+	UpdateADataSourcePropertiesValueOneOf0TypeRelation       UpdateADataSourcePropertiesValueOneOf0Type = "relation"
+	UpdateADataSourcePropertiesValueOneOf0TypeRollup         UpdateADataSourcePropertiesValueOneOf0Type = "rollup"
+	UpdateADataSourcePropertiesValueOneOf0TypeUniqueID       UpdateADataSourcePropertiesValueOneOf0Type = "unique_id"
+	UpdateADataSourcePropertiesValueOneOf0TypeTitle          UpdateADataSourcePropertiesValueOneOf0Type = "title"
+	UpdateADataSourcePropertiesValueOneOf0TypeRichText       UpdateADataSourcePropertiesValueOneOf0Type = "rich_text"
+	UpdateADataSourcePropertiesValueOneOf0TypeURL            UpdateADataSourcePropertiesValueOneOf0Type = "url"
+	UpdateADataSourcePropertiesValueOneOf0TypePeople         UpdateADataSourcePropertiesValueOneOf0Type = "people"
+	UpdateADataSourcePropertiesValueOneOf0TypeFiles          UpdateADataSourcePropertiesValueOneOf0Type = "files"
+	UpdateADataSourcePropertiesValueOneOf0TypeEmail          UpdateADataSourcePropertiesValueOneOf0Type = "email"
+	UpdateADataSourcePropertiesValueOneOf0TypePhoneNumber    UpdateADataSourcePropertiesValueOneOf0Type = "phone_number"
+	UpdateADataSourcePropertiesValueOneOf0TypeDate           UpdateADataSourcePropertiesValueOneOf0Type = "date"
+	UpdateADataSourcePropertiesValueOneOf0TypeCheckbox       UpdateADataSourcePropertiesValueOneOf0Type = "checkbox"
+	UpdateADataSourcePropertiesValueOneOf0TypeCreatedBy      UpdateADataSourcePropertiesValueOneOf0Type = "created_by"
+	UpdateADataSourcePropertiesValueOneOf0TypeCreatedTime    UpdateADataSourcePropertiesValueOneOf0Type = "created_time"
+	UpdateADataSourcePropertiesValueOneOf0TypeLastEditedBy   UpdateADataSourcePropertiesValueOneOf0Type = "last_edited_by"
+	UpdateADataSourcePropertiesValueOneOf0TypeLastEditedTime UpdateADataSourcePropertiesValueOneOf0Type = "last_edited_time"
+	UpdateADataSourcePropertiesValueOneOf0TypePlace          UpdateADataSourcePropertiesValueOneOf0Type = "place"
+)
+
+// Valid indicates whether the value is a known member of the UpdateADataSourcePropertiesValueOneOf0Type enum.
+func (e UpdateADataSourcePropertiesValueOneOf0Type) Valid() bool {
+	_, ok := tagsOfUpdateADataSourcePropertiesValueOneOf0[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfUpdateADataSourcePropertiesValueOneOf0 holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfUpdateADataSourcePropertiesValueOneOf0 = map[string]map[string]bool{
+	"number":           {"number": true},
+	"formula":          {"formula": true},
+	"select":           {"select": true},
+	"multi_select":     {"multi_select": true},
+	"status":           {"status": true},
+	"relation":         {"relation": true},
+	"rollup":           {"rollup": true},
+	"unique_id":        {"unique_id": true},
+	"title":            {"title": true},
+	"rich_text":        {"rich_text": true},
+	"url":              {"url": true},
+	"people":           {"people": true},
+	"files":            {"files": true},
+	"email":            {"email": true},
+	"phone_number":     {"phone_number": true},
+	"date":             {"date": true},
+	"checkbox":         {"checkbox": true},
+	"created_by":       {"created_by": true},
+	"created_time":     {"created_time": true},
+	"last_edited_by":   {"last_edited_by": true},
+	"last_edited_time": {"last_edited_time": true},
+	"place":            {"place": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *UpdateADataSourcePropertiesValueOneOf0) taggedMembers() []string {
 	var set []string
 	if v.Number != nil {
@@ -22639,8 +23896,8 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *UpdateADataSourcePropertiesValueOneOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UpdateADataSourcePropertiesValueOneOf0
 
@@ -22658,8 +23915,8 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) MarshalJSONTo(enc *jsontext.Enc
 	type plain UpdateADataSourcePropertiesValueOneOf0
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfUpdateADataSourcePropertiesValueOneOf0, set); ok && out.Type == "" {
+		out.Type = UpdateADataSourcePropertiesValueOneOf0Type(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdateADataSourcePropertiesValueOneOf0, set, true); err != nil {
@@ -22784,8 +24041,8 @@ type UpdateMediaContentWithFileNameAndCaptionRequest struct {
 // UpdatePageMarkdown defines a model
 type UpdatePageMarkdown struct {
 	// Set to true to opt into receiving an async_task result when this update operation is accepted for background execution. If omitted or false, the endpoint keeps the existing synchronous response shape.
-	AllowAsync *bool  `json:"allow_async,omitzero"`
-	Type       string `json:"type"`
+	AllowAsync *bool                  `json:"allow_async,omitzero"`
+	Type       UpdatePageMarkdownType `json:"type"`
 	// Insert new content into the page.
 	InsertContent *InsertContentInsertContent `json:"insert_content,omitzero"`
 	// Replace a range of content in the page.
@@ -22796,15 +24053,31 @@ type UpdatePageMarkdown struct {
 	ReplaceContent *ReplaceContentReplaceContent `json:"replace_content,omitzero"`
 }
 
-// tagsOfUpdatePageMarkdown says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfUpdatePageMarkdown = map[string]jsonTagMember{
-	"insert_content":        jsonTagRequired,
-	"replace_content_range": jsonTagRequired,
-	"update_content":        jsonTagRequired,
-	"replace_content":       jsonTagRequired,
+// UpdatePageMarkdownType is a value of UpdatePageMarkdown's type, naming the members it holds.
+type UpdatePageMarkdownType string
+
+const (
+	UpdatePageMarkdownTypeInsertContent       UpdatePageMarkdownType = "insert_content"
+	UpdatePageMarkdownTypeReplaceContentRange UpdatePageMarkdownType = "replace_content_range"
+	UpdatePageMarkdownTypeUpdateContent       UpdatePageMarkdownType = "update_content"
+	UpdatePageMarkdownTypeReplaceContent      UpdatePageMarkdownType = "replace_content"
+)
+
+// Valid indicates whether the value is a known member of the UpdatePageMarkdownType enum.
+func (e UpdatePageMarkdownType) Valid() bool {
+	_, ok := tagsOfUpdatePageMarkdown[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfUpdatePageMarkdown holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfUpdatePageMarkdown = map[string]map[string]bool{
+	"insert_content":        {"insert_content": true},
+	"replace_content_range": {"replace_content_range": true},
+	"update_content":        {"update_content": true},
+	"replace_content":       {"replace_content": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *UpdatePageMarkdown) taggedMembers() []string {
 	var set []string
 	if v.InsertContent != nil {
@@ -22823,8 +24096,8 @@ func (v *UpdatePageMarkdown) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *UpdatePageMarkdown) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UpdatePageMarkdown
 
@@ -22842,8 +24115,8 @@ func (v *UpdatePageMarkdown) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain UpdatePageMarkdown
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfUpdatePageMarkdown, set); ok && out.Type == "" {
+		out.Type = UpdatePageMarkdownType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdatePageMarkdown, set, true); err != nil {
@@ -22891,6 +24164,8 @@ type UpdatePageMarkdownAcceptedOperation struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member name names the alternative, which then
 // decodes each further member as it is read. With name first, nothing is read twice.
 func (v *UpdatePageMarkdownAcceptedOperation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UpdatePageMarkdownAcceptedOperation{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "name")
 	if err != nil {
 		return err
@@ -23078,6 +24353,8 @@ type UpdateSessionRequest struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateSessionRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UpdateSessionRequest{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -23226,21 +24503,35 @@ type UserObjectResponse struct {
 	// The name of the user.
 	Name string `json:"name"`
 	// The avatar URL of the user.
-	AvatarURL string `json:"avatar_url"`
-	Type      string `json:"type"`
+	AvatarURL string                 `json:"avatar_url"`
+	Type      UserObjectResponseType `json:"type"`
 	// Details about the person, when the `type` of the user is `person`.
 	Person *UserOneOfPerson `json:"person,omitzero"`
 	// Details about the bot, when the `type` of the user is `bot`.
 	Bot *BotUserObjectResponseBot `json:"bot,omitzero"`
 }
 
-// tagsOfUserObjectResponse says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfUserObjectResponse = map[string]jsonTagMember{
-	"person": jsonTagRequired,
-	"bot":    jsonTagRequired,
+// UserObjectResponseType is a value of UserObjectResponse's type, naming the members it holds.
+type UserObjectResponseType string
+
+const (
+	UserObjectResponseTypePerson UserObjectResponseType = "person"
+	UserObjectResponseTypeBot    UserObjectResponseType = "bot"
+)
+
+// Valid indicates whether the value is a known member of the UserObjectResponseType enum.
+func (e UserObjectResponseType) Valid() bool {
+	_, ok := tagsOfUserObjectResponse[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfUserObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfUserObjectResponse = map[string]map[string]bool{
+	"person": {"person": true},
+	"bot":    {"bot": true},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *UserObjectResponse) taggedMembers() []string {
 	var set []string
 	if v.Person != nil {
@@ -23253,8 +24544,8 @@ func (v *UserObjectResponse) taggedMembers() []string {
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *UserObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UserObjectResponse
 
@@ -23272,8 +24563,8 @@ func (v *UserObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain UserObjectResponse
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfUserObjectResponse, set); ok && out.Type == "" {
+		out.Type = UserObjectResponseType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfUserObjectResponse, set, true); err != nil {
@@ -23300,6 +24591,8 @@ type UserUser struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UserUser{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -23353,6 +24646,8 @@ type UserUser2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserUser2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UserUser2{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -23425,6 +24720,8 @@ type UserValueResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = UserValueResponse{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -23482,6 +24779,8 @@ type Verification2 struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member state names the alternative, which then
 // decodes each further member as it is read. With state first, nothing is read twice.
 func (v *Verification2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Verification2{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "state")
 	if err != nil {
 		return err
@@ -23642,6 +24941,8 @@ type VerificationPropertyValueResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *VerificationPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = VerificationPropertyValueResponse{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -23698,6 +24999,8 @@ type VerificationVerification3 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *VerificationVerification3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = VerificationVerification3{}
+
 	opts := jsonOptsOf(dec)
 
 	raw, err := dec.ReadValue()
@@ -23766,6 +25069,8 @@ type ViewConfigRequest struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *ViewConfigRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewConfigRequest{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -23902,6 +25207,8 @@ type ViewConfigResponse struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *ViewConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewConfigResponse{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -24084,6 +25391,8 @@ type ViewFilterOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ViewFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewFilterOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -24159,6 +25468,8 @@ type ViewFilterOneOfOrItemOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ViewFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewFilterOneOfOrItemOneOfOrItem{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -24216,6 +25527,8 @@ type ViewFilterResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ViewFilterResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewFilterResponse{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -24325,6 +25638,8 @@ type ViewPositionRequest struct {
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
 // decodes each further member as it is read. With type first, nothing is read twice.
 func (v *ViewPositionRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewPositionRequest{}
+
 	tag, first, dec, err := jsonFirstMember(dec, "type")
 	if err != nil {
 		return err
@@ -24570,6 +25885,8 @@ type ViewSortResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ViewSortResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewSortResponse{}
+
 	opts := jsonOptsOf(dec)
 	strict := jsonStrict(dec)
 
@@ -24809,25 +26126,39 @@ type WebhookViewEntity struct {
 // Where to place the new widget in the dashboard. "new_row" creates a new row, "existing_row" adds to an existing row side-by-side with other widgets.
 type WidgetPlacementRequest struct {
 	// The 0-based row position to insert the new row at. If omitted, the new row is appended at the end.
-	RowIndex *int   `json:"row_index,omitzero"`
-	Type     string `json:"type"`
+	RowIndex *int                       `json:"row_index,omitzero"`
+	Type     WidgetPlacementRequestType `json:"type"`
 }
 
-// tagsOfWidgetPlacementRequest says, for each value of type, whether the member named after it must, may or must not be set.
-var tagsOfWidgetPlacementRequest = map[string]jsonTagMember{
-	"new_row":      jsonTagNone,
-	"existing_row": jsonTagNone,
+// WidgetPlacementRequestType is a value of WidgetPlacementRequest's type, naming the members it holds.
+type WidgetPlacementRequestType string
+
+const (
+	WidgetPlacementRequestTypeNewRow      WidgetPlacementRequestType = "new_row"
+	WidgetPlacementRequestTypeExistingRow WidgetPlacementRequestType = "existing_row"
+)
+
+// Valid indicates whether the value is a known member of the WidgetPlacementRequestType enum.
+func (e WidgetPlacementRequestType) Valid() bool {
+	_, ok := tagsOfWidgetPlacementRequest[string(e)]
+	return ok
 }
 
-// taggedMembers returns those of the members named after a value of type that are set.
+// tagsOfWidgetPlacementRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
+var tagsOfWidgetPlacementRequest = map[string]map[string]bool{
+	"new_row":      {},
+	"existing_row": {},
+}
+
+// taggedMembers returns those of the members of an alternative's own that are set.
 func (v *WidgetPlacementRequest) taggedMembers() []string {
 	var set []string
 
 	return set
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
-// value of type, only the one it names is set.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
+// alternative's own, only those of the one type names are set.
 func (v *WidgetPlacementRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain WidgetPlacementRequest
 
@@ -24845,8 +26176,8 @@ func (v *WidgetPlacementRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain WidgetPlacementRequest
 
 	out, set := *v, v.taggedMembers()
-	if out.Type == "" && len(set) == 1 {
-		out.Type = string(set[0])
+	if tag, ok := jsonInferTag(tagsOfWidgetPlacementRequest, set); ok && out.Type == "" {
+		out.Type = WidgetPlacementRequestType(tag)
 	}
 
 	if err := jsonCheckTag("type", string(out.Type), tagsOfWidgetPlacementRequest, set, true); err != nil {
@@ -24862,18 +26193,6 @@ type WorkspaceParentForBlockBasedObject struct {
 	Type string `json:"type"`
 	// Always true for workspace parent.
 	Workspace bool `json:"workspace"`
-}
-
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether WorkspaceParentForBlockBasedObject declares it.
-func (v *WorkspaceParentForBlockBasedObject) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
-	case "workspace":
-		return true, json.UnmarshalDecode(dec, &v.Workspace, jsonOptsOf(dec))
-	}
-
-	return false, nil
 }
 
 // jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
@@ -25443,19 +26762,11 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	return chosen, nil
 }
 
-// jsonTagMember says whether a value of a tag needs the member named after it, allows it, or allows none.
-type jsonTagMember int
-
-const (
-	jsonTagNone jsonTagMember = iota
-	jsonTagOptional
-	jsonTagRequired
-)
-
-// jsonCheckTag reports an error unless, of the members named after a value of the tag name, set holds only the one
-// tag names, and holds it if it is required. Not strict, it lets set hold others.
-func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string, strict bool) error {
-	m, ok := members[tag]
+// jsonCheckTag reports an error unless set, the members of an alternative's own that are set, holds only members of
+// the alternative the value tag of the tag name names, and every one of them it requires. Not strict, set may hold
+// others too.
+func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []string, strict bool) error {
+	members, ok := tags[tag]
 	switch {
 	case tag == "":
 		return jsonMissing(name)
@@ -25464,14 +26775,48 @@ func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []stri
 	}
 
 	for _, s := range set {
-		if strict && (s != tag || m == jsonTagNone) {
+		if _, ok := members[s]; strict && !ok {
 			return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("%s %q does not allow member %q", name, tag, s)}
 		}
 	}
 
-	if m == jsonTagRequired && !slices.Contains(set, tag) {
-		return jsonMissing(tag)
+	for _, m := range slices.Sorted(maps.Keys(members)) {
+		if members[m] && !slices.Contains(set, m) {
+			return jsonMissing(m)
+		}
 	}
 
 	return nil
+}
+
+// jsonInferTag returns the value of a tag whose alternative is the one of tags that set, the members of an
+// alternative's own that are set, names: the one set member is a value whose alternative allows all of set.
+func jsonInferTag(tags map[string]map[string]bool, set []string) (string, bool) {
+	tag := ""
+
+	for _, s := range set {
+		members, ok := tags[s]
+		if !ok || !allIn(set, members) {
+			continue
+		}
+
+		if tag != "" {
+			return "", false
+		}
+
+		tag = s
+	}
+
+	return tag, tag != ""
+}
+
+// allIn reports whether every one of names is a key of m.
+func allIn(names []string, m map[string]bool) bool {
+	for _, n := range names {
+		if _, ok := m[n]; !ok {
+			return false
+		}
+	}
+
+	return true
 }
