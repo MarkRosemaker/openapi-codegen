@@ -77,7 +77,9 @@ How the specification maps onto Go:
 - **Authentication** — each operation sends the credential its own `security`
   names, else the document's: a bearer token or basic auth, read from the
   environment. Where a document uses both, `NewClient` requires at least one, and
-  each operation fails before sending if its own is missing.
+  each operation fails before sending if its own is missing. An operation whose
+  credentials are optional (`{}` beside a scheme) sends them all the same, and its
+  replay test accepts a recording made without them.
 - **Success responses** — an operation returns its success body as `*T`, or as
   `T` where `T` is already nilable: a slice, a map, or a named type of either. An
   operation whose success body is an empty object returns just `error`, and the

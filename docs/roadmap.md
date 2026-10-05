@@ -20,11 +20,3 @@ A constructor, or a method that fills in
 every such field left at its zero value, would spare the caller that, for a
 struct used in a request body, or in one. Filling them in inside the
 operation method instead would override what the caller set.
-
-## Replaying calls made without optional credentials
-
-An operation whose credentials are optional (`security: [{}, {bearerAuth: []}]`,
-which openapi-enrich writes for one recorded both with and without them) sends
-the client's credential, but its replay test compares the `Authorization`
-scheme with each recording's and fails on one made without it. The replay
-would need to know which interactions belong to such operations.

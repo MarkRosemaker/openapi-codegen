@@ -1,0 +1,87 @@
+{
+	"title": "Optional Auth",
+	"production": true,
+	"packageName": "optional-auth",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com"
+	},
+	"userAgent": "Optional Auth",
+	"operations": [
+		{
+			"auth": "bearer",
+			"name": "ListItems",
+			"method": "GET",
+			"pathTemplate": "/items",
+			"joinPathArgs": [
+				"\"items\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "string",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "string",
+				"isSlice": true
+			}
+		},
+		{
+			"auth": "bearer",
+			"authOptional": true,
+			"name": "GetFeed",
+			"method": "GET",
+			"pathTemplate": "/feed",
+			"joinPathArgs": [
+				"\"feed\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "string",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "string",
+				"isSlice": true
+			}
+		},
+		{
+			"name": "Health",
+			"method": "GET",
+			"pathTemplate": "/health",
+			"joinPathArgs": [
+				"\"health\""
+			],
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
+		}
+	],
+	"security": {
+		"bearer": {
+			"name": "OPTIONAL_AUTH_TOKEN"
+		},
+		"default": "bearer"
+	}
+}

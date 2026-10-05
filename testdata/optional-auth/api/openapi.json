@@ -1,0 +1,18 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title": "Optional Auth", "version": "1"},
+  "servers": [{"url": "https://api.example.com"}],
+  "security": [{"bearerAuth": []}],
+  "paths": {
+    "/items": {"get": {"operationId": "listItems", "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "string"}}}}}
+    }}},
+    "/feed": {"get": {"operationId": "getFeed", "security": [{}, {"bearerAuth": []}], "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "string"}}}}}
+    }}},
+    "/health": {"get": {"operationId": "health", "security": [], "responses": {
+      "204": {"description": "ok"}
+    }}}
+  },
+  "components": {"securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer"}}}
+}
