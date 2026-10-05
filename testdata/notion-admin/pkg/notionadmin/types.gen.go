@@ -1878,108 +1878,61 @@ type RevokeUserSessionOk struct {
 }
 
 // The managed user whose active sessions should be revoked.
-// RevokeUserSessionUser is an untagged oneOf union: exactly one field is set after unmarshaling.
 type RevokeUserSessionUser struct {
-	RevokeUserSessionUserOneOf0 *RevokeUserSessionUserOneOf0
-	RevokeUserSessionUserOneOf1 *RevokeUserSessionUserOneOf1
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
-// decodes each further member as it is read. With type first, nothing is read twice.
-func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	tag, first, dec, err := jsonFirstMember(dec, "type")
-	if err != nil {
-		return err
-	}
-
-	switch tag {
-	case "email":
-		var vv RevokeUserSessionUserOneOf0
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.RevokeUserSessionUserOneOf0 = &vv
-	case "id":
-		var vv RevokeUserSessionUserOneOf1
-		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
-			return err
-		}
-
-		v.RevokeUserSessionUserOneOf1 = &vv
-	default:
-		return jsonUnknownValue("type", tag)
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
-func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
-	var (
-		variant any
-		tag     string
-	)
-
-	switch {
-	case v.RevokeUserSessionUserOneOf0 != nil:
-		variant, tag = v.RevokeUserSessionUserOneOf0, "email"
-	case v.RevokeUserSessionUserOneOf1 != nil:
-		variant, tag = v.RevokeUserSessionUserOneOf1, "id"
-	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
-	}
-
-	out, err := json.Marshal(variant, jsonOpts)
-	if err != nil {
-		return err
-	}
-
-	if out, err = jsonFirst(out, "type", tag); err != nil {
-		return err
-	}
-
-	return enc.WriteValue(out)
-}
-
-// RevokeUserSessionUserOneOf0 defines a model
-type RevokeUserSessionUserOneOf0 struct {
-	// Always `email`
 	Type string `json:"type"`
 	// The managed user's primary email address.
-	Email string `json:"email"`
-}
-
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether RevokeUserSessionUserOneOf0 declares it.
-func (v *RevokeUserSessionUserOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
-	case "email":
-		return true, json.UnmarshalDecode(dec, &v.Email, jsonOpts)
-	}
-
-	return false, nil
-}
-
-// RevokeUserSessionUserOneOf1 defines a model
-type RevokeUserSessionUserOneOf1 struct {
-	// Always `id`
-	Type string `json:"type"`
+	Email string `json:"email,omitzero"`
 	// The managed user's Notion user UUID.
-	ID string `json:"id"`
+	ID string `json:"id,omitzero"`
 }
 
-// unmarshalJSONMember decodes the value of the member name into its field, reporting whether RevokeUserSessionUserOneOf1 declares it.
-func (v *RevokeUserSessionUserOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
-	switch name {
-	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
-	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+// tagsOfRevokeUserSessionUser says, for each value of type, whether the member named after it must, may or must not be set.
+var tagsOfRevokeUserSessionUser = map[string]jsonTagMember{
+	"email": jsonTagRequired,
+	"id":    jsonTagRequired,
+}
+
+// taggedMembers returns those of the members named after a value of type that are set.
+func (v *RevokeUserSessionUser) taggedMembers() []string {
+	var set []string
+	if v.Email != "" {
+		set = append(set, "email")
+	}
+	if v.ID != "" {
+		set = append(set, "id")
 	}
 
-	return false, nil
+	return set
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those named after a
+// value of type, only the one it names is set.
+func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	type plain RevokeUserSessionUser
+
+	*v = RevokeUserSessionUser{}
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfRevokeUserSessionUser, v.taggedMembers())
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
+// the value whose member is set.
+func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
+	type plain RevokeUserSessionUser
+
+	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 1 {
+		out.Type = string(set[0])
+	}
+
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRevokeUserSessionUser, set); err != nil {
+		return err
+	}
+
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
 }
 
 // Token statuses to include. Use bracket encoding for multiple values.
@@ -3103,4 +3056,37 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	}
 
 	return chosen, nil
+}
+
+// jsonTagMember says whether a value of a tag needs the member named after it, allows it, or allows none.
+type jsonTagMember int
+
+const (
+	jsonTagNone jsonTagMember = iota
+	jsonTagOptional
+	jsonTagRequired
+)
+
+// jsonCheckTag reports an error unless, of the members named after a value of the tag name, set holds only the one
+// tag names, and holds it if it is required.
+func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string) error {
+	m, ok := members[tag]
+	switch {
+	case tag == "":
+		return jsonMissing(name)
+	case !ok:
+		return jsonUnknownValue(name, tag)
+	}
+
+	for _, s := range set {
+		if s != tag || m == jsonTagNone {
+			return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("%s %q does not allow member %q", name, tag, s)}
+		}
+	}
+
+	if m == jsonTagRequired && len(set) == 0 {
+		return jsonMissing(tag)
+	}
+
+	return nil
 }
