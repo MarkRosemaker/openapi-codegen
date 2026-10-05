@@ -30,6 +30,10 @@ var jsonOpts = json.JoinOptions(
 	)),
 )
 
+// jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
+// decoding failed.
+var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
+
 // ListGroupMembersParams holds the query parameters for ListGroupMembers.
 type ListGroupMembersParams struct {
 	PageSize    int
@@ -251,6 +255,9 @@ type AdvancedFilterFiltersItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AdvancedFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -258,17 +265,19 @@ func (v *AdvancedFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv WorkflowPropertyFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.WorkflowPropertyFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv AdvancedFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.AdvancedFilter = &vv
 			matched++
 		}
@@ -320,6 +329,9 @@ type AgentID struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -327,17 +339,19 @@ func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv IDRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.IDRequest = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv AgentIDOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.AgentIDOneOf = vv
 			matched++
 		}
@@ -371,6 +385,9 @@ type AgentID2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AgentID2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -378,17 +395,19 @@ func (v *AgentID2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv IDRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.IDRequest = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -443,9 +462,9 @@ type AgentIDParentForBlockBasedObjectResponse struct {
 func (v *AgentIDParentForBlockBasedObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "agent_id":
-		return true, json.UnmarshalDecode(dec, &v.AgentID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AgentID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -597,9 +616,9 @@ type BlockIDParentForBlockBasedObjectResponse struct {
 func (v *BlockIDParentForBlockBasedObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "block_id":
-		return true, json.UnmarshalDecode(dec, &v.BlockID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.BlockID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -816,11 +835,11 @@ func (v *BlockObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectResponse
 
 	*v = BlockObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -833,7 +852,7 @@ func (v *BlockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectResponse, set, true); err != nil {
 		return err
 	}
 
@@ -886,11 +905,11 @@ func (v *BotInfoResponseOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BotInfoResponseOwner
 
 	*v = BotInfoResponseOwner{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBotInfoResponseOwner, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfBotInfoResponseOwner, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -903,7 +922,7 @@ func (v *BotInfoResponseOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBotInfoResponseOwner, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBotInfoResponseOwner, set, true); err != nil {
 		return err
 	}
 
@@ -925,6 +944,9 @@ type BotUserObjectResponseBot struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *BotUserObjectResponseBot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -932,17 +954,19 @@ func (v *BotUserObjectResponseBot) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv EmptyObject
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.EmptyObject = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv BotInfoResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.BotInfoResponse = &vv
 			matched++
 		}
@@ -977,6 +1001,9 @@ type ChartAggregation struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ChartAggregation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -984,25 +1011,28 @@ func (v *ChartAggregation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ChartAggregationOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ChartAggregationOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ChartAggregationOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ChartAggregationOneOf1 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ChartAggregationOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ChartAggregationOneOf2 = &vv
 			matched++
 		}
@@ -1400,6 +1430,9 @@ type ContinueThreadRequest struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ContinueThreadRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -1407,17 +1440,19 @@ func (v *ContinueThreadRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ContinueThreadRequestOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ContinueThreadRequestOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ContinueThreadRequestOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ContinueThreadRequestOneOf1 = &vv
 			matched++
 		}
@@ -1506,12 +1541,14 @@ var variantsOfCreateANotionAttachment = []jsonVariant{
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of CreateANotionAttachmentAllOf2 each
 // decode the members they declare, and a member neither declares is an error.
 func (v *CreateANotionAttachment) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
 	}
 
-	chosen, err := jsonChooseVariants(raw, "", variantsOfCreateANotionAttachment, membersOfCreateANotionAttachment, true)
+	chosen, err := jsonChooseVariants(raw, "", variantsOfCreateANotionAttachment, membersOfCreateANotionAttachment, true, strict)
 	if err != nil {
 		return err
 	}
@@ -1521,7 +1558,7 @@ func (v *CreateANotionAttachment) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 		return err
 	}
 
-	if err := json.Unmarshal(fields, (*fieldsOfCreateANotionAttachment)(v), jsonOpts); err != nil {
+	if err := json.Unmarshal(fields, (*fieldsOfCreateANotionAttachment)(v), opts); err != nil {
 		return err
 	}
 
@@ -1534,21 +1571,21 @@ func (v *CreateANotionAttachment) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 		switch i {
 		case 0:
 			var vv CreateANotionAttachmentAllOfOneOf
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
 			v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf = &vv
 		case 1:
 			var vv CreateANotionAttachmentAllOfOneOf2
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
 			v.CreateANotionAttachmentAllOf2.CreateANotionAttachmentAllOfOneOf2 = &vv
 		case 2:
 			var vv CreateANotionAttachmentAllOfOneOf3
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
@@ -1636,6 +1673,9 @@ type CreateANotionAttachmentAllOf2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreateANotionAttachmentAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -1643,25 +1683,28 @@ func (v *CreateANotionAttachmentAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder)
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv CreateANotionAttachmentAllOfOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.CreateANotionAttachmentAllOfOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv CreateANotionAttachmentAllOfOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.CreateANotionAttachmentAllOfOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv CreateANotionAttachmentAllOfOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.CreateANotionAttachmentAllOfOneOf3 = &vv
 			matched++
 		}
@@ -2255,6 +2298,9 @@ type CreatedByItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreatedByItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -2262,17 +2308,19 @@ func (v *CreatedByItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv IDRequest
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.IDRequest = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -2425,11 +2473,11 @@ type DataSourceParentResponse struct {
 func (v *DataSourceParentResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "data_source_id":
-		return true, json.UnmarshalDecode(dec, &v.DataSourceID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DataSourceID, jsonOptsOf(dec))
 	case "database_id":
-		return true, json.UnmarshalDecode(dec, &v.DatabaseID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DatabaseID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -2447,9 +2495,9 @@ type DatabaseParentResponse struct {
 func (v *DatabaseParentResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "database_id":
-		return true, json.UnmarshalDecode(dec, &v.DatabaseID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DatabaseID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -2588,11 +2636,11 @@ func (v *DatabasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 	type plain DatabasePropertyConfigResponse
 
 	*v = DatabasePropertyConfigResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyConfigResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyConfigResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -2605,7 +2653,7 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyConfigResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyConfigResponse, set, true); err != nil {
 		return err
 	}
 
@@ -2646,11 +2694,11 @@ func (v *DatabasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 	type plain DatabasePropertyRelationConfigResponse
 
 	*v = DatabasePropertyRelationConfigResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -2663,7 +2711,7 @@ func (v *DatabasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyRelationConfigResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyRelationConfigResponse, set, true); err != nil {
 		return err
 	}
 
@@ -2697,6 +2745,9 @@ type DateFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *DateFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -2704,17 +2755,19 @@ func (v *DateFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOf1 = &vv
 			matched++
 		}
@@ -2847,6 +2900,9 @@ type DateFilterOneOf1Value struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *DateFilterOneOf1Value) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -2854,33 +2910,37 @@ func (v *DateFilterOneOf1Value) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOf1ValueOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOf1ValueOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOfValueOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOfValueOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOfValueOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOfValueOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOfValueOneOf4 = &vv
 			matched++
 		}
@@ -2998,9 +3058,9 @@ type DateFilterOneOfValueOneOf struct {
 func (v *DateFilterOneOfValueOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3157,27 +3217,27 @@ type Done struct {
 func (v *Done) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "invocation_id":
-		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "thread_id":
-		return true, json.UnmarshalDecode(dec, &v.ThreadID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ThreadID, jsonOptsOf(dec))
 	case "model":
-		return true, json.UnmarshalDecode(dec, &v.Model, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Model, jsonOptsOf(dec))
 	case "usage":
-		return true, json.UnmarshalDecode(dec, &v.Usage, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Usage, jsonOptsOf(dec))
 	case "duration_ms":
-		return true, json.UnmarshalDecode(dec, &v.DurationMs, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DurationMs, jsonOptsOf(dec))
 	case "connections_used":
-		return true, json.UnmarshalDecode(dec, &v.ConnectionsUsed, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ConnectionsUsed, jsonOptsOf(dec))
 	case "artifacts":
-		return true, json.UnmarshalDecode(dec, &v.Artifacts, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Artifacts, jsonOptsOf(dec))
 	case "metadata":
-		return true, json.UnmarshalDecode(dec, &v.Metadata, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Metadata, jsonOptsOf(dec))
 	case "pending_user_actions":
-		return true, json.UnmarshalDecode(dec, &v.PendingUserActions, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PendingUserActions, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3260,11 +3320,11 @@ type DoneArtifactsItemOneOf0 struct {
 func (v *DoneArtifactsItemOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "url":
-		return true, json.UnmarshalDecode(dec, &v.URL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.URL, jsonOptsOf(dec))
 	case "title":
-		return true, json.UnmarshalDecode(dec, &v.Title, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Title, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3282,11 +3342,11 @@ type DoneArtifactsItemOneOf1 struct {
 func (v *DoneArtifactsItemOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "url":
-		return true, json.UnmarshalDecode(dec, &v.URL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.URL, jsonOptsOf(dec))
 	case "page_url":
-		return true, json.UnmarshalDecode(dec, &v.PageURL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PageURL, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3391,9 +3451,9 @@ type DonePendingUserActionsItemOneOf struct {
 func (v *DonePendingUserActionsItemOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "label":
-		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3410,9 +3470,9 @@ type DonePendingUserActionsItemOneOf2 struct {
 func (v *DonePendingUserActionsItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "label":
-		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3430,11 +3490,11 @@ type DonePendingUserActionsItemOneOf3 struct {
 func (v *DonePendingUserActionsItemOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "label":
-		return true, json.UnmarshalDecode(dec, &v.Label, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Label, jsonOptsOf(dec))
 	case "input":
-		return true, json.UnmarshalDecode(dec, &v.Input, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Input, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3573,7 +3633,7 @@ type DonePendingUserActionsItemRequirementsItemOneOf struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3591,11 +3651,11 @@ type DonePendingUserActionsItemRequirementsItemOneOf2 struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "destination_title":
-		return true, json.UnmarshalDecode(dec, &v.DestinationTitle, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DestinationTitle, jsonOptsOf(dec))
 	case "source_titles":
-		return true, json.UnmarshalDecode(dec, &v.SourceTitles, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.SourceTitles, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3614,13 +3674,13 @@ type DonePendingUserActionsItemRequirementsItemOneOf3 struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "page_count":
-		return true, json.UnmarshalDecode(dec, &v.PageCount, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PageCount, jsonOptsOf(dec))
 	case "database_count":
-		return true, json.UnmarshalDecode(dec, &v.DatabaseCount, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DatabaseCount, jsonOptsOf(dec))
 	case "meeting_notes_block_count":
-		return true, json.UnmarshalDecode(dec, &v.MeetingNotesBlockCount, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.MeetingNotesBlockCount, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3639,13 +3699,13 @@ type DonePendingUserActionsItemRequirementsItemOneOf4 struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "integration_type":
-		return true, json.UnmarshalDecode(dec, &v.IntegrationType, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.IntegrationType, jsonOptsOf(dec))
 	case "integration_name":
-		return true, json.UnmarshalDecode(dec, &v.IntegrationName, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.IntegrationName, jsonOptsOf(dec))
 	case "handoff_url":
-		return true, json.UnmarshalDecode(dec, &v.HandoffURL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.HandoffURL, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3662,9 +3722,9 @@ type DonePendingUserActionsItemRequirementsItemOneOf5 struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "explanation":
-		return true, json.UnmarshalDecode(dec, &v.Explanation, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Explanation, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3680,7 +3740,7 @@ type DonePendingUserActionsItemRequirementsItemOneOf7 struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf7) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3698,11 +3758,11 @@ type DonePendingUserActionsItemRequirementsItemOneOf8 struct {
 func (v *DonePendingUserActionsItemRequirementsItemOneOf8) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "urls":
-		return true, json.UnmarshalDecode(dec, &v.Urls, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Urls, jsonOptsOf(dec))
 	case "required_by_workspace_policy":
-		return true, json.UnmarshalDecode(dec, &v.RequiredByWorkspacePolicy, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.RequiredByWorkspacePolicy, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3887,17 +3947,17 @@ type Error struct {
 func (v *Error) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	case "invocation_id":
-		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOptsOf(dec))
 	case "usage":
-		return true, json.UnmarshalDecode(dec, &v.Usage, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Usage, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -3974,6 +4034,9 @@ type ErrorAPI403 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ErrorAPI403) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -3981,25 +4044,28 @@ func (v *ErrorAPI403) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ErrorAPI403OneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ErrorAPI403OneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ErrorAPI403OneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ErrorAPI403OneOf1 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ErrorAPI403OneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ErrorAPI403OneOf2 = &vv
 			matched++
 		}
@@ -4270,6 +4336,9 @@ type ErrorAPIOneOfAllOfAdditionalDataValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ErrorAPIOneOfAllOfAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -4277,17 +4346,19 @@ func (v *ErrorAPIOneOfAllOfAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
@@ -4321,6 +4392,9 @@ type ErrorAdditionalDataValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -4328,17 +4402,19 @@ func (v *ErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
@@ -4645,9 +4721,9 @@ type ExternalDecagonAnyOf0 struct {
 func (v *ExternalDecagonAnyOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "tool":
-		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOptsOf(dec))
 	case "user_id":
-		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4663,9 +4739,9 @@ type ExternalDecagonAnyOf1 struct {
 func (v *ExternalDecagonAnyOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "tool":
-		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOptsOf(dec))
 	case "space_id":
-		return true, json.UnmarshalDecode(dec, &v.SpaceID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.SpaceID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4681,9 +4757,9 @@ type ExternalDecagonAnyOf2 struct {
 func (v *ExternalDecagonAnyOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "tool":
-		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOptsOf(dec))
 	case "space_id":
-		return true, json.UnmarshalDecode(dec, &v.SpaceID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.SpaceID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4699,9 +4775,9 @@ type ExternalDecagonAnyOf3 struct {
 func (v *ExternalDecagonAnyOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "tool":
-		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOptsOf(dec))
 	case "user_id":
-		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4717,9 +4793,9 @@ type ExternalDecagonAnyOf4 struct {
 func (v *ExternalDecagonAnyOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "tool":
-		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Tool, jsonOptsOf(dec))
 	case "space_id":
-		return true, json.UnmarshalDecode(dec, &v.SpaceID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.SpaceID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -4742,6 +4818,8 @@ type ExternalDecagonOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -4751,7 +4829,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf0 = &vv
 			matched++
 		}
@@ -4759,7 +4837,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf1 = &vv
 			matched++
 		}
@@ -4767,7 +4845,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf2 = &vv
 			matched++
 		}
@@ -4775,7 +4853,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf3 = &vv
 			matched++
 		}
@@ -4783,7 +4861,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf4 = &vv
 			matched++
 		}
@@ -4791,7 +4869,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf5 = &vv
 			matched++
 		}
@@ -4799,7 +4877,7 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExternalDecagonOkAnyOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalDecagonOkAnyOf6 = &vv
 			matched++
 		}
@@ -4910,6 +4988,8 @@ type ExternalRefundEligibilityOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ExternalRefundEligibilityOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -4919,7 +4999,7 @@ func (v *ExternalRefundEligibilityOk) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	{
 		var vv ExternalRefundEligibilityOkAnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalRefundEligibilityOkAnyOf0 = &vv
 			matched++
 		}
@@ -4927,7 +5007,7 @@ func (v *ExternalRefundEligibilityOk) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	{
 		var vv ExternalRefundEligibilityOkAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalRefundEligibilityOkAnyOf1 = &vv
 			matched++
 		}
@@ -4935,7 +5015,7 @@ func (v *ExternalRefundEligibilityOk) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	{
 		var vv ExternalRefundEligibilityOkAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalRefundEligibilityOkAnyOf2 = &vv
 			matched++
 		}
@@ -5215,11 +5295,11 @@ func (v *FormulaPropertyResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 	type plain FormulaPropertyResponse
 
 	*v = FormulaPropertyResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5232,7 +5312,7 @@ func (v *FormulaPropertyResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyResponse, set, true); err != nil {
 		return err
 	}
 
@@ -5286,11 +5366,11 @@ func (v *FormulaPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	type plain FormulaPropertyValueResponse
 
 	*v = FormulaPropertyValueResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyValueResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyValueResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5303,7 +5383,7 @@ func (v *FormulaPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) erro
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyValueResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyValueResponse, set, true); err != nil {
 		return err
 	}
 
@@ -5400,17 +5480,17 @@ type GenerateTranscriptOneOf0 struct {
 func (v *GenerateTranscriptOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "prompt":
-		return true, json.UnmarshalDecode(dec, &v.Prompt, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Prompt, jsonOptsOf(dec))
 	case "workflowId":
-		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOptsOf(dec))
 	case "currentPageId":
-		return true, json.UnmarshalDecode(dec, &v.CurrentPageID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.CurrentPageID, jsonOptsOf(dec))
 	case "actorId":
-		return true, json.UnmarshalDecode(dec, &v.ActorID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ActorID, jsonOptsOf(dec))
 	case "promptFormat":
-		return true, json.UnmarshalDecode(dec, &v.PromptFormat, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PromptFormat, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -5431,13 +5511,13 @@ type GenerateTranscriptOneOf1 struct {
 func (v *GenerateTranscriptOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "workflowId":
-		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOptsOf(dec))
 	case "triggerId":
-		return true, json.UnmarshalDecode(dec, &v.TriggerID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.TriggerID, jsonOptsOf(dec))
 	case "triggerData":
-		return true, json.UnmarshalDecode(dec, &v.TriggerData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.TriggerData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -5465,6 +5545,9 @@ type GetDatabasesOkResultsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GetDatabasesOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -5472,17 +5555,19 @@ func (v *GetDatabasesOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PartialDataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialDataSourceObjectResponse = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DataSourceObjectResponse = &vv
 			matched++
 		}
@@ -5697,6 +5782,9 @@ type GroupBy struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *GroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -5704,65 +5792,73 @@ func (v *GroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByTextLike
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByTextLike = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByNumber
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByNumber = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByDate
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByDate = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupBySelect
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupBySelect = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByStatus
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByStatus = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByPerson
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByPerson = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByRelation
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByRelation = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupByCheckbox
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupByCheckbox = &vv
 			matched++
 		}
@@ -5887,11 +5983,11 @@ func (v *GroupByDateSort) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain GroupByDateSort
 
 	*v = GroupByDateSort{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfGroupByDateSort, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfGroupByDateSort, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5904,7 +6000,7 @@ func (v *GroupByDateSort) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfGroupByDateSort, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfGroupByDateSort, set, true); err != nil {
 		return err
 	}
 
@@ -6028,11 +6124,11 @@ func (v *GroupBySelectSort) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain GroupBySelectSort
 
 	*v = GroupBySelectSort{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfGroupBySelectSort, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfGroupBySelectSort, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -6045,7 +6141,7 @@ func (v *GroupBySelectSort) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfGroupBySelectSort, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfGroupBySelectSort, set, true); err != nil {
 		return err
 	}
 
@@ -6233,11 +6329,11 @@ func (v *InternalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext
 	type plain InternalOrExternalFileWithNameResponse
 
 	*v = InternalOrExternalFileWithNameResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfInternalOrExternalFileWithNameResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfInternalOrExternalFileWithNameResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -6250,7 +6346,7 @@ func (v *InternalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfInternalOrExternalFileWithNameResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfInternalOrExternalFileWithNameResponse, set, true); err != nil {
 		return err
 	}
 
@@ -6432,11 +6528,11 @@ func (v *LinkToPageBlockObjectResponseLinkToPage) UnmarshalJSONFrom(dec *jsontex
 	type plain LinkToPageBlockObjectResponseLinkToPage
 
 	*v = LinkToPageBlockObjectResponseLinkToPage{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfLinkToPageBlockObjectResponseLinkToPage, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfLinkToPageBlockObjectResponseLinkToPage, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -6449,7 +6545,7 @@ func (v *LinkToPageBlockObjectResponseLinkToPage) MarshalJSONTo(enc *jsontext.En
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfLinkToPageBlockObjectResponseLinkToPage, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfLinkToPageBlockObjectResponseLinkToPage, set, true); err != nil {
 		return err
 	}
 
@@ -6693,9 +6789,9 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf0 struct {
 func (v *ListExternalAgentStubSessionEventsOkEventsItemOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "text":
-		return true, json.UnmarshalDecode(dec, &v.Text, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Text, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -6712,9 +6808,9 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf1 struct {
 func (v *ListExternalAgentStubSessionEventsOkEventsItemOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "text":
-		return true, json.UnmarshalDecode(dec, &v.Text, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Text, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -6733,13 +6829,13 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf2 struct {
 func (v *ListExternalAgentStubSessionEventsOkEventsItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "tool_call_id":
-		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOptsOf(dec))
 	case "tool_name":
-		return true, json.UnmarshalDecode(dec, &v.ToolName, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolName, jsonOptsOf(dec))
 	case "input":
-		return true, json.UnmarshalDecode(dec, &v.Input, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Input, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -6758,13 +6854,13 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf3 struct {
 func (v *ListExternalAgentStubSessionEventsOkEventsItemOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "tool_call_id":
-		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOptsOf(dec))
 	case "output":
-		return true, json.UnmarshalDecode(dec, &v.Output, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Output, jsonOptsOf(dec))
 	case "is_error":
-		return true, json.UnmarshalDecode(dec, &v.IsError, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.IsError, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -6781,9 +6877,9 @@ type ListExternalAgentStubSessionEventsOkEventsItemOneOf4 struct {
 func (v *ListExternalAgentStubSessionEventsOkEventsItemOneOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "error":
-		return true, json.UnmarshalDecode(dec, &v.Err, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Err, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7185,7 +7281,7 @@ type ListThreadsResultsItemModelsOneOf struct {
 func (v *ListThreadsResultsItemModelsOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7203,9 +7299,9 @@ type ListThreadsResultsItemModelsOneOf2 struct {
 func (v *ListThreadsResultsItemModelsOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "ids":
-		return true, json.UnmarshalDecode(dec, &v.Ids, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Ids, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7347,11 +7443,11 @@ func (v *MediaContentWithFileAndCaptionResponse) UnmarshalJSONFrom(dec *jsontext
 	type plain MediaContentWithFileAndCaptionResponse
 
 	*v = MediaContentWithFileAndCaptionResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -7364,7 +7460,7 @@ func (v *MediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionResponse, set, true); err != nil {
 		return err
 	}
 
@@ -7405,11 +7501,11 @@ func (v *MediaContentWithFileNameAndCaptionResponse) UnmarshalJSONFrom(dec *json
 	type plain MediaContentWithFileNameAndCaptionResponse
 
 	*v = MediaContentWithFileNameAndCaptionResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -7422,7 +7518,7 @@ func (v *MediaContentWithFileNameAndCaptionResponse) MarshalJSONTo(enc *jsontext
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, set, true); err != nil {
 		return err
 	}
 
@@ -7505,11 +7601,11 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 	type plain MentionRichTextItemRequestMention
 
 	*v = MentionRichTextItemRequestMention{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemRequestMention, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemRequestMention, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -7522,7 +7618,7 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemRequestMention, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemRequestMention, set, true); err != nil {
 		return err
 	}
 
@@ -7599,11 +7695,11 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 	type plain MentionRichTextItemResponseMention
 
 	*v = MentionRichTextItemResponseMention{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemResponseMention, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemResponseMention, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -7616,7 +7712,7 @@ func (v *MentionRichTextItemResponseMention) MarshalJSONTo(enc *jsontext.Encoder
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemResponseMention, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemResponseMention, set, true); err != nil {
 		return err
 	}
 
@@ -7642,21 +7738,21 @@ type Message struct {
 func (v *Message) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "invocation_id":
-		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "role":
-		return true, json.UnmarshalDecode(dec, &v.Role, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Role, jsonOptsOf(dec))
 	case "content":
-		return true, json.UnmarshalDecode(dec, &v.Content, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Content, jsonOptsOf(dec))
 	case "delta":
-		return true, json.UnmarshalDecode(dec, &v.Delta, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Delta, jsonOptsOf(dec))
 	case "attachments":
-		return true, json.UnmarshalDecode(dec, &v.Attachments, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Attachments, jsonOptsOf(dec))
 	case "content_parts":
-		return true, json.UnmarshalDecode(dec, &v.ContentParts, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ContentParts, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7780,9 +7876,9 @@ type MessageContentPartsItemOneOf struct {
 func (v *MessageContentPartsItemOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "text":
-		return true, json.UnmarshalDecode(dec, &v.Text, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Text, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7799,9 +7895,9 @@ type MessageContentPartsItemOneOf2 struct {
 func (v *MessageContentPartsItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "follow_ups":
-		return true, json.UnmarshalDecode(dec, &v.FollowUps, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.FollowUps, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7817,7 +7913,7 @@ type MessageContentPartsItemOneOf3 struct {
 func (v *MessageContentPartsItemOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7834,9 +7930,9 @@ type MessageContentPartsItemOneOf5 struct {
 func (v *MessageContentPartsItemOneOf5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "text":
-		return true, json.UnmarshalDecode(dec, &v.Text, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Text, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -7855,13 +7951,13 @@ type MessageContentPartsItemOneOf6 struct {
 func (v *MessageContentPartsItemOneOf6) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "tool_call_id":
-		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOptsOf(dec))
 	case "tool_name":
-		return true, json.UnmarshalDecode(dec, &v.ToolName, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolName, jsonOptsOf(dec))
 	case "results":
-		return true, json.UnmarshalDecode(dec, &v.Results, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Results, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -8123,11 +8219,11 @@ func (v *PageCover) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageCover
 
 	*v = PageCover{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageCover, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPageCover, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8140,7 +8236,7 @@ func (v *PageCover) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCover, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCover, set, true); err != nil {
 		return err
 	}
 
@@ -8159,9 +8255,9 @@ type PageIDParentForBlockBasedObjectResponse struct {
 func (v *PageIDParentForBlockBasedObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "page_id":
-		return true, json.UnmarshalDecode(dec, &v.PageID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PageID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -8217,11 +8313,11 @@ func (v *PageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageIconRequest
 
 	*v = PageIconRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageIconRequest, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPageIconRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8234,7 +8330,7 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconRequest, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconRequest, set, true); err != nil {
 		return err
 	}
 
@@ -8293,11 +8389,11 @@ func (v *PageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageIconResponse
 
 	*v = PageIconResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageIconResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPageIconResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8310,7 +8406,7 @@ func (v *PageIconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconResponse, set, true); err != nil {
 		return err
 	}
 
@@ -8494,11 +8590,11 @@ func (v *PagePropertyValueWithIDResponse) UnmarshalJSONFrom(dec *jsontext.Decode
 	type plain PagePropertyValueWithIDResponse
 
 	*v = PagePropertyValueWithIDResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertyValueWithIDResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertyValueWithIDResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8511,7 +8607,7 @@ func (v *PagePropertyValueWithIDResponse) MarshalJSONTo(enc *jsontext.Encoder) e
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertyValueWithIDResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertyValueWithIDResponse, set, true); err != nil {
 		return err
 	}
 
@@ -8654,11 +8750,11 @@ func (v *ParentOfDataSourceResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	type plain ParentOfDataSourceResponse
 
 	*v = ParentOfDataSourceResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDataSourceResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDataSourceResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8671,7 +8767,7 @@ func (v *ParentOfDataSourceResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDataSourceResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDataSourceResponse, set, true); err != nil {
 		return err
 	}
 
@@ -8724,11 +8820,11 @@ func (v *ParentOfDatabaseResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 	type plain ParentOfDatabaseResponse
 
 	*v = ParentOfDatabaseResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDatabaseResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDatabaseResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8741,7 +8837,7 @@ func (v *ParentOfDatabaseResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDatabaseResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDatabaseResponse, set, true); err != nil {
 		return err
 	}
 
@@ -8816,11 +8912,11 @@ func (v *PartialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	type plain PartialRollupValueResponse
 
 	*v = PartialRollupValueResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPartialRollupValueResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPartialRollupValueResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8833,7 +8929,7 @@ func (v *PartialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPartialRollupValueResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPartialRollupValueResponse, set, true); err != nil {
 		return err
 	}
 
@@ -8872,6 +8968,9 @@ type PeopleArrayBasedPropertyValueResponsePeopleItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -8879,17 +8978,19 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec 
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UserValueResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UserValueResponse = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv GroupObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.GroupObjectResponse = &vv
 			matched++
 		}
@@ -8984,6 +9085,9 @@ type PersonFilterValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *PersonFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -8991,17 +9095,19 @@ func (v *PersonFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PersonFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PersonFilterValueOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []PersonFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PersonFilterValueOneOf2 = vv
 			matched++
 		}
@@ -9103,9 +9209,9 @@ type PersonFilterValueOneOfOneOf struct {
 func (v *PersonFilterValueOneOfOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -9263,11 +9369,11 @@ type PrivateUpdatePagePermissionsPermissionsItemAnyOf0 struct {
 func (v *PrivateUpdatePagePermissionsPermissionsItemAnyOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "role":
-		return true, json.UnmarshalDecode(dec, &v.Role, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Role, jsonOptsOf(dec))
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "user_id":
-		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -9284,11 +9390,11 @@ type PrivateUpdatePagePermissionsPermissionsItemAnyOf1 struct {
 func (v *PrivateUpdatePagePermissionsPermissionsItemAnyOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "role":
-		return true, json.UnmarshalDecode(dec, &v.Role, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Role, jsonOptsOf(dec))
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "group_id":
-		return true, json.UnmarshalDecode(dec, &v.GroupID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.GroupID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -9304,9 +9410,9 @@ type PrivateUpdatePagePermissionsPermissionsItemAnyOf2 struct {
 func (v *PrivateUpdatePagePermissionsPermissionsItemAnyOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "role":
-		return true, json.UnmarshalDecode(dec, &v.Role, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Role, jsonOptsOf(dec))
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -9322,9 +9428,9 @@ type PrivateUpdatePagePermissionsPermissionsItemAnyOf3 struct {
 func (v *PrivateUpdatePagePermissionsPermissionsItemAnyOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "role":
-		return true, json.UnmarshalDecode(dec, &v.Role, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Role, jsonOptsOf(dec))
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -9341,11 +9447,11 @@ type PrivateUpdatePagePermissionsPermissionsItemAnyOf4 struct {
 func (v *PrivateUpdatePagePermissionsPermissionsItemAnyOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "role":
-		return true, json.UnmarshalDecode(dec, &v.Role, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Role, jsonOptsOf(dec))
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "discoverability":
-		return true, json.UnmarshalDecode(dec, &v.Discoverability, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Discoverability, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -9516,11 +9622,11 @@ func (v *PropertyItemObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	type plain PropertyItemObjectResponse
 
 	*v = PropertyItemObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemObjectResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemObjectResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -9533,7 +9639,7 @@ func (v *PropertyItemObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemObjectResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemObjectResponse, set, true); err != nil {
 		return err
 	}
 
@@ -9599,11 +9705,11 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) UnmarshalJSONFrom(dec
 	type plain PropertyItemPropertyItemListResponsePropertyItem
 
 	*v = PropertyItemPropertyItemListResponsePropertyItem{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -9616,7 +9722,7 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) MarshalJSONTo(enc *js
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, set, true); err != nil {
 		return err
 	}
 
@@ -10120,6 +10226,9 @@ type RemovePageGuestOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RemovePageGuestOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -10127,17 +10236,19 @@ func (v *RemovePageGuestOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PartialPageObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialPageObjectResponse = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PageObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PageObjectResponse = &vv
 			matched++
 		}
@@ -10263,11 +10374,11 @@ func (v *RichTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RichTextItemRequest
 
 	*v = RichTextItemRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemRequest, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemRequest, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10280,7 +10391,7 @@ func (v *RichTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemRequest, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemRequest, set, true); err != nil {
 		return err
 	}
 
@@ -10333,11 +10444,11 @@ func (v *RichTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RichTextItemResponse
 
 	*v = RichTextItemResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10350,7 +10461,7 @@ func (v *RichTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemResponse, set, true); err != nil {
 		return err
 	}
 
@@ -10457,11 +10568,11 @@ func (v *Rollup2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Rollup2
 
 	*v = Rollup2{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRollup2, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRollup2, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10474,7 +10585,7 @@ func (v *Rollup2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRollup2, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRollup2, set, true); err != nil {
 		return err
 	}
 
@@ -10549,15 +10660,15 @@ type Rows struct {
 func (v *Rows) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "mode":
-		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOptsOf(dec))
 	case "data_source_url":
-		return true, json.UnmarshalDecode(dec, &v.DataSourceURL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DataSourceURL, jsonOptsOf(dec))
 	case "filter":
-		return true, json.UnmarshalDecode(dec, &v.Filter, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Filter, jsonOptsOf(dec))
 	case "sort":
-		return true, json.UnmarshalDecode(dec, &v.Sort, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Sort, jsonOptsOf(dec))
 	case "limit":
-		return true, json.UnmarshalDecode(dec, &v.Limit, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Limit, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -10739,23 +10850,23 @@ type RunMinimalRolloutOneOf0 struct {
 func (v *RunMinimalRolloutOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "prompt":
-		return true, json.UnmarshalDecode(dec, &v.Prompt, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Prompt, jsonOptsOf(dec))
 	case "workflowId":
-		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOptsOf(dec))
 	case "currentPageId":
-		return true, json.UnmarshalDecode(dec, &v.CurrentPageID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.CurrentPageID, jsonOptsOf(dec))
 	case "actorId":
-		return true, json.UnmarshalDecode(dec, &v.ActorID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ActorID, jsonOptsOf(dec))
 	case "promptFormat":
-		return true, json.UnmarshalDecode(dec, &v.PromptFormat, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PromptFormat, jsonOptsOf(dec))
 	case "harness":
-		return true, json.UnmarshalDecode(dec, &v.Harness, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Harness, jsonOptsOf(dec))
 	case "execution":
-		return true, json.UnmarshalDecode(dec, &v.Execution, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Execution, jsonOptsOf(dec))
 	case "response":
-		return true, json.UnmarshalDecode(dec, &v.Response, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Response, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -10782,19 +10893,19 @@ type RunMinimalRolloutOneOf1 struct {
 func (v *RunMinimalRolloutOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "kind":
-		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Kind, jsonOptsOf(dec))
 	case "workflowId":
-		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.WorkflowID, jsonOptsOf(dec))
 	case "triggerId":
-		return true, json.UnmarshalDecode(dec, &v.TriggerID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.TriggerID, jsonOptsOf(dec))
 	case "triggerData":
-		return true, json.UnmarshalDecode(dec, &v.TriggerData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.TriggerData, jsonOptsOf(dec))
 	case "harness":
-		return true, json.UnmarshalDecode(dec, &v.Harness, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Harness, jsonOptsOf(dec))
 	case "execution":
-		return true, json.UnmarshalDecode(dec, &v.Execution, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Execution, jsonOptsOf(dec))
 	case "response":
-		return true, json.UnmarshalDecode(dec, &v.Response, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Response, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -11089,7 +11200,7 @@ type RunRolloutExecutionLoggingItemOneOf struct {
 func (v *RunRolloutExecutionLoggingItemOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -11106,11 +11217,11 @@ type RunRolloutExecutionLoggingItemOneOf2 struct {
 func (v *RunRolloutExecutionLoggingItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "enabled":
-		return true, json.UnmarshalDecode(dec, &v.Enabled, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Enabled, jsonOptsOf(dec))
 	case "tags":
-		return true, json.UnmarshalDecode(dec, &v.Tags, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Tags, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -12992,11 +13103,11 @@ func (v *RunTool) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RunTool
 
 	*v = RunTool{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRunTool, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRunTool, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -13009,7 +13120,7 @@ func (v *RunTool) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRunTool, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRunTool, set, true); err != nil {
 		return err
 	}
 
@@ -14559,11 +14670,11 @@ func (v *RunToolEval) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RunToolEval
 
 	*v = RunToolEval{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRunToolEval, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRunToolEval, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -14576,7 +14687,7 @@ func (v *RunToolEval) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRunToolEval, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRunToolEval, set, true); err != nil {
 		return err
 	}
 
@@ -14958,9 +15069,9 @@ type RunToolOneOfQuestionsItemConditionalGroupsItemWhenOneOf struct {
 func (v *RunToolOneOfQuestionsItemConditionalGroupsItemWhenOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "checked":
-		return true, json.UnmarshalDecode(dec, &v.Checked, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Checked, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -14978,9 +15089,9 @@ type RunToolOneOfQuestionsItemConditionalGroupsItemWhenOneOf2 struct {
 func (v *RunToolOneOfQuestionsItemConditionalGroupsItemWhenOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "option_urls":
-		return true, json.UnmarshalDecode(dec, &v.OptionUrls, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.OptionUrls, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -15000,11 +15111,11 @@ type RunToolOneOfQuestionsItemConditionalGroupsItemWhenOneOf3 struct {
 func (v *RunToolOneOfQuestionsItemConditionalGroupsItemWhenOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "match":
-		return true, json.UnmarshalDecode(dec, &v.Match, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Match, jsonOptsOf(dec))
 	case "option_urls":
-		return true, json.UnmarshalDecode(dec, &v.OptionUrls, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.OptionUrls, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -15136,11 +15247,11 @@ func (v *RunToolOneOfResultsItem2) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 	type plain RunToolOneOfResultsItem2
 
 	*v = RunToolOneOfResultsItem2{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRunToolOneOfResultsItem2, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRunToolOneOfResultsItem2, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -15153,7 +15264,7 @@ func (v *RunToolOneOfResultsItem2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRunToolOneOfResultsItem2, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRunToolOneOfResultsItem2, set, true); err != nil {
 		return err
 	}
 
@@ -15229,6 +15340,9 @@ type RunToolOneOfResultsItemValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolOneOfResultsItemValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -15236,33 +15350,37 @@ func (v *RunToolOneOfResultsItemValue) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv bool
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Bool = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
@@ -15716,6 +15834,9 @@ type RunToolResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -15723,609 +15844,685 @@ func (v *RunToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf1 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf8 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf5 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf6 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf6 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf8 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf9
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf9 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf11
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf11 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf13
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf13 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf14
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf14 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf15
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf15 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf16
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf16 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf17
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf17 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf18
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf18 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf19
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf19 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf20
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf20 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf21
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf21 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf22
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf22 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf23
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf23 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf24
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf24 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf29
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf29 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf30
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf30 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf31
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf31 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf32
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf32 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf33
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf33 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf34
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf34 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf35
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf35 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf37
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf37 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf39
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf39 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf40
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf40 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf41
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf41 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv EmptyObject
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.EmptyObject = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf43
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf43 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolAccepted
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolAccepted = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf45
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf45 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf46
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf46 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf47
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf47 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf48
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf48 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf49
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf49 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf50
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf50 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf51
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf51 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf52
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf52 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf57
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf57 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf58
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf58 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf5 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf60
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf60 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf61
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf61 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf65
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf65 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf68
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf68 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf69
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf69 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf70
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf70 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf71
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf71 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf72
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf72 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf73
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf73 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf74
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf74 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf75
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf75 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf76
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf76 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf77
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf77 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf78
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf78 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf79
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf79 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf80
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf80 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf81
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf81 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf82
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf82 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf83
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf83 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf84
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf84 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf85
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf85 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf86
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf86 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolOneOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolOneOf7 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf89
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf89 = &vv
 			matched++
 		}
@@ -16523,6 +16720,9 @@ type RunToolResponseOneOf0PagesItemPropertiesValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolResponseOneOf0PagesItemPropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -16530,17 +16730,19 @@ func (v *RunToolResponseOneOf0PagesItemPropertiesValue) UnmarshalJSONFrom(dec *j
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
@@ -16634,6 +16836,9 @@ type RunToolResponseOneOf15Cover struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolResponseOneOf15Cover) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -16641,17 +16846,19 @@ func (v *RunToolResponseOneOf15Cover) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ExternalPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalPageIcon = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv FilePageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.FilePageIcon = &vv
 			matched++
 		}
@@ -16688,6 +16895,9 @@ type RunToolResponseOneOf15Icon struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolResponseOneOf15Icon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -16695,41 +16905,46 @@ func (v *RunToolResponseOneOf15Icon) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv Emoji
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Emoji = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv FilePageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.FilePageIcon = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ExternalPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExternalPageIcon = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv CustomEmoji3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.CustomEmoji3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv Icon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Icon = &vv
 			matched++
 		}
@@ -16917,6 +17132,9 @@ type RunToolResponseOneOf23Parent struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolResponseOneOf23Parent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -16924,17 +17142,19 @@ func (v *RunToolResponseOneOf23Parent) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf23ParentOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf23ParentOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunToolResponseOneOf23ParentOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunToolResponseOneOf23ParentOneOf1 = &vv
 			matched++
 		}
@@ -17223,9 +17443,9 @@ type RunToolResponseOneOf40ResultOneOf0 struct {
 func (v *RunToolResponseOneOf40ResultOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17242,9 +17462,9 @@ type RunToolResponseOneOf40ResultOneOf1 struct {
 func (v *RunToolResponseOneOf40ResultOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17261,9 +17481,9 @@ type RunToolResponseOneOf40ResultOneOf2 struct {
 func (v *RunToolResponseOneOf40ResultOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17282,13 +17502,13 @@ type RunToolResponseOneOf40ResultOneOf3 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "values":
-		return true, json.UnmarshalDecode(dec, &v.Values, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Values, jsonOptsOf(dec))
 	case "has_more":
-		return true, json.UnmarshalDecode(dec, &v.HasMore, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.HasMore, jsonOptsOf(dec))
 	case "next_cursor":
-		return true, json.UnmarshalDecode(dec, &v.NextCursor, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.NextCursor, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17420,9 +17640,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf0 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17439,9 +17659,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf1 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17458,9 +17678,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf2 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17477,9 +17697,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf3 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17496,9 +17716,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf4 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17515,9 +17735,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf5 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17534,9 +17754,9 @@ type RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf6 struct {
 func (v *RunToolResponseOneOf40ResultOneOf3ValuesItemOneOf6) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17836,7 +18056,7 @@ type RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf0 struct {
 func (v *RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17852,7 +18072,7 @@ type RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf1 struct {
 func (v *RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -17870,9 +18090,9 @@ type RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf2 struct {
 func (v *RunToolResponseOneOf43SettingsFormSubmissionTemplateOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "page_url":
-		return true, json.UnmarshalDecode(dec, &v.PageURL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PageURL, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18216,15 +18436,15 @@ type RunToolResponseOneOf46ErrorOneOf0 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18243,15 +18463,15 @@ type RunToolResponseOneOf46ErrorOneOf1 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18270,15 +18490,15 @@ type RunToolResponseOneOf46ErrorOneOf10 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf10) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18297,15 +18517,15 @@ type RunToolResponseOneOf46ErrorOneOf11 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf11) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18324,15 +18544,15 @@ type RunToolResponseOneOf46ErrorOneOf12 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf12) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18351,15 +18571,15 @@ type RunToolResponseOneOf46ErrorOneOf13 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf13) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18378,15 +18598,15 @@ type RunToolResponseOneOf46ErrorOneOf14 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf14) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18405,15 +18625,15 @@ type RunToolResponseOneOf46ErrorOneOf15 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf15) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18432,15 +18652,15 @@ type RunToolResponseOneOf46ErrorOneOf16 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf16) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18459,15 +18679,15 @@ type RunToolResponseOneOf46ErrorOneOf17 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf17) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18486,15 +18706,15 @@ type RunToolResponseOneOf46ErrorOneOf18 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf18) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18513,15 +18733,15 @@ type RunToolResponseOneOf46ErrorOneOf19 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf19) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18540,15 +18760,15 @@ type RunToolResponseOneOf46ErrorOneOf2 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18567,15 +18787,15 @@ type RunToolResponseOneOf46ErrorOneOf20 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf20) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18594,15 +18814,15 @@ type RunToolResponseOneOf46ErrorOneOf21 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf21) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18621,15 +18841,15 @@ type RunToolResponseOneOf46ErrorOneOf22 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf22) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18648,15 +18868,15 @@ type RunToolResponseOneOf46ErrorOneOf3 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18675,15 +18895,15 @@ type RunToolResponseOneOf46ErrorOneOf4 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18702,15 +18922,15 @@ type RunToolResponseOneOf46ErrorOneOf5 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18729,15 +18949,15 @@ type RunToolResponseOneOf46ErrorOneOf6 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf6) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18756,15 +18976,15 @@ type RunToolResponseOneOf46ErrorOneOf7 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf7) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18783,15 +19003,15 @@ type RunToolResponseOneOf46ErrorOneOf8 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf8) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -18810,15 +19030,15 @@ type RunToolResponseOneOf46ErrorOneOf9 struct {
 func (v *RunToolResponseOneOf46ErrorOneOf9) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "code":
-		return true, json.UnmarshalDecode(dec, &v.Code, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Code, jsonOptsOf(dec))
 	case "message":
-		return true, json.UnmarshalDecode(dec, &v.Message, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Message, jsonOptsOf(dec))
 	case "additional_data":
-		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AdditionalData, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -19070,9 +19290,9 @@ type RunToolResponseOneOf52ResultsItemModelsOneOf1 struct {
 func (v *RunToolResponseOneOf52ResultsItemModelsOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "ids":
-		return true, json.UnmarshalDecode(dec, &v.Ids, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Ids, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -19264,6 +19484,9 @@ type RunToolResponseOneOf71PropertiesValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunToolResponseOneOf71PropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -19271,33 +19494,37 @@ func (v *RunToolResponseOneOf71PropertiesValue) UnmarshalJSONFrom(dec *jsontext.
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv bool
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Bool = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
@@ -19775,6 +20002,9 @@ type RunUnifiedRolloutBraintrust struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunUnifiedRolloutBraintrust) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -19782,17 +20012,19 @@ func (v *RunUnifiedRolloutBraintrust) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunUnifiedRolloutBraintrustOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunUnifiedRolloutBraintrustOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RunUnifiedRolloutBraintrustOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RunUnifiedRolloutBraintrustOneOf1 = &vv
 			matched++
 		}
@@ -19888,6 +20120,9 @@ type RunUnifiedRolloutGradersRegexMatch struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *RunUnifiedRolloutGradersRegexMatch) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -19895,17 +20130,19 @@ func (v *RunUnifiedRolloutGradersRegexMatch) UnmarshalJSONFrom(dec *jsontext.Dec
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv struct{}
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Object = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []struct{}
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Object2 = vv
 			matched++
 		}
@@ -20004,13 +20241,13 @@ type SQL struct {
 func (v *SQL) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "data_source_urls":
-		return true, json.UnmarshalDecode(dec, &v.DataSourceUrls, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DataSourceUrls, jsonOptsOf(dec))
 	case "query":
-		return true, json.UnmarshalDecode(dec, &v.Query, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Query, jsonOptsOf(dec))
 	case "mode":
-		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOptsOf(dec))
 	case "params":
-		return true, json.UnmarshalDecode(dec, &v.Params, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Params, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -20026,6 +20263,9 @@ type SQLParamsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SQLParamsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -20033,25 +20273,28 @@ func (v *SQLParamsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv bool
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Bool = &vv
 			matched++
 		}
@@ -20310,6 +20553,8 @@ type SearchResultResultsItemCreatedBy struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SearchResultResultsItemCreatedBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -20319,7 +20564,7 @@ func (v *SearchResultResultsItemCreatedBy) UnmarshalJSONFrom(dec *jsontext.Decod
 
 	{
 		var vv PartialUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialUserObjectResponse = &vv
 			matched++
 		}
@@ -20327,7 +20572,7 @@ func (v *SearchResultResultsItemCreatedBy) UnmarshalJSONFrom(dec *jsontext.Decod
 
 	{
 		var vv UserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UserObjectResponse = &vv
 			matched++
 		}
@@ -20429,6 +20674,8 @@ type SearchWorkspaceKeyword struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SearchWorkspaceKeyword) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -20438,7 +20685,7 @@ func (v *SearchWorkspaceKeyword) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	{
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -20446,7 +20693,7 @@ func (v *SearchWorkspaceKeyword) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	{
 		var vv SearchWorkspaceKeywordAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.SearchWorkspaceKeywordAnyOf1 = &vv
 			matched++
 		}
@@ -20454,7 +20701,7 @@ func (v *SearchWorkspaceKeyword) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	{
 		var vv TitleObject
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.TitleObject = &vv
 			matched++
 		}
@@ -20490,6 +20737,8 @@ type SearchWorkspaceKeywordAnyOf1 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SearchWorkspaceKeywordAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -20499,7 +20748,7 @@ func (v *SearchWorkspaceKeywordAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 
 	{
 		var vv SearchWorkspaceKeywordAnyOf1AnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.SearchWorkspaceKeywordAnyOf1AnyOf0 = &vv
 			matched++
 		}
@@ -20507,7 +20756,7 @@ func (v *SearchWorkspaceKeywordAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 
 	{
 		var vv SearchWorkspaceKeywordAnyOf1AnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.SearchWorkspaceKeywordAnyOf1AnyOf1 = &vv
 			matched++
 		}
@@ -20654,6 +20903,9 @@ type SelectFilterValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *SelectFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -20661,17 +20913,19 @@ func (v *SelectFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv TextFilterValue
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.TextFilterValue = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv SelectFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.SelectFilterValueOneOf = vv
 			matched++
 		}
@@ -20864,11 +21118,11 @@ func (v *SimpleOrArrayPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Dec
 	type plain SimpleOrArrayPropertyValueResponse
 
 	*v = SimpleOrArrayPropertyValueResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfSimpleOrArrayPropertyValueResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfSimpleOrArrayPropertyValueResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -20881,7 +21135,7 @@ func (v *SimpleOrArrayPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfSimpleOrArrayPropertyValueResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfSimpleOrArrayPropertyValueResponse, set, true); err != nil {
 		return err
 	}
 
@@ -21047,9 +21301,9 @@ type StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf0 struct {
 func (v *StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "vault_id":
-		return true, json.UnmarshalDecode(dec, &v.VaultID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.VaultID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -21065,7 +21319,7 @@ type StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf1 struct {
 func (v *StartExternalAgentStubSessionConfigsMcpServersItemCredentialOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -21098,17 +21352,17 @@ type Started struct {
 func (v *Started) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "invocation_id":
-		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOptsOf(dec))
 	case "thread_id":
-		return true, json.UnmarshalDecode(dec, &v.ThreadID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ThreadID, jsonOptsOf(dec))
 	case "agent_id":
-		return true, json.UnmarshalDecode(dec, &v.AgentID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AgentID, jsonOptsOf(dec))
 	case "model":
-		return true, json.UnmarshalDecode(dec, &v.Model, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Model, jsonOptsOf(dec))
 	case "metadata":
-		return true, json.UnmarshalDecode(dec, &v.Metadata, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Metadata, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -21199,6 +21453,9 @@ type StatusFilterValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *StatusFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -21206,17 +21463,19 @@ func (v *StatusFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv StatusFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.StatusFilterValueOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv StatusFilterValueOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.StatusFilterValueOneOf1 = vv
 			matched++
 		}
@@ -21433,11 +21692,11 @@ func (v *TemplateMention2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain TemplateMention2
 
 	*v = TemplateMention2{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfTemplateMention2, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfTemplateMention2, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -21450,7 +21709,7 @@ func (v *TemplateMention2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfTemplateMention2, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfTemplateMention2, set, true); err != nil {
 		return err
 	}
 
@@ -21544,9 +21803,9 @@ type TextFilterValue struct {
 func (v *TextFilterValue) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -21607,23 +21866,23 @@ type Tool struct {
 func (v *Tool) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "invocation_id":
-		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "category":
-		return true, json.UnmarshalDecode(dec, &v.Category, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Category, jsonOptsOf(dec))
 	case "status":
-		return true, json.UnmarshalDecode(dec, &v.Status, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Status, jsonOptsOf(dec))
 	case "agent_step_id":
-		return true, json.UnmarshalDecode(dec, &v.AgentStepID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AgentStepID, jsonOptsOf(dec))
 	case "tool_call_id":
-		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolCallID, jsonOptsOf(dec))
 	case "tool_name":
-		return true, json.UnmarshalDecode(dec, &v.ToolName, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolName, jsonOptsOf(dec))
 	case "tool_type":
-		return true, json.UnmarshalDecode(dec, &v.ToolType, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ToolType, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -21818,6 +22077,8 @@ type ToolInput struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -21827,7 +22088,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv Search2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Search2 = &vv
 			matched++
 		}
@@ -21835,7 +22096,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf15
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf15 = &vv
 			matched++
 		}
@@ -21843,7 +22104,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf25
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf25 = &vv
 			matched++
 		}
@@ -21851,7 +22112,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv Fetch2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Fetch2 = &vv
 			matched++
 		}
@@ -21859,7 +22120,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv CreateANotionAttachment
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.CreateANotionAttachment = &vv
 			matched++
 		}
@@ -21867,7 +22128,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf52
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf52 = &vv
 			matched++
 		}
@@ -21875,7 +22136,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf62
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf62 = &vv
 			matched++
 		}
@@ -21883,7 +22144,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf7
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf7 = &vv
 			matched++
 		}
@@ -21891,7 +22152,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf8 = &vv
 			matched++
 		}
@@ -21899,7 +22160,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf = &vv
 			matched++
 		}
@@ -21907,7 +22168,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf4 = &vv
 			matched++
 		}
@@ -21915,7 +22176,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv Page3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Page3 = &vv
 			matched++
 		}
@@ -21923,7 +22184,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf5 = &vv
 			matched++
 		}
@@ -21931,7 +22192,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf10
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf10 = &vv
 			matched++
 		}
@@ -21939,7 +22200,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf11
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf11 = &vv
 			matched++
 		}
@@ -21947,7 +22208,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf12
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf12 = &vv
 			matched++
 		}
@@ -21955,7 +22216,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf13
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf13 = &vv
 			matched++
 		}
@@ -21963,7 +22224,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf14
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf14 = &vv
 			matched++
 		}
@@ -21971,7 +22232,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf2 = &vv
 			matched++
 		}
@@ -21979,7 +22240,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf16
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf16 = &vv
 			matched++
 		}
@@ -21987,7 +22248,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf17
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf17 = &vv
 			matched++
 		}
@@ -21995,7 +22256,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf18
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf18 = &vv
 			matched++
 		}
@@ -22003,7 +22264,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf19
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf19 = &vv
 			matched++
 		}
@@ -22011,7 +22272,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf20
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf20 = &vv
 			matched++
 		}
@@ -22019,7 +22280,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf21
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf21 = &vv
 			matched++
 		}
@@ -22027,7 +22288,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf22
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf22 = &vv
 			matched++
 		}
@@ -22035,7 +22296,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf23
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf23 = &vv
 			matched++
 		}
@@ -22043,7 +22304,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf24
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf24 = &vv
 			matched++
 		}
@@ -22051,7 +22312,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf3 = &vv
 			matched++
 		}
@@ -22059,7 +22320,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv Users2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Users2 = &vv
 			matched++
 		}
@@ -22067,7 +22328,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf26
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf26 = &vv
 			matched++
 		}
@@ -22075,7 +22336,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf27
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf27 = &vv
 			matched++
 		}
@@ -22083,7 +22344,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf28
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf28 = &vv
 			matched++
 		}
@@ -22091,7 +22352,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf29
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf29 = &vv
 			matched++
 		}
@@ -22099,7 +22360,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf30
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf30 = &vv
 			matched++
 		}
@@ -22107,7 +22368,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf31
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf31 = &vv
 			matched++
 		}
@@ -22115,7 +22376,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf32
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf32 = &vv
 			matched++
 		}
@@ -22123,7 +22384,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf33
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf33 = &vv
 			matched++
 		}
@@ -22131,7 +22392,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf34
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf34 = &vv
 			matched++
 		}
@@ -22139,7 +22400,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf35
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf35 = &vv
 			matched++
 		}
@@ -22147,7 +22408,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf36
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf36 = &vv
 			matched++
 		}
@@ -22155,7 +22416,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf37
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf37 = &vv
 			matched++
 		}
@@ -22163,7 +22424,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf38
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf38 = &vv
 			matched++
 		}
@@ -22171,7 +22432,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf39
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf39 = &vv
 			matched++
 		}
@@ -22179,7 +22440,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf40
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf40 = &vv
 			matched++
 		}
@@ -22187,7 +22448,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf41
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf41 = &vv
 			matched++
 		}
@@ -22195,7 +22456,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf42
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf42 = &vv
 			matched++
 		}
@@ -22203,7 +22464,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf43
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf43 = &vv
 			matched++
 		}
@@ -22211,7 +22472,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf44
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf44 = &vv
 			matched++
 		}
@@ -22219,7 +22480,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf45
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf45 = &vv
 			matched++
 		}
@@ -22227,7 +22488,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv struct{}
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Object = &vv
 			matched++
 		}
@@ -22235,7 +22496,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf46
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf46 = &vv
 			matched++
 		}
@@ -22243,7 +22504,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf47
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf47 = &vv
 			matched++
 		}
@@ -22251,7 +22512,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf48
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf48 = &vv
 			matched++
 		}
@@ -22259,7 +22520,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf49
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf49 = &vv
 			matched++
 		}
@@ -22267,7 +22528,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf50
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf50 = &vv
 			matched++
 		}
@@ -22275,7 +22536,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf51
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf51 = &vv
 			matched++
 		}
@@ -22283,7 +22544,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf6 = &vv
 			matched++
 		}
@@ -22291,7 +22552,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf53
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf53 = &vv
 			matched++
 		}
@@ -22299,7 +22560,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf54
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf54 = &vv
 			matched++
 		}
@@ -22307,7 +22568,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf55
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf55 = &vv
 			matched++
 		}
@@ -22315,7 +22576,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf56
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf56 = &vv
 			matched++
 		}
@@ -22323,7 +22584,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf57
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf57 = &vv
 			matched++
 		}
@@ -22331,7 +22592,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf58
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf58 = &vv
 			matched++
 		}
@@ -22339,7 +22600,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf59
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf59 = &vv
 			matched++
 		}
@@ -22347,7 +22608,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ToolInputAnyOf61
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf61 = &vv
 			matched++
 		}
@@ -22355,7 +22616,7 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv LinkPreviewMention
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.LinkPreviewMention = &vv
 			matched++
 		}
@@ -22558,12 +22819,14 @@ var variantsOfToolInputAnyOf11 = []jsonVariant{
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of ToolInputAnyOfAllOf2 each
 // decode the members they declare, and a member neither declares is an error.
 func (v *ToolInputAnyOf11) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
 	}
 
-	chosen, err := jsonChooseVariants(raw, "", variantsOfToolInputAnyOf11, membersOfToolInputAnyOf11, true)
+	chosen, err := jsonChooseVariants(raw, "", variantsOfToolInputAnyOf11, membersOfToolInputAnyOf11, true, strict)
 	if err != nil {
 		return err
 	}
@@ -22573,7 +22836,7 @@ func (v *ToolInputAnyOf11) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	if err := json.Unmarshal(fields, (*fieldsOfToolInputAnyOf11)(v), jsonOpts); err != nil {
+	if err := json.Unmarshal(fields, (*fieldsOfToolInputAnyOf11)(v), opts); err != nil {
 		return err
 	}
 
@@ -22586,14 +22849,14 @@ func (v *ToolInputAnyOf11) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		switch i {
 		case 0:
 			var vv ToolInputAnyOfAllOfOneOf
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
 			v.ToolInputAnyOfAllOf2.ToolInputAnyOfAllOfOneOf = &vv
 		case 1:
 			var vv ToolInputAnyOfAllOfOneOf2
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
@@ -22766,12 +23029,14 @@ var variantsOfToolInputAnyOf2 = []jsonVariant{
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. The fields and the chosen alternative of ToolInputAnyOfAllOf4 each
 // decode the members they declare, and a member neither declares is an error.
 func (v *ToolInputAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts, strict := jsonOptsOf(dec), jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
 	}
 
-	chosen, err := jsonChooseVariants(raw, "", variantsOfToolInputAnyOf2, membersOfToolInputAnyOf2, true)
+	chosen, err := jsonChooseVariants(raw, "", variantsOfToolInputAnyOf2, membersOfToolInputAnyOf2, true, strict)
 	if err != nil {
 		return err
 	}
@@ -22781,7 +23046,7 @@ func (v *ToolInputAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	if err := json.Unmarshal(fields, (*fieldsOfToolInputAnyOf2)(v), jsonOpts); err != nil {
+	if err := json.Unmarshal(fields, (*fieldsOfToolInputAnyOf2)(v), opts); err != nil {
 		return err
 	}
 
@@ -22794,14 +23059,14 @@ func (v *ToolInputAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		switch i {
 		case 0:
 			var vv ToolInputAnyOfAllOfOneOf3
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
 			v.ToolInputAnyOfAllOf4.ToolInputAnyOfAllOfOneOf3 = &vv
 		case 1:
 			var vv ToolInputAnyOfAllOfOneOf4
-			if err := json.Unmarshal(variant, &vv, jsonOpts); err != nil {
+			if err := json.Unmarshal(variant, &vv, opts); err != nil {
 				return err
 			}
 
@@ -23423,6 +23688,9 @@ type ToolInputAnyOfAllOf2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -23430,17 +23698,19 @@ func (v *ToolInputAnyOfAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfAllOfOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfAllOfOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfAllOfOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfAllOfOneOf2 = &vv
 			matched++
 		}
@@ -23474,6 +23744,9 @@ type ToolInputAnyOfAllOf4 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfAllOf4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -23481,17 +23754,19 @@ func (v *ToolInputAnyOfAllOf4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfAllOfOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfAllOfOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfAllOfOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfAllOfOneOf4 = &vv
 			matched++
 		}
@@ -23832,6 +24107,9 @@ type ToolInputAnyOfFilter3 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfFilter3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -23839,49 +24117,55 @@ func (v *ToolInputAnyOfFilter3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf5 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf6 = &vv
 			matched++
 		}
@@ -23923,6 +24207,9 @@ type ToolInputAnyOfFilterFiltersItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -23930,17 +24217,19 @@ func (v *ToolInputAnyOfFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decode
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOf2 = &vv
 			matched++
 		}
@@ -23993,6 +24282,9 @@ type ToolInputAnyOfFilterFiltersItemOneOfFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfFilterFiltersItemOneOfFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -24000,41 +24292,46 @@ func (v *ToolInputAnyOfFilterFiltersItemOneOfFilter) UnmarshalJSONFrom(dec *json
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf5 = &vv
 			matched++
 		}
@@ -24183,6 +24480,9 @@ type ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValue2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValue2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -24190,33 +24490,37 @@ func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValue2) UnmarshalJSONFro
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOfValueOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOfValueOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOfValueOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilterOneOfValueOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilterOneOfValueOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf2 = &vv
 			matched++
 		}
@@ -24322,9 +24626,9 @@ type ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueItemOneOf struct {
 func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueItemOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -24350,9 +24654,9 @@ type ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf struct {
 func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "value":
-		return true, json.UnmarshalDecode(dec, &v.Value, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Value, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -24453,9 +24757,9 @@ type ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf struct 
 func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "start_date":
-		return true, json.UnmarshalDecode(dec, &v.StartDate, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.StartDate, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -24477,13 +24781,13 @@ type ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2 struct
 func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "start_date":
-		return true, json.UnmarshalDecode(dec, &v.StartDate, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.StartDate, jsonOptsOf(dec))
 	case "start_time":
-		return true, json.UnmarshalDecode(dec, &v.StartTime, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.StartTime, jsonOptsOf(dec))
 	case "time_zone":
-		return true, json.UnmarshalDecode(dec, &v.TimeZone, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.TimeZone, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -24572,6 +24876,9 @@ type ToolInputAnyOfFilterOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -24579,49 +24886,55 @@ func (v *ToolInputAnyOfFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decode
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOfOrItemOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOfOrItemOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOfOrItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOfOrItemOneOf2 = &vv
 			matched++
 		}
@@ -24677,6 +24990,9 @@ type ToolInputAnyOfFilterOneOfOrItemOneOfOrItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -24684,33 +25000,37 @@ func (v *ToolInputAnyOfFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *json
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfFilterOneOf4 = &vv
 			matched++
 		}
@@ -24888,11 +25208,11 @@ func (v *ToolInputAnyOfNewParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 	type plain ToolInputAnyOfNewParent
 
 	*v = ToolInputAnyOfNewParent{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfToolInputAnyOfNewParent, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfToolInputAnyOfNewParent, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -24905,7 +25225,7 @@ func (v *ToolInputAnyOfNewParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfToolInputAnyOfNewParent, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfToolInputAnyOfNewParent, set, true); err != nil {
 		return err
 	}
 
@@ -24922,7 +25242,7 @@ type ToolInputAnyOfNewParentOneOf struct {
 func (v *ToolInputAnyOfNewParentOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -24961,6 +25281,9 @@ type ToolInputAnyOfPagesItemPropertiesValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfPagesItemPropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -24968,25 +25291,28 @@ func (v *ToolInputAnyOfPagesItemPropertiesValue) UnmarshalJSONFrom(dec *jsontext
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
@@ -25022,6 +25348,9 @@ type ToolInputAnyOfParent struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25029,17 +25358,19 @@ func (v *ToolInputAnyOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOf8
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOf8 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfParentOneOf = &vv
 			matched++
 		}
@@ -25075,6 +25406,9 @@ type ToolInputAnyOfParent2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfParent2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25082,33 +25416,37 @@ func (v *ToolInputAnyOfParent2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfParentOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfParentOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfParentOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfParentOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv ToolInputAnyOfParentOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfParentOneOf4 = &vv
 			matched++
 		}
@@ -25191,11 +25529,11 @@ func (v *ToolInputAnyOfPosition) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 	type plain ToolInputAnyOfPosition
 
 	*v = ToolInputAnyOfPosition{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfToolInputAnyOfPosition, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfToolInputAnyOfPosition, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -25208,7 +25546,7 @@ func (v *ToolInputAnyOfPosition) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfToolInputAnyOfPosition, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfToolInputAnyOfPosition, set, true); err != nil {
 		return err
 	}
 
@@ -25225,6 +25563,9 @@ type ToolInputAnyOfPropertiesValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfPropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25232,25 +25573,28 @@ func (v *ToolInputAnyOfPropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder)
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []ToolInputAnyOfPropertiesValueOneOfItem
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ToolInputAnyOfPropertiesValueOneOfItem = vv
 			matched++
 		}
@@ -25286,6 +25630,9 @@ type ToolInputAnyOfPropertiesValueOneOfItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfPropertiesValueOneOfItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25293,17 +25640,19 @@ func (v *ToolInputAnyOfPropertiesValueOneOfItem) UnmarshalJSONFrom(dec *jsontext
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv FileUploadPageIcon
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.FileUploadPageIcon = &vv
 			matched++
 		}
@@ -25437,6 +25786,9 @@ type ToolInputAnyOfTimestamp struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ToolInputAnyOfTimestamp) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25444,17 +25796,19 @@ func (v *ToolInputAnyOfTimestamp) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv float64
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Float64 = &vv
 			matched++
 		}
@@ -25724,6 +26078,8 @@ type UnsharePageFromWebAnyOf struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UnsharePageFromWebAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25733,7 +26089,7 @@ func (v *UnsharePageFromWebAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 
 	{
 		var vv PageObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PageObjectResponse = &vv
 			matched++
 		}
@@ -25741,7 +26097,7 @@ func (v *UnsharePageFromWebAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 
 	{
 		var vv PartialPageObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialPageObjectResponse = &vv
 			matched++
 		}
@@ -25776,6 +26132,8 @@ type UnsharePageFromWebOk struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UnsharePageFromWebOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25785,7 +26143,7 @@ func (v *UnsharePageFromWebOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv UnsharePageFromWebAnyOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UnsharePageFromWebAnyOf = &vv
 			matched++
 		}
@@ -25793,7 +26151,7 @@ func (v *UnsharePageFromWebOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv UnsharePageFromWebOkAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UnsharePageFromWebOkAnyOf1 = &vv
 			matched++
 		}
@@ -25801,7 +26159,7 @@ func (v *UnsharePageFromWebOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv UnsharePageFromWebOkAnyOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UnsharePageFromWebOkAnyOf2 = &vv
 			matched++
 		}
@@ -25837,6 +26195,8 @@ type UnsharePageFromWebOkAnyOf1 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UnsharePageFromWebOkAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25846,7 +26206,7 @@ func (v *UnsharePageFromWebOkAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	{
 		var vv PartialBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialBlockObjectResponse = &vv
 			matched++
 		}
@@ -25854,7 +26214,7 @@ func (v *UnsharePageFromWebOkAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	{
 		var vv BlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.BlockObjectResponse = &vv
 			matched++
 		}
@@ -25888,6 +26248,8 @@ type UnsharePageFromWebOkAnyOf2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UnsharePageFromWebOkAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25897,7 +26259,7 @@ func (v *UnsharePageFromWebOkAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	{
 		var vv PartialDataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialDataSourceObjectResponse = &vv
 			matched++
 		}
@@ -25905,7 +26267,7 @@ func (v *UnsharePageFromWebOkAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	{
 		var vv DataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DataSourceObjectResponse = &vv
 			matched++
 		}
@@ -25969,6 +26331,9 @@ type UpdateAgentConnectionsItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentConnectionsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -25976,49 +26341,55 @@ func (v *UpdateAgentConnectionsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOf4
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOf4 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOf5
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOf5 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOf6
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOf6 = &vv
 			matched++
 		}
@@ -26125,6 +26496,9 @@ type UpdateAgentConnectionsItemOneOfAccount struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentConnectionsItemOneOfAccount) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -26132,17 +26506,19 @@ func (v *UpdateAgentConnectionsItemOneOfAccount) UnmarshalJSONFrom(dec *jsontext
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOfAccountOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOfAccountOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -26176,6 +26552,9 @@ type UpdateAgentConnectionsItemOneOfAccount2 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentConnectionsItemOneOfAccount2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -26183,17 +26562,19 @@ func (v *UpdateAgentConnectionsItemOneOfAccount2) UnmarshalJSONFrom(dec *jsontex
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOfAccountOneOf2
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOfAccountOneOf2 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -26227,6 +26608,9 @@ type UpdateAgentConnectionsItemOneOfAccount3 struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentConnectionsItemOneOfAccount3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -26234,17 +26618,19 @@ func (v *UpdateAgentConnectionsItemOneOfAccount3) UnmarshalJSONFrom(dec *jsontex
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOfAccountOneOf3
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOfAccountOneOf3 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -26300,6 +26686,9 @@ type UpdateAgentConnectionsItemOneOfEnabledTools struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentConnectionsItemOneOfEnabledTools) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -26307,17 +26696,19 @@ func (v *UpdateAgentConnectionsItemOneOfEnabledTools) UnmarshalJSONFrom(dec *jso
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentConnectionsItemOneOfEnabledToolsOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentConnectionsItemOneOfEnabledToolsOneOf = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -26663,9 +27054,9 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26682,9 +27073,9 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf10 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf10) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26700,7 +27091,7 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf11 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf11) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26718,11 +27109,11 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf2 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "data_source_id":
-		return true, json.UnmarshalDecode(dec, &v.DataSourceID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.DataSourceID, jsonOptsOf(dec))
 	case "property_id":
-		return true, json.UnmarshalDecode(dec, &v.PropertyID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PropertyID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26739,9 +27130,9 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf3 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26757,7 +27148,7 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf4 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf4) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26775,9 +27166,9 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf5 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf5) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "allowed_domains":
-		return true, json.UnmarshalDecode(dec, &v.AllowedDomains, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AllowedDomains, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26793,7 +27184,7 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf6 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf6) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26810,9 +27201,9 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf7 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf7) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26828,7 +27219,7 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf8 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf8) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26844,7 +27235,7 @@ type UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf9 struct {
 func (v *UpdateAgentConnectionsItemOneOfPermissionsItemTargetOneOf9) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -26931,6 +27322,8 @@ type UpdateAgentID struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -26940,7 +27333,7 @@ func (v *UpdateAgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv IDResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.IDResponse = &vv
 			matched++
 		}
@@ -26948,7 +27341,7 @@ func (v *UpdateAgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -26982,6 +27375,9 @@ type UpdateAgentIcon struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentIcon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -26989,17 +27385,19 @@ func (v *UpdateAgentIcon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PageIconResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PageIconResponse = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UpdateAgentIconOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UpdateAgentIconOneOf = &vv
 			matched++
 		}
@@ -27049,6 +27447,9 @@ type UpdateAgentLastRunAt struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentLastRunAt) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -27056,17 +27457,19 @@ func (v *UpdateAgentLastRunAt) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv time.Time
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Time = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -27231,7 +27634,7 @@ type UpdateAgentModelOneOf struct {
 func (v *UpdateAgentModelOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "mode":
-		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -27249,9 +27652,9 @@ type UpdateAgentModelOneOf1 struct {
 func (v *UpdateAgentModelOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "mode":
-		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -27269,9 +27672,9 @@ type UpdateAgentModelOneOf2 struct {
 func (v *UpdateAgentModelOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "mode":
-		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -27328,6 +27731,9 @@ type UpdateAgentOkCreditLimit struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentOkCreditLimit) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -27335,17 +27741,19 @@ func (v *UpdateAgentOkCreditLimit) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv int
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Int = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -27379,6 +27787,9 @@ type UpdateAgentOkHasUnpublishedChanges struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UpdateAgentOkHasUnpublishedChanges) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -27386,17 +27797,19 @@ func (v *UpdateAgentOkHasUnpublishedChanges) UnmarshalJSONFrom(dec *jsontext.Dec
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv bool
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.Bool = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
@@ -27569,9 +27982,9 @@ type UpdateAgentOkTriggersItemScheduleEndOneOf0 struct {
 func (v *UpdateAgentOkTriggersItemScheduleEndOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "end_at":
-		return true, json.UnmarshalDecode(dec, &v.EndAt, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EndAt, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -27589,9 +28002,9 @@ type UpdateAgentOkTriggersItemScheduleEndOneOf1 struct {
 func (v *UpdateAgentOkTriggersItemScheduleEndOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "occurrences":
-		return true, json.UnmarshalDecode(dec, &v.Occurrences, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Occurrences, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -28060,13 +28473,13 @@ type UpdateTeamMembershipOperationsItemOneOf0 struct {
 func (v *UpdateTeamMembershipOperationsItemOneOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "entity_id":
-		return true, json.UnmarshalDecode(dec, &v.EntityID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EntityID, jsonOptsOf(dec))
 	case "entity_type":
-		return true, json.UnmarshalDecode(dec, &v.EntityType, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EntityType, jsonOptsOf(dec))
 	case "op":
-		return true, json.UnmarshalDecode(dec, &v.Op, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Op, jsonOptsOf(dec))
 	case "membership":
-		return true, json.UnmarshalDecode(dec, &v.Membership, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Membership, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -28088,13 +28501,13 @@ type UpdateTeamMembershipOperationsItemOneOf1 struct {
 func (v *UpdateTeamMembershipOperationsItemOneOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "entity_id":
-		return true, json.UnmarshalDecode(dec, &v.EntityID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EntityID, jsonOptsOf(dec))
 	case "entity_type":
-		return true, json.UnmarshalDecode(dec, &v.EntityType, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EntityType, jsonOptsOf(dec))
 	case "op":
-		return true, json.UnmarshalDecode(dec, &v.Op, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Op, jsonOptsOf(dec))
 	case "membership":
-		return true, json.UnmarshalDecode(dec, &v.Membership, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Membership, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -28114,11 +28527,11 @@ type UpdateTeamMembershipOperationsItemOneOf2 struct {
 func (v *UpdateTeamMembershipOperationsItemOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "entity_id":
-		return true, json.UnmarshalDecode(dec, &v.EntityID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EntityID, jsonOptsOf(dec))
 	case "entity_type":
-		return true, json.UnmarshalDecode(dec, &v.EntityType, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.EntityType, jsonOptsOf(dec))
 	case "op":
-		return true, json.UnmarshalDecode(dec, &v.Op, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Op, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -28230,11 +28643,11 @@ func (v *UserObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UserObjectResponse
 
 	*v = UserObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfUserObjectResponse, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfUserObjectResponse, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -28247,7 +28660,7 @@ func (v *UserObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfUserObjectResponse, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfUserObjectResponse, set, true); err != nil {
 		return err
 	}
 
@@ -28271,6 +28684,9 @@ type UserUser struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28278,17 +28694,19 @@ func (v *UserUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UserUserOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UserUserOneOf0 = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PartialUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialUserObjectResponse = &vv
 			matched++
 		}
@@ -28338,6 +28756,9 @@ type UserValueResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28345,17 +28766,19 @@ func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PartialUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PartialUserObjectResponse = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv UserObjectResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UserObjectResponse = &vv
 			matched++
 		}
@@ -28458,6 +28881,9 @@ type VerificationFilterValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *VerificationFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28465,17 +28891,19 @@ func (v *VerificationFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv VerificationFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.VerificationFilterValueOneOf = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv VerificationFilterValueOneOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.VerificationFilterValueOneOf1 = vv
 			matched++
 		}
@@ -28573,6 +29001,9 @@ type VerificationPropertyValueResponse struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *VerificationPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28580,17 +29011,19 @@ func (v *VerificationPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Deco
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv VerificationPropertyUnverifiedResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.VerificationPropertyUnverifiedResponse = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv VerificationPropertyResponse
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.VerificationPropertyResponse = &vv
 			matched++
 		}
@@ -28634,15 +29067,15 @@ type View struct {
 func (v *View) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "mode":
-		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Mode, jsonOptsOf(dec))
 	case "view_url":
-		return true, json.UnmarshalDecode(dec, &v.ViewURL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ViewURL, jsonOptsOf(dec))
 	case "start_cursor":
-		return true, json.UnmarshalDecode(dec, &v.StartCursor, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.StartCursor, jsonOptsOf(dec))
 	case "page_size":
-		return true, json.UnmarshalDecode(dec, &v.PageSize, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PageSize, jsonOptsOf(dec))
 	case "is_archived":
-		return true, json.UnmarshalDecode(dec, &v.IsArchived, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.IsArchived, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -28709,11 +29142,11 @@ type WaitingForUser struct {
 func (v *WaitingForUser) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "invocation_id":
-		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.InvocationID, jsonOptsOf(dec))
 	case "pending_user_actions":
-		return true, json.UnmarshalDecode(dec, &v.PendingUserActions, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.PendingUserActions, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -28737,6 +29170,9 @@ type WorkflowNestedViewFilterFiltersItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *WorkflowNestedViewFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28744,9 +29180,10 @@ func (v *WorkflowNestedViewFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.De
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv WorkflowPropertyFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.WorkflowPropertyFilter = &vv
 			matched++
 		}
@@ -28788,6 +29225,9 @@ type WorkflowPropertyFilter struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *WorkflowPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28795,97 +29235,109 @@ func (v *WorkflowPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv EmptyPropertyFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.EmptyPropertyFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv TextFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.TextFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv NumberFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.NumberFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv DateFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.DateFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv SelectFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.SelectFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv MultiSelectFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.MultiSelectFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv CheckboxFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.CheckboxFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv RelationFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.RelationFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv StatusFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.StatusFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv PersonFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.PersonFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv VerificationFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.VerificationFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv FormulaFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.FormulaFilter = &vv
 			matched++
 		}
@@ -28949,6 +29401,9 @@ type WorkflowViewFilterFiltersItem struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *WorkflowViewFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -28956,17 +29411,19 @@ func (v *WorkflowViewFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder)
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv WorkflowPropertyFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.WorkflowPropertyFilter = &vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv WorkflowNestedViewFilter
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.WorkflowNestedViewFilter = &vv
 			matched++
 		}
@@ -29011,12 +29468,27 @@ type WorkspaceParentForBlockBasedObject struct {
 func (v *WorkspaceParentForBlockBasedObject) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "workspace":
-		return true, json.UnmarshalDecode(dec, &v.Workspace, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Workspace, jsonOptsOf(dec))
 	}
 
 	return false, nil
+}
+
+// jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
+func jsonStrict(dec *jsontext.Decoder) bool {
+	v, ok := json.GetOption(dec.Options(), json.RejectUnknownMembers)
+	return v || !ok
+}
+
+// jsonOptsOf is jsonOpts, or jsonOptsLenient where dec accepts members the specification does not know.
+func jsonOptsOf(dec *jsontext.Decoder) json.Options {
+	if jsonStrict(dec) {
+		return jsonOpts
+	}
+
+	return jsonOptsLenient
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
@@ -29102,7 +29574,7 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 			return "", nil, nil, err
 		}
 
-		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered)), name)
+		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered), dec.Options()), name)
 	}
 
 	val, err := dec.ReadValue()
@@ -29119,11 +29591,13 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 }
 
 // jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each
-// into the field decode declares for it; a member it does not declare is an error.
+// into the field decode declares for it; a member it does not declare is an error, unless dec is lenient.
 func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, decode func(*jsontext.Decoder, string) (bool, error)) error {
-	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first)), firstName); err != nil {
+	strict := jsonStrict(dec)
+
+	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first), dec.Options()), firstName); err != nil {
 		return err
-	} else if !ok {
+	} else if !ok && strict {
 		return jsonUnknownName(firstName)
 	}
 
@@ -29137,8 +29611,12 @@ func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Val
 
 		if ok, err := decode(dec, name); err != nil {
 			return err
-		} else if !ok {
+		} else if !ok && strict {
 			return jsonUnknownName(name)
+		} else if !ok {
+			if err := dec.SkipValue(); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -29163,8 +29641,14 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 			}
 		}
 
-		if len(declaring) == 0 {
+		switch {
+		case len(declaring) > 0:
+		case jsonStrict(dec):
 			return jsonUnknownName(name)
+		case val == nil:
+			return dec.SkipValue()
+		default:
+			return nil
 		}
 
 		if val == nil && len(declaring) == 1 {
@@ -29182,7 +29666,7 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 		}
 
 		for _, p := range declaring {
-			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val)), name); err != nil {
+			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val), dec.Options()), name); err != nil {
 				return err
 			}
 		}
@@ -29478,11 +29962,18 @@ type jsonVariant struct {
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
 // one, else those whose required members it has and whose members it holds, besides those of plain. Every member
-// must belong to plain or to a chosen alternative.
-func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf bool) ([]int, error) {
+// must belong to plain or to a chosen alternative. Not strict, a member nothing declares is left out of the choice,
+// and of several alternatives of a oneOf the first is chosen.
+func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf, strict bool) ([]int, error) {
 	names, err := jsonMembers(raw)
 	if err != nil {
 		return nil, err
+	}
+
+	if !strict {
+		names = slices.DeleteFunc(names, func(n string) bool {
+			return !plain[n] && !slices.ContainsFunc(variants, func(v jsonVariant) bool { return v.members[n] })
+		})
 	}
 
 	present := make(map[string]bool, len(names))
@@ -29527,8 +30018,10 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 		switch {
 		case len(chosen) == 0:
 			return nil, &json.SemanticError{Err: errors.New("matches none of its alternatives")}
-		case oneOf && len(chosen) > 1:
+		case oneOf && len(chosen) > 1 && strict:
 			return nil, &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))}
+		case oneOf:
+			chosen = chosen[:1]
 		}
 	}
 
@@ -29560,8 +30053,8 @@ const (
 )
 
 // jsonCheckTag reports an error unless, of the members named after a value of the tag name, set holds only the one
-// tag names, and holds it if it is required.
-func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string) error {
+// tag names, and holds it if it is required. Not strict, it lets set hold others.
+func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string, strict bool) error {
 	m, ok := members[tag]
 	switch {
 	case tag == "":
@@ -29571,12 +30064,12 @@ func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []stri
 	}
 
 	for _, s := range set {
-		if s != tag || m == jsonTagNone {
+		if strict && (s != tag || m == jsonTagNone) {
 			return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("%s %q does not allow member %q", name, tag, s)}
 		}
 	}
 
-	if m == jsonTagRequired && len(set) == 0 {
+	if m == jsonTagRequired && !slices.Contains(set, tag) {
 		return jsonMissing(tag)
 	}
 

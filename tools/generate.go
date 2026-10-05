@@ -112,7 +112,10 @@ func run(ctx context.Context) error {
 			return err
 		}
 
-		irDoc, err := ir.FromDocument(doc, name, "", production, debugMode)
+		// testdata/debug is the one package generated in debug mode
+		debug := debugMode || name == "debug"
+
+		irDoc, err := ir.FromDocument(doc, name, "", production, debug)
 		if err != nil {
 			return fmt.Errorf("build IR: %w", err)
 		}
@@ -139,7 +142,7 @@ func run(ctx context.Context) error {
 		}
 
 		if err := codegen.Generate(codegen.Config{
-			Debug:            debugMode,
+			Debug:            debug,
 			Spec:             doc,
 			PackageName:      strings.ReplaceAll(entry.Name(), "-", ""),
 			OutputDir:        outDir,

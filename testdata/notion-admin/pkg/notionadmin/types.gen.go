@@ -19,6 +19,10 @@ var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
 )
 
+// jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
+// decoding failed.
+var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
+
 // ListLegalHoldUsersParams holds the query parameters for ListLegalHoldUsers.
 type ListLegalHoldUsersParams struct {
 	StartCursor string
@@ -501,6 +505,9 @@ type AdminAPIPublicErrorAdditionalDataValue struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -508,17 +515,19 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
@@ -657,9 +666,9 @@ type Bot struct {
 func (v *Bot) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "bot":
-		return true, json.UnmarshalDecode(dec, &v.Bot, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Bot, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -793,7 +802,7 @@ type CreateCreditLimitPolicySelectorOneOf struct {
 func (v *CreateCreditLimitPolicySelectorOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -811,9 +820,9 @@ type CreateCreditLimitPolicySelectorOneOf2 struct {
 func (v *CreateCreditLimitPolicySelectorOneOf2) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "user_id":
-		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.UserID, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -855,6 +864,9 @@ type CreatorIds struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *CreatorIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -862,17 +874,19 @@ func (v *CreatorIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv []uuid.UUID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UUID = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv uuid.UUID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UUID2 = &vv
 			matched++
 		}
@@ -1005,6 +1019,8 @@ type ExportLegalHold struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -1014,7 +1030,7 @@ func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExportLegalHoldAnyOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExportLegalHoldAnyOf0 = &vv
 			matched++
 		}
@@ -1022,7 +1038,7 @@ func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv ExportLegalHoldAnyOf1
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.ExportLegalHoldAnyOf1 = &vv
 			matched++
 		}
@@ -1594,13 +1610,13 @@ type ListUsersOkResultsItem struct {
 func (v *ListUsersOkResultsItem) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "object":
-		return true, json.UnmarshalDecode(dec, &v.Object, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
 	case "id":
-		return true, json.UnmarshalDecode(dec, &v.ID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
 	case "name":
-		return true, json.UnmarshalDecode(dec, &v.Name, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Name, jsonOptsOf(dec))
 	case "avatar_url":
-		return true, json.UnmarshalDecode(dec, &v.AvatarURL, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.AvatarURL, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -1813,11 +1829,11 @@ type Person struct {
 func (v *Person) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	case "membership_type":
-		return true, json.UnmarshalDecode(dec, &v.MembershipType, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.MembershipType, jsonOptsOf(dec))
 	case "person":
-		return true, json.UnmarshalDecode(dec, &v.Person, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Person, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -1911,11 +1927,11 @@ func (v *RevokeUserSessionUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RevokeUserSessionUser
 
 	*v = RevokeUserSessionUser{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOpts); err != nil {
+	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRevokeUserSessionUser, v.taggedMembers())
+	return jsonCheckTag("type", string(v.Type), tagsOfRevokeUserSessionUser, v.taggedMembers(), jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -1928,7 +1944,7 @@ func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = string(set[0])
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRevokeUserSessionUser, set); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRevokeUserSessionUser, set, true); err != nil {
 		return err
 	}
 
@@ -1946,6 +1962,9 @@ type Status struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -1953,33 +1972,37 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv StatusOneOf0
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.StatusOneOf0 = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String2 = vv
 			matched++
 		}
 	}
 
-	{
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
 		var vv string
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.String3 = vv
 			matched++
 		}
@@ -2252,9 +2275,9 @@ type UpdateAgentPermissionsRemoveItemOneOf struct {
 func (v *UpdateAgentPermissionsRemoveItemOneOf) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "group_id":
-		return true, json.UnmarshalDecode(dec, &v.GroupID, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.GroupID, jsonOptsOf(dec))
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -2270,7 +2293,7 @@ type UpdateAgentPermissionsRemoveItemOneOf3 struct {
 func (v *UpdateAgentPermissionsRemoveItemOneOf3) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
 	switch name {
 	case "type":
-		return true, json.UnmarshalDecode(dec, &v.Type, jsonOpts)
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
 	}
 
 	return false, nil
@@ -2466,6 +2489,8 @@ type UserIds struct {
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom].
 func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	opts := jsonOptsOf(dec)
+
 	raw, err := dec.ReadValue()
 	if err != nil {
 		return err
@@ -2475,7 +2500,7 @@ func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv []uuid.UUID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UUID = vv
 			matched++
 		}
@@ -2483,7 +2508,7 @@ func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		var vv uuid.UUID
-		if err := json.Unmarshal(raw, &vv, jsonOpts); err == nil {
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
 			v.UUID2 = &vv
 			matched++
 		}
@@ -2525,6 +2550,21 @@ func (e WorkflowsMetadataForSpaceResultsItemCreatedByTable) Valid() bool {
 	default:
 		return false
 	}
+}
+
+// jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
+func jsonStrict(dec *jsontext.Decoder) bool {
+	v, ok := json.GetOption(dec.Options(), json.RejectUnknownMembers)
+	return v || !ok
+}
+
+// jsonOptsOf is jsonOpts, or jsonOptsLenient where dec accepts members the specification does not know.
+func jsonOptsOf(dec *jsontext.Decoder) json.Options {
+	if jsonStrict(dec) {
+		return jsonOpts
+	}
+
+	return jsonOptsLenient
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
@@ -2610,7 +2650,7 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 			return "", nil, nil, err
 		}
 
-		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered)), name)
+		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered), dec.Options()), name)
 	}
 
 	val, err := dec.ReadValue()
@@ -2627,11 +2667,13 @@ func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value
 }
 
 // jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each
-// into the field decode declares for it; a member it does not declare is an error.
+// into the field decode declares for it; a member it does not declare is an error, unless dec is lenient.
 func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, decode func(*jsontext.Decoder, string) (bool, error)) error {
-	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first)), firstName); err != nil {
+	strict := jsonStrict(dec)
+
+	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first), dec.Options()), firstName); err != nil {
 		return err
-	} else if !ok {
+	} else if !ok && strict {
 		return jsonUnknownName(firstName)
 	}
 
@@ -2645,8 +2687,12 @@ func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Val
 
 		if ok, err := decode(dec, name); err != nil {
 			return err
-		} else if !ok {
+		} else if !ok && strict {
 			return jsonUnknownName(name)
+		} else if !ok {
+			if err := dec.SkipValue(); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -2671,8 +2717,14 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 			}
 		}
 
-		if len(declaring) == 0 {
+		switch {
+		case len(declaring) > 0:
+		case jsonStrict(dec):
 			return jsonUnknownName(name)
+		case val == nil:
+			return dec.SkipValue()
+		default:
+			return nil
 		}
 
 		if val == nil && len(declaring) == 1 {
@@ -2690,7 +2742,7 @@ func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value
 		}
 
 		for _, p := range declaring {
-			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val)), name); err != nil {
+			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val), dec.Options()), name); err != nil {
 				return err
 			}
 		}
@@ -2986,11 +3038,18 @@ type jsonVariant struct {
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
 // one, else those whose required members it has and whose members it holds, besides those of plain. Every member
-// must belong to plain or to a chosen alternative.
-func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf bool) ([]int, error) {
+// must belong to plain or to a chosen alternative. Not strict, a member nothing declares is left out of the choice,
+// and of several alternatives of a oneOf the first is chosen.
+func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf, strict bool) ([]int, error) {
 	names, err := jsonMembers(raw)
 	if err != nil {
 		return nil, err
+	}
+
+	if !strict {
+		names = slices.DeleteFunc(names, func(n string) bool {
+			return !plain[n] && !slices.ContainsFunc(variants, func(v jsonVariant) bool { return v.members[n] })
+		})
 	}
 
 	present := make(map[string]bool, len(names))
@@ -3035,8 +3094,10 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 		switch {
 		case len(chosen) == 0:
 			return nil, &json.SemanticError{Err: errors.New("matches none of its alternatives")}
-		case oneOf && len(chosen) > 1:
+		case oneOf && len(chosen) > 1 && strict:
 			return nil, &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))}
+		case oneOf:
+			chosen = chosen[:1]
 		}
 	}
 
@@ -3068,8 +3129,8 @@ const (
 )
 
 // jsonCheckTag reports an error unless, of the members named after a value of the tag name, set holds only the one
-// tag names, and holds it if it is required.
-func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string) error {
+// tag names, and holds it if it is required. Not strict, it lets set hold others.
+func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []string, strict bool) error {
 	m, ok := members[tag]
 	switch {
 	case tag == "":
@@ -3079,12 +3140,12 @@ func jsonCheckTag(name, tag string, members map[string]jsonTagMember, set []stri
 	}
 
 	for _, s := range set {
-		if s != tag || m == jsonTagNone {
+		if strict && (s != tag || m == jsonTagNone) {
 			return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("%s %q does not allow member %q", name, tag, s)}
 		}
 	}
 
-	if m == jsonTagRequired && len(set) == 0 {
+	if m == jsonTagRequired && !slices.Contains(set, tag) {
 		return jsonMissing(tag)
 	}
 

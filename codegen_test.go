@@ -58,7 +58,9 @@ func TestCodegen_TestData(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			irDoc, err := ir.FromDocument(doc, name, "", production, debugMode)
+			debug := debugMode || name == "debug"
+
+			irDoc, err := ir.FromDocument(doc, name, "", production, debug)
 			if err != nil {
 				t.Fatalf("build IR: %v", err)
 			}
@@ -77,7 +79,7 @@ func TestCodegen_TestData(t *testing.T) {
 					writeJSON(t, memFs, "ir.json", irDoc)
 
 					if err := codegen.Generate(codegen.Config{
-						Debug:        debugMode,
+						Debug:        debug,
 						Spec:         doc,
 						PackageName:  strings.ReplaceAll(name, "-", ""),
 						OutputFs:     memFs,

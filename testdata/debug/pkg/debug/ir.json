@@ -1,0 +1,225 @@
+{
+	"debug": true,
+	"title": "Debug",
+	"production": true,
+	"packageName": "debug",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com"
+	},
+	"userAgent": "Debug",
+	"operations": [
+		{
+			"name": "GetItem",
+			"method": "GET",
+			"pathTemplate": "/item",
+			"joinPathArgs": [
+				"\"item\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Item"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Item"
+			}
+		},
+		{
+			"name": "GetBlock",
+			"method": "GET",
+			"pathTemplate": "/block",
+			"joinPathArgs": [
+				"\"block\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Block"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Block"
+			}
+		},
+		{
+			"name": "GetPet",
+			"method": "GET",
+			"pathTemplate": "/pet",
+			"joinPathArgs": [
+				"\"pet\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Pet"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Pet"
+			}
+		}
+	],
+	"schemas": [
+		{
+			"name": "Block",
+			"description": "Block defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Paragraph",
+					"jsonName": "paragraph",
+					"type": "*Text",
+					"jsonTag": "json:\"paragraph,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "string",
+				"values": [
+					{
+						"value": "paragraph",
+						"field": "Paragraph",
+						"zero": "nil",
+						"required": true
+					},
+					{
+						"value": "divider"
+					}
+				]
+			}
+		},
+		{
+			"name": "Cat",
+			"description": "Cat defines a model",
+			"fields": [
+				{
+					"name": "Meow",
+					"jsonName": "meow",
+					"type": "bool",
+					"jsonTag": "json:\"meow\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Dog",
+			"description": "Dog defines a model",
+			"fields": [
+				{
+					"name": "Bark",
+					"jsonName": "bark",
+					"type": "bool",
+					"jsonTag": "json:\"bark\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"description": "Item defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Pet",
+			"description": "Pet defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Cat",
+					"type": "Cat",
+					"members": [
+						"meow"
+					],
+					"required": [
+						"meow"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Dog",
+					"type": "Dog",
+					"members": [
+						"bark"
+					],
+					"required": [
+						"bark"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Cat",
+					"type": "Cat",
+					"members": [
+						"meow"
+					],
+					"required": [
+						"meow"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Dog",
+					"type": "Dog",
+					"members": [
+						"bark"
+					],
+					"required": [
+						"bark"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Text",
+			"description": "Text defines a model",
+			"fields": [
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "string",
+					"jsonTag": "json:\"text\"",
+					"required": true
+				}
+			]
+		}
+	]
+}
