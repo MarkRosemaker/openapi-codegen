@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 )
 
@@ -114,5 +115,26 @@ func TestDecoding_OwnResultType(t *testing.T) {
 	// the operation's own type is decoded as strictly as ever
 	if _, err := client(t, `{"object":"page","id":"p","cover":null,"icon":null,"position":[],"extra":1}`).GetPage(t.Context(), "p"); err == nil {
 		t.Error("decoded an unknown member into Page")
+	}
+}
+
+func TestDecoding_RequiredMemberPresent(t *testing.T) {
+	// a required member sent as null is there, whether or not the specification lets it be null
+	for _, in := range []string{`{"type":"date","date":null}`, `{"type":"number","number":null}`, `{"type":"number","number":2}`} {
+		var v PropertyValue
+		if err := json.Unmarshal([]byte(in), &v, jsonOpts); err != nil {
+			t.Errorf("%s: %v", in, err)
+		}
+	}
+
+	// left out, it is missing, even where it may be null
+	for in, want := range map[string]string{
+		`{"type":"date"}`:   `missing object member name "date"`,
+		`{"type":"number"}`: `missing object member name "number"`,
+	} {
+		var v PropertyValue
+		if err := json.Unmarshal([]byte(in), &v, jsonOpts); err == nil || !strings.Contains(err.Error(), want) {
+			t.Errorf("%s: got %v, want %s", in, err, want)
+		}
 	}
 }

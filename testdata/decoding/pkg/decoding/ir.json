@@ -170,6 +170,19 @@
 			}
 		},
 		{
+			"name": "Date",
+			"description": "Date defines a model",
+			"fields": [
+				{
+					"name": "Start",
+					"jsonName": "start",
+					"type": "string",
+					"jsonTag": "json:\"start\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "Emoji",
 			"description": "Emoji defines a model",
 			"fields": [
@@ -497,6 +510,81 @@
 					{
 						"name": "select",
 						"field": "Select",
+						"zero": "nil"
+					},
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "PropertyValue",
+			"description": "PropertyValue defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "PropertyValueType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "*Date",
+					"jsonTag": "json:\"date,omitzero\""
+				},
+				{
+					"name": "Number",
+					"jsonName": "number",
+					"type": "*float64",
+					"jsonTag": "json:\"number,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "PropertyValueType",
+				"enum": [
+					{
+						"goName": "PropertyValueTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "PropertyValueTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					}
+				],
+				"values": [
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true,
+								"nullable": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "date",
+						"field": "Date",
 						"zero": "nil"
 					},
 					{
