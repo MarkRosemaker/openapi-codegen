@@ -18,6 +18,7 @@ import (
 	"strings"
 	"testing"
 
+	"cloud.google.com/go/civil"
 	"github.com/MarkRosemaker/openapi-enrich/cassette"
 	"github.com/go-api-libs/api"
 )
@@ -309,14 +310,14 @@ func TestClient_Interactions(t *testing.T) {
 	}
 
 	if _, err := c.GetV1PageByPageID(ctx, "96245c8f-1784-44a4-82ad-1941127c3ec3", GetV1PageByPageIDParams{
-		NotionVersion: "2026-03-11",
+		NotionVersion: civil.Date{Year: 2026, Month: 3, Day: 11},
 	}); err != nil {
 		t.Fatalf("GetV1PageByPageID: %v", err)
 	}
 
 	if _, err := c.ListV1BlockChildren(ctx, "96245c8f-1784-44a4-82ad-1941127c3ec3", ListV1BlockChildrenParams{
 		PageSize:      3,
-		NotionVersion: "2026-03-11",
+		NotionVersion: civil.Date{Year: 2026, Month: 3, Day: 11},
 	}); err != nil {
 		t.Fatalf("ListV1BlockChildren: %v", err)
 	}
