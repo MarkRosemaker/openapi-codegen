@@ -30333,8 +30333,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
+					"jsonTag": "json:\"id,omitzero\""
 				}
 			]
 		},
@@ -36381,8 +36380,7 @@
 						"value": "title",
 						"members": [
 							{
-								"name": "title",
-								"required": true
+								"name": "title"
 							}
 						]
 					},
@@ -53375,25 +53373,22 @@
 					"name": "PlainText",
 					"jsonName": "plain_text",
 					"type": "string",
-					"jsonTag": "json:\"plain_text\"",
-					"description": "The plain text content of the rich text object, without any styling.",
-					"required": true
+					"jsonTag": "json:\"plain_text,omitzero\"",
+					"description": "The plain text content of the rich text object, without any styling."
 				},
 				{
 					"name": "Href",
 					"jsonName": "href",
 					"type": "string",
-					"jsonTag": "json:\"href\"",
-					"description": "A URL that the rich text object links to or mentions.",
-					"required": true
+					"jsonTag": "json:\"href,omitzero\"",
+					"description": "A URL that the rich text object links to or mentions."
 				},
 				{
 					"name": "Annotations",
 					"jsonName": "annotations",
-					"type": "Annotation",
-					"jsonTag": "json:\"annotations\"",
-					"description": "All rich text objects contain an annotations object that sets the styling for the rich text.",
-					"required": true
+					"type": "*Annotation",
+					"jsonTag": "json:\"annotations,omitzero\"",
+					"description": "All rich text objects contain an annotations object that sets the styling for the rich text."
 				},
 				{
 					"name": "Type",
@@ -55688,8 +55683,7 @@
 						"value": "title",
 						"members": [
 							{
-								"name": "title",
-								"required": true
+								"name": "title"
 							}
 						]
 					},

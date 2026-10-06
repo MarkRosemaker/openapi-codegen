@@ -10439,7 +10439,7 @@ type Heading struct {
 
 // IDObject defines a model
 type IDObject struct {
-	ID string `json:"id"`
+	ID string `json:"id,omitzero"`
 }
 
 // IDRequest defines a model
@@ -13532,7 +13532,7 @@ var tagsOfPagePropertyValueWithIDResponse = map[string]map[string]jsonTagNeed{
 	"unique_id":        {"unique_id": jsonTagRequired},
 	"verification":     {"verification": jsonTagRequiredOrNull},
 	"place":            {"place": jsonTagRequiredOrNull},
-	"title":            {"title": jsonTagRequired},
+	"title":            {"title": jsonTagOptional},
 	"rich_text":        {"rich_text": jsonTagRequired},
 	"people":           {"people": jsonTagRequired},
 	"relation":         {"relation": jsonTagRequired},
@@ -21983,11 +21983,11 @@ func (v *RichTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 // RichTextItemResponse defines a model
 type RichTextItemResponse struct {
 	// The plain text content of the rich text object, without any styling.
-	PlainText string `json:"plain_text"`
+	PlainText string `json:"plain_text,omitzero"`
 	// A URL that the rich text object links to or mentions.
-	Href string `json:"href"`
+	Href string `json:"href,omitzero"`
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations Annotation               `json:"annotations"`
+	Annotations *Annotation              `json:"annotations,omitzero"`
 	Type        RichTextItemResponseType `json:"type,omitzero"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
@@ -23367,7 +23367,7 @@ var tagsOfSimpleOrArrayPropertyValueResponse = map[string]map[string]jsonTagNeed
 	"unique_id":        {"unique_id": jsonTagRequired},
 	"verification":     {"verification": jsonTagRequiredOrNull},
 	"place":            {"place": jsonTagRequiredOrNull},
-	"title":            {"title": jsonTagRequired},
+	"title":            {"title": jsonTagOptional},
 	"rich_text":        {"rich_text": jsonTagRequired},
 	"people":           {"people": jsonTagRequired},
 	"relation":         {"relation": jsonTagRequired},

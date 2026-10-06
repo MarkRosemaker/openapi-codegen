@@ -6,11 +6,11 @@ require (
 	github.com/MarkRosemaker/errpath v0.0.0-20261004011213-d39d7f96c8f4
 	github.com/MarkRosemaker/fsutil v0.0.0-20261004011212-542873237c74
 	github.com/MarkRosemaker/jsonutil v0.0.0-20261004011215-c1eff28436f6
-	github.com/MarkRosemaker/openapi v0.0.0-20261005183413-2a3bd56f42a1
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261006162409-9e9d8797f8bb
-	github.com/MarkRosemaker/openapi-edit v0.0.0-20261005183438-5084b9673f29
-	github.com/MarkRosemaker/openapi-enrich v0.0.0-20261006165055-98d5289edbf5
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261006161745-303b7b474f65
+	github.com/MarkRosemaker/openapi v0.0.0-20261006170304-55e0a87dfa74
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261006190012-f84aab5720b0
+	github.com/MarkRosemaker/openapi-edit v0.0.0-20261006170628-7d8379d5a60a
+	github.com/MarkRosemaker/openapi-enrich v0.0.0-20261006185602-2752eb8eb741
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261006185628-7eebd434f5fc
 	github.com/MarkRosemaker/ordmap v0.0.0-20261005183330-99e2b69a0bc0
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20261004011215-1ec8b5a6b7dc
@@ -22,7 +22,7 @@ require (
 require (
 	cloud.google.com/go v0.123.0 // indirect
 	github.com/MarkRosemaker/json2yaml v0.0.0-20261004011213-3850e046f118 // indirect
-	github.com/MarkRosemaker/openapi-compare v0.0.0-20261005183439-4c528983edcf // indirect
+	github.com/MarkRosemaker/openapi-compare v0.0.0-20261006170625-3d01d94b1dab // indirect
 	github.com/MarkRosemaker/yaml v0.0.0-20261004011229-302f2a2e75b5 // indirect
 	github.com/MarkRosemaker/yaml2json v0.0.0-20261004011213-bbdd737b26f4 // indirect
 	github.com/go-api-libs/types v0.0.0-20260821232109-0cf45378823e // indirect

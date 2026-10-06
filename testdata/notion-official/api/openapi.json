@@ -26072,10 +26072,7 @@
             "type": "string",
             "example": "title"
           }
-        },
-        "required": [
-          "id"
-        ]
+        }
       },
       "idRequest": {
         "type": "string",
@@ -29448,11 +29445,6 @@
             "$ref": "#/components/schemas/annotation"
           }
         },
-        "required": [
-          "plain_text",
-          "href",
-          "annotations"
-        ],
         "additionalProperties": false
       },
       "richTextPropertyConfiguration": {
@@ -31310,10 +31302,6 @@
             }
           }
         },
-        "required": [
-          "type",
-          "title"
-        ],
         "additionalProperties": false
       },
       "titleObjectResponse": {
