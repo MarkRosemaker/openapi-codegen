@@ -8,12 +8,14 @@
 package decoding
 
 import (
+	"context"
 	"encoding/json/v2"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 )
 
 const page = `{"object":"page","id":"p","cover":null,"icon":null,"position":["a","b"]}`
@@ -168,5 +170,89 @@ func TestDecoding_UnionChecksRequiredAndPinned(t *testing.T) {
 
 	if f.FilterAnyOf0 != nil || f.FilterAnyOf1 == nil || len(f.FilterAnyOf1.And) != 1 {
 		t.Errorf("got %+v, want the and form only", f)
+	}
+}
+
+// users is a [Service] that keeps the bodies it is sent and answers with its own.
+type users struct {
+	Service
+
+	user  User
+	entry Entry
+}
+
+func (u *users) UpdateUser(_ context.Context, _ string, body User) (*User, error) {
+	sent := u.user
+	u.user = body
+
+	return &sent, nil
+}
+
+func (u *users) CreateEntry(_ context.Context, body Entry) (*Entry, error) {
+	sent := u.entry
+	u.entry = body
+
+	return &sent, nil
+}
+
+func TestDecoding_ReadOnlyAndWriteOnly(t *testing.T) {
+	created := time.Date(2026, 10, 6, 0, 0, 0, 0, time.UTC)
+	svc := &users{
+		user:  User{ID: "u", Name: "server", Password: "secret", Verified: new(true)},
+		entry: Entry{Record: &Record{Meta: Meta{Created: created}, Record: "r"}},
+	}
+
+	mux := http.NewServeMux()
+	RegisterService(svc, mux, "")
+
+	srv := httptest.NewServer(mux)
+	t.Cleanup(srv.Close)
+
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	c, err := NewClient(WithBaseURL(u))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// a request leaves out what only responses carry, so the server need not have it; a response leaves out the password
+	got, err := c.UpdateUser(t.Context(), "u", User{ID: "u", Name: "client", Password: "new", Verified: new(false)})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if want := (User{Name: "client", Password: "new"}); svc.user != want {
+		t.Errorf("server got %+v, want %+v", svc.user, want)
+	}
+
+	if got.ID != "u" || got.Name != "server" || got.Password != "" || got.Verified == nil || !*got.Verified {
+		t.Errorf("client got %+v, want the user without its password", got)
+	}
+
+	// so too through a union and a part an allOf embeds
+	entry, err := c.CreateEntry(t.Context(), Entry{Note: &Note{Meta: Meta{Created: created}, Note: "n"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if n := svc.entry.Note; n == nil || !n.Created.IsZero() || n.Note != "n" {
+		t.Errorf("server got %+v, want the note without created", svc.entry)
+	}
+
+	if r := entry.Record; r == nil || !r.Created.Equal(created) {
+		t.Errorf("client got %+v, want the record with created", entry)
+	}
+
+	// encoded as anything else, a type keeps all its members
+	out, err := json.Marshal(User{ID: "u", Name: "n", Password: "p"}, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(out) != `{"id":"u","name":"n","password":"p"}` {
+		t.Errorf("got %s", out)
 	}
 }

@@ -184,9 +184,9 @@ func (v *ABlock) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ABlock) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialBlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialBlockObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialBlockObjectResponse, jsonOptsTo(enc))
 	case v.BlockObjectResponse != nil:
-		return json.MarshalEncode(enc, v.BlockObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.BlockObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -356,7 +356,7 @@ func (v *AgentBatchOperationsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -550,17 +550,17 @@ func (v *AgentConnectionsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *AgentConnectionsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AgentConnectionsItemOneOf != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf, jsonOptsTo(enc))
 	case v.AgentConnectionsItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf2, jsonOptsTo(enc))
 	case v.AgentConnectionsItemOneOf3 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf3, jsonOptsTo(enc))
 	case v.AgentConnectionsItemOneOf4 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf4, jsonOptsTo(enc))
 	case v.AgentConnectionsItemOneOf5 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf5, jsonOptsTo(enc))
 	case v.AgentConnectionsItemOneOf6 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOf6, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -685,9 +685,9 @@ func (v *AgentConnectionsItemOneOfAccount) UnmarshalJSONFrom(dec *jsontext.Decod
 func (v *AgentConnectionsItemOneOfAccount) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AgentConnectionsItemOneOfAccountOneOf != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfAccountOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfAccountOneOf, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -747,9 +747,9 @@ func (v *AgentConnectionsItemOneOfAccount2) UnmarshalJSONFrom(dec *jsontext.Deco
 func (v *AgentConnectionsItemOneOfAccount2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AgentConnectionsItemOneOfAccountOneOf2 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfAccountOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfAccountOneOf2, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -809,9 +809,9 @@ func (v *AgentConnectionsItemOneOfAccount3) UnmarshalJSONFrom(dec *jsontext.Deco
 func (v *AgentConnectionsItemOneOfAccount3) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AgentConnectionsItemOneOfAccountOneOf3 != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfAccountOneOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfAccountOneOf3, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -889,9 +889,9 @@ func (v *AgentConnectionsItemOneOfEnabledTools) UnmarshalJSONFrom(dec *jsontext.
 func (v *AgentConnectionsItemOneOfEnabledTools) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AgentConnectionsItemOneOfEnabledToolsOneOf != nil:
-		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfEnabledToolsOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentConnectionsItemOneOfEnabledToolsOneOf, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1051,7 +1051,7 @@ func (v *AgentConnectionsItemOneOfPermissionsItemTarget) MarshalJSONTo(enc *json
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -1128,7 +1128,7 @@ func (v *AgentConnectionsItemOneOfPermissionsItemTarget2) MarshalJSONTo(enc *jso
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -1195,7 +1195,7 @@ func (v *AgentConnectionsItemOneOfPermissionsItemTarget3) MarshalJSONTo(enc *jso
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -1539,9 +1539,9 @@ func (v *AgentCreditLimit) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *AgentCreditLimit) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Int != nil:
-		return json.MarshalEncode(enc, v.Int, jsonOpts)
+		return json.MarshalEncode(enc, v.Int, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1597,9 +1597,9 @@ func (v *AgentID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *AgentID) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.IDRequest != "":
-		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
+		return json.MarshalEncode(enc, v.IDRequest, jsonOptsTo(enc))
 	case v.AgentIDOneOf != "":
-		return json.MarshalEncode(enc, v.AgentIDOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentIDOneOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1681,9 +1681,9 @@ func (v *AgentIcon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *AgentIcon) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PageIconResponse != nil:
-		return json.MarshalEncode(enc, v.PageIconResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PageIconResponse, jsonOptsTo(enc))
 	case v.AgentIconOneOf != nil:
-		return json.MarshalEncode(enc, v.AgentIconOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentIconOneOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1774,9 +1774,9 @@ func (v *AgentLastRunAt) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *AgentLastRunAt) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Time != nil:
-		return json.MarshalEncode(enc, v.Time, jsonOpts)
+		return json.MarshalEncode(enc, v.Time, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1837,7 +1837,7 @@ func (v *AgentModel) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -2030,7 +2030,7 @@ func (v *AgentTriggersItemScheduleEnd) MarshalJSONTo(enc *jsontext.Encoder) erro
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -2267,7 +2267,7 @@ func (v *BaseWebhookPayloadAuthorsItem) MarshalJSONTo(enc *jsontext.Encoder) err
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Block defines a model
@@ -2547,7 +2547,7 @@ func (v *BlockObjectRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // BlockObjectRequestWithoutChildren defines a model
@@ -2791,7 +2791,7 @@ func (v *BlockObjectRequestWithoutChildren) MarshalJSONTo(enc *jsontext.Encoder)
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // BlockObjectResponse defines a model
@@ -3086,7 +3086,7 @@ func (v *BlockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // BlockObjectWithSingleLevelOfChildrenRequest defines a model
@@ -3336,7 +3336,7 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) MarshalJSONTo(enc *jsontex
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // BoardViewConfigCardLayout2 defines a model
@@ -3587,7 +3587,7 @@ func (v *BotInfoResponseOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Limits and restrictions that apply to the bot's workspace
@@ -3650,9 +3650,9 @@ func (v *BotUserObjectResponseBot) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 func (v *BotUserObjectResponseBot) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.EmptyObject != nil:
-		return json.MarshalEncode(enc, v.EmptyObject, jsonOpts)
+		return json.MarshalEncode(enc, v.EmptyObject, jsonOptsTo(enc))
 	case v.BotInfoResponse != nil:
-		return json.MarshalEncode(enc, v.BotInfoResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.BotInfoResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -4397,9 +4397,9 @@ func (v *CheckboxPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 func (v *CheckboxPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.CheckboxPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.CheckboxPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.CheckboxPropertyFilterAnyOf, jsonOptsTo(enc))
 	case v.CheckboxPropertyFilterAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.CheckboxPropertyFilterAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.CheckboxPropertyFilterAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -4672,7 +4672,7 @@ func (v *CommentParentResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // CommentUpdatedWebhookPayload defines a model
@@ -4763,7 +4763,7 @@ func (v *ContentPositionSchema) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // ContentWithExpression defines a model
@@ -5008,7 +5008,7 @@ func (v *CreateAComment) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of CreateACommentAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *CreateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfCreateAComment)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfCreateAComment)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -5017,7 +5017,7 @@ func (v *CreateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf0 != nil {
 
-		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf0, jsonOpts)
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf0, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -5031,7 +5031,7 @@ func (v *CreateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf1 != nil {
 
-		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf1, jsonOpts)
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf1, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -5045,7 +5045,7 @@ func (v *CreateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf2 != nil {
 
-		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf2, jsonOpts)
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf2, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -5059,7 +5059,7 @@ func (v *CreateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.CreateACommentAllOf1.CreateACommentAllOf1OneOf3 != nil {
 
-		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf3, jsonOpts)
+		variant, err := json.Marshal(v.CreateACommentAllOf1.CreateACommentAllOf1OneOf3, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -5136,9 +5136,9 @@ func (v *CreateAComment2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreateAComment2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialCommentObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialCommentObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialCommentObjectResponse, jsonOptsTo(enc))
 	case v.CommentObjectResponse != nil:
-		return json.MarshalEncode(enc, v.CommentObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.CommentObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -5232,7 +5232,7 @@ func (v *CreateACommentAllOf0DisplayName) MarshalJSONTo(enc *jsontext.Encoder) e
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // CreateACommentAllOf1 defines a model
@@ -5321,13 +5321,13 @@ func (v *CreateACommentAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreateACommentAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.CreateACommentAllOf1OneOf0 != nil:
-		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf0, jsonOptsTo(enc))
 	case v.CreateACommentAllOf1OneOf1 != nil:
-		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf1, jsonOptsTo(enc))
 	case v.CreateACommentAllOf1OneOf2 != nil:
-		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf2, jsonOptsTo(enc))
 	case v.CreateACommentAllOf1OneOf3 != nil:
-		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateACommentAllOf1OneOf3, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -5449,7 +5449,7 @@ func (v *CreateACommentAllOfOneOfParent) MarshalJSONTo(enc *jsontext.Encoder) er
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // CreateADatabase defines a model
@@ -5522,9 +5522,9 @@ func (v *CreateADatabase2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreateADatabase2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialDataSourceObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialDataSourceObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialDataSourceObjectResponse, jsonOptsTo(enc))
 	case v.DataSourceObjectResponse != nil:
-		return json.MarshalEncode(enc, v.DataSourceObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.DataSourceObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -5585,7 +5585,7 @@ func (v *CreateAToken) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -5744,7 +5744,7 @@ func (v *CreateATokenOkOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // CreateDatabase defines a model
@@ -5825,9 +5825,9 @@ func (v *CreateDatabase2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreateDatabase2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialDatabaseObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialDatabaseObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialDatabaseObjectResponse, jsonOptsTo(enc))
 	case v.DatabaseObjectResponse != nil:
-		return json.MarshalEncode(enc, v.DatabaseObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.DatabaseObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -5940,7 +5940,7 @@ func (v *CreateDatabaseParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // The type of parent.
@@ -6083,7 +6083,7 @@ func (v *CreateMeetingNote) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of CreateMeetingNoteAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *CreateMeetingNote) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfCreateMeetingNote)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfCreateMeetingNote)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -6092,7 +6092,7 @@ func (v *CreateMeetingNote) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf0 != nil {
 
-		variant, err := json.Marshal(v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf0, jsonOpts)
+		variant, err := json.Marshal(v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf0, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -6106,7 +6106,7 @@ func (v *CreateMeetingNote) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf1 != nil {
 
-		variant, err := json.Marshal(v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf1, jsonOpts)
+		variant, err := json.Marshal(v.CreateMeetingNoteAllOf1.CreateMeetingNoteAllOf1OneOf1, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -6228,9 +6228,9 @@ func (v *CreateMeetingNoteAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 func (v *CreateMeetingNoteAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.CreateMeetingNoteAllOf1OneOf0 != nil:
-		return json.MarshalEncode(enc, v.CreateMeetingNoteAllOf1OneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateMeetingNoteAllOf1OneOf0, jsonOptsTo(enc))
 	case v.CreateMeetingNoteAllOf1OneOf1 != nil:
-		return json.MarshalEncode(enc, v.CreateMeetingNoteAllOf1OneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateMeetingNoteAllOf1OneOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -6326,9 +6326,9 @@ func (v *CreateMeetingNoteOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreateMeetingNoteOk) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.CreateMeetingNoteOkOneOf0 != nil:
-		return json.MarshalEncode(enc, v.CreateMeetingNoteOkOneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateMeetingNoteOkOneOf0, jsonOptsTo(enc))
 	case v.CreateMeetingNoteOneOf != nil:
-		return json.MarshalEncode(enc, v.CreateMeetingNoteOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.CreateMeetingNoteOneOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -6466,9 +6466,9 @@ func (v *CreateView) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreateView) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialDataSourceViewObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialDataSourceViewObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialDataSourceViewObjectResponse, jsonOptsTo(enc))
 	case v.DataSourceViewObjectResponse != nil:
-		return json.MarshalEncode(enc, v.DataSourceViewObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.DataSourceViewObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -7097,7 +7097,7 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // DatabasePropertyRelationConfigResponse defines a model
@@ -7186,7 +7186,7 @@ func (v *DatabasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // DatabaseQueryResultType defines a model
@@ -7398,9 +7398,9 @@ func (v *DateOrRelativeDate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *DateOrRelativeDate) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Date != nil:
-		return json.MarshalEncode(enc, v.Date, jsonOpts)
+		return json.MarshalEncode(enc, v.Date, jsonOptsTo(enc))
 	case v.RelativeDateValue != "":
-		return json.MarshalEncode(enc, v.RelativeDateValue, jsonOpts)
+		return json.MarshalEncode(enc, v.RelativeDateValue, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -7460,9 +7460,9 @@ func (v *DatePropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *DatePropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.DatePropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -7653,29 +7653,29 @@ func (v *DatePropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 func (v *DatePropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.DatePropertyFilterAnyOf0AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf0, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf2 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf2, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf3 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf3, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf4 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf4, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf5 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf5, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf6 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf6, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf7 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf7, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf7, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf8 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf8, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf8, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf9 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf9, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf9, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf10 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf10, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf10, jsonOptsTo(enc))
 	case v.DatePropertyFilterAnyOf0AnyOf11 != nil:
-		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf11, jsonOpts)
+		return json.MarshalEncode(enc, v.DatePropertyFilterAnyOf0AnyOf11, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -7838,9 +7838,9 @@ func (v *Embed2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Embed2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.MediaContentWithURLAndCaption != nil:
-		return json.MarshalEncode(enc, v.MediaContentWithURLAndCaption, jsonOpts)
+		return json.MarshalEncode(enc, v.MediaContentWithURLAndCaption, jsonOptsTo(enc))
 	case v.EmbedFileUpload != nil:
-		return json.MarshalEncode(enc, v.EmbedFileUpload, jsonOpts)
+		return json.MarshalEncode(enc, v.EmbedFileUpload, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -7904,9 +7904,9 @@ func (v *EmbedEmbed) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *EmbedEmbed) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.MediaContentWithURLAndCaption != nil:
-		return json.MarshalEncode(enc, v.MediaContentWithURLAndCaption, jsonOpts)
+		return json.MarshalEncode(enc, v.MediaContentWithURLAndCaption, jsonOptsTo(enc))
 	case v.UpdateEmbedFileUploadRequest != nil:
-		return json.MarshalEncode(enc, v.UpdateEmbedFileUploadRequest, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateEmbedFileUploadRequest, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -8095,11 +8095,11 @@ func (v *ErrorAPI403) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ErrorAPI403) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ErrorAPI403OneOf0 != nil:
-		return json.MarshalEncode(enc, v.ErrorAPI403OneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.ErrorAPI403OneOf0, jsonOptsTo(enc))
 	case v.ErrorAPI403OneOf1 != nil:
-		return json.MarshalEncode(enc, v.ErrorAPI403OneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.ErrorAPI403OneOf1, jsonOptsTo(enc))
 	case v.ErrorAPI403OneOf2 != nil:
-		return json.MarshalEncode(enc, v.ErrorAPI403OneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.ErrorAPI403OneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -8390,9 +8390,9 @@ func (v *ErrorAPIOneOfAllOfAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext.
 func (v *ErrorAPIOneOfAllOfAdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
+		return json.MarshalEncode(enc, v.String2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -8588,9 +8588,9 @@ func (v *ExistencePropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 func (v *ExistencePropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ExistencePropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilterAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilterAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilterAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -8796,7 +8796,7 @@ func (v *FileUploadObjectResponseFileImportResult) MarshalJSONTo(enc *jsontext.E
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // FileUploadObjectResponseNumberOfParts defines a model
@@ -8912,7 +8912,7 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Marshal
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // FilesItem defines a model
@@ -9006,7 +9006,7 @@ func (v *FilesItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // FilesPropertyConfiguration defines a model
@@ -9275,13 +9275,13 @@ func (v *FormulaPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *FormulaPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.FormulaPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.FormulaPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.FormulaPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.FormulaPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.FormulaPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.FormulaPropertyFilterAnyOf, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf3 != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf3, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -9399,7 +9399,7 @@ func (v *FormulaPropertyResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // FormulaPropertyValueResponse defines a model
@@ -9499,7 +9499,7 @@ func (v *FormulaPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) erro
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // FormulaSubGroupBy defines a model
@@ -9577,7 +9577,7 @@ func (v *FormulaSubGroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -9755,9 +9755,9 @@ func (v *GetAgentInsightsOkCreditLimit) UnmarshalJSONFrom(dec *jsontext.Decoder)
 func (v *GetAgentInsightsOkCreditLimit) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Float64 != nil:
-		return json.MarshalEncode(enc, v.Float64, jsonOpts)
+		return json.MarshalEncode(enc, v.Float64, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -9813,9 +9813,9 @@ func (v *GetAgentInsightsOkID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *GetAgentInsightsOkID) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.IDResponse != nil:
-		return json.MarshalEncode(enc, v.IDResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.IDResponse, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -9943,9 +9943,9 @@ func (v *GetAgentOkHasUnpublishedChanges) UnmarshalJSONFrom(dec *jsontext.Decode
 func (v *GetAgentOkHasUnpublishedChanges) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Bool != nil:
-		return json.MarshalEncode(enc, v.Bool, jsonOpts)
+		return json.MarshalEncode(enc, v.Bool, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -9998,9 +9998,9 @@ func (v *GetAgentOkID) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *GetAgentOkID) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.IDResponse != nil:
-		return json.MarshalEncode(enc, v.IDResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.IDResponse, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -10194,23 +10194,23 @@ func (v *GroupByConfig) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *GroupByConfig) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SelectGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.SelectGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.SelectGroupByConfig, jsonOptsTo(enc))
 	case v.StatusGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.StatusGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.StatusGroupByConfig, jsonOptsTo(enc))
 	case v.PersonGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.PersonGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.PersonGroupByConfig, jsonOptsTo(enc))
 	case v.RelationGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.RelationGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.RelationGroupByConfig, jsonOptsTo(enc))
 	case v.DateGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.DateGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.DateGroupByConfig, jsonOptsTo(enc))
 	case v.TextGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.TextGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.TextGroupByConfig, jsonOptsTo(enc))
 	case v.NumberGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.NumberGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberGroupByConfig, jsonOptsTo(enc))
 	case v.CheckboxGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.CheckboxGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.CheckboxGroupByConfig, jsonOptsTo(enc))
 	case v.FormulaGroupByConfig != nil:
-		return json.MarshalEncode(enc, v.FormulaGroupByConfig, jsonOpts)
+		return json.MarshalEncode(enc, v.FormulaGroupByConfig, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -10266,9 +10266,9 @@ func (v *GroupFilterOperatorArrayItem) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 func (v *GroupFilterOperatorArrayItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PropertyOrTimestampFilter != nil:
-		return json.MarshalEncode(enc, v.PropertyOrTimestampFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.PropertyOrTimestampFilter, jsonOptsTo(enc))
 	case v.GroupFilterOperatorArrayItemAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.GroupFilterOperatorArrayItemAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.GroupFilterOperatorArrayItemAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -10329,9 +10329,9 @@ func (v *GroupFilterOperatorArrayItemAnyOf1) UnmarshalJSONFrom(dec *jsontext.Dec
 func (v *GroupFilterOperatorArrayItemAnyOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.GroupFilterOperatorArrayItemAnyOf1AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.GroupFilterOperatorArrayItemAnyOf1AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.GroupFilterOperatorArrayItemAnyOf1AnyOf0, jsonOptsTo(enc))
 	case v.GroupFilterOperatorArrayItemAnyOf1AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.GroupFilterOperatorArrayItemAnyOf1AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.GroupFilterOperatorArrayItemAnyOf1AnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -10550,7 +10550,7 @@ func (v *InsertContentInsertContentPosition) MarshalJSONTo(enc *jsontext.Encoder
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // InternalFile defines a model
@@ -10654,7 +10654,7 @@ func (v *InternalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // IntrospectTokenOk defines a model
@@ -10915,7 +10915,7 @@ func (v *LinkToPageLinkToPage) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // ListCommentsOk defines a model
@@ -11223,7 +11223,7 @@ func (v *MediaContentWithFileAndCaptionRequest) MarshalJSONTo(enc *jsontext.Enco
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // MediaContentWithFileAndCaptionResponse defines a model
@@ -11306,7 +11306,7 @@ func (v *MediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Enc
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // MediaContentWithFileNameAndCaptionRequest defines a model
@@ -11395,7 +11395,7 @@ func (v *MediaContentWithFileNameAndCaptionRequest) MarshalJSONTo(enc *jsontext.
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // MediaContentWithFileNameAndCaptionResponse defines a model
@@ -11479,7 +11479,7 @@ func (v *MediaContentWithFileNameAndCaptionResponse) MarshalJSONTo(enc *jsontext
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // MediaContentWithURLAndCaption defines a model
@@ -11607,7 +11607,7 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Mention objects represent an inline mention of a database, date, link preview mention, page, template mention, or user. A mention is created in the Notion UI when a user types `@` followed by the name of the reference.
@@ -11738,7 +11738,7 @@ func (v *MentionRichTextItemResponseMention) MarshalJSONTo(enc *jsontext.Encoder
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // MovePage defines a model
@@ -11805,9 +11805,9 @@ func (v *MovePage2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *MovePage2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialPageObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialPageObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialPageObjectResponse, jsonOptsTo(enc))
 	case v.PageObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PageObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PageObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -11897,7 +11897,7 @@ func (v *MovePageParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // MultiSelectMultiSelectItem defines a model
@@ -11938,7 +11938,7 @@ func (v *MultiSelectMultiSelectItem) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 func (v *MultiSelectMultiSelectItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SelectAnyOf != nil:
-		return json.MarshalEncode(enc, v.SelectAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.SelectAnyOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -11991,9 +11991,9 @@ func (v *MultiSelectPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 func (v *MultiSelectPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.MultiSelectPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.MultiSelectPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.MultiSelectPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -12054,9 +12054,9 @@ func (v *MultiSelectPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decode
 func (v *MultiSelectPropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.MultiSelectPropertyFilterAnyOf0AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.MultiSelectPropertyFilterAnyOf0AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.MultiSelectPropertyFilterAnyOf0AnyOf0, jsonOptsTo(enc))
 	case v.MultiSelectPropertyFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.MultiSelectPropertyFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.MultiSelectPropertyFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -12233,9 +12233,9 @@ func (v *NumberPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *NumberPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.NumberPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -12348,17 +12348,17 @@ func (v *NumberPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 func (v *NumberPropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.NumberPropertyFilterAnyOf0AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf0, jsonOptsTo(enc))
 	case v.NumberPropertyFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	case v.NumberPropertyFilterAnyOf0AnyOf2 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf2, jsonOptsTo(enc))
 	case v.NumberPropertyFilterAnyOf0AnyOf3 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf3, jsonOptsTo(enc))
 	case v.NumberPropertyFilterAnyOf0AnyOf4 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf4, jsonOptsTo(enc))
 	case v.NumberPropertyFilterAnyOf0AnyOf5 != nil:
-		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.NumberPropertyFilterAnyOf0AnyOf5, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -12481,9 +12481,9 @@ func (v *Page4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Page4) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PageObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PageObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PageObjectResponse, jsonOptsTo(enc))
 	case v.PartialPageObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialPageObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialPageObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -12594,7 +12594,7 @@ func (v *PageCover2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PageCoverRequest defines a model
@@ -12682,7 +12682,7 @@ func (v *PageCoverRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PageCreatedWebhookPayload defines a model
@@ -12827,7 +12827,7 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PageIconResponse defines a model
@@ -12937,7 +12937,7 @@ func (v *PageIconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PageLockedWebhookPayload defines a model
@@ -13075,9 +13075,9 @@ func (v *PageOrDataSourceResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 func (v *PageOrDataSourceResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Page4 != nil:
-		return json.MarshalEncode(enc, v.Page4, jsonOpts)
+		return json.MarshalEncode(enc, v.Page4, jsonOptsTo(enc))
 	case v.PageOrDataSourceResultsItemAnyOf != nil:
-		return json.MarshalEncode(enc, v.PageOrDataSourceResultsItemAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.PageOrDataSourceResultsItemAnyOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -13138,9 +13138,9 @@ func (v *PageOrDataSourceResultsItemAnyOf) UnmarshalJSONFrom(dec *jsontext.Decod
 func (v *PageOrDataSourceResultsItemAnyOf) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialDataSourceObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialDataSourceObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialDataSourceObjectResponse, jsonOptsTo(enc))
 	case v.DataSourceObjectResponse != nil:
-		return json.MarshalEncode(enc, v.DataSourceObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.DataSourceObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -13246,7 +13246,7 @@ func (v *PagePositionSchema) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PagePositionSchemaAnyOf defines a model
@@ -13442,7 +13442,7 @@ func (v *PagePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PagePropertyValueWithIDResponse defines a model
@@ -13662,7 +13662,7 @@ func (v *PagePropertyValueWithIDResponse) MarshalJSONTo(enc *jsontext.Encoder) e
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PageReferenceResponse defines a model
@@ -13878,7 +13878,7 @@ func (v *ParentForBlockBasedObjectResponse) MarshalJSONTo(enc *jsontext.Encoder)
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // ParentOfDataSource defines a model
@@ -13967,7 +13967,7 @@ func (v *ParentOfDataSourceResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // ParentOfDatabaseResponse defines a model
@@ -14070,7 +14070,7 @@ func (v *ParentOfDatabaseResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PartialBlockObjectResponse defines a model
@@ -14223,7 +14223,7 @@ func (v *PartialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PartialSelect defines a model
@@ -14358,7 +14358,7 @@ func (v *PatchPageTemplate) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Pdf3 defines a model
@@ -14422,9 +14422,9 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec 
 func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UserValueResponse != nil:
-		return json.MarshalEncode(enc, v.UserValueResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.UserValueResponse, jsonOptsTo(enc))
 	case v.GroupObjectResponse != nil:
-		return json.MarshalEncode(enc, v.GroupObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.GroupObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -14485,7 +14485,7 @@ func (v *PeopleItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -14551,9 +14551,9 @@ func (v *PeoplePropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *PeoplePropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PeoplePropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PeoplePropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.PeoplePropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -14614,9 +14614,9 @@ func (v *PeoplePropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 func (v *PeoplePropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PeoplePropertyFilterAnyOf0AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PeoplePropertyFilterAnyOf0AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.PeoplePropertyFilterAnyOf0AnyOf0, jsonOptsTo(enc))
 	case v.PeoplePropertyFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.PeoplePropertyFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.PeoplePropertyFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -14687,9 +14687,9 @@ func (v *PeoplePropertyItemObjectPeople) UnmarshalJSONFrom(dec *jsontext.Decoder
 func (v *PeoplePropertyItemObjectPeople) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOptsTo(enc))
 	case v.UserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.UserObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.UserObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -14785,9 +14785,9 @@ func (v *PersonIDOrMe) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *PersonIDOrMe) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.IDRequest != "":
-		return json.MarshalEncode(enc, v.IDRequest, jsonOpts)
+		return json.MarshalEncode(enc, v.IDRequest, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -14899,11 +14899,11 @@ func (v *PostDatabaseQueryFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 func (v *PostDatabaseQueryFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PostDatabaseQueryFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PostDatabaseQueryFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.PostDatabaseQueryFilterAnyOf0, jsonOptsTo(enc))
 	case v.PropertyFilter != nil:
-		return json.MarshalEncode(enc, v.PropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.PropertyFilter, jsonOptsTo(enc))
 	case v.TimestampFilter != nil:
-		return json.MarshalEncode(enc, v.TimestampFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.TimestampFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -14964,9 +14964,9 @@ func (v *PostDatabaseQueryFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder)
 func (v *PostDatabaseQueryFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PostDatabaseQueryFilterAnyOf0AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PostDatabaseQueryFilterAnyOf0AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.PostDatabaseQueryFilterAnyOf0AnyOf0, jsonOptsTo(enc))
 	case v.PostDatabaseQueryFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.PostDatabaseQueryFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.PostDatabaseQueryFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -15037,9 +15037,9 @@ func (v *PostDatabaseQuerySortsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 func (v *PostDatabaseQuerySortsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ViewPropertySort != nil:
-		return json.MarshalEncode(enc, v.ViewPropertySort, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewPropertySort, jsonOptsTo(enc))
 	case v.TimestampSort != nil:
-		return json.MarshalEncode(enc, v.TimestampSort, jsonOpts)
+		return json.MarshalEncode(enc, v.TimestampSort, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -15127,7 +15127,7 @@ func (v *PostPageAcceptedOperation) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -15273,7 +15273,7 @@ func (v *PostPageParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PostPageTemplate defines a model
@@ -15341,7 +15341,7 @@ func (v *PostPageTemplate) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -15428,9 +15428,9 @@ func (v *PostSearchFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *PostSearchFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PostSearchFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PostSearchFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.PostSearchFilterAnyOf0, jsonOptsTo(enc))
 	case v.UpdateABlockAnyOf != nil:
-		return json.MarshalEncode(enc, v.UpdateABlockAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateABlockAnyOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -15515,9 +15515,9 @@ func (v *PostSearchSort) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *PostSearchSort) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PostSearchSortAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.PostSearchSortAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.PostSearchSortAnyOf0, jsonOptsTo(enc))
 	case v.PostSearchSortAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.PostSearchSortAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.PostSearchSortAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -15798,7 +15798,7 @@ func (v *PropertyConfigurationRequest) MarshalJSONTo(enc *jsontext.Encoder) erro
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PropertyDescriptionRequest defines a model
@@ -16009,7 +16009,7 @@ func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PropertyItemObjectResponse defines a model
@@ -16225,7 +16225,7 @@ func (v *PropertyItemObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PropertyItemPropertyItemListResponse defines a model
@@ -16337,7 +16337,7 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) MarshalJSONTo(enc *js
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PropertyOrTimestampFilter defines a model
@@ -16391,9 +16391,9 @@ func (v *PropertyOrTimestampFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 func (v *PropertyOrTimestampFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PropertyFilter != nil:
-		return json.MarshalEncode(enc, v.PropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.PropertyFilter, jsonOptsTo(enc))
 	case v.TimestampFilter != nil:
-		return json.MarshalEncode(enc, v.TimestampFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.TimestampFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -16482,15 +16482,15 @@ func (v *PublicAPIAsyncTaskStatusResultJSONValue) UnmarshalJSONFrom(dec *jsontex
 func (v *PublicAPIAsyncTaskStatusResultJSONValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.Float64 != nil:
-		return json.MarshalEncode(enc, v.Float64, jsonOpts)
+		return json.MarshalEncode(enc, v.Float64, jsonOptsTo(enc))
 	case v.Bool != nil:
-		return json.MarshalEncode(enc, v.Bool, jsonOpts)
+		return json.MarshalEncode(enc, v.Bool, jsonOptsTo(enc))
 	case v.PublicAPIAsyncTaskStatusResultJSONValue != nil:
-		return json.MarshalEncode(enc, v.PublicAPIAsyncTaskStatusResultJSONValue, jsonOpts)
+		return json.MarshalEncode(enc, v.PublicAPIAsyncTaskStatusResultJSONValue, jsonOptsTo(enc))
 	case v.MapOfPublicAPIAsyncTaskStatusResultJSONValue != nil:
-		return json.MarshalEncode(enc, v.MapOfPublicAPIAsyncTaskStatusResultJSONValue, jsonOpts)
+		return json.MarshalEncode(enc, v.MapOfPublicAPIAsyncTaskStatusResultJSONValue, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -16571,9 +16571,9 @@ func (v *QueryAgentsFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *QueryAgentsFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryAgentsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf, jsonOptsTo(enc))
 	case v.QueryAgentsFilterOneOf1 != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -16714,7 +16714,7 @@ func (v *QueryAgentsFilterOneOf) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -16784,9 +16784,9 @@ func (v *QueryAgentsFilterOneOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 func (v *QueryAgentsFilterOneOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryAgentsFilterOneOf1OneOf0 != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf1OneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf1OneOf0, jsonOptsTo(enc))
 	case v.QueryAgentsFilterOneOf1OneOf1 != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf1OneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf1OneOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -17048,9 +17048,9 @@ func (v *QueryAgentsFilterOneOfOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Deco
 func (v *QueryAgentsFilterOneOfOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryAgentsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOf, jsonOptsTo(enc))
 	case v.QueryAgentsFilterOneOfOneOfOrItemOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfOrItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfOrItemOneOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -17114,9 +17114,9 @@ func (v *QueryAgentsFilterOneOfOneOfOrItemOneOf) UnmarshalJSONFrom(dec *jsontext
 func (v *QueryAgentsFilterOneOfOneOfOrItemOneOf) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryAgentsFilterOneOfOneOfOrItemOneOfOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfOrItemOneOfOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfOrItemOneOfOneOf, jsonOptsTo(enc))
 	case v.QueryAgentsFilterOneOfOneOfOrItemOneOfOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfOrItemOneOfOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfOrItemOneOfOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -17242,9 +17242,9 @@ func (v *QueryAgentsOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 func (v *QueryAgentsOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryAgentsOkResultsItemOneOf0 != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsOkResultsItemOneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsOkResultsItemOneOf0, jsonOptsTo(enc))
 	case v.QueryAgentsOkResultsItemOneOf1 != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsOkResultsItemOneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsOkResultsItemOneOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -17451,7 +17451,7 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) MarshalJSONTo(enc *jsontext.Encoder
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Ordered sort precedence. Defaults to created_time descending.
@@ -17559,9 +17559,9 @@ func (v *QueryMeetingNotesFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Dec
 func (v *QueryMeetingNotesFilterFiltersItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryMeetingNotesFilterFiltersItemOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOf, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOf1 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -17686,15 +17686,15 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilter) UnmarshalJSONFrom(dec *j
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf2, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf3 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf3, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf4, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf5 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOf5, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -17902,7 +17902,7 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue2) MarshalJSONTo
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -18000,13 +18000,13 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3) UnmarshalJSON
 func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValue3) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf3 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf3, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf4 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf4, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf5 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf5, jsonOptsTo(enc))
 	case v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf6, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -18067,7 +18067,7 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItem) MarshalJSO
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -18300,7 +18300,7 @@ func (v *QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValue) Mars
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -18604,17 +18604,17 @@ func (v *QuerySessionEventsFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 func (v *QuerySessionEventsFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QuerySessionsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf6, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf2, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf4 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf4, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf5 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf5, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -18837,17 +18837,17 @@ func (v *QuerySessionEventsFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.De
 func (v *QuerySessionEventsFilterOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QuerySessionsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf6, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf2, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOfOrItemOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOfOrItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -18977,17 +18977,17 @@ func (v *QuerySessionEventsFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *
 func (v *QuerySessionEventsFilterOneOfOrItemOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QuerySessionsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf6, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOf2, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf, jsonOptsTo(enc))
 	case v.QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -19078,7 +19078,7 @@ func (v *QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOfOrItem) MarshalJSONT
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -19248,7 +19248,7 @@ func (v *QuerySessionEventsOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) e
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -19579,7 +19579,7 @@ func (v *QuerySessionEventsResultsItemOneOfContentItem) MarshalJSONTo(enc *jsont
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -19795,17 +19795,17 @@ func (v *QuerySessionsFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *QuerySessionsFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QuerySessionsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf6, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf7 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf7, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf7, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf2, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf4 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf4, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf5 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf5, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -19981,17 +19981,17 @@ func (v *QuerySessionsFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder
 func (v *QuerySessionsFilterOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QuerySessionsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf6, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf7 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf7, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf7, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf2, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOfOrItemOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOfOrItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOfOrItemOneOf, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOfOrItemOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOfOrItemOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOfOrItemOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -20095,13 +20095,13 @@ func (v *QuerySessionsFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsont
 func (v *QuerySessionsFilterOneOfOrItemOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QuerySessionsFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf6 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf6, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf6, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf7 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf7, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf7, jsonOptsTo(enc))
 	case v.QuerySessionsFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.QuerySessionsFilterOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -20348,7 +20348,7 @@ func (v *Relation) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // RelationAllOf2 defines a model
@@ -20435,7 +20435,7 @@ func (v *RelationAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // RelationArrayBasedPropertyValue defines a model
@@ -20513,9 +20513,9 @@ func (v *RelationPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 func (v *RelationPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.RelationPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.RelationPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.RelationPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -20576,9 +20576,9 @@ func (v *RelationPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 func (v *RelationPropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.RelationPropertyFilterAnyOf0AnyOf0 != nil:
-		return json.MarshalEncode(enc, v.RelationPropertyFilterAnyOf0AnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.RelationPropertyFilterAnyOf0AnyOf0, jsonOptsTo(enc))
 	case v.RelationPropertyFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.RelationPropertyFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.RelationPropertyFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -20699,9 +20699,9 @@ func (v *RetrieveAPagePropertyOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 func (v *RetrieveAPagePropertyOk) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PropertyItemObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PropertyItemObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PropertyItemObjectResponse, jsonOptsTo(enc))
 	case v.PropertyItemPropertyItemListResponse != nil:
-		return json.MarshalEncode(enc, v.PropertyItemPropertyItemListResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PropertyItemPropertyItemListResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -20779,11 +20779,11 @@ func (v *RetrieveAsyncTaskOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *RetrieveAsyncTaskOk) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.AgentBatch2 != nil:
-		return json.MarshalEncode(enc, v.AgentBatch2, jsonOpts)
+		return json.MarshalEncode(enc, v.AgentBatch2, jsonOptsTo(enc))
 	case v.RetrieveAsyncTaskOkOneOf1 != nil:
-		return json.MarshalEncode(enc, v.RetrieveAsyncTaskOkOneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.RetrieveAsyncTaskOkOneOf1, jsonOptsTo(enc))
 	case v.RetrieveAsyncTaskOkOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RetrieveAsyncTaskOkOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.RetrieveAsyncTaskOkOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -21076,7 +21076,7 @@ func (v *RetrieveAsyncTaskOkOneOf2Error) MarshalJSONTo(enc *jsontext.Encoder) er
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -21796,7 +21796,7 @@ func (v *RetrieveSessionModels) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -21977,7 +21977,7 @@ func (v *RichTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // RichTextItemResponse defines a model
@@ -22079,7 +22079,7 @@ func (v *RichTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // RichTextPropertyConfiguration defines a model
@@ -22199,7 +22199,7 @@ func (v *Rollup) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of RollupAllOf that is set;
 // a member both write must have the same value in each.
 func (v *Rollup) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfRollup)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfRollup)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -22208,7 +22208,7 @@ func (v *Rollup) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.RollupAllOf.RollupAllOfOneOf != nil {
 
-		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf, jsonOpts)
+		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -22222,7 +22222,7 @@ func (v *Rollup) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.RollupAllOf.RollupAllOfOneOf2 != nil {
 
-		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf2, jsonOpts)
+		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf2, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -22236,7 +22236,7 @@ func (v *Rollup) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.RollupAllOf.RollupAllOfOneOf3 != nil {
 
-		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf3, jsonOpts)
+		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf3, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -22250,7 +22250,7 @@ func (v *Rollup) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.RollupAllOf.RollupAllOfOneOf4 != nil {
 
-		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf4, jsonOpts)
+		variant, err := json.Marshal(v.RollupAllOf.RollupAllOfOneOf4, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -22367,7 +22367,7 @@ func (v *Rollup4) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // RollupAllOf defines a model
@@ -22456,13 +22456,13 @@ func (v *RollupAllOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *RollupAllOf) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.RollupAllOfOneOf != nil:
-		return json.MarshalEncode(enc, v.RollupAllOfOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupAllOfOneOf, jsonOptsTo(enc))
 	case v.RollupAllOfOneOf2 != nil:
-		return json.MarshalEncode(enc, v.RollupAllOfOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupAllOfOneOf2, jsonOptsTo(enc))
 	case v.RollupAllOfOneOf3 != nil:
-		return json.MarshalEncode(enc, v.RollupAllOfOneOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupAllOfOneOf3, jsonOptsTo(enc))
 	case v.RollupAllOfOneOf4 != nil:
-		return json.MarshalEncode(enc, v.RollupAllOfOneOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupAllOfOneOf4, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -22643,15 +22643,15 @@ func (v *RollupPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *RollupPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.RollupPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf1, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf2 != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf2, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf3 != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf3, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -22841,25 +22841,25 @@ func (v *RollupSubfilterPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder)
 func (v *RollupSubfilterPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.RollupSubfilterPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf3 != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf3, jsonOptsTo(enc))
 	case v.FormulaPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.FormulaPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.FormulaPropertyFilterAnyOf, jsonOptsTo(enc))
 	case v.RollupSubfilterPropertyFilterAnyOf3 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf3, jsonOptsTo(enc))
 	case v.RollupSubfilterPropertyFilterAnyOf4 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf4, jsonOptsTo(enc))
 	case v.RollupSubfilterPropertyFilterAnyOf5 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf5, jsonOptsTo(enc))
 	case v.RollupPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupPropertyFilterAnyOf, jsonOptsTo(enc))
 	case v.RollupSubfilterPropertyFilterAnyOf7 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf7, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf7, jsonOptsTo(enc))
 	case v.RollupSubfilterPropertyFilterAnyOf8 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf8, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf8, jsonOptsTo(enc))
 	case v.RollupSubfilterPropertyFilterAnyOf9 != nil:
-		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf9, jsonOpts)
+		return json.MarshalEncode(enc, v.RollupSubfilterPropertyFilterAnyOf9, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -23050,7 +23050,7 @@ func (v *SelectItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of SelectItemAllOf2 that is set;
 // a member both write must have the same value in each.
 func (v *SelectItem) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfSelectItem)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfSelectItem)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -23059,7 +23059,7 @@ func (v *SelectItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.SelectItemAllOf2.SelectItemAllOfOneOf != nil {
 
-		variant, err := json.Marshal(v.SelectItemAllOf2.SelectItemAllOfOneOf, jsonOpts)
+		variant, err := json.Marshal(v.SelectItemAllOf2.SelectItemAllOfOneOf, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -23118,7 +23118,7 @@ func (v *SelectItemAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *SelectItemAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SelectItemAllOfOneOf != nil:
-		return json.MarshalEncode(enc, v.SelectItemAllOfOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.SelectItemAllOfOneOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -23202,9 +23202,9 @@ func (v *SelectPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *SelectPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SelectPropertyFilterAnyOf != nil:
-		return json.MarshalEncode(enc, v.SelectPropertyFilterAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.SelectPropertyFilterAnyOf, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -23265,9 +23265,9 @@ func (v *SelectPropertyFilterAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 func (v *SelectPropertyFilterAnyOf) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SelectPropertyFilterAnyOfAnyOf != nil:
-		return json.MarshalEncode(enc, v.SelectPropertyFilterAnyOfAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.SelectPropertyFilterAnyOfAnyOf, jsonOptsTo(enc))
 	case v.SelectPropertyFilterAnyOfAnyOf2 != nil:
-		return json.MarshalEncode(enc, v.SelectPropertyFilterAnyOfAnyOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.SelectPropertyFilterAnyOfAnyOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -23493,7 +23493,7 @@ func (v *SimpleOrArrayPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // SortDirection defines a model
@@ -23698,7 +23698,7 @@ func (v *StatusOptionUpdateRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of SelectItemAllOf2 that is set;
 // a member both write must have the same value in each.
 func (v *StatusOptionUpdateRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfStatusOptionUpdateRequest)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfStatusOptionUpdateRequest)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -23707,7 +23707,7 @@ func (v *StatusOptionUpdateRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.SelectItemAllOf2.SelectItemAllOfOneOf != nil {
 
-		variant, err := json.Marshal(v.SelectItemAllOf2.SelectItemAllOfOneOf, jsonOpts)
+		variant, err := json.Marshal(v.SelectItemAllOf2.SelectItemAllOfOneOf, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -23806,9 +23806,9 @@ func (v *StringOrStringArray) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *StringOrStringArray) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
+		return json.MarshalEncode(enc, v.String2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -24135,7 +24135,7 @@ func (v *TemplateMention2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // The date of the template mention.
@@ -24273,9 +24273,9 @@ func (v *TextPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *TextPropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.TextPropertyFilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0, jsonOptsTo(enc))
 	case v.ExistencePropertyFilter != nil:
-		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.ExistencePropertyFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -24388,17 +24388,17 @@ func (v *TextPropertyFilterAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 func (v *TextPropertyFilterAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.QueryAgentsFilterOneOfOneOfID != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfID, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfID, jsonOptsTo(enc))
 	case v.TextPropertyFilterAnyOf0AnyOf1 != nil:
-		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf1, jsonOptsTo(enc))
 	case v.QueryAgentsFilterOneOfOneOfPeople != nil:
-		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfPeople, jsonOpts)
+		return json.MarshalEncode(enc, v.QueryAgentsFilterOneOfOneOfPeople, jsonOptsTo(enc))
 	case v.TextPropertyFilterAnyOf0AnyOf3 != nil:
-		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf3, jsonOpts)
+		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf3, jsonOptsTo(enc))
 	case v.TextPropertyFilterAnyOf0AnyOf4 != nil:
-		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf4, jsonOpts)
+		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf4, jsonOptsTo(enc))
 	case v.TextPropertyFilterAnyOf0AnyOf5 != nil:
-		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf5, jsonOpts)
+		return json.MarshalEncode(enc, v.TextPropertyFilterAnyOf0AnyOf5, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -24672,7 +24672,7 @@ func (v *TimestampFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -24900,9 +24900,9 @@ func (v *UpdateABlock) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UpdateABlock) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UpdateABlockAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.UpdateABlockAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateABlockAnyOf0, jsonOptsTo(enc))
 	case v.UpdateABlockAnyOf != nil:
-		return json.MarshalEncode(enc, v.UpdateABlockAnyOf, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateABlockAnyOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -25166,7 +25166,7 @@ func (v *UpdateABlockAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // UpdateAComment defines a model
@@ -25227,9 +25227,9 @@ func (v *UpdateAComment) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UpdateAComment) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ContentWithRichText != nil:
-		return json.MarshalEncode(enc, v.ContentWithRichText, jsonOpts)
+		return json.MarshalEncode(enc, v.ContentWithRichText, jsonOptsTo(enc))
 	case v.UpdateACommentOneOf1 != nil:
-		return json.MarshalEncode(enc, v.UpdateACommentOneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateACommentOneOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -25313,9 +25313,9 @@ func (v *UpdateADataSourcePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decod
 func (v *UpdateADataSourcePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UpdateADataSourcePropertiesValueOneOf0 != nil:
-		return json.MarshalEncode(enc, v.UpdateADataSourcePropertiesValueOneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateADataSourcePropertiesValueOneOf0, jsonOptsTo(enc))
 	case v.InternalOrExternalFileWithNameCommon != nil:
-		return json.MarshalEncode(enc, v.InternalOrExternalFileWithNameCommon, jsonOpts)
+		return json.MarshalEncode(enc, v.InternalOrExternalFileWithNameCommon, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -25529,7 +25529,7 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) MarshalJSONTo(enc *jsontext.Enc
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // UpdateAgentCreditLimit defines a model
@@ -25741,7 +25741,7 @@ func (v *UpdatePageMarkdown) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // UpdatePageMarkdownAccepted defines a model
@@ -25827,7 +25827,7 @@ func (v *UpdatePageMarkdownAcceptedOperation) MarshalJSONTo(enc *jsontext.Encode
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -26033,11 +26033,11 @@ func (v *UpdateSessionRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UpdateSessionRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UpdateSessionRequestOneOf0 != nil:
-		return json.MarshalEncode(enc, v.UpdateSessionRequestOneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateSessionRequestOneOf0, jsonOptsTo(enc))
 	case v.UpdateSessionRequestOneOf1 != nil:
-		return json.MarshalEncode(enc, v.UpdateSessionRequestOneOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateSessionRequestOneOf1, jsonOptsTo(enc))
 	case v.UpdateSessionRequestOneOf2 != nil:
-		return json.MarshalEncode(enc, v.UpdateSessionRequestOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.UpdateSessionRequestOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -26213,7 +26213,7 @@ func (v *UserObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // UserOneOfPerson defines a model
@@ -26279,9 +26279,9 @@ func (v *UserUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UserUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Person != nil:
-		return json.MarshalEncode(enc, v.Person, jsonOpts)
+		return json.MarshalEncode(enc, v.Person, jsonOptsTo(enc))
 	case v.PartialUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -26345,9 +26345,9 @@ func (v *UserUser2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UserUser2) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UserUserOneOf0 != nil:
-		return json.MarshalEncode(enc, v.UserUserOneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.UserUserOneOf0, jsonOptsTo(enc))
 	case v.PartialUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -26427,9 +26427,9 @@ func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UserValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOptsTo(enc))
 	case v.UserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.UserObjectResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.UserObjectResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -26490,7 +26490,7 @@ func (v *Verification2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -26656,9 +26656,9 @@ func (v *VerificationPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Deco
 func (v *VerificationPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.VerificationPropertyUnverifiedResponse != nil:
-		return json.MarshalEncode(enc, v.VerificationPropertyUnverifiedResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.VerificationPropertyUnverifiedResponse, jsonOptsTo(enc))
 	case v.VerificationPropertyResponse != nil:
-		return json.MarshalEncode(enc, v.VerificationPropertyResponse, jsonOpts)
+		return json.MarshalEncode(enc, v.VerificationPropertyResponse, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -26719,9 +26719,9 @@ func (v *VerificationVerification3) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 func (v *VerificationVerification3) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.VerificationPropertyStatusFilter != nil:
-		return json.MarshalEncode(enc, v.VerificationPropertyStatusFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.VerificationPropertyStatusFilter, jsonOptsTo(enc))
 	case v.VerificationPropertyDoesNotEqualFilter != nil:
-		return json.MarshalEncode(enc, v.VerificationPropertyDoesNotEqualFilter, jsonOpts)
+		return json.MarshalEncode(enc, v.VerificationPropertyDoesNotEqualFilter, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -26859,7 +26859,7 @@ func (v *ViewConfigRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -27006,7 +27006,7 @@ func (v *ViewConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -27131,11 +27131,11 @@ func (v *ViewFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ViewFilterOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ViewFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOf, jsonOptsTo(enc))
 	case v.ViewFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOf2, jsonOptsTo(enc))
 	case v.ViewFilterOneOfOrItemOneOf != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOfOrItemOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOfOrItemOneOf, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -27207,9 +27207,9 @@ func (v *ViewFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decod
 func (v *ViewFilterOneOfOrItemOneOfOrItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ViewFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOf, jsonOptsTo(enc))
 	case v.ViewFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -27283,11 +27283,11 @@ func (v *ViewFilterResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ViewFilterResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ViewFilterOneOf != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOf, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOf, jsonOptsTo(enc))
 	case v.ViewFilterOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ViewFilterOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterOneOf2, jsonOptsTo(enc))
 	case v.ViewFilterResponseOneOf2 != nil:
-		return json.MarshalEncode(enc, v.ViewFilterResponseOneOf2, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewFilterResponseOneOf2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -27398,7 +27398,7 @@ func (v *ViewPositionRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -27640,9 +27640,9 @@ func (v *ViewSortResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ViewSortResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ViewPropertySort != nil:
-		return json.MarshalEncode(enc, v.ViewPropertySort, jsonOpts)
+		return json.MarshalEncode(enc, v.ViewPropertySort, jsonOptsTo(enc))
 	case v.TimestampSort != nil:
-		return json.MarshalEncode(enc, v.TimestampSort, jsonOpts)
+		return json.MarshalEncode(enc, v.TimestampSort, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -27910,7 +27910,7 @@ func (v *WidgetPlacementRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // WorkspaceParentForBlockBasedObject defines a model
@@ -27934,6 +27934,12 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 	}
 
 	return jsonOptsLenient
+}
+
+// jsonOptsTo is jsonOpts with the options enc was given beside them, such as the marshalers that leave out what a
+// request or a response does not carry, so that what a type encodes itself passes them on.
+func jsonOptsTo(enc *jsontext.Encoder) json.Options {
+	return json.JoinOptions(jsonOpts, enc.Options())
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.

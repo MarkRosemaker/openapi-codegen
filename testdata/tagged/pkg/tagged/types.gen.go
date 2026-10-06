@@ -113,7 +113,7 @@ func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Rollup defines a model
@@ -211,7 +211,7 @@ func (v *SimpleOrArray) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Value defines a model
@@ -298,7 +298,7 @@ func (v *Value) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of ValueAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *Value) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfValue)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfValue)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -307,7 +307,7 @@ func (v *Value) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.ValueAllOf1.SimpleOrArray != nil {
 
-		variant, err := json.Marshal(v.ValueAllOf1.SimpleOrArray, jsonOpts)
+		variant, err := json.Marshal(v.ValueAllOf1.SimpleOrArray, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -321,7 +321,7 @@ func (v *Value) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 	if v.ValueAllOf1.Rollup != nil {
 
-		variant, err := json.Marshal(v.ValueAllOf1.Rollup, jsonOpts)
+		variant, err := json.Marshal(v.ValueAllOf1.Rollup, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -398,9 +398,9 @@ func (v *ValueAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ValueAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SimpleOrArray != nil:
-		return json.MarshalEncode(enc, v.SimpleOrArray, jsonOpts)
+		return json.MarshalEncode(enc, v.SimpleOrArray, jsonOptsTo(enc))
 	case v.Rollup != nil:
-		return json.MarshalEncode(enc, v.Rollup, jsonOpts)
+		return json.MarshalEncode(enc, v.Rollup, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -419,6 +419,12 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 	}
 
 	return jsonOptsLenient
+}
+
+// jsonOptsTo is jsonOpts with the options enc was given beside them, such as the marshalers that leave out what a
+// request or a response does not carry, so that what a type encodes itself passes them on.
+func jsonOptsTo(enc *jsontext.Encoder) json.Options {
+	return json.JoinOptions(jsonOpts, enc.Options())
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.

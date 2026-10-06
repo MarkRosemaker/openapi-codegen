@@ -11,6 +11,8 @@
  *   import './api.js';        // or <script src="api.js"></script>
  *   const result = await window.API.getPage(id);
  *   const result = await window.API.search();
+ *   const result = await window.API.updateUser(id);
+ *   const result = await window.API.createEntry();
  **/
 
 const API_BASE = "https://api.example.com";
@@ -93,5 +95,17 @@ window.API = {
         method: "POST",
         body: JSON.stringify(body),
         operationId: "Search",
+    }),
+    // PUT /users/{id}
+    updateUser: (id, body) => apiFetch(`/users/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(body),
+        operationId: "UpdateUser",
+    }),
+    // POST /entries
+    createEntry: (body) => apiFetch("/entries", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateEntry",
     }),
 };

@@ -547,9 +547,9 @@ func (v *AdminAPIPublicErrorAdditionalDataValue) UnmarshalJSONFrom(dec *jsontext
 func (v *AdminAPIPublicErrorAdditionalDataValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.String2 != nil:
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
+		return json.MarshalEncode(enc, v.String2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -785,7 +785,7 @@ func (v *CreateCreditLimitPolicySelector) MarshalJSONTo(enc *jsontext.Encoder) e
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -910,9 +910,9 @@ func (v *CreatorIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *CreatorIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UUID != nil:
-		return json.MarshalEncode(enc, v.UUID, jsonOpts)
+		return json.MarshalEncode(enc, v.UUID, jsonOptsTo(enc))
 	case v.UUID2 != nil:
-		return json.MarshalEncode(enc, v.UUID2, jsonOpts)
+		return json.MarshalEncode(enc, v.UUID2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1072,9 +1072,9 @@ func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *ExportLegalHold) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ExportLegalHoldAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.ExportLegalHoldAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.ExportLegalHoldAnyOf0, jsonOptsTo(enc))
 	case v.ExportLegalHoldAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.ExportLegalHoldAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.ExportLegalHoldAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1703,7 +1703,7 @@ func (v *ListUsersOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 // MarshalJSONTo implements [json.MarshalerTo]. It merges the fields with each alternative of ListUsersOkResultsItemAllOf1 that is set;
 // a member both write must have the same value in each.
 func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
-	out, err := json.Marshal((*fieldsOfListUsersOkResultsItem)(v), jsonOpts)
+	out, err := json.Marshal((*fieldsOfListUsersOkResultsItem)(v), jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -1715,7 +1715,7 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	if v.ListUsersOkResultsItemAllOf1.Person != nil {
 		tag = "person"
 
-		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Person, jsonOpts)
+		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Person, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -1730,7 +1730,7 @@ func (v *ListUsersOkResultsItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	if v.ListUsersOkResultsItemAllOf1.Bot != nil {
 		tag = "bot"
 
-		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Bot, jsonOpts)
+		variant, err := json.Marshal(v.ListUsersOkResultsItemAllOf1.Bot, jsonOptsTo(enc))
 		if err != nil {
 			return err
 		}
@@ -1809,7 +1809,7 @@ func (v *ListUsersOkResultsItemAllOf1) MarshalJSONTo(enc *jsontext.Encoder) erro
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -1997,7 +1997,7 @@ func (v *RevokeUserSessionUser) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Token statuses to include. Use bracket encoding for multiple values.
@@ -2070,13 +2070,13 @@ func (v *Status) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Status) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.StatusOneOf0 != nil:
-		return json.MarshalEncode(enc, v.StatusOneOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.StatusOneOf0, jsonOptsTo(enc))
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.String2 != "":
-		return json.MarshalEncode(enc, v.String2, jsonOpts)
+		return json.MarshalEncode(enc, v.String2, jsonOptsTo(enc))
 	case v.String3 != "":
-		return json.MarshalEncode(enc, v.String3, jsonOpts)
+		return json.MarshalEncode(enc, v.String3, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -2305,7 +2305,7 @@ func (v *UpdateAgentPermissionsRemoveItem) MarshalJSONTo(enc *jsontext.Encoder) 
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -2580,9 +2580,9 @@ func (v *UserIds) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *UserIds) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UUID != nil:
-		return json.MarshalEncode(enc, v.UUID, jsonOpts)
+		return json.MarshalEncode(enc, v.UUID, jsonOptsTo(enc))
 	case v.UUID2 != nil:
-		return json.MarshalEncode(enc, v.UUID2, jsonOpts)
+		return json.MarshalEncode(enc, v.UUID2, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -2620,6 +2620,12 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 	}
 
 	return jsonOptsLenient
+}
+
+// jsonOptsTo is jsonOpts with the options enc was given beside them, such as the marshalers that leave out what a
+// request or a response does not carry, so that what a type encodes itself passes them on.
+func jsonOptsTo(enc *jsontext.Encoder) json.Options {
+	return json.JoinOptions(jsonOpts, enc.Options())
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.

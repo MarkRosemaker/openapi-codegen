@@ -147,7 +147,7 @@ func (c *Client) SearchWithResult[R any](ctx context.Context, body PropertyFilte
 		ContentLength: -1,
 	}).WithContext(ctx)
 
-	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOpts)) }()
+	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
 	defer pr.Close()
 
 	rsp, err := c.cli.Do(req)
@@ -166,6 +166,124 @@ func (c *Client) SearchWithResult[R any](ctx context.Context, body PropertyFilte
 			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
 			opts := jsonOptsLenient
 			if _, ok := any(&out).(*[]PageOrPartial); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// PUT /users/{id}
+func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, error) {
+	return c.UpdateUserWithResult[User](ctx, id, body)
+}
+
+// PUT /users/{id}
+func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, body User) (*R, error) {
+	u := c.baseURL.JoinPath("users", id)
+	pr, pw := io.Pipe()
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent":   []string{c.userAgent},
+			"Content-Type": []string{"application/json"},
+		},
+		Host:          u.Host,
+		Method:        http.MethodPut,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		URL:           u,
+		Body:          pr,
+		ContentLength: -1,
+	}).WithContext(ctx)
+
+	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
+	defer pr.Close()
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out R
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*User); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// POST /entries
+func (c *Client) CreateEntry(ctx context.Context, body Entry) (*Entry, error) {
+	return c.CreateEntryWithResult[Entry](ctx, body)
+}
+
+// POST /entries
+func (c *Client) CreateEntryWithResult[R any](ctx context.Context, body Entry) (*R, error) {
+	u := c.baseURL.JoinPath("entries")
+	pr, pw := io.Pipe()
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent":   []string{c.userAgent},
+			"Content-Type": []string{"application/json"},
+		},
+		Host:          u.Host,
+		Method:        http.MethodPost,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		URL:           u,
+		Body:          pr,
+		ContentLength: -1,
+	}).WithContext(ctx)
+
+	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
+	defer pr.Close()
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out R
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*Entry); ok {
 				opts = jsonOpts
 			}
 
