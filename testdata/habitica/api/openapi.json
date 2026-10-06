@@ -4729,8 +4729,6 @@
           }
         },
         "required": [
-          "target",
-          "canDrop",
           "value",
           "key",
           "type",
@@ -4751,8 +4749,7 @@
           }
         },
         "required": [
-          "progressDelta",
-          "collection"
+          "progressDelta"
         ]
       }
     },

@@ -6916,15 +6916,13 @@
 					"name": "Target",
 					"jsonName": "target",
 					"type": "string",
-					"jsonTag": "json:\"target\"",
-					"required": true
+					"jsonTag": "json:\"target,omitzero\""
 				},
 				{
 					"name": "CanDrop",
 					"jsonName": "canDrop",
-					"type": "bool",
-					"jsonTag": "json:\"canDrop\"",
-					"required": true
+					"type": "*bool",
+					"jsonTag": "json:\"canDrop,omitzero\""
 				},
 				{
 					"name": "Value",
@@ -6970,9 +6968,8 @@
 				{
 					"name": "Collection",
 					"jsonName": "collection",
-					"type": "int",
-					"jsonTag": "json:\"collection\"",
-					"required": true
+					"type": "*int",
+					"jsonTag": "json:\"collection,omitzero\""
 				}
 			]
 		}

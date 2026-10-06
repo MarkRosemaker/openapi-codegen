@@ -20649,7 +20649,6 @@
 						"cover",
 						"created_time",
 						"data_sources",
-						"database_type",
 						"description",
 						"icon",
 						"id",
@@ -20706,7 +20705,6 @@
 						"cover",
 						"created_time",
 						"data_sources",
-						"database_type",
 						"description",
 						"icon",
 						"id",
@@ -23078,9 +23076,8 @@
 					"name": "DatabaseType",
 					"jsonName": "database_type",
 					"type": "DatabaseObjectDatabaseTypeOneOf",
-					"jsonTag": "json:\"database_type\"",
-					"description": "The type of typed database, such as `tasks`, `projects`, or `skills`, or `null` for a regular database. Create a database accepts `tasks`, `projects`, and `skills`.",
-					"required": true
+					"jsonTag": "json:\"database_type,omitzero\"",
+					"description": "The type of typed database, such as `tasks`, `projects`, or `skills`, or `null` for a regular database. Create a database accepts `tasks`, `projects`, and `skills`."
 				},
 				{
 					"name": "InTrash",
@@ -29601,8 +29598,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "string",
-					"jsonTag": "json:\"id\"",
-					"required": true
+					"jsonTag": "json:\"id,omitzero\""
 				}
 			]
 		},
@@ -35053,8 +35049,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "PagePropertyValueWithIDResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Number",
@@ -35233,6 +35228,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "PagePropertyValueWithIDResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "PagePropertyValueWithIDResponseTypeNumber",
@@ -35540,8 +35536,7 @@
 						"value": "title",
 						"members": [
 							{
-								"name": "title",
-								"required": true
+								"name": "title"
 							}
 						]
 					},
@@ -50707,25 +50702,22 @@
 					"name": "PlainText",
 					"jsonName": "plain_text",
 					"type": "string",
-					"jsonTag": "json:\"plain_text\"",
-					"description": "The plain text content of the rich text object, without any styling.",
-					"required": true
+					"jsonTag": "json:\"plain_text,omitzero\"",
+					"description": "The plain text content of the rich text object, without any styling."
 				},
 				{
 					"name": "Href",
 					"jsonName": "href",
 					"type": "string",
-					"jsonTag": "json:\"href\"",
-					"description": "A URL that the rich text object links to or mentions.",
-					"required": true
+					"jsonTag": "json:\"href,omitzero\"",
+					"description": "A URL that the rich text object links to or mentions."
 				},
 				{
 					"name": "Annotations",
 					"jsonName": "annotations",
-					"type": "Annotation",
-					"jsonTag": "json:\"annotations\"",
-					"description": "All rich text objects contain an annotations object that sets the styling for the rich text.",
-					"required": true
+					"type": "*Annotation",
+					"jsonTag": "json:\"annotations,omitzero\"",
+					"description": "All rich text objects contain an annotations object that sets the styling for the rich text."
 				},
 				{
 					"name": "Type",
@@ -52574,8 +52566,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "SimpleOrArrayPropertyValueResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Number",
@@ -52720,6 +52711,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "SimpleOrArrayPropertyValueResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "SimpleOrArrayPropertyValueResponseTypeNumber",
@@ -53022,8 +53014,7 @@
 						"value": "title",
 						"members": [
 							{
-								"name": "title",
-								"required": true
+								"name": "title"
 							}
 						]
 					},

@@ -6714,7 +6714,7 @@ type DatabaseObjectResponse struct {
 	// Whether the database is inline.
 	IsInline bool `json:"is_inline"`
 	// The type of typed database, such as `tasks`, `projects`, or `skills`, or `null` for a regular database. Create a database accepts `tasks`, `projects`, and `skills`.
-	DatabaseType DatabaseObjectDatabaseTypeOneOf `json:"database_type"`
+	DatabaseType DatabaseObjectDatabaseTypeOneOf `json:"database_type,omitzero"`
 	// Whether the database is in the trash.
 	InTrash bool `json:"in_trash"`
 	// Whether the database is locked from editing in the Notion app UI.
@@ -10149,7 +10149,7 @@ type Heading struct {
 
 // IDObject defines a model
 type IDObject struct {
-	ID string `json:"id"`
+	ID string `json:"id,omitzero"`
 }
 
 // IDRequest defines a model
@@ -13092,7 +13092,7 @@ func (v *PagePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 // PagePropertyValueWithIDResponse defines a model
 type PagePropertyValueWithIDResponse struct {
 	IDObject
-	Type           PagePropertyValueWithIDResponseType               `json:"type"`
+	Type           PagePropertyValueWithIDResponseType               `json:"type,omitzero"`
 	Number         *float64                                          `json:"number,omitzero"`
 	URL            *string                                           `json:"url,omitzero"`
 	Select         *PartialSelect                                    `json:"select,omitzero"`
@@ -13176,7 +13176,7 @@ var tagsOfPagePropertyValueWithIDResponse = map[string]map[string]jsonTagNeed{
 	"unique_id":        {"unique_id": jsonTagRequired},
 	"verification":     {"verification": jsonTagRequiredOrNull},
 	"place":            {"place": jsonTagRequiredOrNull},
-	"title":            {"title": jsonTagRequired},
+	"title":            {"title": jsonTagOptional},
 	"rich_text":        {"rich_text": jsonTagRequired},
 	"people":           {"people": jsonTagRequired},
 	"relation":         {"relation": jsonTagRequired},
@@ -13282,6 +13282,11 @@ func (v *PagePropertyValueWithIDResponse) UnmarshalJSONFrom(dec *jsontext.Decode
 	present, err := jsonMembers(raw)
 	if err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPagePropertyValueWithIDResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PagePropertyValueWithIDResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertyValueWithIDResponse, v.taggedMembers(), present, jsonStrict(dec))
@@ -21328,11 +21333,11 @@ func (v *RichTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 // RichTextItemResponse defines a model
 type RichTextItemResponse struct {
 	// The plain text content of the rich text object, without any styling.
-	PlainText string `json:"plain_text"`
+	PlainText string `json:"plain_text,omitzero"`
 	// A URL that the rich text object links to or mentions.
-	Href string `json:"href"`
+	Href string `json:"href,omitzero"`
 	// All rich text objects contain an annotations object that sets the styling for the rich text.
-	Annotations Annotation               `json:"annotations"`
+	Annotations *Annotation              `json:"annotations,omitzero"`
 	Type        RichTextItemResponseType `json:"type,omitzero"`
 	// If a rich text object's type value is `text`, then the corresponding text field contains an object including the text content and any inline link.
 	Text *TextRichTextItemText `json:"text,omitzero"`
@@ -22541,7 +22546,7 @@ type SelectPropertyFilterAnyOfAnyOf2 struct {
 
 // SimpleOrArrayPropertyValueResponse defines a model
 type SimpleOrArrayPropertyValueResponse struct {
-	Type           SimpleOrArrayPropertyValueResponseType            `json:"type"`
+	Type           SimpleOrArrayPropertyValueResponseType            `json:"type,omitzero"`
 	Number         *float64                                          `json:"number,omitzero"`
 	URL            *string                                           `json:"url,omitzero"`
 	Select         *PartialSelect                                    `json:"select,omitzero"`
@@ -22623,7 +22628,7 @@ var tagsOfSimpleOrArrayPropertyValueResponse = map[string]map[string]jsonTagNeed
 	"unique_id":        {"unique_id": jsonTagRequired},
 	"verification":     {"verification": jsonTagRequiredOrNull},
 	"place":            {"place": jsonTagRequiredOrNull},
-	"title":            {"title": jsonTagRequired},
+	"title":            {"title": jsonTagOptional},
 	"rich_text":        {"rich_text": jsonTagRequired},
 	"people":           {"people": jsonTagRequired},
 	"relation":         {"relation": jsonTagRequired},
@@ -22725,6 +22730,11 @@ func (v *SimpleOrArrayPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Dec
 	present, err := jsonMembers(raw)
 	if err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfSimpleOrArrayPropertyValueResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = SimpleOrArrayPropertyValueResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfSimpleOrArrayPropertyValueResponse, v.taggedMembers(), present, jsonStrict(dec))

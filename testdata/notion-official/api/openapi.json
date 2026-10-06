@@ -23316,7 +23316,6 @@
           "description",
           "parent",
           "is_inline",
-          "database_type",
           "in_trash",
           "is_locked",
           "created_time",
@@ -26090,10 +26089,7 @@
             "type": "string",
             "example": "title"
           }
-        },
-        "required": [
-          "id"
-        ]
+        }
       },
       "idRequest": {
         "type": "string",
@@ -29473,11 +29469,6 @@
             "$ref": "#/components/schemas/annotation"
           }
         },
-        "required": [
-          "plain_text",
-          "href",
-          "annotations"
-        ],
         "additionalProperties": false
       },
       "richTextPropertyConfiguration": {
@@ -31336,10 +31327,6 @@
             }
           }
         },
-        "required": [
-          "type",
-          "title"
-        ],
         "additionalProperties": false
       },
       "titleObjectResponse": {
