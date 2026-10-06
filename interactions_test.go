@@ -324,10 +324,13 @@ func TestGoLiteralForType(t *testing.T) {
 		// (Unix seconds) must decode back to that same instant, not the
 		// quoted digit string FormatExpr's encoding of it looks like.
 		{ir.Param{Type: "time.Time", IsUnixTime: true}, "1790341107", "time.Unix(1790341107, 0)"},
-		// A plain date-time string param has no literal-building support
-		// yet (tracked separately) and falls back to a quoted string, same
-		// as any other type this function doesn't know.
-		{ir.Param{Type: "time.Time"}, "2024-01-15T10:30:00Z", `"2024-01-15T10:30:00Z"`},
+		// A date-time string keeps its offset, so it formats back to what was recorded.
+		{ir.Param{Type: "time.Time"}, "2024-01-15T10:30:00Z", "time.Date(2024, 1, 15, 10, 30, 0, 0, time.UTC)"},
+		{ir.Param{Type: "time.Time"}, "2024-01-15T10:30:00+02:00", `time.Date(2024, 1, 15, 10, 30, 0, 0, time.FixedZone("", 7200))`},
+		// A date, such as Notion's Notion-Version header.
+		{ir.Param{Type: "civil.Date"}, "2026-03-11", "civil.Date{Year: 2026, Month: 3, Day: 11}"},
+		// A value that does not parse stays quoted, so the mismatch shows where it is.
+		{ir.Param{Type: "civil.Date"}, "latest", `"latest"`},
 	}
 	for _, tc := range tests {
 		got := goLiteralForType(tc.param, tc.value)
