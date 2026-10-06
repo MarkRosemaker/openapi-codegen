@@ -354,6 +354,106 @@
             ]
           }
         }
+      },
+      "GroupBy": {
+        "anyOf": [
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "property"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "select"
+              },
+              "property": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "property"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "date"
+              },
+              "property": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              },
+              "period": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Bot": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {}
+          },
+          {
+            "type": "object",
+            "required": [
+              "owner",
+              "workspace_name"
+            ],
+            "properties": {
+              "owner": {
+                "type": "string"
+              },
+              "workspace_name": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Filter": {
+        "anyOf": [
+          {
+            "type": "object",
+            "required": [
+              "or"
+            ],
+            "properties": {
+              "or": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "and"
+            ],
+            "properties": {
+              "and": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }

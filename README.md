@@ -66,7 +66,10 @@ How the specification maps onto Go:
   unknown value, or a value without that member, is an error. An alternative that is a union of
   its own counts by its alternatives, however deep, so its leaves are chosen the same
   way. Encoding writes the discriminator first, with the value of the alternative
-  set, and refuses a different one. Otherwise each alternative is tried in turn.
+  set, and refuses a different one. Otherwise each alternative is tried in turn,
+  and only where the value has the members it requires and the values it pins
+  (`const` or a one-value `enum`), which decoding a struct alone does not check,
+  strict or lenient.
 - **Tagged unions** — a union whose alternatives differ only in a tag, a member
   each fixes to a string of its own, and in members of their own, such as
   Notion's blocks (`{"type": "paragraph", "paragraph": {...}}`), becomes one

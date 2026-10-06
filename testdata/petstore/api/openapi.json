@@ -146,7 +146,6 @@
           "id",
           "name",
           "species",
-          "breed",
           "ageMonths",
           "size",
           "status",
@@ -154,8 +153,7 @@
           "currency",
           "goodWithKids",
           "createdAt",
-          "updatedAt",
-          "medicalInfo"
+          "updatedAt"
         ]
       },
       "PetByPetIDMedicalInfo": {

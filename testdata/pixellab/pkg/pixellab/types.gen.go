@@ -1618,26 +1618,38 @@ func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decod
 	var matched int
 
 	{
-		var vv MaskInpainting
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.MaskInpainting = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"mask_image"}, map[string]string{"type": "\"mask\""}
+		if jsonFits(raw, required, pinned) {
+			var vv MaskInpainting
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.MaskInpainting = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv OvalInpainting
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.OvalInpainting = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{}, map[string]string{"type": "\"oval\""}
+		if jsonFits(raw, required, pinned) {
+			var vv OvalInpainting
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.OvalInpainting = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv RectangleInpainting
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RectangleInpainting = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{}, map[string]string{"type": "\"rectangle\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RectangleInpainting
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RectangleInpainting = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1721,10 +1733,14 @@ func (v *CreateObjectProFlashImageSize) UnmarshalJSONFrom(dec *jsontext.Decoder)
 	var matched int
 
 	{
-		var vv ProFlashImageSize
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ProFlashImageSize = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"height", "width"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ProFlashImageSize
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ProFlashImageSize = &vv
+				matched++
+			}
 		}
 	}
 
@@ -3521,7 +3537,7 @@ type SelectObjectFramesResponse struct {
 // SetPortrait defines a model
 type SetPortrait struct {
 	// Portrait as base64 PNG/JPEG, 16-256px. A non-square image is centred on a transparent square canvas.
-	Image BaseImage `json:"image"`
+	Image BaseImage `json:"image,omitzero"`
 }
 
 // SetPortraitResponse defines a model
@@ -4680,6 +4696,58 @@ type jsonVariant struct {
 	value    string
 	members  map[string]bool
 	required []string
+	// pinned are the members it allows one value for, written as compact JSON
+	pinned map[string]string
+}
+
+// jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
+// each pins, written as compact JSON. Any value fits where nothing is required or pinned.
+func jsonFits(raw jsontext.Value, required []string, pinned map[string]string) bool {
+	if len(required) == 0 && len(pinned) == 0 {
+		return true
+	}
+
+	if raw.Kind() != jsontext.KindBeginObject {
+		return false
+	}
+
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return false
+	}
+
+	present := map[string]bool{}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return false
+		}
+
+		name := tok.String()
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return false
+		}
+
+		present[name] = true
+
+		if want, ok := pinned[name]; ok {
+			got := val.Clone()
+			if err := got.Compact(); err != nil || string(got) != want {
+				return false
+			}
+		}
+	}
+
+	for _, r := range required {
+		if !present[r] {
+			return false
+		}
+	}
+
+	return true
 }
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
@@ -4722,10 +4790,8 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	} else {
 	variants:
 		for i, v := range variants {
-			for _, r := range v.required {
-				if !present[r] {
-					continue variants
-				}
+			if !jsonFits(raw, v.required, v.pinned) {
+				continue variants
 			}
 
 			for _, n := range names {

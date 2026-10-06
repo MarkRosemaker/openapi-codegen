@@ -279,10 +279,14 @@ func (v *AdvancedFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv AdvancedFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.AdvancedFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"filters", "operator", "type"}, map[string]string{"type": "\"group\""}
+		if jsonFits(raw, required, pinned) {
+			var vv AdvancedFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.AdvancedFilter = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1028,10 +1032,14 @@ func (v *BotUserObjectResponseBot) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv BotInfoResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.BotInfoResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"owner", "workspace_id", "workspace_limits", "workspace_name"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv BotInfoResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.BotInfoResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1078,28 +1086,40 @@ func (v *ChartAggregation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ChartAggregationOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ChartAggregationOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"aggregator"}, map[string]string{"aggregator": "\"count\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ChartAggregationOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ChartAggregationOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ChartAggregationOneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ChartAggregationOneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"aggregator", "property"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ChartAggregationOneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ChartAggregationOneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ChartAggregationOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ChartAggregationOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"aggregator", "property"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ChartAggregationOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ChartAggregationOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1511,19 +1531,27 @@ func (v *ContinueThreadRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ContinueThreadRequestOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ContinueThreadRequestOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"action_id", "option_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ContinueThreadRequestOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ContinueThreadRequestOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ContinueThreadRequestOneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ContinueThreadRequestOneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"action_id", "input", "option_id"}, map[string]string{"option_id": "\"use_connection\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ContinueThreadRequestOneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ContinueThreadRequestOneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1594,16 +1622,19 @@ var variantsOfCreateANotionAttachment = []jsonVariant{
 		value:    "",
 		members:  map[string]bool{"content": true, "content_type": true, "filename": true},
 		required: []string{"content", "filename"},
+		pinned:   map[string]string{},
 	},
 	{
 		value:    "",
 		members:  map[string]bool{"content_type": true, "filename": true, "source_url": true},
 		required: []string{"filename", "source_url"},
+		pinned:   map[string]string{},
 	},
 	{
 		value:    "",
 		members:  map[string]bool{"source_file_id": true},
 		required: []string{"source_file_id"},
+		pinned:   map[string]string{},
 	},
 }
 
@@ -1758,28 +1789,40 @@ func (v *CreateANotionAttachmentAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder)
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv CreateANotionAttachmentAllOfOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.CreateANotionAttachmentAllOfOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"content", "filename"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv CreateANotionAttachmentAllOfOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.CreateANotionAttachmentAllOfOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv CreateANotionAttachmentAllOfOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.CreateANotionAttachmentAllOfOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"filename", "source_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv CreateANotionAttachmentAllOfOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.CreateANotionAttachmentAllOfOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv CreateANotionAttachmentAllOfOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.CreateANotionAttachmentAllOfOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"source_file_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv CreateANotionAttachmentAllOfOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.CreateANotionAttachmentAllOfOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -2279,9 +2322,9 @@ func (e CreateSuggestedEditCreateSuggestedEditMode) Valid() bool {
 // CreateTeamspace defines a model
 type CreateTeamspace struct {
 	// The name of the teamspace to create.
-	Name string `json:"name"`
+	Name string `json:"name,omitzero"`
 	// The teamspace's visibility in the workspace. Options include: default, open, closed, private.
-	Visibility TeamspaceVisibility `json:"visibility"`
+	Visibility TeamspaceVisibility `json:"visibility,omitzero"`
 	// The description for the teamspace.
 	Description string `json:"description,omitzero"`
 	// The icon for the teamspace.
@@ -2856,9 +2899,9 @@ type Date4 struct {
 	// The start date of the date object.
 	Start civil.Date `json:"start"`
 	// The end date of the date object, if any.
-	End civil.Date `json:"end"`
+	End civil.Date `json:"end,omitzero"`
 	// The time zone of the date object.
-	TimeZone TimeZoneRequest `json:"time_zone"`
+	TimeZone TimeZoneRequest `json:"time_zone,omitzero"`
 }
 
 // Property filter for date properties.
@@ -2884,19 +2927,27 @@ func (v *DateFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -3043,37 +3094,53 @@ func (v *DateFilterOneOf1Value) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOf1ValueOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOf1ValueOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{"type": "\"exact\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOf1ValueOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOf1ValueOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOfValueOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"count", "direction", "type", "unit", "value"}, map[string]string{"type": "\"relative\"", "value": "\"custom\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOfValueOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOfValueOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOfValueOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOfValueOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "unit", "value"}, map[string]string{"type": "\"relative\"", "value": "\"surrounding\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOfValueOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOfValueOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOfValueOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOfValueOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{"type": "\"relative\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOfValueOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOfValueOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -4185,28 +4252,40 @@ func (v *ErrorAPI403) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ErrorAPI403OneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ErrorAPI403OneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"code", "message", "object", "status"}, map[string]string{"object": "\"error\"", "status": "403"}
+		if jsonFits(raw, required, pinned) {
+			var vv ErrorAPI403OneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ErrorAPI403OneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ErrorAPI403OneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ErrorAPI403OneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"additional_data", "code", "message", "object", "status"}, map[string]string{"object": "\"error\"", "code": "\"workspace_credits_exhausted\"", "status": "403"}
+		if jsonFits(raw, required, pinned) {
+			var vv ErrorAPI403OneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ErrorAPI403OneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ErrorAPI403OneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ErrorAPI403OneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"additional_data", "code", "message", "object", "status"}, map[string]string{"object": "\"error\"", "code": "\"agent_credit_limit_reached\"", "status": "403"}
+		if jsonFits(raw, required, pinned) {
+			var vv ErrorAPI403OneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ErrorAPI403OneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -4975,58 +5054,86 @@ func (v *ExternalDecagonOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ExternalDecagonOkAnyOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"is_education_email", "tool"}, map[string]string{"tool": "\"educationEmailVerification\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalDecagonOkAnyOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"subscription_exists", "tool"}, map[string]string{"tool": "\"refundEligibility\"", "subscription_exists": "false"}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf1 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalDecagonOkAnyOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"eligible_amount", "eligible_currency", "invoice_id", "is_eligible", "product_name", "reason", "subscription_exists", "tool"}, map[string]string{"tool": "\"refundEligibility\"", "subscription_exists": "true", "is_eligible": "true"}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalDecagonOkAnyOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"is_eligible", "reason", "subscription_exists", "tool"}, map[string]string{"tool": "\"refundEligibility\"", "subscription_exists": "true", "is_eligible": "false"}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalDecagonOkAnyOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"freeChartIds", "freeChartUrls", "hasFreeChart", "spaceCanViewUnlimitedCharts", "tool"}, map[string]string{"tool": "\"getFreeChartsForSpace\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalDecagonOkAnyOf5
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf5 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"success", "tool"}, map[string]string{"tool": "\"optOutNotionAIDataSharing\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf5
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf5 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalDecagonOkAnyOf6
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalDecagonOkAnyOf6 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"isDeleted", "tool"}, map[string]string{"tool": "\"isWorkspaceDeleted\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalDecagonOkAnyOf6
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalDecagonOkAnyOf6 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -5115,7 +5222,7 @@ type ExternalDecagonOkAnyOf6 struct {
 // ExternalPageIcon defines a model
 type ExternalPageIcon struct {
 	// Type of icon. In this case, an external URL.
-	Type string `json:"type"`
+	Type string `json:"type,omitzero"`
 	// The external URL for the icon.
 	External LinkPreviewMention `json:"external"`
 }
@@ -5147,26 +5254,38 @@ func (v *ExternalRefundEligibilityOk) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 	var matched int
 
 	{
-		var vv ExternalRefundEligibilityOkAnyOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalRefundEligibilityOkAnyOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"subscription_exists"}, map[string]string{"subscription_exists": "false"}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalRefundEligibilityOkAnyOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalRefundEligibilityOkAnyOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalRefundEligibilityOkAnyOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalRefundEligibilityOkAnyOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"eligible_amount", "eligible_currency", "invoice_generated_date", "invoice_id", "is_eligible", "product_name", "reason", "subscription_exists"}, map[string]string{"subscription_exists": "true", "is_eligible": "true"}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalRefundEligibilityOkAnyOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalRefundEligibilityOkAnyOf1 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExternalRefundEligibilityOkAnyOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalRefundEligibilityOkAnyOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"is_eligible", "reason", "subscription_exists"}, map[string]string{"subscription_exists": "true", "is_eligible": "false"}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalRefundEligibilityOkAnyOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalRefundEligibilityOkAnyOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -5768,19 +5887,27 @@ func (v *GetDatabasesOkResultsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) err
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PartialDataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialDataSourceObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object", "properties"}, map[string]string{"object": "\"data_source\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialDataSourceObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialDataSourceObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DataSourceObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"cover", "created_by", "created_time", "database_parent", "database_type", "description", "icon", "id", "in_trash", "is_inline", "last_edited_by", "last_edited_time", "object", "parent", "properties", "public_url", "title", "url"}, map[string]string{"object": "\"data_source\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DataSourceObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DataSourceObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -6007,73 +6134,105 @@ func (v *GroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByTextLike
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByTextLike = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"groupBy", "property", "propertyType", "sort"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByTextLike
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByTextLike = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByNumber
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByNumber = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"end", "property", "propertyType", "size", "sort", "start"}, map[string]string{"propertyType": "\"number\""}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByNumber
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByNumber = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByDate
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByDate = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"groupBy", "property", "propertyType", "sort"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByDate
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByDate = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupBySelect
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupBySelect = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "propertyType", "sort"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupBySelect
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupBySelect = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByStatus
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByStatus = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"groupBy", "property", "propertyType", "sort"}, map[string]string{"propertyType": "\"status\""}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByStatus
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByStatus = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByPerson
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByPerson = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "propertyType", "sort"}, map[string]string{"propertyType": "\"person\""}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByPerson
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByPerson = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByRelation
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByRelation = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "propertyType", "sort"}, map[string]string{"propertyType": "\"relation\""}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByRelation
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByRelation = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupByCheckbox
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupByCheckbox = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "propertyType", "sort"}, map[string]string{"propertyType": "\"checkbox\""}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupByCheckbox
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupByCheckbox = &vv
+				matched++
+			}
 		}
 	}
 
@@ -6563,7 +6722,7 @@ type InternalFile struct {
 type InternalOrExternalFileWithNameResponse struct {
 	// The name of the file.
 	Name string                                     `json:"name"`
-	Type InternalOrExternalFileWithNameResponseType `json:"type"`
+	Type InternalOrExternalFileWithNameResponseType `json:"type,omitzero"`
 	// The file URL for the icon.
 	File *InternalFile `json:"file,omitzero"`
 	// The external URL for the icon.
@@ -6623,6 +6782,11 @@ func (v *InternalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext
 	present, err := jsonMembers(raw)
 	if err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfInternalOrExternalFileWithNameResponse, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = InternalOrExternalFileWithNameResponseType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfInternalOrExternalFileWithNameResponse, v.taggedMembers(), present, jsonStrict(dec))
@@ -8508,7 +8672,7 @@ type NoticonIcon struct {
 	// The name of the Notion icon (e.g. pizza, meeting, home). See the Notion icon picker for valid names.
 	Name NoticonName `json:"name"`
 	// The color variant of the icon. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.
-	Color NoticonColor `json:"color"`
+	Color NoticonColor `json:"color,omitzero"`
 }
 
 // NoticonName defines a model
@@ -8636,7 +8800,7 @@ type Page3 struct {
 
 // PageCover defines a model
 type PageCover struct {
-	Type PageCoverType `json:"type"`
+	Type PageCoverType `json:"type,omitzero"`
 	// The file URL for the icon.
 	File *InternalFile `json:"file,omitzero"`
 	// The external URL for the icon.
@@ -8696,6 +8860,11 @@ func (v *PageCover) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	present, err := jsonMembers(raw)
 	if err != nil {
 		return err
+	}
+
+	// type may be left out, and is then the value whose member is set, as encoding infers it
+	if tag, ok := jsonInferTag(tagsOfPageCover, v.taggedMembers()); ok && v.Type == "" {
+		v.Type = PageCoverType(tag)
 	}
 
 	return jsonCheckTag("type", string(v.Type), tagsOfPageCover, v.taggedMembers(), present, jsonStrict(dec))
@@ -9659,10 +9828,14 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec 
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv GroupObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.GroupObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "name", "object"}, map[string]string{"object": "\"group\""}
+		if jsonFits(raw, required, pinned) {
+			var vv GroupObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.GroupObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -10993,19 +11166,27 @@ func (v *RemovePageGuestOk) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PartialPageObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialPageObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialPageObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialPageObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PageObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PageObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"cover", "created_by", "created_time", "icon", "id", "in_trash", "is_archived", "is_locked", "last_edited_by", "last_edited_time", "object", "parent", "properties", "public_url", "url"}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PageObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PageObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -16905,334 +17086,482 @@ func (v *RunToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"pages"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOf8
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf8 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf8
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf8 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"expires_at", "status", "upload_headers", "upload_method", "upload_token", "upload_url"}, map[string]string{"status": "\"pending\"", "upload_method": "\"PUT\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id", "status"}, map[string]string{"status": "\"completed\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf5
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf5 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "url", "version_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf5
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf5 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf6
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf6 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"can_create_skill", "results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf6
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf6 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolOneOf6
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolOneOf6 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolOneOf6
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolOneOf6 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf8
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf8 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id", "page_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf8
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf8 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf9
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf9 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"results", "type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf9
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf9 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"results", "type"}, map[string]string{"type": "\"user_search\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf11
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf11 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"results", "type"}, map[string]string{"type": "\"ai_search\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf11
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf11 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf13
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf13 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf13
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf13 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf14
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf14 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"current_tool_access"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf14
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf14 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf15
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf15 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"metadata", "text", "title", "url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf15
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf15 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf16
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf16 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id", "page_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf16
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf16 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf17
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf17 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"action", "destination_url", "kind"}, map[string]string{"kind": "\"mcp_business_education\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf17
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf17 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf18
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf18 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"kind"}, map[string]string{"kind": "\"mcp_business_education_not_displayed\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf18
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf18 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf19
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf19 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"content_length", "content_type", "file_upload_id", "filename", "markdown_source", "status", "suggested_markdown"}, map[string]string{"status": "\"uploaded\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf19
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf19 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf20
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf20 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"content_type", "expires_at", "file_upload_id", "filename", "upload_form_field", "upload_headers", "upload_method", "upload_url"}, map[string]string{"upload_method": "\"POST\"", "upload_form_field": "\"file\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf20
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf20 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf21
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf21 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"content", "content_length", "content_type", "file_upload_id", "filename"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf21
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf21 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf22
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf22 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf22
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf22 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf23
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf23 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "parent", "url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf23
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf23 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf24
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf24 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"command", "folder_id", "updated_item_count"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf24
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf24 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"has_more", "results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf29
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf29 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"has_more", "results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf29
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf29 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf30
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf30 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf30
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf30 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf31
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf31 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"suggested_edits_status"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf31
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf31 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf32
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf32 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"comment_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf32
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf32 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf33
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf33 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"comment_id", "discussion_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf33
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf33 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf34
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf34 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"discussion_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf34
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf34 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf35
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf35 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"comment_id", "reactions"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf35
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf35 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"status", "suggested_edit_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf37
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf37 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"allowed_actions", "diff", "status"}, map[string]string{"status": "\"pending\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf37
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf37 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf39
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf39 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"value"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf39
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf39 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf40
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf40 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"function", "result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf40
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf40 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf41
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf41 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"has_more", "items"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf41
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf41 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -17247,325 +17576,469 @@ func (v *RunToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf43
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf43 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"data_source_url", "database_url", "form_url", "metadata", "questions", "settings", "sharing", "view_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf43
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf43 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolAccepted
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolAccepted = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"created_time", "id", "object", "operation", "poll_after_seconds", "status", "status_url"}, map[string]string{"object": "\"async_task\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolAccepted
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolAccepted = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf45
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf45 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"created_time", "id", "object", "operation", "result", "status", "status_url"}, map[string]string{"object": "\"async_task\"", "status": "\"succeeded\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf45
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf45 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf46
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf46 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"created_time", "error", "id", "object", "operation", "status", "status_url"}, map[string]string{"object": "\"async_task\"", "status": "\"failed\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf46
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf46 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf47
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf47 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"hasMore", "joinedTeams", "otherTeams"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf47
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf47 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf48
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf48 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"has_more", "results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf48
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf48 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf49
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf49 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"agents", "has_more"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf49
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf49 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf50
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf50 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf50
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf50 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf51
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf51 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"matches"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf51
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf51 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf52
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf52 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"has_more", "next_cursor", "object", "results", "session", "type"}, map[string]string{"object": "\"list\"", "type": "\"session\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf52
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf52 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"results"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf57
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf57 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"answer"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf57
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf57 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf58
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf58 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"session_url", "status"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf58
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf58 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolOneOf5
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolOneOf5 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"status"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolOneOf5
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolOneOf5 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf60
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf60 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"status"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf60
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf60 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf61
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf61 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"interruptRequested", "status"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf61
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf61 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf65
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf65 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf65
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf65 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf68
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf68 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf68
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf68 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf69
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf69 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"result"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf69
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf69 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf70
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf70 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"created_at", "has_more", "page_id", "page_url", "type", "versions"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf70
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf70 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf71
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf71 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"created_at", "is_locked", "page_id", "snapshot_url", "target_type", "type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf71
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf71 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf72
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf72 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"base_created_at", "base_snapshot_url", "page_id", "status", "target_created_at", "target_snapshot_url", "target_type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf72
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf72 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf73
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf73 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"bookmark", "created"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf73
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf73 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf74
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf74 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"bookmarks"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf74
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf74 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf75
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf75 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"deleted", "timestamp_ms"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf75
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf75 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf76
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf76 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"level", "page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf76
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf76 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf77
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf77 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"accounts"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf77
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf77 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf78
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf78 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"accounts", "errors", "userPreferences"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf78
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf78 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf79
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf79 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"suggestions", "usedFlexibleDuration"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf79
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf79 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf80
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf80 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"coworkers"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf80
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf80 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf81
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf81 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"resultsBySlot"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf81
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf81 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf82
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf82 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"accounts"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf82
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf82 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf83
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf83 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"schedulingLinks"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf83
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf83 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf84
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf84 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"accounts"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf84
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf84 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf85
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf85 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"updatedEvents"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf85
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf85 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf86
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf86 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"canceledEvents"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf86
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf86 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -17580,10 +18053,14 @@ func (v *RunToolResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf89
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf89 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"deletedSchedulingLinkIds"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf89
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf89 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -17911,19 +18388,27 @@ func (v *RunToolResponseOneOf15Cover) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ExternalPageIcon
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalPageIcon = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"external"}, map[string]string{"type": "\"external\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalPageIcon
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalPageIcon = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv FilePageIcon
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.FilePageIcon = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"file", "type"}, map[string]string{"type": "\"file\""}
+		if jsonFits(raw, required, pinned) {
+			var vv FilePageIcon
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FilePageIcon = &vv
+				matched++
+			}
 		}
 	}
 
@@ -17972,46 +18457,66 @@ func (v *RunToolResponseOneOf15Icon) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv Emoji
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Emoji = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"emoji", "type"}, map[string]string{"type": "\"emoji\""}
+		if jsonFits(raw, required, pinned) {
+			var vv Emoji
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Emoji = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv FilePageIcon
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.FilePageIcon = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"file", "type"}, map[string]string{"type": "\"file\""}
+		if jsonFits(raw, required, pinned) {
+			var vv FilePageIcon
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FilePageIcon = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ExternalPageIcon
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExternalPageIcon = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"external"}, map[string]string{"type": "\"external\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ExternalPageIcon
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExternalPageIcon = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv CustomEmoji3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.CustomEmoji3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"custom_emoji", "type"}, map[string]string{"type": "\"custom_emoji\""}
+		if jsonFits(raw, required, pinned) {
+			var vv CustomEmoji3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.CustomEmoji3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv Icon
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Icon = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"icon", "type"}, map[string]string{"type": "\"icon\""}
+		if jsonFits(raw, required, pinned) {
+			var vv Icon
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Icon = &vv
+				matched++
+			}
 		}
 	}
 
@@ -18211,19 +18716,27 @@ func (v *RunToolResponseOneOf23Parent) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf23ParentOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf23ParentOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf23ParentOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf23ParentOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunToolResponseOneOf23ParentOneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunToolResponseOneOf23ParentOneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"folder_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunToolResponseOneOf23ParentOneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunToolResponseOneOf23ParentOneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -21095,19 +21608,27 @@ func (v *RunUnifiedRolloutBraintrust) UnmarshalJSONFrom(dec *jsontext.Decoder) e
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunUnifiedRolloutBraintrustOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunUnifiedRolloutBraintrustOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"log"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunUnifiedRolloutBraintrustOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunUnifiedRolloutBraintrustOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RunUnifiedRolloutBraintrustOneOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RunUnifiedRolloutBraintrustOneOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"experiment"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv RunUnifiedRolloutBraintrustOneOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RunUnifiedRolloutBraintrustOneOf1 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -21650,18 +22171,26 @@ func (v *SearchResultResultsItemCreatedBy) UnmarshalJSONFrom(dec *jsontext.Decod
 	var matched int
 
 	{
-		var vv PartialUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialUserObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialUserObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialUserObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv UserObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UserObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"avatar_url", "id", "name", "object", "type"}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UserObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UserObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -21789,10 +22318,14 @@ func (v *SearchWorkspaceKeyword) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 	}
 
 	{
-		var vv TitleObject
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.TitleObject = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"title"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv TitleObject
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.TitleObject = &vv
+				matched++
+			}
 		}
 	}
 
@@ -21838,18 +22371,26 @@ func (v *SearchWorkspaceKeywordAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	var matched int
 
 	{
-		var vv SearchWorkspaceKeywordAnyOf1AnyOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.SearchWorkspaceKeywordAnyOf1AnyOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"and"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv SearchWorkspaceKeywordAnyOf1AnyOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.SearchWorkspaceKeywordAnyOf1AnyOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv SearchWorkspaceKeywordAnyOf1AnyOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.SearchWorkspaceKeywordAnyOf1AnyOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"or"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv SearchWorkspaceKeywordAnyOf1AnyOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.SearchWorkspaceKeywordAnyOf1AnyOf1 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -22008,10 +22549,14 @@ func (v *SelectFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv TextFilterValue
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.TextFilterValue = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{"type": "\"exact\""}
+		if jsonFits(raw, required, pinned) {
+			var vv TextFilterValue
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.TextFilterValue = &vv
+				matched++
+			}
 		}
 	}
 
@@ -22609,10 +23154,14 @@ func (v *StatusFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv StatusFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.StatusFilterValueOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv StatusFilterValueOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.StatusFilterValueOneOf = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23264,18 +23813,26 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv Search2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Search2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"query"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Search2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Search2 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf15
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf15 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"query"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf15
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf15 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23288,10 +23845,14 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv Fetch2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Fetch2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Fetch2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Fetch2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23304,58 +23865,86 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf52
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf52 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"file_upload_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf52
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf52 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf62
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf62 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"pages"}, map[string]string{"creation_mode": "\"draft\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf62
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf62 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf7
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf7 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"command", "page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf7
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf7 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf8
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf8 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf8
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf8 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"action", "page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv Page3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Page3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Page3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Page3 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23368,10 +23957,14 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf10
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf10 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"new_parent", "page_or_database_ids"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf10
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf10 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23384,26 +23977,38 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf12
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf12 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"parent", "title"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf12
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf12 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf13
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf13 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"command", "folder_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf13
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf13 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf14
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf14 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"data_source_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf14
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf14 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23416,58 +24021,86 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf16
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf16 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf16
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf16 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf17
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf17 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"content", "target"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf17
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf17 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf18
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf18 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"target"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf18
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf18 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf19
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf19 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"resolved", "target"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf19
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf19 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf20
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf20 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"emoji", "reacted", "target"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf20
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf20 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf21
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf21 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_url", "property_name"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf21
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf21 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf22
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf22 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf22
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf22 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23480,18 +24113,26 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf24
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf24 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"action", "notification_ids"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf24
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf24 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"task_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf3 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23504,26 +24145,38 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf26
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf26 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"message"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf26
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf26 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf27
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf27 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"data"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf27
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf27 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf28
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf28 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"data_source_urls", "query"}, map[string]string{"mode": "\"sql\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf28
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf28 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23544,18 +24197,26 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf31
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf31 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"scope"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf31
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf31 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf32
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf32 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"question"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf32
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf32 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23568,90 +24229,134 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf34
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf34 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"agent_url", "initial_message"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf34
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf34 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf35
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf35 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"session_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf35
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf35 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf36
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf36 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"seconds", "session_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf36
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf36 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf37
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf37 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"message", "session_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf37
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf37 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf38
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf38 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"count", "session_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf38
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf38 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf39
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf39 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"sequence", "session_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf39
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf39 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf40
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf40 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"data_source_id", "name", "type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf40
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf40 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf41
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf41 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"view_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf41
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf41 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf42
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf42 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf42
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf42 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf43
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf43 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"snapshot_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf43
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf43 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf44
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf44 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"base_snapshot_url", "target_snapshot_url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf44
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf44 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23672,18 +24377,26 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf46
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf46 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"timestamp"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf46
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf46 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf47
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf47 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"level", "page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf47
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf47 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23696,34 +24409,50 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf49
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf49 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"timeMax", "timeMin", "timeZone"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf49
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf49 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf50
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf50 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"durationMinutes", "participantEmails", "timeMax", "timeMin", "timeZone"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf50
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf50 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf51
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf51 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"coworkerEmails", "timeMax", "timeMin", "timeZone"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf51
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf51 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf6
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf6 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"minCapacity", "timeSlots", "timeZone"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf6
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf6 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23744,58 +24473,86 @@ func (v *ToolInput) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	{
-		var vv ToolInputAnyOf55
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf55 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"events", "timeZone"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf55
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf55 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf56
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf56 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"timeZone", "updates"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf56
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf56 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf57
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf57 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"events"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf57
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf57 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf58
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf58 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"bookingCalendar", "duration", "timeRanges"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf58
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf58 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf59
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf59 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"identity"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf59
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf59 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ToolInputAnyOf61
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf61 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"schedulingLinks"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf61
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf61 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv LinkPreviewMention
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.LinkPreviewMention = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv LinkPreviewMention
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.LinkPreviewMention = &vv
+				matched++
+			}
 		}
 	}
 
@@ -23985,11 +24742,13 @@ var variantsOfToolInputAnyOf11 = []jsonVariant{
 		value:    "",
 		members:  map[string]bool{"schema": true},
 		required: []string{"schema"},
+		pinned:   map[string]string{},
 	},
 	{
 		value:    "",
 		members:  map[string]bool{"database_type": true},
 		required: []string{"database_type"},
+		pinned:   map[string]string{},
 	},
 }
 
@@ -24197,11 +24956,13 @@ var variantsOfToolInputAnyOf2 = []jsonVariant{
 		value:    "",
 		members:  map[string]bool{"rich_text": true},
 		required: []string{"rich_text"},
+		pinned:   map[string]string{},
 	},
 	{
 		value:    "",
 		members:  map[string]bool{"markdown": true},
 		required: []string{"markdown"},
+		pinned:   map[string]string{},
 	},
 }
 
@@ -24883,19 +25644,27 @@ func (v *ToolInputAnyOfAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfAllOfOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfAllOfOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"schema"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfAllOfOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfAllOfOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfAllOfOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfAllOfOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"database_type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfAllOfOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfAllOfOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -24941,19 +25710,27 @@ func (v *ToolInputAnyOfAllOf4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfAllOfOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfAllOfOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"rich_text"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfAllOfOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfAllOfOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfAllOfOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfAllOfOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"markdown"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfAllOfOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfAllOfOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -25213,7 +25990,7 @@ type ToolInputAnyOfEventsItemAttendees []ToolInputAnyOfEventsItemAttendeesItem
 // ToolInputAnyOfEventsItemAttendeesItem defines a model
 type ToolInputAnyOfEventsItemAttendeesItem struct {
 	// Email address of the attendee.
-	Email string `json:"email"`
+	Email string `json:"email,omitzero"`
 	// Totally optional, provide only if you are sure of the attendee's name
 	DisplayName string `json:"displayName,omitzero"`
 	// Set only if the user was explicit about an attendee not being required
@@ -25308,55 +26085,79 @@ func (v *ToolInputAnyOfFilter3) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "string"}, map[string]string{"property": "\"id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "string"}, map[string]string{"property": "\"agent_id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "status"}, map[string]string{"property": "\"status\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "timestamp"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf5
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf5 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"and"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf5
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf5 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf6
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf6 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"or"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf6
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf6 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -25410,19 +26211,27 @@ func (v *ToolInputAnyOfFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decode
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"filter", "property"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"filters", "operator"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -25487,46 +26296,66 @@ func (v *ToolInputAnyOfFilterFiltersItemOneOfFilter) UnmarshalJSONFrom(dec *json
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "value"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "value"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "value"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "value"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf5
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf5 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf5
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOf5 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -25689,37 +26518,53 @@ func (v *ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValue2) UnmarshalJSONFro
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOfValueOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"count", "direction", "type", "unit", "value"}, map[string]string{"type": "\"relative\"", "value": "\"custom\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOfValueOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOfValueOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOfValueOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOfValueOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "unit", "value"}, map[string]string{"type": "\"relative\"", "value": "\"surrounding\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOfValueOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOfValueOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv DateFilterOneOfValueOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DateFilterOneOfValueOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{"type": "\"relative\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DateFilterOneOfValueOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DateFilterOneOfValueOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{"type": "\"exact\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterFiltersItemOneOfFilterOneOfValueOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -26091,55 +26936,79 @@ func (v *ToolInputAnyOfFilterOneOfOrItem) UnmarshalJSONFrom(dec *jsontext.Decode
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "string"}, map[string]string{"property": "\"id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "string"}, map[string]string{"property": "\"agent_id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "status"}, map[string]string{"property": "\"status\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "timestamp"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOfOrItemOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOfOrItemOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"and"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOfOrItemOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOfOrItemOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOfOrItemOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOfOrItemOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"or"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOfOrItemOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOfOrItemOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -26207,37 +27076,53 @@ func (v *ToolInputAnyOfFilterOneOfOrItemOneOfOrItem) UnmarshalJSONFrom(dec *json
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "string"}, map[string]string{"property": "\"id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "string"}, map[string]string{"property": "\"agent_id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "status"}, map[string]string{"property": "\"status\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfFilterOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfFilterOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "timestamp"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfFilterOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfFilterOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -26602,19 +27487,27 @@ func (v *ToolInputAnyOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOf8
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOf8 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOf8
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOf8 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfParentOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfParentOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"folder_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfParentOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfParentOneOf = &vv
+				matched++
+			}
 		}
 	}
 
@@ -26671,28 +27564,40 @@ func (v *ToolInputAnyOfParent2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfParentOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfParentOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"page_id"}, map[string]string{"type": "\"page_id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfParentOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfParentOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfParentOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfParentOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"database_id"}, map[string]string{"type": "\"database_id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfParentOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfParentOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv ToolInputAnyOfParentOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ToolInputAnyOfParentOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"data_source_id"}, map[string]string{"type": "\"data_source_id\""}
+		if jsonFits(raw, required, pinned) {
+			var vv ToolInputAnyOfParentOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ToolInputAnyOfParentOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -26925,10 +27830,14 @@ func (v *ToolInputAnyOfPropertiesValueOneOfItem) UnmarshalJSONFrom(dec *jsontext
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv FileUploadPageIcon
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.FileUploadPageIcon = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"file_upload"}, map[string]string{"type": "\"file_upload\""}
+		if jsonFits(raw, required, pinned) {
+			var vv FileUploadPageIcon
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FileUploadPageIcon = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27366,18 +28275,26 @@ func (v *UnsharePageFromWebAnyOf) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 	var matched int
 
 	{
-		var vv PageObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PageObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"cover", "created_by", "created_time", "icon", "id", "in_trash", "is_archived", "is_locked", "last_edited_by", "last_edited_time", "object", "parent", "properties", "public_url", "url"}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PageObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PageObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv PartialPageObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialPageObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialPageObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialPageObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27487,18 +28404,26 @@ func (v *UnsharePageFromWebOkAnyOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	var matched int
 
 	{
-		var vv PartialBlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialBlockObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"block\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialBlockObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialBlockObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv BlockObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.BlockObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"created_by", "created_time", "has_children", "id", "in_trash", "last_edited_by", "last_edited_time", "object", "parent", "type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv BlockObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.BlockObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27542,18 +28467,26 @@ func (v *UnsharePageFromWebOkAnyOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	var matched int
 
 	{
-		var vv PartialDataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialDataSourceObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object", "properties"}, map[string]string{"object": "\"data_source\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialDataSourceObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialDataSourceObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv DataSourceObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.DataSourceObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"cover", "created_by", "created_time", "database_parent", "database_type", "description", "icon", "id", "in_trash", "is_inline", "last_edited_by", "last_edited_time", "object", "parent", "properties", "public_url", "title", "url"}, map[string]string{"object": "\"data_source\""}
+		if jsonFits(raw, required, pinned) {
+			var vv DataSourceObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.DataSourceObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27629,55 +28562,79 @@ func (v *UpdateAgentConnectionsItem) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"account", "name", "permissions", "type"}, map[string]string{"type": "\"notion\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOf = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"account", "name", "permissions", "type"}, map[string]string{"type": "\"slack\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"account", "name", "permissions", "type"}, map[string]string{"type": "\"discord\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOf4
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOf4 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"account", "enabled_tools", "name", "run_tools_automatically", "type"}, map[string]string{"type": "\"mcp_server\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOf4
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOf4 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOf5
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOf5 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"account", "enabled_tools", "name", "run_tools_automatically", "type"}, map[string]string{"type": "\"custom_mcp_server\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOf5
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOf5 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOf6
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOf6 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"account", "name", "permissions", "type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOf6
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOf6 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27796,10 +28753,14 @@ func (v *UpdateAgentConnectionsItemOneOfAccount) UnmarshalJSONFrom(dec *jsontext
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOfAccountOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOfAccountOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"team_id", "type"}, map[string]string{"type": "\"slack_workspace\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOfAccountOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOfAccountOneOf = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27854,10 +28815,14 @@ func (v *UpdateAgentConnectionsItemOneOfAccount2) UnmarshalJSONFrom(dec *jsontex
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOfAccountOneOf2
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOfAccountOneOf2 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "type"}, map[string]string{"type": "\"discord_server\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOfAccountOneOf2
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOfAccountOneOf2 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -27912,10 +28877,14 @@ func (v *UpdateAgentConnectionsItemOneOfAccount3) UnmarshalJSONFrom(dec *jsontex
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentConnectionsItemOneOfAccountOneOf3
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentConnectionsItemOneOfAccountOneOf3 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"server_host", "type"}, map[string]string{"type": "\"mcp_server\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentConnectionsItemOneOfAccountOneOf3
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentConnectionsItemOneOfAccountOneOf3 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -28691,19 +29660,27 @@ func (v *UpdateAgentIcon) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PageIconResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PageIconResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv PageIconResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PageIconResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UpdateAgentIconOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UpdateAgentIconOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"custom_agent_avatar", "type"}, map[string]string{"type": "\"custom_agent_avatar\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UpdateAgentIconOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UpdateAgentIconOneOf = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30042,19 +31019,27 @@ func (v *UserUser) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UserUserOneOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UserUserOneOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"avatar_url", "id", "name", "object", "person", "type"}, map[string]string{"object": "\"user\"", "type": "\"person\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UserUserOneOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UserUserOneOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PartialUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialUserObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialUserObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialUserObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30116,19 +31101,27 @@ func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PartialUserObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialUserObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialUserObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialUserObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv UserObjectResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.UserObjectResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"avatar_url", "id", "name", "object", "type"}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, pinned) {
+			var vv UserObjectResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.UserObjectResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30243,10 +31236,14 @@ func (v *VerificationFilterValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv VerificationFilterValueOneOf
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.VerificationFilterValueOneOf = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"type", "value"}, map[string]string{"type": "\"exact\""}
+		if jsonFits(raw, required, pinned) {
+			var vv VerificationFilterValueOneOf
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.VerificationFilterValueOneOf = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30365,19 +31362,27 @@ func (v *VerificationPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Deco
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv VerificationPropertyUnverifiedResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.VerificationPropertyUnverifiedResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"date", "state", "verified_by"}, map[string]string{"state": "\"unverified\""}
+		if jsonFits(raw, required, pinned) {
+			var vv VerificationPropertyUnverifiedResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.VerificationPropertyUnverifiedResponse = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv VerificationPropertyResponse
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.VerificationPropertyResponse = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"date", "state", "verified_by"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv VerificationPropertyResponse
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.VerificationPropertyResponse = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30593,28 +31598,40 @@ func (v *WorkflowPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv EmptyPropertyFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.EmptyPropertyFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type"}, map[string]string{"type": "\"property\""}
+		if jsonFits(raw, required, pinned) {
+			var vv EmptyPropertyFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.EmptyPropertyFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv TextFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.TextFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\""}
+		if jsonFits(raw, required, pinned) {
+			var vv TextFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.TextFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv NumberFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.NumberFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\""}
+		if jsonFits(raw, required, pinned) {
+			var vv NumberFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.NumberFilter = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30629,73 +31646,105 @@ func (v *WorkflowPropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv SelectFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.SelectFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\"", "propertyType": "\"select\""}
+		if jsonFits(raw, required, pinned) {
+			var vv SelectFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.SelectFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv MultiSelectFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.MultiSelectFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\"", "propertyType": "\"multi_select\""}
+		if jsonFits(raw, required, pinned) {
+			var vv MultiSelectFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.MultiSelectFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv CheckboxFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.CheckboxFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\"", "propertyType": "\"checkbox\""}
+		if jsonFits(raw, required, pinned) {
+			var vv CheckboxFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.CheckboxFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv RelationFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.RelationFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\"", "propertyType": "\"relation\""}
+		if jsonFits(raw, required, pinned) {
+			var vv RelationFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.RelationFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv StatusFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.StatusFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\"", "propertyType": "\"status\""}
+		if jsonFits(raw, required, pinned) {
+			var vv StatusFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.StatusFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv PersonFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PersonFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PersonFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PersonFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv VerificationFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.VerificationFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"operator", "property", "propertyType", "type", "value"}, map[string]string{"type": "\"property\"", "propertyType": "\"verification\""}
+		if jsonFits(raw, required, pinned) {
+			var vv VerificationFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.VerificationFilter = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv FormulaFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.FormulaFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property", "propertyType", "resultFilter", "type"}, map[string]string{"type": "\"property\"", "propertyType": "\"formula\""}
+		if jsonFits(raw, required, pinned) {
+			var vv FormulaFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FormulaFilter = &vv
+				matched++
+			}
 		}
 	}
 
@@ -30780,10 +31829,14 @@ func (v *WorkflowViewFilterFiltersItem) UnmarshalJSONFrom(dec *jsontext.Decoder)
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv WorkflowNestedViewFilter
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.WorkflowNestedViewFilter = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"filters", "operator", "type"}, map[string]string{"type": "\"group\""}
+		if jsonFits(raw, required, pinned) {
+			var vv WorkflowNestedViewFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.WorkflowNestedViewFilter = &vv
+				matched++
+			}
 		}
 	}
 
@@ -31304,6 +32357,58 @@ type jsonVariant struct {
 	value    string
 	members  map[string]bool
 	required []string
+	// pinned are the members it allows one value for, written as compact JSON
+	pinned map[string]string
+}
+
+// jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
+// each pins, written as compact JSON. Any value fits where nothing is required or pinned.
+func jsonFits(raw jsontext.Value, required []string, pinned map[string]string) bool {
+	if len(required) == 0 && len(pinned) == 0 {
+		return true
+	}
+
+	if raw.Kind() != jsontext.KindBeginObject {
+		return false
+	}
+
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return false
+	}
+
+	present := map[string]bool{}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return false
+		}
+
+		name := tok.String()
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return false
+		}
+
+		present[name] = true
+
+		if want, ok := pinned[name]; ok {
+			got := val.Clone()
+			if err := got.Compact(); err != nil || string(got) != want {
+				return false
+			}
+		}
+	}
+
+	for _, r := range required {
+		if !present[r] {
+			return false
+		}
+	}
+
+	return true
 }
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
@@ -31346,10 +32451,8 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	} else {
 	variants:
 		for i, v := range variants {
-			for _, r := range v.required {
-				if !present[r] {
-					continue variants
-				}
+			if !jsonFits(raw, v.required, v.pinned) {
+				continue variants
 			}
 
 			for _, n := range names {

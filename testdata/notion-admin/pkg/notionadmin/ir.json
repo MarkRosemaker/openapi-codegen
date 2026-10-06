@@ -7050,7 +7050,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"all_space_members\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
@@ -7064,7 +7070,13 @@
 						"type",
 						"user_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -7078,7 +7090,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"all_space_members\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
@@ -7092,7 +7110,13 @@
 						"type",
 						"user_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -9024,7 +9048,13 @@
 							"person",
 							"type"
 						],
-						"object": true
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"person\""
+							}
+						]
 					},
 					{
 						"fieldName": "Bot",
@@ -9038,7 +9068,13 @@
 							"bot",
 							"type"
 						],
-						"object": true
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"bot\""
+							}
+						]
 					}
 				],
 				"choices": [
@@ -9056,7 +9092,13 @@
 							"person",
 							"type"
 						],
-						"object": true
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"person\""
+							}
+						]
 					},
 					{
 						"fieldName": "Bot",
@@ -9070,7 +9112,13 @@
 							"bot",
 							"type"
 						],
-						"object": true
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"bot\""
+							}
+						]
 					}
 				]
 			},
@@ -9102,7 +9150,13 @@
 						"person",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"person\""
+						}
+					]
 				},
 				{
 					"fieldName": "Bot",
@@ -9116,7 +9170,13 @@
 						"bot",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"bot\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -9134,7 +9194,13 @@
 						"person",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"person\""
+						}
+					]
 				},
 				{
 					"fieldName": "Bot",
@@ -9148,7 +9214,13 @@
 						"bot",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"bot\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -9836,7 +9908,13 @@
 						"group_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"group\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
@@ -9850,7 +9928,13 @@
 						"type",
 						"user_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
@@ -9862,7 +9946,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"workspace\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -9878,7 +9968,13 @@
 						"group_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"group\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateCreditLimitPolicySelectorOneOf2",
@@ -9892,7 +9988,13 @@
 						"type",
 						"user_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "UpdateAgentPermissionsRemoveItemOneOf3",
@@ -9904,7 +10006,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"workspace\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,

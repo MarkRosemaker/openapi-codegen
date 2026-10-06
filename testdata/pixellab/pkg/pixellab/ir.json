@@ -9027,7 +9027,13 @@
 						"name",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"preset\""
+						}
+					]
 				},
 				{
 					"fieldName": "CharacterProportions",
@@ -9041,7 +9047,13 @@
 						"shoulder_width",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"custom\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -9053,7 +9065,13 @@
 						"name",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"preset\""
+						}
+					]
 				},
 				{
 					"fieldName": "CharacterProportions",
@@ -9067,7 +9085,13 @@
 						"shoulder_width",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"custom\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -9865,7 +9889,13 @@
 					"required": [
 						"mask_image"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"mask\""
+						}
+					]
 				},
 				{
 					"fieldName": "OvalInpainting",
@@ -9874,7 +9904,13 @@
 						"fraction",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"oval\""
+						}
+					]
 				},
 				{
 					"fieldName": "RectangleInpainting",
@@ -9883,7 +9919,13 @@
 						"fraction",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"rectangle\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -9897,7 +9939,13 @@
 					"required": [
 						"mask_image"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"mask\""
+						}
+					]
 				},
 				{
 					"fieldName": "OvalInpainting",
@@ -9906,7 +9954,13 @@
 						"fraction",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"oval\""
+						}
+					]
 				},
 				{
 					"fieldName": "RectangleInpainting",
@@ -9915,7 +9969,13 @@
 						"fraction",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"rectangle\""
+						}
+					]
 				}
 			]
 		},
@@ -10973,7 +11033,13 @@
 						"x",
 						"y"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "kind",
+							"value": "\"rounded_rect\""
+						}
+					]
 				},
 				{
 					"fieldName": "UiPieceCircle",
@@ -10994,7 +11060,13 @@
 						"x",
 						"y"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "kind",
+							"value": "\"circle\""
+						}
+					]
 				},
 				{
 					"fieldName": "UiPiecePolygon",
@@ -11018,7 +11090,13 @@
 						"x",
 						"y"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "kind",
+							"value": "\"polygon\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -11044,7 +11122,13 @@
 						"x",
 						"y"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "kind",
+							"value": "\"rounded_rect\""
+						}
+					]
 				},
 				{
 					"fieldName": "UiPieceCircle",
@@ -11065,7 +11149,13 @@
 						"x",
 						"y"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "kind",
+							"value": "\"circle\""
+						}
+					]
 				},
 				{
 					"fieldName": "UiPiecePolygon",
@@ -11089,7 +11179,13 @@
 						"x",
 						"y"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "kind",
+							"value": "\"polygon\""
+						}
+					]
 				}
 			],
 			"discriminator": "kind",
@@ -14848,9 +14944,8 @@
 					"name": "Image",
 					"jsonName": "image",
 					"type": "BaseImage",
-					"jsonTag": "json:\"image\"",
-					"description": "Portrait as base64 PNG/JPEG, 16-256px. A non-square image is centred on a transparent square canvas.",
-					"required": true
+					"jsonTag": "json:\"image,omitzero\"",
+					"description": "Portrait as base64 PNG/JPEG, 16-256px. A non-square image is centred on a transparent square canvas."
 				}
 			]
 		},

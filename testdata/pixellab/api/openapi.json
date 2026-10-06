@@ -11805,9 +11805,6 @@
             "$ref": "#/components/schemas/BaseImage"
           }
         },
-        "required": [
-          "image"
-        ],
         "additionalProperties": false
       },
       "SetPortraitResponse": {

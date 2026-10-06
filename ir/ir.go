@@ -276,9 +276,17 @@ type UnionVariant struct {
 	Members  []string `json:"members,omitempty"`
 	Required []string `json:"required,omitempty"`
 	Object   bool     `json:"object,omitzero"`
+	// Pinned are the members the variant allows one value for, by its const or a one-value enum.
+	Pinned []PinnedMember `json:"pinned,omitempty"`
 	// Path is set for a choice that is an alternative of a union nested in this one, however deep: the fields of the
 	// unions on the way to it, outermost first, each set to its union with the next one set.
 	Path []UnionStep `json:"path,omitempty"`
+}
+
+// PinnedMember is a member an alternative allows one value for, written as JSON.
+type PinnedMember struct {
+	Name  string `json:"name,omitzero"`
+	Value string `json:"value,omitzero"`
 }
 
 // UnionStep is a field holding a nested union, on the way to one of its alternatives.
@@ -580,6 +588,6 @@ func (d Document) HasOptionalAuthCalls() bool {
 // NeedsJSONHelpers reports whether a generated type decodes its alternatives itself, needing the JSON helpers.
 func (doc Document) NeedsJSONHelpers() bool {
 	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool {
-		return s.Discriminator != "" || s.AllOfUnion != nil && s.Unimplemented == "" || s.MemberDecoder || s.Tagged != nil
+		return s.Kind == SchemaKindUnion || s.AllOfUnion != nil && s.Unimplemented == "" || s.MemberDecoder || s.Tagged != nil
 	})
 }
