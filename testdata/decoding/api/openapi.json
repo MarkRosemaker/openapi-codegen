@@ -1,41 +1,360 @@
 {
   "openapi": "3.1.0",
-  "info": {"title": "Decoding", "version": "1"},
-  "servers": [{"url": "https://api.example.com"}],
-  "paths": {
-    "/pages/{id}": {"get": {"operationId": "getPage", "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}], "responses": {
-      "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Page"}}}}
-    }}},
-    "/search": {"post": {"operationId": "search", "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PropertyFilter"}}}}, "responses": {
-      "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/PageOrPartial"}}}}}
-    }}}
+  "info": {
+    "title": "Decoding",
+    "version": "1"
   },
-  "components": {"schemas": {
-    "PropertyFilter": {"oneOf": [{"$ref": "#/components/schemas/SelectFilter"}, {"$ref": "#/components/schemas/NumberFilter"}]},
-    "SelectFilter": {"type": "object", "required": ["property", "select"], "properties": {
-      "property": {"type": "string"}, "type": {"type": "string", "const": "select"}, "select": {"$ref": "#/components/schemas/Condition"}}},
-    "NumberFilter": {"type": "object", "required": ["property", "number"], "properties": {
-      "property": {"type": "string"}, "type": {"type": "string", "const": "number"}, "number": {"$ref": "#/components/schemas/Condition"}}},
-    "Condition": {"type": "object", "properties": {"equals": {"type": "string"}, "does_not_equal": {"type": "string"}}},
-
-    "Page": {"type": "object", "required": ["object", "id", "cover", "icon", "position"], "properties": {
-      "object": {"type": "string", "const": "page"}, "id": {"type": "string"},
-      "cover": {"$ref": "#/components/schemas/PageCover"},
-      "icon": {"$ref": "#/components/schemas/PageIcon"},
-      "position": {"$ref": "#/components/schemas/Position"}}},
-    "PageCover": {"oneOf": [{"$ref": "#/components/schemas/CoverResponse"}, {"type": "null"}]},
-    "CoverResponse": {"oneOf": [
-      {"type": "object", "required": ["type", "external"], "properties": {"type": {"type": "string", "const": "external"}, "external": {"$ref": "#/components/schemas/Link"}}},
-      {"type": "object", "required": ["type", "file"], "properties": {"type": {"type": "string", "const": "file"}, "file": {"$ref": "#/components/schemas/Link"}}}
-    ]},
-    "Link": {"type": "object", "required": ["url"], "properties": {"url": {"type": "string"}}},
-    "PageIcon": {"oneOf": [{"$ref": "#/components/schemas/IconResponse"}, {"type": "null"}]},
-    "IconResponse": {"oneOf": [{"$ref": "#/components/schemas/Emoji"}, {"$ref": "#/components/schemas/Link"}]},
-    "Emoji": {"type": "object", "required": ["emoji"], "properties": {"emoji": {"type": "string"}}},
-    "Position": {"oneOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/components/schemas/Pair"}]},
-    "Pair": {"type": "array", "prefixItems": [{"type": "string"}, {"type": "integer"}]},
-
-    "PageOrPartial": {"anyOf": [{"$ref": "#/components/schemas/Page"}, {"$ref": "#/components/schemas/PartialPage"}]},
-    "PartialPage": {"type": "object", "required": ["object", "id"], "properties": {"object": {"type": "string", "const": "page"}, "id": {"type": "string"}}}
-  }}
+  "servers": [
+    {
+      "url": "https://api.example.com"
+    }
+  ],
+  "paths": {
+    "/pages/{id}": {
+      "get": {
+        "operationId": "getPage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "operationId": "search",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyFilter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PageOrPartial"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PropertyFilter": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SelectFilter"
+          },
+          {
+            "$ref": "#/components/schemas/NumberFilter"
+          }
+        ]
+      },
+      "SelectFilter": {
+        "type": "object",
+        "required": [
+          "property",
+          "select"
+        ],
+        "properties": {
+          "property": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "select"
+          },
+          "select": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        }
+      },
+      "NumberFilter": {
+        "type": "object",
+        "required": [
+          "property",
+          "number"
+        ],
+        "properties": {
+          "property": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "number"
+          },
+          "number": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        }
+      },
+      "Condition": {
+        "type": "object",
+        "properties": {
+          "equals": {
+            "type": "string"
+          },
+          "does_not_equal": {
+            "type": "string"
+          }
+        }
+      },
+      "Page": {
+        "type": "object",
+        "required": [
+          "object",
+          "id",
+          "cover",
+          "icon",
+          "position"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "page"
+          },
+          "id": {
+            "type": "string"
+          },
+          "cover": {
+            "$ref": "#/components/schemas/PageCover"
+          },
+          "icon": {
+            "$ref": "#/components/schemas/PageIcon"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Position"
+          }
+        }
+      },
+      "PageCover": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CoverResponse"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "CoverResponse": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "external"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "external"
+              },
+              "external": {
+                "$ref": "#/components/schemas/Link"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "file"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "file"
+              },
+              "file": {
+                "$ref": "#/components/schemas/Link"
+              }
+            }
+          }
+        ]
+      },
+      "Link": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "PageIcon": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/IconResponse"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "IconResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Emoji"
+          },
+          {
+            "$ref": "#/components/schemas/Link"
+          }
+        ]
+      },
+      "Emoji": {
+        "type": "object",
+        "required": [
+          "emoji"
+        ],
+        "properties": {
+          "emoji": {
+            "type": "string"
+          }
+        }
+      },
+      "Position": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Pair"
+          }
+        ]
+      },
+      "Pair": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "PageOrPartial": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Page"
+          },
+          {
+            "$ref": "#/components/schemas/PartialPage"
+          }
+        ]
+      },
+      "PartialPage": {
+        "type": "object",
+        "required": [
+          "object",
+          "id"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "page"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "PropertyValue": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/DateValue"
+          },
+          {
+            "$ref": "#/components/schemas/NumberValue"
+          }
+        ]
+      },
+      "DateValue": {
+        "type": "object",
+        "required": [
+          "type",
+          "date"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "date"
+          },
+          "date": {
+            "$ref": "#/components/schemas/Date"
+          }
+        }
+      },
+      "Date": {
+        "type": "object",
+        "required": [
+          "start"
+        ],
+        "properties": {
+          "start": {
+            "type": "string"
+          }
+        }
+      },
+      "NumberValue": {
+        "type": "object",
+        "required": [
+          "type",
+          "number"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "number"
+          },
+          "number": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
 }

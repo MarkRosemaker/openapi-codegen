@@ -2163,8 +2163,8 @@ func (e BaseWebhookPayloadAuthorsItemType) Valid() bool {
 	return ok
 }
 
-// tagsOfBaseWebhookPayloadAuthorsItem holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBaseWebhookPayloadAuthorsItem = map[string]map[string]bool{
+// tagsOfBaseWebhookPayloadAuthorsItem holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBaseWebhookPayloadAuthorsItem = map[string]map[string]jsonTagNeed{
 	"person": {},
 	"bot":    {},
 }
@@ -2182,11 +2182,23 @@ func (v *BaseWebhookPayloadAuthorsItem) UnmarshalJSONFrom(dec *jsontext.Decoder)
 	type plain BaseWebhookPayloadAuthorsItem
 
 	*v = BaseWebhookPayloadAuthorsItem{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBaseWebhookPayloadAuthorsItem, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfBaseWebhookPayloadAuthorsItem, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -2199,7 +2211,7 @@ func (v *BaseWebhookPayloadAuthorsItem) MarshalJSONTo(enc *jsontext.Encoder) err
 		out.Type = BaseWebhookPayloadAuthorsItemType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBaseWebhookPayloadAuthorsItem, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBaseWebhookPayloadAuthorsItem, set, nil, true); err != nil {
 		return err
 	}
 
@@ -2304,39 +2316,39 @@ func (e BlockObjectRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfBlockObjectRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBlockObjectRequest = map[string]map[string]bool{
-	"embed":              {"embed": true},
-	"bookmark":           {"bookmark": true},
-	"image":              {"image": true},
-	"video":              {"video": true},
-	"pdf":                {"pdf": true},
-	"file":               {"file": true},
-	"audio":              {"audio": true},
-	"code":               {"code": true},
-	"equation":           {"equation": true},
-	"divider":            {"divider": true},
-	"breadcrumb":         {"breadcrumb": true},
-	"tab":                {"tab": true},
-	"table_of_contents":  {"table_of_contents": true},
-	"link_to_page":       {"link_to_page": true},
-	"table_row":          {"table_row": true},
-	"table":              {"table": true},
-	"column_list":        {"column_list": true},
-	"column":             {"column": true},
-	"heading_1":          {"heading_1": true},
-	"heading_2":          {"heading_2": true},
-	"heading_3":          {"heading_3": true},
-	"heading_4":          {"heading_4": true},
-	"paragraph":          {"paragraph": true},
-	"bulleted_list_item": {"bulleted_list_item": true},
-	"numbered_list_item": {"numbered_list_item": true},
-	"quote":              {"quote": true},
-	"to_do":              {"to_do": true},
-	"toggle":             {"toggle": true},
-	"template":           {"template": true},
-	"callout":            {"callout": true},
-	"synced_block":       {"synced_block": true},
+// tagsOfBlockObjectRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBlockObjectRequest = map[string]map[string]jsonTagNeed{
+	"embed":              {"embed": jsonTagRequired},
+	"bookmark":           {"bookmark": jsonTagRequired},
+	"image":              {"image": jsonTagRequired},
+	"video":              {"video": jsonTagRequired},
+	"pdf":                {"pdf": jsonTagRequired},
+	"file":               {"file": jsonTagRequired},
+	"audio":              {"audio": jsonTagRequired},
+	"code":               {"code": jsonTagRequired},
+	"equation":           {"equation": jsonTagRequired},
+	"divider":            {"divider": jsonTagRequired},
+	"breadcrumb":         {"breadcrumb": jsonTagRequired},
+	"tab":                {"tab": jsonTagRequired},
+	"table_of_contents":  {"table_of_contents": jsonTagRequired},
+	"link_to_page":       {"link_to_page": jsonTagRequired},
+	"table_row":          {"table_row": jsonTagRequired},
+	"table":              {"table": jsonTagRequired},
+	"column_list":        {"column_list": jsonTagRequired},
+	"column":             {"column": jsonTagRequired},
+	"heading_1":          {"heading_1": jsonTagRequired},
+	"heading_2":          {"heading_2": jsonTagRequired},
+	"heading_3":          {"heading_3": jsonTagRequired},
+	"heading_4":          {"heading_4": jsonTagRequired},
+	"paragraph":          {"paragraph": jsonTagRequired},
+	"bulleted_list_item": {"bulleted_list_item": jsonTagRequired},
+	"numbered_list_item": {"numbered_list_item": jsonTagRequired},
+	"quote":              {"quote": jsonTagRequired},
+	"to_do":              {"to_do": jsonTagRequired},
+	"toggle":             {"toggle": jsonTagRequired},
+	"template":           {"template": jsonTagRequired},
+	"callout":            {"callout": jsonTagRequired},
+	"synced_block":       {"synced_block": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -2445,7 +2457,19 @@ func (v *BlockObjectRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectRequest
 
 	*v = BlockObjectRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -2454,7 +2478,7 @@ func (v *BlockObjectRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = BlockObjectRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -2467,7 +2491,7 @@ func (v *BlockObjectRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = BlockObjectRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -2548,36 +2572,36 @@ func (e BlockObjectRequestWithoutChildrenType) Valid() bool {
 	return ok
 }
 
-// tagsOfBlockObjectRequestWithoutChildren holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBlockObjectRequestWithoutChildren = map[string]map[string]bool{
-	"embed":              {"embed": true},
-	"bookmark":           {"bookmark": true},
-	"image":              {"image": true},
-	"video":              {"video": true},
-	"pdf":                {"pdf": true},
-	"file":               {"file": true},
-	"audio":              {"audio": true},
-	"code":               {"code": true},
-	"equation":           {"equation": true},
-	"divider":            {"divider": true},
-	"breadcrumb":         {"breadcrumb": true},
-	"tab":                {"tab": true},
-	"table_of_contents":  {"table_of_contents": true},
-	"link_to_page":       {"link_to_page": true},
-	"table_row":          {"table_row": true},
-	"heading_1":          {"heading_1": true},
-	"heading_2":          {"heading_2": true},
-	"heading_3":          {"heading_3": true},
-	"heading_4":          {"heading_4": true},
-	"paragraph":          {"paragraph": true},
-	"bulleted_list_item": {"bulleted_list_item": true},
-	"numbered_list_item": {"numbered_list_item": true},
-	"quote":              {"quote": true},
-	"to_do":              {"to_do": true},
-	"toggle":             {"toggle": true},
-	"template":           {"template": true},
-	"callout":            {"callout": true},
-	"synced_block":       {"synced_block": true},
+// tagsOfBlockObjectRequestWithoutChildren holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBlockObjectRequestWithoutChildren = map[string]map[string]jsonTagNeed{
+	"embed":              {"embed": jsonTagRequired},
+	"bookmark":           {"bookmark": jsonTagRequired},
+	"image":              {"image": jsonTagRequired},
+	"video":              {"video": jsonTagRequired},
+	"pdf":                {"pdf": jsonTagRequired},
+	"file":               {"file": jsonTagRequired},
+	"audio":              {"audio": jsonTagRequired},
+	"code":               {"code": jsonTagRequired},
+	"equation":           {"equation": jsonTagRequired},
+	"divider":            {"divider": jsonTagRequired},
+	"breadcrumb":         {"breadcrumb": jsonTagRequired},
+	"tab":                {"tab": jsonTagRequired},
+	"table_of_contents":  {"table_of_contents": jsonTagRequired},
+	"link_to_page":       {"link_to_page": jsonTagRequired},
+	"table_row":          {"table_row": jsonTagRequired},
+	"heading_1":          {"heading_1": jsonTagRequired},
+	"heading_2":          {"heading_2": jsonTagRequired},
+	"heading_3":          {"heading_3": jsonTagRequired},
+	"heading_4":          {"heading_4": jsonTagRequired},
+	"paragraph":          {"paragraph": jsonTagRequired},
+	"bulleted_list_item": {"bulleted_list_item": jsonTagRequired},
+	"numbered_list_item": {"numbered_list_item": jsonTagRequired},
+	"quote":              {"quote": jsonTagRequired},
+	"to_do":              {"to_do": jsonTagRequired},
+	"toggle":             {"toggle": jsonTagRequired},
+	"template":           {"template": jsonTagRequired},
+	"callout":            {"callout": jsonTagRequired},
+	"synced_block":       {"synced_block": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -2677,7 +2701,19 @@ func (v *BlockObjectRequestWithoutChildren) UnmarshalJSONFrom(dec *jsontext.Deco
 	type plain BlockObjectRequestWithoutChildren
 
 	*v = BlockObjectRequestWithoutChildren{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -2686,7 +2722,7 @@ func (v *BlockObjectRequestWithoutChildren) UnmarshalJSONFrom(dec *jsontext.Deco
 		v.Type = BlockObjectRequestWithoutChildrenType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectRequestWithoutChildren, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectRequestWithoutChildren, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -2699,7 +2735,7 @@ func (v *BlockObjectRequestWithoutChildren) MarshalJSONTo(enc *jsontext.Encoder)
 		out.Type = BlockObjectRequestWithoutChildrenType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectRequestWithoutChildren, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectRequestWithoutChildren, set, nil, true); err != nil {
 		return err
 	}
 
@@ -2804,44 +2840,44 @@ func (e BlockObjectResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfBlockObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBlockObjectResponse = map[string]map[string]bool{
-	"paragraph":          {"paragraph": true},
-	"heading_1":          {"heading_1": true},
-	"heading_2":          {"heading_2": true},
-	"heading_3":          {"heading_3": true},
-	"heading_4":          {"heading_4": true},
-	"bulleted_list_item": {"bulleted_list_item": true},
-	"numbered_list_item": {"numbered_list_item": true},
-	"quote":              {"quote": true},
-	"to_do":              {"to_do": true},
-	"toggle":             {"toggle": true},
-	"template":           {"template": true},
-	"synced_block":       {"synced_block": true},
-	"child_page":         {"child_page": true},
-	"child_database":     {"child_database": true},
-	"equation":           {"equation": true},
-	"code":               {"code": true},
-	"callout":            {"callout": true},
-	"divider":            {"divider": true},
-	"breadcrumb":         {"breadcrumb": true},
-	"table_of_contents":  {"table_of_contents": true},
-	"tab":                {"tab": true},
-	"column_list":        {"column_list": true},
-	"column":             {"column": true},
-	"link_to_page":       {"link_to_page": true},
-	"table":              {"table": true},
-	"table_row":          {"table_row": true},
-	"meeting_notes":      {"meeting_notes": true},
-	"embed":              {"embed": true},
-	"bookmark":           {"bookmark": true},
-	"image":              {"image": true},
-	"video":              {"video": true},
-	"pdf":                {"pdf": true},
-	"file":               {"file": true},
-	"audio":              {"audio": true},
-	"link_preview":       {"link_preview": true},
-	"unsupported":        {"unsupported": true},
+// tagsOfBlockObjectResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBlockObjectResponse = map[string]map[string]jsonTagNeed{
+	"paragraph":          {"paragraph": jsonTagRequired},
+	"heading_1":          {"heading_1": jsonTagRequired},
+	"heading_2":          {"heading_2": jsonTagRequired},
+	"heading_3":          {"heading_3": jsonTagRequired},
+	"heading_4":          {"heading_4": jsonTagRequired},
+	"bulleted_list_item": {"bulleted_list_item": jsonTagRequired},
+	"numbered_list_item": {"numbered_list_item": jsonTagRequired},
+	"quote":              {"quote": jsonTagRequired},
+	"to_do":              {"to_do": jsonTagRequired},
+	"toggle":             {"toggle": jsonTagRequired},
+	"template":           {"template": jsonTagRequired},
+	"synced_block":       {"synced_block": jsonTagRequired},
+	"child_page":         {"child_page": jsonTagRequired},
+	"child_database":     {"child_database": jsonTagRequired},
+	"equation":           {"equation": jsonTagRequired},
+	"code":               {"code": jsonTagRequired},
+	"callout":            {"callout": jsonTagRequired},
+	"divider":            {"divider": jsonTagRequired},
+	"breadcrumb":         {"breadcrumb": jsonTagRequired},
+	"table_of_contents":  {"table_of_contents": jsonTagRequired},
+	"tab":                {"tab": jsonTagRequired},
+	"column_list":        {"column_list": jsonTagRequired},
+	"column":             {"column": jsonTagRequired},
+	"link_to_page":       {"link_to_page": jsonTagRequired},
+	"table":              {"table": jsonTagRequired},
+	"table_row":          {"table_row": jsonTagRequired},
+	"meeting_notes":      {"meeting_notes": jsonTagRequired},
+	"embed":              {"embed": jsonTagRequired},
+	"bookmark":           {"bookmark": jsonTagRequired},
+	"image":              {"image": jsonTagRequired},
+	"video":              {"video": jsonTagRequired},
+	"pdf":                {"pdf": jsonTagRequired},
+	"file":               {"file": jsonTagRequired},
+	"audio":              {"audio": jsonTagRequired},
+	"link_preview":       {"link_preview": jsonTagRequired},
+	"unsupported":        {"unsupported": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -2965,11 +3001,23 @@ func (v *BlockObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BlockObjectResponse
 
 	*v = BlockObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -2982,7 +3030,7 @@ func (v *BlockObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = BlockObjectResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -3065,37 +3113,37 @@ func (e BlockObjectWithSingleLevelOfChildrenRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfBlockObjectWithSingleLevelOfChildrenRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBlockObjectWithSingleLevelOfChildrenRequest = map[string]map[string]bool{
-	"embed":              {"embed": true},
-	"bookmark":           {"bookmark": true},
-	"image":              {"image": true},
-	"video":              {"video": true},
-	"pdf":                {"pdf": true},
-	"file":               {"file": true},
-	"audio":              {"audio": true},
-	"code":               {"code": true},
-	"equation":           {"equation": true},
-	"divider":            {"divider": true},
-	"breadcrumb":         {"breadcrumb": true},
-	"tab":                {"tab": true},
-	"table_of_contents":  {"table_of_contents": true},
-	"link_to_page":       {"link_to_page": true},
-	"table_row":          {"table_row": true},
-	"heading_1":          {"heading_1": true},
-	"heading_2":          {"heading_2": true},
-	"heading_3":          {"heading_3": true},
-	"heading_4":          {"heading_4": true},
-	"paragraph":          {"paragraph": true},
-	"bulleted_list_item": {"bulleted_list_item": true},
-	"numbered_list_item": {"numbered_list_item": true},
-	"quote":              {"quote": true},
-	"table":              {"table": true},
-	"to_do":              {"to_do": true},
-	"toggle":             {"toggle": true},
-	"template":           {"template": true},
-	"callout":            {"callout": true},
-	"synced_block":       {"synced_block": true},
+// tagsOfBlockObjectWithSingleLevelOfChildrenRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBlockObjectWithSingleLevelOfChildrenRequest = map[string]map[string]jsonTagNeed{
+	"embed":              {"embed": jsonTagRequired},
+	"bookmark":           {"bookmark": jsonTagRequired},
+	"image":              {"image": jsonTagRequired},
+	"video":              {"video": jsonTagRequired},
+	"pdf":                {"pdf": jsonTagRequired},
+	"file":               {"file": jsonTagRequired},
+	"audio":              {"audio": jsonTagRequired},
+	"code":               {"code": jsonTagRequired},
+	"equation":           {"equation": jsonTagRequired},
+	"divider":            {"divider": jsonTagRequired},
+	"breadcrumb":         {"breadcrumb": jsonTagRequired},
+	"tab":                {"tab": jsonTagRequired},
+	"table_of_contents":  {"table_of_contents": jsonTagRequired},
+	"link_to_page":       {"link_to_page": jsonTagRequired},
+	"table_row":          {"table_row": jsonTagRequired},
+	"heading_1":          {"heading_1": jsonTagRequired},
+	"heading_2":          {"heading_2": jsonTagRequired},
+	"heading_3":          {"heading_3": jsonTagRequired},
+	"heading_4":          {"heading_4": jsonTagRequired},
+	"paragraph":          {"paragraph": jsonTagRequired},
+	"bulleted_list_item": {"bulleted_list_item": jsonTagRequired},
+	"numbered_list_item": {"numbered_list_item": jsonTagRequired},
+	"quote":              {"quote": jsonTagRequired},
+	"table":              {"table": jsonTagRequired},
+	"to_do":              {"to_do": jsonTagRequired},
+	"toggle":             {"toggle": jsonTagRequired},
+	"template":           {"template": jsonTagRequired},
+	"callout":            {"callout": jsonTagRequired},
+	"synced_block":       {"synced_block": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -3198,7 +3246,19 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) UnmarshalJSONFrom(dec *jso
 	type plain BlockObjectWithSingleLevelOfChildrenRequest
 
 	*v = BlockObjectWithSingleLevelOfChildrenRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -3207,7 +3267,7 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) UnmarshalJSONFrom(dec *jso
 		v.Type = BlockObjectWithSingleLevelOfChildrenRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectWithSingleLevelOfChildrenRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfBlockObjectWithSingleLevelOfChildrenRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -3220,7 +3280,7 @@ func (v *BlockObjectWithSingleLevelOfChildrenRequest) MarshalJSONTo(enc *jsontex
 		out.Type = BlockObjectWithSingleLevelOfChildrenRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectWithSingleLevelOfChildrenRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBlockObjectWithSingleLevelOfChildrenRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -3412,10 +3472,10 @@ func (e BotInfoResponseOwnerType) Valid() bool {
 	return ok
 }
 
-// tagsOfBotInfoResponseOwner holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBotInfoResponseOwner = map[string]map[string]bool{
-	"user":      {"user": true},
-	"workspace": {"workspace": true},
+// tagsOfBotInfoResponseOwner holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBotInfoResponseOwner = map[string]map[string]jsonTagNeed{
+	"user":      {"user": jsonTagRequired},
+	"workspace": {"workspace": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -3437,11 +3497,23 @@ func (v *BotInfoResponseOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain BotInfoResponseOwner
 
 	*v = BotInfoResponseOwner{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBotInfoResponseOwner, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfBotInfoResponseOwner, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -3454,7 +3526,7 @@ func (v *BotInfoResponseOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = BotInfoResponseOwnerType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBotInfoResponseOwner, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBotInfoResponseOwner, set, nil, true); err != nil {
 		return err
 	}
 
@@ -4473,10 +4545,10 @@ func (e CommentParentResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfCommentParentResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfCommentParentResponse = map[string]map[string]bool{
-	"page_id":  {"page_id": true},
-	"block_id": {"block_id": true},
+// tagsOfCommentParentResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfCommentParentResponse = map[string]map[string]jsonTagNeed{
+	"page_id":  {"page_id": jsonTagRequired},
+	"block_id": {"block_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -4498,11 +4570,23 @@ func (v *CommentParentResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CommentParentResponse
 
 	*v = CommentParentResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfCommentParentResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfCommentParentResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -4515,7 +4599,7 @@ func (v *CommentParentResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = CommentParentResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfCommentParentResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfCommentParentResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -4554,9 +4638,9 @@ func (e ContentPositionSchemaType) Valid() bool {
 	return ok
 }
 
-// tagsOfContentPositionSchema holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfContentPositionSchema = map[string]map[string]bool{
-	"after_block": {"after_block": true},
+// tagsOfContentPositionSchema holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfContentPositionSchema = map[string]map[string]jsonTagNeed{
+	"after_block": {"after_block": jsonTagRequired},
 	"start":       {},
 	"end":         {},
 }
@@ -4577,11 +4661,23 @@ func (v *ContentPositionSchema) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain ContentPositionSchema
 
 	*v = ContentPositionSchema{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfContentPositionSchema, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfContentPositionSchema, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -4594,7 +4690,7 @@ func (v *ContentPositionSchema) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = ContentPositionSchemaType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfContentPositionSchema, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfContentPositionSchema, set, nil, true); err != nil {
 		return err
 	}
 
@@ -4999,11 +5095,11 @@ func (e CreateACommentAllOf0DisplayNameType) Valid() bool {
 	return ok
 }
 
-// tagsOfCreateACommentAllOf0DisplayName holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfCreateACommentAllOf0DisplayName = map[string]map[string]bool{
+// tagsOfCreateACommentAllOf0DisplayName holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfCreateACommentAllOf0DisplayName = map[string]map[string]jsonTagNeed{
 	"integration": {},
 	"user":        {},
-	"custom":      {"custom": true},
+	"custom":      {"custom": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -5022,11 +5118,23 @@ func (v *CreateACommentAllOf0DisplayName) UnmarshalJSONFrom(dec *jsontext.Decode
 	type plain CreateACommentAllOf0DisplayName
 
 	*v = CreateACommentAllOf0DisplayName{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfCreateACommentAllOf0DisplayName, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfCreateACommentAllOf0DisplayName, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5039,7 +5147,7 @@ func (v *CreateACommentAllOf0DisplayName) MarshalJSONTo(enc *jsontext.Encoder) e
 		out.Type = CreateACommentAllOf0DisplayNameType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateACommentAllOf0DisplayName, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateACommentAllOf0DisplayName, set, nil, true); err != nil {
 		return err
 	}
 
@@ -5181,10 +5289,10 @@ func (e CreateACommentAllOfOneOfParentType) Valid() bool {
 	return ok
 }
 
-// tagsOfCreateACommentAllOfOneOfParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfCreateACommentAllOfOneOfParent = map[string]map[string]bool{
-	"page_id":  {"page_id": true},
-	"block_id": {"block_id": true},
+// tagsOfCreateACommentAllOfOneOfParent holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfCreateACommentAllOfOneOfParent = map[string]map[string]jsonTagNeed{
+	"page_id":  {"page_id": jsonTagRequired},
+	"block_id": {"block_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -5206,7 +5314,19 @@ func (v *CreateACommentAllOfOneOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder
 	type plain CreateACommentAllOfOneOfParent
 
 	*v = CreateACommentAllOfOneOfParent{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -5215,7 +5335,7 @@ func (v *CreateACommentAllOfOneOfParent) UnmarshalJSONFrom(dec *jsontext.Decoder
 		v.Type = CreateACommentAllOfOneOfParentType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfCreateACommentAllOfOneOfParent, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfCreateACommentAllOfOneOfParent, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5228,7 +5348,7 @@ func (v *CreateACommentAllOfOneOfParent) MarshalJSONTo(enc *jsontext.Encoder) er
 		out.Type = CreateACommentAllOfOneOfParentType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateACommentAllOfOneOfParent, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateACommentAllOfOneOfParent, set, nil, true); err != nil {
 		return err
 	}
 
@@ -5456,10 +5576,10 @@ func (e CreateATokenOkOwnerType) Valid() bool {
 	return ok
 }
 
-// tagsOfCreateATokenOkOwner holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfCreateATokenOkOwner = map[string]map[string]bool{
-	"user":      {"user": true},
-	"workspace": {"workspace": true},
+// tagsOfCreateATokenOkOwner holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfCreateATokenOkOwner = map[string]map[string]jsonTagNeed{
+	"user":      {"user": jsonTagRequired},
+	"workspace": {"workspace": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -5481,11 +5601,23 @@ func (v *CreateATokenOkOwner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateATokenOkOwner
 
 	*v = CreateATokenOkOwner{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfCreateATokenOkOwner, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfCreateATokenOkOwner, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5498,7 +5630,7 @@ func (v *CreateATokenOkOwner) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = CreateATokenOkOwnerType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateATokenOkOwner, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateATokenOkOwner, set, nil, true); err != nil {
 		return err
 	}
 
@@ -5627,10 +5759,10 @@ type CreateDatabaseParent struct {
 	Workspace *bool `json:"workspace,omitzero"`
 }
 
-// tagsOfCreateDatabaseParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfCreateDatabaseParent = map[string]map[string]bool{
-	"page_id":   {"page_id": true},
-	"workspace": {"workspace": true},
+// tagsOfCreateDatabaseParent holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfCreateDatabaseParent = map[string]map[string]jsonTagNeed{
+	"page_id":   {"page_id": jsonTagRequired},
+	"workspace": {"workspace": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -5652,11 +5784,23 @@ func (v *CreateDatabaseParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateDatabaseParent
 
 	*v = CreateDatabaseParent{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfCreateDatabaseParent, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfCreateDatabaseParent, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -5669,7 +5813,7 @@ func (v *CreateDatabaseParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = CreateDatabaseParentAllOfType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateDatabaseParent, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfCreateDatabaseParent, set, nil, true); err != nil {
 		return err
 	}
 
@@ -6665,29 +6809,29 @@ func (e DatabasePropertyConfigResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfDatabasePropertyConfigResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfDatabasePropertyConfigResponse = map[string]map[string]bool{
-	"number":           {"number": true},
-	"formula":          {"formula": true},
-	"select":           {"select": true},
-	"multi_select":     {"multi_select": true},
-	"status":           {"status": true},
-	"relation":         {"relation": true},
-	"rollup":           {"rollup": true},
-	"unique_id":        {"unique_id": true},
-	"title":            {"title": true},
-	"rich_text":        {"rich_text": true},
-	"url":              {"url": true},
-	"people":           {"people": true},
-	"files":            {"files": true},
-	"email":            {"email": true},
-	"phone_number":     {"phone_number": true},
-	"date":             {"date": true},
-	"checkbox":         {"checkbox": true},
-	"created_by":       {"created_by": true},
-	"created_time":     {"created_time": true},
-	"last_edited_by":   {"last_edited_by": true},
-	"last_edited_time": {"last_edited_time": true},
+// tagsOfDatabasePropertyConfigResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfDatabasePropertyConfigResponse = map[string]map[string]jsonTagNeed{
+	"number":           {"number": jsonTagRequired},
+	"formula":          {"formula": jsonTagRequired},
+	"select":           {"select": jsonTagRequired},
+	"multi_select":     {"multi_select": jsonTagRequired},
+	"status":           {"status": jsonTagRequired},
+	"relation":         {"relation": jsonTagRequired},
+	"rollup":           {"rollup": jsonTagRequired},
+	"unique_id":        {"unique_id": jsonTagRequired},
+	"title":            {"title": jsonTagRequired},
+	"rich_text":        {"rich_text": jsonTagRequired},
+	"url":              {"url": jsonTagRequired},
+	"people":           {"people": jsonTagRequired},
+	"files":            {"files": jsonTagRequired},
+	"email":            {"email": jsonTagRequired},
+	"phone_number":     {"phone_number": jsonTagRequired},
+	"date":             {"date": jsonTagRequired},
+	"checkbox":         {"checkbox": jsonTagRequired},
+	"created_by":       {"created_by": jsonTagRequired},
+	"created_time":     {"created_time": jsonTagRequired},
+	"last_edited_by":   {"last_edited_by": jsonTagRequired},
+	"last_edited_time": {"last_edited_time": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -6766,7 +6910,19 @@ func (v *DatabasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 	type plain DatabasePropertyConfigResponse
 
 	*v = DatabasePropertyConfigResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -6775,7 +6931,7 @@ func (v *DatabasePropertyConfigResponse) UnmarshalJSONFrom(dec *jsontext.Decoder
 		v.Type = DatabasePropertyConfigResponseType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyConfigResponse, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyConfigResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -6788,7 +6944,7 @@ func (v *DatabasePropertyConfigResponse) MarshalJSONTo(enc *jsontext.Encoder) er
 		out.Type = DatabasePropertyConfigResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyConfigResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyConfigResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -6818,10 +6974,10 @@ func (e DatabasePropertyRelationConfigResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfDatabasePropertyRelationConfigResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfDatabasePropertyRelationConfigResponse = map[string]map[string]bool{
-	"single_property": {"single_property": true},
-	"dual_property":   {"dual_property": true},
+// tagsOfDatabasePropertyRelationConfigResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfDatabasePropertyRelationConfigResponse = map[string]map[string]jsonTagNeed{
+	"single_property": {"single_property": jsonTagRequired},
+	"dual_property":   {"dual_property": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -6843,7 +6999,19 @@ func (v *DatabasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 	type plain DatabasePropertyRelationConfigResponse
 
 	*v = DatabasePropertyRelationConfigResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -6852,7 +7020,7 @@ func (v *DatabasePropertyRelationConfigResponse) UnmarshalJSONFrom(dec *jsontext
 		v.Type = DatabasePropertyRelationConfigResponseType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfDatabasePropertyRelationConfigResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -6865,7 +7033,7 @@ func (v *DatabasePropertyRelationConfigResponse) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = DatabasePropertyRelationConfigResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyRelationConfigResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfDatabasePropertyRelationConfigResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -8345,10 +8513,10 @@ func (e FileUploadObjectResponseFileImportResultType) Valid() bool {
 	return ok
 }
 
-// tagsOfFileUploadObjectResponseFileImportResult holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfFileUploadObjectResponseFileImportResult = map[string]map[string]bool{
-	"success": {"success": true},
-	"error":   {"error": true},
+// tagsOfFileUploadObjectResponseFileImportResult holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfFileUploadObjectResponseFileImportResult = map[string]map[string]jsonTagNeed{
+	"success": {"success": jsonTagRequired},
+	"error":   {"error": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -8370,11 +8538,23 @@ func (v *FileUploadObjectResponseFileImportResult) UnmarshalJSONFrom(dec *jsonte
 	type plain FileUploadObjectResponseFileImportResult
 
 	*v = FileUploadObjectResponseFileImportResult{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFileUploadObjectResponseFileImportResult, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfFileUploadObjectResponseFileImportResult, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8387,7 +8567,7 @@ func (v *FileUploadObjectResponseFileImportResult) MarshalJSONTo(enc *jsontext.E
 		out.Type = FileUploadObjectResponseFileImportResultType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFileUploadObjectResponseFileImportResult, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFileUploadObjectResponseFileImportResult, set, nil, true); err != nil {
 		return err
 	}
 
@@ -8449,10 +8629,10 @@ func (e FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType) Vali
 	return ok
 }
 
-// tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult = map[string]map[string]bool{
-	"success": {"success": true},
-	"error":   {"error": true},
+// tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult = map[string]map[string]jsonTagNeed{
+	"success": {"success": jsonTagRequired},
+	"error":   {"error": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -8474,11 +8654,23 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Unmarsh
 	type plain FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult
 
 	*v = FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8491,7 +8683,7 @@ func (v *FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult) Marshal
 		out.Type = FileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResultType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFileUploadUploadFailedWebhookPayloadAllOf1DataFileImportResult, set, nil, true); err != nil {
 		return err
 	}
 
@@ -8522,11 +8714,11 @@ func (e FilesItemType) Valid() bool {
 	return ok
 }
 
-// tagsOfFilesItem holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfFilesItem = map[string]map[string]bool{
-	"file":        {"file": true},
-	"external":    {"external": true},
-	"file_upload": {"file_upload": true},
+// tagsOfFilesItem holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfFilesItem = map[string]map[string]jsonTagNeed{
+	"file":        {"file": jsonTagRequired},
+	"external":    {"external": jsonTagRequired},
+	"file_upload": {"file_upload": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -8551,7 +8743,19 @@ func (v *FilesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain FilesItem
 
 	*v = FilesItem{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -8560,7 +8764,7 @@ func (v *FilesItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = FilesItemType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFilesItem, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfFilesItem, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8573,7 +8777,7 @@ func (v *FilesItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = FilesItemType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFilesItem, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFilesItem, set, nil, true); err != nil {
 		return err
 	}
 
@@ -8879,13 +9083,13 @@ func (e FormulaPropertyResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfFormulaPropertyResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfFormulaPropertyResponse = map[string]map[string]bool{
-	"string":      {"string": true},
-	"date":        {"date": false},
-	"number":      {"number": true},
-	"boolean":     {"boolean": true},
-	"unsupported": {"unsupported": true},
+// tagsOfFormulaPropertyResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfFormulaPropertyResponse = map[string]map[string]jsonTagNeed{
+	"string":      {"string": jsonTagRequired},
+	"date":        {"date": jsonTagRequiredOrNull},
+	"number":      {"number": jsonTagRequired},
+	"boolean":     {"boolean": jsonTagRequired},
+	"unsupported": {"unsupported": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -8916,11 +9120,23 @@ func (v *FormulaPropertyResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error
 	type plain FormulaPropertyResponse
 
 	*v = FormulaPropertyResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -8933,7 +9149,7 @@ func (v *FormulaPropertyResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = FormulaPropertyResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -8967,13 +9183,13 @@ func (e FormulaPropertyValueResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfFormulaPropertyValueResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfFormulaPropertyValueResponse = map[string]map[string]bool{
-	"boolean":     {"boolean": false},
-	"date":        {"date": false},
-	"number":      {"number": false},
-	"string":      {"string": false},
-	"unsupported": {"unsupported": true},
+// tagsOfFormulaPropertyValueResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfFormulaPropertyValueResponse = map[string]map[string]jsonTagNeed{
+	"boolean":     {"boolean": jsonTagRequiredOrNull},
+	"date":        {"date": jsonTagRequiredOrNull},
+	"number":      {"number": jsonTagRequiredOrNull},
+	"string":      {"string": jsonTagRequiredOrNull},
+	"unsupported": {"unsupported": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -9004,11 +9220,23 @@ func (v *FormulaPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	type plain FormulaPropertyValueResponse
 
 	*v = FormulaPropertyValueResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyValueResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfFormulaPropertyValueResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -9021,7 +9249,7 @@ func (v *FormulaPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder) erro
 		out.Type = FormulaPropertyValueResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyValueResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfFormulaPropertyValueResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -9980,8 +10208,8 @@ func (e InsertContentInsertContentPositionType) Valid() bool {
 	return ok
 }
 
-// tagsOfInsertContentInsertContentPosition holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfInsertContentInsertContentPosition = map[string]map[string]bool{
+// tagsOfInsertContentInsertContentPosition holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfInsertContentInsertContentPosition = map[string]map[string]jsonTagNeed{
 	"start": {},
 	"end":   {},
 }
@@ -9999,11 +10227,23 @@ func (v *InsertContentInsertContentPosition) UnmarshalJSONFrom(dec *jsontext.Dec
 	type plain InsertContentInsertContentPosition
 
 	*v = InsertContentInsertContentPosition{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfInsertContentInsertContentPosition, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfInsertContentInsertContentPosition, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10016,7 +10256,7 @@ func (v *InsertContentInsertContentPosition) MarshalJSONTo(enc *jsontext.Encoder
 		out.Type = InsertContentInsertContentPositionType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfInsertContentInsertContentPosition, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfInsertContentInsertContentPosition, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10061,10 +10301,10 @@ func (e InternalOrExternalFileWithNameResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfInternalOrExternalFileWithNameResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfInternalOrExternalFileWithNameResponse = map[string]map[string]bool{
-	"file":     {"file": true},
-	"external": {"external": true},
+// tagsOfInternalOrExternalFileWithNameResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfInternalOrExternalFileWithNameResponse = map[string]map[string]jsonTagNeed{
+	"file":     {"file": jsonTagRequired},
+	"external": {"external": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10086,11 +10326,23 @@ func (v *InternalOrExternalFileWithNameResponse) UnmarshalJSONFrom(dec *jsontext
 	type plain InternalOrExternalFileWithNameResponse
 
 	*v = InternalOrExternalFileWithNameResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfInternalOrExternalFileWithNameResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfInternalOrExternalFileWithNameResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10103,7 +10355,7 @@ func (v *InternalOrExternalFileWithNameResponse) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = InternalOrExternalFileWithNameResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfInternalOrExternalFileWithNameResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfInternalOrExternalFileWithNameResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10301,11 +10553,11 @@ func (e LinkToPageLinkToPageType) Valid() bool {
 	return ok
 }
 
-// tagsOfLinkToPageLinkToPage holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfLinkToPageLinkToPage = map[string]map[string]bool{
-	"page_id":     {"page_id": true},
-	"database_id": {"database_id": true},
-	"comment_id":  {"comment_id": true},
+// tagsOfLinkToPageLinkToPage holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfLinkToPageLinkToPage = map[string]map[string]jsonTagNeed{
+	"page_id":     {"page_id": jsonTagRequired},
+	"database_id": {"database_id": jsonTagRequired},
+	"comment_id":  {"comment_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10330,7 +10582,19 @@ func (v *LinkToPageLinkToPage) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain LinkToPageLinkToPage
 
 	*v = LinkToPageLinkToPage{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -10339,7 +10603,7 @@ func (v *LinkToPageLinkToPage) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = LinkToPageLinkToPageType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfLinkToPageLinkToPage, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfLinkToPageLinkToPage, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10352,7 +10616,7 @@ func (v *LinkToPageLinkToPage) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = LinkToPageLinkToPageType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfLinkToPageLinkToPage, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfLinkToPageLinkToPage, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10601,10 +10865,10 @@ func (e MediaContentWithFileAndCaptionRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfMediaContentWithFileAndCaptionRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMediaContentWithFileAndCaptionRequest = map[string]map[string]bool{
-	"external":    {"external": true},
-	"file_upload": {"file_upload": true},
+// tagsOfMediaContentWithFileAndCaptionRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMediaContentWithFileAndCaptionRequest = map[string]map[string]jsonTagNeed{
+	"external":    {"external": jsonTagRequired},
+	"file_upload": {"file_upload": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10626,7 +10890,19 @@ func (v *MediaContentWithFileAndCaptionRequest) UnmarshalJSONFrom(dec *jsontext.
 	type plain MediaContentWithFileAndCaptionRequest
 
 	*v = MediaContentWithFileAndCaptionRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -10635,7 +10911,7 @@ func (v *MediaContentWithFileAndCaptionRequest) UnmarshalJSONFrom(dec *jsontext.
 		v.Type = MediaContentWithFileAndCaptionRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10648,7 +10924,7 @@ func (v *MediaContentWithFileAndCaptionRequest) MarshalJSONTo(enc *jsontext.Enco
 		out.Type = MediaContentWithFileAndCaptionRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10677,10 +10953,10 @@ func (e MediaContentWithFileAndCaptionResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfMediaContentWithFileAndCaptionResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMediaContentWithFileAndCaptionResponse = map[string]map[string]bool{
-	"external": {"external": true},
-	"file":     {"file": true},
+// tagsOfMediaContentWithFileAndCaptionResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMediaContentWithFileAndCaptionResponse = map[string]map[string]jsonTagNeed{
+	"external": {"external": jsonTagRequired},
+	"file":     {"file": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10702,11 +10978,23 @@ func (v *MediaContentWithFileAndCaptionResponse) UnmarshalJSONFrom(dec *jsontext
 	type plain MediaContentWithFileAndCaptionResponse
 
 	*v = MediaContentWithFileAndCaptionResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileAndCaptionResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10719,7 +11007,7 @@ func (v *MediaContentWithFileAndCaptionResponse) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = MediaContentWithFileAndCaptionResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileAndCaptionResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10749,10 +11037,10 @@ func (e MediaContentWithFileNameAndCaptionRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfMediaContentWithFileNameAndCaptionRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMediaContentWithFileNameAndCaptionRequest = map[string]map[string]bool{
-	"external":    {"external": true},
-	"file_upload": {"file_upload": true},
+// tagsOfMediaContentWithFileNameAndCaptionRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMediaContentWithFileNameAndCaptionRequest = map[string]map[string]jsonTagNeed{
+	"external":    {"external": jsonTagRequired},
+	"file_upload": {"file_upload": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10774,7 +11062,19 @@ func (v *MediaContentWithFileNameAndCaptionRequest) UnmarshalJSONFrom(dec *jsont
 	type plain MediaContentWithFileNameAndCaptionRequest
 
 	*v = MediaContentWithFileNameAndCaptionRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -10783,7 +11083,7 @@ func (v *MediaContentWithFileNameAndCaptionRequest) UnmarshalJSONFrom(dec *jsont
 		v.Type = MediaContentWithFileNameAndCaptionRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10796,7 +11096,7 @@ func (v *MediaContentWithFileNameAndCaptionRequest) MarshalJSONTo(enc *jsontext.
 		out.Type = MediaContentWithFileNameAndCaptionRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10826,10 +11126,10 @@ func (e MediaContentWithFileNameAndCaptionResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfMediaContentWithFileNameAndCaptionResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMediaContentWithFileNameAndCaptionResponse = map[string]map[string]bool{
-	"external": {"external": true},
-	"file":     {"file": true},
+// tagsOfMediaContentWithFileNameAndCaptionResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMediaContentWithFileNameAndCaptionResponse = map[string]map[string]jsonTagNeed{
+	"external": {"external": jsonTagRequired},
+	"file":     {"file": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10851,11 +11151,23 @@ func (v *MediaContentWithFileNameAndCaptionResponse) UnmarshalJSONFrom(dec *json
 	type plain MediaContentWithFileNameAndCaptionResponse
 
 	*v = MediaContentWithFileNameAndCaptionResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10868,7 +11180,7 @@ func (v *MediaContentWithFileNameAndCaptionResponse) MarshalJSONTo(enc *jsontext
 		out.Type = MediaContentWithFileNameAndCaptionResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMediaContentWithFileNameAndCaptionResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -10921,14 +11233,14 @@ func (e MentionRichTextItemRequestMentionType) Valid() bool {
 	return ok
 }
 
-// tagsOfMentionRichTextItemRequestMention holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMentionRichTextItemRequestMention = map[string]map[string]bool{
-	"user":             {"user": true},
-	"date":             {"date": true},
-	"page":             {"page": true},
-	"database":         {"database": true},
-	"template_mention": {"template_mention": true},
-	"custom_emoji":     {"custom_emoji": true},
+// tagsOfMentionRichTextItemRequestMention holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMentionRichTextItemRequestMention = map[string]map[string]jsonTagNeed{
+	"user":             {"user": jsonTagRequired},
+	"date":             {"date": jsonTagRequired},
+	"page":             {"page": jsonTagRequired},
+	"database":         {"database": jsonTagRequired},
+	"template_mention": {"template_mention": jsonTagRequired},
+	"custom_emoji":     {"custom_emoji": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -10962,7 +11274,19 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 	type plain MentionRichTextItemRequestMention
 
 	*v = MentionRichTextItemRequestMention{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -10971,7 +11295,7 @@ func (v *MentionRichTextItemRequestMention) UnmarshalJSONFrom(dec *jsontext.Deco
 		v.Type = MentionRichTextItemRequestMentionType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemRequestMention, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemRequestMention, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -10984,7 +11308,7 @@ func (v *MentionRichTextItemRequestMention) MarshalJSONTo(enc *jsontext.Encoder)
 		out.Type = MentionRichTextItemRequestMentionType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemRequestMention, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemRequestMention, set, nil, true); err != nil {
 		return err
 	}
 
@@ -11032,16 +11356,16 @@ func (e MentionRichTextItemResponseMentionType) Valid() bool {
 	return ok
 }
 
-// tagsOfMentionRichTextItemResponseMention holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMentionRichTextItemResponseMention = map[string]map[string]bool{
-	"user":             {"user": true},
-	"date":             {"date": true},
-	"link_preview":     {"link_preview": true},
-	"link_mention":     {"link_mention": true},
-	"page":             {"page": true},
-	"database":         {"database": true},
-	"template_mention": {"template_mention": true},
-	"custom_emoji":     {"custom_emoji": true},
+// tagsOfMentionRichTextItemResponseMention holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMentionRichTextItemResponseMention = map[string]map[string]jsonTagNeed{
+	"user":             {"user": jsonTagRequired},
+	"date":             {"date": jsonTagRequired},
+	"link_preview":     {"link_preview": jsonTagRequired},
+	"link_mention":     {"link_mention": jsonTagRequired},
+	"page":             {"page": jsonTagRequired},
+	"database":         {"database": jsonTagRequired},
+	"template_mention": {"template_mention": jsonTagRequired},
+	"custom_emoji":     {"custom_emoji": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -11081,7 +11405,19 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 	type plain MentionRichTextItemResponseMention
 
 	*v = MentionRichTextItemResponseMention{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -11090,7 +11426,7 @@ func (v *MentionRichTextItemResponseMention) UnmarshalJSONFrom(dec *jsontext.Dec
 		v.Type = MentionRichTextItemResponseMentionType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemResponseMention, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfMentionRichTextItemResponseMention, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -11103,7 +11439,7 @@ func (v *MentionRichTextItemResponseMention) MarshalJSONTo(enc *jsontext.Encoder
 		out.Type = MentionRichTextItemResponseMentionType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemResponseMention, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMentionRichTextItemResponseMention, set, nil, true); err != nil {
 		return err
 	}
 
@@ -11195,10 +11531,10 @@ func (e MovePageParentType) Valid() bool {
 	return ok
 }
 
-// tagsOfMovePageParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfMovePageParent = map[string]map[string]bool{
-	"page_id":        {"page_id": true},
-	"data_source_id": {"data_source_id": true},
+// tagsOfMovePageParent holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfMovePageParent = map[string]map[string]jsonTagNeed{
+	"page_id":        {"page_id": jsonTagRequired},
+	"data_source_id": {"data_source_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -11220,7 +11556,19 @@ func (v *MovePageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain MovePageParent
 
 	*v = MovePageParent{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -11229,7 +11577,7 @@ func (v *MovePageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = MovePageParentType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfMovePageParent, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfMovePageParent, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -11242,7 +11590,7 @@ func (v *MovePageParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = MovePageParentType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfMovePageParent, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfMovePageParent, set, nil, true); err != nil {
 		return err
 	}
 
@@ -11840,10 +12188,10 @@ func (e PageCover2Type) Valid() bool {
 	return ok
 }
 
-// tagsOfPageCover2 holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPageCover2 = map[string]map[string]bool{
-	"file":     {"file": true},
-	"external": {"external": true},
+// tagsOfPageCover2 holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPageCover2 = map[string]map[string]jsonTagNeed{
+	"file":     {"file": jsonTagRequired},
+	"external": {"external": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -11865,11 +12213,23 @@ func (v *PageCover2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageCover2
 
 	*v = PageCover2{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageCover2, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPageCover2, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -11882,7 +12242,7 @@ func (v *PageCover2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PageCover2Type(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCover2, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCover2, set, nil, true); err != nil {
 		return err
 	}
 
@@ -11911,10 +12271,10 @@ func (e PageCoverRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfPageCoverRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPageCoverRequest = map[string]map[string]bool{
-	"file_upload": {"file_upload": true},
-	"external":    {"external": true},
+// tagsOfPageCoverRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPageCoverRequest = map[string]map[string]jsonTagNeed{
+	"file_upload": {"file_upload": jsonTagRequired},
+	"external":    {"external": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -11936,7 +12296,19 @@ func (v *PageCoverRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageCoverRequest
 
 	*v = PageCoverRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -11945,7 +12317,7 @@ func (v *PageCoverRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = PageCoverRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageCoverRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPageCoverRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -11958,7 +12330,7 @@ func (v *PageCoverRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PageCoverRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCoverRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageCoverRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -12032,13 +12404,13 @@ func (e PageIconRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfPageIconRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPageIconRequest = map[string]map[string]bool{
-	"file_upload":  {"file_upload": true},
-	"emoji":        {"emoji": true},
-	"external":     {"external": true},
-	"custom_emoji": {"custom_emoji": true},
-	"icon":         {"icon": true},
+// tagsOfPageIconRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPageIconRequest = map[string]map[string]jsonTagNeed{
+	"file_upload":  {"file_upload": jsonTagRequired},
+	"emoji":        {"emoji": jsonTagRequired},
+	"external":     {"external": jsonTagRequired},
+	"custom_emoji": {"custom_emoji": jsonTagRequired},
+	"icon":         {"icon": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -12069,7 +12441,19 @@ func (v *PageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageIconRequest
 
 	*v = PageIconRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -12078,7 +12462,7 @@ func (v *PageIconRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = PageIconRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageIconRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPageIconRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -12091,7 +12475,7 @@ func (v *PageIconRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PageIconRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -12130,13 +12514,13 @@ func (e PageIconResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfPageIconResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPageIconResponse = map[string]map[string]bool{
-	"emoji":        {"emoji": true},
-	"file":         {"file": true},
-	"external":     {"external": true},
-	"custom_emoji": {"custom_emoji": true},
-	"icon":         {"icon": true},
+// tagsOfPageIconResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPageIconResponse = map[string]map[string]jsonTagNeed{
+	"emoji":        {"emoji": jsonTagRequired},
+	"file":         {"file": jsonTagRequired},
+	"external":     {"external": jsonTagRequired},
+	"custom_emoji": {"custom_emoji": jsonTagRequired},
+	"icon":         {"icon": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -12167,7 +12551,19 @@ func (v *PageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PageIconResponse
 
 	*v = PageIconResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -12176,7 +12572,7 @@ func (v *PageIconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = PageIconResponseType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPageIconResponse, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPageIconResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -12189,7 +12585,7 @@ func (v *PageIconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PageIconResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPageIconResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -12438,9 +12834,9 @@ func (e PagePositionSchemaType) Valid() bool {
 	return ok
 }
 
-// tagsOfPagePositionSchema holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPagePositionSchema = map[string]map[string]bool{
-	"after_block": {"after_block": true},
+// tagsOfPagePositionSchema holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPagePositionSchema = map[string]map[string]jsonTagNeed{
+	"after_block": {"after_block": jsonTagRequired},
 	"page_start":  {},
 	"page_end":    {},
 }
@@ -12461,11 +12857,23 @@ func (v *PagePositionSchema) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PagePositionSchema
 
 	*v = PagePositionSchema{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPagePositionSchema, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPagePositionSchema, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -12478,7 +12886,7 @@ func (v *PagePositionSchema) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PagePositionSchemaType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePositionSchema, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePositionSchema, set, nil, true); err != nil {
 		return err
 	}
 
@@ -12559,24 +12967,24 @@ func (e PagePropertiesValueType) Valid() bool {
 	return ok
 }
 
-// tagsOfPagePropertiesValue holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPagePropertiesValue = map[string]map[string]bool{
-	"title":        {"title": true},
-	"rich_text":    {"rich_text": true},
-	"number":       {"number": true},
-	"url":          {"url": false},
-	"select":       {"select": false},
-	"multi_select": {"multi_select": true},
-	"people":       {"people": true},
-	"email":        {"email": false},
-	"phone_number": {"phone_number": false},
-	"date":         {"date": false},
-	"checkbox":     {"checkbox": true},
-	"relation":     {"relation": true},
-	"files":        {"files": true},
-	"status":       {"status": false},
-	"place":        {"place": true},
-	"verification": {"verification": true},
+// tagsOfPagePropertiesValue holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPagePropertiesValue = map[string]map[string]jsonTagNeed{
+	"title":        {"title": jsonTagRequired},
+	"rich_text":    {"rich_text": jsonTagRequired},
+	"number":       {"number": jsonTagRequired},
+	"url":          {"url": jsonTagRequiredOrNull},
+	"select":       {"select": jsonTagRequiredOrNull},
+	"multi_select": {"multi_select": jsonTagRequired},
+	"people":       {"people": jsonTagRequired},
+	"email":        {"email": jsonTagRequiredOrNull},
+	"phone_number": {"phone_number": jsonTagRequiredOrNull},
+	"date":         {"date": jsonTagRequiredOrNull},
+	"checkbox":     {"checkbox": jsonTagRequired},
+	"relation":     {"relation": jsonTagRequired},
+	"files":        {"files": jsonTagRequired},
+	"status":       {"status": jsonTagRequiredOrNull},
+	"place":        {"place": jsonTagRequired},
+	"verification": {"verification": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -12640,7 +13048,19 @@ func (v *PagePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PagePropertiesValue
 
 	*v = PagePropertiesValue{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -12649,7 +13069,7 @@ func (v *PagePropertiesValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = PagePropertiesValueType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertiesValue, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertiesValue, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -12662,7 +13082,7 @@ func (v *PagePropertiesValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PagePropertiesValueType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertiesValue, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertiesValue, set, nil, true); err != nil {
 		return err
 	}
 
@@ -12735,32 +13155,32 @@ func (e PagePropertyValueWithIDResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfPagePropertyValueWithIDResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPagePropertyValueWithIDResponse = map[string]map[string]bool{
-	"number":           {"number": false},
-	"url":              {"url": false},
-	"select":           {"select": false},
-	"multi_select":     {"multi_select": true},
-	"status":           {"status": false},
-	"date":             {"date": false},
-	"email":            {"email": false},
-	"phone_number":     {"phone_number": false},
-	"checkbox":         {"checkbox": true},
-	"files":            {"files": true},
-	"created_by":       {"created_by": true},
-	"created_time":     {"created_time": true},
-	"last_edited_by":   {"last_edited_by": true},
-	"last_edited_time": {"last_edited_time": true},
-	"formula":          {"formula": true},
-	"button":           {"button": true},
-	"unique_id":        {"unique_id": true},
-	"verification":     {"verification": false},
-	"place":            {"place": false},
-	"title":            {"title": true},
-	"rich_text":        {"rich_text": true},
-	"people":           {"people": true},
-	"relation":         {"relation": true},
-	"rollup":           {"rollup": true},
+// tagsOfPagePropertyValueWithIDResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPagePropertyValueWithIDResponse = map[string]map[string]jsonTagNeed{
+	"number":           {"number": jsonTagRequiredOrNull},
+	"url":              {"url": jsonTagRequiredOrNull},
+	"select":           {"select": jsonTagRequiredOrNull},
+	"multi_select":     {"multi_select": jsonTagRequired},
+	"status":           {"status": jsonTagRequiredOrNull},
+	"date":             {"date": jsonTagRequiredOrNull},
+	"email":            {"email": jsonTagRequiredOrNull},
+	"phone_number":     {"phone_number": jsonTagRequiredOrNull},
+	"checkbox":         {"checkbox": jsonTagRequired},
+	"files":            {"files": jsonTagRequired},
+	"created_by":       {"created_by": jsonTagRequired},
+	"created_time":     {"created_time": jsonTagRequired},
+	"last_edited_by":   {"last_edited_by": jsonTagRequired},
+	"last_edited_time": {"last_edited_time": jsonTagRequired},
+	"formula":          {"formula": jsonTagRequired},
+	"button":           {"button": jsonTagRequired},
+	"unique_id":        {"unique_id": jsonTagRequired},
+	"verification":     {"verification": jsonTagRequiredOrNull},
+	"place":            {"place": jsonTagRequiredOrNull},
+	"title":            {"title": jsonTagRequired},
+	"rich_text":        {"rich_text": jsonTagRequired},
+	"people":           {"people": jsonTagRequired},
+	"relation":         {"relation": jsonTagRequired},
+	"rollup":           {"rollup": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -12848,11 +13268,23 @@ func (v *PagePropertyValueWithIDResponse) UnmarshalJSONFrom(dec *jsontext.Decode
 	type plain PagePropertyValueWithIDResponse
 
 	*v = PagePropertyValueWithIDResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertyValueWithIDResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPagePropertyValueWithIDResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -12865,7 +13297,7 @@ func (v *PagePropertyValueWithIDResponse) MarshalJSONTo(enc *jsontext.Encoder) e
 		out.Type = PagePropertyValueWithIDResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertyValueWithIDResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPagePropertyValueWithIDResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -13006,14 +13438,14 @@ func (e ParentForBlockBasedObjectResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfParentForBlockBasedObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfParentForBlockBasedObjectResponse = map[string]map[string]bool{
-	"database_id":    {"database_id": true},
-	"data_source_id": {"data_source_id": true, "database_id": true},
-	"page_id":        {"page_id": true},
-	"block_id":       {"block_id": true},
-	"agent_id":       {"agent_id": true},
-	"workspace":      {"workspace": true},
+// tagsOfParentForBlockBasedObjectResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfParentForBlockBasedObjectResponse = map[string]map[string]jsonTagNeed{
+	"database_id":    {"database_id": jsonTagRequired},
+	"data_source_id": {"data_source_id": jsonTagRequired, "database_id": jsonTagRequired},
+	"page_id":        {"page_id": jsonTagRequired},
+	"block_id":       {"block_id": jsonTagRequired},
+	"agent_id":       {"agent_id": jsonTagRequired},
+	"workspace":      {"workspace": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -13047,11 +13479,23 @@ func (v *ParentForBlockBasedObjectResponse) UnmarshalJSONFrom(dec *jsontext.Deco
 	type plain ParentForBlockBasedObjectResponse
 
 	*v = ParentForBlockBasedObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfParentForBlockBasedObjectResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfParentForBlockBasedObjectResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -13064,7 +13508,7 @@ func (v *ParentForBlockBasedObjectResponse) MarshalJSONTo(enc *jsontext.Encoder)
 		out.Type = ParentForBlockBasedObjectResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfParentForBlockBasedObjectResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfParentForBlockBasedObjectResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -13102,10 +13546,10 @@ func (e ParentOfDataSourceResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfParentOfDataSourceResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfParentOfDataSourceResponse = map[string]map[string]bool{
+// tagsOfParentOfDataSourceResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfParentOfDataSourceResponse = map[string]map[string]jsonTagNeed{
 	"database_id":    {},
-	"data_source_id": {"data_source_id": true},
+	"data_source_id": {"data_source_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -13124,11 +13568,23 @@ func (v *ParentOfDataSourceResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	type plain ParentOfDataSourceResponse
 
 	*v = ParentOfDataSourceResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDataSourceResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDataSourceResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -13141,7 +13597,7 @@ func (v *ParentOfDataSourceResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		out.Type = ParentOfDataSourceResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDataSourceResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDataSourceResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -13177,12 +13633,12 @@ func (e ParentOfDatabaseResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfParentOfDatabaseResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfParentOfDatabaseResponse = map[string]map[string]bool{
-	"page_id":     {"page_id": true},
-	"workspace":   {"workspace": true},
-	"database_id": {"database_id": true},
-	"block_id":    {"block_id": true},
+// tagsOfParentOfDatabaseResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfParentOfDatabaseResponse = map[string]map[string]jsonTagNeed{
+	"page_id":     {"page_id": jsonTagRequired},
+	"workspace":   {"workspace": jsonTagRequired},
+	"database_id": {"database_id": jsonTagRequired},
+	"block_id":    {"block_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -13210,11 +13666,23 @@ func (v *ParentOfDatabaseResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) erro
 	type plain ParentOfDatabaseResponse
 
 	*v = ParentOfDatabaseResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDatabaseResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfParentOfDatabaseResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -13227,7 +13695,7 @@ func (v *ParentOfDatabaseResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = ParentOfDatabaseResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDatabaseResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfParentOfDatabaseResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -13318,12 +13786,12 @@ func (e PartialRollupValueResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfPartialRollupValueResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPartialRollupValueResponse = map[string]map[string]bool{
-	"number":      {"number": false},
-	"date":        {"date": false},
-	"array":       {"array": true},
-	"unsupported": {"unsupported": true},
+// tagsOfPartialRollupValueResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPartialRollupValueResponse = map[string]map[string]jsonTagNeed{
+	"number":      {"number": jsonTagRequiredOrNull},
+	"date":        {"date": jsonTagRequiredOrNull},
+	"array":       {"array": jsonTagRequired},
+	"unsupported": {"unsupported": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -13351,11 +13819,23 @@ func (v *PartialRollupValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	type plain PartialRollupValueResponse
 
 	*v = PartialRollupValueResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPartialRollupValueResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPartialRollupValueResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -13368,7 +13848,7 @@ func (v *PartialRollupValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		out.Type = PartialRollupValueResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPartialRollupValueResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPartialRollupValueResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -13452,10 +13932,10 @@ func (e PatchPageTemplateType) Valid() bool {
 	return ok
 }
 
-// tagsOfPatchPageTemplate holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPatchPageTemplate = map[string]map[string]bool{
+// tagsOfPatchPageTemplate holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPatchPageTemplate = map[string]map[string]jsonTagNeed{
 	"default":     {},
-	"template_id": {"template_id": true},
+	"template_id": {"template_id": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -13474,11 +13954,23 @@ func (v *PatchPageTemplate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PatchPageTemplate
 
 	*v = PatchPageTemplate{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPatchPageTemplate, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPatchPageTemplate, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -13491,7 +13983,7 @@ func (v *PatchPageTemplate) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PatchPageTemplateType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPatchPageTemplate, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPatchPageTemplate, set, nil, true); err != nil {
 		return err
 	}
 
@@ -14299,12 +14791,12 @@ func (e PostPageParentType) Valid() bool {
 	return ok
 }
 
-// tagsOfPostPageParent holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPostPageParent = map[string]map[string]bool{
-	"page_id":        {"page_id": true},
-	"database_id":    {"database_id": true},
-	"data_source_id": {"data_source_id": true},
-	"workspace":      {"workspace": true},
+// tagsOfPostPageParent holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPostPageParent = map[string]map[string]jsonTagNeed{
+	"page_id":        {"page_id": jsonTagRequired},
+	"database_id":    {"database_id": jsonTagRequired},
+	"data_source_id": {"data_source_id": jsonTagRequired},
+	"workspace":      {"workspace": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -14332,7 +14824,19 @@ func (v *PostPageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PostPageParent
 
 	*v = PostPageParent{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -14341,7 +14845,7 @@ func (v *PostPageParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = PostPageParentType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPostPageParent, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPostPageParent, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -14354,7 +14858,7 @@ func (v *PostPageParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PostPageParentType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPostPageParent, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPostPageParent, set, nil, true); err != nil {
 		return err
 	}
 
@@ -14712,34 +15216,34 @@ func (e PropertyConfigurationRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfPropertyConfigurationRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPropertyConfigurationRequest = map[string]map[string]bool{
-	"number":            {"number": true},
-	"formula":           {"formula": true},
-	"select":            {"select": true},
-	"multi_select":      {"multi_select": true},
-	"status":            {"status": true},
-	"relation":          {"relation": true},
-	"rollup":            {"rollup": true},
-	"unique_id":         {"unique_id": true},
-	"title":             {"title": true},
-	"rich_text":         {"rich_text": true},
-	"url":               {"url": true},
-	"people":            {"people": true},
-	"files":             {"files": true},
-	"email":             {"email": true},
-	"phone_number":      {"phone_number": true},
-	"date":              {"date": true},
-	"checkbox":          {"checkbox": true},
-	"created_by":        {"created_by": true},
-	"created_time":      {"created_time": true},
-	"last_edited_by":    {"last_edited_by": true},
-	"last_edited_time":  {"last_edited_time": true},
-	"button":            {"button": true},
-	"location":          {"location": true},
-	"verification":      {"verification": true},
-	"last_visited_time": {"last_visited_time": true},
-	"place":             {"place": true},
+// tagsOfPropertyConfigurationRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPropertyConfigurationRequest = map[string]map[string]jsonTagNeed{
+	"number":            {"number": jsonTagRequired},
+	"formula":           {"formula": jsonTagRequired},
+	"select":            {"select": jsonTagRequired},
+	"multi_select":      {"multi_select": jsonTagRequired},
+	"status":            {"status": jsonTagRequired},
+	"relation":          {"relation": jsonTagRequired},
+	"rollup":            {"rollup": jsonTagRequired},
+	"unique_id":         {"unique_id": jsonTagRequired},
+	"title":             {"title": jsonTagRequired},
+	"rich_text":         {"rich_text": jsonTagRequired},
+	"url":               {"url": jsonTagRequired},
+	"people":            {"people": jsonTagRequired},
+	"files":             {"files": jsonTagRequired},
+	"email":             {"email": jsonTagRequired},
+	"phone_number":      {"phone_number": jsonTagRequired},
+	"date":              {"date": jsonTagRequired},
+	"checkbox":          {"checkbox": jsonTagRequired},
+	"created_by":        {"created_by": jsonTagRequired},
+	"created_time":      {"created_time": jsonTagRequired},
+	"last_edited_by":    {"last_edited_by": jsonTagRequired},
+	"last_edited_time":  {"last_edited_time": jsonTagRequired},
+	"button":            {"button": jsonTagRequired},
+	"location":          {"location": jsonTagRequired},
+	"verification":      {"verification": jsonTagRequired},
+	"last_visited_time": {"last_visited_time": jsonTagRequired},
+	"place":             {"place": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -14833,7 +15337,19 @@ func (v *PropertyConfigurationRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 	type plain PropertyConfigurationRequest
 
 	*v = PropertyConfigurationRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -14842,7 +15358,7 @@ func (v *PropertyConfigurationRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) 
 		v.Type = PropertyConfigurationRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPropertyConfigurationRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPropertyConfigurationRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -14855,7 +15371,7 @@ func (v *PropertyConfigurationRequest) MarshalJSONTo(enc *jsontext.Encoder) erro
 		out.Type = PropertyConfigurationRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyConfigurationRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyConfigurationRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -14927,30 +15443,30 @@ func (e PropertyFilterType) Valid() bool {
 	return ok
 }
 
-// tagsOfPropertyFilter holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPropertyFilter = map[string]map[string]bool{
-	"title":            {"title": true},
-	"rich_text":        {"rich_text": true},
-	"number":           {"number": true},
-	"checkbox":         {"checkbox": true},
-	"select":           {"select": true},
-	"multi_select":     {"multi_select": true},
-	"status":           {"status": true},
-	"date":             {"date": true},
-	"people":           {"people": true},
-	"files":            {"files": true},
-	"url":              {"url": true},
-	"email":            {"email": true},
-	"phone_number":     {"phone_number": true},
-	"relation":         {"relation": true},
-	"created_by":       {"created_by": true},
-	"created_time":     {"created_time": true},
-	"last_edited_by":   {"last_edited_by": true},
-	"last_edited_time": {"last_edited_time": true},
-	"formula":          {"formula": true},
-	"unique_id":        {"unique_id": true},
-	"rollup":           {"rollup": true},
-	"verification":     {"verification": true},
+// tagsOfPropertyFilter holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPropertyFilter = map[string]map[string]jsonTagNeed{
+	"title":            {"title": jsonTagRequired},
+	"rich_text":        {"rich_text": jsonTagRequired},
+	"number":           {"number": jsonTagRequired},
+	"checkbox":         {"checkbox": jsonTagRequired},
+	"select":           {"select": jsonTagRequired},
+	"multi_select":     {"multi_select": jsonTagRequired},
+	"status":           {"status": jsonTagRequired},
+	"date":             {"date": jsonTagRequired},
+	"people":           {"people": jsonTagRequired},
+	"files":            {"files": jsonTagRequired},
+	"url":              {"url": jsonTagRequired},
+	"email":            {"email": jsonTagRequired},
+	"phone_number":     {"phone_number": jsonTagRequired},
+	"relation":         {"relation": jsonTagRequired},
+	"created_by":       {"created_by": jsonTagRequired},
+	"created_time":     {"created_time": jsonTagRequired},
+	"last_edited_by":   {"last_edited_by": jsonTagRequired},
+	"last_edited_time": {"last_edited_time": jsonTagRequired},
+	"formula":          {"formula": jsonTagRequired},
+	"unique_id":        {"unique_id": jsonTagRequired},
+	"rollup":           {"rollup": jsonTagRequired},
+	"verification":     {"verification": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -15032,7 +15548,19 @@ func (v *PropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyFilter
 
 	*v = PropertyFilter{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -15041,7 +15569,7 @@ func (v *PropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = PropertyFilterType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPropertyFilter, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfPropertyFilter, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -15054,7 +15582,7 @@ func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = PropertyFilterType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyFilter, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyFilter, set, nil, true); err != nil {
 		return err
 	}
 
@@ -15128,32 +15656,32 @@ func (e PropertyItemObjectResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfPropertyItemObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPropertyItemObjectResponse = map[string]map[string]bool{
-	"number":           {"number": true},
-	"url":              {"url": true},
-	"select":           {"select": false},
-	"multi_select":     {"multi_select": true},
-	"status":           {"status": false},
-	"date":             {"date": false},
-	"email":            {"email": true},
-	"phone_number":     {"phone_number": true},
-	"checkbox":         {"checkbox": true},
-	"files":            {"files": true},
-	"created_by":       {"created_by": true},
-	"created_time":     {"created_time": true},
-	"last_edited_by":   {"last_edited_by": true},
-	"last_edited_time": {"last_edited_time": true},
-	"formula":          {"formula": true},
-	"button":           {"button": true},
-	"unique_id":        {"unique_id": true},
-	"verification":     {"verification": false},
-	"place":            {"place": true},
-	"title":            {"title": true},
-	"rich_text":        {"rich_text": true},
-	"people":           {"people": true},
-	"relation":         {"relation": true},
-	"rollup":           {"rollup": true},
+// tagsOfPropertyItemObjectResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPropertyItemObjectResponse = map[string]map[string]jsonTagNeed{
+	"number":           {"number": jsonTagRequired},
+	"url":              {"url": jsonTagRequired},
+	"select":           {"select": jsonTagRequiredOrNull},
+	"multi_select":     {"multi_select": jsonTagRequired},
+	"status":           {"status": jsonTagRequiredOrNull},
+	"date":             {"date": jsonTagRequiredOrNull},
+	"email":            {"email": jsonTagRequired},
+	"phone_number":     {"phone_number": jsonTagRequired},
+	"checkbox":         {"checkbox": jsonTagRequired},
+	"files":            {"files": jsonTagRequired},
+	"created_by":       {"created_by": jsonTagRequired},
+	"created_time":     {"created_time": jsonTagRequired},
+	"last_edited_by":   {"last_edited_by": jsonTagRequired},
+	"last_edited_time": {"last_edited_time": jsonTagRequired},
+	"formula":          {"formula": jsonTagRequired},
+	"button":           {"button": jsonTagRequired},
+	"unique_id":        {"unique_id": jsonTagRequired},
+	"verification":     {"verification": jsonTagRequiredOrNull},
+	"place":            {"place": jsonTagRequired},
+	"title":            {"title": jsonTagRequired},
+	"rich_text":        {"rich_text": jsonTagRequired},
+	"people":           {"people": jsonTagRequired},
+	"relation":         {"relation": jsonTagRequired},
+	"rollup":           {"rollup": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -15241,11 +15769,23 @@ func (v *PropertyItemObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) er
 	type plain PropertyItemObjectResponse
 
 	*v = PropertyItemObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemObjectResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemObjectResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -15258,7 +15798,7 @@ func (v *PropertyItemObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error 
 		out.Type = PropertyItemObjectResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemObjectResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemObjectResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -15304,13 +15844,13 @@ func (e PropertyItemPropertyItemListResponsePropertyItemType) Valid() bool {
 	return ok
 }
 
-// tagsOfPropertyItemPropertyItemListResponsePropertyItem holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfPropertyItemPropertyItemListResponsePropertyItem = map[string]map[string]bool{
-	"title":     {"title": true},
-	"rich_text": {"rich_text": true},
-	"people":    {"people": true},
-	"relation":  {"relation": true},
-	"rollup":    {"rollup": true},
+// tagsOfPropertyItemPropertyItemListResponsePropertyItem holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfPropertyItemPropertyItemListResponsePropertyItem = map[string]map[string]jsonTagNeed{
+	"title":     {"title": jsonTagRequired},
+	"rich_text": {"rich_text": jsonTagRequired},
+	"people":    {"people": jsonTagRequired},
+	"relation":  {"relation": jsonTagRequired},
+	"rollup":    {"rollup": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -15341,11 +15881,23 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) UnmarshalJSONFrom(dec
 	type plain PropertyItemPropertyItemListResponsePropertyItem
 
 	*v = PropertyItemPropertyItemListResponsePropertyItem{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -15358,7 +15910,7 @@ func (v *PropertyItemPropertyItemListResponsePropertyItem) MarshalJSONTo(enc *js
 		out.Type = PropertyItemPropertyItemListResponsePropertyItemType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfPropertyItemPropertyItemListResponsePropertyItem, set, nil, true); err != nil {
 		return err
 	}
 
@@ -16369,14 +16921,14 @@ func (e QueryAgentsOkResultsItemOneOf1IconType) Valid() bool {
 	return ok
 }
 
-// tagsOfQueryAgentsOkResultsItemOneOf1Icon holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfQueryAgentsOkResultsItemOneOf1Icon = map[string]map[string]bool{
-	"emoji":               {"emoji": true},
-	"file":                {"file": true},
-	"external":            {"external": true},
-	"custom_emoji":        {"custom_emoji": true},
-	"icon":                {"icon": true},
-	"custom_agent_avatar": {"custom_agent_avatar": true},
+// tagsOfQueryAgentsOkResultsItemOneOf1Icon holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfQueryAgentsOkResultsItemOneOf1Icon = map[string]map[string]jsonTagNeed{
+	"emoji":               {"emoji": jsonTagRequired},
+	"file":                {"file": jsonTagRequired},
+	"external":            {"external": jsonTagRequired},
+	"custom_emoji":        {"custom_emoji": jsonTagRequired},
+	"icon":                {"icon": jsonTagRequired},
+	"custom_agent_avatar": {"custom_agent_avatar": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -16410,7 +16962,19 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) UnmarshalJSONFrom(dec *jsontext.Dec
 	type plain QueryAgentsOkResultsItemOneOf1Icon
 
 	*v = QueryAgentsOkResultsItemOneOf1Icon{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -16419,7 +16983,7 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) UnmarshalJSONFrom(dec *jsontext.Dec
 		v.Type = QueryAgentsOkResultsItemOneOf1IconType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfQueryAgentsOkResultsItemOneOf1Icon, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfQueryAgentsOkResultsItemOneOf1Icon, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -16432,7 +16996,7 @@ func (v *QueryAgentsOkResultsItemOneOf1Icon) MarshalJSONTo(enc *jsontext.Encoder
 		out.Type = QueryAgentsOkResultsItemOneOf1IconType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfQueryAgentsOkResultsItemOneOf1Icon, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfQueryAgentsOkResultsItemOneOf1Icon, set, nil, true); err != nil {
 		return err
 	}
 
@@ -19090,10 +19654,10 @@ func (e RelationType) Valid() bool {
 	return ok
 }
 
-// tagsOfRelation holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfRelation = map[string]map[string]bool{
-	"single_property": {"single_property": true},
-	"dual_property":   {"dual_property": true},
+// tagsOfRelation holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfRelation = map[string]map[string]jsonTagNeed{
+	"single_property": {"single_property": jsonTagRequired},
+	"dual_property":   {"dual_property": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -19115,7 +19679,19 @@ func (v *Relation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Relation
 
 	*v = Relation{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -19124,7 +19700,7 @@ func (v *Relation) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = RelationType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRelation, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfRelation, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -19137,7 +19713,7 @@ func (v *Relation) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = RelationType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRelation, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRelation, set, nil, true); err != nil {
 		return err
 	}
 
@@ -19165,10 +19741,10 @@ func (e RelationAllOf2Type) Valid() bool {
 	return ok
 }
 
-// tagsOfRelationAllOf2 holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfRelationAllOf2 = map[string]map[string]bool{
-	"single_property": {"single_property": true},
-	"dual_property":   {"dual_property": true},
+// tagsOfRelationAllOf2 holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfRelationAllOf2 = map[string]map[string]jsonTagNeed{
+	"single_property": {"single_property": jsonTagRequired},
+	"dual_property":   {"dual_property": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -19190,7 +19766,19 @@ func (v *RelationAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RelationAllOf2
 
 	*v = RelationAllOf2{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -19199,7 +19787,7 @@ func (v *RelationAllOf2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = RelationAllOf2Type(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRelationAllOf2, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfRelationAllOf2, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -19212,7 +19800,7 @@ func (v *RelationAllOf2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = RelationAllOf2Type(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRelationAllOf2, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRelationAllOf2, set, nil, true); err != nil {
 		return err
 	}
 
@@ -20667,11 +21255,11 @@ func (e RichTextItemRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfRichTextItemRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfRichTextItemRequest = map[string]map[string]bool{
-	"text":     {"text": true},
-	"mention":  {"mention": true},
-	"equation": {"equation": true},
+// tagsOfRichTextItemRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfRichTextItemRequest = map[string]map[string]jsonTagNeed{
+	"text":     {"text": jsonTagRequired},
+	"mention":  {"mention": jsonTagRequired},
+	"equation": {"equation": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -20696,7 +21284,19 @@ func (v *RichTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RichTextItemRequest
 
 	*v = RichTextItemRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -20705,7 +21305,7 @@ func (v *RichTextItemRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = RichTextItemRequestType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemRequest, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -20718,7 +21318,7 @@ func (v *RichTextItemRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = RichTextItemRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -20757,11 +21357,11 @@ func (e RichTextItemResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfRichTextItemResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfRichTextItemResponse = map[string]map[string]bool{
-	"text":     {"text": true},
-	"mention":  {"mention": true},
-	"equation": {"equation": true},
+// tagsOfRichTextItemResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfRichTextItemResponse = map[string]map[string]jsonTagNeed{
+	"text":     {"text": jsonTagRequired},
+	"mention":  {"mention": jsonTagRequired},
+	"equation": {"equation": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -20786,7 +21386,19 @@ func (v *RichTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain RichTextItemResponse
 
 	*v = RichTextItemResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -20795,7 +21407,7 @@ func (v *RichTextItemResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = RichTextItemResponseType(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemResponse, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfRichTextItemResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -20808,7 +21420,7 @@ func (v *RichTextItemResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = RichTextItemResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRichTextItemResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -21026,13 +21638,13 @@ func (e Rollup4Type) Valid() bool {
 	return ok
 }
 
-// tagsOfRollup4 holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfRollup4 = map[string]map[string]bool{
-	"number":      {"number": true},
-	"date":        {"date": false},
-	"array":       {"array": true},
-	"unsupported": {"unsupported": true},
-	"incomplete":  {"incomplete": true},
+// tagsOfRollup4 holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfRollup4 = map[string]map[string]jsonTagNeed{
+	"number":      {"number": jsonTagRequired},
+	"date":        {"date": jsonTagRequiredOrNull},
+	"array":       {"array": jsonTagRequired},
+	"unsupported": {"unsupported": jsonTagRequired},
+	"incomplete":  {"incomplete": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -21063,11 +21675,23 @@ func (v *Rollup4) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Rollup4
 
 	*v = Rollup4{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfRollup4, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfRollup4, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -21080,7 +21704,7 @@ func (v *Rollup4) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = Rollup4Type(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfRollup4, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfRollup4, set, nil, true); err != nil {
 		return err
 	}
 
@@ -21978,31 +22602,31 @@ func (e SimpleOrArrayPropertyValueResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfSimpleOrArrayPropertyValueResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfSimpleOrArrayPropertyValueResponse = map[string]map[string]bool{
-	"number":           {"number": false},
-	"url":              {"url": false},
-	"select":           {"select": false},
-	"multi_select":     {"multi_select": true},
-	"status":           {"status": false},
-	"date":             {"date": false},
-	"email":            {"email": false},
-	"phone_number":     {"phone_number": false},
-	"checkbox":         {"checkbox": true},
-	"files":            {"files": true},
-	"created_by":       {"created_by": true},
-	"created_time":     {"created_time": true},
-	"last_edited_by":   {"last_edited_by": true},
-	"last_edited_time": {"last_edited_time": true},
-	"formula":          {"formula": true},
-	"button":           {"button": true},
-	"unique_id":        {"unique_id": true},
-	"verification":     {"verification": false},
-	"place":            {"place": false},
-	"title":            {"title": true},
-	"rich_text":        {"rich_text": true},
-	"people":           {"people": true},
-	"relation":         {"relation": true},
+// tagsOfSimpleOrArrayPropertyValueResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfSimpleOrArrayPropertyValueResponse = map[string]map[string]jsonTagNeed{
+	"number":           {"number": jsonTagRequiredOrNull},
+	"url":              {"url": jsonTagRequiredOrNull},
+	"select":           {"select": jsonTagRequiredOrNull},
+	"multi_select":     {"multi_select": jsonTagRequired},
+	"status":           {"status": jsonTagRequiredOrNull},
+	"date":             {"date": jsonTagRequiredOrNull},
+	"email":            {"email": jsonTagRequiredOrNull},
+	"phone_number":     {"phone_number": jsonTagRequiredOrNull},
+	"checkbox":         {"checkbox": jsonTagRequired},
+	"files":            {"files": jsonTagRequired},
+	"created_by":       {"created_by": jsonTagRequired},
+	"created_time":     {"created_time": jsonTagRequired},
+	"last_edited_by":   {"last_edited_by": jsonTagRequired},
+	"last_edited_time": {"last_edited_time": jsonTagRequired},
+	"formula":          {"formula": jsonTagRequired},
+	"button":           {"button": jsonTagRequired},
+	"unique_id":        {"unique_id": jsonTagRequired},
+	"verification":     {"verification": jsonTagRequiredOrNull},
+	"place":            {"place": jsonTagRequiredOrNull},
+	"title":            {"title": jsonTagRequired},
+	"rich_text":        {"rich_text": jsonTagRequired},
+	"people":           {"people": jsonTagRequired},
+	"relation":         {"relation": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -22087,11 +22711,23 @@ func (v *SimpleOrArrayPropertyValueResponse) UnmarshalJSONFrom(dec *jsontext.Dec
 	type plain SimpleOrArrayPropertyValueResponse
 
 	*v = SimpleOrArrayPropertyValueResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfSimpleOrArrayPropertyValueResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfSimpleOrArrayPropertyValueResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -22104,7 +22740,7 @@ func (v *SimpleOrArrayPropertyValueResponse) MarshalJSONTo(enc *jsontext.Encoder
 		out.Type = SimpleOrArrayPropertyValueResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfSimpleOrArrayPropertyValueResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfSimpleOrArrayPropertyValueResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -22686,10 +23322,10 @@ func (e TemplateMention2Type) Valid() bool {
 	return ok
 }
 
-// tagsOfTemplateMention2 holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfTemplateMention2 = map[string]map[string]bool{
-	"template_mention_date": {"template_mention_date": true},
-	"template_mention_user": {"template_mention_user": true},
+// tagsOfTemplateMention2 holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfTemplateMention2 = map[string]map[string]jsonTagNeed{
+	"template_mention_date": {"template_mention_date": jsonTagRequired},
+	"template_mention_user": {"template_mention_user": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -22711,7 +23347,19 @@ func (v *TemplateMention2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain TemplateMention2
 
 	*v = TemplateMention2{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -22720,7 +23368,7 @@ func (v *TemplateMention2) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = TemplateMention2Type(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfTemplateMention2, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfTemplateMention2, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -22733,7 +23381,7 @@ func (v *TemplateMention2) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = TemplateMention2Type(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfTemplateMention2, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfTemplateMention2, set, nil, true); err != nil {
 		return err
 	}
 
@@ -23565,38 +24213,38 @@ func (e UpdateABlockAnyOf0Type) Valid() bool {
 	return ok
 }
 
-// tagsOfUpdateABlockAnyOf0 holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfUpdateABlockAnyOf0 = map[string]map[string]bool{
-	"embed":              {"embed": true},
-	"bookmark":           {"bookmark": true},
-	"image":              {"image": true},
-	"video":              {"video": true},
-	"pdf":                {"pdf": true},
-	"file":               {"file": true},
-	"audio":              {"audio": true},
-	"code":               {"code": true},
-	"equation":           {"equation": true},
-	"divider":            {"divider": true},
-	"breadcrumb":         {"breadcrumb": true},
-	"tab":                {"tab": true},
-	"table_of_contents":  {"table_of_contents": true},
-	"link_to_page":       {"link_to_page": true},
-	"table_row":          {"table_row": true},
-	"heading_1":          {"heading_1": true},
-	"heading_2":          {"heading_2": true},
-	"heading_3":          {"heading_3": true},
-	"heading_4":          {"heading_4": true},
-	"paragraph":          {"paragraph": true},
-	"bulleted_list_item": {"bulleted_list_item": true},
-	"numbered_list_item": {"numbered_list_item": true},
-	"quote":              {"quote": true},
-	"to_do":              {"to_do": true},
-	"toggle":             {"toggle": true},
-	"template":           {"template": true},
-	"callout":            {"callout": true},
-	"synced_block":       {"synced_block": true},
-	"table":              {"table": true},
-	"column":             {"column": true},
+// tagsOfUpdateABlockAnyOf0 holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfUpdateABlockAnyOf0 = map[string]map[string]jsonTagNeed{
+	"embed":              {"embed": jsonTagRequired},
+	"bookmark":           {"bookmark": jsonTagRequired},
+	"image":              {"image": jsonTagRequired},
+	"video":              {"video": jsonTagRequired},
+	"pdf":                {"pdf": jsonTagRequired},
+	"file":               {"file": jsonTagRequired},
+	"audio":              {"audio": jsonTagRequired},
+	"code":               {"code": jsonTagRequired},
+	"equation":           {"equation": jsonTagRequired},
+	"divider":            {"divider": jsonTagRequired},
+	"breadcrumb":         {"breadcrumb": jsonTagRequired},
+	"tab":                {"tab": jsonTagRequired},
+	"table_of_contents":  {"table_of_contents": jsonTagRequired},
+	"link_to_page":       {"link_to_page": jsonTagRequired},
+	"table_row":          {"table_row": jsonTagRequired},
+	"heading_1":          {"heading_1": jsonTagRequired},
+	"heading_2":          {"heading_2": jsonTagRequired},
+	"heading_3":          {"heading_3": jsonTagRequired},
+	"heading_4":          {"heading_4": jsonTagRequired},
+	"paragraph":          {"paragraph": jsonTagRequired},
+	"bulleted_list_item": {"bulleted_list_item": jsonTagRequired},
+	"numbered_list_item": {"numbered_list_item": jsonTagRequired},
+	"quote":              {"quote": jsonTagRequired},
+	"to_do":              {"to_do": jsonTagRequired},
+	"toggle":             {"toggle": jsonTagRequired},
+	"template":           {"template": jsonTagRequired},
+	"callout":            {"callout": jsonTagRequired},
+	"synced_block":       {"synced_block": jsonTagRequired},
+	"table":              {"table": jsonTagRequired},
+	"column":             {"column": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -23702,7 +24350,19 @@ func (v *UpdateABlockAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UpdateABlockAnyOf0
 
 	*v = UpdateABlockAnyOf0{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -23711,7 +24371,7 @@ func (v *UpdateABlockAnyOf0) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		v.Type = UpdateABlockAnyOf0Type(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfUpdateABlockAnyOf0, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfUpdateABlockAnyOf0, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -23724,7 +24384,7 @@ func (v *UpdateABlockAnyOf0) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = UpdateABlockAnyOf0Type(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdateABlockAnyOf0, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdateABlockAnyOf0, set, nil, true); err != nil {
 		return err
 	}
 
@@ -23932,30 +24592,30 @@ func (e UpdateADataSourcePropertiesValueOneOf0Type) Valid() bool {
 	return ok
 }
 
-// tagsOfUpdateADataSourcePropertiesValueOneOf0 holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfUpdateADataSourcePropertiesValueOneOf0 = map[string]map[string]bool{
-	"number":           {"number": true},
-	"formula":          {"formula": true},
-	"select":           {"select": true},
-	"multi_select":     {"multi_select": true},
-	"status":           {"status": true},
-	"relation":         {"relation": true},
-	"rollup":           {"rollup": true},
-	"unique_id":        {"unique_id": true},
-	"title":            {"title": true},
-	"rich_text":        {"rich_text": true},
-	"url":              {"url": true},
-	"people":           {"people": true},
-	"files":            {"files": true},
-	"email":            {"email": true},
-	"phone_number":     {"phone_number": true},
-	"date":             {"date": true},
-	"checkbox":         {"checkbox": true},
-	"created_by":       {"created_by": true},
-	"created_time":     {"created_time": true},
-	"last_edited_by":   {"last_edited_by": true},
-	"last_edited_time": {"last_edited_time": true},
-	"place":            {"place": true},
+// tagsOfUpdateADataSourcePropertiesValueOneOf0 holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfUpdateADataSourcePropertiesValueOneOf0 = map[string]map[string]jsonTagNeed{
+	"number":           {"number": jsonTagRequired},
+	"formula":          {"formula": jsonTagRequired},
+	"select":           {"select": jsonTagRequired},
+	"multi_select":     {"multi_select": jsonTagRequired},
+	"status":           {"status": jsonTagRequired},
+	"relation":         {"relation": jsonTagRequired},
+	"rollup":           {"rollup": jsonTagRequired},
+	"unique_id":        {"unique_id": jsonTagRequired},
+	"title":            {"title": jsonTagRequired},
+	"rich_text":        {"rich_text": jsonTagRequired},
+	"url":              {"url": jsonTagRequired},
+	"people":           {"people": jsonTagRequired},
+	"files":            {"files": jsonTagRequired},
+	"email":            {"email": jsonTagRequired},
+	"phone_number":     {"phone_number": jsonTagRequired},
+	"date":             {"date": jsonTagRequired},
+	"checkbox":         {"checkbox": jsonTagRequired},
+	"created_by":       {"created_by": jsonTagRequired},
+	"created_time":     {"created_time": jsonTagRequired},
+	"last_edited_by":   {"last_edited_by": jsonTagRequired},
+	"last_edited_time": {"last_edited_time": jsonTagRequired},
+	"place":            {"place": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -24037,7 +24697,19 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) UnmarshalJSONFrom(dec *jsontext
 	type plain UpdateADataSourcePropertiesValueOneOf0
 
 	*v = UpdateADataSourcePropertiesValueOneOf0{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
 		return err
 	}
 
@@ -24046,7 +24718,7 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) UnmarshalJSONFrom(dec *jsontext
 		v.Type = UpdateADataSourcePropertiesValueOneOf0Type(tag)
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfUpdateADataSourcePropertiesValueOneOf0, v.taggedMembers(), jsonStrict(dec))
+	return jsonCheckTag("type", string(v.Type), tagsOfUpdateADataSourcePropertiesValueOneOf0, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -24059,7 +24731,7 @@ func (v *UpdateADataSourcePropertiesValueOneOf0) MarshalJSONTo(enc *jsontext.Enc
 		out.Type = UpdateADataSourcePropertiesValueOneOf0Type(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdateADataSourcePropertiesValueOneOf0, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdateADataSourcePropertiesValueOneOf0, set, nil, true); err != nil {
 		return err
 	}
 
@@ -24209,12 +24881,12 @@ func (e UpdatePageMarkdownType) Valid() bool {
 	return ok
 }
 
-// tagsOfUpdatePageMarkdown holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfUpdatePageMarkdown = map[string]map[string]bool{
-	"insert_content":        {"insert_content": true},
-	"replace_content_range": {"replace_content_range": true},
-	"update_content":        {"update_content": true},
-	"replace_content":       {"replace_content": true},
+// tagsOfUpdatePageMarkdown holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfUpdatePageMarkdown = map[string]map[string]jsonTagNeed{
+	"insert_content":        {"insert_content": jsonTagRequired},
+	"replace_content_range": {"replace_content_range": jsonTagRequired},
+	"update_content":        {"update_content": jsonTagRequired},
+	"replace_content":       {"replace_content": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -24242,11 +24914,23 @@ func (v *UpdatePageMarkdown) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UpdatePageMarkdown
 
 	*v = UpdatePageMarkdown{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfUpdatePageMarkdown, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfUpdatePageMarkdown, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -24259,7 +24943,7 @@ func (v *UpdatePageMarkdown) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = UpdatePageMarkdownType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdatePageMarkdown, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfUpdatePageMarkdown, set, nil, true); err != nil {
 		return err
 	}
 
@@ -24665,10 +25349,10 @@ func (e UserObjectResponseType) Valid() bool {
 	return ok
 }
 
-// tagsOfUserObjectResponse holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfUserObjectResponse = map[string]map[string]bool{
-	"person": {"person": true},
-	"bot":    {"bot": true},
+// tagsOfUserObjectResponse holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfUserObjectResponse = map[string]map[string]jsonTagNeed{
+	"person": {"person": jsonTagRequired},
+	"bot":    {"bot": jsonTagRequired},
 }
 
 // taggedMembers returns those of the members of an alternative's own that are set.
@@ -24690,11 +25374,23 @@ func (v *UserObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UserObjectResponse
 
 	*v = UserObjectResponse{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfUserObjectResponse, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfUserObjectResponse, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -24707,7 +25403,7 @@ func (v *UserObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = UserObjectResponseType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfUserObjectResponse, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfUserObjectResponse, set, nil, true); err != nil {
 		return err
 	}
 
@@ -26284,8 +26980,8 @@ func (e WidgetPlacementRequestType) Valid() bool {
 	return ok
 }
 
-// tagsOfWidgetPlacementRequest holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfWidgetPlacementRequest = map[string]map[string]bool{
+// tagsOfWidgetPlacementRequest holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfWidgetPlacementRequest = map[string]map[string]jsonTagNeed{
 	"new_row":      {},
 	"existing_row": {},
 }
@@ -26303,11 +26999,23 @@ func (v *WidgetPlacementRequest) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 	type plain WidgetPlacementRequest
 
 	*v = WidgetPlacementRequest{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfWidgetPlacementRequest, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfWidgetPlacementRequest, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -26320,7 +27028,7 @@ func (v *WidgetPlacementRequest) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = WidgetPlacementRequestType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfWidgetPlacementRequest, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfWidgetPlacementRequest, set, nil, true); err != nil {
 		return err
 	}
 
@@ -26902,10 +27610,20 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	return chosen, nil
 }
 
-// jsonCheckTag reports an error unless set, the members of an alternative's own that are set, holds only members of
-// the alternative the value tag of the tag name names, and every one of them it requires. Not strict, set may hold
-// others too.
-func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []string, strict bool) error {
+// jsonTagNeed is how an alternative needs a member of its own.
+type jsonTagNeed int
+
+const (
+	jsonTagOptional jsonTagNeed = iota
+	jsonTagRequired
+	jsonTagRequiredOrNull
+)
+
+// jsonCheckTag reports an error unless set, the members of an alternative's own whose fields are set, holds only
+// members of the alternative the value tag of the tag name names, and the members it requires are there: in present,
+// the members of the object decoded, null ones included, or, encoding, with present nil, in set, where a member that
+// may be null cannot be told from one left out. Not strict, set may hold others too.
+func jsonCheckTag(name, tag string, tags map[string]map[string]jsonTagNeed, set, present []string, strict bool) error {
 	members, ok := tags[tag]
 	switch {
 	case tag == "":
@@ -26921,7 +27639,9 @@ func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []strin
 	}
 
 	for _, m := range slices.Sorted(maps.Keys(members)) {
-		if members[m] && !slices.Contains(set, m) {
+		switch need := members[m]; {
+		case present != nil && need != jsonTagOptional && !slices.Contains(present, m),
+			present == nil && need == jsonTagRequired && !slices.Contains(set, m):
 			return jsonMissing(m)
 		}
 	}
@@ -26931,7 +27651,7 @@ func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []strin
 
 // jsonInferTag returns the value of a tag whose alternative is the one of tags that set, the members of an
 // alternative's own that are set, names: the one set member is a value whose alternative allows all of set.
-func jsonInferTag(tags map[string]map[string]bool, set []string) (string, bool) {
+func jsonInferTag(tags map[string]map[string]jsonTagNeed, set []string) (string, bool) {
 	tag := ""
 
 	for _, s := range set {
@@ -26951,7 +27671,7 @@ func jsonInferTag(tags map[string]map[string]bool, set []string) (string, bool) 
 }
 
 // allIn reports whether every one of names is a key of m.
-func allIn(names []string, m map[string]bool) bool {
+func allIn(names []string, m map[string]jsonTagNeed) bool {
 	for _, n := range names {
 		if _, ok := m[n]; !ok {
 			return false

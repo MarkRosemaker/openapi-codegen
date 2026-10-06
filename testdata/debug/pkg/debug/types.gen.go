@@ -43,9 +43,9 @@ func (e BlockType) Valid() bool {
 	return ok
 }
 
-// tagsOfBlock holds, for each value of type, the members of its alternative's own, each with whether it is required.
-var tagsOfBlock = map[string]map[string]bool{
-	"paragraph": {"paragraph": true},
+// tagsOfBlock holds, for each value of type, the members of its alternative's own, each with how it is needed.
+var tagsOfBlock = map[string]map[string]jsonTagNeed{
+	"paragraph": {"paragraph": jsonTagRequired},
 	"divider":   {},
 }
 
@@ -65,11 +65,23 @@ func (v *Block) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Block
 
 	*v = Block{}
-	if err := json.UnmarshalDecode(dec, (*plain)(v), jsonOptsOf(dec)); err != nil {
+
+	raw, err := dec.ReadValue()
+	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlock, v.taggedMembers(), jsonStrict(dec))
+	if err := json.Unmarshal(raw, (*plain)(v), jsonOptsOf(dec)); err != nil {
+		return err
+	}
+
+	// a member sent as null is there, though its field reads as left out
+	present, err := jsonMembers(raw)
+	if err != nil {
+		return err
+	}
+
+	return jsonCheckTag("type", string(v.Type), tagsOfBlock, v.taggedMembers(), present, jsonStrict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -82,7 +94,7 @@ func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 		out.Type = BlockType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlock, set, true); err != nil {
+	if err := jsonCheckTag("type", string(out.Type), tagsOfBlock, set, nil, true); err != nil {
 		return err
 	}
 
@@ -734,10 +746,20 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	return chosen, nil
 }
 
-// jsonCheckTag reports an error unless set, the members of an alternative's own that are set, holds only members of
-// the alternative the value tag of the tag name names, and every one of them it requires. Not strict, set may hold
-// others too.
-func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []string, strict bool) error {
+// jsonTagNeed is how an alternative needs a member of its own.
+type jsonTagNeed int
+
+const (
+	jsonTagOptional jsonTagNeed = iota
+	jsonTagRequired
+	jsonTagRequiredOrNull
+)
+
+// jsonCheckTag reports an error unless set, the members of an alternative's own whose fields are set, holds only
+// members of the alternative the value tag of the tag name names, and the members it requires are there: in present,
+// the members of the object decoded, null ones included, or, encoding, with present nil, in set, where a member that
+// may be null cannot be told from one left out. Not strict, set may hold others too.
+func jsonCheckTag(name, tag string, tags map[string]map[string]jsonTagNeed, set, present []string, strict bool) error {
 	members, ok := tags[tag]
 	switch {
 	case tag == "":
@@ -753,7 +775,9 @@ func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []strin
 	}
 
 	for _, m := range slices.Sorted(maps.Keys(members)) {
-		if members[m] && !slices.Contains(set, m) {
+		switch need := members[m]; {
+		case present != nil && need != jsonTagOptional && !slices.Contains(present, m),
+			present == nil && need == jsonTagRequired && !slices.Contains(set, m):
 			return jsonMissing(m)
 		}
 	}
@@ -763,7 +787,7 @@ func jsonCheckTag(name, tag string, tags map[string]map[string]bool, set []strin
 
 // jsonInferTag returns the value of a tag whose alternative is the one of tags that set, the members of an
 // alternative's own that are set, names: the one set member is a value whose alternative allows all of set.
-func jsonInferTag(tags map[string]map[string]bool, set []string) (string, bool) {
+func jsonInferTag(tags map[string]map[string]jsonTagNeed, set []string) (string, bool) {
 	tag := ""
 
 	for _, s := range set {
@@ -783,7 +807,7 @@ func jsonInferTag(tags map[string]map[string]bool, set []string) (string, bool) 
 }
 
 // allIn reports whether every one of names is a key of m.
-func allIn(names []string, m map[string]bool) bool {
+func allIn(names []string, m map[string]jsonTagNeed) bool {
 	for _, n := range names {
 		if _, ok := m[n]; !ok {
 			return false
