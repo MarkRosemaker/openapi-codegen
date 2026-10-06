@@ -10088,7 +10088,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"block\""
+						}
+					]
 				},
 				{
 					"fieldName": "BlockObjectResponse",
@@ -10168,7 +10174,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"block\""
+						}
+					]
 				},
 				{
 					"fieldName": "BlockObjectResponse",
@@ -10509,7 +10521,13 @@
 						"agent_id",
 						"fields"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "action",
+							"value": "\"update_status\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentBatchOperationsItemOneOf1",
@@ -10525,7 +10543,13 @@
 						"agent_id",
 						"fields"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "action",
+							"value": "\"update_credit_limit\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentBatchOperationsItemOneOf2",
@@ -10539,7 +10563,13 @@
 						"action",
 						"agent_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "action",
+							"value": "\"delete\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -10557,7 +10587,13 @@
 						"agent_id",
 						"fields"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "action",
+							"value": "\"update_status\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentBatchOperationsItemOneOf1",
@@ -10573,7 +10609,13 @@
 						"agent_id",
 						"fields"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "action",
+							"value": "\"update_credit_limit\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentBatchOperationsItemOneOf2",
@@ -10587,7 +10629,13 @@
 						"action",
 						"agent_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "action",
+							"value": "\"delete\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -10699,7 +10747,13 @@
 						"permissions",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"notion\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf2",
@@ -10716,7 +10770,13 @@
 						"permissions",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf3",
@@ -10733,7 +10793,13 @@
 						"permissions",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf4",
@@ -10752,7 +10818,13 @@
 						"run_tools_automatically",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"mcp_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf5",
@@ -10771,7 +10843,13 @@
 						"run_tools_automatically",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"custom_mcp_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf6",
@@ -10807,7 +10885,13 @@
 						"permissions",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"notion\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf2",
@@ -10824,7 +10908,13 @@
 						"permissions",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf3",
@@ -10841,7 +10931,13 @@
 						"permissions",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf4",
@@ -10860,7 +10956,13 @@
 						"run_tools_automatically",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"mcp_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf5",
@@ -10879,7 +10981,13 @@
 						"run_tools_automatically",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"custom_mcp_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOf6",
@@ -11150,7 +11258,13 @@
 						"team_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_workspace\""
+						}
+					]
 				},
 				{
 					"fieldName": "String",
@@ -11170,7 +11284,13 @@
 						"team_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_workspace\""
+						}
+					]
 				},
 				{
 					"fieldName": "String",
@@ -11196,7 +11316,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "String",
@@ -11216,7 +11342,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "String",
@@ -11242,7 +11374,13 @@
 						"server_host",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"mcp_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "String",
@@ -11262,7 +11400,13 @@
 						"server_host",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"mcp_server\""
+						}
+					]
 				},
 				{
 					"fieldName": "String",
@@ -11517,7 +11661,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf2",
@@ -11533,7 +11683,13 @@
 						"property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"database_property\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf3",
@@ -11547,7 +11703,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"agent\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf4",
@@ -11559,7 +11721,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"workspace\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf5",
@@ -11571,7 +11739,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"owner_private_pages\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf6",
@@ -11585,7 +11759,13 @@
 						"allowed_domains",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"web_search\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf7",
@@ -11597,7 +11777,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"notion_help_docs_search\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -11613,7 +11799,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf2",
@@ -11629,7 +11821,13 @@
 						"property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"database_property\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf3",
@@ -11643,7 +11841,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"agent\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf4",
@@ -11655,7 +11859,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"workspace\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf5",
@@ -11667,7 +11877,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"owner_private_pages\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf6",
@@ -11681,7 +11897,13 @@
 						"allowed_domains",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"web_search\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf7",
@@ -11693,7 +11915,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"notion_help_docs_search\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -11717,7 +11945,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_channel\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf9",
@@ -11729,7 +11963,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_all_public_channels\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf10",
@@ -11741,7 +11981,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_all_channels\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -11757,7 +12003,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_channel\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf9",
@@ -11769,7 +12021,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_all_public_channels\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf10",
@@ -11781,7 +12039,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"slack_all_channels\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -11805,7 +12069,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord_channel\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf12",
@@ -11817,7 +12087,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord_all_channels\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -11833,7 +12109,13 @@
 						"id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord_channel\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentConnectionsItemOneOfPermissionsItemTargetOneOf12",
@@ -11845,7 +12127,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"discord_all_channels\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -12430,7 +12718,13 @@
 						"custom_agent_avatar",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"custom_agent_avatar\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -12461,7 +12755,13 @@
 						"custom_agent_avatar",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"custom_agent_avatar\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -12576,7 +12876,13 @@
 					"required": [
 						"mode"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"auto\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentModelOneOf2",
@@ -12590,7 +12896,13 @@
 						"id",
 						"mode"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"pinned\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -12604,7 +12916,13 @@
 					"required": [
 						"mode"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"auto\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentModelOneOf2",
@@ -12618,7 +12936,13 @@
 						"id",
 						"mode"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"pinned\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -12911,7 +13235,13 @@
 						"end_at",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentTriggersItemScheduleEndOneOf2",
@@ -12925,7 +13255,13 @@
 						"occurrences",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"count\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -12941,7 +13277,13 @@
 						"end_at",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
 				},
 				{
 					"fieldName": "AgentTriggersItemScheduleEndOneOf2",
@@ -12955,7 +13297,13 @@
 						"occurrences",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"count\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -16908,8 +17256,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "BotInfoResponseOwnerType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "User",
@@ -16930,6 +17277,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "BotInfoResponseOwnerType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "BotInfoResponseOwnerTypeUser",
@@ -17077,9 +17425,8 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "Always `button`",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Always `button`"
 				},
 				{
 					"name": "Button",
@@ -18445,9 +18792,8 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "Always `checkbox`",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Always `checkbox`"
 				},
 				{
 					"name": "Checkbox",
@@ -19152,8 +19498,7 @@
 					"name": "Expression",
 					"jsonName": "expression",
 					"type": "string",
-					"jsonTag": "json:\"expression\"",
-					"required": true
+					"jsonTag": "json:\"expression,omitzero\""
 				}
 			]
 		},
@@ -19252,8 +19597,7 @@
 					"name": "RichText",
 					"jsonName": "rich_text",
 					"type": "[]RichTextItemRequest",
-					"jsonTag": "json:\"rich_text\"",
-					"required": true
+					"jsonTag": "json:\"rich_text,omitzero\""
 				},
 				{
 					"name": "Color",
@@ -19629,7 +19973,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"comment\""
+						}
+					]
 				},
 				{
 					"fieldName": "CommentObjectResponse",
@@ -19661,7 +20011,13 @@
 						"parent",
 						"rich_text"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"comment\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -19676,7 +20032,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"comment\""
+						}
+					]
 				},
 				{
 					"fieldName": "CommentObjectResponse",
@@ -19708,7 +20070,13 @@
 						"parent",
 						"rich_text"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"comment\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -20135,7 +20503,13 @@
 						"object",
 						"properties"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				},
 				{
 					"fieldName": "DataSourceObjectResponse",
@@ -20180,7 +20554,13 @@
 						"title",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -20197,7 +20577,13 @@
 						"object",
 						"properties"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				},
 				{
 					"fieldName": "DataSourceObjectResponse",
@@ -20242,7 +20628,13 @@
 						"title",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -20266,7 +20658,13 @@
 						"code",
 						"grant_type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "grant_type",
+							"value": "\"authorization_code\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateATokenAnyOf1",
@@ -20280,7 +20678,13 @@
 						"grant_type",
 						"refresh_token"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "grant_type",
+							"value": "\"refresh_token\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -20298,7 +20702,13 @@
 						"code",
 						"grant_type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "grant_type",
+							"value": "\"authorization_code\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateATokenAnyOf1",
@@ -20312,7 +20722,13 @@
 						"grant_type",
 						"refresh_token"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "grant_type",
+							"value": "\"refresh_token\""
+						}
+					]
 				}
 			],
 			"discriminator": "grant_type",
@@ -20475,8 +20891,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "CreateATokenOkOwnerType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "User",
@@ -20496,6 +20911,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "CreateATokenOkOwnerType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "CreateATokenOkOwnerTypeUser",
@@ -20621,7 +21037,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"database\""
+						}
+					]
 				},
 				{
 					"fieldName": "DatabaseObjectResponse",
@@ -20649,7 +21071,6 @@
 						"cover",
 						"created_time",
 						"data_sources",
-						"database_type",
 						"description",
 						"icon",
 						"id",
@@ -20663,7 +21084,13 @@
 						"title",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"database\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -20678,7 +21105,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"database\""
+						}
+					]
 				},
 				{
 					"fieldName": "DatabaseObjectResponse",
@@ -20706,7 +21139,6 @@
 						"cover",
 						"created_time",
 						"data_sources",
-						"database_type",
 						"description",
 						"icon",
 						"id",
@@ -20720,7 +21152,13 @@
 						"title",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"database\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -20827,6 +21265,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "CreateDatabaseParentAllOfType",
+				"optional": true,
 				"values": [
 					{
 						"value": "page_id",
@@ -21339,7 +21778,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"block\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateMeetingNoteOneOf",
@@ -21368,7 +21813,17 @@
 						"object",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"block\""
+						},
+						{
+							"name": "type",
+							"value": "\"meeting_notes\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -21383,7 +21838,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"block\""
+						}
+					]
 				},
 				{
 					"fieldName": "CreateMeetingNoteOneOf",
@@ -21412,7 +21873,17 @@
 						"object",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"block\""
+						},
+						{
+							"name": "type",
+							"value": "\"meeting_notes\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -21662,7 +22133,13 @@
 						"parent",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"view\""
+						}
+					]
 				},
 				{
 					"fieldName": "DataSourceViewObjectResponse",
@@ -21695,7 +22172,13 @@
 						"type",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"view\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -21714,7 +22197,13 @@
 						"parent",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"view\""
+						}
+					]
 				},
 				{
 					"fieldName": "DataSourceViewObjectResponse",
@@ -21747,7 +22236,13 @@
 						"type",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"view\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -23078,9 +23573,8 @@
 					"name": "DatabaseType",
 					"jsonName": "database_type",
 					"type": "DatabaseObjectDatabaseTypeOneOf",
-					"jsonTag": "json:\"database_type\"",
-					"description": "The type of typed database, such as `tasks`, `projects`, or `skills`, or `null` for a regular database. Create a database accepts `tasks`, `projects`, and `skills`.",
-					"required": true
+					"jsonTag": "json:\"database_type,omitzero\"",
+					"description": "The type of typed database, such as `tasks`, `projects`, or `skills`, or `null` for a regular database. Create a database accepts `tasks`, `projects`, and `skills`."
 				},
 				{
 					"name": "InTrash",
@@ -24136,8 +24630,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Date",
@@ -24539,6 +25032,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -24556,6 +25055,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -25149,9 +25654,6 @@
 						"caption",
 						"url"
 					],
-					"required": [
-						"url"
-					],
 					"object": true
 				},
 				{
@@ -25165,7 +25667,13 @@
 					"required": [
 						"file_upload"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"file_upload\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -25176,9 +25684,6 @@
 						"caption",
 						"url"
 					],
-					"required": [
-						"url"
-					],
 					"object": true
 				},
 				{
@@ -25192,7 +25697,13 @@
 					"required": [
 						"file_upload"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"file_upload\""
+						}
+					]
 				}
 			]
 		},
@@ -25233,9 +25744,6 @@
 						"caption",
 						"url"
 					],
-					"required": [
-						"url"
-					],
 					"object": true
 				},
 				{
@@ -25257,9 +25765,6 @@
 					"type": "MediaContentWithURLAndCaption",
 					"members": [
 						"caption",
-						"url"
-					],
-					"required": [
 						"url"
 					],
 					"object": true
@@ -25599,7 +26104,17 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						}
+					]
 				},
 				{
 					"fieldName": "ErrorAPI403OneOf1",
@@ -25618,7 +26133,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "code",
+							"value": "\"workspace_credits_exhausted\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						}
+					]
 				},
 				{
 					"fieldName": "ErrorAPI403OneOf2",
@@ -25637,7 +26166,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "code",
+							"value": "\"agent_credit_limit_reached\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						}
+					]
 				}
 			],
 			"choices": [
@@ -25657,7 +26200,17 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						}
+					]
 				},
 				{
 					"fieldName": "ErrorAPI403OneOf1",
@@ -25676,7 +26229,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "code",
+							"value": "\"workspace_credits_exhausted\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						}
+					]
 				},
 				{
 					"fieldName": "ErrorAPI403OneOf2",
@@ -25695,7 +26262,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "code",
+							"value": "\"agent_credit_limit_reached\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -26465,7 +27046,13 @@
 					"required": [
 						"is_empty"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					]
 				},
 				{
 					"fieldName": "ExistencePropertyFilterAnyOf1",
@@ -26476,7 +27063,13 @@
 					"required": [
 						"is_not_empty"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					]
 				}
 			],
 			"choices": [
@@ -26489,7 +27082,13 @@
 					"required": [
 						"is_empty"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					]
 				},
 				{
 					"fieldName": "ExistencePropertyFilterAnyOf1",
@@ -26500,7 +27099,13 @@
 					"required": [
 						"is_not_empty"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					]
 				}
 			]
 		},
@@ -26551,9 +27156,8 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "Type of icon. In this case, an external URL.",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Type of icon. In this case, an external URL."
 				},
 				{
 					"name": "External",
@@ -27710,8 +28314,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "FormulaPropertyResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "String",
@@ -27748,6 +28351,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "FormulaPropertyResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "FormulaPropertyResponseTypeString",
@@ -28025,7 +28629,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaTextSubGroupBy",
@@ -28041,7 +28651,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"text\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaNumberSubGroupBy",
@@ -28058,7 +28674,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"number\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaCheckboxSubGroupBy",
@@ -28072,7 +28694,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"checkbox\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -28091,7 +28719,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaTextSubGroupBy",
@@ -28107,7 +28741,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"text\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaNumberSubGroupBy",
@@ -28124,7 +28764,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"number\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaCheckboxSubGroupBy",
@@ -28138,7 +28784,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"checkbox\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -28860,7 +29512,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "PersonGroupByConfig",
@@ -28894,7 +29552,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relation\""
+						}
+					]
 				},
 				{
 					"fieldName": "DateGroupByConfig",
@@ -28953,7 +29617,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"number\""
+						}
+					]
 				},
 				{
 					"fieldName": "CheckboxGroupByConfig",
@@ -28970,7 +29640,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"checkbox\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaGroupByConfig",
@@ -28987,7 +29663,13 @@
 						"property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"formula\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -29025,7 +29707,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "PersonGroupByConfig",
@@ -29059,7 +29747,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relation\""
+						}
+					]
 				},
 				{
 					"fieldName": "DateGroupByConfig",
@@ -29118,7 +29812,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"number\""
+						}
+					]
 				},
 				{
 					"fieldName": "CheckboxGroupByConfig",
@@ -29135,7 +29835,13 @@
 						"sort",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"checkbox\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormulaGroupByConfig",
@@ -29152,7 +29858,13 @@
 						"property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"formula\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -29232,6 +29944,16 @@
 						"timestamp"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"created_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"created_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "PropertyOrTimestampFilter",
@@ -29256,6 +29978,16 @@
 						"timestamp"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"last_edited_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "PropertyOrTimestampFilter",
@@ -29760,9 +30492,8 @@
 					"name": "ExpiryTime",
 					"jsonName": "expiry_time",
 					"type": "time.Time",
-					"jsonTag": "json:\"expiry_time\"",
-					"description": "The time when the URL will expire.",
-					"required": true
+					"jsonTag": "json:\"expiry_time,omitzero\"",
+					"description": "The time when the URL will expire."
 				}
 			]
 		},
@@ -29793,8 +30524,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "InternalOrExternalFileWithNameResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "File",
@@ -29821,6 +30551,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "InternalOrExternalFileWithNameResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "InternalOrExternalFileWithNameResponseTypeFile",
@@ -31483,8 +32214,7 @@
 					"name": "URL",
 					"jsonName": "url",
 					"type": "string",
-					"jsonTag": "json:\"url\"",
-					"required": true
+					"jsonTag": "json:\"url,omitzero\""
 				},
 				{
 					"name": "Caption",
@@ -31955,7 +32685,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "PageObjectResponse",
@@ -31995,7 +32731,13 @@
 						"public_url",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -32010,7 +32752,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "PageObjectResponse",
@@ -32050,7 +32798,13 @@
 						"public_url",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -32143,9 +32897,6 @@
 						"id",
 						"name"
 					],
-					"required": [
-						"id"
-					],
 					"object": true
 				}
 			],
@@ -32158,9 +32909,6 @@
 						"description",
 						"id",
 						"name"
-					],
-					"required": [
-						"id"
 					],
 					"object": true
 				}
@@ -32225,6 +32973,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -32242,6 +32996,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -32427,9 +33187,8 @@
 					"name": "Color",
 					"jsonName": "color",
 					"type": "NoticonColor",
-					"jsonTag": "json:\"color\"",
-					"description": "The color variant of the icon. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red.",
-					"required": true
+					"jsonTag": "json:\"color,omitzero\"",
+					"description": "The color variant of the icon. Valid values: gray, lightgray, brown, yellow, orange, green, blue, purple, pink, red."
 				}
 			]
 		},
@@ -32478,8 +33237,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Number",
@@ -32702,6 +33460,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -32719,6 +33483,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -33048,7 +33818,13 @@
 						"public_url",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialPageObjectResponse",
@@ -33061,7 +33837,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -33103,7 +33885,13 @@
 						"public_url",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialPageObjectResponse",
@@ -33116,7 +33904,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				}
 			]
 		},
@@ -33200,8 +33994,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "PageCover2Type",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "File",
@@ -33222,6 +34015,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "PageCover2Type",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "PageCover2TypeFile",
@@ -33451,9 +34245,8 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "Always `page_id`",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Always `page_id`"
 				},
 				{
 					"name": "PageID",
@@ -34192,6 +34985,12 @@
 						"url"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					],
 					"path": [
 						{
 							"field": "Page4",
@@ -34211,6 +35010,12 @@
 						"object"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					],
 					"path": [
 						{
 							"field": "Page4",
@@ -34232,6 +35037,12 @@
 						"properties"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					],
 					"path": [
 						{
 							"field": "PageOrDataSourceResultsItemAnyOf",
@@ -34283,6 +35094,12 @@
 						"url"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					],
 					"path": [
 						{
 							"field": "PageOrDataSourceResultsItemAnyOf",
@@ -34310,7 +35127,13 @@
 						"object",
 						"properties"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				},
 				{
 					"fieldName": "DataSourceObjectResponse",
@@ -34355,7 +35178,13 @@
 						"title",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -34372,7 +35201,13 @@
 						"object",
 						"properties"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				},
 				{
 					"fieldName": "DataSourceObjectResponse",
@@ -34417,7 +35252,13 @@
 						"title",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"data_source\""
+						}
+					]
 				}
 			]
 		},
@@ -35053,8 +35894,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "PagePropertyValueWithIDResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Number",
@@ -35233,6 +36073,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "PagePropertyValueWithIDResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "PagePropertyValueWithIDResponseTypeNumber",
@@ -35989,8 +36830,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "ParentForBlockBasedObjectResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "DatabaseID",
@@ -36039,6 +36879,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "ParentForBlockBasedObjectResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "ParentForBlockBasedObjectResponseTypeDatabaseID",
@@ -36260,8 +37101,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "ParentOfDatabaseResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "PageID",
@@ -36296,6 +37136,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "ParentOfDatabaseResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "ParentOfDatabaseResponseTypePageID",
@@ -36944,7 +37785,13 @@
 						"name",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -36960,6 +37807,12 @@
 						"object"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					],
 					"path": [
 						{
 							"field": "UserValueResponse",
@@ -36987,6 +37840,12 @@
 						"type"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					],
 					"path": [
 						{
 							"field": "UserValueResponse",
@@ -37007,7 +37866,13 @@
 						"name",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -37028,7 +37893,13 @@
 					"required": [
 						"id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "GroupObjectRequest",
@@ -37042,7 +37913,13 @@
 					"required": [
 						"id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -37057,7 +37934,13 @@
 					"required": [
 						"id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "GroupObjectRequest",
@@ -37071,7 +37954,13 @@
 					"required": [
 						"id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
 				}
 			],
 			"discriminator": "object",
@@ -37156,6 +38045,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -37173,6 +38068,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -37277,7 +38178,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "UserObjectResponse",
@@ -37298,7 +38205,13 @@
 						"object",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -37313,7 +38226,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "UserObjectResponse",
@@ -37334,7 +38253,13 @@
 						"object",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			]
 		},
@@ -37786,6 +38711,16 @@
 						"timestamp"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"created_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"created_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "TimestampFilter",
@@ -37806,6 +38741,16 @@
 						"timestamp"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"last_edited_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "TimestampFilter",
@@ -38095,7 +39040,13 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"rest\""
+						}
+					]
 				},
 				{
 					"fieldName": "PostPageAcceptedOperationAnyOf1",
@@ -38109,7 +39060,13 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"mcp\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -38125,7 +39082,13 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"rest\""
+						}
+					]
 				},
 				{
 					"fieldName": "PostPageAcceptedOperationAnyOf1",
@@ -38139,7 +39102,13 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"mcp\""
+						}
+					]
 				}
 			],
 			"discriminator": "surface",
@@ -38328,7 +39297,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"none\""
+						}
+					]
 				},
 				{
 					"fieldName": "PageTemplateAnyOf",
@@ -38341,7 +39316,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"default\""
+						}
+					]
 				},
 				{
 					"fieldName": "PageTemplateAnyOf2",
@@ -38356,7 +39337,13 @@
 						"template_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"template_id\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -38370,7 +39357,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"none\""
+						}
+					]
 				},
 				{
 					"fieldName": "PageTemplateAnyOf",
@@ -38383,7 +39376,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"default\""
+						}
+					]
 				},
 				{
 					"fieldName": "PageTemplateAnyOf2",
@@ -38398,7 +39397,13 @@
 						"template_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"template_id\""
+						}
+					]
 				}
 			],
 			"discriminator": "type",
@@ -38471,7 +39476,13 @@
 						"property",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"object\""
+						}
+					]
 				},
 				{
 					"fieldName": "UpdateABlockAnyOf",
@@ -38495,7 +39506,13 @@
 						"property",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"object\""
+						}
+					]
 				},
 				{
 					"fieldName": "UpdateABlockAnyOf",
@@ -38562,7 +39579,13 @@
 						"direction",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						}
+					]
 				},
 				{
 					"fieldName": "PostSearchSortAnyOf1",
@@ -38573,7 +39596,13 @@
 					"required": [
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"relevance\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -38588,7 +39617,13 @@
 						"direction",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						}
+					]
 				},
 				{
 					"fieldName": "PostSearchSortAnyOf1",
@@ -38599,7 +39634,13 @@
 					"required": [
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"relevance\""
+						}
+					]
 				}
 			]
 		},
@@ -40908,6 +41949,16 @@
 						"timestamp"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"created_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"created_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "TimestampFilter",
@@ -40928,6 +41979,16 @@
 						"timestamp"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"last_edited_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "TimestampFilter",
@@ -41109,6 +42170,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41128,6 +42195,12 @@
 						"string"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_type\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41147,6 +42220,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_by\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41166,6 +42245,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41185,6 +42270,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"favorited\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41204,6 +42295,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"connections\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41223,6 +42320,12 @@
 						"status"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41242,6 +42345,12 @@
 						"select"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"model_mode\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41261,6 +42370,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_version\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41280,6 +42395,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"last_run_at\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41341,7 +42462,13 @@
 						"id",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf2",
@@ -41355,7 +42482,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf3",
@@ -41369,7 +42502,13 @@
 						"people",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_by\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf4",
@@ -41383,7 +42522,13 @@
 						"date",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_time\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf5",
@@ -41397,7 +42542,13 @@
 						"checkbox",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"favorited\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf6",
@@ -41411,7 +42562,13 @@
 						"mcp_server",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"connections\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf7",
@@ -41425,7 +42582,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf8",
@@ -41439,7 +42602,13 @@
 						"property",
 						"select"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"model_mode\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf9",
@@ -41453,7 +42622,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_version\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf10",
@@ -41467,7 +42642,13 @@
 						"date",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"last_run_at\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -41483,7 +42664,13 @@
 						"id",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf2",
@@ -41497,7 +42684,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf3",
@@ -41511,7 +42704,13 @@
 						"people",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_by\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf4",
@@ -41525,7 +42724,13 @@
 						"date",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_time\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf5",
@@ -41539,7 +42744,13 @@
 						"checkbox",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"favorited\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf6",
@@ -41553,7 +42764,13 @@
 						"mcp_server",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"connections\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf7",
@@ -41567,7 +42784,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf8",
@@ -41581,7 +42804,13 @@
 						"property",
 						"select"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"model_mode\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf9",
@@ -41595,7 +42824,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_version\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsFilterOneOfOneOf10",
@@ -41609,7 +42844,13 @@
 						"date",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"last_run_at\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -41977,6 +43218,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -41996,6 +43243,12 @@
 						"string"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_type\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42015,6 +43268,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_by\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42034,6 +43293,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_time\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42053,6 +43318,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"favorited\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42072,6 +43343,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"connections\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42091,6 +43368,12 @@
 						"status"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42110,6 +43393,12 @@
 						"select"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"model_mode\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42129,6 +43418,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_version\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42148,6 +43443,12 @@
 						"property"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"last_run_at\""
+						}
+					],
 					"path": [
 						{
 							"field": "QueryAgentsFilterOneOf",
@@ -42440,7 +43741,13 @@
 						"status",
 						"triggers"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"agent\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsOkResultsItemOneOf1",
@@ -42485,7 +43792,25 @@
 						"status",
 						"triggers"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"agent\""
+						},
+						{
+							"name": "id",
+							"value": "\"notion_ai\""
+						},
+						{
+							"name": "agent_type",
+							"value": "\"notion_ai\""
+						},
+						{
+							"name": "status",
+							"value": "\"active\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -42533,7 +43858,13 @@
 						"status",
 						"triggers"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"agent\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryAgentsOkResultsItemOneOf1",
@@ -42578,7 +43909,25 @@
 						"status",
 						"triggers"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"agent\""
+						},
+						{
+							"name": "id",
+							"value": "\"notion_ai\""
+						},
+						{
+							"name": "agent_type",
+							"value": "\"notion_ai\""
+						},
+						{
+							"name": "status",
+							"value": "\"active\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -43715,7 +45064,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf2",
@@ -43729,7 +45084,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"exact\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -43745,7 +45106,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf2",
@@ -43759,7 +45126,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"exact\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -43788,7 +45161,17 @@
 						"unit",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						},
+						{
+							"name": "value",
+							"value": "\"custom\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf4",
@@ -43803,7 +45186,17 @@
 						"unit",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						},
+						{
+							"name": "value",
+							"value": "\"surrounding\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf5",
@@ -43816,7 +45209,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf6",
@@ -43829,7 +45228,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"exact\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -43850,7 +45255,17 @@
 						"unit",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						},
+						{
+							"name": "value",
+							"value": "\"custom\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf4",
@@ -43865,7 +45280,17 @@
 						"unit",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						},
+						{
+							"name": "value",
+							"value": "\"surrounding\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf5",
@@ -43878,7 +45303,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOf6",
@@ -43891,7 +45322,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"exact\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -43913,7 +45350,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"exact\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf2",
@@ -43927,7 +45370,17 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						},
+						{
+							"name": "value",
+							"value": "\"me\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -43943,7 +45396,13 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"exact\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueItemOneOf2",
@@ -43957,7 +45416,17 @@
 						"type",
 						"value"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"relative\""
+						},
+						{
+							"name": "value",
+							"value": "\"me\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -44261,7 +45730,13 @@
 						"start_date",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2",
@@ -44279,7 +45754,13 @@
 						"time_zone",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"datetime\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -44295,7 +45776,13 @@
 						"start_date",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
 				},
 				{
 					"fieldName": "QueryMeetingNotesFilterFiltersItemOneOfFilterOneOfValueOneOfValueOneOf2",
@@ -44313,7 +45800,13 @@
 						"time_zone",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"datetime\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -44658,7 +46151,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -44671,7 +46170,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -44684,7 +46189,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -44697,7 +46208,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf4",
@@ -44734,7 +46251,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -44747,7 +46270,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -44760,7 +46289,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -44773,7 +46308,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf4",
@@ -44997,7 +46538,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -45010,7 +46557,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -45023,7 +46576,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -45036,7 +46595,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOfOrItemOneOf",
@@ -45073,7 +46638,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -45086,7 +46657,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -45099,7 +46676,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -45112,7 +46695,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOfOrItemOneOf",
@@ -45181,7 +46770,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -45194,7 +46789,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -45207,7 +46808,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -45220,7 +46827,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf",
@@ -45257,7 +46870,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -45270,7 +46889,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -45283,7 +46908,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -45296,7 +46927,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOfOrItemOneOfOrItemOneOf",
@@ -45366,7 +47003,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -45380,7 +47023,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -45394,7 +47043,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -45408,7 +47063,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -45424,7 +47085,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf",
@@ -45438,7 +47105,13 @@
 						"event_type",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"type\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf6",
@@ -45452,7 +47125,13 @@
 						"number",
 						"property"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"sequence\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsFilterOneOf2",
@@ -45466,7 +47145,13 @@
 						"property",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"created_at\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -45593,7 +47278,17 @@
 						"session_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"user.message\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf1",
@@ -45621,7 +47316,17 @@
 						"session_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.message\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf2",
@@ -45645,7 +47350,17 @@
 						"session_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.thinking\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf3",
@@ -45669,7 +47384,17 @@
 						"tool_name",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.tool_use\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf4",
@@ -45697,7 +47422,17 @@
 						"tool_use_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.tool_result\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf5",
@@ -45723,7 +47458,17 @@
 						"status",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"session.status\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -45753,7 +47498,17 @@
 						"session_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"user.message\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf1",
@@ -45781,7 +47536,17 @@
 						"session_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.message\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf2",
@@ -45805,7 +47570,17 @@
 						"session_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.thinking\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf3",
@@ -45829,7 +47604,17 @@
 						"tool_name",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.tool_use\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf4",
@@ -45857,7 +47642,17 @@
 						"tool_use_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"agent.tool_result\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsOkResultsItemOneOf5",
@@ -45883,7 +47678,17 @@
 						"status",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"session_event\""
+						},
+						{
+							"name": "type",
+							"value": "\"session.status\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -46362,7 +48167,13 @@
 						"text",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"text\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsResultsItemOneOfContentItemOneOf",
@@ -46381,7 +48192,13 @@
 						"type",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"file\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -46397,7 +48214,13 @@
 						"text",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"text\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionEventsResultsItemOneOfContentItemOneOf",
@@ -46416,7 +48239,13 @@
 						"type",
 						"url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"file\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -46590,7 +48419,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf6",
@@ -46603,7 +48438,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf7",
@@ -46616,7 +48457,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf2",
@@ -46666,7 +48513,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf6",
@@ -46679,7 +48532,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf7",
@@ -46692,7 +48551,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf2",
@@ -46865,7 +48730,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf6",
@@ -46878,7 +48749,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf7",
@@ -46891,7 +48768,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf2",
@@ -46941,7 +48824,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf6",
@@ -46954,7 +48843,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf7",
@@ -46967,7 +48862,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf2",
@@ -47051,7 +48952,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf6",
@@ -47064,7 +48971,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf7",
@@ -47077,7 +48990,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf2",
@@ -47105,7 +49024,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf6",
@@ -47118,7 +49043,13 @@
 						"property",
 						"string"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"agent_id\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf7",
@@ -47131,7 +49062,13 @@
 						"property",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "property",
+							"value": "\"status\""
+						}
+					]
 				},
 				{
 					"fieldName": "QuerySessionsFilterOneOf2",
@@ -47693,9 +49630,8 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "Always `relation`",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "Always `relation`"
 				},
 				{
 					"name": "Relation",
@@ -47829,6 +49765,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -47846,6 +49788,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -48184,7 +50132,13 @@
 						"status",
 						"status_url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"async_task\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf1",
@@ -48207,7 +50161,17 @@
 						"status",
 						"status_url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"async_task\""
+						},
+						{
+							"name": "status",
+							"value": "\"succeeded\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2",
@@ -48230,7 +50194,17 @@
 						"status",
 						"status_url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"async_task\""
+						},
+						{
+							"name": "status",
+							"value": "\"failed\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -48255,7 +50229,13 @@
 						"status",
 						"status_url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"async_task\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf1",
@@ -48278,7 +50258,17 @@
 						"status",
 						"status_url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"async_task\""
+						},
+						{
+							"name": "status",
+							"value": "\"succeeded\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2",
@@ -48301,7 +50291,17 @@
 						"status",
 						"status_url"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"async_task\""
+						},
+						{
+							"name": "status",
+							"value": "\"failed\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -48438,7 +50438,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_json\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf1",
@@ -48457,7 +50471,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_request_url\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf2",
@@ -48476,7 +50504,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_request\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf3",
@@ -48495,7 +50537,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"missing_version\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf4",
@@ -48514,7 +50570,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_beta\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf5",
@@ -48533,7 +50603,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"validation_error\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf6",
@@ -48552,7 +50636,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "401"
+						},
+						{
+							"name": "code",
+							"value": "\"unauthorized\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf7",
@@ -48571,7 +50669,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"restricted_resource\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf8",
@@ -48590,7 +50702,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "404"
+						},
+						{
+							"name": "code",
+							"value": "\"object_not_found\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf9",
@@ -48609,7 +50735,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "404"
+						},
+						{
+							"name": "code",
+							"value": "\"directory_not_found\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf10",
@@ -48628,7 +50768,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "429"
+						},
+						{
+							"name": "code",
+							"value": "\"rate_limited\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf11",
@@ -48647,7 +50801,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "529"
+						},
+						{
+							"name": "code",
+							"value": "\"service_overload\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf12",
@@ -48666,7 +50834,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "500"
+						},
+						{
+							"name": "code",
+							"value": "\"internal_server_error\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf13",
@@ -48685,7 +50867,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "503"
+						},
+						{
+							"name": "code",
+							"value": "\"service_unavailable\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf14",
@@ -48704,7 +50900,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "504"
+						},
+						{
+							"name": "code",
+							"value": "\"gateway_timeout\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf15",
@@ -48723,7 +50933,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "409"
+						},
+						{
+							"name": "code",
+							"value": "\"conflict_error\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf16",
@@ -48742,7 +50966,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "409"
+						},
+						{
+							"name": "code",
+							"value": "\"idempotency_key_reused\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf17",
@@ -48761,7 +50999,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "406"
+						},
+						{
+							"name": "code",
+							"value": "\"row_limit_exceeded\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf18",
@@ -48780,7 +51032,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"status_change_not_allowed\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf19",
@@ -48799,7 +51065,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "409"
+						},
+						{
+							"name": "code",
+							"value": "\"agent_deleted\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf20",
@@ -48818,7 +51098,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_credit_limit\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf21",
@@ -48837,7 +51131,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"workspace_credits_exhausted\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf22",
@@ -48856,7 +51164,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"agent_credit_limit_reached\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -48877,7 +51199,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_json\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf1",
@@ -48896,7 +51232,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_request_url\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf2",
@@ -48915,7 +51265,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_request\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf3",
@@ -48934,7 +51298,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"missing_version\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf4",
@@ -48953,7 +51331,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_beta\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf5",
@@ -48972,7 +51364,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"validation_error\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf6",
@@ -48991,7 +51397,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "401"
+						},
+						{
+							"name": "code",
+							"value": "\"unauthorized\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf7",
@@ -49010,7 +51430,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"restricted_resource\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf8",
@@ -49029,7 +51463,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "404"
+						},
+						{
+							"name": "code",
+							"value": "\"object_not_found\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf9",
@@ -49048,7 +51496,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "404"
+						},
+						{
+							"name": "code",
+							"value": "\"directory_not_found\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf10",
@@ -49067,7 +51529,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "429"
+						},
+						{
+							"name": "code",
+							"value": "\"rate_limited\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf11",
@@ -49086,7 +51562,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "529"
+						},
+						{
+							"name": "code",
+							"value": "\"service_overload\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf12",
@@ -49105,7 +51595,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "500"
+						},
+						{
+							"name": "code",
+							"value": "\"internal_server_error\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf13",
@@ -49124,7 +51628,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "503"
+						},
+						{
+							"name": "code",
+							"value": "\"service_unavailable\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf14",
@@ -49143,7 +51661,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "504"
+						},
+						{
+							"name": "code",
+							"value": "\"gateway_timeout\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf15",
@@ -49162,7 +51694,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "409"
+						},
+						{
+							"name": "code",
+							"value": "\"conflict_error\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf16",
@@ -49181,7 +51727,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "409"
+						},
+						{
+							"name": "code",
+							"value": "\"idempotency_key_reused\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf17",
@@ -49200,7 +51760,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "406"
+						},
+						{
+							"name": "code",
+							"value": "\"row_limit_exceeded\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf18",
@@ -49219,7 +51793,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"status_change_not_allowed\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf19",
@@ -49238,7 +51826,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "409"
+						},
+						{
+							"name": "code",
+							"value": "\"agent_deleted\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf20",
@@ -49257,7 +51859,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "400"
+						},
+						{
+							"name": "code",
+							"value": "\"invalid_credit_limit\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf21",
@@ -49276,7 +51892,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"workspace_credits_exhausted\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveAsyncTaskOkOneOf2ErrorOneOf22",
@@ -49295,7 +51925,21 @@
 						"object",
 						"status"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"error\""
+						},
+						{
+							"name": "status",
+							"value": "403"
+						},
+						{
+							"name": "code",
+							"value": "\"agent_credit_limit_reached\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -50326,7 +52970,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"auto\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveSessionModelsOneOf2",
@@ -50340,7 +52990,13 @@
 						"ids",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"pinned\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -50354,7 +53010,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"auto\""
+						}
+					]
 				},
 				{
 					"fieldName": "RetrieveSessionModelsOneOf2",
@@ -50368,7 +53030,13 @@
 						"ids",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"pinned\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -52051,8 +54719,7 @@
 					"name": "ID",
 					"jsonName": "id",
 					"type": "StringRequest",
-					"jsonTag": "json:\"id\"",
-					"required": true
+					"jsonTag": "json:\"id,omitzero\""
 				},
 				{
 					"name": "Name",
@@ -52244,9 +54911,6 @@
 							"id",
 							"name"
 						],
-						"required": [
-							"name"
-						],
 						"object": true
 					}
 				],
@@ -52256,9 +54920,6 @@
 						"type": "SelectItemAllOfOneOf",
 						"members": [
 							"id",
-							"name"
-						],
-						"required": [
 							"name"
 						],
 						"object": true
@@ -52282,9 +54943,6 @@
 						"id",
 						"name"
 					],
-					"required": [
-						"name"
-					],
 					"object": true
 				}
 			],
@@ -52294,9 +54952,6 @@
 					"type": "SelectItemAllOfOneOf",
 					"members": [
 						"id",
-						"name"
-					],
-					"required": [
 						"name"
 					],
 					"object": true
@@ -52312,8 +54967,7 @@
 					"name": "Name",
 					"jsonName": "name",
 					"type": "string",
-					"jsonTag": "json:\"name\"",
-					"required": true
+					"jsonTag": "json:\"name,omitzero\""
 				},
 				{
 					"name": "ID",
@@ -52461,6 +55115,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -52478,6 +55138,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -52574,8 +55240,7 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "SimpleOrArrayPropertyValueResponseType",
-					"jsonTag": "json:\"type\"",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\""
 				},
 				{
 					"name": "Number",
@@ -52720,6 +55385,7 @@
 				"tag": "type",
 				"field": "Type",
 				"type": "SimpleOrArrayPropertyValueResponseType",
+				"optional": true,
 				"enum": [
 					{
 						"goName": "SimpleOrArrayPropertyValueResponseTypeNumber",
@@ -53461,9 +56127,6 @@
 							"id",
 							"name"
 						],
-						"required": [
-							"name"
-						],
 						"object": true
 					}
 				],
@@ -53473,9 +56136,6 @@
 						"type": "SelectItemAllOfOneOf",
 						"members": [
 							"id",
-							"name"
-						],
-						"required": [
 							"name"
 						],
 						"object": true
@@ -54458,6 +57118,12 @@
 						"is_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -54475,6 +57141,12 @@
 						"is_not_empty"
 					],
 					"object": true,
+					"pinned": [
+						{
+							"name": "is_not_empty",
+							"value": "true"
+						}
+					],
 					"path": [
 						{
 							"field": "ExistencePropertyFilter",
@@ -55037,7 +57709,17 @@
 						"created_time",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"created_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"created_time\""
+						}
+					]
 				},
 				{
 					"fieldName": "TimestampLastEditedTimeFilter",
@@ -55052,7 +57734,17 @@
 						"last_edited_time",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"last_edited_time\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -55069,7 +57761,17 @@
 						"created_time",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"created_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"created_time\""
+						}
+					]
 				},
 				{
 					"fieldName": "TimestampLastEditedTimeFilter",
@@ -55084,7 +57786,17 @@
 						"last_edited_time",
 						"timestamp"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "timestamp",
+							"value": "\"last_edited_time\""
+						},
+						{
+							"name": "type",
+							"value": "\"last_edited_time\""
+						}
+					]
 				}
 			],
 			"discriminator": "timestamp",
@@ -57797,7 +60509,17 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"rest\""
+						},
+						{
+							"name": "name",
+							"value": "\"PATCH /v1/pages/:page_id/markdown\""
+						}
+					]
 				},
 				{
 					"fieldName": "UpdatePageMarkdownAcceptedOperationOneOf1",
@@ -57811,7 +60533,17 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"mcp\""
+						},
+						{
+							"name": "name",
+							"value": "\"create_pages\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -57827,7 +60559,17 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"rest\""
+						},
+						{
+							"name": "name",
+							"value": "\"PATCH /v1/pages/:page_id/markdown\""
+						}
+					]
 				},
 				{
 					"fieldName": "UpdatePageMarkdownAcceptedOperationOneOf1",
@@ -57841,7 +60583,17 @@
 						"name",
 						"surface"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "surface",
+							"value": "\"mcp\""
+						},
+						{
+							"name": "name",
+							"value": "\"create_pages\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -58489,7 +61241,17 @@
 						"person",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"person\""
+						},
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialUserObjectResponse",
@@ -58502,7 +61264,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -58525,7 +61293,17 @@
 						"person",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"person\""
+						},
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialUserObjectResponse",
@@ -58538,7 +61316,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			]
 		},
@@ -58566,7 +61350,17 @@
 						"person",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						},
+						{
+							"name": "type",
+							"value": "\"person\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialUserObjectResponse",
@@ -58579,7 +61373,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -58602,7 +61402,17 @@
 						"person",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						},
+						{
+							"name": "type",
+							"value": "\"person\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialUserObjectResponse",
@@ -58615,7 +61425,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -58690,7 +61506,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "UserObjectResponse",
@@ -58711,7 +61533,13 @@
 						"object",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -58726,7 +61554,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				},
 				{
 					"fieldName": "UserObjectResponse",
@@ -58747,7 +61581,13 @@
 						"object",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
 				}
 			],
 			"isOneOf": true
@@ -58768,7 +61608,13 @@
 					"required": [
 						"state"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "state",
+							"value": "\"verified\""
+						}
+					]
 				},
 				{
 					"fieldName": "VerificationAnyOf2",
@@ -58780,7 +61626,13 @@
 					"required": [
 						"state"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "state",
+							"value": "\"unverified\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -58795,7 +61647,13 @@
 					"required": [
 						"state"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "state",
+							"value": "\"verified\""
+						}
+					]
 				},
 				{
 					"fieldName": "VerificationAnyOf2",
@@ -58807,7 +61665,13 @@
 					"required": [
 						"state"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "state",
+							"value": "\"unverified\""
+						}
+					]
 				}
 			],
 			"discriminator": "state",
@@ -58988,7 +61852,13 @@
 						"state",
 						"verified_by"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "state",
+							"value": "\"unverified\""
+						}
+					]
 				},
 				{
 					"fieldName": "VerificationPropertyResponse",
@@ -59020,7 +61890,13 @@
 						"state",
 						"verified_by"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "state",
+							"value": "\"unverified\""
+						}
+					]
 				},
 				{
 					"fieldName": "VerificationPropertyResponse",
@@ -59139,7 +62015,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"table\""
+						}
+					]
 				},
 				{
 					"fieldName": "BoardViewConfigRequest",
@@ -59159,7 +62041,13 @@
 						"group_by",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"board\""
+						}
+					]
 				},
 				{
 					"fieldName": "CalendarViewConfigRequest",
@@ -59176,7 +62064,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"calendar\""
+						}
+					]
 				},
 				{
 					"fieldName": "TimelineViewConfigRequest",
@@ -59197,7 +62091,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"timeline\""
+						}
+					]
 				},
 				{
 					"fieldName": "GalleryViewConfigRequest",
@@ -59214,7 +62114,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"gallery\""
+						}
+					]
 				},
 				{
 					"fieldName": "ListViewConfigRequest",
@@ -59227,7 +62133,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"list\""
+						}
+					]
 				},
 				{
 					"fieldName": "MapViewConfigRequest",
@@ -59242,7 +62154,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"map\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormViewConfigRequest",
@@ -59257,7 +62175,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"form\""
+						}
+					]
 				},
 				{
 					"fieldName": "ChartViewConfigRequest",
@@ -59296,7 +62220,13 @@
 						"chart_type",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"chart\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -59316,7 +62246,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"table\""
+						}
+					]
 				},
 				{
 					"fieldName": "BoardViewConfigRequest",
@@ -59336,7 +62272,13 @@
 						"group_by",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"board\""
+						}
+					]
 				},
 				{
 					"fieldName": "CalendarViewConfigRequest",
@@ -59353,7 +62295,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"calendar\""
+						}
+					]
 				},
 				{
 					"fieldName": "TimelineViewConfigRequest",
@@ -59374,7 +62322,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"timeline\""
+						}
+					]
 				},
 				{
 					"fieldName": "GalleryViewConfigRequest",
@@ -59391,7 +62345,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"gallery\""
+						}
+					]
 				},
 				{
 					"fieldName": "ListViewConfigRequest",
@@ -59404,7 +62364,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"list\""
+						}
+					]
 				},
 				{
 					"fieldName": "MapViewConfigRequest",
@@ -59419,7 +62385,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"map\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormViewConfigRequest",
@@ -59434,7 +62406,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"form\""
+						}
+					]
 				},
 				{
 					"fieldName": "ChartViewConfigRequest",
@@ -59473,7 +62451,13 @@
 						"chart_type",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"chart\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -59501,7 +62485,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"table\""
+						}
+					]
 				},
 				{
 					"fieldName": "BoardViewConfigResponse",
@@ -59521,7 +62511,13 @@
 						"group_by",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"board\""
+						}
+					]
 				},
 				{
 					"fieldName": "CalendarViewConfigResponse",
@@ -59539,7 +62535,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"calendar\""
+						}
+					]
 				},
 				{
 					"fieldName": "TimelineViewConfigResponse",
@@ -59562,7 +62564,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"timeline\""
+						}
+					]
 				},
 				{
 					"fieldName": "GalleryViewConfigResponse",
@@ -59579,7 +62587,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"gallery\""
+						}
+					]
 				},
 				{
 					"fieldName": "ListViewConfigResponse",
@@ -59592,7 +62606,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"list\""
+						}
+					]
 				},
 				{
 					"fieldName": "MapViewConfigResponse",
@@ -59608,7 +62628,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"map\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormViewConfigResponse",
@@ -59623,7 +62649,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"form\""
+						}
+					]
 				},
 				{
 					"fieldName": "ChartViewConfigResponse",
@@ -59662,7 +62694,13 @@
 						"chart_type",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"chart\""
+						}
+					]
 				},
 				{
 					"fieldName": "DashboardViewConfigResponse",
@@ -59676,7 +62714,13 @@
 						"rows",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"dashboard\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -59696,7 +62740,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"table\""
+						}
+					]
 				},
 				{
 					"fieldName": "BoardViewConfigResponse",
@@ -59716,7 +62766,13 @@
 						"group_by",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"board\""
+						}
+					]
 				},
 				{
 					"fieldName": "CalendarViewConfigResponse",
@@ -59734,7 +62790,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"calendar\""
+						}
+					]
 				},
 				{
 					"fieldName": "TimelineViewConfigResponse",
@@ -59757,7 +62819,13 @@
 						"date_property_id",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"timeline\""
+						}
+					]
 				},
 				{
 					"fieldName": "GalleryViewConfigResponse",
@@ -59774,7 +62842,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"gallery\""
+						}
+					]
 				},
 				{
 					"fieldName": "ListViewConfigResponse",
@@ -59787,7 +62861,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"list\""
+						}
+					]
 				},
 				{
 					"fieldName": "MapViewConfigResponse",
@@ -59803,7 +62883,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"map\""
+						}
+					]
 				},
 				{
 					"fieldName": "FormViewConfigResponse",
@@ -59818,7 +62904,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"form\""
+						}
+					]
 				},
 				{
 					"fieldName": "ChartViewConfigResponse",
@@ -59857,7 +62949,13 @@
 						"chart_type",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"chart\""
+						}
+					]
 				},
 				{
 					"fieldName": "DashboardViewConfigResponse",
@@ -59871,7 +62969,13 @@
 						"rows",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"dashboard\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -60315,7 +63419,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"start\""
+						}
+					]
 				},
 				{
 					"fieldName": "ViewPositionOneOf2",
@@ -60327,7 +63437,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"end\""
+						}
+					]
 				},
 				{
 					"fieldName": "ViewPositionRequestOneOf2",
@@ -60341,7 +63457,13 @@
 						"type",
 						"view_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"after_view\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -60355,7 +63477,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"start\""
+						}
+					]
 				},
 				{
 					"fieldName": "ViewPositionOneOf2",
@@ -60367,7 +63495,13 @@
 					"required": [
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"end\""
+						}
+					]
 				},
 				{
 					"fieldName": "ViewPositionRequestOneOf2",
@@ -60381,7 +63515,13 @@
 						"type",
 						"view_id"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"after_view\""
+						}
+					]
 				}
 			],
 			"isOneOf": true,
@@ -61276,9 +64416,8 @@
 					"name": "Type",
 					"jsonName": "type",
 					"type": "string",
-					"jsonTag": "json:\"type\"",
-					"description": "The parent type.",
-					"required": true
+					"jsonTag": "json:\"type,omitzero\"",
+					"description": "The parent type."
 				},
 				{
 					"name": "Workspace",

@@ -1244,8 +1244,8 @@ type PostApiv3TaskScoreUpOkDataTmp struct {
 
 // PostApiv3TaskScoreUpOkDataTmpDrop defines a model
 type PostApiv3TaskScoreUpOkDataTmpDrop struct {
-	Target  string `json:"target"`
-	CanDrop bool   `json:"canDrop"`
+	Target  string `json:"target,omitzero"`
+	CanDrop *bool  `json:"canDrop,omitzero"`
 	Value   int    `json:"value"`
 	Key     string `json:"key"`
 	Type    string `json:"type"`
@@ -1255,5 +1255,5 @@ type PostApiv3TaskScoreUpOkDataTmpDrop struct {
 // PostApiv3TaskScoreUpOkDataTmpQuest defines a model
 type PostApiv3TaskScoreUpOkDataTmpQuest struct {
 	ProgressDelta float64 `json:"progressDelta"`
-	Collection    int     `json:"collection"`
+	Collection    *int    `json:"collection,omitzero"`
 }

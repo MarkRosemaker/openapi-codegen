@@ -23,6 +23,71 @@ var jsonOpts = json.JoinOptions(
 // decoding failed, and as a caller's own type of a result is decoded.
 var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
 
+// Bot defines a model
+// Bot is an untagged anyOf union: at least one field is set after unmarshaling.
+type Bot struct {
+	Object    *struct{}
+	BotAnyOf1 *BotAnyOf1
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *Bot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Bot{}
+
+	opts := jsonOptsOf(dec)
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		var vv struct{}
+		if err := json.Unmarshal(raw, &vv, opts); err == nil {
+			v.Object = &vv
+			matched++
+		}
+	}
+
+	{
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"owner", "workspace_name"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv BotAnyOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.BotAnyOf1 = &vv
+				matched++
+			}
+		}
+	}
+
+	if matched == 0 {
+		return &json.SemanticError{Err: errors.New("matches none of its alternatives")}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *Bot) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.Object != nil:
+		return json.MarshalEncode(enc, v.Object, jsonOpts)
+	case v.BotAnyOf1 != nil:
+		return json.MarshalEncode(enc, v.BotAnyOf1, jsonOpts)
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
+// BotAnyOf1 defines a model
+type BotAnyOf1 struct {
+	Owner         string `json:"owner"`
+	WorkspaceName string `json:"workspace_name"`
+}
+
 // Condition defines a model
 type Condition struct {
 	Equals       string `json:"equals,omitzero"`
@@ -121,6 +186,191 @@ type Emoji struct {
 	Emoji string `json:"emoji"`
 }
 
+// Filter defines a model
+// Filter is an untagged anyOf union: at least one field is set after unmarshaling.
+type Filter struct {
+	FilterAnyOf0 *FilterAnyOf0
+	FilterAnyOf1 *FilterAnyOf1
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *Filter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Filter{}
+
+	opts := jsonOptsOf(dec)
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	{
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"or"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv FilterAnyOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FilterAnyOf0 = &vv
+				matched++
+			}
+		}
+	}
+
+	{
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"and"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv FilterAnyOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FilterAnyOf1 = &vv
+				matched++
+			}
+		}
+	}
+
+	if matched == 0 {
+		return &json.SemanticError{Err: errors.New("matches none of its alternatives")}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *Filter) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.FilterAnyOf0 != nil:
+		return json.MarshalEncode(enc, v.FilterAnyOf0, jsonOpts)
+	case v.FilterAnyOf1 != nil:
+		return json.MarshalEncode(enc, v.FilterAnyOf1, jsonOpts)
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
+// FilterAnyOf0 defines a model
+type FilterAnyOf0 struct {
+	Or []string `json:"or"`
+}
+
+// FilterAnyOf1 defines a model
+type FilterAnyOf1 struct {
+	And []string `json:"and"`
+}
+
+// GroupBy defines a model
+// GroupBy is an untagged anyOf union: at least one field is set after unmarshaling.
+type GroupBy struct {
+	GroupByAnyOf0 *GroupByAnyOf0
+	GroupByAnyOf1 *GroupByAnyOf1
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
+// decodes each further member as it is read. With type first, nothing is read twice.
+func (v *GroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = GroupBy{}
+
+	tag, first, dec, err := jsonFirstMember(dec, "type")
+	if err != nil {
+		return err
+	}
+
+	switch tag {
+	case "select":
+		var vv GroupByAnyOf0
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return err
+		}
+
+		v.GroupByAnyOf0 = &vv
+	case "date":
+		var vv GroupByAnyOf1
+		if err := jsonMembersFrom(dec, "type", first, vv.unmarshalJSONMember); err != nil {
+			return err
+		}
+
+		v.GroupByAnyOf1 = &vv
+	default:
+		return jsonUnknownValue("type", tag)
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
+func (v *GroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
+	switch {
+	case v.GroupByAnyOf0 != nil:
+		variant, tag = v.GroupByAnyOf0, "select"
+	case v.GroupByAnyOf1 != nil:
+		variant, tag = v.GroupByAnyOf1, "date"
+	default:
+		return &json.SemanticError{Err: errors.New("no alternative set")}
+	}
+
+	out, err := json.Marshal(variant, jsonOpts)
+	if err != nil {
+		return err
+	}
+
+	if out, err = jsonFirst(out, "type", tag); err != nil {
+		return err
+	}
+
+	return enc.WriteValue(out)
+}
+
+// GroupByAnyOf0 defines a model
+type GroupByAnyOf0 struct {
+	Type     string `json:"type"`
+	Property string `json:"property"`
+	Sort     string `json:"sort,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether GroupByAnyOf0 declares it.
+func (v *GroupByAnyOf0) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
+	case "property":
+		return true, json.UnmarshalDecode(dec, &v.Property, jsonOptsOf(dec))
+	case "sort":
+		return true, json.UnmarshalDecode(dec, &v.Sort, jsonOptsOf(dec))
+	}
+
+	return false, nil
+}
+
+// GroupByAnyOf1 defines a model
+type GroupByAnyOf1 struct {
+	Type     string `json:"type"`
+	Property string `json:"property"`
+	Sort     string `json:"sort,omitzero"`
+	Period   string `json:"period,omitzero"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether GroupByAnyOf1 declares it.
+func (v *GroupByAnyOf1) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "type":
+		return true, json.UnmarshalDecode(dec, &v.Type, jsonOptsOf(dec))
+	case "property":
+		return true, json.UnmarshalDecode(dec, &v.Property, jsonOptsOf(dec))
+	case "sort":
+		return true, json.UnmarshalDecode(dec, &v.Sort, jsonOptsOf(dec))
+	case "period":
+		return true, json.UnmarshalDecode(dec, &v.Period, jsonOptsOf(dec))
+	}
+
+	return false, nil
+}
+
 // IconResponse defines a model
 // IconResponse is an untagged oneOf union: exactly one field is set after unmarshaling.
 type IconResponse struct {
@@ -144,19 +394,27 @@ func (v *IconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv Emoji
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Emoji = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"emoji"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Emoji
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Emoji = &vv
+				matched++
+			}
 		}
 	}
 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
-		var vv Link
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Link = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"url"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Link
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Link = &vv
+				matched++
+			}
 		}
 	}
 
@@ -214,18 +472,26 @@ func (v *PageOrPartial) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv Page
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Page = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"cover", "icon", "id", "object", "position"}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, pinned) {
+			var vv Page
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Page = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv PartialPage
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.PartialPage = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, pinned) {
+			var vv PartialPage
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PartialPage = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1025,6 +1291,58 @@ type jsonVariant struct {
 	value    string
 	members  map[string]bool
 	required []string
+	// pinned are the members it allows one value for, written as compact JSON
+	pinned map[string]string
+}
+
+// jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
+// each pins, written as compact JSON. Any value fits where nothing is required or pinned.
+func jsonFits(raw jsontext.Value, required []string, pinned map[string]string) bool {
+	if len(required) == 0 && len(pinned) == 0 {
+		return true
+	}
+
+	if raw.Kind() != jsontext.KindBeginObject {
+		return false
+	}
+
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return false
+	}
+
+	present := map[string]bool{}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return false
+		}
+
+		name := tok.String()
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return false
+		}
+
+		present[name] = true
+
+		if want, ok := pinned[name]; ok {
+			got := val.Clone()
+			if err := got.Compact(); err != nil || string(got) != want {
+				return false
+			}
+		}
+	}
+
+	for _, r := range required {
+		if !present[r] {
+			return false
+		}
+	}
+
+	return true
 }
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
@@ -1067,10 +1385,8 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	} else {
 	variants:
 		for i, v := range variants {
-			for _, r := range v.required {
-				if !present[r] {
-					continue variants
-				}
+			if !jsonFits(raw, v.required, v.pinned) {
+				continue variants
 			}
 
 			for _, n := range names {

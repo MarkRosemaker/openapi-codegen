@@ -81,13 +81,24 @@ func TestTagged_AllOf(t *testing.T) {
 		`{"type":"page_id","page_id":"59833787-2cf9-4fdf-8782-e53db20768a5","workspace":true}`: `type "page_id" does not allow member "workspace"`,
 		`{"type":"page_id"}`: `missing object member name "page_id"`,
 		`{"type":"block_id"}`: `unknown value of "type"`,
-		`{"page_id":"59833787-2cf9-4fdf-8782-e53db20768a5"}`: `missing object member name "type"`,
 		`{}`: `missing object member name "type"`,
 	} {
 		var p CreateDatabaseParent
 		if err := json.Unmarshal([]byte(in), &p, jsonOpts); err == nil || !strings.Contains(err.Error(), want) {
 			t.Errorf("%s: got %v, want %s", in, err, want)
 		}
+	}
+}
+
+func TestTagged_InferredTag(t *testing.T) {
+	// a variant leaves type out, so it is the value whose member is set
+	var p CreateDatabaseParent
+	if err := json.Unmarshal([]byte(`{"page_id":"59833787-2cf9-4fdf-8782-e53db20768a5"}`), &p, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if p.Type != "page_id" {
+		t.Errorf("got type %q, want page_id", p.Type)
 	}
 }
 

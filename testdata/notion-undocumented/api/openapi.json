@@ -5002,11 +5002,7 @@
             "description": "The settings of the teamspace.",
             "$ref": "#/components/schemas/CreateTeamspaceSettings"
           }
-        },
-        "required": [
-          "name",
-          "visibility"
-        ]
+        }
       },
       "CreateTeamspaceSettings": {
         "type": "object",
@@ -20828,9 +20824,6 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "email"
-        ],
         "additionalProperties": false
       },
       "ToolInputAnyOfEventsItemPeriodOneOf": {
@@ -26232,9 +26225,7 @@
           }
         },
         "required": [
-          "start",
-          "end",
-          "time_zone"
+          "start"
         ],
         "additionalProperties": false
       },
@@ -27152,7 +27143,6 @@
           }
         },
         "required": [
-          "type",
           "external"
         ],
         "additionalProperties": false
@@ -28563,8 +28553,7 @@
           }
         },
         "required": [
-          "name",
-          "color"
+          "name"
         ],
         "additionalProperties": false
       },

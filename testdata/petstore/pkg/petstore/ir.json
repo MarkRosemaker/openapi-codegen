@@ -156,8 +156,7 @@
 					"name": "Breed",
 					"jsonName": "breed",
 					"type": "string",
-					"jsonTag": "json:\"breed\"",
-					"required": true
+					"jsonTag": "json:\"breed,omitzero\""
 				},
 				{
 					"name": "AgeMonths",
@@ -219,8 +218,7 @@
 					"name": "MedicalInfo",
 					"jsonName": "medicalInfo",
 					"type": "PetByPetIDMedicalInfo",
-					"jsonTag": "json:\"medicalInfo\"",
-					"required": true
+					"jsonTag": "json:\"medicalInfo,omitzero\""
 				}
 			]
 		},

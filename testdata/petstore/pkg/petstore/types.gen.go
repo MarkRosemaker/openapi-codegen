@@ -40,7 +40,7 @@ type PetByPetID struct {
 	ID           uuid.UUID             `json:"id"`
 	Name         string                `json:"name"`
 	Species      string                `json:"species"`
-	Breed        string                `json:"breed"`
+	Breed        string                `json:"breed,omitzero"`
 	AgeMonths    int                   `json:"ageMonths"`
 	Size         string                `json:"size"`
 	Status       string                `json:"status"`
@@ -49,7 +49,7 @@ type PetByPetID struct {
 	GoodWithKids bool                  `json:"goodWithKids"`
 	CreatedAt    time.Time             `json:"createdAt"`
 	UpdatedAt    time.Time             `json:"updatedAt"`
-	MedicalInfo  PetByPetIDMedicalInfo `json:"medicalInfo"`
+	MedicalInfo  PetByPetIDMedicalInfo `json:"medicalInfo,omitzero"`
 }
 
 // PetByPetIDMedicalInfo defines a model

@@ -386,7 +386,13 @@
 							"function",
 							"type"
 						],
-						"object": true
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"rollup\""
+							}
+						]
 					}
 				],
 				"choices": [
@@ -416,7 +422,13 @@
 							"function",
 							"type"
 						],
-						"object": true
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"rollup\""
+							}
+						]
 					}
 				]
 			},
@@ -455,7 +467,13 @@
 						"function",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"rollup\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -485,7 +503,13 @@
 						"function",
 						"type"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"rollup\""
+						}
+					]
 				}
 			],
 			"isOneOf": true

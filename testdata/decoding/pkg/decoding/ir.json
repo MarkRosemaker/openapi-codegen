@@ -78,6 +78,71 @@
 	],
 	"schemas": [
 		{
+			"name": "Bot",
+			"description": "Bot defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Object",
+					"type": "struct{}",
+					"object": true
+				},
+				{
+					"fieldName": "BotAnyOf1",
+					"type": "BotAnyOf1",
+					"members": [
+						"owner",
+						"workspace_name"
+					],
+					"required": [
+						"owner",
+						"workspace_name"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Object",
+					"type": "struct{}",
+					"object": true
+				},
+				{
+					"fieldName": "BotAnyOf1",
+					"type": "BotAnyOf1",
+					"members": [
+						"owner",
+						"workspace_name"
+					],
+					"required": [
+						"owner",
+						"workspace_name"
+					],
+					"object": true
+				}
+			]
+		},
+		{
+			"name": "BotAnyOf1",
+			"description": "BotAnyOf1 defines a model",
+			"fields": [
+				{
+					"name": "Owner",
+					"jsonName": "owner",
+					"type": "string",
+					"jsonTag": "json:\"owner\"",
+					"required": true
+				},
+				{
+					"name": "WorkspaceName",
+					"jsonName": "workspace_name",
+					"type": "string",
+					"jsonTag": "json:\"workspace_name\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "Condition",
 			"description": "Condition defines a model",
 			"fields": [
@@ -194,6 +259,242 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "Filter",
+			"description": "Filter defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "FilterAnyOf0",
+					"type": "FilterAnyOf0",
+					"members": [
+						"or"
+					],
+					"required": [
+						"or"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "FilterAnyOf1",
+					"type": "FilterAnyOf1",
+					"members": [
+						"and"
+					],
+					"required": [
+						"and"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "FilterAnyOf0",
+					"type": "FilterAnyOf0",
+					"members": [
+						"or"
+					],
+					"required": [
+						"or"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "FilterAnyOf1",
+					"type": "FilterAnyOf1",
+					"members": [
+						"and"
+					],
+					"required": [
+						"and"
+					],
+					"object": true
+				}
+			]
+		},
+		{
+			"name": "FilterAnyOf0",
+			"description": "FilterAnyOf0 defines a model",
+			"fields": [
+				{
+					"name": "Or",
+					"jsonName": "or",
+					"type": "[]string",
+					"jsonTag": "json:\"or\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "FilterAnyOf1",
+			"description": "FilterAnyOf1 defines a model",
+			"fields": [
+				{
+					"name": "And",
+					"jsonName": "and",
+					"type": "[]string",
+					"jsonTag": "json:\"and\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GroupBy",
+			"description": "GroupBy defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "GroupByAnyOf0",
+					"type": "GroupByAnyOf0",
+					"value": "select",
+					"members": [
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"select\""
+						}
+					]
+				},
+				{
+					"fieldName": "GroupByAnyOf1",
+					"type": "GroupByAnyOf1",
+					"value": "date",
+					"members": [
+						"period",
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "GroupByAnyOf0",
+					"type": "GroupByAnyOf0",
+					"value": "select",
+					"members": [
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"select\""
+						}
+					]
+				},
+				{
+					"fieldName": "GroupByAnyOf1",
+					"type": "GroupByAnyOf1",
+					"value": "date",
+					"members": [
+						"period",
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
+				}
+			],
+			"discriminator": "type",
+			"streamed": true
+		},
+		{
+			"name": "GroupByAnyOf0",
+			"description": "GroupByAnyOf0 defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				},
+				{
+					"name": "Sort",
+					"jsonName": "sort",
+					"type": "string",
+					"jsonTag": "json:\"sort,omitzero\""
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "GroupByAnyOf1",
+			"description": "GroupByAnyOf1 defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				},
+				{
+					"name": "Sort",
+					"jsonName": "sort",
+					"type": "string",
+					"jsonTag": "json:\"sort,omitzero\""
+				},
+				{
+					"name": "Period",
+					"jsonName": "period",
+					"type": "string",
+					"jsonTag": "json:\"period,omitzero\""
+				}
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "IconResponse",
@@ -325,7 +626,13 @@
 						"object",
 						"position"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialPage",
@@ -338,7 +645,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				}
 			],
 			"choices": [
@@ -359,7 +672,13 @@
 						"object",
 						"position"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				},
 				{
 					"fieldName": "PartialPage",
@@ -372,7 +691,13 @@
 						"id",
 						"object"
 					],
-					"object": true
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
 				}
 			]
 		},

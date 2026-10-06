@@ -11500,7 +11500,6 @@
           }
         },
         "required": [
-          "type",
           "page_id"
         ]
       },
@@ -17133,9 +17132,6 @@
             "$ref": "#/components/schemas/URLURL"
           }
         },
-        "required": [
-          "id"
-        ],
         "additionalProperties": false
       },
       "SelectDatabasePropertyConfigSelect": {
@@ -17199,10 +17195,7 @@
           "id": {
             "type": "string"
           }
-        },
-        "required": [
-          "name"
-        ]
+        }
       },
       "SelectPropertyConfigurationSelect": {
         "type": "object",
@@ -20961,7 +20954,6 @@
           }
         },
         "required": [
-          "type",
           "button"
         ],
         "additionalProperties": false
@@ -21487,7 +21479,6 @@
           }
         },
         "required": [
-          "type",
           "checkbox"
         ],
         "additionalProperties": false
@@ -22053,9 +22044,6 @@
             ]
           }
         },
-        "required": [
-          "expression"
-        ],
         "additionalProperties": false
       },
       "contentWithRichText": {
@@ -22155,9 +22143,6 @@
             "$ref": "#/components/schemas/pageIconRequest"
           }
         },
-        "required": [
-          "rich_text"
-        ],
         "additionalProperties": false
       },
       "contentWithRichTextColorAndIcon2": {
@@ -23316,7 +23301,6 @@
           "description",
           "parent",
           "is_inline",
-          "database_type",
           "in_trash",
           "is_locked",
           "created_time",
@@ -23571,7 +23555,6 @@
           }
         },
         "required": [
-          "type",
           "date"
         ]
       },
@@ -24783,7 +24766,6 @@
           }
         },
         "required": [
-          "type",
           "external"
         ],
         "additionalProperties": false
@@ -26187,8 +26169,7 @@
           }
         },
         "required": [
-          "url",
-          "expiry_time"
+          "url"
         ],
         "additionalProperties": false
       },
@@ -26816,9 +26797,6 @@
             }
           }
         },
-        "required": [
-          "url"
-        ],
         "additionalProperties": false
       },
       "mediaContentWithUrlAndCaptionResponse": {
@@ -27098,8 +27076,7 @@
           }
         },
         "required": [
-          "name",
-          "color"
+          "name"
         ],
         "additionalProperties": false
       },
@@ -27133,7 +27110,6 @@
           }
         },
         "required": [
-          "type",
           "number"
         ]
       },
@@ -29209,7 +29185,6 @@
           }
         },
         "required": [
-          "type",
           "relation"
         ],
         "additionalProperties": false
@@ -30074,7 +30049,6 @@
           }
         },
         "required": [
-          "type",
           "single_property"
         ]
       },
@@ -32823,7 +32797,6 @@
           }
         },
         "required": [
-          "type",
           "workspace"
         ],
         "additionalProperties": false

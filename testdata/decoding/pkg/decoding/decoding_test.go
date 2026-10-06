@@ -138,3 +138,35 @@ func TestDecoding_RequiredMemberPresent(t *testing.T) {
 		}
 	}
 }
+
+func TestDecoding_UnionChecksRequiredAndPinned(t *testing.T) {
+	// a member pinned to another value rules its alternative out: only the select form matches
+	var g GroupBy
+	if err := json.Unmarshal([]byte(`{"type":"select","property":"x"}`), &g, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if g.GroupByAnyOf0 == nil || g.GroupByAnyOf1 != nil {
+		t.Errorf("got %+v, want the select form only", g)
+	}
+
+	// an empty bot lacks what the full form requires
+	var b Bot
+	if err := json.Unmarshal([]byte(`{}`), &b, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if b.Object == nil || b.BotAnyOf1 != nil {
+		t.Errorf("got %+v, want the empty form only", b)
+	}
+
+	// leniently, as a caller's own type is decoded, an "and" filter is no empty "or" one
+	var f Filter
+	if err := json.Unmarshal([]byte(`{"and":["a"]}`), &f, jsonOptsLenient); err != nil {
+		t.Fatal(err)
+	}
+
+	if f.FilterAnyOf0 != nil || f.FilterAnyOf1 == nil || len(f.FilterAnyOf1.And) != 1 {
+		t.Errorf("got %+v, want the and form only", f)
+	}
+}

@@ -1038,18 +1038,26 @@ func (v *ExportLegalHold) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	var matched int
 
 	{
-		var vv ExportLegalHoldAnyOf0
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExportLegalHoldAnyOf0 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"legal_hold_export_id", "requesting_user_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ExportLegalHoldAnyOf0
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExportLegalHoldAnyOf0 = &vv
+				matched++
+			}
 		}
 	}
 
 	{
-		var vv ExportLegalHoldAnyOf1
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.ExportLegalHoldAnyOf1 = &vv
-			matched++
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"requesting_user_id", "space_id"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv ExportLegalHoldAnyOf1
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.ExportLegalHoldAnyOf1 = &vv
+				matched++
+			}
 		}
 	}
 
@@ -1643,11 +1651,13 @@ var variantsOfListUsersOkResultsItem = []jsonVariant{
 		value:    "person",
 		members:  map[string]bool{"membership_type": true, "person": true, "type": true},
 		required: []string{"membership_type", "person", "type"},
+		pinned:   map[string]string{"type": "\"person\""},
 	},
 	{
 		value:    "bot",
 		members:  map[string]bool{"bot": true, "type": true},
 		required: []string{"bot", "type"},
+		pinned:   map[string]string{"type": "\"bot\""},
 	},
 }
 
@@ -3079,6 +3089,58 @@ type jsonVariant struct {
 	value    string
 	members  map[string]bool
 	required []string
+	// pinned are the members it allows one value for, written as compact JSON
+	pinned map[string]string
+}
+
+// jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
+// each pins, written as compact JSON. Any value fits where nothing is required or pinned.
+func jsonFits(raw jsontext.Value, required []string, pinned map[string]string) bool {
+	if len(required) == 0 && len(pinned) == 0 {
+		return true
+	}
+
+	if raw.Kind() != jsontext.KindBeginObject {
+		return false
+	}
+
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if _, err := dec.ReadToken(); err != nil {
+		return false
+	}
+
+	present := map[string]bool{}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return false
+		}
+
+		name := tok.String()
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return false
+		}
+
+		present[name] = true
+
+		if want, ok := pinned[name]; ok {
+			got := val.Clone()
+			if err := got.Compact(); err != nil || string(got) != want {
+				return false
+			}
+		}
+	}
+
+	for _, r := range required {
+		if !present[r] {
+			return false
+		}
+	}
+
+	return true
 }
 
 // jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
@@ -3121,10 +3183,8 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	} else {
 	variants:
 		for i, v := range variants {
-			for _, r := range v.required {
-				if !present[r] {
-					continue variants
-				}
+			if !jsonFits(raw, v.required, v.pinned) {
+				continue variants
 			}
 
 			for _, n := range names {
