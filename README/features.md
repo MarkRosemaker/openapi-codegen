@@ -76,6 +76,12 @@ How the specification maps onto Go:
   it holds its zero value: nil for a pointer, a slice or a map, so an empty one
   is still sent. A required field is always sent, `""`, `0` and `false`
   included.
+- **Read-only and write-only** — a property only responses carry (`readOnly`)
+  or only requests (`writeOnly`) is never required, so a value that leaves it
+  out still decodes, and a union's alternative is chosen without it. The client
+  leaves read-only members out of a request body, and the server leaves
+  write-only members out of a response, as their fields hold them or not, through
+  unions and embedded parts alike; any other encoding keeps them.
 - **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null"
   is `X`, a pointer to `X` only by the rule for fields above, so that null and
   the zero value can differ, or where `X` decodes itself, such as a union or a

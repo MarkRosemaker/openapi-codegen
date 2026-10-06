@@ -66,6 +66,70 @@
           }
         }
       }
+    },
+    "/users/{id}": {
+      "put": {
+        "operationId": "updateUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/entries": {
+      "post": {
+        "operationId": "createEntry",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Entry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entry"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -452,6 +516,91 @@
                 }
               }
             }
+          }
+        ]
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "password"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "verified": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "required": [
+          "created"
+        ],
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Record": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Meta"
+          },
+          {
+            "type": "object",
+            "required": [
+              "record"
+            ],
+            "properties": {
+              "record": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Note": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Meta"
+          },
+          {
+            "type": "object",
+            "required": [
+              "note"
+            ],
+            "properties": {
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Entry": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Record"
+          },
+          {
+            "$ref": "#/components/schemas/Note"
           }
         ]
       }

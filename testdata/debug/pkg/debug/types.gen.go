@@ -98,7 +98,7 @@ func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Cat defines a model
@@ -174,9 +174,9 @@ func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Pet) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Cat != nil:
-		return json.MarshalEncode(enc, v.Cat, jsonOpts)
+		return json.MarshalEncode(enc, v.Cat, jsonOptsTo(enc))
 	case v.Dog != nil:
-		return json.MarshalEncode(enc, v.Dog, jsonOpts)
+		return json.MarshalEncode(enc, v.Dog, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -200,6 +200,12 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 	}
 
 	return jsonOptsLenient
+}
+
+// jsonOptsTo is jsonOpts with the options enc was given beside them, such as the marshalers that leave out what a
+// request or a response does not carry, so that what a type encodes itself passes them on.
+func jsonOptsTo(enc *jsontext.Encoder) json.Options {
+	return json.JoinOptions(jsonOpts, enc.Options())
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.

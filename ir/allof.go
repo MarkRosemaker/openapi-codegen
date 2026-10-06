@@ -26,7 +26,7 @@ func objectShape(s *openapi.Schema) (members, required []string, ok bool) {
 		members = append(members, name)
 	}
 
-	required = slices.Clone(s.Required)
+	required = requiredOf(s)
 
 	for _, e := range s.AllOf {
 		m, r, ok := objectShape(e)
@@ -36,6 +36,11 @@ func objectShape(s *openapi.Schema) (members, required []string, ok bool) {
 
 		members, required = append(members, m...), append(required, r...)
 	}
+
+	// a part may require what another declares one way
+	required = slices.DeleteFunc(required, func(name string) bool {
+		return slices.ContainsFunc(orderedProperties(s), func(p namedSchema) bool { return p.name == name && oneWay(p.schema) })
+	})
 
 	slices.Sort(members)
 	slices.Sort(required)

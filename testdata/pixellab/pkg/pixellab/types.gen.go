@@ -1300,7 +1300,7 @@ func (v *CreateCharacterWithDirectionsProportionsAnyOf) MarshalJSONTo(enc *jsont
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -1664,11 +1664,11 @@ func (v *CreateMapObjectRequestInpainting) UnmarshalJSONFrom(dec *jsontext.Decod
 func (v *CreateMapObjectRequestInpainting) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.MaskInpainting != nil:
-		return json.MarshalEncode(enc, v.MaskInpainting, jsonOpts)
+		return json.MarshalEncode(enc, v.MaskInpainting, jsonOptsTo(enc))
 	case v.OvalInpainting != nil:
-		return json.MarshalEncode(enc, v.OvalInpainting, jsonOpts)
+		return json.MarshalEncode(enc, v.OvalInpainting, jsonOptsTo(enc))
 	case v.RectangleInpainting != nil:
-		return json.MarshalEncode(enc, v.RectangleInpainting, jsonOpts)
+		return json.MarshalEncode(enc, v.RectangleInpainting, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -1755,7 +1755,7 @@ func (v *CreateObjectProFlashImageSize) UnmarshalJSONFrom(dec *jsontext.Decoder)
 func (v *CreateObjectProFlashImageSize) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.ProFlashImageSize != nil:
-		return json.MarshalEncode(enc, v.ProFlashImageSize, jsonOpts)
+		return json.MarshalEncode(enc, v.ProFlashImageSize, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -2189,7 +2189,7 @@ func (v *CreateUIAssetRequestPiecesAnyOf0Item) MarshalJSONTo(enc *jsontext.Encod
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -4180,9 +4180,9 @@ func (v *ValidationErrorLocItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error 
 func (v *ValidationErrorLocItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.Int != nil:
-		return json.MarshalEncode(enc, v.Int, jsonOpts)
+		return json.MarshalEncode(enc, v.Int, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -4227,6 +4227,12 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 	}
 
 	return jsonOptsLenient
+}
+
+// jsonOptsTo is jsonOpts with the options enc was given beside them, such as the marshalers that leave out what a
+// request or a response does not carry, so that what a type encodes itself passes them on.
+func jsonOptsTo(enc *jsontext.Encoder) json.Options {
+	return json.JoinOptions(jsonOpts, enc.Options())
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.

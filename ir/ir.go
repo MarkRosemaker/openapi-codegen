@@ -233,6 +233,10 @@ type Schema struct {
 	MemberDecoder bool `json:"memberDecoder,omitzero"`
 	// Tagged is set for a struct made from a tagged union, whose methods check that only the member the tag names is set.
 	Tagged *Tagged `json:"tagged,omitzero"`
+	// ReadOnly and WriteOnly are the fields, as Go selectors through embedded parts, that a request leaves out and a
+	// response leaves out.
+	ReadOnly  []string `json:"readOnly,omitempty"`
+	WriteOnly []string `json:"writeOnly,omitempty"`
 }
 
 // AllOfUnion is the union part of an allOf.
@@ -341,6 +345,10 @@ type Field struct {
 	Description string `json:"description,omitzero"`
 	Required    bool   `json:"required,omitzero"`
 	Embedded    bool   `json:"embedded,omitzero"` // true for allOf $ref entries rendered as embedded structs
+	// ReadOnly and WriteOnly mark a property only responses carry, or only requests: a request leaves the former out,
+	// a response the latter, and neither requires it.
+	ReadOnly  bool `json:"readOnly,omitzero"`
+	WriteOnly bool `json:"writeOnly,omitzero"`
 
 	// IsDateTimeOrInt is true when the property's schema is a oneOf of a
 	// date-time string and an integer. The Go type is time.Time, but a custom
@@ -583,6 +591,21 @@ func (doc Document) HasTagged() bool {
 // recording may lack them.
 func (d Document) HasOptionalAuthCalls() bool {
 	return slices.ContainsFunc(d.InteractionCalls, func(ic InteractionCall) bool { return ic.Op.Auth != "" && ic.Op.AuthOptional })
+}
+
+// EncodesItself reports whether the type has a MarshalJSONTo method of its own.
+func (s Schema) EncodesItself() bool {
+	return s.Tagged != nil || s.AllOfUnion != nil || s.Unimplemented != ""
+}
+
+// HasReadOnly reports whether a type has fields a request leaves out.
+func (doc Document) HasReadOnly() bool {
+	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.ReadOnly) > 0 })
+}
+
+// HasWriteOnly reports whether a type has fields a response leaves out.
+func (doc Document) HasWriteOnly() bool {
+	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.WriteOnly) > 0 })
 }
 
 // NeedsJSONHelpers reports whether a generated type decodes its alternatives itself, needing the JSON helpers.

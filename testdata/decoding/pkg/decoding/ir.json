@@ -74,6 +74,76 @@
 				"name": "PageOrPartial",
 				"isSlice": true
 			}
+		},
+		{
+			"name": "UpdateUser",
+			"method": "PUT",
+			"pathTemplate": "/users/{id}",
+			"joinPathArgs": [
+				"\"users\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"requestBody": {
+				"typeName": "User",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "User"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "User"
+			}
+		},
+		{
+			"name": "CreateEntry",
+			"method": "POST",
+			"pathTemplate": "/entries",
+			"joinPathArgs": [
+				"\"entries\""
+			],
+			"requestBody": {
+				"typeName": "Entry",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Entry"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Entry"
+			}
 		}
 	],
 	"schemas": [
@@ -259,6 +329,64 @@
 					"required": true
 				}
 			]
+		},
+		{
+			"name": "Entry",
+			"description": "Entry defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Record",
+					"type": "Record",
+					"members": [
+						"created",
+						"record"
+					],
+					"required": [
+						"record"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Note",
+					"type": "Note",
+					"members": [
+						"created",
+						"note"
+					],
+					"required": [
+						"note"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Record",
+					"type": "Record",
+					"members": [
+						"created",
+						"record"
+					],
+					"required": [
+						"record"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Note",
+					"type": "Note",
+					"members": [
+						"created",
+						"note"
+					],
+					"required": [
+						"note"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
 		},
 		{
 			"name": "Filter",
@@ -561,6 +689,47 @@
 					"jsonTag": "json:\"url\"",
 					"required": true
 				}
+			]
+		},
+		{
+			"name": "Meta",
+			"description": "Meta defines a model",
+			"fields": [
+				{
+					"name": "Created",
+					"jsonName": "created",
+					"type": "time.Time",
+					"jsonTag": "json:\"created,omitzero\"",
+					"readOnly": true
+				}
+			],
+			"readOnly": [
+				"Created"
+			]
+		},
+		{
+			"name": "Note",
+			"description": "Note defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "Meta",
+					"embedded": true
+				},
+				{
+					"name": "Note",
+					"jsonName": "note",
+					"type": "string",
+					"jsonTag": "json:\"note\"",
+					"required": true
+				}
+			],
+			"members": [
+				"created",
+				"note"
+			],
+			"readOnly": [
+				"Meta.Created"
 			]
 		},
 		{
@@ -919,6 +1088,72 @@
 					}
 				]
 			}
+		},
+		{
+			"name": "Record",
+			"description": "Record defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "Meta",
+					"embedded": true
+				},
+				{
+					"name": "Record",
+					"jsonName": "record",
+					"type": "string",
+					"jsonTag": "json:\"record\"",
+					"required": true
+				}
+			],
+			"members": [
+				"created",
+				"record"
+			],
+			"readOnly": [
+				"Meta.Created"
+			]
+		},
+		{
+			"name": "User",
+			"description": "User defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\"",
+					"readOnly": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"required": true
+				},
+				{
+					"name": "Password",
+					"jsonName": "password",
+					"type": "string",
+					"jsonTag": "json:\"password,omitzero\"",
+					"writeOnly": true
+				},
+				{
+					"name": "Verified",
+					"jsonName": "verified",
+					"type": "*bool",
+					"jsonTag": "json:\"verified,omitzero\"",
+					"readOnly": true
+				}
+			],
+			"readOnly": [
+				"ID",
+				"Verified"
+			],
+			"writeOnly": [
+				"Password"
+			]
 		}
 	]
 }

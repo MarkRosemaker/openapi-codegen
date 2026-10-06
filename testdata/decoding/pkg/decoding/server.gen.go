@@ -17,6 +17,8 @@ import (
 type Service interface {
 	GetPage(ctx context.Context, id string) (*Page, error)
 	Search(ctx context.Context, body PropertyFilter) ([]PageOrPartial, error)
+	UpdateUser(ctx context.Context, id string, body User) (*User, error)
+	CreateEntry(ctx context.Context, body Entry) (*Entry, error)
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -56,7 +58,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+			if err := json.MarshalWrite(w, res, jsonOptsResponse); err != nil {
 				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 				return
@@ -106,7 +108,108 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 
-			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+			if err := json.MarshalWrite(w, res, jsonOptsResponse); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/users/{id}")
+		l := slog.Default().With(slog.String("method", "PUT"), slog.String("path", path), slog.String("function", "UpdateUser"))
+
+		mux.HandleFunc(fmt.Sprintf("PUT %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			id := r.PathValue("id")
+			var body User
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.UpdateUser(ctx, id, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOptsResponse); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/entries")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateEntry"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body Entry
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.CreateEntry(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOptsResponse); err != nil {
 				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 				return

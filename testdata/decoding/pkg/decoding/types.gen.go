@@ -13,6 +13,7 @@ import (
 	"maps"
 	"slices"
 	"strconv"
+	"time"
 )
 
 var jsonOpts = json.JoinOptions(
@@ -22,6 +23,47 @@ var jsonOpts = json.JoinOptions(
 // jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
 // decoding failed, and as a caller's own type of a result is decoded.
 var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false))
+
+// jsonOptsRequest is jsonOpts for a request body: it leaves out the members only responses carry, which the
+// specification marks readOnly.
+var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
+	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error {
+		v.Created = Meta{}.Created
+
+		type plain Meta
+		return json.MarshalEncode(enc, plain(v))
+	}),
+	json.MarshalToFunc(func(enc *jsontext.Encoder, v Note) error {
+		v.Meta.Created = Note{}.Meta.Created
+
+		type plain Note
+		return json.MarshalEncode(enc, plain(v))
+	}),
+	json.MarshalToFunc(func(enc *jsontext.Encoder, v Record) error {
+		v.Meta.Created = Record{}.Meta.Created
+
+		type plain Record
+		return json.MarshalEncode(enc, plain(v))
+	}),
+	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
+		v.ID = User{}.ID
+		v.Verified = User{}.Verified
+
+		type plain User
+		return json.MarshalEncode(enc, plain(v))
+	}),
+)))
+
+// jsonOptsResponse is jsonOpts for a response body: it leaves out the members only requests carry, which the
+// specification marks writeOnly.
+var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
+	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
+		v.Password = User{}.Password
+
+		type plain User
+		return json.MarshalEncode(enc, plain(v))
+	}),
+)))
 
 // Bot defines a model
 // Bot is an untagged anyOf union: at least one field is set after unmarshaling.
@@ -74,9 +116,9 @@ func (v *Bot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Bot) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Object != nil:
-		return json.MarshalEncode(enc, v.Object, jsonOpts)
+		return json.MarshalEncode(enc, v.Object, jsonOptsTo(enc))
 	case v.BotAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.BotAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.BotAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -173,7 +215,7 @@ func (v *CoverResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // Date defines a model
@@ -184,6 +226,72 @@ type Date struct {
 // Emoji defines a model
 type Emoji struct {
 	Emoji string `json:"emoji"`
+}
+
+// Entry defines a model
+// Entry is an untagged oneOf union: exactly one field is set after unmarshaling.
+type Entry struct {
+	Record *Record
+	Note   *Note
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *Entry) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Entry{}
+
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"record"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Record
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Record = &vv
+				matched++
+			}
+		}
+	}
+
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"note"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv Note
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.Note = &vv
+				matched++
+			}
+		}
+	}
+
+	if matched != 1 {
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *Entry) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.Record != nil:
+		return json.MarshalEncode(enc, v.Record, jsonOptsTo(enc))
+	case v.Note != nil:
+		return json.MarshalEncode(enc, v.Note, jsonOptsTo(enc))
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // Filter defines a model
@@ -241,9 +349,9 @@ func (v *Filter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Filter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.FilterAnyOf0 != nil:
-		return json.MarshalEncode(enc, v.FilterAnyOf0, jsonOpts)
+		return json.MarshalEncode(enc, v.FilterAnyOf0, jsonOptsTo(enc))
 	case v.FilterAnyOf1 != nil:
-		return json.MarshalEncode(enc, v.FilterAnyOf1, jsonOpts)
+		return json.MarshalEncode(enc, v.FilterAnyOf1, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -314,7 +422,7 @@ func (v *GroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return &json.SemanticError{Err: errors.New("no alternative set")}
 	}
 
-	out, err := json.Marshal(variant, jsonOpts)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
 	if err != nil {
 		return err
 	}
@@ -429,9 +537,9 @@ func (v *IconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *IconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Emoji != nil:
-		return json.MarshalEncode(enc, v.Emoji, jsonOpts)
+		return json.MarshalEncode(enc, v.Emoji, jsonOptsTo(enc))
 	case v.Link != nil:
-		return json.MarshalEncode(enc, v.Link, jsonOpts)
+		return json.MarshalEncode(enc, v.Link, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -440,6 +548,17 @@ func (v *IconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 // Link defines a model
 type Link struct {
 	URL string `json:"url"`
+}
+
+// Meta defines a model
+type Meta struct {
+	Created time.Time `json:"created,omitzero"`
+}
+
+// Note defines a model
+type Note struct {
+	Meta
+	Note string `json:"note"`
 }
 
 // Page defines a model
@@ -506,9 +625,9 @@ func (v *PageOrPartial) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *PageOrPartial) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Page != nil:
-		return json.MarshalEncode(enc, v.Page, jsonOpts)
+		return json.MarshalEncode(enc, v.Page, jsonOptsTo(enc))
 	case v.PartialPage != nil:
-		return json.MarshalEncode(enc, v.PartialPage, jsonOpts)
+		return json.MarshalEncode(enc, v.PartialPage, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -631,9 +750,9 @@ func (v *Position) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 func (v *Position) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != nil:
-		return json.MarshalEncode(enc, v.String, jsonOpts)
+		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
 	case v.Pair != nil:
-		return json.MarshalEncode(enc, v.Pair, jsonOpts)
+		return json.MarshalEncode(enc, v.Pair, jsonOptsTo(enc))
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
@@ -724,7 +843,7 @@ func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
 // PropertyValue defines a model
@@ -806,7 +925,21 @@ func (v *PropertyValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return err
 	}
 
-	return json.MarshalEncode(enc, (*plain)(&out), jsonOpts)
+	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
+}
+
+// Record defines a model
+type Record struct {
+	Meta
+	Record string `json:"record"`
+}
+
+// User defines a model
+type User struct {
+	ID       string `json:"id,omitzero"`
+	Name     string `json:"name"`
+	Password string `json:"password,omitzero"`
+	Verified *bool  `json:"verified,omitzero"`
 }
 
 // jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
@@ -822,6 +955,12 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 	}
 
 	return jsonOptsLenient
+}
+
+// jsonOptsTo is jsonOpts with the options enc was given beside them, such as the marshalers that leave out what a
+// request or a response does not carry, so that what a type encodes itself passes them on.
+func jsonOptsTo(enc *jsontext.Encoder) json.Options {
+	return json.JoinOptions(jsonOpts, enc.Options())
 }
 
 // jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
