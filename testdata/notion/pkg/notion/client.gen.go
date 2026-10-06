@@ -96,7 +96,7 @@ func (c *Client) GetV1PageByPageIDWithResult[R any](ctx context.Context, pageID 
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization":  []string{c.bearer},
-			"Notion-Version": []string{params.NotionVersion},
+			"Notion-Version": []string{params.NotionVersion.String()},
 			"User-Agent":     []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -159,7 +159,7 @@ func (c *Client) ListV1BlockChildrenWithResult[R any](ctx context.Context, block
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization":  []string{c.bearer},
-			"Notion-Version": []string{params.NotionVersion},
+			"Notion-Version": []string{params.NotionVersion.String()},
 			"User-Agent":     []string{c.userAgent},
 		},
 		Host:       u.Host,

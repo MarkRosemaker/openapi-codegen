@@ -10,6 +10,7 @@ import (
 	"time"
 	"uuid"
 
+	"cloud.google.com/go/civil"
 	"github.com/MarkRosemaker/jsonutil"
 )
 
@@ -29,13 +30,13 @@ var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false
 
 // GetV1PageByPageIDParams holds the query parameters for GetV1PageByPageID.
 type GetV1PageByPageIDParams struct {
-	NotionVersion string
+	NotionVersion civil.Date
 }
 
 // ListV1BlockChildrenParams holds the query parameters for ListV1BlockChildren.
 type ListV1BlockChildrenParams struct {
 	PageSize      int
-	NotionVersion string
+	NotionVersion civil.Date
 }
 
 // GetV1PageByPageIDOk defines a model

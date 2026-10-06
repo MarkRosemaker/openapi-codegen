@@ -36,10 +36,9 @@
 					"goName": "notionVersion",
 					"fieldName": "NotionVersion",
 					"jsonName": "Notion-Version",
-					"type": "string",
+					"type": "civil.Date",
 					"required": true,
-					"parseExpr": "s",
-					"parseErrFree": true
+					"parseExpr": "civil.ParseDate(s)"
 				}
 			],
 			"hasParams": true,
@@ -98,10 +97,9 @@
 					"goName": "notionVersion",
 					"fieldName": "NotionVersion",
 					"jsonName": "Notion-Version",
-					"type": "string",
+					"type": "civil.Date",
 					"required": true,
-					"parseExpr": "s",
-					"parseErrFree": true
+					"parseExpr": "civil.ParseDate(s)"
 				}
 			],
 			"hasParams": true,
