@@ -1,6 +1,6 @@
 {
   "openapi": "3.1.0",
-  "info": {"title": "Debug", "version": "1"},
+  "info": {"title": "Debug", "version": "1", "description": "The one package generated in debug mode: TestCodegen_TestData generates pkg/debug from it, and debug_test.go there checks what a client given WithDebug forgives. Edit them by hand."},
   "servers": [{"url": "https://api.example.com"}],
   "paths": {
     "/item": {"get": {"operationId": "getItem", "responses": {
@@ -13,7 +13,9 @@
       "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Pet"}}}}
     }}}
   },
-  "components": {"schemas": {
+  "components": {
+  "securitySchemes": {"bearerAuth": {"description": "Required by nothing, so the one scheme there is.", "type": "http", "scheme": "bearer"}},
+  "schemas": {
     "Item": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"}}},
     "Block": {"oneOf": [{"$ref": "#/components/schemas/Paragraph"}, {"$ref": "#/components/schemas/Divider"}]},
     "Paragraph": {"type": "object", "required": ["type", "paragraph"], "properties": {

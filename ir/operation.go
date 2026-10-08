@@ -148,8 +148,8 @@ func mergeParams(pathItem, operation openapi.ParameterList) openapi.ParameterLis
 	return append(result, operation...)
 }
 
-// paramSchema is the schema a parameter is sent as. Null is dropped, a union of strings is a string,
-// and a union of an array and its items is the array: form style writes one value alike.
+// paramSchema is the schema a parameter is sent as. Null is dropped, a union of an array and its items is the array:
+// form style writes one value alike. Any other union is a string, the one type that can carry each of its values.
 func paramSchema(s *openapi.Schema) *openapi.Schema {
 	d := deref(s)
 	variants := d.OneOf
@@ -167,18 +167,20 @@ func paramSchema(s *openapi.Schema) *openapi.Schema {
 		return paramSchema(variants[0])
 	}
 
+	str := &openapi.Schema{Type: openapi.TypeString}
+
 	var array *openapi.Schema
 	for _, v := range variants {
 		switch deref(v).Type {
 		case openapi.TypeString:
 		case openapi.TypeArray:
 			if array != nil {
-				return s
+				return str
 			}
 
 			array = v
 		default:
-			return s
+			return str
 		}
 	}
 
@@ -186,7 +188,7 @@ func paramSchema(s *openapi.Schema) *openapi.Schema {
 		return array
 	}
 
-	return &openapi.Schema{Type: openapi.TypeString}
+	return str
 }
 
 // setType sets the parameter's Go type, and how to format and parse it, from s.

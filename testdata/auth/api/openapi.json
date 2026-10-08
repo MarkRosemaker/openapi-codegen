@@ -1,18 +1,55 @@
 {
   "openapi": "3.1.0",
-  "info": {"title": "Optional Auth", "version": "1"},
+  "info": {
+    "title": "API",
+    "description": "Credentials and what every request sends. TestCodegen_TestData generates pkg/auth from it and interactions.json, which must give the files there, and TestCodegen_Golden runs their tests. A title of API says nothing, so the package's name stands in for it. Edit them by hand.",
+    "version": "1"
+  },
   "servers": [{"url": "https://api.example.com"}],
   "security": [{"bearerAuth": []}],
   "paths": {
-    "/items": {"get": {"operationId": "listItems", "responses": {
-      "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "string"}}}}}
-    }}},
-    "/feed": {"get": {"operationId": "getFeed", "security": [{}, {"bearerAuth": []}], "responses": {
-      "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "string"}}}}}
-    }}},
-    "/health": {"get": {"operationId": "health", "security": [], "responses": {
-      "204": {"description": "ok"}
-    }}}
+    "/items": {
+      "parameters": [{"$ref": "#/components/parameters/X-Client"}, {"$ref": "#/components/parameters/X-Api-Key"}],
+      "get": {"operationId": "listItems", "description": "Requires the token.", "responses": {
+        "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "string"}}}}}
+      }}
+    },
+    "/feed": {
+      "parameters": [{"$ref": "#/components/parameters/X-Client"}, {"$ref": "#/components/parameters/X-Api-Key"}],
+      "get": {"operationId": "getFeed", "description": "Takes the token if there is one.", "security": [{}, {"bearerAuth": []}], "responses": {
+        "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "array", "items": {"type": "string"}}}}}
+      }}
+    },
+    "/admin": {
+      "parameters": [{"$ref": "#/components/parameters/X-Client"}, {"$ref": "#/components/parameters/X-Api-Key"}],
+      "get": {"operationId": "getAdmin", "description": "Takes a username and password instead.", "security": [{"basicAuth": []}], "responses": {
+        "204": {"description": "ok"}
+      }}
+    },
+    "/health": {
+      "parameters": [{"$ref": "#/components/parameters/X-Client"}, {"$ref": "#/components/parameters/X-Api-Key"}],
+      "get": {"operationId": "health", "description": "Never takes the token.", "security": [], "responses": {
+        "204": {"description": "ok"}
+      }}
+    }
   },
-  "components": {"securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer"}}}
+  "components": {
+    "parameters": {
+      "X-Api-Key": {
+        "name": "X-Api-Key",
+        "in": "header",
+        "description": "On every path too: a client field, read from the environment.",
+        "required": true,
+        "schema": {"type": "string"}
+      },
+      "X-Client": {
+        "name": "X-Client",
+        "in": "header",
+        "description": "On every path, so a client field; it has no example, so its value comes from the recordings.",
+        "required": true,
+        "schema": {"type": "string"}
+      }
+    },
+    "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer"}, "basicAuth": {"type": "http", "scheme": "basic"}}
+  }
 }

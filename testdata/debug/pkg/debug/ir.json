@@ -10,6 +10,7 @@
 	"userAgent": "Debug",
 	"operations": [
 		{
+			"auth": "bearer",
 			"name": "GetItem",
 			"method": "GET",
 			"pathTemplate": "/item",
@@ -33,6 +34,7 @@
 			}
 		},
 		{
+			"auth": "bearer",
 			"name": "GetBlock",
 			"method": "GET",
 			"pathTemplate": "/block",
@@ -56,6 +58,7 @@
 			}
 		},
 		{
+			"auth": "bearer",
 			"name": "GetPet",
 			"method": "GET",
 			"pathTemplate": "/pet",
@@ -243,5 +246,11 @@
 				}
 			]
 		}
-	]
+	],
+	"security": {
+		"bearer": {
+			"name": "DEBUG_TOKEN"
+		},
+		"default": "bearer"
+	}
 }

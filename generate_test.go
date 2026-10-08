@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/MarkRosemaker/openapi"
@@ -12,14 +13,17 @@ import (
 	"github.com/MarkRosemaker/openapi-codegen/config"
 )
 
+// goldenSpec is the document TestCodegen_TestData generates the golden package from.
+var goldenSpec = filepath.Join("testdata", "golden", "api", "openapi.json")
+
 func TestGenerate_HappyPath(t *testing.T) {
 	outDir := t.TempDir()
 
 	cfg := codegen.Config{
-		SpecPath:    filepath.Join("testdata", "simple", "api", "openapi.json"),
+		SpecPath:    goldenSpec,
 		OutputDir:   outDir,
-		PackageName: "simple",
-		UserAgent:   "simple/1.0",
+		PackageName: "golden",
+		UserAgent:   "golden/1.0",
 	}
 
 	if err := codegen.Generate(cfg); err != nil {
@@ -49,12 +53,12 @@ func TestGenerate_HappyPath(t *testing.T) {
 	}
 
 	content := string(types)
-	if !containsStr(content, "package simple") {
+	if !strings.Contains(content, "package golden") {
 		t.Error("types.go: missing package declaration")
 	}
 
-	if !containsStr(content, "type Item struct") {
-		t.Fatalf("types.go: missing Item struct; content:\n%s", content)
+	if !strings.Contains(content, "type Block struct") {
+		t.Fatalf("types.go: missing Block struct; content:\n%s", content)
 	}
 }
 
@@ -82,9 +86,9 @@ func TestGenerate_SelectiveFiles(t *testing.T) {
 			outDir := t.TempDir()
 
 			if err := codegen.Generate(codegen.Config{
-				SpecPath:    filepath.Join("testdata", "simple", "api", "openapi.json"),
+				SpecPath:    goldenSpec,
 				OutputDir:   outDir,
-				PackageName: "simple",
+				PackageName: "golden",
 				Generate:    tc.cfg,
 			}); err != nil {
 				t.Fatalf("Generate: %v", err)
@@ -193,9 +197,9 @@ func TestGenerate_MkdirError(t *testing.T) {
 	_ = tmpFile.Close()
 
 	if err := codegen.Generate(codegen.Config{
-		SpecPath:    filepath.Join("testdata", "simple", "api", "openapi.json"),
+		SpecPath:    goldenSpec,
 		OutputDir:   filepath.Join(tmpFile.Name(), "subdir"),
-		PackageName: "simple",
+		PackageName: "golden",
 	}); err == nil {
 		t.Fatal("expected error when output dir cannot be created")
 	} else if pathErr, ok := errors.AsType[*fs.PathError](err); !ok {
@@ -213,9 +217,9 @@ func TestGenerate_WriteFileError(t *testing.T) {
 	}
 
 	if err := codegen.Generate(codegen.Config{
-		SpecPath:    filepath.Join("testdata", "simple", "api", "openapi.json"),
+		SpecPath:    goldenSpec,
 		OutputDir:   outDir,
-		PackageName: "simple",
+		PackageName: "golden",
 	}); err == nil {
 		t.Fatal("expected error when output path is a directory")
 	} else if pathErr, ok := errors.AsType[*fs.PathError](err); !ok {
@@ -223,18 +227,4 @@ func TestGenerate_WriteFileError(t *testing.T) {
 	} else if got, want := pathErr.Op, "open"; got != want {
 		t.Fatalf("(*fs.PathError).Op=%v, want=%q", got, want)
 	}
-}
-
-func containsStr(s, sub string) bool {
-	return len(s) >= len(sub) && (s == sub || len(s) > 0 && indexStr(s, sub) >= 0)
-}
-
-func indexStr(s, sub string) int {
-	for i := 0; i <= len(s)-len(sub); i++ {
-		if s[i:i+len(sub)] == sub {
-			return i
-		}
-	}
-
-	return -1
 }

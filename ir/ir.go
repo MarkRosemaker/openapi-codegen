@@ -75,8 +75,10 @@ type InteractionCall struct {
 	BodyLiteral string
 }
 
+// UsesMustDecodeBody reports whether the body literal decodes a value at test time, anywhere in it: a field of a
+// struct literal may, where the rest of it is written out.
 func (ic InteractionCall) UsesMustDecodeBody() bool {
-	return strings.HasPrefix(ic.BodyLiteral, "mustDecodeBody")
+	return strings.Contains(ic.BodyLiteral, "mustDecodeBody[")
 }
 
 // InteractionParam is one query param with its Go literal value.

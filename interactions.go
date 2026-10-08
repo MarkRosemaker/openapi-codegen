@@ -3,6 +3,7 @@ package codegen
 import (
 	"encoding/json/v2"
 	"fmt"
+	"net/http"
 	"net/url"
 	"slices"
 	"strconv"
@@ -25,100 +26,122 @@ func matchInteractions(doc *ir.Document, interactions cassette.Interactions) err
 			continue // just a scaffold
 		}
 
-		u, err := url.Parse(ia.Request.URL)
+		call, err := interactionCall(doc, ia)
 		if err != nil {
 			return err
-		}
-
-		// Strip the base URL path prefix to get the operation-relative path.
-		relPath := strings.TrimPrefix(u.Path, doc.BaseURL.Path)
-		if relPath == "" {
-			relPath = "/"
-		} else if !strings.HasPrefix(relPath, "/") {
-			relPath = "/" + relPath
-		}
-
-		op, pathVals := pickOperation(doc.Operations, ia.Request.Method, relPath)
-		if op == nil {
-			return fmt.Errorf("interaction %s %s: no matching operation found", ia.Request.Method, ia.Request.URL)
-		}
-
-		call := ir.InteractionCall{Op: op}
-
-		for _, pp := range op.PathParams {
-			call.PathArgs = append(call.PathArgs, goLiteralForType(pp, pathVals[pp.JSONName]))
-		}
-
-		q := u.Query()
-		for _, qp := range op.QueryParams {
-			if qp.Item != nil {
-				if vals := q[qp.JSONName]; len(vals) > 0 {
-					call.QueryArgs = append(call.QueryArgs, ir.InteractionParam{
-						FieldName: qp.FieldName,
-						Literal:   sliceLiteral(qp, vals),
-					})
-				}
-
-				continue
-			}
-
-			val := q.Get(qp.JSONName)
-			if val != "" {
-				call.QueryArgs = append(call.QueryArgs, ir.InteractionParam{
-					FieldName: qp.FieldName,
-					Literal:   goLiteralForType(qp, val),
-				})
-			}
-		}
-
-		for _, hp := range op.HeaderParams {
-			val := ia.Request.Headers.Get(hp.JSONName)
-			if val != "" {
-				call.HeaderArgs = append(call.HeaderArgs, ir.InteractionParam{
-					FieldName: hp.FieldName,
-					Literal:   goLiteralForType(hp, val),
-				})
-			}
-		}
-
-		if op.RequestBody != nil {
-			goType := op.RequestBody.TypeName
-			if !op.RequestBody.Required {
-				goType = "*" + goType
-			}
-
-			var raw any
-			if len(ia.Request.Body) > 0 {
-				if err := json.Unmarshal(ia.Request.Body, &raw); err != nil {
-					return fmt.Errorf("decoding request body for %s: %w", op.Name, err)
-				}
-			}
-
-			call.BodyLiteral = bodyLiteral(doc, goType, raw)
-		}
-
-		if r := findResponse(op, ia.Response.StatusCode); r != nil {
-			call.IsSuccess = r.IsSuccess
-			switch {
-			case r.IsSuccess:
-			case r.IsRawBytes:
-				// Nothing was decoded, so there is no generated type to match
-				// on: the client hands the body back as an api.ErrorBody.
-				call.ErrorType = "api.ErrorBody"
-			case r.GoType != nil:
-				call.ErrorType = r.GoType.String()
-			}
-		} else {
-			// No declared response for this exact status code: fall back to the
-			// HTTP convention so the generated assertion at least checks err==nil
-			// vs err!=nil correctly, without asserting a specific error type.
-			call.IsSuccess = ia.Response.StatusCode >= 200 && ia.Response.StatusCode < 300
 		}
 
 		doc.InteractionCalls = append(doc.InteractionCalls, call)
 	}
 
 	return nil
+}
+
+// interactionCall is the call of the operation ia was made to, with the arguments it was made with.
+func interactionCall(doc *ir.Document, ia cassette.Interaction) (ir.InteractionCall, error) {
+	u, err := url.Parse(ia.Request.URL)
+	if err != nil {
+		return ir.InteractionCall{}, err
+	}
+
+	op, pathVals := pickOperation(doc.Operations, ia.Request.Method, relativePath(u.Path, doc.BaseURL.Path))
+	if op == nil {
+		return ir.InteractionCall{}, fmt.Errorf("interaction %s %s: no matching operation found", ia.Request.Method, ia.Request.URL)
+	}
+
+	call := ir.InteractionCall{
+		Op:         op,
+		QueryArgs:  queryArgs(op.QueryParams, u.Query()),
+		HeaderArgs: headerArgs(op.HeaderParams, ia.Request.Headers),
+	}
+
+	for _, pp := range op.PathParams {
+		call.PathArgs = append(call.PathArgs, goLiteralForType(pp, pathVals[pp.JSONName]))
+	}
+
+	if op.RequestBody != nil {
+		goType := op.RequestBody.TypeName
+		if !op.RequestBody.Required {
+			goType = "*" + goType
+		}
+
+		var raw any
+		if len(ia.Request.Body) > 0 {
+			if err := json.Unmarshal(ia.Request.Body, &raw); err != nil {
+				return ir.InteractionCall{}, fmt.Errorf("decoding request body for %s: %w", op.Name, err)
+			}
+		}
+
+		call.BodyLiteral = bodyLiteral(doc, goType, raw)
+	}
+
+	setOutcome(&call, op, ia.Response.StatusCode)
+
+	return call, nil
+}
+
+// relativePath is path without the base URL's path, which is where the operations' paths start.
+func relativePath(path, base string) string {
+	rel := strings.TrimPrefix(path, base)
+	if !strings.HasPrefix(rel, "/") {
+		rel = "/" + rel
+	}
+
+	return rel
+}
+
+// queryArgs are the literals of the query parameters q holds a value for.
+func queryArgs(params ir.Params, q url.Values) []ir.InteractionParam {
+	var args []ir.InteractionParam
+
+	for _, qp := range params {
+		if qp.Item != nil {
+			if vals := q[qp.JSONName]; len(vals) > 0 {
+				args = append(args, ir.InteractionParam{FieldName: qp.FieldName, Literal: sliceLiteral(qp, vals)})
+			}
+		} else if val := q.Get(qp.JSONName); val != "" {
+			args = append(args, ir.InteractionParam{FieldName: qp.FieldName, Literal: goLiteralForType(qp, val)})
+		}
+	}
+
+	return args
+}
+
+// headerArgs are the literals of the header parameters h holds a value for.
+func headerArgs(params ir.Params, h http.Header) []ir.InteractionParam {
+	var args []ir.InteractionParam
+
+	for _, hp := range params {
+		if val := h.Get(hp.JSONName); val != "" {
+			args = append(args, ir.InteractionParam{FieldName: hp.FieldName, Literal: goLiteralForType(hp, val)})
+		}
+	}
+
+	return args
+}
+
+// setOutcome sets whether the call succeeded, and if not, the type of the error it returns, from the status recorded.
+func setOutcome(call *ir.InteractionCall, op *ir.Operation, status int) {
+	r := findResponse(op, status)
+	if r == nil {
+		// No declared response for this exact status code: fall back to the
+		// HTTP convention so the generated assertion at least checks err==nil
+		// vs err!=nil correctly, without asserting a specific error type.
+		call.IsSuccess = status >= 200 && status < 300
+		return
+	}
+
+	call.IsSuccess = r.IsSuccess
+
+	switch {
+	case r.IsSuccess:
+	case r.IsRawBytes:
+		// Nothing was decoded, so there is no generated type to match
+		// on: the client hands the body back as an api.ErrorBody.
+		call.ErrorType = "api.ErrorBody"
+	case r.GoType != nil:
+		call.ErrorType = r.GoType.String()
+	}
 }
 
 // fillGlobalParamExamples gives every global parameter the specification has no
@@ -410,10 +433,19 @@ func bodyLiteral(doc *ir.Document, goType string, v any) string {
 			if lit, ok := enumLiteral(s, v); ok {
 				return lit
 			}
+		case ir.SchemaKindAlias:
+			// a named scalar takes the scalar's literal, converted unless it is an alias
+			if lit, ok := scalarLiteral(s.Type, v); ok {
+				if s.IsTypeAlias {
+					return lit
+				}
+
+				return fmt.Sprintf("%s(%s)", goType, lit)
+			}
 		default:
 		}
 
-		// SchemaKindAlias, SchemaKindMap, SchemaKindUnion, or an enum value
+		// SchemaKindMap, SchemaKindUnion, an alias of no scalar, or an enum value
 		// that didn't match any declared member: not worth hand-rolling.
 	}
 
