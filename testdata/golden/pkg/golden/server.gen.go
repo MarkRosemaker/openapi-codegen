@@ -9,10 +9,14 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"net"
 	"net/http"
+	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
+	"cloud.google.com/go/civil"
 	"github.com/go-api-libs/api/server"
 )
 
@@ -32,6 +36,7 @@ type Service interface {
 	DownloadReport(ctx context.Context, format ScheduleFormat) (io.ReadCloser, error)
 	DeleteSchedule(ctx context.Context, id string) error
 	GetStatus(ctx context.Context) ([]byte, error)
+	QueryStyles(ctx context.Context, page int, params QueryStylesParams) error
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -140,6 +145,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			id := r.PathValue("id")
+
 			var body User
 			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
 				msg := err.Error()
@@ -422,59 +428,12 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			var params ListReportsParams
-			q := r.URL.Query()
-			if s := q.Get("since"); s != "" {
-				rawParam, err := time.Parse(time.RFC3339, s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid since: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Since = rawParam
-			}
-			for _, s := range q["ids"] {
-				rawParam, err := strconv.Atoi(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid ids: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-
-				params.Ids = append(params.Ids, rawParam)
-			}
-			if s := q.Get("verbose"); s != "" {
-				rawParam, err := strconv.ParseBool(s)
-				if err != nil {
-					msg := fmt.Sprintf("invalid verbose: %v", err)
-					l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
-					http.Error(w, msg, http.StatusBadRequest)
-					return
-				}
-				params.Verbose = rawParam
-			}
-			if s := q.Get("format"); s != "" {
-				params.Format = ScheduleFormat(s)
-			}
-			for _, s := range q["formats"] {
-				params.Formats = append(params.Formats, ScheduleFormat(s))
-			}
-			for _, s := range q["tags"] {
-				params.Tags = append(params.Tags, s)
-			}
-			if s := q.Get("cursor"); s != "" {
-				params.Cursor = s
-			}
-			if s := q.Get("order"); s != "" {
-				params.Order = s
-			}
-			if s := q.Get("limit"); s != "" {
-				params.Limit = s
-			}
-			if s := q.Get("pairs"); s != "" {
-				params.Pairs = s
+			params, err := parseListReportsArgs(r)
+			if err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
 			}
 
 			res, err := svc.ListReports(ctx, params)
@@ -611,8 +570,7 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			s := r.PathValue("format")
-			format := ScheduleFormat(s)
+			format := ScheduleFormat(r.PathValue("format"))
 
 			res, err := svc.DownloadReport(ctx, format)
 			if err != nil {
@@ -731,4 +689,452 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "success")
 		})
 	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/queries/{page}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "QueryStyles"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			page, params, err := parseQueryStylesArgs(r)
+			if err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			if err := svc.QueryStyles(ctx, page, params); err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.WriteHeader(http.StatusNoContent)
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+}
+
+// parseListReportsArgs reads the path and query parameters of ListReports from req.
+func parseListReportsArgs(req *http.Request) (params ListReportsParams, err error) {
+	query := req.URL.Query()
+
+	if s := query.Get("since"); s != "" {
+		v, err := time.Parse(time.RFC3339, s)
+		if err != nil {
+			return params, fmt.Errorf("invalid since: %w", err)
+		}
+
+		params.Since = v
+	}
+
+	for _, s := range query["ids"] {
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return params, fmt.Errorf("invalid ids: %w", err)
+		}
+
+		params.Ids = append(params.Ids, v)
+	}
+
+	if s := query.Get("verbose"); s != "" {
+		v, err := strconv.ParseBool(s)
+		if err != nil {
+			return params, fmt.Errorf("invalid verbose: %w", err)
+		}
+
+		params.Verbose = v
+	}
+
+	if s := query.Get("format"); s != "" {
+		params.Format = ScheduleFormat(s)
+	}
+
+	for _, s := range query["formats"] {
+		params.Formats = append(params.Formats, ScheduleFormat(s))
+	}
+
+	params.Tags = query["tags"]
+
+	if s := query.Get("cursor"); s != "" {
+		params.Cursor = s
+	}
+
+	if s := query.Get("order"); s != "" {
+		params.Order = s
+	}
+
+	if s := query.Get("limit"); s != "" {
+		params.Limit = s
+	}
+
+	if s := query.Get("pairs"); s != "" {
+		params.Pairs = s
+	}
+	return params, nil
+}
+
+// parseQueryStylesArgs reads the path and query parameters of QueryStyles from req.
+func parseQueryStylesArgs(req *http.Request) (page int, params QueryStylesParams, err error) {
+	{
+		v, err := strconv.Atoi(req.PathValue("page"))
+		if err != nil {
+			return page, params, fmt.Errorf("invalid page: %w", err)
+		}
+
+		page = v
+	}
+
+	query := req.URL.Query()
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "csv", ",")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid csv: %w", err)
+		}
+
+		for _, s := range parts {
+			v, err := strconv.Atoi(s)
+			if err != nil {
+				return page, params, fmt.Errorf("invalid csv: %w", err)
+			}
+
+			params.Csv = append(params.Csv, v)
+		}
+	}
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "spaced", "%20")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid spaced: %w", err)
+		}
+
+		params.Spaced = parts
+	}
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "piped", "|")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid piped: %w", err)
+		}
+
+		params.Piped = parts
+	}
+
+	if s := query.Get("r"); s != "" {
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid r: %w", err)
+		}
+
+		params.Color.R = v
+	}
+	if s := query.Get("g"); s != "" {
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid g: %w", err)
+		}
+
+		params.Color.G = new(v)
+	}
+	if s := query.Get("name"); s != "" {
+		params.Color.Name = s
+	}
+	if s := query.Get("fade"); s != "" {
+		v, err := strconv.ParseInt(s, 10, 64)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid fade: %w", err)
+		}
+
+		params.Color.Fade = new(time.Duration(v) * time.Second)
+	}
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "colorCsv", ",")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid colorCsv: %w", err)
+		}
+
+		if len(parts)%2 != 0 {
+			return page, params, errors.New("invalid colorCsv: not names and values in turn")
+		}
+
+		for i := 0; i < len(parts); i += 2 {
+			name, s := parts[i], parts[i+1]
+			switch name {
+			case "r":
+				v, err := strconv.Atoi(s)
+				if err != nil {
+					return page, params, fmt.Errorf("invalid colorCsv.r: %w", err)
+				}
+
+				params.ColorCsv.R = v
+			case "g":
+				v, err := strconv.Atoi(s)
+				if err != nil {
+					return page, params, fmt.Errorf("invalid colorCsv.g: %w", err)
+				}
+
+				params.ColorCsv.G = new(v)
+			case "name":
+				params.ColorCsv.Name = s
+			case "fade":
+				v, err := strconv.ParseInt(s, 10, 64)
+				if err != nil {
+					return page, params, fmt.Errorf("invalid colorCsv.fade: %w", err)
+				}
+
+				params.ColorCsv.Fade = new(time.Duration(v) * time.Second)
+			}
+		}
+	}
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "colorPiped", "|")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid colorPiped: %w", err)
+		}
+
+		if len(parts)%2 != 0 {
+			return page, params, errors.New("invalid colorPiped: not names and values in turn")
+		}
+
+		for i := 0; i < len(parts); i += 2 {
+			name, s := parts[i], parts[i+1]
+			switch name {
+			case "r":
+				v, err := strconv.Atoi(s)
+				if err != nil {
+					return page, params, fmt.Errorf("invalid colorPiped.r: %w", err)
+				}
+
+				params.ColorPiped.R = v
+			case "g":
+				v, err := strconv.Atoi(s)
+				if err != nil {
+					return page, params, fmt.Errorf("invalid colorPiped.g: %w", err)
+				}
+
+				params.ColorPiped.G = new(v)
+			case "name":
+				params.ColorPiped.Name = s
+			case "fade":
+				v, err := strconv.ParseInt(s, 10, 64)
+				if err != nil {
+					return page, params, fmt.Errorf("invalid colorPiped.fade: %w", err)
+				}
+
+				params.ColorPiped.Fade = new(time.Duration(v) * time.Second)
+			}
+		}
+	}
+
+	if s := query.Get("colorDeep[r]"); s != "" {
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid colorDeep[r]: %w", err)
+		}
+
+		params.ColorDeep.R = v
+	}
+	if s := query.Get("colorDeep[g]"); s != "" {
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid colorDeep[g]: %w", err)
+		}
+
+		params.ColorDeep.G = new(v)
+	}
+	if s := query.Get("colorDeep[name]"); s != "" {
+		params.ColorDeep.Name = s
+	}
+	if s := query.Get("colorDeep[fade]"); s != "" {
+		v, err := strconv.ParseInt(s, 10, 64)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid colorDeep[fade]: %w", err)
+		}
+
+		params.ColorDeep.Fade = new(time.Duration(v) * time.Second)
+	}
+
+	for k, vs := range query {
+		k, ok := strings.CutPrefix(k, "labels[")
+		if !ok {
+			continue
+		}
+
+		k, ok = strings.CutSuffix(k, "]")
+		if !ok {
+			continue
+		}
+
+		s := vs[0]
+		if params.Labels == nil {
+			params.Labels = Labels{}
+		}
+
+		params.Labels[k] = s
+	}
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "weights", ",")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid weights: %w", err)
+		}
+
+		if len(parts)%2 != 0 {
+			return page, params, errors.New("invalid weights: not names and values in turn")
+		}
+
+		for i := 0; i < len(parts); i += 2 {
+			k, s := parts[i], parts[i+1]
+			v, err := strconv.Atoi(s)
+			if err != nil {
+				return page, params, fmt.Errorf("invalid weights: %w", err)
+			}
+
+			if params.Weights == nil {
+				params.Weights = map[string]int{}
+			}
+
+			params.Weights[k] = v
+		}
+	}
+
+	for k, vs := range query {
+		switch k {
+		case "csv", "spaced", "piped", "r", "g", "name", "fade", "colorCsv", "colorPiped", "weights", "next", "paths", "cells", "every", "at", "on", "site", "ip", "level", "ratio", "v":
+			continue
+		}
+
+		if strings.HasPrefix(k, "colorDeep[") {
+			continue
+		}
+
+		if strings.HasPrefix(k, "labels[") {
+			continue
+		}
+
+		s := vs[0]
+		if params.Extra == nil {
+			params.Extra = map[string]string{}
+		}
+
+		params.Extra[k] = s
+	}
+
+	if s := query.Get("next"); s != "" {
+		params.Next = s
+	}
+
+	params.Paths = query["paths"]
+
+	{
+		parts, err := queryParts(req.URL.RawQuery, "cells", ",")
+		if err != nil {
+			return page, params, fmt.Errorf("invalid cells: %w", err)
+		}
+
+		params.Cells = parts
+	}
+
+	if s := query.Get("every"); s != "" {
+		v, err := strconv.ParseInt(s, 10, 64)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid every: %w", err)
+		}
+
+		params.Every = time.Duration(v) * time.Second
+	}
+
+	if s := query.Get("at"); s != "" {
+		v, err := strconv.ParseInt(s, 10, 64)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid at: %w", err)
+		}
+
+		params.At = time.Unix(v, 0)
+	}
+
+	if s := query.Get("on"); s != "" {
+		v, err := civil.ParseDate(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid on: %w", err)
+		}
+
+		params.On = v
+	}
+
+	if s := query.Get("site"); s != "" {
+		v, err := url.Parse(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid site: %w", err)
+		}
+
+		params.Site = *v
+	}
+
+	if s := query.Get("ip"); s != "" {
+		params.IP = net.ParseIP(s)
+	}
+
+	if s := query.Get("level"); s != "" {
+		v, err := strconv.Atoi(s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid level: %w", err)
+		}
+
+		params.Level = Level(v)
+	}
+
+	if s := query.Get("ratio"); s != "" {
+		v, err := strconv.ParseFloat(s, 32)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid ratio: %w", err)
+		}
+
+		params.Ratio = float32(v)
+	}
+	return page, params, nil
+}
+
+// queryParts returns the parts of the value of the query parameter name in the query string raw, split at sep before
+// each is unescaped, so that a delimiter escaped within a part stays in it.
+func queryParts(raw, name, sep string) ([]string, error) {
+	for pair := range strings.SplitSeq(raw, "&") {
+		k, v, _ := strings.Cut(pair, "=")
+		if k, err := url.QueryUnescape(k); err != nil || k != name || v == "" {
+			continue
+		}
+
+		parts := strings.Split(v, sep)
+		for i, p := range parts {
+			var err error
+			if parts[i], err = url.QueryUnescape(p); err != nil {
+				return nil, err
+			}
+		}
+
+		return parts, nil
+	}
+
+	return nil, nil
 }

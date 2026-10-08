@@ -403,7 +403,7 @@ func TestFiles_Server(t *testing.T) {
 		t.Error("missing GET pattern")
 	}
 
-	if !contains(content, `q.Get("limit")`) {
+	if !contains(content, `query.Get("limit")`) {
 		t.Error("missing query param extraction")
 	}
 

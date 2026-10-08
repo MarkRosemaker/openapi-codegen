@@ -11,6 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"maps"
+	"net"
 	"net/url"
 	"slices"
 	"strconv"
@@ -108,6 +109,50 @@ type ListReportsParams struct {
 	Pairs string
 	// Required, so an argument of every call.
 	XVersion string
+}
+
+// QueryStylesParams holds the query parameters for QueryStyles.
+type QueryStylesParams struct {
+	// form, not exploded: one value, joined by commas.
+	Csv []int
+	// spaceDelimited: joined by spaces.
+	Spaced []string
+	// pipeDelimited: joined by pipes.
+	Piped []string
+	// form, exploded: each member a parameter of its own.
+	Color Color
+	// form, not exploded: names and values in turn, joined by commas.
+	ColorCsv Color
+	// pipeDelimited: names and values joined by pipes.
+	ColorPiped Color
+	// deepObject: each member under the parameter's name, the member's in brackets. Required, so sent even when not set.
+	ColorDeep Color
+	// A named map, as deepObject.
+	Labels Labels
+	// A map, not exploded.
+	Weights map[string]int
+	// A free-form object, exploded: every parameter no other is, as a string.
+	Extra map[string]string
+	// Reserved characters left as they are.
+	Next string
+	// Each element so.
+	Paths []string
+	// So, joined by commas.
+	Cells []string
+	// In whole seconds.
+	Every time.Duration
+	// A Unix time.
+	At time.Time
+	// A date.
+	On civil.Date
+	// A URL.
+	Site url.URL
+	// An IP address.
+	IP net.IP
+	// An enum of integers.
+	Level Level
+	// A float32.
+	Ratio float32
 }
 
 // AgentModel defines a model
@@ -411,6 +456,16 @@ func (v *BotUserObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name 
 // Twice in Schedule, which CreateSchedule's response holds: reaching a struct twice is no cycle.
 type Bound struct {
 	Value int `json:"value,omitzero"`
+}
+
+// An object as a query parameter: each member a single value.
+type Color struct {
+	R int `json:"r"`
+	// Zero is a value, so a pointer, sent only when set.
+	G    *int   `json:"g,omitzero"`
+	Name string `json:"name,omitzero"`
+	// A pointer whose value is no constant.
+	Fade *time.Duration `json:"fade,omitzero"`
 }
 
 // Condition defines a model
@@ -947,6 +1002,25 @@ func (v *IconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // A map of its own.
 type Labels map[string]string
+
+// Level defines a model
+type Level int
+
+const (
+	LevelOne   Level = 1
+	LevelTwo   Level = 2
+	LevelThree Level = 3
+)
+
+// Valid indicates whether the value is a known member of the Level enum.
+func (e Level) Valid() bool {
+	switch e {
+	case LevelOne, LevelTwo, LevelThree:
+		return true
+	default:
+		return false
+	}
+}
 
 // Limit defines a model
 // Limit is an untagged oneOf union: exactly one field is set after unmarshaling.

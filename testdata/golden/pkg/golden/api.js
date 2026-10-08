@@ -23,6 +23,7 @@
  *   const result = await window.API.downloadReport(format);
  *   window.API.deleteSchedule(id);
  *   const result = await window.API.getStatus();
+ *   window.API.queryStyles(page);
  **/
 
 const API_BASE = "https://api.example.com/v1";
@@ -92,6 +93,13 @@ async function apiFetch(path, options = {}) {
         return null;
     }
 }
+
+// esc escapes a value for a query string, a space as +, which keeps %20 for spaceDelimited's delimiter; escR leaves
+// the characters RFC 3986 reserves as they are, but for &, # and +.
+const esc = (v) => encodeURIComponent(String(v)).replace(/%20/g, "+");
+const escR = (v) => encodeURI(String(v)).replace(/[&#+]/g, encodeURIComponent).replace(/%20/g, "+").replace(/%5B/g, "[").replace(/%5D/g, "]");
+// join escapes each of parts and joins them by sep, escaping sep within a part.
+const join = (parts, sep, escape) => parts.map((p) => escape(p).replaceAll(sep, encodeURIComponent(sep))).join(sep);
 
 // ====================== PUBLIC API ======================
 
@@ -177,4 +185,32 @@ window.API = {
     getStatus: () => apiFetch("/status", {
         operationId: "GetStatus",
     }),
+    // GET /queries/{page}
+    queryStyles: (page, params = {}) => {
+        const q = new URLSearchParams("v=1");
+        const raw = [];
+        if (params.csv?.length) raw.push("csv=" + join(params.csv, ",", esc));
+        if (params.spaced?.length) raw.push("spaced=" + join(params.spaced, "%20", esc));
+        if (params.piped?.length) raw.push("piped=" + join(params.piped, "|", esc));
+        for (const [k, v] of Object.entries(params.color ?? {}).filter(([, v]) => v != null)) q.append(k, String(v));
+        { const parts = Object.entries(params.colorCsv ?? {}).filter(([, v]) => v != null).flat(); if (parts.length) raw.push("colorCsv=" + join(parts, ",", esc)); }
+        { const parts = Object.entries(params.colorPiped ?? {}).filter(([, v]) => v != null).flat(); if (parts.length) raw.push("colorPiped=" + join(parts, "|", esc)); }
+        for (const [k, v] of Object.entries(params.colorDeep ?? {}).filter(([, v]) => v != null)) q.append(`colorDeep[${k}]`, String(v));
+        for (const [k, v] of Object.entries(params.labels ?? {}).filter(([, v]) => v != null)) q.append(`labels[${k}]`, String(v));
+        { const parts = Object.entries(params.weights ?? {}).filter(([, v]) => v != null).flat(); if (parts.length) raw.push("weights=" + join(parts, ",", esc)); }
+        for (const [k, v] of Object.entries(params.extra ?? {}).filter(([, v]) => v != null)) q.append(k, String(v));
+        if (params.next != null) raw.push(esc("next") + "=" + escR(params.next));
+        for (const v of params.paths ?? []) raw.push(esc("paths") + "=" + escR(v));
+        if (params.cells?.length) raw.push("cells=" + join(params.cells, ",", escR));
+        if (params.every != null) q.set("every", String(params.every));
+        if (params.at != null) q.set("at", String(params.at));
+        if (params.on != null) q.set("on", String(params.on));
+        if (params.site != null) q.set("site", String(params.site));
+        if (params.ip != null) q.set("ip", String(params.ip));
+        if (params.level != null) q.set("level", String(params.level));
+        if (params.ratio != null) q.set("ratio", String(params.ratio));
+        return apiFetch(`/queries/${page}?${[q.toString(), ...raw].filter(Boolean).join("&")}`, {
+            operationId: "QueryStyles",
+        });
+    },
 };

@@ -7,13 +7,17 @@ package golden
 import (
 	"context"
 	"encoding/json/v2"
+	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
 
+	"cloud.google.com/go/civil"
 	"github.com/go-api-libs/api"
 )
 
@@ -875,4 +879,243 @@ func (c *Client) GetStatus(ctx context.Context) ([]byte, error) {
 	default:
 		return nil, api.NewErrUnknownStatusCode(rsp)
 	}
+}
+
+// A query parameter in every style and format: the client writes each as the server reads it.
+//
+//	GET /queries/{page}
+func (c *Client) QueryStyles(ctx context.Context, page int, params QueryStylesParams) error {
+	u := c.baseURL.JoinPath("queries", strconv.Itoa(page))
+
+	q := make(url.Values, 20)
+	escaped := url.Values{}
+
+	if len(params.Csv) > 0 {
+		parts := make([]string, len(params.Csv))
+		for i, v := range params.Csv {
+			parts[i] = strconv.Itoa(v)
+		}
+
+		escaped["csv"] = []string{joinQuery(parts, ",", url.QueryEscape)}
+	}
+
+	if len(params.Spaced) > 0 {
+		escaped["spaced"] = []string{joinQuery(slices.Clone(params.Spaced), "%20", url.QueryEscape)}
+	}
+
+	if len(params.Piped) > 0 {
+		escaped["piped"] = []string{joinQuery(slices.Clone(params.Piped), "|", url.QueryEscape)}
+	}
+
+	if params.Color.R != 0 || params.Color.G != nil || params.Color.Name != "" || params.Color.Fade != nil {
+		q["r"] = []string{strconv.Itoa(params.Color.R)}
+		if params.Color.G != nil {
+			q["g"] = []string{strconv.Itoa(*params.Color.G)}
+		}
+		if params.Color.Name != "" {
+			q["name"] = []string{params.Color.Name}
+		}
+		if params.Color.Fade != nil {
+			q["fade"] = []string{strconv.FormatInt(int64(*params.Color.Fade/time.Second), 10)}
+		}
+	}
+
+	if params.ColorCsv.R != 0 || params.ColorCsv.G != nil || params.ColorCsv.Name != "" || params.ColorCsv.Fade != nil {
+		var parts []string
+		parts = append(parts, "r", strconv.Itoa(params.ColorCsv.R))
+		if params.ColorCsv.G != nil {
+			parts = append(parts, "g", strconv.Itoa(*params.ColorCsv.G))
+		}
+		if params.ColorCsv.Name != "" {
+			parts = append(parts, "name", params.ColorCsv.Name)
+		}
+		if params.ColorCsv.Fade != nil {
+			parts = append(parts, "fade", strconv.FormatInt(int64(*params.ColorCsv.Fade/time.Second), 10))
+		}
+
+		escaped["colorCsv"] = []string{joinQuery(parts, ",", url.QueryEscape)}
+	}
+
+	if params.ColorPiped.R != 0 || params.ColorPiped.G != nil || params.ColorPiped.Name != "" || params.ColorPiped.Fade != nil {
+		var parts []string
+		parts = append(parts, "r", strconv.Itoa(params.ColorPiped.R))
+		if params.ColorPiped.G != nil {
+			parts = append(parts, "g", strconv.Itoa(*params.ColorPiped.G))
+		}
+		if params.ColorPiped.Name != "" {
+			parts = append(parts, "name", params.ColorPiped.Name)
+		}
+		if params.ColorPiped.Fade != nil {
+			parts = append(parts, "fade", strconv.FormatInt(int64(*params.ColorPiped.Fade/time.Second), 10))
+		}
+
+		escaped["colorPiped"] = []string{joinQuery(parts, "|", url.QueryEscape)}
+	}
+
+	{
+		q["colorDeep[r]"] = []string{strconv.Itoa(params.ColorDeep.R)}
+		if params.ColorDeep.G != nil {
+			q["colorDeep[g]"] = []string{strconv.Itoa(*params.ColorDeep.G)}
+		}
+		if params.ColorDeep.Name != "" {
+			q["colorDeep[name]"] = []string{params.ColorDeep.Name}
+		}
+		if params.ColorDeep.Fade != nil {
+			q["colorDeep[fade]"] = []string{strconv.FormatInt(int64(*params.ColorDeep.Fade/time.Second), 10)}
+		}
+	}
+
+	for k, v := range params.Labels {
+		q["labels["+k+"]"] = []string{v}
+	}
+
+	if len(params.Weights) > 0 {
+		parts := make([]string, 0, 2*len(params.Weights))
+		for _, k := range slices.Sorted(maps.Keys(params.Weights)) {
+			v := params.Weights[k]
+			parts = append(parts, k, strconv.Itoa(v))
+		}
+
+		escaped["weights"] = []string{joinQuery(parts, ",", url.QueryEscape)}
+	}
+
+	for k, v := range params.Extra {
+		q[k] = []string{v}
+	}
+
+	if params.Next != "" {
+		escaped["next"] = []string{escapeReserved(params.Next)}
+	}
+
+	for _, v := range params.Paths {
+		escaped.Add("paths", escapeReserved(v))
+	}
+
+	if len(params.Cells) > 0 {
+		escaped["cells"] = []string{joinQuery(slices.Clone(params.Cells), ",", escapeReserved)}
+	}
+
+	if params.Every != 0 {
+		q["every"] = []string{strconv.FormatInt(int64(params.Every/time.Second), 10)}
+	}
+
+	if !params.At.IsZero() {
+		q["at"] = []string{strconv.Itoa(int(params.At.Unix()))}
+	}
+
+	if params.On != (civil.Date{}) {
+		q["on"] = []string{params.On.String()}
+	}
+
+	if params.Site.Host != "" {
+		q["site"] = []string{params.Site.String()}
+	}
+
+	if params.IP != nil {
+		q["ip"] = []string{params.IP.String()}
+	}
+
+	if params.Level != 0 {
+		q["level"] = []string{strconv.Itoa(int(params.Level))}
+	}
+
+	if params.Ratio != 0 {
+		q["ratio"] = []string{strconv.FormatFloat(float64(params.Ratio), 'f', -1, 32)}
+	}
+
+	u.RawQuery = encodeQuery(q, escaped)
+
+	if u.RawQuery != "" {
+		u.RawQuery += "&"
+	}
+
+	u.RawQuery += "v=1"
+
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// encodeQuery encodes q as [url.Values.Encode] does, sorted by key, along with escaped, whose values are escaped
+// already.
+func encodeQuery(q, escaped url.Values) string {
+	keys := slices.Concat(slices.Collect(maps.Keys(q)), slices.Collect(maps.Keys(escaped)))
+	slices.Sort(keys)
+
+	var b strings.Builder
+	for _, k := range slices.Compact(keys) {
+		for _, v := range q[k] {
+			if b.Len() > 0 {
+				b.WriteByte('&')
+			}
+
+			b.WriteString(url.QueryEscape(k) + "=" + url.QueryEscape(v))
+		}
+
+		for _, v := range escaped[k] {
+			if b.Len() > 0 {
+				b.WriteByte('&')
+			}
+
+			b.WriteString(url.QueryEscape(k) + "=" + v)
+		}
+	}
+
+	return b.String()
+}
+
+// joinQuery escapes each of parts and joins them by sep, which it leaves as it is, but escapes within a part.
+func joinQuery(parts []string, sep string, escape func(string) string) string {
+	for i, p := range parts {
+		parts[i] = strings.ReplaceAll(escape(p), sep, url.QueryEscape(sep))
+	}
+
+	return strings.Join(parts, sep)
+}
+
+// escapeReserved escapes s as [url.QueryEscape] does, but for the characters RFC 3986 reserves, which allowReserved
+// leaves as they are: all but &, # and +, which would end the parameter, the query or stand for a space.
+func escapeReserved(s string) string {
+	var b strings.Builder
+	for i := range len(s) {
+		switch c := s[i]; {
+		case 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9' ||
+			strings.IndexByte("-._~:/?[]@!$'()*,;=", c) >= 0:
+			b.WriteByte(c)
+		case c == ' ':
+			b.WriteByte('+')
+		default:
+			fmt.Fprintf(&b, "%%%02X", c)
+		}
+	}
+
+	return b.String()
 }

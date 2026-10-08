@@ -20,3 +20,10 @@ A constructor, or a method that fills in
 every such field left at its zero value, would spare the caller that, for a
 struct used in a request body, or in one. Filling them in inside the
 operation method instead would override what the caller set.
+
+## Path and header parameter styles
+
+Query parameters are written in every style OpenAPI defines. A path parameter
+is still a single value, with no `label` or `matrix` style and no array or
+object, and a header parameter likewise; the server does not read header
+parameters at all, so a service sees them empty.

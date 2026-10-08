@@ -26,7 +26,7 @@
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true
 				}
 			],
@@ -93,7 +93,7 @@
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true
 				}
 			],
@@ -163,7 +163,7 @@
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true
 				}
 			],
@@ -201,7 +201,7 @@
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true
 				}
 			],
@@ -266,7 +266,7 @@
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true
 				}
 			],
@@ -302,7 +302,7 @@
 					"jsonName": "since",
 					"type": "time.Time",
 					"required": true,
-					"parseExpr": "time.Parse(time.RFC3339, s)"
+					"parseExpr": "time.Parse(time.RFC3339, %s)"
 				},
 				{
 					"varName": "params.Ids",
@@ -313,7 +313,7 @@
 					"item": {
 						"varName": "v",
 						"type": "int",
-						"parseExpr": "strconv.Atoi(s)"
+						"parseExpr": "strconv.Atoi(%s)"
 					}
 				},
 				{
@@ -322,7 +322,7 @@
 					"fieldName": "Verbose",
 					"jsonName": "verbose",
 					"type": "bool",
-					"parseExpr": "strconv.ParseBool(s)"
+					"parseExpr": "strconv.ParseBool(%s)"
 				},
 				{
 					"varName": "params.Format",
@@ -330,7 +330,7 @@
 					"fieldName": "Format",
 					"jsonName": "format",
 					"type": "ScheduleFormat",
-					"parseExpr": "ScheduleFormat(s)",
+					"parseExpr": "ScheduleFormat(%s)",
 					"parseErrFree": true,
 					"isEnum": true,
 					"baseType": "string",
@@ -346,7 +346,7 @@
 					"item": {
 						"varName": "v",
 						"type": "ScheduleFormat",
-						"parseExpr": "ScheduleFormat(s)",
+						"parseExpr": "ScheduleFormat(%s)",
 						"parseErrFree": true,
 						"isEnum": true,
 						"baseType": "string"
@@ -362,7 +362,7 @@
 					"item": {
 						"varName": "v",
 						"type": "string",
-						"parseExpr": "s",
+						"parseExpr": "%s",
 						"parseErrFree": true
 					}
 				},
@@ -372,7 +372,7 @@
 					"fieldName": "Cursor",
 					"jsonName": "cursor",
 					"type": "string",
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true,
 					"description": "A query string cannot carry null, so the string is all that is left."
 				},
@@ -382,7 +382,7 @@
 					"fieldName": "Order",
 					"jsonName": "order",
 					"type": "string",
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true,
 					"description": "A union of strings is a string."
 				},
@@ -392,7 +392,7 @@
 					"fieldName": "Limit",
 					"jsonName": "limit",
 					"type": "string",
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true,
 					"description": "A union of anything else is sent as it is."
 				},
@@ -402,7 +402,7 @@
 					"fieldName": "Pairs",
 					"jsonName": "pairs",
 					"type": "string",
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true,
 					"description": "So is a union of two arrays."
 				}
@@ -415,7 +415,7 @@
 					"jsonName": "X-Version",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true,
 					"description": "Required, so an argument of every call."
 				}
@@ -518,7 +518,7 @@
 					"jsonName": "format",
 					"type": "ScheduleFormat",
 					"required": true,
-					"parseExpr": "ScheduleFormat(s)",
+					"parseExpr": "ScheduleFormat(%s)",
 					"parseErrFree": true,
 					"isEnum": true,
 					"baseType": "string",
@@ -563,7 +563,7 @@
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
-					"parseExpr": "s",
+					"parseExpr": "%s",
 					"parseErrFree": true,
 					"description": "The schedule's ID."
 				}
@@ -576,7 +576,7 @@
 					"jsonName": "Api-Version",
 					"type": "ApiVersion",
 					"required": true,
-					"parseExpr": "ApiVersion(s)",
+					"parseExpr": "ApiVersion(%s)",
 					"parseErrFree": true,
 					"isEnum": true,
 					"baseType": "string",
@@ -627,6 +627,432 @@
 				"isSlice": true
 			},
 			"rawBytesSuccess": true
+		},
+		{
+			"name": "QueryStyles",
+			"description": "A query parameter in every style and format: the client writes each as the server reads it.",
+			"method": "GET",
+			"pathTemplate": "/queries/{page}",
+			"joinPathArgs": [
+				"\"queries\"",
+				"strconv.Itoa(page)"
+			],
+			"pathParams": [
+				{
+					"varName": "page",
+					"goName": "page",
+					"fieldName": "Page",
+					"jsonName": "page",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(%s)",
+					"description": "A path parameter that can fail to parse, read beside the query."
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Csv",
+					"goName": "csv",
+					"fieldName": "Csv",
+					"jsonName": "csv",
+					"type": "[]int",
+					"description": "form, not exploded: one value, joined by commas.",
+					"item": {
+						"varName": "v",
+						"type": "int",
+						"parseExpr": "strconv.Atoi(%s)"
+					},
+					"delimiter": ","
+				},
+				{
+					"varName": "params.Spaced",
+					"goName": "spaced",
+					"fieldName": "Spaced",
+					"jsonName": "spaced",
+					"type": "[]string",
+					"description": "spaceDelimited: joined by spaces.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"delimiter": "%20"
+				},
+				{
+					"varName": "params.Piped",
+					"goName": "piped",
+					"fieldName": "Piped",
+					"jsonName": "piped",
+					"type": "[]string",
+					"description": "pipeDelimited: joined by pipes.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"delimiter": "|"
+				},
+				{
+					"varName": "params.Color",
+					"goName": "color",
+					"fieldName": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"description": "form, exploded: each member a parameter of its own.",
+					"props": [
+						{
+							"varName": "params.Color.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.Color.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.Color.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.Color.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					]
+				},
+				{
+					"varName": "params.ColorCsv",
+					"goName": "colorCsv",
+					"fieldName": "ColorCsv",
+					"jsonName": "colorCsv",
+					"type": "Color",
+					"description": "form, not exploded: names and values in turn, joined by commas.",
+					"props": [
+						{
+							"varName": "params.ColorCsv.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.ColorCsv.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.ColorCsv.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.ColorCsv.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					],
+					"delimiter": ","
+				},
+				{
+					"varName": "params.ColorPiped",
+					"goName": "colorPiped",
+					"fieldName": "ColorPiped",
+					"jsonName": "colorPiped",
+					"type": "Color",
+					"description": "pipeDelimited: names and values joined by pipes.",
+					"props": [
+						{
+							"varName": "params.ColorPiped.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.ColorPiped.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.ColorPiped.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.ColorPiped.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					],
+					"delimiter": "|"
+				},
+				{
+					"varName": "params.ColorDeep",
+					"goName": "colorDeep",
+					"fieldName": "ColorDeep",
+					"jsonName": "colorDeep",
+					"type": "Color",
+					"required": true,
+					"description": "deepObject: each member under the parameter's name, the member's in brackets. Required, so sent even when not set.",
+					"props": [
+						{
+							"varName": "params.ColorDeep.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.ColorDeep.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.ColorDeep.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.ColorDeep.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					],
+					"deepObject": true
+				},
+				{
+					"varName": "params.Labels",
+					"goName": "labels",
+					"fieldName": "Labels",
+					"jsonName": "labels",
+					"type": "Labels",
+					"description": "A named map, as deepObject.",
+					"mapValue": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"deepObject": true
+				},
+				{
+					"varName": "params.Weights",
+					"goName": "weights",
+					"fieldName": "Weights",
+					"jsonName": "weights",
+					"type": "map[string]int",
+					"description": "A map, not exploded.",
+					"mapValue": {
+						"varName": "v",
+						"type": "int",
+						"parseExpr": "strconv.Atoi(%s)"
+					},
+					"delimiter": ","
+				},
+				{
+					"varName": "params.Extra",
+					"goName": "extra",
+					"fieldName": "Extra",
+					"jsonName": "extra",
+					"type": "map[string]string",
+					"description": "A free-form object, exploded: every parameter no other is, as a string.",
+					"mapValue": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					}
+				},
+				{
+					"varName": "params.Next",
+					"goName": "next",
+					"fieldName": "Next",
+					"jsonName": "next",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "Reserved characters left as they are.",
+					"allowReserved": true
+				},
+				{
+					"varName": "params.Paths",
+					"goName": "paths",
+					"fieldName": "Paths",
+					"jsonName": "paths",
+					"type": "[]string",
+					"description": "Each element so.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"allowReserved": true
+				},
+				{
+					"varName": "params.Cells",
+					"goName": "cells",
+					"fieldName": "Cells",
+					"jsonName": "cells",
+					"type": "[]string",
+					"description": "So, joined by commas.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"delimiter": ",",
+					"allowReserved": true
+				},
+				{
+					"varName": "params.Every",
+					"goName": "every",
+					"fieldName": "Every",
+					"jsonName": "every",
+					"type": "time.Duration",
+					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+					"parseConv": "time.Duration(%s) * time.Second",
+					"description": "In whole seconds."
+				},
+				{
+					"varName": "params.At",
+					"goName": "at",
+					"fieldName": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+					"parseConv": "time.Unix(%s, 0)",
+					"isUnixTime": true,
+					"description": "A Unix time."
+				},
+				{
+					"varName": "params.On",
+					"goName": "on",
+					"fieldName": "On",
+					"jsonName": "on",
+					"type": "civil.Date",
+					"parseExpr": "civil.ParseDate(%s)",
+					"description": "A date."
+				},
+				{
+					"varName": "params.Site",
+					"goName": "site",
+					"fieldName": "Site",
+					"jsonName": "site",
+					"type": "url.URL",
+					"parseExpr": "url.Parse(%s)",
+					"parseConv": "*%s",
+					"description": "A URL."
+				},
+				{
+					"varName": "params.IP",
+					"goName": "ip",
+					"fieldName": "IP",
+					"jsonName": "ip",
+					"type": "net.IP",
+					"parseExpr": "net.ParseIP(%s)",
+					"parseErrFree": true,
+					"description": "An IP address."
+				},
+				{
+					"varName": "params.Level",
+					"goName": "level",
+					"fieldName": "Level",
+					"jsonName": "level",
+					"type": "Level",
+					"parseExpr": "strconv.Atoi(%s)",
+					"parseConv": "Level(%s)",
+					"isEnum": true,
+					"baseType": "int",
+					"description": "An enum of integers."
+				},
+				{
+					"varName": "params.Ratio",
+					"goName": "ratio",
+					"fieldName": "Ratio",
+					"jsonName": "ratio",
+					"type": "float32",
+					"parseExpr": "strconv.ParseFloat(%s, 32)",
+					"parseConv": "float32(%s)",
+					"description": "A float32."
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.V",
+					"goName": "v",
+					"fieldName": "V",
+					"jsonName": "v",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "Fixed, sent by the client itself: no map holds it.",
+					"value": "\"1\"",
+					"in": "query"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "QueryStylesParams",
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
 		}
 	],
 	"schemas": [
@@ -986,6 +1412,39 @@
 					"jsonName": "value",
 					"type": "int",
 					"jsonTag": "json:\"value,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "Color",
+			"description": "An object as a query parameter: each member a single value.",
+			"fields": [
+				{
+					"name": "R",
+					"jsonName": "r",
+					"type": "int",
+					"jsonTag": "json:\"r\"",
+					"required": true
+				},
+				{
+					"name": "G",
+					"jsonName": "g",
+					"type": "*int",
+					"jsonTag": "json:\"g,omitzero\"",
+					"description": "Zero is a value, so a pointer, sent only when set."
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				},
+				{
+					"name": "Fade",
+					"jsonName": "fade",
+					"type": "*time.Duration",
+					"jsonTag": "json:\"fade,omitzero\"",
+					"description": "A pointer whose value is no constant."
 				}
 			]
 		},
@@ -1610,6 +2069,29 @@
 			"kind": 4,
 			"mapKey": "string",
 			"mapValue": "string"
+		},
+		{
+			"name": "Level",
+			"description": "Level defines a model",
+			"kind": 1,
+			"type": "int",
+			"enumValues": [
+				{
+					"goName": "LevelOne",
+					"value": "1",
+					"literal": "1"
+				},
+				{
+					"goName": "LevelTwo",
+					"value": "2",
+					"literal": "2"
+				},
+				{
+					"goName": "LevelThree",
+					"value": "3",
+					"literal": "3"
+				}
+			]
 		},
 		{
 			"name": "Limit",

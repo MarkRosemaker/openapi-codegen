@@ -109,7 +109,7 @@
 			"jsonName": "X-Api-Key",
 			"type": "string",
 			"required": true,
-			"parseExpr": "s",
+			"parseExpr": "%s",
 			"parseErrFree": true,
 			"description": "On every path too: a client field, read from the environment."
 		},
@@ -121,7 +121,7 @@
 			"jsonName": "X-Client",
 			"type": "string",
 			"required": true,
-			"parseExpr": "s",
+			"parseExpr": "%s",
 			"parseErrFree": true,
 			"description": "On every path, so a client field; it has no example, so its value comes from the recordings."
 		}

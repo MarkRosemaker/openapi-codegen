@@ -223,5 +223,14 @@
 			},
 			"body": {}
 		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/queries/3?at=1791453600&cells=x/y,z%2Cw&colorCsv=r,3,g,0,name,a%2Cb&colorDeep%5Bfade%5D=30&colorDeep%5Bg%5D=5&colorDeep%5Br%5D=2&colorPiped=r|4|name|p%7Cq&csv=1,2&every=90&ip=10.0.0.1&labels%5Ba+b%5D=c%26d&level=2&name=x&next=https://x.example/a?b=c%26d%2Be%23f&on=2026-10-08&other=y&paths=/a/b&paths=c:d&piped=x%7Cy|z&r=1&ratio=0.5&site=https%3A%2F%2Fx.example%2Fp&spaced=a+b%20c&weights=v,2,w,1&v=1"
+		},
+		"response": {
+			"statusCode": 204
+		}
 	}
 ]

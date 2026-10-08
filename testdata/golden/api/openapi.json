@@ -573,6 +573,240 @@
           }
         }
       }
+    },
+    "/queries/{page}": {
+      "get": {
+        "operationId": "queryStyles",
+        "description": "A query parameter in every style and format: the client writes each as the server reads it.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter that can fail to parse, read beside the query.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "csv",
+            "in": "query",
+            "description": "form, not exploded: one value, joined by commas.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "explode": false
+          },
+          {
+            "name": "spaced",
+            "in": "query",
+            "description": "spaceDelimited: joined by spaces.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "spaceDelimited",
+            "explode": false
+          },
+          {
+            "name": "piped",
+            "in": "query",
+            "description": "pipeDelimited: joined by pipes.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "pipeDelimited",
+            "explode": false
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "description": "form, exploded: each member a parameter of its own.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          {
+            "name": "colorCsv",
+            "in": "query",
+            "description": "form, not exploded: names and values in turn, joined by commas.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            },
+            "explode": false
+          },
+          {
+            "name": "colorPiped",
+            "in": "query",
+            "description": "pipeDelimited: names and values joined by pipes.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            },
+            "style": "pipeDelimited",
+            "explode": false
+          },
+          {
+            "name": "colorDeep",
+            "in": "query",
+            "description": "deepObject: each member under the parameter's name, the member's in brackets. Required, so sent even when not set.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            },
+            "style": "deepObject",
+            "explode": true,
+            "required": true
+          },
+          {
+            "name": "labels",
+            "in": "query",
+            "description": "A named map, as deepObject.",
+            "schema": {
+              "$ref": "#/components/schemas/Labels"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "name": "weights",
+            "in": "query",
+            "description": "A map, not exploded.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            },
+            "explode": false
+          },
+          {
+            "name": "extra",
+            "in": "query",
+            "description": "A free-form object, exploded: every parameter no other is, as a string.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "next",
+            "in": "query",
+            "description": "Reserved characters left as they are.",
+            "schema": {
+              "type": "string"
+            },
+            "allowReserved": true
+          },
+          {
+            "name": "paths",
+            "in": "query",
+            "description": "Each element so.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowReserved": true
+          },
+          {
+            "name": "cells",
+            "in": "query",
+            "description": "So, joined by commas.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowReserved": true,
+            "explode": false
+          },
+          {
+            "name": "every",
+            "in": "query",
+            "description": "In whole seconds.",
+            "schema": {
+              "type": "integer",
+              "format": "duration"
+            }
+          },
+          {
+            "name": "at",
+            "in": "query",
+            "description": "A Unix time.",
+            "schema": {
+              "type": "integer",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "on",
+            "in": "query",
+            "description": "A date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "site",
+            "in": "query",
+            "description": "A URL.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          {
+            "name": "ip",
+            "in": "query",
+            "description": "An IP address.",
+            "schema": {
+              "type": "string",
+              "format": "ipv4"
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "An enum of integers.",
+            "schema": {
+              "$ref": "#/components/schemas/Level"
+            }
+          },
+          {
+            "name": "ratio",
+            "in": "query",
+            "description": "A float32.",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "v",
+            "in": "query",
+            "required": true,
+            "description": "Fixed, sent by the client itself: no map holds it.",
+            "schema": {
+              "type": "string",
+              "const": "1"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "ok"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1896,6 +2130,38 @@
         "type": "string",
         "enum": [
           "2"
+        ]
+      },
+      "Color": {
+        "description": "An object as a query parameter: each member a single value.",
+        "type": "object",
+        "required": [
+          "r"
+        ],
+        "properties": {
+          "r": {
+            "type": "integer"
+          },
+          "g": {
+            "description": "Zero is a value, so a pointer, sent only when set.",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fade": {
+            "description": "A pointer whose value is no constant.",
+            "type": "integer",
+            "format": "duration"
+          }
+        }
+      },
+      "Level": {
+        "type": "integer",
+        "enum": [
+          1,
+          2,
+          3
         ]
       }
     }

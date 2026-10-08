@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"maps"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -1224,6 +1225,47 @@ func TestClient_Error(t *testing.T) {
 			}
 		})
 	})
+
+	t.Run("QueryStyles", func(t *testing.T) {
+		t.Run("transport error", func(t *testing.T) {
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if err := c.QueryStyles(t.Context(), 0, QueryStylesParams{}); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, io.EOF) {
+				t.Fatalf("want: %v, got: %v", io.EOF, err)
+			}
+		})
+
+		t.Run("unknown status code", func(t *testing.T) {
+			srv := newTestServer(t, http.StatusTeapot)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if err := c.QueryStyles(t.Context(), 0, QueryStylesParams{}); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if apiErr.Err != api.ErrUnknownStatusCode {
+				t.Fatalf("got: %v, want: %v", apiErr.Err, api.ErrUnknownStatusCode)
+			} else if apiErr.Response.StatusCode != http.StatusTeapot {
+				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
+			}
+		})
+	})
 }
 
 func replay(t *testing.T) http.RoundTripper {
@@ -1381,5 +1423,30 @@ func TestClient_Interactions(t *testing.T) {
 
 	if err := c.DeleteSchedule(ctx, "s"); err != nil {
 		t.Fatalf("DeleteSchedule: %v", err)
+	}
+
+	if err := c.QueryStyles(ctx, 3, QueryStylesParams{
+		Csv:        []int{1, 2},
+		Spaced:     []string{"a b", "c"},
+		Piped:      []string{"x|y", "z"},
+		Color:      Color{R: 1, Name: "x"},
+		ColorCsv:   Color{R: 3, G: new(int(0)), Name: "a,b"},
+		ColorPiped: Color{R: 4, Name: "p|q"},
+		ColorDeep:  Color{R: 2, G: new(int(5)), Fade: new(30 * time.Second)},
+		Labels:     Labels{"a b": "c&d"},
+		Weights:    map[string]int{"v": 2, "w": 1},
+		Extra:      map[string]string{"other": "y"},
+		Next:       "https://x.example/a?b=c&d+e#f",
+		Paths:      []string{"/a/b", "c:d"},
+		Cells:      []string{"x/y", "z,w"},
+		Every:      90 * time.Second,
+		At:         time.Unix(1791453600, 0),
+		On:         civil.Date{Year: 2026, Month: 10, Day: 8},
+		Site:       url.URL{Scheme: "https", Host: "x.example", Path: "/p"},
+		IP:         net.ParseIP("10.0.0.1"),
+		Level:      2,
+		Ratio:      0.5,
+	}); err != nil {
+		t.Fatalf("QueryStyles: %v", err)
 	}
 }
