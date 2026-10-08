@@ -104,7 +104,7 @@ func TestDebug_Lenient(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Chdir(t.TempDir())
 
-			strict, err := NewClient(WithBaseURL(serve(t, tc.body)))
+			strict, err := NewClient(WithBaseURL(serve(t, tc.body)), WithBearer("token"))
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -119,7 +119,7 @@ func TestDebug_Lenient(t *testing.T) {
 				t.Fatalf("without debug, %d interactions recorded", len(ias))
 			}
 
-			c, err := NewClient(WithBaseURL(serve(t, tc.body)), WithDebug)
+			c, err := NewClient(WithBaseURL(serve(t, tc.body)), WithBearer("token"), WithDebug)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -144,7 +144,7 @@ func TestDebug_StillFails(t *testing.T) {
 	t.Chdir(t.TempDir())
 
 	// a member of the wrong type is no member the specification does not know, so it fails even leniently
-	c, err := NewClient(WithBaseURL(serve(t, `{"id":1}`)), WithDebug)
+	c, err := NewClient(WithBaseURL(serve(t, `{"id":1}`)), WithBearer("token"), WithDebug)
 	if err != nil {
 		t.Fatal(err)
 	}

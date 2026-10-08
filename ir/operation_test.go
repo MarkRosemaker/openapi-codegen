@@ -426,6 +426,37 @@ func TestFromOperation_QueryParams(t *testing.T) {
 	}
 }
 
+// TestFromOperation_ObjectQueryParam covers what golden cannot hold: a free-form object, which holds whatever the
+// query does as strings, and a member that is no single value, which no style can write.
+func TestFromOperation_ObjectQueryParam(t *testing.T) {
+	op := func(schema *openapi.Schema) *openapi.Operation {
+		op := &openapi.Operation{
+			OperationID: "find",
+			Parameters:  openapi.ParameterList{makeParam("filter", openapi.ParameterLocationQuery, false, schema)},
+		}
+		op.Responses = openapi.OperationResponses{}
+		op.Responses.Set("204", makeResponse("ok", "", nil))
+
+		return op
+	}
+
+	got, err := ir.FromOperation("/find", nil, "GET", op(&openapi.Schema{Type: openapi.TypeObject}), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if p := got.QueryParams[0]; p.Type != "map[string]string" || p.MapValue == nil || p.MapValue.Type != "string" {
+		t.Errorf("free-form: got type %s and value %+v, want a map of strings", p.Type, p.MapValue)
+	}
+
+	nested := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}}
+	nested.Properties.Set("tags", &openapi.Schema{Type: openapi.TypeArray, Items: &openapi.Schema{Type: openapi.TypeString}})
+
+	if _, err := ir.FromOperation("/find", nil, "GET", op(nested), nil); err == nil {
+		t.Error("an array member: got no error")
+	}
+}
+
 // TestFromOperation_QueryParamRefDescriptionOverride covers a $ref'd
 // parameter whose reference carries its own sibling "description", which the
 // spec says overrides the referenced component's own -- and which must not

@@ -91,7 +91,10 @@ func TestFromDocument_AllOfParts(t *testing.T) {
 		"PetAllOf2": {"oneOf": [{"$ref": "#/components/schemas/Cat"}, {"$ref": "#/components/schemas/Dog"}]},
 		"Cat": {"type": "object", "properties": {"type": {"type": "string", "const": "cat"}, "meow": {"type": "boolean"}}},
 		"Dog": {"type": "object", "properties": {"type": {"type": "string", "const": "dog"}}},
-		"Twice": {"allOf": [{"$ref": "#/components/schemas/PetAllOf2"}, {"$ref": "#/components/schemas/PetAllOf2"}]}
+		"Twice": {"allOf": [{"$ref": "#/components/schemas/PetAllOf2"}, {"$ref": "#/components/schemas/PetAllOf2"}]},
+		"Either": {"oneOf": [{"$ref": "#/components/schemas/Toy"}, {"$ref": "#/components/schemas/Mixed"}]},
+		"Mixed": {"allOf": [{"$ref": "#/components/schemas/Named"}, {"$ref": "#/components/schemas/Loose"}]},
+		"Loose": {"oneOf": [{"type": "string"}, {"type": "integer"}]}
 	}`)
 
 	// a part only Pet uses is folded into its fields and needs no type; a shared one stays embedded
@@ -124,6 +127,11 @@ func TestFromDocument_AllOfParts(t *testing.T) {
 
 	if got := schemaNamed(t, doc, "Twice").Unimplemented; got == "" {
 		t.Error("Twice: an allOf of two unions is not marked unimplemented")
+	}
+
+	// an alternative that extends a union of scalars is no object, so its members cannot tell it apart
+	if v := schemaNamed(t, doc, "Either").UnionVariants; len(v) != 2 || !v[0].Object || v[1].Object {
+		t.Errorf("Either: got variants %+v, want Toy an object and Mixed none", v)
 	}
 }
 

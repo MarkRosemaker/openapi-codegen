@@ -37,6 +37,10 @@ var genAll = config.Generate{
 	JS:         true,
 }
 
+// TestCodegen_TestData generates each package in testdata from its specification and interactions, three times over,
+// and must get the files there each time. golden holds every case the generator handles, once; auth and debug are
+// what golden cannot be as well: a document whose every request sends credentials, and the one generated in debug
+// mode. The files are edited by hand, never regenerated, so a change in what comes out is read before it is accepted.
 func TestCodegen_TestData(t *testing.T) {
 	entries, err := testdata.ReadDir("testdata")
 	if err != nil {
@@ -98,7 +102,8 @@ func TestCodegen_TestData(t *testing.T) {
 	}
 }
 
-// compareBytes prints a compact diff of two byte slices
+// compareBytes fails with the first line where the generated file differs from the one in testdata, which is to be
+// edited by hand if the change is wanted.
 func compareBytes(t *testing.T, expected, actual []byte, path string) {
 	t.Helper()
 
@@ -106,20 +111,22 @@ func compareBytes(t *testing.T, expected, actual []byte, path string) {
 		return
 	}
 
-	// Find first difference
+	want, got := strings.Split(string(expected), "\n"), strings.Split(string(actual), "\n")
+
 	i := 0
-	for i < len(expected) && i < len(actual) && expected[i] == actual[i] {
+	for i < len(want) && i < len(got) && want[i] == got[i] {
 		i++
 	}
 
-	t.Fatalf("\n┌─ Diff in %s at offset %d\n│ Expected: %q\n│ Actual:   %q\n└─ %s",
-		path, i, expected[i:min(len(expected), i+20)], actual[i:min(len(actual), i+20)],
-		func() string {
-			if len(expected) != len(actual) {
-				return fmt.Sprintf("length %d vs %d", len(expected), len(actual))
-			}
-			return fmt.Sprintf("0x%02x vs 0x%02x", expected[i], actual[i])
-		}())
+	line := func(lines []string) string {
+		if i < len(lines) {
+			return lines[i]
+		}
+
+		return "(end of file)"
+	}
+
+	t.Fatalf("%s:%d differs\nwant: %s\n got: %s", path, i+1, line(want), line(got))
 }
 
 // handWritten reports whether path is a file a golden directory carries but

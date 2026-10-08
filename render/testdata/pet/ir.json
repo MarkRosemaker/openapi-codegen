@@ -22,7 +22,7 @@
 					"fieldName": "Limit",
 					"jsonName": "limit",
 					"type": "int",
-					"parseExpr": "strconv.Atoi(s)"
+					"parseExpr": "strconv.Atoi(%s)"
 				}
 			],
 			"hasParams": true,

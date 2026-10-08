@@ -1,0 +1,4237 @@
+{
+	"title": "Golden",
+	"production": true,
+	"packageName": "golden",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com",
+		"path": "/v1"
+	},
+	"userAgent": "Golden",
+	"operations": [
+		{
+			"name": "GetPage",
+			"summary": "Retrieve a page",
+			"method": "GET",
+			"pathTemplate": "/pages/{id}",
+			"joinPathArgs": [
+				"\"pages\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Page"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Page"
+			}
+		},
+		{
+			"name": "Search",
+			"method": "POST",
+			"pathTemplate": "/search",
+			"joinPathArgs": [
+				"\"search\""
+			],
+			"requestBody": {
+				"typeName": "PropertyFilter",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "PageOrPartial",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "PageOrPartial",
+				"isSlice": true
+			}
+		},
+		{
+			"name": "UpdateUser",
+			"method": "PUT",
+			"pathTemplate": "/users/{id}",
+			"joinPathArgs": [
+				"\"users\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"requestBody": {
+				"typeName": "User",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "User"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "User"
+			}
+		},
+		{
+			"name": "CreateEntry",
+			"method": "POST",
+			"pathTemplate": "/entries",
+			"joinPathArgs": [
+				"\"entries\""
+			],
+			"requestBody": {
+				"typeName": "Entry",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Entry"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Entry"
+			}
+		},
+		{
+			"name": "GetValue",
+			"method": "GET",
+			"pathTemplate": "/values/{id}",
+			"joinPathArgs": [
+				"\"values\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Value"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Value"
+			},
+			"deprecated": true
+		},
+		{
+			"name": "GetBlock",
+			"method": "GET",
+			"pathTemplate": "/blocks/{id}",
+			"joinPathArgs": [
+				"\"blocks\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Block"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Block"
+			}
+		},
+		{
+			"name": "CreateDatabase",
+			"method": "POST",
+			"pathTemplate": "/databases",
+			"joinPathArgs": [
+				"\"databases\""
+			],
+			"requestBody": {
+				"typeName": "CreateDatabaseParent",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "AgentModel"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "AgentModel"
+			}
+		},
+		{
+			"name": "GetProperty",
+			"method": "GET",
+			"pathTemplate": "/properties/{id}",
+			"joinPathArgs": [
+				"\"properties\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "NestedValue"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "NestedValue"
+			}
+		},
+		{
+			"name": "ListReports",
+			"method": "GET",
+			"pathTemplate": "/reports",
+			"joinPathArgs": [
+				"\"reports\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.Since",
+					"goName": "since",
+					"fieldName": "Since",
+					"jsonName": "since",
+					"type": "time.Time",
+					"required": true,
+					"parseExpr": "time.Parse(time.RFC3339, %s)"
+				},
+				{
+					"varName": "params.Ids",
+					"goName": "ids",
+					"fieldName": "Ids",
+					"jsonName": "ids",
+					"type": "[]int",
+					"item": {
+						"varName": "v",
+						"type": "int",
+						"parseExpr": "strconv.Atoi(%s)"
+					}
+				},
+				{
+					"varName": "params.Verbose",
+					"goName": "verbose",
+					"fieldName": "Verbose",
+					"jsonName": "verbose",
+					"type": "bool",
+					"parseExpr": "strconv.ParseBool(%s)"
+				},
+				{
+					"varName": "params.Format",
+					"goName": "format",
+					"fieldName": "Format",
+					"jsonName": "format",
+					"type": "ScheduleFormat",
+					"parseExpr": "ScheduleFormat(%s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "An enum."
+				},
+				{
+					"varName": "params.Formats",
+					"goName": "formats",
+					"fieldName": "Formats",
+					"jsonName": "formats",
+					"type": "[]ScheduleFormat",
+					"description": "A list of an enum.",
+					"item": {
+						"varName": "v",
+						"type": "ScheduleFormat",
+						"parseExpr": "ScheduleFormat(%s)",
+						"parseErrFree": true,
+						"isEnum": true,
+						"baseType": "string"
+					}
+				},
+				{
+					"varName": "params.Tags",
+					"goName": "tags",
+					"fieldName": "Tags",
+					"jsonName": "tags",
+					"type": "[]string",
+					"description": "A union of an array and its items is sent as the array.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					}
+				},
+				{
+					"varName": "params.Cursor",
+					"goName": "cursor",
+					"fieldName": "Cursor",
+					"jsonName": "cursor",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "A query string cannot carry null, so the string is all that is left."
+				},
+				{
+					"varName": "params.Order",
+					"goName": "order",
+					"fieldName": "Order",
+					"jsonName": "order",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "A union of strings is a string."
+				},
+				{
+					"varName": "params.Limit",
+					"goName": "limit",
+					"fieldName": "Limit",
+					"jsonName": "limit",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "A union of anything else is sent as it is."
+				},
+				{
+					"varName": "params.Pairs",
+					"goName": "pairs",
+					"fieldName": "Pairs",
+					"jsonName": "pairs",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "So is a union of two arrays."
+				}
+			],
+			"headerParams": [
+				{
+					"varName": "params.XVersion",
+					"goName": "xVersion",
+					"fieldName": "XVersion",
+					"jsonName": "X-Version",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "Required, so an argument of every call."
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListReportsParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Reports",
+						"isNilable": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Reports",
+				"isNilable": true
+			}
+		},
+		{
+			"name": "ListPeople",
+			"description": "A person is a user, itself a union, or a group: the choices of a nested union.",
+			"method": "GET",
+			"pathTemplate": "/people",
+			"joinPathArgs": [
+				"\"people\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListPeopleOk"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListPeopleOk"
+			}
+		},
+		{
+			"name": "CreateSchedule",
+			"method": "POST",
+			"pathTemplate": "/schedules",
+			"joinPathArgs": [
+				"\"schedules\""
+			],
+			"requestBody": {
+				"typeName": "Schedule",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "201",
+					"goConstant": "http.StatusCreated",
+					"description": "created",
+					"contentType": "application/json",
+					"goType": {
+						"name": "CreateScheduleCreated"
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "529",
+					"goConstant": "529",
+					"description": "A status Go has no name for.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Overloaded"
+					}
+				}
+			],
+			"successReturn": {
+				"name": "CreateScheduleCreated"
+			}
+		},
+		{
+			"name": "DownloadReport",
+			"description": "Anything but JSON is the bytes as they are.",
+			"method": "GET",
+			"pathTemplate": "/reports/{format}",
+			"joinPathArgs": [
+				"\"reports\"",
+				"string(format)"
+			],
+			"pathParams": [
+				{
+					"varName": "format",
+					"goName": "format",
+					"fieldName": "Format",
+					"jsonName": "format",
+					"type": "ScheduleFormat",
+					"required": true,
+					"parseExpr": "ScheduleFormat(%s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "An enum in the path."
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/pdf",
+					"goType": {
+						"name": "io.ReadCloser",
+						"isNilable": true
+					},
+					"isSuccess": true,
+					"isStream": true
+				}
+			],
+			"successReturn": {
+				"name": "io.ReadCloser",
+				"isNilable": true
+			},
+			"streamSuccess": true
+		},
+		{
+			"name": "DeleteSchedule",
+			"description": "The success is an empty object, decoded so that anything in it fails.",
+			"method": "DELETE",
+			"pathTemplate": "/schedules/{id}",
+			"joinPathArgs": [
+				"\"schedules\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "The schedule's ID."
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.APIVersion",
+					"goName": "apiVersion",
+					"fieldName": "APIVersion",
+					"jsonName": "Api-Version",
+					"type": "ApiVersion",
+					"required": true,
+					"parseExpr": "ApiVersion(%s)",
+					"parseErrFree": true,
+					"isEnum": true,
+					"baseType": "string",
+					"description": "Pinned to one value, which the client sends itself.",
+					"value": "\"2\"",
+					"in": "header"
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "EmptyObject"
+					},
+					"isSuccess": true
+				}
+			],
+			"emptySuccess": true
+		},
+		{
+			"name": "GetStatus",
+			"description": "Text is read whole, as bytes.",
+			"method": "GET",
+			"pathTemplate": "/status",
+			"joinPathArgs": [
+				"\"status\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "text/plain",
+					"goType": {
+						"name": "byte",
+						"isSlice": true
+					},
+					"isSuccess": true,
+					"isRawBytes": true
+				}
+			],
+			"successReturn": {
+				"name": "byte",
+				"isSlice": true
+			},
+			"rawBytesSuccess": true
+		},
+		{
+			"name": "QueryStyles",
+			"description": "A query parameter in every style and format: the client writes each as the server reads it.",
+			"method": "GET",
+			"pathTemplate": "/queries/{page}",
+			"joinPathArgs": [
+				"\"queries\"",
+				"strconv.Itoa(page)"
+			],
+			"pathParams": [
+				{
+					"varName": "page",
+					"goName": "page",
+					"fieldName": "Page",
+					"jsonName": "page",
+					"type": "int",
+					"required": true,
+					"parseExpr": "strconv.Atoi(%s)",
+					"description": "A path parameter that can fail to parse, read beside the query."
+				}
+			],
+			"queryParams": [
+				{
+					"varName": "params.Csv",
+					"goName": "csv",
+					"fieldName": "Csv",
+					"jsonName": "csv",
+					"type": "[]int",
+					"description": "form, not exploded: one value, joined by commas.",
+					"item": {
+						"varName": "v",
+						"type": "int",
+						"parseExpr": "strconv.Atoi(%s)"
+					},
+					"delimiter": ","
+				},
+				{
+					"varName": "params.Spaced",
+					"goName": "spaced",
+					"fieldName": "Spaced",
+					"jsonName": "spaced",
+					"type": "[]string",
+					"description": "spaceDelimited: joined by spaces.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"delimiter": "%20"
+				},
+				{
+					"varName": "params.Piped",
+					"goName": "piped",
+					"fieldName": "Piped",
+					"jsonName": "piped",
+					"type": "[]string",
+					"description": "pipeDelimited: joined by pipes.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"delimiter": "|"
+				},
+				{
+					"varName": "params.Color",
+					"goName": "color",
+					"fieldName": "Color",
+					"jsonName": "color",
+					"type": "Color",
+					"description": "form, exploded: each member a parameter of its own.",
+					"props": [
+						{
+							"varName": "params.Color.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.Color.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.Color.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.Color.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					]
+				},
+				{
+					"varName": "params.ColorCsv",
+					"goName": "colorCsv",
+					"fieldName": "ColorCsv",
+					"jsonName": "colorCsv",
+					"type": "Color",
+					"description": "form, not exploded: names and values in turn, joined by commas.",
+					"props": [
+						{
+							"varName": "params.ColorCsv.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.ColorCsv.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.ColorCsv.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.ColorCsv.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					],
+					"delimiter": ","
+				},
+				{
+					"varName": "params.ColorPiped",
+					"goName": "colorPiped",
+					"fieldName": "ColorPiped",
+					"jsonName": "colorPiped",
+					"type": "Color",
+					"description": "pipeDelimited: names and values joined by pipes.",
+					"props": [
+						{
+							"varName": "params.ColorPiped.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.ColorPiped.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.ColorPiped.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.ColorPiped.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					],
+					"delimiter": "|"
+				},
+				{
+					"varName": "params.ColorDeep",
+					"goName": "colorDeep",
+					"fieldName": "ColorDeep",
+					"jsonName": "colorDeep",
+					"type": "Color",
+					"required": true,
+					"description": "deepObject: each member under the parameter's name, the member's in brackets. Required, so sent even when not set.",
+					"props": [
+						{
+							"varName": "params.ColorDeep.R",
+							"fieldName": "R",
+							"jsonName": "r",
+							"type": "int",
+							"required": true,
+							"parseExpr": "strconv.Atoi(%s)"
+						},
+						{
+							"varName": "params.ColorDeep.G",
+							"fieldName": "G",
+							"jsonName": "g",
+							"type": "int",
+							"parseExpr": "strconv.Atoi(%s)",
+							"pointer": true
+						},
+						{
+							"varName": "params.ColorDeep.Name",
+							"fieldName": "Name",
+							"jsonName": "name",
+							"type": "string",
+							"parseExpr": "%s",
+							"parseErrFree": true
+						},
+						{
+							"varName": "params.ColorDeep.Fade",
+							"fieldName": "Fade",
+							"jsonName": "fade",
+							"type": "time.Duration",
+							"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+							"parseConv": "time.Duration(%s) * time.Second",
+							"pointer": true
+						}
+					],
+					"deepObject": true
+				},
+				{
+					"varName": "params.Labels",
+					"goName": "labels",
+					"fieldName": "Labels",
+					"jsonName": "labels",
+					"type": "Labels",
+					"description": "A named map, as deepObject.",
+					"mapValue": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"deepObject": true
+				},
+				{
+					"varName": "params.Weights",
+					"goName": "weights",
+					"fieldName": "Weights",
+					"jsonName": "weights",
+					"type": "map[string]int",
+					"description": "A map, not exploded.",
+					"mapValue": {
+						"varName": "v",
+						"type": "int",
+						"parseExpr": "strconv.Atoi(%s)"
+					},
+					"delimiter": ","
+				},
+				{
+					"varName": "params.Extra",
+					"goName": "extra",
+					"fieldName": "Extra",
+					"jsonName": "extra",
+					"type": "map[string]string",
+					"description": "A free-form object, exploded: every parameter no other is, as a string.",
+					"mapValue": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					}
+				},
+				{
+					"varName": "params.Next",
+					"goName": "next",
+					"fieldName": "Next",
+					"jsonName": "next",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "Reserved characters left as they are.",
+					"allowReserved": true
+				},
+				{
+					"varName": "params.Paths",
+					"goName": "paths",
+					"fieldName": "Paths",
+					"jsonName": "paths",
+					"type": "[]string",
+					"description": "Each element so.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"allowReserved": true
+				},
+				{
+					"varName": "params.Cells",
+					"goName": "cells",
+					"fieldName": "Cells",
+					"jsonName": "cells",
+					"type": "[]string",
+					"description": "So, joined by commas.",
+					"item": {
+						"varName": "v",
+						"type": "string",
+						"parseExpr": "%s",
+						"parseErrFree": true
+					},
+					"delimiter": ",",
+					"allowReserved": true
+				},
+				{
+					"varName": "params.Every",
+					"goName": "every",
+					"fieldName": "Every",
+					"jsonName": "every",
+					"type": "time.Duration",
+					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+					"parseConv": "time.Duration(%s) * time.Second",
+					"description": "In whole seconds."
+				},
+				{
+					"varName": "params.At",
+					"goName": "at",
+					"fieldName": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+					"parseConv": "time.Unix(%s, 0)",
+					"isUnixTime": true,
+					"description": "A Unix time."
+				},
+				{
+					"varName": "params.On",
+					"goName": "on",
+					"fieldName": "On",
+					"jsonName": "on",
+					"type": "civil.Date",
+					"parseExpr": "civil.ParseDate(%s)",
+					"description": "A date."
+				},
+				{
+					"varName": "params.Site",
+					"goName": "site",
+					"fieldName": "Site",
+					"jsonName": "site",
+					"type": "url.URL",
+					"parseExpr": "url.Parse(%s)",
+					"parseConv": "*%s",
+					"description": "A URL."
+				},
+				{
+					"varName": "params.IP",
+					"goName": "ip",
+					"fieldName": "IP",
+					"jsonName": "ip",
+					"type": "net.IP",
+					"parseExpr": "net.ParseIP(%s)",
+					"parseErrFree": true,
+					"description": "An IP address."
+				},
+				{
+					"varName": "params.Level",
+					"goName": "level",
+					"fieldName": "Level",
+					"jsonName": "level",
+					"type": "Level",
+					"parseExpr": "strconv.Atoi(%s)",
+					"parseConv": "Level(%s)",
+					"isEnum": true,
+					"baseType": "int",
+					"description": "An enum of integers."
+				},
+				{
+					"varName": "params.Ratio",
+					"goName": "ratio",
+					"fieldName": "Ratio",
+					"jsonName": "ratio",
+					"type": "float32",
+					"parseExpr": "strconv.ParseFloat(%s, 32)",
+					"parseConv": "float32(%s)",
+					"description": "A float32."
+				}
+			],
+			"fixedParams": [
+				{
+					"varName": "params.V",
+					"goName": "v",
+					"fieldName": "V",
+					"jsonName": "v",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"description": "Fixed, sent by the client itself: no map holds it.",
+					"value": "\"1\"",
+					"in": "query"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "QueryStylesParams",
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
+		}
+	],
+	"schemas": [
+		{
+			"name": "AgentModel",
+			"description": "AgentModel defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "AgentModelOneOf",
+					"type": "AgentModelOneOf",
+					"value": "auto",
+					"members": [
+						"mode"
+					],
+					"required": [
+						"mode"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"auto\""
+						}
+					]
+				},
+				{
+					"fieldName": "AgentModelOneOf2",
+					"type": "AgentModelOneOf2",
+					"value": "pinned",
+					"members": [
+						"id",
+						"mode"
+					],
+					"required": [
+						"id",
+						"mode"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"pinned\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "AgentModelOneOf",
+					"type": "AgentModelOneOf",
+					"value": "auto",
+					"members": [
+						"mode"
+					],
+					"required": [
+						"mode"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"auto\""
+						}
+					]
+				},
+				{
+					"fieldName": "AgentModelOneOf2",
+					"type": "AgentModelOneOf2",
+					"value": "pinned",
+					"members": [
+						"id",
+						"mode"
+					],
+					"required": [
+						"id",
+						"mode"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "mode",
+							"value": "\"pinned\""
+						}
+					]
+				}
+			],
+			"isOneOf": true,
+			"discriminator": "mode",
+			"streamed": true
+		},
+		{
+			"name": "AgentModelOneOf",
+			"description": "AgentModelOneOf defines a model",
+			"fields": [
+				{
+					"name": "Mode",
+					"jsonName": "mode",
+					"type": "string",
+					"jsonTag": "json:\"mode\"",
+					"description": "Always `auto`",
+					"required": true
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "AgentModelOneOf2",
+			"description": "AgentModelOneOf2 defines a model",
+			"fields": [
+				{
+					"name": "Mode",
+					"jsonName": "mode",
+					"type": "string",
+					"jsonTag": "json:\"mode\"",
+					"description": "Always `pinned`",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"description": "The public model this agent maps to (e.g. \"claude-sonnet-5\"), or null for a pre-release / early-access model.",
+					"required": true
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "ApiVersion",
+			"description": "An enum of one value pins a parameter as a const does.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "ApiVersionTwo",
+					"value": "2",
+					"literal": "\"2\""
+				}
+			]
+		},
+		{
+			"name": "Block",
+			"description": "Block defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "BlockType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Paragraph",
+					"jsonName": "paragraph",
+					"type": "string",
+					"jsonTag": "json:\"paragraph,omitzero\""
+				},
+				{
+					"name": "ChildDatabase",
+					"jsonName": "child_database",
+					"type": "string",
+					"jsonTag": "json:\"child_database,omitzero\""
+				},
+				{
+					"name": "Relation",
+					"jsonName": "relation",
+					"type": "[]string",
+					"jsonTag": "json:\"relation,omitzero\""
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "*bool",
+					"jsonTag": "json:\"has_more,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "BlockType",
+				"enum": [
+					{
+						"goName": "BlockTypeParagraph",
+						"value": "paragraph",
+						"literal": "\"paragraph\""
+					},
+					{
+						"goName": "BlockTypeChildDatabase",
+						"value": "child_database",
+						"literal": "\"child_database\""
+					},
+					{
+						"goName": "BlockTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					}
+				],
+				"values": [
+					{
+						"value": "paragraph",
+						"members": [
+							{
+								"name": "paragraph",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "child_database",
+						"members": [
+							{
+								"name": "child_database",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "relation",
+						"members": [
+							{
+								"name": "has_more"
+							},
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "paragraph",
+						"field": "Paragraph",
+						"zero": "\"\""
+					},
+					{
+						"name": "child_database",
+						"field": "ChildDatabase",
+						"zero": "\"\""
+					},
+					{
+						"name": "relation",
+						"field": "Relation",
+						"zero": "nil"
+					},
+					{
+						"name": "has_more",
+						"field": "HasMore",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "Bot",
+			"description": "Bot defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Object",
+					"type": "struct{}",
+					"object": true
+				},
+				{
+					"fieldName": "BotAnyOf1",
+					"type": "BotAnyOf1",
+					"members": [
+						"owner",
+						"workspace_name"
+					],
+					"required": [
+						"owner",
+						"workspace_name"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Object",
+					"type": "struct{}",
+					"object": true
+				},
+				{
+					"fieldName": "BotAnyOf1",
+					"type": "BotAnyOf1",
+					"members": [
+						"owner",
+						"workspace_name"
+					],
+					"required": [
+						"owner",
+						"workspace_name"
+					],
+					"object": true
+				}
+			]
+		},
+		{
+			"name": "BotAnyOf1",
+			"description": "BotAnyOf1 defines a model",
+			"fields": [
+				{
+					"name": "Owner",
+					"jsonName": "owner",
+					"type": "string",
+					"jsonTag": "json:\"owner\"",
+					"required": true
+				},
+				{
+					"name": "WorkspaceName",
+					"jsonName": "workspace_name",
+					"type": "string",
+					"jsonTag": "json:\"workspace_name\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "BotUserObjectResponse",
+			"description": "BotUserObjectResponse defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"description": "Indicates this user is a bot.",
+					"required": true
+				},
+				{
+					"name": "Bot",
+					"jsonName": "bot",
+					"type": "EmptyObject",
+					"jsonTag": "json:\"bot\"",
+					"description": "Details about the bot.",
+					"required": true
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "Bound",
+			"description": "Twice in Schedule, which CreateSchedule's response holds: reaching a struct twice is no cycle.",
+			"fields": [
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "int",
+					"jsonTag": "json:\"value,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "Color",
+			"description": "An object as a query parameter: each member a single value.",
+			"fields": [
+				{
+					"name": "R",
+					"jsonName": "r",
+					"type": "int",
+					"jsonTag": "json:\"r\"",
+					"required": true
+				},
+				{
+					"name": "G",
+					"jsonName": "g",
+					"type": "*int",
+					"jsonTag": "json:\"g,omitzero\"",
+					"description": "Zero is a value, so a pointer, sent only when set."
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\""
+				},
+				{
+					"name": "Fade",
+					"jsonName": "fade",
+					"type": "*time.Duration",
+					"jsonTag": "json:\"fade,omitzero\"",
+					"description": "A pointer whose value is no constant."
+				}
+			]
+		},
+		{
+			"name": "Condition",
+			"description": "Condition defines a model",
+			"fields": [
+				{
+					"name": "Equals",
+					"jsonName": "equals",
+					"type": "string",
+					"jsonTag": "json:\"equals,omitzero\""
+				},
+				{
+					"name": "DoesNotEqual",
+					"jsonName": "does_not_equal",
+					"type": "string",
+					"jsonTag": "json:\"does_not_equal,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "CoverResponse",
+			"description": "CoverResponse defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "CoverResponseType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "External",
+					"jsonName": "external",
+					"type": "*Link",
+					"jsonTag": "json:\"external,omitzero\""
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "*Link",
+					"jsonTag": "json:\"file,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "CoverResponseType",
+				"enum": [
+					{
+						"goName": "CoverResponseTypeExternal",
+						"value": "external",
+						"literal": "\"external\""
+					},
+					{
+						"goName": "CoverResponseTypeFile",
+						"value": "file",
+						"literal": "\"file\""
+					}
+				],
+				"values": [
+					{
+						"value": "external",
+						"members": [
+							{
+								"name": "external",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "file",
+						"members": [
+							{
+								"name": "file",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "external",
+						"field": "External",
+						"zero": "nil"
+					},
+					{
+						"name": "file",
+						"field": "File",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "CreateDatabaseParent",
+			"description": "CreateDatabaseParent defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "CreateDatabaseParentAllOfType",
+					"jsonTag": "json:\"type\"",
+					"description": "The type of parent.",
+					"required": true
+				},
+				{
+					"name": "PageID",
+					"jsonName": "page_id",
+					"type": "IDRequest",
+					"jsonTag": "json:\"page_id,omitzero\""
+				},
+				{
+					"name": "Workspace",
+					"jsonName": "workspace",
+					"type": "*bool",
+					"jsonTag": "json:\"workspace,omitzero\"",
+					"description": "Always true for workspace parent."
+				}
+			],
+			"members": [
+				"page_id",
+				"type",
+				"workspace"
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "CreateDatabaseParentAllOfType",
+				"optional": true,
+				"values": [
+					{
+						"value": "page_id",
+						"members": [
+							{
+								"name": "page_id",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "workspace",
+						"members": [
+							{
+								"name": "workspace",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "page_id",
+						"field": "PageID",
+						"zero": "\"\""
+					},
+					{
+						"name": "workspace",
+						"field": "Workspace",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "CreateDatabaseParentAllOfType",
+			"description": "The type of parent.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "CreateDatabaseParentAllOfTypePageID",
+					"value": "page_id",
+					"literal": "\"page_id\""
+				},
+				{
+					"goName": "CreateDatabaseParentAllOfTypeWorkspace",
+					"value": "workspace",
+					"literal": "\"workspace\""
+				}
+			]
+		},
+		{
+			"name": "CreateScheduleCreated",
+			"description": "CreateScheduleCreated defines a model",
+			"fields": [
+				{
+					"name": "Schedule",
+					"jsonName": "schedule",
+					"type": "Schedule",
+					"jsonTag": "json:\"schedule\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Date",
+			"description": "Date defines a model",
+			"fields": [
+				{
+					"name": "Start",
+					"jsonName": "start",
+					"type": "string",
+					"jsonTag": "json:\"start\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Emoji",
+			"description": "Emoji defines a model",
+			"fields": [
+				{
+					"name": "Emoji",
+					"jsonName": "emoji",
+					"type": "string",
+					"jsonTag": "json:\"emoji\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "EmptyObject",
+			"description": "EmptyObject defines a model"
+		},
+		{
+			"name": "Entry",
+			"description": "Entry defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Record",
+					"type": "Record",
+					"members": [
+						"created",
+						"record"
+					],
+					"required": [
+						"record"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Note",
+					"type": "Note",
+					"members": [
+						"created",
+						"note"
+					],
+					"required": [
+						"note"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Record",
+					"type": "Record",
+					"members": [
+						"created",
+						"record"
+					],
+					"required": [
+						"record"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Note",
+					"type": "Note",
+					"members": [
+						"created",
+						"note"
+					],
+					"required": [
+						"note"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Filter",
+			"description": "Filter defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "FilterAnyOf0",
+					"type": "FilterAnyOf0",
+					"members": [
+						"or"
+					],
+					"required": [
+						"or"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "FilterAnyOf1",
+					"type": "FilterAnyOf1",
+					"members": [
+						"and"
+					],
+					"required": [
+						"and"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "FilterAnyOf0",
+					"type": "FilterAnyOf0",
+					"members": [
+						"or"
+					],
+					"required": [
+						"or"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "FilterAnyOf1",
+					"type": "FilterAnyOf1",
+					"members": [
+						"and"
+					],
+					"required": [
+						"and"
+					],
+					"object": true
+				}
+			]
+		},
+		{
+			"name": "FilterAnyOf0",
+			"description": "FilterAnyOf0 defines a model",
+			"fields": [
+				{
+					"name": "Or",
+					"jsonName": "or",
+					"type": "[]string",
+					"jsonTag": "json:\"or\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "FilterAnyOf1",
+			"description": "FilterAnyOf1 defines a model",
+			"fields": [
+				{
+					"name": "And",
+					"jsonName": "and",
+					"type": "[]string",
+					"jsonTag": "json:\"and\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "GroupBy",
+			"description": "GroupBy defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "GroupByAnyOf0",
+					"type": "GroupByAnyOf0",
+					"value": "select",
+					"members": [
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"select\""
+						}
+					]
+				},
+				{
+					"fieldName": "GroupByAnyOf1",
+					"type": "GroupByAnyOf1",
+					"value": "date",
+					"members": [
+						"period",
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "GroupByAnyOf0",
+					"type": "GroupByAnyOf0",
+					"value": "select",
+					"members": [
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"select\""
+						}
+					]
+				},
+				{
+					"fieldName": "GroupByAnyOf1",
+					"type": "GroupByAnyOf1",
+					"value": "date",
+					"members": [
+						"period",
+						"property",
+						"sort",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"date\""
+						}
+					]
+				}
+			],
+			"discriminator": "type",
+			"streamed": true
+		},
+		{
+			"name": "GroupByAnyOf0",
+			"description": "GroupByAnyOf0 defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				},
+				{
+					"name": "Sort",
+					"jsonName": "sort",
+					"type": "string",
+					"jsonTag": "json:\"sort,omitzero\""
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "GroupByAnyOf1",
+			"description": "GroupByAnyOf1 defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				},
+				{
+					"name": "Sort",
+					"jsonName": "sort",
+					"type": "string",
+					"jsonTag": "json:\"sort,omitzero\""
+				},
+				{
+					"name": "Period",
+					"jsonName": "period",
+					"type": "string",
+					"jsonTag": "json:\"period,omitzero\""
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "GroupObjectResponse",
+			"description": "GroupObjectResponse defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "IDResponse",
+					"jsonTag": "json:\"id\"",
+					"description": "The ID of the group.",
+					"required": true
+				},
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"description": "The group object type name.",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"description": "The name of the group.",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "IDRequest",
+			"description": "IDRequest defines a model",
+			"kind": 2,
+			"type": "string"
+		},
+		{
+			"name": "IDResponse",
+			"description": "IDResponse defines a model",
+			"kind": 2,
+			"type": "uuid.UUID",
+			"isTypeAlias": true
+		},
+		{
+			"name": "IconResponse",
+			"description": "IconResponse defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Emoji",
+					"type": "Emoji",
+					"members": [
+						"emoji"
+					],
+					"required": [
+						"emoji"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Link",
+					"type": "Link",
+					"members": [
+						"url"
+					],
+					"required": [
+						"url"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Emoji",
+					"type": "Emoji",
+					"members": [
+						"emoji"
+					],
+					"required": [
+						"emoji"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Link",
+					"type": "Link",
+					"members": [
+						"url"
+					],
+					"required": [
+						"url"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Labels",
+			"description": "A map of its own.",
+			"kind": 4,
+			"mapKey": "string",
+			"mapValue": "string"
+		},
+		{
+			"name": "Level",
+			"description": "Level defines a model",
+			"kind": 1,
+			"type": "int",
+			"enumValues": [
+				{
+					"goName": "LevelOne",
+					"value": "1",
+					"literal": "1"
+				},
+				{
+					"goName": "LevelTwo",
+					"value": "2",
+					"literal": "2"
+				},
+				{
+					"goName": "LevelThree",
+					"value": "3",
+					"literal": "3"
+				}
+			]
+		},
+		{
+			"name": "Limit",
+			"description": "Limit defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Int",
+					"type": "int"
+				},
+				{
+					"fieldName": "String",
+					"type": "string",
+					"zero": "\"\""
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Int",
+					"type": "int"
+				},
+				{
+					"fieldName": "String",
+					"type": "string",
+					"zero": "\"\""
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Link",
+			"description": "Link defines a model",
+			"fields": [
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "string",
+					"jsonTag": "json:\"url\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "ListPeopleOk",
+			"description": "ListPeopleOk defines a model",
+			"fields": [
+				{
+					"name": "Results",
+					"jsonName": "results",
+					"type": "[]PeopleArrayBasedPropertyValueResponsePeopleItem",
+					"jsonTag": "json:\"results,omitzero\""
+				},
+				{
+					"name": "Owner",
+					"jsonName": "owner",
+					"type": "Owner",
+					"jsonTag": "json:\"owner,omitzero\"",
+					"description": "A union that can be null of alternatives a discriminator tells apart: being null comes first."
+				},
+				{
+					"name": "Value",
+					"jsonName": "value",
+					"type": "MaybeMember",
+					"jsonTag": "json:\"value,omitzero\"",
+					"description": "A union that can be null, of a tagged union and an object: no field means null, so no discriminator can decide first."
+				},
+				{
+					"name": "Members",
+					"jsonName": "members",
+					"type": "[]Member",
+					"jsonTag": "json:\"members,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "MaybeMember",
+			"description": "A union that can be null, of a tagged union and an object: no field means null, so no discriminator can decide first.",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "NestedValue",
+					"type": "NestedValue",
+					"members": [
+						"id",
+						"label",
+						"number",
+						"title",
+						"type",
+						"url"
+					],
+					"required": [
+						"id",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "GroupObjectResponse",
+					"type": "GroupObjectResponse",
+					"members": [
+						"id",
+						"name",
+						"object"
+					],
+					"required": [
+						"id",
+						"name",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "NestedValue",
+					"type": "NestedValue",
+					"members": [
+						"id",
+						"label",
+						"number",
+						"title",
+						"type",
+						"url"
+					],
+					"required": [
+						"id",
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "GroupObjectResponse",
+					"type": "GroupObjectResponse",
+					"members": [
+						"id",
+						"name",
+						"object"
+					],
+					"required": [
+						"id",
+						"name",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Member",
+			"description": "Its alternatives each have members of their own beside the tag, so they stay a union beside the members all share.",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "UserObjectResponseCommon",
+					"embedded": true
+				},
+				{
+					"name": "MemberAllOf1",
+					"type": "MemberAllOf1",
+					"jsonTag": "json:\"-\"",
+					"required": true
+				}
+			],
+			"allOfUnion": {
+				"fieldName": "MemberAllOf1",
+				"isOneOf": true,
+				"discriminator": "type",
+				"variants": [
+					{
+						"fieldName": "MemberPerson",
+						"type": "MemberPerson",
+						"value": "person",
+						"members": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"required": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"person\""
+							}
+						]
+					},
+					{
+						"fieldName": "BotUserObjectResponse",
+						"type": "BotUserObjectResponse",
+						"value": "bot",
+						"members": [
+							"bot",
+							"type"
+						],
+						"required": [
+							"bot",
+							"type"
+						],
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"bot\""
+							}
+						]
+					}
+				],
+				"choices": [
+					{
+						"fieldName": "MemberPerson",
+						"type": "MemberPerson",
+						"value": "person",
+						"members": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"required": [
+							"membership_type",
+							"person",
+							"type"
+						],
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"person\""
+							}
+						]
+					},
+					{
+						"fieldName": "BotUserObjectResponse",
+						"type": "BotUserObjectResponse",
+						"value": "bot",
+						"members": [
+							"bot",
+							"type"
+						],
+						"required": [
+							"bot",
+							"type"
+						],
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"bot\""
+							}
+						]
+					}
+				]
+			},
+			"members": [
+				"avatar_url",
+				"id",
+				"name",
+				"object"
+			],
+			"streamed": true,
+			"memberDecoder": true
+		},
+		{
+			"name": "MemberAllOf1",
+			"description": "MemberAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "MemberPerson",
+					"type": "MemberPerson",
+					"value": "person",
+					"members": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"required": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"person\""
+						}
+					]
+				},
+				{
+					"fieldName": "BotUserObjectResponse",
+					"type": "BotUserObjectResponse",
+					"value": "bot",
+					"members": [
+						"bot",
+						"type"
+					],
+					"required": [
+						"bot",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"bot\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "MemberPerson",
+					"type": "MemberPerson",
+					"value": "person",
+					"members": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"required": [
+						"membership_type",
+						"person",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"person\""
+						}
+					]
+				},
+				{
+					"fieldName": "BotUserObjectResponse",
+					"type": "BotUserObjectResponse",
+					"value": "bot",
+					"members": [
+						"bot",
+						"type"
+					],
+					"required": [
+						"bot",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"bot\""
+						}
+					]
+				}
+			],
+			"isOneOf": true,
+			"discriminator": "type",
+			"streamed": true
+		},
+		{
+			"name": "MemberPerson",
+			"description": "MemberPerson defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "MembershipType",
+					"jsonName": "membership_type",
+					"type": "MemberPersonMembershipType",
+					"jsonTag": "json:\"membership_type\"",
+					"required": true
+				},
+				{
+					"name": "Person",
+					"jsonName": "person",
+					"type": "UserOneOfPerson",
+					"jsonTag": "json:\"person\"",
+					"required": true
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "MemberPersonMembershipType",
+			"description": "MemberPersonMembershipType defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "MemberPersonMembershipTypeMember",
+					"value": "member",
+					"literal": "\"member\""
+				},
+				{
+					"goName": "MemberPersonMembershipTypeGuest",
+					"value": "guest",
+					"literal": "\"guest\""
+				}
+			]
+		},
+		{
+			"name": "Meta",
+			"description": "Meta defines a model",
+			"fields": [
+				{
+					"name": "Created",
+					"jsonName": "created",
+					"type": "time.Time",
+					"jsonTag": "json:\"created,omitzero\"",
+					"readOnly": true
+				}
+			],
+			"readOnly": [
+				"Created"
+			]
+		},
+		{
+			"name": "NestedID",
+			"description": "Referred to by every alternative of NestedValue: a shared member compares by reference.",
+			"kind": 2,
+			"type": "string"
+		},
+		{
+			"name": "NestedTitleType",
+			"description": "A one-value enum tags as a const does.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "NestedTitleTypeTitle",
+					"value": "title",
+					"literal": "\"title\""
+				}
+			]
+		},
+		{
+			"name": "NestedValue",
+			"description": "NestedValue defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "NestedID",
+					"jsonTag": "json:\"id\"",
+					"description": "Referred to by every alternative of NestedValue: a shared member compares by reference.",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "NestedValueType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Number",
+					"jsonName": "number",
+					"type": "*float64",
+					"jsonTag": "json:\"number,omitzero\""
+				},
+				{
+					"name": "URL",
+					"jsonName": "url",
+					"type": "string",
+					"jsonTag": "json:\"url,omitzero\""
+				},
+				{
+					"name": "Label",
+					"jsonName": "label",
+					"type": "string",
+					"jsonTag": "json:\"label,omitzero\"",
+					"description": "A member two alternatives have of their own is declared once."
+				},
+				{
+					"name": "Title",
+					"jsonName": "title",
+					"type": "[]string",
+					"jsonTag": "json:\"title,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "NestedValueType",
+				"enum": [
+					{
+						"goName": "NestedValueTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "NestedValueTypeURL",
+						"value": "url",
+						"literal": "\"url\""
+					},
+					{
+						"goName": "NestedValueTypeTitle",
+						"value": "title",
+						"literal": "\"title\""
+					}
+				],
+				"values": [
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "url",
+						"members": [
+							{
+								"name": "label"
+							},
+							{
+								"name": "url",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "title",
+						"members": [
+							{
+								"name": "label"
+							},
+							{
+								"name": "title",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					},
+					{
+						"name": "url",
+						"field": "URL",
+						"zero": "\"\""
+					},
+					{
+						"name": "label",
+						"field": "Label",
+						"zero": "\"\""
+					},
+					{
+						"name": "title",
+						"field": "Title",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "Note",
+			"description": "Note defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "Meta",
+					"embedded": true
+				},
+				{
+					"name": "Note",
+					"jsonName": "note",
+					"type": "string",
+					"jsonTag": "json:\"note\"",
+					"required": true
+				}
+			],
+			"members": [
+				"created",
+				"note"
+			],
+			"readOnly": [
+				"Meta.Created"
+			]
+		},
+		{
+			"name": "Order",
+			"description": "Order defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "OrderOneOf0",
+					"type": "OrderOneOf0",
+					"zero": "\"\""
+				},
+				{
+					"fieldName": "OrderOneOf1",
+					"type": "OrderOneOf1",
+					"zero": "\"\""
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "OrderOneOf0",
+					"type": "OrderOneOf0",
+					"zero": "\"\""
+				},
+				{
+					"fieldName": "OrderOneOf1",
+					"type": "OrderOneOf1",
+					"zero": "\"\""
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "OrderOneOf0",
+			"description": "OrderOneOf0 defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "OrderOneOf0Asc",
+					"value": "asc",
+					"literal": "\"asc\""
+				}
+			]
+		},
+		{
+			"name": "OrderOneOf1",
+			"description": "OrderOneOf1 defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "OrderOneOf1Desc",
+					"value": "desc",
+					"literal": "\"desc\""
+				}
+			]
+		},
+		{
+			"name": "Overloaded",
+			"description": "Overloaded defines a model",
+			"fields": [
+				{
+					"name": "Code",
+					"jsonName": "code",
+					"type": "string",
+					"jsonTag": "json:\"code\"",
+					"required": true
+				},
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Owner",
+			"description": "A union that can be null of alternatives a discriminator tells apart: being null comes first.",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "PartialUserObjectResponse",
+					"type": "PartialUserObjectResponse",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
+				},
+				{
+					"fieldName": "GroupObjectResponse",
+					"type": "GroupObjectResponse",
+					"members": [
+						"id",
+						"name",
+						"object"
+					],
+					"required": [
+						"id",
+						"name",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "PartialUserObjectResponse",
+					"type": "PartialUserObjectResponse",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
+				},
+				{
+					"fieldName": "GroupObjectResponse",
+					"type": "GroupObjectResponse",
+					"members": [
+						"id",
+						"name",
+						"object"
+					],
+					"required": [
+						"id",
+						"name",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Page",
+			"description": "Page defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "Cover",
+					"jsonName": "cover",
+					"type": "*CoverResponse",
+					"jsonTag": "json:\"cover\"",
+					"required": true
+				},
+				{
+					"name": "Icon",
+					"jsonName": "icon",
+					"type": "*IconResponse",
+					"jsonTag": "json:\"icon\"",
+					"required": true
+				},
+				{
+					"name": "Position",
+					"jsonName": "position",
+					"type": "Position",
+					"jsonTag": "json:\"position\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PageOrPartial",
+			"description": "PageOrPartial defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "Page",
+					"type": "Page",
+					"members": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"required": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
+				},
+				{
+					"fieldName": "PartialPage",
+					"type": "PartialPage",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "Page",
+					"type": "Page",
+					"members": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"required": [
+						"cover",
+						"icon",
+						"id",
+						"object",
+						"position"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
+				},
+				{
+					"fieldName": "PartialPage",
+					"type": "PartialPage",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"page\""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pair",
+			"description": "Pair defines a model",
+			"kind": 6,
+			"fields": [
+				{
+					"name": "Item0",
+					"type": "string"
+				},
+				{
+					"name": "Item1",
+					"type": "int"
+				}
+			]
+		},
+		{
+			"name": "Pairs",
+			"description": "Pairs defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "String",
+					"type": "[]string",
+					"zero": "nil"
+				},
+				{
+					"fieldName": "Int",
+					"type": "[]int",
+					"zero": "nil"
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "String",
+					"type": "[]string",
+					"zero": "nil"
+				},
+				{
+					"fieldName": "Int",
+					"type": "[]int",
+					"zero": "nil"
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "PartialPage",
+			"description": "PartialPage defines a model",
+			"fields": [
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"required": true
+				},
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PartialUserObjectResponse",
+			"description": "PartialUserObjectResponse defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "IDResponse",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"description": "Always `user`",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PeopleArrayBasedPropertyValueResponsePeopleItem",
+			"description": "PeopleArrayBasedPropertyValueResponsePeopleItem defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "UserValueResponse",
+					"type": "UserValueResponse"
+				},
+				{
+					"fieldName": "GroupObjectResponse",
+					"type": "GroupObjectResponse",
+					"members": [
+						"id",
+						"name",
+						"object"
+					],
+					"required": [
+						"id",
+						"name",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "PartialUserObjectResponse",
+					"type": "PartialUserObjectResponse",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					],
+					"path": [
+						{
+							"field": "UserValueResponse",
+							"type": "UserValueResponse"
+						}
+					]
+				},
+				{
+					"fieldName": "UserObjectResponse",
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					],
+					"path": [
+						{
+							"field": "UserValueResponse",
+							"type": "UserValueResponse"
+						}
+					]
+				},
+				{
+					"fieldName": "GroupObjectResponse",
+					"type": "GroupObjectResponse",
+					"members": [
+						"id",
+						"name",
+						"object"
+					],
+					"required": [
+						"id",
+						"name",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"group\""
+						}
+					]
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Position",
+			"description": "Position defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "String",
+					"type": "[]string",
+					"zero": "nil"
+				},
+				{
+					"fieldName": "Pair",
+					"type": "Pair"
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "String",
+					"type": "[]string",
+					"zero": "nil"
+				},
+				{
+					"fieldName": "Pair",
+					"type": "Pair"
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "PropertyFilter",
+			"description": "PropertyFilter defines a model",
+			"fields": [
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "PropertyFilterType",
+					"jsonTag": "json:\"type,omitzero\""
+				},
+				{
+					"name": "Select",
+					"jsonName": "select",
+					"type": "*Condition",
+					"jsonTag": "json:\"select,omitzero\""
+				},
+				{
+					"name": "Number",
+					"jsonName": "number",
+					"type": "*Condition",
+					"jsonTag": "json:\"number,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "PropertyFilterType",
+				"optional": true,
+				"enum": [
+					{
+						"goName": "PropertyFilterTypeSelect",
+						"value": "select",
+						"literal": "\"select\""
+					},
+					{
+						"goName": "PropertyFilterTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					}
+				],
+				"values": [
+					{
+						"value": "select",
+						"members": [
+							{
+								"name": "select",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "select",
+						"field": "Select",
+						"zero": "nil"
+					},
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "PropertyValue",
+			"description": "PropertyValue defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "PropertyValueType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Date",
+					"jsonName": "date",
+					"type": "*Date",
+					"jsonTag": "json:\"date,omitzero\""
+				},
+				{
+					"name": "Number",
+					"jsonName": "number",
+					"type": "*float64",
+					"jsonTag": "json:\"number,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "PropertyValueType",
+				"enum": [
+					{
+						"goName": "PropertyValueTypeDate",
+						"value": "date",
+						"literal": "\"date\""
+					},
+					{
+						"goName": "PropertyValueTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					}
+				],
+				"values": [
+					{
+						"value": "date",
+						"members": [
+							{
+								"name": "date",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true,
+								"nullable": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "date",
+						"field": "Date",
+						"zero": "nil"
+					},
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "Record",
+			"description": "Record defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "Meta",
+					"embedded": true
+				},
+				{
+					"name": "Record",
+					"jsonName": "record",
+					"type": "string",
+					"jsonTag": "json:\"record\"",
+					"required": true
+				}
+			],
+			"members": [
+				"created",
+				"record"
+			],
+			"readOnly": [
+				"Meta.Created"
+			]
+		},
+		{
+			"name": "Reports",
+			"description": "A named list: what a call returns can be nil.",
+			"kind": 2,
+			"type": "[]string"
+		},
+		{
+			"name": "Rollup",
+			"description": "Rollup defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "string",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Function",
+					"jsonName": "function",
+					"type": "string",
+					"jsonTag": "json:\"function\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "Schedule",
+			"description": "Schedule defines a model",
+			"fields": [
+				{
+					"name": "Day",
+					"jsonName": "day",
+					"type": "civil.Date",
+					"jsonTag": "json:\"day\"",
+					"required": true
+				},
+				{
+					"name": "Every",
+					"jsonName": "every",
+					"type": "time.Duration",
+					"jsonTag": "json:\"every\"",
+					"description": "In whole seconds.",
+					"required": true
+				},
+				{
+					"name": "At",
+					"jsonName": "at",
+					"type": "time.Time",
+					"jsonTag": "json:\"at\"",
+					"description": "An integer date-time is a Unix time.",
+					"required": true,
+					"isUnixTime": true
+				},
+				{
+					"name": "Enabled",
+					"jsonName": "enabled",
+					"type": "bool",
+					"jsonTag": "json:\"enabled\"",
+					"required": true
+				},
+				{
+					"name": "Count",
+					"jsonName": "count",
+					"type": "int",
+					"jsonTag": "json:\"count\"",
+					"required": true
+				},
+				{
+					"name": "Format",
+					"jsonName": "format",
+					"type": "ScheduleFormat",
+					"jsonTag": "json:\"format,omitzero\"",
+					"description": "A short value in capitals stays as it is in its constant's name."
+				},
+				{
+					"name": "Mode",
+					"jsonName": "mode",
+					"type": "*int",
+					"jsonTag": "json:\"mode,omitzero\"",
+					"description": "Zero is its only value, so sending it says something: a pointer."
+				},
+				{
+					"name": "Level",
+					"jsonName": "level",
+					"type": "*int",
+					"jsonTag": "json:\"level,omitzero\"",
+					"description": "Zero is one of its values: a pointer."
+				},
+				{
+					"name": "Ratio",
+					"jsonName": "ratio",
+					"type": "*float64",
+					"jsonTag": "json:\"ratio,omitzero\"",
+					"description": "Zero is its only value, as a number."
+				},
+				{
+					"name": "Strict",
+					"jsonName": "strict",
+					"type": "bool",
+					"jsonTag": "json:\"strict,omitzero\"",
+					"description": "Leaving it out already means false: no pointer."
+				},
+				{
+					"name": "Options",
+					"jsonName": "options",
+					"type": "ScheduleOptions",
+					"jsonTag": "json:\"options,omitzero\"",
+					"description": "Leaving it out already means {}: no pointer."
+				},
+				{
+					"name": "Extended",
+					"jsonName": "extended",
+					"type": "ScheduleExtended",
+					"jsonTag": "json:\"extended,omitzero\"",
+					"description": "What it extends requires something, so {} is no value: no pointer."
+				},
+				{
+					"name": "Min",
+					"jsonName": "min",
+					"type": "*Bound",
+					"jsonTag": "json:\"min,omitzero\"",
+					"description": "Twice in Schedule, which CreateSchedule's response holds: reaching a struct twice is no cycle."
+				},
+				{
+					"name": "Max",
+					"jsonName": "max",
+					"type": "*Bound",
+					"jsonTag": "json:\"max,omitzero\"",
+					"description": "Twice in Schedule, which CreateSchedule's response holds: reaching a struct twice is no cycle."
+				},
+				{
+					"name": "Until",
+					"jsonName": "until",
+					"type": "time.Time",
+					"jsonTag": "json:\"until,omitzero\"",
+					"description": "A date-time or a Unix time.",
+					"isDateTimeOrInt": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name,omitzero\"",
+					"description": "A default that is no zero says nothing of whether zero is a value."
+				},
+				{
+					"name": "Link",
+					"jsonName": "link",
+					"type": "url.URL",
+					"jsonTag": "json:\"link,omitzero\""
+				},
+				{
+					"name": "Labels",
+					"jsonName": "labels",
+					"type": "Labels",
+					"jsonTag": "json:\"labels,omitzero\"",
+					"description": "A map of its own."
+				}
+			]
+		},
+		{
+			"name": "ScheduleExtended",
+			"description": "What it extends requires something, so {} is no value: no pointer.",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "PartialUserObjectResponse",
+					"embedded": true
+				}
+			],
+			"members": [
+				"id",
+				"object"
+			]
+		},
+		{
+			"name": "ScheduleFormat",
+			"description": "A short value in capitals stays as it is in its constant's name.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "ScheduleFormatPDF",
+					"value": "PDF",
+					"literal": "\"PDF\""
+				},
+				{
+					"goName": "ScheduleFormatCsv",
+					"value": "csv",
+					"literal": "\"csv\""
+				}
+			]
+		},
+		{
+			"name": "ScheduleOptions",
+			"description": "Leaving it out already means {}: no pointer.",
+			"fields": [
+				{
+					"name": "Timezone",
+					"jsonName": "timezone",
+					"type": "string",
+					"jsonTag": "json:\"timezone,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "SimpleOrArray",
+			"description": "SimpleOrArray defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "SimpleOrArrayType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Number",
+					"jsonName": "number",
+					"type": "*float64",
+					"jsonTag": "json:\"number,omitzero\""
+				},
+				{
+					"name": "Text",
+					"jsonName": "text",
+					"type": "string",
+					"jsonTag": "json:\"text,omitzero\""
+				},
+				{
+					"name": "Relation",
+					"jsonName": "relation",
+					"type": "[]string",
+					"jsonTag": "json:\"relation,omitzero\""
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "*bool",
+					"jsonTag": "json:\"has_more,omitzero\""
+				}
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "SimpleOrArrayType",
+				"enum": [
+					{
+						"goName": "SimpleOrArrayTypeNumber",
+						"value": "number",
+						"literal": "\"number\""
+					},
+					{
+						"goName": "SimpleOrArrayTypeText",
+						"value": "text",
+						"literal": "\"text\""
+					},
+					{
+						"goName": "SimpleOrArrayTypeRelation",
+						"value": "relation",
+						"literal": "\"relation\""
+					}
+				],
+				"values": [
+					{
+						"value": "number",
+						"members": [
+							{
+								"name": "number",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "text",
+						"members": [
+							{
+								"name": "text",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "relation",
+						"members": [
+							{
+								"name": "has_more"
+							},
+							{
+								"name": "relation",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "number",
+						"field": "Number",
+						"zero": "nil"
+					},
+					{
+						"name": "text",
+						"field": "Text",
+						"zero": "\"\""
+					},
+					{
+						"name": "relation",
+						"field": "Relation",
+						"zero": "nil"
+					},
+					{
+						"name": "has_more",
+						"field": "HasMore",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "Tags",
+			"description": "Tags defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "String",
+					"type": "string",
+					"zero": "\"\""
+				},
+				{
+					"fieldName": "String2",
+					"type": "[]string",
+					"zero": "nil"
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "String",
+					"type": "string",
+					"zero": "\"\""
+				},
+				{
+					"fieldName": "String2",
+					"type": "[]string",
+					"zero": "nil"
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "User",
+			"description": "User defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id,omitzero\"",
+					"readOnly": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"required": true
+				},
+				{
+					"name": "Password",
+					"jsonName": "password",
+					"type": "string",
+					"jsonTag": "json:\"password,omitzero\"",
+					"writeOnly": true
+				},
+				{
+					"name": "Verified",
+					"jsonName": "verified",
+					"type": "*bool",
+					"jsonTag": "json:\"verified,omitzero\"",
+					"readOnly": true
+				}
+			],
+			"readOnly": [
+				"ID",
+				"Verified"
+			],
+			"writeOnly": [
+				"Password"
+			]
+		},
+		{
+			"name": "UserObjectResponse",
+			"description": "UserObjectResponse defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"type": "UserObjectResponseCommon",
+					"embedded": true
+				},
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "UserObjectResponseType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Person",
+					"jsonName": "person",
+					"type": "*UserOneOfPerson",
+					"jsonTag": "json:\"person,omitzero\"",
+					"description": "Details about the person, when the `type` of the user is `person`."
+				},
+				{
+					"name": "Bot",
+					"jsonName": "bot",
+					"type": "*EmptyObject",
+					"jsonTag": "json:\"bot,omitzero\"",
+					"description": "Details about the bot."
+				}
+			],
+			"members": [
+				"avatar_url",
+				"bot",
+				"id",
+				"name",
+				"object",
+				"person",
+				"type"
+			],
+			"tagged": {
+				"tag": "type",
+				"field": "Type",
+				"type": "UserObjectResponseType",
+				"enum": [
+					{
+						"goName": "UserObjectResponseTypePerson",
+						"value": "person",
+						"literal": "\"person\""
+					},
+					{
+						"goName": "UserObjectResponseTypeBot",
+						"value": "bot",
+						"literal": "\"bot\""
+					}
+				],
+				"values": [
+					{
+						"value": "person",
+						"members": [
+							{
+								"name": "person",
+								"required": true
+							}
+						]
+					},
+					{
+						"value": "bot",
+						"members": [
+							{
+								"name": "bot",
+								"required": true
+							}
+						]
+					}
+				],
+				"members": [
+					{
+						"name": "person",
+						"field": "Person",
+						"zero": "nil"
+					},
+					{
+						"name": "bot",
+						"field": "Bot",
+						"zero": "nil"
+					}
+				]
+			}
+		},
+		{
+			"name": "UserObjectResponseCommon",
+			"description": "UserObjectResponseCommon defines a model",
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "IDResponse",
+					"jsonTag": "json:\"id\"",
+					"description": "The ID of the user.",
+					"required": true
+				},
+				{
+					"name": "Object",
+					"jsonName": "object",
+					"type": "string",
+					"jsonTag": "json:\"object\"",
+					"description": "The user object type name.",
+					"required": true
+				},
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"description": "The name of the user.",
+					"required": true
+				},
+				{
+					"name": "AvatarURL",
+					"jsonName": "avatar_url",
+					"type": "string",
+					"jsonTag": "json:\"avatar_url\"",
+					"description": "The avatar URL of the user.",
+					"required": true
+				}
+			],
+			"memberDecoder": true
+		},
+		{
+			"name": "UserOneOfPerson",
+			"description": "UserOneOfPerson defines a model",
+			"fields": [
+				{
+					"name": "Email",
+					"jsonName": "email",
+					"type": "string",
+					"jsonTag": "json:\"email,omitzero\"",
+					"description": "The email of the person."
+				},
+				{
+					"name": "EmailVerified",
+					"jsonName": "email_verified",
+					"type": "*bool",
+					"jsonTag": "json:\"email_verified,omitzero\"",
+					"description": "Whether the person's email is verified."
+				}
+			]
+		},
+		{
+			"name": "UserValueResponse",
+			"description": "UserValueResponse defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "PartialUserObjectResponse",
+					"type": "PartialUserObjectResponse",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
+				},
+				{
+					"fieldName": "UserObjectResponse",
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "PartialUserObjectResponse",
+					"type": "PartialUserObjectResponse",
+					"members": [
+						"id",
+						"object"
+					],
+					"required": [
+						"id",
+						"object"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
+				},
+				{
+					"fieldName": "UserObjectResponse",
+					"type": "UserObjectResponse",
+					"members": [
+						"avatar_url",
+						"bot",
+						"id",
+						"name",
+						"object",
+						"person",
+						"type"
+					],
+					"required": [
+						"avatar_url",
+						"id",
+						"name",
+						"object",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "object",
+							"value": "\"user\""
+						}
+					]
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "Value",
+			"description": "Value defines a model",
+			"kind": 3,
+			"fields": [
+				{
+					"name": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"jsonTag": "json:\"id\"",
+					"required": true
+				},
+				{
+					"name": "ValueAllOf1",
+					"type": "ValueAllOf1",
+					"jsonTag": "json:\"-\"",
+					"required": true
+				}
+			],
+			"allOfUnion": {
+				"fieldName": "ValueAllOf1",
+				"isOneOf": true,
+				"variants": [
+					{
+						"fieldName": "SimpleOrArray",
+						"type": "SimpleOrArray",
+						"members": [
+							"has_more",
+							"number",
+							"relation",
+							"text",
+							"type"
+						],
+						"required": [
+							"type"
+						],
+						"object": true
+					},
+					{
+						"fieldName": "Rollup",
+						"type": "Rollup",
+						"members": [
+							"function",
+							"type"
+						],
+						"required": [
+							"function",
+							"type"
+						],
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"rollup\""
+							}
+						]
+					}
+				],
+				"choices": [
+					{
+						"fieldName": "SimpleOrArray",
+						"type": "SimpleOrArray",
+						"members": [
+							"has_more",
+							"number",
+							"relation",
+							"text",
+							"type"
+						],
+						"required": [
+							"type"
+						],
+						"object": true
+					},
+					{
+						"fieldName": "Rollup",
+						"type": "Rollup",
+						"members": [
+							"function",
+							"type"
+						],
+						"required": [
+							"function",
+							"type"
+						],
+						"object": true,
+						"pinned": [
+							{
+								"name": "type",
+								"value": "\"rollup\""
+							}
+						]
+					}
+				]
+			},
+			"members": [
+				"id"
+			]
+		},
+		{
+			"name": "ValueAllOf1",
+			"description": "ValueAllOf1 defines a model",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "SimpleOrArray",
+					"type": "SimpleOrArray",
+					"members": [
+						"has_more",
+						"number",
+						"relation",
+						"text",
+						"type"
+					],
+					"required": [
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Rollup",
+					"type": "Rollup",
+					"members": [
+						"function",
+						"type"
+					],
+					"required": [
+						"function",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"rollup\""
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "SimpleOrArray",
+					"type": "SimpleOrArray",
+					"members": [
+						"has_more",
+						"number",
+						"relation",
+						"text",
+						"type"
+					],
+					"required": [
+						"type"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "Rollup",
+					"type": "Rollup",
+					"members": [
+						"function",
+						"type"
+					],
+					"required": [
+						"function",
+						"type"
+					],
+					"object": true,
+					"pinned": [
+						{
+							"name": "type",
+							"value": "\"rollup\""
+						}
+					]
+				}
+			],
+			"isOneOf": true
+		}
+	],
+	"hasURLFields": true,
+	"hasDurationFields": true,
+	"hasDateFields": true,
+	"hasDateTimeOrIntFields": true,
+	"hasUnixTimeFields": true
+}

@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/MarkRosemaker/openapi-enrich/cassette"
@@ -29,6 +30,8 @@ var defaultBaseURL = &url.URL{
 type Client struct {
 	// The HTTP client to use for requests.
 	cli *http.Client
+	// The bearer token
+	bearer string
 	// The base URL
 	baseURL *url.URL
 	// The user agent
@@ -55,10 +58,19 @@ func WithHTTPClient(cli *http.Client) ClientOption {
 	return func(c *Client) { c.cli = cli }
 }
 
+// WithBearer returns a [ClientOption] that sets a custom bearer.
+func WithBearer(bearer string) ClientOption {
+	return func(c *Client) {
+		if bearer != "" {
+			c.bearer = "Bearer " + strings.TrimPrefix(bearer, "Bearer ")
+		}
+	}
+}
+
 // WithDebug is a [ClientOption] that sets the debug mode to true.
 func WithDebug(c *Client) { c.debug = true }
 
-// NewClient creates a new Client.
+// NewClient creates a new Client, reading the bearer token from [os.Getenv]("DEBUG_TOKEN").
 func NewClient(opts ...ClientOption) (*Client, error) {
 	c := &Client{
 		cli:       http.DefaultClient,
@@ -66,8 +78,14 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 		userAgent: defaultUserAgent,
 	}
 
+	WithBearer(os.Getenv("DEBUG_TOKEN"))(c)
+
 	for _, opt := range opts {
 		opt(c)
+	}
+
+	if c.bearer == "" {
+		return nil, errors.New("bearer token DEBUG_TOKEN not provided")
 	}
 
 	return c, nil
@@ -83,7 +101,8 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("item")
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.bearer},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
@@ -163,7 +182,8 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("block")
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.bearer},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,
@@ -243,7 +263,8 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("pet")
 	req := (&http.Request{
 		Header: http.Header{
-			"User-Agent": []string{c.userAgent},
+			"Authorization": []string{c.bearer},
+			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
 		Method:     http.MethodGet,

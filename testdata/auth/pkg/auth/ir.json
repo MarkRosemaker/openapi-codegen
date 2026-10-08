@@ -1,0 +1,139 @@
+{
+	"title": "Auth API",
+	"production": true,
+	"packageName": "auth",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com"
+	},
+	"userAgent": "API",
+	"operations": [
+		{
+			"auth": "bearer",
+			"name": "ListItems",
+			"description": "Requires the token.",
+			"method": "GET",
+			"pathTemplate": "/items",
+			"joinPathArgs": [
+				"\"items\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "string",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "string",
+				"isSlice": true
+			}
+		},
+		{
+			"auth": "bearer",
+			"authOptional": true,
+			"name": "GetFeed",
+			"description": "Takes the token if there is one.",
+			"method": "GET",
+			"pathTemplate": "/feed",
+			"joinPathArgs": [
+				"\"feed\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "string",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "string",
+				"isSlice": true
+			}
+		},
+		{
+			"auth": "basic",
+			"name": "GetAdmin",
+			"description": "Takes a username and password instead.",
+			"method": "GET",
+			"pathTemplate": "/admin",
+			"joinPathArgs": [
+				"\"admin\""
+			],
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"description": "Never takes the token.",
+			"method": "GET",
+			"pathTemplate": "/health",
+			"joinPathArgs": [
+				"\"health\""
+			],
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
+		}
+	],
+	"globalParams": [
+		{
+			"globalType": "APIKey",
+			"varName": "apiKey",
+			"envName": "API_KEY",
+			"goName": "xAPIKey",
+			"fieldName": "XAPIKey",
+			"jsonName": "X-Api-Key",
+			"type": "string",
+			"required": true,
+			"parseExpr": "%s",
+			"parseErrFree": true,
+			"description": "On every path too: a client field, read from the environment."
+		},
+		{
+			"globalType": "Client",
+			"varName": "client",
+			"goName": "xClient",
+			"fieldName": "XClient",
+			"jsonName": "X-Client",
+			"type": "string",
+			"required": true,
+			"parseExpr": "%s",
+			"parseErrFree": true,
+			"description": "On every path, so a client field; it has no example, so its value comes from the recordings."
+		}
+	],
+	"security": {
+		"bearer": {
+			"name": "API_TOKEN"
+		},
+		"basic": {
+			"usernameEnvName": "API_USERNAME",
+			"passwordEnvName": "API_PASSWORD"
+		},
+		"default": "bearer"
+	}
+}

@@ -34,6 +34,8 @@ func (f roundTripFunc) RoundTrip(r *http.Request) (*http.Response, error) {
 
 func TestClient_Error(t *testing.T) {
 	t.Run("GetItem", func(t *testing.T) {
+		t.Setenv("DEBUG_TOKEN", "**************************************************")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -126,6 +128,8 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("GetBlock", func(t *testing.T) {
+		t.Setenv("DEBUG_TOKEN", "**************************************************")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
@@ -218,6 +222,8 @@ func TestClient_Error(t *testing.T) {
 	})
 
 	t.Run("GetPet", func(t *testing.T) {
+		t.Setenv("DEBUG_TOKEN", "**************************************************")
+
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
 				func(*http.Request) (*http.Response, error) { return nil, io.EOF },

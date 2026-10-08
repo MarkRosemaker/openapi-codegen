@@ -1,0 +1,236 @@
+[
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/pages/p"
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"object": "page",
+				"id": "p",
+				"cover": null,
+				"icon": null,
+				"position": [
+					"a",
+					"b"
+				]
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "POST",
+			"url": "https://api.example.com/v1/search",
+			"body": {
+				"type": "select",
+				"property": "x",
+				"select": {
+					"does_not_equal": "Done"
+				}
+			},
+			"header": {
+				"Content-Type": "application/json"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": [
+				{
+					"object": "page",
+					"id": "p",
+					"cover": null,
+					"icon": null,
+					"position": [
+						"a",
+						1
+					]
+				},
+				{
+					"object": "page",
+					"id": "q"
+				}
+			]
+		}
+	},
+	{
+		"request": {
+			"method": "PUT",
+			"url": "https://api.example.com/v1/users/u",
+			"body": {
+				"name": "client",
+				"password": "new"
+			},
+			"header": {
+				"Content-Type": "application/json"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"id": "u",
+				"name": "server",
+				"verified": true
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/blocks/b"
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"id": "b",
+				"type": "relation",
+				"relation": [
+					"p"
+				],
+				"has_more": true
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "POST",
+			"url": "https://api.example.com/v1/databases",
+			"body": {
+				"type": "page_id",
+				"page_id": "59833787-2cf9-4fdf-8782-e53db20768a5"
+			},
+			"header": {
+				"Content-Type": "application/json"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"mode": "pinned",
+				"id": "gpt"
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/properties/abc"
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"id": "abc",
+				"type": "number",
+				"number": 3
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/reports?ids=1&ids=2&since=2026-10-08T10%3A00%3A00%2B02%3A00&verbose=true",
+			"header": {
+				"X-Version": "2026-10-01"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": [
+				"a",
+				"b"
+			]
+		}
+	},
+	{
+		"request": {
+			"method": "POST",
+			"url": "https://api.example.com/v1/schedules",
+			"body": {
+				"day": "2026-10-08",
+				"every": 3600,
+				"at": 1791453600,
+				"enabled": true,
+				"count": 2,
+				"until": 1791540000
+			},
+			"header": {
+				"Content-Type": "application/json"
+			}
+		},
+		"response": {
+			"statusCode": 201,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"schedule": {
+					"day": "2026-10-08",
+					"every": 3600,
+					"at": 1791453600,
+					"enabled": true,
+					"count": 2,
+					"until": 1791540000
+				}
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/status"
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "text/plain"
+			},
+			"body": "ok"
+		}
+	},
+	{
+		"request": {
+			"method": "DELETE",
+			"url": "https://api.example.com/v1/schedules/s",
+			"header": {
+				"Api-Version": "2"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {}
+		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/v1/queries/3?at=1791453600&cells=x/y,z%2Cw&colorCsv=r,3,g,0,name,a%2Cb&colorDeep%5Bfade%5D=30&colorDeep%5Bg%5D=5&colorDeep%5Br%5D=2&colorPiped=r|4|name|p%7Cq&csv=1,2&every=90&ip=10.0.0.1&labels%5Ba+b%5D=c%26d&level=2&name=x&next=https://x.example/a?b=c%26d%2Be%23f&on=2026-10-08&other=y&paths=/a/b&paths=c:d&piped=x%7Cy|z&r=1&ratio=0.5&site=https%3A%2F%2Fx.example%2Fp&spaced=a+b%20c&weights=v,2,w,1&v=1"
+		},
+		"response": {
+			"statusCode": 204
+		}
+	}
+]

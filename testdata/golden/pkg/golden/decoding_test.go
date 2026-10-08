@@ -1,0 +1,258 @@
+// This file is written by hand, not by the generator.
+//
+// It pins decoding of shapes the Notion client met in real responses: a tag
+// left out where it is optional, null for an "X or null" union, an anyOf of a
+// full and a partial form, a caller's own type of a result, and a union with
+// a tuple among its alternatives.
+
+package golden
+
+import (
+	"context"
+	"encoding/json/v2"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"strings"
+	"testing"
+	"time"
+)
+
+const page = `{"object":"page","id":"p","cover":null,"icon":null,"position":["a","b"]}`
+
+func client(t *testing.T, body string) *Client {
+	t.Helper()
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(body))
+	}))
+	t.Cleanup(srv.Close)
+
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	c, err := NewClient(WithBaseURL(u))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return c
+}
+
+func TestDecoding_OptionalTag(t *testing.T) {
+	// Notion's own filters leave type out; it is the value whose member is set
+	var f PropertyFilter
+	if err := json.Unmarshal([]byte(`{"property":"x","select":{"does_not_equal":"Done"}}`), &f, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if f.Type != PropertyFilterTypeSelect || f.Select == nil || f.Select.DoesNotEqual != "Done" {
+		t.Errorf("got %+v, want the select filter", f)
+	}
+
+	// without a member to tell by, it is still missing
+	if err := json.Unmarshal([]byte(`{"property":"x"}`), &f, jsonOpts); err == nil {
+		t.Error("decoded a filter without type or member")
+	}
+}
+
+func TestDecoding_NullableUnion(t *testing.T) {
+	p, err := client(t, page).GetPage(t.Context(), "p")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if p.Cover != nil || p.Icon != nil {
+		t.Errorf("got %+v, want no cover and no icon", p)
+	}
+
+	p, err = client(t, `{"object":"page","id":"p","cover":{"type":"external","external":{"url":"u"}},"icon":{"emoji":"x"},"position":["a",1]}`).
+		GetPage(t.Context(), "p")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if p.Cover == nil || p.Cover.External == nil || p.Icon == nil || p.Icon.Emoji == nil || p.Position.Pair == nil {
+		t.Errorf("got %+v, want the cover, the icon and the pair", p)
+	}
+
+	out, err := json.Marshal(p, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(out) != `{"object":"page","id":"p","cover":{"type":"external","external":{"url":"u"}},"icon":{"emoji":"x"},"position":["a",1]}` {
+		t.Errorf("got %s", out)
+	}
+}
+
+func TestDecoding_FullOrPartial(t *testing.T) {
+	// the full page matches; the partial form, strict, does not
+	results, err := client(t, `[`+page+`,{"object":"page","id":"q"}]`).Search(t.Context(), PropertyFilter{Property: "x", Select: &Condition{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(results) != 2 || results[0].Page == nil || results[0].PartialPage != nil || results[1].PartialPage == nil {
+		t.Errorf("got %+v", results)
+	}
+}
+
+func TestDecoding_OwnResultType(t *testing.T) {
+	// a type of the caller's own takes what it declares of the response and leaves the rest
+	p, err := client(t, page).GetPageWithResult[struct {
+		ID string `json:"id"`
+	}](t.Context(), "p")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if p.ID != "p" {
+		t.Errorf("got %+v", p)
+	}
+
+	// the operation's own type is decoded as strictly as ever
+	if _, err := client(t, `{"object":"page","id":"p","cover":null,"icon":null,"position":[],"extra":1}`).GetPage(t.Context(), "p"); err == nil {
+		t.Error("decoded an unknown member into Page")
+	}
+}
+
+func TestDecoding_RequiredMemberPresent(t *testing.T) {
+	// a required member sent as null is there, whether or not the specification lets it be null
+	for _, in := range []string{`{"type":"date","date":null}`, `{"type":"number","number":null}`, `{"type":"number","number":2}`} {
+		var v PropertyValue
+		if err := json.Unmarshal([]byte(in), &v, jsonOpts); err != nil {
+			t.Errorf("%s: %v", in, err)
+		}
+	}
+
+	// left out, it is missing, even where it may be null
+	for in, want := range map[string]string{
+		`{"type":"date"}`:   `missing object member name "date"`,
+		`{"type":"number"}`: `missing object member name "number"`,
+	} {
+		var v PropertyValue
+		if err := json.Unmarshal([]byte(in), &v, jsonOpts); err == nil || !strings.Contains(err.Error(), want) {
+			t.Errorf("%s: got %v, want %s", in, err, want)
+		}
+	}
+}
+
+func TestDecoding_UnionChecksRequiredAndPinned(t *testing.T) {
+	// a member pinned to another value rules its alternative out: only the select form matches
+	var g GroupBy
+	if err := json.Unmarshal([]byte(`{"type":"select","property":"x"}`), &g, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if g.GroupByAnyOf0 == nil || g.GroupByAnyOf1 != nil {
+		t.Errorf("got %+v, want the select form only", g)
+	}
+
+	// an empty bot lacks what the full form requires
+	var b Bot
+	if err := json.Unmarshal([]byte(`{}`), &b, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if b.Object == nil || b.BotAnyOf1 != nil {
+		t.Errorf("got %+v, want the empty form only", b)
+	}
+
+	// leniently, as a caller's own type is decoded, an "and" filter is no empty "or" one
+	var f Filter
+	if err := json.Unmarshal([]byte(`{"and":["a"]}`), &f, jsonOptsLenient); err != nil {
+		t.Fatal(err)
+	}
+
+	if f.FilterAnyOf0 != nil || f.FilterAnyOf1 == nil || len(f.FilterAnyOf1.And) != 1 {
+		t.Errorf("got %+v, want the and form only", f)
+	}
+}
+
+// users is a [Service] that keeps the bodies it is sent and answers with its own.
+type users struct {
+	Service
+
+	user  User
+	entry Entry
+}
+
+func (u *users) UpdateUser(_ context.Context, _ string, body User) (*User, error) {
+	sent := u.user
+	u.user = body
+
+	return &sent, nil
+}
+
+func (u *users) CreateEntry(_ context.Context, body Entry) (*Entry, error) {
+	sent := u.entry
+	u.entry = body
+
+	return &sent, nil
+}
+
+func TestDecoding_ReadOnlyAndWriteOnly(t *testing.T) {
+	created := time.Date(2026, 10, 6, 0, 0, 0, 0, time.UTC)
+	svc := &users{
+		user:  User{ID: "u", Name: "server", Password: "secret", Verified: new(true)},
+		entry: Entry{Record: &Record{Meta: Meta{Created: created}, Record: "r"}},
+	}
+
+	mux := http.NewServeMux()
+	RegisterService(svc, mux, "")
+
+	srv := httptest.NewServer(mux)
+	t.Cleanup(srv.Close)
+
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	c, err := NewClient(WithBaseURL(u))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// a request leaves out what only responses carry, so the server need not have it; a response leaves out the password
+	got, err := c.UpdateUser(t.Context(), "u", User{ID: "u", Name: "client", Password: "new", Verified: new(false)})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if want := (User{Name: "client", Password: "new"}); svc.user != want {
+		t.Errorf("server got %+v, want %+v", svc.user, want)
+	}
+
+	if got.ID != "u" || got.Name != "server" || got.Password != "" || got.Verified == nil || !*got.Verified {
+		t.Errorf("client got %+v, want the user without its password", got)
+	}
+
+	// so too through a union and a part an allOf embeds
+	entry, err := c.CreateEntry(t.Context(), Entry{Note: &Note{Meta: Meta{Created: created}, Note: "n"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if n := svc.entry.Note; n == nil || !n.Created.IsZero() || n.Note != "n" {
+		t.Errorf("server got %+v, want the note without created", svc.entry)
+	}
+
+	if r := entry.Record; r == nil || !r.Created.Equal(created) {
+		t.Errorf("client got %+v, want the record with created", entry)
+	}
+
+	// encoded as anything else, a type keeps all its members
+	out, err := json.Marshal(User{ID: "u", Name: "n", Password: "p"}, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(out) != `{"id":"u","name":"n","password":"p"}` {
+		t.Errorf("got %s", out)
+	}
+}

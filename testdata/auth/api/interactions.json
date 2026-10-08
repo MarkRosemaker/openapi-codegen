@@ -1,0 +1,22 @@
+[
+	{
+		"request": {"method": "GET", "url": "https://api.example.com/items", "header": {"Authorization": "Bearer ****", "X-Api-Key": "****", "X-Client": "golden-test"}},
+		"response": {"statusCode": 200, "header": {"Content-Type": "application/json"}, "body": ["a"]}
+	},
+	{
+		"request": {"method": "GET", "url": "https://api.example.com/feed", "header": {"Authorization": "Bearer ****", "X-Api-Key": "****", "X-Client": "golden-test"}},
+		"response": {"statusCode": 200, "header": {"Content-Type": "application/json"}, "body": ["mine"]}
+	},
+	{
+		"request": {"method": "GET", "url": "https://api.example.com/feed", "header": {"X-Api-Key": "****", "X-Client": "golden-test"}},
+		"response": {"statusCode": 200, "header": {"Content-Type": "application/json"}, "body": ["public"]}
+	},
+	{
+		"request": {"method": "GET", "url": "https://api.example.com/admin", "header": {"Authorization": "Basic ****", "X-Api-Key": "****", "X-Client": "golden-test"}},
+		"response": {"statusCode": 204}
+	},
+	{
+		"request": {"method": "GET", "url": "https://api.example.com/health", "header": {"X-Api-Key": "****", "X-Client": "golden-test"}},
+		"response": {"statusCode": 204}
+	}
+]

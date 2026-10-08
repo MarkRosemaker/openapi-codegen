@@ -1,0 +1,2169 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Golden",
+    "description": "The one specification the generator is tested against: TestCodegen_TestData generates pkg/golden from it and interactions.json, which must give the files there, and TestCodegen_Golden builds them and runs their tests, those written by hand among them. Edit them by hand.",
+    "version": "1"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/pages/{id}": {
+      "get": {
+        "operationId": "getPage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retrieve a page"
+      }
+    },
+    "/search": {
+      "post": {
+        "operationId": "search",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyFilter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PageOrPartial"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "operationId": "updateUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/entries": {
+      "post": {
+        "operationId": "createEntry",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Entry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entry"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/values/{id}": {
+      "get": {
+        "operationId": "getValue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Value"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/blocks/{id}": {
+      "get": {
+        "operationId": "getBlock",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Block"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/databases": {
+      "post": {
+        "operationId": "createDatabase",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDatabaseParent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/properties/{id}": {
+      "get": {
+        "operationId": "getProperty",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reports": {
+      "get": {
+        "operationId": "listReports",
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "required": true
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "verbose",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "An enum.",
+            "schema": {
+              "$ref": "#/components/schemas/ScheduleFormat"
+            }
+          },
+          {
+            "name": "formats",
+            "in": "query",
+            "description": "A list of an enum.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ScheduleFormat"
+              }
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "A union of an array and its items is sent as the array.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "A query string cannot carry null, so the string is all that is left.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "A union of strings is a string.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "asc"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "desc"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "A union of anything else is sent as it is.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "name": "pairs",
+            "in": "query",
+            "description": "So is a union of two arrays.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "X-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Required, so an argument of every call."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reports"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/people": {
+      "get": {
+        "operationId": "listPeople",
+        "description": "A person is a user, itself a union, or a group: the choices of a nested union.",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PeopleArrayBasedPropertyValueResponsePeopleItem"
+                      }
+                    },
+                    "owner": {
+                      "$ref": "#/components/schemas/Owner"
+                    },
+                    "value": {
+                      "$ref": "#/components/schemas/MaybeMember"
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Member"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules": {
+      "post": {
+        "operationId": "createSchedule",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Schedule"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "schedule"
+                  ],
+                  "properties": {
+                    "schedule": {
+                      "$ref": "#/components/schemas/Schedule"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "529": {
+            "description": "A status Go has no name for.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Overloaded"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reports/{format}": {
+      "get": {
+        "operationId": "downloadReport",
+        "description": "Anything but JSON is the bytes as they are.",
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "required": true,
+            "description": "An enum in the path.",
+            "schema": {
+              "$ref": "#/components/schemas/ScheduleFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules/{id}": {
+      "delete": {
+        "operationId": "deleteSchedule",
+        "description": "The success is an empty object, decoded so that anything in it fails.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The schedule's ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Api-Version",
+            "in": "header",
+            "required": true,
+            "description": "Pinned to one value, which the client sends itself.",
+            "schema": {
+              "$ref": "#/components/schemas/ApiVersion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/emptyObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "operationId": "getStatus",
+        "description": "Text is read whole, as bytes.",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queries/{page}": {
+      "get": {
+        "operationId": "queryStyles",
+        "description": "A query parameter in every style and format: the client writes each as the server reads it.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "description": "A path parameter that can fail to parse, read beside the query.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "csv",
+            "in": "query",
+            "description": "form, not exploded: one value, joined by commas.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "explode": false
+          },
+          {
+            "name": "spaced",
+            "in": "query",
+            "description": "spaceDelimited: joined by spaces.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "spaceDelimited",
+            "explode": false
+          },
+          {
+            "name": "piped",
+            "in": "query",
+            "description": "pipeDelimited: joined by pipes.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "pipeDelimited",
+            "explode": false
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "description": "form, exploded: each member a parameter of its own.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            }
+          },
+          {
+            "name": "colorCsv",
+            "in": "query",
+            "description": "form, not exploded: names and values in turn, joined by commas.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            },
+            "explode": false
+          },
+          {
+            "name": "colorPiped",
+            "in": "query",
+            "description": "pipeDelimited: names and values joined by pipes.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            },
+            "style": "pipeDelimited",
+            "explode": false
+          },
+          {
+            "name": "colorDeep",
+            "in": "query",
+            "description": "deepObject: each member under the parameter's name, the member's in brackets. Required, so sent even when not set.",
+            "schema": {
+              "$ref": "#/components/schemas/Color"
+            },
+            "style": "deepObject",
+            "explode": true,
+            "required": true
+          },
+          {
+            "name": "labels",
+            "in": "query",
+            "description": "A named map, as deepObject.",
+            "schema": {
+              "$ref": "#/components/schemas/Labels"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "name": "weights",
+            "in": "query",
+            "description": "A map, not exploded.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            },
+            "explode": false
+          },
+          {
+            "name": "extra",
+            "in": "query",
+            "description": "A free-form object, exploded: every parameter no other is, as a string.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "next",
+            "in": "query",
+            "description": "Reserved characters left as they are.",
+            "schema": {
+              "type": "string"
+            },
+            "allowReserved": true
+          },
+          {
+            "name": "paths",
+            "in": "query",
+            "description": "Each element so.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowReserved": true
+          },
+          {
+            "name": "cells",
+            "in": "query",
+            "description": "So, joined by commas.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowReserved": true,
+            "explode": false
+          },
+          {
+            "name": "every",
+            "in": "query",
+            "description": "In whole seconds.",
+            "schema": {
+              "type": "integer",
+              "format": "duration"
+            }
+          },
+          {
+            "name": "at",
+            "in": "query",
+            "description": "A Unix time.",
+            "schema": {
+              "type": "integer",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "on",
+            "in": "query",
+            "description": "A date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "site",
+            "in": "query",
+            "description": "A URL.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          {
+            "name": "ip",
+            "in": "query",
+            "description": "An IP address.",
+            "schema": {
+              "type": "string",
+              "format": "ipv4"
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "An enum of integers.",
+            "schema": {
+              "$ref": "#/components/schemas/Level"
+            }
+          },
+          {
+            "name": "ratio",
+            "in": "query",
+            "description": "A float32.",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "v",
+            "in": "query",
+            "required": true,
+            "description": "Fixed, sent by the client itself: no map holds it.",
+            "schema": {
+              "type": "string",
+              "const": "1"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PropertyFilter": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SelectFilter"
+          },
+          {
+            "$ref": "#/components/schemas/NumberFilter"
+          }
+        ]
+      },
+      "SelectFilter": {
+        "type": "object",
+        "required": [
+          "property",
+          "select"
+        ],
+        "properties": {
+          "property": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "select"
+          },
+          "select": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        }
+      },
+      "NumberFilter": {
+        "type": "object",
+        "required": [
+          "property",
+          "number"
+        ],
+        "properties": {
+          "property": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "number"
+          },
+          "number": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        }
+      },
+      "Condition": {
+        "type": "object",
+        "properties": {
+          "equals": {
+            "type": "string"
+          },
+          "does_not_equal": {
+            "type": "string"
+          }
+        }
+      },
+      "Page": {
+        "type": "object",
+        "required": [
+          "object",
+          "id",
+          "cover",
+          "icon",
+          "position"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "page"
+          },
+          "id": {
+            "type": "string"
+          },
+          "cover": {
+            "$ref": "#/components/schemas/PageCover"
+          },
+          "icon": {
+            "$ref": "#/components/schemas/PageIcon"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Position"
+          }
+        }
+      },
+      "PageCover": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CoverResponse"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "CoverResponse": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "external"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "external"
+              },
+              "external": {
+                "$ref": "#/components/schemas/Link"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "file"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "file"
+              },
+              "file": {
+                "$ref": "#/components/schemas/Link"
+              }
+            }
+          }
+        ]
+      },
+      "Link": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "PageIcon": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/IconResponse"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "IconResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Emoji"
+          },
+          {
+            "$ref": "#/components/schemas/Link"
+          }
+        ]
+      },
+      "Emoji": {
+        "type": "object",
+        "required": [
+          "emoji"
+        ],
+        "properties": {
+          "emoji": {
+            "type": "string"
+          }
+        }
+      },
+      "Position": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Pair"
+          }
+        ]
+      },
+      "Pair": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "PageOrPartial": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Page"
+          },
+          {
+            "$ref": "#/components/schemas/PartialPage"
+          }
+        ]
+      },
+      "PartialPage": {
+        "type": "object",
+        "required": [
+          "object",
+          "id"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "page"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "PropertyValue": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/DateValue"
+          },
+          {
+            "$ref": "#/components/schemas/NumberValue"
+          }
+        ]
+      },
+      "DateValue": {
+        "type": "object",
+        "required": [
+          "type",
+          "date"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "date"
+          },
+          "date": {
+            "$ref": "#/components/schemas/Date"
+          }
+        }
+      },
+      "Date": {
+        "type": "object",
+        "required": [
+          "start"
+        ],
+        "properties": {
+          "start": {
+            "type": "string"
+          }
+        }
+      },
+      "NumberValue": {
+        "type": "object",
+        "required": [
+          "type",
+          "number"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "number"
+          },
+          "number": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "GroupBy": {
+        "anyOf": [
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "property"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "select"
+              },
+              "property": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "property"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "date"
+              },
+              "property": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              },
+              "period": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Bot": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {}
+          },
+          {
+            "type": "object",
+            "required": [
+              "owner",
+              "workspace_name"
+            ],
+            "properties": {
+              "owner": {
+                "type": "string"
+              },
+              "workspace_name": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Filter": {
+        "anyOf": [
+          {
+            "type": "object",
+            "required": [
+              "or"
+            ],
+            "properties": {
+              "or": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "and"
+            ],
+            "properties": {
+              "and": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "password"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "verified": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "required": [
+          "created"
+        ],
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Record": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Meta"
+          },
+          {
+            "type": "object",
+            "required": [
+              "record"
+            ],
+            "properties": {
+              "record": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Note": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Meta"
+          },
+          {
+            "type": "object",
+            "required": [
+              "note"
+            ],
+            "properties": {
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Entry": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Record"
+          },
+          {
+            "$ref": "#/components/schemas/Note"
+          }
+        ]
+      },
+      "Block": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Paragraph"
+          },
+          {
+            "$ref": "#/components/schemas/ChildDatabase"
+          },
+          {
+            "$ref": "#/components/schemas/Relation"
+          }
+        ]
+      },
+      "Paragraph": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "paragraph"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "paragraph"
+          },
+          "paragraph": {
+            "type": "string"
+          }
+        }
+      },
+      "ChildDatabase": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "child_database"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "child_database"
+          },
+          "child_database": {
+            "type": "string"
+          }
+        }
+      },
+      "Relation": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "relation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "const": "relation"
+          },
+          "relation": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Value": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Common"
+          },
+          {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SimpleOrArray"
+              },
+              {
+                "$ref": "#/components/schemas/Rollup"
+              }
+            ]
+          }
+        ]
+      },
+      "Common": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "SimpleOrArray": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Simple"
+          },
+          {
+            "$ref": "#/components/schemas/Array"
+          }
+        ]
+      },
+      "Simple": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Number"
+          },
+          {
+            "$ref": "#/components/schemas/Text"
+          }
+        ]
+      },
+      "Array": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Relation2"
+          }
+        ]
+      },
+      "Number": {
+        "type": "object",
+        "required": [
+          "type",
+          "number"
+        ],
+        "properties": {
+          "type": {
+            "const": "number",
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "Text": {
+        "type": "object",
+        "required": [
+          "type",
+          "text"
+        ],
+        "properties": {
+          "type": {
+            "const": "text",
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "Relation2": {
+        "type": "object",
+        "required": [
+          "type",
+          "relation"
+        ],
+        "properties": {
+          "type": {
+            "const": "relation",
+            "type": "string"
+          },
+          "relation": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Rollup": {
+        "type": "object",
+        "required": [
+          "type",
+          "function"
+        ],
+        "properties": {
+          "type": {
+            "const": "rollup",
+            "type": "string"
+          },
+          "function": {
+            "type": "string"
+          }
+        }
+      },
+      "AgentModel": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/AgentModelOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/AgentModelOneOf2"
+          }
+        ]
+      },
+      "AgentModelOneOf": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "description": "Always `auto`",
+            "type": "string",
+            "const": "auto"
+          }
+        },
+        "required": [
+          "mode"
+        ],
+        "additionalProperties": false
+      },
+      "AgentModelOneOf2": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "description": "Always `pinned`",
+            "type": "string",
+            "const": "pinned"
+          },
+          "id": {
+            "description": "The public model this agent maps to (e.g. \"claude-sonnet-5\"), or null for a pre-release / early-access model.",
+            "$ref": "#/components/schemas/UserOneOfName"
+          }
+        },
+        "required": [
+          "mode",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "UserOneOfName": {
+        "oneOf": [
+          {
+            "type": "string",
+            "example": "https://fae-tools.notion.site/Example-Page-96245c8f178444a482ad1941127c3ec3"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "CreateDatabaseParent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateDatabaseParentAllOf"
+          },
+          {
+            "$ref": "#/components/schemas/CreateDatabaseParentAllOf2"
+          }
+        ]
+      },
+      "CreateDatabaseParentAllOf": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/CreateDatabaseParentAllOfType"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "CreateDatabaseParentAllOfType": {
+        "description": "The type of parent.",
+        "type": "string",
+        "enum": [
+          "page_id",
+          "workspace"
+        ]
+      },
+      "CreateDatabaseParentAllOf2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PageID"
+          },
+          {
+            "$ref": "#/components/schemas/workspaceParentForBlockBasedObject"
+          }
+        ]
+      },
+      "PageID": {
+        "title": "Page Id",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Always `page_id`",
+            "type": "string",
+            "const": "page_id"
+          },
+          "page_id": {
+            "$ref": "#/components/schemas/idRequest"
+          }
+        },
+        "required": [
+          "page_id"
+        ]
+      },
+      "idRequest": {
+        "type": "string",
+        "example": "457d00dc-fc3a-4ddb-a42f-fe376530bee0"
+      },
+      "workspaceParentForBlockBasedObject": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The parent type.",
+            "type": "string",
+            "const": "workspace"
+          },
+          "workspace": {
+            "description": "Always true for workspace parent.",
+            "type": "boolean",
+            "const": true
+          }
+        },
+        "required": [
+          "workspace"
+        ],
+        "additionalProperties": false
+      },
+      "NestedValue": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ScalarValue"
+          },
+          {
+            "$ref": "#/components/schemas/TextValue"
+          }
+        ]
+      },
+      "ScalarValue": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/NestedNumber"
+          },
+          {
+            "$ref": "#/components/schemas/NestedURL"
+          }
+        ]
+      },
+      "TextValue": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/NestedTitle"
+          }
+        ]
+      },
+      "NestedNumber": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "number"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/NestedID"
+          },
+          "type": {
+            "type": "string",
+            "const": "number"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "NestedURL": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/NestedID"
+          },
+          "type": {
+            "type": "string",
+            "const": "url"
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "label": {
+            "description": "A member two alternatives have of their own is declared once.",
+            "type": "string"
+          }
+        }
+      },
+      "NestedTitle": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/NestedID"
+          },
+          "type": {
+            "description": "A one-value enum tags as a const does.",
+            "type": "string",
+            "enum": [
+              "title"
+            ]
+          },
+          "title": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "label": {
+            "description": "A member two alternatives have of their own is declared once.",
+            "type": "string"
+          }
+        }
+      },
+      "PeopleArrayBasedPropertyValueResponsePeopleItem": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/userValueResponse"
+          },
+          {
+            "$ref": "#/components/schemas/groupObjectResponse"
+          }
+        ]
+      },
+      "groupObjectResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The ID of the group.",
+            "$ref": "#/components/schemas/idResponse"
+          },
+          "object": {
+            "description": "The group object type name.",
+            "type": "string",
+            "const": "group"
+          },
+          "name": {
+            "description": "The name of the group.",
+            "$ref": "#/components/schemas/UserOneOfName"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "idResponse": {
+        "type": "string",
+        "format": "uuid",
+        "example": "11f88fcd-daf4-802e-b645-eb2d041a759b"
+      },
+      "userValueResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/partialUserObjectResponse"
+          },
+          {
+            "$ref": "#/components/schemas/userObjectResponse"
+          }
+        ]
+      },
+      "userObjectResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/userObjectResponseCommon"
+          },
+          {
+            "$ref": "#/components/schemas/userObjectResponseAllOf1"
+          }
+        ]
+      },
+      "userObjectResponseAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/personUserObjectResponse"
+          },
+          {
+            "$ref": "#/components/schemas/botUserObjectResponse"
+          }
+        ]
+      },
+      "botUserObjectResponse": {
+        "title": "Bot",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Indicates this user is a bot.",
+            "type": "string",
+            "const": "bot"
+          },
+          "bot": {
+            "description": "Details about the bot.",
+            "$ref": "#/components/schemas/emptyObject"
+          }
+        },
+        "required": [
+          "type",
+          "bot"
+        ]
+      },
+      "emptyObject": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "personUserObjectResponse": {
+        "title": "Person",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Indicates this user is a person.",
+            "type": "string",
+            "const": "person"
+          },
+          "person": {
+            "description": "Details about the person, when the `type` of the user is `person`.",
+            "$ref": "#/components/schemas/UserOneOfPerson"
+          }
+        },
+        "required": [
+          "type",
+          "person"
+        ]
+      },
+      "UserOneOfPerson": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "The email of the person.",
+            "type": "string"
+          },
+          "email_verified": {
+            "description": "Whether the person's email is verified.",
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "userObjectResponseCommon": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The ID of the user.",
+            "$ref": "#/components/schemas/idResponse"
+          },
+          "object": {
+            "description": "The user object type name.",
+            "type": "string",
+            "const": "user"
+          },
+          "name": {
+            "description": "The name of the user.",
+            "$ref": "#/components/schemas/UserOneOfName"
+          },
+          "avatar_url": {
+            "description": "The avatar URL of the user.",
+            "$ref": "#/components/schemas/UserOneOfName"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "avatar_url"
+        ],
+        "additionalProperties": false
+      },
+      "partialUserObjectResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/idResponse"
+          },
+          "object": {
+            "description": "Always `user`",
+            "type": "string",
+            "const": "user"
+          }
+        },
+        "required": [
+          "id",
+          "object"
+        ],
+        "additionalProperties": false
+      },
+      "MaybeMember": {
+        "description": "A union that can be null, of a tagged union and an object: no field means null, so no discriminator can decide first.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/NestedValue"
+          },
+          {
+            "$ref": "#/components/schemas/groupObjectResponse"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Schedule": {
+        "type": "object",
+        "required": [
+          "day",
+          "every",
+          "at",
+          "enabled",
+          "count"
+        ],
+        "properties": {
+          "day": {
+            "type": "string",
+            "format": "date"
+          },
+          "every": {
+            "type": "integer",
+            "format": "duration",
+            "description": "In whole seconds."
+          },
+          "at": {
+            "description": "An integer date-time is a Unix time.",
+            "type": "integer",
+            "format": "date-time"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "format": {
+            "$ref": "#/components/schemas/ScheduleFormat"
+          },
+          "mode": {
+            "description": "Zero is its only value, so sending it says something: a pointer.",
+            "type": "integer",
+            "const": 0
+          },
+          "level": {
+            "description": "Zero is one of its values: a pointer.",
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "ratio": {
+            "description": "Zero is its only value, as a number.",
+            "type": "number",
+            "const": 0.0
+          },
+          "strict": {
+            "description": "Leaving it out already means false: no pointer.",
+            "type": "boolean",
+            "default": false
+          },
+          "options": {
+            "description": "Leaving it out already means {}: no pointer.",
+            "type": "object",
+            "default": {},
+            "properties": {
+              "timezone": {
+                "type": "string"
+              }
+            }
+          },
+          "extended": {
+            "description": "What it extends requires something, so {} is no value: no pointer.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/partialUserObjectResponse"
+              }
+            ]
+          },
+          "min": {
+            "$ref": "#/components/schemas/Bound"
+          },
+          "max": {
+            "$ref": "#/components/schemas/Bound"
+          },
+          "until": {
+            "description": "A date-time or a Unix time.",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "name": {
+            "description": "A default that is no zero says nothing of whether zero is a value.",
+            "type": "string",
+            "default": "daily"
+          },
+          "link": {
+            "type": "string",
+            "format": "uri"
+          },
+          "labels": {
+            "$ref": "#/components/schemas/Labels"
+          }
+        }
+      },
+      "Bound": {
+        "description": "Twice in Schedule, which CreateSchedule's response holds: reaching a struct twice is no cycle.",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "Overloaded": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "NestedID": {
+        "description": "Referred to by every alternative of NestedValue: a shared member compares by reference.",
+        "type": "string"
+      },
+      "Owner": {
+        "description": "A union that can be null of alternatives a discriminator tells apart: being null comes first.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/partialUserObjectResponse"
+          },
+          {
+            "$ref": "#/components/schemas/groupObjectResponse"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "Labels": {
+        "description": "A map of its own.",
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "Reports": {
+        "description": "A named list: what a call returns can be nil.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ScheduleFormat": {
+        "type": "string",
+        "enum": [
+          "PDF",
+          "csv"
+        ],
+        "description": "A short value in capitals stays as it is in its constant's name."
+      },
+      "Member": {
+        "description": "Its alternatives each have members of their own beside the tag, so they stay a union beside the members all share.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/userObjectResponseCommon"
+          },
+          {
+            "$ref": "#/components/schemas/MemberAllOf1"
+          }
+        ]
+      },
+      "MemberAllOf1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/MemberPerson"
+          },
+          {
+            "$ref": "#/components/schemas/botUserObjectResponse"
+          }
+        ]
+      },
+      "MemberPerson": {
+        "type": "object",
+        "required": [
+          "type",
+          "membership_type",
+          "person"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "person"
+          },
+          "membership_type": {
+            "type": "string",
+            "enum": [
+              "member",
+              "guest"
+            ]
+          },
+          "person": {
+            "$ref": "#/components/schemas/UserOneOfPerson"
+          }
+        }
+      },
+      "ApiVersion": {
+        "description": "An enum of one value pins a parameter as a const does.",
+        "type": "string",
+        "enum": [
+          "2"
+        ]
+      },
+      "Color": {
+        "description": "An object as a query parameter: each member a single value.",
+        "type": "object",
+        "required": [
+          "r"
+        ],
+        "properties": {
+          "r": {
+            "type": "integer"
+          },
+          "g": {
+            "description": "Zero is a value, so a pointer, sent only when set.",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fade": {
+            "description": "A pointer whose value is no constant.",
+            "type": "integer",
+            "format": "duration"
+          }
+        }
+      },
+      "Level": {
+        "type": "integer",
+        "enum": [
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  }
+}
