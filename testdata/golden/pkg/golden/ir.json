@@ -1053,6 +1053,27 @@
 					"isSuccess": true
 				}
 			]
+		},
+		{
+			"name": "CreateView",
+			"method": "POST",
+			"pathTemplate": "/views",
+			"joinPathArgs": [
+				"\"views\""
+			],
+			"requestBody": {
+				"typeName": "CreateView",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
 		}
 	],
 	"schemas": [
@@ -1449,6 +1470,19 @@
 			]
 		},
 		{
+			"name": "CompoundFilter",
+			"description": "CompoundFilter defines a model",
+			"fields": [
+				{
+					"name": "Or",
+					"jsonName": "or",
+					"type": "[]PropertyFilter",
+					"jsonTag": "json:\"or\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "Condition",
 			"description": "Condition defines a model",
 			"fields": [
@@ -1639,6 +1673,26 @@
 					"type": "Schedule",
 					"jsonTag": "json:\"schedule\"",
 					"required": true
+				}
+			]
+		},
+		{
+			"name": "CreateView",
+			"description": "CreateView defines a model",
+			"fields": [
+				{
+					"name": "Filter",
+					"jsonName": "filter",
+					"type": "ViewFilter",
+					"jsonTag": "json:\"filter,omitzero\"",
+					"description": "A property filter or a compound one. No property filter requires its type, so neither does PropertyFilter: a filter without one is still a property filter."
+				},
+				{
+					"name": "GroupBy",
+					"jsonName": "group_by",
+					"type": "ViewGroupBy",
+					"jsonTag": "json:\"group_by,omitzero\"",
+					"description": "Alternatives told apart by the enums of their type alone: a value outside one rules it out, but leniently only while another fits."
 				}
 			]
 		},
@@ -2293,6 +2347,15 @@
 								"name": "type",
 								"value": "\"person\""
 							}
+						],
+						"enums": [
+							{
+								"name": "membership_type",
+								"values": [
+									"\"member\"",
+									"\"guest\""
+								]
+							}
 						]
 					},
 					{
@@ -2336,6 +2399,15 @@
 							{
 								"name": "type",
 								"value": "\"person\""
+							}
+						],
+						"enums": [
+							{
+								"name": "membership_type",
+								"values": [
+									"\"member\"",
+									"\"guest\""
+								]
 							}
 						]
 					},
@@ -2395,6 +2467,15 @@
 							"name": "type",
 							"value": "\"person\""
 						}
+					],
+					"enums": [
+						{
+							"name": "membership_type",
+							"values": [
+								"\"member\"",
+								"\"guest\""
+							]
+						}
 					]
 				},
 				{
@@ -2438,6 +2519,15 @@
 						{
 							"name": "type",
 							"value": "\"person\""
+						}
+					],
+					"enums": [
+						{
+							"name": "membership_type",
+							"values": [
+								"\"member\"",
+								"\"guest\""
+							]
 						}
 					]
 				},
@@ -3202,6 +3292,49 @@
 			"isOneOf": true
 		},
 		{
+			"name": "PersonGroup",
+			"description": "PersonGroup defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "PersonGroupType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "PersonGroupType",
+			"description": "PersonGroupType defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "PersonGroupTypePerson",
+					"value": "person",
+					"literal": "\"person\""
+				},
+				{
+					"goName": "PersonGroupTypeCreatedBy",
+					"value": "created_by",
+					"literal": "\"created_by\""
+				},
+				{
+					"goName": "PersonGroupTypeLastEditedBy",
+					"value": "last_edited_by",
+					"literal": "\"last_edited_by\""
+				}
+			]
+		},
+		{
 			"name": "Position",
 			"description": "Position defines a model",
 			"kind": 5,
@@ -3613,6 +3746,44 @@
 					"jsonName": "timezone",
 					"type": "string",
 					"jsonTag": "json:\"timezone,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "SelectGroup",
+			"description": "SelectGroup defines a model",
+			"fields": [
+				{
+					"name": "Type",
+					"jsonName": "type",
+					"type": "SelectGroupType",
+					"jsonTag": "json:\"type\"",
+					"required": true
+				},
+				{
+					"name": "Property",
+					"jsonName": "property",
+					"type": "string",
+					"jsonTag": "json:\"property\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "SelectGroupType",
+			"description": "SelectGroupType defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "SelectGroupTypeSelect",
+					"value": "select",
+					"literal": "\"select\""
+				},
+				{
+					"goName": "SelectGroupTypeMultiSelect",
+					"value": "multi_select",
+					"literal": "\"multi_select\""
 				}
 			]
 		},
@@ -4222,6 +4393,166 @@
 						{
 							"name": "type",
 							"value": "\"rollup\""
+						}
+					]
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "ViewFilter",
+			"description": "A property filter or a compound one. No property filter requires its type, so neither does PropertyFilter: a filter without one is still a property filter.",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "PropertyFilter",
+					"type": "PropertyFilter",
+					"members": [
+						"number",
+						"property",
+						"select",
+						"type"
+					],
+					"required": [
+						"property"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "CompoundFilter",
+					"type": "CompoundFilter",
+					"members": [
+						"or"
+					],
+					"required": [
+						"or"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "PropertyFilter",
+					"type": "PropertyFilter",
+					"members": [
+						"number",
+						"property",
+						"select",
+						"type"
+					],
+					"required": [
+						"property"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "CompoundFilter",
+					"type": "CompoundFilter",
+					"members": [
+						"or"
+					],
+					"required": [
+						"or"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
+		},
+		{
+			"name": "ViewGroupBy",
+			"description": "Alternatives told apart by the enums of their type alone: a value outside one rules it out, but leniently only while another fits.",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "SelectGroup",
+					"type": "SelectGroup",
+					"members": [
+						"property",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"enums": [
+						{
+							"name": "type",
+							"values": [
+								"\"select\"",
+								"\"multi_select\""
+							]
+						}
+					]
+				},
+				{
+					"fieldName": "PersonGroup",
+					"type": "PersonGroup",
+					"members": [
+						"property",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"enums": [
+						{
+							"name": "type",
+							"values": [
+								"\"person\"",
+								"\"created_by\"",
+								"\"last_edited_by\""
+							]
+						}
+					]
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "SelectGroup",
+					"type": "SelectGroup",
+					"members": [
+						"property",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"enums": [
+						{
+							"name": "type",
+							"values": [
+								"\"select\"",
+								"\"multi_select\""
+							]
+						}
+					]
+				},
+				{
+					"fieldName": "PersonGroup",
+					"type": "PersonGroup",
+					"members": [
+						"property",
+						"type"
+					],
+					"required": [
+						"property",
+						"type"
+					],
+					"object": true,
+					"enums": [
+						{
+							"name": "type",
+							"values": [
+								"\"person\"",
+								"\"created_by\"",
+								"\"last_edited_by\""
+							]
 						}
 					]
 				}

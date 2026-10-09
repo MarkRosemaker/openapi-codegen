@@ -468,6 +468,11 @@ type Color struct {
 	Fade *time.Duration `json:"fade,omitzero"`
 }
 
+// CompoundFilter defines a model
+type CompoundFilter struct {
+	Or []PropertyFilter `json:"or"`
+}
+
 // Condition defines a model
 type Condition struct {
 	Equals       string `json:"equals,omitzero"`
@@ -652,6 +657,14 @@ func (e CreateDatabaseParentAllOfType) Valid() bool {
 // CreateScheduleCreated defines a model
 type CreateScheduleCreated struct {
 	Schedule Schedule `json:"schedule"`
+}
+
+// CreateView defines a model
+type CreateView struct {
+	// A property filter or a compound one. No property filter requires its type, so neither does PropertyFilter: a filter without one is still a property filter.
+	Filter ViewFilter `json:"filter,omitzero"`
+	// Alternatives told apart by the enums of their type alone: a value outside one rules it out, but leniently only while another fits.
+	GroupBy ViewGroupBy `json:"group_by,omitzero"`
 }
 
 // Date defines a model
@@ -1192,6 +1205,7 @@ var variantsOfMember = []jsonVariant{
 		members:  map[string]bool{"membership_type": true, "person": true, "type": true},
 		required: []string{"membership_type", "person", "type"},
 		pinned:   map[string]string{"type": "\"person\""},
+		enums:    map[string][]string{"membership_type": {"\"member\"", "\"guest\""}},
 	},
 	{
 		value:    "bot",
@@ -1956,6 +1970,31 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) MarshalJSONTo(enc *jso
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
+// PersonGroup defines a model
+type PersonGroup struct {
+	Type     PersonGroupType `json:"type"`
+	Property string          `json:"property"`
+}
+
+// PersonGroupType defines a model
+type PersonGroupType string
+
+const (
+	PersonGroupTypePerson       PersonGroupType = "person"
+	PersonGroupTypeCreatedBy    PersonGroupType = "created_by"
+	PersonGroupTypeLastEditedBy PersonGroupType = "last_edited_by"
+)
+
+// Valid indicates whether the value is a known member of the PersonGroupType enum.
+func (e PersonGroupType) Valid() bool {
+	switch e {
+	case PersonGroupTypePerson, PersonGroupTypeCreatedBy, PersonGroupTypeLastEditedBy:
+		return true
+	default:
+		return false
+	}
+}
+
 // Position defines a model
 // Position is an untagged oneOf union: exactly one field is set after unmarshaling.
 type Position struct {
@@ -2261,6 +2300,30 @@ func (e ScheduleFormat) Valid() bool {
 // Leaving it out already means {}: no pointer.
 type ScheduleOptions struct {
 	Timezone string `json:"timezone,omitzero"`
+}
+
+// SelectGroup defines a model
+type SelectGroup struct {
+	Type     SelectGroupType `json:"type"`
+	Property string          `json:"property"`
+}
+
+// SelectGroupType defines a model
+type SelectGroupType string
+
+const (
+	SelectGroupTypeSelect      SelectGroupType = "select"
+	SelectGroupTypeMultiSelect SelectGroupType = "multi_select"
+)
+
+// Valid indicates whether the value is a known member of the SelectGroupType enum.
+func (e SelectGroupType) Valid() bool {
+	switch e {
+	case SelectGroupTypeSelect, SelectGroupTypeMultiSelect:
+		return true
+	default:
+		return false
+	}
 }
 
 // SimpleOrArray defines a model
@@ -2800,6 +2863,146 @@ func (v *ValueAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
+// A property filter or a compound one. No property filter requires its type, so neither does PropertyFilter: a filter without one is still a property filter.
+// ViewFilter is an untagged oneOf union: exactly one field is set after unmarshaling.
+type ViewFilter struct {
+	PropertyFilter *PropertyFilter
+	CompoundFilter *CompoundFilter
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *ViewFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewFilter{}
+
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"property"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv PropertyFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.PropertyFilter = &vv
+				matched++
+			}
+		}
+	}
+
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, pinned := []string{"or"}, map[string]string{}
+		if jsonFits(raw, required, pinned) {
+			var vv CompoundFilter
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.CompoundFilter = &vv
+				matched++
+			}
+		}
+	}
+
+	if matched != 1 {
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *ViewFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.PropertyFilter != nil:
+		return json.MarshalEncode(enc, v.PropertyFilter, jsonOptsTo(enc))
+	case v.CompoundFilter != nil:
+		return json.MarshalEncode(enc, v.CompoundFilter, jsonOptsTo(enc))
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
+// Alternatives told apart by the enums of their type alone: a value outside one rules it out, but leniently only while another fits.
+// ViewGroupBy is an untagged oneOf union: exactly one field is set after unmarshaling.
+type ViewGroupBy struct {
+	SelectGroup *SelectGroup
+	PersonGroup *PersonGroup
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *ViewGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = ViewGroupBy{}
+
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	// a member outside its enum rules an alternative out; leniently, only while another fits
+	for _, enums := range jsonEnumPasses(strict) {
+
+		// leniently, more than one may match, and the first does
+		if strict || matched == 0 {
+			// decoding checks neither the members the alternative requires nor those it pins to one value
+			required, pinned := []string{"property", "type"}, map[string]string{}
+			if jsonFits(raw, required, pinned) && (!enums || jsonEnumsFit(raw, map[string][]string{"type": {"\"select\"", "\"multi_select\""}})) {
+				var vv SelectGroup
+				if err := json.Unmarshal(raw, &vv, opts); err == nil {
+					v.SelectGroup = &vv
+					matched++
+				}
+			}
+		}
+
+		// leniently, more than one may match, and the first does
+		if strict || matched == 0 {
+			// decoding checks neither the members the alternative requires nor those it pins to one value
+			required, pinned := []string{"property", "type"}, map[string]string{}
+			if jsonFits(raw, required, pinned) && (!enums || jsonEnumsFit(raw, map[string][]string{"type": {"\"person\"", "\"created_by\"", "\"last_edited_by\""}})) {
+				var vv PersonGroup
+				if err := json.Unmarshal(raw, &vv, opts); err == nil {
+					v.PersonGroup = &vv
+					matched++
+				}
+			}
+		}
+
+		if matched > 0 {
+			break
+		}
+	}
+
+	if matched != 1 {
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *ViewGroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.SelectGroup != nil:
+		return json.MarshalEncode(enc, v.SelectGroup, jsonOptsTo(enc))
+	case v.PersonGroup != nil:
+		return json.MarshalEncode(enc, v.PersonGroup, jsonOptsTo(enc))
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
 // jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
 func jsonStrict(dec *jsontext.Decoder) bool {
 	v, ok := json.GetOption(dec.Options(), json.RejectUnknownMembers)
@@ -3290,6 +3493,54 @@ type jsonVariant struct {
 	required []string
 	// pinned are the members it allows one value for, written as compact JSON
 	pinned map[string]string
+	// enums are the members it allows the values of an enum for, written so
+	enums map[string][]string
+}
+
+// jsonEnumsFit reports whether each member of the JSON object raw that enums names has one of the values it allows,
+// written as compact JSON.
+func jsonEnumsFit(raw jsontext.Value, enums map[string][]string) bool {
+	if len(enums) == 0 {
+		return true
+	}
+
+	dec := jsontext.NewDecoder(bytes.NewReader(raw))
+	if tok, err := dec.ReadToken(); err != nil || tok.Kind() != jsontext.KindBeginObject {
+		return false
+	}
+
+	for dec.PeekKind() != jsontext.KindEndObject {
+		tok, err := dec.ReadToken()
+		if err != nil {
+			return false
+		}
+
+		name := tok.String()
+
+		val, err := dec.ReadValue()
+		if err != nil {
+			return false
+		}
+
+		if allowed, ok := enums[name]; ok {
+			got := val.Clone()
+			if err := got.Compact(); err != nil || !slices.Contains(allowed, string(got)) {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+// jsonEnumPasses are whether to check enums in each attempt at choosing an alternative: strict, always; leniently,
+// first, then not, should no alternative fit, as an API may add a value to an enum.
+func jsonEnumPasses(strict bool) []bool {
+	if strict {
+		return []bool{true}
+	}
+
+	return []bool{true, false}
 }
 
 // jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
@@ -3393,6 +3644,12 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 			}
 
 			chosen = append(chosen, i)
+		}
+
+		// a member outside its enum rules an alternative out; leniently, only while another fits
+		fit := slices.DeleteFunc(slices.Clone(chosen), func(i int) bool { return !jsonEnumsFit(raw, variants[i].enums) })
+		if len(fit) > 0 || strict {
+			chosen = fit
 		}
 
 		switch {

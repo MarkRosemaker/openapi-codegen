@@ -37,6 +37,7 @@ type Service interface {
 	DeleteSchedule(ctx context.Context, id string) error
 	GetStatus(ctx context.Context) ([]byte, error)
 	QueryStyles(ctx context.Context, page int, params QueryStylesParams) error
+	CreateView(ctx context.Context, body CreateView) error
 }
 
 // RegisterService registers a [Service] with an [*http.ServeMux].
@@ -707,6 +708,48 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			if err := svc.QueryStyles(ctx, page, params); err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.WriteHeader(http.StatusNoContent)
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/views")
+		l := slog.Default().With(slog.String("method", "POST"), slog.String("path", path), slog.String("function", "CreateView"))
+
+		mux.HandleFunc(fmt.Sprintf("POST %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			var body CreateView
+			if err := json.UnmarshalRead(r.Body, &body, jsonOpts); err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			if err := svc.CreateView(ctx, body); err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
 					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))

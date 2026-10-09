@@ -24,6 +24,7 @@
  *   window.API.deleteSchedule(id);
  *   const result = await window.API.getStatus();
  *   window.API.queryStyles(page);
+ *   window.API.createView();
  **/
 
 const API_BASE = "https://api.example.com/v1";
@@ -213,4 +214,10 @@ window.API = {
             operationId: "QueryStyles",
         });
     },
+    // POST /views
+    createView: (body) => apiFetch("/views", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "CreateView",
+    }),
 };

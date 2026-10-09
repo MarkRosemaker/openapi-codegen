@@ -1064,6 +1064,49 @@ func (c *Client) QueryStyles(ctx context.Context, page int, params QueryStylesPa
 	}
 }
 
+// POST /views
+func (c *Client) CreateView(ctx context.Context, body CreateView) error {
+	u := c.baseURL.JoinPath("views")
+	pr, pw := io.Pipe()
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent":   []string{c.userAgent},
+			"Content-Type": []string{"application/json"},
+		},
+		Host:          u.Host,
+		Method:        http.MethodPost,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		URL:           u,
+		Body:          pr,
+		ContentLength: -1,
+	}).WithContext(ctx)
+
+	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
+	defer pr.Close()
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
 // encodeQuery encodes q as [url.Values.Encode] does, sorted by key, along with escaped, whose values are escaped
 // already.
 func encodeQuery(q, escaped url.Values) string {
