@@ -807,6 +807,34 @@
           }
         }
       }
+    },
+    "/views": {
+      "post": {
+        "operationId": "createView",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filter": {
+                    "$ref": "#/components/schemas/ViewFilter"
+                  },
+                  "group_by": {
+                    "$ref": "#/components/schemas/ViewGroupBy"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "ok"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2162,6 +2190,82 @@
           1,
           2,
           3
+        ]
+      },
+      "CompoundFilter": {
+        "type": "object",
+        "required": [
+          "or"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyFilter"
+            }
+          }
+        }
+      },
+      "SelectGroup": {
+        "type": "object",
+        "required": [
+          "type",
+          "property"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "select",
+              "multi_select"
+            ]
+          },
+          "property": {
+            "type": "string"
+          }
+        }
+      },
+      "PersonGroup": {
+        "type": "object",
+        "required": [
+          "type",
+          "property"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "person",
+              "created_by",
+              "last_edited_by"
+            ]
+          },
+          "property": {
+            "type": "string"
+          }
+        }
+      },
+      "ViewGroupBy": {
+        "description": "Alternatives told apart by the enums of their type alone: a value outside one rules it out, but leniently only while another fits.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SelectGroup"
+          },
+          {
+            "$ref": "#/components/schemas/PersonGroup"
+          }
+        ]
+      },
+      "ViewFilter": {
+        "description": "A property filter or a compound one. No property filter requires its type, so neither does PropertyFilter: a filter without one is still a property filter.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PropertyFilter"
+          },
+          {
+            "$ref": "#/components/schemas/CompoundFilter"
+          }
         ]
       }
     }

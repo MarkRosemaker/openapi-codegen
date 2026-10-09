@@ -185,3 +185,49 @@ func TestUnion_StandardErrors(t *testing.T) {
 		t.Errorf("got %v, want a semantic error for an unknown name at /x", err)
 	}
 }
+
+func TestUnion_OptionalTag(t *testing.T) {
+	// PropertyFilter requires only what every one of its alternatives does, and none requires its tag
+	var f ViewFilter
+	if err := json.Unmarshal([]byte(`{"property":"x","select":{"equals":"a"}}`), &f, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if f.PropertyFilter == nil || f.CompoundFilter != nil {
+		t.Fatalf("got %+v, want a property filter", f)
+	}
+
+	if err := json.Unmarshal([]byte(`{"or":[{"property":"x","number":{}}]}`), &f, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if f.CompoundFilter == nil || f.PropertyFilter != nil {
+		t.Fatalf("got %+v, want a compound filter", f)
+	}
+}
+
+func TestUnion_Enums(t *testing.T) {
+	// the enum of type alone tells the alternatives apart
+	var g ViewGroupBy
+	if err := json.Unmarshal([]byte(`{"type":"created_by","property":"p"}`), &g, jsonOpts); err != nil {
+		t.Fatal(err)
+	}
+
+	if g.PersonGroup == nil || g.SelectGroup != nil {
+		t.Fatalf("got %+v, want a person group", g)
+	}
+
+	// a value the API added since is no alternative's: strict, an error; leniently, the first that fits otherwise
+	const added = `{"type":"status","property":"p"}`
+	if err := json.Unmarshal([]byte(added), &g, jsonOpts); err == nil {
+		t.Error("strict: a value outside every enum decoded")
+	}
+
+	if err := json.Unmarshal([]byte(added), &g, jsonOptsLenient); err != nil {
+		t.Fatal(err)
+	}
+
+	if g.SelectGroup == nil {
+		t.Fatalf("leniently: got %+v, want the first alternative", g)
+	}
+}
