@@ -165,6 +165,12 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 
 			return &out, nil
 		default:
+			if c.debug {
+				if err := cassette.AddInteraction("api/interactions.json", ia); err != nil {
+					return nil, errors.Join(api.NewErrUnknownContentType(rsp), err)
+				}
+			}
+
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
 	default:
@@ -252,6 +258,12 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 
 			return &out, nil
 		default:
+			if c.debug {
+				if err := cassette.AddInteraction("api/interactions.json", ia); err != nil {
+					return nil, errors.Join(api.NewErrUnknownContentType(rsp), err)
+				}
+			}
+
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
 	default:
@@ -339,6 +351,12 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 
 			return &out, nil
 		default:
+			if c.debug {
+				if err := cassette.AddInteraction("api/interactions.json", ia); err != nil {
+					return nil, errors.Join(api.NewErrUnknownContentType(rsp), err)
+				}
+			}
+
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
 	default:
