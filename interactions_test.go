@@ -1,30 +1,13 @@
 package codegen
 
 import (
+	"net/url"
 	"strings"
 	"testing"
 
 	"github.com/MarkRosemaker/openapi-codegen/ir"
 	"github.com/MarkRosemaker/openapi-enrich/cassette"
 )
-
-func TestMatchInteractions_SkipsBadURL(t *testing.T) {
-	doc := &ir.Document{
-		Operations: []ir.Operation{
-			{Name: "GetFoo", Method: "GET", PathTemplate: "/foo"},
-		},
-	}
-	if err := matchInteractions(doc, cassette.Interactions{
-		{
-			Request:  cassette.Request{Method: "GET", URL: "://invalid"},
-			Response: cassette.Response{StatusCode: 200},
-		},
-	}); err == nil {
-		t.Fatal("expected error")
-	} else if got, want := err.Error(), `parse "://invalid": missing protocol scheme`; got != want {
-		t.Fatalf("got error=`%s`, want=`%s`", got, want)
-	}
-}
 
 func TestMatchInteractions_ErrorsOnMethodMismatch(t *testing.T) {
 	doc := &ir.Document{
@@ -35,7 +18,7 @@ func TestMatchInteractions_ErrorsOnMethodMismatch(t *testing.T) {
 
 	err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	})
@@ -53,7 +36,7 @@ func TestMatchInteractions_ErrorsOnNoMatch(t *testing.T) {
 
 	err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	})
@@ -78,7 +61,7 @@ func TestMatchInteractions_WithPathParam(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://api.example.com/v1/abc-123"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://api.example.com/v1/abc-123")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	}); err != nil {
@@ -119,7 +102,7 @@ func TestMatchInteractions_WithQueryParam(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://example.com/items?limit=10"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://example.com/items?limit=10")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	}); err != nil {
@@ -148,7 +131,7 @@ func TestMatchInteractions_EmptyBasePath(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	}); err != nil {
@@ -230,7 +213,7 @@ func TestMatchInteractions_PrefersExactOverWildcard(t *testing.T) {
 		doc := &ir.Document{Operations: order}
 		if err := matchInteractions(doc, cassette.Interactions{
 			{
-				Request:  cassette.Request{Method: "GET", URL: "https://habitica.com/tasks/abc/score/up"},
+				Request:  cassette.Request{Method: "GET", URL: parseURL("https://habitica.com/tasks/abc/score/up")},
 				Response: cassette.Response{StatusCode: 200},
 			},
 		}); err != nil {
@@ -271,7 +254,7 @@ func TestMatchInteractions_PrefersLiteralOverParam(t *testing.T) {
 		doc := &ir.Document{Operations: order}
 		if err := matchInteractions(doc, cassette.Interactions{
 			{
-				Request:  cassette.Request{Method: "GET", URL: "http://localhost:8083/running"},
+				Request:  cassette.Request{Method: "GET", URL: parseURL("http://localhost:8083/running")},
 				Response: cassette.Response{StatusCode: 200},
 			},
 		}); err != nil {
@@ -368,7 +351,7 @@ func TestMatchInteractions_MidSegmentParam(t *testing.T) {
 		{
 			Request: cassette.Request{
 				Method: "GET",
-				URL:    "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+				URL:    parseURL("https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"),
 			},
 			Response: cassette.Response{StatusCode: 200},
 		},
@@ -405,11 +388,11 @@ func TestMatchInteractions_BasePathStripping(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "https://api.petstoreapi.com/v1/pets"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("https://api.petstoreapi.com/v1/pets")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 		{
-			Request:  cassette.Request{Method: "GET", URL: "https://api.petstoreapi.com/v1/pets/abc-123"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("https://api.petstoreapi.com/v1/pets/abc-123")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	}); err != nil {
@@ -448,7 +431,7 @@ func TestMatchInteractions_SuccessStatusCode(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	}); err != nil {
@@ -485,7 +468,7 @@ func TestMatchInteractions_ErrorStatusCodeWithSchema(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "POST", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "POST", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 404},
 		},
 	}); err != nil {
@@ -522,7 +505,7 @@ func TestMatchInteractions_ErrorStatusCodeWithoutSchema(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "POST", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "POST", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 403},
 		},
 	}); err != nil {
@@ -548,7 +531,7 @@ func TestMatchInteractions_UndeclaredStatusCodeFallback(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "http://example.com/foo"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("http://example.com/foo")},
 			Response: cassette.Response{StatusCode: 500},
 		},
 	}); err != nil {
@@ -599,7 +582,7 @@ func TestMatchInteractions_MultiSegmentPathParam(t *testing.T) {
 	}
 	if err := matchInteractions(doc, cassette.Interactions{
 		{
-			Request:  cassette.Request{Method: "GET", URL: "https://pkg.go.dev/v1beta/package/github.com/google/go-cmp/cmp"},
+			Request:  cassette.Request{Method: "GET", URL: parseURL("https://pkg.go.dev/v1beta/package/github.com/google/go-cmp/cmp")},
 			Response: cassette.Response{StatusCode: 200},
 		},
 	}); err != nil {
@@ -614,4 +597,14 @@ func TestMatchInteractions_MultiSegmentPathParam(t *testing.T) {
 	if doc.InteractionCalls[0].PathArgs[0] != want {
 		t.Errorf("path arg = %q, want %q", doc.InteractionCalls[0].PathArgs[0], want)
 	}
+}
+
+// parseURL is the URL s, which must parse.
+func parseURL(s string) url.URL {
+	u, err := url.Parse(s)
+	if err != nil {
+		panic(err)
+	}
+
+	return *u
 }
