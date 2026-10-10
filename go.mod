@@ -13,7 +13,7 @@ require (
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20261004011215-1ec8b5a6b7dc
 	github.com/spf13/afero v1.15.0
-	golang.org/x/tools v0.51.0
+	golang.org/x/tools v0.52.0
 	mvdan.cc/gofumpt v0.12.0
 )
 
