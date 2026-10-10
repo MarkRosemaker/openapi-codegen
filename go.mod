@@ -3,7 +3,7 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/cassette v0.0.0-20261010193503-c64e44fd92ae
+	github.com/MarkRosemaker/cassette v0.0.0-20261010200124-b67b384ddad8
 	github.com/MarkRosemaker/errpath v0.0.0-20261004011213-d39d7f96c8f4
 	github.com/MarkRosemaker/openapi v0.0.0-20261009220216-37f4a6ce811f
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20261010193649-3e2ff6478918
@@ -22,6 +22,7 @@ require (
 	github.com/MarkRosemaker/json2yaml v0.0.0-20261009163255-8bb84916580b // indirect
 	github.com/MarkRosemaker/jsonutil v0.0.0-20261009163256-63143e59ef10 // indirect
 	github.com/MarkRosemaker/openapi-compare v0.0.0-20261009220258-3e82e16d5a53 // indirect
+	github.com/MarkRosemaker/openapi-enrich v0.0.0-20261010200156-e2346bbe3bae // indirect
 	github.com/MarkRosemaker/yaml v0.0.0-20261009163313-a4483f4cc7d4 // indirect
 	github.com/MarkRosemaker/yaml2json v0.0.0-20261004011213-bbdd737b26f4 // indirect
 	github.com/go-api-libs/types v0.0.0-20260821232109-0cf45378823e // indirect

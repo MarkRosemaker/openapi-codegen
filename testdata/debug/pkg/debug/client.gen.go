@@ -327,9 +327,6 @@ func (c *Client) do(req *http.Request) (*http.Response, *cassette.Interaction, e
 	return rsp, &cassette.Interaction{Request: recReq, Response: recRsp}, nil
 }
 
-// debugMasker masks what debug mode adds to the interactions.
-var debugMasker = cassette.DefaultMasker()
-
 // keep adds ia, a call the client could not decode, to the interactions in the debug file right away: masked, and
 // once, however often the call fails. Outside debug mode, ia is nil, and there is nothing to add.
 func (c *Client) keep(ia *cassette.Interaction) error {
@@ -337,7 +334,7 @@ func (c *Client) keep(ia *cassette.Interaction) error {
 		return nil
 	}
 
-	return debugMasker.AddInteraction(cmp.Or(c.debugFile, defaultDebugFile), ia)
+	return cassette.AddInteraction(cmp.Or(c.debugFile, defaultDebugFile), ia)
 }
 
 // failed is err, the error of the call ia records, which it adds to the debug file, see [Client.keep]; joined with
