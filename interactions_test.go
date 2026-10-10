@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/MarkRosemaker/cassette"
 	"github.com/MarkRosemaker/openapi-codegen/ir"
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
 )
 
 func TestMatchInteractions_ErrorsOnMethodMismatch(t *testing.T) {

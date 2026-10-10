@@ -3,7 +3,7 @@
 - **server** — `http.Handler`-based server scaffold
 - **tests** — round-trip and cassette-backed tests, generated from recorded traffic.
   The replay test plays every recorded call back with `cassette.Replay` from
-  `openapi-enrich`, in order, with its method, URL (its query in any order),
+  [cassette](https://github.com/MarkRosemaker/cassette), in order, with its method, URL (its query in any order),
   body and headers but the `User-Agent` exact, and fails on any recording never
   called. To mock a generated client in your own tests, pass
   `WithHTTPClient(&http.Client{Transport: cassette.Replay(interactions)})`: each

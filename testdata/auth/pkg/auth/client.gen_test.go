@@ -14,7 +14,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
+	"github.com/MarkRosemaker/cassette"
 	"github.com/go-api-libs/api"
 )
 

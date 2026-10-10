@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/MarkRosemaker/cassette"
 	"github.com/MarkRosemaker/openapi-codegen/ir"
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
 )
 
 // matchInteractions populates doc.InteractionCalls by matching each interaction

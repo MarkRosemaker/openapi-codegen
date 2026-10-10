@@ -17,7 +17,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/civil"
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
+	"github.com/MarkRosemaker/cassette"
 	"github.com/go-api-libs/api"
 )
 
