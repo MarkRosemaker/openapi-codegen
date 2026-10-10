@@ -5,6 +5,7 @@
 package debug
 
 import (
+	"cmp"
 	"context"
 	"encoding/json/v2"
 	"errors"
@@ -14,7 +15,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
+	"github.com/MarkRosemaker/cassette"
 	"github.com/go-api-libs/api"
 )
 
@@ -38,6 +39,8 @@ type Client struct {
 	userAgent string
 	// Enable debug mode
 	debug bool
+	// The file debug mode adds the calls it cannot decode to, defaultDebugFile if empty
+	debugFile string
 }
 
 // ClientOption configures a [Client].
@@ -54,6 +57,10 @@ func WithBaseURL(baseURL *url.URL) ClientOption {
 }
 
 // WithHTTPClient returns a [ClientOption] that sets a custom HTTP client.
+//
+// To mock the client in tests, pass one whose Transport is cassette.Replay(interactions), from
+// github.com/MarkRosemaker/cassette: it answers each request from the recorded interaction it matches,
+// and fails any other, without the network.
 func WithHTTPClient(cli *http.Client) ClientOption {
 	return func(c *Client) { c.cli = cli }
 }
@@ -67,8 +74,18 @@ func WithBearer(bearer string) ClientOption {
 	}
 }
 
-// WithDebug is a [ClientOption] that sets the debug mode to true.
+// defaultDebugFile is where debug mode adds the calls it cannot decode, unless [WithDebugFile] says otherwise.
+const defaultDebugFile = "api/interactions.json"
+
+// WithDebug is a [ClientOption] that sets the debug mode to true: a response the client cannot decode is added, masked
+// and once, to the interactions in "api/interactions.json", for openapi-enrich to learn from, and decoded leniently.
 func WithDebug(c *Client) { c.debug = true }
+
+// WithDebugFile returns a [ClientOption] that sets the debug mode to true, adding to the interactions in the file at
+// path, see [WithDebug].
+func WithDebugFile(path string) ClientOption {
+	return func(c *Client) { c.debug, c.debugFile = true, path }
+}
 
 // NewClient creates a new Client, reading the bearer token from [os.Getenv]("DEBUG_TOKEN").
 func NewClient(opts ...ClientOption) (*Client, error) {
@@ -112,28 +129,11 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 		URL:        u,
 	}).WithContext(ctx)
 
-	var (
-		ia  cassette.Interaction
-		err error
-	)
-	if c.debug {
-		ia.Request, err = cassette.NewRequest(req)
-		if err != nil {
-			return nil, fmt.Errorf("recording request: %w", err)
-		}
-	}
-	rsp, err := c.cli.Do(req)
+	rsp, ia, err := c.do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer rsp.Body.Close()
-
-	if c.debug {
-		ia.Response, err = cassette.NewResponse(rsp)
-		if err != nil {
-			return nil, fmt.Errorf("recording response: %w", err)
-		}
-	}
 
 	switch rsp.StatusCode {
 	case http.StatusOK:
@@ -149,12 +149,12 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 			}
 
 			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
-				if !c.debug {
+				if ia == nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
 
-				if err2 := cassette.AddInteraction("api/interactions.json", &ia); err2 != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), err2)
+				if kerr := c.keep(ia); kerr != nil {
+					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
 				}
 
 				out = *new(R)
@@ -165,22 +165,10 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 
 			return &out, nil
 		default:
-			if c.debug {
-				if err := cassette.AddInteraction("api/interactions.json", &ia); err != nil {
-					return nil, errors.Join(api.NewErrUnknownContentType(rsp), err)
-				}
-			}
-
-			return nil, api.NewErrUnknownContentType(rsp)
+			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
 		}
 	default:
-		if c.debug {
-			if err := cassette.AddInteraction("api/interactions.json", &ia); err != nil {
-				return nil, errors.Join(api.NewErrUnknownStatusCode(rsp), err)
-			}
-		}
-
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
 	}
 }
 
@@ -205,28 +193,11 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 		URL:        u,
 	}).WithContext(ctx)
 
-	var (
-		ia  cassette.Interaction
-		err error
-	)
-	if c.debug {
-		ia.Request, err = cassette.NewRequest(req)
-		if err != nil {
-			return nil, fmt.Errorf("recording request: %w", err)
-		}
-	}
-	rsp, err := c.cli.Do(req)
+	rsp, ia, err := c.do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer rsp.Body.Close()
-
-	if c.debug {
-		ia.Response, err = cassette.NewResponse(rsp)
-		if err != nil {
-			return nil, fmt.Errorf("recording response: %w", err)
-		}
-	}
 
 	switch rsp.StatusCode {
 	case http.StatusOK:
@@ -242,12 +213,12 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 			}
 
 			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
-				if !c.debug {
+				if ia == nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
 
-				if err2 := cassette.AddInteraction("api/interactions.json", &ia); err2 != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), err2)
+				if kerr := c.keep(ia); kerr != nil {
+					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
 				}
 
 				out = *new(R)
@@ -258,22 +229,10 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 
 			return &out, nil
 		default:
-			if c.debug {
-				if err := cassette.AddInteraction("api/interactions.json", &ia); err != nil {
-					return nil, errors.Join(api.NewErrUnknownContentType(rsp), err)
-				}
-			}
-
-			return nil, api.NewErrUnknownContentType(rsp)
+			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
 		}
 	default:
-		if c.debug {
-			if err := cassette.AddInteraction("api/interactions.json", &ia); err != nil {
-				return nil, errors.Join(api.NewErrUnknownStatusCode(rsp), err)
-			}
-		}
-
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
 	}
 }
 
@@ -298,28 +257,11 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 		URL:        u,
 	}).WithContext(ctx)
 
-	var (
-		ia  cassette.Interaction
-		err error
-	)
-	if c.debug {
-		ia.Request, err = cassette.NewRequest(req)
-		if err != nil {
-			return nil, fmt.Errorf("recording request: %w", err)
-		}
-	}
-	rsp, err := c.cli.Do(req)
+	rsp, ia, err := c.do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer rsp.Body.Close()
-
-	if c.debug {
-		ia.Response, err = cassette.NewResponse(rsp)
-		if err != nil {
-			return nil, fmt.Errorf("recording response: %w", err)
-		}
-	}
 
 	switch rsp.StatusCode {
 	case http.StatusOK:
@@ -335,12 +277,12 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 			}
 
 			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
-				if !c.debug {
+				if ia == nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
 
-				if err2 := cassette.AddInteraction("api/interactions.json", &ia); err2 != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), err2)
+				if kerr := c.keep(ia); kerr != nil {
+					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
 				}
 
 				out = *new(R)
@@ -351,21 +293,56 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 
 			return &out, nil
 		default:
-			if c.debug {
-				if err := cassette.AddInteraction("api/interactions.json", &ia); err != nil {
-					return nil, errors.Join(api.NewErrUnknownContentType(rsp), err)
-				}
-			}
-
-			return nil, api.NewErrUnknownContentType(rsp)
+			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
 		}
 	default:
-		if c.debug {
-			if err := cassette.AddInteraction("api/interactions.json", &ia); err != nil {
-				return nil, errors.Join(api.NewErrUnknownStatusCode(rsp), err)
-			}
-		}
-
-		return nil, api.NewErrUnknownStatusCode(rsp)
+		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
 	}
+}
+
+// do sends req and, in debug mode, records the call, for [Client.keep] to add should the client not decode the
+// response.
+func (c *Client) do(req *http.Request) (*http.Response, *cassette.Interaction, error) {
+	if !c.debug {
+		rsp, err := c.cli.Do(req)
+		return rsp, nil, err
+	}
+
+	recReq, err := cassette.NewRequest(req)
+	if err != nil {
+		return nil, nil, fmt.Errorf("recording request: %w", err)
+	}
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	recRsp, err := cassette.NewResponse(rsp)
+	if err != nil {
+		rsp.Body.Close()
+		return nil, nil, fmt.Errorf("recording response: %w", err)
+	}
+
+	return rsp, &cassette.Interaction{Request: recReq, Response: recRsp}, nil
+}
+
+// keep adds ia, a call the client could not decode, to the interactions in the debug file right away: masked, and
+// once, however often the call fails. Outside debug mode, ia is nil, and there is nothing to add.
+func (c *Client) keep(ia *cassette.Interaction) error {
+	if ia == nil {
+		return nil
+	}
+
+	return cassette.AddInteraction(cmp.Or(c.debugFile, defaultDebugFile), ia)
+}
+
+// failed is err, the error of the call ia records, which it adds to the debug file, see [Client.keep]; joined with
+// any error doing so.
+func (c *Client) failed(ia *cassette.Interaction, err error) error {
+	if kerr := c.keep(ia); kerr != nil {
+		return errors.Join(err, kerr)
+	}
+
+	return err
 }

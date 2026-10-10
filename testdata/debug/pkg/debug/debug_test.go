@@ -16,7 +16,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
+	"github.com/MarkRosemaker/cassette"
 	"github.com/go-api-libs/api"
 )
 
@@ -157,5 +157,34 @@ func TestDebug_StillFails(t *testing.T) {
 
 	if ias := recorded(t); len(ias) != 1 {
 		t.Errorf("recorded %d interactions, want 1", len(ias))
+	}
+}
+
+func TestDebug_FileOnceMasked(t *testing.T) {
+	path := t.TempDir() + "/recorded.json"
+
+	c, err := NewClient(WithBaseURL(serve(t, `{"id":"a","password":"hunter2"}`)), WithBearer("token"), WithDebugFile(path))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// polled, a call that fails the same way is added once, to the file asked for, and with its credentials masked
+	for range 2 {
+		if item, err := c.GetItem(t.Context()); err != nil || item.ID != "a" {
+			t.Fatalf("got %+v, %v", item, err)
+		}
+	}
+
+	ias, err := cassette.InteractionsReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(ias) != 1 {
+		t.Fatalf("recorded %d interactions, want 1", len(ias))
+	}
+
+	if auth := ias[0].Request.Headers.Get("Authorization"); auth != "Bearer *****" || !sameJSON(t, ias[0].Response.Body, `{"id":"a","password":"*******"}`) {
+		t.Errorf("recorded %s and %s, want both masked", auth, ias[0].Response.Body)
 	}
 }

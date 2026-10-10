@@ -12,11 +12,11 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/MarkRosemaker/cassette"
 	"github.com/MarkRosemaker/openapi"
 	codegen "github.com/MarkRosemaker/openapi-codegen"
 	"github.com/MarkRosemaker/openapi-codegen/config"
 	"github.com/MarkRosemaker/openapi-codegen/ir"
-	"github.com/MarkRosemaker/openapi-enrich/cassette"
 	"github.com/spf13/afero"
 )
 
