@@ -113,6 +113,12 @@ How the specification maps onto Go:
   each operation fails before sending if its own is missing. An operation whose
   credentials are optional (`{}` beside a scheme) sends them all the same, and its
   replay test accepts a recording made without them.
+- **Replay tests** — each recorded call is replayed against the generated client,
+  which must send the recorded method, URL, body and headers. What identifies
+  the caller is configuration, not part of the call: the `User-Agent`, the
+  credential after `Authorization`'s scheme, and the headers the client sends
+  from its options, such as Habitica's `X-Client` and an API key, are checked
+  only to be there, so a call recorded by another app still matches.
 - **Success responses** — an operation returns its success body as `*T`, or as
   `T` where `T` is already nilable: a slice, a map, or a named type of either. An
   operation whose success body is an empty object returns just `error`, and the

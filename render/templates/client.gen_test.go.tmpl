@@ -207,6 +207,18 @@ func replay(t *testing.T) http.RoundTripper {
 			exactly. */}}
 		ia.Request.Headers.Set("User-Agent", defaultUserAgent)
 
+		{{- with $.GlobalParams }}
+
+		{{/* The headers every call sends from the client's options -- an app's X-Client, an API key -- are the
+			configuration of whoever recorded the call, as User-Agent is: a call recorded by an app with options of
+			its own still matches. That they are sent is still checked. */}}
+		for _, name := range []string{ {{- range . }}{{ printf "%q" .JSONName }}, {{ end -}} } {
+			if ia.Request.Headers.Get(name) != "" {
+				ia.Request.Headers.Set(name, r.Headers.Get(name))
+			}
+		}
+		{{- end }}
+
 		{{/* A Content-Type describing a body that is not there says nothing about
 			the request, and the client sets one only when it sends a body. Some
 			recorders send it regardless. */}}
@@ -307,7 +319,7 @@ func TestClient_Interactions(t *testing.T) {
 	{{- else}} err == nil {
 		t.Fatal("{{.Op.Name}}: expected error")
 	}{{- if .ErrorType}} else if _, ok := errors.AsType[*{{.ErrorType}}](err); !ok {
-		t.Fatalf("{{.Op.Name}}: got: %T, want: *{{.ErrorType}}", err)
+		t.Fatalf("{{.Op.Name}}: got: %T (%v), want: *{{.ErrorType}}", err, err)
 	}
 	{{- end}}
 	{{- end}}
@@ -323,7 +335,7 @@ func TestClient_Interactions(t *testing.T) {
 	{{- else}} err == nil {
 		t.Fatal("{{.Op.Name}}: expected error")
 	}{{- if .ErrorType}} else if _, ok := errors.AsType[*{{.ErrorType}}](err); !ok {
-		t.Fatalf("{{.Op.Name}}: got: %T, want: *{{.ErrorType}}", err)
+		t.Fatalf("{{.Op.Name}}: got: %T (%v), want: *{{.ErrorType}}", err, err)
 	}
 	{{- end}}
 	{{- end}}

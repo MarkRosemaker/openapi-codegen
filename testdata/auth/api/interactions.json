@@ -16,7 +16,7 @@
 		"response": {"statusCode": 204}
 	},
 	{
-		"request": {"method": "GET", "url": "https://api.example.com/health", "header": {"X-Api-Key": "****", "X-Client": "golden-test"}},
+		"request": {"method": "GET", "url": "https://api.example.com/health", "header": {"X-Api-Key": "****", "X-Client": "other-app"}},
 		"response": {"statusCode": 204}
 	}
 ]

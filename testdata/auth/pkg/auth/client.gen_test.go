@@ -380,6 +380,12 @@ func replay(t *testing.T) http.RoundTripper {
 
 		ia.Request.Headers.Set("User-Agent", defaultUserAgent)
 
+		for _, name := range []string{"X-Api-Key", "X-Client"} {
+			if ia.Request.Headers.Get(name) != "" {
+				ia.Request.Headers.Set(name, r.Headers.Get(name))
+			}
+		}
+
 		if len(ia.Request.Body) == 0 {
 			ia.Request.Headers.Del("Content-Type")
 		}
