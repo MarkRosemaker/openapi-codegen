@@ -120,8 +120,9 @@ How the specification maps onto Go:
   string forms. Where every one of them is an integer, a marshaler for the type
   writes them all. Where integers and strings mix, as in a date written both as
   `1759190400` and as `"2025-09-30"`, a struct converts only its own integer
-  fields, and those of the parts it embeds, to jsonutil's `DateIntUnix` or
-  `TimeIntUnix`; the rest stay strings. A oneOf of a date-time and an integer
+  fields, and those of the parts it embeds, to a type generated for it,
+  `unixDate` or `unixTime`, that writes itself with jsonutil; the rest stay
+  strings. A oneOf of a date-time and an integer
   reads either and is written as the others are, or as a string where they mix.
 - **Authentication** — each operation sends the credential its own `security`
   names, else the document's: a bearer token or basic auth, read from the

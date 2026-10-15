@@ -698,8 +698,8 @@ func unixDateWrapper(v *DateWrapper) any {
 
 	return &struct {
 		*plain
-		Raw *jsonutil.DateIntUnix `json:"raw"`
-	}{(*plain)(v), (*jsonutil.DateIntUnix)(&v.Raw)}
+		Raw *unixDate `json:"raw"`
+	}{(*plain)(v), (*unixDate)(&v.Raw)}
 }
 
 // Emoji defines a model
@@ -1457,8 +1457,8 @@ func unixMeta(v *Meta) any {
 
 	return &struct {
 		*plain
-		Expires *jsonutil.DateIntUnix `json:"expires,omitzero"`
-	}{(*plain)(v), (*jsonutil.DateIntUnix)(&v.Expires)}
+		Expires *unixDate `json:"expires,omitzero"`
+	}{(*plain)(v), (*unixDate)(&v.Expires)}
 }
 
 // Referred to by every alternative of NestedValue: a shared member compares by reference.
@@ -1588,8 +1588,8 @@ func unixNote(v *Note) any {
 
 	return &struct {
 		*plain
-		Expires *jsonutil.DateIntUnix `json:"expires,omitzero"`
-	}{(*plain)(v), (*jsonutil.DateIntUnix)(&v.Meta.Expires)}
+		Expires *unixDate `json:"expires,omitzero"`
+	}{(*plain)(v), (*unixDate)(&v.Meta.Expires)}
 }
 
 // Order defines a model
@@ -2287,8 +2287,8 @@ func unixRecord(v *Record) any {
 
 	return &struct {
 		*plain
-		Expires *jsonutil.DateIntUnix `json:"expires,omitzero"`
-	}{(*plain)(v), (*jsonutil.DateIntUnix)(&v.Meta.Expires)}
+		Expires *unixDate `json:"expires,omitzero"`
+	}{(*plain)(v), (*unixDate)(&v.Meta.Expires)}
 }
 
 // A named list: what a call returns can be nil.
@@ -2344,8 +2344,8 @@ func unixSchedule(v *Schedule) any {
 
 	return &struct {
 		*plain
-		At *jsonutil.TimeIntUnix `json:"at"`
-	}{(*plain)(v), (*jsonutil.TimeIntUnix)(&v.At)}
+		At *unixTime `json:"at"`
+	}{(*plain)(v), (*unixTime)(&v.At)}
 }
 
 // What it extends requires something, so {} is no value: no pointer.
@@ -3075,6 +3075,32 @@ func (v *ViewGroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
+// unixTime is a time.Time written and read as an integer of unix time, for a field among others that are strings.
+type unixTime time.Time
+
+func (t unixTime) IsZero() bool { return time.Time(t).IsZero() }
+
+func (t unixTime) MarshalJSONTo(enc *jsontext.Encoder) error {
+	return jsonutil.TimeMarshalIntUnix(enc, time.Time(t))
+}
+
+func (t *unixTime) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	return jsonutil.TimeUnmarshalIntUnix(dec, (*time.Time)(t))
+}
+
+// unixDate is a civil.Date written and read as an integer of unix time, for a field among others that are strings.
+type unixDate civil.Date
+
+func (d unixDate) IsZero() bool { return civil.Date(d).IsZero() }
+
+func (d unixDate) MarshalJSONTo(enc *jsontext.Encoder) error {
+	return jsonutil.DateMarshalIntUnix(enc, civil.Date(d))
+}
+
+func (d *unixDate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	return jsonutil.DateUnmarshalIntUnix(dec, (*civil.Date)(d))
 }
 
 // jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.

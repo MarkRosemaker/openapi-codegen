@@ -1744,7 +1744,7 @@
 				{
 					"selector": "Raw",
 					"jsonTag": "json:\"raw\"",
-					"type": "jsonutil.DateIntUnix"
+					"type": "unixDate"
 				}
 			]
 		},
@@ -2672,7 +2672,7 @@
 				{
 					"selector": "Expires",
 					"jsonTag": "json:\"expires,omitzero\"",
-					"type": "jsonutil.DateIntUnix"
+					"type": "unixDate"
 				}
 			]
 		},
@@ -2849,7 +2849,7 @@
 				{
 					"selector": "Meta.Expires",
 					"jsonTag": "json:\"expires,omitzero\"",
-					"type": "jsonutil.DateIntUnix"
+					"type": "unixDate"
 				}
 			]
 		},
@@ -3613,7 +3613,7 @@
 				{
 					"selector": "Meta.Expires",
 					"jsonTag": "json:\"expires,omitzero\"",
-					"type": "jsonutil.DateIntUnix"
+					"type": "unixDate"
 				}
 			]
 		},
@@ -3788,7 +3788,7 @@
 				{
 					"selector": "At",
 					"jsonTag": "json:\"at\"",
-					"type": "jsonutil.TimeIntUnix"
+					"type": "unixTime"
 				}
 			]
 		},

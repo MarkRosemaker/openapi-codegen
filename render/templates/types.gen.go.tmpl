@@ -564,6 +564,32 @@ func (a {{$typeName}}) MarshalJSONTo(enc *jsontext.Encoder) error {
 {{- end }}
 {{- template "unix" . }}
 {{end}}
+{{- if .HasUnixFieldsOf "unixTime" }}
+
+// unixTime is a time.Time written and read as an integer of unix time, for a field among others that are strings.
+type unixTime time.Time
+
+func (t unixTime) IsZero() bool { return time.Time(t).IsZero() }
+
+func (t unixTime) MarshalJSONTo(enc *jsontext.Encoder) error { return jsonutil.TimeMarshalIntUnix(enc, time.Time(t)) }
+
+func (t *unixTime) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	return jsonutil.TimeUnmarshalIntUnix(dec, (*time.Time)(t))
+}
+{{- end }}
+{{- if .HasUnixFieldsOf "unixDate" }}
+
+// unixDate is a civil.Date written and read as an integer of unix time, for a field among others that are strings.
+type unixDate civil.Date
+
+func (d unixDate) IsZero() bool { return civil.Date(d).IsZero() }
+
+func (d unixDate) MarshalJSONTo(enc *jsontext.Encoder) error { return jsonutil.DateMarshalIntUnix(enc, civil.Date(d)) }
+
+func (d *unixDate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	return jsonutil.DateUnmarshalIntUnix(dec, (*civil.Date)(d))
+}
+{{- end }}
 {{- if .NeedsJSONHelpers }}
 
 // jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.

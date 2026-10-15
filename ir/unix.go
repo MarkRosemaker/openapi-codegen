@@ -5,11 +5,11 @@ import (
 	"strings"
 )
 
-// unixTypes are the Go types an integer of unix time can be, with the jsonutil type that writes one field of them as
+// unixTypes are the Go types an integer of unix time can be, with the generated type that writes one field of them as
 // such.
 var unixTypes = map[string]string{
-	"time.Time":  "jsonutil.TimeIntUnix",
-	"civil.Date": "jsonutil.DateIntUnix",
+	"time.Time":  "unixTime",
+	"civil.Date": "unixDate",
 }
 
 // markUnixFields decides how the date-times and dates that are integers of unix time are written and read. Where every

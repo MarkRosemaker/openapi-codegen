@@ -389,7 +389,7 @@ type UnixField struct {
 	Selector string `json:"selector,omitzero"`
 	// JSONTag is the field's tag.
 	JSONTag string `json:"jsonTag,omitzero"`
-	// Type is the jsonutil type a pointer to the field converts to, e.g. "jsonutil.DateIntUnix".
+	// Type is the generated type a pointer to the field converts to, "unixTime" or "unixDate".
 	Type string `json:"type,omitzero"`
 }
 
@@ -658,6 +658,13 @@ func (doc Document) HasReadOnly() bool {
 // HasUnixFields reports whether a struct has fields written as unix time while other values of their type are not.
 func (doc Document) HasUnixFields() bool {
 	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.Unix) > 0 })
+}
+
+// HasUnixFieldsOf reports whether a struct has fields of the generated type named, see [UnixField.Type].
+func (doc Document) HasUnixFieldsOf(tp string) bool {
+	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool {
+		return slices.ContainsFunc(s.Unix, func(f UnixField) bool { return f.Type == tp })
+	})
 }
 
 // HasWriteOnly reports whether a type has fields a response leaves out.

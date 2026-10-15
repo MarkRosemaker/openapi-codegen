@@ -33,24 +33,6 @@ func TimeUnmarshalIntUnix(dec *jsontext.Decoder, d *time.Time) error {
 	return nil
 }
 
-// TimeIntUnix is a time.Time written and read as an integer of unix time, as [TimeMarshalIntUnix] and
-// [TimeUnmarshalIntUnix] do. It is for one field among others written as strings: a pointer to the field converts to a
-// *TimeIntUnix, where a marshaler for all of time.Time would be too many.
-type TimeIntUnix time.Time
-
-// IsZero reports whether t is the zero time, for omitzero.
-func (t TimeIntUnix) IsZero() bool { return time.Time(t).IsZero() }
-
-// MarshalJSONTo implements [json.MarshalerTo].
-func (t TimeIntUnix) MarshalJSONTo(enc *jsontext.Encoder) error {
-	return TimeMarshalIntUnix(enc, time.Time(t))
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (t *TimeIntUnix) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	return TimeUnmarshalIntUnix(dec, (*time.Time)(t))
-}
-
 // timeAltLayout is a fallback layout for time strings that don't conform to RFC3339.
 const timeAltLayout = "Mon Jan 2 2006 15:04:05 MST-0700"
 

@@ -90,7 +90,7 @@ func TestUnix_AmongStrings(t *testing.T) {
 	}
 
 	want := map[string][]ir.UnixField{
-		"Meta": {{Selector: "Expires", JSONTag: `json:"expires"`, Type: "jsonutil.DateIntUnix"}},
+		"Meta": {{Selector: "Expires", JSONTag: `json:"expires"`, Type: "unixDate"}},
 	}
 
 	for _, s := range irDoc.Schemas {
