@@ -172,7 +172,11 @@
 				"at": 1791453600,
 				"enabled": true,
 				"count": 2,
-				"until": 1791540000
+				"until": "2026-10-09T10:00:00Z",
+				"starts": {
+					"raw": 1759190400,
+					"fmt": "2025-09-30"
+				}
 			},
 			"header": {
 				"Content-Type": "application/json"
@@ -190,7 +194,11 @@
 					"at": 1791453600,
 					"enabled": true,
 					"count": 2,
-					"until": 1791540000
+					"until": 1791540000,
+					"starts": {
+						"raw": 1759190400,
+						"fmt": "2025-09-30"
+					}
 				}
 			}
 		}

@@ -209,6 +209,8 @@ func integerGoType(f openapi.Format) (*GoType, error) {
 		return &GoType{Name: "time.Duration"}, nil
 	case openapi.FormatDateTime:
 		return &GoType{Name: "time.Time"}, nil
+	case openapi.FormatDate:
+		return &GoType{Name: "civil.Date"}, nil
 	default:
 		return nil, fmt.Errorf("unsupported integer format: %q", f)
 	}
@@ -537,8 +539,18 @@ func getField(jsonName string, propRef *openapi.Schema, requiredSet map[string]b
 		ReadOnly:        propRef.ReadOnly || v.ReadOnly,
 		WriteOnly:       propRef.WriteOnly || v.WriteOnly,
 		IsDateTimeOrInt: isDateTimeOrIntegerOneOf(v),
-		IsUnixTime:      goType.Name == "time.Time" && v.Type == openapi.TypeInteger,
+		IsUnix:          isUnix(goType.Name, v),
 	}, nil
+}
+
+// isUnix reports whether a value of the Go type named, from schema s, is an integer of unix time: a date-time or a date
+// that is an integer, or an array of them.
+func isUnix(goType string, s *openapi.Schema) bool {
+	for s != nil && s.Type == openapi.TypeArray { // the items of an array
+		s = deref(s.Items)
+	}
+
+	return (goType == "time.Time" || goType == "civil.Date") && s != nil && s.Type == openapi.TypeInteger
 }
 
 func fromObjectSchema(name string, s *openapi.Schema) (*Schema, error) {

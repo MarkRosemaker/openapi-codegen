@@ -26,7 +26,11 @@ type Document struct {
 	HasDurationFields      bool        `json:"hasDurationFields,omitzero"`
 	HasDateFields          bool        `json:"hasDateFields,omitzero"`
 	HasDateTimeOrIntFields bool        `json:"hasDateTimeOrIntFields,omitzero"`
-	HasUnixTimeFields      bool        `json:"hasUnixTimeFields,omitzero"`
+	// HasUnixTimeFields and HasUnixDateFields are set when every time.Time, or every civil.Date, a JSON body holds is
+	// an integer of unix time, so that a marshaler for the type writes them all. Where some are and others are
+	// strings, the structs holding the former list them in [Schema.Unix] instead.
+	HasUnixTimeFields bool `json:"hasUnixTimeFields,omitzero"`
+	HasUnixDateFields bool `json:"hasUnixDateFields,omitzero"`
 
 	// HasServerOverrides is true when any path item names a server of its own,
 	// which is what the generated serverURL helper is for.
@@ -239,6 +243,9 @@ type Schema struct {
 	// response leaves out.
 	ReadOnly  []string `json:"readOnly,omitempty"`
 	WriteOnly []string `json:"writeOnly,omitempty"`
+	// Unix are the fields, its own and those of the parts it embeds, written and read as unix time while other
+	// values of their type are strings.
+	Unix []UnixField `json:"unix,omitempty"`
 }
 
 // AllOfUnion is the union part of an allOf.
@@ -370,12 +377,24 @@ type Field struct {
 	// (un)marshaller is required to accept either form on the wire.
 	IsDateTimeOrInt bool `json:"isDateTimeOrInt,omitzero"`
 
-	// IsUnixTime is true when Type is time.Time but the property's schema
-	// itself is an integer (format: date-time), not a date-time string --
-	// see [integerGoType]. A custom (un)marshaller is required to encode and
-	// decode it as a unix timestamp instead of RFC 3339.
-	IsUnixTime bool `json:"isUnixTime,omitzero"`
+	// IsUnix is true when Type is time.Time or civil.Date but the property's schema itself is an integer (format:
+	// date-time or date), see [integerGoType]: it is written and read as unix time, not as a string. Where all of
+	// them are, a marshaler for the type does it, see [Document.HasUnixTimeFields]; otherwise [Schema.Unix].
+	IsUnix bool `json:"isUnix,omitzero"`
 }
+
+// UnixField is a field of a struct written and read as unix time while other values of its type are strings.
+type UnixField struct {
+	// Selector is the field, as a Go selector through embedded parts, e.g. "Meta.Created".
+	Selector string `json:"selector,omitzero"`
+	// JSONTag is the field's tag.
+	JSONTag string `json:"jsonTag,omitzero"`
+	// Type is the jsonutil type a pointer to the field converts to, e.g. "jsonutil.DateIntUnix".
+	Type string `json:"type,omitzero"`
+}
+
+// Name is the field's own name, the last part of its selector.
+func (f UnixField) Name() string { return f.Selector[strings.LastIndex(f.Selector, ".")+1:] }
 
 // EnumValue is one member of an enum type.
 type EnumValue struct {
@@ -431,11 +450,10 @@ type Param struct {
 	// formatting behavior of its own, unlike a builtin: NotZero and
 	// FormatExpr switch on this instead, when set.
 	BaseType string `json:"baseType,omitzero"`
-	// IsUnixTime is true when Type is "time.Time" but the OpenAPI schema
-	// itself is an integer (format: date-time), not a date-time string --
-	// see [integerGoType]. FormatExpr needs this to know whether to encode
-	// the param back into an integer instead of an RFC 3339 string.
-	IsUnixTime  bool   `json:"isUnixTime,omitzero"`
+	// IsUnix is true when Type is "time.Time" or "civil.Date" but the OpenAPI schema itself is an integer (format:
+	// date-time or date), see [integerGoType]. FormatExpr needs this to know whether to encode the param back into an
+	// integer instead of a string.
+	IsUnix      bool   `json:"isUnix,omitzero"`
 	Description string `json:"description,omitzero"`
 	// Item is one element of an array parameter, with v as its variable.
 	Item *Param `json:"item,omitzero"`
@@ -635,6 +653,11 @@ func (s Schema) EncodesItself() bool {
 // HasReadOnly reports whether a type has fields a request leaves out.
 func (doc Document) HasReadOnly() bool {
 	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.ReadOnly) > 0 })
+}
+
+// HasUnixFields reports whether a struct has fields written as unix time while other values of their type are not.
+func (doc Document) HasUnixFields() bool {
+	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.Unix) > 0 })
 }
 
 // HasWriteOnly reports whether a type has fields a response leaves out.

@@ -17,12 +17,13 @@ import (
 
 var jsonOpts = json.JoinOptions(
 		json.RejectUnknownMembers(true),
-		{{- if or .HasURLFields .HasDurationFields .HasUnixTimeFields }}
+		{{- if or .HasURLFields .HasDurationFields .HasUnixTimeFields .HasUnixDateFields .HasUnixFields }}
 		json.WithMarshalers(json.JoinMarshalers(
 			{{- template "marshalers" . }}
+			{{- range .Schemas }}{{ if .Unix }}{{ template "unixMarshal" . }}{{ end }}{{ end }}
 		)),
 		{{- end }}
-		{{- if or .HasURLFields .HasDateTimeOrIntFields .HasDurationFields .HasUnixTimeFields }}
+		{{- if or .HasURLFields .HasDateTimeOrIntFields .HasDurationFields .HasUnixTimeFields .HasUnixDateFields .HasUnixFields }}
 		json.WithUnmarshalers(json.JoinUnmarshalers(
 			{{- if .HasURLFields }}
 			json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
@@ -36,6 +37,12 @@ var jsonOpts = json.JoinOptions(
 			{{- if .HasUnixTimeFields }}
 			json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnix),
 			{{- end }}
+			{{- if .HasUnixDateFields }}
+			json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnix),
+			{{- end }}
+			{{- range .Schemas }}{{ if .Unix }}
+			json.UnmarshalFromFunc(func(dec *jsontext.Decoder, v *{{ .Name }}) error { return json.UnmarshalDecode(dec, unix{{ .Name }}(v)) }),
+			{{- end }}{{ end }}
 		)),
 		{{- end }}
 	)
@@ -50,6 +57,7 @@ var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false
 // specification marks readOnly.
 var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
 	{{- template "marshalers" . }}
+	{{- range .Schemas }}{{ if and .Unix (not .ReadOnly) }}{{ template "unixMarshal" . }}{{ end }}{{ end }}
 	{{- range .Schemas }}{{ template "leaveOut" (list . .ReadOnly) }}{{ end }}
 )))
 {{- end }}
@@ -59,6 +67,7 @@ var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMa
 // specification marks writeOnly.
 var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
 	{{- template "marshalers" . }}
+	{{- range .Schemas }}{{ if and .Unix (not .WriteOnly) }}{{ template "unixMarshal" . }}{{ end }}{{ end }}
 	{{- range .Schemas }}{{ template "leaveOut" (list . .WriteOnly) }}{{ end }}
 )))
 {{- end }}
@@ -553,6 +562,7 @@ func (a {{$typeName}}) MarshalJSONTo(enc *jsontext.Encoder) error {
 {{ else }}
 // TODO: unimplemented schema kind {{ .Kind }}
 {{- end }}
+{{- template "unix" . }}
 {{end}}
 {{- if .NeedsJSONHelpers }}
 
@@ -1425,6 +1435,21 @@ func (v *{{.Name}}) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 {{- end }}
 
 
+{{- define "unix" }}{{ with .Unix }}
+
+// unix{{ $.Name }} is v as it is written and read: {{ range $i, $f := . }}{{ if $i }}, {{ end }}{{ $f.Name }}{{ end }} as {{ if eq (len .) 1 }}an integer{{ else }}integers{{ end }} of unix time.
+func unix{{ $.Name }}(v *{{ $.Name }}) any {
+	type plain {{ $.Name }}
+
+	return &struct {
+		*plain
+		{{- range . }}
+		{{ .Name }} *{{ .Type }} `{{ .JSONTag }}`
+		{{- end }}
+	}{(*plain)(v){{ range . }}, (*{{ .Type }})(&v.{{ .Selector }}){{ end }}}
+}
+{{- end }}{{ end }}
+
 {{- define "marshalers" }}
 	{{- if .HasURLFields }}
 	json.MarshalToFunc(jsonutil.URLMarshal),
@@ -1435,6 +1460,13 @@ func (v *{{.Name}}) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 	{{- if .HasUnixTimeFields }}
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnix),
 	{{- end }}
+	{{- if .HasUnixDateFields }}
+	json.MarshalToFunc(jsonutil.DateMarshalIntUnix),
+	{{- end }}
+{{- end }}
+
+{{- define "unixMarshal" }}
+	json.MarshalToFunc(func(enc *jsontext.Encoder, v {{ .Name }}) error { return json.MarshalEncode(enc, unix{{ .Name }}(&v)) }),
 {{- end }}
 
 {{- define "leaveOut" }}{{ $s := index . 0 }}{{ with index . 1 }}
@@ -1442,7 +1474,10 @@ func (v *{{.Name}}) unmarshalJSONMember(dec *jsontext.Decoder, name string) (boo
 		{{- range . }}
 		v.{{ . }} = {{ $s.Name }}{}.{{ . }}
 		{{- end }}
-		{{- if $s.EncodesItself }}
+		{{- if $s.Unix }}
+
+		return json.MarshalEncode(enc, unix{{ $s.Name }}(&v))
+		{{- else if $s.EncodesItself }}
 
 		return v.MarshalJSONTo(enc)
 		{{- else }}

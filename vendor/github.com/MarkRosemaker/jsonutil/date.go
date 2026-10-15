@@ -29,8 +29,26 @@ func DateUnmarshalIntUnix(dec *jsontext.Decoder, d *civil.Date) error {
 	if seconds == 0 {
 		*d = civil.Date{}
 	} else {
-		*d = civil.DateOf(time.Unix(seconds, 0))
+		*d = civil.DateOf(time.Unix(seconds, 0).UTC())
 	}
 
 	return nil
+}
+
+// DateIntUnix is a civil.Date written and read as an integer of unix time, as [DateMarshalIntUnix] and
+// [DateUnmarshalIntUnix] do. It is for one field among others written as strings: a pointer to the field converts to a
+// *DateIntUnix, where a marshaler for all of civil.Date would be too many.
+type DateIntUnix civil.Date
+
+// IsZero reports whether d is the zero date, for omitzero.
+func (d DateIntUnix) IsZero() bool { return civil.Date(d).IsZero() }
+
+// MarshalJSONTo implements [json.MarshalerTo].
+func (d DateIntUnix) MarshalJSONTo(enc *jsontext.Encoder) error {
+	return DateMarshalIntUnix(enc, civil.Date(d))
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (d *DateIntUnix) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	return DateUnmarshalIntUnix(dec, (*civil.Date)(d))
 }

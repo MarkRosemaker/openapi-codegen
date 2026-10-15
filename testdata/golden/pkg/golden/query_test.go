@@ -62,6 +62,7 @@ func TestQuery_RoundTrip(t *testing.T) {
 		Every:      90 * time.Second,
 		At:         time.Unix(1791453600, 0),
 		On:         civil.Date{Year: 2026, Month: 10, Day: 8},
+		Day:        civil.Date{Year: 2025, Month: 9, Day: 30},
 		Site:       url.URL{Scheme: "https", Host: "x.example", Path: "/p"},
 		IP:         net.ParseIP("10.0.0.1"),
 		Level:      2,

@@ -1393,12 +1393,16 @@ func TestClient_Interactions(t *testing.T) {
 	}
 
 	if _, err := c.CreateSchedule(ctx, Schedule{
-		Day:     mustDecodeBody[civil.Date](t, "\"2026-10-08\""),
+		Day:     civil.Date{Year: 2026, Month: 10, Day: 8},
 		Every:   mustDecodeBody[time.Duration](t, "3600"),
-		At:      mustDecodeBody[time.Time](t, "1791453600"),
+		At:      time.Unix(1791453600, 0),
 		Enabled: true,
 		Count:   2,
-		Until:   mustDecodeBody[time.Time](t, "1791540000"),
+		Until:   time.Date(2026, 10, 9, 10, 0, 0, 0, time.UTC),
+		Starts: DateWrapper{
+			Raw: civil.Date{Year: 2025, Month: 9, Day: 30},
+			Fmt: "2025-09-30",
+		},
 	}); err != nil {
 		t.Fatalf("CreateSchedule: %v", err)
 	}

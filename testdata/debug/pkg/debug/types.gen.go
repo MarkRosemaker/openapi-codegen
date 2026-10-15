@@ -13,10 +13,19 @@ import (
 	"maps"
 	"slices"
 	"strconv"
+
+	"cloud.google.com/go/civil"
+	"github.com/MarkRosemaker/jsonutil"
 )
 
 var jsonOpts = json.JoinOptions(
 	json.RejectUnknownMembers(true),
+	json.WithMarshalers(json.JoinMarshalers(
+		json.MarshalToFunc(jsonutil.DateMarshalIntUnix),
+	)),
+	json.WithUnmarshalers(json.JoinUnmarshalers(
+		json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnix),
+	)),
 )
 
 // jsonOptsLenient is jsonOpts accepting members the specification does not know, as debug mode decodes once a strict
@@ -114,6 +123,8 @@ type Dog struct {
 // Item defines a model
 type Item struct {
 	ID string `json:"id"`
+	// Every date here is an integer, so one marshaler writes them all.
+	Updated civil.Date `json:"updated,omitzero"`
 }
 
 // Pet defines a model

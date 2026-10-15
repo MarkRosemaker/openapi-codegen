@@ -16,7 +16,8 @@
   "components": {
   "securitySchemes": {"bearerAuth": {"description": "Required by nothing, so the one scheme there is.", "type": "http", "scheme": "bearer"}},
   "schemas": {
-    "Item": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"}}},
+    "Item": {"type": "object", "required": ["id"], "properties": {"id": {"type": "string"},
+      "updated": {"description": "Every date here is an integer, so one marshaler writes them all.", "type": "integer", "format": "date"}}},
     "Block": {"oneOf": [{"$ref": "#/components/schemas/Paragraph"}, {"$ref": "#/components/schemas/Divider"}]},
     "Paragraph": {"type": "object", "required": ["type", "paragraph"], "properties": {
       "type": {"type": "string", "const": "paragraph"}, "paragraph": {"$ref": "#/components/schemas/Text"}}},

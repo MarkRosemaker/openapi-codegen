@@ -1514,13 +1514,13 @@ func TestFromComponentSchemas_UnixTimeField(t *testing.T) {
 		t.Errorf("Type = %q, want time.Time", f.Type)
 	}
 
-	if !f.IsUnixTime {
-		t.Error("IsUnixTime = false, want true")
+	if !f.IsUnix {
+		t.Error("IsUnix = false, want true")
 	}
 }
 
 func TestFromComponentSchemas_PlainDateTimeFieldNotUnixTime(t *testing.T) {
-	// A regular string+date-time property must not set IsUnixTime either.
+	// A regular string+date-time property must not set IsUnix either.
 	prop := &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}
 	props := openapi.Schemas{}
 	props.Set("createdAt", prop)
@@ -1536,8 +1536,8 @@ func TestFromComponentSchemas_PlainDateTimeFieldNotUnixTime(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if got[0].Fields[0].IsUnixTime {
-		t.Error("plain date-time field: IsUnixTime = true, want false")
+	if got[0].Fields[0].IsUnix {
+		t.Error("plain date-time field: IsUnix = true, want false")
 	}
 }
 
