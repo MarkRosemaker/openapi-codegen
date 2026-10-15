@@ -1739,13 +1739,6 @@
 					"jsonTag": "json:\"fmt\"",
 					"required": true
 				}
-			],
-			"unix": [
-				{
-					"selector": "Raw",
-					"jsonTag": "json:\"raw\"",
-					"type": "unixDate"
-				}
 			]
 		},
 		{
@@ -2667,13 +2660,6 @@
 			],
 			"readOnly": [
 				"Created"
-			],
-			"unix": [
-				{
-					"selector": "Expires",
-					"jsonTag": "json:\"expires,omitzero\"",
-					"type": "unixDate"
-				}
 			]
 		},
 		{
@@ -2844,13 +2830,6 @@
 			],
 			"readOnly": [
 				"Meta.Created"
-			],
-			"unix": [
-				{
-					"selector": "Meta.Expires",
-					"jsonTag": "json:\"expires,omitzero\"",
-					"type": "unixDate"
-				}
 			]
 		},
 		{
@@ -3608,13 +3587,6 @@
 			],
 			"readOnly": [
 				"Meta.Created"
-			],
-			"unix": [
-				{
-					"selector": "Meta.Expires",
-					"jsonTag": "json:\"expires,omitzero\"",
-					"type": "unixDate"
-				}
 			]
 		},
 		{
@@ -3782,13 +3754,6 @@
 					"type": "DateWrapper",
 					"jsonTag": "json:\"starts,omitzero\"",
 					"description": "A date written twice: as an integer, a Unix time among dates written as strings, and formatted."
-				}
-			],
-			"unix": [
-				{
-					"selector": "At",
-					"jsonTag": "json:\"at\"",
-					"type": "unixTime"
 				}
 			]
 		},
@@ -4651,5 +4616,12 @@
 	"hasURLFields": true,
 	"hasDurationFields": true,
 	"hasDateFields": true,
-	"hasDateTimeOrIntFields": true
+	"hasDateTimeOrIntFields": true,
+	"unixTimeMembers": [
+		"at"
+	],
+	"unixDateMembers": [
+		"expires",
+		"raw"
+	]
 }

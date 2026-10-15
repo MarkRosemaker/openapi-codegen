@@ -27,23 +27,15 @@ var jsonOpts = json.JoinOptions(
 	json.WithMarshalers(json.JoinMarshalers(
 		json.MarshalToFunc(jsonutil.URLMarshal),
 		json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
-		json.MarshalToFunc(func(enc *jsontext.Encoder, v DateWrapper) error { return json.MarshalEncode(enc, unixDateWrapper(&v)) }),
-		json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error { return json.MarshalEncode(enc, unixMeta(&v)) }),
-		json.MarshalToFunc(func(enc *jsontext.Encoder, v Note) error { return json.MarshalEncode(enc, unixNote(&v)) }),
-		json.MarshalToFunc(func(enc *jsontext.Encoder, v Record) error { return json.MarshalEncode(enc, unixRecord(&v)) }),
-		json.MarshalToFunc(func(enc *jsontext.Encoder, v Schedule) error { return json.MarshalEncode(enc, unixSchedule(&v)) }),
+		json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
+		json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	)),
 	json.WithUnmarshalers(json.JoinUnmarshalers(
+		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixFor("at")),
+		json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnixFor("expires", "raw")),
 		json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalStringOrIntUnix),
 		json.UnmarshalFromFunc(jsonutil.DurationUnmarshalIntSeconds),
-		json.UnmarshalFromFunc(func(dec *jsontext.Decoder, v *DateWrapper) error {
-			return json.UnmarshalDecode(dec, unixDateWrapper(v))
-		}),
-		json.UnmarshalFromFunc(func(dec *jsontext.Decoder, v *Meta) error { return json.UnmarshalDecode(dec, unixMeta(v)) }),
-		json.UnmarshalFromFunc(func(dec *jsontext.Decoder, v *Note) error { return json.UnmarshalDecode(dec, unixNote(v)) }),
-		json.UnmarshalFromFunc(func(dec *jsontext.Decoder, v *Record) error { return json.UnmarshalDecode(dec, unixRecord(v)) }),
-		json.UnmarshalFromFunc(func(dec *jsontext.Decoder, v *Schedule) error { return json.UnmarshalDecode(dec, unixSchedule(v)) }),
 	)),
 )
 
@@ -56,22 +48,25 @@ var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false
 var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
 	json.MarshalToFunc(jsonutil.URLMarshal),
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v DateWrapper) error { return json.MarshalEncode(enc, unixDateWrapper(&v)) }),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v Schedule) error { return json.MarshalEncode(enc, unixSchedule(&v)) }),
+	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
+	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error {
 		v.Created = Meta{}.Created
 
-		return json.MarshalEncode(enc, unixMeta(&v))
+		type plain Meta
+		return json.MarshalEncode(enc, plain(v))
 	}),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Note) error {
 		v.Meta.Created = Note{}.Meta.Created
 
-		return json.MarshalEncode(enc, unixNote(&v))
+		type plain Note
+		return json.MarshalEncode(enc, plain(v))
 	}),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Record) error {
 		v.Meta.Created = Record{}.Meta.Created
 
-		return json.MarshalEncode(enc, unixRecord(&v))
+		type plain Record
+		return json.MarshalEncode(enc, plain(v))
 	}),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
 		v.ID = User{}.ID
@@ -87,11 +82,8 @@ var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMa
 var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
 	json.MarshalToFunc(jsonutil.URLMarshal),
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v DateWrapper) error { return json.MarshalEncode(enc, unixDateWrapper(&v)) }),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error { return json.MarshalEncode(enc, unixMeta(&v)) }),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v Note) error { return json.MarshalEncode(enc, unixNote(&v)) }),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v Record) error { return json.MarshalEncode(enc, unixRecord(&v)) }),
-	json.MarshalToFunc(func(enc *jsontext.Encoder, v Schedule) error { return json.MarshalEncode(enc, unixSchedule(&v)) }),
+	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
+	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
 		v.Password = User{}.Password
 
@@ -690,16 +682,6 @@ type Date struct {
 type DateWrapper struct {
 	Raw civil.Date `json:"raw"`
 	Fmt string     `json:"fmt"`
-}
-
-// unixDateWrapper is v as it is written and read: Raw as an integer of unix time.
-func unixDateWrapper(v *DateWrapper) any {
-	type plain DateWrapper
-
-	return &struct {
-		*plain
-		Raw *unixDate `json:"raw"`
-	}{(*plain)(v), (*unixDate)(&v.Raw)}
 }
 
 // Emoji defines a model
@@ -1451,16 +1433,6 @@ type Meta struct {
 	Expires civil.Date `json:"expires,omitzero"`
 }
 
-// unixMeta is v as it is written and read: Expires as an integer of unix time.
-func unixMeta(v *Meta) any {
-	type plain Meta
-
-	return &struct {
-		*plain
-		Expires *unixDate `json:"expires,omitzero"`
-	}{(*plain)(v), (*unixDate)(&v.Expires)}
-}
-
 // Referred to by every alternative of NestedValue: a shared member compares by reference.
 type NestedID string
 
@@ -1580,16 +1552,6 @@ func (v *NestedValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 type Note struct {
 	Meta
 	Note string `json:"note"`
-}
-
-// unixNote is v as it is written and read: Expires as an integer of unix time.
-func unixNote(v *Note) any {
-	type plain Note
-
-	return &struct {
-		*plain
-		Expires *unixDate `json:"expires,omitzero"`
-	}{(*plain)(v), (*unixDate)(&v.Meta.Expires)}
 }
 
 // Order defines a model
@@ -2281,16 +2243,6 @@ type Record struct {
 	Record string `json:"record"`
 }
 
-// unixRecord is v as it is written and read: Expires as an integer of unix time.
-func unixRecord(v *Record) any {
-	type plain Record
-
-	return &struct {
-		*plain
-		Expires *unixDate `json:"expires,omitzero"`
-	}{(*plain)(v), (*unixDate)(&v.Meta.Expires)}
-}
-
 // A named list: what a call returns can be nil.
 type Reports []string
 
@@ -2336,16 +2288,6 @@ type Schedule struct {
 	Labels Labels `json:"labels,omitzero"`
 	// A date written twice: as an integer, a Unix time among dates written as strings, and formatted.
 	Starts DateWrapper `json:"starts,omitzero"`
-}
-
-// unixSchedule is v as it is written and read: At as an integer of unix time.
-func unixSchedule(v *Schedule) any {
-	type plain Schedule
-
-	return &struct {
-		*plain
-		At *unixTime `json:"at"`
-	}{(*plain)(v), (*unixTime)(&v.At)}
 }
 
 // What it extends requires something, so {} is no value: no pointer.
@@ -3075,32 +3017,6 @@ func (v *ViewGroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	return &json.SemanticError{Err: errors.New("no alternative set")}
-}
-
-// unixTime is a time.Time written and read as an integer of unix time, for a field among others that are strings.
-type unixTime time.Time
-
-func (t unixTime) IsZero() bool { return time.Time(t).IsZero() }
-
-func (t unixTime) MarshalJSONTo(enc *jsontext.Encoder) error {
-	return jsonutil.TimeMarshalIntUnix(enc, time.Time(t))
-}
-
-func (t *unixTime) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	return jsonutil.TimeUnmarshalIntUnix(dec, (*time.Time)(t))
-}
-
-// unixDate is a civil.Date written and read as an integer of unix time, for a field among others that are strings.
-type unixDate civil.Date
-
-func (d unixDate) IsZero() bool { return civil.Date(d).IsZero() }
-
-func (d unixDate) MarshalJSONTo(enc *jsontext.Encoder) error {
-	return jsonutil.DateMarshalIntUnix(enc, civil.Date(d))
-}
-
-func (d *unixDate) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	return jsonutil.DateUnmarshalIntUnix(dec, (*civil.Date)(d))
 }
 
 // jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.

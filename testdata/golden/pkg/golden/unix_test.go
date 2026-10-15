@@ -30,7 +30,7 @@ func TestUnix_AmongStrings(t *testing.T) {
 			name: "own fields",
 			in:   DateWrapper{Raw: day, Fmt: "2025-09-30"},
 			opts: jsonOpts,
-			want: `{"fmt":"2025-09-30","raw":1759190400}`,
+			want: `{"raw":1759190400,"fmt":"2025-09-30"}`,
 		},
 		{
 			name: "a string date-time stays a string",
@@ -42,13 +42,13 @@ func TestUnix_AmongStrings(t *testing.T) {
 			name: "through an embedded part",
 			in:   Note{Meta: Meta{Created: created, Expires: day}, Note: "n"},
 			opts: jsonOpts,
-			want: `{"created":"2025-09-30T12:00:00Z","note":"n","expires":1759190400}`,
+			want: `{"created":"2025-09-30T12:00:00Z","expires":1759190400,"note":"n"}`,
 		},
 		{
 			name: "a request leaves readOnly out",
 			in:   Note{Meta: Meta{Created: created, Expires: day}, Note: "n"},
 			opts: jsonOptsRequest,
-			want: `{"note":"n","expires":1759190400}`,
+			want: `{"expires":1759190400,"note":"n"}`,
 		},
 		{
 			name: "an unset optional date is left out",

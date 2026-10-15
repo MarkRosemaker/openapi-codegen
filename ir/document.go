@@ -79,7 +79,7 @@ func FromDocument(doc *openapi.Document, packageName, userAgent string, producti
 
 	hasURL, hasDuration, hasDate, hasDateTimeOrInt := needsSpecialImports(schemas, operations)
 
-	allUnixTime, allUnixDate, err := markUnixFields(schemas)
+	unixTimes, unixDates, err := markUnix(schemas)
 	if err != nil {
 		return nil, fmt.Errorf("components.schemas: %w", err)
 	}
@@ -117,8 +117,10 @@ func FromDocument(doc *openapi.Document, packageName, userAgent string, producti
 		HasDurationFields:      hasDuration,
 		HasDateFields:          hasDate,
 		HasDateTimeOrIntFields: hasDateTimeOrInt,
-		HasUnixTimeFields:      allUnixTime,
-		HasUnixDateFields:      allUnixDate,
+		HasUnixTimeFields:      unixTimes.all,
+		HasUnixDateFields:      unixDates.all,
+		UnixTimeMembers:        unixTimes.members,
+		UnixDateMembers:        unixDates.members,
 		HasServerOverrides: slices.ContainsFunc(operations, func(op Operation) bool {
 			return op.BaseURL != nil
 		}),

@@ -56,7 +56,7 @@ func strDate() *openapi.Schema {
 func TestUnix_AllIntegers(t *testing.T) {
 	t.Parallel()
 
-	// every date an integer: one marshaler writes them all, and no struct lists its own
+	// every date an integer: one marshaler writes them all
 	irDoc, err := ir.FromDocument(unixDoc(map[string]*openapi.Schema{
 		"Event": object("raw", intDate(), "at", &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}),
 	}), "pkg", "", false, false)
@@ -64,9 +64,9 @@ func TestUnix_AllIntegers(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !irDoc.HasUnixDateFields || !irDoc.HasUnixTimeFields || irDoc.HasUnixFields() {
-		t.Errorf("got package-wide date %t, time %t, per field %t; want true, false",
-			irDoc.HasUnixDateFields, irDoc.HasUnixTimeFields, irDoc.HasUnixFields())
+	if !irDoc.HasUnixDateFields || !irDoc.HasUnixTimeFields || irDoc.UnixDateMembers != nil || irDoc.UnixTimeMembers != nil {
+		t.Errorf("got package-wide date %t, time %t, members %v and %v; want true, none",
+			irDoc.HasUnixDateFields, irDoc.HasUnixTimeFields, irDoc.UnixDateMembers, irDoc.UnixTimeMembers)
 	}
 
 	if got := irDoc.Schemas[0].Fields[0].Type; got != "civil.Date" {
@@ -77,37 +77,28 @@ func TestUnix_AllIntegers(t *testing.T) {
 func TestUnix_AmongStrings(t *testing.T) {
 	t.Parallel()
 
-	// dates of both forms: a struct lists its integer ones (golden covers those of embedded parts)
+	// dates of both forms: the members holding integers are named, an array of them too
 	irDoc, err := ir.FromDocument(unixDoc(map[string]*openapi.Schema{
-		"Meta": object("expires", intDate(), "day", strDate()),
+		"Meta": object("expires", intDate(), "day", strDate(), "raws", &openapi.Schema{Type: openapi.TypeArray, Items: intDate()}),
 	}), "pkg", "", false, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if irDoc.HasUnixDateFields {
-		t.Error("dates of both forms: got a marshaler for all of them")
-	}
-
-	want := map[string][]ir.UnixField{
-		"Meta": {{Selector: "Expires", JSONTag: `json:"expires"`, Type: "unixDate"}},
-	}
-
-	for _, s := range irDoc.Schemas {
-		if !reflect.DeepEqual(s.Unix, want[s.Name]) {
-			t.Errorf("%s: got %+v, want %+v", s.Name, s.Unix, want[s.Name])
-		}
+	if want := []string{"expires", "raws"}; irDoc.HasUnixDateFields || !reflect.DeepEqual(irDoc.UnixDateMembers, want) {
+		t.Errorf("got package-wide %t and members %v, want false and %v", irDoc.HasUnixDateFields, irDoc.UnixDateMembers, want)
 	}
 }
 
-func TestUnix_AmongStrings_Slice(t *testing.T) {
+func TestUnix_AmongStrings_SameName(t *testing.T) {
 	t.Parallel()
 
-	// a slice of integer dates among string ones has no field of its own to convert: it fails, saying why
+	// a name holding an integer date in one schema and a string one in another cannot tell them apart: it fails
 	_, err := ir.FromDocument(unixDoc(map[string]*openapi.Schema{
-		"Event": object("raws", &openapi.Schema{Type: openapi.TypeArray, Items: intDate()}, "day", strDate()),
+		"A": object("day", intDate()),
+		"B": object("day", strDate()),
 	}), "pkg", "", false, false)
-	if err == nil || !strings.Contains(err.Error(), "only supported as a value of its own") {
+	if err == nil || !strings.Contains(err.Error(), "cannot tell apart") {
 		t.Errorf("got %v, want an error saying why", err)
 	}
 }

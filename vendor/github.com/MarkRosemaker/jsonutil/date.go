@@ -3,6 +3,7 @@ package jsonutil
 import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
+	"errors"
 	"time"
 
 	"cloud.google.com/go/civil"
@@ -33,4 +34,34 @@ func DateUnmarshalIntUnix(dec *jsontext.Decoder, d *civil.Date) error {
 	}
 
 	return nil
+}
+
+// DateMarshalIntUnixFor returns a marshaler for civil.Date that writes, as [DateMarshalIntUnix] does, the dates held by
+// an object member of one of the names given, or by an array such a member holds. It leaves any other date to the
+// marshaler after it, or to the default, which writes a string: for an API that writes some dates as unix time and
+// others as strings.
+func DateMarshalIntUnixFor(names ...string) func(*jsontext.Encoder, civil.Date) error {
+	set := nameSet(names)
+
+	return func(enc *jsontext.Encoder, d civil.Date) error {
+		if !set[memberName(enc.StackPointer())] {
+			return errors.ErrUnsupported
+		}
+
+		return DateMarshalIntUnix(enc, d)
+	}
+}
+
+// DateUnmarshalIntUnixFor returns an unmarshaler for civil.Date that reads, as [DateUnmarshalIntUnix] does, the dates
+// held by an object member of one of the names given, or by an array such a member holds; see [DateMarshalIntUnixFor].
+func DateUnmarshalIntUnixFor(names ...string) func(*jsontext.Decoder, *civil.Date) error {
+	set := nameSet(names)
+
+	return func(dec *jsontext.Decoder, d *civil.Date) error {
+		if !set[memberName(dec.StackPointer())] {
+			return errors.ErrUnsupported
+		}
+
+		return DateUnmarshalIntUnix(dec, d)
+	}
 }

@@ -27,10 +27,13 @@ type Document struct {
 	HasDateFields          bool        `json:"hasDateFields,omitzero"`
 	HasDateTimeOrIntFields bool        `json:"hasDateTimeOrIntFields,omitzero"`
 	// HasUnixTimeFields and HasUnixDateFields are set when every time.Time, or every civil.Date, a JSON body holds is
-	// an integer of unix time, so that a marshaler for the type writes them all. Where some are and others are
-	// strings, the structs holding the former list them in [Schema.Unix] instead.
+	// an integer of unix time, so that a marshaler for the type writes them all.
 	HasUnixTimeFields bool `json:"hasUnixTimeFields,omitzero"`
 	HasUnixDateFields bool `json:"hasUnixDateFields,omitzero"`
+	// UnixTimeMembers and UnixDateMembers are, where some date-times, or dates, are integers of unix time and others
+	// strings, the names of the object members holding the former: a marshaler for the type writes those alone.
+	UnixTimeMembers []string `json:"unixTimeMembers,omitempty"`
+	UnixDateMembers []string `json:"unixDateMembers,omitempty"`
 
 	// HasServerOverrides is true when any path item names a server of its own,
 	// which is what the generated serverURL helper is for.
@@ -243,9 +246,6 @@ type Schema struct {
 	// response leaves out.
 	ReadOnly  []string `json:"readOnly,omitempty"`
 	WriteOnly []string `json:"writeOnly,omitempty"`
-	// Unix are the fields, its own and those of the parts it embeds, written and read as unix time while other
-	// values of their type are strings.
-	Unix []UnixField `json:"unix,omitempty"`
 }
 
 // AllOfUnion is the union part of an allOf.
@@ -378,23 +378,10 @@ type Field struct {
 	IsDateTimeOrInt bool `json:"isDateTimeOrInt,omitzero"`
 
 	// IsUnix is true when Type is time.Time or civil.Date but the property's schema itself is an integer (format:
-	// date-time or date), see [integerGoType]: it is written and read as unix time, not as a string. Where all of
-	// them are, a marshaler for the type does it, see [Document.HasUnixTimeFields]; otherwise [Schema.Unix].
+	// date-time or date), see [integerGoType]: it is written and read as unix time, not as a string, see
+	// [Document.HasUnixTimeFields] and [Document.UnixTimeMembers].
 	IsUnix bool `json:"isUnix,omitzero"`
 }
-
-// UnixField is a field of a struct written and read as unix time while other values of its type are strings.
-type UnixField struct {
-	// Selector is the field, as a Go selector through embedded parts, e.g. "Meta.Created".
-	Selector string `json:"selector,omitzero"`
-	// JSONTag is the field's tag.
-	JSONTag string `json:"jsonTag,omitzero"`
-	// Type is the generated type a pointer to the field converts to, "unixTime" or "unixDate".
-	Type string `json:"type,omitzero"`
-}
-
-// Name is the field's own name, the last part of its selector.
-func (f UnixField) Name() string { return f.Selector[strings.LastIndex(f.Selector, ".")+1:] }
 
 // EnumValue is one member of an enum type.
 type EnumValue struct {
@@ -653,18 +640,6 @@ func (s Schema) EncodesItself() bool {
 // HasReadOnly reports whether a type has fields a request leaves out.
 func (doc Document) HasReadOnly() bool {
 	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.ReadOnly) > 0 })
-}
-
-// HasUnixFields reports whether a struct has fields written as unix time while other values of their type are not.
-func (doc Document) HasUnixFields() bool {
-	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return len(s.Unix) > 0 })
-}
-
-// HasUnixFieldsOf reports whether a struct has fields of the generated type named, see [UnixField.Type].
-func (doc Document) HasUnixFieldsOf(tp string) bool {
-	return slices.ContainsFunc(doc.Schemas, func(s Schema) bool {
-		return slices.ContainsFunc(s.Unix, func(f UnixField) bool { return f.Type == tp })
-	})
 }
 
 // HasWriteOnly reports whether a type has fields a response leaves out.

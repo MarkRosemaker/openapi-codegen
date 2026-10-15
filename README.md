@@ -163,11 +163,12 @@ How the specification maps onto Go:
   a `civil.Date`, the Unix time of its midnight UTC, the same Go types as their
   string forms. Where every one of them is an integer, a marshaler for the type
   writes them all. Where integers and strings mix, as in a date written both as
-  `1759190400` and as `"2025-09-30"`, a struct converts only its own integer
-  fields, and those of the parts it embeds, to a type generated for it,
-  `unixDate` or `unixTime`, that writes itself with jsonutil; the rest stay
-  strings. A oneOf of a date-time and an integer
-  reads either and is written as the others are, or as a string where they mix.
+  `1759190400` and as `"2025-09-30"`, the JSON options name the members holding
+  integers, through jsonutil's `DateMarshalIntUnixFor` and the like, and the rest
+  stay strings. A member name that holds an integer in one schema and a string
+  in another fails generation, since its name cannot tell them apart. A oneOf of
+  a date-time and an integer reads either and is written as the others are, or
+  as a string where they mix.
 - **Authentication** — each operation sends the credential its own `security`
   names, else the document's: a bearer token or basic auth, read from the
   environment. Where a document uses both, `NewClient` requires at least one, and

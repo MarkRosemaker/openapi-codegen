@@ -2,107 +2,60 @@ package ir
 
 import (
 	"fmt"
+	"maps"
+	"slices"
 	"strings"
 )
 
-// unixTypes are the Go types an integer of unix time can be, with the generated type that writes one field of them as
-// such.
-var unixTypes = map[string]string{
-	"time.Time":  "unixTime",
-	"civil.Date": "unixDate",
+// unixMode is how a document's values of one Go type that are integers of unix time are written and read.
+type unixMode struct {
+	// all is set when every value of the type is one: a marshaler for the type writes them all.
+	all bool
+	// members are, where others are strings, the names of the object members holding the integers.
+	members []string
 }
 
-// markUnixFields decides how the date-times and dates that are integers of unix time are written and read. Where every
-// time.Time, or every civil.Date, a struct holds is one, a marshaler for the type writes them all: allTime and allDate
-// say so. Where they are mixed with strings, each struct lists its own in [Schema.Unix], with those of the parts it
-// embeds, which encoding inlines.
-func markUnixFields(schemas []Schema) (allTime, allDate bool, err error) {
-	unix, other := map[string]bool{}, map[string]bool{}
+// markUnix decides, for time.Time and civil.Date, how the values that are integers of unix time are written and read:
+// all of them by one marshaler, or, among strings, by the names of the members holding them.
+func markUnix(schemas []Schema) (times, dates unixMode, err error) {
+	for goType, mode := range map[string]*unixMode{"time.Time": &times, "civil.Date": &dates} {
+		unix, other := map[string]bool{}, map[string]bool{}
 
-	for _, s := range schemas {
-		for _, f := range s.Fields {
-			for goType := range unixTypes {
+		for _, s := range schemas {
+			for _, f := range s.Fields {
 				switch {
-				case f.IsUnix && strings.TrimLeft(f.Type, "*[]") == goType:
-					unix[goType] = true
+				case f.Embedded || !containsType(f.Type, goType):
 				case f.IsDateTimeOrInt:
-					// either form will do, so it is written as the others are, or as a string where they differ
-				case containsType(f.Type, goType):
-					other[goType] = true
+					// either form will do: it is written as the others are, or as a string where they differ
+				case f.IsUnix:
+					if strings.Contains(f.Type, "map[") {
+						return unixMode{}, unixMode{}, fmt.Errorf("%s.%s: a map of integer %s is not supported", s.Name, f.Name, goType)
+					}
+
+					unix[f.JSONName] = true
+				default:
+					other[f.JSONName] = true
 				}
 			}
 		}
-	}
 
-	perField := map[string]bool{}
-	for goType := range unixTypes {
-		perField[goType] = unix[goType] && other[goType]
-	}
-
-	byName := make(map[string]*Schema, len(schemas))
-	for i := range schemas {
-		byName[schemas[i].Name] = &schemas[i]
-	}
-
-	var fields func(s *Schema, seen map[string]bool) ([]UnixField, error)
-
-	fields = func(s *Schema, seen map[string]bool) ([]UnixField, error) {
-		var out []UnixField
-
-		for _, f := range s.Fields {
-			if !f.Embedded {
-				if !f.IsUnix || !perField[strings.TrimLeft(f.Type, "*[]")] {
-					continue
+		switch {
+		case len(unix) == 0:
+		case len(other) == 0:
+			mode.all = true
+		default:
+			for name := range unix {
+				switch {
+				case other[name]:
+					return unixMode{}, unixMode{}, fmt.Errorf("member %q holds an integer %s in one schema and a string in another, which its name cannot tell apart", name, goType)
+				case strings.Trim(name, "0123456789") == "":
+					return unixMode{}, unixMode{}, fmt.Errorf("member %q: an integer %s among strings needs a name that is no number", name, goType)
 				}
-
-				tp, ok := unixTypes[f.Type]
-				if !ok {
-					return nil, fmt.Errorf("field %s: an integer %s among strings is only supported as a value of its own, not as %s",
-						f.Name, strings.TrimLeft(f.Type, "*[]"), f.Type)
-				}
-
-				out = append(out, UnixField{Selector: f.Name, JSONTag: f.JSONTag, Type: tp})
-
-				continue
 			}
 
-			part := byName[strings.TrimPrefix(f.Type, "*")]
-			if part == nil || seen[part.Name] {
-				continue
-			}
-
-			seen[part.Name] = true
-
-			inner, err := fields(part, seen)
-			if err != nil {
-				return nil, err
-			}
-
-			if len(inner) > 0 && strings.HasPrefix(f.Type, "*") {
-				return nil, fmt.Errorf("embedded %s: a part with an integer date among strings is only supported embedded as a value, not as a pointer", f.Type)
-			}
-
-			for _, u := range inner {
-				u.Selector = part.Name + "." + u.Selector
-				out = append(out, u)
-			}
-		}
-
-		return out, nil
-	}
-
-	for i := range schemas {
-		s := &schemas[i]
-
-		s.Unix, err = fields(s, map[string]bool{s.Name: true})
-		if err != nil {
-			return false, false, fmt.Errorf("%s: %w", s.Name, err)
-		}
-
-		if len(s.Unix) > 0 && (s.EncodesItself() || s.MemberDecoder) {
-			return false, false, fmt.Errorf("%s: an integer date among strings is not supported in a type that encodes itself", s.Name)
+			mode.members = slices.Sorted(maps.Keys(unix))
 		}
 	}
 
-	return unix["time.Time"] && !other["time.Time"], unix["civil.Date"] && !other["civil.Date"], nil
+	return times, dates, nil
 }
