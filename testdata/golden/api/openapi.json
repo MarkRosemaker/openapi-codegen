@@ -2057,6 +2057,9 @@
           },
           "starts": {
             "$ref": "#/components/schemas/DateWrapper"
+          },
+          "odd": {
+            "$ref": "#/components/schemas/OddNames"
           }
         }
       },
@@ -2307,6 +2310,39 @@
         "example": {
           "raw": 1759190400,
           "fmt": "2025-09-30"
+        }
+      },
+      "SecFilingType": {
+        "description": "Values a Go name cannot hold as they are.",
+        "type": "string",
+        "enum": [
+          "S-3",
+          "10-K",
+          "S-3/A",
+          "A|B",
+          "*",
+          ""
+        ]
+      },
+      "OddNames": {
+        "description": "Member names a Go name cannot hold as they are, two of them the same once it can.",
+        "type": "object",
+        "properties": {
+          "$ref": {
+            "type": "string"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "a-b": {
+            "type": "string"
+          },
+          "aB": {
+            "type": "string"
+          },
+          "filing": {
+            "$ref": "#/components/schemas/SecFilingType"
+          }
         }
       }
     }

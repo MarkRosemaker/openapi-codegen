@@ -1554,6 +1554,16 @@ type Note struct {
 	Note string `json:"note"`
 }
 
+// Member names a Go name cannot hold as they are, two of them the same once it can.
+type OddNames struct {
+	Ref  string `json:"$ref,omitzero"`
+	Type string `json:"@type,omitzero"`
+	AB   string `json:"a-b,omitzero"`
+	AB2  string `json:"aB,omitzero"`
+	// Values a Go name cannot hold as they are.
+	Filing SecFilingType `json:"filing,omitzero"`
+}
+
 // Order defines a model
 // Order is an untagged oneOf union: exactly one field is set after unmarshaling.
 type Order struct {
@@ -2288,6 +2298,8 @@ type Schedule struct {
 	Labels Labels `json:"labels,omitzero"`
 	// A date written twice: as an integer, a Unix time among dates written as strings, and formatted.
 	Starts DateWrapper `json:"starts,omitzero"`
+	// Member names a Go name cannot hold as they are, two of them the same once it can.
+	Odd *OddNames `json:"odd,omitzero"`
 }
 
 // What it extends requires something, so {} is no value: no pointer.
@@ -2316,6 +2328,28 @@ func (e ScheduleFormat) Valid() bool {
 // Leaving it out already means {}: no pointer.
 type ScheduleOptions struct {
 	Timezone string `json:"timezone,omitzero"`
+}
+
+// Values a Go name cannot hold as they are.
+type SecFilingType string
+
+const (
+	SecFilingTypeS3       SecFilingType = "S-3"
+	SecFilingTypeOneZeroK SecFilingType = "10-K"
+	SecFilingTypeS3A      SecFilingType = "S-3/A"
+	SecFilingTypeAB       SecFilingType = "A|B"
+	SecFilingTypeU002A    SecFilingType = "*"
+	SecFilingTypeEmpty    SecFilingType = ""
+)
+
+// Valid indicates whether the value is a known member of the SecFilingType enum.
+func (e SecFilingType) Valid() bool {
+	switch e {
+	case SecFilingTypeS3, SecFilingTypeOneZeroK, SecFilingTypeS3A, SecFilingTypeAB, SecFilingTypeU002A, SecFilingTypeEmpty:
+		return true
+	default:
+		return false
+	}
 }
 
 // SelectGroup defines a model
