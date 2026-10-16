@@ -2833,6 +2833,43 @@
 			]
 		},
 		{
+			"name": "OddNames",
+			"description": "Member names a Go name cannot hold as they are, two of them the same once it can.",
+			"fields": [
+				{
+					"name": "Ref",
+					"jsonName": "$ref",
+					"type": "string",
+					"jsonTag": "json:\"$ref,omitzero\""
+				},
+				{
+					"name": "Type",
+					"jsonName": "@type",
+					"type": "string",
+					"jsonTag": "json:\"@type,omitzero\""
+				},
+				{
+					"name": "AB",
+					"jsonName": "a-b",
+					"type": "string",
+					"jsonTag": "json:\"a-b,omitzero\""
+				},
+				{
+					"name": "AB2",
+					"jsonName": "aB",
+					"type": "string",
+					"jsonTag": "json:\"aB,omitzero\""
+				},
+				{
+					"name": "Filing",
+					"jsonName": "filing",
+					"type": "SecFilingType",
+					"jsonTag": "json:\"filing,omitzero\"",
+					"description": "Values a Go name cannot hold as they are."
+				}
+			]
+		},
+		{
 			"name": "Order",
 			"description": "Order defines a model",
 			"kind": 5,
@@ -3754,6 +3791,13 @@
 					"type": "DateWrapper",
 					"jsonTag": "json:\"starts,omitzero\"",
 					"description": "A date written twice: as an integer, a Unix time among dates written as strings, and formatted."
+				},
+				{
+					"name": "Odd",
+					"jsonName": "odd",
+					"type": "*OddNames",
+					"jsonTag": "json:\"odd,omitzero\"",
+					"description": "Member names a Go name cannot hold as they are, two of them the same once it can."
 				}
 			]
 		},
@@ -3799,6 +3843,43 @@
 					"jsonName": "timezone",
 					"type": "string",
 					"jsonTag": "json:\"timezone,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "SecFilingType",
+			"description": "Values a Go name cannot hold as they are.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "SecFilingTypeS3",
+					"value": "S-3",
+					"literal": "\"S-3\""
+				},
+				{
+					"goName": "SecFilingTypeOneZeroK",
+					"value": "10-K",
+					"literal": "\"10-K\""
+				},
+				{
+					"goName": "SecFilingTypeS3A",
+					"value": "S-3/A",
+					"literal": "\"S-3/A\""
+				},
+				{
+					"goName": "SecFilingTypeAB",
+					"value": "A|B",
+					"literal": "\"A|B\""
+				},
+				{
+					"goName": "SecFilingTypeU002A",
+					"value": "*",
+					"literal": "\"*\""
+				},
+				{
+					"goName": "SecFilingTypeEmpty",
+					"literal": "\"\""
 				}
 			]
 		},

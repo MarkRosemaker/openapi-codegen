@@ -3,6 +3,7 @@ package ir_test
 import (
 	"encoding/json/jsontext"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -1169,6 +1170,12 @@ func TestFieldGoName(t *testing.T) {
 		{"error", "Err"}, // avoid colliding with the error interface's Error() method
 		{"Error", "Err"},
 		{"ERROR", "Err"},
+		{"$ref", "Ref"}, // what a Go name cannot hold only separates words
+		{"@type", "Type"},
+		{"a&b", "AB"},
+		{"50%", "FiveZero"},
+		{"*", "U002A"}, // nothing left: its code points
+		{"日本", "X日本"},  // a name not capitalized is exported all the same
 	}
 	for _, tc := range tests {
 		t.Run(tc.in, func(t *testing.T) {
@@ -1663,5 +1670,32 @@ func TestFromComponentSchemas_EnumConstNames(t *testing.T) {
 
 	if want := "MethodModifyCurrentLayer MethodModifyCurrentLayerOnlyChanges MethodDontStop"; strings.Join(names, " ") != want {
 		t.Errorf("got %v, want %s", names, want)
+	}
+}
+
+func TestEnumConstNames(t *testing.T) {
+	t.Parallel()
+
+	// every member a Go name, though its value is not one, and no two the same
+	values := []string{"S-3", "10-K", "S-3/A", "A|B", "A B", "*", "", "ABC", "A_B"}
+	want := []string{"TS3", "TOneZeroK", "TS3A", "TAB", "TAB2", "TU002A", "TEmpty", "TABC", "TA_B"}
+
+	enum := make([]jsontext.Value, len(values))
+	for i, v := range values {
+		enum[i] = jsontext.Value(strconv.Quote(v))
+	}
+
+	schemas := openapi.Schemas{}
+	schemas.Set("T", &openapi.Schema{Type: openapi.TypeString, Enum: enum})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for i, ev := range got[0].EnumValues {
+		if ev.GoName != want[i] {
+			t.Errorf("%q: got %s, want %s", values[i], ev.GoName, want[i])
+		}
 	}
 }
