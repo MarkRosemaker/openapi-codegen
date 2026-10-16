@@ -51,7 +51,7 @@ func buildMinimalDoc() *openapi.Document {
 
 	// GET /pets → listPets
 	listPetsOp := &openapi.Operation{OperationID: "listPets", Summary: "List pets"}
-	listPetsOp.Responses = openapi.OperationResponses{}
+	listPetsOp.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	listPetsOp.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("PetList")))
 
 	// GET /pets/{petId} → getPet
@@ -60,7 +60,7 @@ func buildMinimalDoc() *openapi.Document {
 		OperationID: "getPet",
 		Parameters:  openapi.ParameterList{petIDParam},
 	}
-	getPetOp.Responses = openapi.OperationResponses{}
+	getPetOp.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	getPetOp.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("Pet")))
 
 	// POST /pets → createPet
@@ -71,7 +71,7 @@ func buildMinimalDoc() *openapi.Document {
 	createRB := &openapi.RequestBodyRef{}
 	createRB.Value = &openapi.RequestBody{Content: newPetContent, Required: true}
 	createPetOp := &openapi.Operation{OperationID: "createPet", RequestBody: createRB}
-	createPetOp.Responses = openapi.OperationResponses{}
+	createPetOp.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	createPetOp.Responses.Set("201", makeResponse("Created", "application/json", makeNamedRef("Pet")))
 
 	doc.Paths = openapi.Paths{}
@@ -207,7 +207,7 @@ func TestFromDocument_SpecialImports(t *testing.T) {
 	doc.Components.Schemas.Set("Thing", urlSchema)
 
 	listOp := &openapi.Operation{OperationID: "listThings"}
-	listOp.Responses = openapi.OperationResponses{}
+	listOp.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	listOp.Responses.Set("200", makeResponse("OK", "", nil))
 
 	doc.Paths = openapi.Paths{}
@@ -238,7 +238,7 @@ func TestFromDocument_SpecialImports_UnixTime(t *testing.T) {
 	doc.Components.Schemas.Set("Event", eventSchema)
 
 	listOp := &openapi.Operation{OperationID: "listEvents"}
-	listOp.Responses = openapi.OperationResponses{}
+	listOp.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	listOp.Responses.Set("200", makeResponse("OK", "", nil))
 
 	doc.Paths = openapi.Paths{}

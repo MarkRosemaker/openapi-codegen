@@ -46,7 +46,7 @@ func TestFromOperation_Basic(t *testing.T) {
 		OperationID: "listPets",
 		Summary:     "List all pets",
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("PetList")))
 
 	got, err := ir.FromOperation("/pets", nil, "GET", op, nil)
@@ -91,7 +91,7 @@ func TestFromOperation_RawBytesSuccess(t *testing.T) {
 	// A success response with no JSON media type (e.g. text/plain) is
 	// exposed as a raw []byte read from the body, not a JSON-decoded type.
 	op := &openapi.Operation{OperationID: "getLlmsTxt"}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "text/plain", makeNamedRef("Unused")))
 
 	got, err := ir.FromOperation("/llms.txt", nil, "GET", op, nil)
@@ -124,7 +124,7 @@ func TestFromOperation_RawBytesErrorOnly(t *testing.T) {
 	// A non-success response with no JSON media type is raw bytes too, but
 	// doesn't make the operation's SuccessReturn itself raw bytes.
 	op := &openapi.Operation{OperationID: "getThing"}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("Thing")))
 	op.Responses.Set("403", makeResponse("Forbidden", "text/html", makeNamedRef("Unused")))
 
@@ -162,7 +162,7 @@ func TestFromOperation_RawBytesErrorOnly(t *testing.T) {
 func TestFromOperation_JSONPreferredOverRawBytes(t *testing.T) {
 	// When a response declares both a JSON and a non-JSON media type, JSON wins.
 	op := &openapi.Operation{OperationID: "getThing"}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	r := &openapi.Response{Description: "OK"}
 	r.Content = openapi.Content{}
 	r.Content.Set("text/plain", &openapi.MediaType{})
@@ -197,7 +197,7 @@ func TestFromOperation_PathParam(t *testing.T) {
 		OperationID: "getPetById",
 		Parameters:  params,
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("Pet")))
 
 	got, err := ir.FromOperation("/pets/{petId}", nil, "GET", op, nil)
@@ -263,7 +263,7 @@ func TestFromOperation_PathParamEnumRef(t *testing.T) {
 	}}
 
 	op := &openapi.Operation{OperationID: "getByStatus", Parameters: params}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("Pet")))
 
 	got, err := ir.FromOperation("/pets/{status}", nil, "GET", op, nil)
@@ -307,7 +307,7 @@ func TestFromOperation_EnumParamNotZeroFormatExpr(t *testing.T) {
 	}}
 
 	op := &openapi.Operation{OperationID: "listPets", Parameters: params}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("PetList")))
 
 	got, err := ir.FromOperation("/pets", nil, "GET", op, nil)
@@ -352,7 +352,7 @@ func TestFromOperation_NamedScalarParamNotZeroFormatExpr(t *testing.T) {
 	}}
 
 	op := &openapi.Operation{OperationID: "listPets", Parameters: params}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("PetList")))
 
 	got, err := ir.FromOperation("/pets", nil, "GET", op, nil)
@@ -395,7 +395,7 @@ func TestFromOperation_QueryParams(t *testing.T) {
 		OperationID: "listPets",
 		Parameters:  params,
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", makeNamedRef("PetList")))
 
 	got, err := ir.FromOperation("/pets", nil, "GET", op, nil)
@@ -434,7 +434,7 @@ func TestFromOperation_ObjectQueryParam(t *testing.T) {
 			OperationID: "find",
 			Parameters:  openapi.ParameterList{makeParam("filter", openapi.ParameterLocationQuery, false, schema)},
 		}
-		op.Responses = openapi.OperationResponses{}
+		op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 		op.Responses.Set("204", makeResponse("ok", "", nil))
 
 		return op
@@ -483,7 +483,7 @@ func TestFromOperation_QueryParamRefDescriptionOverride(t *testing.T) {
 		OperationID: "getFoo",
 		Parameters:  openapi.ParameterList{withOverride},
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", nil))
 
 	got, err := ir.FromOperation("/foo", nil, "GET", op, nil)
@@ -514,7 +514,7 @@ func TestFromOperation_QueryParamRefDescriptionOverride(t *testing.T) {
 		OperationID: "getBar",
 		Parameters:  openapi.ParameterList{withoutOverride},
 	}
-	op2.Responses = openapi.OperationResponses{}
+	op2.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op2.Responses.Set("200", makeResponse("OK", "application/json", nil))
 
 	got2, err := ir.FromOperation("/bar", nil, "GET", op2, nil)
@@ -547,7 +547,7 @@ func TestFromOperation_ResponseRefDescriptionOverride(t *testing.T) {
 	}
 
 	op := &openapi.Operation{OperationID: "stopTimeEntry"}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", withOverride)
 
 	got, err := ir.FromOperation("/time_entries/stop", nil, "POST", op, nil)
@@ -571,7 +571,7 @@ func TestFromOperation_ResponseRefDescriptionOverride(t *testing.T) {
 	}
 
 	op2 := &openapi.Operation{OperationID: "getTimeEntry"}
-	op2.Responses = openapi.OperationResponses{}
+	op2.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op2.Responses.Set("200", withoutOverride)
 
 	got2, err := ir.FromOperation("/time_entries/{id}", nil, "GET", op2, nil)
@@ -607,7 +607,7 @@ func TestFromOperation_PathItemParamsMerge(t *testing.T) {
 		OperationID: "listPets",
 		Parameters:  opParams,
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "application/json", nil))
 
 	got, err := ir.FromOperation("/pets", pathItemParams, "GET", op, nil)
@@ -646,7 +646,7 @@ func TestFromOperation_RequestBody(t *testing.T) {
 		OperationID: "createPet",
 		RequestBody: rb,
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("201", makeResponse("Created", "", nil))
 
 	got, err := ir.FromOperation("/pets", nil, "POST", op, nil)
@@ -691,7 +691,7 @@ func TestStatusCodeToConst(t *testing.T) {
 	codes := []openapi.StatusCode{"200", "201", "204", "400", "401", "403", "404", "429", "500"}
 	for i, tc := range tests {
 		op := &openapi.Operation{OperationID: "testOp"}
-		op.Responses = openapi.OperationResponses{}
+		op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 		op.Responses.Set(codes[i], makeResponse("desc", "", nil))
 
 		got, err := ir.FromOperation("/test", nil, "GET", op, nil)
@@ -716,7 +716,7 @@ func TestFromOperation_ParamMissingSchema(t *testing.T) {
 		OperationID: "getItem",
 		Parameters:  openapi.ParameterList{p},
 	}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "", nil))
 
 	_, err := ir.FromOperation("/items/{id}", nil, "GET", op, nil)
@@ -735,7 +735,7 @@ func TestFromOperation_RequestBodyNoSchema(t *testing.T) {
 	rb.Value = &openapi.RequestBody{Content: c}
 
 	op := &openapi.Operation{OperationID: "createItem", RequestBody: rb}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("201", makeResponse("Created", "", nil))
 
 	got, err := ir.FromOperation("/items", nil, "POST", op, nil)
@@ -750,7 +750,7 @@ func TestFromOperation_RequestBodyNoSchema(t *testing.T) {
 
 func TestFromOperation_RangeStatusCode(t *testing.T) {
 	op := &openapi.Operation{OperationID: "testOp"}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("2XX", makeResponse("OK", "", nil))
 
 	got, err := ir.FromOperation("/test", nil, "GET", op, nil)
@@ -788,7 +788,7 @@ func TestJSPathTemplate(t *testing.T) {
 
 func TestFromOperation_Deprecated(t *testing.T) {
 	op := &openapi.Operation{OperationID: "oldOp", Deprecated: true}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "", nil))
 
 	got, err := ir.FromOperation("/old", nil, "GET", op, nil)
@@ -834,7 +834,7 @@ func TestFormatAndNotZeroExprs(t *testing.T) {
 		schema := &openapi.Schema{Type: tc.typ, Format: tc.format}
 		params := openapi.ParameterList{makeParam("name", openapi.ParameterLocationQuery, false, schema)}
 		op := &openapi.Operation{OperationID: "testOp", Parameters: params}
-		op.Responses = openapi.OperationResponses{}
+		op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 		op.Responses.Set("200", makeResponse("OK", "", nil))
 
 		got, err := ir.FromOperation("/test", nil, "GET", op, nil)

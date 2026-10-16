@@ -23,7 +23,7 @@ func unixDoc(schemas map[string]*openapi.Schema) *openapi.Document {
 	}
 
 	op := &openapi.Operation{OperationID: "listEvents"}
-	op.Responses = openapi.OperationResponses{}
+	op.Responses = openapi.OperationResponses{} //nolint:exhaustive
 	op.Responses.Set("200", makeResponse("OK", "", nil))
 
 	doc.Paths = openapi.Paths{}
