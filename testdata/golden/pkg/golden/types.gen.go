@@ -27,13 +27,15 @@ var jsonOpts = json.JoinOptions(
 	json.WithMarshalers(json.JoinMarshalers(
 		json.MarshalToFunc(jsonutil.URLMarshal),
 		json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
-		json.MarshalToFunc(jsonutil.TimeMarshalIntUnix),
+		json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
+		json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	)),
 	json.WithUnmarshalers(json.JoinUnmarshalers(
+		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixFor("at")),
+		json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnixFor("expires", "raw")),
 		json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalStringOrIntUnix),
 		json.UnmarshalFromFunc(jsonutil.DurationUnmarshalIntSeconds),
-		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnix),
 	)),
 )
 
@@ -46,7 +48,8 @@ var jsonOptsLenient = json.JoinOptions(jsonOpts, json.RejectUnknownMembers(false
 var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
 	json.MarshalToFunc(jsonutil.URLMarshal),
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
-	json.MarshalToFunc(jsonutil.TimeMarshalIntUnix),
+	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
+	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error {
 		v.Created = Meta{}.Created
 
@@ -79,7 +82,8 @@ var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMa
 var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMarshalers(
 	json.MarshalToFunc(jsonutil.URLMarshal),
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
-	json.MarshalToFunc(jsonutil.TimeMarshalIntUnix),
+	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
+	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
 		v.Password = User{}.Password
 
@@ -145,6 +149,8 @@ type QueryStylesParams struct {
 	At time.Time
 	// A date.
 	On civil.Date
+	// A date as a Unix time.
+	Day civil.Date
 	// A URL.
 	Site url.URL
 	// An IP address.
@@ -670,6 +676,12 @@ type CreateView struct {
 // Date defines a model
 type Date struct {
 	Start string `json:"start"`
+}
+
+// A date written twice: as an integer, a Unix time among dates written as strings, and formatted.
+type DateWrapper struct {
+	Raw civil.Date `json:"raw"`
+	Fmt string     `json:"fmt"`
 }
 
 // Emoji defines a model
@@ -1417,6 +1429,8 @@ func (e MemberPersonMembershipType) Valid() bool {
 // Meta defines a model
 type Meta struct {
 	Created time.Time `json:"created,omitzero"`
+	// An integer date among strings, in a part others embed.
+	Expires civil.Date `json:"expires,omitzero"`
 }
 
 // Referred to by every alternative of NestedValue: a shared member compares by reference.
@@ -2272,6 +2286,8 @@ type Schedule struct {
 	Link url.URL `json:"link,omitzero"`
 	// A map of its own.
 	Labels Labels `json:"labels,omitzero"`
+	// A date written twice: as an integer, a Unix time among dates written as strings, and formatted.
+	Starts DateWrapper `json:"starts,omitzero"`
 }
 
 // What it extends requires something, so {} is no value: no pointer.

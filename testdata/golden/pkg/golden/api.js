@@ -206,6 +206,7 @@ window.API = {
         if (params.every != null) q.set("every", String(params.every));
         if (params.at != null) q.set("at", String(params.at));
         if (params.on != null) q.set("on", String(params.on));
+        if (params.day != null) q.set("day", String(params.day));
         if (params.site != null) q.set("site", String(params.site));
         if (params.ip != null) q.set("ip", String(params.ip));
         if (params.level != null) q.set("level", String(params.level));

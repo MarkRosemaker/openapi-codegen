@@ -158,7 +158,17 @@ How the specification maps onto Go:
   value is escaped, so every value arrives as it was sent. "X or an array of X"
   is sent as the array, any other union as a string, and `null` is dropped,
   since a query string cannot carry it. A duration is sent in whole seconds and
-  an integer date-time as a Unix time, as in a body.
+  an integer date-time or date as a Unix time, as in a body.
+- **Unix times** — an integer `date-time` is a `time.Time` and an integer `date`
+  a `civil.Date`, the Unix time of its midnight UTC, the same Go types as their
+  string forms. Where every one of them is an integer, a marshaler for the type
+  writes them all. Where integers and strings mix, as in a date written both as
+  `1759190400` and as `"2025-09-30"`, the JSON options name the members holding
+  integers, through jsonutil's `DateMarshalIntUnixFor` and the like, and the rest
+  stay strings. A member name that holds an integer in one schema and a string
+  in another fails generation, since its name cannot tell them apart. A oneOf of
+  a date-time and an integer reads either and is written as the others are, or
+  as a string where they mix.
 - **Authentication** — each operation sends the credential its own `security`
   names, else the document's: a bearer token or basic auth, read from the
   environment. Where a document uses both, `NewClient` requires at least one, and

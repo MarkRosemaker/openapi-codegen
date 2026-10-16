@@ -756,6 +756,15 @@
             }
           },
           {
+            "name": "day",
+            "in": "query",
+            "description": "A date as a Unix time.",
+            "schema": {
+              "type": "integer",
+              "format": "date"
+            }
+          },
+          {
             "name": "site",
             "in": "query",
             "description": "A URL.",
@@ -1260,6 +1269,11 @@
             "type": "string",
             "format": "date-time",
             "readOnly": true
+          },
+          "expires": {
+            "description": "An integer date among strings, in a part others embed.",
+            "type": "integer",
+            "format": "date"
           }
         }
       },
@@ -2040,6 +2054,9 @@
           },
           "labels": {
             "$ref": "#/components/schemas/Labels"
+          },
+          "starts": {
+            "$ref": "#/components/schemas/DateWrapper"
           }
         }
       },
@@ -2267,6 +2284,30 @@
             "$ref": "#/components/schemas/CompoundFilter"
           }
         ]
+      },
+      "DateWrapper": {
+        "description": "A date written twice: as an integer, a Unix time among dates written as strings, and formatted.",
+        "type": "object",
+        "properties": {
+          "raw": {
+            "type": "integer",
+            "format": "date",
+            "example": 1759190400
+          },
+          "fmt": {
+            "type": "string",
+            "pattern": "^(19|20)\\d{2}-\\d{2}-\\d{2}$",
+            "example": "2025-09-30"
+          }
+        },
+        "required": [
+          "raw",
+          "fmt"
+        ],
+        "example": {
+          "raw": 1759190400,
+          "fmt": "2025-09-30"
+        }
       }
     }
   }

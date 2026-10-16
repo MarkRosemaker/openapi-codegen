@@ -176,6 +176,14 @@
 					"type": "string",
 					"jsonTag": "json:\"id\"",
 					"required": true
+				},
+				{
+					"name": "Updated",
+					"jsonName": "updated",
+					"type": "civil.Date",
+					"jsonTag": "json:\"updated,omitzero\"",
+					"description": "Every date here is an integer, so one marshaler writes them all.",
+					"isUnix": true
 				}
 			]
 		},
@@ -252,5 +260,7 @@
 			"name": "DEBUG_TOKEN"
 		},
 		"default": "bearer"
-	}
+	},
+	"hasDateFields": true,
+	"hasUnixDateFields": true
 }

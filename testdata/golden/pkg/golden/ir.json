@@ -973,7 +973,7 @@
 					"type": "time.Time",
 					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
 					"parseConv": "time.Unix(%s, 0)",
-					"isUnixTime": true,
+					"isUnix": true,
 					"description": "A Unix time."
 				},
 				{
@@ -984,6 +984,17 @@
 					"type": "civil.Date",
 					"parseExpr": "civil.ParseDate(%s)",
 					"description": "A date."
+				},
+				{
+					"varName": "params.Day",
+					"goName": "day",
+					"fieldName": "Day",
+					"jsonName": "day",
+					"type": "civil.Date",
+					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+					"parseConv": "civil.DateOf(time.Unix(%s, 0).UTC())",
+					"isUnix": true,
+					"description": "A date as a Unix time."
 				},
 				{
 					"varName": "params.Site",
@@ -1710,6 +1721,27 @@
 			]
 		},
 		{
+			"name": "DateWrapper",
+			"description": "A date written twice: as an integer, a Unix time among dates written as strings, and formatted.",
+			"fields": [
+				{
+					"name": "Raw",
+					"jsonName": "raw",
+					"type": "civil.Date",
+					"jsonTag": "json:\"raw\"",
+					"required": true,
+					"isUnix": true
+				},
+				{
+					"name": "Fmt",
+					"jsonName": "fmt",
+					"type": "string",
+					"jsonTag": "json:\"fmt\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "Emoji",
 			"description": "Emoji defines a model",
 			"fields": [
@@ -1736,6 +1768,7 @@
 					"type": "Record",
 					"members": [
 						"created",
+						"expires",
 						"record"
 					],
 					"required": [
@@ -1748,6 +1781,7 @@
 					"type": "Note",
 					"members": [
 						"created",
+						"expires",
 						"note"
 					],
 					"required": [
@@ -1762,6 +1796,7 @@
 					"type": "Record",
 					"members": [
 						"created",
+						"expires",
 						"record"
 					],
 					"required": [
@@ -1774,6 +1809,7 @@
 					"type": "Note",
 					"members": [
 						"created",
+						"expires",
 						"note"
 					],
 					"required": [
@@ -2612,6 +2648,14 @@
 					"type": "time.Time",
 					"jsonTag": "json:\"created,omitzero\"",
 					"readOnly": true
+				},
+				{
+					"name": "Expires",
+					"jsonName": "expires",
+					"type": "civil.Date",
+					"jsonTag": "json:\"expires,omitzero\"",
+					"description": "An integer date among strings, in a part others embed.",
+					"isUnix": true
 				}
 			],
 			"readOnly": [
@@ -2781,6 +2825,7 @@
 			],
 			"members": [
 				"created",
+				"expires",
 				"note"
 			],
 			"readOnly": [
@@ -3537,6 +3582,7 @@
 			],
 			"members": [
 				"created",
+				"expires",
 				"record"
 			],
 			"readOnly": [
@@ -3595,7 +3641,7 @@
 					"jsonTag": "json:\"at\"",
 					"description": "An integer date-time is a Unix time.",
 					"required": true,
-					"isUnixTime": true
+					"isUnix": true
 				},
 				{
 					"name": "Enabled",
@@ -3701,6 +3747,13 @@
 					"type": "Labels",
 					"jsonTag": "json:\"labels,omitzero\"",
 					"description": "A map of its own."
+				},
+				{
+					"name": "Starts",
+					"jsonName": "starts",
+					"type": "DateWrapper",
+					"jsonTag": "json:\"starts,omitzero\"",
+					"description": "A date written twice: as an integer, a Unix time among dates written as strings, and formatted."
 				}
 			]
 		},
@@ -4564,5 +4617,11 @@
 	"hasDurationFields": true,
 	"hasDateFields": true,
 	"hasDateTimeOrIntFields": true,
-	"hasUnixTimeFields": true
+	"unixTimeMembers": [
+		"at"
+	],
+	"unixDateMembers": [
+		"expires",
+		"raw"
+	]
 }
