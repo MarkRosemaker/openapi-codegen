@@ -756,6 +756,16 @@
             }
           },
           {
+            "name": "modules",
+            "in": "query",
+            "description": "A named array: the parameter keeps its name.",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Modules"
+            }
+          },
+          {
             "name": "day",
             "in": "query",
             "description": "A date as a Unix time.",
@@ -2343,6 +2353,19 @@
           "filing": {
             "$ref": "#/components/schemas/SecFilingType"
           }
+        }
+      },
+      "Module": {
+        "type": "string",
+        "enum": [
+          "price",
+          "summaryDetail"
+        ]
+      },
+      "Modules": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Module"
         }
       }
     }

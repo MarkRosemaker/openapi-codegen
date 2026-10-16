@@ -986,6 +986,23 @@
 					"description": "A date."
 				},
 				{
+					"varName": "params.Modules",
+					"goName": "modules",
+					"fieldName": "Modules",
+					"jsonName": "modules",
+					"type": "Modules",
+					"description": "A named array: the parameter keeps its name.",
+					"item": {
+						"varName": "v",
+						"type": "Module",
+						"parseExpr": "Module(%s)",
+						"parseErrFree": true,
+						"isEnum": true,
+						"baseType": "string"
+					},
+					"delimiter": ","
+				},
+				{
 					"varName": "params.Day",
 					"goName": "day",
 					"fieldName": "Day",
@@ -2661,6 +2678,30 @@
 			"readOnly": [
 				"Created"
 			]
+		},
+		{
+			"name": "Module",
+			"description": "Module defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "ModulePrice",
+					"value": "price",
+					"literal": "\"price\""
+				},
+				{
+					"goName": "ModuleSummaryDetail",
+					"value": "summaryDetail",
+					"literal": "\"summaryDetail\""
+				}
+			]
+		},
+		{
+			"name": "Modules",
+			"description": "Modules defines a model",
+			"kind": 2,
+			"type": "[]Module"
 		},
 		{
 			"name": "NestedID",

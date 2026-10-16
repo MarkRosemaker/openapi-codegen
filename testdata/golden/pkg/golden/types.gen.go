@@ -149,6 +149,8 @@ type QueryStylesParams struct {
 	At time.Time
 	// A date.
 	On civil.Date
+	// A named array: the parameter keeps its name.
+	Modules Modules
 	// A date as a Unix time.
 	Day civil.Date
 	// A URL.
@@ -1432,6 +1434,27 @@ type Meta struct {
 	// An integer date among strings, in a part others embed.
 	Expires civil.Date `json:"expires,omitzero"`
 }
+
+// Module defines a model
+type Module string
+
+const (
+	ModulePrice         Module = "price"
+	ModuleSummaryDetail Module = "summaryDetail"
+)
+
+// Valid indicates whether the value is a known member of the Module enum.
+func (e Module) Valid() bool {
+	switch e {
+	case ModulePrice, ModuleSummaryDetail:
+		return true
+	default:
+		return false
+	}
+}
+
+// Modules defines a model
+type Modules []Module
 
 // Referred to by every alternative of NestedValue: a shared member compares by reference.
 type NestedID string
