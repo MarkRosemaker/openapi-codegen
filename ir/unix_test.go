@@ -102,3 +102,34 @@ func TestUnix_AmongStrings_SameName(t *testing.T) {
 		t.Errorf("got %v, want an error saying why", err)
 	}
 }
+
+func TestUnix_Tuple(t *testing.T) {
+	t.Parallel()
+
+	intTime := func() *openapi.Schema {
+		return &openapi.Schema{Type: openapi.TypeInteger, Format: openapi.FormatDateTime}
+	}
+	tuple := &openapi.Schema{Type: openapi.TypeArray, PrefixItems: openapi.SchemaList{{Type: openapi.TypeString}, intTime()}}
+
+	// every date-time an integer, one at a tuple's position: one marshaler writes them all
+	irDoc, err := ir.FromDocument(unixDoc(map[string]*openapi.Schema{
+		"State":  tuple,
+		"States": object("time", intTime()),
+	}), "pkg", "", false, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !irDoc.HasUnixTimeFields || irDoc.UnixTimeMembers != nil {
+		t.Errorf("got package-wide %t and members %v, want true and none", irDoc.HasUnixTimeFields, irDoc.UnixTimeMembers)
+	}
+
+	// among strings, a position has no member name to be told apart by: it fails, saying why
+	_, err = ir.FromDocument(unixDoc(map[string]*openapi.Schema{
+		"State": tuple,
+		"Meta":  object("created", &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}),
+	}), "pkg", "", false, false)
+	if err == nil || !strings.Contains(err.Error(), "tuple") {
+		t.Errorf("got %v, want an error saying why", err)
+	}
+}
