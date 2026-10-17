@@ -2070,6 +2070,20 @@
           },
           "odd": {
             "$ref": "#/components/schemas/OddNames"
+          },
+          "strike": {
+            "description": "A number sent as a string, \"9.5\", and now and then as a number, 0.0: a float64, written as a string.",
+            "oneOf": [
+              {
+                "type": "string",
+                "example": "9.5"
+              },
+              {
+                "type": "number",
+                "format": "double",
+                "example": 0.0
+              }
+            ]
           }
         }
       },

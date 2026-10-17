@@ -2201,34 +2201,6 @@
 			]
 		},
 		{
-			"name": "Limit",
-			"description": "Limit defines a model",
-			"kind": 5,
-			"unionVariants": [
-				{
-					"fieldName": "Int",
-					"type": "int"
-				},
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				}
-			],
-			"choices": [
-				{
-					"fieldName": "Int",
-					"type": "int"
-				},
-				{
-					"fieldName": "String",
-					"type": "string",
-					"zero": "\"\""
-				}
-			],
-			"isOneOf": true
-		},
-		{
 			"name": "Link",
 			"description": "Link defines a model",
 			"fields": [
@@ -3839,6 +3811,14 @@
 					"type": "*OddNames",
 					"jsonTag": "json:\"odd,omitzero\"",
 					"description": "Member names a Go name cannot hold as they are, two of them the same once it can."
+				},
+				{
+					"name": "Strike",
+					"jsonName": "strike",
+					"type": "float64",
+					"jsonTag": "json:\"strike,omitzero,string\"",
+					"description": "A number sent as a string, \"9.5\", and now and then as a number, 0.0: a float64, written as a string.",
+					"isStringOrNumber": true
 				}
 			]
 		},
@@ -4739,6 +4719,7 @@
 	"hasDurationFields": true,
 	"hasDateFields": true,
 	"hasDateTimeOrIntFields": true,
+	"hasStringOrNumberFields": true,
 	"unixTimeMembers": [
 		"at"
 	],

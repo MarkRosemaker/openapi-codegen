@@ -1403,6 +1403,7 @@ func TestClient_Interactions(t *testing.T) {
 			Raw: civil.Date{Year: 2025, Month: 9, Day: 30},
 			Fmt: "2025-09-30",
 		},
+		Strike: 9.5,
 	}); err != nil {
 		t.Fatalf("CreateSchedule: %v", err)
 	}
