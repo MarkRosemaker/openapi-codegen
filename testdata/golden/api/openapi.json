@@ -766,6 +766,15 @@
             }
           },
           {
+            "name": "since",
+            "in": "query",
+            "description": "A date in ISO 8601's basic form.",
+            "schema": {
+              "type": "string",
+              "format": "date-basic"
+            }
+          },
+          {
             "name": "day",
             "in": "query",
             "description": "A date as a Unix time.",
@@ -2325,6 +2334,12 @@
             "type": "string",
             "pattern": "^(19|20)\\d{2}-\\d{2}-\\d{2}$",
             "example": "2025-09-30"
+          },
+          "settled": {
+            "description": "A date in ISO 8601's basic form, among dates of other forms.",
+            "type": "string",
+            "format": "date-basic",
+            "example": "20260320"
           }
         },
         "required": [

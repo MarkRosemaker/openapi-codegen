@@ -1064,7 +1064,7 @@ func parseQueryStylesArgs(req *http.Request) (page int, params QueryStylesParams
 
 	for k, vs := range query {
 		switch k {
-		case "csv", "spaced", "piped", "r", "g", "name", "fade", "colorCsv", "colorPiped", "weights", "next", "paths", "cells", "every", "at", "on", "modules", "day", "site", "ip", "level", "ratio", "v":
+		case "csv", "spaced", "piped", "r", "g", "name", "fade", "colorCsv", "colorPiped", "weights", "next", "paths", "cells", "every", "at", "on", "modules", "since", "day", "site", "ip", "level", "ratio", "v":
 			continue
 		}
 
@@ -1135,6 +1135,15 @@ func parseQueryStylesArgs(req *http.Request) (page int, params QueryStylesParams
 		for _, s := range parts {
 			params.Modules = append(params.Modules, Module(s))
 		}
+	}
+
+	if s := query.Get("since"); s != "" {
+		v, err := time.Parse("20060102", s)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid since: %w", err)
+		}
+
+		params.Since = civil.DateOf(v)
 	}
 
 	if s := query.Get("day"); s != "" {

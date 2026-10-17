@@ -133,3 +133,49 @@ func TestUnix_Tuple(t *testing.T) {
 		t.Errorf("got %v, want an error saying why", err)
 	}
 }
+
+func TestDateBasic(t *testing.T) {
+	t.Parallel()
+
+	basic := func() *openapi.Schema {
+		return &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateBasic}
+	}
+
+	// every date in ISO 8601's basic form: one marshaler writes them all
+	irDoc, err := ir.FromDocument(unixDoc(map[string]*openapi.Schema{
+		"Event": object("day", basic()),
+	}), "pkg", "", false, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !irDoc.HasBasicDateFields || irDoc.BasicDateMembers != nil {
+		t.Errorf("got package-wide %t and members %v, want true and none", irDoc.HasBasicDateFields, irDoc.BasicDateMembers)
+	}
+
+	if f := irDoc.Schemas[0].Fields[0]; f.Type != "civil.Date" || !f.IsDateBasic {
+		t.Errorf("got %s, basic form %t; want civil.Date in it", f.Type, f.IsDateBasic)
+	}
+
+	// beside an integer date: each form is named by its members
+	irDoc, err = ir.FromDocument(unixDoc(map[string]*openapi.Schema{
+		"Event": object("day", basic(), "raw", intDate()),
+	}), "pkg", "", false, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !reflect.DeepEqual(irDoc.BasicDateMembers, []string{"day"}) || !reflect.DeepEqual(irDoc.UnixDateMembers, []string{"raw"}) ||
+		irDoc.HasBasicDateFields || irDoc.HasUnixDateFields {
+		t.Errorf("got basic %v and integer %v, want [day] and [raw], neither package-wide", irDoc.BasicDateMembers, irDoc.UnixDateMembers)
+	}
+
+	// one name in two forms cannot be told apart
+	_, err = ir.FromDocument(unixDoc(map[string]*openapi.Schema{
+		"A": object("day", basic()),
+		"B": object("day", strDate()),
+	}), "pkg", "", false, false)
+	if err == nil || !strings.Contains(err.Error(), "cannot tell apart") {
+		t.Errorf("got %v, want an error saying why", err)
+	}
+}

@@ -1003,6 +1003,17 @@
 					"delimiter": ","
 				},
 				{
+					"varName": "params.Since",
+					"goName": "since",
+					"fieldName": "Since",
+					"jsonName": "since",
+					"type": "civil.Date",
+					"parseExpr": "time.Parse(\"20060102\", %s)",
+					"parseConv": "civil.DateOf(%s)",
+					"isDateBasic": true,
+					"description": "A date in ISO 8601's basic form."
+				},
+				{
 					"varName": "params.Day",
 					"goName": "day",
 					"fieldName": "Day",
@@ -1755,6 +1766,14 @@
 					"type": "string",
 					"jsonTag": "json:\"fmt\"",
 					"required": true
+				},
+				{
+					"name": "Settled",
+					"jsonName": "settled",
+					"type": "civil.Date",
+					"jsonTag": "json:\"settled,omitzero\"",
+					"description": "A date in ISO 8601's basic form, among dates of other forms.",
+					"isDateBasic": true
 				}
 			]
 		},
@@ -4726,5 +4745,8 @@
 	"unixDateMembers": [
 		"expires",
 		"raw"
+	],
+	"basicDateMembers": [
+		"settled"
 	]
 }

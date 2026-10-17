@@ -1400,8 +1400,9 @@ func TestClient_Interactions(t *testing.T) {
 		Count:   2,
 		Until:   time.Date(2026, 10, 9, 10, 0, 0, 0, time.UTC),
 		Starts: DateWrapper{
-			Raw: civil.Date{Year: 2025, Month: 9, Day: 30},
-			Fmt: "2025-09-30",
+			Raw:     civil.Date{Year: 2025, Month: 9, Day: 30},
+			Fmt:     "2025-09-30",
+			Settled: civil.Date{Year: 2026, Month: 3, Day: 20},
 		},
 		Strike: 9.5,
 	}); err != nil {
