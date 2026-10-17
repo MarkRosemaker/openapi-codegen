@@ -207,6 +207,7 @@ window.API = {
         if (params.at != null) q.set("at", String(params.at));
         if (params.on != null) q.set("on", String(params.on));
         if (params.modules?.length) raw.push("modules=" + join(params.modules, ",", esc));
+        if (params.since != null) q.set("since", String(params.since));
         if (params.day != null) q.set("day", String(params.day));
         if (params.site != null) q.set("site", String(params.site));
         if (params.ip != null) q.set("ip", String(params.ip));

@@ -29,10 +29,12 @@ var jsonOpts = json.JoinOptions(
 		json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 		json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 		json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
+		json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
 	)),
 	json.WithUnmarshalers(json.JoinUnmarshalers(
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixFor("at")),
 		json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnixFor("expires", "raw")),
+		json.UnmarshalFromFunc(jsonutil.DateUnmarshalBasicFor("settled")),
 		json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
 		json.UnmarshalFromFunc(jsonutil.Float64UnmarshalStringOrNumber),
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalStringOrIntUnix),
@@ -51,6 +53,7 @@ var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMa
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
+	json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error {
 		v.Created = Meta{}.Created
 
@@ -85,6 +88,7 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
+	json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
 		v.Password = User{}.Password
 
@@ -152,6 +156,8 @@ type QueryStylesParams struct {
 	On civil.Date
 	// A named array: the parameter keeps its name.
 	Modules Modules
+	// A date in ISO 8601's basic form.
+	Since civil.Date
 	// A date as a Unix time.
 	Day civil.Date
 	// A URL.
@@ -685,6 +691,8 @@ type Date struct {
 type DateWrapper struct {
 	Raw civil.Date `json:"raw"`
 	Fmt string     `json:"fmt"`
+	// A date in ISO 8601's basic form, among dates of other forms.
+	Settled civil.Date `json:"settled,omitzero"`
 }
 
 // Emoji defines a model

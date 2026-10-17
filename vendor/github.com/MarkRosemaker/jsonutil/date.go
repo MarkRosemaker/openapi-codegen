@@ -65,3 +65,58 @@ func DateUnmarshalIntUnixFor(names ...string) func(*jsontext.Decoder, *civil.Dat
 		return DateUnmarshalIntUnix(dec, d)
 	}
 }
+
+// dateBasic is the layout of a date in ISO 8601's basic form, such as "20260320".
+const dateBasic = "20060102"
+
+// DateMarshalBasic is a custom marshaler for civil.Date, marshaling them as strings in ISO 8601's basic form, without
+// separators, such as "20260320".
+func DateMarshalBasic(enc *jsontext.Encoder, d civil.Date) error {
+	return enc.WriteToken(jsontext.String(d.In(time.UTC).Format(dateBasic)))
+}
+
+// DateUnmarshalBasic is a custom unmarshaler for civil.Date, unmarshaling them from strings in ISO 8601's basic form,
+// such as "20260320".
+func DateUnmarshalBasic(dec *jsontext.Decoder, d *civil.Date) error {
+	var s string
+	if err := json.UnmarshalDecode(dec, &s); err != nil {
+		return err
+	}
+
+	t, err := time.Parse(dateBasic, s)
+	if err != nil {
+		return err
+	}
+
+	*d = civil.DateOf(t)
+
+	return nil
+}
+
+// DateMarshalBasicFor returns a marshaler for civil.Date that writes, as [DateMarshalBasic] does, the dates held by an
+// object member of one of the names given, or by an array such a member holds; see [DateMarshalIntUnixFor].
+func DateMarshalBasicFor(names ...string) func(*jsontext.Encoder, civil.Date) error {
+	set := nameSet(names)
+
+	return func(enc *jsontext.Encoder, d civil.Date) error {
+		if !set[memberName(enc.StackPointer())] {
+			return errors.ErrUnsupported
+		}
+
+		return DateMarshalBasic(enc, d)
+	}
+}
+
+// DateUnmarshalBasicFor returns an unmarshaler for civil.Date that reads, as [DateUnmarshalBasic] does, the dates held
+// by an object member of one of the names given, or by an array such a member holds; see [DateMarshalIntUnixFor].
+func DateUnmarshalBasicFor(names ...string) func(*jsontext.Decoder, *civil.Date) error {
+	set := nameSet(names)
+
+	return func(dec *jsontext.Decoder, d *civil.Date) error {
+		if !set[memberName(dec.StackPointer())] {
+			return errors.ErrUnsupported
+		}
+
+		return DateUnmarshalBasic(dec, d)
+	}
+}
