@@ -34,6 +34,7 @@ var jsonOpts = json.JoinOptions(
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixFor("at")),
 		json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnixFor("expires", "raw")),
 		json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
+		json.UnmarshalFromFunc(jsonutil.Float64UnmarshalStringOrNumber),
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalStringOrIntUnix),
 		json.UnmarshalFromFunc(jsonutil.DurationUnmarshalIntSeconds),
 	)),
@@ -1047,64 +1048,6 @@ func (e Level) Valid() bool {
 	default:
 		return false
 	}
-}
-
-// Limit defines a model
-// Limit is an untagged oneOf union: exactly one field is set after unmarshaling.
-type Limit struct {
-	Int    *int
-	String string
-}
-
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
-func (v *Limit) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
-	*v = Limit{}
-
-	opts := jsonOptsOf(dec)
-	strict := jsonStrict(dec)
-
-	raw, err := dec.ReadValue()
-	if err != nil {
-		return err
-	}
-
-	var matched int
-
-	// leniently, more than one may match, and the first does
-	if strict || matched == 0 {
-		var vv int
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.Int = &vv
-			matched++
-		}
-	}
-
-	// leniently, more than one may match, and the first does
-	if strict || matched == 0 {
-		var vv string
-		if err := json.Unmarshal(raw, &vv, opts); err == nil {
-			v.String = vv
-			matched++
-		}
-	}
-
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
-	}
-
-	return nil
-}
-
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
-func (v *Limit) MarshalJSONTo(enc *jsontext.Encoder) error {
-	switch {
-	case v.Int != nil:
-		return json.MarshalEncode(enc, v.Int, jsonOptsTo(enc))
-	case v.String != "":
-		return json.MarshalEncode(enc, v.String, jsonOptsTo(enc))
-	}
-
-	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
 // Link defines a model
@@ -2323,6 +2266,8 @@ type Schedule struct {
 	Starts DateWrapper `json:"starts,omitzero"`
 	// Member names a Go name cannot hold as they are, two of them the same once it can.
 	Odd *OddNames `json:"odd,omitzero"`
+	// A number sent as a string, "9.5", and now and then as a number, 0.0: a float64, written as a string.
+	Strike float64 `json:"strike,omitzero,string"`
 }
 
 // What it extends requires something, so {} is no value: no pointer.

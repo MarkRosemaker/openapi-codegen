@@ -176,7 +176,8 @@
 				"starts": {
 					"raw": 1759190400,
 					"fmt": "2025-09-30"
-				}
+				},
+				"strike": "9.5"
 			},
 			"header": {
 				"Content-Type": "application/json"
@@ -198,7 +199,8 @@
 					"starts": {
 						"raw": 1759190400,
 						"fmt": "2025-09-30"
-					}
+					},
+					"strike": 0.0
 				}
 			}
 		}
