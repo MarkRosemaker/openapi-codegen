@@ -13,7 +13,7 @@ github.com/MarkRosemaker/json2yaml
 # github.com/MarkRosemaker/jsonutil v0.0.0-20261017152604-1e3de35f23de
 ## explicit; go 1.27
 github.com/MarkRosemaker/jsonutil
-# github.com/MarkRosemaker/openapi v0.0.0-20261017152414-03a0b656e23f
+# github.com/MarkRosemaker/openapi v0.0.0-20261017153128-a560a6189531
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi
 # github.com/MarkRosemaker/openapi-compare v0.0.0-20261017150328-9133048d9ba5
