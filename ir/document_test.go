@@ -347,3 +347,33 @@ func TestFromDocument_GlobalParamRefDescriptionOverride(t *testing.T) {
 		t.Errorf("Description = %q, want the $ref's override", d)
 	}
 }
+
+func TestFromDocument_SpecialImports_StringTime(t *testing.T) {
+	// A string date-time should set HasStringTimeFields, so that an empty string reads as the zero time.
+	eventSchema := &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{}, Required: []string{"created_at"}}
+	eventSchema.Properties.Set("created_at", &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime})
+
+	doc := &openapi.Document{
+		OpenAPI: "3.1.0",
+		Info:    &openapi.Info{Title: "T", Version: "1"},
+		Servers: openapi.Servers{{URL: "https://example.com"}},
+	}
+	doc.Components.Schemas = openapi.Schemas{}
+	doc.Components.Schemas.Set("Event", eventSchema)
+
+	listOp := &openapi.Operation{OperationID: "listEvents"}
+	listOp.Responses = openapi.OperationResponses{} //nolint:exhaustive
+	listOp.Responses.Set("200", makeResponse("OK", "", nil))
+
+	doc.Paths = openapi.Paths{}
+	doc.Paths.Set("/events", &openapi.PathItem{Get: listOp})
+
+	irDoc, err := ir.FromDocument(doc, "pkg", "", false, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !irDoc.HasStringTimeFields {
+		t.Error("HasStringTimeFields = false, want true")
+	}
+}

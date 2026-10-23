@@ -4748,5 +4748,6 @@
 	],
 	"basicDateMembers": [
 		"settled"
-	]
+	],
+	"hasStringDateFields": true
 }

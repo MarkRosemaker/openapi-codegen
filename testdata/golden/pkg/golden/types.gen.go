@@ -39,6 +39,7 @@ var jsonOpts = json.JoinOptions(
 		json.UnmarshalFromFunc(jsonutil.Float64UnmarshalStringOrNumber),
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalStringOrIntUnix),
 		json.UnmarshalFromFunc(jsonutil.DurationUnmarshalIntSeconds),
+		json.UnmarshalFromFunc(jsonutil.DateUnmarshalEmptyAsZero),
 	)),
 )
 
