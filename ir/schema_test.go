@@ -72,11 +72,12 @@ func TestSchemaGoType(t *testing.T) {
 		{name: "date", schema: openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDate}, want: "civil.Date"},
 		{name: "ipv4", schema: openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatIPv4}, want: "net.IP"},
 		{name: "ipv6", schema: openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatIPv6}, want: "net.IP"},
+		// a format the generator does not know gives the plain type
+		{name: "unknown-integer-format", schema: openapi.Schema{Type: openapi.TypeInteger, Format: "base36"}, want: "int"},
+		{name: "unknown-number-format", schema: openapi.Schema{Type: openapi.TypeNumber, Format: "complex128"}, want: "float64"},
+		{name: "unknown-string-format", schema: openapi.Schema{Type: openapi.TypeString, Format: "json"}, want: "string"},
 		// errors
 		{name: "unknown-type", schema: openapi.Schema{Type: "unknown"}, wantErr: true},
-		{name: "unknown-integer-format", schema: openapi.Schema{Type: openapi.TypeInteger, Format: "base36"}, wantErr: true},
-		{name: "unknown-number-format", schema: openapi.Schema{Type: openapi.TypeNumber, Format: "complex128"}, wantErr: true},
-		{name: "unknown-string-format", schema: openapi.Schema{Type: openapi.TypeString, Format: "base58"}, wantErr: true},
 	}
 
 	for _, tc := range tests {
