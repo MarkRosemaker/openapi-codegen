@@ -42,6 +42,18 @@
     "/search": {
       "post": {
         "operationId": "search",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Ignored, as the specification says: the client sends the request body's own.",
+            "schema": {
+              "type": "string",
+              "default": "application/json;charset=utf-8"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
