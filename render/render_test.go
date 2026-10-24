@@ -463,6 +463,32 @@ func TestFiles_ClientTest(t *testing.T) {
 	}
 }
 
+// A relative server URL names the server that serves the page, so the
+// browser client calls it relative to the page.
+func TestFiles_APIJSRelativeServer(t *testing.T) {
+	doc := buildPetDoc(t)
+	doc.BaseURL = ir.URLParts{Path: "/api"}
+
+	files, err := render.Files(doc, genAll)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, f := range files {
+		if f.Name != "api.js" {
+			continue
+		}
+
+		if !contains(string(f.Content), `const API_BASE = "/api";`) {
+			t.Errorf("want a base relative to the page; content:\n%s", f.Content)
+		}
+
+		return
+	}
+
+	t.Fatal("api.js not found in rendered output")
+}
+
 func TestFiles_APIJS(t *testing.T) {
 	doc := buildPetDoc(t)
 
