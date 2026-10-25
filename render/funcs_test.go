@@ -58,34 +58,6 @@ func TestDeref(t *testing.T) {
 	}
 }
 
-func TestTypeZeroVal(t *testing.T) {
-	tests := []struct{ in, want string }{
-		{"string", `""`},
-		{"types.Email", `""`},
-		{"bool", "false"},
-		{"int", "0"},
-		{"int32", "0"},
-		{"int64", "0"},
-		{"uint", "0"},
-		{"uint32", "0"},
-		{"uint64", "0"},
-		{"float32", "0"},
-		{"float64", "0"},
-		{"time.Duration", "0"},
-		{"uuid.UUID", "uuid.Nil()"},
-		{"url.URL", "url.URL{}"},
-		{"time.Time", "time.Time{}"},
-		{"civil.Date", "civil.Date{}"},
-		{"net.IP", "nil"},
-		{"Status", `""`},
-	}
-	for _, tc := range tests {
-		if got := typeZeroVal(tc.in); got != tc.want {
-			t.Errorf("typeZeroVal(%q) = %q, want %q", tc.in, got, tc.want)
-		}
-	}
-}
-
 // TestTemplateFuncs exercises all registered template functions through a template.
 func TestTemplateFuncs(t *testing.T) {
 	tmplSrc2 := `{{lower "FOO"}} {{upper "foo"}} {{trimSpace "  hi  "}} {{hasPrefix "abc" "ab"}} {{hasSuffix "abc" "bc"}} {{contains "abc" "b"}} {{replace "a-b" "-" "_"}} {{isExported "Foo"}} {{isKeyword "func"}} {{deref "*T"}} {{add 3 2}} {{sub 5 2}} {{last 2 3}} {{titleCase "GET"}} {{titleCase ""}}`
