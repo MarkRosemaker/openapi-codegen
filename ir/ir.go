@@ -486,8 +486,7 @@ type Param struct {
 
 // ZeroVal returns the Go zero-value literal for the parameter.
 func (p Param) ZeroVal() string {
-	goType := p.Type
-	switch goType {
+	switch cmp.Or(p.BaseType, p.Type) {
 	case "string", "types.Email":
 		return `""`
 	case "bool":
