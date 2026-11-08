@@ -257,6 +257,115 @@ func TestClient_Error(t *testing.T) {
 		})
 	})
 
+	t.Run("GetTrial", func(t *testing.T) {
+		t.Run("transport error", func(t *testing.T) {
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetTrial(t.Context(), ""); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, io.EOF) {
+				t.Fatalf("want: %v, got: %v", io.EOF, err)
+			}
+		})
+
+		t.Run("unknown status code", func(t *testing.T) {
+			srv := newTestServer(t, http.StatusTeapot)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetTrial(t.Context(), ""); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if apiErr.Err != api.ErrUnknownStatusCode {
+				t.Fatalf("got: %v, want: %v", apiErr.Err, api.ErrUnknownStatusCode)
+			} else if apiErr.Response.StatusCode != http.StatusTeapot {
+				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
+			}
+		})
+
+		t.Run("unknown content type", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "foo")
+				w.WriteHeader(http.StatusOK)
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetTrial(t.Context(), ""); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, api.ErrUnknownContentType) {
+				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
+			}
+		})
+
+		t.Run("decoding error", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte("invalid json"))
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetTrial(t.Context(), ""); err == nil {
+				t.Fatal("expected error")
+			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			} else if _, ok := errors.AsType[*jsontext.SyntacticError](decErr.Err); !ok {
+				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
+			}
+		})
+
+		t.Run("unknown member", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusOK, "application/json", withUnknownMember(t, Trial{}))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetTrial(t.Context(), ""); err == nil {
+				t.Fatal("the package's own type accepted a member it does not declare")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+
+			if _, err := c.GetTrialWithResult[struct{}](t.Context(), ""); err != nil {
+				t.Fatalf("a type of the caller's own: %v", err)
+			}
+		})
+	})
+
 	t.Run("UpdateUser", func(t *testing.T) {
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
@@ -1155,7 +1264,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -1175,7 +1284,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -1203,7 +1312,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -1228,7 +1337,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -1238,18 +1347,18 @@ func TestClient_Error(t *testing.T) {
 		})
 
 		t.Run("unknown member", func(t *testing.T) {
-			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusCreated, "application/json", withUnknownMember(t, CreateScheduleCreated{Schedule: Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}}))))
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusCreated, "application/json", withUnknownMember(t, CreateScheduleCreated{}))))
 			if err != nil {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("the package's own type accepted a member it does not declare")
 			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
 			}
 
-			if _, err := c.CreateScheduleWithResult[struct{}](t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err != nil {
+			if _, err := c.CreateScheduleWithResult[struct{}](t.Context(), Schedule{}); err != nil {
 				t.Fatalf("a type of the caller's own: %v", err)
 			}
 		})
@@ -1265,7 +1374,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -1282,7 +1391,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
@@ -1295,7 +1404,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)

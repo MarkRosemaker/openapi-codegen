@@ -17,11 +17,6 @@ func (doc Document) MinimalLiteral(goType string) string {
 func (doc Document) minimalLiteral(goType string, seen map[string]bool) (string, bool) {
 	zero := goType + "{}"
 
-	if goType == "civil.Date" {
-		// the zero date marshals as 0000-00-00, which civil.Date does not parse back
-		return "civil.Date{Year: 1, Month: 1, Day: 1}", true
-	}
-
 	if seen[goType] {
 		return zero, false
 	}

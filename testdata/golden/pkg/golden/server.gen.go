@@ -24,6 +24,7 @@ import (
 type Service interface {
 	GetPage(ctx context.Context, id string) (*Page, error)
 	Search(ctx context.Context, body PropertyFilter) ([]PageOrPartial, error)
+	GetTrial(ctx context.Context, id string) (*Trial, error)
 	UpdateUser(ctx context.Context, id string, body User) (*User, error)
 	PatchUser(ctx context.Context, id string, body *User) error
 	CreateEntry(ctx context.Context, body Entry) (*Entry, error)
@@ -105,6 +106,50 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			}
 
 			res, err := svc.Search(ctx, body)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOptsResponse); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/trials/{id}")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetTrial"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			id := r.PathValue("id")
+
+			res, err := svc.GetTrial(ctx, id)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {

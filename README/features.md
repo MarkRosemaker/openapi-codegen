@@ -92,8 +92,10 @@ How the specification maps onto Go:
   that requires nothing, so `{}` says something; nil then leaves the field out,
   and a pointer to the zero value sends it. A zero value the specification makes
   the default, or rules out with a bound or an enum, needs no pointer. A string,
-  a time, a slice, a map or a union is never a pointer: its zero value leaves it
-  out. A struct that would contain itself refers to itself through a pointer.
+  a slice, a map or a union is never a pointer: its zero value leaves it out. A
+  time or a date is a pointer only if it is nullable, since its zero value is
+  written as a time, not as null. A struct that would contain itself refers to
+  itself through a pointer.
 - **Omitting** — an optional field is tagged `omitzero`, so it is left out while
   it holds its zero value: nil for a pointer, a slice or a map, so an empty one
   is still sent. A required field is always sent, `""`, `0` and `false`
@@ -104,8 +106,9 @@ How the specification maps onto Go:
   leaves read-only members out of a request body, and the server leaves
   write-only members out of a response, as their fields hold them or not, through
   unions and embedded parts alike; any other encoding keeps them.
-- **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null"
-  is `X`, a pointer to `X` only by the rule for fields above, so that null and
+- **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null",
+  a `type` of `[X, "null"]` or a `oneOf` or `anyOf` of `X` and `null`, is `X`, a
+  pointer to `X` only by the rule for fields above, so that null and
   the zero value can differ, or where `X` decodes itself, such as a union or a
   tuple, which would refuse null.
 - **Fixed parameters** — a required parameter that can take only one value, its
