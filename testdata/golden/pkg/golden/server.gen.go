@@ -795,7 +795,7 @@ func parseListReportsArgs(req *http.Request) (params ListReportsParams, err erro
 			return params, fmt.Errorf("invalid ids: %w", err)
 		}
 
-		params.Ids = append(params.Ids, v)
+		params.IDs = append(params.IDs, v)
 	}
 
 	if s := query.Get("verbose"); s != "" {

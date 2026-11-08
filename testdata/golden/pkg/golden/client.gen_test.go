@@ -1385,7 +1385,7 @@ func TestClient_Interactions(t *testing.T) {
 
 	if _, err := c.ListReports(ctx, ListReportsParams{
 		Since:    time.Date(2026, 10, 8, 10, 0, 0, 0, time.FixedZone("", 7200)),
-		Ids:      []int{1, 2},
+		IDs:      []int{1, 2},
 		Verbose:  true,
 		XVersion: "2026-10-01",
 	}); err != nil {
