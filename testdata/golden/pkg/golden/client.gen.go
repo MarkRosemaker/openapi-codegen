@@ -552,7 +552,7 @@ func (c *Client) ListReportsWithResult[R any](ctx context.Context, params ListRe
 
 	q["since"] = []string{params.Since.Format(time.RFC3339)}
 
-	for _, v := range params.Ids {
+	for _, v := range params.IDs {
 		q.Add("ids", strconv.Itoa(v))
 	}
 

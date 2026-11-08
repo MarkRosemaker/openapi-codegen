@@ -101,7 +101,7 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 // ListReportsParams holds the query parameters for ListReports.
 type ListReportsParams struct {
 	Since   time.Time
-	Ids     []int
+	IDs     []int
 	Verbose bool
 	// An enum.
 	Format ScheduleFormat

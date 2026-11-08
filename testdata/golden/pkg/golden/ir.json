@@ -305,9 +305,9 @@
 					"parseExpr": "time.Parse(time.RFC3339, %s)"
 				},
 				{
-					"varName": "params.Ids",
+					"varName": "params.IDs",
 					"goName": "ids",
-					"fieldName": "Ids",
+					"fieldName": "IDs",
 					"jsonName": "ids",
 					"type": "[]int",
 					"item": {

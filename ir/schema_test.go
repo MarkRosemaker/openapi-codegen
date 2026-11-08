@@ -1158,6 +1158,10 @@ func TestFieldGoName(t *testing.T) {
 		want string
 	}{
 		{"id", "ID"}, // initialism
+		{"background_job_ids", "BackgroundJobIDs"}, // a plural initialism
+		{"image_urls_by_size", "ImageURLsBySize"},
+		{"idsx", "Idsx"},
+		{"ids_urls", "IDsURLs"},
 		{"user_name", "UserName"},
 		{"_id", "UnderscoreID"},
 		{"created-at", "CreatedAt"},
