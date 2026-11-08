@@ -1,11 +1,13 @@
 package codegen
 
 import (
+	"encoding/json/v2"
 	"net/url"
 	"strings"
 	"testing"
 
 	"github.com/MarkRosemaker/cassette"
+	"github.com/MarkRosemaker/openapi"
 	"github.com/MarkRosemaker/openapi-codegen/ir"
 )
 
@@ -607,4 +609,73 @@ func parseURL(s string) url.URL {
 	}
 
 	return *u
+}
+
+// TestBodyLiteral checks that a recorded body becomes the Go value a person would write in the generated test.
+func TestBodyLiteral(t *testing.T) {
+	spec, err := openapi.LoadFromDataJSON([]byte(`{
+  "openapi": "3.1.0",
+  "info": {"title": "t", "version": "1"},
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Level": {"type": "integer", "enum": [1, 2, 3]},
+      "Ratio": {"type": "number", "enum": [0.5, 1.25]},
+      "Flag": {"type": "boolean", "enum": [true]},
+      "Color": {"type": "string", "enum": ["dark red"]},
+      "Score": {"type": "number"},
+      "Tags": {"type": "object", "additionalProperties": {"type": "string"}},
+      "Pet": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "level": {"$ref": "#/components/schemas/Level"},
+          "nickname": {"type": "string"}
+        }
+      }
+    }
+  }
+}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	doc, err := ir.FromDocument(spec, "t", "", false, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, tc := range []struct {
+		goType string
+		value  string // as JSON
+		want   string
+	}{
+		{"Level", `2`, "LevelTwo"},
+		{"Ratio", `1.25`, "RatioOneDot25"},
+		{"Ratio", `0.5`, "RatioZeroDot5"},
+		{"Flag", `true`, "FlagTrue"},
+		{"Color", `"dark red"`, "ColorDarkRed"},
+		// a value the enum does not declare is decoded at test time, so the test shows the mismatch
+		{"Level", `7`, `mustDecodeBody[Level](t, "7")`},
+		{"Color", `3`, `mustDecodeBody[Color](t, "3")`},
+		{"Score", `9.5`, "Score(9.5)"},
+		{"Tags", `{"a":"b"}`, `mustDecodeBody[Tags](t, "{\"a\":\"b\"}")`},
+		{"Pet", `{"name":"Rex","level":3}`, "Pet{\nName: \"Rex\",\nLevel: LevelThree,\n}"},
+		{"Pet", `{}`, "Pet{}"},
+		{"*Pet", `null`, "nil"},
+		{"*int", `4`, "new(4)"},
+		{"[]Level", `[1,3]`, "[]Level{LevelOne, LevelThree}"},
+		{"[]string", `"x"`, `mustDecodeBody[[]string](t, "\"x\"")`},
+		{"bool", `false`, "false"},
+	} {
+		var v any
+		if err := json.Unmarshal([]byte(tc.value), &v); err != nil {
+			t.Fatal(err)
+		}
+
+		if got := bodyLiteral(doc, tc.goType, v); got != tc.want {
+			t.Errorf("bodyLiteral(%s, %s) = %q, want %q", tc.goType, tc.value, got, tc.want)
+		}
+	}
 }
