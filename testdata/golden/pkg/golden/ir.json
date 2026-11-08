@@ -78,6 +78,44 @@
 			}
 		},
 		{
+			"name": "GetTrial",
+			"description": "Members that are required but may be null.",
+			"method": "GET",
+			"pathTemplate": "/trials/{id}",
+			"joinPathArgs": [
+				"\"trials\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Trial"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Trial"
+			}
+		},
+		{
 			"name": "UpdateUser",
 			"method": "PUT",
 			"pathTemplate": "/users/{id}",
@@ -118,6 +156,41 @@
 			"successReturn": {
 				"name": "User"
 			}
+		},
+		{
+			"name": "PatchUser",
+			"description": "An optional body, sent as no body at all when it is left out.",
+			"method": "PATCH",
+			"pathTemplate": "/users/{id}",
+			"joinPathArgs": [
+				"\"users\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"requestBody": {
+				"typeName": "User",
+				"contentType": "application/json"
+			},
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "no content",
+					"isSuccess": true
+				}
+			]
 		},
 		{
 			"name": "CreateEntry",
@@ -4103,6 +4176,26 @@
 				}
 			],
 			"isOneOf": true
+		},
+		{
+			"name": "Trial",
+			"description": "A date that may be null is a pointer, since the zero date is written as no date at all; so is a number, whose zero is a number of its own.",
+			"fields": [
+				{
+					"name": "Ends",
+					"jsonName": "ends",
+					"type": "*civil.Date",
+					"jsonTag": "json:\"ends\"",
+					"required": true
+				},
+				{
+					"name": "Plan",
+					"jsonName": "plan",
+					"type": "*int",
+					"jsonTag": "json:\"plan\"",
+					"required": true
+				}
+			]
 		},
 		{
 			"name": "User",

@@ -665,6 +665,11 @@ func TestBodyLiteral(t *testing.T) {
 		{"Pet", `{}`, "Pet{}"},
 		{"*Pet", `null`, "nil"},
 		{"*int", `4`, "new(4)"},
+		// new(3) would be an *int: a constant that does not default to the pointer's type is converted to it
+		{"*float64", `3`, "new(3.0)"},
+		{"*float32", `3`, "new(float32(3))"},
+		{"*float64", `2.5`, "new(2.5)"},
+		{"*Score", `9.5`, "new(Score(9.5))"},
 		{"[]Level", `[1,3]`, "[]Level{LevelOne, LevelThree}"},
 		{"[]string", `"x"`, `mustDecodeBody[[]string](t, "\"x\"")`},
 		{"bool", `false`, "false"},

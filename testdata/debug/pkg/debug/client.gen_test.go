@@ -6,13 +6,16 @@ package debug
 
 import (
 	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"path/filepath"
 	"testing"
 
+	"github.com/MarkRosemaker/cassette"
 	"github.com/go-api-libs/api"
 )
 
@@ -24,6 +27,41 @@ func newTestServer(t *testing.T, status int) *httptest.Server {
 	}))
 	t.Cleanup(srv.Close)
 	return srv
+}
+
+// newBodyServer is the base URL of a server that answers every request with status, contentType and body.
+func newBodyServer(t *testing.T, status int, contentType string, body []byte) *url.URL {
+	t.Helper()
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", contentType)
+		w.WriteHeader(status)
+		_, _ = w.Write(body)
+	}))
+	t.Cleanup(srv.Close)
+
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return u
+}
+
+// withUnknownMember is v as JSON, with a member no type declares added to it.
+func withUnknownMember(t *testing.T, v any) []byte {
+	t.Helper()
+
+	b, err := json.Marshal(v, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(b) == "{}" {
+		return []byte(`{"not_a_member_of_any_type": true}`)
+	}
+
+	return append([]byte(`{"not_a_member_of_any_type": true, `), b[1:]...)
 }
 
 type roundTripFunc func(*http.Request) (*http.Response, error)
@@ -123,6 +161,27 @@ func TestClient_Error(t *testing.T) {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
 			} else if _, ok := errors.AsType[*jsontext.SyntacticError](decErr.Err); !ok {
 				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
+			}
+		})
+
+		t.Run("debug mode keeps an unknown member", func(t *testing.T) {
+			file := filepath.Join(t.TempDir(), "interactions.json")
+
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusOK, "application/json", withUnknownMember(t, Item{}))), WithDebugFile(file))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			for range 2 {
+				if _, err := c.GetItem(t.Context()); err != nil {
+					t.Fatalf("debug mode decodes leniently: %v", err)
+				}
+			}
+
+			if ias, err := cassette.InteractionsReadFile(file); err != nil {
+				t.Fatal(err)
+			} else if len(ias) != 1 {
+				t.Fatalf("the debug file holds %d calls, want the one that failed to decode, once", len(ias))
 			}
 		})
 	})

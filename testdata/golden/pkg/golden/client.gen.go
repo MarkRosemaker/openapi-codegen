@@ -197,6 +197,63 @@ func (c *Client) SearchWithResult[R any](ctx context.Context, body PropertyFilte
 	}
 }
 
+// Members that are required but may be null.
+//
+//	GET /trials/{id}
+func (c *Client) GetTrial(ctx context.Context, id string) (*Trial, error) {
+	return c.GetTrialWithResult[Trial](ctx, id)
+}
+
+// Members that are required but may be null.
+// You can define a custom result to unmarshal the response into.
+//
+//	GET /trials/{id}
+func (c *Client) GetTrialWithResult[R any](ctx context.Context, id string) (*R, error) {
+	u := c.baseURL.JoinPath("trials", id)
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out R
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*Trial); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
 // PUT /users/{id}
 func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, error) {
 	return c.UpdateUserWithResult[User](ctx, id, body)
@@ -253,6 +310,54 @@ func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, bod
 		}
 	default:
 		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// An optional body, sent as no body at all when it is left out.
+//
+//	PATCH /users/{id}
+func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
+	u := c.baseURL.JoinPath("users", id)
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodPatch,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	// an optional body left out is sent as no body at all, not as JSON null
+	if body != nil {
+		pr, pw := io.Pipe()
+		req.Body, req.ContentLength = pr, -1
+		req.Header["Content-Type"] = []string{"application/json"}
+
+		go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
+		defer pr.Close()
+	}
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// no content
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
 	}
 }
 

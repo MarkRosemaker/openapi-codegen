@@ -11,7 +11,9 @@
  *   import './api.js';        // or <script src="api.js"></script>
  *   const result = await window.API.getPage(id);
  *   const result = await window.API.search();
+ *   const result = await window.API.getTrial(id);
  *   const result = await window.API.updateUser(id);
+ *   window.API.patchUser(id);
  *   const result = await window.API.createEntry();
  *   const result = await window.API.getValue(id);
  *   const result = await window.API.getBlock(id);
@@ -116,11 +118,21 @@ window.API = {
         body: JSON.stringify(body),
         operationId: "Search",
     }),
+    // GET /trials/{id}
+    getTrial: (id) => apiFetch(`/trials/${id}`, {
+        operationId: "GetTrial",
+    }),
     // PUT /users/{id}
     updateUser: (id, body) => apiFetch(`/users/${id}`, {
         method: "PUT",
         body: JSON.stringify(body),
         operationId: "UpdateUser",
+    }),
+    // PATCH /users/{id}
+    patchUser: (id, body) => apiFetch(`/users/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+        operationId: "PatchUser",
     }),
     // POST /entries
     createEntry: (body) => apiFetch("/entries", {

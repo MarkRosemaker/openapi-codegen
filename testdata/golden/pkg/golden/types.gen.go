@@ -2503,6 +2503,12 @@ func (v *Tags) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
+// A date that may be null is a pointer, since the zero date is written as no date at all; so is a number, whose zero is a number of its own.
+type Trial struct {
+	Ends *civil.Date `json:"ends"`
+	Plan *int        `json:"plan"`
+}
+
 // User defines a model
 type User struct {
 	ID       string `json:"id,omitzero"`

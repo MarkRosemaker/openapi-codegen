@@ -81,7 +81,63 @@
         }
       }
     },
+    "/trials/{id}": {
+      "get": {
+        "operationId": "getTrial",
+        "description": "Members that are required but may be null.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trial"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{id}": {
+      "patch": {
+        "operationId": "patchUser",
+        "description": "An optional body, sent as no body at all when it is left out.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
       "put": {
         "operationId": "updateUser",
         "requestBody": {
@@ -879,6 +935,29 @@
   },
   "components": {
     "schemas": {
+      "Trial": {
+        "description": "A date that may be null is a pointer, since the zero date is written as no date at all; so is a number, whose zero is a number of its own.",
+        "type": "object",
+        "required": [
+          "ends",
+          "plan"
+        ],
+        "properties": {
+          "ends": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "plan": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      },
       "PropertyFilter": {
         "oneOf": [
           {
