@@ -25,7 +25,7 @@ github.com/MarkRosemaker/openapi-compress
 # github.com/MarkRosemaker/openapi-edit v0.0.0-20261107140639-85d8ba50e45c
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-edit
-# github.com/MarkRosemaker/openapi-flatten v0.0.0-20261108182532-2f0df295a4c1
+# github.com/MarkRosemaker/openapi-flatten v0.0.0-20261108191243-642bc76a76e7
 ## explicit; go 1.27
 github.com/MarkRosemaker/openapi-flatten
 # github.com/MarkRosemaker/ordmap v0.0.0-20261107140516-dfbaf0adfb2f
