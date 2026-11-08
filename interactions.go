@@ -591,7 +591,11 @@ func bodyLiteral(doc *ir.Document, goType string, v any) string {
 	case strings.HasPrefix(goType, "*"):
 		lit := bodyLiteral(doc, goType[1:], v)
 		if def, ok := defaultType(lit); ok && def != goType[1:] {
-			// new(3) is an *int, whatever the field's type
+			// new(3) is an *int, whatever the field's type: a float64 takes 3.0, anything else a conversion
+			if def == "int" && goType[1:] == "float64" {
+				return fmt.Sprintf("new(%s.0)", lit)
+			}
+
 			return fmt.Sprintf("new(%s(%s))", goType[1:], lit)
 		}
 
