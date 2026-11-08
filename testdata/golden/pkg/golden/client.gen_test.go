@@ -31,6 +31,41 @@ func newTestServer(t *testing.T, status int) *httptest.Server {
 	return srv
 }
 
+// newBodyServer is the base URL of a server that answers every request with status, contentType and body.
+func newBodyServer(t *testing.T, status int, contentType string, body []byte) *url.URL {
+	t.Helper()
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", contentType)
+		w.WriteHeader(status)
+		_, _ = w.Write(body)
+	}))
+	t.Cleanup(srv.Close)
+
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return u
+}
+
+// withUnknownMember is v as JSON, with a member no type declares added to it.
+func withUnknownMember(t *testing.T, v any) []byte {
+	t.Helper()
+
+	b, err := json.Marshal(v, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(b) == "{}" {
+		return []byte(`{"not_a_member_of_any_type": true}`)
+	}
+
+	return append([]byte(`{"not_a_member_of_any_type": true, `), b[1:]...)
+}
+
 type roundTripFunc func(*http.Request) (*http.Response, error)
 
 func (f roundTripFunc) RoundTrip(r *http.Request) (*http.Response, error) {
@@ -310,6 +345,142 @@ func TestClient_Error(t *testing.T) {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
 			} else if _, ok := errors.AsType[*jsontext.SyntacticError](decErr.Err); !ok {
 				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
+			}
+		})
+
+		t.Run("unknown member", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusOK, "application/json", withUnknownMember(t, User{}))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.UpdateUser(t.Context(), "", User{}); err == nil {
+				t.Fatal("the package's own type accepted a member it does not declare")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+
+			if _, err := c.UpdateUserWithResult[struct{}](t.Context(), "", User{}); err != nil {
+				t.Fatalf("a type of the caller's own: %v", err)
+			}
+		})
+	})
+
+	t.Run("PatchUser", func(t *testing.T) {
+		t.Run("transport error", func(t *testing.T) {
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if err := c.PatchUser(t.Context(), "", nil); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, io.EOF) {
+				t.Fatalf("want: %v, got: %v", io.EOF, err)
+			}
+		})
+
+		t.Run("unknown status code", func(t *testing.T) {
+			srv := newTestServer(t, http.StatusTeapot)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if err := c.PatchUser(t.Context(), "", nil); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if apiErr.Err != api.ErrUnknownStatusCode {
+				t.Fatalf("got: %v, want: %v", apiErr.Err, api.ErrUnknownStatusCode)
+			} else if apiErr.Response.StatusCode != http.StatusTeapot {
+				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
+			}
+		})
+
+		t.Run("body left out", func(t *testing.T) {
+			var (
+				got  *http.Request
+				sent []byte
+			)
+
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+				func(r *http.Request) (*http.Response, error) {
+					got = r
+
+					if r.Body != nil {
+						var err error
+						if sent, err = io.ReadAll(r.Body); err != nil {
+							return nil, err
+						}
+					}
+
+					return &http.Response{StatusCode: http.StatusTeapot, Header: http.Header{}, Body: http.NoBody, Request: r}, nil
+				},
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			_ = c.PatchUser(t.Context(), "", nil)
+
+			if got == nil {
+				t.Fatal("no request was sent")
+			}
+
+			if len(sent) > 0 {
+				t.Fatalf("a body left out was sent as %q", sent)
+			}
+
+			if ct := got.Header.Get("Content-Type"); ct != "" {
+				t.Fatalf("a body left out was sent with Content-Type %q", ct)
+			}
+		})
+
+		t.Run("body given", func(t *testing.T) {
+			var (
+				got  *http.Request
+				sent []byte
+			)
+
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+				func(r *http.Request) (*http.Response, error) {
+					got = r
+
+					if r.Body != nil {
+						var err error
+						if sent, err = io.ReadAll(r.Body); err != nil {
+							return nil, err
+						}
+					}
+
+					return &http.Response{StatusCode: http.StatusTeapot, Header: http.Header{}, Body: http.NoBody, Request: r}, nil
+				},
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			_ = c.PatchUser(t.Context(), "", new(User{}))
+
+			if got == nil {
+				t.Fatal("no request was sent")
+			}
+
+			if len(sent) == 0 {
+				t.Fatal("a body given was not sent")
+			}
+
+			if ct := got.Header.Get("Content-Type"); ct != "application/json" {
+				t.Fatalf("got Content-Type %q, want %q", ct, "application/json")
 			}
 		})
 	})
@@ -956,6 +1127,23 @@ func TestClient_Error(t *testing.T) {
 				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
 			}
 		})
+
+		t.Run("unknown member", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusOK, "application/json", withUnknownMember(t, ListPeopleOk{}))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.ListPeople(t.Context()); err == nil {
+				t.Fatal("the package's own type accepted a member it does not declare")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+
+			if _, err := c.ListPeopleWithResult[struct{}](t.Context()); err != nil {
+				t.Fatalf("a type of the caller's own: %v", err)
+			}
+		})
 	})
 
 	t.Run("CreateSchedule", func(t *testing.T) {
@@ -967,7 +1155,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, io.EOF) {
 				t.Fatalf("want: %v, got: %v", io.EOF, err)
@@ -987,7 +1175,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
 				t.Fatal("expected error")
 			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
 				t.Fatalf("got: %T, want: *api.Error", err)
@@ -1015,7 +1203,7 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
 				t.Fatal("expected error")
 			} else if !errors.Is(err, api.ErrUnknownContentType) {
 				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
@@ -1040,12 +1228,77 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if _, err := c.CreateSchedule(t.Context(), Schedule{}); err == nil {
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
 				t.Fatal("expected error")
 			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
 			} else if _, ok := errors.AsType[*jsontext.SyntacticError](decErr.Err); !ok {
 				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
+			}
+		})
+
+		t.Run("unknown member", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusCreated, "application/json", withUnknownMember(t, CreateScheduleCreated{Schedule: Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}}))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+				t.Fatal("the package's own type accepted a member it does not declare")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+
+			if _, err := c.CreateScheduleWithResult[struct{}](t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err != nil {
+				t.Fatalf("a type of the caller's own: %v", err)
+			}
+		})
+
+		t.Run("529 response", func(t *testing.T) {
+			body, err := json.Marshal(Overloaded{}, jsonOpts)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(newBodyServer(t, 529, "application/json", body)))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if !apiErr.IsCustom || apiErr.Response.StatusCode != 529 {
+				t.Fatalf("got: custom %t, status %d, want: custom, status %d", apiErr.IsCustom, apiErr.Response.StatusCode, 529)
+			} else if _, ok := errors.AsType[*Overloaded](err); !ok {
+				t.Fatalf("got: %v, want it to be a *Overloaded", err)
+			}
+		})
+
+		t.Run("529 response decoding error", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, 529, "application/json", []byte("invalid json"))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+				t.Fatal("expected error")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+		})
+
+		t.Run("529 response unknown content type", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, 529, "foo", nil)))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.CreateSchedule(t.Context(), Schedule{Day: civil.Date{Year: 1, Month: 1, Day: 1}}); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, api.ErrUnknownContentType) {
+				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
 			}
 		})
 	})
@@ -1301,6 +1554,127 @@ func TestClient_Error(t *testing.T) {
 				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
 			}
 		})
+	})
+}
+
+// TestClient_Params sets every parameter it can to a value other than its zero value, and finds each in the request,
+// under its name and written as the client must write it.
+func TestClient_Params(t *testing.T) {
+	t.Run("ListReports", func(t *testing.T) {
+		var got *http.Request
+
+		c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+			func(r *http.Request) (*http.Response, error) {
+				got = r
+
+				return &http.Response{StatusCode: http.StatusTeapot, Header: http.Header{}, Body: http.NoBody, Request: r}, nil
+			},
+		)}))
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		_, _ = c.ListReports(t.Context(), ListReportsParams{
+			IDs:      []int{2},
+			Verbose:  true,
+			Format:   ScheduleFormatCsv,
+			Formats:  []ScheduleFormat{ScheduleFormatCsv},
+			Tags:     []string{""},
+			Cursor:   "cursor",
+			Order:    "order",
+			Limit:    "limit",
+			Pairs:    "pairs",
+			XVersion: "X-Version",
+		})
+
+		if got == nil {
+			t.Fatal("no request was sent")
+		}
+
+		if v := got.URL.Query().Get("ids"); v != "2" {
+			t.Errorf("query %s: got %q, want %q", "ids", v, "2")
+		}
+		if v := got.URL.Query().Get("verbose"); v != "true" {
+			t.Errorf("query %s: got %q, want %q", "verbose", v, "true")
+		}
+		if v := got.URL.Query().Get("format"); v != "csv" {
+			t.Errorf("query %s: got %q, want %q", "format", v, "csv")
+		}
+		if v := got.URL.Query().Get("formats"); v != "csv" {
+			t.Errorf("query %s: got %q, want %q", "formats", v, "csv")
+		}
+		if v := got.URL.Query().Get("tags"); v != "" {
+			t.Errorf("query %s: got %q, want %q", "tags", v, "")
+		}
+		if v := got.URL.Query().Get("cursor"); v != "cursor" {
+			t.Errorf("query %s: got %q, want %q", "cursor", v, "cursor")
+		}
+		if v := got.URL.Query().Get("order"); v != "order" {
+			t.Errorf("query %s: got %q, want %q", "order", v, "order")
+		}
+		if v := got.URL.Query().Get("limit"); v != "limit" {
+			t.Errorf("query %s: got %q, want %q", "limit", v, "limit")
+		}
+		if v := got.URL.Query().Get("pairs"); v != "pairs" {
+			t.Errorf("query %s: got %q, want %q", "pairs", v, "pairs")
+		}
+		if v := got.Header.Get("X-Version"); v != "X-Version" {
+			t.Errorf("header %s: got %q, want %q", "X-Version", v, "X-Version")
+		}
+	})
+	t.Run("QueryStyles", func(t *testing.T) {
+		var got *http.Request
+
+		c, err := NewClient(WithHTTPClient(&http.Client{Transport: roundTripFunc(
+			func(r *http.Request) (*http.Response, error) {
+				got = r
+
+				return &http.Response{StatusCode: http.StatusTeapot, Header: http.Header{}, Body: http.NoBody, Request: r}, nil
+			},
+		)}))
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		_ = c.QueryStyles(t.Context(), 0, QueryStylesParams{
+			Csv:    []int{2},
+			Spaced: []string{""},
+			Piped:  []string{""},
+			Next:   "next",
+			Paths:  []string{""},
+			Cells:  []string{""},
+			Level:  LevelThree,
+			Ratio:  9.5,
+		})
+
+		if got == nil {
+			t.Fatal("no request was sent")
+		}
+
+		if v := got.URL.Query().Get("csv"); v != "2" {
+			t.Errorf("query %s: got %q, want %q", "csv", v, "2")
+		}
+		if v := got.URL.Query().Get("spaced"); v != "" {
+			t.Errorf("query %s: got %q, want %q", "spaced", v, "")
+		}
+		if v := got.URL.Query().Get("piped"); v != "" {
+			t.Errorf("query %s: got %q, want %q", "piped", v, "")
+		}
+		if v := got.URL.Query().Get("next"); v != "next" {
+			t.Errorf("query %s: got %q, want %q", "next", v, "next")
+		}
+		if v := got.URL.Query().Get("paths"); v != "" {
+			t.Errorf("query %s: got %q, want %q", "paths", v, "")
+		}
+		if v := got.URL.Query().Get("cells"); v != "" {
+			t.Errorf("query %s: got %q, want %q", "cells", v, "")
+		}
+		if v := got.URL.Query().Get("level"); v != "3" {
+			t.Errorf("query %s: got %q, want %q", "level", v, "3")
+		}
+		if v := got.URL.Query().Get("ratio"); v != "9.5" {
+			t.Errorf("query %s: got %q, want %q", "ratio", v, "9.5")
+		}
 	})
 }
 

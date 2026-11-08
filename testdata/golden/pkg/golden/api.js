@@ -12,6 +12,7 @@
  *   const result = await window.API.getPage(id);
  *   const result = await window.API.search();
  *   const result = await window.API.updateUser(id);
+ *   window.API.patchUser(id);
  *   const result = await window.API.createEntry();
  *   const result = await window.API.getValue(id);
  *   const result = await window.API.getBlock(id);
@@ -121,6 +122,12 @@ window.API = {
         method: "PUT",
         body: JSON.stringify(body),
         operationId: "UpdateUser",
+    }),
+    // PATCH /users/{id}
+    patchUser: (id, body) => apiFetch(`/users/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+        operationId: "PatchUser",
     }),
     // POST /entries
     createEntry: (body) => apiFetch("/entries", {

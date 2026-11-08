@@ -21,6 +21,11 @@ every such field left at its zero value, would spare the caller that, for a
 struct used in a request body, or in one. Filling them in inside the
 operation method instead would override what the caller set.
 
+`MinimalLiteral` would need the same: it sets a union's first variant but not
+the fields that tell the variants apart, so its value of a type that holds a
+union may not decode. The generated tests of strict and lenient decoding leave
+out every response type that holds one until it does.
+
 ## Path and header parameter styles
 
 Query parameters are written in every style OpenAPI defines. A path parameter

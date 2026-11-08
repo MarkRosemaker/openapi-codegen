@@ -120,6 +120,41 @@
 			}
 		},
 		{
+			"name": "PatchUser",
+			"description": "An optional body, sent as no body at all when it is left out.",
+			"method": "PATCH",
+			"pathTemplate": "/users/{id}",
+			"joinPathArgs": [
+				"\"users\"",
+				"id"
+			],
+			"pathParams": [
+				{
+					"varName": "id",
+					"goName": "id",
+					"fieldName": "ID",
+					"jsonName": "id",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"requestBody": {
+				"typeName": "User",
+				"contentType": "application/json"
+			},
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "no content",
+					"isSuccess": true
+				}
+			]
+		},
+		{
 			"name": "CreateEntry",
 			"method": "POST",
 			"pathTemplate": "/entries",

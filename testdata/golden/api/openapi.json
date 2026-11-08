@@ -82,6 +82,34 @@
       }
     },
     "/users/{id}": {
+      "patch": {
+        "operationId": "patchUser",
+        "description": "An optional body, sent as no body at all when it is left out.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
       "put": {
         "operationId": "updateUser",
         "requestBody": {

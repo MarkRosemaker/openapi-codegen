@@ -20,6 +20,7 @@ func TestDocument_MinimalLiteral(t *testing.T) {
 		}},
 		{Name: "ByID", Kind: ir.SchemaKindStruct, Fields: []ir.Field{{Name: "ID", Type: "string", Required: true}}},
 		{Name: "Plain", Kind: ir.SchemaKindStruct},
+		{Name: "Trial", Kind: ir.SchemaKindStruct, Fields: []ir.Field{{Name: "End", Type: "civil.Date", Required: true}}},
 		{Name: "Wrapper", Kind: ir.SchemaKindUnion, UnionVariants: []ir.UnionVariant{{FieldName: "Body", Type: "Body"}}},
 	}}
 
@@ -30,6 +31,8 @@ func TestDocument_MinimalLiteral(t *testing.T) {
 		// a variant that sets something is a pointer to its literal
 		"Wrapper": "Wrapper{Body: &Body{User: User{ByID: new(ByID)}}}",
 		"[]int":   "[]int{}",
+		// the zero date marshals as 0000-00-00, which does not parse back
+		"Trial": "Trial{End: civil.Date{Year: 1, Month: 1, Day: 1}}",
 	} {
 		if got := doc.MinimalLiteral(goType); got != want {
 			t.Errorf("%s: got %s, want %s", goType, got, want)

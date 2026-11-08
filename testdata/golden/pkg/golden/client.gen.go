@@ -256,6 +256,54 @@ func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, bod
 	}
 }
 
+// An optional body, sent as no body at all when it is left out.
+//
+//	PATCH /users/{id}
+func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
+	u := c.baseURL.JoinPath("users", id)
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodPatch,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	// an optional body left out is sent as no body at all, not as JSON null
+	if body != nil {
+		pr, pw := io.Pipe()
+		req.Body, req.ContentLength = pr, -1
+		req.Header["Content-Type"] = []string{"application/json"}
+
+		go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
+		defer pr.Close()
+	}
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// no content
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
 // POST /entries
 func (c *Client) CreateEntry(ctx context.Context, body Entry) (*Entry, error) {
 	return c.CreateEntryWithResult[Entry](ctx, body)

@@ -8,6 +8,12 @@
   called. To mock a generated client in your own tests, pass
   `WithHTTPClient(&http.Client{Transport: cassette.Replay(interactions)})`: each
   request is answered from the recording it matches, without the network.
+  Beside the replay test, each operation is tested without a recording: every query and header parameter is
+  set to a value of its own and found in the request under its name; a transport error, an unknown status
+  code and an unknown content type are reported as such; each error status the specification declares is
+  decoded into its type and returned as a custom error; a struct of the package's own rejects a member it does not
+  declare where a type of the caller's own, given to the `WithResult` variant, accepts it, or, in debug mode, the
+  call is added to the debug file once; and an optional request body left out is sent as no body at all.
 - **JavaScript client** — optional `api.js` alongside the Go output. A relative
   server URL, such as `/api`, makes it call the server that serves the page.
 
