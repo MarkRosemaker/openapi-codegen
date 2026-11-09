@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
 
@@ -590,6 +591,17 @@ func TestClient_Error(t *testing.T) {
 
 			if ct := got.Header.Get("Content-Type"); ct != "application/json" {
 				t.Fatalf("got Content-Type %q, want %q", ct, "application/json")
+			}
+		})
+
+		t.Run("409 response without a body", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusConflict, "", nil)))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if err := c.PatchUser(t.Context(), "", nil); err == nil || !strings.Contains(err.Error(), "PatchUser: status") {
+				t.Fatalf("got: %v, want an error naming the status", err)
 			}
 		})
 	})
