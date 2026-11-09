@@ -88,7 +88,7 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 //
 //	GET /pages/{id}
 func (c *Client) GetPageWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("pages", id)
+	u := c.baseURL.JoinPath("pages", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -209,7 +209,7 @@ func (c *Client) GetTrial(ctx context.Context, id string) (*Trial, error) {
 //
 //	GET /trials/{id}
 func (c *Client) GetTrialWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("trials", id)
+	u := c.baseURL.JoinPath("trials", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -261,7 +261,7 @@ func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, e
 
 // PUT /users/{id}
 func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, body User) (*R, error) {
-	u := c.baseURL.JoinPath("users", id)
+	u := c.baseURL.JoinPath("users", url.PathEscape(id))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
@@ -317,7 +317,7 @@ func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, bod
 //
 //	PATCH /users/{id}
 func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
-	u := c.baseURL.JoinPath("users", id)
+	u := c.baseURL.JoinPath("users", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -431,7 +431,7 @@ func (c *Client) GetValue(ctx context.Context, id string) (*Value, error) {
 //
 // Deprecated.
 func (c *Client) GetValueWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("values", id)
+	u := c.baseURL.JoinPath("values", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -483,7 +483,7 @@ func (c *Client) GetBlock(ctx context.Context, id string) (*Block, error) {
 
 // GET /blocks/{id}
 func (c *Client) GetBlockWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("blocks", id)
+	u := c.baseURL.JoinPath("blocks", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -594,7 +594,7 @@ func (c *Client) GetProperty(ctx context.Context, id string) (*NestedValue, erro
 
 // GET /properties/{id}
 func (c *Client) GetPropertyWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("properties", id)
+	u := c.baseURL.JoinPath("properties", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -873,7 +873,7 @@ func (c *Client) CreateScheduleWithResult[R any](ctx context.Context, body Sched
 //
 //	GET /reports/{format}
 func (c *Client) DownloadReport(ctx context.Context, format ScheduleFormat) (io.ReadCloser, error) {
-	u := c.baseURL.JoinPath("reports", string(format))
+	u := c.baseURL.JoinPath("reports", url.PathEscape(string(format)))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -919,7 +919,7 @@ func (c *Client) DownloadReport(ctx context.Context, format ScheduleFormat) (io.
 //
 //	DELETE /schedules/{id}
 func (c *Client) DeleteSchedule(ctx context.Context, id string) error {
-	u := c.baseURL.JoinPath("schedules", id)
+	u := c.baseURL.JoinPath("schedules", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"Api-Version": []string{"2"},
