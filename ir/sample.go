@@ -208,3 +208,101 @@ func (doc Document) ValueLiteral(goType string) string {
 
 	return "*new(" + goType + ")"
 }
+
+// Enums are the enums a generated test checks the Valid method of: each member is one, and a value of its type that none
+// is, if there is such a value, is not.
+func (doc Document) Enums() []Schema {
+	var enums []Schema
+
+	for _, s := range doc.Schemas {
+		if s.Kind == SchemaKindEnum && len(s.EnumValues) > 0 {
+			enums = append(enums, s)
+		}
+	}
+
+	return enums
+}
+
+// NotAMember is a Go literal of the enum's underlying type that no member holds, or empty for a boolean, whose two
+// values may both be members.
+func (s Schema) NotAMember() string {
+	switch s.Type {
+	case "string":
+		lit := "not a member"
+		for slices.ContainsFunc(s.EnumValues, func(v EnumValue) bool { return v.Value == lit }) {
+			lit += "!"
+		}
+
+		return strconv.Quote(lit)
+	case "int", "int32", "int64", "uint", "uint32", "uint64", "float32", "float64":
+		highest := 0.0
+		for _, v := range s.EnumValues {
+			if f, err := strconv.ParseFloat(v.Value, 64); err == nil && f > highest {
+				highest = f
+			}
+		}
+
+		// one more than the highest member, rounded down to a whole number, is no member and fits every number type
+		return strconv.FormatFloat(float64(int64(highest)+1), 'f', -1, 64)
+	default:
+		return ""
+	}
+}
+
+// DebugDecoded is the success response of op the client decodes as JSON into a value it returns, which debug mode
+// records when it fails to, or nil outside debug mode.
+func (doc Document) DebugDecoded(op Operation) *Response {
+	if !doc.Debug || op.EmptySuccess || op.SuccessReturn == nil {
+		return nil
+	}
+
+	i := slices.IndexFunc(op.Responses, func(r Response) bool { return r.IsSuccess })
+	if i < 0 || !op.Responses[i].IsJSON() {
+		return nil
+	}
+
+	r := op.Responses[i]
+
+	return &r
+}
+
+// LenientError reports whether debug mode decodes r, an error response, leniently from a minimal value of its type
+// with an unknown member: in debug mode, for a struct that holds no union, see [Document.StrictSuccess].
+func (doc Document) LenientError(r Response) bool {
+	return doc.Debug && r.GoType != nil &&
+		slices.ContainsFunc(doc.Schemas, func(s Schema) bool { return s.Name == r.GoType.Name && s.Kind == SchemaKindStruct }) &&
+		!doc.requiresUnion(r.GoType.Name, map[string]bool{})
+}
+
+// BodilessFailures are the responses of op other than a success that declare no body, which the client reports by
+// their status, each under a status code of its own.
+func (op Operation) BodilessFailures() Responses {
+	var rs Responses
+
+	for _, r := range op.Responses {
+		if r.IsSuccess || r.GoType != nil {
+			continue
+		}
+
+		if _, err := strconv.Atoi(r.StatusCode); err == nil {
+			rs = append(rs, r)
+		}
+	}
+
+	return rs
+}
+
+// NeedsBodyServer reports whether a generated test answers with a body of its choosing, see newBodyServer.
+func (doc Document) NeedsBodyServer() bool {
+	return doc.HasErrorResponses() || doc.HasStructSuccess() || slices.ContainsFunc(doc.Operations, func(op Operation) bool {
+		return len(op.BodilessFailures()) > 0 || doc.DebugDecoded(op) != nil
+	})
+}
+
+// NeedsUnknownMember reports whether a generated test sends a value with a member no type declares, see
+// withUnknownMember.
+func (doc Document) NeedsUnknownMember() bool {
+	return doc.HasStructSuccess() || slices.ContainsFunc(doc.Operations, func(op Operation) bool {
+		return slices.ContainsFunc(op.ErrorResponses(), doc.LenientError)
+	})
+}

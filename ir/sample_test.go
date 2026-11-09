@@ -194,3 +194,99 @@ func TestDocument_ValueLiteral(t *testing.T) {
 		}
 	}
 }
+
+// An enum is checked with each member, and with a value of its type that none is, where there is one.
+func TestDocument_Enums(t *testing.T) {
+	t.Parallel()
+
+	doc := ir.Document{Schemas: []ir.Schema{
+		{Name: "Color", Kind: ir.SchemaKindEnum, Type: "string", EnumValues: []ir.EnumValue{{GoName: "ColorRed", Value: "red"}}},
+		{Name: "Taken", Kind: ir.SchemaKindEnum, Type: "string", EnumValues: []ir.EnumValue{{GoName: "TakenNot", Value: "not a member"}}},
+		{Name: "Level", Kind: ir.SchemaKindEnum, Type: "int", EnumValues: []ir.EnumValue{{GoName: "LevelThree", Value: "3"}, {GoName: "LevelOne", Value: "1"}}},
+		{Name: "Ratio", Kind: ir.SchemaKindEnum, Type: "float64", EnumValues: []ir.EnumValue{{GoName: "RatioHalf", Value: "0.5"}, {GoName: "RatioMore", Value: "2.5"}}},
+		{Name: "Flag", Kind: ir.SchemaKindEnum, Type: "bool", EnumValues: []ir.EnumValue{{GoName: "FlagTrue", Value: "true"}}},
+		{Name: "None", Kind: ir.SchemaKindEnum, Type: "string"},
+		{Name: "Page", Kind: ir.SchemaKindStruct},
+	}}
+
+	want := map[string]string{
+		"Color": `"not a member"`,
+		"Taken": `"not a member!"`, // a member holds the first choice
+		"Level": "4",
+		"Ratio": "3", // a whole number, which fits every number type
+		"Flag":  "",  // both values may be members
+	}
+
+	enums := doc.Enums()
+	if len(enums) != len(want) {
+		t.Fatalf("got %d enums, want %d: an enum without members and a struct are left out", len(enums), len(want))
+	}
+
+	for _, e := range enums {
+		if got := e.NotAMember(); got != want[e.Name] {
+			t.Errorf("%s: not a member is %s, want %s", e.Name, got, want[e.Name])
+		}
+	}
+}
+
+// Debug mode's failure paths are tested where it decodes: a JSON success, an error struct, and a failure that declares
+// no body is reported by its status.
+func TestDocument_DebugAndBodilessResponses(t *testing.T) {
+	t.Parallel()
+
+	op := ir.Operation{
+		SuccessReturn: &ir.GoType{Name: "Page"},
+		Responses: ir.Responses{
+			{StatusCode: "200", ContentType: "application/json", GoType: &ir.GoType{Name: "Page"}, IsSuccess: true},
+			{StatusCode: "404", ContentType: "application/json", GoType: &ir.GoType{Name: "Page"}},
+			{StatusCode: "409"},
+			{StatusCode: "4XX"},
+			{StatusCode: "204", IsSuccess: true},
+		},
+	}
+
+	debug := sampleDoc
+	debug.Debug = true
+	debug.Operations = []ir.Operation{op}
+
+	if r := debug.DebugDecoded(op); r == nil || r.StatusCode != "200" {
+		t.Errorf("in debug mode: got %+v, want the 200", r)
+	}
+
+	if sampleDoc.DebugDecoded(op) != nil {
+		t.Error("outside debug mode: want none")
+	}
+
+	for name, o := range map[string]ir.Operation{
+		"empty success":  {EmptySuccess: true, SuccessReturn: &ir.GoType{Name: "Page"}, Responses: op.Responses},
+		"no value":       {Responses: op.Responses},
+		"bytes, no JSON": {SuccessReturn: &ir.GoType{Name: "[]byte"}, Responses: ir.Responses{{StatusCode: "200", ContentType: "text/plain", IsRawBytes: true, IsSuccess: true}}},
+	} {
+		if debug.DebugDecoded(o) != nil {
+			t.Errorf("%s: want none", name)
+		}
+	}
+
+	for goType, want := range map[string]bool{"Page": true, "Home": false, "Message": false} {
+		r := ir.Response{StatusCode: "404", ContentType: "application/json", GoType: &ir.GoType{Name: goType}}
+		if got := debug.LenientError(r); got != want {
+			t.Errorf("%s in debug mode: lenient %t, want %t", goType, got, want)
+		}
+
+		if sampleDoc.LenientError(r) {
+			t.Errorf("%s outside debug mode: want not lenient", goType)
+		}
+	}
+
+	if got := op.BodilessFailures(); len(got) != 1 || got[0].StatusCode != "409" {
+		t.Errorf("got %+v, want the 409 alone", got)
+	}
+
+	if !debug.NeedsBodyServer() || !debug.NeedsUnknownMember() {
+		t.Error("want both helpers")
+	}
+
+	if (ir.Document{}).NeedsBodyServer() || (ir.Document{}).NeedsUnknownMember() {
+		t.Error("no operations: want neither helper")
+	}
+}

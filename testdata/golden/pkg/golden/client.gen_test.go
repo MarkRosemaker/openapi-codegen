@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
 
@@ -590,6 +591,17 @@ func TestClient_Error(t *testing.T) {
 
 			if ct := got.Header.Get("Content-Type"); ct != "application/json" {
 				t.Fatalf("got Content-Type %q, want %q", ct, "application/json")
+			}
+		})
+
+		t.Run("409 response without a body", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(newBodyServer(t, http.StatusConflict, "", nil)))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if err := c.PatchUser(t.Context(), "", nil); err == nil || !strings.Contains(err.Error(), "PatchUser: status") {
+				t.Fatalf("got: %v, want an error naming the status", err)
 			}
 		})
 	})
@@ -1664,6 +1676,129 @@ func TestClient_Error(t *testing.T) {
 			}
 		})
 	})
+}
+
+// TestEnums_Valid checks that every member of an enum is valid, and that a value of its type none is, is not.
+func TestEnums_Valid(t *testing.T) {
+	for _, v := range []ApiVersion{ApiVersionTwo} {
+		if !v.Valid() {
+			t.Errorf("ApiVersion %v: not valid", v)
+		}
+	}
+
+	if ApiVersion("not a member").Valid() {
+		t.Errorf("ApiVersion(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []CreateDatabaseParentAllOfType{CreateDatabaseParentAllOfTypePageID, CreateDatabaseParentAllOfTypeWorkspace} {
+		if !v.Valid() {
+			t.Errorf("CreateDatabaseParentAllOfType %v: not valid", v)
+		}
+	}
+
+	if CreateDatabaseParentAllOfType("not a member").Valid() {
+		t.Errorf("CreateDatabaseParentAllOfType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []Level{LevelOne, LevelTwo, LevelThree} {
+		if !v.Valid() {
+			t.Errorf("Level %v: not valid", v)
+		}
+	}
+
+	if Level(4).Valid() {
+		t.Errorf("Level(%v): valid, though no member", 4)
+	}
+
+	for _, v := range []MemberPersonMembershipType{MemberPersonMembershipTypeMember, MemberPersonMembershipTypeGuest} {
+		if !v.Valid() {
+			t.Errorf("MemberPersonMembershipType %v: not valid", v)
+		}
+	}
+
+	if MemberPersonMembershipType("not a member").Valid() {
+		t.Errorf("MemberPersonMembershipType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []Module{ModulePrice, ModuleSummaryDetail} {
+		if !v.Valid() {
+			t.Errorf("Module %v: not valid", v)
+		}
+	}
+
+	if Module("not a member").Valid() {
+		t.Errorf("Module(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []NestedTitleType{NestedTitleTypeTitle} {
+		if !v.Valid() {
+			t.Errorf("NestedTitleType %v: not valid", v)
+		}
+	}
+
+	if NestedTitleType("not a member").Valid() {
+		t.Errorf("NestedTitleType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []OrderOneOf0{OrderOneOf0Asc} {
+		if !v.Valid() {
+			t.Errorf("OrderOneOf0 %v: not valid", v)
+		}
+	}
+
+	if OrderOneOf0("not a member").Valid() {
+		t.Errorf("OrderOneOf0(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []OrderOneOf1{OrderOneOf1Desc} {
+		if !v.Valid() {
+			t.Errorf("OrderOneOf1 %v: not valid", v)
+		}
+	}
+
+	if OrderOneOf1("not a member").Valid() {
+		t.Errorf("OrderOneOf1(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []PersonGroupType{PersonGroupTypePerson, PersonGroupTypeCreatedBy, PersonGroupTypeLastEditedBy} {
+		if !v.Valid() {
+			t.Errorf("PersonGroupType %v: not valid", v)
+		}
+	}
+
+	if PersonGroupType("not a member").Valid() {
+		t.Errorf("PersonGroupType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []ScheduleFormat{ScheduleFormatPDF, ScheduleFormatCsv} {
+		if !v.Valid() {
+			t.Errorf("ScheduleFormat %v: not valid", v)
+		}
+	}
+
+	if ScheduleFormat("not a member").Valid() {
+		t.Errorf("ScheduleFormat(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []SecFilingType{SecFilingTypeS3, SecFilingTypeOneZeroK, SecFilingTypeS3A, SecFilingTypeAB, SecFilingTypeU002A, SecFilingTypeEmpty} {
+		if !v.Valid() {
+			t.Errorf("SecFilingType %v: not valid", v)
+		}
+	}
+
+	if SecFilingType("not a member").Valid() {
+		t.Errorf("SecFilingType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []SelectGroupType{SelectGroupTypeSelect, SelectGroupTypeMultiSelect} {
+		if !v.Valid() {
+			t.Errorf("SelectGroupType %v: not valid", v)
+		}
+	}
+
+	if SelectGroupType("not a member").Valid() {
+		t.Errorf("SelectGroupType(%v): valid, though no member", "not a member")
+	}
 }
 
 // TestClient_Params sets every parameter it can to a value other than its zero value, and finds each in the request,
