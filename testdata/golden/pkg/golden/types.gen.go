@@ -414,8 +414,8 @@ func (v *Bot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"owner", "workspace_name"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"owner", "workspace_name"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv BotAnyOf1
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.BotAnyOf1 = &vv
@@ -728,8 +728,8 @@ func (v *Entry) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"record"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"record"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv Record
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Record = &vv
@@ -741,8 +741,8 @@ func (v *Entry) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"note"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"note"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv Note
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Note = &vv
@@ -770,6 +770,18 @@ func (v *Entry) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
+// FileDetails defines a model
+type FileDetails struct {
+	Name   string          `json:"name"`
+	File   FileDetailsFile `json:"file"`
+	Folder *struct{}       `json:"folder"`
+}
+
+// FileDetailsFile defines a model
+type FileDetailsFile struct {
+	Size int `json:"size"`
+}
+
 // Filter defines a model
 // Filter is an untagged anyOf union: at least one field is set after unmarshaling.
 type Filter struct {
@@ -792,8 +804,8 @@ func (v *Filter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"or"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"or"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv FilterAnyOf0
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.FilterAnyOf0 = &vv
@@ -804,8 +816,8 @@ func (v *Filter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"and"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"and"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv FilterAnyOf1
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.FilterAnyOf1 = &vv
@@ -841,6 +853,18 @@ type FilterAnyOf0 struct {
 // FilterAnyOf1 defines a model
 type FilterAnyOf1 struct {
 	And []string `json:"and"`
+}
+
+// FolderDetails defines a model
+type FolderDetails struct {
+	Name   string              `json:"name"`
+	Folder FolderDetailsFolder `json:"folder"`
+	File   *struct{}           `json:"file"`
+}
+
+// FolderDetailsFolder defines a model
+type FolderDetailsFolder struct {
+	Count int `json:"count"`
 }
 
 // GroupBy defines a model
@@ -995,8 +1019,8 @@ func (v *IconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"emoji"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"emoji"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv Emoji
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Emoji = &vv
@@ -1008,8 +1032,8 @@ func (v *IconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"url"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"url"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv Link
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Link = &vv
@@ -1098,8 +1122,8 @@ func (v *MaybeMember) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "type"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "type"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv NestedValue
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.NestedValue = &vv
@@ -1111,8 +1135,8 @@ func (v *MaybeMember) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "name", "object"}, map[string]string{"object": "\"group\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "name", "object"}, map[string]bool{"name": true}, map[string]string{"object": "\"group\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv GroupObjectResponse
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.GroupObjectResponse = &vv
@@ -1523,6 +1547,72 @@ func (v *NestedValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
+// Its alternatives require the same members, each with one of them null: a member that is null is there only where the alternative allows null for it.
+// Node is an untagged oneOf union: exactly one field is set after unmarshaling.
+type Node struct {
+	FileDetails   *FileDetails
+	FolderDetails *FolderDetails
+}
+
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+func (v *Node) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
+	*v = Node{}
+
+	opts := jsonOptsOf(dec)
+	strict := jsonStrict(dec)
+
+	raw, err := dec.ReadValue()
+	if err != nil {
+		return err
+	}
+
+	var matched int
+
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, nullable, pinned := []string{"file", "folder", "name"}, map[string]bool{"folder": true}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
+			var vv FileDetails
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FileDetails = &vv
+				matched++
+			}
+		}
+	}
+
+	// leniently, more than one may match, and the first does
+	if strict || matched == 0 {
+		// decoding checks neither the members the alternative requires nor those it pins to one value
+		required, nullable, pinned := []string{"file", "folder", "name"}, map[string]bool{"file": true}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
+			var vv FolderDetails
+			if err := json.Unmarshal(raw, &vv, opts); err == nil {
+				v.FolderDetails = &vv
+				matched++
+			}
+		}
+	}
+
+	if matched != 1 {
+		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
+	}
+
+	return nil
+}
+
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+func (v *Node) MarshalJSONTo(enc *jsontext.Encoder) error {
+	switch {
+	case v.FileDetails != nil:
+		return json.MarshalEncode(enc, v.FileDetails, jsonOptsTo(enc))
+	case v.FolderDetails != nil:
+		return json.MarshalEncode(enc, v.FolderDetails, jsonOptsTo(enc))
+	}
+
+	return &json.SemanticError{Err: errors.New("no alternative set")}
+}
+
 // Note defines a model
 type Note struct {
 	Meta
@@ -1661,8 +1751,8 @@ func (v *Owner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"user\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "object"}, map[string]bool{}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv PartialUserObjectResponse
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.PartialUserObjectResponse = &vv
@@ -1674,8 +1764,8 @@ func (v *Owner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "name", "object"}, map[string]string{"object": "\"group\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "name", "object"}, map[string]bool{"name": true}, map[string]string{"object": "\"group\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv GroupObjectResponse
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.GroupObjectResponse = &vv
@@ -1734,8 +1824,8 @@ func (v *PageOrPartial) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"cover", "icon", "id", "object", "position"}, map[string]string{"object": "\"page\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"cover", "icon", "id", "object", "position"}, map[string]bool{"cover": true, "icon": true}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv Page
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Page = &vv
@@ -1746,8 +1836,8 @@ func (v *PageOrPartial) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	{
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"page\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "object"}, map[string]bool{}, map[string]string{"object": "\"page\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv PartialPage
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.PartialPage = &vv
@@ -1940,8 +2030,8 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec 
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "name", "object"}, map[string]string{"object": "\"group\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "name", "object"}, map[string]bool{"name": true}, map[string]string{"object": "\"group\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv GroupObjectResponse
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.GroupObjectResponse = &vv
@@ -2662,8 +2752,8 @@ func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"id", "object"}, map[string]string{"object": "\"user\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"id", "object"}, map[string]bool{}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv PartialUserObjectResponse
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.PartialUserObjectResponse = &vv
@@ -2675,8 +2765,8 @@ func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"avatar_url", "id", "name", "object", "type"}, map[string]string{"object": "\"user\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"avatar_url", "id", "name", "object", "type"}, map[string]bool{"avatar_url": true, "name": true}, map[string]string{"object": "\"user\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv UserObjectResponse
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.UserObjectResponse = &vv
@@ -2854,8 +2944,8 @@ func (v *ValueAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"type"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"type"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv SimpleOrArray
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.SimpleOrArray = &vv
@@ -2867,8 +2957,8 @@ func (v *ValueAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"function", "type"}, map[string]string{"type": "\"rollup\""}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"function", "type"}, map[string]bool{}, map[string]string{"type": "\"rollup\""}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv Rollup
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Rollup = &vv
@@ -2920,8 +3010,8 @@ func (v *ViewFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"property"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"property"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv PropertyFilter
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.PropertyFilter = &vv
@@ -2933,8 +3023,8 @@ func (v *ViewFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	// leniently, more than one may match, and the first does
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, pinned := []string{"or"}, map[string]string{}
-		if jsonFits(raw, required, pinned) {
+		required, nullable, pinned := []string{"or"}, map[string]bool{}, map[string]string{}
+		if jsonFits(raw, required, nullable, pinned) {
 			var vv CompoundFilter
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.CompoundFilter = &vv
@@ -2989,8 +3079,8 @@ func (v *ViewGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		// leniently, more than one may match, and the first does
 		if strict || matched == 0 {
 			// decoding checks neither the members the alternative requires nor those it pins to one value
-			required, pinned := []string{"property", "type"}, map[string]string{}
-			if jsonFits(raw, required, pinned) && (!enums || jsonEnumsFit(raw, map[string][]string{"type": {"\"select\"", "\"multi_select\""}})) {
+			required, nullable, pinned := []string{"property", "type"}, map[string]bool{}, map[string]string{}
+			if jsonFits(raw, required, nullable, pinned) && (!enums || jsonEnumsFit(raw, map[string][]string{"type": {"\"select\"", "\"multi_select\""}})) {
 				var vv SelectGroup
 				if err := json.Unmarshal(raw, &vv, opts); err == nil {
 					v.SelectGroup = &vv
@@ -3002,8 +3092,8 @@ func (v *ViewGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		// leniently, more than one may match, and the first does
 		if strict || matched == 0 {
 			// decoding checks neither the members the alternative requires nor those it pins to one value
-			required, pinned := []string{"property", "type"}, map[string]string{}
-			if jsonFits(raw, required, pinned) && (!enums || jsonEnumsFit(raw, map[string][]string{"type": {"\"person\"", "\"created_by\"", "\"last_edited_by\""}})) {
+			required, nullable, pinned := []string{"property", "type"}, map[string]bool{}, map[string]string{}
+			if jsonFits(raw, required, nullable, pinned) && (!enums || jsonEnumsFit(raw, map[string][]string{"type": {"\"person\"", "\"created_by\"", "\"last_edited_by\""}})) {
 				var vv PersonGroup
 				if err := json.Unmarshal(raw, &vv, opts); err == nil {
 					v.PersonGroup = &vv
@@ -3524,6 +3614,8 @@ type jsonVariant struct {
 	value    string
 	members  map[string]bool
 	required []string
+	// nullable are the members of required that may be null
+	nullable map[string]bool
 	// pinned are the members it allows one value for, written as compact JSON
 	pinned map[string]string
 	// enums are the members it allows the values of an enum for, written so
@@ -3577,8 +3669,9 @@ func jsonEnumPasses(strict bool) []bool {
 }
 
 // jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
-// each pins, written as compact JSON. Any value fits where nothing is required or pinned.
-func jsonFits(raw jsontext.Value, required []string, pinned map[string]string) bool {
+// each pins, written as compact JSON. A member that is null is there only where nullable allows it to be. Any value
+// fits where nothing is required or pinned.
+func jsonFits(raw jsontext.Value, required []string, nullable map[string]bool, pinned map[string]string) bool {
 	if len(required) == 0 && len(pinned) == 0 {
 		return true
 	}
@@ -3607,7 +3700,7 @@ func jsonFits(raw jsontext.Value, required []string, pinned map[string]string) b
 			return false
 		}
 
-		present[name] = true
+		present[name] = val.Kind() != jsontext.KindNull || nullable[name]
 
 		if want, ok := pinned[name]; ok {
 			got := val.Clone()
@@ -3666,7 +3759,7 @@ func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jso
 	} else {
 	variants:
 		for i, v := range variants {
-			if !jsonFits(raw, v.required, v.pinned) {
+			if !jsonFits(raw, v.required, v.nullable, v.pinned) {
 				continue variants
 			}
 
