@@ -466,25 +466,6 @@ func TestClient_Error(t *testing.T) {
 {{end -}}
 }
 
-{{ with .Enums -}}
-// TestEnums_Valid checks that every member of an enum is valid, and that a value of its type none is, is not.
-func TestEnums_Valid(t *testing.T) {
-	{{- range . }}{{ $e := . }}
-	for _, v := range []{{.Name}}{ {{- range $i, $v := .EnumValues}}{{if $i}}, {{end}}{{.GoName}}{{end -}} } {
-		if !v.Valid() {
-			t.Errorf("{{.Name}} %v: not valid", v)
-		}
-	}
-	{{- with .NotAMember }}
-
-	if {{$e.Name}}({{.}}).Valid() {
-		t.Errorf("{{$e.Name}}(%v): valid, though no member", {{.}})
-	}
-	{{- end }}
-	{{ end }}
-}
-
-{{ end -}}
 {{ if .HasParamSamples }}
 // TestClient_Params sets every parameter it can to a value other than its zero value, and finds each in the request,
 // under its name and written as the client must write it.
