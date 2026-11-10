@@ -20,6 +20,7 @@ import (
 
 	"cloud.google.com/go/civil"
 	"github.com/MarkRosemaker/jsonutil"
+	"github.com/go-api-libs/types"
 )
 
 var jsonOpts = json.JoinOptions(
@@ -169,6 +170,17 @@ type QueryStylesParams struct {
 	Level Level
 	// A float32.
 	Ratio float32
+}
+
+// Its account adds to an Account a member the Account declares already, as a correction of its type: the later part's definition wins, and the member stays required.
+type AccountHolder struct {
+	Account AccountHolderAccount `json:"account,omitzero"`
+}
+
+// AccountHolderAccount defines a model
+type AccountHolderAccount struct {
+	ID    string      `json:"id"`
+	Email types.Email `json:"email"`
 }
 
 // AgentModel defines a model
