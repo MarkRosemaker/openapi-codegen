@@ -14,7 +14,8 @@ openapi-codegen -spec openapi.json -out ./gen -pkg mypkg -client
 ```
 
 At least one of `-client`, `-server`, or `-js` is required. Types are generated
-automatically whenever a client or server is, and client tests whenever a client is.
+automatically whenever a client or server is, with `types.gen_test.go` where there is something to test in
+them, such as an enum, and client tests whenever a client is.
 
 | Flag | Default | Purpose |
 |---|---|---|

@@ -125,6 +125,9 @@
         "responses": {
           "204": {
             "description": "no content"
+          },
+          "409": {
+            "description": "A failure that declares no body is reported by its status."
           }
         },
         "parameters": [

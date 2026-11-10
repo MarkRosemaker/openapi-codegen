@@ -167,6 +167,30 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 		default:
 			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
 		}
+	case http.StatusNotFound:
+		// An error debug mode decodes leniently too.
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out Problem
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				if ia == nil {
+					return nil, api.WrapDecodingError(rsp, err)
+				}
+
+				if kerr := c.keep(ia); kerr != nil {
+					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
+				}
+
+				out = *new(Problem)
+				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
+					return nil, api.WrapDecodingError(rsp, err)
+				}
+			}
+
+			return nil, api.NewErrCustom(rsp, &out)
+		default:
+			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
+		}
 	default:
 		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
 	}
