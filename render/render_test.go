@@ -637,3 +637,30 @@ func containsStr(s, sub string) bool {
 
 	return false
 }
+
+// A template with nothing to write is no file, rather than an empty one goimports refuses: the types' tests where no
+// enum is declared.
+func TestFilesFromFS_NothingToWrite(t *testing.T) {
+	t.Parallel()
+
+	fsys := fstest.MapFS{
+		"types.gen_test.go.tmpl": {Data: []byte("{{ with .Enums }}package x\n{{ end }}")},
+		"types.gen.go.tmpl":      {Data: []byte("package x\n")},
+	}
+
+	files, err := render.FilesFromFS(fsys, &ir.Document{}, config.Generate{Types: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(files) != 1 || files[0].Name != "types.gen.go" {
+		t.Errorf("got %d files, want types.gen.go alone", len(files))
+	}
+
+	doc := &ir.Document{Schemas: []ir.Schema{{Name: "Level", Kind: ir.SchemaKindEnum, Type: "int", EnumValues: []ir.EnumValue{{GoName: "LevelOne", Value: "1"}}}}}
+	if files, err := render.FilesFromFS(fsys, doc, config.Generate{Types: true}); err != nil {
+		t.Fatal(err)
+	} else if len(files) != 2 {
+		t.Errorf("with an enum: got %d files, want both", len(files))
+	}
+}

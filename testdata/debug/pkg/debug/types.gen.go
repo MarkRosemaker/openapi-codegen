@@ -193,6 +193,11 @@ func (v *Pet) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
+// Problem defines a model
+type Problem struct {
+	Message string `json:"message"`
+}
+
 // Text defines a model
 type Text struct {
 	Text string `json:"text"`
