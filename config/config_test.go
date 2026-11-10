@@ -4,7 +4,7 @@ import "testing"
 
 func TestShouldGenerate_AllFalse(t *testing.T) {
 	cfg := Generate{}
-	for _, f := range []string{"types.gen.go", "client.gen.go", "client.gen_test.go"} {
+	for _, f := range []string{"types.gen.go", "types.gen_test.go", "client.gen.go", "client.gen_test.go"} {
 		if !cfg.ShouldGenerate(f) {
 			t.Errorf("ShouldGenerate(%q) = false, want true", f)
 		}
@@ -21,6 +21,7 @@ func TestShouldGenerate_Selective(t *testing.T) {
 	cfg := Generate{Types: true, Server: true}
 	want := map[string]bool{
 		"types.gen.go":       true,
+		"types.gen_test.go":  true, // the types' tests go with the types
 		"client.gen.go":      false,
 		"client.gen_test.go": false,
 		"server.gen.go":      true,
@@ -30,5 +31,11 @@ func TestShouldGenerate_Selective(t *testing.T) {
 		if got := cfg.ShouldGenerate(f); got != w {
 			t.Errorf("ShouldGenerate(%q) = %v, want %v", f, got, w)
 		}
+	}
+}
+
+func TestShouldGenerate_TypesTestFollowsTypes(t *testing.T) {
+	if (Generate{Client: true, ClientTest: true}).ShouldGenerate("types.gen_test.go") {
+		t.Error("without the types: want no tests of them")
 	}
 }

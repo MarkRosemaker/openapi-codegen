@@ -189,6 +189,11 @@
 					"goConstant": "http.StatusNoContent",
 					"description": "no content",
 					"isSuccess": true
+				},
+				{
+					"statusCode": "409",
+					"goConstant": "http.StatusConflict",
+					"description": "A failure that declares no body is reported by its status."
 				}
 			]
 		},

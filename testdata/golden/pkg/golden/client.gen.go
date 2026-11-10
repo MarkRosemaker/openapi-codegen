@@ -356,6 +356,9 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 		default:
 			return api.NewErrUnknownContentType(rsp)
 		}
+	case http.StatusConflict:
+		// A failure that declares no body is reported by its status.
+		return fmt.Errorf("PatchUser: status %s", rsp.Status)
 	default:
 		return api.NewErrUnknownStatusCode(rsp)
 	}

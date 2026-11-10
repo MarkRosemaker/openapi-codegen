@@ -27,6 +27,15 @@
 						"name": "Item"
 					},
 					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "An error debug mode decodes leniently too.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Problem"
+					}
 				}
 			],
 			"successReturn": {
@@ -240,6 +249,19 @@
 				}
 			],
 			"isOneOf": true
+		},
+		{
+			"name": "Problem",
+			"description": "Problem defines a model",
+			"fields": [
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message\"",
+					"required": true
+				}
+			]
 		},
 		{
 			"name": "Text",
