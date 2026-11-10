@@ -582,15 +582,17 @@ func (p Param) FormatExpr() string {
 	}
 }
 
-// PathExpr is the Go expression of the parameter as a path segment, escaped where its text can hold what a path
-// reads as its own, as a slash or a percent sign: url.URL.JoinPath takes its elements as escaped path text. A fixed
-// value is escaped as the code is generated; a number, a UUID or a date never needs it.
+// PathExpr is the Go expression of the parameter in a path, escaped where its text can hold what a path reads as its
+// own, as a percent sign or a question mark: url.URL.JoinPath takes its elements as escaped path text. A slash stays a
+// slash, since a parameter can be a path of its own, as pkg.go.dev's /package/{path} takes golang.org/x/time/rate; a
+// literal %2F in the value is escaped to %252F first, so only its slashes come back. A fixed value is escaped as the
+// code is generated; a number, a UUID or a date never needs it.
 func (p Param) PathExpr() string {
 	expr := p.FormatExpr()
 
 	if p.Value != "" {
 		if v, err := strconv.Unquote(expr); err == nil {
-			return strconv.Quote(url.PathEscape(v))
+			return strconv.Quote(escapePath(v))
 		}
 	}
 
@@ -607,8 +609,11 @@ func (p Param) PathExpr() string {
 		}
 	}
 
-	return "url.PathEscape(" + expr + ")"
+	return `strings.ReplaceAll(url.PathEscape(` + expr + `), "%2F", "/")`
 }
+
+// escapePath is what the expression of [Param.PathExpr] makes of s.
+func escapePath(s string) string { return strings.ReplaceAll(url.PathEscape(s), "%2F", "/") }
 
 func fromRequestBody(rb *openapi.RequestBody) (*ReqBody, error) {
 	for mr, mt := range rb.Content.ByIndex() {

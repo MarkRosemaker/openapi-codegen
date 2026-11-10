@@ -16,7 +16,7 @@
 			"pathTemplate": "/pages/{id}",
 			"joinPathArgs": [
 				"\"pages\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -84,7 +84,7 @@
 			"pathTemplate": "/trials/{id}",
 			"joinPathArgs": [
 				"\"trials\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -121,7 +121,7 @@
 			"pathTemplate": "/users/{id}",
 			"joinPathArgs": [
 				"\"users\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -164,7 +164,7 @@
 			"pathTemplate": "/users/{id}",
 			"joinPathArgs": [
 				"\"users\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -231,7 +231,7 @@
 			"pathTemplate": "/values/{id}",
 			"joinPathArgs": [
 				"\"values\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -269,7 +269,7 @@
 			"pathTemplate": "/blocks/{id}",
 			"joinPathArgs": [
 				"\"blocks\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -334,7 +334,7 @@
 			"pathTemplate": "/properties/{id}",
 			"joinPathArgs": [
 				"\"properties\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -586,7 +586,7 @@
 			"pathTemplate": "/reports/{format}",
 			"joinPathArgs": [
 				"\"reports\"",
-				"url.PathEscape(string(format))"
+				"strings.ReplaceAll(url.PathEscape(string(format)), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
@@ -631,7 +631,7 @@
 			"pathTemplate": "/schedules/{id}",
 			"joinPathArgs": [
 				"\"schedules\"",
-				"url.PathEscape(id)"
+				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
 			],
 			"pathParams": [
 				{
