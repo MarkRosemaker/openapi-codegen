@@ -88,7 +88,7 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 //
 //	GET /pages/{id}
 func (c *Client) GetPageWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("pages", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("pages", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -209,7 +209,7 @@ func (c *Client) GetTrial(ctx context.Context, id string) (*Trial, error) {
 //
 //	GET /trials/{id}
 func (c *Client) GetTrialWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("trials", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("trials", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -261,7 +261,7 @@ func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, e
 
 // PUT /users/{id}
 func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, body User) (*R, error) {
-	u := c.baseURL.JoinPath("users", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("users", url.PathEscape(id))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
@@ -317,7 +317,7 @@ func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, bod
 //
 //	PATCH /users/{id}
 func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
-	u := c.baseURL.JoinPath("users", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("users", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -434,7 +434,7 @@ func (c *Client) GetValue(ctx context.Context, id string) (*Value, error) {
 //
 // Deprecated.
 func (c *Client) GetValueWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("values", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("values", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -486,7 +486,7 @@ func (c *Client) GetBlock(ctx context.Context, id string) (*Block, error) {
 
 // GET /blocks/{id}
 func (c *Client) GetBlockWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("blocks", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("blocks", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -597,7 +597,7 @@ func (c *Client) GetProperty(ctx context.Context, id string) (*NestedValue, erro
 
 // GET /properties/{id}
 func (c *Client) GetPropertyWithResult[R any](ctx context.Context, id string) (*R, error) {
-	u := c.baseURL.JoinPath("properties", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("properties", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -876,7 +876,7 @@ func (c *Client) CreateScheduleWithResult[R any](ctx context.Context, body Sched
 //
 //	GET /reports/{format}
 func (c *Client) DownloadReport(ctx context.Context, format ScheduleFormat) (io.ReadCloser, error) {
-	u := c.baseURL.JoinPath("reports", strings.ReplaceAll(url.PathEscape(string(format)), "%2F", "/"))
+	u := c.baseURL.JoinPath("reports", url.PathEscape(string(format)))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},
@@ -922,7 +922,7 @@ func (c *Client) DownloadReport(ctx context.Context, format ScheduleFormat) (io.
 //
 //	DELETE /schedules/{id}
 func (c *Client) DeleteSchedule(ctx context.Context, id string) error {
-	u := c.baseURL.JoinPath("schedules", strings.ReplaceAll(url.PathEscape(id), "%2F", "/"))
+	u := c.baseURL.JoinPath("schedules", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
 			"Api-Version": []string{"2"},
@@ -946,6 +946,44 @@ func (c *Client) DeleteSchedule(ctx context.Context, id string) error {
 	case http.StatusOK:
 		// ok
 		return nil
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// A path parameter that is a path of its own keeps its slashes.
+//
+//	GET /files/{path}
+func (c *Client) GetFile(ctx context.Context, path string) error {
+	u := c.baseURL.JoinPath("files", escapePathSegments(path))
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// no content
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
 	default:
 		return api.NewErrUnknownStatusCode(rsp)
 	}
@@ -1336,6 +1374,22 @@ func joinQuery(parts []string, sep string, escape func(string) string) string {
 	}
 
 	return strings.Join(parts, sep)
+}
+
+// escapePathSegments escapes s, a path parameter that is a path of its own, part by part: its slashes stay slashes,
+// and a part of . or .. is escaped too, so the client does not drop it, nor the part before it, from the path.
+func escapePathSegments(s string) string {
+	parts := strings.Split(s, "/")
+	for i, part := range parts {
+		switch part {
+		case ".", "..":
+			parts[i] = strings.ReplaceAll(part, ".", "%2E")
+		default:
+			parts[i] = url.PathEscape(part)
+		}
+	}
+
+	return strings.Join(parts, "/")
 }
 
 // escapeReserved escapes s as [url.QueryEscape] does, but for the characters RFC 3986 reserves, which allowReserved

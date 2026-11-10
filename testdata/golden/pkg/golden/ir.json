@@ -16,7 +16,7 @@
 			"pathTemplate": "/pages/{id}",
 			"joinPathArgs": [
 				"\"pages\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -84,7 +84,7 @@
 			"pathTemplate": "/trials/{id}",
 			"joinPathArgs": [
 				"\"trials\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -121,7 +121,7 @@
 			"pathTemplate": "/users/{id}",
 			"joinPathArgs": [
 				"\"users\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -164,7 +164,7 @@
 			"pathTemplate": "/users/{id}",
 			"joinPathArgs": [
 				"\"users\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -231,7 +231,7 @@
 			"pathTemplate": "/values/{id}",
 			"joinPathArgs": [
 				"\"values\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -269,7 +269,7 @@
 			"pathTemplate": "/blocks/{id}",
 			"joinPathArgs": [
 				"\"blocks\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -334,7 +334,7 @@
 			"pathTemplate": "/properties/{id}",
 			"joinPathArgs": [
 				"\"properties\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -586,7 +586,7 @@
 			"pathTemplate": "/reports/{format}",
 			"joinPathArgs": [
 				"\"reports\"",
-				"strings.ReplaceAll(url.PathEscape(string(format)), \"%2F\", \"/\")"
+				"url.PathEscape(string(format))"
 			],
 			"pathParams": [
 				{
@@ -631,7 +631,7 @@
 			"pathTemplate": "/schedules/{id}",
 			"joinPathArgs": [
 				"\"schedules\"",
-				"strings.ReplaceAll(url.PathEscape(id), \"%2F\", \"/\")"
+				"url.PathEscape(id)"
 			],
 			"pathParams": [
 				{
@@ -677,6 +677,38 @@
 				}
 			],
 			"emptySuccess": true
+		},
+		{
+			"name": "GetFile",
+			"description": "A path parameter that is a path of its own keeps its slashes.",
+			"method": "GET",
+			"pathTemplate": "/files/{path}",
+			"joinPathArgs": [
+				"\"files\"",
+				"escapePathSegments(path)"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"allowSlashes": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "no content",
+					"isSuccess": true
+				}
+			]
 		},
 		{
 			"name": "GetRanges",
