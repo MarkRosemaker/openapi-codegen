@@ -1330,6 +1330,9 @@
 						"id",
 						"mode"
 					],
+					"nullable": [
+						"id"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -1369,6 +1372,9 @@
 					"required": [
 						"id",
 						"mode"
+					],
+					"nullable": [
+						"id"
 					],
 					"object": true,
 					"pinned": [
@@ -2036,6 +2042,46 @@
 			"isOneOf": true
 		},
 		{
+			"name": "FileDetails",
+			"description": "FileDetails defines a model",
+			"fields": [
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"required": true
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "FileDetailsFile",
+					"jsonTag": "json:\"file\"",
+					"required": true
+				},
+				{
+					"name": "Folder",
+					"jsonName": "folder",
+					"type": "*struct{}",
+					"jsonTag": "json:\"folder\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "FileDetailsFile",
+			"description": "FileDetailsFile defines a model",
+			"fields": [
+				{
+					"name": "Size",
+					"jsonName": "size",
+					"type": "int",
+					"jsonTag": "json:\"size\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "Filter",
 			"description": "Filter defines a model",
 			"kind": 5,
@@ -2110,6 +2156,46 @@
 					"jsonName": "and",
 					"type": "[]string",
 					"jsonTag": "json:\"and\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "FolderDetails",
+			"description": "FolderDetails defines a model",
+			"fields": [
+				{
+					"name": "Name",
+					"jsonName": "name",
+					"type": "string",
+					"jsonTag": "json:\"name\"",
+					"required": true
+				},
+				{
+					"name": "Folder",
+					"jsonName": "folder",
+					"type": "FolderDetailsFolder",
+					"jsonTag": "json:\"folder\"",
+					"required": true
+				},
+				{
+					"name": "File",
+					"jsonName": "file",
+					"type": "*struct{}",
+					"jsonTag": "json:\"file\"",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "FolderDetailsFolder",
+			"description": "FolderDetailsFolder defines a model",
+			"fields": [
+				{
+					"name": "Count",
+					"jsonName": "count",
+					"type": "int",
+					"jsonTag": "json:\"count\"",
 					"required": true
 				}
 			]
@@ -2478,6 +2564,9 @@
 						"name",
 						"object"
 					],
+					"nullable": [
+						"name"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -2517,6 +2606,9 @@
 						"id",
 						"name",
 						"object"
+					],
+					"nullable": [
+						"name"
 					],
 					"object": true,
 					"pinned": [
@@ -3018,6 +3110,88 @@
 			}
 		},
 		{
+			"name": "Node",
+			"description": "Its alternatives require the same members, each with one of them null: a member that is null is there only where the alternative allows null for it.",
+			"kind": 5,
+			"unionVariants": [
+				{
+					"fieldName": "FileDetails",
+					"type": "FileDetails",
+					"members": [
+						"file",
+						"folder",
+						"name"
+					],
+					"required": [
+						"file",
+						"folder",
+						"name"
+					],
+					"nullable": [
+						"folder"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "FolderDetails",
+					"type": "FolderDetails",
+					"members": [
+						"file",
+						"folder",
+						"name"
+					],
+					"required": [
+						"file",
+						"folder",
+						"name"
+					],
+					"nullable": [
+						"file"
+					],
+					"object": true
+				}
+			],
+			"choices": [
+				{
+					"fieldName": "FileDetails",
+					"type": "FileDetails",
+					"members": [
+						"file",
+						"folder",
+						"name"
+					],
+					"required": [
+						"file",
+						"folder",
+						"name"
+					],
+					"nullable": [
+						"folder"
+					],
+					"object": true
+				},
+				{
+					"fieldName": "FolderDetails",
+					"type": "FolderDetails",
+					"members": [
+						"file",
+						"folder",
+						"name"
+					],
+					"required": [
+						"file",
+						"folder",
+						"name"
+					],
+					"nullable": [
+						"file"
+					],
+					"object": true
+				}
+			],
+			"isOneOf": true
+		},
+		{
 			"name": "Note",
 			"description": "Note defines a model",
 			"kind": 3,
@@ -3193,6 +3367,9 @@
 						"name",
 						"object"
 					],
+					"nullable": [
+						"name"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -3234,6 +3411,9 @@
 						"id",
 						"name",
 						"object"
+					],
+					"nullable": [
+						"name"
 					],
 					"object": true,
 					"pinned": [
@@ -3309,6 +3489,10 @@
 						"object",
 						"position"
 					],
+					"nullable": [
+						"cover",
+						"icon"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -3354,6 +3538,10 @@
 						"id",
 						"object",
 						"position"
+					],
+					"nullable": [
+						"cover",
+						"icon"
 					],
 					"object": true,
 					"pinned": [
@@ -3492,6 +3680,9 @@
 						"name",
 						"object"
 					],
+					"nullable": [
+						"name"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -3546,6 +3737,10 @@
 						"object",
 						"type"
 					],
+					"nullable": [
+						"avatar_url",
+						"name"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -3572,6 +3767,9 @@
 						"id",
 						"name",
 						"object"
+					],
+					"nullable": [
+						"name"
 					],
 					"object": true,
 					"pinned": [
@@ -4536,6 +4734,10 @@
 						"object",
 						"type"
 					],
+					"nullable": [
+						"avatar_url",
+						"name"
+					],
 					"object": true,
 					"pinned": [
 						{
@@ -4583,6 +4785,10 @@
 						"name",
 						"object",
 						"type"
+					],
+					"nullable": [
+						"avatar_url",
+						"name"
 					],
 					"object": true,
 					"pinned": [

@@ -2301,6 +2301,71 @@
         ],
         "description": "A short value in capitals stays as it is in its constant's name."
       },
+      "FileDetails": {
+        "type": "object",
+        "required": [
+          "name",
+          "file",
+          "folder"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "file": {
+            "type": "object",
+            "required": [
+              "size"
+            ],
+            "properties": {
+              "size": {
+                "type": "integer"
+              }
+            }
+          },
+          "folder": {
+            "type": "null"
+          }
+        }
+      },
+      "FolderDetails": {
+        "type": "object",
+        "required": [
+          "name",
+          "folder",
+          "file"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "folder": {
+            "type": "object",
+            "required": [
+              "count"
+            ],
+            "properties": {
+              "count": {
+                "type": "integer"
+              }
+            }
+          },
+          "file": {
+            "type": "null"
+          }
+        }
+      },
+      "Node": {
+        "description": "Its alternatives require the same members, each with one of them null: a member that is null is there only where the alternative allows null for it.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FileDetails"
+          },
+          {
+            "$ref": "#/components/schemas/FolderDetails"
+          }
+        ]
+      },
       "Account": {
         "type": "object",
         "required": [
