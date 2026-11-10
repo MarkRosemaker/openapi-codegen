@@ -4,7 +4,11 @@
 
 package golden
 
-import "testing"
+import (
+	"bytes"
+	"encoding/json/v2"
+	"testing"
+)
 
 // TestEnums_Valid checks that every member of an enum is valid, and that a value of its type none is, is not.
 func TestEnums_Valid(t *testing.T) {
@@ -126,5 +130,171 @@ func TestEnums_Valid(t *testing.T) {
 
 	if SelectGroupType("not a member").Valid() {
 		t.Errorf("SelectGroupType(%v): valid, though no member", "not a member")
+	}
+}
+
+// TestUnions_RoundTrip sets each variant of each union in turn, encodes it and decodes it strictly: the union must
+// choose the same variant again, and encode as before.
+func TestUnions_RoundTrip(t *testing.T) {
+	t.Run("AgentModel/AgentModelOneOf", func(t *testing.T) {
+		v := AgentModelOneOf{}
+		v.Mode = "auto"
+
+		roundTrip(t, AgentModel{AgentModelOneOf: &v}, func(u AgentModel) bool { return u.AgentModelOneOf != nil })
+	})
+
+	t.Run("AgentModel/AgentModelOneOf2", func(t *testing.T) {
+		v := AgentModelOneOf2{}
+		v.Mode = "pinned"
+
+		roundTrip(t, AgentModel{AgentModelOneOf2: &v}, func(u AgentModel) bool { return u.AgentModelOneOf2 != nil })
+	})
+
+	t.Run("Bot/BotAnyOf1", func(t *testing.T) {
+		v := BotAnyOf1{}
+
+		roundTrip(t, Bot{BotAnyOf1: &v}, func(u Bot) bool { return u.BotAnyOf1 != nil })
+	})
+
+	t.Run("Filter/FilterAnyOf0", func(t *testing.T) {
+		v := FilterAnyOf0{}
+
+		roundTrip(t, Filter{FilterAnyOf0: &v}, func(u Filter) bool { return u.FilterAnyOf0 != nil })
+	})
+
+	t.Run("Filter/FilterAnyOf1", func(t *testing.T) {
+		v := FilterAnyOf1{}
+
+		roundTrip(t, Filter{FilterAnyOf1: &v}, func(u Filter) bool { return u.FilterAnyOf1 != nil })
+	})
+
+	t.Run("GroupBy/GroupByAnyOf0", func(t *testing.T) {
+		v := GroupByAnyOf0{}
+		v.Type = "select"
+
+		roundTrip(t, GroupBy{GroupByAnyOf0: &v}, func(u GroupBy) bool { return u.GroupByAnyOf0 != nil })
+	})
+
+	t.Run("GroupBy/GroupByAnyOf1", func(t *testing.T) {
+		v := GroupByAnyOf1{}
+		v.Type = "date"
+
+		roundTrip(t, GroupBy{GroupByAnyOf1: &v}, func(u GroupBy) bool { return u.GroupByAnyOf1 != nil })
+	})
+
+	t.Run("IconResponse/Emoji", func(t *testing.T) {
+		v := Emoji{}
+
+		roundTrip(t, IconResponse{Emoji: &v}, func(u IconResponse) bool { return u.Emoji != nil })
+	})
+
+	t.Run("IconResponse/Link", func(t *testing.T) {
+		v := Link{}
+
+		roundTrip(t, IconResponse{Link: &v}, func(u IconResponse) bool { return u.Link != nil })
+	})
+
+	t.Run("MaybeMember/GroupObjectResponse", func(t *testing.T) {
+		v := GroupObjectResponse{}
+		v.Object = "group"
+
+		roundTrip(t, MaybeMember{GroupObjectResponse: &v}, func(u MaybeMember) bool { return u.GroupObjectResponse != nil })
+	})
+
+	t.Run("MemberAllOf1/MemberPerson", func(t *testing.T) {
+		v := MemberPerson{}
+		v.Type = "person"
+		v.MembershipType = "member"
+
+		roundTrip(t, MemberAllOf1{MemberPerson: &v}, func(u MemberAllOf1) bool { return u.MemberPerson != nil })
+	})
+
+	t.Run("MemberAllOf1/BotUserObjectResponse", func(t *testing.T) {
+		v := BotUserObjectResponse{}
+		v.Type = "bot"
+
+		roundTrip(t, MemberAllOf1{BotUserObjectResponse: &v}, func(u MemberAllOf1) bool { return u.BotUserObjectResponse != nil })
+	})
+
+	t.Run("Owner/PartialUserObjectResponse", func(t *testing.T) {
+		v := PartialUserObjectResponse{}
+		v.Object = "user"
+
+		roundTrip(t, Owner{PartialUserObjectResponse: &v}, func(u Owner) bool { return u.PartialUserObjectResponse != nil })
+	})
+
+	t.Run("Owner/GroupObjectResponse", func(t *testing.T) {
+		v := GroupObjectResponse{}
+		v.Object = "group"
+
+		roundTrip(t, Owner{GroupObjectResponse: &v}, func(u Owner) bool { return u.GroupObjectResponse != nil })
+	})
+
+	t.Run("PageOrPartial/PartialPage", func(t *testing.T) {
+		v := PartialPage{}
+		v.Object = "page"
+
+		roundTrip(t, PageOrPartial{PartialPage: &v}, func(u PageOrPartial) bool { return u.PartialPage != nil })
+	})
+
+	t.Run("Tags/String", func(t *testing.T) {
+		v := "sample"
+
+		roundTrip(t, Tags{String: v}, func(u Tags) bool { return u.String != "" })
+	})
+
+	t.Run("Tags/String2", func(t *testing.T) {
+		v := []string{"sample"}
+
+		roundTrip(t, Tags{String2: v}, func(u Tags) bool { return u.String2 != nil })
+	})
+
+	t.Run("UserValueResponse/PartialUserObjectResponse", func(t *testing.T) {
+		v := PartialUserObjectResponse{}
+		v.Object = "user"
+
+		roundTrip(t, UserValueResponse{PartialUserObjectResponse: &v}, func(u UserValueResponse) bool { return u.PartialUserObjectResponse != nil })
+	})
+
+	t.Run("ValueAllOf1/Rollup", func(t *testing.T) {
+		v := Rollup{}
+		v.Type = "rollup"
+
+		roundTrip(t, ValueAllOf1{Rollup: &v}, func(u ValueAllOf1) bool { return u.Rollup != nil })
+	})
+
+	t.Run("ViewFilter/CompoundFilter", func(t *testing.T) {
+		v := CompoundFilter{}
+
+		roundTrip(t, ViewFilter{CompoundFilter: &v}, func(u ViewFilter) bool { return u.CompoundFilter != nil })
+	})
+}
+
+// roundTrip encodes in and decodes it strictly into a new value, which set must report holds the variant in did, and
+// which must encode as in did.
+func roundTrip[T any](t *testing.T, in T, set func(T) bool) {
+	t.Helper()
+
+	raw, err := json.Marshal(&in, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var got T
+	if err := json.Unmarshal(raw, &got, jsonOpts); err != nil {
+		t.Fatalf("%s: %v", raw, err)
+	}
+
+	if !set(got) {
+		t.Fatalf("%s decoded as another variant: %+v", raw, got)
+	}
+
+	again, err := json.Marshal(&got, jsonOpts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(again, raw) {
+		t.Errorf("encoded %s, then %s", raw, again)
 	}
 }
