@@ -951,6 +951,44 @@ func (c *Client) DeleteSchedule(ctx context.Context, id string) error {
 	}
 }
 
+// A path parameter that is a path of its own keeps its slashes.
+//
+//	GET /files/{path}
+func (c *Client) GetFile(ctx context.Context, path string) error {
+	u := c.baseURL.JoinPath("files", escapePathSegments(path))
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// no content
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
 // A range of codes, matched after the exact codes, which take precedence over it.
 //
 //	GET /ranges
@@ -1336,6 +1374,22 @@ func joinQuery(parts []string, sep string, escape func(string) string) string {
 	}
 
 	return strings.Join(parts, sep)
+}
+
+// escapePathSegments escapes s, a path parameter that is a path of its own, part by part: its slashes stay slashes,
+// and a part of . or .. is escaped too, so the client does not drop it, nor the part before it, from the path.
+func escapePathSegments(s string) string {
+	parts := strings.Split(s, "/")
+	for i, part := range parts {
+		switch part {
+		case ".", "..":
+			parts[i] = strings.ReplaceAll(part, ".", "%2E")
+		default:
+			parts[i] = url.PathEscape(part)
+		}
+	}
+
+	return strings.Join(parts, "/")
 }
 
 // escapeReserved escapes s as [url.QueryEscape] does, but for the characters RFC 3986 reserves, which allowReserved

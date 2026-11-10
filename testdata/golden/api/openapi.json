@@ -627,6 +627,28 @@
         }
       }
     },
+    "/files/{path}": {
+      "get": {
+        "operationId": "getFile",
+        "description": "A path parameter that is a path of its own keeps its slashes.",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-allow-slashes": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
     "/ranges": {
       "get": {
         "operationId": "getRanges",
