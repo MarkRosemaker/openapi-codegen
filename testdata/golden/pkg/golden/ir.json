@@ -679,6 +679,38 @@
 			"emptySuccess": true
 		},
 		{
+			"name": "GetRanges",
+			"description": "A range of codes, matched after the exact codes, which take precedence over it.",
+			"method": "GET",
+			"pathTemplate": "/ranges",
+			"joinPathArgs": [
+				"\"ranges\""
+			],
+			"responses": [
+				{
+					"statusCode": "2XX",
+					"goConstant": "http.StatusOK",
+					"isRange": true,
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "string",
+						"isSlice": true
+					},
+					"isSuccess": true
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "not found"
+				}
+			],
+			"successReturn": {
+				"name": "string",
+				"isSlice": true
+			}
+		},
+		{
 			"name": "GetStatus",
 			"description": "Text is read whole, as bytes.",
 			"method": "GET",
