@@ -110,11 +110,6 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 
 // GET /item
 func (c *Client) GetItem(ctx context.Context) (*Item, error) {
-	return c.GetItemWithResult[Item](ctx)
-}
-
-// GET /item
-func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("item")
 	req := (&http.Request{
 		Header: http.Header{
@@ -140,15 +135,8 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Item); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Item
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				if ia == nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
@@ -157,7 +145,7 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
 				}
 
-				out = *new(R)
+				out = *new(Item)
 				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
@@ -198,11 +186,6 @@ func (c *Client) GetItemWithResult[R any](ctx context.Context) (*R, error) {
 
 // GET /block
 func (c *Client) GetBlock(ctx context.Context) (*Block, error) {
-	return c.GetBlockWithResult[Block](ctx)
-}
-
-// GET /block
-func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("block")
 	req := (&http.Request{
 		Header: http.Header{
@@ -228,15 +211,8 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Block); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Block
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				if ia == nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
@@ -245,7 +221,7 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
 				}
 
-				out = *new(R)
+				out = *new(Block)
 				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
@@ -262,11 +238,6 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context) (*R, error) {
 
 // GET /pet
 func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
-	return c.GetPetWithResult[Pet](ctx)
-}
-
-// GET /pet
-func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("pet")
 	req := (&http.Request{
 		Header: http.Header{
@@ -292,15 +263,8 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Pet); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Pet
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				if ia == nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}
@@ -309,7 +273,7 @@ func (c *Client) GetPetWithResult[R any](ctx context.Context) (*R, error) {
 					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
 				}
 
-				out = *new(R)
+				out = *new(Pet)
 				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
 					return nil, api.WrapDecodingError(rsp, err)
 				}

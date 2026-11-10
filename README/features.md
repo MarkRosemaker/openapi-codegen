@@ -12,8 +12,7 @@
   set to a value of its own and found in the request under its name; a transport error, an unknown status
   code and an unknown content type are reported as such; each error status the specification declares is
   decoded into its type and returned as a custom error; a struct of the package's own rejects a member it does not
-  declare where a type of the caller's own, given to the `WithResult` variant, accepts it, or, in debug mode, the
-  call is added to the debug file once; and an optional request body left out is sent as no body at all. In debug
+  declare, or, in debug mode, the call is added to the debug file once; and an optional request body left out is sent as no body at all. In debug
   mode, a body the client cannot decode even leniently is still added to the debug file and returned as a decoding
   error, joined with the error of a debug file it cannot write; an error type is decoded leniently too. A failure
   that declares no body is reported by its status, and every member of an enum is `Valid`, a value none is not.
@@ -175,9 +174,9 @@ How the specification maps onto Go:
   `T` where `T` is already nilable: a slice, a map, or a named type of either. An
   operation whose success body is an empty object returns just `error`, and the
   server writes `{}`. Its body is read only in debug mode, where it is decoded so
-  that anything in it fails loudly and is recorded. `XWithResult[R]` decodes
-  into a type of the caller's own instead, leniently, since it declares only what
-  it needs; the operation's own type is decoded strictly.
+  that anything in it fails loudly and is recorded. The body is decoded
+  strictly, so a member the specification does not know fails the call, outside
+  debug mode, where it is recorded and the body decoded leniently.
 - **Binary responses** — a success body that is not text, such as a zip, a PDF,
   an image or a video, is returned as an `io.ReadCloser` that reads it as it
   arrives, never held whole in memory; the caller closes it. A text body that is

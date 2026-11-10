@@ -360,10 +360,6 @@ func TestClient_Error(t *testing.T) {
 			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
 			}
-
-			if _, err := c.GetTrialWithResult[struct{}](t.Context(), ""); err != nil {
-				t.Fatalf("a type of the caller's own: %v", err)
-			}
 		})
 	})
 
@@ -468,10 +464,6 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal("the package's own type accepted a member it does not declare")
 			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
-			}
-
-			if _, err := c.UpdateUserWithResult[struct{}](t.Context(), "", User{}); err != nil {
-				t.Fatalf("a type of the caller's own: %v", err)
 			}
 		})
 	})
@@ -1260,10 +1252,6 @@ func TestClient_Error(t *testing.T) {
 			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
 			}
-
-			if _, err := c.ListPeopleWithResult[struct{}](t.Context()); err != nil {
-				t.Fatalf("a type of the caller's own: %v", err)
-			}
 		})
 	})
 
@@ -1368,10 +1356,6 @@ func TestClient_Error(t *testing.T) {
 				t.Fatal("the package's own type accepted a member it does not declare")
 			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
 				t.Fatalf("got: %T, want: *api.DecodingError", err)
-			}
-
-			if _, err := c.CreateScheduleWithResult[struct{}](t.Context(), Schedule{}); err != nil {
-				t.Fatalf("a type of the caller's own: %v", err)
 			}
 		})
 

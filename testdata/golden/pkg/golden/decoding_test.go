@@ -101,20 +101,8 @@ func TestDecoding_FullOrPartial(t *testing.T) {
 	}
 }
 
-func TestDecoding_OwnResultType(t *testing.T) {
-	// a type of the caller's own takes what it declares of the response and leaves the rest
-	p, err := client(t, page).GetPageWithResult[struct {
-		ID string `json:"id"`
-	}](t.Context(), "p")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if p.ID != "p" {
-		t.Errorf("got %+v", p)
-	}
-
-	// the operation's own type is decoded as strictly as ever
+func TestDecoding_UnknownMemberFails(t *testing.T) {
+	// the operation's own type is decoded strictly: a member the specification does not know fails the call
 	if _, err := client(t, `{"object":"page","id":"p","cover":null,"icon":null,"position":[],"extra":1}`).GetPage(t.Context(), "p"); err == nil {
 		t.Error("decoded an unknown member into Page")
 	}
