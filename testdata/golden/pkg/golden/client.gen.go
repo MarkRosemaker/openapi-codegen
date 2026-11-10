@@ -80,14 +80,6 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 //
 //	GET /pages/{id}
 func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
-	return c.GetPageWithResult[Page](ctx, id)
-}
-
-// Retrieve a page
-// You can define a custom result to unmarshal the response into.
-//
-//	GET /pages/{id}
-func (c *Client) GetPageWithResult[R any](ctx context.Context, id string) (*R, error) {
 	u := c.baseURL.JoinPath("pages", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -112,15 +104,8 @@ func (c *Client) GetPageWithResult[R any](ctx context.Context, id string) (*R, e
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Page); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Page
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -135,16 +120,6 @@ func (c *Client) GetPageWithResult[R any](ctx context.Context, id string) (*R, e
 
 // POST /search
 func (c *Client) Search(ctx context.Context, body PropertyFilter) ([]PageOrPartial, error) {
-	out, err := c.SearchWithResult[[]PageOrPartial](ctx, body)
-	if err != nil {
-		return nil, err
-	}
-
-	return *out, nil
-}
-
-// POST /search
-func (c *Client) SearchWithResult[R any](ctx context.Context, body PropertyFilter) (*R, error) {
 	u := c.baseURL.JoinPath("search")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -176,19 +151,12 @@ func (c *Client) SearchWithResult[R any](ctx context.Context, body PropertyFilte
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*[]PageOrPartial); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out []PageOrPartial
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return out, nil
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
@@ -201,14 +169,6 @@ func (c *Client) SearchWithResult[R any](ctx context.Context, body PropertyFilte
 //
 //	GET /trials/{id}
 func (c *Client) GetTrial(ctx context.Context, id string) (*Trial, error) {
-	return c.GetTrialWithResult[Trial](ctx, id)
-}
-
-// Members that are required but may be null.
-// You can define a custom result to unmarshal the response into.
-//
-//	GET /trials/{id}
-func (c *Client) GetTrialWithResult[R any](ctx context.Context, id string) (*R, error) {
 	u := c.baseURL.JoinPath("trials", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -233,15 +193,8 @@ func (c *Client) GetTrialWithResult[R any](ctx context.Context, id string) (*R, 
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Trial); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Trial
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -256,11 +209,6 @@ func (c *Client) GetTrialWithResult[R any](ctx context.Context, id string) (*R, 
 
 // PUT /users/{id}
 func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, error) {
-	return c.UpdateUserWithResult[User](ctx, id, body)
-}
-
-// PUT /users/{id}
-func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, body User) (*R, error) {
 	u := c.baseURL.JoinPath("users", url.PathEscape(id))
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -292,15 +240,8 @@ func (c *Client) UpdateUserWithResult[R any](ctx context.Context, id string, bod
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*User); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out User
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -366,11 +307,6 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 
 // POST /entries
 func (c *Client) CreateEntry(ctx context.Context, body Entry) (*Entry, error) {
-	return c.CreateEntryWithResult[Entry](ctx, body)
-}
-
-// POST /entries
-func (c *Client) CreateEntryWithResult[R any](ctx context.Context, body Entry) (*R, error) {
 	u := c.baseURL.JoinPath("entries")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -402,15 +338,8 @@ func (c *Client) CreateEntryWithResult[R any](ctx context.Context, body Entry) (
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Entry); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Entry
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -427,13 +356,6 @@ func (c *Client) CreateEntryWithResult[R any](ctx context.Context, body Entry) (
 //
 // Deprecated.
 func (c *Client) GetValue(ctx context.Context, id string) (*Value, error) {
-	return c.GetValueWithResult[Value](ctx, id)
-}
-
-//	GET /values/{id}
-//
-// Deprecated.
-func (c *Client) GetValueWithResult[R any](ctx context.Context, id string) (*R, error) {
 	u := c.baseURL.JoinPath("values", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -458,15 +380,8 @@ func (c *Client) GetValueWithResult[R any](ctx context.Context, id string) (*R, 
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Value); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Value
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -481,11 +396,6 @@ func (c *Client) GetValueWithResult[R any](ctx context.Context, id string) (*R, 
 
 // GET /blocks/{id}
 func (c *Client) GetBlock(ctx context.Context, id string) (*Block, error) {
-	return c.GetBlockWithResult[Block](ctx, id)
-}
-
-// GET /blocks/{id}
-func (c *Client) GetBlockWithResult[R any](ctx context.Context, id string) (*R, error) {
 	u := c.baseURL.JoinPath("blocks", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -510,15 +420,8 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context, id string) (*R, 
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Block); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Block
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -533,11 +436,6 @@ func (c *Client) GetBlockWithResult[R any](ctx context.Context, id string) (*R, 
 
 // POST /databases
 func (c *Client) CreateDatabase(ctx context.Context, body CreateDatabaseParent) (*AgentModel, error) {
-	return c.CreateDatabaseWithResult[AgentModel](ctx, body)
-}
-
-// POST /databases
-func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body CreateDatabaseParent) (*R, error) {
 	u := c.baseURL.JoinPath("databases")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -569,15 +467,8 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*AgentModel); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out AgentModel
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -592,11 +483,6 @@ func (c *Client) CreateDatabaseWithResult[R any](ctx context.Context, body Creat
 
 // GET /properties/{id}
 func (c *Client) GetProperty(ctx context.Context, id string) (*NestedValue, error) {
-	return c.GetPropertyWithResult[NestedValue](ctx, id)
-}
-
-// GET /properties/{id}
-func (c *Client) GetPropertyWithResult[R any](ctx context.Context, id string) (*R, error) {
 	u := c.baseURL.JoinPath("properties", url.PathEscape(id))
 	req := (&http.Request{
 		Header: http.Header{
@@ -621,15 +507,8 @@ func (c *Client) GetPropertyWithResult[R any](ctx context.Context, id string) (*
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*NestedValue); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out NestedValue
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -644,16 +523,6 @@ func (c *Client) GetPropertyWithResult[R any](ctx context.Context, id string) (*
 
 // GET /reports
 func (c *Client) ListReports(ctx context.Context, params ListReportsParams) (Reports, error) {
-	out, err := c.ListReportsWithResult[Reports](ctx, params)
-	if err != nil {
-		return nil, err
-	}
-
-	return *out, nil
-}
-
-// GET /reports
-func (c *Client) ListReportsWithResult[R any](ctx context.Context, params ListReportsParams) (*R, error) {
 	u := c.baseURL.JoinPath("reports")
 
 	q := make(url.Values, 10)
@@ -722,19 +591,12 @@ func (c *Client) ListReportsWithResult[R any](ctx context.Context, params ListRe
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*Reports); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out Reports
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return out, nil
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
@@ -747,14 +609,6 @@ func (c *Client) ListReportsWithResult[R any](ctx context.Context, params ListRe
 //
 //	GET /people
 func (c *Client) ListPeople(ctx context.Context) (*ListPeopleOk, error) {
-	return c.ListPeopleWithResult[ListPeopleOk](ctx)
-}
-
-// A person is a user, itself a union, or a group: the choices of a nested union.
-// You can define a custom result to unmarshal the response into.
-//
-//	GET /people
-func (c *Client) ListPeopleWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("people")
 	req := (&http.Request{
 		Header: http.Header{
@@ -779,15 +633,8 @@ func (c *Client) ListPeopleWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*ListPeopleOk); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out ListPeopleOk
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -802,11 +649,6 @@ func (c *Client) ListPeopleWithResult[R any](ctx context.Context) (*R, error) {
 
 // POST /schedules
 func (c *Client) CreateSchedule(ctx context.Context, body Schedule) (*CreateScheduleCreated, error) {
-	return c.CreateScheduleWithResult[CreateScheduleCreated](ctx, body)
-}
-
-// POST /schedules
-func (c *Client) CreateScheduleWithResult[R any](ctx context.Context, body Schedule) (*R, error) {
 	u := c.baseURL.JoinPath("schedules")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -838,15 +680,8 @@ func (c *Client) CreateScheduleWithResult[R any](ctx context.Context, body Sched
 		// created
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*CreateScheduleCreated); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out CreateScheduleCreated
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
@@ -993,19 +828,6 @@ func (c *Client) GetFile(ctx context.Context, path string) error {
 //
 //	GET /ranges
 func (c *Client) GetRanges(ctx context.Context) ([]string, error) {
-	out, err := c.GetRangesWithResult[[]string](ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return *out, nil
-}
-
-// A range of codes, matched after the exact codes, which take precedence over it.
-// You can define a custom result to unmarshal the response into.
-//
-//	GET /ranges
-func (c *Client) GetRangesWithResult[R any](ctx context.Context) (*R, error) {
 	u := c.baseURL.JoinPath("ranges")
 	req := (&http.Request{
 		Header: http.Header{
@@ -1033,19 +855,12 @@ func (c *Client) GetRangesWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*[]string); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out []string
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return out, nil
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}

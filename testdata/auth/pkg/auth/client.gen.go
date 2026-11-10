@@ -131,19 +131,6 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 //
 //	GET /items
 func (c *Client) ListItems(ctx context.Context) ([]string, error) {
-	out, err := c.ListItemsWithResult[[]string](ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return *out, nil
-}
-
-// Requires the token.
-// You can define a custom result to unmarshal the response into.
-//
-//	GET /items
-func (c *Client) ListItemsWithResult[R any](ctx context.Context) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token API_TOKEN not provided")
 	}
@@ -175,19 +162,12 @@ func (c *Client) ListItemsWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*[]string); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out []string
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return out, nil
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
@@ -200,19 +180,6 @@ func (c *Client) ListItemsWithResult[R any](ctx context.Context) (*R, error) {
 //
 //	GET /feed
 func (c *Client) GetFeed(ctx context.Context) ([]string, error) {
-	out, err := c.GetFeedWithResult[[]string](ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return *out, nil
-}
-
-// Takes the token if there is one.
-// You can define a custom result to unmarshal the response into.
-//
-//	GET /feed
-func (c *Client) GetFeedWithResult[R any](ctx context.Context) (*R, error) {
 	if c.bearer == "" {
 		return nil, errors.New("bearer token API_TOKEN not provided")
 	}
@@ -244,19 +211,12 @@ func (c *Client) GetFeedWithResult[R any](ctx context.Context) (*R, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out R
-
-			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
-			opts := jsonOptsLenient
-			if _, ok := any(&out).(*[]string); ok {
-				opts = jsonOpts
-			}
-
-			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+			var out []string
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}
 
-			return &out, nil
+			return out, nil
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
