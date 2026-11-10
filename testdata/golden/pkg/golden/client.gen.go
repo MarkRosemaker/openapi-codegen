@@ -951,6 +951,71 @@ func (c *Client) DeleteSchedule(ctx context.Context, id string) error {
 	}
 }
 
+// A range of codes, matched after the exact codes, which take precedence over it.
+//
+//	GET /ranges
+func (c *Client) GetRanges(ctx context.Context) ([]string, error) {
+	out, err := c.GetRangesWithResult[[]string](ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return *out, nil
+}
+
+// A range of codes, matched after the exact codes, which take precedence over it.
+// You can define a custom result to unmarshal the response into.
+//
+//	GET /ranges
+func (c *Client) GetRangesWithResult[R any](ctx context.Context) (*R, error) {
+	u := c.baseURL.JoinPath("ranges")
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch {
+	case rsp.StatusCode == http.StatusNotFound:
+		// not found
+		return nil, fmt.Errorf("GetRanges: status %s", rsp.Status)
+	case rsp.StatusCode >= 200 && rsp.StatusCode < 300:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out R
+
+			// a type of the caller's own declares only what it needs of the response, so it is decoded leniently
+			opts := jsonOptsLenient
+			if _, ok := any(&out).(*[]string); ok {
+				opts = jsonOpts
+			}
+
+			if err := json.UnmarshalRead(rsp.Body, &out, opts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
 // Text is read whole, as bytes.
 //
 //	GET /status

@@ -24,6 +24,7 @@
  *   const result = await window.API.createSchedule();
  *   const result = await window.API.downloadReport(format);
  *   window.API.deleteSchedule(id);
+ *   const result = await window.API.getRanges();
  *   const result = await window.API.getStatus();
  *   window.API.queryStyles(page);
  *   window.API.createView();
@@ -193,6 +194,10 @@ window.API = {
     deleteSchedule: (id) => apiFetch(`/schedules/${id}`, {
         method: "DELETE",
         operationId: "DeleteSchedule",
+    }),
+    // GET /ranges
+    getRanges: () => apiFetch("/ranges", {
+        operationId: "GetRanges",
     }),
     // GET /status
     getStatus: () => apiFetch("/status", {

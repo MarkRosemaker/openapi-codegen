@@ -627,6 +627,30 @@
         }
       }
     },
+    "/ranges": {
+      "get": {
+        "operationId": "getRanges",
+        "description": "A range of codes, matched after the exact codes, which take precedence over it.",
+        "responses": {
+          "2XX": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found"
+          }
+        }
+      }
+    },
     "/status": {
       "get": {
         "operationId": "getStatus",
