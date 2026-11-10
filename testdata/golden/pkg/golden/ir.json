@@ -679,6 +679,38 @@
 			"emptySuccess": true
 		},
 		{
+			"name": "GetFile",
+			"description": "A path parameter that is a path of its own keeps its slashes.",
+			"method": "GET",
+			"pathTemplate": "/files/{path}",
+			"joinPathArgs": [
+				"\"files\"",
+				"escapePathSegments(path)"
+			],
+			"pathParams": [
+				{
+					"varName": "path",
+					"goName": "path",
+					"fieldName": "Path",
+					"jsonName": "path",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true,
+					"allowSlashes": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "no content",
+					"isSuccess": true
+				}
+			]
+		},
+		{
 			"name": "GetRanges",
 			"description": "A range of codes, matched after the exact codes, which take precedence over it.",
 			"method": "GET",
