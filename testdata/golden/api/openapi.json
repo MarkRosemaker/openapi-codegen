@@ -2255,6 +2255,43 @@
         ],
         "description": "A short value in capitals stays as it is in its constant's name."
       },
+      "Account": {
+        "type": "object",
+        "required": [
+          "id",
+          "email"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "AccountHolder": {
+        "description": "Its account adds to an Account a member the Account declares already, as a correction of its type: the later part's definition wins, and the member stays required.",
+        "type": "object",
+        "properties": {
+          "account": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Account"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
       "Member": {
         "description": "Its alternatives each have members of their own beside the tag, so they stay a union beside the members all share.",
         "allOf": [
