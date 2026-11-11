@@ -374,10 +374,16 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 			{{- if .IsJSON }}
 			{{- /* every success is decoded into what the method returns */}}
 			{{- $out := .GoType }}{{ if and .IsSuccess $op.SuccessReturn }}{{ $out = $op.SuccessReturn }}{{ end }}
-			{{- /* a success the method returns nothing of is still decoded, to check it */}}
-			{{ if and .IsSuccess (not $op.SuccessReturn) }}_{{ else }}out{{ end }}, err := {{ if $.Debug }}decode[{{ $out }}](c, rsp, ia){{ else }}api.DecodeJSON[{{ $out }}](rsp, jsonOpts, nil, nil){{ end }}
-			if err != nil {
-				return {{if $op.SuccessReturn}}nil, {{end}}err
+			{{- /* decoded here, so that a client not in debug mode does nothing more */}}
+			var out {{ $out }}
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				{{ if $.Debug -}}
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return {{if $op.SuccessReturn}}nil, {{end}}err
+				}
+				{{- else -}}
+				return {{if $op.SuccessReturn}}nil, {{end}}api.WrapDecodingError(rsp, err)
+				{{- end }}
 			}
 
 			{{ if and .IsSuccess $op.SuccessReturn -}}
@@ -546,17 +552,6 @@ func (c *Client) keep(ia *cassette.Interaction) error {
 	}
 
 	return cassette.AddInteraction(cmp.Or(c.debugFile, defaultDebugFile), ia)
-}
-
-// decode reads the body of rsp as JSON into a T, see [api.DecodeJSON]. In debug mode, one it cannot decode strictly is
-// kept with the call ia records, which enrich learns from, and decoded again leniently: a response is still of use if
-// all it holds beyond the specification is members it does not know yet.
-func decode[T any](c *Client, rsp *http.Response, ia *cassette.Interaction) (T, error) {
-	if ia == nil {
-		return api.DecodeJSON[T](rsp, jsonOpts, nil, nil)
-	}
-
-	return api.DecodeJSON[T](rsp, jsonOpts, ia.Response.Body, func() error { return c.keep(ia) })
 }
 
 // failed is err, the error of the call ia records, which it adds to the debug file, see [Client.keep]; joined with

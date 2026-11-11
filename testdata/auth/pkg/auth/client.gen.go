@@ -7,6 +7,7 @@ package auth
 import (
 	"context"
 	"encoding/base64"
+	"encoding/json/v2"
 	"errors"
 	"net/http"
 	"net/url"
@@ -161,9 +162,9 @@ func (c *Client) ListItems(ctx context.Context) ([]string, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			out, err := api.DecodeJSON[[]string](rsp, jsonOpts, nil, nil)
-			if err != nil {
-				return nil, err
+			var out []string
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
 			}
 
 			return out, nil
@@ -210,9 +211,9 @@ func (c *Client) GetFeed(ctx context.Context) ([]string, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			out, err := api.DecodeJSON[[]string](rsp, jsonOpts, nil, nil)
-			if err != nil {
-				return nil, err
+			var out []string
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
 			}
 
 			return out, nil
