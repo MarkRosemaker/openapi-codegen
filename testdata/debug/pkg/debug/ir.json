@@ -89,6 +89,29 @@
 			"successReturn": {
 				"name": "Pet"
 			}
+		},
+		{
+			"auth": "bearer",
+			"name": "Ping",
+			"description": "A success holding nothing to return, which debug mode still decodes, to learn of members it does not know.",
+			"method": "POST",
+			"pathTemplate": "/ping",
+			"joinPathArgs": [
+				"\"ping\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "struct{}"
+					},
+					"isSuccess": true
+				}
+			],
+			"emptySuccess": true
 		}
 	],
 	"schemas": [

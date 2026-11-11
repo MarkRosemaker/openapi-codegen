@@ -12,6 +12,7 @@
  *   const result = await window.API.getItem();
  *   const result = await window.API.getBlock();
  *   const result = await window.API.getPet();
+ *   window.API.ping();
  **/
 
 const API_BASE = "https://api.example.com";
@@ -96,5 +97,10 @@ window.API = {
     // GET /pet
     getPet: () => apiFetch("/pet", {
         operationId: "GetPet",
+    }),
+    // POST /ping
+    ping: () => apiFetch("/ping", {
+        method: "POST",
+        operationId: "Ping",
     }),
 };

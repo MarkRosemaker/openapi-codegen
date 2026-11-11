@@ -99,17 +99,47 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 	}
 	defer rsp.Body.Close()
 
-	switch rsp.StatusCode {
-	case http.StatusOK:
+	switch {
+	case rsp.StatusCode == http.StatusOK:
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Page
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Page](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	case rsp.StatusCode == http.StatusUnauthorized || rsp.StatusCode == http.StatusNotFound:
+		// Statuses decoded alike share a case, here with the one after it.
+		// not found
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			out, err := api.DecodeJSON[Problem](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
+			}
+
+			return nil, api.NewErrCustom(rsp, &out)
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	case rsp.StatusCode == http.StatusTooManyRequests:
+		// too many requests
+		return nil, fmt.Errorf("GetPage: status %s", rsp.Status)
+	case rsp.StatusCode >= 500 && rsp.StatusCode < 600:
+		// A range shares a case only with the response right before it, which this is not.
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			out, err := api.DecodeJSON[Problem](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
+			}
+
+			return nil, api.NewErrCustom(rsp, &out)
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
@@ -151,9 +181,9 @@ func (c *Client) Search(ctx context.Context, body PropertyFilter) ([]PageOrParti
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out []PageOrPartial
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[[]PageOrPartial](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return out, nil
@@ -193,9 +223,9 @@ func (c *Client) GetTrial(ctx context.Context, id string) (*Trial, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Trial
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Trial](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -240,9 +270,9 @@ func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, e
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out User
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[User](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -297,6 +327,20 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 		default:
 			return api.NewErrUnknownContentType(rsp)
 		}
+	case http.StatusUnauthorized, http.StatusUnprocessableEntity:
+		// Codes decoded alike share a case, wherever they are.
+		// unprocessable
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			out, err := api.DecodeJSON[Problem](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return err
+			}
+
+			return api.NewErrCustom(rsp, &out)
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
 	case http.StatusConflict:
 		// A failure that declares no body is reported by its status.
 		return fmt.Errorf("PatchUser: status %s", rsp.Status)
@@ -338,9 +382,9 @@ func (c *Client) CreateEntry(ctx context.Context, body Entry) (*Entry, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Entry
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Entry](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -380,9 +424,9 @@ func (c *Client) GetValue(ctx context.Context, id string) (*Value, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Value
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Value](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -420,9 +464,9 @@ func (c *Client) GetBlock(ctx context.Context, id string) (*Block, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Block
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Block](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -467,9 +511,9 @@ func (c *Client) CreateDatabase(ctx context.Context, body CreateDatabaseParent) 
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out AgentModel
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[AgentModel](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -507,9 +551,9 @@ func (c *Client) GetProperty(ctx context.Context, id string) (*NestedValue, erro
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out NestedValue
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[NestedValue](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -591,9 +635,9 @@ func (c *Client) ListReports(ctx context.Context, params ListReportsParams) (Rep
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Reports
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Reports](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return out, nil
@@ -633,9 +677,9 @@ func (c *Client) ListPeople(ctx context.Context) (*ListPeopleOk, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out ListPeopleOk
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[ListPeopleOk](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -680,9 +724,9 @@ func (c *Client) CreateSchedule(ctx context.Context, body Schedule) (*CreateSche
 		// created
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out CreateScheduleCreated
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[CreateScheduleCreated](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -693,9 +737,9 @@ func (c *Client) CreateSchedule(ctx context.Context, body Schedule) (*CreateSche
 		// A status Go has no name for.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Overloaded
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[Overloaded](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return nil, api.NewErrCustom(rsp, &out)
@@ -855,9 +899,9 @@ func (c *Client) GetRanges(ctx context.Context) ([]string, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out []string
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				return nil, api.WrapDecodingError(rsp, err)
+			out, err := api.DecodeJSON[[]string](rsp, jsonOpts, nil, nil)
+			if err != nil {
+				return nil, err
 			}
 
 			return out, nil

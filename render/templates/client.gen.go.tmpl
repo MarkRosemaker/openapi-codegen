@@ -356,15 +356,15 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 
 
 	switch {{ if not .Responses.HasRange }}rsp.StatusCode {{ end }}{
-{{- range .Responses.InMatchOrder }}
+{{- range .Responses.Cases }}
 	{{ if eq .GoConstant "default" -}}
 		default:
 	{{- else if $op.Responses.HasRange -}}
-		case {{ .Condition }}:
+		case {{ .Conditions }}:
 	{{- else -}}
-		case {{ .GoConstant }}:
+		case {{ .GoConstants }}:
 	{{- end }}
-		{{ with .Description }}{{ toGoComment . }}{{ end }}
+		{{ with .Descriptions }}{{ toGoComment . }}{{ end }}
 {{- if and .IsSuccess $op.EmptySuccess (not $.Debug) }}
 		{{- /* an empty object holds nothing to return, so the body is not read */}}
 		return nil
@@ -373,26 +373,11 @@ func (c *Client) {{.Name}}(ctx context.Context{{range .PathParams}}, {{.GoName}}
 		case "{{ .ContentType }}":
 			{{- if .IsJSON }}
 			{{- /* every success is decoded into what the method returns */}}
-			var out {{ if and .IsSuccess $op.SuccessReturn }}{{ $op.SuccessReturn }}{{ else }}{{ .GoType }}{{ end }}
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				{{ if $.Debug -}}
-				if ia == nil {
-					return {{if $op.SuccessReturn}}nil, {{end}}api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return {{if $op.SuccessReturn}}nil, {{end}}errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				{{/* recorded for enrich to learn from, the response is still of use if all it holds beyond the
-				     specification is members it does not know yet */ -}}
-				out = *new({{ if and .IsSuccess $op.SuccessReturn }}{{ $op.SuccessReturn }}{{ else }}{{ .GoType }}{{ end }})
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return {{if $op.SuccessReturn}}nil, {{end}}api.WrapDecodingError(rsp, err)
-				}
-				{{- else -}}
-				return {{if $op.SuccessReturn}}nil, {{end}}api.WrapDecodingError(rsp, err)
-				{{- end }}
+			{{- $out := .GoType }}{{ if and .IsSuccess $op.SuccessReturn }}{{ $out = $op.SuccessReturn }}{{ end }}
+			{{- /* a success the method returns nothing of is still decoded, to check it */}}
+			{{ if and .IsSuccess (not $op.SuccessReturn) }}_{{ else }}out{{ end }}, err := {{ if $.Debug }}decode[{{ $out }}](c, rsp, ia){{ else }}api.DecodeJSON[{{ $out }}](rsp, jsonOpts, nil, nil){{ end }}
+			if err != nil {
+				return {{if $op.SuccessReturn}}nil, {{end}}err
 			}
 
 			{{ if and .IsSuccess $op.SuccessReturn -}}
@@ -561,6 +546,17 @@ func (c *Client) keep(ia *cassette.Interaction) error {
 	}
 
 	return cassette.AddInteraction(cmp.Or(c.debugFile, defaultDebugFile), ia)
+}
+
+// decode reads the body of rsp as JSON into a T, see [api.DecodeJSON]. In debug mode, one it cannot decode strictly is
+// kept with the call ia records, which enrich learns from, and decoded again leniently: a response is still of use if
+// all it holds beyond the specification is members it does not know yet.
+func decode[T any](c *Client, rsp *http.Response, ia *cassette.Interaction) (T, error) {
+	if ia == nil {
+		return api.DecodeJSON[T](rsp, jsonOpts, nil, nil)
+	}
+
+	return api.DecodeJSON[T](rsp, jsonOpts, ia.Response.Body, func() error { return c.keep(ia) })
 }
 
 // failed is err, the error of the call ia records, which it adds to the debug file, see [Client.keep]; joined with

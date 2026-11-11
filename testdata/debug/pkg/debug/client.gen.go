@@ -7,7 +7,6 @@ package debug
 import (
 	"cmp"
 	"context"
-	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"net/http"
@@ -135,20 +134,9 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Item
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Item)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
+			out, err := decode[Item](c, rsp, ia)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -159,20 +147,9 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 		// An error debug mode decodes leniently too.
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Problem
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Problem)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
+			out, err := decode[Problem](c, rsp, ia)
+			if err != nil {
+				return nil, err
 			}
 
 			return nil, api.NewErrCustom(rsp, &out)
@@ -211,20 +188,9 @@ func (c *Client) GetBlock(ctx context.Context) (*Block, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Block
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Block)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
+			out, err := decode[Block](c, rsp, ia)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -263,20 +229,9 @@ func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out Pet
-			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Pet)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
+			out, err := decode[Pet](c, rsp, ia)
+			if err != nil {
+				return nil, err
 			}
 
 			return &out, nil
@@ -285,6 +240,49 @@ func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
 		}
 	default:
 		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
+	}
+}
+
+// A success holding nothing to return, which debug mode still decodes, to learn of members it does not know.
+//
+//	POST /ping
+func (c *Client) Ping(ctx context.Context) error {
+	u := c.baseURL.JoinPath("ping")
+	req := (&http.Request{
+		Header: http.Header{
+			"Authorization": []string{c.bearer},
+			"User-Agent":    []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodPost,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, ia, err := c.do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			_, err := decode[struct{}](c, rsp, ia)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		default:
+			return c.failed(ia, api.NewErrUnknownContentType(rsp))
+		}
+	default:
+		return c.failed(ia, api.NewErrUnknownStatusCode(rsp))
 	}
 }
 
@@ -323,6 +321,17 @@ func (c *Client) keep(ia *cassette.Interaction) error {
 	}
 
 	return cassette.AddInteraction(cmp.Or(c.debugFile, defaultDebugFile), ia)
+}
+
+// decode reads the body of rsp as JSON into a T, see [api.DecodeJSON]. In debug mode, one it cannot decode strictly is
+// kept with the call ia records, which enrich learns from, and decoded again leniently: a response is still of use if
+// all it holds beyond the specification is members it does not know yet.
+func decode[T any](c *Client, rsp *http.Response, ia *cassette.Interaction) (T, error) {
+	if ia == nil {
+		return api.DecodeJSON[T](rsp, jsonOpts, nil, nil)
+	}
+
+	return api.DecodeJSON[T](rsp, jsonOpts, ia.Response.Body, func() error { return c.keep(ia) })
 }
 
 // failed is err, the error of the call ia records, which it adds to the debug file, see [Client.keep]; joined with

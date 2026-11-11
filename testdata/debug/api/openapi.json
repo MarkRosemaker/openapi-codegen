@@ -12,6 +12,9 @@
     }}},
     "/pet": {"get": {"operationId": "getPet", "responses": {
       "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Pet"}}}}
+    }}},
+    "/ping": {"post": {"operationId": "ping", "description": "A success holding nothing to return, which debug mode still decodes, to learn of members it does not know.", "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"type": "object"}}}}
     }}}
   },
   "components": {
