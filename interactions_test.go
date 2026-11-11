@@ -684,3 +684,14 @@ func TestBodyLiteral(t *testing.T) {
 		}
 	}
 }
+
+func TestFallbackJSON_Deterministic(t *testing.T) {
+	v := map[string]any{"property": "Blch", "date": map[string]any{"equals": "today", "after": "x"}, "and": []any{1.0}}
+
+	want := `"{\"and\":[1],\"date\":{\"after\":\"x\",\"equals\":\"today\"},\"property\":\"Blch\"}"`
+	for range 20 {
+		if got := fallbackJSON(v); got != want {
+			t.Fatalf("got %s, want %s", got, want)
+		}
+	}
+}
