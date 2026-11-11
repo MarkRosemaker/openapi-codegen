@@ -41,6 +41,39 @@
 						"name": "Page"
 					},
 					"isSuccess": true
+				},
+				{
+					"statusCode": "401",
+					"goConstant": "http.StatusUnauthorized",
+					"description": "Statuses decoded alike share a case, here with the one after it.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Problem"
+					}
+				},
+				{
+					"statusCode": "404",
+					"goConstant": "http.StatusNotFound",
+					"description": "not found",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Problem"
+					}
+				},
+				{
+					"statusCode": "429",
+					"goConstant": "http.StatusTooManyRequests",
+					"description": "too many requests"
+				},
+				{
+					"statusCode": "5XX",
+					"goConstant": "http.StatusInternalServerError",
+					"isRange": true,
+					"description": "A range shares a case only with the response right before it, which this is not.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Problem"
+					}
 				}
 			],
 			"successReturn": {
@@ -191,9 +224,27 @@
 					"isSuccess": true
 				},
 				{
+					"statusCode": "401",
+					"goConstant": "http.StatusUnauthorized",
+					"description": "Codes decoded alike share a case, wherever they are.",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Problem"
+					}
+				},
+				{
 					"statusCode": "409",
 					"goConstant": "http.StatusConflict",
 					"description": "A failure that declares no body is reported by its status."
+				},
+				{
+					"statusCode": "422",
+					"goConstant": "http.StatusUnprocessableEntity",
+					"description": "unprocessable",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Problem"
+					}
 				}
 			]
 		},
@@ -3862,6 +3913,19 @@
 				}
 			],
 			"isOneOf": true
+		},
+		{
+			"name": "Problem",
+			"description": "A failure the server describes.",
+			"fields": [
+				{
+					"name": "Message",
+					"jsonName": "message",
+					"type": "string",
+					"jsonTag": "json:\"message\"",
+					"required": true
+				}
+			]
 		},
 		{
 			"name": "PropertyFilter",

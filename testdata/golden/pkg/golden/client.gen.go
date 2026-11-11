@@ -99,8 +99,8 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 	}
 	defer rsp.Body.Close()
 
-	switch rsp.StatusCode {
-	case http.StatusOK:
+	switch {
+	case rsp.StatusCode == http.StatusOK:
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
@@ -110,6 +110,36 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 			}
 
 			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	case rsp.StatusCode == http.StatusUnauthorized || rsp.StatusCode == http.StatusNotFound:
+		// Statuses decoded alike share a case, here with the one after it.
+		// not found
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out Problem
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return nil, api.NewErrCustom(rsp, &out)
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	case rsp.StatusCode == http.StatusTooManyRequests:
+		// too many requests
+		return nil, fmt.Errorf("GetPage: status %s", rsp.Status)
+	case rsp.StatusCode >= 500 && rsp.StatusCode < 600:
+		// A range shares a case only with the response right before it, which this is not.
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out Problem
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return nil, api.NewErrCustom(rsp, &out)
 		default:
 			return nil, api.NewErrUnknownContentType(rsp)
 		}
@@ -294,6 +324,20 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 		case "":
 
 			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	case http.StatusUnauthorized, http.StatusUnprocessableEntity:
+		// Codes decoded alike share a case, wherever they are.
+		// unprocessable
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out Problem
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return api.WrapDecodingError(rsp, err)
+			}
+
+			return api.NewErrCustom(rsp, &out)
 		default:
 			return api.NewErrUnknownContentType(rsp)
 		}

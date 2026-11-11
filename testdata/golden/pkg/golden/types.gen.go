@@ -2157,6 +2157,11 @@ func (v *Position) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
+// A failure the server describes.
+type Problem struct {
+	Message string `json:"message"`
+}
+
 // PropertyFilter defines a model
 type PropertyFilter struct {
 	Property string             `json:"property"`

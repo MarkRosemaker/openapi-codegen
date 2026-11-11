@@ -34,6 +34,39 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Statuses decoded alike share a case, here with the one after it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "too many requests"
+          },
+          "5XX": {
+            "description": "A range shares a case only with the response right before it, which this is not.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         },
         "summary": "Retrieve a page"
@@ -126,8 +159,28 @@
           "204": {
             "description": "no content"
           },
+          "401": {
+            "description": "Codes decoded alike share a case, wherever they are.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
           "409": {
             "description": "A failure that declares no body is reported by its status."
+          },
+          "422": {
+            "description": "unprocessable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -984,6 +1037,19 @@
   },
   "components": {
     "schemas": {
+      "Problem": {
+        "description": "A failure the server describes.",
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "nope"
+          }
+        }
+      },
       "Trial": {
         "description": "A date that may be null is no pointer, since the zero date says what null does; a number that may be null is, since its zero is a number of its own.",
         "type": "object",

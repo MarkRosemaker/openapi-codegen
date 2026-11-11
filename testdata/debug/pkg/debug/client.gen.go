@@ -137,17 +137,8 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 		case "application/json":
 			var out Item
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Item)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return nil, err
 				}
 			}
 
@@ -161,17 +152,8 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 		case "application/json":
 			var out Problem
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Problem)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return nil, err
 				}
 			}
 
@@ -213,17 +195,8 @@ func (c *Client) GetBlock(ctx context.Context) (*Block, error) {
 		case "application/json":
 			var out Block
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Block)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return nil, err
 				}
 			}
 
@@ -265,17 +238,8 @@ func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
 		case "application/json":
 			var out Pet
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
-				if ia == nil {
-					return nil, api.WrapDecodingError(rsp, err)
-				}
-
-				if kerr := c.keep(ia); kerr != nil {
-					return nil, errors.Join(api.WrapDecodingError(rsp, err), kerr)
-				}
-
-				out = *new(Pet)
-				if err := json.Unmarshal(ia.Response.Body, &out, jsonOptsLenient); err != nil {
-					return nil, api.WrapDecodingError(rsp, err)
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return nil, err
 				}
 			}
 
@@ -285,6 +249,51 @@ func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
 		}
 	default:
 		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
+	}
+}
+
+// A success holding nothing to return, which debug mode still decodes, to learn of members it does not know.
+//
+//	POST /ping
+func (c *Client) Ping(ctx context.Context) error {
+	u := c.baseURL.JoinPath("ping")
+	req := (&http.Request{
+		Header: http.Header{
+			"Authorization": []string{c.bearer},
+			"User-Agent":    []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodPost,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, ia, err := c.do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out struct{}
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return err
+				}
+			}
+
+			return nil
+		default:
+			return c.failed(ia, api.NewErrUnknownContentType(rsp))
+		}
+	default:
+		return c.failed(ia, api.NewErrUnknownStatusCode(rsp))
 	}
 }
 

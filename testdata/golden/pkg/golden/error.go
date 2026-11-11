@@ -7,3 +7,6 @@
 package golden
 
 func (e *Overloaded) Error() string { return e.Code + ": " + e.Message }
+
+// Error implements error, so that a Problem can be returned as one.
+func (e *Problem) Error() string { return e.Message }
