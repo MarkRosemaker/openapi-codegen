@@ -31,6 +31,7 @@ var jsonOpts = json.JoinOptions(
 		json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 		json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 		json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
+		json.MarshalToFunc(jsonutil.DateMarshalZeroAsNull),
 	)),
 	json.WithUnmarshalers(json.JoinUnmarshalers(
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixFor("at")),
@@ -56,6 +57,7 @@ var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMa
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
+	json.MarshalToFunc(jsonutil.DateMarshalZeroAsNull),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error {
 		v.Created = Meta{}.Created
 
@@ -91,6 +93,7 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
 	json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
+	json.MarshalToFunc(jsonutil.DateMarshalZeroAsNull),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
 		v.Password = User{}.Password
 
@@ -2605,10 +2608,10 @@ func (v *Tags) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return &json.SemanticError{Err: errors.New("no alternative set")}
 }
 
-// A date that may be null is a pointer, since the zero date is written as no date at all; so is a number, whose zero is a number of its own.
+// A date that may be null is no pointer, since the zero date says what null does; a number that may be null is, since its zero is a number of its own.
 type Trial struct {
-	Ends *civil.Date `json:"ends"`
-	Plan *int        `json:"plan"`
+	Ends civil.Date `json:"ends"`
+	Plan *int       `json:"plan"`
 }
 
 // User defines a model

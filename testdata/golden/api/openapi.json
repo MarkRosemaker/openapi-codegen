@@ -985,7 +985,7 @@
   "components": {
     "schemas": {
       "Trial": {
-        "description": "A date that may be null is a pointer, since the zero date is written as no date at all; so is a number, whose zero is a number of its own.",
+        "description": "A date that may be null is no pointer, since the zero date says what null does; a number that may be null is, since its zero is a number of its own.",
         "type": "object",
         "required": [
           "ends",
