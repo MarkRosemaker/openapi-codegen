@@ -5,14 +5,18 @@
 package golden
 
 import (
+	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"errors"
 	"io"
+	"maps"
 	"net"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"slices"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -1948,6 +1952,189 @@ func replay(t *testing.T) http.RoundTripper {
 	return rec
 }
 
+// lastBody passes requests on to next, and keeps the body of the last response, so that a test can compare what a call
+// decoded with what was sent.
+type lastBody struct {
+	next http.RoundTripper
+	body []byte
+}
+
+func (l *lastBody) RoundTrip(req *http.Request) (*http.Response, error) {
+	rsp, err := l.next.RoundTrip(req)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rsp.Body.Close()
+
+	if l.body, err = io.ReadAll(rsp.Body); err != nil {
+		return nil, err
+	}
+
+	rsp.Body = io.NopCloser(bytes.NewReader(l.body))
+
+	return rsp, nil
+}
+
+// decodedAsSent fails unless out, what a call decoded from body, encodes to what body holds. A member one side lacks is
+// fine where the other holds nothing there (null, false, 0, "", [] or {}, or the zero text of a date or a time), as an
+// optional value left out is, and members may come in another order. A value may be written another way, as long as it
+// is the same: a time as the same instant, a UUID with or without dashes, a number as a string of it.
+func decodedAsSent(t *testing.T, op string, out any, body []byte) {
+	t.Helper()
+
+	encoded, err := json.Marshal(out, jsonOpts)
+	if err != nil {
+		t.Fatalf("%s: encoding what was decoded: %v", op, err)
+	}
+
+	var sent, got any
+	if err := json.Unmarshal(body, &sent); err != nil {
+		t.Fatalf("%s: the recorded body: %v", op, err)
+	}
+
+	if err := json.Unmarshal(encoded, &got); err != nil {
+		t.Fatalf("%s: %v", op, err)
+	}
+
+	if at, same := jsonSame(sent, got, ""); !same {
+		t.Errorf("%s: decoded something else than was sent, at %q:\nsent %s\ngot  %s", op, at, body, encoded)
+	}
+}
+
+// jsonSame reports whether the JSON values a and b, decoded into any, hold the same, as decodedAsSent compares them,
+// and where they first differ if not.
+func jsonSame(a, b any, at string) (string, bool) {
+	if jsonEmpty(a) && jsonEmpty(b) || jsonSameInstant(a, b) || jsonSameInstant(b, a) ||
+		jsonSameNumber(a, b) || jsonSameNumber(b, a) {
+		return "", true
+	}
+
+	switch a := a.(type) {
+	case map[string]any:
+		b, ok := b.(map[string]any)
+		if !ok {
+			return at, false
+		}
+
+		names := slices.Sorted(maps.Keys(a))
+		for name := range b {
+			if _, ok := a[name]; !ok {
+				names = append(names, name)
+			}
+		}
+
+		for _, name := range names {
+			if where, same := jsonSame(a[name], b[name], at+"/"+name); !same {
+				return where, false
+			}
+		}
+
+		return "", true
+	case []any:
+		b, ok := b.([]any)
+		if !ok || len(a) != len(b) {
+			return at, false
+		}
+
+		for i := range a {
+			if where, same := jsonSame(a[i], b[i], at+"/"+strconv.Itoa(i)); !same {
+				return where, false
+			}
+		}
+
+		return "", true
+	case string:
+		b, ok := b.(string)
+		if !ok {
+			return at, false
+		}
+
+		if a == b {
+			return "", true
+		}
+
+		if ua, ok := jsonUUID(a); ok {
+			if ub, ok := jsonUUID(b); ok {
+				return at, ua == ub
+			}
+		}
+
+		ta, errA := time.Parse(time.RFC3339Nano, a)
+		tb, errB := time.Parse(time.RFC3339Nano, b)
+
+		return at, errA == nil && errB == nil && ta.Equal(tb)
+	default:
+		return at, a == b
+	}
+}
+
+// jsonSameInstant reports whether a is a Unix time and b a date-time of the same second, as a type that takes either
+// writes one as the other.
+func jsonSameInstant(a, b any) bool {
+	n, ok := a.(float64)
+	if !ok {
+		return false
+	}
+
+	s, ok := b.(string)
+	if !ok {
+		return false
+	}
+
+	ts, err := time.Parse(time.RFC3339Nano, s)
+
+	return err == nil && float64(ts.Unix()) == n
+}
+
+// jsonSameNumber reports whether a is a number and b a string of the same number, as a string type writes one.
+func jsonSameNumber(a, b any) bool {
+	n, ok := a.(float64)
+	if !ok {
+		return false
+	}
+
+	s, ok := b.(string)
+	if !ok {
+		return false
+	}
+
+	f, err := strconv.ParseFloat(s, 64)
+
+	return err == nil && f == n
+}
+
+// jsonUUID is s, a UUID with or without dashes, as its 32 hex digits in lower case.
+func jsonUUID(s string) (string, bool) {
+	hex := strings.ToLower(strings.ReplaceAll(s, "-", ""))
+	if len(hex) != 32 || len(s) != 32 && len(s) != 36 || strings.Trim(hex, "0123456789abcdef") != "" {
+		return "", false
+	}
+
+	return hex, true
+}
+
+// jsonEmpty reports whether v, a JSON value decoded into any, holds nothing: null, false, 0, "", [] or {}, or the text
+// a zero date or time is written as, which is what an empty one decodes into.
+func jsonEmpty(v any) bool {
+	switch v := v.(type) {
+	case nil:
+		return true
+	case bool:
+		return !v
+	case float64:
+		return v == 0
+	case string:
+		return v == "" || v == "0000-00-00" || v == "0001-01-01T00:00:00Z"
+	case []any:
+		return len(v) == 0
+	case map[string]any:
+		return len(v) == 0
+	default:
+		return false
+	}
+}
+
 // mustDecodeBody decodes data, the recorded JSON for one request body value
 // (or field of one) an interaction's own literal couldn't be built for, into
 // T so a replayed call still carries the value it was recorded with.
@@ -1965,16 +2152,20 @@ func mustDecodeBody[T any](t *testing.T, data string) T {
 func TestClient_Interactions(t *testing.T) {
 	ctx := t.Context()
 
-	c, err := NewClient(WithHTTPClient(&http.Client{Transport: replay(t)}))
+	last := &lastBody{next: replay(t)}
+
+	c, err := NewClient(WithHTTPClient(&http.Client{Transport: last}))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if _, err := c.GetPage(ctx, "p"); err != nil {
+	if out, err := c.GetPage(ctx, "p"); err != nil {
 		t.Fatalf("GetPage: %v", err)
+	} else {
+		decodedAsSent(t, "GetPage", out, last.body)
 	}
 
-	if _, err := c.Search(ctx, PropertyFilter{
+	if out, err := c.Search(ctx, PropertyFilter{
 		Property: "x",
 		Type:     mustDecodeBody[PropertyFilterType](t, "\"select\""),
 		Select: new(Condition{
@@ -1982,40 +2173,52 @@ func TestClient_Interactions(t *testing.T) {
 		}),
 	}); err != nil {
 		t.Fatalf("Search: %v", err)
+	} else {
+		decodedAsSent(t, "Search", out, last.body)
 	}
 
-	if _, err := c.UpdateUser(ctx, "u", User{
+	if out, err := c.UpdateUser(ctx, "u", User{
 		Name:     "client",
 		Password: "new",
 	}); err != nil {
 		t.Fatalf("UpdateUser: %v", err)
+	} else {
+		decodedAsSent(t, "UpdateUser", out, last.body)
 	}
 
-	if _, err := c.GetBlock(ctx, "b"); err != nil {
+	if out, err := c.GetBlock(ctx, "b"); err != nil {
 		t.Fatalf("GetBlock: %v", err)
+	} else {
+		decodedAsSent(t, "GetBlock", out, last.body)
 	}
 
-	if _, err := c.CreateDatabase(ctx, CreateDatabaseParent{
+	if out, err := c.CreateDatabase(ctx, CreateDatabaseParent{
 		Type:   CreateDatabaseParentAllOfTypePageID,
 		PageID: IDRequest("59833787-2cf9-4fdf-8782-e53db20768a5"),
 	}); err != nil {
 		t.Fatalf("CreateDatabase: %v", err)
+	} else {
+		decodedAsSent(t, "CreateDatabase", out, last.body)
 	}
 
-	if _, err := c.GetProperty(ctx, "abc"); err != nil {
+	if out, err := c.GetProperty(ctx, "abc"); err != nil {
 		t.Fatalf("GetProperty: %v", err)
+	} else {
+		decodedAsSent(t, "GetProperty", out, last.body)
 	}
 
-	if _, err := c.ListReports(ctx, ListReportsParams{
+	if out, err := c.ListReports(ctx, ListReportsParams{
 		Since:    time.Date(2026, 10, 8, 10, 0, 0, 0, time.FixedZone("", 7200)),
 		IDs:      []int{1, 2},
 		Verbose:  true,
 		XVersion: "2026-10-01",
 	}); err != nil {
 		t.Fatalf("ListReports: %v", err)
+	} else {
+		decodedAsSent(t, "ListReports", out, last.body)
 	}
 
-	if _, err := c.CreateSchedule(ctx, Schedule{
+	if out, err := c.CreateSchedule(ctx, Schedule{
 		Day:     civil.Date{Year: 2026, Month: 10, Day: 8},
 		Every:   mustDecodeBody[time.Duration](t, "3600"),
 		At:      time.Unix(1791453600, 0),
@@ -2030,6 +2233,8 @@ func TestClient_Interactions(t *testing.T) {
 		Strike: 9.5,
 	}); err != nil {
 		t.Fatalf("CreateSchedule: %v", err)
+	} else {
+		decodedAsSent(t, "CreateSchedule", out, last.body)
 	}
 
 	if _, err := c.GetStatus(ctx); err != nil {
