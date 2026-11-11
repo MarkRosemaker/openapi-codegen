@@ -1399,7 +1399,8 @@
 					"type": "string",
 					"jsonTag": "json:\"mode\"",
 					"description": "Always `auto`",
-					"required": true
+					"required": true,
+					"fixed": "\"auto\""
 				}
 			],
 			"memberDecoder": true
@@ -1414,7 +1415,8 @@
 					"type": "string",
 					"jsonTag": "json:\"mode\"",
 					"description": "Always `pinned`",
-					"required": true
+					"required": true,
+					"fixed": "\"pinned\""
 				},
 				{
 					"name": "ID",
@@ -1635,7 +1637,8 @@
 					"type": "string",
 					"jsonTag": "json:\"type\"",
 					"description": "Indicates this user is a bot.",
-					"required": true
+					"required": true,
+					"fixed": "\"bot\""
 				},
 				{
 					"name": "Bot",
@@ -2306,7 +2309,8 @@
 					"jsonName": "type",
 					"type": "string",
 					"jsonTag": "json:\"type\"",
-					"required": true
+					"required": true,
+					"fixed": "\"select\""
 				},
 				{
 					"name": "Property",
@@ -2333,7 +2337,8 @@
 					"jsonName": "type",
 					"type": "string",
 					"jsonTag": "json:\"type\"",
-					"required": true
+					"required": true,
+					"fixed": "\"date\""
 				},
 				{
 					"name": "Property",
@@ -2375,7 +2380,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object\"",
 					"description": "The group object type name.",
-					"required": true
+					"required": true,
+					"fixed": "\"group\""
 				},
 				{
 					"name": "Name",
@@ -2880,7 +2886,8 @@
 					"jsonName": "type",
 					"type": "string",
 					"jsonTag": "json:\"type\"",
-					"required": true
+					"required": true,
+					"fixed": "\"person\""
 				},
 				{
 					"name": "MembershipType",
@@ -3435,7 +3442,8 @@
 					"jsonName": "object",
 					"type": "string",
 					"jsonTag": "json:\"object\"",
-					"required": true
+					"required": true,
+					"fixed": "\"page\""
 				},
 				{
 					"name": "ID",
@@ -3626,7 +3634,8 @@
 					"jsonName": "object",
 					"type": "string",
 					"jsonTag": "json:\"object\"",
-					"required": true
+					"required": true,
+					"fixed": "\"page\""
 				},
 				{
 					"name": "ID",
@@ -3654,7 +3663,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object\"",
 					"description": "Always `user`",
-					"required": true
+					"required": true,
+					"fixed": "\"user\""
 				}
 			]
 		},
@@ -4050,7 +4060,8 @@
 					"jsonName": "type",
 					"type": "string",
 					"jsonTag": "json:\"type\"",
-					"required": true
+					"required": true,
+					"fixed": "\"rollup\""
 				},
 				{
 					"name": "Function",
@@ -4115,7 +4126,8 @@
 					"jsonName": "mode",
 					"type": "*int",
 					"jsonTag": "json:\"mode,omitzero\"",
-					"description": "Zero is its only value, so sending it says something: a pointer."
+					"description": "Zero is its only value, so sending it says something: a pointer.",
+					"fixed": "0"
 				},
 				{
 					"name": "Level",
@@ -4129,7 +4141,8 @@
 					"jsonName": "ratio",
 					"type": "*float64",
 					"jsonTag": "json:\"ratio,omitzero\"",
-					"description": "Zero is its only value, as a number."
+					"description": "Zero is its only value, as a number.",
+					"fixed": "0.0"
 				},
 				{
 					"name": "Strict",
@@ -4650,7 +4663,8 @@
 					"type": "string",
 					"jsonTag": "json:\"object\"",
 					"description": "The user object type name.",
-					"required": true
+					"required": true,
+					"fixed": "\"user\""
 				},
 				{
 					"name": "Name",

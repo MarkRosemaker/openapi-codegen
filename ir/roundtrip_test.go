@@ -2,6 +2,7 @@ package ir_test
 
 import (
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/MarkRosemaker/openapi-codegen/ir"
@@ -56,7 +57,7 @@ func TestDocument_UnionRoundTrips(t *testing.T) {
 			{FieldName: "String", Type: "string", Zero: `""`},
 			{FieldName: "Images", Type: "Images", Zero: "nil"},
 		}},
-		// a date's zero value is no date
+		// a date is set to one, as its zero value is no date
 		{Name: "WhenOrCode", Kind: ir.SchemaKindUnion, UnionVariants: []ir.UnionVariant{
 			{FieldName: "Dated", Type: "Dated", Object: true, Members: []string{"on"}, Required: []string{"on"}},
 			{FieldName: "Int", Type: "int"},
@@ -74,7 +75,7 @@ func TestDocument_UnionRoundTrips(t *testing.T) {
 		"Shape":         {"Circle", "Square"},
 		"PageOrPartial": {"Full", "Partial"},
 		"OneOrMany":     {"String", "Images"},
-		"WhenOrCode":    {"Int"},
+		"WhenOrCode":    {"Dated", "Int"},
 	}
 
 	for union, fields := range want {
@@ -94,8 +95,8 @@ func TestDocument_UnionRoundTrips(t *testing.T) {
 			continue
 		}
 
-		if v := u.Variants[0]; !slices.Contains(v.Setup, `v.Kind = "circle"`) {
-			t.Errorf("Circle: setup %v sets no discriminator", v.Setup)
+		if v := u.Variants[0]; !strings.Contains(v.Value, `Kind: "circle"`) {
+			t.Errorf("Circle: %s sets no discriminator", v.Value)
 		}
 	}
 }
@@ -111,5 +112,59 @@ func TestDocument_MinimalLiteralNamedSliceVariant(t *testing.T) {
 
 	if got, want := doc.MinimalLiteral("Enabled"), "Enabled{Tools: Tools{}}"; got != want {
 		t.Errorf("got %s, want %s", got, want)
+	}
+}
+
+// A variant holding a union of its own sets that union to an alternative it tells apart, and a fixed member to its
+// value; a tagged struct is round-tripped for each tag, with the members the tag requires.
+func TestDocument_RoundTripsBuildNestedValues(t *testing.T) {
+	t.Parallel()
+
+	doc := ir.Document{Schemas: []ir.Schema{
+		{Name: "Person", Kind: ir.SchemaKindStruct, Fields: []ir.Field{
+			{Name: "Object", JSONName: "object", Type: "string", Required: true, Fixed: `"user"`},
+			{Name: "Kind", JSONName: "kind", Type: "string", Required: true},
+		}},
+		{Name: "Bot", Kind: ir.SchemaKindStruct, Fields: []ir.Field{{Name: "Kind", JSONName: "kind", Type: "string", Required: true}}},
+		{Name: "User", Kind: ir.SchemaKindUnion, Discriminator: "kind", UnionVariants: []ir.UnionVariant{
+			{FieldName: "Person", Type: "Person", Value: "person", Object: true, Members: []string{"object", "kind"}, Required: []string{"object", "kind"}},
+			{FieldName: "Bot", Type: "Bot", Value: "bot", Object: true, Members: []string{"kind"}, Required: []string{"kind"}},
+		}},
+		{Name: "Owner", Kind: ir.SchemaKindStruct, Fields: []ir.Field{
+			{Name: "User", JSONName: "user", Type: "User", Required: true},
+			{Name: "Since", JSONName: "since", Type: "civil.Date", Required: true},
+		}},
+		{Name: "OwnerOrName", Kind: ir.SchemaKindUnion, UnionVariants: []ir.UnionVariant{
+			{FieldName: "Owner", Type: "Owner", Object: true, Members: []string{"user", "since"}, Required: []string{"user", "since"}},
+			{FieldName: "String", Type: "string", Zero: `""`},
+		}},
+		{Name: "Value", Kind: ir.SchemaKindStruct, Fields: []ir.Field{
+			{Name: "Type", JSONName: "type", Type: "string", Required: true},
+			{Name: "Number", JSONName: "number", Type: "*float64"},
+		}, Tagged: &ir.Tagged{
+			Tag: "type", Field: "Type", Type: "string",
+			Values:  []ir.TaggedValue{{Value: "number", Members: []ir.TaggedOwn{{Name: "number", Required: true, Nullable: true}}}},
+			Members: []ir.TaggedMember{{Name: "number", Field: "Number", Zero: "nil"}},
+		}},
+	}}
+
+	var owner string
+	for _, u := range doc.UnionRoundTrips() {
+		for _, v := range u.Variants {
+			if u.Union == "OwnerOrName" && v.FieldName == "Owner" {
+				owner = v.Value
+			}
+		}
+	}
+
+	for _, want := range []string{`User: User{Person: new(Person{Object: "user", Kind: "person"})}`, "Since: civil.Date{"} {
+		if !strings.Contains(owner, want) {
+			t.Errorf("Owner is %q, want it to hold %s", owner, want)
+		}
+	}
+
+	tagged := doc.TaggedRoundTrips()
+	if len(tagged) != 1 || len(tagged[0].Values) != 1 || !strings.Contains(tagged[0].Values[0].Literal, "Number: new(1.5)") {
+		t.Errorf("got %+v, want Value's number tag with its number set", tagged)
 	}
 }

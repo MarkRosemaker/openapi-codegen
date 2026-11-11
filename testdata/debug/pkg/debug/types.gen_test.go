@@ -15,14 +15,24 @@ import (
 func TestUnions_RoundTrip(t *testing.T) {
 	t.Run("Pet/Cat", func(t *testing.T) {
 		v := Cat{}
-
 		roundTrip(t, Pet{Cat: &v}, func(u Pet) bool { return u.Cat != nil })
 	})
 
 	t.Run("Pet/Dog", func(t *testing.T) {
 		v := Dog{}
-
 		roundTrip(t, Pet{Dog: &v}, func(u Pet) bool { return u.Dog != nil })
+	})
+}
+
+// TestTagged_RoundTrip sets each tag of each struct told apart by one in turn, with the members the tag requires,
+// encodes it and decodes it strictly: the tag must come back, and the struct encode as before.
+func TestTagged_RoundTrip(t *testing.T) {
+	t.Run("Block/paragraph", func(t *testing.T) {
+		roundTrip(t, Block{Type: "paragraph", Paragraph: new(Text{})}, func(v Block) bool { return v.Type == "paragraph" })
+	})
+
+	t.Run("Block/divider", func(t *testing.T) {
+		roundTrip(t, Block{Type: "divider"}, func(v Block) bool { return v.Type == "divider" })
 	})
 }
 
