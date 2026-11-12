@@ -188,3 +188,92 @@ func TestDebug_FileOnceMasked(t *testing.T) {
 		t.Errorf("recorded %s and %s, want both masked", auth, ias[0].Response.Body)
 	}
 }
+
+func TestDebug_Recording(t *testing.T) {
+	t.Run("debug mode alone adds no call it decodes", func(t *testing.T) {
+		t.Chdir(t.TempDir())
+
+		c, err := NewClient(WithBaseURL(serve(t, `{"id":"a"}`)), WithBearer("token"), WithDebug)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if _, err := c.GetItem(t.Context()); err != nil {
+			t.Fatal(err)
+		}
+
+		if ias := recorded(t); len(ias) != 0 {
+			t.Errorf("recorded %d interactions, want none", len(ias))
+		}
+	})
+
+	t.Run("adds a call it decodes", func(t *testing.T) {
+		t.Chdir(t.TempDir())
+
+		c, err := NewClient(WithBaseURL(serve(t, `{"id":"a"}`)), WithBearer("token"), WithRecording)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if item, err := c.GetItem(t.Context()); err != nil || item.ID != "a" {
+			t.Fatalf("got %+v, %v", item, err)
+		}
+
+		if ias := recorded(t); len(ias) != 1 || !sameJSON(t, ias[0].Response.Body, `{"id":"a"}`) {
+			t.Errorf("recorded %+v, want the one response", ias)
+		}
+	})
+
+	t.Run("adds a call it cannot decode once", func(t *testing.T) {
+		t.Chdir(t.TempDir())
+
+		c, err := NewClient(WithBaseURL(serve(t, `{"id":"a","new":1}`)), WithBearer("token"), WithRecording)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if item, err := c.GetItem(t.Context()); err != nil || item.ID != "a" {
+			t.Fatalf("got %+v, %v", item, err)
+		}
+
+		if ias := recorded(t); len(ias) != 1 {
+			t.Errorf("recorded %d interactions, want 1", len(ias))
+		}
+	})
+
+	t.Run("to the file asked for, either way round", func(t *testing.T) {
+		for _, opts := range [][]ClientOption{
+			{WithRecording, WithDebugFile(t.TempDir() + "/recorded.json")},
+			{WithDebugFile(t.TempDir() + "/recorded.json"), WithRecording},
+		} {
+			c, err := NewClient(append(opts, WithBaseURL(serve(t, `{"id":"a"}`)), WithBearer("token"))...)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetItem(t.Context()); err != nil {
+				t.Fatal(err)
+			}
+
+			if ias, err := cassette.InteractionsReadFile(c.debugFile); err != nil || len(ias) != 1 {
+				t.Errorf("recorded %d interactions to %s, %v", len(ias), c.debugFile, err)
+			}
+		}
+	})
+
+	t.Run("fails if it cannot add the call", func(t *testing.T) {
+		file := t.TempDir() + "/file"
+		if err := os.WriteFile(file, nil, 0o600); err != nil {
+			t.Fatal(err)
+		}
+
+		c, err := NewClient(WithBaseURL(serve(t, `{"id":"a"}`)), WithBearer("token"), WithRecording, WithDebugFile(file+"/recorded.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if _, err := c.GetItem(t.Context()); err == nil {
+			t.Fatal("got no error, want the one adding the call")
+		}
+	})
+}

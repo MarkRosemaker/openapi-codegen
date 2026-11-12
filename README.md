@@ -138,6 +138,9 @@ How the specification maps onto Go:
   Nothing the specification leaves open decodes into `any` then: the empty
   schema, an array without `items`, a free-form object and `not` alone become
   `struct{}`, so any value in them is recorded, and any but an object fails.
+  `WithRecording` adds every call to the same file, masked and once, whether
+  the client decodes it or not: a way to record what the API really sends, as
+  each call reads and rewrites the file.
 - **Fields** — a field is a pointer only where its zero value must be told apart
   from something else: from leaving the field out, if it is optional, or from
   null, if it is nullable. That is a boolean, a number that may be 0, or an object
