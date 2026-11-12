@@ -22,6 +22,26 @@ func TestEnums_Valid(t *testing.T) {
 		t.Errorf("ApiVersion(%v): valid, though no member", "not a member")
 	}
 
+	for _, v := range []BlockType{BlockTypeParagraph, BlockTypeChildDatabase, BlockTypeRelation} {
+		if !v.Valid() {
+			t.Errorf("BlockType %v: not valid", v)
+		}
+	}
+
+	if BlockType("not a member").Valid() {
+		t.Errorf("BlockType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []CoverResponseType{CoverResponseTypeExternal, CoverResponseTypeFile} {
+		if !v.Valid() {
+			t.Errorf("CoverResponseType %v: not valid", v)
+		}
+	}
+
+	if CoverResponseType("not a member").Valid() {
+		t.Errorf("CoverResponseType(%v): valid, though no member", "not a member")
+	}
+
 	for _, v := range []CreateDatabaseParentAllOfType{CreateDatabaseParentAllOfTypePageID, CreateDatabaseParentAllOfTypeWorkspace} {
 		if !v.Valid() {
 			t.Errorf("CreateDatabaseParentAllOfType %v: not valid", v)
@@ -72,6 +92,16 @@ func TestEnums_Valid(t *testing.T) {
 		t.Errorf("NestedTitleType(%v): valid, though no member", "not a member")
 	}
 
+	for _, v := range []NestedValueType{NestedValueTypeNumber, NestedValueTypeURL, NestedValueTypeTitle} {
+		if !v.Valid() {
+			t.Errorf("NestedValueType %v: not valid", v)
+		}
+	}
+
+	if NestedValueType("not a member").Valid() {
+		t.Errorf("NestedValueType(%v): valid, though no member", "not a member")
+	}
+
 	for _, v := range []OrderOneOf0{OrderOneOf0Asc} {
 		if !v.Valid() {
 			t.Errorf("OrderOneOf0 %v: not valid", v)
@@ -102,6 +132,26 @@ func TestEnums_Valid(t *testing.T) {
 		t.Errorf("PersonGroupType(%v): valid, though no member", "not a member")
 	}
 
+	for _, v := range []PropertyFilterType{PropertyFilterTypeSelect, PropertyFilterTypeNumber} {
+		if !v.Valid() {
+			t.Errorf("PropertyFilterType %v: not valid", v)
+		}
+	}
+
+	if PropertyFilterType("not a member").Valid() {
+		t.Errorf("PropertyFilterType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []PropertyValueType{PropertyValueTypeDate, PropertyValueTypeNumber} {
+		if !v.Valid() {
+			t.Errorf("PropertyValueType %v: not valid", v)
+		}
+	}
+
+	if PropertyValueType("not a member").Valid() {
+		t.Errorf("PropertyValueType(%v): valid, though no member", "not a member")
+	}
+
 	for _, v := range []ScheduleFormat{ScheduleFormatPDF, ScheduleFormatCsv} {
 		if !v.Valid() {
 			t.Errorf("ScheduleFormat %v: not valid", v)
@@ -130,6 +180,26 @@ func TestEnums_Valid(t *testing.T) {
 
 	if SelectGroupType("not a member").Valid() {
 		t.Errorf("SelectGroupType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []SimpleOrArrayType{SimpleOrArrayTypeNumber, SimpleOrArrayTypeText, SimpleOrArrayTypeRelation} {
+		if !v.Valid() {
+			t.Errorf("SimpleOrArrayType %v: not valid", v)
+		}
+	}
+
+	if SimpleOrArrayType("not a member").Valid() {
+		t.Errorf("SimpleOrArrayType(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []UserObjectResponseType{UserObjectResponseTypePerson, UserObjectResponseTypeBot} {
+		if !v.Valid() {
+			t.Errorf("UserObjectResponseType %v: not valid", v)
+		}
+	}
+
+	if UserObjectResponseType("not a member").Valid() {
+		t.Errorf("UserObjectResponseType(%v): valid, though no member", "not a member")
 	}
 }
 

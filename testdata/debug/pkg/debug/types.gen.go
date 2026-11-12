@@ -5,17 +5,14 @@
 package debug
 
 import (
-	"bytes"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"errors"
 	"fmt"
-	"maps"
-	"slices"
-	"strconv"
 
 	"cloud.google.com/go/civil"
 	"github.com/MarkRosemaker/jsonutil"
+	"github.com/go-api-libs/api/union"
 )
 
 var jsonOpts = json.JoinOptions(
@@ -53,8 +50,8 @@ func (e BlockType) Valid() bool {
 }
 
 // tagsOfBlock holds, for each value of type, the members of its alternative's own, each with how it is needed.
-var tagsOfBlock = map[string]map[string]jsonTagNeed{
-	"paragraph": {"paragraph": jsonTagRequired},
+var tagsOfBlock = map[string]map[string]union.TagNeed{
+	"paragraph": {"paragraph": union.TagRequired},
 	"divider":   {},
 }
 
@@ -85,12 +82,12 @@ func (v *Block) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	}
 
 	// a member sent as null is there, though its field reads as left out
-	present, err := jsonMembers(raw)
+	present, err := union.Members(raw)
 	if err != nil {
 		return err
 	}
 
-	return jsonCheckTag("type", string(v.Type), tagsOfBlock, v.taggedMembers(), present, jsonStrict(dec))
+	return union.CheckTag("type", string(v.Type), tagsOfBlock, v.taggedMembers(), present, union.Strict(dec))
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
@@ -99,11 +96,11 @@ func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain Block
 
 	out, set := *v, v.taggedMembers()
-	if tag, ok := jsonInferTag(tagsOfBlock, set); ok && out.Type == "" {
+	if tag, ok := union.InferTag(tagsOfBlock, set); ok && out.Type == "" {
 		out.Type = BlockType(tag)
 	}
 
-	if err := jsonCheckTag("type", string(out.Type), tagsOfBlock, set, nil, true); err != nil {
+	if err := union.CheckTag("type", string(out.Type), tagsOfBlock, set, nil, true); err != nil {
 		return err
 	}
 
@@ -139,7 +136,7 @@ func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Pet{}
 
 	opts := jsonOptsOf(dec)
-	strict := jsonStrict(dec)
+	strict := union.Strict(dec)
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -152,7 +149,7 @@ func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
 		required, nullable, pinned := []string{"meow"}, map[string]bool{}, map[string]string{}
-		if jsonFits(raw, required, nullable, pinned) {
+		if union.Fits(raw, required, nullable, pinned) {
 			var vv Cat
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Cat = &vv
@@ -165,7 +162,7 @@ func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	if strict || matched == 0 {
 		// decoding checks neither the members the alternative requires nor those it pins to one value
 		required, nullable, pinned := []string{"bark"}, map[string]bool{}, map[string]string{}
-		if jsonFits(raw, required, nullable, pinned) {
+		if union.Fits(raw, required, nullable, pinned) {
 			var vv Dog
 			if err := json.Unmarshal(raw, &vv, opts); err == nil {
 				v.Dog = &vv
@@ -203,15 +200,9 @@ type Text struct {
 	Text string `json:"text"`
 }
 
-// jsonStrict reports whether dec rejects members the specification does not know, as it does unless told otherwise.
-func jsonStrict(dec *jsontext.Decoder) bool {
-	v, ok := json.GetOption(dec.Options(), json.RejectUnknownMembers)
-	return v || !ok
-}
-
 // jsonOptsOf is jsonOpts, or jsonOptsLenient where dec accepts members the specification does not know.
 func jsonOptsOf(dec *jsontext.Decoder) json.Options {
-	if jsonStrict(dec) {
+	if union.Strict(dec) {
 		return jsonOpts
 	}
 
@@ -222,734 +213,4 @@ func jsonOptsOf(dec *jsontext.Decoder) json.Options {
 // request or a response does not carry, so that what a type encodes itself passes them on.
 func jsonOptsTo(enc *jsontext.Encoder) json.Options {
 	return json.JoinOptions(jsonOpts, enc.Options())
-}
-
-// jsonUnknownName reports a member no part of the type declares, as encoding/json reports one of a struct.
-func jsonUnknownName(name string) error {
-	return &json.SemanticError{JSONKind: jsontext.KindString, Err: fmt.Errorf("%w %q", json.ErrUnknownName, name)}
-}
-
-// jsonMissing reports a member the type needs and the object lacks.
-func jsonMissing(name string) error {
-	return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("missing object member name %q", name)}
-}
-
-// jsonUnknownValue reports a value of the discriminator that names no alternative.
-func jsonUnknownValue(name, value string) error {
-	return &json.SemanticError{JSONKind: jsontext.KindString, JSONValue: jsontext.Value(strconv.Quote(value)), Err: fmt.Errorf("unknown value of %q", name)}
-}
-
-// jsonFirstMember reads the opening of a JSON object and its member name, which must have a string value. It returns
-// the string, the value as written, and the decoder to read the object's further members from: dec itself when name
-// comes first, the fast way, and otherwise one over the object read whole, with name moved to the front.
-func jsonFirstMember(dec *jsontext.Decoder, name string) (string, jsontext.Value, *jsontext.Decoder, error) {
-	if tok, err := dec.ReadToken(); err != nil {
-		return "", nil, nil, err
-	} else if tok.Kind() != jsontext.KindBeginObject {
-		return "", nil, nil, &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
-	}
-
-	if dec.PeekKind() == jsontext.KindEndObject {
-		return "", nil, nil, jsonMissing(name)
-	}
-
-	tok, err := dec.ReadToken()
-	if err != nil {
-		return "", nil, nil, err
-	}
-
-	if got := tok.String(); got != name {
-		// read the rest of the object, and start again with name first
-		var buf bytes.Buffer
-		enc := jsontext.NewEncoder(&buf)
-		if err := enc.WriteToken(jsontext.BeginObject); err != nil {
-			return "", nil, nil, err
-		}
-
-		if err := enc.WriteToken(jsontext.String(got)); err != nil {
-			return "", nil, nil, err
-		}
-
-		for dec.PeekKind() != jsontext.KindEndObject {
-			val, err := dec.ReadValue()
-			if err != nil {
-				return "", nil, nil, err
-			}
-
-			if err := enc.WriteValue(val); err != nil {
-				return "", nil, nil, err
-			}
-
-			if dec.PeekKind() == jsontext.KindEndObject {
-				break
-			}
-
-			tok, err := dec.ReadToken()
-			if err != nil {
-				return "", nil, nil, err
-			}
-
-			if err := enc.WriteToken(tok); err != nil {
-				return "", nil, nil, err
-			}
-		}
-
-		if _, err := dec.ReadToken(); err != nil { // the end of the object
-			return "", nil, nil, err
-		}
-
-		if err := enc.WriteToken(jsontext.EndObject); err != nil {
-			return "", nil, nil, err
-		}
-
-		ordered, err := jsonFirst(buf.Bytes(), name, "")
-		if err != nil {
-			return "", nil, nil, err
-		}
-
-		return jsonFirstMember(jsontext.NewDecoder(bytes.NewReader(ordered), dec.Options()), name)
-	}
-
-	val, err := dec.ReadValue()
-	if err != nil {
-		return "", nil, nil, err
-	}
-
-	var tag string
-	if err := json.Unmarshal(val, &tag); err != nil {
-		return "", nil, nil, &json.SemanticError{JSONKind: val.Kind(), Err: fmt.Errorf("member %q is not a string", name)}
-	}
-
-	return tag, val.Clone(), dec, nil
-}
-
-// jsonMembersFrom decodes the first member, already read, and every further member of the object dec is in, each
-// into the field decode declares for it; a member it does not declare is an error, unless dec is lenient.
-func jsonMembersFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, decode func(*jsontext.Decoder, string) (bool, error)) error {
-	strict := jsonStrict(dec)
-
-	if ok, err := decode(jsontext.NewDecoder(bytes.NewReader(first), dec.Options()), firstName); err != nil {
-		return err
-	} else if !ok && strict {
-		return jsonUnknownName(firstName)
-	}
-
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return err
-		}
-
-		name := tok.String() // a token is void once the decoder reads on
-
-		if ok, err := decode(dec, name); err != nil {
-			return err
-		} else if !ok && strict {
-			return jsonUnknownName(name)
-		} else if !ok {
-			if err := dec.SkipValue(); err != nil {
-				return err
-			}
-		}
-	}
-
-	_, err := dec.ReadToken()
-	return err
-}
-
-// jsonPart is one of the parts an object decodes into: the members it declares and how it decodes one of them.
-type jsonPart struct {
-	members map[string]bool
-	decode  func(*jsontext.Decoder, string) (bool, error)
-}
-
-// jsonPartsFrom is jsonMembersFrom for an object that several parts declare members of. A member one part declares
-// decodes straight from dec; one several declare is read once and decoded into each.
-func jsonPartsFrom(dec *jsontext.Decoder, firstName string, first jsontext.Value, parts []jsonPart) error {
-	member := func(name string, val jsontext.Value) error {
-		var declaring []jsonPart
-		for _, p := range parts {
-			if p.members[name] {
-				declaring = append(declaring, p)
-			}
-		}
-
-		switch {
-		case len(declaring) > 0:
-		case jsonStrict(dec):
-			return jsonUnknownName(name)
-		case val == nil:
-			return dec.SkipValue()
-		default:
-			return nil
-		}
-
-		if val == nil && len(declaring) == 1 {
-			_, err := declaring[0].decode(dec, name)
-			return err
-		}
-
-		if val == nil {
-			v, err := dec.ReadValue()
-			if err != nil {
-				return err
-			}
-
-			val = v.Clone()
-		}
-
-		for _, p := range declaring {
-			if _, err := p.decode(jsontext.NewDecoder(bytes.NewReader(val), dec.Options()), name); err != nil {
-				return err
-			}
-		}
-
-		return nil
-	}
-
-	if err := member(firstName, first); err != nil {
-		return err
-	}
-
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return err
-		}
-
-		if err := member(tok.String(), nil); err != nil {
-			return err
-		}
-	}
-
-	_, err := dec.ReadToken()
-	return err
-}
-
-// jsonFirst returns the JSON object raw with its member name first, as decoding by a discriminator wants it. If value
-// is known, the member must have it, and is written in if raw lacks it or leaves it empty. raw is returned as it is if
-// all is in order.
-func jsonFirst(raw jsontext.Value, name, value string) (jsontext.Value, error) {
-	dec := jsontext.NewDecoder(bytes.NewReader(raw))
-	if _, err := dec.ReadToken(); err != nil {
-		return nil, err
-	}
-
-	if dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return nil, err
-		}
-
-		if tok.String() == name {
-			if value == "" {
-				return raw, nil
-			}
-
-			val, err := dec.ReadToken()
-			if err != nil {
-				return nil, err
-			}
-
-			switch got := val.String(); got {
-			case value:
-				return raw, nil
-			case "": // left for the union to fill in, below
-			default:
-				return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
-			}
-		}
-	}
-
-	names, err := jsonMembers(raw)
-	if err != nil {
-		return nil, err
-	}
-
-	var first jsontext.Value
-	switch {
-	case slices.Contains(names, name):
-		if first, err = jsonSelect(raw, map[string]bool{name: true}); err != nil {
-			return nil, err
-		}
-
-		if value == "" {
-			break
-		}
-
-		got, err := jsonMemberString(first, name)
-		switch {
-		case err != nil:
-			return nil, err
-		case got == "": // left empty: the union knows what it holds
-			rest := make(map[string]bool, len(names))
-			for _, n := range names {
-				rest[n] = n != name
-			}
-
-			if raw, err = jsonSelect(raw, rest); err != nil {
-				return nil, err
-			}
-
-			if first, err = json.Marshal(map[string]string{name: value}); err != nil {
-				return nil, err
-			}
-		case got != value:
-			return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %q, want %q", name, got, value)}
-		}
-	case value != "":
-		member, err := json.Marshal(map[string]string{name: value})
-		if err != nil {
-			return nil, err
-		}
-
-		first = member
-	default:
-		return nil, jsonMissing(name)
-	}
-
-	return jsonMerge(first, raw)
-}
-
-// jsonMemberString returns the string value of the member name of the JSON object raw, reading no further than it.
-func jsonMemberString(raw jsontext.Value, name string) (string, error) {
-	dec := jsontext.NewDecoder(bytes.NewReader(raw))
-	if tok, err := dec.ReadToken(); err != nil {
-		return "", err
-	} else if tok.Kind() != jsontext.KindBeginObject {
-		return "", &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
-	}
-
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return "", err
-		}
-
-		if tok.String() != name {
-			if err := dec.SkipValue(); err != nil {
-				return "", err
-			}
-
-			continue
-		}
-
-		val, err := dec.ReadToken()
-		if err != nil {
-			return "", err
-		}
-
-		if val.Kind() != jsontext.KindString {
-			return "", &json.SemanticError{JSONKind: val.Kind(), Err: fmt.Errorf("member %q is not a string", name)}
-		}
-
-		return val.String(), nil
-	}
-
-	return "", jsonMissing(name)
-}
-
-// jsonMembers returns the names of the members of the JSON object raw, in order.
-func jsonMembers(raw jsontext.Value) ([]string, error) {
-	dec := jsontext.NewDecoder(bytes.NewReader(raw))
-	if tok, err := dec.ReadToken(); err != nil {
-		return nil, err
-	} else if tok.Kind() != jsontext.KindBeginObject {
-		return nil, &json.SemanticError{JSONKind: tok.Kind(), Err: errors.New("want an object")}
-	}
-
-	var names []string
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return nil, err
-		}
-
-		names = append(names, tok.String())
-
-		if err := dec.SkipValue(); err != nil {
-			return nil, err
-		}
-	}
-
-	return names, nil
-}
-
-// jsonSelect returns the JSON object raw with only the members keep holds.
-func jsonSelect(raw jsontext.Value, keep map[string]bool) (jsontext.Value, error) {
-	dec := jsontext.NewDecoder(bytes.NewReader(raw))
-	if _, err := dec.ReadToken(); err != nil {
-		return nil, err
-	}
-
-	var buf bytes.Buffer
-	enc := jsontext.NewEncoder(&buf)
-	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
-		return nil, err
-	}
-
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return nil, err
-		}
-
-		name := tok.String() // a token is void once the decoder reads on
-
-		val, err := dec.ReadValue()
-		if err != nil {
-			return nil, err
-		}
-
-		if !keep[name] {
-			continue
-		}
-
-		if err := enc.WriteToken(jsontext.String(name)); err != nil {
-			return nil, err
-		}
-
-		if err := enc.WriteValue(val); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := enc.WriteToken(jsontext.EndObject); err != nil {
-		return nil, err
-	}
-
-	return bytes.TrimSpace(buf.Bytes()), nil
-}
-
-// jsonMerge returns the members of the JSON objects a and b in one object. A member both hold must have the same
-// value in each.
-func jsonMerge(a, b jsontext.Value) (jsontext.Value, error) {
-	var buf bytes.Buffer
-	enc := jsontext.NewEncoder(&buf)
-	if err := enc.WriteToken(jsontext.BeginObject); err != nil {
-		return nil, err
-	}
-
-	written := map[string]jsontext.Value{}
-	for _, raw := range []jsontext.Value{a, b} {
-		dec := jsontext.NewDecoder(bytes.NewReader(raw))
-		if _, err := dec.ReadToken(); err != nil {
-			return nil, err
-		}
-
-		for dec.PeekKind() != jsontext.KindEndObject {
-			tok, err := dec.ReadToken()
-			if err != nil {
-				return nil, err
-			}
-
-			name := tok.String() // a token is void once the decoder reads on
-
-			val, err := dec.ReadValue()
-			if err != nil {
-				return nil, err
-			}
-			if prev, ok := written[name]; ok {
-				if err := prev.Canonicalize(); err != nil {
-					return nil, err
-				}
-
-				cur := val.Clone()
-				if err := cur.Canonicalize(); err != nil {
-					return nil, err
-				}
-
-				if !bytes.Equal(prev, cur) {
-					return nil, &json.SemanticError{Err: fmt.Errorf("member %q is %s in one part and %s in another", name, prev, cur)}
-				}
-
-				continue
-			}
-
-			written[name] = val.Clone()
-
-			if err := enc.WriteToken(jsontext.String(name)); err != nil {
-				return nil, err
-			}
-
-			if err := enc.WriteValue(val); err != nil {
-				return nil, err
-			}
-		}
-	}
-
-	if err := enc.WriteToken(jsontext.EndObject); err != nil {
-		return nil, err
-	}
-
-	return bytes.TrimSpace(buf.Bytes()), nil
-}
-
-// jsonVariant is an alternative of a union: its value of the discriminator, the members it declares and those it
-// requires.
-type jsonVariant struct {
-	value    string
-	members  map[string]bool
-	required []string
-	// nullable are the members of required that may be null
-	nullable map[string]bool
-	// pinned are the members it allows one value for, written as compact JSON
-	pinned map[string]string
-	// enums are the members it allows the values of an enum for, written so
-	enums map[string][]string
-}
-
-// jsonEnumsFit reports whether each member of the JSON object raw that enums names has one of the values it allows,
-// written as compact JSON.
-func jsonEnumsFit(raw jsontext.Value, enums map[string][]string) bool {
-	if len(enums) == 0 {
-		return true
-	}
-
-	dec := jsontext.NewDecoder(bytes.NewReader(raw))
-	if tok, err := dec.ReadToken(); err != nil || tok.Kind() != jsontext.KindBeginObject {
-		return false
-	}
-
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return false
-		}
-
-		name := tok.String()
-
-		val, err := dec.ReadValue()
-		if err != nil {
-			return false
-		}
-
-		if allowed, ok := enums[name]; ok {
-			got := val.Clone()
-			if err := got.Compact(); err != nil || !slices.Contains(allowed, string(got)) {
-				return false
-			}
-		}
-	}
-
-	return true
-}
-
-// jsonEnumPasses are whether to check enums in each attempt at choosing an alternative: strict, always; leniently,
-// first, then not, should no alternative fit, as an API may add a value to an enum.
-func jsonEnumPasses(strict bool) []bool {
-	if strict {
-		return []bool{true}
-	}
-
-	return []bool{true, false}
-}
-
-// jsonFits reports whether the JSON value raw has the members required, and those of pinned it has with the value
-// each pins, written as compact JSON. A member that is null is there only where nullable allows it to be. Any value
-// fits where nothing is required or pinned.
-func jsonFits(raw jsontext.Value, required []string, nullable map[string]bool, pinned map[string]string) bool {
-	if len(required) == 0 && len(pinned) == 0 {
-		return true
-	}
-
-	if raw.Kind() != jsontext.KindBeginObject {
-		return false
-	}
-
-	dec := jsontext.NewDecoder(bytes.NewReader(raw))
-	if _, err := dec.ReadToken(); err != nil {
-		return false
-	}
-
-	present := map[string]bool{}
-
-	for dec.PeekKind() != jsontext.KindEndObject {
-		tok, err := dec.ReadToken()
-		if err != nil {
-			return false
-		}
-
-		name := tok.String()
-
-		val, err := dec.ReadValue()
-		if err != nil {
-			return false
-		}
-
-		present[name] = val.Kind() != jsontext.KindNull || nullable[name]
-
-		if want, ok := pinned[name]; ok {
-			got := val.Clone()
-			if err := got.Compact(); err != nil || string(got) != want {
-				return false
-			}
-		}
-	}
-
-	for _, r := range required {
-		if !present[r] {
-			return false
-		}
-	}
-
-	return true
-}
-
-// jsonChooseVariants returns the alternatives the JSON object raw is: the one its discriminator names, if there is
-// one, else those whose required members it has and whose members it holds, besides those of plain. Every member
-// must belong to plain or to a chosen alternative. Not strict, a member nothing declares is left out of the choice,
-// and of several alternatives of a oneOf the first is chosen.
-func jsonChooseVariants(raw jsontext.Value, discriminator string, variants []jsonVariant, plain map[string]bool, oneOf, strict bool) ([]int, error) {
-	names, err := jsonMembers(raw)
-	if err != nil {
-		return nil, err
-	}
-
-	if !strict {
-		names = slices.DeleteFunc(names, func(n string) bool {
-			return !plain[n] && !slices.ContainsFunc(variants, func(v jsonVariant) bool { return v.members[n] })
-		})
-	}
-
-	present := make(map[string]bool, len(names))
-	for _, n := range names {
-		present[n] = true
-	}
-
-	var chosen []int
-	if discriminator != "" {
-		tag, err := jsonMemberString(raw, discriminator)
-		if err != nil {
-			return nil, err
-		}
-
-		for i, v := range variants {
-			if v.value == tag {
-				chosen = append(chosen, i)
-			}
-		}
-
-		if len(chosen) == 0 {
-			return nil, jsonUnknownValue(discriminator, tag)
-		}
-	} else {
-	variants:
-		for i, v := range variants {
-			if !jsonFits(raw, v.required, v.nullable, v.pinned) {
-				continue variants
-			}
-
-			for _, n := range names {
-				if !plain[n] && !v.members[n] {
-					continue variants
-				}
-			}
-
-			chosen = append(chosen, i)
-		}
-
-		// a member outside its enum rules an alternative out; leniently, only while another fits
-		fit := slices.DeleteFunc(slices.Clone(chosen), func(i int) bool { return !jsonEnumsFit(raw, variants[i].enums) })
-		if len(fit) > 0 || strict {
-			chosen = fit
-		}
-
-		switch {
-		case len(chosen) == 0:
-			return nil, &json.SemanticError{Err: errors.New("matches none of its alternatives")}
-		case oneOf && len(chosen) > 1 && strict:
-			return nil, &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", len(chosen))}
-		case oneOf:
-			chosen = chosen[:1]
-		}
-	}
-
-	for _, n := range names {
-		if plain[n] {
-			continue
-		}
-
-		known := false
-		for _, i := range chosen {
-			known = known || variants[i].members[n]
-		}
-
-		if !known {
-			return nil, jsonUnknownName(n)
-		}
-	}
-
-	return chosen, nil
-}
-
-// jsonTagNeed is how an alternative needs a member of its own.
-type jsonTagNeed int
-
-const (
-	jsonTagOptional jsonTagNeed = iota
-	jsonTagRequired
-	jsonTagRequiredOrNull
-)
-
-// jsonCheckTag reports an error unless set, the members of an alternative's own whose fields are set, holds only
-// members of the alternative the value tag of the tag name names, and the members it requires are there: in present,
-// the members of the object decoded, null ones included, or, encoding, with present nil, in set, where a member that
-// may be null cannot be told from one left out. Not strict, set may hold others too.
-func jsonCheckTag(name, tag string, tags map[string]map[string]jsonTagNeed, set, present []string, strict bool) error {
-	members, ok := tags[tag]
-	switch {
-	case tag == "":
-		return jsonMissing(name)
-	case !ok:
-		return jsonUnknownValue(name, tag)
-	}
-
-	for _, s := range set {
-		if _, ok := members[s]; strict && !ok {
-			return &json.SemanticError{JSONKind: jsontext.KindBeginObject, Err: fmt.Errorf("%s %q does not allow member %q", name, tag, s)}
-		}
-	}
-
-	for _, m := range slices.Sorted(maps.Keys(members)) {
-		switch need := members[m]; {
-		case present != nil && need != jsonTagOptional && !slices.Contains(present, m),
-			present == nil && need == jsonTagRequired && !slices.Contains(set, m):
-			return jsonMissing(m)
-		}
-	}
-
-	return nil
-}
-
-// jsonInferTag returns the value of a tag whose alternative is the one of tags that set, the members of an
-// alternative's own that are set, names: the one set member is a value whose alternative allows all of set.
-func jsonInferTag(tags map[string]map[string]jsonTagNeed, set []string) (string, bool) {
-	tag := ""
-
-	for _, s := range set {
-		members, ok := tags[s]
-		if !ok || !allIn(set, members) {
-			continue
-		}
-
-		if tag != "" {
-			return "", false
-		}
-
-		tag = s
-	}
-
-	return tag, tag != ""
-}
-
-// allIn reports whether every one of names is a key of m.
-func allIn(names []string, m map[string]jsonTagNeed) bool {
-	for _, n := range names {
-		if _, ok := m[n]; !ok {
-			return false
-		}
-	}
-
-	return true
 }
