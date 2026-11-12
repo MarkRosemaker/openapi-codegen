@@ -4,16 +4,6 @@
 
 package {{.PackageName}}
 
-import (
-	"time"
-	"net/url"
-	"net"
-	"encoding/json/v2"
-
-	"cloud.google.com/go/civil"
-	"github.com/MarkRosemaker/jsonutil"
-	"github.com/go-api-libs/types"
-)
 
 var jsonOpts = json.JoinOptions(
 		json.RejectUnknownMembers(true),

@@ -294,8 +294,8 @@ func TestRenderTemplate_ParseError(t *testing.T) {
 	}
 }
 
-func TestRenderTemplate_GoimportsError(t *testing.T) {
-	// Template that produces invalid Go (not parseable by goimports).
+func TestRenderTemplate_InvalidGo(t *testing.T) {
+	// Template that produces invalid Go, which has no imports to read off.
 	_, err := render.RenderTemplate("bad.go.tmpl", "not valid go at all @@@@", nil)
 	if err == nil {
 		t.Fatal("expected error for non-Go template output")
@@ -638,7 +638,7 @@ func containsStr(s, sub string) bool {
 	return false
 }
 
-// A template with nothing to write is no file, rather than an empty one goimports refuses: the types' tests where no
+// A template with nothing to write is no file, rather than an empty one that does not parse: the types' tests where no
 // enum is declared.
 func TestFilesFromFS_NothingToWrite(t *testing.T) {
 	t.Parallel()
