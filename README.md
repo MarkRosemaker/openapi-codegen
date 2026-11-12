@@ -140,7 +140,8 @@ How the specification maps onto Go:
   `struct{}`, so any value in them is recorded, and any but an object fails.
   `WithRecording` adds every call to the same file, masked and once, whether
   the client decodes it or not: a way to record what the API really sends, as
-  each call reads and rewrites the file.- **Fields** — a field is a pointer only where its zero value must be told apart
+  each call reads and rewrites the file.
+- **Fields** — a field is a pointer only where its zero value must be told apart
   from something else: from leaving the field out, if it is optional, or from
   null, if it is nullable. That is a boolean, a number that may be 0, or an object
   that requires nothing, so `{}` says something; nil then leaves the field out,
