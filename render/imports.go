@@ -44,6 +44,7 @@ var importPaths = map[string]string{
 	"jsonutil": "github.com/MarkRosemaker/jsonutil",
 	"server":   "github.com/go-api-libs/api/server",
 	"types":    "github.com/go-api-libs/types",
+	"union":    "github.com/go-api-libs/api/union",
 }
 
 // writeImports gives the Go source src the import section it needs: each package of [importPaths] it uses, and no

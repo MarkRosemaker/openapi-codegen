@@ -10,6 +10,19 @@ import (
 	"testing"
 )
 
+// TestEnums_Valid checks that every member of an enum is valid, and that a value of its type none is, is not.
+func TestEnums_Valid(t *testing.T) {
+	for _, v := range []BlockType{BlockTypeParagraph, BlockTypeDivider} {
+		if !v.Valid() {
+			t.Errorf("BlockType %v: not valid", v)
+		}
+	}
+
+	if BlockType("not a member").Valid() {
+		t.Errorf("BlockType(%v): valid, though no member", "not a member")
+	}
+}
+
 // TestUnions_RoundTrip sets each variant of each union in turn, encodes it and decodes it strictly: the union must
 // choose the same variant again, and encode as before.
 func TestUnions_RoundTrip(t *testing.T) {
