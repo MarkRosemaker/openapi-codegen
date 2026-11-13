@@ -2442,7 +2442,8 @@
 					"description": "The name of the group.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "IDRequest",
@@ -3126,7 +3127,8 @@
 							},
 							{
 								"name": "url",
-								"required": true
+								"required": true,
+								"nullable": true
 							}
 						]
 					},
@@ -3396,6 +3398,7 @@
 				{
 					"fieldName": "PartialUserObjectResponse",
 					"type": "PartialUserObjectResponse",
+					"value": "user",
 					"members": [
 						"id",
 						"object"
@@ -3415,6 +3418,7 @@
 				{
 					"fieldName": "GroupObjectResponse",
 					"type": "GroupObjectResponse",
+					"value": "group",
 					"members": [
 						"id",
 						"name",
@@ -3441,6 +3445,7 @@
 				{
 					"fieldName": "PartialUserObjectResponse",
 					"type": "PartialUserObjectResponse",
+					"value": "user",
 					"members": [
 						"id",
 						"object"
@@ -3460,6 +3465,7 @@
 				{
 					"fieldName": "GroupObjectResponse",
 					"type": "GroupObjectResponse",
+					"value": "group",
 					"members": [
 						"id",
 						"name",
@@ -3482,7 +3488,9 @@
 					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "object",
+			"streamed": true
 		},
 		{
 			"name": "Page",
@@ -3506,14 +3514,14 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*CoverResponse",
+					"type": "CoverResponse",
 					"jsonTag": "json:\"cover\"",
 					"required": true
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "*IconResponse",
+					"type": "IconResponse",
 					"jsonTag": "json:\"icon\"",
 					"required": true
 				},
@@ -3717,7 +3725,8 @@
 					"required": true,
 					"fixed": "\"user\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PeopleArrayBasedPropertyValueResponsePeopleItem",
@@ -4572,7 +4581,7 @@
 				{
 					"name": "Plan",
 					"jsonName": "plan",
-					"type": "*int",
+					"type": "int",
 					"jsonTag": "json:\"plan\"",
 					"required": true
 				}

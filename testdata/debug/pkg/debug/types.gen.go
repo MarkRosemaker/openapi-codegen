@@ -7,7 +7,6 @@ package debug
 import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
-	"errors"
 	"fmt"
 
 	"cloud.google.com/go/civil"
@@ -66,11 +65,16 @@ func (v *Block) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *Block) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Block
 
 	*v = Block{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -91,11 +95,14 @@ func (v *Block) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain Block
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfBlock, set); ok && out.Type == "" {
 		out.Type = BlockType(tag)
 	}
@@ -131,9 +138,14 @@ type Pet struct {
 	Dog *Dog
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Pet{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -178,7 +190,8 @@ func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Pet) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Cat != nil:
@@ -187,7 +200,7 @@ func (v *Pet) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.Dog, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Problem defines a model

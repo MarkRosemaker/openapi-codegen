@@ -117,11 +117,15 @@ func TestTagged_Encode(t *testing.T) {
 	for _, p := range []CreateDatabaseParent{
 		{Type: "page_id", PageID: "59833787-2cf9-4fdf-8782-e53db20768a5", Workspace: new(true)},
 		{Type: "workspace"},
-		{},
 	} {
 		if _, err := json.Marshal(&p, jsonOpts); err == nil {
 			t.Errorf("%+v: encoded, want an error", p)
 		}
+	}
+
+	// with no alternative, it is null, as decoding reads null
+	if out, err := json.Marshal(&CreateDatabaseParent{}, jsonOpts); err != nil || string(out) != "null" {
+		t.Errorf("got %s, %v, want null", out, err)
 	}
 }
 

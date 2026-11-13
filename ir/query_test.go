@@ -177,9 +177,9 @@ func TestQueryParams(t *testing.T) {
 		t.Errorf("the client guards the required member x of the required object point:\n%s", encode)
 	}
 
-	// a null cannot be sent, so a required member that may be null is left out while it is
-	if want := "if params.Point.Z != nil {\nparts = append(parts, \"z\", strconv.Itoa(*params.Point.Z))"; !strings.Contains(encode, want) {
-		t.Errorf("the client sends the nullable member z when nil:\n%s", encode)
+	// a required member that may be null is sent like any other required member, null being its zero value
+	if want := "parts = append(parts, \"z\", strconv.Itoa(params.Point.Z))"; !strings.Contains(encode, want) {
+		t.Errorf("the client does not send the nullable member z:\n%s", encode)
 	}
 
 	// a server whose parameters are all split from the raw query declares no query values it would not use
