@@ -258,6 +258,7 @@ func TestFromDocument_FieldTypesAndTags(t *testing.T) {
 				"nullCount": {"oneOf": [{"type": "integer"}, {"type": "null"}]},
 				"nullName": {"oneOf": [{"type": "string"}, {"type": "null"}]},
 				"seed": {"anyOf": [{"type": "integer"}, {"type": "null"}], "default": 0},
+				"nullLimit": {"anyOf": [{"type": "integer"}, {"type": "null"}]},
 				"nullArchived": {"anyOf": [{"type": "boolean"}, {"type": "null"}], "default": false},
 				"limit": {"type": "integer"},
 				"pageSize": {"type": "integer", "minimum": 1},
@@ -296,6 +297,7 @@ func TestFromDocument_FieldTypesAndTags(t *testing.T) {
 		"tags":         `[]string json:"tags"`,
 		"nullCount":    `int json:"nullCount"`,
 		"seed":         `int json:"seed,omitzero"`,
+		"nullLimit":    `*int json:"nullLimit,omitzero"`,
 		"nullArchived": `bool json:"nullArchived,omitzero"`,
 		"nullName":     `string json:"nullName"`,
 		"limit":        `*int json:"limit,omitzero"`,
@@ -317,6 +319,30 @@ func TestFromDocument_FieldTypesAndTags(t *testing.T) {
 		if got[name] != want {
 			t.Errorf("%s: got %s, want %s", name, got[name], want)
 		}
+	}
+}
+
+func TestFromDocument_NullableRefDescription(t *testing.T) {
+	doc := loadSchemas(t, `{
+		"Pet": {
+			"type": "object",
+			"properties": {
+				"owner": {"anyOf": [{"$ref": "#/components/schemas/Owner"}, {"type": "null"}]},
+				"sitter": {"description": "Who looks after it", "anyOf": [{"$ref": "#/components/schemas/Owner"}, {"type": "null"}]},
+				"vet": {"anyOf": [{"description": "Who treats it", "$ref": "#/components/schemas/Owner"}, {"type": "null"}]}
+			}
+		},
+		"Owner": {"description": "A person", "type": "object", "required": ["id"], "properties": {"id": {"type": "string"}}}
+	}`)
+
+	got := map[string]string{}
+	for _, f := range schemaNamed(t, doc, "Pet").Fields {
+		got[f.JSONName] = f.Description
+	}
+
+	// a field of X or null says what X is, unless it or the reference to X says something of its own
+	if got["owner"] != "A person" || got["sitter"] != "Who looks after it" || got["vet"] != "Who treats it" {
+		t.Errorf("got %q", got)
 	}
 }
 
