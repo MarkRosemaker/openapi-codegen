@@ -438,12 +438,9 @@ func TestFiles_ClientTest(t *testing.T) {
 		t.Error("missing package declaration")
 	}
 
-	if !contains(content, "func newTestServer(") {
-		t.Error("missing newTestServer helper")
-	}
-
-	if !contains(content, "type roundTripFunc func(*http.Request) (*http.Response, error)") || !contains(content, "RoundTrip(") {
-		t.Error("missing testRoundTripper")
+	// the helpers come from apitest, not from the generated file
+	if !contains(content, "apitest.NewServer(t, ") || !contains(content, "apitest.RoundTripFunc(") || contains(content, "func newTestServer(") {
+		t.Error("not using the helpers of apitest")
 	}
 
 	if !contains(content, `"ListPets"`) {

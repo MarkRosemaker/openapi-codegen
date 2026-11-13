@@ -5,9 +5,9 @@
 package golden
 
 import (
-	"bytes"
-	"encoding/json/v2"
 	"testing"
+
+	"github.com/go-api-libs/api/apitest"
 )
 
 // TestEnums_Valid checks that every member of an enum is valid, and that a value of its type none is, is not.
@@ -208,122 +208,122 @@ func TestEnums_Valid(t *testing.T) {
 func TestUnions_RoundTrip(t *testing.T) {
 	t.Run("AgentModel/AgentModelOneOf", func(t *testing.T) {
 		v := AgentModelOneOf{Mode: "auto"}
-		roundTrip(t, AgentModel{AgentModelOneOf: &v}, func(u AgentModel) bool { return u.AgentModelOneOf != nil })
+		apitest.RoundTrip(t, AgentModel{AgentModelOneOf: &v}, func(u AgentModel) bool { return u.AgentModelOneOf != nil }, jsonOpts)
 	})
 
 	t.Run("AgentModel/AgentModelOneOf2", func(t *testing.T) {
 		v := AgentModelOneOf2{Mode: "pinned"}
-		roundTrip(t, AgentModel{AgentModelOneOf2: &v}, func(u AgentModel) bool { return u.AgentModelOneOf2 != nil })
+		apitest.RoundTrip(t, AgentModel{AgentModelOneOf2: &v}, func(u AgentModel) bool { return u.AgentModelOneOf2 != nil }, jsonOpts)
 	})
 
 	t.Run("Bot/BotAnyOf1", func(t *testing.T) {
 		v := BotAnyOf1{}
-		roundTrip(t, Bot{BotAnyOf1: &v}, func(u Bot) bool { return u.BotAnyOf1 != nil })
+		apitest.RoundTrip(t, Bot{BotAnyOf1: &v}, func(u Bot) bool { return u.BotAnyOf1 != nil }, jsonOpts)
 	})
 
 	t.Run("Filter/FilterAnyOf0", func(t *testing.T) {
 		v := FilterAnyOf0{}
-		roundTrip(t, Filter{FilterAnyOf0: &v}, func(u Filter) bool { return u.FilterAnyOf0 != nil })
+		apitest.RoundTrip(t, Filter{FilterAnyOf0: &v}, func(u Filter) bool { return u.FilterAnyOf0 != nil }, jsonOpts)
 	})
 
 	t.Run("Filter/FilterAnyOf1", func(t *testing.T) {
 		v := FilterAnyOf1{}
-		roundTrip(t, Filter{FilterAnyOf1: &v}, func(u Filter) bool { return u.FilterAnyOf1 != nil })
+		apitest.RoundTrip(t, Filter{FilterAnyOf1: &v}, func(u Filter) bool { return u.FilterAnyOf1 != nil }, jsonOpts)
 	})
 
 	t.Run("GroupBy/GroupByAnyOf0", func(t *testing.T) {
 		v := GroupByAnyOf0{Type: "select"}
-		roundTrip(t, GroupBy{GroupByAnyOf0: &v}, func(u GroupBy) bool { return u.GroupByAnyOf0 != nil })
+		apitest.RoundTrip(t, GroupBy{GroupByAnyOf0: &v}, func(u GroupBy) bool { return u.GroupByAnyOf0 != nil }, jsonOpts)
 	})
 
 	t.Run("GroupBy/GroupByAnyOf1", func(t *testing.T) {
 		v := GroupByAnyOf1{Type: "date"}
-		roundTrip(t, GroupBy{GroupByAnyOf1: &v}, func(u GroupBy) bool { return u.GroupByAnyOf1 != nil })
+		apitest.RoundTrip(t, GroupBy{GroupByAnyOf1: &v}, func(u GroupBy) bool { return u.GroupByAnyOf1 != nil }, jsonOpts)
 	})
 
 	t.Run("IconResponse/Emoji", func(t *testing.T) {
 		v := Emoji{}
-		roundTrip(t, IconResponse{Emoji: &v}, func(u IconResponse) bool { return u.Emoji != nil })
+		apitest.RoundTrip(t, IconResponse{Emoji: &v}, func(u IconResponse) bool { return u.Emoji != nil }, jsonOpts)
 	})
 
 	t.Run("IconResponse/Link", func(t *testing.T) {
 		v := Link{}
-		roundTrip(t, IconResponse{Link: &v}, func(u IconResponse) bool { return u.Link != nil })
+		apitest.RoundTrip(t, IconResponse{Link: &v}, func(u IconResponse) bool { return u.Link != nil }, jsonOpts)
 	})
 
 	t.Run("MaybeMember/NestedValue", func(t *testing.T) {
 		v := NestedValue{Type: "number", Number: new(1.5)}
-		roundTrip(t, MaybeMember{NestedValue: &v}, func(u MaybeMember) bool { return u.NestedValue != nil })
+		apitest.RoundTrip(t, MaybeMember{NestedValue: &v}, func(u MaybeMember) bool { return u.NestedValue != nil }, jsonOpts)
 	})
 
 	t.Run("MaybeMember/GroupObjectResponse", func(t *testing.T) {
 		v := GroupObjectResponse{Object: "group"}
-		roundTrip(t, MaybeMember{GroupObjectResponse: &v}, func(u MaybeMember) bool { return u.GroupObjectResponse != nil })
+		apitest.RoundTrip(t, MaybeMember{GroupObjectResponse: &v}, func(u MaybeMember) bool { return u.GroupObjectResponse != nil }, jsonOpts)
 	})
 
 	t.Run("MemberAllOf1/MemberPerson", func(t *testing.T) {
 		v := MemberPerson{Type: "person", MembershipType: "member"}
-		roundTrip(t, MemberAllOf1{MemberPerson: &v}, func(u MemberAllOf1) bool { return u.MemberPerson != nil })
+		apitest.RoundTrip(t, MemberAllOf1{MemberPerson: &v}, func(u MemberAllOf1) bool { return u.MemberPerson != nil }, jsonOpts)
 	})
 
 	t.Run("MemberAllOf1/BotUserObjectResponse", func(t *testing.T) {
 		v := BotUserObjectResponse{Type: "bot"}
-		roundTrip(t, MemberAllOf1{BotUserObjectResponse: &v}, func(u MemberAllOf1) bool { return u.BotUserObjectResponse != nil })
+		apitest.RoundTrip(t, MemberAllOf1{BotUserObjectResponse: &v}, func(u MemberAllOf1) bool { return u.BotUserObjectResponse != nil }, jsonOpts)
 	})
 
 	t.Run("Owner/PartialUserObjectResponse", func(t *testing.T) {
 		v := PartialUserObjectResponse{Object: "user"}
-		roundTrip(t, Owner{PartialUserObjectResponse: &v}, func(u Owner) bool { return u.PartialUserObjectResponse != nil })
+		apitest.RoundTrip(t, Owner{PartialUserObjectResponse: &v}, func(u Owner) bool { return u.PartialUserObjectResponse != nil }, jsonOpts)
 	})
 
 	t.Run("Owner/GroupObjectResponse", func(t *testing.T) {
 		v := GroupObjectResponse{Object: "group"}
-		roundTrip(t, Owner{GroupObjectResponse: &v}, func(u Owner) bool { return u.GroupObjectResponse != nil })
+		apitest.RoundTrip(t, Owner{GroupObjectResponse: &v}, func(u Owner) bool { return u.GroupObjectResponse != nil }, jsonOpts)
 	})
 
 	t.Run("PageOrPartial/PartialPage", func(t *testing.T) {
 		v := PartialPage{Object: "page"}
-		roundTrip(t, PageOrPartial{PartialPage: &v}, func(u PageOrPartial) bool { return u.PartialPage != nil })
+		apitest.RoundTrip(t, PageOrPartial{PartialPage: &v}, func(u PageOrPartial) bool { return u.PartialPage != nil }, jsonOpts)
 	})
 
 	t.Run("Tags/String", func(t *testing.T) {
 		v := "sample"
-		roundTrip(t, Tags{String: v}, func(u Tags) bool { return u.String != "" })
+		apitest.RoundTrip(t, Tags{String: v}, func(u Tags) bool { return u.String != "" }, jsonOpts)
 	})
 
 	t.Run("Tags/String2", func(t *testing.T) {
 		v := []string{"sample"}
-		roundTrip(t, Tags{String2: v}, func(u Tags) bool { return u.String2 != nil })
+		apitest.RoundTrip(t, Tags{String2: v}, func(u Tags) bool { return u.String2 != nil }, jsonOpts)
 	})
 
 	t.Run("UserValueResponse/PartialUserObjectResponse", func(t *testing.T) {
 		v := PartialUserObjectResponse{Object: "user"}
-		roundTrip(t, UserValueResponse{PartialUserObjectResponse: &v}, func(u UserValueResponse) bool { return u.PartialUserObjectResponse != nil })
+		apitest.RoundTrip(t, UserValueResponse{PartialUserObjectResponse: &v}, func(u UserValueResponse) bool { return u.PartialUserObjectResponse != nil }, jsonOpts)
 	})
 
 	t.Run("UserValueResponse/UserObjectResponse", func(t *testing.T) {
 		v := UserObjectResponse{UserObjectResponseCommon: UserObjectResponseCommon{Object: "user"}, Type: "person", Person: new(UserOneOfPerson{})}
-		roundTrip(t, UserValueResponse{UserObjectResponse: &v}, func(u UserValueResponse) bool { return u.UserObjectResponse != nil })
+		apitest.RoundTrip(t, UserValueResponse{UserObjectResponse: &v}, func(u UserValueResponse) bool { return u.UserObjectResponse != nil }, jsonOpts)
 	})
 
 	t.Run("ValueAllOf1/SimpleOrArray", func(t *testing.T) {
 		v := SimpleOrArray{Type: "number", Number: new(1.5)}
-		roundTrip(t, ValueAllOf1{SimpleOrArray: &v}, func(u ValueAllOf1) bool { return u.SimpleOrArray != nil })
+		apitest.RoundTrip(t, ValueAllOf1{SimpleOrArray: &v}, func(u ValueAllOf1) bool { return u.SimpleOrArray != nil }, jsonOpts)
 	})
 
 	t.Run("ValueAllOf1/Rollup", func(t *testing.T) {
 		v := Rollup{Type: "rollup"}
-		roundTrip(t, ValueAllOf1{Rollup: &v}, func(u ValueAllOf1) bool { return u.Rollup != nil })
+		apitest.RoundTrip(t, ValueAllOf1{Rollup: &v}, func(u ValueAllOf1) bool { return u.Rollup != nil }, jsonOpts)
 	})
 
 	t.Run("ViewFilter/PropertyFilter", func(t *testing.T) {
 		v := PropertyFilter{Type: "select", Select: new(Condition{})}
-		roundTrip(t, ViewFilter{PropertyFilter: &v}, func(u ViewFilter) bool { return u.PropertyFilter != nil })
+		apitest.RoundTrip(t, ViewFilter{PropertyFilter: &v}, func(u ViewFilter) bool { return u.PropertyFilter != nil }, jsonOpts)
 	})
 
 	t.Run("ViewFilter/CompoundFilter", func(t *testing.T) {
 		v := CompoundFilter{}
-		roundTrip(t, ViewFilter{CompoundFilter: &v}, func(u ViewFilter) bool { return u.CompoundFilter != nil })
+		apitest.RoundTrip(t, ViewFilter{CompoundFilter: &v}, func(u ViewFilter) bool { return u.CompoundFilter != nil }, jsonOpts)
 	})
 }
 
@@ -331,107 +331,78 @@ func TestUnions_RoundTrip(t *testing.T) {
 // encodes it and decodes it strictly: the tag must come back, and the struct encode as before.
 func TestTagged_RoundTrip(t *testing.T) {
 	t.Run("Block/paragraph", func(t *testing.T) {
-		roundTrip(t, Block{Type: "paragraph", Paragraph: "sample"}, func(v Block) bool { return v.Type == "paragraph" })
+		apitest.RoundTrip(t, Block{Type: "paragraph", Paragraph: "sample"}, func(v Block) bool { return v.Type == "paragraph" }, jsonOpts)
 	})
 
 	t.Run("Block/child_database", func(t *testing.T) {
-		roundTrip(t, Block{Type: "child_database", ChildDatabase: "sample"}, func(v Block) bool { return v.Type == "child_database" })
+		apitest.RoundTrip(t, Block{Type: "child_database", ChildDatabase: "sample"}, func(v Block) bool { return v.Type == "child_database" }, jsonOpts)
 	})
 
 	t.Run("Block/relation", func(t *testing.T) {
-		roundTrip(t, Block{Type: "relation", Relation: []string{"sample"}}, func(v Block) bool { return v.Type == "relation" })
+		apitest.RoundTrip(t, Block{Type: "relation", Relation: []string{"sample"}}, func(v Block) bool { return v.Type == "relation" }, jsonOpts)
 	})
 
 	t.Run("CoverResponse/external", func(t *testing.T) {
-		roundTrip(t, CoverResponse{Type: "external", External: new(Link{})}, func(v CoverResponse) bool { return v.Type == "external" })
+		apitest.RoundTrip(t, CoverResponse{Type: "external", External: new(Link{})}, func(v CoverResponse) bool { return v.Type == "external" }, jsonOpts)
 	})
 
 	t.Run("CoverResponse/file", func(t *testing.T) {
-		roundTrip(t, CoverResponse{Type: "file", File: new(Link{})}, func(v CoverResponse) bool { return v.Type == "file" })
+		apitest.RoundTrip(t, CoverResponse{Type: "file", File: new(Link{})}, func(v CoverResponse) bool { return v.Type == "file" }, jsonOpts)
 	})
 
 	t.Run("CreateDatabaseParent/page_id", func(t *testing.T) {
-		roundTrip(t, CreateDatabaseParent{Type: "page_id", PageID: IDRequest("sample")}, func(v CreateDatabaseParent) bool { return v.Type == "page_id" })
+		apitest.RoundTrip(t, CreateDatabaseParent{Type: "page_id", PageID: IDRequest("sample")}, func(v CreateDatabaseParent) bool { return v.Type == "page_id" }, jsonOpts)
 	})
 
 	t.Run("CreateDatabaseParent/workspace", func(t *testing.T) {
-		roundTrip(t, CreateDatabaseParent{Type: "workspace", Workspace: new(true)}, func(v CreateDatabaseParent) bool { return v.Type == "workspace" })
+		apitest.RoundTrip(t, CreateDatabaseParent{Type: "workspace", Workspace: new(true)}, func(v CreateDatabaseParent) bool { return v.Type == "workspace" }, jsonOpts)
 	})
 
 	t.Run("NestedValue/number", func(t *testing.T) {
-		roundTrip(t, NestedValue{Type: "number", Number: new(1.5)}, func(v NestedValue) bool { return v.Type == "number" })
+		apitest.RoundTrip(t, NestedValue{Type: "number", Number: new(1.5)}, func(v NestedValue) bool { return v.Type == "number" }, jsonOpts)
 	})
 
 	t.Run("NestedValue/url", func(t *testing.T) {
-		roundTrip(t, NestedValue{Type: "url", URL: "sample"}, func(v NestedValue) bool { return v.Type == "url" })
+		apitest.RoundTrip(t, NestedValue{Type: "url", URL: "sample"}, func(v NestedValue) bool { return v.Type == "url" }, jsonOpts)
 	})
 
 	t.Run("NestedValue/title", func(t *testing.T) {
-		roundTrip(t, NestedValue{Type: "title", Title: []string{"sample"}}, func(v NestedValue) bool { return v.Type == "title" })
+		apitest.RoundTrip(t, NestedValue{Type: "title", Title: []string{"sample"}}, func(v NestedValue) bool { return v.Type == "title" }, jsonOpts)
 	})
 
 	t.Run("PropertyFilter/select", func(t *testing.T) {
-		roundTrip(t, PropertyFilter{Type: "select", Select: new(Condition{})}, func(v PropertyFilter) bool { return v.Type == "select" })
+		apitest.RoundTrip(t, PropertyFilter{Type: "select", Select: new(Condition{})}, func(v PropertyFilter) bool { return v.Type == "select" }, jsonOpts)
 	})
 
 	t.Run("PropertyFilter/number", func(t *testing.T) {
-		roundTrip(t, PropertyFilter{Type: "number", Number: new(Condition{})}, func(v PropertyFilter) bool { return v.Type == "number" })
+		apitest.RoundTrip(t, PropertyFilter{Type: "number", Number: new(Condition{})}, func(v PropertyFilter) bool { return v.Type == "number" }, jsonOpts)
 	})
 
 	t.Run("PropertyValue/date", func(t *testing.T) {
-		roundTrip(t, PropertyValue{Type: "date", Date: new(Date{})}, func(v PropertyValue) bool { return v.Type == "date" })
+		apitest.RoundTrip(t, PropertyValue{Type: "date", Date: new(Date{})}, func(v PropertyValue) bool { return v.Type == "date" }, jsonOpts)
 	})
 
 	t.Run("PropertyValue/number", func(t *testing.T) {
-		roundTrip(t, PropertyValue{Type: "number", Number: new(1.5)}, func(v PropertyValue) bool { return v.Type == "number" })
+		apitest.RoundTrip(t, PropertyValue{Type: "number", Number: new(1.5)}, func(v PropertyValue) bool { return v.Type == "number" }, jsonOpts)
 	})
 
 	t.Run("SimpleOrArray/number", func(t *testing.T) {
-		roundTrip(t, SimpleOrArray{Type: "number", Number: new(1.5)}, func(v SimpleOrArray) bool { return v.Type == "number" })
+		apitest.RoundTrip(t, SimpleOrArray{Type: "number", Number: new(1.5)}, func(v SimpleOrArray) bool { return v.Type == "number" }, jsonOpts)
 	})
 
 	t.Run("SimpleOrArray/text", func(t *testing.T) {
-		roundTrip(t, SimpleOrArray{Type: "text", Text: "sample"}, func(v SimpleOrArray) bool { return v.Type == "text" })
+		apitest.RoundTrip(t, SimpleOrArray{Type: "text", Text: "sample"}, func(v SimpleOrArray) bool { return v.Type == "text" }, jsonOpts)
 	})
 
 	t.Run("SimpleOrArray/relation", func(t *testing.T) {
-		roundTrip(t, SimpleOrArray{Type: "relation", Relation: []string{"sample"}}, func(v SimpleOrArray) bool { return v.Type == "relation" })
+		apitest.RoundTrip(t, SimpleOrArray{Type: "relation", Relation: []string{"sample"}}, func(v SimpleOrArray) bool { return v.Type == "relation" }, jsonOpts)
 	})
 
 	t.Run("UserObjectResponse/person", func(t *testing.T) {
-		roundTrip(t, UserObjectResponse{UserObjectResponseCommon: UserObjectResponseCommon{Object: "user"}, Type: "person", Person: new(UserOneOfPerson{})}, func(v UserObjectResponse) bool { return v.Type == "person" })
+		apitest.RoundTrip(t, UserObjectResponse{UserObjectResponseCommon: UserObjectResponseCommon{Object: "user"}, Type: "person", Person: new(UserOneOfPerson{})}, func(v UserObjectResponse) bool { return v.Type == "person" }, jsonOpts)
 	})
 
 	t.Run("UserObjectResponse/bot", func(t *testing.T) {
-		roundTrip(t, UserObjectResponse{UserObjectResponseCommon: UserObjectResponseCommon{Object: "user"}, Type: "bot", Bot: new(EmptyObject{})}, func(v UserObjectResponse) bool { return v.Type == "bot" })
+		apitest.RoundTrip(t, UserObjectResponse{UserObjectResponseCommon: UserObjectResponseCommon{Object: "user"}, Type: "bot", Bot: new(EmptyObject{})}, func(v UserObjectResponse) bool { return v.Type == "bot" }, jsonOpts)
 	})
-}
-
-// roundTrip encodes in and decodes it strictly into a new value, which set must report holds the variant in did, and
-// which must encode as in did.
-func roundTrip[T any](t *testing.T, in T, set func(T) bool) {
-	t.Helper()
-
-	raw, err := json.Marshal(&in, jsonOpts)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	var got T
-	if err := json.Unmarshal(raw, &got, jsonOpts); err != nil {
-		t.Fatalf("%s: %v", raw, err)
-	}
-
-	if !set(got) {
-		t.Fatalf("%s decoded as another variant: %+v", raw, got)
-	}
-
-	again, err := json.Marshal(&got, jsonOpts)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if !bytes.Equal(again, raw) {
-		t.Errorf("encoded %s, then %s", raw, again)
-	}
 }

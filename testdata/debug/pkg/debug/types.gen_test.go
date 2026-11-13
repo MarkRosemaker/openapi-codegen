@@ -5,9 +5,9 @@
 package debug
 
 import (
-	"bytes"
-	"encoding/json/v2"
 	"testing"
+
+	"github.com/go-api-libs/api/apitest"
 )
 
 // TestEnums_Valid checks that every member of an enum is valid, and that a value of its type none is, is not.
@@ -28,12 +28,12 @@ func TestEnums_Valid(t *testing.T) {
 func TestUnions_RoundTrip(t *testing.T) {
 	t.Run("Pet/Cat", func(t *testing.T) {
 		v := Cat{}
-		roundTrip(t, Pet{Cat: &v}, func(u Pet) bool { return u.Cat != nil })
+		apitest.RoundTrip(t, Pet{Cat: &v}, func(u Pet) bool { return u.Cat != nil }, jsonOpts)
 	})
 
 	t.Run("Pet/Dog", func(t *testing.T) {
 		v := Dog{}
-		roundTrip(t, Pet{Dog: &v}, func(u Pet) bool { return u.Dog != nil })
+		apitest.RoundTrip(t, Pet{Dog: &v}, func(u Pet) bool { return u.Dog != nil }, jsonOpts)
 	})
 }
 
@@ -41,39 +41,10 @@ func TestUnions_RoundTrip(t *testing.T) {
 // encodes it and decodes it strictly: the tag must come back, and the struct encode as before.
 func TestTagged_RoundTrip(t *testing.T) {
 	t.Run("Block/paragraph", func(t *testing.T) {
-		roundTrip(t, Block{Type: "paragraph", Paragraph: new(Text{})}, func(v Block) bool { return v.Type == "paragraph" })
+		apitest.RoundTrip(t, Block{Type: "paragraph", Paragraph: new(Text{})}, func(v Block) bool { return v.Type == "paragraph" }, jsonOpts)
 	})
 
 	t.Run("Block/divider", func(t *testing.T) {
-		roundTrip(t, Block{Type: "divider"}, func(v Block) bool { return v.Type == "divider" })
+		apitest.RoundTrip(t, Block{Type: "divider"}, func(v Block) bool { return v.Type == "divider" }, jsonOpts)
 	})
-}
-
-// roundTrip encodes in and decodes it strictly into a new value, which set must report holds the variant in did, and
-// which must encode as in did.
-func roundTrip[T any](t *testing.T, in T, set func(T) bool) {
-	t.Helper()
-
-	raw, err := json.Marshal(&in, jsonOpts)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	var got T
-	if err := json.Unmarshal(raw, &got, jsonOpts); err != nil {
-		t.Fatalf("%s: %v", raw, err)
-	}
-
-	if !set(got) {
-		t.Fatalf("%s decoded as another variant: %+v", raw, got)
-	}
-
-	again, err := json.Marshal(&got, jsonOpts)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if !bytes.Equal(again, raw) {
-		t.Errorf("encoded %s, then %s", raw, again)
-	}
 }

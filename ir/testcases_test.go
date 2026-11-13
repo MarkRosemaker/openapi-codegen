@@ -163,12 +163,4 @@ func TestDocument_DebugAndBodilessResponses(t *testing.T) {
 	if got := op.BodilessFailures(); len(got) != 1 || got[0].StatusCode != "409" {
 		t.Errorf("got %+v, want the 409 alone", got)
 	}
-
-	if !debug.NeedsBodyServer() || !debug.NeedsUnknownMember() {
-		t.Error("want both helpers")
-	}
-
-	if (ir.Document{}).NeedsBodyServer() || (ir.Document{}).NeedsUnknownMember() {
-		t.Error("no operations: want neither helper")
-	}
 }
