@@ -22,12 +22,14 @@ func zeroIsAValue(s *openapi.Schema, tp *GoType) bool {
 	}
 
 	s = deref(s)
-	if v := nullableVariant(s); v != nil {
-		s = deref(v)
-	}
-
 	if s == nil || len(s.Default) > 0 && isZeroJSON(s.Default) { // leaving it out already means the zero value
 		return false
+	}
+
+	if v := nullableVariant(s); v != nil {
+		if s = deref(v); s == nil || len(s.Default) > 0 && isZeroJSON(s.Default) {
+			return false
+		}
 	}
 
 	switch s.Type {

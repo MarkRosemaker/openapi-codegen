@@ -2613,7 +2613,7 @@ func (v *Tags) MarshalJSONTo(enc *jsontext.Encoder) error {
 // A date that may be null is no pointer, since the zero date says what null does; a number that may be null is, since its zero is a number of its own.
 type Trial struct {
 	Ends civil.Date `json:"ends"`
-	Plan *int       `json:"plan"`
+	Plan int        `json:"plan"`
 }
 
 // User defines a model

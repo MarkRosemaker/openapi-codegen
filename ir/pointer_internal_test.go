@@ -114,7 +114,7 @@ func TestNullableGoType(t *testing.T) {
 		s       *openapi.Schema
 		pointer bool
 	}{
-		// null and the zero value mean the same: no pointer
+		// null reads as the zero value: no pointer
 		{"a string", &openapi.Schema{Type: openapi.TypeString}, false},
 		{"a time", &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDateTime}, false},
 		{"a date", &openapi.Schema{Type: openapi.TypeString, Format: openapi.FormatDate}, false},
@@ -122,9 +122,9 @@ func TestNullableGoType(t *testing.T) {
 		{"an object requiring nothing", &openapi.Schema{Type: openapi.TypeObject, Properties: openapi.Schemas{
 			"name": {Type: openapi.TypeString},
 		}}, false},
-		// they differ: a pointer
-		{"a number", &openapi.Schema{Type: openapi.TypeInteger}, true},
-		{"a boolean", &openapi.Schema{Type: openapi.TypeBoolean}, true},
+		{"a number", &openapi.Schema{Type: openapi.TypeInteger}, false},
+		{"a boolean", &openapi.Schema{Type: openapi.TypeBoolean}, false},
+		// it cannot: a pointer
 		{"a union, which refuses null", union, true},
 	} {
 		tp, err := nullableGoType(tc.s)
