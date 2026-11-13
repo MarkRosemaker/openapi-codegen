@@ -160,9 +160,10 @@ How the specification maps onto Go:
 - **Null** — a schema that is only ever `null` is `*struct{}`, and "X or null",
   a `type` of `[X, "null"]` or a `oneOf` or `anyOf` of `X` and `null`, is `X`:
   null reads as its zero value, and a required field sends the zero value where
-  it would have sent null. It is a pointer to `X` only by the rule for fields
-  above, or where `X` decodes itself, such as a union or a tuple, which would
-  refuse null.
+  it would have sent null. A union reads null as no alternative and writes an
+  unset union as null. `X` is a pointer only by the rule for fields above,
+  where it is a tuple, which would refuse null, or where it is an object that
+  requires a union, whose zero value would write that member as null.
 - **Fixed parameters** — a required parameter that can take only one value, its
   `const` or the only value of its `enum`, is sent by the client itself: in the
   path, the query or the headers, such as Notion's `Notion-Version`. The caller

@@ -65,8 +65,13 @@ func TestDecoding_NullableUnion(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if p.Cover != nil || p.Icon != nil {
+	if p.Cover != (CoverResponse{}) || p.Icon != (IconResponse{}) {
 		t.Errorf("got %+v, want no cover and no icon", p)
+	}
+
+	// a union with no alternative writes the null it read
+	if out, err := json.Marshal(p, jsonOpts); err != nil || string(out) != page {
+		t.Errorf("got %s, %v, want %s", out, err, page)
 	}
 
 	p, err = client(t, `{"object":"page","id":"p","cover":{"type":"external","external":{"url":"u"}},"icon":{"emoji":"x"},"position":["a",1]}`).
@@ -75,7 +80,7 @@ func TestDecoding_NullableUnion(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if p.Cover == nil || p.Cover.External == nil || p.Icon == nil || p.Icon.Emoji == nil || p.Position.Pair == nil {
+	if p.Cover.External == nil || p.Icon.Emoji == nil || p.Position.Pair == nil {
 		t.Errorf("got %+v, want the cover, the icon and the pair", p)
 	}
 

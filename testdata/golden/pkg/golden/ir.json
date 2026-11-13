@@ -3126,7 +3126,8 @@
 							},
 							{
 								"name": "url",
-								"required": true
+								"required": true,
+								"nullable": true
 							}
 						]
 					},
@@ -3506,14 +3507,14 @@
 				{
 					"name": "Cover",
 					"jsonName": "cover",
-					"type": "*CoverResponse",
+					"type": "CoverResponse",
 					"jsonTag": "json:\"cover\"",
 					"required": true
 				},
 				{
 					"name": "Icon",
 					"jsonName": "icon",
-					"type": "*IconResponse",
+					"type": "IconResponse",
 					"jsonTag": "json:\"icon\"",
 					"required": true
 				},

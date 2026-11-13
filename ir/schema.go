@@ -223,9 +223,9 @@ func nullableGoType(v *openapi.Schema) (*GoType, error) {
 		return nil, err
 	}
 
-	// a type that decodes itself, such as a union, would refuse null, and one whose zero value cannot be encoded could
-	// not write it back
-	if hasJSONMethods(v) || zeroUnencodable(v) {
+	// a union reads null as no alternative and writes it back, but another type that decodes itself, such as a tuple,
+	// would refuse null, and an object requiring a union would write it back as an object of a null member
+	if hasJSONMethods(v) && !isUnion(v) && !isTaggedUnion(v) || zeroUnencodable(v) {
 		tp.IsPointer = true
 	}
 

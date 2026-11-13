@@ -124,8 +124,9 @@ func TestNullableGoType(t *testing.T) {
 		}}, false},
 		{"a number", &openapi.Schema{Type: openapi.TypeInteger}, false},
 		{"a boolean", &openapi.Schema{Type: openapi.TypeBoolean}, false},
+		{"a union, which reads null as no alternative", union, false},
 		// it cannot: a pointer
-		{"a union, which refuses null", union, true},
+		{"a tuple, which refuses null", &openapi.Schema{Type: openapi.TypeArray, PrefixItems: openapi.SchemaList{{Type: openapi.TypeString}}}, true},
 	} {
 		tp, err := nullableGoType(tc.s)
 		if err != nil {

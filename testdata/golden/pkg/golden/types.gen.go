@@ -191,9 +191,14 @@ type AgentModel struct {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member mode names the alternative, which then
-// decodes each further member as it is read. With mode first, nothing is read twice.
+// decodes each further member as it is read. With mode first, nothing is read twice. Null sets no alternative.
 func (v *AgentModel) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = AgentModel{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	tag, first, dec, err := union.FirstMember(dec, "mode")
 	if err != nil {
@@ -222,7 +227,8 @@ func (v *AgentModel) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with mode first, as decoding wants it, and set to the variant's value.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with mode first, as decoding wants it, and set to the variant's value, or null
+// where none is set.
 func (v *AgentModel) MarshalJSONTo(enc *jsontext.Encoder) error {
 	var (
 		variant any
@@ -235,7 +241,7 @@ func (v *AgentModel) MarshalJSONTo(enc *jsontext.Encoder) error {
 	case v.AgentModelOneOf2 != nil:
 		variant, tag = v.AgentModelOneOf2, "pinned"
 	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
+		return enc.WriteToken(jsontext.Null)
 	}
 
 	out, err := json.Marshal(variant, jsonOptsTo(enc))
@@ -355,11 +361,16 @@ func (v *Block) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *Block) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain Block
 
 	*v = Block{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -380,11 +391,14 @@ func (v *Block) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain Block
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfBlock, set); ok && out.Type == "" {
 		out.Type = BlockType(tag)
 	}
@@ -403,9 +417,14 @@ type Bot struct {
 	BotAnyOf1 *BotAnyOf1
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Bot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Bot{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 
@@ -443,7 +462,8 @@ func (v *Bot) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Bot) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Object != nil:
@@ -452,7 +472,7 @@ func (v *Bot) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.BotAnyOf1, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // BotAnyOf1 defines a model
@@ -548,11 +568,16 @@ func (v *CoverResponse) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *CoverResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CoverResponse
 
 	*v = CoverResponse{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -573,11 +598,14 @@ func (v *CoverResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *CoverResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain CoverResponse
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfCoverResponse, set); ok && out.Type == "" {
 		out.Type = CoverResponseType(tag)
 	}
@@ -618,11 +646,16 @@ func (v *CreateDatabaseParent) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *CreateDatabaseParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain CreateDatabaseParent
 
 	*v = CreateDatabaseParent{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -648,11 +681,14 @@ func (v *CreateDatabaseParent) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *CreateDatabaseParent) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain CreateDatabaseParent
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfCreateDatabaseParent, set); ok && out.Type == "" {
 		out.Type = CreateDatabaseParentAllOfType(tag)
 	}
@@ -723,9 +759,14 @@ type Entry struct {
 	Note   *Note
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Entry) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Entry{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -770,7 +811,8 @@ func (v *Entry) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Entry) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Record != nil:
@@ -779,7 +821,7 @@ func (v *Entry) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.Note, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // FileDetails defines a model
@@ -801,9 +843,14 @@ type Filter struct {
 	FilterAnyOf1 *FilterAnyOf1
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Filter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Filter{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 
@@ -845,7 +892,8 @@ func (v *Filter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Filter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.FilterAnyOf0 != nil:
@@ -854,7 +902,7 @@ func (v *Filter) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.FilterAnyOf1, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // FilterAnyOf0 defines a model
@@ -887,9 +935,14 @@ type GroupBy struct {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
-// decodes each further member as it is read. With type first, nothing is read twice.
+// decodes each further member as it is read. With type first, nothing is read twice. Null sets no alternative.
 func (v *GroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = GroupBy{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	tag, first, dec, err := union.FirstMember(dec, "type")
 	if err != nil {
@@ -918,7 +971,8 @@ func (v *GroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value, or null
+// where none is set.
 func (v *GroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 	var (
 		variant any
@@ -931,7 +985,7 @@ func (v *GroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 	case v.GroupByAnyOf1 != nil:
 		variant, tag = v.GroupByAnyOf1, "date"
 	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
+		return enc.WriteToken(jsontext.Null)
 	}
 
 	out, err := json.Marshal(variant, jsonOptsTo(enc))
@@ -1014,9 +1068,14 @@ type IconResponse struct {
 	Link  *Link
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *IconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = IconResponse{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -1061,7 +1120,8 @@ func (v *IconResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *IconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Emoji != nil:
@@ -1070,7 +1130,7 @@ func (v *IconResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.Link, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // A map of its own.
@@ -1117,9 +1177,14 @@ type MaybeMember struct {
 	GroupObjectResponse *GroupObjectResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *MaybeMember) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = MaybeMember{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -1164,7 +1229,8 @@ func (v *MaybeMember) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *MaybeMember) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.NestedValue != nil:
@@ -1173,7 +1239,7 @@ func (v *MaybeMember) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.GroupObjectResponse, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Its alternatives each have members of their own beside the tag, so they stay a union beside the members all share.
@@ -1318,9 +1384,14 @@ type MemberAllOf1 struct {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member type names the alternative, which then
-// decodes each further member as it is read. With type first, nothing is read twice.
+// decodes each further member as it is read. With type first, nothing is read twice. Null sets no alternative.
 func (v *MemberAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = MemberAllOf1{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	tag, first, dec, err := union.FirstMember(dec, "type")
 	if err != nil {
@@ -1349,7 +1420,8 @@ func (v *MemberAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with type first, as decoding wants it, and set to the variant's value, or null
+// where none is set.
 func (v *MemberAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	var (
 		variant any
@@ -1362,7 +1434,7 @@ func (v *MemberAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	case v.BotUserObjectResponse != nil:
 		variant, tag = v.BotUserObjectResponse, "bot"
 	default:
-		return &json.SemanticError{Err: errors.New("no alternative set")}
+		return enc.WriteToken(jsontext.Null)
 	}
 
 	out, err := json.Marshal(variant, jsonOptsTo(enc))
@@ -1494,7 +1566,7 @@ func (e NestedValueType) Valid() bool {
 // tagsOfNestedValue holds, for each value of type, the members of its alternative's own, each with how it is needed.
 var tagsOfNestedValue = map[string]map[string]union.TagNeed{
 	"number": {"number": union.TagRequired},
-	"url":    {"label": union.TagOptional, "url": union.TagRequired},
+	"url":    {"label": union.TagOptional, "url": union.TagRequiredOrNull},
 	"title":  {"label": union.TagOptional, "title": union.TagRequired},
 }
 
@@ -1518,11 +1590,16 @@ func (v *NestedValue) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *NestedValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain NestedValue
 
 	*v = NestedValue{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -1543,11 +1620,14 @@ func (v *NestedValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *NestedValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain NestedValue
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfNestedValue, set); ok && out.Type == "" {
 		out.Type = NestedValueType(tag)
 	}
@@ -1566,9 +1646,14 @@ type Node struct {
 	FolderDetails *FolderDetails
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Node) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Node{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -1613,7 +1698,8 @@ func (v *Node) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Node) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.FileDetails != nil:
@@ -1622,7 +1708,7 @@ func (v *Node) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.FolderDetails, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Note defines a model
@@ -1648,9 +1734,14 @@ type Order struct {
 	OrderOneOf1 OrderOneOf1
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Order) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Order{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -1687,7 +1778,8 @@ func (v *Order) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Order) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.OrderOneOf0 != "":
@@ -1696,7 +1788,7 @@ func (v *Order) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.OrderOneOf1, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // OrderOneOf0 defines a model
@@ -1746,9 +1838,14 @@ type Owner struct {
 	GroupObjectResponse       *GroupObjectResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Owner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Owner{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -1793,7 +1890,8 @@ func (v *Owner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Owner) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialUserObjectResponse != nil:
@@ -1802,16 +1900,16 @@ func (v *Owner) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.GroupObjectResponse, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Page defines a model
 type Page struct {
-	Object   string         `json:"object"`
-	ID       string         `json:"id"`
-	Cover    *CoverResponse `json:"cover"`
-	Icon     *IconResponse  `json:"icon"`
-	Position Position       `json:"position"`
+	Object   string        `json:"object"`
+	ID       string        `json:"id"`
+	Cover    CoverResponse `json:"cover"`
+	Icon     IconResponse  `json:"icon"`
+	Position Position      `json:"position"`
 }
 
 // PageOrPartial defines a model
@@ -1821,9 +1919,14 @@ type PageOrPartial struct {
 	PartialPage *PartialPage
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *PageOrPartial) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PageOrPartial{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 
@@ -1865,7 +1968,8 @@ func (v *PageOrPartial) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *PageOrPartial) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.Page != nil:
@@ -1874,7 +1978,7 @@ func (v *PageOrPartial) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.PartialPage, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Pair defines a model
@@ -1945,9 +2049,14 @@ type Pairs struct {
 	Int    []int
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Pairs) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Pairs{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -1984,7 +2093,8 @@ func (v *Pairs) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Pairs) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != nil:
@@ -1993,7 +2103,7 @@ func (v *Pairs) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.Int, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // PartialPage defines a model
@@ -2016,9 +2126,14 @@ type PeopleArrayBasedPropertyValueResponsePeopleItem struct {
 	GroupObjectResponse *GroupObjectResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = PeopleArrayBasedPropertyValueResponsePeopleItem{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -2059,7 +2174,8 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) UnmarshalJSONFrom(dec 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.UserValueResponse != nil:
@@ -2068,7 +2184,7 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) MarshalJSONTo(enc *jso
 		return json.MarshalEncode(enc, v.GroupObjectResponse, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // PersonGroup defines a model
@@ -2103,9 +2219,14 @@ type Position struct {
 	Pair   *Pair
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Position) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Position{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -2142,7 +2263,8 @@ func (v *Position) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Position) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != nil:
@@ -2151,7 +2273,7 @@ func (v *Position) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.Pair, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // A failure the server describes.
@@ -2201,11 +2323,16 @@ func (v *PropertyFilter) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *PropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyFilter
 
 	*v = PropertyFilter{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -2231,11 +2358,14 @@ func (v *PropertyFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PropertyFilter
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfPropertyFilter, set); ok && out.Type == "" {
 		out.Type = PropertyFilterType(tag)
 	}
@@ -2288,11 +2418,16 @@ func (v *PropertyValue) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *PropertyValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain PropertyValue
 
 	*v = PropertyValue{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -2313,11 +2448,14 @@ func (v *PropertyValue) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *PropertyValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain PropertyValue
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfPropertyValue, set); ok && out.Type == "" {
 		out.Type = PropertyValueType(tag)
 	}
@@ -2511,11 +2649,16 @@ func (v *SimpleOrArray) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *SimpleOrArray) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain SimpleOrArray
 
 	*v = SimpleOrArray{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -2536,11 +2679,14 @@ func (v *SimpleOrArray) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *SimpleOrArray) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain SimpleOrArray
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfSimpleOrArray, set); ok && out.Type == "" {
 		out.Type = SimpleOrArrayType(tag)
 	}
@@ -2559,9 +2705,14 @@ type Tags struct {
 	String2 []string
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *Tags) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Tags{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -2598,7 +2749,8 @@ func (v *Tags) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *Tags) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.String != "":
@@ -2607,7 +2759,7 @@ func (v *Tags) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.String2, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // A date that may be null is no pointer, since the zero date says what null does; a number that may be null is, since its zero is a number of its own.
@@ -2668,11 +2820,16 @@ func (v *UserObjectResponse) taggedMembers() []string {
 }
 
 // UnmarshalJSONFrom implements [json.UnmarshalerFrom]. It decodes the members, then checks that of those of an
-// alternative's own, only those of the one type names are set.
+// alternative's own, only those of the one type names are set. Null sets no alternative.
 func (v *UserObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	type plain UserObjectResponse
 
 	*v = UserObjectResponse{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	raw, err := dec.ReadValue()
 	if err != nil {
@@ -2693,11 +2850,14 @@ func (v *UserObjectResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 }
 
 // MarshalJSONTo implements [json.MarshalerTo]. It checks the members as decoding does; with type left empty, it sends
-// the value whose member is set.
+// the value whose member is set, or null where none is.
 func (v *UserObjectResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	type plain UserObjectResponse
 
 	out, set := *v, v.taggedMembers()
+	if out.Type == "" && len(set) == 0 {
+		return enc.WriteToken(jsontext.Null)
+	}
 	if tag, ok := union.InferTag(tagsOfUserObjectResponse, set); ok && out.Type == "" {
 		out.Type = UserObjectResponseType(tag)
 	}
@@ -2752,9 +2912,14 @@ type UserValueResponse struct {
 	UserObjectResponse        *UserObjectResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = UserValueResponse{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -2799,7 +2964,8 @@ func (v *UserValueResponse) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *UserValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PartialUserObjectResponse != nil:
@@ -2808,7 +2974,7 @@ func (v *UserValueResponse) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.UserObjectResponse, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Value defines a model
@@ -2944,9 +3110,14 @@ type ValueAllOf1 struct {
 	Rollup        *Rollup
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *ValueAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = ValueAllOf1{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -2991,7 +3162,8 @@ func (v *ValueAllOf1) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *ValueAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SimpleOrArray != nil:
@@ -3000,7 +3172,7 @@ func (v *ValueAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.Rollup, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // A property filter or a compound one. No property filter requires its type, so neither does PropertyFilter: a filter without one is still a property filter.
@@ -3010,9 +3182,14 @@ type ViewFilter struct {
 	CompoundFilter *CompoundFilter
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *ViewFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = ViewFilter{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -3057,7 +3234,8 @@ func (v *ViewFilter) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *ViewFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.PropertyFilter != nil:
@@ -3066,7 +3244,7 @@ func (v *ViewFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.CompoundFilter, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // Alternatives told apart by the enums of their type alone: a value outside one rules it out, but leniently only while another fits.
@@ -3076,9 +3254,14 @@ type ViewGroupBy struct {
 	PersonGroup *PersonGroup
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom].
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
 func (v *ViewGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = ViewGroupBy{}
+
+	if dec.PeekKind() == 'n' {
+		_, err := dec.ReadToken()
+		return err
+	}
 
 	opts := jsonOptsOf(dec)
 	strict := union.Strict(dec)
@@ -3131,7 +3314,8 @@ func (v *ViewGroupBy) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant.
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// where none is set.
 func (v *ViewGroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 	switch {
 	case v.SelectGroup != nil:
@@ -3140,7 +3324,7 @@ func (v *ViewGroupBy) MarshalJSONTo(enc *jsontext.Encoder) error {
 		return json.MarshalEncode(enc, v.PersonGroup, jsonOptsTo(enc))
 	}
 
-	return &json.SemanticError{Err: errors.New("no alternative set")}
+	return enc.WriteToken(jsontext.Null)
 }
 
 // jsonOptsOf is jsonOpts, or jsonOptsLenient where dec accepts members the specification does not know.

@@ -137,8 +137,8 @@ func pointRecursiveFields(schemas []Schema) {
 	}
 }
 
-// zeroUnencodable reports whether the zero value of s's Go type cannot be encoded: an object that requires a member,
-// directly or through an object it requires, that is a union, which refuses to encode with no alternative set. Null
+// zeroUnencodable reports whether the zero value of s's Go type encodes as nothing s allows: an object that requires a
+// member, directly or through an object it requires, that is a union, which writes null with no alternative set. Null
 // reads as that zero value, so only a pointer can hold null and write it back.
 func zeroUnencodable(s *openapi.Schema) bool {
 	return zeroUnencodableSeen(s, map[*openapi.Schema]bool{})
