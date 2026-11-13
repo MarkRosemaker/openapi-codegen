@@ -2442,7 +2442,8 @@
 					"description": "The name of the group.",
 					"required": true
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "IDRequest",
@@ -3397,6 +3398,7 @@
 				{
 					"fieldName": "PartialUserObjectResponse",
 					"type": "PartialUserObjectResponse",
+					"value": "user",
 					"members": [
 						"id",
 						"object"
@@ -3416,6 +3418,7 @@
 				{
 					"fieldName": "GroupObjectResponse",
 					"type": "GroupObjectResponse",
+					"value": "group",
 					"members": [
 						"id",
 						"name",
@@ -3442,6 +3445,7 @@
 				{
 					"fieldName": "PartialUserObjectResponse",
 					"type": "PartialUserObjectResponse",
+					"value": "user",
 					"members": [
 						"id",
 						"object"
@@ -3461,6 +3465,7 @@
 				{
 					"fieldName": "GroupObjectResponse",
 					"type": "GroupObjectResponse",
+					"value": "group",
 					"members": [
 						"id",
 						"name",
@@ -3483,7 +3488,9 @@
 					]
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"discriminator": "object",
+			"streamed": true
 		},
 		{
 			"name": "Page",
@@ -3718,7 +3725,8 @@
 					"required": true,
 					"fixed": "\"user\""
 				}
-			]
+			],
+			"memberDecoder": true
 		},
 		{
 			"name": "PeopleArrayBasedPropertyValueResponsePeopleItem",

@@ -1055,6 +1055,20 @@ type GroupObjectResponse struct {
 	Name string `json:"name"`
 }
 
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether GroupObjectResponse declares it.
+func (v *GroupObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
+	case "object":
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
+	case "name":
+		return true, json.UnmarshalDecode(dec, &v.Name, jsonOptsOf(dec))
+	}
+
+	return false, nil
+}
+
 // IDRequest defines a model
 type IDRequest string
 
@@ -1838,7 +1852,8 @@ type Owner struct {
 	GroupObjectResponse       *GroupObjectResponse
 }
 
-// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Null sets no alternative.
+// UnmarshalJSONFrom implements [json.UnmarshalerFrom]. Its member object names the alternative, which then
+// decodes each further member as it is read. With object first, nothing is read twice. Null sets no alternative.
 func (v *Owner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 	*v = Owner{}
 
@@ -1847,60 +1862,60 @@ func (v *Owner) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 		return err
 	}
 
-	opts := jsonOptsOf(dec)
-	strict := union.Strict(dec)
-
-	raw, err := dec.ReadValue()
+	tag, first, dec, err := union.FirstMember(dec, "object")
 	if err != nil {
 		return err
 	}
 
-	var matched int
-
-	// leniently, more than one may match, and the first does
-	if strict || matched == 0 {
-		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, nullable, pinned := []string{"id", "object"}, map[string]bool{}, map[string]string{"object": "\"user\""}
-		if union.Fits(raw, required, nullable, pinned) {
-			var vv PartialUserObjectResponse
-			if err := json.Unmarshal(raw, &vv, opts); err == nil {
-				v.PartialUserObjectResponse = &vv
-				matched++
-			}
+	switch tag {
+	case "user":
+		var vv PartialUserObjectResponse
+		if err := union.MembersFrom(dec, "object", first, vv.unmarshalJSONMember); err != nil {
+			return err
 		}
-	}
 
-	// leniently, more than one may match, and the first does
-	if strict || matched == 0 {
-		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, nullable, pinned := []string{"id", "name", "object"}, map[string]bool{"name": true}, map[string]string{"object": "\"group\""}
-		if union.Fits(raw, required, nullable, pinned) {
-			var vv GroupObjectResponse
-			if err := json.Unmarshal(raw, &vv, opts); err == nil {
-				v.GroupObjectResponse = &vv
-				matched++
-			}
+		v.PartialUserObjectResponse = &vv
+	case "group":
+		var vv GroupObjectResponse
+		if err := union.MembersFrom(dec, "object", first, vv.unmarshalJSONMember); err != nil {
+			return err
 		}
-	}
 
-	if matched != 1 {
-		return &json.SemanticError{Err: fmt.Errorf("matches %d of its alternatives, want exactly one", matched)}
+		v.GroupObjectResponse = &vv
+	default:
+		return union.UnknownValue("object", tag)
 	}
 
 	return nil
 }
 
-// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, or null
+// MarshalJSONTo implements [json.MarshalerTo]. It emits the first non-nil variant, with object first, as decoding wants it, and set to the variant's value, or null
 // where none is set.
 func (v *Owner) MarshalJSONTo(enc *jsontext.Encoder) error {
+	var (
+		variant any
+		tag     string
+	)
+
 	switch {
 	case v.PartialUserObjectResponse != nil:
-		return json.MarshalEncode(enc, v.PartialUserObjectResponse, jsonOptsTo(enc))
+		variant, tag = v.PartialUserObjectResponse, "user"
 	case v.GroupObjectResponse != nil:
-		return json.MarshalEncode(enc, v.GroupObjectResponse, jsonOptsTo(enc))
+		variant, tag = v.GroupObjectResponse, "group"
+	default:
+		return enc.WriteToken(jsontext.Null)
 	}
 
-	return enc.WriteToken(jsontext.Null)
+	out, err := json.Marshal(variant, jsonOptsTo(enc))
+	if err != nil {
+		return err
+	}
+
+	if out, err = union.First(out, "object", tag); err != nil {
+		return err
+	}
+
+	return enc.WriteValue(out)
 }
 
 // Page defines a model
@@ -2117,6 +2132,18 @@ type PartialUserObjectResponse struct {
 	ID IDResponse `json:"id"`
 	// Always `user`
 	Object string `json:"object"`
+}
+
+// unmarshalJSONMember decodes the value of the member name into its field, reporting whether PartialUserObjectResponse declares it.
+func (v *PartialUserObjectResponse) unmarshalJSONMember(dec *jsontext.Decoder, name string) (bool, error) {
+	switch name {
+	case "id":
+		return true, json.UnmarshalDecode(dec, &v.ID, jsonOptsOf(dec))
+	case "object":
+		return true, json.UnmarshalDecode(dec, &v.Object, jsonOptsOf(dec))
+	}
+
+	return false, nil
 }
 
 // PeopleArrayBasedPropertyValueResponsePeopleItem defines a model
