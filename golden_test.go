@@ -12,6 +12,7 @@ import (
 	// needs. These keep those modules in go.mod and in vendor.
 	_ "github.com/MarkRosemaker/cassette"
 	_ "github.com/go-api-libs/api"
+	_ "github.com/go-api-libs/api/apitest"
 	_ "github.com/go-api-libs/api/server"
 	_ "github.com/go-api-libs/api/union"
 )

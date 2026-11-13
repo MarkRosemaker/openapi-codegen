@@ -657,10 +657,10 @@ func TestBodyLiteral(t *testing.T) {
 		{"Flag", `true`, "FlagTrue"},
 		{"Color", `"dark red"`, "ColorDarkRed"},
 		// a value the enum does not declare is decoded at test time, so the test shows the mismatch
-		{"Level", `7`, `mustDecodeBody[Level](t, "7")`},
-		{"Color", `3`, `mustDecodeBody[Color](t, "3")`},
+		{"Level", `7`, `apitest.MustDecode[Level](t, "7", jsonOpts)`},
+		{"Color", `3`, `apitest.MustDecode[Color](t, "3", jsonOpts)`},
 		{"Score", `9.5`, "Score(9.5)"},
-		{"Tags", `{"a":"b"}`, `mustDecodeBody[Tags](t, "{\"a\":\"b\"}")`},
+		{"Tags", `{"a":"b"}`, `apitest.MustDecode[Tags](t, "{\"a\":\"b\"}", jsonOpts)`},
 		{"Pet", `{"name":"Rex","level":3}`, "Pet{\nName: \"Rex\",\nLevel: LevelThree,\n}"},
 		{"Pet", `{}`, "Pet{}"},
 		{"*Pet", `null`, "nil"},
@@ -671,7 +671,7 @@ func TestBodyLiteral(t *testing.T) {
 		{"*float64", `2.5`, "new(2.5)"},
 		{"*Score", `9.5`, "new(Score(9.5))"},
 		{"[]Level", `[1,3]`, "[]Level{LevelOne, LevelThree}"},
-		{"[]string", `"x"`, `mustDecodeBody[[]string](t, "\"x\"")`},
+		{"[]string", `"x"`, `apitest.MustDecode[[]string](t, "\"x\"", jsonOpts)`},
 		{"bool", `false`, "false"},
 	} {
 		var v any
