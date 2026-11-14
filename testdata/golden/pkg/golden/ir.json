@@ -258,7 +258,8 @@
 			"requestBody": {
 				"typeName": "Entry",
 				"contentType": "application/json",
-				"required": true
+				"required": true,
+				"description": "The entry to create, without its id."
 			},
 			"responses": [
 				{
@@ -269,7 +270,8 @@
 					"goType": {
 						"name": "Entry"
 					},
-					"isSuccess": true
+					"isSuccess": true,
+					"bodyDescription": "The entry created, with its id."
 				}
 			],
 			"successReturn": {

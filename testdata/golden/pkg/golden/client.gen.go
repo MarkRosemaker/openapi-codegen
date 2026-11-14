@@ -349,7 +349,11 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 	}
 }
 
-// POST /entries
+// Body: The entry to create, without its id.
+//
+// Returns: The entry created, with its id.
+//
+//	POST /entries
 func (c *Client) CreateEntry(ctx context.Context, body Entry) (*Entry, error) {
 	u := c.baseURL.JoinPath("entries")
 	pr, pw := io.Pipe()
