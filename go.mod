@@ -3,12 +3,12 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/cassette v0.0.0-20261111155207-3bee9a17aeeb
+	github.com/MarkRosemaker/cassette v0.0.0-20261114002915-7d8492d51b15
 	github.com/MarkRosemaker/errpath v0.0.0-20261109120451-91cd29644c73
-	github.com/MarkRosemaker/openapi v0.0.0-20261113130942-537594635ea6
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261113212416-0fd15c0ed757
-	github.com/MarkRosemaker/openapi-edit v0.0.0-20261113212259-fa195788a161
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261113212259-411706ed57ea
+	github.com/MarkRosemaker/openapi v0.0.0-20261114002923-49c60d62ff12
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261114003437-4577f4aba7eb
+	github.com/MarkRosemaker/openapi-edit v0.0.0-20261114003129-0b34f69d9d92
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261114003128-3f4705df3af0
 	github.com/MarkRosemaker/ordmap v0.0.0-20261113130919-027ff7850b50
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20261113130130-277524695333
@@ -18,11 +18,11 @@ require (
 
 require (
 	cloud.google.com/go v0.123.0 // indirect
-	github.com/MarkRosemaker/json2yaml v0.0.0-20261109120452-2329987d7bc8 // indirect
-	github.com/MarkRosemaker/jsonutil v0.0.0-20261111155129-3eb35e1f56f9 // indirect
-	github.com/MarkRosemaker/openapi-compare v0.0.0-20261113131038-106c23012eba // indirect
-	github.com/MarkRosemaker/yaml v0.0.0-20261109161623-86a6a512ccb9 // indirect
-	github.com/MarkRosemaker/yaml2json v0.0.0-20261109120453-1b901dbf7e8f // indirect
+	github.com/MarkRosemaker/json2yaml v0.0.0-20261114002559-5de2992f679e // indirect
+	github.com/MarkRosemaker/jsonutil v0.0.0-20261114002746-7598c9df8b8f // indirect
+	github.com/MarkRosemaker/openapi-compare v0.0.0-20261114003127-a7b12b03c505 // indirect
+	github.com/MarkRosemaker/yaml v0.0.0-20261114002825-bdb424d364db // indirect
+	github.com/MarkRosemaker/yaml2json v0.0.0-20261114002559-cb6e42b758d5 // indirect
 	github.com/go-api-libs/types v0.0.0-20261109120451-6cd1daca4971 // indirect
 	golang.org/x/exp v0.0.0-20261113113407-e3970619a1a4 // indirect
 	golang.org/x/text v0.44.0 // indirect
