@@ -238,7 +238,8 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Entry"
+                "$ref": "#/components/schemas/Entry",
+                "description": "The entry to create, without its id."
               }
             }
           }
@@ -249,7 +250,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Entry"
+                  "$ref": "#/components/schemas/Entry",
+                  "description": "The entry created, with its id."
                 }
               }
             }
