@@ -6,7 +6,7 @@ require (
 	github.com/MarkRosemaker/cassette v0.0.0-20261114002915-7d8492d51b15
 	github.com/MarkRosemaker/errpath v0.0.0-20261109120451-91cd29644c73
 	github.com/MarkRosemaker/openapi v0.0.0-20261114002923-49c60d62ff12
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261114003437-4577f4aba7eb
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261114035644-54d90cd45ea4
 	github.com/MarkRosemaker/openapi-edit v0.0.0-20261114003129-0b34f69d9d92
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261114003128-3f4705df3af0
 	github.com/MarkRosemaker/ordmap v0.0.0-20261113130919-027ff7850b50
