@@ -3,13 +3,13 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/cassette v0.0.0-20261114134839-b89997ee7b14
-	github.com/MarkRosemaker/errpath v0.0.0-20261114134757-f7304bd9c564
-	github.com/MarkRosemaker/openapi v0.0.0-20261114134905-7ab2d5f6532c
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261114230256-181235402941
-	github.com/MarkRosemaker/openapi-edit v0.0.0-20261114135009-67d93f3a1aef
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261114170301-47338bc4c722
-	github.com/MarkRosemaker/ordmap v0.0.0-20261114134829-166766214acc
+	github.com/MarkRosemaker/cassette v0.0.0-20261115155508-a6d233bba59a
+	github.com/MarkRosemaker/errpath v0.0.0-20261115155441-f1bff71a2015
+	github.com/MarkRosemaker/openapi v0.0.0-20261115155538-1da4aad14fec
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261115155752-393dd0fdc46c
+	github.com/MarkRosemaker/openapi-edit v0.0.0-20261115155612-0d71475c9712
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261115155612-0c3e32687df2
+	github.com/MarkRosemaker/ordmap v0.0.0-20261115155501-75016eeac082
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20261115030148-02c29b673d3a
 	github.com/spf13/afero v1.15.0
@@ -18,12 +18,12 @@ require (
 
 require (
 	cloud.google.com/go v0.123.0 // indirect
-	github.com/MarkRosemaker/json2yaml v0.0.0-20261114134757-9d1256cd9fe0 // indirect
-	github.com/MarkRosemaker/jsonutil v0.0.0-20261114134758-283d23089a18 // indirect
-	github.com/MarkRosemaker/openapi-compare v0.0.0-20261114135007-8a5d11532780 // indirect
-	github.com/MarkRosemaker/yaml v0.0.0-20261114134834-d7670451bac1 // indirect
-	github.com/MarkRosemaker/yaml2json v0.0.0-20261114134758-35f07119f480 // indirect
-	github.com/go-api-libs/types v0.0.0-20261114134757-0dc6e4300b30 // indirect
+	github.com/MarkRosemaker/json2yaml v0.0.0-20261115155441-4ed6452afdbc // indirect
+	github.com/MarkRosemaker/jsonutil v0.0.0-20261115155443-1ff2055c9f09 // indirect
+	github.com/MarkRosemaker/openapi-compare v0.0.0-20261115155612-ec75bf6fc3ae // indirect
+	github.com/MarkRosemaker/yaml v0.0.0-20261115155505-332e7be55278 // indirect
+	github.com/MarkRosemaker/yaml2json v0.0.0-20261115155441-455cb115d85f // indirect
+	github.com/go-api-libs/types v0.0.0-20261115155441-34096c707114 // indirect
 	golang.org/x/exp v0.0.0-20261113113407-e3970619a1a4 // indirect
 	golang.org/x/text v0.44.0 // indirect
 	golang.org/x/tools v0.52.1-0.20261106145633-d407941a339a // indirect
