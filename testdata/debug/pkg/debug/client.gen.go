@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/MarkRosemaker/cassette"
@@ -149,6 +150,13 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 				}
 			}
 
+			// a value of an enum the specification does not list decodes, but is news
+			if ia != nil && out.unknownEnum() {
+				if err := c.keep(ia); err != nil {
+					return nil, fmt.Errorf("recording the call: %w", err)
+				}
+			}
+
 			return &out, nil
 		default:
 			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
@@ -165,6 +173,56 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 			}
 
 			return nil, api.NewErrCustom(rsp, &out)
+		default:
+			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
+		}
+	default:
+		return nil, c.failed(ia, api.NewErrUnknownStatusCode(rsp))
+	}
+}
+
+// GET /items
+func (c *Client) ListItems(ctx context.Context) ([]Item, error) {
+	u := c.baseURL.JoinPath("items")
+	req := (&http.Request{
+		Header: http.Header{
+			"Authorization": []string{c.bearer},
+			"User-Agent":    []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, ia, err := c.do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// ok
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out []Item
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
+					return nil, err
+				}
+			}
+
+			// a value of an enum the specification does not list decodes, but is news
+			if ia != nil && slices.ContainsFunc(out, func(x Item) bool { return x.unknownEnum() }) {
+				if err := c.keep(ia); err != nil {
+					return nil, fmt.Errorf("recording the call: %w", err)
+				}
+			}
+
+			return out, nil
 		default:
 			return nil, c.failed(ia, api.NewErrUnknownContentType(rsp))
 		}
@@ -204,6 +262,13 @@ func (c *Client) GetBlock(ctx context.Context) (*Block, error) {
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
 					return nil, err
+				}
+			}
+
+			// a value of an enum the specification does not list decodes, but is news
+			if ia != nil && out.unknownEnum() {
+				if err := c.keep(ia); err != nil {
+					return nil, fmt.Errorf("recording the call: %w", err)
 				}
 			}
 
@@ -247,6 +312,13 @@ func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
 					return nil, err
+				}
+			}
+
+			// a value of an enum the specification does not list decodes, but is news
+			if ia != nil && out.unknownEnum() {
+				if err := c.keep(ia); err != nil {
+					return nil, fmt.Errorf("recording the call: %w", err)
 				}
 			}
 

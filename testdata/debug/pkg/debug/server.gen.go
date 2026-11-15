@@ -17,6 +17,7 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetItem(ctx context.Context) (*Item, error)
+	ListItems(ctx context.Context) ([]Item, error)
 	GetBlock(ctx context.Context) (*Block, error)
 	GetPet(ctx context.Context) (*Pet, error)
 	Ping(ctx context.Context) error
@@ -34,6 +35,48 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "called")
 
 			res, err := svc.GetItem(ctx)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.MarshalWrite(w, res, jsonOpts); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/items")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "ListItems"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			res, err := svc.ListItems(ctx)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
