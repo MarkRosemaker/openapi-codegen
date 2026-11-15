@@ -9,6 +9,7 @@ import (
 	"encoding/json/v2"
 	"fmt"
 	"io"
+	"iter"
 	"maps"
 	"net/http"
 	"net/url"
@@ -16,9 +17,11 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"uuid"
 
 	"cloud.google.com/go/civil"
 	"github.com/go-api-libs/api"
+	"github.com/go-api-libs/api/paging"
 )
 
 const defaultUserAgent = "Golden"
@@ -347,6 +350,151 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 	default:
 		return api.NewErrUnknownStatusCode(rsp)
 	}
+}
+
+// POST /entries/query
+func (c *Client) QueryEntries(ctx context.Context, body QueryEntries) (*QueryEntriesOk, error) {
+	u := c.baseURL.JoinPath("entries", "query")
+	pr, pw := io.Pipe()
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent":   []string{c.userAgent},
+			"Content-Type": []string{"application/json"},
+		},
+		Host:          u.Host,
+		Method:        http.MethodPost,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		URL:           u,
+		Body:          pr,
+		ContentLength: -1,
+	}).WithContext(ctx)
+
+	go func() { pw.CloseWithError(json.MarshalWrite(pw, body, jsonOptsRequest)) }()
+	defer pr.Close()
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// a page of the entries of the kind, and the cursor of the next, empty after the last
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out QueryEntriesOk
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// QueryEntriesPages yields each page of what QueryEntries lists, fetching the next as the one before is used up.
+// It stops when the loop breaks, and at the first error, which it yields.
+func (c *Client) QueryEntriesPages(ctx context.Context, body QueryEntries) iter.Seq2[*QueryEntriesOk, error] {
+	return paging.Pages(func(cursor string) (*QueryEntriesOk, error) {
+		body.Cursor = cursor
+
+		return c.QueryEntries(ctx, body)
+	}, func(l *QueryEntriesOk) (string, bool) {
+		return l.NextPageToken, l.NextPageToken != ""
+	})
+}
+
+// QueryEntriesAll yields every item of what QueryEntries lists, fetching a page at a time. It stops when the loop
+// breaks, and at the first error, which it yields.
+func (c *Client) QueryEntriesAll(ctx context.Context, body QueryEntries) iter.Seq2[Entry, error] {
+	return paging.Items(c.QueryEntriesPages(ctx, body), func(l *QueryEntriesOk) []Entry {
+		return l.Items
+	})
+}
+
+// GET /entries
+func (c *Client) ListEntries(ctx context.Context, params *ListEntriesParams) (*ListEntriesOk, error) {
+	u := c.baseURL.JoinPath("entries")
+	if params != nil {
+		q := make(url.Values, 2)
+
+		if params.StartCursor != uuid.Nil() {
+			q["start_cursor"] = []string{params.StartCursor.String()}
+		}
+
+		if params.PageSize != 0 {
+			q["page_size"] = []string{strconv.Itoa(params.PageSize)}
+		}
+
+		u.RawQuery = q.Encode()
+	}
+
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// a page of the entries
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "application/json":
+			var out ListEntriesOk
+			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
+// ListEntriesPages yields each page of what ListEntries lists, fetching the next as the one before is used up.
+// It stops when the loop breaks, and at the first error, which it yields.
+func (c *Client) ListEntriesPages(ctx context.Context, params *ListEntriesParams) iter.Seq2[*ListEntriesOk, error] {
+	return paging.Pages(func(cursor uuid.UUID) (*ListEntriesOk, error) {
+		var p ListEntriesParams
+		if params != nil {
+			p = *params
+		}
+		p.StartCursor = cursor
+
+		return c.ListEntries(ctx, &p)
+	}, func(l *ListEntriesOk) (uuid.UUID, bool) {
+		return l.NextCursor, l.HasMore
+	})
+}
+
+// ListEntriesAll yields every item of what ListEntries lists, fetching a page at a time. It stops when the loop
+// breaks, and at the first error, which it yields.
+func (c *Client) ListEntriesAll(ctx context.Context, params *ListEntriesParams) iter.Seq2[Entry, error] {
+	return paging.Items(c.ListEntriesPages(ctx, params), func(l *ListEntriesOk) []Entry {
+		return l.Results
+	})
 }
 
 // Body: The entry to create, without its id.

@@ -14,6 +14,8 @@
  *   const result = await window.API.getTrial(id);
  *   const result = await window.API.updateUser(id);
  *   window.API.patchUser(id);
+ *   const result = await window.API.queryEntries();
+ *   const result = await window.API.listEntries();
  *   const result = await window.API.createEntry();
  *   const result = await window.API.getValue(id);
  *   const result = await window.API.getBlock(id);
@@ -136,6 +138,21 @@ window.API = {
         body: JSON.stringify(body),
         operationId: "PatchUser",
     }),
+    // POST /entries/query
+    queryEntries: (body) => apiFetch("/entries/query", {
+        method: "POST",
+        body: JSON.stringify(body),
+        operationId: "QueryEntries",
+    }),
+    // GET /entries
+    listEntries: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.startCursor != null) q.set("start_cursor", String(params.startCursor));
+        if (params.pageSize != null) q.set("page_size", String(params.pageSize));
+        return apiFetch(`/entries?${q}`, {
+            operationId: "ListEntries",
+        });
+    },
     // POST /entries
     createEntry: (body) => apiFetch("/entries", {
         method: "POST",

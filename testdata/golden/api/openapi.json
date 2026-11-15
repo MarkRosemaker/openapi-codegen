@@ -230,7 +230,68 @@
         ]
       }
     },
+    "/entries/query": {
+      "post": {
+        "operationId": "queryEntries",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "kind": { "type": "string" },
+                  "cursor": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a page of the entries of the kind, and the cursor of the next, empty after the last",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["items", "next_page_token"],
+                  "properties": {
+                    "items": { "type": "array", "items": { "$ref": "#/components/schemas/Entry" } },
+                    "next_page_token": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/entries": {
+      "get": {
+        "operationId": "listEntries",
+        "parameters": [
+          { "name": "start_cursor", "in": "query", "schema": { "type": "string", "format": "uuid" } },
+          { "name": "page_size", "in": "query", "schema": { "type": "integer", "maximum": 100 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "a page of the entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["results", "next_cursor", "has_more"],
+                  "properties": {
+                    "results": { "type": "array", "items": { "$ref": "#/components/schemas/Entry" } },
+                    "next_cursor": { "oneOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }] },
+                    "has_more": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "operationId": "createEntry",
         "requestBody": {

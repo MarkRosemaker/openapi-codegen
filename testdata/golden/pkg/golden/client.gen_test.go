@@ -750,6 +750,216 @@ func TestClient_Error(t *testing.T) {
 		})
 	})
 
+	t.Run("QueryEntries", func(t *testing.T) {
+		t.Run("transport error", func(t *testing.T) {
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
+				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.QueryEntries(t.Context(), QueryEntries{}); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, io.EOF) {
+				t.Fatalf("want: %v, got: %v", io.EOF, err)
+			}
+		})
+
+		t.Run("unknown status code", func(t *testing.T) {
+			srv := apitest.NewServer(t, http.StatusTeapot)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.QueryEntries(t.Context(), QueryEntries{}); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if apiErr.Err != api.ErrUnknownStatusCode {
+				t.Fatalf("got: %v, want: %v", apiErr.Err, api.ErrUnknownStatusCode)
+			} else if apiErr.Response.StatusCode != http.StatusTeapot {
+				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
+			}
+		})
+
+		t.Run("unknown content type", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "foo")
+				w.WriteHeader(http.StatusOK)
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.QueryEntries(t.Context(), QueryEntries{}); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, api.ErrUnknownContentType) {
+				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
+			}
+		})
+
+		t.Run("decoding error", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte("invalid json"))
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.QueryEntries(t.Context(), QueryEntries{}); err == nil {
+				t.Fatal("expected error")
+			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			} else if _, ok := errors.AsType[*jsontext.SyntacticError](decErr.Err); !ok {
+				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
+			}
+		})
+
+		t.Run("unknown member", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(apitest.BodyServer(t, http.StatusOK, "application/json", apitest.WithUnknownMember(t, QueryEntriesOk{}, jsonOpts))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.QueryEntries(t.Context(), QueryEntries{}); err == nil {
+				t.Fatal("the package's own type accepted a member it does not declare")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+		})
+	})
+
+	t.Run("ListEntries", func(t *testing.T) {
+		t.Run("transport error", func(t *testing.T) {
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
+				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.ListEntries(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, io.EOF) {
+				t.Fatalf("want: %v, got: %v", io.EOF, err)
+			}
+		})
+
+		t.Run("unknown status code", func(t *testing.T) {
+			srv := apitest.NewServer(t, http.StatusTeapot)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.ListEntries(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if apiErr.Err != api.ErrUnknownStatusCode {
+				t.Fatalf("got: %v, want: %v", apiErr.Err, api.ErrUnknownStatusCode)
+			} else if apiErr.Response.StatusCode != http.StatusTeapot {
+				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
+			}
+		})
+
+		t.Run("unknown content type", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "foo")
+				w.WriteHeader(http.StatusOK)
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.ListEntries(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, api.ErrUnknownContentType) {
+				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
+			}
+		})
+
+		t.Run("decoding error", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte("invalid json"))
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.ListEntries(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			} else if _, ok := errors.AsType[*jsontext.SyntacticError](decErr.Err); !ok {
+				t.Fatalf("got: %T, want: *jsontext.SyntacticError", decErr.Err)
+			}
+		})
+
+		t.Run("unknown member", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(apitest.BodyServer(t, http.StatusOK, "application/json", apitest.WithUnknownMember(t, ListEntriesOk{}, jsonOpts))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.ListEntries(t.Context(), nil); err == nil {
+				t.Fatal("the package's own type accepted a member it does not declare")
+			} else if _, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			}
+		})
+	})
+
 	t.Run("CreateEntry", func(t *testing.T) {
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
@@ -1961,6 +2171,32 @@ func TestClient_Error(t *testing.T) {
 // TestClient_Params sets every parameter it can to a value other than its zero value, and finds each in the request,
 // under its name and written as the client must write it.
 func TestClient_Params(t *testing.T) {
+	t.Run("ListEntries", func(t *testing.T) {
+		var got *http.Request
+
+		c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
+			func(r *http.Request) (*http.Response, error) {
+				got = r
+
+				return &http.Response{StatusCode: http.StatusTeapot, Header: http.Header{}, Body: http.NoBody, Request: r}, nil
+			},
+		)}))
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		_, _ = c.ListEntries(t.Context(), &ListEntriesParams{
+			PageSize: 2,
+		})
+
+		if got == nil {
+			t.Fatal("no request was sent")
+		}
+
+		if v := got.URL.Query().Get("page_size"); v != "2" {
+			t.Errorf("query %s: got %q, want %q", "page_size", v, "2")
+		}
+	})
 	t.Run("ListReports", func(t *testing.T) {
 		var got *http.Request
 
