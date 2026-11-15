@@ -11,7 +11,7 @@ require (
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261115155612-0c3e32687df2
 	github.com/MarkRosemaker/ordmap v0.0.0-20261115155501-75016eeac082
 	github.com/ettle/strcase v0.2.0
-	github.com/go-api-libs/api v0.0.0-20261115171803-1c01d6b4ebb9
+	github.com/go-api-libs/api v0.0.0-20261115172114-130f6fc73195
 	github.com/spf13/afero v1.15.0
 	mvdan.cc/gofumpt v0.12.0
 )
