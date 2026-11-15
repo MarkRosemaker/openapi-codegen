@@ -327,6 +327,31 @@ func TestUnions_RoundTrip(t *testing.T) {
 	})
 }
 
+// TestUnions_Null checks that each union holding no alternative encodes as null, and that null decodes as one holding
+// none, as for a member an API sends as null.
+func TestUnions_Null(t *testing.T) {
+	apitest.Null[AgentModel](t, jsonOpts)
+	apitest.Null[Bot](t, jsonOpts)
+	apitest.Null[Entry](t, jsonOpts)
+	apitest.Null[Filter](t, jsonOpts)
+	apitest.Null[GroupBy](t, jsonOpts)
+	apitest.Null[IconResponse](t, jsonOpts)
+	apitest.Null[MaybeMember](t, jsonOpts)
+	apitest.Null[MemberAllOf1](t, jsonOpts)
+	apitest.Null[Node](t, jsonOpts)
+	apitest.Null[Order](t, jsonOpts)
+	apitest.Null[Owner](t, jsonOpts)
+	apitest.Null[PageOrPartial](t, jsonOpts)
+	apitest.Null[Pairs](t, jsonOpts)
+	apitest.Null[PeopleArrayBasedPropertyValueResponsePeopleItem](t, jsonOpts)
+	apitest.Null[Position](t, jsonOpts)
+	apitest.Null[Tags](t, jsonOpts)
+	apitest.Null[UserValueResponse](t, jsonOpts)
+	apitest.Null[ValueAllOf1](t, jsonOpts)
+	apitest.Null[ViewFilter](t, jsonOpts)
+	apitest.Null[ViewGroupBy](t, jsonOpts)
+}
+
 // TestTagged_RoundTrip sets each tag of each struct told apart by one in turn, with the members the tag requires,
 // encodes it and decodes it strictly: the tag must come back, and the struct encode as before.
 func TestTagged_RoundTrip(t *testing.T) {

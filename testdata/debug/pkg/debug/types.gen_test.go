@@ -67,6 +67,12 @@ func TestUnions_RoundTrip(t *testing.T) {
 	})
 }
 
+// TestUnions_Null checks that each union holding no alternative encodes as null, and that null decodes as one holding
+// none, as for a member an API sends as null.
+func TestUnions_Null(t *testing.T) {
+	apitest.Null[Pet](t, jsonOpts)
+}
+
 // TestTagged_RoundTrip sets each tag of each struct told apart by one in turn, with the members the tag requires,
 // encodes it and decodes it strictly: the tag must come back, and the struct encode as before.
 func TestTagged_RoundTrip(t *testing.T) {
