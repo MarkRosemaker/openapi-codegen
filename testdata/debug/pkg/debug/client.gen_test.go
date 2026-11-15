@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"slices"
 	"testing"
 
 	"github.com/MarkRosemaker/cassette"
@@ -699,4 +700,36 @@ func TestClient_Error(t *testing.T) {
 			}
 		})
 	})
+}
+
+func TestClient_Interactions(t *testing.T) {
+	ctx := t.Context()
+	t.Setenv("DEBUG_TOKEN", "**************************************************")
+
+	last := &apitest.LastBody{Next: apitest.Replay(t, "../../api/interactions.json")}
+
+	c, err := NewClient(WithHTTPClient(&http.Client{Transport: last}))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if out, err := c.GetItem(ctx); err != nil {
+		t.Fatalf("GetItem: %v", err)
+	} else {
+		apitest.DecodedAsSent(t, "GetItem", out, last.Body, jsonOpts)
+
+		if out != nil && out.unknownEnum() {
+			t.Errorf("GetItem: holds a value of an enum the specification does not list")
+		}
+	}
+
+	if out, err := c.ListItems(ctx); err != nil {
+		t.Fatalf("ListItems: %v", err)
+	} else {
+		apitest.DecodedAsSent(t, "ListItems", out, last.Body, jsonOpts)
+
+		if slices.ContainsFunc(out, func(x Item) bool { return x.unknownEnum() }) {
+			t.Errorf("ListItems: holds a value of an enum the specification does not list")
+		}
+	}
 }

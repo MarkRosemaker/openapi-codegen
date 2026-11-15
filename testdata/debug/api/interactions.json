@@ -1,0 +1,53 @@
+[
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/item",
+			"header": {
+				"Authorization": "Bearer *****"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": {
+				"id": "a",
+				"status": "active",
+				"events": [
+					{
+						"kind": "created"
+					}
+				],
+				"labels": {
+					"x": "archived"
+				}
+			}
+		}
+	},
+	{
+		"request": {
+			"method": "GET",
+			"url": "https://api.example.com/items",
+			"header": {
+				"Authorization": "Bearer *****"
+			}
+		},
+		"response": {
+			"statusCode": 200,
+			"header": {
+				"Content-Type": "application/json"
+			},
+			"body": [
+				{
+					"id": "a"
+				},
+				{
+					"id": "b",
+					"status": "archived"
+				}
+			]
+		}
+	}
+]

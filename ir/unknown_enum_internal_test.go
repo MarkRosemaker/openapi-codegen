@@ -36,3 +36,33 @@ func TestEnumsCheck(t *testing.T) {
 		}
 	}
 }
+
+func TestMarkUnknownEnums(t *testing.T) {
+	t.Parallel()
+
+	schemas := []Schema{
+		{Name: "Status", Kind: SchemaKindEnum, Type: "string"},
+		{Name: "Item", Kind: SchemaKindStruct, Fields: []Field{{Name: "Status", Type: "Status", Required: true}}},
+		{Name: "Page", Kind: SchemaKindStruct, Fields: []Field{{Name: "Results", Type: "[]Item"}}},
+		{Name: "Problem", Kind: SchemaKindStruct, Fields: []Field{{Name: "Code", Type: "Status"}}},
+		{Name: "Filter", Kind: SchemaKindStruct, Fields: []Field{{Name: "Status", Type: "Status"}}},
+	}
+
+	markUnknownEnums(schemas, []Operation{{
+		SuccessReturn: &GoType{Name: "Page", IsPointer: true},
+		Responses:     Responses{{GoType: &GoType{Name: "Page"}, IsSuccess: true}, {GoType: &GoType{Name: "Problem"}}},
+		RequestBody:   &ReqBody{TypeName: "Filter"},
+	}})
+
+	for _, s := range schemas {
+		want := map[string]string{
+			"Item":    `v.Status != "" && !v.Status.Valid()`,
+			"Page":    "slices.ContainsFunc(v.Results, func(x Item) bool { return x.unknownEnum() })",
+			"Problem": `v.Code != "" && !v.Code.Valid()`,
+		}[s.Name] // a request's filter is never checked, so it has none
+
+		if s.UnknownEnum != want {
+			t.Errorf("%s: UnknownEnum = %q, want %q", s.Name, s.UnknownEnum, want)
+		}
+	}
+}

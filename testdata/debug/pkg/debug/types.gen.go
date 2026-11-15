@@ -118,7 +118,7 @@ func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 // unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
 // records.
 func (v *Block) unknownEnum() bool {
-	return !v.Type.Valid()
+	return v.Type != "" && !v.Type.Valid()
 }
 
 // Cat defines a model
@@ -164,7 +164,7 @@ type Event struct {
 // unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
 // records.
 func (v *Event) unknownEnum() bool {
-	return !v.Kind.Valid()
+	return v.Kind != "" && !v.Kind.Valid()
 }
 
 // EventKind defines a model
