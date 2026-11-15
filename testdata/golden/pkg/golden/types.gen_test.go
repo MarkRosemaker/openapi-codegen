@@ -62,14 +62,14 @@ func TestEnums_Valid(t *testing.T) {
 		t.Errorf("Level(%v): valid, though no member", 0)
 	}
 
-	for _, v := range []MemberPersonMembershipType{MemberPersonMembershipTypeMember, MemberPersonMembershipTypeGuest} {
+	for _, v := range []MembershipType{MembershipTypeMember, MembershipTypeGuest} {
 		if !v.Valid() {
-			t.Errorf("MemberPersonMembershipType %v: not valid", v)
+			t.Errorf("MembershipType %v: not valid", v)
 		}
 	}
 
-	if MemberPersonMembershipType("not a member").Valid() {
-		t.Errorf("MemberPersonMembershipType(%v): valid, though no member", "not a member")
+	if MembershipType("not a member").Valid() {
+		t.Errorf("MembershipType(%v): valid, though no member", "not a member")
 	}
 
 	for _, v := range []Module{ModulePrice, ModuleSummaryDetail} {

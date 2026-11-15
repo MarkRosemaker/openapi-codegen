@@ -1478,9 +1478,9 @@ func (v *MemberAllOf1) MarshalJSONTo(enc *jsontext.Encoder) error {
 
 // MemberPerson defines a model
 type MemberPerson struct {
-	Type           string                     `json:"type"`
-	MembershipType MemberPersonMembershipType `json:"membership_type"`
-	Person         UserOneOfPerson            `json:"person"`
+	Type           string          `json:"type"`
+	MembershipType MembershipType  `json:"membership_type"`
+	Person         UserOneOfPerson `json:"person"`
 }
 
 // unmarshalJSONMember decodes the value of the member name into its field, reporting whether MemberPerson declares it.
@@ -1497,18 +1497,18 @@ func (v *MemberPerson) unmarshalJSONMember(dec *jsontext.Decoder, name string) (
 	return false, nil
 }
 
-// MemberPersonMembershipType defines a model
-type MemberPersonMembershipType string
+// MembershipType defines a model
+type MembershipType string
 
 const (
-	MemberPersonMembershipTypeMember MemberPersonMembershipType = "member"
-	MemberPersonMembershipTypeGuest  MemberPersonMembershipType = "guest"
+	MembershipTypeMember MembershipType = "member"
+	MembershipTypeGuest  MembershipType = "guest"
 )
 
-// Valid indicates whether the value is a known member of the MemberPersonMembershipType enum.
-func (e MemberPersonMembershipType) Valid() bool {
+// Valid indicates whether the value is a known member of the MembershipType enum.
+func (e MembershipType) Valid() bool {
 	switch e {
-	case MemberPersonMembershipTypeMember, MemberPersonMembershipTypeGuest:
+	case MembershipTypeMember, MembershipTypeGuest:
 		return true
 	default:
 		return false
