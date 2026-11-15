@@ -13,6 +13,7 @@ import (
 	_ "github.com/MarkRosemaker/cassette"
 	_ "github.com/go-api-libs/api"
 	_ "github.com/go-api-libs/api/apitest"
+	_ "github.com/go-api-libs/api/paging"
 	_ "github.com/go-api-libs/api/server"
 	_ "github.com/go-api-libs/api/union"
 )

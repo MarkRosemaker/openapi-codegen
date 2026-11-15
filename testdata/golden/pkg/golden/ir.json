@@ -249,6 +249,95 @@
 			]
 		},
 		{
+			"name": "QueryEntries",
+			"method": "POST",
+			"pathTemplate": "/entries/query",
+			"joinPathArgs": [
+				"\"entries\"",
+				"\"query\""
+			],
+			"requestBody": {
+				"typeName": "QueryEntries",
+				"contentType": "application/json",
+				"required": true
+			},
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "a page of the entries of the kind, and the cursor of the next, empty after the last",
+					"contentType": "application/json",
+					"goType": {
+						"name": "QueryEntriesOk"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "QueryEntriesOk"
+			},
+			"pagination": {
+				"cursorType": "string",
+				"prepare": "body.Cursor = cursor",
+				"args": ", body",
+				"nextField": "NextPageToken",
+				"itemsField": "Items",
+				"itemType": "Entry"
+			}
+		},
+		{
+			"name": "ListEntries",
+			"method": "GET",
+			"pathTemplate": "/entries",
+			"joinPathArgs": [
+				"\"entries\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.StartCursor",
+					"goName": "startCursor",
+					"fieldName": "StartCursor",
+					"jsonName": "start_cursor",
+					"type": "uuid.UUID",
+					"parseExpr": "uuid.Parse(%s)"
+				},
+				{
+					"varName": "params.PageSize",
+					"goName": "pageSize",
+					"fieldName": "PageSize",
+					"jsonName": "page_size",
+					"type": "int",
+					"parseExpr": "strconv.Atoi(%s)"
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "ListEntriesParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "a page of the entries",
+					"contentType": "application/json",
+					"goType": {
+						"name": "ListEntriesOk"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "ListEntriesOk"
+			},
+			"pagination": {
+				"cursorType": "uuid.UUID",
+				"prepare": "var p ListEntriesParams\nif params != nil {\np = *params\n}\np.StartCursor = cursor",
+				"args": ", &p",
+				"nextField": "NextCursor",
+				"moreField": "HasMore",
+				"itemsField": "Results",
+				"itemType": "Entry"
+			}
+		},
+		{
 			"name": "CreateEntry",
 			"method": "POST",
 			"pathTemplate": "/entries",
@@ -2558,6 +2647,33 @@
 			]
 		},
 		{
+			"name": "ListEntriesOk",
+			"description": "ListEntriesOk defines a model",
+			"fields": [
+				{
+					"name": "Results",
+					"jsonName": "results",
+					"type": "[]Entry",
+					"jsonTag": "json:\"results\"",
+					"required": true
+				},
+				{
+					"name": "NextCursor",
+					"jsonName": "next_cursor",
+					"type": "uuid.UUID",
+					"jsonTag": "json:\"next_cursor\"",
+					"required": true
+				},
+				{
+					"name": "HasMore",
+					"jsonName": "has_more",
+					"type": "bool",
+					"jsonTag": "json:\"has_more\"",
+					"required": true
+				}
+			]
+		},
+		{
 			"name": "ListPeopleOk",
 			"description": "ListPeopleOk defines a model",
 			"fields": [
@@ -4093,6 +4209,44 @@
 					}
 				]
 			}
+		},
+		{
+			"name": "QueryEntries",
+			"description": "QueryEntries defines a model",
+			"fields": [
+				{
+					"name": "Kind",
+					"jsonName": "kind",
+					"type": "string",
+					"jsonTag": "json:\"kind,omitzero\""
+				},
+				{
+					"name": "Cursor",
+					"jsonName": "cursor",
+					"type": "string",
+					"jsonTag": "json:\"cursor,omitzero\""
+				}
+			]
+		},
+		{
+			"name": "QueryEntriesOk",
+			"description": "QueryEntriesOk defines a model",
+			"fields": [
+				{
+					"name": "Items",
+					"jsonName": "items",
+					"type": "[]Entry",
+					"jsonTag": "json:\"items\"",
+					"required": true
+				},
+				{
+					"name": "NextPageToken",
+					"jsonName": "next_page_token",
+					"type": "string",
+					"jsonTag": "json:\"next_page_token\"",
+					"required": true
+				}
+			]
 		},
 		{
 			"name": "Record",

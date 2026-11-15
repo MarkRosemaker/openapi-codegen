@@ -99,6 +99,12 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 	}),
 )))
 
+// ListEntriesParams holds the query parameters for ListEntries.
+type ListEntriesParams struct {
+	StartCursor uuid.UUID
+	PageSize    int
+}
+
 // ListReportsParams holds the query parameters for ListReports.
 type ListReportsParams struct {
 	Since   time.Time
@@ -1172,6 +1178,13 @@ func (e Level) Valid() bool {
 // Link defines a model
 type Link struct {
 	URL string `json:"url"`
+}
+
+// ListEntriesOk defines a model
+type ListEntriesOk struct {
+	Results    []Entry   `json:"results"`
+	NextCursor uuid.UUID `json:"next_cursor"`
+	HasMore    bool      `json:"has_more"`
 }
 
 // ListPeopleOk defines a model
@@ -2492,6 +2505,18 @@ func (v *PropertyValue) MarshalJSONTo(enc *jsontext.Encoder) error {
 	}
 
 	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
+}
+
+// QueryEntries defines a model
+type QueryEntries struct {
+	Kind   string `json:"kind,omitzero"`
+	Cursor string `json:"cursor,omitzero"`
+}
+
+// QueryEntriesOk defines a model
+type QueryEntriesOk struct {
+	Items         []Entry `json:"items"`
+	NextPageToken string  `json:"next_page_token"`
 }
 
 // Record defines a model
