@@ -3062,7 +3062,7 @@
 				{
 					"name": "MembershipType",
 					"jsonName": "membership_type",
-					"type": "MemberPersonMembershipType",
+					"type": "MembershipType",
 					"jsonTag": "json:\"membership_type\"",
 					"required": true
 				},
@@ -3077,18 +3077,18 @@
 			"memberDecoder": true
 		},
 		{
-			"name": "MemberPersonMembershipType",
-			"description": "MemberPersonMembershipType defines a model",
+			"name": "MembershipType",
+			"description": "MembershipType defines a model",
 			"kind": 1,
 			"type": "string",
 			"enumValues": [
 				{
-					"goName": "MemberPersonMembershipTypeMember",
+					"goName": "MembershipTypeMember",
 					"value": "member",
 					"literal": "\"member\""
 				},
 				{
-					"goName": "MemberPersonMembershipTypeGuest",
+					"goName": "MembershipTypeGuest",
 					"value": "guest",
 					"literal": "\"guest\""
 				}

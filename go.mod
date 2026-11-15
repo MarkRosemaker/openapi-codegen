@@ -6,9 +6,9 @@ require (
 	github.com/MarkRosemaker/cassette v0.0.0-20261114134839-b89997ee7b14
 	github.com/MarkRosemaker/errpath v0.0.0-20261114134757-f7304bd9c564
 	github.com/MarkRosemaker/openapi v0.0.0-20261114134905-7ab2d5f6532c
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261114135233-1664a6a03857
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261114230256-181235402941
 	github.com/MarkRosemaker/openapi-edit v0.0.0-20261114135009-67d93f3a1aef
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261114135009-b46b792b06be
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261114170301-47338bc4c722
 	github.com/MarkRosemaker/ordmap v0.0.0-20261114134829-166766214acc
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20261115030148-02c29b673d3a
