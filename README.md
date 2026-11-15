@@ -136,6 +136,9 @@ How the specification maps onto Go:
   members the specification
   does not know. Only if that fails too does the call fail, so a response that
   merely holds more than the specification says still reaches the caller.
+  A response holding a value of an enum the specification does not list, which
+  decodes, is recorded too: each type holding an enum has an `unknownEnum`
+  method, which the client calls on what it decoded, in debug mode only.
   Nothing the specification leaves open decodes into `any` then: the empty
   schema, an array without `items`, a free-form object and `not` alone become
   `struct{}`, so any value in them is recorded, and any but an object fails.

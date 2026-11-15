@@ -21,13 +21,43 @@ func TestEnums_Valid(t *testing.T) {
 	if BlockType("not a member").Valid() {
 		t.Errorf("BlockType(%v): valid, though no member", "not a member")
 	}
+
+	for _, v := range []CatMood{CatMoodCalm, CatMoodGrumpy} {
+		if !v.Valid() {
+			t.Errorf("CatMood %v: not valid", v)
+		}
+	}
+
+	if CatMood("not a member").Valid() {
+		t.Errorf("CatMood(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []EventKind{EventKindCreated, EventKindDeleted} {
+		if !v.Valid() {
+			t.Errorf("EventKind %v: not valid", v)
+		}
+	}
+
+	if EventKind("not a member").Valid() {
+		t.Errorf("EventKind(%v): valid, though no member", "not a member")
+	}
+
+	for _, v := range []Status{StatusActive, StatusArchived} {
+		if !v.Valid() {
+			t.Errorf("Status %v: not valid", v)
+		}
+	}
+
+	if Status("not a member").Valid() {
+		t.Errorf("Status(%v): valid, though no member", "not a member")
+	}
 }
 
 // TestUnions_RoundTrip sets each variant of each union in turn, encodes it and decodes it strictly: the union must
 // choose the same variant again, and encode as before.
 func TestUnions_RoundTrip(t *testing.T) {
 	t.Run("Pet/Cat", func(t *testing.T) {
-		v := Cat{}
+		v := Cat{Mood: "calm"}
 		apitest.RoundTrip(t, Pet{Cat: &v}, func(u Pet) bool { return u.Cat != nil }, jsonOpts)
 	})
 

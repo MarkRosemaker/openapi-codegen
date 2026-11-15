@@ -44,6 +44,32 @@
 		},
 		{
 			"auth": "bearer",
+			"name": "ListItems",
+			"method": "GET",
+			"pathTemplate": "/items",
+			"joinPathArgs": [
+				"\"items\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Item",
+						"isSlice": true
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Item",
+				"isSlice": true
+			}
+		},
+		{
+			"auth": "bearer",
 			"name": "GetBlock",
 			"method": "GET",
 			"pathTemplate": "/block",
@@ -170,7 +196,8 @@
 						"zero": "nil"
 					}
 				]
-			}
+			},
+			"unknownEnum": "!v.Type.Valid()"
 		},
 		{
 			"name": "Cat",
@@ -182,6 +209,31 @@
 					"type": "bool",
 					"jsonTag": "json:\"meow\"",
 					"required": true
+				},
+				{
+					"name": "Mood",
+					"jsonName": "mood",
+					"type": "CatMood",
+					"jsonTag": "json:\"mood,omitzero\""
+				}
+			],
+			"unknownEnum": "v.Mood != \"\" && !v.Mood.Valid()"
+		},
+		{
+			"name": "CatMood",
+			"description": "CatMood defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "CatMoodCalm",
+					"value": "calm",
+					"literal": "\"calm\""
+				},
+				{
+					"goName": "CatMoodGrumpy",
+					"value": "grumpy",
+					"literal": "\"grumpy\""
 				}
 			]
 		},
@@ -195,6 +247,38 @@
 					"type": "bool",
 					"jsonTag": "json:\"bark\"",
 					"required": true
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"description": "Event defines a model",
+			"fields": [
+				{
+					"name": "Kind",
+					"jsonName": "kind",
+					"type": "EventKind",
+					"jsonTag": "json:\"kind\"",
+					"required": true
+				}
+			],
+			"unknownEnum": "!v.Kind.Valid()"
+		},
+		{
+			"name": "EventKind",
+			"description": "EventKind defines a model",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "EventKindCreated",
+					"value": "created",
+					"literal": "\"created\""
+				},
+				{
+					"goName": "EventKindDeleted",
+					"value": "deleted",
+					"literal": "\"deleted\""
 				}
 			]
 		},
@@ -216,8 +300,28 @@
 					"jsonTag": "json:\"updated,omitzero\"",
 					"description": "Every date here is an integer, so one marshaler writes them all.",
 					"isUnix": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "status",
+					"type": "Status",
+					"jsonTag": "json:\"status,omitzero\"",
+					"description": "A value the specification does not list decodes, and debug mode records it."
+				},
+				{
+					"name": "Events",
+					"jsonName": "events",
+					"type": "[]Event",
+					"jsonTag": "json:\"events,omitzero\""
+				},
+				{
+					"name": "Labels",
+					"jsonName": "labels",
+					"type": "map[string]Status",
+					"jsonTag": "json:\"labels,omitzero\""
 				}
-			]
+			],
+			"unknownEnum": "v.Status != \"\" && !v.Status.Valid() ||\nslices.ContainsFunc(v.Events, func(x Event) bool { return x.unknownEnum() }) ||\nfunc() bool {\nfor _, x := range v.Labels {\nif !x.Valid() {\nreturn true\n}\n}\n\nreturn false\n}()"
 		},
 		{
 			"name": "Pet",
@@ -228,12 +332,22 @@
 					"fieldName": "Cat",
 					"type": "Cat",
 					"members": [
-						"meow"
+						"meow",
+						"mood"
 					],
 					"required": [
 						"meow"
 					],
-					"object": true
+					"object": true,
+					"enums": [
+						{
+							"name": "mood",
+							"values": [
+								"\"calm\"",
+								"\"grumpy\""
+							]
+						}
+					]
 				},
 				{
 					"fieldName": "Dog",
@@ -252,12 +366,22 @@
 					"fieldName": "Cat",
 					"type": "Cat",
 					"members": [
-						"meow"
+						"meow",
+						"mood"
 					],
 					"required": [
 						"meow"
 					],
-					"object": true
+					"object": true,
+					"enums": [
+						{
+							"name": "mood",
+							"values": [
+								"\"calm\"",
+								"\"grumpy\""
+							]
+						}
+					]
 				},
 				{
 					"fieldName": "Dog",
@@ -271,7 +395,8 @@
 					"object": true
 				}
 			],
-			"isOneOf": true
+			"isOneOf": true,
+			"unknownEnum": "v.Cat != nil && v.Cat.unknownEnum()"
 		},
 		{
 			"name": "Problem",
@@ -283,6 +408,24 @@
 					"type": "string",
 					"jsonTag": "json:\"message\"",
 					"required": true
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"description": "A value the specification does not list decodes, and debug mode records it.",
+			"kind": 1,
+			"type": "string",
+			"enumValues": [
+				{
+					"goName": "StatusActive",
+					"value": "active",
+					"literal": "\"active\""
+				},
+				{
+					"goName": "StatusArchived",
+					"value": "archived",
+					"literal": "\"archived\""
 				}
 			]
 		},

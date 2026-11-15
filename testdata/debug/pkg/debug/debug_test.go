@@ -277,3 +277,59 @@ func TestDebug_Recording(t *testing.T) {
 		}
 	})
 }
+
+func TestDebug_UnknownEnum(t *testing.T) {
+	item := func(c *Client) (any, error) { return c.GetItem(t.Context()) }
+
+	for _, tc := range []struct {
+		name, body string
+		call       func(*Client) (any, error)
+		unknown    bool
+		// an untagged union picks its alternative by the values its enums list, so it fails strictly
+		strictFails bool
+	}{
+		{"known", `{"id":"a","status":"active","events":[{"kind":"created"}],"labels":{"x":"archived"}}`, item, false, false},
+		{"optional left out", `{"id":"a"}`, item, false, false},
+		{"member", `{"id":"a","status":"deleted"}`, item, true, false},
+		{"in a list", `{"id":"a","events":[{"kind":"created"},{"kind":"moved"}]}`, item, true, false},
+		{"in a map", `{"id":"a","labels":{"x":"active","y":"pinned"}}`, item, true, false},
+		{"in a list answered", `[{"id":"a"},{"id":"b","status":"deleted"}]`,
+			func(c *Client) (any, error) { return c.ListItems(t.Context()) }, true, false},
+		{"in an alternative of a union", `{"meow":true,"mood":"sleepy"}`,
+			func(c *Client) (any, error) { return c.GetPet(t.Context()) }, true, true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Chdir(t.TempDir())
+
+			// without debug mode, the value is decoded as it is
+			strict, err := NewClient(WithBaseURL(serve(t, tc.body)), WithBearer("token"))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := tc.call(strict); (err != nil) != tc.strictFails {
+				t.Fatalf("without debug: %v", err)
+			}
+
+			if ias := recorded(t); len(ias) != 0 {
+				t.Fatalf("without debug, %d interactions recorded", len(ias))
+			}
+
+			c, err := NewClient(WithBaseURL(serve(t, tc.body)), WithBearer("token"), WithDebug)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := tc.call(c); err != nil {
+				t.Fatalf("with debug: %v", err)
+			}
+
+			switch ias := recorded(t); {
+			case !tc.unknown && len(ias) != 0:
+				t.Errorf("recorded %d interactions, want none", len(ias))
+			case tc.unknown && (len(ias) != 1 || !sameJSON(t, ias[0].Response.Body, tc.body)):
+				t.Errorf("recorded %+v, want the one response", ias)
+			}
+		})
+	}
+}

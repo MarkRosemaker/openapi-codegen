@@ -8,6 +8,7 @@ import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
+	"slices"
 
 	"cloud.google.com/go/civil"
 	"github.com/MarkRosemaker/jsonutil"
@@ -114,9 +115,40 @@ func (v *Block) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v *Block) unknownEnum() bool {
+	return !v.Type.Valid()
+}
+
 // Cat defines a model
 type Cat struct {
-	Meow bool `json:"meow"`
+	Meow bool    `json:"meow"`
+	Mood CatMood `json:"mood,omitzero"`
+}
+
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v *Cat) unknownEnum() bool {
+	return v.Mood != "" && !v.Mood.Valid()
+}
+
+// CatMood defines a model
+type CatMood string
+
+const (
+	CatMoodCalm   CatMood = "calm"
+	CatMoodGrumpy CatMood = "grumpy"
+)
+
+// Valid indicates whether the value is a known member of the CatMood enum.
+func (e CatMood) Valid() bool {
+	switch e {
+	case CatMoodCalm, CatMoodGrumpy:
+		return true
+	default:
+		return false
+	}
 }
 
 // Dog defines a model
@@ -124,11 +156,60 @@ type Dog struct {
 	Bark bool `json:"bark"`
 }
 
+// Event defines a model
+type Event struct {
+	Kind EventKind `json:"kind"`
+}
+
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v *Event) unknownEnum() bool {
+	return !v.Kind.Valid()
+}
+
+// EventKind defines a model
+type EventKind string
+
+const (
+	EventKindCreated EventKind = "created"
+	EventKindDeleted EventKind = "deleted"
+)
+
+// Valid indicates whether the value is a known member of the EventKind enum.
+func (e EventKind) Valid() bool {
+	switch e {
+	case EventKindCreated, EventKindDeleted:
+		return true
+	default:
+		return false
+	}
+}
+
 // Item defines a model
 type Item struct {
 	ID string `json:"id"`
 	// Every date here is an integer, so one marshaler writes them all.
 	Updated civil.Date `json:"updated,omitzero"`
+	// A value the specification does not list decodes, and debug mode records it.
+	Status Status            `json:"status,omitzero"`
+	Events []Event           `json:"events,omitzero"`
+	Labels map[string]Status `json:"labels,omitzero"`
+}
+
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v *Item) unknownEnum() bool {
+	return v.Status != "" && !v.Status.Valid() ||
+		slices.ContainsFunc(v.Events, func(x Event) bool { return x.unknownEnum() }) ||
+		func() bool {
+			for _, x := range v.Labels {
+				if !x.Valid() {
+					return true
+				}
+			}
+
+			return false
+		}()
 }
 
 // Pet defines a model
@@ -157,29 +238,37 @@ func (v *Pet) UnmarshalJSONFrom(dec *jsontext.Decoder) error {
 
 	var matched int
 
-	// leniently, more than one may match, and the first does
-	if strict || matched == 0 {
-		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, nullable, pinned := []string{"meow"}, map[string]bool{}, map[string]string{}
-		if union.Fits(raw, required, nullable, pinned) {
-			var vv Cat
-			if err := json.Unmarshal(raw, &vv, opts); err == nil {
-				v.Cat = &vv
-				matched++
+	// a member outside its enum rules an alternative out; leniently, only while another fits
+	for _, enums := range union.EnumPasses(strict) {
+
+		// leniently, more than one may match, and the first does
+		if strict || matched == 0 {
+			// decoding checks neither the members the alternative requires nor those it pins to one value
+			required, nullable, pinned := []string{"meow"}, map[string]bool{}, map[string]string{}
+			if union.Fits(raw, required, nullable, pinned) && (!enums || union.EnumsFit(raw, map[string][]string{"mood": {"\"calm\"", "\"grumpy\""}})) {
+				var vv Cat
+				if err := json.Unmarshal(raw, &vv, opts); err == nil {
+					v.Cat = &vv
+					matched++
+				}
 			}
 		}
-	}
 
-	// leniently, more than one may match, and the first does
-	if strict || matched == 0 {
-		// decoding checks neither the members the alternative requires nor those it pins to one value
-		required, nullable, pinned := []string{"bark"}, map[string]bool{}, map[string]string{}
-		if union.Fits(raw, required, nullable, pinned) {
-			var vv Dog
-			if err := json.Unmarshal(raw, &vv, opts); err == nil {
-				v.Dog = &vv
-				matched++
+		// leniently, more than one may match, and the first does
+		if strict || matched == 0 {
+			// decoding checks neither the members the alternative requires nor those it pins to one value
+			required, nullable, pinned := []string{"bark"}, map[string]bool{}, map[string]string{}
+			if union.Fits(raw, required, nullable, pinned) {
+				var vv Dog
+				if err := json.Unmarshal(raw, &vv, opts); err == nil {
+					v.Dog = &vv
+					matched++
+				}
 			}
+		}
+
+		if matched > 0 {
+			break
 		}
 	}
 
@@ -203,9 +292,33 @@ func (v *Pet) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return enc.WriteToken(jsontext.Null)
 }
 
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v *Pet) unknownEnum() bool {
+	return v.Cat != nil && v.Cat.unknownEnum()
+}
+
 // Problem defines a model
 type Problem struct {
 	Message string `json:"message"`
+}
+
+// A value the specification does not list decodes, and debug mode records it.
+type Status string
+
+const (
+	StatusActive   Status = "active"
+	StatusArchived Status = "archived"
+)
+
+// Valid indicates whether the value is a known member of the Status enum.
+func (e Status) Valid() bool {
+	switch e {
+	case StatusActive, StatusArchived:
+		return true
+	default:
+		return false
+	}
 }
 
 // Text defines a model

@@ -10,6 +10,7 @@
  * Usage:
  *   import './api.js';        // or <script src="api.js"></script>
  *   const result = await window.API.getItem();
+ *   const result = await window.API.listItems();
  *   const result = await window.API.getBlock();
  *   const result = await window.API.getPet();
  *   window.API.ping();
@@ -89,6 +90,10 @@ window.API = {
     // GET /item
     getItem: () => apiFetch("/item", {
         operationId: "GetItem",
+    }),
+    // GET /items
+    listItems: () => apiFetch("/items", {
+        operationId: "ListItems",
     }),
     // GET /block
     getBlock: () => apiFetch("/block", {
