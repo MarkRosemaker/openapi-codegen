@@ -81,6 +81,20 @@ func TestPaginate(t *testing.T) {
 		t.Errorf("x-pagination false: got %+v, %v; want none", ops[0].Pagination, err)
 	}
 
+	// a named list of items is followed to its items
+	named := []Schema{
+		{Name: "L", Kind: SchemaKindStruct, Fields: []Field{
+			{Name: "Things", JSONName: "things", Type: "Things"},
+			{Name: "NextCursor", JSONName: "next_cursor", Type: "string"},
+		}},
+		{Name: "Things", Kind: SchemaKindAlias, Type: "[]Thing"},
+	}
+
+	ops = []Operation{listOp("string", paginationExt{set: true, Items: "things"})}
+	if err := paginate(ops, named); err != nil || ops[0].Pagination == nil || ops[0].Pagination.ItemType != "Thing" {
+		t.Errorf("a named list: got %+v, %v; want items of Thing", ops[0].Pagination, err)
+	}
+
 	ops = []Operation{listOp("string", paginationExt{}), {Name: "ListThingsAll"}}
 	if err := paginate(ops, listSchemas); err != nil || ops[0].Pagination != nil {
 		t.Errorf("a name taken: got %+v, %v; want none", ops[0].Pagination, err)
