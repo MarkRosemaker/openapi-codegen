@@ -197,7 +197,7 @@
 					}
 				]
 			},
-			"unknownEnum": "!v.Type.Valid()"
+			"unknownEnum": "v.Type != \"\" && !v.Type.Valid()"
 		},
 		{
 			"name": "Cat",
@@ -262,7 +262,7 @@
 					"required": true
 				}
 			],
-			"unknownEnum": "!v.Kind.Valid()"
+			"unknownEnum": "v.Kind != \"\" && !v.Kind.Valid()"
 		},
 		{
 			"name": "EventKind",
