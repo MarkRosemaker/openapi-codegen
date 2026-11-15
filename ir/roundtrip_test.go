@@ -168,3 +168,18 @@ func TestDocument_RoundTripsBuildNestedValues(t *testing.T) {
 		t.Errorf("got %+v, want Value's number tag with its number set", tagged)
 	}
 }
+
+func TestDocument_NullUnions(t *testing.T) {
+	t.Parallel()
+
+	doc := ir.Document{Schemas: []ir.Schema{
+		{Name: "Pet", Kind: ir.SchemaKindUnion},
+		{Name: "Block", Kind: ir.SchemaKindUnion, Tagged: &ir.Tagged{}}, // a struct, whose zero is an object
+		{Name: "Odd", Kind: ir.SchemaKindUnion, Unimplemented: "an allOf of two unions"},
+		{Name: "Item", Kind: ir.SchemaKindStruct},
+	}}
+
+	if got := doc.NullUnions(); !slices.Equal(got, []string{"Pet"}) {
+		t.Errorf("NullUnions = %v, want [Pet]", got)
+	}
+}
