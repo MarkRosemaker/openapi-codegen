@@ -1,0 +1,98 @@
+{
+	"debug": true,
+	"title": "Quotes API",
+	"production": true,
+	"packageName": "apikey",
+	"baseURL": {
+		"scheme": "https",
+		"host": "api.example.com"
+	},
+	"userAgent": "Quotes API",
+	"operations": [
+		{
+			"auth": "apiKey",
+			"name": "GetQuote",
+			"description": "Requires the key.",
+			"method": "GET",
+			"pathTemplate": "/quote",
+			"joinPathArgs": [
+				"\"quote\""
+			],
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "ok",
+					"contentType": "application/json",
+					"goType": {
+						"name": "Quote"
+					},
+					"isSuccess": true
+				}
+			],
+			"successReturn": {
+				"name": "Quote"
+			}
+		},
+		{
+			"auth": "apiKey",
+			"authOptional": true,
+			"name": "GetStatus",
+			"description": "Takes the key if there is one.",
+			"method": "GET",
+			"pathTemplate": "/status",
+			"joinPathArgs": [
+				"\"status\""
+			],
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"description": "Never takes the key.",
+			"method": "GET",
+			"pathTemplate": "/health",
+			"joinPathArgs": [
+				"\"health\""
+			],
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "ok",
+					"isSuccess": true
+				}
+			]
+		}
+	],
+	"schemas": [
+		{
+			"name": "Quote",
+			"description": "Quote defines a model",
+			"fields": [
+				{
+					"name": "C",
+					"jsonName": "c",
+					"type": "float64",
+					"jsonTag": "json:\"c\"",
+					"description": "The current price.",
+					"required": true
+				}
+			]
+		}
+	],
+	"security": {
+		"apiKey": {
+			"in": "header",
+			"name": "X-Quotes-Token",
+			"envName": "QUOTES_API_KEY"
+		},
+		"default": "apiKey"
+	}
+}

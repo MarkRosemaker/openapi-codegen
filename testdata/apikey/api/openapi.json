@@ -1,0 +1,23 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title": "Quotes API", "version": "1", "description": "An API key a security scheme declares, sent in the header it names. TestCodegen_TestData generates pkg/apikey from it, in debug mode, and apikey_test.go there checks the key is sent where the scheme says, only there, and never recorded. Edit them by hand."},
+  "servers": [{"url": "https://api.example.com"}],
+  "security": [{"apiKey": []}],
+  "paths": {
+    "/quote": {"get": {"operationId": "getQuote", "description": "Requires the key.", "responses": {
+      "200": {"description": "ok", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Quote"}}}}
+    }}},
+    "/status": {"get": {"operationId": "getStatus", "description": "Takes the key if there is one.", "security": [{}, {"apiKey": []}], "responses": {
+      "204": {"description": "ok"}
+    }}},
+    "/health": {"get": {"operationId": "health", "description": "Never takes the key.", "security": [], "responses": {
+      "204": {"description": "ok"}
+    }}}
+  },
+  "components": {
+    "securitySchemes": {"apiKey": {"type": "apiKey", "in": "header", "name": "X-Quotes-Token", "description": "The API key, from the dashboard."}},
+    "schemas": {
+      "Quote": {"type": "object", "required": ["c"], "properties": {"c": {"type": "number", "format": "double", "description": "The current price."}}}
+    }
+  }
+}
