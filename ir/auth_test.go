@@ -52,3 +52,53 @@ func TestFromDocument_AuthPerOperation(t *testing.T) {
 		}
 	}
 }
+
+// TestFromDocument_APIKey reads an apiKey security scheme, in a header, a query parameter or a cookie, as the key the
+// client sends there on each operation that requires it, read from the environment variable named after the API.
+// Where a spec also has an X-Api-Key header parameter, the scheme wins: a client has one API key.
+func TestFromDocument_APIKey(t *testing.T) {
+	t.Parallel()
+
+	for _, in := range []string{"header", "query", "cookie"} {
+		t.Run(in, func(t *testing.T) {
+			t.Parallel()
+
+			doc, err := openapi.LoadFromDataJSON([]byte(`{
+  "openapi": "3.1.0",
+  "info": {"title": "Finnhub API", "version": "1"},
+  "security": [{"api_key": []}],
+  "paths": {
+    "/quote": {"get": {"operationId": "quote", "parameters": [{"name": "X-Api-Key", "in": "header", "required": true, "schema": {"type": "string"}}], "responses": {"204": {"description": "ok"}}}},
+    "/health": {"get": {"operationId": "health", "security": [], "responses": {"204": {"description": "ok"}}}}
+  },
+  "components": {"securitySchemes": {"api_key": {"type": "apiKey", "in": "` + in + `", "name": "X-Finnhub-Token"}}}
+}`))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			irDoc, err := ir.FromDocument(doc, "finnhub", "", false, false)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if want := (ir.APIKey{In: in, Name: "X-Finnhub-Token", EnvName: "FINNHUB_API_KEY"}); irDoc.Auth.APIKey != want {
+				t.Errorf("API key is %+v, want %+v", irDoc.Auth.APIKey, want)
+			}
+
+			if irDoc.Auth.Default != ir.AuthAPIKey {
+				t.Errorf("default auth is %q, want apiKey", irDoc.Auth.Default)
+			}
+
+			for _, op := range irDoc.Operations {
+				if want := map[string]ir.AuthScheme{"Quote": ir.AuthAPIKey}[op.Name]; op.Auth != want {
+					t.Errorf("%s sends %q, want %q", op.Name, op.Auth, want)
+				}
+			}
+
+			if p := irDoc.APIKey(); p != nil {
+				t.Errorf("the X-Api-Key parameter is an API key too: %+v", p)
+			}
+		})
+	}
+}

@@ -62,7 +62,7 @@ func TestCodegen_TestData(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			debug := debugMode || name == "debug"
+			debug := debugMode || name == "debug" || name == "apikey" // apikey checks what debug mode records
 
 			irDoc, err := ir.FromDocument(doc, name, "", production, debug)
 			if err != nil {
