@@ -163,6 +163,9 @@ func TestMatchPathTemplate(t *testing.T) {
 		// trailing wildcard param consuming multiple slash-separated segments
 		{"/package/{path}", "/package/github.com/google/go-cmp/cmp", true, "path", "github.com/google/go-cmp/cmp"},
 		{"/package/{path}", "/package/single", true, "path", "single"},
+		// a trailing slash in the spec, which the client's url.JoinPath drops
+		{"/v7/finance/options/{ticker}/", "/v7/finance/options/ONDS", true, "ticker", "ONDS"},
+		{"/v7/finance/options/{ticker}", "/v7/finance/options/ONDS/", true, "ticker", "ONDS"},
 	}
 
 	for _, tc := range tests {
