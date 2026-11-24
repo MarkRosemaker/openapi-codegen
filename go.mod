@@ -3,7 +3,7 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/cassette v0.0.0-20261124002840-63d2bfa6e316
+	github.com/MarkRosemaker/cassette v0.0.0-20261124005255-dfc1563db595
 	github.com/MarkRosemaker/errpath v0.0.0-20261118230255-99e20cb3445a
 	github.com/MarkRosemaker/openapi v0.0.0-20261121170220-f57f1b068362
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20261121170447-b733218e4f67
