@@ -110,3 +110,12 @@ func TestPath_KeepsSlashes(t *testing.T) {
 		})
 	}
 }
+
+// TestPath_RenamesParameters sends path parameters named u and req, as the method's own variables are: they are taken
+// as uParam and reqParam, so the method still compiles and builds its URL from them.
+func TestPath_RenamesParameters(t *testing.T) {
+	const want = "/v1/portfolio/U1234/summary/r1"
+	if got := sentPath(t, func(c *Client) error { return c.GetPortfolioSummary(t.Context(), "U1234", "r1") }); got != want {
+		t.Errorf("sent to %s, want %s", got, want)
+	}
+}

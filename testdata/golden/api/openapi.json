@@ -765,6 +765,35 @@
         }
       }
     },
+    "/portfolio/{u}/summary/{req}": {
+      "get": {
+        "operationId": "getPortfolioSummary",
+        "description": "Path parameters named as the generated code's own variables are renamed.",
+        "parameters": [
+          {
+            "name": "u",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "req",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
     "/ranges": {
       "get": {
         "operationId": "getRanges",

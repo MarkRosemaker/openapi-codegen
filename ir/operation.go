@@ -5,6 +5,8 @@ import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"fmt"
+	"go/token"
+	"go/types"
 	"net/http"
 	"net/url"
 	"slices"
@@ -276,6 +278,10 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 	}
 
 	param.GoName = strcase.ToGoCamel(p.Name)
+	if p.In == openapi.ParameterLocationPath {
+		param.GoName = pathParamName(p.Name)
+	}
+
 	param.AllowSlashes = p.In == openapi.ParameterLocationPath && allowsSlashes(p)
 
 	param.FieldName = goPascal(p.Name)
@@ -335,7 +341,7 @@ func fromParam(p *openapi.Parameter, apiTitle string) (Param, error) {
 
 	if param.VarName == "" {
 		if p.In == openapi.ParameterLocationPath {
-			param.VarName = strcase.ToGoCamel(p.Name)
+			param.VarName = param.GoName
 		} else {
 			param.VarName = "params." + param.FieldName
 		}
@@ -405,6 +411,29 @@ func parseExpr(goType string, unixTime bool) (expr, conv string, errFree bool) {
 		// string-based enum or other cast from string
 		return goType + "(%s)", "", true
 	}
+}
+
+// generatedNames are the identifiers the generated code refers to where a path parameter is in scope: the locals of
+// the client's methods and the server's handlers, the packages they use and the client's receiver.
+var generatedNames = map[string]bool{
+	"api": true, "body": true, "c": true, "civil": true, "cmp": true, "context": true, "ctx": true, "cursor": true,
+	"errors": true, "escaped": true, "fmt": true, "http": true, "i": true, "ia": true, "io": true, "iter": true,
+	"json": true, "l": true, "maps": true, "msg": true, "mt": true, "net": true, "ok": true, "out": true,
+	"paging": true, "params": true, "parts": true, "pr": true, "pw": true, "q": true,
+	"r": true, "req": true, "res": true, "rsp": true, "sErr": true, "server": true, "slices": true, "slog": true,
+	"strconv": true, "streaming": true, "strings": true, "svc": true, "time": true, "u": true, "url": true,
+	"uuid": true, "v": true, "w": true,
+}
+
+// pathParamName is the Go identifier of the path parameter named name, which the generated method takes as an
+// argument: suffixed where it would collide with a keyword, a predeclared name or one of generatedNames.
+func pathParamName(name string) string {
+	id := strcase.ToGoCamel(name)
+	if generatedNames[id] || token.IsKeyword(id) || types.Universe.Lookup(id) != nil {
+		return id + "Param"
+	}
+
+	return id
 }
 
 // buildJoinPathArgs produces the ordered list of Go expressions for url.JoinPath.

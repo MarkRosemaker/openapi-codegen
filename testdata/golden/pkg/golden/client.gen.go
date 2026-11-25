@@ -1037,6 +1037,44 @@ func (c *Client) GetFile(ctx context.Context, path string) error {
 	}
 }
 
+// Path parameters named as the generated code's own variables are renamed.
+//
+//	GET /portfolio/{u}/summary/{req}
+func (c *Client) GetPortfolioSummary(ctx context.Context, uParam string, reqParam string) error {
+	u := c.baseURL.JoinPath("portfolio", escapePathSegment(uParam), "summary", escapePathSegment(reqParam))
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusNoContent:
+		// no content
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "":
+
+			return nil
+		default:
+			return api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return api.NewErrUnknownStatusCode(rsp)
+	}
+}
+
 // A range of codes, matched after the exact codes, which take precedence over it.
 //
 //	GET /ranges
