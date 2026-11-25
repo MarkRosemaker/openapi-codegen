@@ -1735,3 +1735,31 @@ func TestEnumConstNames(t *testing.T) {
 		}
 	}
 }
+
+// A property that is a $ref may name its field with an x-go-name of its own, beside the reference, as it may describe
+// itself: many properties of one component type each get their own name.
+func TestFromComponentSchemas_XGoNameBesideRef(t *testing.T) {
+	value := &openapi.Schema{Type: openapi.TypeObject}
+
+	props := openapi.Schemas{}
+	props.Set("netliquidation", &openapi.Schema{
+		Ref:        &openapi.SchemaRef{Identifier: "#/components/schemas/SummaryValue", Value: value},
+		Extensions: jsontext.Value(`{"x-go-name":"NetLiquidation"}`),
+	})
+
+	schemas := openapi.Schemas{}
+	schemas.Set("Summary", &openapi.Schema{Type: openapi.TypeObject, Properties: props})
+
+	got, err := ir.FromComponentSchemas(schemas)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(got) != 1 || len(got[0].Fields) != 1 {
+		t.Fatalf("unexpected schemas/fields: %+v", got)
+	}
+
+	if f := got[0].Fields[0]; f.Name != "NetLiquidation" || f.JSONName != "netliquidation" {
+		t.Errorf("got field %q (json %q), want NetLiquidation (json netliquidation)", f.Name, f.JSONName)
+	}
+}

@@ -53,3 +53,30 @@ The client builds such a path, but `RegisterService` hands the template to
 `http.ServeMux` as it is, and a wildcard there must be the whole segment, so
 registering the service panics. The server would route the whole segment and
 strip the fixed text itself, answering 404 where it is missing.
+
+## More of oapi-codegen's extensions
+
+`x-go-name` and `x-enum-varnames` / `x-enumNames` work as in
+[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen/blob/main/docs/extensions.md),
+a property's own extensions beside a `$ref` winning over the referenced
+schema's. These would fit too, each as oapi-codegen has it, once a spec needs
+it:
+
+- **`x-go-type` / `x-go-type-import`:** a field's or a type's Go type, given,
+  such as a decimal type for a number written as a string.
+- **`x-go-type-skip-optional-pointer`:** an optional field without a pointer,
+  where its zero value needs no telling apart from its absence; see also "No
+  pointers in types only ever decoded".
+- **`x-omitzero`:** `omitzero` on a field that would not otherwise have it.
+- **`x-oapi-codegen-extra-tags`:** more struct tags on a field.
+- **`x-deprecated-reason`:** a `Deprecated:` paragraph in a type's or field's
+  doc comment.
+- **`x-order`:** a field's place in its struct, where the spec's order of
+  properties is not the one wanted.
+
+The others do not fit: `x-omitempty` is `x-omitzero`'s older form,
+`x-go-type-name` a second way to name a type beside `x-go-name`,
+`x-go-json-ignore` a property better left out of the spec,
+`x-oapi-codegen-only-honour-go-name` an unexported field, and
+`x-oapi-codegen-enum-merge` a choice between ways of merging one property's
+enums across an `allOf`'s parts, which the generator does not merge.
