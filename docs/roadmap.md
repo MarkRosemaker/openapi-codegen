@@ -32,3 +32,15 @@ Query parameters are written in every style OpenAPI defines. A path parameter
 is still a single value, with no `label` or `matrix` style and no array or
 object, and a header parameter likewise; the server does not read header
 parameters at all, so a service sees them empty.
+
+## Unix times in milliseconds
+
+An integer `date-time` is read as Unix seconds. Some APIs write milliseconds:
+go-api-libs/finnhub's tick, NBBO and bid-ask timestamps ("List of timestamp in
+UNIX ms.") and the websocket's trade times, and go-api-libs/yahoo-finance's
+`dateEpochMs` and `firstTradeDateMilliseconds`. They are integers until
+recordings show their values, since a spec's types rest on recordings: then a
+custom format, `date-time-ms`, like `date-basic`, makes them a `time.Time` in
+milliseconds, written and read through jsonutil helpers beside
+`TimeMarshalIntUnix`, in a body and a query parameter alike. openapi-enrich
+must keep the format when a recording's integer meets it.
