@@ -1170,7 +1170,7 @@ func (c *Client) GetStatus(ctx context.Context) ([]byte, error) {
 func (c *Client) QueryStyles(ctx context.Context, page int, params QueryStylesParams) error {
 	u := c.baseURL.JoinPath("queries", strconv.Itoa(page))
 
-	q := make(url.Values, 23)
+	q := make(url.Values, 24)
 	escaped := url.Values{}
 
 	if len(params.Csv) > 0 {
@@ -1284,6 +1284,10 @@ func (c *Client) QueryStyles(ctx context.Context, page int, params QueryStylesPa
 
 	if !params.At.IsZero() {
 		q["at"] = []string{strconv.Itoa(int(params.At.Unix()))}
+	}
+
+	if !params.Seen.IsZero() {
+		q["seen"] = []string{strconv.FormatInt(params.Seen.UnixMilli(), 10)}
 	}
 
 	if params.On != (civil.Date{}) {

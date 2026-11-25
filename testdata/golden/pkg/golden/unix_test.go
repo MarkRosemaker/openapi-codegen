@@ -1,7 +1,7 @@
 // This file is written by hand, not by the generator.
 //
-// It pins how dates and date-times that are integers of unix time are written among those that are strings: each
-// as its own schema says, also through an embedded part and where a request leaves members out.
+// It pins how dates and date-times that are integers of unix time, in seconds or milliseconds, are written among those
+// that are strings: each as its own schema says, also through an embedded part and where a request leaves members out.
 
 package golden
 
@@ -31,6 +31,12 @@ func TestUnix_AmongStrings(t *testing.T) {
 			in:   DateWrapper{Raw: day, Fmt: "2025-09-30"},
 			opts: jsonOpts,
 			want: `{"raw":1759190400,"fmt":"2025-09-30"}`,
+		},
+		{
+			name: "a time in unix milliseconds keeps its milliseconds",
+			in:   DateWrapper{Raw: day, Fmt: "2025-09-30", SeenAt: time.UnixMilli(1795464914123)},
+			opts: jsonOpts,
+			want: `{"raw":1759190400,"fmt":"2025-09-30","seenAt":1795464914123}`,
 		},
 		{
 			name: "a string date-time stays a string",

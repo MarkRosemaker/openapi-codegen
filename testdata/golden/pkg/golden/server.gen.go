@@ -1399,7 +1399,7 @@ func parseQueryStylesArgs(req *http.Request) (page int, params QueryStylesParams
 
 	for k, vs := range query {
 		switch k {
-		case "csv", "spaced", "piped", "r", "g", "name", "fade", "colorCsv", "colorPiped", "weights", "next", "paths", "cells", "every", "at", "on", "modules", "since", "day", "site", "ip", "level", "ratio", "v":
+		case "csv", "spaced", "piped", "r", "g", "name", "fade", "colorCsv", "colorPiped", "weights", "next", "paths", "cells", "every", "at", "seen", "on", "modules", "since", "day", "site", "ip", "level", "ratio", "v":
 			continue
 		}
 
@@ -1450,6 +1450,15 @@ func parseQueryStylesArgs(req *http.Request) (page int, params QueryStylesParams
 		}
 
 		params.At = time.Unix(v, 0)
+	}
+
+	if s := query.Get("seen"); s != "" {
+		v, err := strconv.ParseInt(s, 10, 64)
+		if err != nil {
+			return page, params, fmt.Errorf("invalid seen: %w", err)
+		}
+
+		params.Seen = time.UnixMilli(v)
 	}
 
 	if s := query.Get("on"); s != "" {

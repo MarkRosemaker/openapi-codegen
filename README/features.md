@@ -153,6 +153,11 @@ How the specification maps onto Go:
   in another fails generation, since its name cannot tell them apart. A oneOf of
   a date-time and an integer reads either and is written as the others are, or
   as a string where they mix.
+- **Unix times in milliseconds** — an integer of format `date-time-ms`, such as
+  `1795464914123`, is a `time.Time` to the millisecond, written and read the same
+  way, through jsonutil's `TimeMarshalIntUnixMilli` and the like, by member name
+  where other forms are about. A query parameter of the format is sent and read
+  the same way.
 - **Dates in ISO 8601's basic form** — a string of format `date-basic`, such as
   `"20260320"`, is a `civil.Date`, written and read without separators: by one
   marshaler where every date is in that form, else by the names of the members

@@ -27,12 +27,14 @@ var jsonOpts = json.JoinOptions(
 		json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 		json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 		json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
+		json.MarshalToFunc(jsonutil.TimeMarshalIntUnixMilliFor("seenAt")),
 		json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
 		json.MarshalToFunc(jsonutil.DateMarshalZeroAsNull),
 	)),
 	json.WithUnmarshalers(json.JoinUnmarshalers(
 		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixFor("at")),
 		json.UnmarshalFromFunc(jsonutil.DateUnmarshalIntUnixFor("expires", "raw")),
+		json.UnmarshalFromFunc(jsonutil.TimeUnmarshalIntUnixMilliFor("seenAt")),
 		json.UnmarshalFromFunc(jsonutil.DateUnmarshalBasicFor("settled")),
 		json.UnmarshalFromFunc(jsonutil.URLUnmarshal),
 		json.UnmarshalFromFunc(jsonutil.Float64UnmarshalStringOrNumber),
@@ -53,6 +55,7 @@ var jsonOptsRequest = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinMa
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
+	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixMilliFor("seenAt")),
 	json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
 	json.MarshalToFunc(jsonutil.DateMarshalZeroAsNull),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v Meta) error {
@@ -89,6 +92,7 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 	json.MarshalToFunc(jsonutil.DurationMarshalIntSeconds),
 	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixFor("at")),
 	json.MarshalToFunc(jsonutil.DateMarshalIntUnixFor("expires", "raw")),
+	json.MarshalToFunc(jsonutil.TimeMarshalIntUnixMilliFor("seenAt")),
 	json.MarshalToFunc(jsonutil.DateMarshalBasicFor("settled")),
 	json.MarshalToFunc(jsonutil.DateMarshalZeroAsNull),
 	json.MarshalToFunc(func(enc *jsontext.Encoder, v User) error {
@@ -160,6 +164,8 @@ type QueryStylesParams struct {
 	Every time.Duration
 	// A Unix time.
 	At time.Time
+	// A Unix time in milliseconds.
+	Seen time.Time
 	// A date.
 	On civil.Date
 	// A named array: the parameter keeps its name.
@@ -748,6 +754,8 @@ type DateWrapper struct {
 	Fmt string     `json:"fmt"`
 	// A date in ISO 8601's basic form, among dates of other forms.
 	Settled civil.Date `json:"settled,omitzero"`
+	// A time in Unix milliseconds, among times of other forms.
+	SeenAt time.Time `json:"seenAt,omitzero"`
 }
 
 // Emoji defines a model

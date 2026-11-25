@@ -246,11 +246,16 @@ func (p *Param) setType(s *openapi.Schema) error {
 
 	p.IsUnix = isUnix(p.Type, deref(s))
 	p.IsDateBasic = isDateBasic(p.Type, deref(s))
+	p.IsUnixMilli = isUnixMilli(p.Type, deref(s))
 
 	if p.BaseType == "" {
 		p.ParseExpr, p.ParseConv, p.ParseErrFree = parseExpr(p.Type, p.IsUnix)
 		if p.IsDateBasic {
 			p.ParseExpr, p.ParseConv, p.ParseErrFree = `time.Parse("20060102", %s)`, "civil.DateOf(%s)", false
+		}
+
+		if p.IsUnixMilli {
+			p.ParseExpr, p.ParseConv, p.ParseErrFree = "strconv.ParseInt(%s, 10, 64)", "time.UnixMilli(%s)", false
 		}
 
 		return nil
@@ -598,6 +603,10 @@ func (p Param) FormatExpr() string {
 			return "strconv.Itoa(int(" + v + ".Unix()))"
 		}
 
+		if p.IsUnixMilli {
+			return "strconv.FormatInt(" + v + ".UnixMilli(), 10)"
+		}
+
 		return v + ".Format(time.RFC3339)"
 	case "civil.Date":
 		if p.IsUnix {
@@ -645,7 +654,7 @@ func (p Param) PathExpr() string {
 			"uuid.UUID", "time.Duration", "civil.Date":
 			return expr
 		case "time.Time":
-			if p.IsUnix {
+			if p.IsUnix || p.IsUnixMilli {
 				return expr
 			}
 		}
