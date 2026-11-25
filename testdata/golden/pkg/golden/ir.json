@@ -1304,6 +1304,17 @@
 					"description": "A Unix time."
 				},
 				{
+					"varName": "params.Seen",
+					"goName": "seen",
+					"fieldName": "Seen",
+					"jsonName": "seen",
+					"type": "time.Time",
+					"parseExpr": "strconv.ParseInt(%s, 10, 64)",
+					"parseConv": "time.UnixMilli(%s)",
+					"isUnixMilli": true,
+					"description": "A Unix time in milliseconds."
+				},
+				{
 					"varName": "params.On",
 					"goName": "on",
 					"fieldName": "On",
@@ -2147,6 +2158,14 @@
 					"jsonTag": "json:\"settled,omitzero\"",
 					"description": "A date in ISO 8601's basic form, among dates of other forms.",
 					"isDateBasic": true
+				},
+				{
+					"name": "SeenAt",
+					"jsonName": "seenAt",
+					"type": "time.Time",
+					"jsonTag": "json:\"seenAt,omitzero\"",
+					"description": "A time in Unix milliseconds, among times of other forms.",
+					"isUnixMilli": true
 				}
 			]
 		},
@@ -5439,6 +5458,9 @@
 	],
 	"basicDateMembers": [
 		"settled"
+	],
+	"unixMilliTimeMembers": [
+		"seenAt"
 	],
 	"hasStringDateFields": true
 }

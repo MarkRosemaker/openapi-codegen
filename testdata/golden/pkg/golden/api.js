@@ -249,6 +249,7 @@ window.API = {
         if (params.cells?.length) raw.push("cells=" + join(params.cells, ",", escR));
         if (params.every != null) q.set("every", String(params.every));
         if (params.at != null) q.set("at", String(params.at));
+        if (params.seen != null) q.set("seen", String(params.seen));
         if (params.on != null) q.set("on", String(params.on));
         if (params.modules?.length) raw.push("modules=" + join(params.modules, ",", esc));
         if (params.since != null) q.set("since", String(params.since));

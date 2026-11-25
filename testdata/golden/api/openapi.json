@@ -1009,6 +1009,15 @@
             }
           },
           {
+            "name": "seen",
+            "in": "query",
+            "description": "A Unix time in milliseconds.",
+            "schema": {
+              "type": "integer",
+              "format": "date-time-ms"
+            }
+          },
+          {
             "name": "on",
             "in": "query",
             "description": "A date.",
@@ -2740,6 +2749,12 @@
             "type": "string",
             "format": "date-basic",
             "example": "20260320"
+          },
+          "seenAt": {
+            "description": "A time in Unix milliseconds, among times of other forms.",
+            "type": "integer",
+            "format": "date-time-ms",
+            "example": 1795464914123
           }
         },
         "required": [
