@@ -30,3 +30,20 @@ func TestZeroVal(t *testing.T) {
 		}
 	}
 }
+
+// An operation accepts the media types its responses declare, each once, in their order; one without a body adds none.
+func TestOperation_Accept(t *testing.T) {
+	op := Operation{Responses: Responses{
+		{StatusCode: "200", ContentType: "application/json"},
+		{StatusCode: "204"},
+		{StatusCode: "400", ContentType: "application/problem+json"},
+		{StatusCode: "500", ContentType: "application/json"},
+	}}
+	if got, want := op.Accept(), "application/json, application/problem+json"; got != want {
+		t.Errorf("Accept() = %q, want %q", got, want)
+	}
+
+	if got := (Operation{Responses: Responses{{StatusCode: "204"}}}).Accept(); got != "" {
+		t.Errorf("no body: Accept() = %q, want none", got)
+	}
+}

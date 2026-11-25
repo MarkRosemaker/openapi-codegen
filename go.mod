@@ -3,7 +3,7 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/cassette v0.0.0-20261124170238-3b0b504cc01a
+	github.com/MarkRosemaker/cassette v0.0.0-20261125180804-407fe91b7b7d
 	github.com/MarkRosemaker/errpath v0.0.0-20261118230255-99e20cb3445a
 	github.com/MarkRosemaker/openapi v0.0.0-20261124050252-52a60c76de04
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20261124050556-094155f0b064
@@ -11,7 +11,7 @@ require (
 	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261124050336-684f3610d8d7
 	github.com/MarkRosemaker/ordmap v0.0.0-20261124050216-f3096eb875be
 	github.com/ettle/strcase v0.2.0
-	github.com/go-api-libs/api v0.0.0-20261115172114-130f6fc73195
+	github.com/go-api-libs/api v0.0.0-20261125182139-0f507257dcd7
 	github.com/spf13/afero v1.15.0
 	mvdan.cc/gofumpt v0.12.0
 )

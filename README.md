@@ -206,6 +206,9 @@ How the specification maps onto Go:
 - **Ignored header parameters** — a header parameter named `Accept`,
   `Content-Type` or `Authorization` is ignored, as OpenAPI 3.1 says: the client
   sends the request body's media type and the credential of the security scheme.
+- **Accept** — each request sends the media types its operation's responses
+  declare, each once, such as `application/json`, or none where no response has
+  a body.
 - **Unknown formats** — a format the generator does not know, which OpenAPI 3.1
   allows, gives the plain type: an `int`, a `float64` or a `string`.
 - **Empty dates** — an empty string, which an API may send for a date or
