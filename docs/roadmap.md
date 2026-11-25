@@ -44,3 +44,12 @@ custom format, `date-time-ms`, like `date-basic`, makes them a `time.Time` in
 milliseconds, written and read through jsonutil helpers beside
 `TimeMarshalIntUnix`, in a body and a query parameter alike. openapi-enrich
 must keep the format when a recording's integer meets it.
+
+## Server routes for a parameter inside a segment
+
+A path parameter can share its segment with fixed text, as go-api-libs/ibkr's
+`/portfolio/U{u}/summary` and sec's `/api/xbrl/companyfacts/CIK{cik}.json` do.
+The client builds such a path, but `RegisterService` hands the template to
+`http.ServeMux` as it is, and a wildcard there must be the whole segment, so
+registering the service panics. The server would route the whole segment and
+strip the fixed text itself, answering 404 where it is missing.

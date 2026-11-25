@@ -27,6 +27,7 @@
  *   const result = await window.API.downloadReport(format);
  *   window.API.deleteSchedule(id);
  *   window.API.getFile(path);
+ *   window.API.getPortfolioSummary(uParam, reqParam);
  *   const result = await window.API.getRanges();
  *   const result = await window.API.getStatus();
  *   window.API.queryStyles(page);
@@ -216,6 +217,10 @@ window.API = {
     // GET /files/{path}
     getFile: (path) => apiFetch(`/files/${path}`, {
         operationId: "GetFile",
+    }),
+    // GET /portfolio/{u}/summary/{req}
+    getPortfolioSummary: (uParam, reqParam) => apiFetch(`/portfolio/${uParam}/summary/${reqParam}`, {
+        operationId: "GetPortfolioSummary",
     }),
     // GET /ranges
     getRanges: () => apiFetch("/ranges", {

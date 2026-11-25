@@ -853,6 +853,49 @@
 			]
 		},
 		{
+			"name": "GetPortfolioSummary",
+			"description": "Path parameters named as the generated code's own variables are renamed.",
+			"method": "GET",
+			"pathTemplate": "/portfolio/{u}/summary/{req}",
+			"joinPathArgs": [
+				"\"portfolio\"",
+				"escapePathSegment(uParam)",
+				"\"summary\"",
+				"escapePathSegment(reqParam)"
+			],
+			"pathParams": [
+				{
+					"varName": "uParam",
+					"goName": "uParam",
+					"fieldName": "U",
+					"jsonName": "u",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				},
+				{
+					"varName": "reqParam",
+					"goName": "reqParam",
+					"fieldName": "Req",
+					"jsonName": "req",
+					"type": "string",
+					"required": true,
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"responses": [
+				{
+					"statusCode": "204",
+					"goConstant": "http.StatusNoContent",
+					"description": "no content",
+					"isSuccess": true
+				}
+			]
+		},
+		{
 			"name": "GetRanges",
 			"description": "A range of codes, matched after the exact codes, which take precedence over it.",
 			"method": "GET",
