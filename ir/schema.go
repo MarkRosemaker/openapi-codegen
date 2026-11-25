@@ -567,7 +567,7 @@ func getField(jsonName string, propRef *openapi.Schema, requiredSet map[string]b
 	}
 
 	fieldName := fieldGoName(jsonName)
-	if override := goNameOverride(v); override != "" {
+	if override := cmp.Or(goNameOverride(propRef), goNameOverride(v)); override != "" {
 		fieldName = override
 	}
 
@@ -806,7 +806,7 @@ func fromTupleSchema(name string, s *openapi.Schema) (*Schema, error) {
 		}
 
 		fieldName := fmt.Sprintf("Item%0*d", width, i)
-		if override := goNameOverride(deref(p)); override != "" {
+		if override := cmp.Or(goNameOverride(p), goNameOverride(deref(p))); override != "" {
 			fieldName = override
 		}
 
