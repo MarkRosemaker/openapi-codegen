@@ -16,9 +16,9 @@ type ParamSample struct {
 }
 
 // ParamSamples are the query and header parameters of op a generated test can set and then find in the request, each
-// with a value to set it to. A query parameter may be a scalar or an array of scalars, which the test sets to one
-// item, the same on the wire in every style, whether the array is named or not; a header parameter must be a scalar. Objects, maps and values with no
-// plain text form, such as times, are left out.
+// with a value to set it to. A query parameter may be a scalar or an array of scalars, named or not, which the test
+// sets to one item, the same on the wire in every style; a header parameter must be a scalar. Objects, maps and values
+// with no plain text form, such as times, are left out.
 func (doc Document) ParamSamples(op Operation) []ParamSample {
 	var samples []ParamSample
 
