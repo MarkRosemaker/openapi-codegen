@@ -153,7 +153,7 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 }
 
 // POST /search
-func (c *Client) Search(ctx context.Context, body PropertyFilter) ([]PageOrPartial, error) {
+func (c *Client) Search(ctx context.Context, body PropertyFilter) (PageOrPartials, error) {
 	u := c.baseURL.JoinPath("search")
 	pr, pw := io.Pipe()
 	req := (&http.Request{
@@ -186,7 +186,7 @@ func (c *Client) Search(ctx context.Context, body PropertyFilter) ([]PageOrParti
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out []PageOrPartial
+			var out PageOrPartials
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				return nil, api.WrapDecodingError(rsp, err)
 			}

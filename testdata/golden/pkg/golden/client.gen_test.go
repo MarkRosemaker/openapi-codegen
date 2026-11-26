@@ -2256,7 +2256,7 @@ func TestClient_Params(t *testing.T) {
 			IDs:      []int{2},
 			Verbose:  true,
 			Format:   ScheduleFormatCsv,
-			Formats:  []ScheduleFormat{ScheduleFormatCsv},
+			Formats:  ScheduleFormats{ScheduleFormatCsv},
 			Tags:     []string{""},
 			Cursor:   "cursor",
 			Order:    "order",

@@ -185,6 +185,15 @@ func (e EventKind) Valid() bool {
 	}
 }
 
+// Events defines a model
+type Events []Event
+
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v Events) unknownEnum() bool {
+	return slices.ContainsFunc(v, func(x Event) bool { return x.unknownEnum() })
+}
+
 // Item defines a model
 type Item struct {
 	ID string `json:"id"`
@@ -192,7 +201,7 @@ type Item struct {
 	Updated civil.Date `json:"updated,omitzero"`
 	// A value the specification does not list decodes, and debug mode records it.
 	Status Status            `json:"status,omitzero"`
-	Events []Event           `json:"events,omitzero"`
+	Events Events            `json:"events,omitzero"`
 	Labels map[string]Status `json:"labels,omitzero"`
 }
 
@@ -200,7 +209,7 @@ type Item struct {
 // records.
 func (v *Item) unknownEnum() bool {
 	return v.Status != "" && !v.Status.Valid() ||
-		slices.ContainsFunc(v.Events, func(x Event) bool { return x.unknownEnum() }) ||
+		v.Events.unknownEnum() ||
 		func() bool {
 			for _, x := range v.Labels {
 				if !x.Valid() {
@@ -210,6 +219,15 @@ func (v *Item) unknownEnum() bool {
 
 			return false
 		}()
+}
+
+// Items defines a model
+type Items []Item
+
+// unknownEnum reports whether v holds a value of an enum the specification does not list, a response debug mode
+// records.
+func (v Items) unknownEnum() bool {
+	return slices.ContainsFunc(v, func(x Item) bool { return x.unknownEnum() })
 }
 
 // Pet defines a model

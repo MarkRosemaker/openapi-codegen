@@ -15,7 +15,6 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"slices"
 	"testing"
 
 	"github.com/MarkRosemaker/cassette"
@@ -728,7 +727,7 @@ func TestClient_Interactions(t *testing.T) {
 	} else {
 		apitest.DecodedAsSent(t, "ListItems", out, last.Body, jsonOpts)
 
-		if slices.ContainsFunc(out, func(x Item) bool { return x.unknownEnum() }) {
+		if out.unknownEnum() {
 			t.Errorf("ListItems: holds a value of an enum the specification does not list")
 		}
 	}

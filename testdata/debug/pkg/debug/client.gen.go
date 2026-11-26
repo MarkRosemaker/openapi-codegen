@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"slices"
 	"strings"
 
 	"github.com/MarkRosemaker/cassette"
@@ -183,7 +182,7 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 }
 
 // GET /items
-func (c *Client) ListItems(ctx context.Context) ([]Item, error) {
+func (c *Client) ListItems(ctx context.Context) (Items, error) {
 	u := c.baseURL.JoinPath("items")
 	req := (&http.Request{
 		Header: http.Header{
@@ -210,7 +209,7 @@ func (c *Client) ListItems(ctx context.Context) ([]Item, error) {
 		// ok
 		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
 		case "application/json":
-			var out []Item
+			var out Items
 			if err := json.UnmarshalRead(rsp.Body, &out, jsonOpts); err != nil {
 				if err := api.DecodeLenient(rsp, err, ia, cmp.Or(c.debugFile, defaultDebugFile), &out, jsonOpts); err != nil {
 					return nil, err
@@ -218,7 +217,7 @@ func (c *Client) ListItems(ctx context.Context) ([]Item, error) {
 			}
 
 			// a value of an enum the specification does not list decodes, but is news
-			if ia != nil && slices.ContainsFunc(out, func(x Item) bool { return x.unknownEnum() }) {
+			if ia != nil && out.unknownEnum() {
 				if err := c.keep(ia); err != nil {
 					return nil, fmt.Errorf("recording the call: %w", err)
 				}

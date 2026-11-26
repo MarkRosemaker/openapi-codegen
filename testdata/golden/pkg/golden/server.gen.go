@@ -24,7 +24,7 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetPage(ctx context.Context, id string) (*Page, error)
-	Search(ctx context.Context, body PropertyFilter) ([]PageOrPartial, error)
+	Search(ctx context.Context, body PropertyFilter) (PageOrPartials, error)
 	GetTrial(ctx context.Context, id string) (*Trial, error)
 	UpdateUser(ctx context.Context, id string, body User) (*User, error)
 	PatchUser(ctx context.Context, id string, body *User) error
