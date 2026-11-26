@@ -117,7 +117,7 @@ type ListReportsParams struct {
 	// An enum.
 	Format ScheduleFormat
 	// A list of an enum.
-	Formats []ScheduleFormat
+	Formats ScheduleFormats
 	// A union of an array and its items is sent as the array.
 	Tags []string
 	// A query string cannot carry null, so the string is all that is left.
@@ -530,7 +530,7 @@ type Color struct {
 
 // CompoundFilter defines a model
 type CompoundFilter struct {
-	Or []PropertyFilter `json:"or"`
+	Or PropertyFilters `json:"or"`
 }
 
 // Condition defines a model
@@ -765,6 +765,9 @@ type Emoji struct {
 
 // EmptyObject defines a model
 type EmptyObject struct{}
+
+// Entries defines a model
+type Entries []Entry
 
 // Entry defines a model
 // Entry is an untagged oneOf union: exactly one field is set after unmarshaling.
@@ -1190,19 +1193,19 @@ type Link struct {
 
 // ListEntriesOk defines a model
 type ListEntriesOk struct {
-	Results    []Entry   `json:"results"`
+	Results    Entries   `json:"results"`
 	NextCursor uuid.UUID `json:"next_cursor"`
 	HasMore    bool      `json:"has_more"`
 }
 
 // ListPeopleOk defines a model
 type ListPeopleOk struct {
-	Results []PeopleArrayBasedPropertyValueResponsePeopleItem `json:"results,omitzero"`
+	Results PeopleArrayBasedPropertyValueResponsePeopleItems `json:"results,omitzero"`
 	// A union that can be null of alternatives a discriminator tells apart: being null comes first.
 	Owner Owner `json:"owner,omitzero"`
 	// A union that can be null, of a tagged union and an object: no field means null, so no discriminator can decide first.
 	Value   MaybeMember `json:"value,omitzero"`
-	Members []Member    `json:"members,omitzero"`
+	Members Members     `json:"members,omitzero"`
 }
 
 // A union that can be null, of a tagged union and an object: no field means null, so no discriminator can decide first.
@@ -1504,6 +1507,9 @@ func (v *MemberPerson) unmarshalJSONMember(dec *jsontext.Decoder, name string) (
 
 	return false, nil
 }
+
+// Members defines a model
+type Members []Member
 
 // MembershipType defines a model
 type MembershipType string
@@ -2017,6 +2023,9 @@ func (v *PageOrPartial) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return enc.WriteToken(jsontext.Null)
 }
 
+// PageOrPartials defines a model
+type PageOrPartials []PageOrPartial
+
 // Pair defines a model
 type Pair struct {
 	Item0 string
@@ -2235,6 +2244,9 @@ func (v *PeopleArrayBasedPropertyValueResponsePeopleItem) MarshalJSONTo(enc *jso
 	return enc.WriteToken(jsontext.Null)
 }
 
+// PeopleArrayBasedPropertyValueResponsePeopleItems defines a model
+type PeopleArrayBasedPropertyValueResponsePeopleItems []PeopleArrayBasedPropertyValueResponsePeopleItem
+
 // PersonGroup defines a model
 type PersonGroup struct {
 	Type     PersonGroupType `json:"type"`
@@ -2425,6 +2437,9 @@ func (v *PropertyFilter) MarshalJSONTo(enc *jsontext.Encoder) error {
 	return json.MarshalEncode(enc, (*plain)(&out), jsonOptsTo(enc))
 }
 
+// PropertyFilters defines a model
+type PropertyFilters []PropertyFilter
+
 // PropertyValue defines a model
 type PropertyValue struct {
 	Type   PropertyValueType `json:"type"`
@@ -2523,7 +2538,7 @@ type QueryEntries struct {
 
 // QueryEntriesOk defines a model
 type QueryEntriesOk struct {
-	Items         []Entry `json:"items"`
+	Items         Entries `json:"items"`
 	NextPageToken string  `json:"next_page_token"`
 }
 
@@ -2606,6 +2621,9 @@ func (e ScheduleFormat) Valid() bool {
 		return false
 	}
 }
+
+// ScheduleFormats defines a model
+type ScheduleFormats []ScheduleFormat
 
 // Leaving it out already means {}: no pointer.
 type ScheduleOptions struct {

@@ -57,15 +57,15 @@
 					"description": "ok",
 					"contentType": "application/json",
 					"goType": {
-						"name": "Item",
-						"isSlice": true
+						"name": "Items",
+						"isNilable": true
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "Item",
-				"isSlice": true
+				"name": "Items",
+				"isNilable": true
 			}
 		},
 		{
@@ -283,6 +283,13 @@
 			]
 		},
 		{
+			"name": "Events",
+			"description": "Events defines a model",
+			"kind": 2,
+			"type": "[]Event",
+			"unknownEnum": "slices.ContainsFunc(v, func(x Event) bool { return x.unknownEnum() })"
+		},
+		{
 			"name": "Item",
 			"description": "Item defines a model",
 			"fields": [
@@ -311,7 +318,7 @@
 				{
 					"name": "Events",
 					"jsonName": "events",
-					"type": "[]Event",
+					"type": "Events",
 					"jsonTag": "json:\"events,omitzero\""
 				},
 				{
@@ -321,7 +328,14 @@
 					"jsonTag": "json:\"labels,omitzero\""
 				}
 			],
-			"unknownEnum": "v.Status != \"\" && !v.Status.Valid() ||\nslices.ContainsFunc(v.Events, func(x Event) bool { return x.unknownEnum() }) ||\nfunc() bool {\nfor _, x := range v.Labels {\nif !x.Valid() {\nreturn true\n}\n}\n\nreturn false\n}()"
+			"unknownEnum": "v.Status != \"\" && !v.Status.Valid() ||\nv.Events.unknownEnum() ||\nfunc() bool {\nfor _, x := range v.Labels {\nif !x.Valid() {\nreturn true\n}\n}\n\nreturn false\n}()"
+		},
+		{
+			"name": "Items",
+			"description": "Items defines a model",
+			"kind": 2,
+			"type": "[]Item",
+			"unknownEnum": "slices.ContainsFunc(v, func(x Item) bool { return x.unknownEnum() })"
 		},
 		{
 			"name": "Pet",

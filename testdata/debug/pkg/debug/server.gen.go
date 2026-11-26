@@ -17,7 +17,7 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetItem(ctx context.Context) (*Item, error)
-	ListItems(ctx context.Context) ([]Item, error)
+	ListItems(ctx context.Context) (Items, error)
 	GetBlock(ctx context.Context) (*Block, error)
 	GetPet(ctx context.Context) (*Pet, error)
 	Ping(ctx context.Context) error

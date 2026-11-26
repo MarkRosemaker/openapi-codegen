@@ -99,15 +99,15 @@
 					"description": "ok",
 					"contentType": "application/json",
 					"goType": {
-						"name": "PageOrPartial",
-						"isSlice": true
+						"name": "PageOrPartials",
+						"isNilable": true
 					},
 					"isSuccess": true
 				}
 			],
 			"successReturn": {
-				"name": "PageOrPartial",
-				"isSlice": true
+				"name": "PageOrPartials",
+				"isNilable": true
 			}
 		},
 		{
@@ -561,7 +561,7 @@
 					"goName": "formats",
 					"fieldName": "Formats",
 					"jsonName": "formats",
-					"type": "[]ScheduleFormat",
+					"type": "ScheduleFormats",
 					"description": "A list of an enum.",
 					"item": {
 						"varName": "v",
@@ -1899,7 +1899,7 @@
 				{
 					"name": "Or",
 					"jsonName": "or",
-					"type": "[]PropertyFilter",
+					"type": "PropertyFilters",
 					"jsonTag": "json:\"or\"",
 					"required": true
 				}
@@ -2185,6 +2185,12 @@
 		{
 			"name": "EmptyObject",
 			"description": "EmptyObject defines a model"
+		},
+		{
+			"name": "Entries",
+			"description": "Entries defines a model",
+			"kind": 2,
+			"type": "[]Entry"
 		},
 		{
 			"name": "Entry",
@@ -2715,7 +2721,7 @@
 				{
 					"name": "Results",
 					"jsonName": "results",
-					"type": "[]Entry",
+					"type": "Entries",
 					"jsonTag": "json:\"results\"",
 					"required": true
 				},
@@ -2742,7 +2748,7 @@
 				{
 					"name": "Results",
 					"jsonName": "results",
-					"type": "[]PeopleArrayBasedPropertyValueResponsePeopleItem",
+					"type": "PeopleArrayBasedPropertyValueResponsePeopleItems",
 					"jsonTag": "json:\"results,omitzero\""
 				},
 				{
@@ -2762,7 +2768,7 @@
 				{
 					"name": "Members",
 					"jsonName": "members",
-					"type": "[]Member",
+					"type": "Members",
 					"jsonTag": "json:\"members,omitzero\""
 				}
 			]
@@ -3137,6 +3143,12 @@
 				}
 			],
 			"memberDecoder": true
+		},
+		{
+			"name": "Members",
+			"description": "Members defines a model",
+			"kind": 2,
+			"type": "[]Member"
 		},
 		{
 			"name": "MembershipType",
@@ -3820,6 +3832,12 @@
 			]
 		},
 		{
+			"name": "PageOrPartials",
+			"description": "PageOrPartials defines a model",
+			"kind": 2,
+			"type": "[]PageOrPartial"
+		},
+		{
 			"name": "Pair",
 			"description": "Pair defines a model",
 			"kind": 6,
@@ -4033,6 +4051,12 @@
 			"isOneOf": true
 		},
 		{
+			"name": "PeopleArrayBasedPropertyValueResponsePeopleItems",
+			"description": "PeopleArrayBasedPropertyValueResponsePeopleItems defines a model",
+			"kind": 2,
+			"type": "[]PeopleArrayBasedPropertyValueResponsePeopleItem"
+		},
+		{
 			"name": "PersonGroup",
 			"description": "PersonGroup defines a model",
 			"fields": [
@@ -4198,6 +4222,12 @@
 			}
 		},
 		{
+			"name": "PropertyFilters",
+			"description": "PropertyFilters defines a model",
+			"kind": 2,
+			"type": "[]PropertyFilter"
+		},
+		{
 			"name": "PropertyValue",
 			"description": "PropertyValue defines a model",
 			"fields": [
@@ -4297,7 +4327,7 @@
 				{
 					"name": "Items",
 					"jsonName": "items",
-					"type": "[]Entry",
+					"type": "Entries",
 					"jsonTag": "json:\"items\"",
 					"required": true
 				},
@@ -4554,6 +4584,12 @@
 					"literal": "\"csv\""
 				}
 			]
+		},
+		{
+			"name": "ScheduleFormats",
+			"description": "ScheduleFormats defines a model",
+			"kind": 2,
+			"type": "[]ScheduleFormat"
 		},
 		{
 			"name": "ScheduleOptions",
