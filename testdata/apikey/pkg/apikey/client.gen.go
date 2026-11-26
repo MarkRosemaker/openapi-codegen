@@ -118,7 +118,6 @@ func (c *Client) GetQuote(ctx context.Context) (*Quote, error) {
 	u := c.baseURL.JoinPath("quote")
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,

@@ -86,7 +86,6 @@ func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
 	u := c.baseURL.JoinPath("pages", escapePathSegment(id))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -158,7 +157,6 @@ func (c *Client) Search(ctx context.Context, body PropertyFilter) (PageOrPartial
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":       []string{"application/json"},
 			"User-Agent":   []string{c.userAgent},
 			"Content-Type": []string{"application/json"},
 		},
@@ -207,7 +205,6 @@ func (c *Client) GetTrial(ctx context.Context, id string) (*Trial, error) {
 	u := c.baseURL.JoinPath("trials", escapePathSegment(id))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -249,7 +246,6 @@ func (c *Client) UpdateUser(ctx context.Context, id string, body User) (*User, e
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":       []string{"application/json"},
 			"User-Agent":   []string{c.userAgent},
 			"Content-Type": []string{"application/json"},
 		},
@@ -298,7 +294,6 @@ func (c *Client) PatchUser(ctx context.Context, id string, body *User) error {
 	u := c.baseURL.JoinPath("users", escapePathSegment(id))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -363,7 +358,6 @@ func (c *Client) QueryEntries(ctx context.Context, body QueryEntries) (*QueryEnt
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":       []string{"application/json"},
 			"User-Agent":   []string{c.userAgent},
 			"Content-Type": []string{"application/json"},
 		},
@@ -444,7 +438,6 @@ func (c *Client) ListEntries(ctx context.Context, params *ListEntriesParams) (*L
 
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -514,7 +507,6 @@ func (c *Client) CreateEntry(ctx context.Context, body Entry) (*Entry, error) {
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":       []string{"application/json"},
 			"User-Agent":   []string{c.userAgent},
 			"Content-Type": []string{"application/json"},
 		},
@@ -563,7 +555,6 @@ func (c *Client) GetValue(ctx context.Context, id string) (*Value, error) {
 	u := c.baseURL.JoinPath("values", escapePathSegment(id))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -604,7 +595,6 @@ func (c *Client) GetBlock(ctx context.Context, id string) (*Block, error) {
 	u := c.baseURL.JoinPath("blocks", escapePathSegment(id))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -646,7 +636,6 @@ func (c *Client) CreateDatabase(ctx context.Context, body CreateDatabaseParent) 
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":       []string{"application/json"},
 			"User-Agent":   []string{c.userAgent},
 			"Content-Type": []string{"application/json"},
 		},
@@ -693,7 +682,6 @@ func (c *Client) GetProperty(ctx context.Context, id string) (*NestedValue, erro
 	u := c.baseURL.JoinPath("properties", escapePathSegment(id))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -778,7 +766,6 @@ func (c *Client) ListReports(ctx context.Context, params ListReportsParams) (Rep
 	req := (&http.Request{
 		Header: http.Header{
 			"X-Version":  []string{params.XVersion},
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -821,7 +808,6 @@ func (c *Client) ListPeople(ctx context.Context) (*ListPeopleOk, error) {
 	u := c.baseURL.JoinPath("people")
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -863,7 +849,6 @@ func (c *Client) CreateSchedule(ctx context.Context, body Schedule) (*CreateSche
 	pr, pw := io.Pipe()
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":       []string{"application/json"},
 			"User-Agent":   []string{c.userAgent},
 			"Content-Type": []string{"application/json"},
 		},
@@ -925,7 +910,6 @@ func (c *Client) DownloadReport(ctx context.Context, format ScheduleFormat) (io.
 	u := c.baseURL.JoinPath("reports", escapePathSegment(string(format)))
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/pdf"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -973,7 +957,6 @@ func (c *Client) DeleteSchedule(ctx context.Context, id string) error {
 	req := (&http.Request{
 		Header: http.Header{
 			"Api-Version": []string{"2"},
-			"Accept":      []string{"application/json"},
 			"User-Agent":  []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -1082,7 +1065,6 @@ func (c *Client) GetRanges(ctx context.Context) ([]string, error) {
 	u := c.baseURL.JoinPath("ranges")
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"application/json"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -1128,7 +1110,6 @@ func (c *Client) GetStatus(ctx context.Context) ([]byte, error) {
 	u := c.baseURL.JoinPath("status")
 	req := (&http.Request{
 		Header: http.Header{
-			"Accept":     []string{"text/plain"},
 			"User-Agent": []string{c.userAgent},
 		},
 		Host:       u.Host,
