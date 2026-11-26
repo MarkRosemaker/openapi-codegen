@@ -2315,14 +2315,15 @@ func TestClient_Params(t *testing.T) {
 		}
 
 		_ = c.QueryStyles(t.Context(), 0, QueryStylesParams{
-			Csv:    []int{2},
-			Spaced: []string{""},
-			Piped:  []string{""},
-			Next:   "next",
-			Paths:  []string{""},
-			Cells:  []string{""},
-			Level:  LevelThree,
-			Ratio:  9.5,
+			Csv:     []int{2},
+			Spaced:  []string{""},
+			Piped:   []string{""},
+			Next:    "next",
+			Paths:   []string{""},
+			Cells:   []string{""},
+			Modules: Modules{ModuleSummaryDetail},
+			Level:   LevelThree,
+			Ratio:   10.5,
 		})
 
 		if got == nil {
@@ -2347,11 +2348,14 @@ func TestClient_Params(t *testing.T) {
 		if v := got.URL.Query().Get("cells"); v != "" {
 			t.Errorf("query %s: got %q, want %q", "cells", v, "")
 		}
+		if v := got.URL.Query().Get("modules"); v != "summaryDetail" {
+			t.Errorf("query %s: got %q, want %q", "modules", v, "summaryDetail")
+		}
 		if v := got.URL.Query().Get("level"); v != "3" {
 			t.Errorf("query %s: got %q, want %q", "level", v, "3")
 		}
-		if v := got.URL.Query().Get("ratio"); v != "9.5" {
-			t.Errorf("query %s: got %q, want %q", "ratio", v, "9.5")
+		if v := got.URL.Query().Get("ratio"); v != "10.5" {
+			t.Errorf("query %s: got %q, want %q", "ratio", v, "10.5")
 		}
 	})
 }
