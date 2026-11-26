@@ -121,7 +121,6 @@ func (c *Client) GetItem(ctx context.Context) (*Item, error) {
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization": []string{c.bearer},
-			"Accept":        []string{"application/json"},
 			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -187,7 +186,6 @@ func (c *Client) ListItems(ctx context.Context) (Items, error) {
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization": []string{c.bearer},
-			"Accept":        []string{"application/json"},
 			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -238,7 +236,6 @@ func (c *Client) GetBlock(ctx context.Context) (*Block, error) {
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization": []string{c.bearer},
-			"Accept":        []string{"application/json"},
 			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -289,7 +286,6 @@ func (c *Client) GetPet(ctx context.Context) (*Pet, error) {
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization": []string{c.bearer},
-			"Accept":        []string{"application/json"},
 			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
@@ -342,7 +338,6 @@ func (c *Client) Ping(ctx context.Context) error {
 	req := (&http.Request{
 		Header: http.Header{
 			"Authorization": []string{c.bearer},
-			"Accept":        []string{"application/json"},
 			"User-Agent":    []string{c.userAgent},
 		},
 		Host:       u.Host,
