@@ -8,7 +8,7 @@ require (
 	github.com/MarkRosemaker/openapi v0.0.0-20261126020940-b4a1ac5f1801
 	github.com/MarkRosemaker/openapi-compress v0.0.0-20261126021444-b9b31c694973
 	github.com/MarkRosemaker/openapi-edit v0.0.0-20261126021107-af2eb25df397
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261126021108-0798cd5fa968
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261126034255-0c495ba4f188
 	github.com/MarkRosemaker/ordmap v0.0.0-20261124050216-f3096eb875be
 	github.com/ettle/strcase v0.2.0
 	github.com/go-api-libs/api v0.0.0-20261125182139-0f507257dcd7
