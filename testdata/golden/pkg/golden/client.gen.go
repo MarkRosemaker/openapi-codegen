@@ -7,6 +7,7 @@ package golden
 import (
 	"context"
 	"encoding/json/v2"
+	"encoding/xml"
 	"fmt"
 	"io"
 	"iter"
@@ -77,6 +78,58 @@ func NewClient(opts ...ClientOption) (*Client, error) {
 	}
 
 	return c, nil
+}
+
+// An XML response is decoded with encoding/xml into the type its schema says: the root element, an attribute, child elements, a list whose items stand side by side, a wrapped list, and the elements only an error answer holds, which may be left out.
+//
+//	GET /statements
+func (c *Client) GetStatement(ctx context.Context, params *GetStatementParams) (*FlexStatementResponse, error) {
+	u := c.baseURL.JoinPath("statements")
+	if params != nil {
+		q := make(url.Values, 1)
+
+		if params.Q != "" {
+			q["q"] = []string{params.Q}
+		}
+
+		u.RawQuery = q.Encode()
+	}
+
+	req := (&http.Request{
+		Header: http.Header{
+			"User-Agent": []string{c.userAgent},
+		},
+		Host:       u.Host,
+		Method:     http.MethodGet,
+		Proto:      "HTTP/1.1",
+		ProtoMajor: 1,
+		ProtoMinor: 1,
+		URL:        u,
+	}).WithContext(ctx)
+
+	rsp, err := c.cli.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	switch rsp.StatusCode {
+	case http.StatusOK:
+		// OK
+		switch mt, _, _ := strings.Cut(rsp.Header.Get("Content-Type"), ";"); mt {
+		case "text/xml":
+			var out FlexStatementResponse
+			if err := xml.NewDecoder(rsp.Body).Decode(&out); err != nil {
+				return nil, api.WrapDecodingError(rsp, err)
+			}
+
+			return &out, nil
+		default:
+			return nil, api.NewErrUnknownContentType(rsp)
+		}
+	default:
+		return nil, api.NewErrUnknownStatusCode(rsp)
+	}
 }
 
 // Retrieve a page

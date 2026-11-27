@@ -5,6 +5,7 @@ package golden
 import (
 	"context"
 	"encoding/json/v2"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -23,6 +24,7 @@ import (
 
 // Service defines the operations the server must implement.
 type Service interface {
+	GetStatement(ctx context.Context, params *GetStatementParams) (*FlexStatementResponse, error)
 	GetPage(ctx context.Context, id string) (*Page, error)
 	Search(ctx context.Context, body PropertyFilter) (PageOrPartials, error)
 	GetTrial(ctx context.Context, id string) (*Trial, error)
@@ -51,6 +53,56 @@ type Service interface {
 // RegisterService registers a [Service] with an [*http.ServeMux].
 // Optionally, a path prefix may be provided.
 func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
+	{
+		path := fmt.Sprintf("%s%s", pathPrefix, "/statements")
+		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetStatement"))
+
+		mux.HandleFunc(fmt.Sprintf("GET %s", path), func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
+			l.DebugContext(ctx, "called")
+
+			params, err := parseGetStatementArgs(r)
+			if err != nil {
+				msg := err.Error()
+				l.DebugContext(ctx, "Bad Request", slog.String("msg", msg))
+				http.Error(w, msg, http.StatusBadRequest)
+				return
+			}
+
+			res, err := svc.GetStatement(ctx, &params)
+			if err != nil {
+				sErr, ok := errors.AsType[*server.Error](err)
+				if !ok {
+					l.ErrorContext(ctx, "Internal Server Error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
+
+				l.DebugContext(ctx, "graceful error", slog.String("error", err.Error()))
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(sErr.Code)
+
+				if err := json.MarshalWrite(w, err); err != nil {
+					l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				}
+				return
+			}
+
+			w.Header().Set("Content-Type", "text/xml")
+			w.WriteHeader(http.StatusOK)
+
+			if err := xml.NewEncoder(w).Encode(res); err != nil {
+				l.ErrorContext(ctx, "marshal error", slog.String("error", err.Error()))
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+
+			l.DebugContext(ctx, "success")
+		})
+	}
+
 	{
 		path := fmt.Sprintf("%s%s", pathPrefix, "/pages/{id}")
 		l := slog.Default().With(slog.String("method", "GET"), slog.String("path", path), slog.String("function", "GetPage"))
@@ -1085,6 +1137,16 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			l.DebugContext(ctx, "success")
 		})
 	}
+}
+
+// parseGetStatementArgs reads the path and query parameters of GetStatement from req.
+func parseGetStatementArgs(req *http.Request) (params GetStatementParams, err error) {
+	query := req.URL.Query()
+
+	if s := query.Get("q"); s != "" {
+		params.Q = s
+	}
+	return params, nil
 }
 
 // parseListEntriesArgs reads the path and query parameters of ListEntries from req.

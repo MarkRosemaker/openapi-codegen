@@ -103,6 +103,11 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 	}),
 )))
 
+// GetStatementParams holds the query parameters for GetStatement.
+type GetStatementParams struct {
+	Q string
+}
+
 // ListEntriesParams holds the query parameters for ListEntries.
 type ListEntriesParams struct {
 	StartCursor uuid.UUID
@@ -930,6 +935,18 @@ type FilterAnyOf0 struct {
 // FilterAnyOf1 defines a model
 type FilterAnyOf1 struct {
 	And []string `json:"and"`
+}
+
+// FlexStatementResponse defines a model
+type FlexStatementResponse struct {
+	Timestamp     string   `json:"timestamp" xml:"timestamp,attr"`
+	Status        string   `json:"Status" xml:"Status"`
+	ReferenceCode string   `json:"ReferenceCode,omitzero" xml:"ReferenceCode,omitempty"`
+	URL           string   `json:"Url,omitzero" xml:"Url,omitempty"`
+	Note          []string `json:"Note,omitzero" xml:"Note,omitempty"`
+	Books         []string `json:"Books,omitzero" xml:"Books>Book,omitempty"`
+	ErrorCode     string   `json:"ErrorCode,omitzero" xml:"ErrorCode,omitempty"`
+	ErrorMessage  string   `json:"ErrorMessage,omitzero" xml:"ErrorMessage,omitempty"`
 }
 
 // FolderDetails defines a model

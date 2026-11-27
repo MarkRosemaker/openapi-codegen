@@ -9,6 +9,7 @@
  *
  * Usage:
  *   import './api.js';        // or <script src="api.js"></script>
+ *   const result = await window.API.getStatement();
  *   const result = await window.API.getPage(id);
  *   const result = await window.API.search();
  *   const result = await window.API.getTrial(id);
@@ -112,6 +113,14 @@ const join = (parts, sep, escape) => parts.map((p) => escape(p).replaceAll(sep, 
 // ====================== PUBLIC API ======================
 
 window.API = {
+    // GET /statements
+    getStatement: (params = {}) => {
+        const q = new URLSearchParams();
+        if (params.q != null) q.set("q", String(params.q));
+        return apiFetch(`/statements?${q}`, {
+            operationId: "GetStatement",
+        });
+    },
     // GET /pages/{id}
     // Retrieve a page
     getPage: (id) => apiFetch(`/pages/${id}`, {
