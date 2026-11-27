@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json/v2"
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/MarkRosemaker/errpath"
@@ -35,7 +36,7 @@ func inlineSchema(d *openapi.Document, s *openapi.Schema, name string, alwaysMov
 		} else if items := s.Items; items != nil && items.Ref != nil {
 			// a list of a component is named after it, so the component's list reads the same wherever it is
 			if item, ok := strings.CutPrefix(items.Ref.Identifier, "#/components/schemas/"); ok {
-				s = moveListToComponents(d, s, item)
+				s = moveListToComponents(d, s, item, name)
 			}
 		} else if items != nil { // no items when only ever seen empty
 			switch items.Type {
@@ -165,42 +166,65 @@ func moveSchemaToComponents(d *openapi.Document, name string, s *openapi.Schema)
 	return &moved
 }
 
-// moveListToComponents makes s, a list of the component schema item, a reference to the component listing it, which is
-// named the plural of item: an existing one, if it lists item and nothing else, or else a new one. It returns the
-// component.
-func moveListToComponents(d *openapi.Document, s *openapi.Schema, item string) *openapi.Schema {
-	name := plural(item)
+// moveListToComponents makes s, a list of the component schema item, a reference to the component listing it. It is
+// named after item by [listName], else by name, where it would hold it: the first of the two that is free or is s but
+// for what each says of itself, which it then refers to. A list whose names are both taken by others gets the first
+// with a number. It returns the component.
+func moveListToComponents(d *openapi.Document, s *openapi.Schema, item, name string) *openapi.Schema {
+	names := []string{listName(d, item), name}
 
-	if existing, ok := d.Components.Schemas[name]; ok && isListOf(existing, newRef("schemas", item).Identifier) {
-		s.Replace(&openapi.Schema{
-			Ref:         &openapi.SchemaRef{Identifier: newRef("schemas", name).Identifier, Value: existing},
-			Description: s.Description,
-		})
+	for _, n := range names {
+		existing, ok := d.Components.Schemas[n]
+		if !ok {
+			return moveSchemaToComponents(d, n, s)
+		}
 
-		return existing
+		if sameButDocs(existing, s) {
+			s.Replace(&openapi.Schema{
+				Ref:         &openapi.SchemaRef{Identifier: newRef("schemas", n).Identifier, Value: existing},
+				Description: s.Description,
+			})
+
+			return existing
+		}
 	}
 
-	return moveSchemaToComponents(d, name, s)
+	return moveSchemaToComponents(d, names[0], s)
 }
 
-// isListOf reports whether s is a list of the component schema at ref and nothing else, but for what it says of itself:
-// its title, description, examples and extensions.
-func isListOf(s *openapi.Schema, ref string) bool {
-	if s.Type != openapi.TypeArray || s.Items == nil || s.Items.Ref == nil || s.Items.Ref.Identifier != ref {
-		return false
+// sameButDocs reports whether a and b are the same schema but for what each says of itself: its title, description,
+// examples and extensions.
+func sameButDocs(a, b *openapi.Schema) bool {
+	bare := func(s *openapi.Schema) ([]byte, error) {
+		rest := *s
+		rest.Title, rest.Description, rest.Example, rest.Examples, rest.Extensions = "", "", nil, nil, nil
+
+		return json.Marshal(&rest)
 	}
 
-	rest := *s
-	rest.Title, rest.Description, rest.Example, rest.Examples, rest.Extensions = "", "", nil, nil, nil
+	x, errA := bare(a)
+	y, errB := bare(b)
 
-	got, err := json.Marshal(&rest)
-	if err != nil {
-		return false
+	return errA == nil && errB == nil && bytes.Equal(x, y)
+}
+
+// uncountable are the endings of a name that adding s does not make plural, lower-cased.
+var uncountable = []string{"children", "data", "info", "media", "news", "people", "series"}
+
+// listName is the name of a list of the component schema item: its plural, or item and List where item is a list
+// itself or ends in a word that takes no s, such as RichTextsList of RichTexts and PageWithChildrenList of
+// PageWithChildren.
+func listName(d *openapi.Document, item string) string {
+	if s, ok := d.Components.Schemas[item]; ok && s.Type == openapi.TypeArray {
+		return item + "List"
 	}
 
-	want, err := json.Marshal(&openapi.Schema{Type: s.Type, Items: s.Items})
+	lower := strings.ToLower(item)
+	if slices.ContainsFunc(uncountable, func(end string) bool { return strings.HasSuffix(lower, end) }) {
+		return item + "List"
+	}
 
-	return err == nil && bytes.Equal(got, want)
+	return plural(item)
 }
 
 // plural is the English plural of a name, such as Orders of Order, Entries of Entry and Statuses of Status.
