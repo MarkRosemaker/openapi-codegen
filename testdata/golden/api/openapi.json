@@ -19,7 +19,9 @@
           {
             "name": "q",
             "in": "query",
-            "schema": { "type": "string" }
+            "description": "An x-go-name names the parameter in Go while the request keeps its name.",
+            "schema": { "type": "string" },
+            "x-go-name": "ReferenceCode"
           }
         ],
         "responses": {
@@ -41,10 +43,12 @@
           {
             "name": "id",
             "in": "path",
+            "description": "An x-go-name names a path parameter in Go too.",
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "x-go-name": "PageID"
           }
         ],
         "responses": {

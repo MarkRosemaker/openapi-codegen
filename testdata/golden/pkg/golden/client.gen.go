@@ -88,8 +88,8 @@ func (c *Client) GetStatement(ctx context.Context, params *GetStatementParams) (
 	if params != nil {
 		q := make(url.Values, 1)
 
-		if params.Q != "" {
-			q["q"] = []string{params.Q}
+		if params.ReferenceCode != "" {
+			q["q"] = []string{params.ReferenceCode}
 		}
 
 		u.RawQuery = q.Encode()
@@ -135,8 +135,8 @@ func (c *Client) GetStatement(ctx context.Context, params *GetStatementParams) (
 // Retrieve a page
 //
 //	GET /pages/{id}
-func (c *Client) GetPage(ctx context.Context, id string) (*Page, error) {
-	u := c.baseURL.JoinPath("pages", escapePathSegment(id))
+func (c *Client) GetPage(ctx context.Context, pageID string) (*Page, error) {
+	u := c.baseURL.JoinPath("pages", escapePathSegment(pageID))
 	req := (&http.Request{
 		Header: http.Header{
 			"User-Agent": []string{c.userAgent},

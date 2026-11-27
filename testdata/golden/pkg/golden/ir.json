@@ -19,13 +19,14 @@
 			],
 			"queryParams": [
 				{
-					"varName": "params.Q",
-					"goName": "q",
-					"fieldName": "Q",
+					"varName": "params.ReferenceCode",
+					"goName": "referenceCode",
+					"fieldName": "ReferenceCode",
 					"jsonName": "q",
 					"type": "string",
 					"parseExpr": "%s",
-					"parseErrFree": true
+					"parseErrFree": true,
+					"description": "An x-go-name names the parameter in Go while the request keeps its name."
 				}
 			],
 			"hasParams": true,
@@ -55,18 +56,19 @@
 			"pathTemplate": "/pages/{id}",
 			"joinPathArgs": [
 				"\"pages\"",
-				"escapePathSegment(id)"
+				"escapePathSegment(pageID)"
 			],
 			"pathParams": [
 				{
-					"varName": "id",
-					"goName": "id",
-					"fieldName": "ID",
+					"varName": "pageID",
+					"goName": "pageID",
+					"fieldName": "PageID",
 					"jsonName": "id",
 					"type": "string",
 					"required": true,
 					"parseExpr": "%s",
-					"parseErrFree": true
+					"parseErrFree": true,
+					"description": "An x-go-name names a path parameter in Go too."
 				}
 			],
 			"hasParams": true,

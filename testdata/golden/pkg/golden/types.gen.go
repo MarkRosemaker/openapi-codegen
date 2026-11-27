@@ -105,7 +105,8 @@ var jsonOptsResponse = json.JoinOptions(jsonOpts, json.WithMarshalers(json.JoinM
 
 // GetStatementParams holds the query parameters for GetStatement.
 type GetStatementParams struct {
-	Q string
+	// An x-go-name names the parameter in Go while the request keeps its name.
+	ReferenceCode string
 }
 
 // ListEntriesParams holds the query parameters for ListEntries.

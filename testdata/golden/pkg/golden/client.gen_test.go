@@ -2308,7 +2308,7 @@ func TestClient_Params(t *testing.T) {
 		}
 
 		_, _ = c.GetStatement(t.Context(), &GetStatementParams{
-			Q: "q",
+			ReferenceCode: "q",
 		})
 
 		if got == nil {
@@ -2589,13 +2589,13 @@ func TestClient_Interactions(t *testing.T) {
 	}
 
 	if _, err := c.GetStatement(ctx, &GetStatementParams{
-		Q: "1",
+		ReferenceCode: "1",
 	}); err != nil {
 		t.Fatalf("GetStatement: %v", err)
 	}
 
 	if _, err := c.GetStatement(ctx, &GetStatementParams{
-		Q: "2",
+		ReferenceCode: "2",
 	}); err != nil {
 		t.Fatalf("GetStatement: %v", err)
 	}
