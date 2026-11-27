@@ -25,7 +25,7 @@ import (
 // Service defines the operations the server must implement.
 type Service interface {
 	GetStatement(ctx context.Context, params *GetStatementParams) (*FlexStatementResponse, error)
-	GetPage(ctx context.Context, id string) (*Page, error)
+	GetPage(ctx context.Context, pageID string) (*Page, error)
 	Search(ctx context.Context, body PropertyFilter) (PageOrPartials, error)
 	GetTrial(ctx context.Context, id string) (*Trial, error)
 	UpdateUser(ctx context.Context, id string, body User) (*User, error)
@@ -111,9 +111,9 @@ func RegisterService(svc Service, mux *http.ServeMux, pathPrefix string) {
 			ctx := r.Context()
 			l.DebugContext(ctx, "called")
 
-			id := r.PathValue("id")
+			pageID := r.PathValue("id")
 
-			res, err := svc.GetPage(ctx, id)
+			res, err := svc.GetPage(ctx, pageID)
 			if err != nil {
 				sErr, ok := errors.AsType[*server.Error](err)
 				if !ok {
@@ -1144,7 +1144,7 @@ func parseGetStatementArgs(req *http.Request) (params GetStatementParams, err er
 	query := req.URL.Query()
 
 	if s := query.Get("q"); s != "" {
-		params.Q = s
+		params.ReferenceCode = s
 	}
 	return params, nil
 }

@@ -10,7 +10,7 @@
  * Usage:
  *   import './api.js';        // or <script src="api.js"></script>
  *   const result = await window.API.getStatement();
- *   const result = await window.API.getPage(id);
+ *   const result = await window.API.getPage(pageID);
  *   const result = await window.API.search();
  *   const result = await window.API.getTrial(id);
  *   const result = await window.API.updateUser(id);
@@ -116,14 +116,14 @@ window.API = {
     // GET /statements
     getStatement: (params = {}) => {
         const q = new URLSearchParams();
-        if (params.q != null) q.set("q", String(params.q));
+        if (params.referenceCode != null) q.set("q", String(params.referenceCode));
         return apiFetch(`/statements?${q}`, {
             operationId: "GetStatement",
         });
     },
     // GET /pages/{id}
     // Retrieve a page
-    getPage: (id) => apiFetch(`/pages/${id}`, {
+    getPage: (pageID) => apiFetch(`/pages/${pageID}`, {
         operationId: "GetPage",
     }),
     // POST /search

@@ -47,7 +47,8 @@ strip the fixed text itself, answering 404 where it is missing.
 `x-go-name` and `x-enum-varnames` / `x-enumNames` work as in
 [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen/blob/main/docs/extensions.md),
 a property's own extensions beside a `$ref` winning over the referenced
-schema's. These would fit too, each as oapi-codegen has it, once a spec needs
+schema's; `x-go-name` names parameters too. These would fit too, each as
+oapi-codegen has it, once a spec needs
 it:
 
 - **`x-go-type` / `x-go-type-import`:** a field's or a type's Go type, given,
