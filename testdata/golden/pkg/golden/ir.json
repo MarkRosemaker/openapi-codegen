@@ -10,6 +10,45 @@
 	"userAgent": "Golden",
 	"operations": [
 		{
+			"name": "GetStatement",
+			"description": "An XML response is decoded with encoding/xml into the type its schema says: the root element, an attribute, child elements, a list whose items stand side by side, a wrapped list, and the elements only an error answer holds, which may be left out.",
+			"method": "GET",
+			"pathTemplate": "/statements",
+			"joinPathArgs": [
+				"\"statements\""
+			],
+			"queryParams": [
+				{
+					"varName": "params.Q",
+					"goName": "q",
+					"fieldName": "Q",
+					"jsonName": "q",
+					"type": "string",
+					"parseExpr": "%s",
+					"parseErrFree": true
+				}
+			],
+			"hasParams": true,
+			"paramStructName": "GetStatementParams",
+			"responses": [
+				{
+					"statusCode": "200",
+					"goConstant": "http.StatusOK",
+					"description": "OK",
+					"contentType": "text/xml",
+					"goType": {
+						"name": "FlexStatementResponse"
+					},
+					"isSuccess": true,
+					"isXML": true
+				}
+			],
+			"successReturn": {
+				"name": "FlexStatementResponse"
+			},
+			"xmlSuccess": true
+		},
+		{
 			"name": "GetPage",
 			"summary": "Retrieve a page",
 			"method": "GET",
@@ -2370,6 +2409,62 @@
 					"type": "[]string",
 					"jsonTag": "json:\"and\"",
 					"required": true
+				}
+			]
+		},
+		{
+			"name": "FlexStatementResponse",
+			"description": "FlexStatementResponse defines a model",
+			"fields": [
+				{
+					"name": "Timestamp",
+					"jsonName": "timestamp",
+					"type": "string",
+					"jsonTag": "json:\"timestamp\" xml:\"timestamp,attr\"",
+					"required": true
+				},
+				{
+					"name": "Status",
+					"jsonName": "Status",
+					"type": "string",
+					"jsonTag": "json:\"Status\" xml:\"Status\"",
+					"required": true
+				},
+				{
+					"name": "ReferenceCode",
+					"jsonName": "ReferenceCode",
+					"type": "string",
+					"jsonTag": "json:\"ReferenceCode,omitzero\" xml:\"ReferenceCode,omitempty\""
+				},
+				{
+					"name": "URL",
+					"jsonName": "Url",
+					"type": "string",
+					"jsonTag": "json:\"Url,omitzero\" xml:\"Url,omitempty\""
+				},
+				{
+					"name": "Note",
+					"jsonName": "Note",
+					"type": "[]string",
+					"jsonTag": "json:\"Note,omitzero\" xml:\"Note,omitempty\""
+				},
+				{
+					"name": "Books",
+					"jsonName": "Books",
+					"type": "[]string",
+					"jsonTag": "json:\"Books,omitzero\" xml:\"Books>Book,omitempty\""
+				},
+				{
+					"name": "ErrorCode",
+					"jsonName": "ErrorCode",
+					"type": "string",
+					"jsonTag": "json:\"ErrorCode,omitzero\" xml:\"ErrorCode,omitempty\""
+				},
+				{
+					"name": "ErrorMessage",
+					"jsonName": "ErrorMessage",
+					"type": "string",
+					"jsonTag": "json:\"ErrorMessage,omitzero\" xml:\"ErrorMessage,omitempty\""
 				}
 			]
 		},

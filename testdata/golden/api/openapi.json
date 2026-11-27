@@ -11,6 +11,29 @@
     }
   ],
   "paths": {
+    "/statements": {
+      "get": {
+        "operationId": "GetStatement",
+        "description": "An XML response is decoded with encoding/xml into the type its schema says: the root element, an attribute, child elements, a list whose items stand side by side, a wrapped list, and the elements only an error answer holds, which may be left out.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/xml": {
+                "schema": { "$ref": "#/components/schemas/FlexStatementResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/pages/{id}": {
       "get": {
         "operationId": "getPage",
@@ -1138,6 +1161,34 @@
   },
   "components": {
     "schemas": {
+      "FlexStatementResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "xml": { "attribute": true }
+          },
+          "Status": { "type": "string" },
+          "ReferenceCode": { "type": "string" },
+          "Url": { "type": "string" },
+          "Note": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "Books": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "xml": { "name": "Book" }
+            },
+            "xml": { "wrapped": true }
+          },
+          "ErrorCode": { "type": "string" },
+          "ErrorMessage": { "type": "string" }
+        },
+        "required": ["timestamp", "Status"],
+        "xml": { "name": "FlexStatementResponse" }
+      },
       "Problem": {
         "description": "A failure the server describes.",
         "type": "object",

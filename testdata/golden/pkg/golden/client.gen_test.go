@@ -7,6 +7,7 @@ package golden
 import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
+	"encoding/xml"
 	"errors"
 	"io"
 	"net"
@@ -23,6 +24,86 @@ import (
 )
 
 func TestClient_Error(t *testing.T) {
+	t.Run("GetStatement", func(t *testing.T) {
+		t.Run("transport error", func(t *testing.T) {
+			c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
+				func(*http.Request) (*http.Response, error) { return nil, io.EOF },
+			)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetStatement(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, io.EOF) {
+				t.Fatalf("want: %v, got: %v", io.EOF, err)
+			}
+		})
+
+		t.Run("unknown status code", func(t *testing.T) {
+			srv := apitest.NewServer(t, http.StatusTeapot)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetStatement(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if apiErr, ok := errors.AsType[*api.Error](err); !ok {
+				t.Fatalf("got: %T, want: *api.Error", err)
+			} else if apiErr.Err != api.ErrUnknownStatusCode {
+				t.Fatalf("got: %v, want: %v", apiErr.Err, api.ErrUnknownStatusCode)
+			} else if apiErr.Response.StatusCode != http.StatusTeapot {
+				t.Fatalf("got: %v, want: %v", apiErr.Response.StatusCode, http.StatusTeapot)
+			}
+		})
+
+		t.Run("unknown content type", func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "foo")
+				w.WriteHeader(http.StatusOK)
+			}))
+			t.Cleanup(srv.Close)
+
+			baseURL, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := NewClient(WithBaseURL(baseURL))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetStatement(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if !errors.Is(err, api.ErrUnknownContentType) {
+				t.Fatalf("want: %v, got: %v", api.ErrUnknownContentType, err)
+			}
+		})
+
+		t.Run("decoding error", func(t *testing.T) {
+			c, err := NewClient(WithBaseURL(apitest.BodyServer(t, http.StatusOK, "text/xml", []byte("<unclosed>"))))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := c.GetStatement(t.Context(), nil); err == nil {
+				t.Fatal("expected error")
+			} else if decErr, ok := errors.AsType[*api.DecodingError](err); !ok {
+				t.Fatalf("got: %T, want: *api.DecodingError", err)
+			} else if _, ok := errors.AsType[*xml.SyntaxError](decErr.Err); !ok {
+				t.Fatalf("got: %T, want: *xml.SyntaxError", decErr.Err)
+			}
+		})
+	})
+
 	t.Run("GetPage", func(t *testing.T) {
 		t.Run("transport error", func(t *testing.T) {
 			c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
@@ -2212,6 +2293,32 @@ func TestClient_Error(t *testing.T) {
 // TestClient_Params sets every parameter it can to a value other than its zero value, and finds each in the request,
 // under its name and written as the client must write it.
 func TestClient_Params(t *testing.T) {
+	t.Run("GetStatement", func(t *testing.T) {
+		var got *http.Request
+
+		c, err := NewClient(WithHTTPClient(&http.Client{Transport: apitest.RoundTripFunc(
+			func(r *http.Request) (*http.Response, error) {
+				got = r
+
+				return &http.Response{StatusCode: http.StatusTeapot, Header: http.Header{}, Body: http.NoBody, Request: r}, nil
+			},
+		)}))
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		_, _ = c.GetStatement(t.Context(), &GetStatementParams{
+			Q: "q",
+		})
+
+		if got == nil {
+			t.Fatal("no request was sent")
+		}
+
+		if v := got.URL.Query().Get("q"); v != "q" {
+			t.Errorf("query %s: got %q, want %q", "q", v, "q")
+		}
+	})
 	t.Run("ListEntries", func(t *testing.T) {
 		var got *http.Request
 
@@ -2479,5 +2586,17 @@ func TestClient_Interactions(t *testing.T) {
 		Ratio:      0.5,
 	}); err != nil {
 		t.Fatalf("QueryStyles: %v", err)
+	}
+
+	if _, err := c.GetStatement(ctx, &GetStatementParams{
+		Q: "1",
+	}); err != nil {
+		t.Fatalf("GetStatement: %v", err)
+	}
+
+	if _, err := c.GetStatement(ctx, &GetStatementParams{
+		Q: "2",
+	}); err != nil {
+		t.Fatalf("GetStatement: %v", err)
 	}
 }
