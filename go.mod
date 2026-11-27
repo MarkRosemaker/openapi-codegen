@@ -3,15 +3,15 @@ module github.com/MarkRosemaker/openapi-codegen
 go 1.27
 
 require (
-	github.com/MarkRosemaker/cassette v0.0.0-20261127154835-ca0fcfc2eb8f
+	github.com/MarkRosemaker/cassette v0.0.0-20261127155824-197919b5429c
 	github.com/MarkRosemaker/errpath v0.0.0-20261127001931-41afc0b86075
-	github.com/MarkRosemaker/openapi v0.0.0-20261127155054-78507e678e58
-	github.com/MarkRosemaker/openapi-compress v0.0.0-20261127050502-a5e936024b23
-	github.com/MarkRosemaker/openapi-edit v0.0.0-20261127002121-4ed97994dce4
-	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261127002122-68a4af5d679f
+	github.com/MarkRosemaker/openapi v0.0.0-20261127155839-5a67baf5db3a
+	github.com/MarkRosemaker/openapi-compress v0.0.0-20261127160154-46a81187f11b
+	github.com/MarkRosemaker/openapi-edit v0.0.0-20261127155931-0af2c5866a34
+	github.com/MarkRosemaker/openapi-flatten v0.0.0-20261127155931-30652d5fb240
 	github.com/MarkRosemaker/ordmap v0.0.0-20261127001949-5d682e0c3100
 	github.com/ettle/strcase v0.2.0
-	github.com/go-api-libs/api v0.0.0-20261127002038-940062862e42
+	github.com/go-api-libs/api v0.0.0-20261127155855-e5b9ff99e44b
 	github.com/spf13/afero v1.15.0
 	mvdan.cc/gofumpt v0.12.0
 )
@@ -19,8 +19,8 @@ require (
 require (
 	cloud.google.com/go v0.123.0 // indirect
 	github.com/MarkRosemaker/json2yaml v0.0.0-20261127001931-55b661ab603c // indirect
-	github.com/MarkRosemaker/jsonutil v0.0.0-20261127001933-b07dbcceebd6 // indirect
-	github.com/MarkRosemaker/openapi-compare v0.0.0-20261127002121-d284f72800b7 // indirect
+	github.com/MarkRosemaker/jsonutil v0.0.0-20261127154739-135cbaefd886 // indirect
+	github.com/MarkRosemaker/openapi-compare v0.0.0-20261127155930-d1da79ce95a7 // indirect
 	github.com/MarkRosemaker/yaml v0.0.0-20261127001955-6df1e561eef1 // indirect
 	github.com/MarkRosemaker/yaml2json v0.0.0-20261127001931-8d8f24890a05 // indirect
 	github.com/go-api-libs/types v0.0.0-20261127001931-55d1cb77be3b // indirect
